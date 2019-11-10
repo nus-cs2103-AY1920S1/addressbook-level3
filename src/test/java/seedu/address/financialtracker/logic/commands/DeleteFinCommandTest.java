@@ -19,7 +19,7 @@ class DeleteFinCommandTest {
     @Test
     public void execute_deleteSuccessful() throws Exception {
 
-        Expense ep1 = new Expense(new Date("271016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
+        Expense ep1 = new Expense(new Date("27102016"), new Time("1720"), new Amount("4"), new Description("breakfast"),
                 new Type("Food"), new Country("Singapore"));
         Model model = new Model();
         new AddFinCommand(ep1).execute(model);

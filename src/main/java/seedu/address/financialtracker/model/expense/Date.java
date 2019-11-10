@@ -26,6 +26,7 @@ public class Date {
 
     public Date(String date) {
         requireNonNull(date);
+        assert isValidDate(date) : "date format should be always correct";
         try {
             this.valueToCompare = sdfDate.parse(date);
         } catch (ParseException e) {
@@ -60,7 +61,7 @@ public class Date {
     }
 
     /**
-     * Format the date in the event to dd/MM/yyyy.
+     * Formats the date in the event to dd/MM/yyyy.
      * @param date attribute in the given event.
      * @return formatted date based on dd/MM/yyyy.
      */

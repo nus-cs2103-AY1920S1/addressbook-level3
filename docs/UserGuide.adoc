@@ -35,7 +35,7 @@ we *promise* to make travel easy with _TravEzy_.
 So, is _TravEzy_ for you?
 
 . Are you a busy university student with a passion for travelling?
-. Are your summers and winters filled with internships, projects and CCA activities?
+. Are your summers and winters swamped with internships, projects and CCA activities?
 . Do your numerous commitments get in the way of your travel plans?
 
 IF you answered yes to the questions above, then *yes* it is. If not, it still is :)
@@ -55,6 +55,7 @@ TravEzy is perfect for:
 . Journaling in your travel diary and effortlessly looking at old entries to recall your favourite moments
 
 . Keep in contact with your old and new friends with the help of _TravEzy's_ address book
+
 
 What are you waiting for? Hop on to this user guide and we will
 travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to start TravEzy 😊
@@ -89,7 +90,8 @@ Excited to start using _TravEzy_? Read this section to find out how this documen
 
 === Structure of this Document
 
-Nobody likes to read long documents, especially when you have something as exciting as _TravEzy_ to use. So, we have organised this document such that you can easily look for what *you* need. 
+There are *alot* of things that TravEzy can do. So, we have organised this document such that you can easily look for what *you* need.
+
 
 We've split up this guide into the different features of our application, namely:
 
@@ -99,7 +101,6 @@ We've split up this guide into the different features of our application, namely
 * Address Book
 * Diary
 * Achievements
-
 
 In each of the above sections, you will be introduced to the *interface* of the feature and the *commands* that will do the menial tasks for you. 
 
@@ -113,10 +114,10 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | Symbol/font | What does it mean?
 
 | _italics_
-| An italicised text indicates that the text has a definition that is (rather) specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
+| Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
  
 | ``command``
-| A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks for you
+| A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks to make travel easier for you
 
 | ``MONTH``
 | Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[A parameter is like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
@@ -128,10 +129,10 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
 | 💡  
-| A light bulb indicates that what is to follow is a tip. 
+| A light bulb indicates that the enclosed text is a tip.
 
 | ⚠️  
-| A warning sign indicates that what is to follow is important.
+| A warning sign indicates that enclosed text is important.
  
 |===
 
@@ -159,6 +160,7 @@ where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``
 *Example:* 
 
     goto itinerary
+
 
 *Step by step:*
 
@@ -741,6 +743,7 @@ Examples:
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
+Shows a list of all persons in the address book. +
 Format: `list`
 
 === Editing a person : `edit`
@@ -826,10 +829,9 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == Financial Tracker
-Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your
-expenses seamlessly!
+Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your expenses seamlessly!
 
-Each entry in your expense has 6 key sections:
+Each of your expense has 6 key fields:
 
 . Date
 . Time
@@ -838,384 +840,461 @@ Each entry in your expense has 6 key sections:
 . Type of expenditure
 . Country
 
-The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, healthcare, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
+The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
 
 === Interface
 This is what you will see when navigated to the financial tracker:
 
 .Financial Tracker Interface
-image::/images/FinancialTrackerInterface.png[]
-
-=== Parameters
-Let's understand how to use your parameters first!
-
-In an expense, every fields are *compulsory*. However, the *date* and *time* fields need not be specified, it'll be recorded down automatically based on the date and time you recorded the expense. Convenient enough, right?
-
-Below are the _PREFIX_ convention that TravEzy's Financial Tracker will be using.
-
-. Date. The _PREFIX_ is ``date/``. Note that the format TravEzy's Financial Tracker using is "ddMMyyyy". For example:
-
-    date/30102019
-
-. Time. The _PREFIX_ is ``time/``. Note that the format TravEzy's Financial Tracker using is 24-Hour format. For example:
-
-    time/1359
-
-. Amount. The _PREFIX_ is ``a/``. Let's say you've spent 3.50 dollars. You would enter:
-
-    a/3.5
-
-. Description. The _PREFIX_ is ``d/``. You can type in a sentence or a phrase.
-
-    d/Breakfast     or     d/Mala at the Deck
-
-. Type of expenditure. The _PREFIX_ is ``t/``. Specify which type of expenditure you are spending.
-
-    t/food
-
-. Country. You can switch between countries by using the ``switch`` command or select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
-
- Look out for switch command below!
+image::FinancialTrackerInterface.png[]
 
 === Adding an expense: ``add``
-Adding what you've spent at the nice coffee shop you stopped by?
+Adding the expense of milk you've bought at the grocery shop you stopped by?
 
-The _Command Word_ is ``add`` and the prefixes are ``a/`` for amount, ``d/``
-for description, ``t/`` for type of expenditure. Date ``date/`` and time ``time/`` are optional. +
-This command adds an expense to your Financial Tracker, with the parameters: amount, description, type, date and time.
+*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
-Format: ``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+*Example:*
 
-Example:
+ add a/2.89 d/Meiji Milk t/grocery
 
- add a/4 t/dinner at Vivocity t/food
+*Step by step:*
 
-Illustration:
+Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
 
-. type ``add a/2.89 d/Meiji Milk t/grocery`` in the command box and press _Enter_.
+image::FinancialTrackerAdd1.png[]
 
-image::/images/FinancialTrackerAdd1.png[]
+Step 2. The _Result box_ will display the message "Expense added".
 
-[start = 2]
-. The result box will display the message "Expense added".
+Step 3. Now you can find your added expense in the _Expense list panel_.
 
-image::/images/FinancialTrackerAdd2.png[]
-
-[start = 3]
-. Now you can find your added expense in the expense list.
-
-image::/images/FinancialTrackerAdd3.png[]
+image::FinancialTrackerAdd2.png[]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-The _Command Word_ is ``delete`` with an parameter index. +
-This command deletes an expense from your Financial Tracker with the only parameter being the index of the expense you want to delete. The index must be an integer which is greater than 1 and corresponds to ID of the expense you want to delete.
+*Format:* ``delete INDEX``
 
-Format: ``delete INDEX``
-
-Example: Delete the first expense you saw on your expense list.
+*Example:* Delete the first expense you saw on your expense list.
 
  delete 1
 
-Illustration:
+*Step by step:*
 
-. type ``delete 3`` in the command box and press _Enter_.
+Step 1. Type ``delete 1`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerDelete1.png[]
+image::FinancialTrackerDelete1.png[]
 
-[start = 2]
-. The result box will display the message "Your expense has been deleted".
+Step 2. The _Result box_ will display the message "Your expense has been deleted".
 
-image::/images/FinancialTrackerDelete2.png[]
-
-[start = 3]
-. Now your expense has been deleted from the expense list.
-
-image::/images/FinancialTrackerDelete3.png[]
-
+image::FinancialTrackerDelete2.png[]
 
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-The _Command Word_ is ``edit`` with an parameter index. +
-This command edits an expense in your Financial Tracker by specifying the index of the expense you want to edit, followed by the fields you want to edit. The index must be an integer which is greater than 1 and corresponds to ID of the expense you want to edit.
+*Format:* ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
 
-Format: ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+*Example:* Edit the 1st expense you saw on your expense list.
 
-Example: Edit the 3rd expense you saw on your expense list.
+ edit 1 a/29.80 d/Nike bottle
 
- edit 3 a/29.80 d/Nike bottle
+*Step by step:*
 
-Illustration:
+Step 1. Notice the first expense's fields in the _Expense list panel_.
 
-. Notice the current fields in the expense with id number 1. Now, type ``edit 3 a/22.90 time/2200`` in the command box and press _Enter_.
+Step 2. Now, type ``edit 1 a/29.80 d/Nike bottle`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerEdit1.png[]
+image::FinancialTrackerEdit1.png[]
 
-[start = 2]
-. The result box will display the message "The expense updated successfully!".
+Step 3. The _Result box_ will display the message "The expense updated successfully!".
 
-image::/images/FinancialTrackerEdit2.png[]
+Step 4. Now the first expense's amount and description fields have been changed to `29.80` and `Nike bottle` respectively.
 
-[start = 3]
-. Now the first expense's time and amount fields have been changed to `22.90` and `10:00 p.m.` respectively.
+image::FinancialTrackerEdit2.png[]
 
-image::/images/FinancialTrackerEdit3.png[]
+=== Clears an expense list: ``clear``
+Messed up your expense list? Don't worry, just clear it!
+
+*Format:* ``clear``
+
+*Example:* Clears your current country's expense list.
+
+ clear
+
+*Step by step:*
+
+Step 1. Type ``clear`` in the _Command box_ and press _Enter_.
+
+image::FinancialTrackerClear1.png[]
+
+Step 2. The _Result box_ will display the message "Expense list cleared!".
+
+Step 3. Now in your _Expense list panel_, your expense list has been cleared!
+
+image::FinancialTrackerClear2.png[]
+
+=== Undo your previous action: ``undo``
+Did something wrong? We heard you! Simply undo your previous action :)
+
+WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
+
+*Format:* ``undo``
+
+*Example:* Undo your previous `clear` command.
+
+ undo
+
+*Step by step:* (A continue from above `clear` command)
+
+Step 1. Type ``undo`` in the _Command box_ and press _Enter_.
+
+image::FinancialTrackerUndo1.png[]
+
+Step 2. The _Result box_ will display the message "Done!".
+
+Step 3. Notice that your expense list has been recovered. Nice save!
+
+image::FinancialTrackerUndo2.png[]
 
 // tag::financialtracker[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-The _Command Word_ is ``switch`` followed by a country field. This command switched your current view of expense list to the country specified. Note that the list of countries that are valid is only shown on the _countries drop down menu_. +
-Do realise that you can always use the drop down menu instead!
+*Format:* `switch COUNTRY`
 
-Example:
+TIP: Do realise that you can always use the drop down menu instead!
+
+WARNING: You can only type in countries which are only listed from the _Countries dropdown box_
+
+*Example:*
 
  switch Japan
 
-Illustration:
+*Step by step:*
 
-. Type ``switch Japan`` in the command box and press _Enter_.
+Step 1. Type ``switch Japan`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerSwitch1.png[]
+image::FinancialTrackerSwitch1.png[]
 
-[start = 2]
-. The result box will display the message "Expense list switched".
+Step 2. The _Result box_ will display the message "Expense list switched".
 
-image::/images/FinancialTrackerSwitch2.png[]
+Step 3. Now your expense list inside the _Expense list panel_ has been switched to that which is in Japan!
 
-[start = 3]
-. Now your expense list has been switched to that which is in Japan!
-
-image::/images/FinancialTrackerSwitch3.png[]
+image::FinancialTrackerSwitch2.png[]
 
 === Requesting help: ``help``
 At anytime, not sure what to do? Simply ask for help!
 
-The _Command Word_ is ``help`` without further parameters. A help window will pop out to guide you how to use the commands in Financial Tracker.
+*Format:* `help`
 
-Example:
+*Example:*
 
  help
 
-Illustration:
+*Step by step:*
 
-. Type ``help`` in the command box and press _Enter_.
+Step 1. Type ``help`` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerHelp1.png[]
+image::FinancialTrackerHelp1.png[]
 
-[start = 2]
-. The result box will display the message "Currently viewing the financial tracker help window".
+Step 2. The _Result box_ will display the message "Currently viewing the financial tracker help window".
 
-image::/images/FinancialTrackerHelp2.png[]
+Step 3. As you should have noticed, the help window has been popped out for your reference!
 
-[start = 3]
-. As you should have noticed, the help window has been popped out for your reference!
-
-image::/images/FinancialTrackerHelp3.png[]
+image::FinancialTrackerHelp2.png[]
 
 === Sort out your expense list: ``sort``
-Sort your expenses according your needs!
+The default sorting way of the expense list is not your thing? Just sort your expense list according your needs!
 
-The _Command Word_ is ``sort`` with parameters "date", "time", "amount", "type" or "default". +
-"default": Sort by default, which is sorting by dates followed by time.
+TIP: All of the sorting is done in reversed order :)
 
-This command sort your current expense list according to the stated specification in decensing order.
+*Format:* ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
 
-Format: ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
-
-Example: to sort by amount
+*Example:* to sort by amount
 
  sort amount
 
-Illustration:
+*Step by step:*
 
-. Notice the amount field in each expenses are currently not in order. Now, type ``sort amount`` in the command box and press _Enter_.
+Step 1. Notice the amount field in each expenses are currently not in order.
 
-image::/images/FinancialTrackerSort1.png[]
+Step 2. Now, type ``sort amount`` in the _Command box_ and press _Enter_.
 
-[start = 2]
-. The result box will display the message "Expense List sorted!".
+image::FinancialTrackerSort1.png[]
 
-image::/images/FinancialTrackerSort2.png[]
+Step 3. The _Result box_ will display the message "Expense List sorted!".
 
-[start = 3]
-. Now all your expenses are sorted in descending order of your amount!
+Step 4. Now all your expenses are sorted in descending order of your amount!
 
-image::/images/FinancialTrackerSort3.png[]
+image::FinancialTrackerSort2.png[]
 
 === Generate an overview of your spending: ``summary``
-View your expenses all at once!
+Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-The _Command Word_ is ``summary`` without any parameter. +
-This command generate statistics of your financial expenses in a Pie Chart form and also in a Bar Char form.
-You can now view your total spending easily!
+*Format:* `summary`
 
-Example:
+*Example:*
 
  summary
 
-Illustration:
+*Step by step:*
 
-. Type `summary` in the command box and press _Enter_.
+Step 1. Type `summary` in the _Command box_ and press _Enter_.
 
-image::/images/FinancialTrackerSort1.png[]
+image::FinancialTrackerSummary1.png[]
 
-[start = 2]
-. The result box will display the message "Currently viewing the Summary Window".
+Step 2. The result box will display the message "Currently viewing the Summary Window".
 
-image::/images/FinancialTrackerSummary2.png[]
+Step 3. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
 
-[start = 3]
-. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
-
-image::/images/FinancialTrackerSummary3.png[]
-
+image::FinancialTrackerSummary2.png[]
 // end::financialtracker[]
 
 == Diary
 
 The sweetest part of any holiday is looking back at your fond memories. TravEzy's
-Diary allows you to do just that!
+Diary allows you to do just that! Here is our Diary!
 
-Each entry in your diary has 4 key sections:
+image::DiaryInterface.png[]
 
-. Title
-. Date
-. Place
-. Memory
 
-The title is the name of your entry, followed by the date of your memory, the place and finally
-a short description of the memory you want to keep. In the Diary, you will be able to add, delete,
-list and show your entries. There are also a few more special tasks that you can do with your diary.
+In TravEzy, we have broken down your memories into 4 key parts, namely _Title_, _Date and Time_, _Place_ and _Memory_.
+
+For example, here is a Diary Entry about our trip to Tioman
+
+. _Title_ -> First time Snorkeling
+. _Date and Time_  -> 30/12/2019 0900
+. _Place_ -> Tioman Island
+. _Memory_ -> Saw so may beautiful fish!
+
+In the Diary, you will be able to add, delete, list and show your entries. There are also a few more special tasks that you can do with your diary.
 Enjoy!
 
 
-=== Parameters
+=== Adding diary entries to your diary ``add``
 
-Let's shed some light on the parameters and how exactly you can type them in to begin creating
-your diary entries:
+Trying to journal about your fishing trip? The Diary allows you to add entries and keep them alive in your desktop forever.
 
-. *Title* -> *COMPULSORY* Each diary entry must have a title. This title can be anything! The corresponding _PREFIX_ is ``t/``. For example:
-
-    t/My Birthday
-
-. *Date* -> *COMPULSORY* Each diary entry must have a date and time. The _PREFIX_ is `d/`. There is one way to input your date and time, but don't worry! It's really simple. You will have to enter it in this format:   `dd/MM/yyyy HHmm`. Let's say your birthday was celebrated on 27th January, 1997 at 11.59PM. Then, you would input:
-
-            d/ 27/01/1997 2359
+Format: `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
 
+Example: Lets take the example of our midnight fishing trip!
 
-. *Place*  -> *OPTIONAL*. Now, you may not remember each and every place that you did
-something memorable, but if you do, you can add it into your entry with the _PREFIX_ ``p/``:
+Step 1: Enter ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
 
-    p/Sweet Home Alabama
+image::DiaryAddBefore.png[]
 
-. *Memory*  -> *OPTIONAL*. Not all memories can be expressed in words. If you can, just add a short note of your memory using the _PREFIX_ ``m/``:
+Step 2: TravEzy will tell you if your `add` command was successful in the _Result Display_
 
-    m/Rode a bike for the first time
+Step 3: You can see you added entry in the _Diary List_
+
+
+image::DiaryAddAfter.png[]
 
 
 
+=== Deleting diary entries from your diary ``delete``
 
+For some memories, it's best to forget them ☹. The Diary can help you to get rid of unpleasant diary entries.
 
-=== Add Command
-
-Trying to journal your trip to DisneyLand?
-*Add an entry to your diary: ``add``*
-
-Adds an entry to your diary, with the parameters: title (of the diary entry), date
-(of the event you are trying to journal) , place (of the event) and memory (more info
-about the event).
-
-The _Command Word_ is ``add`` and the prefixes are ``t/`` for title, ``d/``
-for date, ``p/`` for place and ``m/`` for memory.
-Only title and date are compulsory.
-
-Format: ``add t/title d/date [p/place] [m/memory]``
-
-Example: Lets take the example of my fishing trip! I can't really remember where it was...
-
-``add t/Fishing Trip d/12/12/2019 m/Caught the biggest fish ever!``
-
-
-
-=== Delete Command
-
-For some memories, it's best to forget them :(
-
-
-*Delete an entry from your diary: ``delete``*
-
-Deletes an entry from your diary with the only parameter being the index of the entry you want to
-delete. The index must be an integer which is more than or equal to 1 and corresponds to ID of the
-entry you want to delete
-
-The _Command Word_ is ``delete`` and the only parameter is the index.
-
-Format: ``delete index``
+Format: ``delete INDEX``
 
 Example: I lost my wallet at the amusement park in Genting, I don't want to remember
 that trip ever again :(
 
-``delete 5``
+Step 1: Enter ``delete 2``
 
 
-=== List Command
+image::DiaryDeleteBefore.png[]
 
-What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? Just type *List!*
+Step 2: TravEzy will tell you if your `delete` command was successful in the _Result Display_
+
+Step 3: You can see your updated _Diary List_ without the horrible memory
 
 
-*List all entries: ``list``*
+image::DiaryDeleteAfter.png[]
 
-Lists all entries in your diary. There are no parameters.
 
-The _Command Word_ is ``list``.
+
+
+=== List all your diary entries ``list``
+
+What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The Diary allows you to see everything in on, convenient list!
 
 Format: ``list``
 
 Example: I want to relive *EVERYTHING*
 
-``list``
+Step 1: Enter ``list``
 
-=== Find Command
+
+image::DiaryListBefore.png[]
+
+Step 2: TravEzy will tell you if your `list` command was successful in the _Result Display_
+
+Step 3: You can see all your entries in the _Diary List_
+
+
+image::DiaryListAfter.png[]
+
+=== Find diary entries ``find``
 
 "Hey, when did I go to Spain?" It can be hard to remember
-all the details of your trips. That's why, this Diary allows you to *Find*
+all the details of your trips. That's why, this Diary allows you to look through all your entries to find the ones you want!
+
+Format: ``find TARGET``
+
+Example: I want to see what I wrote about the Rugby World Cup
 
 
-*Find entries containing a certain text: ``find``*
-
-Finds all entries which contain your input text. There is one parameter, which
-is the text that you want to find.
-
-The _Command Word_ is ``find``.
-
-Format: ``list input``
-
-Example: I want to find about my trip on 12/12/2019
-
-``find 12/12/2019``
+Step 1: Enter ``find rugby``
 
 
-=== Find Specific Command
+image::DiaryFindBefore.png[]
 
-Let's narrow down your search!
+Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_
+
+Step 3: You can see the matching entries in your _Diary List_
 
 
-*Find entries containing a certain text in a specific field : ``findSpecific``*
 
-Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
-is the text that you want to find, with the relevant _PREFIX_.
+image::DiaryFindAfter.png[]
 
-The _Command Word_ is ``findSpecific``.
 
-Format: ``list input``
 
-Example: I want to find about my trip on 12/12/2019
+=== Find specific diary entries ``findSpecific``
 
-``find 12/12/2019``
+Let's narrow down your search! The diary allows you to look through specific sections of each entry to find the exact entry that you want!
+
+
+Format: ``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
+
+Example: I know that I had a trip on the 12th of December 2019, but I cant remember what I did...
+
+
+Step 1: Enter ``findSpecific d/12/12/2019``
+
+
+
+image::DiaryFindSpecificBefore.png[]
+
+Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_
+
+Step 3: You can see the specific matching entries in your _Diary List_
+
+
+
+image::DiaryFindSpecificAfter.png[]
+
+
+=== Private personal memories ``private``
+
+There are some personal memories which are for our eyes only. The Diary can help you to private memories from prying eyes.
+
+Format: ``private INDEX``
+
+Example: I had my first sip of wine today at the restaurant! I don't want my mum to find out...
+
+Step 1: Enter ``private  4``
+
+
+image::DiaryPrivateBefore.png[]
+
+Step 2: TravEzy will tell you if your `private` command was successful in the _Result Display_
+
+Step 3: You can see your updated _Diary List_, after the memory has been hidden
+
+
+
+image::DiaryPrivateAfter.png[]
+
+
+=== Unprivate personal memories ``unprivate``
+
+Once you know you are alone and away from prying eyes, you can look at your private memories safely. The Diary can help you to unprivate those memories.
+
+Format: ``unprivate INDEX``
+
+Example: Ok!, I'm alone and I want to look at my private memories
+
+Step 1: Enter ``unprivate 4``
+
+
+
+image::DiaryUnPrivateBefore.png[]
+
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
+
+Step 3: You can see your updated _Diary List_, after the memory is visible again
+
+
+image::DiaryUnPrivateAfter.png[]
+
+
+=== Keep your diary protected ``setDetails``
+
+You never know who may use your laptop when you're away. The Diary can help you to password protect your memories to stop hackers from looking at your private memories.
+If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below)
+
+Format: ``setDetails user/USERNAME password/PASSWORD``
+
+Example: Better set a password to protect my memories against prying eyes
+
+Step 1: Enter ``setDetails user/youcanthackme password/youreallycanthackme``
+
+
+
+image::DiarySetDetailsBefore.png[]
+
+
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
+
+
+
+image::DiarySetDetailsAfter.png[]
+
+
+Step 1: Lets say someone tries to hack you
+
+image::DiarySetDetailsHack.png[]
+
+Step 1: TravEzy will protect you if someone else tries to change your details
+
+
+image::DiarySetDetailsHackFail.png[]
+
+
+
+=== Unlock your private diary entries ``unlock``
+
+With password protection, we want to ensure no one else can access our memories . The Diary can do this by ensuring only you can see the private memories.
+
+Format: ``unlock INDEX user/USERNAME password/PASSWORD``
+
+Example: Time to look at all my private memories
+
+Step 1: Enter ``unlock 4 user/youcanthackme password/youreallycanthackme``
+
+
+
+image::DiaryUnLockBefore.png[]
+
+
+Step 2: TravEzy will tell you if your `unlock` command was successful in the _Result Display_
+
+
+
+image::DiaryUnLockAfter.png[]
+
+
+Step 1: Lets say someone tries to hack you
+
+image::DiaryUnLockHackBefore.png[]
+
+Step 1: TravEzy will protect you if someone else tries to change your details
+
+
+image::DiaryUnLockHackAfter.png[]
+
 
 
 == Achievements

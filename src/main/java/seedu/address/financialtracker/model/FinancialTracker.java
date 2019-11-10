@@ -12,7 +12,7 @@ import seedu.address.financialtracker.model.expense.Expense;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * Encapsulate expense lists into financial tracker and allow accessing expense list accordingly by indicating
+ * Encapsulates expense lists into financial tracker and allow accessing expense list accordingly by indicating
  * which country that the user wanna access.
  */
 public class FinancialTracker {
@@ -36,7 +36,7 @@ public class FinancialTracker {
     }
 
     /**
-     * Set the comparator method in an expense list.
+     * Sets the comparator method in an expense list.
      * @param comparator comparator types specified in string.
      */
     public void setComparator(String comparator) {
@@ -62,14 +62,15 @@ public class FinancialTracker {
     public void addExpense(Expense expense) throws CommandException {
         assert expenseListMap.get(currentCountry) != null;
         expense.setCountry(new Country(currentCountry));
-        expenseListMap.get(currentCountry).addExpense(expense);
+        expenseListMap.get(currentCountry).addExpense(expense, true);
     }
 
     /**
      * Adds an expense into the expense list associated with another country key.
+     * Used by storage
      */
     public void addExpense(Expense expense, Country country) throws CommandException {
-        expenseListMap.get(country.value).addExpense(expense);
+        expenseListMap.get(country.value).addExpense(expense, false);
     }
 
     /**
@@ -96,6 +97,9 @@ public class FinancialTracker {
         expenseListMap.get(currentCountry).setExpense(expenseToEdit, editedExpense);
     }
 
+    /**
+     * Returns statistics of all the expense lists in a {@code HashMap} form.
+     */
     public HashMap<String, Double> getSummaryMap() {
         HashMap<String, Double> summaryMap = new HashMap<>();
         double total = 0;
@@ -108,5 +112,19 @@ public class FinancialTracker {
         }
         summaryMap.put("Total", total);
         return summaryMap;
+    }
+
+    /**
+     * Undo previous user action.
+     */
+    public void undo() throws CommandException {
+        expenseListMap.get(currentCountry).undo();
+    }
+
+    /**
+     * Clears the expense list associated with current country.
+     */
+    public void clearExpenseList() {
+        expenseListMap.get(currentCountry).clearExpenseList();
     }
 }

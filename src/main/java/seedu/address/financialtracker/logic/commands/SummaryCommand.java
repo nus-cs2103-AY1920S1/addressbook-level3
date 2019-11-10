@@ -15,7 +15,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
 /**
- * List out a summary of your current expenses.
+ * Lists out a summary of your current expenses.
  */
 public class SummaryCommand extends Command<Model> {
 
