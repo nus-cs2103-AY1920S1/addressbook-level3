@@ -102,12 +102,6 @@ public interface Model {
      */
     void addNote(Note note);
 
-    boolean hasTask(Task task);
-
-    void deleteTask(Task target);
-
-    void addTask(Task task);
-
     /**
      * Replaces the given lecture note {@code target} with {@code editedNote}.
      * {@code target} must exist, while the title of {@code editedNote} must not be the same as another
@@ -121,16 +115,31 @@ public interface Model {
     ObservableList<Note> getFilteredNoteList();
 
     /**
-     * Returns an unmodifiable view of the filtered task list
-     */
-    ObservableList<Task> getFilteredTaskList();
-
-    /**
      * Updates the filter of the filtered note list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
+
+    /**
+     * Returns true if a task with the same identity as {@code task} exists in the current application data.
+     */
+    boolean hasTask(Task task);
+
+    /**
+     * Deletes the given existing task.
+     */
+    void deleteTask(Task target);
+
+    /**
+     * Adds the given (not yet existing) task.
+     */
+    void addTask(Task task);
+
+    /**
+     * Returns an unmodifiable view of the filtered task list
+     */
+    ObservableList<Task> getFilteredTaskList();
 
     /**
      * Updates the filter of the filtered task list to filter by the given {@code predicate}.
