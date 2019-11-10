@@ -38,7 +38,7 @@ public class StatisticsFormatOptions {
         return Optional.ofNullable(dateInterval);
     }
 
-    public Optional<ExpenseGrouping> getGrouping() {
+    public Optional<ExpenseGrouping> getNewGrouping() {
         return Optional.ofNullable(grouping);
     }
 

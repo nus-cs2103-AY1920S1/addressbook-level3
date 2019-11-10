@@ -1,13 +1,13 @@
 package seedu.billboard.ui.charts;
 
-import javafx.scene.chart.XYChart;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
+
+import javafx.scene.chart.XYChart;
 
 
 /**
@@ -27,12 +27,20 @@ class SeriesManager<X, Y> {
         generateSeriesMap(seriesNames);
     }
 
+    /**
+     * Updates the set of series with the given set. If the set names and the current series names differ, the
+     * series manager will generate a new set of series to replace the old one.
+     */
     void updateSeriesSet(Set<String> seriesNames) {
         if (!seriesMap.keySet().equals(seriesNames)) {
             generateSeriesMap(seriesNames);
         }
     }
 
+    /**
+     * Updates the managed series according to the provided series updater.
+     * @param seriesUpdater Consumer which takes in a managed series that is being displayed on the chart.
+     */
     void updateSeries(Consumer<XYChart.Series<X, Y>> seriesUpdater) {
         List<XYChart.Series<X, Y>> unusedSeries = new ArrayList<>();
 

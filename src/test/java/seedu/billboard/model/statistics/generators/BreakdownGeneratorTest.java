@@ -19,7 +19,6 @@ import org.hamcrest.collection.IsMapContaining;
 
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseBreakdown;
-import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.ExpenseBuilder;
 import seedu.billboard.testutil.TypicalExpenses;
 

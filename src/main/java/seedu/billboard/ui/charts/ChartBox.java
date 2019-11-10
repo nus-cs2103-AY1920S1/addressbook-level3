@@ -41,7 +41,7 @@ public class ChartBox extends UiPart<Region> {
         statsType.observe(this::onStatsTypeChanged);
         statsOptions.observe(options -> {
             options.getNewDateInterval().ifPresent(dateInterval::setValue);
-            options.getGrouping().ifPresent(expenseGrouping::setValue);
+            options.getNewGrouping().ifPresent(expenseGrouping::setValue);
         });
     }
 

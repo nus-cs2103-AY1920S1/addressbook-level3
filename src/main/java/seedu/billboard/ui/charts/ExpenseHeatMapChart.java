@@ -87,6 +87,9 @@ public class ExpenseHeatMapChart extends ExpenseChart {
                 updateHeatMap(c.getList(), expenseGrouping.getValue()));
     }
 
+    /**
+     * Updates the heatmap based on the given parameters.
+     */
     private void updateHeatMap(List<? extends Expense> expenses, ExpenseGrouping grouping) {
         var expenseListMap = grouping.getGroupingFunction().group(expenses);
         seriesManager.updateSeriesSet(expenseListMap.keySet());

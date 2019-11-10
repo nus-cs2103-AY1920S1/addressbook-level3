@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.List;
 
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * Interface representing the breakdown view of a collection of expenses.

@@ -12,7 +12,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.TypicalExpenses;
 
 
