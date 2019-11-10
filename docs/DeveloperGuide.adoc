@@ -158,7 +158,7 @@ This section describes some noteworthy details on how certain features are imple
 
 === Game feature
 
-This section talks about how the `game` function is implemented. This feature aims to encourage users to take a break by playing the traditional Nokia (phone) game: Snake. 
+This section talks about how the `game` function is implemented. This feature aims to encourage users to take a break by playing the traditional Nokia (phone) game: Snake.
 
 ==== Implementation
 The game screen appears after the user enters the command `game` into the command box. A separate scene handled by a separate thread is created to run the game so that Elisa's scenes and threads are not overloaded. The following activity diagram shows how the game screen is launched.
@@ -192,7 +192,7 @@ image::CreatingGameSequenceDiagram.png[500, 600]
 The considerations for the choice of game is shown below:
 |===
 |Alternatives: |Pros: |Cons:
-|1. Minesweeper | It is a well-known popular desktop game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete. 
+|1. Minesweeper | It is a well-known popular desktop game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
 |2. Sudoku | It is a well-known popular pen-and-paper game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
 |3. *(Current)* Snake | It is a well-known popular Nokia (phone) game. The rules are simple to understand. The duration for each game is short. | It is addictive when users try to break their high score.
 |===
