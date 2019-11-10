@@ -64,6 +64,7 @@ public class LogicManager implements Logic {
                                   Thread previousEagerEvaluationThread) {
         try {
             previousEagerEvaluationThread.join();
+            Thread.sleep(200);
             logger.info("Starting Eager evaluation execution  - " + commandText);
             displayResult.accept("searching...");
             CommandResult result = command.execute(model);

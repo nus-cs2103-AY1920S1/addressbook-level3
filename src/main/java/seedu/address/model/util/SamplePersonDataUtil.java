@@ -350,7 +350,7 @@ public class SamplePersonDataUtil {
                 "Antonio",
                 "Willy"
         };
-        int count = 1000;
+        int count = 1000000;
         /*
             @@author ajbrown
             Reused names from <a href="https://github.com/ajbrown/name-machine/tree/master/src/main/resources/org/
