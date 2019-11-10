@@ -9,12 +9,12 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 end box
 
-box ParserManager MODEL_COLOR_T1
-participant ":ParserManager" as ParserManager LOGIC_COLOR
-participant "u:SpecificModeParser" as SpecificModeParser LOGIC_COLOR
-participant "u:SwtichModeParser" as SwitchModeParser LOGIC_COLOR
-participant ":ClassUtil" as ClassUtil2 MODEL_COLOR
-participant ":ClassUtil" as ClassUtil MODEL_COLOR
+box ParserManager PARSERMANAGER_COLOR_T1
+participant ":ParserManager" as ParserManager PARSERMANAGER_COLOR
+participant "s1:SpecificModeParser" as SpecificModeParser PARSERMANAGER_COLOR
+participant "s2:SpecificModeParser" as SwitchModeParser PARSERMANAGER_COLOR
+participant "c1:ClassUtil" as ClassUtil2 PARSERMANAGER_COLOR
+participant "c2:ClassUtil" as ClassUtil PARSERMANAGER_COLOR
 end box
 
 

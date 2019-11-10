@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;

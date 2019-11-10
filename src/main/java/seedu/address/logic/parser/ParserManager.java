@@ -23,6 +23,7 @@ import seedu.address.logic.commands.settingcommands.DifficultyCommand;
 import seedu.address.logic.commands.settingcommands.HintsCommand;
 import seedu.address.logic.commands.settingcommands.ThemeCommand;
 import seedu.address.logic.commands.statisticscommands.ResetCommand;
+import seedu.address.logic.commands.switches.HelpCommand;
 import seedu.address.logic.commands.switches.SelectCommand;
 import seedu.address.logic.commands.switches.SwitchCommand;
 import seedu.address.logic.commands.switches.SwitchToExitCommand;
@@ -32,16 +33,15 @@ import seedu.address.logic.commands.switches.SwitchToSettingsCommand;
 import seedu.address.logic.commands.switches.SwitchToStartCommand;
 import seedu.address.logic.commands.wordbankcommands.CreateCommand;
 import seedu.address.logic.commands.wordbankcommands.ExportCommand;
-import seedu.address.logic.commands.wordbankcommands.HelpCommand;
 import seedu.address.logic.commands.wordbankcommands.ImportCommand;
 import seedu.address.logic.commands.wordbankcommands.RemoveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.game.GuessCommandParser;
-import seedu.address.logic.parser.home.BankCommandParser;
 import seedu.address.logic.parser.home.CreateCommandParser;
 import seedu.address.logic.parser.home.ExportCommandParser;
 import seedu.address.logic.parser.home.ImportCommandParser;
 import seedu.address.logic.parser.home.RemoveCommandParser;
+import seedu.address.logic.parser.home.SelectCommandParser;
 import seedu.address.logic.parser.open.AddCommandParser;
 import seedu.address.logic.parser.open.ClearCommandParser;
 import seedu.address.logic.parser.open.DeleteCommandParser;
@@ -141,7 +141,7 @@ public class ParserManager {
             return temp;
 
         case HOME:
-            temp.add(SelectCommand.class, BankCommandParser.class);
+            temp.add(SelectCommand.class, SelectCommandParser.class);
             temp.add(ImportCommand.class, ImportCommandParser.class);
             temp.add(ExportCommand.class, ExportCommandParser.class);
             temp.add(CreateCommand.class, CreateCommandParser.class);

@@ -25,6 +25,8 @@ import seedu.address.ui.UiPart;
 public class WordBankCard extends UiPart<Region> {
 
     private static final String FXML = "WordBankCard.fxml";
+    public final WordBank wordBank;
+    private String dataFilePath;
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -33,8 +35,6 @@ public class WordBankCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final WordBank wordBank;
 
     @FXML
     private HBox cardPane;
@@ -85,14 +85,11 @@ public class WordBankCard extends UiPart<Region> {
      */
     @FXML
     private void handleDragDetection(MouseEvent event) {
-        System.out.println("onDragDetected");
-
         Dragboard db = cardPane.startDragAndDrop(TransferMode.COPY);
         ClipboardContent content = new ClipboardContent();
-        String wordBankPath = "data/wordBanks/" + wordBank.getName() + ".json";
+        String wordBankPath = dataFilePath + File.separator + "wordBanks"
+                + File.separator + wordBank.getName() + ".json";
         File tmpFile = new File(wordBankPath);
-
-        System.out.println(tmpFile);
 
         List<File> filePathList = new ArrayList<>();
         filePathList.add(tmpFile);
@@ -101,8 +98,11 @@ public class WordBankCard extends UiPart<Region> {
         db.setContent(content);
 
         event.consume();
-        System.out.println("dragDetection done");
 
+    }
+
+    void initialiseFilePath(String dataFilePath) {
+        this.dataFilePath = dataFilePath;
     }
 
     /**
@@ -111,7 +111,7 @@ public class WordBankCard extends UiPart<Region> {
      *
      * @param commandExecutor Method to register.
      */
-    public void registerDragAndDropCallBack(WordBankCardExecuteCallBack commandExecutor) {
+    void registerDragAndDropCallBack(WordBankCardExecuteCallBack commandExecutor) {
         this.commandExecutor = commandExecutor;
     }
 

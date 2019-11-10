@@ -7,19 +7,17 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic {
 
 package Parser {
-Class ParserManager
-Class SwitchModeParser
-Class SpecificModeParser
-Class ClassUtil
+Class ParserManager PARSERMANAGER_COLOR
+Class SpecificModeParser PARSERMANAGER_COLOR
+Class ClassUtil PARSERMANAGER_COLOR
+enum ModeEnum PARSERMANAGER_COLOR
 }
 
 package Command {
-Class XCommand
 Class YCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
-Class "{abstract}\nMODECommand" as MODECommand
-Class "{abstract}\nSwitchCommand" as SwitchCommand
+Class "{abstract}\nXCommand" as XCommand
 }
 
 
@@ -38,23 +36,22 @@ HiddenOutside ..> UiLogicHelper
 Logic -up-|> UiLogicHelper
 
 LogicManager .up.|> Logic
-LogicManager -->"1" ParserManager
+LogicManager -->ParserManager
 
-ParserManager ..> SpecificModeParser
-ParserManager ..> SwitchModeParser
-SpecificModeParser ..> ClassUtil
-SwitchModeParser ..> ClassUtil
+ParserManager --> ModeEnum
+ParserManager *-->"2" SpecificModeParser
+SpecificModeParser --> ClassUtil
 
-ClassUtil ..> Command : creates >
-XCommand -up-|> SwitchCommand
-YCommand -up-|> MODECommand
-SwitchCommand -up-|> Command
-MODECommand -up-|> Command
+ClassUtil .down.> Command : creates >
+YCommand -up-|> XCommand
+XCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
 
-note bottom of YCommand: YCommand = OpenCommand, \nSettingsCommand, etc
-note bottom of XCommand: XCommand = BankCommand, \nCreateCommand, etc
+note bottom of XCommand: XCommand = OpenCommand, \nSettingsCommand, etc
+
+
+note bottom of YCommand: YCommand = AddCommand, \nEditCommand, etc
 
 
 Logic ..> CommandResult

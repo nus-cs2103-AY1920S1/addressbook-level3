@@ -144,6 +144,7 @@ public class MainWindow extends UiPart<Stage> {
         //Setting modularDisplay to load mode by default.
         modularDisplay.swapToHomeDisplay(modularDisplayPlaceholder);
         modularDisplay.registerDragAndDropCallBack(this::executeCommand, this::executeCommand);
+        modularDisplay.initialiseFilePath("data");
 
         //Set up the resultDisplay (main feedback for commands).
         resultDisplay = new ResultDisplay();
