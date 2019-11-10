@@ -13,6 +13,7 @@
 :pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
 :restoreCommand: https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java
 :AutoComplete: https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
+:ab3ForumUrl: https://github.com/nus-cs2103-AY1920S1/forum/issues
 
 By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -54,21 +55,14 @@ as a form of "Restart", as most of our default questions are taken from the week
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Name refactoring from AB3 to Revision Tool (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features. (Pull requests https://github.com[#36], https://github.com[#38])
+*** Name refactoring from AB3 to Revision Tool (Pull requests link:{pullUrl}/154[#154])
+*** Wrote additional tests for existing features. (Pull requests link:{pullUrl}/154[#154])
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did minor changes in diagrams and content for User Guide: link:{pullUrl}/4[#4], link:{pullUrl}/165[#165]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): link:{pullUrl}/99[#99], link:{pullUrl}/101[#101],link:{pullUrl}/149[#149], link:{pullUrl}/153[#153],link:{pullUrl}/155[#155],link:{pullUrl}/158[#158], link:{pullUrl}/163[#163]
+*** Provided suggestions and comments for other teams in the class as seen from this link:{ab3ForumUrl}/52[feedback].
 
 == Contributions to the User Guide
 
@@ -77,9 +71,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=shaun-autocomplete]
+include::../UserGuide.adoc[tag=shaun-restore]
+include::../UserGuide.adoc[tag=shaun-AcTip]
 
 == Contributions to the Developer Guide
 
@@ -87,10 +81,10 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=shaun-logic]
+include::../DeveloperGuide.adoc[tag=shaun-designmodel]
+include::../DeveloperGuide.adoc[tag=shaun-storage]
+include::../DeveloperGuide.adoc[tag=shaun-add]
 
 == PROJECT: PowerPointLabs
 

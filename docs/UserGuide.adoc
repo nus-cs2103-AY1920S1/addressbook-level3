@@ -112,6 +112,7 @@ Category::
 * Implementation: 50/100
 * Project Management: 90/100
 
+//tag::shaun-autocomplete[]
 === AutoComplete Function
 
 Helps you complete your command when you type.
@@ -126,6 +127,7 @@ Examples:
 * `He will be able to see a list of dropdown options as shown:`
 +
 image::Autocomplete2.png[width="790"]
+//end::shaun-autocomplete[]
 
 //tag::wilfred-add[]
 === Adding a question: `add`
@@ -233,11 +235,14 @@ Returns any question containing descriptions `User`, `Brownfield`, or `Greenfiel
 Clears all questions from the question bank. +
 Format: `clear`
 
+//tag::shaun-restore[]
+
 === Restoring all entries : `restore`
 
 Clears all current questions from the question bank and restores the default questions that were in the original app. +
 Users will be prompted if they really want to restore their current question bank as the command is non-reversible.
 Format: `restore`
+//end::shaun-restore[]
 
 === Saving the data
 
@@ -342,6 +347,10 @@ e.g. `find user story`
 //end::wilfred-summary[]
 //end::wilfred[]
 
+//tag::shaun-AcTip[]
 [TIP]
 *AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
 arrow keys and hit kbd:[Enter] to complete the command.
+
+//end::shaun-AcTip[]
+//end::shaun[]
