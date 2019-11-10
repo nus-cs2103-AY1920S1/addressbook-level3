@@ -1,0 +1,98 @@
+= Ding YuChen- Project Portfolio
+:site-section: AboutUs
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+
+== Overview
+
+This portfolio documents my contributions to PalPay, a software engineering project under the module,
+CS2103T Software Engineering. PalPay is an expenditure tracking application.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC
+
+For the project, my main role was to implement the Split features, which allow the user to record
+when bills are split between friends and when they settle up.
+
+== Summary of contributions
+
+* *Code contributed*: https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dingyuchen&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
+
+* *Major enhancement*: Implemented the `Ledger` tab and functions associated with it.
+
+** What it does:
+*** Allow user to split a bill easily between people. This can be by shares, or evenly, with or without including the user.
+*** Allow individuals to settle up.
+
+** Justification: In our target demographic, many express that keep track of transactions between friends.
+Our application aims to solve this pain point by providing a simple way to keep track of debts.
+
+
+** Highlights: The `Ledger` tab has a split screen user interface, for the user to keep track
+of unpaid dollars and each transaction recorded between friends.
+The `Ledger` will only display people with outstanding balances on the left side of the screen, while
+transactions are listed on the right.
+
+.The Ledger Interface
+image::LedgerUI.png[]
+
+* *Minor enhancement*: added checks and improved error messages for handling `Amount`.
+
+* *Other contributions*:
+
+** Project management:
+*** Authored and assigned multiple issues.
+*** Reviewed and merged pull requests.
+*** Fixed numerous bugs.
+
+** Enhancements to existing features:
+*** Wrote comprehensive unit and integration test cases for the application's logic and model.
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
+
+** Documentation:
+*** Reformatted the User Guide for a more sequential flow.
+*** Wrote the details for the following commands in the User Guide.
+**** Split
+**** Receive
+*** Created UML diagrams to help in the explanation of `split` and `receive` commands in the Developer Guide.
+
+** Community:
+*** Reported bugs and suggestions for other teams in the module. (Examples:
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/220[#220],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/222[#222],
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/229[#229])
+*** Provided tips and help to other students in the module. (Examples:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/70[#70],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/79[#79],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
+
+** Tools:
+*** Managed the initial set up of the group repository on GitHub.
+*** Integrated Travis CI, Coveralls, Netlify and RepoSense into the group repository.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
+
+Placeholder
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+Placeholder
+
+
+'''
