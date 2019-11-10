@@ -12,7 +12,7 @@ class MoneyUtilTest {
         assertTrue(MoneyUtil.format(1000000.00).equals("1M"));
         assertTrue(MoneyUtil.format(1000000000.00).equals("1B"));
         assertTrue(MoneyUtil.format(1000000000000.00).equals("1T"));
-        assertTrue(MoneyUtil.format(1000.00).equals("1k"));
+        assertTrue(MoneyUtil.format(1000.00).equals("1000.00"));
         assertTrue(MoneyUtil.format(999.00).equals("999.00"));
     }
 
