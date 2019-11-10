@@ -145,7 +145,7 @@ following examples in this https://github.com/gohsnn/ped/issues[link].
 
 This section will summarise my contribution to the overall set of documentation
 for the team project, excluding the Finance Tracker feature, which would be
-elaborated from <<gohsnn.adoc#contributions-to-user-guide,this section>>.
+= elaborated from <<gohsnn.adoc#contributions-to-user-guide,this section>>.
 
 ===== User Guide
 
@@ -179,6 +179,17 @@ the pull requests
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/368[#368],
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/371[#371], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
+
+The following are examples of diagrams I was tasked with helping my fellow
+team mates create on plantUML.
+
+.AndOrNodeInheritanceClassDiagram for the Course Planner feature
+image::course-planner/AndOrNodeInheritanceClassDiagram.png[]
+
+{sp} +
+
+.IncreaseCcaProgressActivityDiagram for the Cca Tracker feature
+image::cca-tracker/IncreaseCcaProgressActivityDiagram.png[]
 
 {sp} +
 
