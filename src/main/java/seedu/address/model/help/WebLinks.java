@@ -43,9 +43,6 @@ public class WebLinks {
         case "reject":
             return base + "#rejecting-a-claim-code-reject-code";
 
-        case "edit_claim":
-            return base + "#editing-a-claim-code-edit_claim-code";
-
         case "add_income":
             return base + "#adding-an-income-code-add_income-code";
 
@@ -57,9 +54,6 @@ public class WebLinks {
 
         case "delete_income":
             return base + "#deleting-an-income-code-delete_contact-code";
-
-        //case "find":
-            //return base + "#filter";
 
         case "sort":
             return base + "#sorting-the-contacts-claims-incomes-list-by-contact-s-name";
