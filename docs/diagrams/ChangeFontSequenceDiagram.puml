@@ -1,0 +1,100 @@
+    @startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":FontName" as FontName UI_COLOR
+participant "window:HBox" as HBox UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":GuiltTripParser" as GuiltTripParser LOGIC_COLOR
+participant ":ChangeFontCommandParser" as ChangeFontCommandParser LOGIC_COLOR
+participant "t:ChangeFontCommand" as ChangeFontCommand LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow :executeCommand("changeFont rockwell")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("changeFont rockwell")
+activate LogicManager
+
+LogicManager -> GuiltTripParser : parseCommand("changeFont rockwell")
+activate GuiltTripParser
+
+create ChangeFontCommandParser
+GuiltTripParser -> ChangeFontCommandParser
+activate ChangeFontCommandParser
+
+ChangeFontCommandParser --> GuiltTripParser
+deactivate ChangeFontCommandParser
+
+GuiltTripParser -> ChangeFontCommandParser : parse("changeFont rockwell")
+activate ChangeFontCommandParser
+
+create ChangeFontCommand
+ChangeFontCommandParser -> ChangeFontCommand
+activate ChangeFontCommand
+
+ChangeFontCommand --> ChangeFontCommandParser : c
+deactivate ChangeFontCommand
+
+ChangeFontCommandParser --> GuiltTripParser : c
+deactivate ChangeFontCommandParser
+destroy ChangeFontCommandParser
+
+GuiltTripParser --> LogicManager : c
+deactivate GuiltTripParser
+
+LogicManager -> ChangeFontCommand : execute()
+activate ChangeFontCommand
+
+create CommandResult
+ChangeFontCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ChangeFontCommand
+deactivate CommandResult
+
+ChangeFontCommand --> LogicManager : commandResult
+deactivate ChangeFontCommand
+destroy ChangeFontCommand
+
+LogicManager --> MainWindow : commandResult
+deactivate LogicManager
+
+alt isChangeFont
+
+MainWindow -> CommandResult : getFontName()
+activate CommandResult
+
+CommandResult --> MainWindow : ROCKWELL
+deactivate CommandResult
+
+MainWindow -[#IndianRed]> MainWindow : handleChangeFont(ROCKWELL)
+activate MainWindow #IndianRed
+
+MainWindow -[#MediumPurple]> FontName : toLowerCaseString(ROCKWELL)
+activate FontName #MediumPurple
+
+FontName -[#MediumPurple]-> MainWindow : "rockwell"
+deactivate FontName
+
+MainWindow -[#GoldenRod]> HBox : setStyle("-fx-font-family: rockwell")
+activate HBox #GoldenRod
+
+HBox --[#GoldenRod]> MainWindow
+deactivate HBox
+
+MainWindow -[hidden]> MainWindow
+deactivate MainWindow
+
+end
+
+MainWindow ->[ : commandResult
+deactivate MainWindow
+
+@enduml

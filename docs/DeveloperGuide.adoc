@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `EntryListPanel`,
+* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `ExpenseListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 * The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
@@ -203,24 +203,23 @@ The `toggle` command extends from the `Command` class. `MainWindow` checks using
 if the user wants to toggle a specified panel. If so, it toggles the `isVisible` and `isManaged` properties of the place
 holder for that panel.
 
-
-The following sequence diagram shows how an example usage scenario would work:
+The following sequence diagram shows how an example usage scenario `toggle wishlist` would work:
 
 image::ToggleSequenceDiagram.png[]
 
-The sequence diagram is explained below:
+The sequence diagram is as explained below:
 
-. The user launches the application and enters in `toggle wishlist` command to toggle the `wishlist` panel.
-. The `commandResult` is obtained in MainWindow after the command is parsed and executed.
-. MainWindow checks if the `togglePanel` attribute in `commandResult` is true.
+. The user launches the application and executes the `toggle wishlist` command to toggle the `wishlist` panel.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `togglePanel` attribute in `commandResult` is true.
 . Since it is true, it retrives the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
 . This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
-.. (Not shown in sequence diagram) It also checks if the wishlist is already shown in the main panel.
+.. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
 .. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is shown in the main method.
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::ToggleActivityDiagram.png[width="200"]
+image::ToggleActivityDiagram.png[width="240"]
 
 ==== Design Considerations
 
@@ -238,7 +237,55 @@ image::ToggleActivityDiagram.png[width="200"]
 
 === Change Font Command
 
+==== Implementation
+
+The `changeFont` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the application font.
+If so, it immediately changes the font without requiring the user to exit and launch the application again.
+This change in font is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `changeFont rockwell` would work:
+
+image::ChangeFontSequenceDiagram.png[]
+
+The sequence diagram is as explained below:
+
+. The user launches the application and executes the `changeFont rockwell` command to change the current application font to _rockwell_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeFont` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `FontName` `ROCKWELL` from `commandResult` and calls on its own method `handleChangeFont`.
+. This method then converts the `FontName` `ROCKWELL` to a `String "rockwell"` and sets the `font-family` attribute of `window`, that contains all the child nodes, to `rockwell`.
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):*
+
+** Pros:
+
+** Cons:
+
+* *Alternative 2:*
+
+** Pros:
+
+** Cons:
+
 === Set Light/Dark Theme Command
+
+==== Implementation
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):*
+
+** Pros:
+
+** Cons:
+
+* *Alternative 2:*
+
+** Pros:
+
+** Cons:
 
 === Reminders
 
