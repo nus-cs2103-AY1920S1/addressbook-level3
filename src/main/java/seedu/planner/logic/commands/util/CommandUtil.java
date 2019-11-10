@@ -54,6 +54,7 @@ public class CommandUtil {
 
     /**
      * Throws an AssertionError if there is no one and only one non-null object.
+     * @author 1nefootstep
      */
     public static void onlyOneNonNull(Object ...obj) throws AssertionError {
         int nonNullCounter = 0;
@@ -71,6 +72,7 @@ public class CommandUtil {
 
     /**
      * Calculates and returns the endDateTime of an activity.
+     * @author 1nefootstep
      */
     public static LocalDateTime calculateEndDateTime(LocalDate startDate,
                                                      Index dayIndex, LocalTime startTime, Duration duration) {

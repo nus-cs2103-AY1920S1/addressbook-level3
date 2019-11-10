@@ -11,6 +11,7 @@ import seedu.planner.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCommand object
+ * @author 1nefootstep
  */
 public class UnscheduleCommandParser implements Parser<UnscheduleCommand> {
 
