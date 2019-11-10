@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableMap;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.ListPeopleCommand;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalAddressBook;
@@ -118,6 +119,56 @@ public class ModelManagerTest {
         ObservableMap<String, Integer> result = modelManager.getGenderBreakdown();
         ObservableMap<String, Integer> expected = TypicalPersons.getTypicalGenderBreakdown();
         assertEquals(result, expected);
+    }
+
+    @Test
+    public void addCommandToHistory_nullCommand_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addCommandToHistory(null, "test"));
+        assertThrows(NullPointerException.class, () -> modelManager.addCommandToHistory("test", null));
+    }
+
+    @Test
+    public void getHistory_emptyCommandHistory_returnsTrue() {
+        CommandHistory history = new CommandHistory();
+        assertEquals(modelManager.getHistoryList(), history.getHistory());
+    }
+
+    @Test
+    public void getHistory_nonEmptyCommandHistory_returnsTrue() {
+        CommandHistory history = new CommandHistory();
+        history.addCommand(ListPeopleCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD);
+
+        modelManager.addCommandToHistory(ListPeopleCommand.COMMAND_WORD, ListPeopleCommand.COMMAND_WORD);
+        assertEquals(modelManager.getHistoryList(), history.getHistory());
+    }
+
+    @Test
+    public void canUndo_withoutSavingAddressBook_returnsFalse() {
+        assertFalse(modelManager.canUndoAddressBook());
+    }
+
+    @Test
+    public void canUndo_afterSavingAddressBook_returnsTrue() {
+        modelManager.saveAddressBookState();
+        assertTrue(modelManager.canUndoAddressBook());
+    }
+
+    @Test
+    public void undoAddressBook_afterSavingAddressBook_undoesAddressBook() {
+        ModelManager expectedModel = new ModelManager(modelManager.getAddressBook(), modelManager.getUserPrefs());
+
+        // only one change to one address book
+        modelManager.addPerson(ALICE);
+        modelManager.saveAddressBookState();
+
+        // perform several changes to other address book and perform undoes
+        expectedModel.addPerson(BENSON);
+        expectedModel.saveAddressBookState();
+        expectedModel.undoAddressBook();
+        expectedModel.addPerson(ALICE);
+        expectedModel.saveAddressBookState();
+
+        assertEquals(modelManager.getAddressBook(), expectedModel.getAddressBook());
     }
 
     @Test

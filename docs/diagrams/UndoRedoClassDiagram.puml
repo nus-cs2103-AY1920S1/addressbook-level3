@@ -6,11 +6,12 @@ ReadOnlyAddressBook : ~getPolicyList()
 ReadOnlyAddressBook : ~getBinItemList()
 
 class AddressBook
-AddressBook ..|> ReadOnlyAddressBook
+AddressBook .right.|> ReadOnlyAddressBook
 
 class StatefulAddressBook
-StatefulAddressBook --|> AddressBook
-StatefulAddressBook --> "1..*" ReadOnlyAddressBook : contains a list of >
+StatefulAddressBook .up[hidden].>UndoCommand
+StatefulAddressBook -right-|> AddressBook
+StatefulAddressBook -right-> "1..*" ReadOnlyAddressBook : contains a list of >
 StatefulAddressBook : -currentStatePointer
 StatefulAddressBook : -clearStatesAfterCurrentPointer()
 StatefulAddressBook : +saveAddressBookState()

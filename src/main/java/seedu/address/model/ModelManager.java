@@ -244,6 +244,8 @@ public class ModelManager implements Model {
         statefulAddressBook.saveAddressBookState();
     }
 
+    //=========== Functions related to display command =============================================================
+
     @Override
     public ObservableMap<String, Integer> getPolicyPopularityBreakdown() {
         // Set up map
