@@ -8,17 +8,26 @@
 image::caesarpjz.png[width="200", align="left"]
 {empty}[https://github.com/caesarpjz[github]] [https://www.linkedin.com/in/caesarpangjianzhang/[linkedin]]
 
-Hi! My name is Caesar Pang. I'm currently a second year SoC (School of Computing) student in NUS majoring in Computer Science.
+Hi! My name is Caesar Pang. I'm currently a Year 2 student studying Computer Science, in School of Computing (SOC) in NUS.
 
-This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a project that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
+This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a
+project that my team and I completed for the module CS2103T. This project has definitely taught me many skills that
+are extremely relevant in the real world and knowldege that I can use when I work in the future. It has allowed me
+to be a more competent and knowledgable software engineer.
 
 == PROJECT: TutorAid
 
 == Overview
 
-TutorAid is a handy application that was created for tutors and teaching assistants in NUS School of Computing to help improve their workflow and save time by better organizing all the information they require in one central location. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view and interact with TutorAid.
+TutorAid is an easy-to-use Command Line Interface (CLI) based application that helps to makes the lives of tutors easier
+by organizing their workflow and all their related tasks into one location. It is extremely beneficial to Computing
+tutors as they are already highly adept at typing on CLI interface and TutorAid also provides a Graphical User Interface (GUI) interface for users to easily view and interact
+with TutorAid.
 
-TutorAid boasts well thought out features which have been carefully selected and reviewed to fit the exact needs of our target audience. All of TutorAid's features and implementations are well documented in guides for users and developers respectively.
+The features of TutorAid has been well-thought out, keeping in mind the necessities and wants of tutors alike. To meet the
+exact needs of our target audience, we have conducted several surveys to ask current tutors what they would like in an
+application and thus, TutorAid was created. All of TutorAid's features and implementations are well documented
+in guides for users and developers respectively.
 
 .A view of TutorAid
 image::../images/Ui.png[width="500"]

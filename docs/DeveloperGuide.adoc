@@ -140,6 +140,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+
 // tag::accountStorage[]
 ==== Account Storage
 All accounts are stored in a JSON file called accountslist.json. This file is generated once you register an account. The username
@@ -228,8 +229,8 @@ DD/MM/YYYY.
 *Example Scenerio*
 
 
-* Step 1: The user enters `add_earnings d/04/08/2019 c/CS1231 amt/50.00` to add an earning for teaching classes.
-This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
+* Step 1: The user enters `add_earnings d/04/08/2019 type/tut c/CS1231 amt/50.00` to add an earning for teaching classes.
+This adds an `Earnings` object that the user has earned by teaching a CS1231 tutorial class on 4th August 2019. The user has
 earned $50.00.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
@@ -248,6 +249,7 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
 // end::earnings[]
+
 ==== Delete Earnings
 This command allows the user to delete an earnings from the existing earnings list through
 its index.
@@ -258,6 +260,7 @@ The delete earnings command is part of the logic component of our application. I
 of or software application.
 
 *Overview*
+
 The `DeleteEarningsCommandParser` implements `Parser` with the following operation:
 
 * `DeleteEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, that the
@@ -266,6 +269,7 @@ The `DeleteEarningsCommandParser` implements `Parser` with the following operati
  from the commmand parser.
 
 *Current Implementation*
+
 The delete earnings command is executed by the `DeleteEarningsCommand`. Currently, the deletion of any earnings is done based
 on the `INDEX` of te earnings entry.
 
@@ -301,6 +305,7 @@ The above commands update the earnings type at index 3 on the list to type-tutor
 index 1 to date 03/11/2019.
 
 *Current Implementation*
+
 The `UpdateEarningsCommandParser` implements `Parser` with the following operation:
 
 * `UpdateEarningsCommandParser#parse()` - This operation will take in an `int` input and any combination of the attributes
@@ -312,9 +317,9 @@ Here is a step-by-step process on how the update earnings command alters and upd
 
 *Example Scenario*
 
-* Step 1: The user enters `update_earnings 3 c/CS1101S amt/50.00` to correct a mistake in entering the `CLASS_ID`
+* Step 1: The user enters `update_earnings 3 c/CS1101S` to correct a mistake in entering the `CLASS_ID`
 for an earning for teaching classes. This updates the `Earnings` object at index 3 and changes the class id to
-CS11101S.
+CS1101S.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
@@ -333,6 +338,7 @@ the prior `Earnings` object, to ensure that there is no duplicate `Earnings` obj
 
 * Step 6: `UpdateEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully updated.
+
 // tag::otherEarnings[]
 ==== Weekly Earnings
 The `weekly_earnings` command allows users to add earnings into a list that adds earnings weekly automatically by invoking the `auto` command.
@@ -347,9 +353,6 @@ The format for the `weekly_earnings` command is as follows:
 The `weekly_earnings` mechanism is facilitated by `AutoAddEarningsCommand` and `AutoAddEarningsCommandParser`, taking in the
 following input from the user: `Index` and `Count`, which would be associated with the  `Earnings` object that is
 referenced from the `Index`. The `Count` object represents the number of weeks the earnings are to be added to the list.
-
-.Weekly Earnings Command Sequence Diagram
-
 
 The `AutoAddEarningsCommand` implements `Parser` with the following operation:
 
@@ -394,10 +397,10 @@ object have been successfully added to the list.
 
 ==== Auto Add
 This command, `auto`, allows the user to add all the earnings that has been previously added before and the command `weekly_earnings`
- has been used on the particular earnings. You can refer to the example and activity diagram below to have a clearer understanding.
+ has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[]
+image::AutoActivityDiagram.png[][width="500", align="left"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.

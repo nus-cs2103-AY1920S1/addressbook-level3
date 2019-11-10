@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`help`* : Links you to the User Guide so you can view how to use all the available commands.
 * **`add_task`**`c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
-* **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
+* **`claim_earnings`**`2 claim/approved` : marks that the claim for this earnings has been approved.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -92,6 +92,10 @@ Examples:
 
 * `login user/Steve pass/Pa55w0rd!`
 
+****
+As of now, the login features allow multiple users to view the same data. This will be upgraded in later versions such
+that different accounts will see different data.
+****
 === Change tab : `tab`
 
 Change tab to any of the available ones. +
@@ -283,7 +287,8 @@ Format: `delete_earnings INDEX`
 Examples:
 
 * `delete_earnings 2`
-//tag::[startEarningsTag]
+// tag::startEarningsTag[]
+
 ==== Find Earnings: `find_earnings`
 
 Find Earnings in the list of earnings. +
@@ -349,7 +354,7 @@ Example:
 of 09/02/2019, the earnings will not be added.
 * Suggested to invoked everyday.
 ****
-// end::[startEarningsTag]
+// end::startEarningsTag[]
 
 === Notes
 ==== Add Note: `addnote`
@@ -683,9 +688,43 @@ Format: `logout`
 Filters Earnings in the list of earnings based on either classid/date/week/month. +
 Format: `filter_earnings variable`
 
-Examples:
+Example:
 
 * `filter_earnings v/week`
+
+==== List of auto added earnings: `list_auto`
+
+Renders a pop-up showing a list of earnings that are due to be added automatically to the earnings list. +
+Format: `list_auto`
+
+Example:
+
+* `list_auto`
+
+==== Graph Earnings: `graph`
+
+Gives you a graph of your earnings that is given with at start date and end date. +
+Format: `graph d/START_DATE d/END_DATE`
+
+Example:
+
+* `graph d/02/02/2019 d/04/03/2019`
+
+==== Pie Chart Earnings: `piechart`
+
+Gives you a pie chart of your earnings based on either classid or type, in addition of the start date and end date. +
+Format: `piechart by/FACTOR d/START_DATE d/END_DATE`
+
+Examples:
+
+* `piechart by/classid d/02/02/2019 d/04/03/2019`
+* `piechart by/type d/12/10/2016 d/24/03/2018`
+
+==== Login: `login`
+
+As of the current implementation, when the user logs in with different account, they will still see the same data.
+However, we plan to upgrade this feature as soon as v1.5 or v1.6.
+
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
