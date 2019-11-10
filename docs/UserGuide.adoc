@@ -848,13 +848,10 @@ The specified index should correspond to the row index of the item in the table.
 * Steps:
 1. To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
 +
-//.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand1.png[width="600"]
 +
 [start = 2]
 2. Now, you can hit `Enter`.
-+
-//.Screenshot of the response message for Delete Command in Cashier tab
 +
 image::cashierUG/DeleteCommand2.png[width="600"]
 
@@ -887,19 +884,16 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 
 1.1 To edit by its *index*, you can enter the command "edit" with an index and quantity specified as shown in the screenshot below.
 
-//.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier tab
 image::cashierUG/EditCommand1.png[width="600"]
 
 [start = 2]
 1.2 To edit by its *description*, you can enter the command "edit"  with the required description and quantity as shown below.
 
-//.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier tab
 image::cashierUG/EditCommand3.png[width="600"]
 
 [start = 2]
 2. Now, you can hit `Enter`.
 
-//.Screenshot of response message for Edit Command in Cashier tab
 image::cashierUG/EditCommand2.png[width="600"]
 
 If successfully updated, Leo will respond with a response message. The quantity will now be updated in the table.
@@ -925,14 +919,10 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 * Steps:
 1. To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
 +
-//.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
-+
 image::cashierUG/SetCashierCommand1.png[width="600"]
 +
 [start = 2]
 2. Now, you can hit `Enter`.
-+
-//.Screenshot of response message for Set Cashier Command in Cashier Tab
 +
 image::cashierUG/SetCashierCommand2.png[width="600"]
 
@@ -996,28 +986,15 @@ This command is irreversible. Please use at your own discretion.
 
 * Steps:
 
-<<<<<<< HEAD
 1. To clear, you can type the "clear" command word only as shown in the screenshot below.
 +
 //.Screenshot of user input into Command Box for Clear Command in Cashier Tab
-=======
-1.
-To clear, you can type the "clear" command word only as shown in the screenshot below.
-
-//.Screenshot of user input into Command Box for Clear Command in Cashier tab
->>>>>>> bc61b7f764462501c9e0011ed9426f2bf602ab83
 image::cashierUG/ClearCommand1.png[width="600"]
 +
 [start = 2]
-<<<<<<< HEAD
 2. Now, you can hit `Enter`.
 +
 //.Screenshot of response message for Clear Command in Cashier Tab
-=======
-. Now, you can hit `Enter`.
-
-//.Screenshot of response message for Clear Command in Cashier tab
->>>>>>> bc61b7f764462501c9e0011ed9426f2bf602ab83
 image::cashierUG/ClearCommand2.png[width="600"]
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
