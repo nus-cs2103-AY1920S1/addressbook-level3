@@ -38,11 +38,11 @@ public class AddBudgetCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "Food "
             + PREFIX_DESC + "Nov Budget "
-            + PREFIX_AMOUNT + "50.00 "
-            + PREFIX_DATE + "2019 09 09 "
+            + PREFIX_AMOUNT + "200 "
+            + PREFIX_DATE + "2019 11 01 "
             + PREFIX_PERIOD + "1m "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "indulgence.\n"
+            + PREFIX_TAG + "indulgence\n"
             + MESSAGE_CATEGORY;
 
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s";

@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" >
   <GridPane HBox.hgrow="ALWAYS" styleClass="autoexp_card">
     <columnConstraints>
@@ -44,6 +43,7 @@
     </HBox>
 
     <Label fx:id="amt" styleClass="cell_big_label_amt" text="\$amt" GridPane.columnIndex="1"/>
-    <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="nextTime" styleClass="cell_small_label" text="\$nextTime" />
+    <Label fx:id="nextTime" GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="cell_small_label"
+           text="\$nextTime"/>
   </GridPane>
 </HBox>

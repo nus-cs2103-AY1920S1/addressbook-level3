@@ -7,8 +7,8 @@ import static seedu.guilttrip.testutil.TypicalEntries.CATEGORY_STOCKS;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
@@ -49,14 +49,14 @@ public class AddCategoryCommandIntegrationTest {
         //Expense Category
         Category categoryInList = model.getGuiltTrip().getCategoryList().getInternalListForOtherEntries().get(0);
         String expectedMessage = String.format(CategoryList.MESSAGE_CONSTRAINTS_IN_LIST,
-                categoryInList.getCategoryType());
+                categoryInList.getCategoryType().getCatType());
         assertCommandFailure(new AddCategoryCommand(categoryInList), model, expectedMessage,
                 chs);
 
         //Income Category
         categoryInList = model.getGuiltTrip().getCategoryList().getInternalListForIncome().get(0);
         expectedMessage = String.format(CategoryList.MESSAGE_CONSTRAINTS_IN_LIST,
-                categoryInList.getCategoryType());
+                categoryInList.getCategoryType().getCatType());
         assertCommandFailure(new AddCategoryCommand(categoryInList), model, expectedMessage,
                 chs);
     }

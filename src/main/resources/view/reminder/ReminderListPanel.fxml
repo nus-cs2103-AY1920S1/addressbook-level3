@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: blue">
+        <ListView fx:id="reminderListView1" VBox.vgrow="ALWAYS" styleClass="side-panel-listview"/>
+    </VBox>
 
-<VBox style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <ListView fx:id="reminderListView" styleClass="side-panel-listview" VBox.vgrow="ALWAYS" />
-</VBox>
+    <VBox HBox.hgrow="ALWAYS" style="-fx-background-color: green">
+        <ListView fx:id="reminderListView2" VBox.vgrow="ALWAYS" styleClass="side-panel-listview"/>
+    </VBox>
+
+</HBox>
+

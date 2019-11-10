@@ -17,7 +17,7 @@ public class ChangeFontCommand extends Command {
 
     public static final String ONE_LINER_DESC = COMMAND_WORD + ": Changes the application font to specified font. ";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
-            + "PARAMETERS: font name (case sensitive; type listFont to see available fonts) "
+            + "PARAMETERS: font name:\n" + FontName.getAllFontNameStrings().toString() + "\n"
             + "EXAMPLE: " + COMMAND_WORD + " verdana";
 
     public static final String MESSAGE_SUCCESS = "Changed font to %1$s";

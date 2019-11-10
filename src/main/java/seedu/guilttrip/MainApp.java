@@ -11,13 +11,11 @@ import seedu.guilttrip.commons.core.Config;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.Version;
 import seedu.guilttrip.commons.exceptions.DataConversionException;
-import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.commons.util.ConfigUtil;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.LogicManager;
-import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.ReadOnlyGuiltTrip;
@@ -68,29 +66,30 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s guilttrip book and {@code userPrefs}. <br>
-     * The data from the sample guilttrip book will be used instead if {@code storage}'s guilttrip book is not found,
-     * or an empty guilttrip book will be used instead if errors occur when reading {@code storage}'s guilttrip book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s GuiltTip and {@code userPrefs}. <br>
+     * The data from the sample GuiltTrip will be used instead if {@code storage}'s GuiltTrip is not found,
+     * or an empty GuiltTrip will be used instead if errors occur when reading {@code storage}'s GuiltTrip.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyGuiltTrip> addressBookOptional;
+        Optional<ReadOnlyGuiltTrip> guiltTripOptional;
         ReadOnlyGuiltTrip initialData;
         try {
-            addressBookOptional = storage.readGuiltTrip();
-            if (!addressBookOptional.isPresent()) {
+            guiltTripOptional = storage.readGuiltTrip();
+
+            if (guiltTripOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample GuiltTrip");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = guiltTripOptional.orElseGet(SampleDataUtil::getSampleGuiltTrip);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GuiltTrip");
-            initialData = SampleDataUtil.getSampleAddressBook();
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
-            initialData = SampleDataUtil.getSampleAddressBook();
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         } catch (IllegalArgumentException e) {
             logger.warning("Problem while reading from the file. There is a duplicate category and "
                     + "will be starting with an empty GuiltTrip");
-            initialData =  SampleDataUtil.getSampleAddressBook();
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         }
 
         return new ModelManager(initialData, userPrefs);

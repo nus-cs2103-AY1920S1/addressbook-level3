@@ -37,7 +37,7 @@ public class EntryBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the EntryBuilder with the data of {@code entryToCopy}.
      */
     public EntryBuilder(Entry entryToCopy) {
         desc = entryToCopy.getDesc();
@@ -48,7 +48,7 @@ public class EntryBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code desc} of the {@code Entry} that we are building.
      */
     public EntryBuilder withDesc(String desc) {
         this.desc = new Description(desc);
@@ -56,15 +56,15 @@ public class EntryBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code date} of the {@code Entry} that we are building.
      */
-    public EntryBuilder withDate(String time) {
-        this.date = new Date(time);
+    public EntryBuilder withDate(String date) {
+        this.date = new Date(date);
         return this;
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code amt} of the {@code Entry} that we are building.
      */
     public EntryBuilder withAmt(double amt) {
         this.amt = new Amount(Double.toString(amt));
@@ -72,7 +72,7 @@ public class EntryBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Entry} that we are building.
      */
     public EntryBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);

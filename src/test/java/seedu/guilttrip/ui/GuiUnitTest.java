@@ -1,22 +1,18 @@
-/*package seedu.guilttrip.ui;
+package seedu.guilttrip.ui;
 
-//import guitests.guihandles.exceptions.NodeNotFoundException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.extension.RegisterExtension;
-//import seedu.guilttrip.ui.testutil.UiPartExtension;
 
-*//**
+import javafx.scene.Node;
+
+import seedu.guilttrip.ui.gui.GuiRobot;
+import seedu.guilttrip.ui.gui.guihandles.exceptions.NodeNotFoundException;
+import seedu.guilttrip.ui.testutil.UiPartExtension;
+
+/**
  * A GUI unit test class for GuiltTrip.
- * <p>
- * Retrieves the {@code query} node owned by the {@code rootNode}.
- *
- * @param query name of the CSS selector of the node to retrieve.
- * @throws NodeNotFoundException if no such node exists.
- * <p>
- * Retrieves the {@code query} node owned by the {@code rootNode}.
- * @param query name of the CSS selector of the node to retrieve.
- * @throws NodeNotFoundException if no such node exists.
- *//*
+ */
 public abstract class GuiUnitTest {
     // TODO: Remove this workaround after using JavaFX version 13 or above
     // This is a workaround to solve headless test failure on Windows OS
@@ -30,15 +26,16 @@ public abstract class GuiUnitTest {
     @RegisterExtension
     public final UiPartExtension uiPartExtension = new UiPartExtension();
 
-    *//**
- * Retrieves the {@code query} node owned by the {@code rootNode}.
- *
- * @param query name of the CSS selector of the node to retrieve.
- * @throws NodeNotFoundException if no such node exists.
- *//*
- *//*protected <T extends Node> T getChildNode(Node rootNode, String query) {
+    protected final GuiRobot guiRobot = new GuiRobot();
+
+    /**
+     * Retrieves the {@code query} node owned by the {@code rootNode}.
+     *
+     * @param query name of the CSS selector of the node to retrieve.
+     * @throws NodeNotFoundException if no such node exists.
+     */
+    protected <T extends Node> T getChildNode(Node rootNode, String query) {
         Optional<T> node = guiRobot.from(rootNode).lookup(query).tryQuery();
         return node.orElseThrow(NodeNotFoundException::new);
-    }*//*
-
-}*/
+    }
+}

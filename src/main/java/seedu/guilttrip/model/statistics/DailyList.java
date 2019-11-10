@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import javafx.collections.transformation.FilteredList;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 

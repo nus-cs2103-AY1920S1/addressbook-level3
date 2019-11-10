@@ -88,6 +88,7 @@ public class EditExpenseCommand extends Command {
         if (entryToEdit.isSameEntry(editedEntry) && model.hasExpense(editedEntry)) {
             throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
+
         model.setExpense(entryToEdit, editedEntry);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         model.commitGuiltTrip();

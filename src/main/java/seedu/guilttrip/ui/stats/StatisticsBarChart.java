@@ -20,7 +20,7 @@ import seedu.guilttrip.ui.UiPart;
  * Displays the user's statistics by months in the form of a bar chart.
  */
 public class StatisticsBarChart extends UiPart<Region> {
-    private static final String FXML = "/statistics/StatisticsBarChart.fxml";
+    private static final String FXML = "statistics/StatisticsBarChart.fxml";
     private ObservableList<DailyStatistics> statsForDaily;
     private XYChart.Series<String, Number> expenseChart;
     private XYChart.Series<String, Number> incomeChart;
@@ -64,6 +64,7 @@ public class StatisticsBarChart extends UiPart<Region> {
         barChart.setTitle("Statistics Daily Summary");
         barChart.setLegendSide(Side.BOTTOM);
         barChart.setAnimated(false);
+
         dateOfRecord.setLabel("Date");
         statisticsForDay.setLabel("Daily Expense and Income");
         this.listOfDays = FXCollections.observableArrayList();

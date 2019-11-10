@@ -74,8 +74,8 @@ public class IncomeBuilder {
     /**
      * Sets the {@code amt} of the {@code Income} that we are building.
      */
-    public IncomeBuilder withAmt(String amt) {
-        this.amt = new Amount(amt);
+    public IncomeBuilder withAmt(double amt) {
+        this.amt = new Amount(String.valueOf(amt));
         return this;
     }
 

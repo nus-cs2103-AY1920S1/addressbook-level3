@@ -11,30 +11,30 @@ import javafx.beans.property.SimpleIntegerProperty;
  */
 public class DailyStatistics {
 
-    private final LocalDate EXACT_DAY;
+    private final LocalDate exactDay;
     private double totalExpense;
     private double totalIncome;
 
     public DailyStatistics(LocalDate day, double totalExpense, double totalIncome) {
-        this.EXACT_DAY = day;
+        this.exactDay = day;
         this.totalExpense = totalExpense;
         this.totalIncome = totalIncome;
     }
 
     public int getDate() {
-        return EXACT_DAY.getDayOfMonth();
+        return exactDay.getDayOfMonth();
     }
 
     public IntegerProperty getMonth() {
-        return new SimpleIntegerProperty(EXACT_DAY.getMonth().getValue());
+        return new SimpleIntegerProperty(exactDay.getMonth().getValue());
     }
 
     public LocalDate getExactDay() {
-        return this.EXACT_DAY;
+        return this.exactDay;
     }
 
     public int getNumberOfDays() {
-        YearMonth yearMonth = YearMonth.of(this.EXACT_DAY.getYear(), this.EXACT_DAY.getMonthValue());
+        YearMonth yearMonth = YearMonth.of(this.exactDay.getYear(), this.exactDay.getMonthValue());
         return yearMonth.lengthOfMonth();
     }
 

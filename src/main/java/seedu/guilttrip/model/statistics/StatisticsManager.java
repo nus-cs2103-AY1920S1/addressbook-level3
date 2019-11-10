@@ -13,7 +13,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.collections.transformation.FilteredList;
-import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.CategoryList;
 import seedu.guilttrip.model.entry.Date;
