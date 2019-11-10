@@ -523,19 +523,19 @@ Additionally, it implements the following operations:
 * `[subheader]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registered in Mortago.
 * `[subheader]#ReportGenerator#generateSummary(sign)#` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
 
-The following sequence diagram (Figure 4.4.1.a) shows how the generate operation works:
+The following sequence diagram (Figure 17) shows how the generate operation works:
 
+.Sequence diagram when `genReport 1 John Doe` is executed by manager.
 image::GenReportSequenceDiagram.png[]
-Figure 4.4.1.a. Sequence diagram when `genReport 1 John Doe` is executed by manager.
 
 NOTE: The lifeline for `[subheader]#GenReportCommandParser#` and `[subheader]#ReportGenerator#` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `genReport <BODY_ID> (sign)` command calls `[subheader]#ReportGenerator#generate(body, sign)#`, which creates the document.
 
-The following activity diagram (Figure 4.4.1.b) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
+The following activity diagram (Figure 18) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
 
+.Activity diagram when `genReport 1 John Doe` is executed by manager.
 image::GenReportActivityDiagram.png[]
-Figure 4.4.1.b. Activity diagram when `genReport 1 John Doe` is executed by manager.
 
 The following code snippet from `[subheader]#GenReportCommand.java#` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
 
@@ -547,10 +547,10 @@ The following code snippet from `[subheader]#GenReportCommand.java#` demonstrate
             throw new CommandException(MESSAGE_REPORT_NOT_GENERATED);
         }
 
-The following class diagram (Figure 4.4.1.c) models the relationships and dependencies among classes in this feature:
+The following class diagram (Figure 19) models the relationships and dependencies among classes in this feature:
 
+.Class diagram for generate PDF feature.
 image::ReportGeneratorClassDiagram.png[]
-Figure 4.4.1.c. Class diagram for generate PDF feature.
 
 ==== Design Considerations
 

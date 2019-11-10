@@ -254,7 +254,7 @@ a|
 [[update]]
 ==== Updating an entity: `update`
 
-This command allows you to update the attributes of a body or worker. +
+You can update the attributes of a body or worker. +
 
 You have to indicate the entity type you want to update with a flag, as described in <<Features>>.
 [TIP]
@@ -333,7 +333,7 @@ and her new designation. You see that her ID number is W00001.
 
 ==== Locating entries by name: `find`
 
-Finds bodies or workers whose names contain any of the given keywords. +
+You can find bodies or workers whose names contain any of the given keywords. +
 
 Format: `find (flag) (keyword)...`
 
@@ -383,7 +383,7 @@ The worker with the identification number `W00001` will be deleted.
 
 ==== Clearing all entries : `clear`
 
-Clears all entries from Mortago. +
+You can clear all entries from Mortago. +
 Format: `clear`
 
 // end::clear[]
@@ -391,7 +391,7 @@ Format: `clear`
 // tag::list[]
 
 ==== List all entries: `list`
-This command allows you to list all entries of bodies, workers, or fridges.
+You can list all entries of bodies, workers, or fridges.
 
 Format: `list -FLAG`
 
@@ -425,7 +425,7 @@ View a body with the ID B00000001.
 // tag::notifs[]
 
 ==== View notifs panel: `showNotifs`
-View all notifications.
+You can view all notifications.
 
 A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
 of arrival of the body. For the purpose of testing, this period is set to 10 seconds instead of 24 hours.
@@ -442,7 +442,7 @@ Format: `showNotifs`
 // tag::sortfilter[]
 
 ==== Filter all entries: `filter`
-This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
+You can filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
 
 All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
 
@@ -512,7 +512,7 @@ To redo:
 
 ==== Exiting the program : `exit`
 
-Exits the program. +
+You can exit the program. +
 Format: `exit`
 
 // end::exit[]
@@ -520,7 +520,7 @@ Format: `exit`
 // tag::sortfilter[]
 
 ==== Sort all entries: `sort` `[coming in v2.0]`
-Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+You can sort all displayed entries according to a given order. Only body and worker entries can be sorted.
 Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
 Types of ordering can be found below:
 
@@ -550,7 +550,7 @@ You must ensure that all existing reports are closed before executing any report
 // tag::genReport[]
 
 ==== Generate report for a specific body: `genReport`
-This command allows you to generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file.
+You can generate an individual report in a PDF filename `[subheader]#Report <body_ID>.pdf#` located in the folder containing the jar file.
 
 image::reportlocation.png[width="790"]
 You can also add your signature name to the report by following the command format below.
@@ -571,7 +571,7 @@ Outputs the PDF report for body ID B00000123 in the folder containing the jar fi
 // tag::genReports[]
 
 ==== Generate reports for all bodies: `genReports`
-This command allows you to generate all individual reports in a PDF filename `[subheader]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
+You can generate all individual reports in a PDF filename `[subheader]#Report (ALL BODIES).pdf#` located in the folder containing the jar file.
 
 You can also add your signature name to the report by following the command format below.
 
@@ -662,11 +662,12 @@ Displays all archived worker entries, in order of archive date.
 // tag::feedback[]
 
 ==== Give and view feedback: `feedback` `[coming in v2.0]`
-Give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
+This command allows you to give workers feedback (for the manager’s own reference), and can display a history of all feedback entered.
 
 Format:
-`feedback /workerId workerId /details details`
-`feedback`
+
+* `feedback /workerId workerId /details details` +
+* `feedback`
 
 Example:
 
