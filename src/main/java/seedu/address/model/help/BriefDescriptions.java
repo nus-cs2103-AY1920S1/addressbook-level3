@@ -9,7 +9,6 @@ import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteIncomeCommand;
-import seedu.address.logic.commands.EditClaimCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -52,9 +51,6 @@ public class BriefDescriptions {
 
         case "delete_income":
             return DeleteIncomeCommand.MESSAGE_USAGE;
-
-        case "edit_claim":
-            return EditClaimCommand.MESSAGE_USAGE;
 
         case "edit_contact":
             return EditContactCommand.MESSAGE_USAGE;

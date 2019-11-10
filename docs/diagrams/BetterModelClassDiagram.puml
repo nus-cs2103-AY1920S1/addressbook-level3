@@ -6,18 +6,25 @@ skinparam classBackgroundColor MODEL_COLOR
 
 FinSec *-right-> "1" UniqueContactList
 FinSec *-right-> "1" UniqueTagList
+FinSec *-down-> "1" UniqueIncomesList
 UniqueTagList -[hidden]down- UniqueContactList
 UniqueTagList -[hidden]down- UniqueContactList
 
 UniqueTagList *-right-> "*" Tag
 UniqueContactList o-right-> "*" Contact
+UniqueIncomesList o-down-> "*" Income
 
 Contact o-up-> "*" Tag
-
+Income o-up-> "*" Tag
 Contact *--> "1" Name
 Contact *--> "1" Phone
 Contact *--> "1" Email
 Contact *--> "1" Address
 Contact *--> "1" Claims
 Claims *--> "*" Id
+Income *--> "1" Name
+Income *--> "1" Description
+Income *--> "1" Phone
+Income *--> "1" Amount
+
 @enduml

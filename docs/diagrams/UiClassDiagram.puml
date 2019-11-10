@@ -17,6 +17,9 @@ Class StatusBarFooter
 Class CommandBox
 Class ClaimListPanel
 Class ClaimCard
+Class IncomeListPanel
+Class IncomeCard
+
 }
 
 package Model <<Rectangle>> {
@@ -37,10 +40,12 @@ MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
 MainWindow *-down-> ClaimListPanel
+MainWindow *-down-> IncomeListPanel
 MainWindow *-down-> StatusBarFooter
 
 PersonListPanel -down-> PersonCard
 ClaimListPanel -down-> ClaimCard
+IncomeListPanel -down-> IncomeCard
 
 MainWindow -left-|> UiPart
 
@@ -49,6 +54,7 @@ CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
 ClaimCard --|> UiPart
+IncomeCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
@@ -59,6 +65,8 @@ MainWindow -left-> Logic
 PersonListPanel -[hidden]left- HelpWindow
 ClaimListPanel -[hidden]left- PersonListPanel
 ClaimCard -[hidden]left- PersonCard
+IncomeListPanel -[hidden]left- PersonListPanel
+IncomeCard -[hidden]left- PersonCard
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter

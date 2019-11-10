@@ -3,6 +3,7 @@ package seedu.address.model.commonvariables;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author{weigenie}
 /**
  * Represents a Claim's claim amount in FinSec.
  */

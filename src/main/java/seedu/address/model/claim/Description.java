@@ -3,6 +3,7 @@ package seedu.address.model.claim;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+//@@author{weigenie}
 /**
  * Represents a Claim's description in FinSec.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}

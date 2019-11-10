@@ -22,7 +22,10 @@ JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
 JsonSerializableAddressBookStorage .down.> JsonSerializableContact
 JsonSerializableAddressBookStorage .down.> JsonSerializableClaim
 JsonSerializableAddressBookStorage .down.> JsonSerializableIncome
+JsonSerializableAddressBookStorage .down.> JsonSerializableAutocorrectSuggestion
+JsonSerializableAddressBookStorage .down.> JsonSerializableCommandItem
 JsonSerializableContact .down.> JsonAdaptedTag
 JsonSerializableIncome .down.> JsonAdaptedTag
 JsonSerializableClaim .down.> JsonAdaptedTag
+
 @enduml

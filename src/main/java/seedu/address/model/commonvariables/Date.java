@@ -6,6 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+//@@author{weigenie}
 /**
  * Represents a claim's/income's date.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}

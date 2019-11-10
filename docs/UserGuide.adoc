@@ -253,7 +253,7 @@ image::warning.png[width = "20", float = "left"]
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
-// tag::shortcutfeature[]
+
 === Adding an income : `add_income`
 
 You can add an income to the incomes list by using the add income command by entering the keyword `add_income` followed by the required fields of an income.
@@ -359,13 +359,13 @@ Deletes the income at the specified `INDEX`.
 
 <<UG-DeleteIncomeExample>> and <<UG-DeleteIncomeResult>> shows what you can expect to see after typing in the example: `delete_income 2`.
 [[UG-DeleteIncomeExample]]
-[reftext="Figure 3.10.1"]
-[caption="Figure 3.10.1: "]
+[reftext="Figure 3.9.1"]
+[caption="Figure 3.9.1: "]
 .Type in the delete_income command.
 image::UG-Delete_income1.png[width="800"]
 [[UG-DeleteIncomeResult]]
-[reftext="Figure 3.10.2"]
-[caption="Figure 3.10.2: "]
+[reftext="Figure 3.9.2"]
+[caption="Figure 3.9.2: "]
 .The result after entering the command. The second income is now deleted off the incomes list.
 image::UG-Delete_income2.png[width="800"]
 
@@ -380,6 +380,7 @@ image::warning.png[width = "20", float = "left"]
 
 ====
 
+// tag::shortcutfeature[]
 
 === Creating a shortcut
 
@@ -411,19 +412,19 @@ No shortcut is created. Continue using FinSec as per normal!
 [[UG-NoShortcutexample1]]
 [reftext="Figure 3.11.1.1"]
 [caption="Figure 3.11.1.1: "]
-.When a user enters an accidental typo
+.When you enter an accidental typo
 image::UG-NoShortcut1.png[width="800"]
 
 [[UG-NoShortcutExample2]]
 [reftext="Figure 3.11.1.2"]
 [caption="Figure 3.11.1.2: "]
-.The result after entering the typo. FinSec will ask you if you want to create a shortcut.
+.FinSec will ask you if you want to create a shortcut (in blue). If you do not wish to create one, enter the command "n" as shown above.
 image::UG-NoShortcut2.png[width="800"]
 
 [[UG-NoShortcutResult]]
 [reftext="Figure 3.11.1.3"]
 [caption="Figure 3.11.1.3: "]
-.Since it is a genuine typo, entering 'n' will allow you to continue.
+.Entering 'n' will allow you to continue.
 image::UG-NoShortcut3.png[width="800"]
 
 
@@ -446,21 +447,21 @@ A new shortcut is created for you! From now on, `ai` can be used as a substitute
 
 <<UG-createShortcutexample1>>, <<UG-createShortcutExample2>> and <<UG-createShortcutResult>> shows what you can expect to see when you want to create a shortcut `ai` as shown in the example.
 [[UG-createShortcutexample1]]
-[reftext="Figure 3.11.2.1"]
-[caption="Figure 3.11.2.1: "]
-.When a user enters a shortcut he/she wishes to create.
+[reftext="Figure 3.10.2.1"]
+[caption="Figure 3.10.2.1: "]
+.Enter the shortcut you wish to create.
 image::UG-createShortcut1.png[width="800"]
 
 [[UG-createShortcutExample2]]
-[reftext="Figure 3.11.2.2"]
-[caption="Figure 3.11.2.2: "]
-.User will enter the existing command that he wishes to map the shortcut to.
+[reftext="Figure 3.10.2.2"]
+[caption="Figure 3.10.2.2: "]
+.Enter the command you wish to have an alias to.
 image::UG-createShortcut2.png[width="800"]
 
 [[UG-createShortcutResult]]
-[reftext="Figure 3.11.2.3"]
-[caption="Figure 3.11.2.3: "]
-.After creating the shortcut.
+[reftext="Figure 3.10.2.3"]
+[caption="Figure 3.10.2.3: "]
+.Congratulations! You have just created a shortcut! Now the shortcut is able for use.
 image::UG-createShortcut3.png[width="800"]
 
 ====
@@ -472,21 +473,6 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
-
-<<UG-shortcutExample>>, <<UG-shortcutResult>> shows what you can expect after creating a shortcut of your own!
-[[UG-shortcutExample]]
-[reftext="Figure 3.11.2.4"]
-[caption="Figure 3.11.2.4: "]
-.User can now use the command 'ai' for adding an income!
-image::UG-createShortcut4.png[width="800"]
-
-[[UG-shortcutResult]]
-[reftext="Figure 3.11.2.5"]
-[caption="Figure 3.11.2.5: "]
-.The newly created shortcut 'ai' creating an income.
-image::UG-createShortcut5.png[width="800"]
-
 
 
 === Deleting a shortcut : `delete_shortcut`
@@ -668,8 +654,8 @@ Format: `sort status`
 *Warning*
 `sort status` only applies to the claims list
 
-<<UG-BudgetExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
-[[UG-BudgetExample]]
+<<UG-SortExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
+[[UG-SortExample]]
 [reftext="Figure 3.15.1"]
 [caption="Figure 3.15.1: "]
 .FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
@@ -751,8 +737,8 @@ Format: `budget`
 
 <<UG-BudgetExample>> shows what you can expect to see when typing in the `budget` command.
 [[UG-BudgetExample]]
-[reftext="Figure 3.13.1"]
-[caption="Figure 3.13.1: "]
+[reftext="Figure 3.21.1"]
+[caption="Figure 3.21.1: "]
 .FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
 image::UG-BudgetExample.PNG[width="800"]
 

@@ -21,7 +21,7 @@ Class Address
 Class Email
 Class Name
 Class Phone
-Class UniquePersonList
+Class UniqueContactList
 }
 
 Package Tag {
@@ -35,6 +35,17 @@ Class Id
 Class Date
 Class Hidden #FFFFFF
 }
+
+Package Income {
+Class UniqueIncomeList
+Class Income
+Class Description
+Class Amount
+Class Name
+Class Phone
+Class Hidden #FFFFFF
+}
+
 }
 
 Class HiddenOutside #FFFFFF
@@ -48,8 +59,8 @@ ModelManager o--> "1" FinSec
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-FinSec *--> "1" UniquePersonList
-UniquePersonList o--> "*" Contact
+FinSec *--> "1" UniqueContactList
+UniqueContactList o--> "*" Contact
 Contact *--> Name
 Contact *--> Phone
 Contact *--> Email
@@ -64,10 +75,19 @@ Claim *-down-> Hidden
 Claim *-down-> Hidden
 Claim *-down-> Hidden
 
+FinSec *--> "1" UniqueIncomeList
+UniqueIncomeList o--> "*" Income
+Income *--> Description
+Income *--> Amount
+Income *--> Date
+Income *--> Name
+Income *--> Phone
+
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"1" Contact : filtered list
 ModelManager -->"1" Claim : filtered list
+ModelManager -->"1" Income : filtered list
 @enduml
