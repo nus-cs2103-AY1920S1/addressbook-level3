@@ -425,9 +425,11 @@ image::watchedPageWithAvengerEndgame.png[width="790"]
 .Entering of the `search` command
 image::searchCommand.png[width="790"]
 
-====
+{nbsp} +
+
 After you have entered the command, you will be led to the *Search page* as shown below.
-====
+
+{nbsp} +
 
 .User Interface of the search page
 image::emptySearchPage.png[width="790"]
@@ -437,6 +439,7 @@ image::emptySearchPage.png[width="790"]
 You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
 command, such as the one in Step 2.
 
+{nbsp} +
 
 [start=2]
 2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
