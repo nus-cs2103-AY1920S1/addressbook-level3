@@ -4,25 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_FRIDGE_DOES_NOT_EXIST;
 import static seedu.address.logic.commands.AddCommand.NOTIF_PERIOD;
 import static seedu.address.logic.commands.AddCommand.NOTIF_TIME_UNIT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_JOINED;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_DEATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESIGNATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYMENT_STATUS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FLAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FRIDGE_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_NOK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NOK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NUMBER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RELATIONSHIP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RELIGION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
@@ -50,7 +31,6 @@ import seedu.address.model.notif.Notif;
 
 
 //@@author ambervoong
-
 /**
  * Updates the details of an existing body or worker in Mortago.
  */
