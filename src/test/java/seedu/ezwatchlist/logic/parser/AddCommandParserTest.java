@@ -18,7 +18,7 @@ public class AddCommandParserTest {
 
     @Test
     void parse2() throws ParseException {
-        String args = " 1";
+        String args = " 3";
         assertTrue(parser.parse(args, "search-list") instanceof AddCommand);
 
         String args1 = " n/";

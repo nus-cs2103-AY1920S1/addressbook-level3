@@ -27,7 +27,7 @@ Tired of using multiple sources on the internet to keep track of all your movies
 .  Keep track of movies and tv shows that you plan to watch or have watched.
 .  Access quick information about your favourite shows through our online database.
 .  Discover your personal movie habits, with our statistics page.
-.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `Ezwatchlist` usage.
+.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `EzWatchlist` usage.
 
 ====
 Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
@@ -68,7 +68,9 @@ through a button press on the graphical interface.
 .EzWatchlist's command line interface.
 image::commandline.png[width="900"]
 
+
 EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
+Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) is the main way of interaction in the application.
 The following is an example of adding a movie into your watch list:
 
 ===== Steps to quickly add a movie
@@ -90,13 +92,14 @@ understand how each of our features were implemented, our <<DeveloperGuide#, dev
 
 What are you waiting for? Start using `EzWatchlist` now!
 
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ezwatchlist.jar` link:https://github.com/AY1920S1-CS2103T-F13-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Interact with `Ezwatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
+.  Interact with `EzWatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
@@ -161,7 +164,10 @@ image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist page**, **Watchedlist page**, **Search page** and **Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+EzWatchlist gives users the ability to navigate easily through the **Watchlist page**, **Watchedlist page**, **Search page** and **Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
 
 ==== Details Page (Coming in v2.0)
 
@@ -206,7 +212,6 @@ Excited? Enter your statistics page to get started on your recommendations. You 
 just find your next favourite!
 ****
 
-
 ==== Auto-Correct (Coming in v2.0)
 EzWatchlist aims to provide a smooth experience for our typing users. All typing in EzWatchlist will be automatically
 corrected for you when typing in your commands.
@@ -245,7 +250,7 @@ Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_
 * `RUNNING_TIME` can be any number above 0
 [TIP]
 A show can have any number of actors (including 0)
-[NOTE]
+[TIP]
 `add` would only work in **Watchlist page** and **Watched page**.
 
 Examples:
@@ -262,13 +267,18 @@ Adds a show from search result page after user has already search for show +
 Format: `add INDEX`
 
 [TIP]
-This add command can only be used if user has already search for show using the search online command.
-[NOTE]
-`add` would only work in **Search page**.
+This add command can only be used if user is currently at search page, and has already search for show using the search online command.
 
 Examples:
 
-* `add 2`
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `add 1` +
+Add the movie - Titanic found in search list into watchlist
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
 
 ==== Clear the WatchList: `clear`
 
@@ -310,8 +320,9 @@ image::TheOfficeWatchCommand.png[width="790"]
 ****
 [TIP]
 Using the `watch` command on an already watched show will un-mark the show as watched.
-[NOTE]
+[TIP]
 `watch` would only work in **Watchlist page** and **Watched page**.
+
 
 Examples:
 
@@ -337,7 +348,7 @@ Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIM
 * You can remove all the show's actors by typing `a/` without specifying any actors after it.
 ****
 
-[NOTE]
+[TIP]
 `edit` would only work in **Watchlist page** and **Watched page**.
 
 Examples:
@@ -386,6 +397,51 @@ Returns movies with the genre "Action"
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
 
+==== Synchronise user's show data: `sync`
+Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
+Format:
+
+* `sync INDEX`
+
+****
+* User may have added their show with their own information. However, user might not know some of the parameters such as actors.
+* Thus, user can use the search online command `search n/` to look up information regarding that show.
+* Then, Synchronise command `sync` can be used to update information/modify on that show.
+* Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
+* The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
+* Names of the show are not case-sensitive.
+* User must have at least input the name of the show to use sync command. (Both are same name, case-insensitive)
+* User can use `add INDEX` command if a selected show in result page is not found in watchlist.
+****
+====
+Note: `Sync` will write over all the information of show with same name found in watchlist.
+====
+
+Examples:
+
+1. User has already input Titanic show into watchlist manually.
+
+* Watchlist page:
+** Movie #1: Name: titanic
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+Synchronise Titanic show in result page of index 1 with user's Titanic show.
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
+2. User has not input Titanic show into watchlist manually.
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+returns and display error because Titanic show is not found in watchlist page.
+* User can choose to use `add 1` command to add Titanic show.
+* `add 1`
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
 // tag::delete[]
 ==== Deleting a show : `delete`
 
@@ -417,7 +473,7 @@ Format: `exit`
 
 ==== Saving the data
 
-EzWatchlist data are saved in the hard disk automatically after any command that changes the data. +
+EzWatchlist's data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 == FAQ

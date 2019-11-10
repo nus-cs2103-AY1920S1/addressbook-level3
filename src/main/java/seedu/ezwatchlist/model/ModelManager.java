@@ -15,7 +15,6 @@ import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -158,13 +157,7 @@ public class ModelManager implements Model {
     @Override
     public void setShow(Show target, Show editedShow) {
         CollectionUtil.requireAllNonNull(target, editedShow);
-
         watchList.setShow(target, editedShow);
-    }
-
-    @Override
-    public void syncMovie(List<Movie> syncMovie) {
-
     }
 
     @Override
