@@ -4,7 +4,6 @@ package seedu.address.ui.queue;
 import java.util.Optional;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
