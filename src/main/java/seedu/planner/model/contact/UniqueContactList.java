@@ -61,14 +61,6 @@ public class UniqueContactList implements Iterable<Contact> {
     }
 
     /**
-     * Returns an Optional Contact if the list contains a contact with the same number as the given argument.
-     */
-    public Optional<Contact> getWithPhone(Phone toGet) {
-        requireNonNull(toGet);
-        return internalList.stream().filter(x -> x.getPhone().equals(toGet)).findFirst();
-    }
-
-    /**
      * Adds a contact to the list.
      * The contacts must not already exist in the list.
      */
@@ -139,6 +131,11 @@ public class UniqueContactList implements Iterable<Contact> {
         }
 
         internalList.setAll(contacts);
+    }
+
+    public Optional<Contact> getContact(Contact contact) {
+        requireNonNull(contact);
+        return internalList.stream().filter(x -> x.equals(contact)).findFirst();
     }
 
     /**

@@ -94,7 +94,7 @@ public class EditActivityCommand extends EditCommand {
         this.isUndoRedo = isUndoRedo;
     }
 
-    // Constructor used to undo or generate EditAccommodationEvent
+    // Constructor used to undo or generate EditActivityEvent
     public EditActivityCommand(Index index, EditActivityDescriptor editActivityDescriptor, Activity activity) {
         requireAllNonNull(index, activity);
         this.index = index;
@@ -132,8 +132,7 @@ public class EditActivityCommand extends EditCommand {
         Activity activityToEdit = lastShownList.get(index.getZeroBased());
         Index activityToEditIndex = findIndexOfActivity(model, activityToEdit);
         Activity editedActivity;
-        editedActivity = (activity == null) ? createEditedActivity(activityToEdit, editActivityDescriptor, model)
-                : activity;
+        editedActivity = (activity == null) ? createEditedActivity(activityToEdit, editActivityDescriptor) : activity;
 
         if (!activityToEdit.isSameActivity(editedActivity) && model.hasActivity(editedActivity)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY);
@@ -175,29 +174,18 @@ public class EditActivityCommand extends EditCommand {
      * edited with {@code editActivityDescriptor}.
      */
     private static Activity createEditedActivity(Activity activityToEdit,
-                                                 EditActivityDescriptor editActivityDescriptor,
-                                                 Model model) {
+                                                 EditActivityDescriptor editActivityDescriptor) {
         assert activityToEdit != null;
 
         Name updatedName = editActivityDescriptor.getName().orElse(activityToEdit.getName());
         Address updatedAddress = editActivityDescriptor.getAddress().orElse(activityToEdit.getAddress());
         Contact updatedContact = editActivityDescriptor.getPhone().isPresent()
-                ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).isPresent()
-                    ? model.getContactByPhone(editActivityDescriptor.getPhone().get()).get()
-                    : activityToEdit.getContact().isPresent()
-                        ? new Contact(activityToEdit.getContact().get().getName(),
-                            editActivityDescriptor.getPhone().get(),
-                            activityToEdit.getContact().get().getEmail().orElse(null),
-                            activityToEdit.getContact().get().getAddress().orElse(null),
-                            activityToEdit.getContact().get().getTags())
-                        : new Contact(updatedName,
-                            editActivityDescriptor.getPhone().get(),
-                        null,
-                            updatedAddress,
-                            new HashSet<>())
+                ? new Contact(updatedName, editActivityDescriptor.getPhone().get(),
+                null, updatedAddress, new HashSet<>())
                 : activityToEdit.getContact().isPresent()
-                    ? activityToEdit.getContact().get()
-                    : null;
+                ? new Contact(updatedName, activityToEdit.getContact().get().getPhone(),
+                activityToEdit.getContact().get().getEmail().orElse(null), updatedAddress, new HashSet<>())
+                : null;
 
         Cost updatedCost = editActivityDescriptor.getCost().isPresent()
                 ? editActivityDescriptor.getCost().get()

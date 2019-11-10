@@ -35,14 +35,14 @@ public class ContactTest {
         Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameContact(editedAlice));
 
-        // same name, same phone, different attributes -> returns true
+        // same name, same phone, different address -> returns false
         editedAlice = new ContactBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameContact(editedAlice));
+        assertFalse(ALICE.isSameContact(editedAlice));
 
-        // same name, same phone, same email, different attributes -> returns true
+        // same name, same phone, different address, same email, different attributes -> returns false
         editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameContact(editedAlice));
+        assertFalse(ALICE.isSameContact(editedAlice));
     }
 
     @Test

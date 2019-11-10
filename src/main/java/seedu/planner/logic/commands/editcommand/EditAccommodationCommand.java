@@ -126,7 +126,7 @@ public class EditAccommodationCommand extends EditCommand {
         Index accommodationToEditIndex = findIndexOfAccommodation(model, accommodationToEdit);
         Accommodation editedAccommodation;
         editedAccommodation = (accommodation == null) ? createEditedAccommodation(accommodationToEdit,
-                editAccommodationDescriptor, model) : accommodation;
+                editAccommodationDescriptor) : accommodation;
 
         if (!accommodationToEdit.isSameAccommodation(editedAccommodation)
                 && model.hasAccommodation(editedAccommodation)) {
@@ -165,29 +165,18 @@ public class EditAccommodationCommand extends EditCommand {
      * edited with {@code editAccommodationDescriptor}.
      */
     private static Accommodation createEditedAccommodation(Accommodation accommodationToEdit,
-                                                           EditAccommodationDescriptor editAccommodationDescriptor,
-                                                           Model model) {
+                                                           EditAccommodationDescriptor editAccommodationDescriptor) {
         assert accommodationToEdit != null;
 
         Name updatedName = editAccommodationDescriptor.getName().orElse(accommodationToEdit.getName());
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
         Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
-                ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).isPresent()
-                    ? model.getContactByPhone(editAccommodationDescriptor.getPhone().get()).get()
-                    : accommodationToEdit.getContact().isPresent()
-                        ? new Contact(accommodationToEdit.getContact().get().getName(),
-                            editAccommodationDescriptor.getPhone().get(),
-                            accommodationToEdit.getContact().get().getEmail().orElse(null),
-                            accommodationToEdit.getContact().get().getAddress().orElse(null),
-                            accommodationToEdit.getContact().get().getTags())
-                        : new Contact(updatedName,
-                            editAccommodationDescriptor.getPhone().get(),
-                            null,
-                            updatedAddress,
-                            new HashSet<>())
+                ? new Contact(updatedName, editAccommodationDescriptor.getPhone().get(),
+                null, updatedAddress, new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
-                    ? accommodationToEdit.getContact().get()
-                    : null;
+                ? new Contact(updatedName, accommodationToEdit.getContact().get().getPhone(),
+                accommodationToEdit.getContact().get().getEmail().orElse(null), updatedAddress, new HashSet<>())
+                : null;
 
         Set<Tag> updatedTags = editAccommodationDescriptor.getTags().orElse(accommodationToEdit.getTags());
 

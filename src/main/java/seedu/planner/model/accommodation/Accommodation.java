@@ -98,9 +98,9 @@ public class Accommodation {
         builder.append(getName())
                 .append(" Location: ")
                 .append(getAddress())
-                .append(" Contact: ")
+                .append(" Phone: ")
                 .append(getContact().isPresent()
-                        ? getContact().get()
+                        ? getContact().get().getPhone()
                         : "")
                 //note that Contact.toString also has tags
                 .append(" Tags: ");

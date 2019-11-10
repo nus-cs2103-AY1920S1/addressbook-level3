@@ -73,7 +73,9 @@ public class Contact {
         }
 
         return otherContact != null
-                && otherContact.getPhone().equals(getPhone());
+                && otherContact.getName().equals(getName())
+                && otherContact.getPhone().equals(getPhone())
+                && otherContact.getAddress().equals(getAddress());
     }
 
     /**
