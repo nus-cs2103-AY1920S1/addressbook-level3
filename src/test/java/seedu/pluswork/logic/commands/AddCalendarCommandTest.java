@@ -6,20 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
+import org.junit.jupiter.api.Test;
+
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.function.Predicate;
-
-import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
-import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.commons.core.Messages;
+import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
+import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.ReadOnlyUserPrefs;
 import seedu.pluswork.model.UserSettings;
@@ -32,164 +34,79 @@ import seedu.pluswork.model.mapping.Mapping;
 import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
+import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.testutil.MeetingQueryBuilder;
+import seedu.pluswork.testutil.CalendarWrapperBuilder;
 
-public class FindMeetingTimeCommandTest {
-    private static final LocalDateTime SAMPLE_START_DATE1;
-    private static final LocalDateTime SAMPLE_START_DATE2;
-    private static final LocalDateTime SAMPLE_START_DATE3;
-    private static final LocalDateTime SAMPLE_END_DATE1;
-    private static final LocalDateTime SAMPLE_END_DATE2;
-    private static final LocalDateTime SAMPLE_END_DATE3;
-    private static final Duration SAMPLE_DURATION1 = Duration.ofHours(20);
-    private static final Duration SAMPLE_DURATION2 = Duration.ofHours(1);
-    private static final Duration SAMPLE_DURATION3 = Duration.ofHours(2);
+public class AddCalendarCommandTest {
 
-    static {
-        LocalDateTime startTmp1 = null;
-        LocalDateTime startTmp2 = null;
-        LocalDateTime startTmp3 = null;
-        LocalDateTime endTmp1 = null;
-        LocalDateTime endTmp2 = null;
-        LocalDateTime endTmp3 = null;
-        try {
-            startTmp1 = DateTimeUtil.parseDateTime("10-11-2019 18:00");
-            startTmp2 = DateTimeUtil.parseDateTime("01-01-2001 01:00");
-            startTmp3 = DateTimeUtil.parseDateTime("30-03-2020 23:59");
-            endTmp1 = DateTimeUtil.parseDateTime("15-11-2019 19:00");
-            endTmp2 = DateTimeUtil.parseDateTime("15-10-2030 23:59");
-            endTmp3 = DateTimeUtil.parseDateTime("31-03-2020 01:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        requireNonNull(startTmp1);
-        requireNonNull(startTmp2);
-        requireNonNull(startTmp3);
-        requireNonNull(endTmp1);
-        requireNonNull(endTmp2);
-        requireNonNull(endTmp3);
-        assert(startTmp1.isBefore(endTmp1));
-        assert(startTmp2.isBefore(endTmp2));
-        assert(startTmp3.isBefore(endTmp3));
-        SAMPLE_START_DATE1 = startTmp1;
-        SAMPLE_START_DATE2 = startTmp2;
-        SAMPLE_START_DATE3 = startTmp3;
-        SAMPLE_END_DATE1 = endTmp1;
-        SAMPLE_END_DATE2 = endTmp2;
-        SAMPLE_END_DATE3 = endTmp3;
+    @Test
+    public void constructor_nullCalendar_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddCalendarCommand(null));
     }
 
     @Test
-    public void constructor_nullMeeting_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, null, null));
-        assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
-        assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
-        assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
-        assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
+    public void execute_nullModel_throwsNullPointerException() {
+        CalendarWrapper validCalendar = new CalendarWrapperBuilder().build();
+        AddCalendarCommand validCommand = new AddCalendarCommand(validCalendar);
+        ModelStub modelStub = null;
+
+        assertThrows(NullPointerException.class, () -> validCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_findMeetingTimeAcceptedByModel_successful() throws Exception {
-        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        MeetingQuery validMeetingQueryEmptyList =
-                new MeetingQueryBuilder().withMeetings(new ArrayList<Meeting>()).build();
+    public void execute_calendarAcceptedByModel_addSuccessful() throws Exception {
+        CalendarWrapper validCalendar = new CalendarWrapperBuilder().build();
+        AddCalendarCommand validCommand = new AddCalendarCommand(validCalendar);
+        ModelStub modelStub = new ModelStubAcceptingCalendarAdded();
+        assert(!modelStub.hasCalendar(validCalendar));
 
-        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-        ModelStub modelStubEmptyList = new ModelStubWithMeetingQuery(validMeetingQueryEmptyList);
+        CommandResult commandResult = validCommand.execute(modelStub);
 
-        FindMeetingTimeCommand validCommand1 =
-                new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
-        FindMeetingTimeCommand validCommand2 =
-                new FindMeetingTimeCommand(SAMPLE_START_DATE2, SAMPLE_END_DATE2, SAMPLE_DURATION2);
-
-        CommandResult commandSuccess1 = validCommand1.execute(modelStub);
-        CommandResult commandSuccess2 = validCommand2.execute(modelStub);
-
-        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_SUCCESS,
-                DateTimeUtil.displayDateTime(SAMPLE_START_DATE1),
-                DateTimeUtil.displayDateTime(SAMPLE_END_DATE1)),
-                commandSuccess1.getFeedbackToUser());
-        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_SUCCESS,
-                DateTimeUtil.displayDateTime(SAMPLE_START_DATE2),
-                DateTimeUtil.displayDateTime(SAMPLE_END_DATE2)),
-                commandSuccess2.getFeedbackToUser());
-
-        CommandResult commandFail1 = validCommand1.execute(modelStubEmptyList);
-        CommandResult commandFail2 = validCommand2.execute(modelStubEmptyList);
-
-        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_FAILURE,
-                DateTimeUtil.displayDateTime(SAMPLE_START_DATE1),
-                DateTimeUtil.displayDateTime(SAMPLE_END_DATE1)),
-                commandFail1.getFeedbackToUser());
-        assertEquals(String.format(FindMeetingTimeCommand.MESSAGE_FAILURE,
-                DateTimeUtil.displayDateTime(SAMPLE_START_DATE2),
-                DateTimeUtil.displayDateTime(SAMPLE_END_DATE2)),
-                commandFail2.getFeedbackToUser());
+        assertEquals(String.format(AddCalendarCommand.MESSAGE_SUCCESS, validCalendar),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_nullMeetingQueryGenerated_throwsAssertionError() {
-        FindMeetingTimeCommand validCommand1 =
-                new FindMeetingTimeCommand(SAMPLE_START_DATE3, SAMPLE_END_DATE3, SAMPLE_DURATION1);
-        FindMeetingTimeCommand validCommand2 =
-                new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION2);
-        ModelStub modelStubNull = new ModelStubWithMeetingQuery(null);
-        assertThrows(AssertionError.class, () -> validCommand1.execute(modelStubNull));
-        assertThrows(AssertionError.class, () -> validCommand2.execute(modelStubNull));
-    }
+    public void execute_duplicateCalendar_throwsCommandException() {
+        CalendarWrapper validCalendar = new CalendarWrapperBuilder().build();
+        AddCalendarCommand invalidCommand = new AddCalendarCommand(validCalendar);
 
-    @Test
-    public void execute_endTimeBeforeStartTime_throwsCommandException() {
-        FindMeetingTimeCommand invalidCommand1 =
-                new FindMeetingTimeCommand(SAMPLE_END_DATE1, SAMPLE_START_DATE1, SAMPLE_DURATION1);
-        FindMeetingTimeCommand invalidCommand2 =
-                new FindMeetingTimeCommand(SAMPLE_END_DATE2, SAMPLE_START_DATE2, SAMPLE_DURATION2);
-        FindMeetingTimeCommand invalidCommand3 =
-                new FindMeetingTimeCommand(SAMPLE_END_DATE3, SAMPLE_START_DATE3, SAMPLE_DURATION3);
-        MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        assert(validMeetingQuery != null);
-        ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
-        assertThrows(CommandException.class, FindMeetingTimeCommand.ILLEGAL_END_DATE,
-                () -> invalidCommand1.execute(modelStub));
-        assertThrows(CommandException.class, FindMeetingTimeCommand.ILLEGAL_END_DATE,
-                () -> invalidCommand2.execute(modelStub));
-        assertThrows(CommandException.class, FindMeetingTimeCommand.ILLEGAL_END_DATE,
-                () -> invalidCommand3.execute(modelStub));
+        ModelStub modelStub = new ModelStubAcceptingCalendarAdded();
+        modelStub.addCalendar(validCalendar);
+
+        assertThrows(CommandException.class, AddCalendarCommand.MESSAGE_DUPLICATE_CALENDAR, () ->
+                invalidCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        FindMeetingTimeCommand command1
-                = new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
-        FindMeetingTimeCommand command2
-                = new FindMeetingTimeCommand(SAMPLE_START_DATE2, SAMPLE_END_DATE2, SAMPLE_DURATION2);
+        CalendarWrapper validCalendar1 = new CalendarWrapperBuilder().build();
+        CalendarWrapper validCalendar2 = new CalendarWrapperBuilder()
+                .withMemberName(new MemberName("Bobby")).build();
+        assert(!validCalendar1.getMemberName().equals(validCalendar2.getMemberName()));
+
+        AddCalendarCommand addCalendarCommand1 = new AddCalendarCommand(validCalendar1);
+        AddCalendarCommand addCalendarCommand2 = new AddCalendarCommand(validCalendar2);
 
         // same object -> returns true
-        assertTrue(command1.equals(command1));
+        assertTrue(addCalendarCommand1.equals(addCalendarCommand1));
 
         // same values -> returns true
-        FindMeetingTimeCommand command1Copy =
-                new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION1);
-        assertTrue(command1.equals(command1Copy));
+        AddCalendarCommand addCalendarCommand1Copy = new AddCalendarCommand(validCalendar1);
+        assertTrue(addCalendarCommand1.equals(addCalendarCommand1Copy));
 
         // different types -> returns false
-        assertFalse(command1.equals(SAMPLE_START_DATE1));
-        assertFalse(command2.equals(SAMPLE_END_DATE3));
+        assertFalse(addCalendarCommand2.equals("Weird string"));
 
         // null -> returns false
-        assertFalse(command2.equals(null));
+        assertFalse(addCalendarCommand2.equals(null));
 
         // different task -> returns false
-        assertFalse(command1.equals(command2));
+        assertFalse(addCalendarCommand1.equals(addCalendarCommand2));
     }
 
     /**
@@ -518,23 +435,19 @@ public class FindMeetingTimeCommandTest {
     }
 
     /**
-     * A Model stub that contains a single task.
+     * A Model stub that always accept the task being added.
      */
-    private class ModelStubWithMeetingQuery extends ModelStub {
-        final MeetingQuery meetingQuery;
+    private class ModelStubAcceptingCalendarAdded extends ModelStub {
+        final ArrayList<CalendarWrapper> calendarsAdded = new ArrayList<>();
 
-        private ModelStubWithMeetingQuery(MeetingQuery meetingQuery) {
-            this.meetingQuery = meetingQuery;
+        @Override
+        public boolean hasCalendar(CalendarWrapper calendar) {
+            return calendarsAdded.stream().anyMatch(calendar::hasSameMemberName);
         }
 
         @Override
-        public MeetingQuery getMeetingQuery() {
-            return meetingQuery;
-        }
-
-        @Override
-        public void findMeetingTime(LocalDateTime startDate, LocalDateTime endDate, Duration duration) {
-
+        public void addCalendar(CalendarWrapper calendar) {
+            calendarsAdded.add(calendar);
         }
     }
 }

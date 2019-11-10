@@ -458,48 +458,55 @@ The "Upcoming deadlines" sidebar (right side of above picture) helps you keep tr
 
 '''
 
-=== Calendar Commands (Coming in v1.3)
+=== Calendar Commands
 
 ****
 
-Suggested steps for you to follow
+Before using +Work's calendar features
 
-1. User first exports their `.ics` file from NUSmods
+1. Have your team members download their calendar through NUSmods as an `.ics` file
 
-2. Then import it into their google calendar
+2. Team members import the file into their google calendar and add their weekly commitments
 
-3. Add any weekly commitments to their google calendar
+3. Team members export the calendar as an `.ics` file once again
 
-4. Export `.ics` file again
+4. Collect these calendar `.ics` files from team members
 
-5. Import all to our application
+5. Take note of the file path that the files are stored under
 
-6. enter command `generate-timings`
-
-7. Choose the desired timing for the weekly meetings from the grid displayed
-
-8. Create a new `Meeting`
+Now you are ready to use +Work's calendar commands!
 
 ****
 
-==== Adding a members calendar: `import-calendar`
+==== Adding a member's calendar: `add-calendar`
 
-Format: `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`
-
-Example:
-
-You can add your project's member John Doe's `ics` file like this,
-
-* `import-calendar mi/JD c/data/john_ics_file` +
-Adds a calendar to John's profile
-
-==== Generating time across all calendars uploaded: `generate-timings`
-
-Format: `generate-timings`
+Format: `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`
 
 Example:
 
-* `generate-timings` +
+You can add your team member John Doe's calendar file with the command
+
+* `add-calendar mn/John Doe fp/C:\Users\gabriel\Desktop\CalendarFiles\john_calendar.ics` +
+John's calendar is now saved in +Work
+
+==== Removing a member's calendar: `delete-calendar`
+
+Format: `delete-calendar [mn/MEMBER_NAME]`
+
+Example:
+
+You can also remove a team member's calendar file like this,
+
+* `add-calendar mn/John Doe` +
+John's calendar has been deleted from +Work
+
+==== Find a meeting time: `find-meeting-time`
+
+Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
+
+Example:
+
+* `find-meeting-time start/__19-10-2019 08:00__ end/__29-10-2019 17:00__ hours/2` +
 Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
 
 ==== Adding a meeting: `add meeting`
