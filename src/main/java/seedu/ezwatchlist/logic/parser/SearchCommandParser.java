@@ -17,18 +17,18 @@ import java.util.stream.Stream;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
-import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new SearchCommand object.
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
-    private HashMap<SearchKey, List<String>> searchShowsHashMap = new HashMap<>();
     private static final String INPUT_TRUE = "true";
     private static final String INPUT_YES = "yes";
     private static final String INPUT_FALSE = "false";
     private static final String INPUT_NO = "no";
+
+    private HashMap<SearchKey, List<String>> searchShowsHashMap = new HashMap<>();
 
     /**
      * Parses the given {@code String} of arguments in the context of the SearchCommand.
