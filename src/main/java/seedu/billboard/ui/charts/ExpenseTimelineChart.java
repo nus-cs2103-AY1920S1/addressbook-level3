@@ -5,8 +5,6 @@ import static java.util.stream.Collectors.toList;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
@@ -49,7 +47,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private final ObservableData<DateInterval> dateInterval;
     private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final TimelineGenerator timelineGenerator;
-    private final Map<String, XYChart.Series<Long, BigDecimal>> seriesMap;
+    private final SeriesManager<Long, BigDecimal> seriesManager;
     private final FormattedDateConverter formattedDateConverter;
 
     /**
@@ -68,12 +66,13 @@ public class ExpenseTimelineChart extends ExpenseChart {
         this.dateInterval = dateInterval;
         this.expenseGrouping = expenseGrouping;
         this.timelineGenerator = timelineGenerator;
-        this.seriesMap = new HashMap<>();
+        this.seriesManager = new SeriesManager<>(
+                expenseGrouping.getValue().getGroupingFunction().group(expenses).keySet(),
+                timelineChart);
 
         formattedDateConverter = new FormattedDateConverter(getDateIntervalFormats(dateInterval.getValue()));
         xAxis.setTickLabelFormatter(formattedDateConverter);
 
-        setupSeriesMapping(expenseGrouping.getValue().getGroupingFunction().group(expenses));
         updateTimeline(expenses, expenseGrouping.getValue(), dateInterval.getValue());
 
         setupListeners();
@@ -118,21 +117,6 @@ public class ExpenseTimelineChart extends ExpenseChart {
     }
 
     /**
-     * Idempotent method which updates {@code seriesMap} with new series names from the keys of the input map, and
-     * creates new series based on those names to replace the current series.
-     */
-    private void setupSeriesMapping(Map<String, ? extends List<? extends Expense>> expenseListMap) {
-        seriesMap.clear();
-        for (var entry : expenseListMap.entrySet()) {
-            XYChart.Series<Long, BigDecimal> series = new XYChart.Series<>();
-            series.setName(entry.getKey());
-            seriesMap.put(entry.getKey(), series);
-        }
-
-        timelineChart.getData().setAll(seriesMap.values());
-    }
-
-    /**
      * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
      */
     private void setupListeners() {
@@ -158,23 +142,10 @@ public class ExpenseTimelineChart extends ExpenseChart {
         int tickUnit = getDateIntervalTickUnit(interval);
         updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit);
 
-
         Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
-        if (!seriesMap.keySet().equals(expenseListMap.keySet())) {
-            setupSeriesMapping(expenseListMap);
-        }
-
-        List<XYChart.Series<Long, BigDecimal>> unusedSeries = new ArrayList<>();
-
-        for (var series : timelineChart.getData()) {
-            String name = series.getName();
-            if (expenseListMap.containsKey(name)) {
-                updateSeries(timelineGenerator.generateAsync(expenseListMap.get(name), interval), name);
-            } else {
-                unusedSeries.add(series);
-            }
-        }
-        timelineChart.getData().removeAll(unusedSeries);
+        seriesManager.updateSeriesSet(expenseListMap.keySet());
+        seriesManager.updateSeries(series ->
+                updateSeries(timelineGenerator.generateAsync(expenseListMap.get(series.getName()), interval), series));
     }
 
     private void updateXAxisRange(long min, long max, double tickUnit) {
@@ -188,18 +159,13 @@ public class ExpenseTimelineChart extends ExpenseChart {
 
 
     /**
-     * Helper method called to asynchronously update each series.
+     * Helper method called to asynchronously update a series.
      */
-    private void updateSeries(Task<ExpenseTimeline> newTimelineTask, String seriesName) {
+    private void updateSeries(Task<ExpenseTimeline> newTimelineTask, XYChart.Series<Long, BigDecimal> series) {
         newTimelineTask.setOnSucceeded(event -> {
             ExpenseTimeline timeline = newTimelineTask.getValue();
             List<XYChart.Data<Long, BigDecimal>> data = transformToData(timeline);
-
-            if (!seriesMap.containsKey(seriesName)) {
-                logger.warning("Series: " + seriesName + " does not exist in chart.");
-                return;
-            }
-            Platform.runLater(() -> seriesMap.get(seriesName).getData().setAll(data));
+            Platform.runLater(() -> series.getData().setAll(data));
         });
     }
 
