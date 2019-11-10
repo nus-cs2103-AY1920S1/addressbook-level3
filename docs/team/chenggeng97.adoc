@@ -11,11 +11,20 @@
 === Project Description
 This is a portfolio that documents my contributions towards a Calendar and Scheduling application called Horo. Horo helps the user maintain a to-do list and to schedule their activities, and is able to post reminders to their desktop.
 
+Here is a screenshot of our application in the default Calendar view.
+.Horo Calendar view screenshot
+image::HoroPPPScreenshot.png[]
+
 === Project Scope
 Horo was made for the CS2103T Software Engineering module, offered by the National University of Singapore's School of Computing. Over the course of 6 weeks, students were grouped into teams tasked with either enhancing or morphing a basic Command Line Interface (CLI) application. I contributed to the project by writing both functional and test code, as well as documenting these contributions in the product's User and Developer guides.
 
 === Portfolio Purpose
 My role in this project was to design and implement the Notification system of the application. Subsequent sections will go into greater detail with regards to my contributions to both the code and documentation.
+
+Note the following symbols and formatting used throughout this document:
+|=======
+| `notif_on` | A grey highlight indicates that a term is a command that can be executed by the program if input through the command line.
+|=======
 
 == Summary of Contributions
 This section lists the code and documentation I contributed to the project.
