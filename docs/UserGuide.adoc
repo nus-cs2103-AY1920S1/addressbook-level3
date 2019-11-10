@@ -153,7 +153,7 @@ image::Help.png[width=400]
 === Member-related Commands
 
 ==== Adding a member: `add-member` +
-To add a member to the list of team members in +Work, use the command 'add-member' following the format below.
+To add a member to the list of team members in +Work, use the command `add-member` following the format below.
 
 Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
@@ -256,7 +256,7 @@ image::ListMembers.png[]
 As seen from the above, all existing project members in +Work will be listed.
 
 ==== Removing a member: `remove-member` +
-To remove a member from the project, and subsequently remove him from associated tasks, use the 'remove-member' command in the format below. +
+To remove a member from the project, and subsequently remove him from associated tasks, use the `remove-member` command in the format below. +
 Format: `remove-member [mi/MEMBER_ID]`
 
 Example: `remove-member mi/GS` can be executed as follows:
@@ -293,7 +293,7 @@ image::BeforeAssign.png[]
 image::AfterAssign.png[]
 
 ==== Removing a task from a member: `fire` +
-To remove a task from a specific team member, use the 'fire' command in the format below. +
+To remove a task from a specific team member, use the `fire` command in the format below. +
 
 Format: `fire ti/TASK_ID mi/MEMBER_ID` +
 

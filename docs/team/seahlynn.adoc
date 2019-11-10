@@ -1,5 +1,5 @@
 
-=== Seah Lynn - Project Portfolio
+= Seah Lynn - Project Portfolio
 :site-section: ProjectPortfolio
 :sectnums:
 :sectnumlevels: 4
@@ -55,11 +55,11 @@ and allows different tasks and members to be assigned to one another. This allow
 users to be able to draw connections between tasks and members when managing the project.
 ** Highlights: One of the unique features that `Member` objects has is the ability to be assigned profile pictures. Users can
 link an image on their laptop to a specific member in +Work, to set the image as the member's profile photo. This was
-challenging to implement because I had to ensure the UI would be able to accurately display the profile picture of each
+challenging to implement because I had to ensure the User Interface (UI) would be able to accurately display the profile picture of each
 member.
 
 * *Minor enhancement*:
-** Enhance the User Interface (UI) for members in +Work, which can include members' profile photos, as well as list tasks allocated to
+** Enhance the UI for members in +Work, which can include members' profile photos, as well as list tasks allocated to
 each member under individual member cards
 ** Created the UI of statistics calculated, and made sure it was in an easy-to-read and aesthetic format
 
@@ -83,7 +83,6 @@ each member under individual member cards
 *** Reported bugs and suggestions for another team in the cohort (https://github.com/seahlynn/ped[reports])
 
 === Contributions to the User Guide
-We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
 The following section displays excerpts of my additions to the *+Work User Guide* for the `Statistics` and `Member` features.
 
 ==== Member-related Commands
@@ -95,16 +94,17 @@ Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="450", align="center"]
+image::BeforeAdd.png[width="400", align="center"]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="450", align="center"]
+image::DuringAdd.png[width="400", align="center"]
 {empty} +
-*Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
+{empty} +
+*Step 3:* After you hit  kbd:[Enter] , the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="450", align="center"]
+image::DoneAdd.png[width="400", align="center"]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -124,15 +124,15 @@ Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as fol
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="450", align="center"]
+image::BeforeSet.png[width="400", align="center"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
 
-*Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
+*Step 3:* After you  kbd:[Enter]  the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="450", align="center"]
+image::SetImage.png[width="400", align="center"]
 
 [NOTE]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
@@ -163,8 +163,8 @@ The Statistics feature allows users to retrieve statistics relating to members a
 broad overview of the project and members' contribution to the project.
 
 ===== Implementation
-The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class 'Statistics'
-that resides within model. The 'Statistics' class implements the following operations:
+The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class `Statistics`
+that resides within model. The `Statistics` class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
 * `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
@@ -185,23 +185,19 @@ Data previously saved refers to the statistics calculation done based on list of
 The `task-stats` command obtains lists of all the members, tasks and mappings saved in the application, and uses the lists to form a Statistics object.
 `Model#setStatistics` is then called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram shows how the 'task-stats' operation works.
+The following sequence diagram shows how the `task-stats` operation works.
 
 .Operational flow of `GetStatisticsCommand`
 image::GetStatisticsSequenceDiagram.png[width="600", align="center"]
 
-[NOTE]
-The `member-stats` operation is similar to the one shown in figure 10.
-
-Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
-`TaskStatisticsView` class is also called to display the task stats. To allow the 'UI' to be responsive, `getStatistics()`
+*Step 3.* In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
+`TaskStatisticsView` class is also called to display the task stats. To allow the `UI` to be responsive, `getStatistics()`
 is similarly exposed in the `Logic`interface as `Logic#getStatistics()`.
 
-The following sequence diagram (Figure 11) shows how calling the `task-stats` operation leads to the comprehensive UI display of task statistics.
+The following sequence diagram shows how calling the `task-stats` operation leads to the comprehensive UI display of task statistics.
 
 .Operational flow of displaying statistics in +Work
 image::GetStatisticsUISequenceDiagram.png[align="center"]
-
 
 // end::statisticsP1[]
 
@@ -210,7 +206,8 @@ image::GetStatisticsUISequenceDiagram.png[align="center"]
 This section describes the pros and cons of the current and other alternative implementations of the Statistics class in +Work,
 as well as the display of statistics in +Work.
 
-====== Aspect: Implementation of Statistics class
+*Aspect: Implementation of Statistics class*
+
 * **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
 ** Pros: Easy to implement, centralised class for all statistics
 ** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
@@ -220,7 +217,8 @@ as well as the display of statistics in +Work.
 
 *Alternative 1* was chosen given the time constraint in implementing the features in time for +Work Version 1.4.
 
-====== Aspect: Display of Statistics for Project Dashboard
+*Aspect: Display of Statistics for Project Dashboard*
+
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Increases the ease of workload comparison
 ** Cons: Decreases the amount of detail of individual tasks and members that are displayed
@@ -239,9 +237,16 @@ more than Alternative 2 does.
 The member feature introduces the ability for +Work to deal with project members, in the same way it deals with project tasks.
 This makes +Work a more comprehensive application because project tasks and members can be kept track of together.
 
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+
 ===== Implementation
 +Work's members and their related commands are supported by a `Member` class that resides within model.
-The following class diagram exposes the structure of the Member class, and shows how the different components relating to the Member class works together.
+The following class diagram exposes the structure of the `Member` class, and shows how the different components relating to the Member class works together.
 
 .Class diagram of `Member` package
 image::MemberClassDiagram.png[width="500", align="center"]
@@ -264,7 +269,12 @@ The `set-image` command calls `Model#getFilteredMembersList()` to retrieve the M
 A new member object is formed, with all the same parameters as the specified member object, and a new Image Filepath parameter.
 `Model#setMember` is called to replace the old member object with the new one in +Work.
 
-The following sequence diagram shows how the 'set-image' operation works.
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+{empty} +
+The following sequence diagram shows how the `set-image` operation works.
 
 .Operational flow of `SetImageCommand`
 image::SetImageSequenceDiagram.png[align="center"]
@@ -276,7 +286,8 @@ The image's file path is stored in the Member object. If the image is shifted to
 ===== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the image attribute under members.
 
-====== Aspect: Storage of image under member
+*Aspect: Storage of image under member*
+
 * **Alternative 1:** Storing the image filepath as a changeable attribute
 ** Pros: Editing a member's profile picture involves accessing the member and changing its file path attribute
 ** Cons: The image file path attribute is exposed to the rest of the classes in +Work and may be unintentionally edited, causing
