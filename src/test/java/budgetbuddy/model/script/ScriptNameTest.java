@@ -43,8 +43,12 @@ class ScriptNameTest {
 
     @Test
     void testEquals() {
-        assertEquals(new ScriptName("abcde"), new ScriptName("abcde"));
+        ScriptName sn = new ScriptName("abcde");
+        assertEquals(sn, sn);
+        assertEquals(sn, new ScriptName("abcde"));
         assertNotEquals(new ScriptName("abcdef"), new ScriptName("abcde"));
+        assertNotEquals(sn, null);
+        assertNotEquals(sn, "hello");
     }
 
     @Test
