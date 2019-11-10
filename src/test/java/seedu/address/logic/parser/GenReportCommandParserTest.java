@@ -30,6 +30,10 @@ public class GenReportCommandParserTest {
     public void parse_invalidArgs_throwsParseException() {
         //Signature contains numbers
         assertParseFailure(parser, "1 1", MESSAGE_INVALID_SIGNATURE_FORMAT);
+        assertParseFailure(parser, "1 1abc", MESSAGE_INVALID_SIGNATURE_FORMAT);
+        //Signature contains punctuation
+        assertParseFailure(parser, "1 %", MESSAGE_INVALID_SIGNATURE_FORMAT);
+        assertParseFailure(parser, "1 %abc", MESSAGE_INVALID_SIGNATURE_FORMAT);
         //Signature too long
         assertParseFailure(parser, "1 abcdefghijklmnopqrstuvwxyzabcdabcdefghij",
                 MESSAGE_INVALID_SIGNATURE_FORMAT);

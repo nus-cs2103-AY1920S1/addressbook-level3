@@ -30,9 +30,9 @@ public class GenReportCommandParser implements Parser<GenReportCommand> {
             String sign = "";
             if (argArray.length == 2) {
                 sign = argArray[1];
-            }
-            if (sign.matches(".*\\d.*") || sign.length() + 1 > 40) {
-                throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
+                if (!sign.matches("^[ A-Za-z]+$") || sign.length() + 1 > 40) {
+                    throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
+                }
             }
             if (index.matches("[0-9]+")) {
                 Index genReportBodyId = Index.fromZeroBased(Integer.parseInt(index));
