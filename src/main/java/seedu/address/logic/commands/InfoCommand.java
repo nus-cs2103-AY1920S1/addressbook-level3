@@ -25,10 +25,23 @@ public class InfoCommand extends Command {
 
     private final Index index;
 
+    /**
+     * Constructor for InfoCommand.
+     *
+     * @param index index of book to display information on.
+     */
     public InfoCommand(Index index) {
         this.index = index;
     }
 
+    /**
+     * Executes the loan command to retrieve and display information about the target book and
+     * returns the result message.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return Feedback message of the operation result for display.
+     * @throws CommandException If an error occurs during command execution.
+     */
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -41,7 +54,12 @@ public class InfoCommand extends Command {
                 String.format(MESSAGE_BOOK_INFO, getTitleFromBook(target)), target);
     }
 
-
+    /**
+     * Returns a string representation of the itle of a book.
+     *
+     * @param target Book title to be retrieved from.
+     * @return String representation of the title of a book.
+     */
     private String getTitleFromBook(Book target) {
         return target.getTitle().toString();
     }

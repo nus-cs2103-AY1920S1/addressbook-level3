@@ -157,7 +157,7 @@ public class LoanSlipDocument {
     }
 
     /**
-     * Helper method to allow writing to document with custom font size.
+     * Writes left-aligned text to document with custom font size.
      *
      * @param text Text to be written.
      * @param fontSize font size of the text.
@@ -167,6 +167,12 @@ public class LoanSlipDocument {
         doc.add(p);
     }
 
+    /**
+     * Writes centralised text to document with custom font size.
+     *
+     * @param text Text to be written.
+     * @param fontSize font size of the text.
+     */
     private void writeToDocCentralised(String text, int fontSize) {
         Paragraph p = alignParagraph(TextAlignment.CENTER);
         p.add(text).setFontSize(fontSize);
@@ -174,7 +180,7 @@ public class LoanSlipDocument {
     }
 
     /**
-     * Helper method to write a paragraph to the document.
+     * Writes a paragraph to the document.
      * Allows customization of text and font size.
      *
      * @param text text to be added to the paragraph.
