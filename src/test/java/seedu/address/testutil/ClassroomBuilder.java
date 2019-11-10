@@ -23,6 +23,11 @@ public class ClassroomBuilder {
         this.classroom = classroom;
     }
 
+    public ClassroomBuilder withClassroomName(String classroomName) {
+        classroom.setClassroomName(classroomName);
+        return this;
+    }
+
     /**
      * Adds a list of new {@code Student} to the {@code Classroom} that we are building.
      */

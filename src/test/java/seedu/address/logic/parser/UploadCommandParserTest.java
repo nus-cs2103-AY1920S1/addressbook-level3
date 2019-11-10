@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalFiles.FILE_EXAMPLE_1;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ public class UploadCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsUploadCommand() {
-        assertParseSuccess(parser, "1 f/path/file.png", new UploadPictureCommand(INDEX_FIRST_STUDENT, FILE_EXAMPLE_1));
+        assertParseSuccess(parser, "1 f/path/file.png", new UploadPictureCommand(INDEX_FIRST_OBJECT, FILE_EXAMPLE_1));
     }
 
     @Test
