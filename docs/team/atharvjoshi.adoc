@@ -43,10 +43,11 @@ The implementation too was challenging as it required brainstorming a seamless w
 |===
 
 include::../UserGuide.adoc[tag=fill]
+include::../UserGuide.adoc[tag=incidentversionhistory]
+
 
 [NOTE]
 I also wrote section 3.12 of the User Guide explaining the functioning of the `submit` command in two modes.
-Please refer to this link if you are interested in viewing this section: [https://github.com/AY1920S1-CS2103-T11-1/main/blob/master/docs/UserGuide.adoc#submitting-a-completed-draft-report-submit[3.12 Submit]]
 
 == Contributions to the Developer Guide
 
