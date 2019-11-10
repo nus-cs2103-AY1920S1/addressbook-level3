@@ -8,6 +8,7 @@ import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class NameContainsKeywordsPredicateTest {
     @Test
     public void test_problemNameContainsKeywords_returnTrue() {
         List<Keyword> list = new ArrayList<>();
-        for (String s : Arrays.asList(QUICK_SORT.getName().fullName.split(" "))) {
+        for (String s : QUICK_SORT.getName().fullName.split(" ")) {
             Keyword keyword = new Keyword(s);
             list.add(keyword);
         }
@@ -34,9 +35,9 @@ class NameContainsKeywordsPredicateTest {
 
     @Test
     public void test_constraintKeywordNotSeparatedBySpaces_returnFalse() {
+        Keyword keyword = new Keyword(QUICK_SORT.getName().fullName.replace(" ", ""));
         NameContainsKeywordsPredicate predicate =
-            new NameContainsKeywordsPredicate(
-                    Arrays.asList(new Keyword(QUICK_SORT.getName().fullName.replace(" ", ""))));
+            new NameContainsKeywordsPredicate(Collections.singletonList(keyword));
         assertFalse(predicate.test(QUICK_SORT));
     }
 

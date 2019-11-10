@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.algobase.testutil.TypicalProblems.QUICK_SORT;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -35,8 +35,9 @@ class TagIncludesKeywordsPredicateTest {
 
     @Test
     public void test_tagDoesNotIncludeKeywords_returnFalse() {
+        Keyword keyword = new Keyword(KEYWORD_NOT_IN_QUICK_SORT_TAGS);
         TagIncludesKeywordsPredicate predicate =
-                new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword(KEYWORD_NOT_IN_QUICK_SORT_TAGS)));
+                new TagIncludesKeywordsPredicate(Collections.singletonList(keyword));
         assertFalse(predicate.test(QUICK_SORT));
     }
 

@@ -8,7 +8,7 @@ import static seedu.algobase.testutil.TypicalProblemSearchRules.ALL_PREDICATE;
 import static seedu.algobase.testutil.TypicalProblemSearchRules.NAME_SEQUENCES;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class AddFindRuleCommandTest {
 
         assertEquals(String.format(AddFindRuleCommand.MESSAGE_SUCCESS, validSearchRule.getName()),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validSearchRule), modelStub.findRulesAdded);
+        assertEquals(Collections.singletonList(validSearchRule), modelStub.findRulesAdded);
     }
 
     @Test
@@ -80,7 +80,7 @@ class AddFindRuleCommandTest {
         assertNotEquals(commandOne, commandTwo);
     }
 
-    private class ModelStubWithFindRule extends DefaultModelStub {
+    private static class ModelStubWithFindRule extends DefaultModelStub {
         private final ProblemSearchRule findRule;
 
         ModelStubWithFindRule(ProblemSearchRule findRule) {
@@ -96,7 +96,7 @@ class AddFindRuleCommandTest {
     }
 
 
-    private class ModelStubAcceptFindRuleAdded extends DefaultModelStub {
+    private static class ModelStubAcceptFindRuleAdded extends DefaultModelStub {
         final List<ProblemSearchRule> findRulesAdded = new ArrayList<>();
 
         @Override

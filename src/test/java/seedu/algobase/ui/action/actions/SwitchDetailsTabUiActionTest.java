@@ -50,7 +50,7 @@ public class SwitchDetailsTabUiActionTest {
     /**
      * A Model stub that always accepts the problem being added.
      */
-    private class ModelStubAcceptingDetailsTabIndex extends DefaultModelStub {
+    private static class ModelStubAcceptingDetailsTabIndex extends DefaultModelStub {
 
         @Override
         public GuiState getGuiState() {

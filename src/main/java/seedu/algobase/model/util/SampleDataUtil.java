@@ -3,6 +3,7 @@ package seedu.algobase.model.util;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -253,16 +254,16 @@ public class SampleDataUtil {
             new DifficultyIsInRangePredicate(2.0, 4.0), null));
         rules.add(new ProblemSearchRule(
             new seedu.algobase.model.searchrule.problemsearchrule.Name("Sequence Problems"),
-            new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("Sequences"))),
+            new NameContainsKeywordsPredicate(Collections.singletonList(new Keyword("Sequences"))),
             null, null, null, null, null));
         rules.add(new ProblemSearchRule(
             new seedu.algobase.model.searchrule.problemsearchrule.Name("Two Sum"),
             new NameContainsKeywordsPredicate(Arrays.asList(new Keyword("two"), new Keyword("SUM"))),
             null,
-            new DescriptionContainsKeywordsPredicate(Arrays.asList(new Keyword("indices"))),
+            new DescriptionContainsKeywordsPredicate(Collections.singletonList(new Keyword("indices"))),
             new SourceMatchesKeywordPredicate(new Keyword("LeetCode")),
             new DifficultyIsInRangePredicate(0.5, 1.5),
-            new TagIncludesKeywordsPredicate(Arrays.asList(new Keyword("hash-table")))
+            new TagIncludesKeywordsPredicate(Collections.singletonList(new Keyword("hash-table")))
         ));
         rules.add(new ProblemSearchRule(
             new seedu.algobase.model.searchrule.problemsearchrule.Name("Problems by Wee Han"),

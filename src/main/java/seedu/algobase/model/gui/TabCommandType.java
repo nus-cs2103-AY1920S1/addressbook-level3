@@ -7,5 +7,5 @@ public enum TabCommandType {
     SWITCH_DISPLAY,
     SWITCH_DETAILS,
     OPEN_DETAILS,
-    CLOSE_DETAILS;
+    CLOSE_DETAILS
 }

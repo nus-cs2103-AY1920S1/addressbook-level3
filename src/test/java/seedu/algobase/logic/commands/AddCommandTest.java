@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -38,13 +38,13 @@ class AddCommandTest {
             String.format(AddCommand.MESSAGE_SUCCESS, validProblem.getName()),
             commandResult.getFeedbackToUser()
         );
-        assertEquals(Arrays.asList(validProblem), modelStub.problemsAdded);
+        assertEquals(Collections.singletonList(validProblem), modelStub.problemsAdded);
     }
 
     /**
      * A Model stub that always accept the problem being added.
      */
-    private class ModelStubAcceptingProblemAdded extends DefaultModelStub {
+    private static class ModelStubAcceptingProblemAdded extends DefaultModelStub {
         final ArrayList<Problem> problemsAdded = new ArrayList<>();
         final ArrayList<Tag> tagsAdded = new ArrayList<>();
 

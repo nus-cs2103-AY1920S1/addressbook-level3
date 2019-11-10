@@ -16,7 +16,7 @@ public class Keyword {
     /**
      * Constructs a {@code Keyword}.
      *
-     * @param keyword
+     * @param keyword the keyword in {@code String}
      */
     public Keyword(String keyword) {
         requireNonNull(keyword);
