@@ -44,7 +44,7 @@ public class TypicalTrueFalse {
             .withCorrectAnswerList(TF_FALSE_ANSWER_LIST)
             .build();
 
-    public static final TfInputCommand TF_A_COMMAND = new TfInputCommand("False", TF_A);
+    public static final TfInputCommand TF_A_COMMAND = new TfInputCommand("True", TF_A);
 
 
 //    public static final Answerable K_ANSWERABLE = new SaqBuilder().build();

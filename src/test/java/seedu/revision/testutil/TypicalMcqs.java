@@ -73,8 +73,6 @@ public class TypicalMcqs {
 
 
 
-
-
     private TypicalMcqs() {} // prevents instantiation
 
     /**

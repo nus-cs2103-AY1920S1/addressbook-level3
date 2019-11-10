@@ -20,7 +20,6 @@ public class SaqInputCommandParser implements QuizParser<SaqInputCommand> {
      * @throws ParseException if the user input is blank
      */
     public SaqInputCommand parse(String args, Answerable currentAnswerable) throws ParseException {
-
         if (!args.isBlank() && (Character.isLetter(args.charAt(0)) || Character.isDigit(args.charAt(0)))) {
             return new SaqInputCommand(args, currentAnswerable);
         } else {

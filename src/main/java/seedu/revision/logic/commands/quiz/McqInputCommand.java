@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
 
 import java.util.logging.Logger;
 
@@ -33,6 +34,10 @@ public class McqInputCommand extends Command {
 
         Answer selectedAnswer;
 
+        if (mcqInput.equalsIgnoreCase(TIMER_UP_SKIP_QUESTION)) {
+            return new CommandResultBuilder().withCorrect(false).build();
+        }
+
         switch (mcqInput.toLowerCase()) {
         case "a":
             selectedAnswer = currentAnswerable.getCombinedAnswerList().get(0);
@@ -46,8 +51,6 @@ public class McqInputCommand extends Command {
         case "d":
             selectedAnswer = currentAnswerable.getCombinedAnswerList().get(3);
             break;
-        case "n":
-            return new CommandResultBuilder().withCorrect(false).build();
         default:
             selectedAnswer = null;
         }
@@ -62,6 +65,6 @@ public class McqInputCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof McqInputCommand // instanceof handles nulls
-                && mcqInput.equals(((McqInputCommand) other).mcqInput));
+                && mcqInput.equalsIgnoreCase(((McqInputCommand) other).mcqInput));
     }
 }

@@ -71,7 +71,7 @@ public class TfInputCommandTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Command commandCopy = new TfInputCommand("False", TF_A);
+        Command commandCopy = new TfInputCommand("True", TF_A);
         assertEquals(TF_A_COMMAND, commandCopy);
 
         // same object -> returns true

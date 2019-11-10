@@ -1,5 +1,8 @@
 package seedu.revision.ui;
 
+import static seedu.revision.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
+
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -14,6 +17,9 @@ import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.commands.main.CommandResultBuilder;
+import seedu.revision.logic.commands.quiz.McqInputCommand;
+import seedu.revision.logic.commands.quiz.SaqInputCommand;
+import seedu.revision.logic.commands.quiz.TfInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
@@ -153,7 +159,10 @@ public class StartQuizWindow extends ParentWindow {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            timer.resetTimer();
+
+            if (commandText.equals(TIMER_UP_SKIP_QUESTION) && !timer.isTimeUp()) {
+                 throwParseExceptionWhenUserSkipsQuestion();
+            }
 
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.isCorrect()) {
@@ -191,6 +200,7 @@ public class StartQuizWindow extends ParentWindow {
 
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
+            timer.resetTimer();
             return commandResult;
         } catch (CommandException | ParseException e) {
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
@@ -351,5 +361,17 @@ public class StartQuizWindow extends ParentWindow {
 
     public Timer getTimer() {
         return timer;
+    }
+
+    private void throwParseExceptionWhenUserSkipsQuestion() throws ParseException {
+        if (currentAnswerable instanceof Mcq) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));
+        } else if (currentAnswerable instanceof TrueFalse) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TfInputCommand.MESSAGE_USAGE));
+        } else {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaqInputCommand.MESSAGE_INVALID_INPUT_TIMER_UP));
+        }
     }
 }
