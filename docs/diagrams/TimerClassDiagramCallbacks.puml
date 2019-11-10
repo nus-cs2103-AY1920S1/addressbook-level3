@@ -35,9 +35,9 @@ Class UpdateTimerCallBack <<Interface>> {
 
 }
 
-GameTimer *--down- UpdateHintCallBack
-GameTimer *--down- SkipOverCallBack
-GameTimer *--down- UpdateTimerCallBack
+GameTimer *-down- UpdateHintCallBack
+GameTimer *-down- SkipOverCallBack
+GameTimer *-down- UpdateTimerCallBack
 GameTimerManager -down-|> GameTimer
 GameTimer ..left..> AppManager : executes callbacks of >
 AppManager --right--> GameTimer : registers callbacks with >

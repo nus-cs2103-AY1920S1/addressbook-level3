@@ -1,4 +1,4 @@
-= Sree Subbash - Project Portfolio
+= https://subbash.com[Sree Subbash] - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -10,33 +10,35 @@
 
 
 
+
+image::subbashcontentpage.png[width=300]
 == CS2103T Team Project: Dukemon
 
-== Overview
+image::subbashcontentpageA.png[width=300]
 
 
 Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI (Command Line Interface), and it has a GUI (Graphical User Interface) created with JavaFX.
 
 While it was targeted at regular CLI users, after preliminary user experience feedback from the target audience, we noted that even experienced users require documentation to get familiar with commands. Also, they found it inconvenient to refer to the User Guide often.
 
-It was our priority to improve their learning experience. So I took initiative to go the extra mile to improve their command line experience.
+It was our priority to improve their learning experience. So I took the initiative to go the extra mile to improve their command line experience.
 
-Under the hood, it required major restructuring of input handling. In that process, I took care that code was well abstracted for co-developers and future developers.
+Under the hood, it required major restructuring of input handling. In that process, I took care of that code was well abstracted for co-developers and future developers.
 
 
-== Contributions
+image::subbashcontentpageB.png[width=300]
 
-https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=sreesubbash[***Link to codebase***]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=subbash&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=sreesubbash&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[***Link to codebase***]
 
 *AutoComplete with Dynamic Command Parsers*
 
 * Benefits Users
 
-** _What it does:_ allows user to be visually cued on the commands available that updates as he types.
+** _What it does:_ allows users to be visually cued on the commands available that updates as he types.
 
 ** _Justification:_ It alleviates the drawback of being clueless and disoriented in a new command line interface
 
-** _Highlights:_ The parser logic for autocomplete was designed from ground up to cater for the application's unique needs.  After in-depth analysis of alternatives, java reflections was utilised.
+** _Highlights:_ The parser logic for autocomplete was designed from the ground up to cater for the application's unique needs.  After in-depth analysis of alternatives, the advanced paradigm of java reflections was utilised.
 
 NOTE: In-depth explanation in User Guide extract below
 
@@ -53,11 +55,11 @@ NOTE: In-depth analysis in Developer Guide extract below
 
 *Project management*
 
-*** Coordinated devlopment and master branch workflow for rapid prototyping in early weeks.
+*** Coordinated development branch and master branch workflow for rapid prototyping in early weeks.
 
 *** Suggested branching workflow (with username, merge count and purpose) during period closer to deployment for stability and accountability in changes.
 
-*** Initial set up of continous integration pipeline with travis.
+*** Initial setup of continuous integration pipeline with Travis.
 
 *** Managed product release on GitHub https://github.com/AY1920S1-CS2103T-T11-2/main/releases/tag/v1.3.5[v1.3.5]
 
@@ -72,7 +74,7 @@ PR reviewed: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54#i
 
 
 
-== Contributions to the User Guide
+image::subbashcontentpageC.png[width=300]
 
 
 |===
@@ -80,7 +82,7 @@ PR reviewed: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54#i
 Below are extracts I have contributed to the User Guide.
 
 
-It demonstrates how my AutoComplete feature makes a tangible difference in improving userflow.
+It demonstrates how my AutoComplete feature makes a tangible difference in improving user flow.
 
 
 Also its a showcase of my ability to write documentation targeting end-users.
@@ -95,7 +97,7 @@ include::../UserGuide.adoc[tag=switchingmodes]
 
 include::../UserGuide.adoc[tag=quickstartsubbash]
 
-== Contributions to the Developer Guide
+image::subbashcontentpageD.png[width=300]
 
 |===
 |
@@ -105,7 +107,7 @@ Below are extracts I have contributed to the Developer Guide.
 It demonstrates how my AutoComplete feature works with the Dynamic Parser implementation.
 
 
-Also its a showcase of my ability to write technical documentation and the technical depth of my work that involves integrating the advanced paradigm of Java Relections into the project.
+Also its a showcase of my ability to write technical documentation and the technical depth of my work that involves integrating the advanced paradigm of Java Reflections into the project.
 
 |===
 
@@ -115,9 +117,5 @@ include::../DeveloperGuide.adoc[tag=autocompleteimplementation]
 
 
 
-
-== Other Projects
-
-https://subbash.com
 
 ---

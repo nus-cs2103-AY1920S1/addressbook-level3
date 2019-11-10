@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.storage.wordbanks;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

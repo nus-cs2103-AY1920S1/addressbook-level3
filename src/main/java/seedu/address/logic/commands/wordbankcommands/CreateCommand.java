@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -18,7 +19,7 @@ public class CreateCommand extends WordBankCommand {
             + "Eg: " + COMMAND_WORD + " "
             + "vocabulary";
 
-    private static final String MESSAGE_SUCCESS = "Created word bank: %1$s\n"
+    public static final String MESSAGE_SUCCESS = "Created word bank: %1$s\n"
             + "Select a bank\n"
             + "Eg. select mybank";
 

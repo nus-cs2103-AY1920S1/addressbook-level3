@@ -223,7 +223,7 @@ class GameCommandsModelStub implements Model {
     }
 
     @Override
-    public FormattedHint getHintFormatFromCurrentGame() {
+    public FormattedHint getFormattedHintFromCurrGame() {
         return null;
     }
 

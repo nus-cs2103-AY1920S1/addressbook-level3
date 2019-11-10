@@ -5,7 +5,7 @@ import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 
 /**
- * Terminates the program.
+ * Switches application to home mode.
  */
 public class SwitchToHomeCommand extends SwitchCommand {
     public static final String COMMAND_WORD = "home";

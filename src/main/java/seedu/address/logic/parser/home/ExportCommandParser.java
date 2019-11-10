@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.parser.home;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -36,11 +37,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         Word word = ParserUtil.parseWord(argMultimap.getValue(PREFIX_WORD).get());
         File directory = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILEPATH).get());
 
-        if (word.getValue().startsWith("dragAndDropInternalExport")) {
-            return new ExportCommand(word.toString());
-        } else {
-            return new ExportCommand(word.toString(), directory);
-        }
+        return new ExportCommand(word.toString(), directory);
     }
 
     /**

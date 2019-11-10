@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.model.wordbanklist;
 
 import static java.util.Objects.requireNonNull;
@@ -66,7 +67,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
      * Replaces the contents of this list with {@code List<WordBank>}.
      * {@code List<WordBank>} must not contain duplicate WordBank.
      */
-    public void setWordBankList(List<WordBank> cards) {
+    void setWordBankList(List<WordBank> cards) {
         requireAllNonNull(cards);
         if (!wordBanksAreUnique(cards)) {
             throw new DuplicateWordBankException();
@@ -97,7 +98,7 @@ public class UniqueWordBankList implements Iterable<WordBank> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<WordBank> asUnmodifiableObservableList() {
+    ObservableList<WordBank> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 

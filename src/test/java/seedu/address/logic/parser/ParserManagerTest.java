@@ -1,12 +1,17 @@
+// @@author sreesubbash
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.ModeSwitchException;
+import seedu.address.logic.commands.switches.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.util.ModeEnum;
 
@@ -71,6 +76,17 @@ class ParserManagerTest {
         }
         System.err.println(parserManager.getMode());
         assertTrue(parserManager.getMode() == ModeEnum.SETTINGS);
+    }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parserManager.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_unrecognisedInput_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SelectCommand.MESSAGE_USAGE), () -> parserManager.parseCommand("select"));
     }
 
 }

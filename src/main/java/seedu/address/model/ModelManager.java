@@ -183,11 +183,11 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public FormattedHint getHintFormatFromCurrentGame() throws UnsupportedOperationException {
+    public FormattedHint getFormattedHintFromCurrGame() throws UnsupportedOperationException {
         if (game == null || game.isOver()) {
             throw new UnsupportedOperationException("No active game session to send hints from");
         }
-        return game.getHintFormatForCurrCard();
+        return game.getCurrCardFormattedHint();
     }
 
     @Override

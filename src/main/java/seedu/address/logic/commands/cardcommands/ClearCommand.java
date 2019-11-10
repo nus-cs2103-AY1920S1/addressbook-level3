@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -11,14 +12,8 @@ import seedu.address.model.Model;
 public class ClearCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "clear";
-    private static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " \n";
-
-    /**
-     * Creates a ClearCommand.
-     */
-    public ClearCommand() {
-    }
 
     @Override
     public CommandResult execute(Model model) {
@@ -26,5 +21,11 @@ public class ClearCommand extends CardCommand {
         model.clearWordBank();
         model.clearWordBankStatistics();
         return new CardCommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ClearCommand); // instanceof handles nulls
     }
 }

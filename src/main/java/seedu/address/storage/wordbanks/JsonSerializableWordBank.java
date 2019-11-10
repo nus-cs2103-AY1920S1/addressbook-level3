@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.storage.wordbanks;
 
 import java.util.ArrayList;
@@ -46,7 +47,8 @@ class JsonSerializableWordBank {
     /**
      * Converts this word bank into the model's {@code WordBank} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated.
+     * @return word bank.
+     * @throws IllegalValueException if word bank file contains duplcate cards.
      */
     public WordBank toModelType() throws IllegalValueException {
         WordBank wordBank = new WordBank(name);
@@ -60,11 +62,23 @@ class JsonSerializableWordBank {
         return wordBank;
     }
 
+    /**
+     * Converts word bank with a specific name into the model's {@code WordBank} object.
+     * *
+     * @param name of the word bank.
+     * @return word bank.
+     * @throws IllegalValueException if word bank file contains duplcate cards.
+     */
     public WordBank toModelTypeWithName(String name) throws IllegalValueException {
         this.name = name;
         return toModelType();
     }
 
+    /**
+     * Returns the unique name of the word bank.
+     *
+     * @return unique name of the word bank.
+     */
     public String getName() {
         return name;
     }

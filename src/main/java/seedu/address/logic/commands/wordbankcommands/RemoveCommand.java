@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -19,11 +20,12 @@ public class RemoveCommand extends WordBankCommand {
             + " WORDBANK\n"
             + "Eg: " + COMMAND_WORD + " sample";
 
-    private static final String MESSAGE_REMOVE_CARD_SUCCESS = "Removed word bank: %1$s";
+    public static final String MESSAGE_REMOVE_CARD_SUCCESS = "Removed word bank: %1$s";
 
     private static String wordBankName;
 
     public RemoveCommand(String wordBankName) {
+        requireNonNull(wordBankName);
         this.wordBankName = wordBankName;
     }
 
@@ -48,7 +50,7 @@ public class RemoveCommand extends WordBankCommand {
                 .equals(((seedu.address.logic.commands.wordbankcommands.RemoveCommand) other).wordBankName));
     }
 
-    public static String getWordBankName() {
+    public String getWordBankName() {
         return wordBankName;
     }
 }

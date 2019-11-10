@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.model.wordbank;
 
 import static java.util.Objects.requireNonNull;
@@ -80,11 +81,21 @@ public class WordBank implements ReadOnlyWordBank {
         cards.remove(card);
     }
 
+    /**
+     * Returns the number of cards in the word bank.
+     *
+     * @return number of cards in the word bank.
+     */
     @Override
     public int size() {
         return cards.size();
     }
 
+    /**
+     * Returns an unmodifiable view of the word bank.
+     * This list will not contain any duplicate cards.
+     * This is used so that any updates to the card list will be notified to the observer.
+     */
     @Override
     public ObservableList<Card> getCardList() {
         return cards.asUnmodifiableObservableList();
@@ -98,10 +109,10 @@ public class WordBank implements ReadOnlyWordBank {
         return cards.get(index).clone();
     }
 
-    @Override
     /**
      * Returns the card by searching for it's meaning.
      */
+    @Override
     public Card getCard(Meaning meaning) {
         return cards.getCard(meaning);
     }
@@ -138,7 +149,7 @@ public class WordBank implements ReadOnlyWordBank {
      * Returns true if both word banks have the same name.
      *
      * @param other word bank.
-     * @returnn true if both word banks have the same name.
+     * @return true if both word banks have the same name.
      */
     public boolean isSameName(String other) {
         if (other == null) {
@@ -149,6 +160,12 @@ public class WordBank implements ReadOnlyWordBank {
         return s1.equals(s2);
     }
 
+    /**
+     * Returns the word bank's unique name.
+     *
+     * @return the word bank's unique name.
+     */
+    @Override
     public String getName() {
         return name;
     }

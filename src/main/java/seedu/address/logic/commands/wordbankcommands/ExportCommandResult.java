@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import java.nio.file.Path;
@@ -10,7 +11,7 @@ import seedu.address.storage.Storage;
  */
 public class ExportCommandResult extends WordBankCommandResult {
 
-    public ExportCommandResult(String feedback, String wordBankName, Path filePath) {
+    ExportCommandResult(String feedback, String wordBankName, Path filePath) {
         super(feedback, wordBankName, filePath);
     }
 

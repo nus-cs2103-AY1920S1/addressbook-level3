@@ -170,4 +170,7 @@ public class ModularDisplay {
         loadBankPanel.registerDragAndDropCallBack(importCommandExecutor, exportCommandExecutor);
     }
 
+    void initialiseFilePath(String dataFilePath) {
+        loadBankPanel.initialiseFilePath(dataFilePath);
+    }
 }

@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import seedu.address.storage.Storage;
@@ -8,7 +9,7 @@ import seedu.address.storage.Storage;
  */
 public class RemoveCommandResult extends WordBankCommandResult {
 
-    public RemoveCommandResult(String feedback, String wordBankName) {
+    RemoveCommandResult(String feedback, String wordBankName) {
         super(feedback, wordBankName);
     }
 

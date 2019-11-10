@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.logic.commands.wordbankcommands;
 
 import static java.util.Objects.requireNonNull;
@@ -33,18 +34,6 @@ public class ExportCommand extends WordBankCommand {
     public ExportCommand(String wordBankName, File directory) {
         this.wordBankName = wordBankName;
         this.directoryString = directory.toString();
-    }
-
-    /**
-     * Called by drag and drop internally.
-     * User should not call this.
-     *
-     * @param wordBankName "dragAndDropInternalExport" + wordBankName
-     */
-    public ExportCommand(String wordBankName) {
-        int len = "dragAndDropInternalExport".length();
-        this.wordBankName = wordBankName.substring(len);
-        this.directoryString = "the place you dropped.";
     }
 
     @Override

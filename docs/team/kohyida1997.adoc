@@ -16,7 +16,7 @@ Github: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon] image:github-mar
 {nbsp} {nbsp} {nbsp} {nbsp}
 RepoSense: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kohyida1997&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kohyida1997&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Code]
 
-== image:address_book_32.png[icon, 30, 36] Overview of _Dukemon_
+== image:address_book_32.png[icon, 27, 36] Overview of _Dukemon_
 
 .The Home Page of Dukemon upon initial start-up.
 image::Ui.png[width="500"]
@@ -39,12 +39,12 @@ Below are some *highlights* of the important contributions that I have made to t
 development of *_Dukemon_*.
 
 <<<
-== image:work-icon.png[width=35] Contributions - Summary
+== image:work-icon.png[width=32] Contributions - Summary
 
-=== image:game_timer_icon.png[width="16"] Primary Enhancements - Timer and Hints
+=== image:game_timer_icon.png[width="13"] Main Enhancements - Timer and Hints
 
-.UI Display of Dukemon in Game Mode, showing the dynamic Timer and Hint features I implemented.
-image::UserGuideGameSessionDiagram1.png[width="450"]
+.UI of Dukemon in Game Mode, showing the dynamic Timer and Hint features I implemented.
+image::UserGuideGameSessionDiagram1.png[width="540"]
 
 * *Added a Timer and automatic Hint feature*
 
@@ -53,19 +53,15 @@ image::UserGuideGameSessionDiagram1.png[width="450"]
 are also automatically generated and shown to the user (region in blue box above).
 
 ** [underline]#_Justification_#:
-*** This enhancement greatly improves the product as it achieves the intended goal of creating a *game-like environment* for learning.
-The User is also thus able to access his own performance and capability in a fun and engaging way.
-*** The Hints also aids in learning, especially for weaker students or when trying out unfamiliar words.
-*** Introducing Hints incrementally is also a conscious design as it is gives the User time to think,
-as opposed to one-shot hints that risk making the game too easy with hints.
-
-<<<
+*** This enhancement greatly improves the product as it achieves the intended goal of creating a *game-like learning environment* for the User that is fun and engaging.
+*** Hints aids in learning, especially for weaker students or when trying out unfamiliar words.
+*** Incremental as opposed to one-shot hints gives the User time to think, and doesn't potentially render the _Game_ too easy with hints.
 
 ** [underline]#_Highlights_#:
 *** Challenging as it required *seamless integration* and *synchronization* between
 the GUI (Graphical User Interface) and internal logical components in *real time*.
-*** Utilized *advanced programming design concepts* such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ to preserve the
-quality and structural integrity of the existing code base. API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` to run tests for _Callbacks_ and
+*** Utilized *advanced programming concepts* such as _Observer Patterns_, _Callbacks_ and _Functional Programming_ to preserve quality
+and structural integrity of existing code base. API like `java.util.concurrent.CountdownLatch` and `java.lang.reflect` were used to run tests for _Callbacks_ and
 the _Timer_ effectively.
 *** Integrated external _TestFX_ library to allow for testing of _Timer_ and other components that run on the _JavaFX Application Thread_.
 
@@ -80,7 +76,7 @@ the _Timer_ effectively.
 * *Code contributed*: +
 [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/appmanager[Functional (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/card/FormattedHint.java[Functional (Hints)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/appmanager[Tests (Timer)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/test/java/seedu/address/model/card/FormattedHintTest.java[Tests (Hints)]] +
 
-=== image:game_mode_icon.png[width=35] Other Enhancements - Game
+=== image:game_mode_icon.png[width=32] Other Enhancement - Game
 
 * *Implemented and designed the _Game_ logic, UI and Difficulty.*
 
@@ -90,57 +86,229 @@ the _Timer_ effectively.
 * *Code contributed*: +
 [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional(Game Logic)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional (Game Difficulty)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Tests (Game)]] +
 
-=== image:documents_icon.png[width=23] Other contributions
+=== image:documents_icon.png[width=20] Other contributions
 
 ** [underline]#_Project management_#:
 *** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
-*** *Designed and prototyped* the general _Game_ program flow (and commands)
-which was adopted by the team.
+*** *Designed and prototyped* the general _Game_ program flow and commands, which was adopted by the team.
 *** Worked closely with teammates in *discovering and resolving bugs* in other areas of code.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/348951bf148ac4c19bfe1f635c4e76de631e5430[#133]
 *** Actively resolved and fixed project wide issues and code warnings. (*Housekeeping* of Dukemon and its releases)
 https://github.com/AY1920S1-CS2103T-T11-2/main/pull/141[#141] https://github.com/AY1920S1-CS2103T-T11-2/main/pull/96/commits/1727566c7058e5f25ba45e98a23ce121b2858bb1[#96]
-*** Researched and implemented about the concept of _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
+*** Researched about and implemented _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/d88513c8c11c6e10b0852c078db84e8ad507408a#diff-88f06211563ad55170a8a9c11829abf0[#185]
-** [underline]#_Documentation_#:
+** [underline]#_Documentation_# (_Details in next section_):
 *** Added icons and diagrams to *User Guide* to aid in reading: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/137[#137]
-*** Added upon _Dukemon_ Introduction, Installation process and Quickstart in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
+*** Edited and wrote Introduction, Installation, and Quickstart sections in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
 *** Drew and explained overall architecture of _Dukemon_ in *Developer Guide* https://github.com/AY1920S1-CS2103T-T11-2/main/pull/94/files[#94]
+*** Oversaw and ensured quality and cohesiveness of *User Guide* and *Developer Guide*.
 ** [underline]#_Community_#:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-2/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/71[#71]
-*** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/154[1])
+*** Reviewed PRs (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-2/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/71[#71]
+*** Contributed to the module forum (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/154[1])
 ** [underline]#_Tools_#:
-*** Integrated a 3rd-party testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79])
-*** Integrated https://github.com/TestFX/TestFX[TestFX] with team repo's automatic Travis CI builds. (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113])
+*** Integrated external testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79]) and Travis CI builds (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113]).
 
-== image:user-manual-icon.png[width=45] Contributions - User Guide
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=yida-intro]
-
-include::../UserGuide.adoc[tag=yida-quickstart]
-
-include::../UserGuide.adoc[tag=yida-game]
-
-== image:source-code-icon.png[width=40] Contributions - Developer Guide
+== image:user-manual-icon.png[width=35] Contributions - User Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are the highlights of what I contributed to the User Guide, showcasing my ability to write documentation targeting end-users._
 |===
 
-include::../DeveloperGuide.adoc[tag=yida-design]
+=== Game Commands image:game_mode_icon.png[width="30"]
+(Available in Game mode)
 
-include::../DeveloperGuide.adoc[tag=yida-AppManager]
+.UI regions that are relevant when a Game session is in progress.
+image::UserGuideGameSessionDiagram1.png[width="540"]
 
-include::../DeveloperGuide.adoc[tag=yida-game]
 
-include::../DeveloperGuide.adoc[tag=yida-timer]
+This section covers the actions and feedback that are relevant to the _Game_ mode.  The general layout of the UI when a _Game_ is in progress is as seen above.
 
-== image:bag-icon.png[width=35] Other Works
+1. The timer will be activated to reflect the time left before the _Game_ skips over to the next card. (region in yellow box)
 
----
+2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will  make a _Guess_ for the _Word_ it is describing.
 
-** [https://www.linkedin.com/in/koh-yi-da-b28887189/[Linked-in Profile]]
+3. _Hints_ (if enabled) will be periodically shown as time passes (region in the blue box) in a Hangman-style. The number of hints given
+differs across each _Difficulty_.
+
+==== Game Mode - [underline]#Starting# image:game_mode_icon.png[width="30"]
+
+The relevant command(s) are:
+
+1. *Starting new game session:* +
+Format: `start [EASY/MEDIUM/HARD]`
+
+- Starts a game session with the currently selected _WordBank_ and specified _Difficulty_.
+(_WordBank_ selection is done in _Home_ mode.) If no _Difficuty_ is specified, the default _Difficulty_ in _Settings_
+will be used.
+
+
+==== Game Mode - [underline]#Playing# image:game_mode_icon.png[width="30"]
+
+.Timer and feedback for each Guess during a Game session. (Timer changes color based on time left).
+image::UserGuideGameSessionDiagram2.png[width="790"]
+
+The relevant command(s) are:
+
+1. *Making a _Guess_ for a _Word_*: +
+Format: `guess WORD`
+
+- Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
+
+2. *Skipping over a _Word_:* +
+Format: `skip`
+
+- Skips over the current _Word_. (*is counted as a wrong answer*)
+
+
+==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
+
+.Comparison of UI Regions between Game finished vs. Game forcibly stopped.
+image::GameFinishedGameStoppedComparison.png[width="850"]
+
+
+A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
+*automatically shown* upon completion of a _Game_ (see Fig. 6 above). The user can choose to `stop` a _Game_ before it has finished- *all current _Game_ progress is lost*, and
+*no _Statistics_ are collected* (see Fig. 7 above). +
+ +
+The relevant command(s) are:
+
+1. *Stopping a _Game_ (before it has finished)*: +
+Format: `stop`
+
+- Forcibly terminates the current active _Game_ session.
+
+<<<
+== image:source-code-icon.png[width=34] Contributions - Developer Guide
+
+|===
+|_Given below are the highlights of what I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== [underline]#Timer-based Features#
+
+==== Implementation Overview - Timer
+
+The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch that runs for each `Card` in a `Game`. It relies on
+using _Functional Interfaces_ as _callbacks_ for the TImer to periodically notify other components in the system without directly holding a reference to those
+components.
+
+Internally, the `Timer`
+works by using the method `java.util.Timer.schedule()` that schedules `java.util.TimerTasks` at a fixed rate (_every 50ms_).
+
+An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
+_Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
+event is triggered by the `Timer`.
+
+[NOTE]
+To avoid
+synchronization issues, all
+_callbacks_ to change `UI` components are forced to run on the *JavaFX Application Thread* using
+`Platform.runLater()`.
+
+.Class diagram reflecting how the callback-functions are organized in the Timer component.
+image::TimerClassDiagramCallbacks.png[width=510]
+
+The three main events that are currently triggered by the `Timer` component which require a _callback_ are:
+
+1. Time has elapsed, _callback_ to `AppManager` to *update and display the new timestamp* on the `UI`.
+2. Time has run out (_reached zero_), _callback_ to `AppManager` to *skip over* to next `Card`.
+3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to *retrieve a `Hint`
+and display* accordingly on the `UI`.
+
+The _callbacks_ for each of these events are implemented as nested _Functional Interfaces_
+within the  `GameTimer` interface, which is implemented by the `GameTimerManager`.
+
+==== Implementation Overview - Hints
+
+.Class Diagram showing structure of `Hints` and its relationships to other components. (Some details omitted)
+image::HintsClassDiagram.png[width=620]
+
+In order to display the `Hints` component to the user in a _Hangman-esque_ style, *string formatting* has to be performed.
+
+* Each `Card` contains a `FormattedHintSupplier` that supplies `FormattedHints` ready to be shown to the user.
+* Each `FormattedHintSupplier` contains a `FormattedHint` that is periodically updated.
+* Each `FormattedHintSupplier` contains a `java.util.List` of `Hint` to update  the `FormattedHint` with.
+* Each `FormattedHint` maintains a `char[]` array that it's `toString()` method uses to format the output `Hint` string with.
+* Each `Hint` encapsulates a `Character` and an `Index` which the `Character` is to be shown in the `FormattedHint`.
+
+The `Timer` component *triggers a request to update `Hints`* to the `AppManager`, who then updates and retrieves the updated `FormattedHint` from
+the current `Game` via the `Logic` component.
+
+<<<
+==== Flow of Events - `Hints` Disabled
+
+This section describes the general sequence of events in the life cycle of a single `GameTimer` object with *no hints*.
+
+.Sequence diagram (with some details omitted) describing the flow of registering and executing callbacks between the different components
+image::TimerSequenceDiagram1.png[width=690]
+
+[NOTE]
+`GameTimer` interface uses a factory method to create `GameTimerManager` instances. This behavior
+is omitted in the above diagram for simplicity.
+
+A new `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
+The `AppManager` provides information regarding the duration in which the `GameTimer` should run for, and whether
+`Hints` are enabled.
+
+. `UI` component first registers _callbacks_ with the `AppManager`.
+. When a _Game_ is started, `AppManager` initializes a `GameTimer` instance for the first _Card_.
+. `AppManager` registers _callbacks_ with the `GameTimer` component.
+. `AppManager` starts the `GameTimer`.
+. Periodically, the `GameTimer` notifies the `AppManager` to update the `UI` accordingly.
+. `AppManager` is notified by `GameTimer`, and then notifies `UI` to actually trigger the `UI` change.
+. `GameTimer` finishes counting down (or is *aborted*).
+. `AppManager` repeats Steps 2 to 7 for each _Card_ while the _Game_ has *not* ended.
+
+Using this approach of _callbacks_ provides *better abstraction* between the `UI` and `Timer`.
+
+
+<<<
+==== Flow of Events - `Hints` Enabled
+
+.Activity diagram of the `run()` method of an instance of `GameTimerManager` when `Hints` are enabled.
+image::TimerActivityDiagramWithHints.png[width=400]
+
+The behavior of `Timer` when `Hints` are enabled is *largely still the same.*
+
+In the diagram as *shown above*, the internal `Timer` is started when
+`GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
+every 50 milliseconds until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
+to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 50ms.
+
+When `Hints` are enabled,
+`AppManager` initializes a `HintTimingQueue` in the `GameTimer` for each _Card_. `HintTimingQueue` is a class that
+contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
+these polled _timestamps_ to update the `Hints` provided periodically.
+
+<<<
+==== Design Considerations
+
+There were a few reasons for designing the `Timer` this way.
+
+|===
+||**Alternative 1**|**Alternative 2**
+|**Aspect 1**: +
+Where and How to effect changes to the `Ui` and other components when the `Timer` triggers an event.
+| **Holding a reference to `Ui` and other components directly inside `GameTimer` itself**: +
+
+_Pros:_ +
+Straightforward and direct, can perform many different tasks on the dependent components.  +
+
+_Cons:_ +
+Poor abstraction and high potential for cyclic dependencies, resulting in high coupling.
+
+|**Using _Functional Interfaces_ as Call-backs to notify components indirectly.** +
+
+_Pros:_ +
+Maintains abstraction and minimal coupling between `Timer` and other components  +
+
+_Cons:_ +
+Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
+implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
+
+3+|**Why did we choose Alternative 2:** +
+To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
+abstraction between components. This is also to make life easier when there comes a need to
+debug and resolve problems in the code.
+ +
+|===

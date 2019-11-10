@@ -1,5 +1,5 @@
 //= image:chrischenhui.png[icon, 100, 100]
-= image:chrischenhui.png[width="120", height="12", align="left"] Chen Hui - Project Portfolio
+= image:chrischenhui.png[width="130", height="12", align="left"] Chen Hui - Project Portfolio
 :site-section: AboutUs
 //:toc:
 //:toc-title: Table of Contents
@@ -16,15 +16,14 @@ endif::[]
 
 
 Project: image:address_book_32.png[icon, 25, 23] [https://github.com/AY1920S1-CS2103T-T11-2/main[_Dukemon_]]
-{nbsp} {nbsp} {nbsp}
-RepoSense: {empty} [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Chen Hui]]
+{nbsp}RepoSense: {empty} [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Chen Hui]]
  [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=AY1920S1-CS2103T-T11-2&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Team]]
 
 Tutors: {empty}[https://github.com/jamessspanggg[James Pang]]
 {empty} [http://www.nus.edu.sg/celc/staff/anitatoh.html[Ms. Anita]]
 
-image:jamessspanggg.png[width="100", height="100", align="left"]
-image:msAnita.jpeg[width="100", height="100", align="left"]
+image:jamessspanggg.png[width="90", align="left"]
+image:msAnita.jpeg[width="90", align="left"]
 
 Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
 {empty}[http://github.com/kohyida1997[Yi Da]]
@@ -32,11 +31,11 @@ Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
 {empty}[http://github.com/jascxx[Jason]]
 {empty}[http://github.com/dragontho[Paul]]
 
-image:chrischenhui.png[width="80", align="left"]
-image:kohyida1997.png[width="80", align="left"]
-image:sreesubbash.png[width="80", align="left"]
-image:jascxx.png[width="73", align="left"]
-image:dragontho.png[width="89", align="left"]
+image:chrischenhui.png[width="90", align="left"]
+image:kohyida1997.png[width="90", align="left"]
+image:sreesubbash.png[width="90", align="left"]
+image:jascxx.png[width="82", align="left"]
+image:dragontho.png[width="100", align="left"]
 
 ---
 
@@ -46,7 +45,7 @@ image:dragontho.png[width="89", align="left"]
 ._Dukemon_'s design.
 image::DukemonWithMewOnly.png[width="400"]
 
-_Dukemon_ is a desktop flashcard application, whose aim is to streamline and gamify
+_Dukemon_ is a desktop flashcard application, which aims to streamline and gamify
 the process of learning words and definitions. +
 The user interacts with it primarily through a CLI (Command Line Interface), with some GUI (Graphical User Interface) features.
 
@@ -72,119 +71,161 @@ Allow me to brief you on some useful terms and to give you a context.
 == Summary of contributions
 
 === Major feature
-*Word Bank Management*.
+*Word Bank Management*
 
-* What it does: +
+* *What it does:* +
 ** Enables user to have a high level management for his word banks and cards through CLI and GUI. +
-Is also semi-automated by _Dukemon_ to enhance user's learning experience. +
-Consist of four complementary distinct sections.
+Is semi-automated by _Dukemon_ to enhance user's learning experience. +
+Consists of four complementary distinct sections.
 
-. *Word bank's data structure and it's storage system*: +
+. *Word bank's data structure and its storage system*: +
 Allows developers to use and extend this architecture to streamline their feature implementation. +
-Is implemented with a robust underlying `WordBankList` data structure, with it's own `WordBankListStorage`,
-along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise it's data.
+Allows user to save and load their word banks. +
+Is implemented with a robust underlying `WordBankList` data structure, with its
+own `WordBankListStorage`,
+along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise its
+data.
 
 . *User Commands*: +
-Allows users to edit cards/word banks through `CardCommands` / `WordBankCommands`.
+Allows user to customise cards/word banks through `CardCommands` / `WordBankCommands`.
 
 . *Drag and drop*: +
-Allows user to export their word bank to their computer simply by dragging it out of _Dukemon_. +
-Likewise, it allows user to drag a word bank file into _Dukemon_ to import the word bank.
+Allows user to export their word bank out of their computer simply by dragging it out of _Dukemon_. +
+Likewise, it allows user to import a word bank file from their computer by dragging it into _Dukemon_.
 
 . *Revision word bank*: +
-Serves as a centralised bank that collects cards across different word banks throughout the game play,
-to enhance learning experience. +
+Allows user to visit a centralised word bank that automatically collects cards for revision. +
 Cards that were answered wrongly are automatically added to this revision bank. +
 Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
 
 //{nbsp}
 
-* Justification:
+* *Justification:*
+
+** Well designed architecture and well implemented data structure streamlines integration and allows extension for
+features that builds on top of it. (statistics, game, settings)
 
 ** Management system is essential for a self-typed flashcard app like _Dukemon_.
 
-** Well designed architecture and well implemented data structure streamlines integration with other features
-that builds on top of it. (statistics, game, settings)
+** Drag and drop accelerates the sharing of knowledge/notes with friends, thereby enhancing user experience. +
 
-** Accelerates sharing of word banks with friends, thereby enhancing learning experience through sharing of knowledge/notes with friends.
-
-** Revision bank improves learning experience for the user, by helping the user automatically aggregate cards that were answered wrongly.
+** Revision bank improves the learning process by helping the user collate cards that requires revision.
 
 //{nbsp}
 
-* Highlights:
+* *Highlights:*
 
-** As this feature lays the basis for the app, it needs to be implemented well to support integration with every component of the app.
+** There exists multiple ways to design and implement word bank management. Throughout _Dukemon_'s development,
+it has been restructured and rewritten a few times before finally coming to how it is implemented now. +
+This was primarily because my teammate's features requires heavy and continuous integration with word banks management. We came together twice every week to discuss how our features should be integrated with one another. +
+To best implement it, I spent considerable amount of effort to study different design patterns and architectural styles, such as _MVC (Model View Controller)_,
+_Observer Pattern_, _n-Tier Style_, _Event-Driven Style_, to realise the final design.
 
-**
+** Continual in-depth discussion with team member, Subbash, to find the best design to integrate user commands
+with his different modes.
 
-**
+** Discussed with team member, Paul, who is in-charge of UI, on _Observer Pattern_ usage to display word banks and cards that automatically
+update itself.
+
+** Consulted team member, Jason, on how I can best leverage his statistics feature to streamline my revision word bank implementation.
+
+** Learned and adapted _Callbacks_ and _Functional Programming_ into my drag and drop section
+to preserve the quality and structural integrity of the existing code base, from team member Yi Da.
+
+** Individually sourced for proper online tutorials and online code references to implement drag and drop section,
+and design concepts such as _Observer Pattern_ and _MVC_ within cards and word banks.
 
 //{nbsp}
 
-* Credits: +
+* *Credits:*
+** Online resources
+*** {empty}[https://github.com/junit-team/junit5[JUnit 5]] [https://openjfx.io/[JavaFX]] [https://github.com/TestFX/TestFX[TestFX]] [https://github.com/FasterXML/jackson[Jackson]]
+*** {empty}[https://docs.oracle.com/javafx/2/drag_drop/jfxpub-drag_drop.htm[Drag and drop JavaFX documentation]] [https://www.youtube.com/watch?v=f7KGXUrAH0g&t=320s[Drag and drop video tutorial]]
+*** [https://github.com/donjar/book-shop/blob/master/tutorial/hackerschool.md[MVC framework in Ruby on Rails by Herbert]]
+*** [https://www.youtube.com/watch?v=_BpmfnqjgzQ[Observer Pattern video explanation]]
 
-** Subbash and Paul for holding a heavy discussion on how to integrate and name different modes altogether. +
-** Subbash for his `Home` mode to host my `WordBankComands` and `Open` mode to host my `CardCommands`.
-** Jason for huge initial refactoring of address book. Leveraged on parts of his statistics to implement some parts of revision bank. +
-** Yi Da for his suggestion on using call backs from within a deeply nested function to access the CommandBox. +
-** Paul for integration of my `WordBank` and `Card` display on the UI.
+** Teammates
+*** For their continual discussion, presence and support as mentioned in my highlights above.
+** Tutors
+*** For their unconditional effort in guiding us and providing us with valuable resources and feedback throughout Dukemon's development.
 
 === Minor features
-** Default word banks for new players.
-*** Three user friendly word banks for user to try out. (pokemon, arithmetic and trivia)
-*** They are created on the first launch of _Dukemon_, and behaves like normal word bank. (Can be removed)
+** Default word banks for new players
+*** Implemented multiple user friendly word banks for user to try out. (pokemon, arithmetic, trivia, graph, cs2103t)
+*** Created on the first launch of _Dukemon_ (implemented through preferences file), and behaves like normal word bank. (Can be edited and removed)
 
-** Greatly improve user experience
+** User experience centric messages
 *** Played the game insane amount of times to design constructive feedback to display on the command box from the user perspective.
 *** Developed user friendly command usage feedback that guides the user to using _Dukemon_.
 
-
-** Automatically creation of folder for _Dukemon_ related files if not present.
-
-** Preference.json file
+** Automatic creation of folders.
+*** Implemented the initialisation of required folders for related files automatically if not present.
 
 === Other contributions
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
+** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-09&type=a[GitHub]]
+** Functional:
+*** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbank[WordBank]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbanklist[WordBankList]]
+*** Storage: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/storage/wordbanks[WordBank storage]]
+*** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/cardcommands[Card commands]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/wordbankcommands[WordBank commands]]
+*** Command parsers: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/open[Card command parser]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/home[WordBank command parser]]
+*** UI: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/WordBankCard.java[Card display]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/LoadBankPanel.java[WordBanks display]]
+*** Data for Dukemon: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/util/SampleDataUtil.java[Default data]]
+
+** Tests:
+*** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/cardcommands[Card command test]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/wordbankcommands[WordBank command test]]
+*** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/storage/wordbanks[WordBank storage test]]
+*** Data for testing: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonSerializableWordBankTest[WordBank test data]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/data/JsonWordBankListStorageTest[WordBankList test data]]
 
 * *Other contributions* :
-** Discovered and fixed multiple bugs across different parts of _Dukemon_.
-
+** Discovered and fixed huge amount of bugs across different parts of _Dukemon_. [https://github.com/AY1920S1-CS2103T-T11-2/main/issues?page=1&q=is%3Aissue+is%3Aclosed+assignee%3Achrischenhui[Issues resolved]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/185[Bugs fixed]]
 
 ** Project management:
-*** Selected members and formed the team. Went extra miles to bond the team through fine details.
-*** Heavily scrutinised ideas during early stage of idea development, to ensure belief in our product.
+*** Found members and formed the team. Went extra miles to bond everyone through fine details.
+*** Heavily scrutinised ideas during early stage of idea development, inorder to develop a product idea that our team
+can fully believe in and dedicate effort.
 *** Set up organisation repo, including issues, label and milestones.
-*** Set up Netlify.
-*** Took the initiative to kick start the project when team members were taking it easy.
+*** Set up Netlify to improve workflow.
+*** Took initiative to kick start the project by scheduling meetings.
 
 //** Enhancements to existing features:
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
-** Documentation:
-*** Wrote the skeleton of User Guide: https://https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/UserGuide.adoc.com[#14]
+** *Documentation:*
+*** Wrote a major chunk of User Guide's skeleton for my teammates (This does not include writing my own section within UG): [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/100/files[UG update 1]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/128/files[UG update 2]] [https://github.com/AY1920S1-CS2103T-T11-2/main/commit/5601a170c8fc889278a7a7cdb2c7b2f05b42ecbd[UG update 3]]
+*** Studied and improved styling for team's UML diagrams. [https://github.com/AY1920S1-CS2103T-T11-2/main/blame/master/docs/diagrams/style.puml[Style.puml]]
 
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-//*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-//*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** *Community:*
+*** Reviewed PRs. (with positivity): [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[TimeBook]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/210[Jason's new command]] [https://github.com/AY1920S1-CS2103T-T11-2/main/pull/218[Yida's clean code]]
 
-** Tools: +
-JUnit testing +
-Netlify
+*** Reported bugs for other teams in the class, in the form of GitHub issues. [https://github.com/chrischenhui/ped/issues[Njar]]
+
+** *Tools:*
+*** [https://github.com/junit-team/junit5[JUnit 5]] for testing.
+*** [https://openjfx.io/[JavaFX]] [https://gluonhq.com/products/scene-builder/[SceneBuilder]] for Dukemon's UI.
+*** [http://plantuml.com/[PlantUML]] for UML diagrams.
+*** [https://www.netlify.com/[Netlify]] for workflow improvement.
+
 //*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. +
+I will prioritise sections that contains diagrams to showcase my ability to engage the user._
 |===
 
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of Word bank and Card Commands.]]
+include::../UserGuide.adoc[tag=chenhui-userDragAndDrop]
+include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
+
+****
+* Due to page limit constraints, I am unable to fully cover the breadth and depth of my User Guide's documentation. +
+Below are the links to my other contributions in User Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
+****
+
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#card-commands-span-class-image-img-src-images-card_commands_icon-png-alt-card-commands-icon-width-29-5-span[Full documentation of Card commands]] [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of WordBank commands]]
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#command-summary[Full command summary]]
 
 //include::../UserGuide.adoc[tag=chenhui-quickstart]
 
@@ -195,41 +236,57 @@ _{you can add/remove categories in the list above}_
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._ +
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. +
+Due to page limit constraints, I will collate different UML diagrams across different sections that I have contributed. +
+A link to the full documentation will be included for each of the diagrams.
+Do visit them for a better understanding of the breadth and depth of my effort and contribution._ +
+
 |===
-
-****
-* Due to page limit constraints, I will not cover the full breadth and depth of my documentation in Developer's Guide. +
-For the sections I did not cover, I will reference a link to them. Do visit them to check out the diagrams.
-****
-
-include::../DeveloperGuide.adoc[tag=chenhui-model]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Detailed documentation for Model.]]
-
-include::../DeveloperGuide.adoc[tag=chenhui-storage]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Detailed documentation for Storage.]]
 
 //include::../DeveloperGuide.adoc[tag=chenhui-overviewOfWbl]
 
+=== Word bank data structure and its storage
+
 include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#word-bank-s-data-structure-and-storage[Detailed implementation for Word Bank's data structure and storage.]]
+
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#word-bank-s-data-structure-and-its-storage-system[Full documentation of Word bank's data structure and its storage system]]
+
+---
+
+=== User commands
 
 include::../DeveloperGuide.adoc[tag=chenhui-wblLogicStorageModel]
-include::../DeveloperGuide.adoc[tag=chenhui-importCommandSequenceDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands.]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Full documentation of User Commands]]
+
+---
 
 //include::../DeveloperGuide.adoc[tag=chenhui-importCommandSequenceDiagram]
-include::../DeveloperGuide.adoc[tag=chenhui-dragAndDropSequenceDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Detailed implementation for Drag and Drop.]]
+
+=== Drag and drop
+
+//include::../DeveloperGuide.adoc[tag=chenhui-dragAndDropSequenceDiagram]
+include::../DeveloperGuide.adoc[tag=chenhui-dragInWalkThrough]
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#drag-and-drop[Full documentation of Drag and drop]]
+
+---
+
+=== Revision bank
 
 include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-word-bank[Detailed implementation for Revision Word Bank.]]
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-word-bank[Full documentation of Revision word bank]]
 
----
+****
+* Below are the links to my other contributions in Developer Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
+****
 
-== image:bag-icon.png[width=35] Other Works
+//include::../DeveloperGuide.adoc[tag=chenhui-model]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Model[Model]] [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
+//include::../DeveloperGuide.adoc[tag=chenhui-storage]
+//* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
+//* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#design-considerations-4[Design considerations]]
 
----
-** [https://github.com/chrischenhui//[GitHub Profile]]
 
-** [https://www.linkedin.com/in/chen-hui-chris//[Linked-in Profile]]
+== image:bag-icon.png[width=35] More about me
+
+** [https://github.com/chrischenhui//[GitHub]] [https://www.linkedin.com/in/chen-hui-chris//[LinkedIn]]

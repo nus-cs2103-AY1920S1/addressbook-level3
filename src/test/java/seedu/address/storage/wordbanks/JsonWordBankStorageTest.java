@@ -1,3 +1,4 @@
+// @@author chrischenhui
 package seedu.address.storage.wordbanks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

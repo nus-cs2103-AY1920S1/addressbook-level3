@@ -282,7 +282,7 @@ class AppManagerTest {
 
         @Override
         public FormattedHint getHintFormatFromCurrentGame() {
-            return SINGLE_LETTER_CARD.clone().getHint();
+            return SINGLE_LETTER_CARD.clone().getFormattedHint();
         }
 
         @Override
