@@ -5,7 +5,7 @@ hide empty members
 skinparam classAttributeIconSize 0
 skinparam genericDisplay old
 skinparam packageStyle rectangle
-skinparam lineType polyline
+skinparam lineType ortho
 skinparam shadowing false
 
 package Logic {
