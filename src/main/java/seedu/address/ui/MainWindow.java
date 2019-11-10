@@ -18,6 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
 import seedu.address.model.visual.DisplayFormat;
 import seedu.address.model.visual.DisplayIndicator;
 
@@ -45,6 +47,13 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     private String rightPanelCommandText;
+    private boolean listChangedSinceLastExpand = false;
+    private boolean lastExpandedIsPerson = false;
+    private boolean lastExpandedIsPolicy = false;
+    private String lastExpandedPersonNric;
+    private String lastExpandedPolicyName;
+    private Person lastExpandedPerson;
+    private Policy lastExpandedPolicy;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -238,11 +247,27 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @return boolean
      */
-    private boolean usesRightPane(CommandResult commandResult) {
+    private boolean usesRightPanel(CommandResult commandResult) {
         return commandResult.isDisplay()
             || commandResult.isExpandPerson()
             || commandResult.isExpandPolicy()
             || commandResult.isListHistory();
+    }
+
+    /**
+     * Returns true if command result changes the list shown on the left panel.
+     *
+     * @return boolean
+     */
+    private boolean changesList(CommandResult commandResult, String commandText) {
+        return commandResult.isListPeople()
+                || commandResult.isListPeople()
+                || commandResult.isListPolicy()
+                || commandText.startsWith("delete ")
+                || commandText.startsWith("deletepolicy ")
+                || commandText.startsWith("restore")
+                || commandText.startsWith("undo")
+                || commandText.startsWith("redo");
     }
 
     /**
@@ -274,6 +299,71 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Renders right panel only if the command is history or display. Any logic execution here is always a system input.
+     */
+    private CommandResult renderHistoryOrDisplay(String commandText) throws
+            CommandException, ParseException {
+        try {
+            boolean isSystemInput = true;
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
+            logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
+
+            if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Expands the last expanded person or policy, regardless of list changes
+     */
+    private void expandPersonOrPolicy() {
+        boolean personOrPolicyFound = false;
+        if (lastExpandedIsPerson) {
+            for (Person person : logic.getAddressBook().getPersonList()) {
+                if (person.getNric().toString().equals(lastExpandedPersonNric)) {
+                    lastExpandedPerson = person;
+                    personOrPolicyFound = true;
+                    break;
+                }
+            }
+            if (personOrPolicyFound) {
+                showExpandPerson(new CommandResult("", lastExpandedPerson));
+            }
+        } else if (lastExpandedIsPolicy) {
+            for (Policy policy : logic.getAddressBook().getPolicyList()) {
+                if (policy.getName().toString().equals(lastExpandedPolicyName)) {
+                    lastExpandedPolicy = policy;
+                    personOrPolicyFound = true;
+                    break;
+                }
+            }
+            if (personOrPolicyFound) {
+                showExpandPolicy(new CommandResult("", lastExpandedPolicy));
+            }
+        }
+    }
+
+    /**
+     * Clears the display panel, showing only the logo
+     */
+    private void clearDisplayPanel() {
+        displayPanel = new DisplayPanel();
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+        setLogo();
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String, boolean)
@@ -301,14 +391,42 @@ public class MainWindow extends UiPart<Stage> {
                 showListDisplay(commandResult);
             } else if (commandResult.isExpandPerson()) {
                 showExpandPerson(commandResult);
+                listChangedSinceLastExpand = false;
+                lastExpandedIsPerson = true;
+                lastExpandedIsPolicy = false;
+                lastExpandedPersonNric = commandResult.getPersonToExpand().getNric().toString();
             } else if (commandResult.isExpandPolicy()) {
                 showExpandPolicy(commandResult);
+                listChangedSinceLastExpand = false;
+                lastExpandedIsPerson = false;
+                lastExpandedIsPolicy = true;
+                lastExpandedPolicyName = commandResult.getPolicyToExpand().getName().toString();
             }
 
-            if (usesRightPane(commandResult)) {
+            if (changesList(commandResult, commandText)) {
+                listChangedSinceLastExpand = true;
+            }
+
+            if (usesRightPanel(commandResult)) {
                 rightPanelCommandText = commandText;
             } else if (!isNull(rightPanelCommandText)) {
-                renderRightPanel(rightPanelCommandText);
+                if (!listChangedSinceLastExpand) {
+                    renderRightPanel(rightPanelCommandText);
+                } else {
+                    if (!rightPanelCommandText.startsWith("expand")) {
+                        renderHistoryOrDisplay(rightPanelCommandText);
+                    } else {
+                        if (!(commandText.startsWith("delete ")
+                                || commandText.startsWith("deletepolicy ")
+                                || commandText.startsWith("restore")
+                                || commandText.startsWith("undo")
+                                || commandText.startsWith("redo"))) {
+                            expandPersonOrPolicy();
+                        } else {
+                            clearDisplayPanel();
+                        }
+                    }
+                }
             }
 
             return commandResult;

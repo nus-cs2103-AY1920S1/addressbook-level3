@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_POLICIES;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,7 +74,6 @@ public class AddPolicyTagCommand extends Command {
         Policy editedPolicy = new PolicyBuilder(policyToEdit).addTags(newTags).build();
 
         model.setPolicy(policyToEdit, editedPolicy);
-        model.updateFilteredPolicyList(PREDICATE_SHOW_ALL_POLICIES);
 
         // Update persons with the edited policy
         for (Person p : model.getAddressBook().getPersonList()) {

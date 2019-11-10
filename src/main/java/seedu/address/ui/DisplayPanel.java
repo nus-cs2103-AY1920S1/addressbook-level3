@@ -55,6 +55,15 @@ public class DisplayPanel extends UiPart<Region> {
         setInfo();
     }
 
+    public DisplayPanel() {
+        super(FXML);
+        this.policy = policy;
+        isPerson = false;
+        isPolicy = false;
+        isDisplayIndicator = false;
+        setInfo();
+    }
+
     private void setInfo() {
         if (isPerson) {
             informationHolder.getChildren().add(new PersonInformationHolder(person).getRoot());

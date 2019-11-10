@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -75,12 +74,9 @@ public class AddTagCommand extends Command {
             newTags.add(new Tag(tag));
         }
 
-        Person editedPerson = new PersonBuilder(personToEdit)
-                .addTags(newTags)
-                .build();
+        Person editedPerson = new PersonBuilder(personToEdit).addTags(newTags).build();
 
         model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // to maintain the model's state for undo/redo
         model.saveAddressBookState();
