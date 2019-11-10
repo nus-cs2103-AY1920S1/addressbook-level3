@@ -45,7 +45,7 @@ public class RecmFoodCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredFoodList(food -> typePredicate.test(food) && namePredicate.test(food));
+        model.updateFilteredFoodList(typePredicate.and(namePredicate));
         model.sortFoodList(foodComparator);
         if (model.getFilterFoodList().size() == 0) {
             return new CommandResult(MESSAGE_RESPONSE_EMPTY_FOOD_LIST);
