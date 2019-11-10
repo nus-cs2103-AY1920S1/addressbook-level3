@@ -410,7 +410,7 @@ NOTE: `INDEX` corresponds to *one based* index shown on the list __What I bought
 This also means that the index must exist within this list!
 
 ==== Searching for a purchase: `find-paid`
-To have a quick view of the number of cups of Gongcha you have bought over the last month, you can used `find-paid`
+To have a quick view to see what you have been eating for dinner over the last month, you can use `find-paid`
 to pull up purchases with descriptions matching `KEYWORD` provided.
 
 .Display for find-paid

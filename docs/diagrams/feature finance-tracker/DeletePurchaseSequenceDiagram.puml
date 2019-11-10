@@ -33,16 +33,16 @@ create RemovePaidCommand
 RemovePaidCommandParser -> RemovePaidCommand
 activate RemovePaidCommand
 
-RemovePaidCommand --> RemovePaidCommandParser : d
+RemovePaidCommand --> RemovePaidCommandParser : d : RemovePaidCommand
 deactivate RemovePaidCommand
 
-RemovePaidCommandParser --> JarvisParser : d
+RemovePaidCommandParser --> JarvisParser : d : RemovePaidCommand
 deactivate RemovePaidCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 RemovePaidCommandParser -[hidden]-> JarvisParser
 destroy RemovePaidCommandParser
 
-JarvisParser --> LogicManager : d
+JarvisParser --> LogicManager : d : RemovePaidCommand
 deactivate JarvisParser
 
 LogicManager -> RemovePaidCommand : execute()

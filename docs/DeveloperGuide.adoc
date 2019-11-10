@@ -1226,8 +1226,7 @@ The application should be able to add and delete both types of objects.
 Furthermore, it should be able to find specific purchases and allow editing of
 installments by their index in the `InstallmentList`.
 
-We will be focusing on the editing of
-installments.
+We will be focusing on the editing of installments.
 
 ===== Editing an installment
 
@@ -1235,7 +1234,7 @@ The user has to specify the index of the installment he wishes
 to edit, as well as any of the fields he wishes to change. If the index does
 not exist, the system will inform the user of the error. As long as the
 fields provided by the user to be edited are valid (prefixed with "d/" and
-"a/"), then the correct installment will be accurately edited. This is
+"a/"), the correct installment will be accurately edited. This is
 reflected in the Activity Diagram below.
 
 NOTE: An index is considered invalid if the numerical value provided is less
@@ -1252,7 +1251,7 @@ executions on model. These two commands are the `edit-install` and the
 
 ===== Command `edit-install`
 
-The following activity diagram illustrates how an
+The following sequence diagram illustrates how an
 `Installment` is edited when a user types in a `edit-install` command:
 
 Step 1. The user launches the application for the first time. The
@@ -1296,7 +1295,7 @@ image::finance-tracker/EditInstallmentSequenceDiagram.png[]
 
 ===== Command `delete-paid`
 
-The following activity diagram illustrates how a
+The following sequence diagram illustrates how a
 `Purchase` is deleted when a user types in a `delete-paid` command:
 
 Step 1. The user launches the application for the first time. The
@@ -1361,7 +1360,7 @@ this decision resulted in a steep increase in code as everything had to
 abstracted into separate classes. Regardless, we still believed that the
 right decision was made as it made subsequent implementation easier.
 
-====== *Alternative*
+====== Alternative
 
 The alternative would have been to leave the corresponding fields as
 primitive data types. This would have been the easier alternative at the time

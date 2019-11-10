@@ -339,10 +339,10 @@ public class FinanceTracker {
      * @param limit
      */
     public void setMonthlyLimit(MonthlyLimit limit) {
-        if (limit == null) {
-            monthlyLimit = null;
-            return;
-        }
+//        if (limit == null) {
+//            monthlyLimit = null;
+//            return;
+//        }
         if (limit.getMonthlyLimit() < 0) {
             throw new NegativeLimitException();
         }
