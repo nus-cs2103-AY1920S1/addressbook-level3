@@ -348,6 +348,13 @@ image::submitCommandWithParamsAfterScreenshot.png[width="500"]
 
 // end::submit[]
 
+// tag::adminaccessfillsubmit[]
+=== Admins can fill and submit drafts `[coming in v2.0]`
+****
+This feature will allow admins to fill and submit incomplete and complete drafts, in case the operator that created those reports has been now removed from the system.
+****
+// end::adminaccessfillsubmit[]
+
 // tag::incidentversionhistory[]
 === Tracking incident history `[coming in v2.0]`
 ****
