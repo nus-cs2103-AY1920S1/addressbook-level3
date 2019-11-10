@@ -2,7 +2,9 @@ package seedu.ichifund.logic.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.logic.tasks.budget.ComputeBudgetTask;
 import seedu.ichifund.model.Model;
 
@@ -12,6 +14,7 @@ import seedu.ichifund.model.Model;
 public class TaskManager {
 
     private final List<Task> tasks;
+    private final Logger logger = LogsCenter.getLogger(TaskManager.class);
 
     public TaskManager() {
         tasks = new ArrayList<>();
@@ -19,7 +22,10 @@ public class TaskManager {
     }
 
     public void executeAll(Model model) {
-        tasks.forEach(task -> task.execute(model));
+        tasks.forEach(task -> {
+            task.execute(model);
+            logger.info("----------------[TASK EXECUTED][" + task.getClass().getName() + "]");
+        });
     }
 
 }
