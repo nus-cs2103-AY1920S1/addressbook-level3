@@ -234,83 +234,153 @@ Format: `help`
 Exits the program. +
 Format: `exit`
 
+___
 === Person Management
-
-==== Adding a person: `addperson`
-
-Adds a person to the TimeBook +
-Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
-
-Examples:
-
-* `addperson n/Catherine em/catherineCanCook@imail.com`
-* `addperson n/John Doe em/JohnDoe@imail.com`
-
-==== Editing a person: `editperson`
-
-Edits an existing person in the TimeBook. +
-Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
-
-****
-* Edits the person specified by `PERSON_NAME`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `tag/` without specifying any tags after it.
-* Note: `TAG` cannot have white space in the argument.
-****
-
-Examples:
-
-* `editperson ed/John Doe p/91234567 em/johndoe@example.com` +
-Edits the phone number and email address of the person with name 'John Doe' to be `91234567` and `johndoe@example.com` respectively.
-* `editperson ed/Betsy n/Betsy Crower tag/` +
-Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
 [[edit-user-command]]
 ==== Editing your details: `edituser`
 
 [IMPORTANT]
 ====
-include::UserGuide.adoc[tag=alice-brief]
+When you first start using TimeBook, a default profile has been created for you!
+This default profile will have a default name: `User`
 
-To personalize TimeBook and make it yours, use this `edituser` command as described below.
+To personalize TimeBook and make it yours, use the `edituser` command as described below.
 ====
 
-Edits your details in the TimeBook. +
+____
+Lets start off by editing our profile by using the command `edituser`!
+____
+
 Format: `edituser [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
 
 ****
-* Edits your details.
+* The `n/` prefix (optional) specifies your `name`
+** Names must be alphanumeric
+* The `p/` prefix (optional) specifies your `phone number`
+** Phone numbers must only contain numbers and must be at least 3 digits long
+* The `em/` prefix (optional) specifies your `email address`
+** Emails should be of the format local-part@domain and adhere to the following constraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-) .
+2. This is followed by a '@' and then a domain name. The domain name must:
+- be at least 2 characters long
+- start and end with alphanumeric characters
+- consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+* The `a/` prefix (optional) specifies your `address`
+** An address can take any values
+* The `r/` prefix (optional) specifies a `remark`
+** A remark must be alphanumeric
+* The `tag/` prefix (optional) specifies your `tag`
+** You can have multiple tags
+** A tag must be alphanumeric and cannot contain spaces
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 * When editing tags, your existing tags will be removed (i.e. adding of tags is not cumulative).
 * You can remove all your tags by typing `tag/` without specifying any tags after it.
 ****
 
-Examples:
+Suppose our name is `Alice`, we can edit our profile like this!
 
-* `edituser n/Frank` +
-Renames your profile to the new name `Frank`.
-* `edituser p/81234567 em/frank@example.com` +
-Edits your phone number and email address to be `81234567` and `frank@example.com` respectively.
+Example:
+
+* `edituser n/Alice p/91239123 a/Kent Ridge Drive em/alice@gmail.com r/Student`
+
+image::ugalvin/edituser.png[width=100%]
+
+After editing our profile, this is what we should see!
 
 
-// tag::delete[]
+==== Adding a person: `addperson`
+____
+The first thing to do in TimeBook is to add people that you know! It could be friends, family and even your colleagues!
+____
+
+To add a new person into TimeBook, simply use the command `addperson` and specify his or her name!
+
+You can also optionally specify his or her phone number, email address, home address, a remark and tags.
+
+Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
+
+****
+* The `n/` prefix specifies the `name` of the person to add
+* The `p/` prefix (optional) specifies a `phone number`
+* The `em/` prefix (optional) specifies an `email address`
+* The `a/` prefix (optional) specifies an `address`
+* The `r/` prefix (optional) specifies a `remark`
+* The `tag/` prefix (optional) specifies a `tag`
+** A person can have multiple tags
+****
+
+Suppose we met our new friend `Fred` and want to add him into TimeBook, simply use this command!
+
+Example:
+
+* `addperson n/Fred p/91234567 em/fred@example.com a/kent ridge drive r/friend tag/Friends tag/Colleague`
+
+image::ugalvin/addperson.png[width=100%]
+
+After adding `Fred` into the TimeBook, his name will appear on the list of people on tabs in the side panel!
+
+==== Editing a person: `editperson`
+
+____
+Accidentally added the wrong info of a person into TimeBook?
+No worries, you can simple edit an existing person with our `editperson` command!
+____
+
+To edit an existing person, simply use the `editperson` command
+and specify the name of the person you wish to edit with the `ed/` prefix!
+
+Then, simply edit each of the fields of a person with their corresponding prefixes!
+
+Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
+
+****
+* The `ed/` tag specifies the person to be edited
+** This person must exist in the TimeBook
+* At least one of the optional fields must be provided.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `tag/` without specifying any tags after it.
+* Note: `TAG` cannot have white space in the argument.
+****
+
+Suppose we added Fred's name wrongly, and he wants to be called `Freddie`.
+Additionally, he has also changed his phone number, and he wants to be your best friend!
+To update his particulars, simply execute this command!
+
+Example:
+
+* `editperson ed/Fred n/Freddie p/85868784 r/best friend tag/bestfriend`
+
+image::ugalvin/editperson.png[width=100%]
+
+After editing a person, this is what you will see! Freddie's details has been updated accordingly!
+
 ==== Deleting a person: `deleteperson`
+____
+Want to delete a person from TimeBook?
+That's easy! Simply use our `deleteperson` command!
+____
 
-Deletes the specified person from the TimeBook. +
+To delete a person from TimeBook, simply use the `deleteperson` command
+and specify the name of the person you wish to delete!
+
 Format: `deleteperson n/NAME`
 
+
 ****
-* Removes the person from all the groups they are in
-* Deletes the person specified by 'NAME'
+* the `n/` tag specifies the name of the person to be deleted
+* Only one person can be deleted at a time
 ****
+
+Suppose our business with Freddie is over, we can simply delete him from TimeBook!
 
 Examples:
 
-* `deleteperson n/Benedict` +
-Deletes the person named `Benedict` from the TimeBook.
+* `deleteperson n/Freddie`
+
+image::ugalvin/deleteperson.png[width=100%]
+
+As you can see, after deleting Freddie, he is removed from our persons tab!
 
 ==== Show person: `show`
 
@@ -340,72 +410,6 @@ You may see this person's schedule up to 4 weeks in advance.
 *****
 
 === Schedule Management
-
-==== Add Event to Schedule: `addevent`
-
-*Description*
-
-Adds an event into the schedule of a person in the TimeBook.
-Only schedules without clashes between time slots can be added to the TimeBook.
-Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
-
-*Format:*
-
-* `addevent e/EVENT_NAME t/DATETIME...` +
-* `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
-
-*Parameters*
-
-. `NAME`
-.. *Description:* The name of the person you want to add the event to. If the parameter is empty, the event
-will be added to your own schedule.
-.. *Prefix:* `n/`
-.. *Requirements:* Optional
-.. *Data Type:* String
-. `EVENT_NAME`
-.. *Description:* The name of the event you want to add to your schedule
-.. *Prefix:* `e/`
-.. *Requirements:* Required
-.. *Data Type:* String
-. `DATETIME`
-.. *Description:* The date, time and location of the event. You can specify multiple `DATETIME` if you want the
-event to repeat in different `DATETIME`. Note that the location of the event cannot contain `e/`, `n/` or `t/`.
-.. *Prefix:* `t/`
-.. *Requirements:* Require at least one `DATETIME` per event. In the `DATETIME` parameter it is optional for you to
-specify the `LOCATION`
-.. *Data Type:* String
-.. *Format: * `e/DATE - START_TIME - END_TIME - [LOCATION]
-... `DATE` : ddMMyyyy
-... `TIME` : HHmm(24H)
-... `LOCATION`: String without `e/`, `n/`, `t/` (Optional)
-*****
-image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
-*****
-
-* `addevent e/Project Meeting t/27092019-1500-1600-I3` +
-Adds an event `Project Meeting` to your schedule.
-
-Examples:
-
-* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25 t/03102019-1300-1400-LT25` +
-Adds an event `Math Lecture` that occurs on multiple dates to ``John``'s schedule.
-
-==== Delete an Event from a Schedule: `deleteevent`
-
-Deletes an event from the schedule of a person in the TimeBook.
-
-Format:
-
-* `deleteevent e/EVENT_NAME` +
-Deletes an event specified by `EVENT_NAME` from your schedule.
-
-* `deleteevent n/NAME e/EVENT_NAME` +
-Deletes an event specified by `EVENT_NAME` from the schedule of the person specified by `NAME`.
-
-Examples:
-
-* `deleteevent n/Bobby e/Swimming Lessons` +
-Deletes the event `Swimming Lessons` from `Bobby` 's schedule.
 
 // tag::addmod[]
 ==== Add Module to Schedule: `addmod`
@@ -470,6 +474,75 @@ image::nusmods/addmods1.PNG[]
 +
 image::nusmods/addmods2.PNG[]
 // end::addmods[]
+
+==== Add Event to Schedule: `addevent`
+
+____
+Have an event outside of your NUSmods timetable? Simply add them in using the `addevent` command!
+____
+
+To add an event into TimeBook, simply specify the name of that event, and the time slots of that event!
+
+Format:
+
+* `addevent [n/NAME] e/EVENT_NAME t/DATETIME...`
+
+****
+* The `n/` (optional) prefix specifies the name of the person whom we want to add an event to.
+* If the `n/` prefix is not specified, TimeBook will add the event to your schedule!
+* The `e/` prefix specifies the name of the event to be added.
+** An event name must be alphanumeric and must not be blank
+* The `t/` prefix specifies the time slot of that event.
+** Format: `DATE-STARTTIME-ENDTIME-LOCATION`
+*** Date format: `ddMMyyyy`
+*** Start/End time format: `HHmm`
+*** Location: Can take in any values.
+** An event can have multiple time slots.
+** A time slot must be between `0800` to `2000` hrs.
+** A time slot must not have a clash with an existing event.
+****
+
+Suppose Bobby has to meet his project mates to work on his project, let's try adding that event into our TimeBook!
+
+Example:
+
+* `addevent n/Bobby e/Project Meeting t/10112019-1200-1400-COM1 t/13112019-1000-1200-AS6`
+
+image::ugalvin/addevent.png[width=100%]
+
+After adding the event into our TimeBook, Bobby's schedule is automatically updated!
+
+
+==== Delete an Event from a Schedule: `deleteevent`
+
+____
+What should I do if an event is cancelled? Simply delete it from TimeBook with our `deletevent` command!
+____
+
+To delete an event, simply execute the `deleteevent` command and specify the event to delete and the person
+to delete it from!
+
+Format:
+
+* `deleteevent [n/NAME] e/EVENT_NAME`
+
+****
+* The `n/` (optional) prefix specifies the name of the person whom we want to delete an event from.
+* If the `n/` prefix is not specified, TimeBook will try to delete the event from your schedule!
+* image:./icons/lightbulb.png[] You can delete a module by specifying the module code!
+A module's event name is its module code!
+****
+
+Suppose Bobby wants to drop CS2105 from his timetable as he finds it too hard to cope with so many modules.
+We can simply delete it!
+
+Example:
+
+* `deleteevent n/Bobby e/CS2105`
+
+image::ugalvin/deleteevent.png[width=100%]
+
+After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
 === Group Management
 
