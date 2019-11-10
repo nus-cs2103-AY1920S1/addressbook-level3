@@ -12,7 +12,7 @@ import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
 import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
 
 /**
- * Placeholder.
+ * Command to finish editing a day on the {@link seedu.address.ui.itinerary.EditDayPage}.
  */
 public class DoneEditDayCommand extends Command {
 

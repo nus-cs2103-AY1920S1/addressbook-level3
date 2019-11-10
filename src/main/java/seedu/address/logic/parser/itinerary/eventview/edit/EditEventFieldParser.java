@@ -24,7 +24,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link EditEventFieldCommand}.
  */
 public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
 
