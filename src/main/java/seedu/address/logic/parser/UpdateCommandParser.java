@@ -60,8 +60,8 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
             updateTransactionDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            updateTransactionDescriptor.setDescription(
-                ParserUtil.parseDescription(argMultimap.getValue(PREFIX_NAME).get()));
+            updateTransactionDescriptor.setDescription(ParserUtil
+                    .parseDescription(argMultimap.getValue(PREFIX_NAME).get()));
         }
         parseCategoriesForEdit(argMultimap.getAllValues(PREFIX_CATEGORY))
             .ifPresent(updateTransactionDescriptor::setCategories);
