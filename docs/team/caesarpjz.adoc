@@ -99,5 +99,7 @@ include::../UserGuide.adoc[tag=startEarningsTag]
 |===
 
 include::../DeveloperGuide.adoc[tag=earnings]
+
 include::../DeveloperGuide.adoc[tag=otherEarnings]
+
 include::../DeveloperGuide.adoc[tag=accountStorage]
