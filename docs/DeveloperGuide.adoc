@@ -146,69 +146,86 @@ This section describes some noteworthy details on how certain features are imple
 
 === Generate Password
 
-This section provides implementation details on the generate random password feature.
+This section provides implementation details on the password generation feature.
 
-==== Implementation Overview
+==== Overview
+The purpose of password generation is to provide users with a hassle-free way to generate random, secure passwords.
 
-Upon `GeneratePasswordCommand#execute()`, the `GeneratorUtil` class is utilised to generate a new random password. The
-GeneratorUtil class makes use of the `java.security.SecureRandom` API to provide a cryptographically strong random number generator (RNG) that will be used in the password generation.
+By default, the password generation feature will generate a random password that:
 
-By default, the generate password feature will generate a password that:
+* is 10 letters long
 
-* Has a length of 10
+* includes lower case alphabets
 
-* Lower case alphabets
+* includes upper case alphabets
 
-* Upper case alphabets
+* includes numerals
 
-* Numerals
+* includes Special characters
 
-* Special characters
+However, users can alternatively choose to customise any of the aforementioned fields as per their needs through their input.
 
-However, these fields can be fully customised based on the user input.
+The generation of truly random passwords is made possible through the use of the `java.security.SecureRandom` API.
+It provides a cryptographically strong random number generator (RNG) that will be used in the password generation.
 
-==== Implementation Details
+The intricacies will be further reviewed in the **Implementation** section below.
 
-The following activity diagram summarises the activity of actions and control when `GeneratePasswordCommandParser` parses the user input.
 
-.Summary flow of actions during the generation of a password
+
+==== Implementation
+
+The following activity diagram summarises the general steps taken during password generation:
+
+
+.Summary flow of actions during password generation.
 image::GeneratePasswordActivityDiagram.png[]
 
-1. The user input is parsed by the GeneratePasswordCommand parser.
+The steps below outline explicity the generation of passwords :
 
-2. Depending on the user input, a GeneratePasswordDescriptor is created. If the user input input includes optional prefixes
-to customise generate configuration, a custom GeneratePasswordDescriptor is created. Else, the default GeneratePasswordDescriptor configuration is created.
+*  The user input is `#parse()` by the `GeneratePasswordCommandParser`.
 
-3. A GeneratePasswordCommand is created with this configuration. The LogicManager will then invoke the GeneratePasswordCommand#execute().
+* Based on the user input, a `GeneratePasswordDescriptor` is instantiated.
+** If the user input includes optional prefixes to customise configuration, we modify the attributes of the `GeneratePasswordDescriptor` through various setter methods.
 
-4. The GeneratePasswordCommand will invoke the static method GeneratorUtil#generateRandomPassword().
+** Else, the default `GeneratePasswordDescriptor` instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
 
-5. A new instance of SecureRandom is created.
 
-6. Based on the configuration, the relevant character sets (lower-case alphabets, upper case alphabets, numerals, special characters) are added into a list.
+[NOTE]
+The `GeneratePasswordDescriptor` is an object that encapsulates the settings of the **configuration** used for password generation.
 
-7. The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within the set to be used in the new password.
+* Upon `GeneratePasswordCommand` is instantiated with the given configuration.
 
-8. This process of choosing a character to include in the password is repeated for the length of the password.
+* Upon `#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
 
-9. The generated password is then checked to see if it includes all the user requirements (ie. whether it includes all the character sets specified by the user.)
+** Based on the configuration, the relevant character sets (lower-case alphabets, upper case alphabets, numerals, special characters) are added into a list.
 
-10. This process of generating a password is repeated until the user requirments are met.
+** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within the set to be used in the new password.
+
+** This process of choosing a character to include in the password is repeated for the length of the password.
+
+* The generated password is then checked to see if it includes all the user requirements (ie. whether it includes all the character sets specified by the user.)
+
+* This process of generating a password is repeated until the user requirements are met.
+
+The activity diagram below depicts the way in which a password is generated by the method `GeneratorUtil#generateRandomPassword()`:
+
+.Summary flow of actions during the invokation of #generateRandomassword().
+image::GenerateMethodActivityDiagram.png[]
 
 ==== Design considerations
 
 These are the considerations we came across when implementing the generate feature:
 
+===== Aspect: How to generate a random password
 |===
-||**Alternative 1 (Current choice)**|**Alternative 2**
-|**Aspect 1**: +
+|**Alternative 1 (Current choice)**|**Alternative 2**
 How to generate a truly random password
 | **Randomly choose a character set, followed by a character within the set to include in password**: +
  +
 [underline]_Pros:_ +
 Randomness is achieved because there is no predictability in the way a character set, or character is chosen.
 
- +
+
 [underline]_Cons:_ +
 Efficiency is compromised. Generating a password this way may produce a password that does not meet user configuration
 (e.g. random password does not include special characters, although it was supposed to).
@@ -217,11 +234,11 @@ As such, program needs to keep producing new random password until all the user 
  +
 [underline]_Pros:_ +
 Efficiency is achieved. We are guaranteed to generate a password that matches users' configuration everytime (e.g. lower case -> upper case -> numeral -> special case patter) +
- +
+
 [underline]_Cons:_ +
 Randomness is compromised. Generating passwords in such a pattern makes the password style very predictable, hence compromising randomness and security.
 
-3+|**Why did we choose Alternative 1:** +
+2+|**Why did we choose Alternative 1:** +
 Although less time efficient, the password generated is more random, and thus more secure. Generating a secure password is inline with our use case, and so is a more important factor.
 
 |===
@@ -231,72 +248,126 @@ Although less time efficient, the password generated is more random, and thus mo
 
 This section provides implementation details on the analyse password feature.
 
-==== Implementation Overview
+==== Overview
 
-The following class diagram is the current structure of the `Analyser` component, using `DictionaryAnalyser` as an example:
+The purpose of analysing passwords is to provide users with information on the level of security of their passwords.
+
+The user can either :
+
+1. View a summary table of results of all password by inputting `"analyse"` OR
+
+2. View a detailed review of a specific password by inputting `"analyse strong/INDEX"`
+
+SecureIT analyses 6 core components of every `Password`, using various `Analysers`. The following table summarises the functionality of each `Analyser`:
+
+|===
+||**Purpose / Checks for**
+|**UniqueAnalyser **: +
+| Checks that every password is unique.
+|**StrengthAnalyser **: +
+| Checks the complexity of every password.
+|**SimilarityAnalyser **: +
+| Checks that no two accounts share a password that is at least 70% similar.
+
+|**DictionaryAnalyser **: +
+| Checks that password does not contain any commonly-used passwords. (e.g. "password")
+
+|**SequenceAnalyser **: +
+| Checks that password does not contain any commonly-used sequences. (e.g. "ABC")
+|**KeyboardAnalyser **: +
+| Checks that password does not contain any commonly-used keyboard patterns. (e.g. "qwerty")
+
+|===
+
+The following class diagram is the current structure of the `Analyser` component.
 
 .Class diagram depicting the structure of the Analyser component.
 image::AnalyserClassDiagram.png[]
 
-The `Analyser` component,
+In summary,
 
-* can analyse the current list of `Password` object to produce a list of analysis `Results`.
+1. The analysis of passwords is initiated upon `#execute()` of the `AnalysePasswordCommand`.
 
-* output an `Analysis Report` for the user to view the security level of his passwords
+2. Each `Analyser` analyses every password in the password book.
 
-The
+3. The analysis of each password produces the respective `Result` for that password.
 
-==== Implementation Details
-The analyse password makes use of various analysers.
-Each type of analyser implements it's own implementation of `#analyse()` , and inspects the following aspects of the password:
+4. These `Results` are compiled and written into a `AnalysisReport`, which is then shown to the user in the form of a summary table.
 
-* Complexity (Strength)
-* Uniqueness
-* Similarity
-* Commonly-used passwords
-* Commonly-used sequences
-* Commonly-used keyboard patterns
-
-Given below is the example usage of how the analysis for commonly-used passwords is implemented, using the `DictionaryAnalyser`.
-
-1. The user inputs `analyse` into the command line. An `AnalysePasswordCommand` is generated and executed by `Logic`.
-
-2. On `#execute()`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
-It also retrieves the required analysers via `#getRequiredAnalysers()`. Each analyser will then `#analyse()` the list of passwords.
-
-3. In the case of `DictionaryAnalyser`, each subsequence of the particular password is checked against a common-password dictionary
-Every match found is appended to the list of `Match` objects. Refer to the the following sequence diagram below for more details on the method `DictionaryAnalyser#GetAllMatches()`
-
-4. An `AnalysisReport` compiles all the `Results` of each analyser into a string-formatted report for the user.
-
-5. Should the user wish to view a more detailed report for a specific password, user may input `analyse strong/<index>`.
+5. Users can opt to view a detailed report for a specific password to get more information on the respective `Result`.
 
 
-The following sequence diagram shows the sequence of events in the `DictionaryAnalyser`.
+==== Implementation
+
+On `#execute()`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
+It also retrieves the required analysers via `#getRequiredAnalysers()`.
+
+Each `Analyser` has it's own implementation of `#analyse()`, which will subsequently be invoked by the `AnalysePasswordCommand` given the current list of passwords.
+
+The following sequence diagram breaks down the general flows of events stated above, and in the context of a `DictionaryAnalyser`:
+
+[NOTE]
+The other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
 
 .Sequence diagram depicting the flow of analysing the list of passwords, in the context of DictionaryAnalyser.
 image::AnalysePasswordSequenceDiagram.png[]
 
+In the following discussion, we will be reviewing how `Results` are produced for each password, in the context of the `DictionaryAnalyser`.
+
+In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches(password)` within `#analyse()`.
+
+[NOTE]
+The `Dictionary` is an object that maps commonly used passwords to their ranking in terms of how commonly used they are. (e.g. "123456" is mapped to rank 1 in the Dictionary because it is  the most commonly used password)
+
+If there exists a subsequence that tests positive when looked up against the `Dictionary` , a `DictionaryMatch` is created to note down the details of the subsequence.
+
+[NOTE]
+A `Match` is an object that is created to encapsulate the details of any matches found when analysing a given password. Each `Analyser` will create it's respective `Match` when needed.
+
+Thus, we see that the method `#getAllMatches(password)` will return a list of all `DictionaryMatch` found for a given password.
+
+As long as a `DictionaryMatch` is found, then the password has failed the analysis. A `DictionaryResult` with the attribute `ResultOutcome.FAIL` will be created for that password. This process is repeated for every password. Following, the list of `DictionaryResult` are returned to be compiled and written by the `AnalysisReport`.
+
+The following sequence diagram depicts the flow of events mentioned above:
+
 .Sequence diagram depicting the flow of getting all Match objects for a given password.
 image::GetAllMatchesSequence.png[]
 
+It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
+
+This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password. The details of the algorithm can be found here:
+
 ==== Design Considerations
 ===== Aspect: How analyse/analyse strong executes
+|===
+|**Alternative 1 (Current choice)**|**Alternative 2**
 
-* **Alternative 1 (current choice):** Always analyse the entire list of Password objects for every "analyse" command,
-even if the list of Passwords was unchanged.
+| **Always analyse the entire list of Password objects for every "analyse" command,
+even if the list of Passwords was unchanged.** +
+ +
+[underline]_Pros:_ +
+Easy to implement, not required to check state if the current list of Passwords has been modified.
+ +
 
-** Pros: Easy to implement, not required to check state if the current list of Passwords has been modified.
+[underline]_Cons:_ +
+May have performance issues in terms of speed of the programme.
+|**Save in memory the result produced by the Analyser objects, and update result upon modification of
+list of Passwords (e.g. new passwords added/ passwords deleted.)** +
+ +
+[underline]_Pros:_ +
+Performance of programme will be a lot faster and efficient. +
 
-** Cons: May have performance issues in terms of speed of the programme.
-
-* **Alternative 2:** Save in memory the result produced by the Analyser objects, and update result upon modification of
-list of Passwords (e.g. new passwords added/ passwords deleted.)
-
-** Pros: Performance of programme will be a lot faster.
-
-** Cons: Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
+[underline]_Cons:_ +
+Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
 from the last time they were analysed.
+
+2+|**Why did we choose Alternative 1:** +
+From a more practical point of view, users are not expected to constantly want to keep analysing their passwords, so it may be a waste of memory to constantly save the results, as per Alternative 2.
+
+Also, considering the fact that each password is capped at a length of 25, time performance will not be affected significantly when analysing each password.
+
+
+|===
 
 // end::undoredo[]
 
@@ -486,9 +557,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |employee with multiple passwords |update my passwords | I can have the most updated list of passwords
 
-|`* *` |employee with multiple passwords |generate strong passwords | I can create new passwords will not be cracked easily
+|`* *` |employee who constantly creates new accounts |generate strong passwords | my new accounts will not be cracked easily
 
-|`* *` |employee with multiple passwords |analyse my passwords |I know which passwords are vulnerable and I should change them
+|`* *` |employee with multiple passwords |analyse my passwords |I know which passwords are vulnerable and that I should change them
 
 |`* *` |employee handling confidential files |receive confirmation of which files have been encrypted |I can be sure that I have encrypted the correct files
 
@@ -646,7 +717,6 @@ Use case end.
 *MSS*
 
 1. User chooses to generate a password
-2. User enters description of password
 3. PasswordSys generates a password
 Use case ends
 
@@ -655,19 +725,26 @@ Use case ends
 
 *Extensions*
 [none]
-* 2a. No description entered
+* 1a. Unidentified prefix entered
 +
 
 +
 [none]
-** 2a1. PasswordSys shows an error message
+** 1a1. PasswordSys shows an error message
 +
 Use case end.
 --
 [none]
-* 2b. Description entered already exists
+* 1b. Invalid length prefix entered
 [none]
-** 2b1. PasswordSys shows an error message
+** 1b1. PasswordSys shows an error message
++
+Use case end.
+
+[none]
+* 1c. All prefix are set to false
+[none]
+** 1c1. PasswordSys shows an error message
 +
 Use case end.
 
@@ -681,16 +758,28 @@ Use case end.
 +
 Use case ends
 
+[discrete]
+=== UC16 - Analyse a password
+
+*MSS*
+
+1. User chooses to analyse a password
+2. PasswordSys shows detailed report of analysis
++
+Use case ends
+
 *Extensions*
 [none]
-* 2a. No passwords available
+* 1a. Index entered is invalid
 +
 
 +
 [none]
-** 2a1. PasswordSys shows an error message
+** 1a1. PasswordSys shows an error message
 +
 Use case end.
+--
+
 
 ---
 

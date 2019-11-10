@@ -1,22 +1,26 @@
 @startuml
 !include ../style.puml
 participant ":DictionaryAnalyser" as DictionaryAnalyser LOGIC_COLOR
+[-> DictionaryAnalyser : analyse(passwordList)
+group **sd** get result for each password
+box Model MODEL_COLOR_T1
+participant ":DictionaryAnalyser" as DictionaryAnalyser LOGIC_COLOR
 participant "d : Dictionary" as Dictionary LOGIC_COLOR
 participant "<<class>>\n:LeetUtil" as LeetUtil LOGIC_COLOR
 participant ":DictionaryMatch" as DictionaryMatch LOGIC_COLOR
 participant ":DictionaryResult" as DictionaryResult LOGIC_COLOR
-
+end box
 
 activate DictionaryAnalyser
-activate Dictionary
-
-[-> DictionaryAnalyser : analyse(passwordList)
-
+loop hasPassword
 DictionaryAnalyser -> DictionaryAnalyser : getAllMatches(password)
 activate DictionaryAnalyser
 loop hasSubsequence
-    DictionaryAnalyser -> Dictionary : get(subsequence)
-    opt ifExist
+    DictionaryAnalyser -> Dictionary : getRank(subsequence)
+    activate Dictionary
+    Dictionary --> DictionaryAnalyser : rank
+    deactivate Dictionary
+    opt ifExistInDictionary
         DictionaryAnalyser -> DictionaryMatch
         activate DictionaryMatch
         DictionaryMatch --> DictionaryAnalyser
@@ -26,8 +30,11 @@ loop hasSubsequence
     activate LeetUtil
     LeetUtil --> DictionaryAnalyser
     deactivate LeetUtil
-    DictionaryAnalyser -> Dictionary : get(unleetSubsequence)
-    opt ifExist
+    DictionaryAnalyser -> Dictionary : getRank(unleetSubsequence)
+    activate Dictionary
+    Dictionary --> DictionaryAnalyser : rank
+    deactivate Dictionary
+    opt ifExistInDictionary
         DictionaryAnalyser -> DictionaryMatch
         activate DictionaryMatch
         DictionaryMatch --> DictionaryAnalyser
@@ -38,17 +45,19 @@ DictionaryAnalyser --> DictionaryAnalyser : matches
 deactivate DictionaryAnalyser
 
 alt matches found
-    DictionaryAnalyser -> DictionaryResult : DictionaryResult(password, DESC_FAIL, matches)
+    DictionaryAnalyser -> DictionaryResult : DictionaryResult(password, ResultOutcome.FAIL, matches)
     activate DictionaryResult
     DictionaryResult --> DictionaryAnalyser
     deactivate DictionaryResult
 else matches not found
-    DictionaryAnalyser -> DictionaryResult : DictionaryResult(password, DESC_PASS, matches)
+    DictionaryAnalyser -> DictionaryResult : DictionaryResult(password, ResultOutcome.PASS, matches)
         activate DictionaryResult
         DictionaryResult --> DictionaryAnalyser
         deactivate DictionaryResult
 end
 deactivate Dictionary
+end
+end
 [<-- DictionaryAnalyser : results
 deactivate DictionaryAnalyser
 

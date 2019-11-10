@@ -20,13 +20,16 @@ By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
 Welcome to SecureIT!
 
-Tired of having to keep track of all your confidential information? Look no further!
+image::SecureITLogo.png[]
+
+Skeptical about apps that store your confidential information online? But tired of having to keep track of all of them manually? Well look no further! Now you can enjoy the best of both worlds.
+
 SecureIT is specifically designed to help manage your confidential information all in one application. More importantly,
 it *stores your information locally,*  and does not use any form of online storage!
 
 
 SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-For those of you who are type fast, SecureIT can get can manage your confidential information faster than traditional GUI apps.
+For those of you who are type fast, SecureIT can manage your confidential information faster than traditional GUI apps.
 
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
@@ -223,41 +226,49 @@ Example: `find Gmail`
 ==== Generating a new password: `generate`
 
 Lazy to think of a strong password?
-Simply enter `generate` into the command box to get one.
+Simply enter `generate` into the command box to get one. It's random, secure and totally hassle-free!
 ====
 --
 image::tip.png[width = "20", float = "left"]
 --
 *Try it out!*
 
-* You can add custom preferences and configure the following:
-** Length of password
+* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields during generation:
+** Length of password (Between 4 and 25)
 
-** Inclusion of upper / lower alphabets
+** Exclusion of lower alphabets
 
-** Inclusion of numbers
+** Exclusion of upper alphabets
 
-** Inclusion of special characters
+** Exclusion of numbers
 
-* All passwords are automatically copied onto your clipboard.
+** Exclusion of special characters
+
+* Refer to usage format below for more details.
+
+[NOTE]
+You are only required to indicate for fields you wish to **exclude**!
+[NOTE]
+Please ensure **at least one character set  is included**.
 ====
 
-Format: `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`
-
-* The various fields are set to TRUE by default.
-
-* To disable these fields, set to FALSE.
+Format: `generate [length/LENGTH] [lower/FALSE] [upper/FALSE] [num/FALSE] [special/FALSE]`
 
 Example: `generate`
 
-Example `generate length/10`
+Example: `generate length/10`
 
-Example: `generate lower/true upper/true num/true special/false`
+Example: `generate lower/false special/false`
 
+.Example user input for generate password
+image::GeneratePasswordScreenShot0.png[]
+
+.Example outcome for generate password
+image::GeneratePasswordScreenShot1.png[]
 
 ==== Analysing passwords : `analyse`
 
-Curious how secure your passwords really are? Type `analyse` into the command box to find out.
+Curious to know how secure your passwords really are? Type `analyse` into the command box to find out. You might be surprised...
 
 ====
 --
@@ -267,11 +278,17 @@ image::tip.png[width = "20", float = "left"]
 
 * You can opt to view:
 
-** A general, summary security report for all passwords, or
+** A general, summary security report for **all** passwords, or
 
-** A detailed security report for a specific password.
+** A detailed security report for a **specific** password.
 
-* To view the detailed analysis of a particular password, simply add in the `strong` prefix.
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX`
+
+[NOTE]
+`INDEX` used should be that of an existing password.
+
+* Refer to usage format below for more details.
+
 ====
 
 Format: `analyse [strong/INDEX]`
@@ -279,6 +296,18 @@ Format: `analyse [strong/INDEX]`
 Example: `analyse`
 
 Example: `analyse strong/8`
+
+.Example user input for analyse
+image::AnalysePasswordScreenShot0.png[]
+
+.Example outcome for analyse
+image::AnalysePasswordScreenShot1.png[]
+
+.Example user input for analyse strong
+image::AnalyseStrongPasswordScreenShot0.png[]
+
+.Example outcome for analyse strong
+image::AnalyseStrongPasswordScreenShot1.png[]
 
 === Card
 
