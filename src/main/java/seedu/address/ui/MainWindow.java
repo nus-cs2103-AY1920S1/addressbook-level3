@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonDetailsPanel personDetailsPanel;
     private ActivityDetailsPanel activityDetailsPanel;
     private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
     private HelpWindow helpWindow;
 
     /*
@@ -95,7 +96,7 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayContainer.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusBarContainer.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -156,19 +157,23 @@ public class MainWindow extends UiPart<Stage> {
 
         switch (newContextType) {
         case LIST_ACTIVITY:
+            statusBarFooter.setMessage("Context: listing activities");
             activityListPanel.refreshView();
             contentContainer.getChildren().add(activityListPanel.getRoot());
             break;
         case LIST_CONTACT:
+            statusBarFooter.setMessage("Context: listing contacts");
             contentContainer.getChildren().add(personListPanel.getRoot());
             break;
         case VIEW_CONTACT:
+            statusBarFooter.setMessage("Context: viewing a contact");
             Person viewedContact = newContext.getContact().get();
             List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
             personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
         case VIEW_ACTIVITY:
+            statusBarFooter.setMessage("Context: viewing an activity");
             Activity viewedActivity = newContext.getActivity().get();
             List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
             activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
@@ -176,6 +181,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
         default:
             // Do nothing (leave content container empty)
+            statusBarFooter.setMessage("Context: unknown!");
         }
     }
 
