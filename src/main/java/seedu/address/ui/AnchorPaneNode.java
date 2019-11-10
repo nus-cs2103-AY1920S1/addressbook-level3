@@ -20,8 +20,9 @@ public class AnchorPaneNode extends AnchorPane {
     public AnchorPaneNode(Node... children) {
         super(children);
         // Add action handler for mouse clicked
-        this.setStyle("-fx-background-color: #C0C0C0");
-        this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
+        this.setStyle("-fx-background-color: #EBFAFF");
+        //this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
+        this.setOnMouseClicked(e -> UiManager.startTaskWindow(date));
     }
 
     public LocalDate getDate() {

@@ -117,6 +117,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
@@ -131,6 +132,7 @@ The `Model`,
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -405,7 +407,7 @@ If there are `Earnings` object associated with the current day of the week and t
 with it that is more than 1. The earnings inside the `ArrayList` inside the `HashMap` would be added into the earnings list.
 // end::earnings[]
 
-//tag::Calendar[]
+// tag::Calendar[]
 === Calendar Feature
 
 ==== Add Tasks
@@ -450,26 +452,27 @@ image::AddTaskActivityDiagram.png[]
 *Example Scenerio*
 
 
-* Step 1: The user enters `add_earnings d/04/08/2019 c/CS1231 amt/50.00` to add an earning for teaching classes.
-This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
-earned $50.00.
+* Step 1: The user enters `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 21/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+to add an task into the calendar.
+This adds an `Task` object, which is a module CS2103T that the user need to attempt at 1pm of 20th and 21st September 2019.
+The task is marked so that it would be reminded.
 
-* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
 
-* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
-the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
+* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+the given command is `add_task`, thus, `AddTaskCommandParser` object would be created with the user's input.
 
-* Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
-`AddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseDate()`, `ParserUtil#parseClassId()` and
-`ParserUtil#parseAmount()`. It would then return a `AddEarningsCommand` object with an `Earnings` object.
+* Step 4: `AddTaskCommandParser` performs a validation check on each of the respective objects through
+`AddTaskCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`, `ParserUtil#parseMarking()`, and
+`ParserUtil#parseTaskTimes()`. It would then return a `AddTaskCommand` object with an `Task` object.
 
-* Step 5: `LogicManager` would execute `AddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
-check with the rest of the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar
-`Earnings` object with the same parameters created previously, it would then be added into the earnings list.
+* Step 5: `LogicManager` would execute `AddTaskCommand#execute`. In this particular method, the `Task` object will be
+check with the rest of the prior `Task` object, to ensure that there is no duplicate `Task` object. If there are no similar
+`Task` object with the same parameters created previously, it would then be added into the task list.
 
-* Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+* Step 6: `AddTaskCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Task`
 object have been successfully added.
-//end::Calendar[]
+// end::Calendar[]
 
 === Notes Features
 ==== Add Notes
@@ -670,7 +673,7 @@ do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
 // end::learncustomcommands[]
 
-// tag::undo/redo[]
+// tag::undoAndRedo[]
 === Undo/Redo feature
 
 The undo/redo mechanism is facilitated by `VersionedTutorAid`.
@@ -740,16 +743,7 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of tutor aid states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTutorAid`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undo/redo[]
+// end::undoAndRedo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -804,6 +798,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage calendar and track earnings faster than a typical mouse/GUI driven app
 
+// tag::userStoriesAndCase[]
 [appendix]
 == User Stories
 
@@ -865,7 +860,10 @@ Use case ends.
 [none]
 ** 3a1. TutorAid shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 2. +
+
+// end::userStoriesAndCase[]
+
 
 [discrete]
 === Use case: Delete Reminder

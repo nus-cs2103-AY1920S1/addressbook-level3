@@ -5,15 +5,19 @@ import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.task.Task;
 
 /**
  * Constructor for the entire calendar view
@@ -36,8 +40,9 @@ public class FullCalendarView extends UiPart<Region> {
         currentYearMonth = yearMonth;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
-        calendar.setPrefSize(600, 400);
+        calendar.setPrefSize(600, 500);
         calendar.setGridLinesVisible(true);
+        calendar.autosize();
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
@@ -74,13 +79,14 @@ public class FullCalendarView extends UiPart<Region> {
         Button nextMonth = new Button(">>");
         nextMonth.setOnAction(e -> nextMonth());
         HBox titleBar = new HBox(previousMonth, calendarTitle, nextMonth);
+        titleBar.setSpacing(10);
         titleBar.setAlignment(Pos.BASELINE_CENTER);
         //titleBar.setStyle("-fx-background-color: #F0591E;");
         // Populate calendar with the appropriate day numbers
         populateCalendar(yearMonth);
         // Create the calendar view
         view = new VBox(titleBar, dayLabels, calendar);
-        view.setStyle("-fx-background-color: #FFDF2F;");
+        view.setStyle("-fx-background-color: #489D64;");
     }
 
     /**
@@ -96,8 +102,15 @@ public class FullCalendarView extends UiPart<Region> {
         }
         // Populate the calendar with day numbers
         for (AnchorPaneNode ap : allCalendarDays) {
+
             if (ap.getChildren().size() != 0) {
-                ap.getChildren().remove(0);
+                /*for (Node node : markedNumbers) {
+                    ap.getChildren().remove(node);
+                    System.out.println("node deleted");
+                }
+                markedNumbers.clear();*/
+                //ap.getChildren().remove(0 );
+                ap.getChildren().clear();
             }
             Text txt = new Text(String.valueOf(calendarDate.getDayOfMonth()));
             ap.setDate(calendarDate);
@@ -105,6 +118,56 @@ public class FullCalendarView extends UiPart<Region> {
             ap.setLeftAnchor(txt, 5.0);
             ap.getChildren().add(txt);
             calendarDate = calendarDate.plusDays(1);
+
+            ObservableList<Task> tasks = UiManager.returnTaskByDate(ap.getDate());
+
+            /*VBox vb = new VBox();
+            Text test = new Text("test");
+            vb.setPadding(new Insets(0, 10, 0, 7));
+            vb.setSpacing(0);
+            vb.getChildren().addAll(test);
+            //ap.getChildren().add(vb);
+
+            ap.setTopAnchor(vb, 20.0);
+            ap.setLeftAnchor(vb, 5.0);
+
+
+            ListView<Task> taskListView = new ListView<>();
+            taskListView.setItems(t);
+            taskListView.setCellFactory(listView -> new TaskListViewCell());
+            //should look at list and add task to date till no more tasks
+            ap.getChildren().add(taskListView);
+            ap.setTopAnchor(taskListView, 20.0);
+            ap.setLeftAnchor(taskListView, 5.0);
+            */
+
+            VBox newvb = new VBox();
+            int count = 0;
+            for (Task t : tasks) {
+                Text names = new Text(t.toWindowString());
+                names.setFont(Font.font ("Serif", 10));
+                if (count < 2) {
+                    newvb.getChildren().add(names);
+                    count = count + 1;
+                } else if (count == 2) {
+                    Text dots = new Text("...");
+                    dots.setFont(Font.font ("Serif", 10));
+                    newvb.getChildren().add(dots);
+                    count = count + 1;
+                } else {
+                    count = count + 1;
+                }
+            }
+            Text num = new Text("Tasks: " + count);
+            num.setFont(Font.font ("Cambria", 10));
+            ap.getChildren().add(num);
+            ap.getChildren().add(newvb);
+            ap.setTopAnchor(num, 7.0);
+            ap.setLeftAnchor(num, 25.0);
+            ap.setTopAnchor(newvb, 20.0);
+            ap.setLeftAnchor(newvb, 5.0);
+
+
         }
         // Change the title of the calendar
         calendarTitle.setText(yearMonth.getMonth().toString() + " " + String.valueOf(yearMonth.getYear()));
@@ -136,5 +199,23 @@ public class FullCalendarView extends UiPart<Region> {
 
     public void setAllCalendarDays(ArrayList<AnchorPaneNode> allCalendarDays) {
         this.allCalendarDays = allCalendarDays;
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     */
+    class TaskListViewCell extends ListCell<Task> {
+
+        @Override
+        protected void updateItem(Task task, boolean empty) {
+            super.updateItem(task, empty);
+
+            if (empty || task == null) {
+                setText(null);
+            } else {
+                setText(task.toWindowString());
+
+            }
+        }
     }
 }

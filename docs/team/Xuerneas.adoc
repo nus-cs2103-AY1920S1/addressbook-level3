@@ -1,0 +1,84 @@
+= Xuerneas - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TutorAid
+.*_Introduction_*
+****
+
+image:xuerneas.png[width="150", align="left"] {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}[https://github.com/Xuerneas[*_GitHub_*]] +
+Hi, I'm Xu Tunan, a Year Two SoC Student from National University of Singapore (NUS). This Project Portfolio is aimed to introduce our project -- TutorAid, as well as state my own contributions in this project.
+****
+
+
+
+== Overview of the TutorAid
+
+TutorAid is a desktop application that designed to help the teaching assistants in NUS. It is a combination of the Calendar, the Earning Tracker, the Notepad, as well as the Student Profile Manager. +
+Those features of TutorAid was selected specifically for the target user - tutors, based on their exact needs. +
+
+The user interacts with TutorAid using a Command Line Interface (CLI), with a Graphical User Interface (GUI) created with JavaFX for user to better view the interactions.
+
+== Summary of contributions
+
+* *_Major enhancement_*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: The implementation of the undo and redo commands were inspired by Address Book 4, however more challenging in this project due to the complexity. +
+
+* *_Major enhancement_*: added *the task management commands (Part of Calendar Feature)*
+** What it does: allows the user to `add`, `delete`, `edit`, `find`, `list` tasks.
+** Justification: This feature is one of the most important features in the TutorAid since it aimed to help tutors and this feature is really useful for tutors. +
+
+* *_Minor enhancement_*: added a sorting method in TaskTime so that in each task, their task times would be sorted automatically.
+** Justification: This enhancement is added to show each task clearer. Also, users do not need to worry that they key in the task time in wrong order anymore.
+
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=Xuerneas[*All Commits*]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xuerneas&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Xuerneas&tabRepo=AY1920S1-CS2103T-F14-2%2Fmain%5Bmaster%5D[*Code Contribution*]]
+
+
+* *Other contributions*:
+
+** Project management:
+*** Managed bugs reported by other users in Practical Exam Dry Run: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/296[#296], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/300[#300], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/301[#301]
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase code coverage (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/232[#232], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/311[#311], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/320[#320])
+** Documentation:
+*** Added detailed implementation documentation for undo/redo feature and most part of the calendar feature in User Guide, including diagrams. (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/220[#220], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/341[#341])
+*** Added detailed implementation documentation with diagrams for undo/redo feature and add task command, class diagrams of Storage and Model, as well as user stories and use cases in Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/pull/118[#118], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/161[#161], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/220/files[#220], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/311/files[#311])
+** Community:
+*** Reviewed Pull Request with feedback : https://github.com/AY1920S1-CS2103T-F14-2/main/pull/164[#164], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/343[#343]
+** Tools:
+*** Set up Coveralls for the test coverage of the project.
+
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=tasks]
+include::../UserGuide.adoc[tag=undoAndRedo]
+include::../UserGuide.adoc[tag=commandSummary]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Calendar]
+
+include::../DeveloperGuide.adoc[tag=undoAndRedo]
+
+include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
+
+
+

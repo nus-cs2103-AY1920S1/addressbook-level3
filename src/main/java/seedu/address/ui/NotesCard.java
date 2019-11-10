@@ -5,8 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
-import seedu.address.logic.commands.note.DeleteNotesCommand;
-import seedu.address.logic.parser.DeleteNotesCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Notes;
 
@@ -28,6 +26,8 @@ public class NotesCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label type;
+    @FXML
     private Label content;
 
     public NotesCard(Notes notes, int displayedIndex) {
@@ -35,19 +35,18 @@ public class NotesCard extends UiPart<Region> {
         this.notes = notes;
         id.setText(displayedIndex + ". ");
         index = displayedIndex;
-        classId.setText("ClassId: " + notes.getCode().value);
+        classId.setText("Module: " + notes.getCode().value);
+        type.setText("Type: " + notes.getType().type);
         content.setText("Notes: " + notes.getContent().content);
     }
 
     /**
      * To handle delete button action.
-     * @return DeleteNoteCommand.
      * @throws ParseException If there is parsing error.
      */
     @FXML
-    public DeleteNotesCommand handleDelete() throws ParseException {
-        String command = Integer.toString(this.index);
-        return new DeleteNotesCommandParser().parse(command);
+    public void handleDelete() throws ParseException {
+        UiManager.deleteNotesButton(index);
     }
 
     @Override
