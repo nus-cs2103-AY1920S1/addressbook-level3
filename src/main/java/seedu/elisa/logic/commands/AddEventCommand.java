@@ -40,7 +40,7 @@ public class AddEventCommand extends AddCommand {
 
         // Notify Ui to change the view the that of the newly added item.
         try {
-            if(!(model.getVisualList() instanceof EventList)){
+            if (!(model.getVisualList() instanceof EventList)) {
                 model.setVisualList(SHOW_EVENT_VIEW);
             }
         } catch (Exception e) {

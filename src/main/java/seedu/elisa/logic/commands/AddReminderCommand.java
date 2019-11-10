@@ -33,7 +33,7 @@ public class AddReminderCommand extends AddCommand {
 
         // Notify Ui to change the view the that of the newly added item.
         try {
-            if(!(model.getVisualList() instanceof ReminderList)) {
+            if (!(model.getVisualList() instanceof ReminderList)) {
                 model.setVisualList(SHOW_REMINDER_VIEW);
             }
         } catch (Exception e) {

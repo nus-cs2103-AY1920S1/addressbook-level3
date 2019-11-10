@@ -32,7 +32,7 @@ public class AddTaskCommand extends AddCommand {
 
         // Notify Ui to change the view the that of the newly added item.
         try {
-            if(!(model.getVisualList() instanceof TaskList)){
+            if (!(model.getVisualList() instanceof TaskList)) {
                 model.setVisualList(SHOW_TASK_VIEW);
             }
 
