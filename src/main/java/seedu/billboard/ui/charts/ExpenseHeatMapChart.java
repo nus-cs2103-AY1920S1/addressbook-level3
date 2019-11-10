@@ -63,6 +63,8 @@ public class ExpenseHeatMapChart extends ExpenseChart {
                                HeatMapGenerator heatMapGenerator) {
         super(FXML, expenses);
         this.expenseGrouping = expenseGrouping;
+        expenseGrouping.setValue(ExpenseGrouping.NONE); // Default value
+
         this.heatMapGenerator = heatMapGenerator;
         this.seriesManager = new SeriesManager<>(
                 expenseGrouping.getValue().getGroupingFunction().group(expenses).keySet(),

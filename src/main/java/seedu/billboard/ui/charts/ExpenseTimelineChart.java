@@ -65,6 +65,9 @@ public class ExpenseTimelineChart extends ExpenseChart {
         super(FXML, expenses);
         this.dateInterval = dateInterval;
         this.expenseGrouping = expenseGrouping;
+        dateInterval.setValue(DateInterval.MONTH);
+        expenseGrouping.setValue(ExpenseGrouping.NONE); // Default values
+
         this.timelineGenerator = timelineGenerator;
         this.seriesManager = new SeriesManager<>(
                 expenseGrouping.getValue().getGroupingFunction().group(expenses).keySet(),

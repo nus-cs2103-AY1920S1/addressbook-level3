@@ -45,9 +45,10 @@ public class ExpenseBreakdownChart extends ExpenseChart {
                                  ObservableData<ExpenseGrouping> expenseGrouping,
                                  BreakdownGenerator breakdownGenerator) {
         super(FXML, expenses);
-        this.expenseGrouping = expenseGrouping;
         this.breakdownGenerator = breakdownGenerator;
         this.dataList = FXCollections.observableArrayList();
+        this.expenseGrouping = expenseGrouping;
+        expenseGrouping.setValue(ExpenseGrouping.TAG); // Default value
 
         ExpenseBreakdown expenseBreakdown = breakdownGenerator.generate(expenses);
         dataList.setAll(breakdownValuesToList(expenseBreakdown.getBreakdownValues()));

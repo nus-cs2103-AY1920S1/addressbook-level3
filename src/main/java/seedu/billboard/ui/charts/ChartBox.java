@@ -37,13 +37,11 @@ public class ChartBox extends UiPart<Region> {
         this.expenses = expenses;
         this.dateInterval = new ObservableData<>();
         this.expenseGrouping = new ObservableData<>();
-        dateInterval.setValue(DateInterval.MONTH);
-        expenseGrouping.setValue(ExpenseGrouping.NONE);
 
         statsType.observe(this::onStatsTypeChanged);
         statsOptions.observe(options -> {
-            options.getNewDateInterval().ifPresent(value -> dateInterval.setValue(value));
-            options.getGrouping().ifPresent(value -> expenseGrouping.setValue(value));
+            options.getNewDateInterval().ifPresent(dateInterval::setValue);
+            options.getGrouping().ifPresent(expenseGrouping::setValue);
         });
     }
 
