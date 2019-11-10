@@ -16,6 +16,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.EditAutotagCommand;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.predicates.BookmarkPredicate;
@@ -27,15 +28,15 @@ public class EditAutotagCommandParserTest {
     private static final String VALID_TAG_2 = "myTag2";
     private static final String VALID_NAME_1 = "website";
     private static final String VALID_NAME_2 = "question";
-    private static final String VALID_URL_1 = "facebook.com";
+    private static final String VALID_URL = "facebook.com";
     private static final String VALID_FOLDER = "Quiz";
 
     private static final String TAG_DESC = " " + PREFIX_TAG + VALID_TAG_2;
     private static final String NAME_DESC_1 = " " + PREFIX_NAME + VALID_NAME_1;
     private static final String NAME_DESC_2 = " " + PREFIX_NAME + VALID_NAME_2;
-    private static final String NOT_NAME_DESC_1 = " " + PREFIX_NOT_NAME + VALID_NAME_1;
-    private static final String URL_DESC_1 = " " + PREFIX_URL + VALID_URL_1;
-    private static final String NOT_URL_DESC_1 = " " + PREFIX_NOT_URL + VALID_URL_1;
+    private static final String NOT_NAME_DESC = " " + PREFIX_NOT_NAME + VALID_NAME_1;
+    private static final String URL_DESC = " " + PREFIX_URL + VALID_URL;
+    private static final String NOT_URL_DESC = " " + PREFIX_NOT_URL + VALID_URL;
     private static final String FOLDER_DESC = " " + PREFIX_FOLDER + VALID_FOLDER;
     private static final String NOT_FOLDER_DESC = " " + PREFIX_NOT_FOLDER + VALID_FOLDER;
 
@@ -53,7 +54,7 @@ public class EditAutotagCommandParserTest {
         assertParseFailure(parser, VALID_TAG, EditAutotagCommand.MESSAGE_NO_FIELD_EDITED);
 
         // empty condition
-        assertParseFailure(parser, VALID_TAG + " " + PREFIX_URL, EditAutotagCommand.MESSAGE_CONDITION_EMPTY);
+        assertParseFailure(parser, VALID_TAG + " " + PREFIX_URL, AutotagCommand.MESSAGE_CONDITION_EMPTY);
 
         // empty input
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
@@ -61,69 +62,41 @@ public class EditAutotagCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        String userInput = VALID_TAG + TAG_DESC + NAME_DESC_1 + URL_DESC_1;
+        String userInput = VALID_TAG + TAG_DESC + NAME_DESC_1 + URL_DESC;
 
         EditAutotagCommand expectedCommand = new EditAutotagCommand(VALID_TAG,
                 new SelectiveBookmarkTagger(new Tag(VALID_TAG_2), new BookmarkPredicate()
                         .withNameKeywords(Collections.singletonList(VALID_NAME_1))
-                        .withUrlKeywords(Collections.singletonList(VALID_URL_1))));
+                        .withUrlKeywords(Collections.singletonList(VALID_URL))));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
+    public void parse_someFieldsSpecified_success() {
         // tag name
         String userInput = VALID_TAG + TAG_DESC;
         EditAutotagCommand expectedCommand = new EditAutotagCommand(VALID_TAG,
                 new SelectiveBookmarkTagger(new Tag(VALID_TAG_2), new BookmarkPredicate()));
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // name
-        userInput = VALID_TAG + NAME_DESC_1;
+        // name + url + folder
+        userInput = VALID_TAG + NAME_DESC_1 + URL_DESC + FOLDER_DESC;
         expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withNameKeywords(Collections.singletonList(VALID_NAME_1))));
+                new SelectiveBookmarkTagger(new Tag(VALID_TAG), new BookmarkPredicate()
+                        .withNameKeywords(Collections.singletonList(VALID_NAME_1))
+                        .withUrlKeywords(Collections.singletonList(VALID_URL))
+                        .withFolder(Collections.singletonList(VALID_FOLDER))));
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // url
-        userInput = VALID_TAG + URL_DESC_1;
+        // not name + not url + not folder
+        userInput = VALID_TAG + NOT_NAME_DESC + NOT_URL_DESC + NOT_FOLDER_DESC;
         expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withUrlKeywords(Collections.singletonList(VALID_URL_1))));
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // folder
-        userInput = VALID_TAG + FOLDER_DESC;
-        expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withFolder(Collections.singletonList(VALID_FOLDER))));
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // not name
-        userInput = VALID_TAG + NOT_NAME_DESC_1;
-        expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withoutNameKeywords(Collections.singletonList(VALID_NAME_1))));
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // not url
-        userInput = VALID_TAG + NOT_URL_DESC_1;
-        expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withoutUrlKeywords(Collections.singletonList(VALID_URL_1))));
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // not folder
-        userInput = VALID_TAG + NOT_FOLDER_DESC;
-        expectedCommand = new EditAutotagCommand(VALID_TAG,
-                new SelectiveBookmarkTagger(new Tag(VALID_TAG),
-                        new BookmarkPredicate().withoutFolder(Collections.singletonList(VALID_FOLDER))));
+                new SelectiveBookmarkTagger(new Tag(VALID_TAG), new BookmarkPredicate()
+                        .withoutNameKeywords(Collections.singletonList(VALID_NAME_1))
+                        .withoutUrlKeywords(Collections.singletonList(VALID_URL))
+                        .withoutFolder(Collections.singletonList(VALID_FOLDER))));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
