@@ -784,15 +784,19 @@ The `lookat` command takes in any number of `n/Name` and highlights the group me
 Example:
 
 Suppose your group schedule looks like the one below.
-//Image1
+
+image::showgroupresult.png[]
 
 * Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
 You should see that Bobby's and Denise's schedule become highlighted.
-//Image2
+
+image::lookatgroupresult.png[]
 
 *****
-image:./icons/important.png[] Empty blocks represent the free time slots for the group members that you are looking at.
-The green blocks still represent the common free time slots for the entire group.
+image:./icons/important.png[] *Empty blocks* represent the free time slots for the group members that you are looking at.
+The green blocks still represent the common free time slots for the entire group!
+
+image:./icons/lightbulb.png[] You can use the `lookat` command with no arguments to basically filter off the coloured blocks if your group size gets too big and messy!
 *****
 
 

@@ -390,7 +390,7 @@ as the duration between 8am and the start time of the first `PersonTimeslot` obj
 . For each `PersonTimeslot` object in the list, stack a coloured `Block` in the same *container*. This `Block` should have the same height as the duration between the start and end time of the `PersonTimeslot` object.
 . Stack in empty `Block` to fill the gaps between the end time of the current `PersonTimeslot` and the start time of the next `PersonTimeslot` in the list.
 
-After having the `ScheduleView` class that creates the graphics for TimeBook, we needed to control what graphics to show. As such,
+After having the `ScheduleView` class that creates the graphics for TimeBook, we have to control what graphics to show. As such,
  we made use of an abstract class `ScheduleViewManager` to control the creation of `ScheduleView` objects.
 The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
 
