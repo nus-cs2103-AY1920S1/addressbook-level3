@@ -14,7 +14,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.ProjectCommand;
-import seedu.address.model.category.Category;
 import seedu.address.model.person.Person;
 import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
@@ -336,7 +335,8 @@ public class ModelManager implements Model {
                 newTransactions.remove(deleted);
                 if (newTransactions.asUnmodifiableObservableList().size()
                     >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
-                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate(), x.getBudgets()));
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                        x.getDate(), x.getBudgets()));
                 }
             } else {
                 boolean sameCategory = deleted.getCategories().stream().anyMatch(c -> {

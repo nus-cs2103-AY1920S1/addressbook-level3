@@ -27,8 +27,8 @@ import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.Description;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.LendMoney;
-import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.TransactionPredicate;
+import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 import seedu.address.testutil.BankOperationBuilder;
 import seedu.address.testutil.UserStateBuilder;
@@ -179,7 +179,7 @@ public class ModelManagerTest {
         Model falseModel = new ModelManager();
         falseModel.setTransactions(getTypicalTransactions());
         Projection projection = new Projection(falseModel.getFilteredTransactionList(), new Date("19112019"),
-                new UniqueBudgetList().asUnmodifiableObservableList());
+            new UniqueBudgetList().asUnmodifiableObservableList());
         assertFalse(modelManager.has(projection));
     }
 
@@ -188,7 +188,7 @@ public class ModelManagerTest {
         Model stubModel = new ModelManager();
         stubModel.setTransactions(getTypicalTransactions());
         Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"),
-                new UniqueBudgetList().asUnmodifiableObservableList());
+            new UniqueBudgetList().asUnmodifiableObservableList());
         modelManager.add(projection);
         assertTrue(modelManager.has(projection));
     }
@@ -217,7 +217,7 @@ public class ModelManagerTest {
         Model stubModel = new ModelManager();
         stubModel.setTransactions(getTypicalTransactions());
         Projection projection = new Projection(stubModel.getFilteredTransactionList(), new Date("19112019"),
-                new UniqueBudgetList().asUnmodifiableObservableList());
+            new UniqueBudgetList().asUnmodifiableObservableList());
         modelManager.add(projection);
         assertTrue(modelManager.has(projection));
 
