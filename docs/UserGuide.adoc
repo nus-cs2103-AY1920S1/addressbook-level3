@@ -253,7 +253,11 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| Application closes.
 //end::roby2[]
 
 === Food Items
-For Food Items, do take note of the following:
+
+
+[[add]]
+==== Add a food item: `add`
+Adds a food item to the food list. Do note of the following:
 
 ****
 *  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
@@ -264,10 +268,6 @@ Providing more than one of these `FIELD` will throw an error.
 * `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
 * `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
 ****
-
-[[add]]
-==== Add a food item: `add`
-Adds a food item to the food list.
 
 [IMPORTANT]
 The list will scroll to the end when the food is added. +
@@ -281,7 +281,7 @@ The list of recommendations would be cleared if you use the this command. You ca
 by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
 
 ****
-*Format*: `add n/NAME p/PRICE c/CATEGORY ...` +
+*Format*: `add n/NAME p/PRICE c/CATEGORY [d/DESCRIPTION] [l/LOCATION] [o/OPENING HOURS] [r/RESTRICTIONS] [t/TAG]...` +
 *Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NI t/Chicken t/RiceL`
 ****
 
@@ -318,9 +318,20 @@ image::listsuccess.png[]
 
 ==== Edit a food item: `edit`
 Edits a food item at a INDEX based on a specific FIELD or fields. INDEX must be a positive integer. At least one FIELD must be given.
+Do take note of the following:
 
 ****
-*Format*: `edit INDEX n/NAME d/DESCRIPTION ...` +
+*  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
+Providing more than one of these `FIELD` will throw an error.
+*  You are allowed to give one or more `TAGS`.
+* `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+* `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
+* `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
+* `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
+****
+
+****
+*Format*: `edit INDEX n/NAME ...` +
 *Example*: `edit 2 n/Fried Rice`
 ****
 
@@ -355,8 +366,10 @@ image::findsuccess.png[]
 
 //tag::filters[]
 ==== Filters food items based on criteria: `filter`
-Filters the food items based on the criteria specified. Note: You can need to
-have at least one of a `FIELD`, `QUANTIFIER` and `VALUE`.
+Filters the food items based on the criteria specified. Take note of the following:
+****
+*  The `VALUE` of the `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+****
 
 [NOTE]
 Based on v1.4, you are only allowed to enter `PRICE` as a `FIELD`. Other fields will be available for use
@@ -380,7 +393,9 @@ image::filtersuccess.png[]
 
 ==== Deletes a food item: `delete`
 Deletes a food items based on the given INDEX. INDEX must be a positive integer.
-Note: You are allowed to have more than one `INDEX`.
+
+[NOTE]
+You are allowed to have more than one `INDEX`.
 
 ****
 *Format*: `delete INDEX ...` +
