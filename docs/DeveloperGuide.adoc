@@ -320,9 +320,15 @@ Here is a sample use case in creating an expense:
 
 The following sequence diagram shows how the expense adding operation works:
 
+.Sequence diagram for adding an expense
 image::ExpenseSequenceDiagram.png[]
 
 NOTE: The lifeline for `ExpenseCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following activity diagram encapsulates the high level logic of the expense adding operation:
+
+.Activity diagram for adding an expense
+image::ExpenseActivityDiagram.png[]
 
 // end::createexpense[]
 // tag::algorithm[]
