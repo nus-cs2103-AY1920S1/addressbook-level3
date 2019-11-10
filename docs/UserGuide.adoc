@@ -154,17 +154,13 @@ Commands below are come other example commands:
 
 === Find meals in the meal database: `find`
 
-Searches for meals contains the words you have input. +
+Searches for meals that contains the words the user have input. +
 The search results will be shown under the "Suggested Meals" section of the application. +
-The find feature will replace the suggest feature, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
-
-Format: `find MEAL_WORD`
+The find feature will replace the suggest feature when being used, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
 
 Example usage:
-You would like to know the amount of calories in an "Apple Pie" which
-you know exist in the CaloFit database. However, you
-do not want to scroll through the suggested list just to find it.
-What do you do?
+You would like to know the amount of calories in an "Apple Pie" which you know exist in the CaloFit database. However, you
+do not want to scroll through the entire suggested list just to find it.
 
 * Type `find apple pie` into the command bar and press the `enter` key.
 
@@ -174,6 +170,8 @@ image::FindCommandFindApplePie.png[]
 relevant calorie information.
 
 image::FindCommandFindApplePieSuccess.png[]
+
+Format: `find MEAL_WORD`
 
 === Suggesting Meal options: `suggest`
 
@@ -198,6 +196,19 @@ image::SuggestCommandBefore.png[]
 image::SuggestCommandAfter.png[]
 
 Format: `suggest`
+
+=== Notification that a meal is missed
+
+A notification will automatically be prompted when the application starts up or every 10 minutes if a meal is missed. +
+This feature cannot be disabled and will start once the application starts.
+
+[NOTE]
+Notification will be prompted: +
+-After 10am for breakfast +
+-After 2pm for lunch +
+-After 8pm for dinner
+
+image:: <<Add notification image>>
 
 === Setting calorie intake budget: `set`
 
@@ -235,16 +246,6 @@ Below is a picture of the report showing where each type of information mentione
 image::UserGuideReportStep3.png[]
 
 Format: `report`
-
-=== Notification that a meal is missed
-
-A notification will automatically be displayed every 10 minutes if a meal is missed.
-
-[NOTE]
-Notification will be prompted: +
--After 10am for breakfast +
--After 2pm for lunch +
--After 8pm for dinner
 
 === Shows an overview of commands usable in CaloFit: `help`
 
