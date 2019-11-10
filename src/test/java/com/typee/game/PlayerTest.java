@@ -17,7 +17,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
-class PlayerTest {
+public class PlayerTest {
 
     private final Player player = new Player();
 
@@ -43,7 +43,7 @@ class PlayerTest {
     }
 
     @Test
-    void setInputTextAs_validInputText_setInputText() {
+    public void setInputTextAs_validInputText_setInputText() {
         StringProperty stringProperty = new SimpleStringProperty();
         player.setInputAs(stringProperty);
         player.setInputTextAs("John Maynard Keynes");
@@ -57,7 +57,7 @@ class PlayerTest {
     }
 
     @Test
-    void incrementScore_validScore_incrementScore() {
+    public void incrementScore_validScore_incrementScore() {
         assertEquals(player.incrementScore(1).getScore(), new PlayerBuilder().withScore(1).build().getScore());
         assertEquals(player.incrementScore(757).getScore(), player.getScore());
         assertEquals(END_GAME.incrementScore(1).getScoreProperty(), END_GAME.getScoreProperty());
@@ -69,14 +69,14 @@ class PlayerTest {
     }
 
     @Test
-    void decrementHealth_validHealth_decrementHealth() {
+    public void decrementHealth_validHealth_decrementHealth() {
         assertEquals(player.decrementHealth(1).getHealth(), new PlayerBuilder().withHealth(99).build().getHealth());
         assertEquals(player.decrementHealth(757).getHealth(), player.getHealth());
         assertEquals(END_GAME.decrementHealth(1).getHealthProperty(), END_GAME.getHealthProperty());
     }
 
     @Test
-    void isSamePlayer_inputSamePlayer_returnsTrue() {
+    public void isSamePlayer_inputSamePlayer_returnsTrue() {
         assertTrue(MID_GAME.isSamePlayer(MID_GAME));
         assertTrue(player.isSamePlayer(START_OF_GAME));
     }
