@@ -16,22 +16,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-import mams.model.Model;
-import mams.model.ModelManager;
-import mams.model.UserPrefs;
-
-import mams.model.appeal.Appeal;
-import mams.model.module.Module;
-import mams.model.student.Credits;
-import mams.model.student.Student;
-import mams.model.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import mams.model.appeal.Appeal;
+import mams.model.Model;
+import mams.model.ModelManager;
+import mams.model.module.Module;
+import mams.model.student.Credits;
+import mams.model.student.Student;
+import mams.model.tag.Tag;
+import mams.model.UserPrefs;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
