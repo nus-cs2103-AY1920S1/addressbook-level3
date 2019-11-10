@@ -9,6 +9,7 @@ import java.util.Random;
 
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.Priority;
@@ -353,12 +354,7 @@ public class Deck implements JsonInterface {
     //@@author nattanyz
     /** Get the SessionList pertaining to this deck. */
     public SessionList getTestSessionList() {
-        return this.testSessionList;
-    }
-
-    /** Set the SessionList pertaining to this deck. */
-    public void setTestSessionList(SessionList testSessionList) {
-        this.testSessionList = testSessionList;
+        return StatsHolder.getDeckStats().getSessionListForDeck(getDeckName());
     }
 
     /** Get number of cards in this deck.*/
@@ -368,14 +364,10 @@ public class Deck implements JsonInterface {
 
     /** Get the number of sessions for this deck. */
     public Integer getNumberOfSessions() {
-        return this.testSessionList.getNumberOfSessions();
+        return this.getTestSessionList().getNumberOfSessions();
     }
 
-    /**
-     *
-     *
-     * @return
-     */
+    /** Gets the number of cards in this deck. */
     public int getSize() {
         return cards.size();
     }

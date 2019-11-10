@@ -178,7 +178,8 @@ public class Session implements JsonInterface {
                     DateTimeUtil.getJsonFromDateTime(sessionStart).getObject());
             obj.put(Schema.SESSION_END,
                     DateTimeUtil.getJsonFromDateTime(sessionEnd).getObject());
-            if (score != null) {
+
+            if (this.hasScore()) {
                 obj.put(Schema.SESSION_SCORE, score);
             }
         } catch (JsonWrongValueException e) {

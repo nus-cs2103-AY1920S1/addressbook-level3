@@ -113,8 +113,8 @@ public class StatsDisplayUtil {
         TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("Number of cards");
         numCardsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
-        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
-        numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
+        //TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
+        //numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
         //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
         //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
@@ -123,7 +123,7 @@ public class StatsDisplayUtil {
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
-        deckTableView.getColumns().add(numSessionsColumn);
+        //deckTableView.getColumns().add(numSessionsColumn);
         //deckTableView.getColumns().add(avgScoreColumn);
 
         return deckTableView;

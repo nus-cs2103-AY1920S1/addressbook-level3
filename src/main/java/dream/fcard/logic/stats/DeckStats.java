@@ -29,6 +29,9 @@ public class DeckStats extends Stats implements JsonInterface {
         this.currentSession = null;
         this.currentDeck = null;
         logger.info("New DeckStats object created.");
+
+        // temporary, for testing
+        this.deckHashMap.put("test", new SessionList());
     }
 
     /** Gets the hash map containing session lists for all decks. */
@@ -38,6 +41,10 @@ public class DeckStats extends Stats implements JsonInterface {
 
     /** Ends the current session, and sets its score. */
     public void endCurrentSession(String score) {
+        if (this.currentSession == null) {
+            logger.info("Current test session not found!");
+            return;
+        }
         this.currentSession.setScore(score);
         endCurrentSession();
     }
@@ -62,7 +69,8 @@ public class DeckStats extends Stats implements JsonInterface {
         // assert that currentDeck is not null?
         String currentDeck = this.getCurrentDeck();
         if (currentDeck == null) {
-
+            logger.info("Current deck not found!");
+            return;
         }
 
         // replace with assert?
@@ -81,7 +89,8 @@ public class DeckStats extends Stats implements JsonInterface {
         // assert that currentDeck is not null?
         String currentDeck = this.getCurrentDeck();
         if (currentDeck == null) {
-
+            logger.info("Current deck not found!");
+            return;
         }
 
         if (this.currentSession == null) {
@@ -90,13 +99,13 @@ public class DeckStats extends Stats implements JsonInterface {
         }
 
         try {
+            logger.info("Ending the current test session...");
+
             this.currentSession.endSession();
             this.addSessionToDeckSessionList(this.currentSession, currentDeck);
 
             // reset currentSession to null since this is terminated
             this.currentSession = null;
-
-            logger.info("Ending the current test session...");
         } catch (Exception e) {
             e.printStackTrace();
             logger.info("Current test session not found?");
@@ -126,6 +135,7 @@ public class DeckStats extends Stats implements JsonInterface {
         // if deck not found in hashmap, throw deck not found exception?
         SessionList sessionList = this.getSessionListForDeck(deckName);
         sessionList.addSession(session);
+        logger.info("Added a session to the sessionList for deck: " + deckName + "!");
     }
 
     /**
