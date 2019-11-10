@@ -1373,7 +1373,7 @@ Expected: Only 4 loaned books should appear, and all should contain the letter '
 .. Test case: `find -loaned -overdue` +
 Expected: An error asking for only 1 flag is shown.
 
-==== Add a book
+==== Adding a book
 
 . Add a new book to the catalog.
 
@@ -1408,14 +1408,6 @@ Expected: An error asking for only 1 flag is shown.
    Expected: No information is displayed. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect info commands to try: `info`, `info x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-==== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 
 ==== Loaning a book
@@ -1602,35 +1594,6 @@ into the catalog.
 Expected: No undone command is redone and an "There are no commands to redo!"
 will be displayed in the result display.
 
-
-
-==== Toggling UI theme
-
-. Converting between light and dark mode
-.. testcase: `toggleui` +
-Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
-.. Testcase: `toggleui` (again) +
-Expected: The main GUI switches back to light mode, including those of all other sub-windows
-
-==== Removing or corrupting data
-
-. Removing data
-
-.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modifty the sample data.
-.. Enter the '/data' directory, which is in the same directory as the Jar file.
-.. Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).
-.. Launch the LiBerry App.
-.. Expected: The app should start with sample data once again.
-
-. Corrupting data
-
-.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
-.. Enter the '/data' directory, which is in the same directory as the Jar file.
-.. Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.
-.. Save the modified data files.
-.. Launch the LiBerry App.
-.. Expected: The app should start with sample data once again.
-
 //tag::borrowerTest[]
 
 ==== Serving a borrower
@@ -1689,3 +1652,31 @@ capital 'K' character.
 Expected: Borrower is not served. An error stating the correct format of a borrower ID is shown.
 
 //end::borrowerTest[]
+
+
+==== Toggling UI theme
+
+. Converting between light and dark mode
+.. testcase: `toggleui` +
+Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
+.. Testcase: `toggleui` (again) +
+Expected: The main GUI switches back to light mode, including those of all other sub-windows
+
+==== Removing or corrupting data
+
+. Removing data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
+
+. Corrupting data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.
+.. Save the modified data files.
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
