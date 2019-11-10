@@ -360,7 +360,7 @@ For example:
 +
 image::ui-screenshots/AddCommandUi1.png[]
 // online tab, showing mark User Guide
-* Observe that a bookmark of the current page has been added and is visible in the bookmark list.
+* You can then check that a bookmark of the current page has been added and is visible in the bookmark list.
 The new bookmark has the name `Homepage`. Since the folder and remark are not specified,
 it is added to the root folder and has the default remark "-".
 +
@@ -564,13 +564,13 @@ Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 
 For example:
 
-* Input `*autotag* NUS n/NUS n/School n/Uni` into the command box.
+* To add a new autotag, input `*autotag* NUS n/NUS n/School n/Uni` into the command box.
 +
 // show dashboard and bookmark list, with some bookmarks named NUS/School/Uni but no tags
 // also show the command in the command box
 image::ui-screenshots/AutotagCommandUi1.png[]
 
-* Observe that an autotag named `NUS` with three name conditions (`NUS`, `School`, and `Uni`)
+* You can then check that an autotag named `NUS` with three name conditions (`NUS`, `School`, and `Uni`)
 has been added to the autotag panel of the Dashboard. Also, notice that bookmarks with names
 that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 +
@@ -645,7 +645,7 @@ For example:
 +
 image::ui-screenshots/AutotagDeleteCommandUi1.png[]
 
-* Observe that the autotag named `NUS` has been deleted from the autotag panel of the Dashboard.
+* You can then check that the autotag named `NUS` has been deleted from the autotag panel of the Dashboard.
 In addition, no bookmarks have been modified.
 +
 image::ui-screenshots/AutotagDeleteCommandUi2.png[]
@@ -1116,7 +1116,7 @@ General notes are found at the bottom of the rightmost column on the offline cop
 .7+|Bookmarks
 | List: `*list*`
 | Find: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
-| Goto: `*goto* INDEX`
+| Go to: `*goto* INDEX`
 | Add bookmark: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]…​`
 | Edit bookmark: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...​`
 | Delete bookmark: `*delete* INDEX`
@@ -1140,10 +1140,11 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Edit annotation: `*annotate-edit* INDEX p/P_NUM [to/NEW_P_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
 | Delete annotation: `*annotate-delete* INDEX [p/P_NUM] [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
 
-.3+|Reminders
+.4+|Reminders
 | Add reminder: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 | Edit reminder: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 | Delete reminder: `*reminder-delete* INDEX`
+| Go to reminder: `*goto-reminder* INDEX`
 |=====
 
 .Summary of common command parameters
