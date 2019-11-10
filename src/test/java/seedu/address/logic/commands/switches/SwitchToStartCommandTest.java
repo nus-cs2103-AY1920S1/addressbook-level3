@@ -386,7 +386,7 @@ class SwitchToStartCommandTest {
         }
 
         @Override
-        public FormattedHint getHintFormatFromCurrentGame() {
+        public FormattedHint getFormattedHintFromCurrGame() {
             return null;
         }
 

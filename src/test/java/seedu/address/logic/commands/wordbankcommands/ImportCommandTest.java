@@ -76,7 +76,7 @@ class ImportCommandTest {
         // null -> returns false
         assertNotEquals(null, importTest1);
 
-        // different Card -> returns false
+        // different Command -> returns false
         assertNotEquals(importTest1, importTest2);
     }
 
@@ -288,7 +288,7 @@ class ImportCommandTest {
         }
 
         @Override
-        public FormattedHint getHintFormatFromCurrentGame() {
+        public FormattedHint getFormattedHintFromCurrGame() {
             return null;
         }
 

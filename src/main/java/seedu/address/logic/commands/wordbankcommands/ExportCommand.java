@@ -36,18 +36,6 @@ public class ExportCommand extends WordBankCommand {
         this.directoryString = directory.toString();
     }
 
-    /**
-     * Called by drag and drop internally.
-     * User should not call this.
-     *
-     * @param wordBankName "dragAndDropInternalExport" + wordBankName
-     */
-    public ExportCommand(String wordBankName) {
-        int len = "dragAndDropInternalExport".length();
-        this.wordBankName = wordBankName.substring(len);
-        this.directoryString = "the place you dropped.";
-    }
-
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);

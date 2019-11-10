@@ -60,12 +60,12 @@ image::UserGuideCommandBox.png[width="790"]
 There are 4 application modes.
 
 .Application modes
-image::UGModes.png[width="790"]
+image::UGModes.png[width="350"]
 
 .Mode Display
 image::RestrictedHomeMode.png[width="790"]
 
-In the highlighed section above, you can see the current mode you are in and the available modes.
+In the highlighted section above, you can see the current mode you are in and the available modes.
 
 
 
@@ -86,7 +86,7 @@ to enter `home` mode
 * A bank should be selected
 * No game should be running
 
-.If other modes are available, they would be displayed beside the Command Box
+.If other modes are available, they will be displayed beside the Command Box
 image::ModesAvailable.png[width="300"]
 
 ====
@@ -134,43 +134,42 @@ Getting comfortable? Ready to master the application commands?
 
 _Some typical commands  to get familiar with are:_
 
-* *`create <NAME>`*: Create an empty _WordBank_ with specified name.
-* *`select <NAME>`*: Select and switch to _WordBank_ with the specified name.
-* *`add w/<WORD> m/<MEANING>`*: Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_.
-* *`list`*: List all _Cards_ in the current _WordBank_.
+* *`create <NAME>`*: Create an empty _WordBank_ with specified name. (in Home Mode)
+* *`select <NAME>`*: Select and switch to _WordBank_ with the specified name. (in Home Mode)
+* *`add w/<WORD> m/<MEANING>`*: Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_. (in Open Mode)
+* *`list`*: List all _Cards_ in the current _WordBank_. (in Open Mode)
 * **`start <EASY/MEDIUM/HARD>`**: Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
 _Settings_
 will be used if not
-specified.
-* **`guess <YOUR_ANSWER>`**: Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI.
-* **`stop`**: Stops the current _Game_ session.
-* *`exit`*: Exit _Dukemon_.
+specified. (after selecting WordBank)
+* **`guess <YOUR_ANSWER>`**: Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI. (in Game Mode)
+* **`stop`**: Stops the current _Game_ session. (in Game Mode)
+* *`exit`*: Exit _Dukemon_. (in any mode except Game)
 
 // end::chenhui-quickstart[]
 
 
 === Purposes of each mode
 
-image::HomeMode.png[width="450"]
+image::HomeMode.png[width="350"]
 
 * Create/Choose a _Wordbank_
 
 * View Global Statistics
 
 
-image::OpenMode.png[width="450"]
+image::OpenMode.png[width="350"]
 
 * Create/Add/Modify _Cards_ of your _WordBank_. (Each _Card_ contains a _Word_ and _Meaning_).
 * View Statistics belonging to a specific _WordBank_
 
-image::GameMode.png[width="450"]
+image::GameMode.png[width="350"]
 
 
-* Guess  _Words_ based on each _Meaning_ that appear as quickly as possible!
+* Guess  _Words_ based on each _Meaning_ that appear as quickly as possible.
 * Finish the _Game_ and  view the _Statistics_ for your game session.
-* Evaluate your performance
 
-image::SettingsMode.png[width="450"]
+image::SettingsMode.png[width="350"]
 
 
 * Configure your preferred _Settings_. (change _Difficulty_, _Theme_ etc.)
@@ -384,7 +383,7 @@ You can also drag and drop a _WordBank_ out the app into your computer.
 
 // tag::jasonstatscommand[]
 
-=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Resetting the _WordBank_ statistics: `reset`
@@ -455,11 +454,8 @@ Format: `skip`
 
 ==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
 
-.UI regions showing Statistics and results after a Game session has completed.
-image::UserGuideGameOverDiagram.png[width="790"][height="850"]
-
-.UI regions showing feedback when a Game is forcibly stopped.
-image::UserGuideGameStopDiagram.png[width="790"][height="850"]
+.Comparison of UI Regions between Game finished vs. Game forcibly stopped.
+image::GameFinishedGameStoppedComparison.png[width="1000"]
 
 A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
 *automatically shown* upon completion of a _Game_ (see Fig. 6 above). +
