@@ -44,11 +44,8 @@ public class ViewCommand extends Command {
             if (!hasEvent) {
                 throw new CommandException(String.format(Event.MESSAGE_NO_SUCH_EVENT, feature.getEventName()));
             }
-            return new CommandResult(
-                String.format(MESSAGE_SUCCESS_RECORDS, feature.getEventName()),
-                feature,
-                model,
-                feature.getEventName());
+            return new CommandResult(String.format(MESSAGE_SUCCESS_RECORDS, feature.getEventName()), feature, model,
+                    feature.getEventName());
         default:
             throw new CommandException(MESSAGE_INVALID_FEATURE);
         }

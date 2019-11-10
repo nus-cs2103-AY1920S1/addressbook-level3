@@ -199,6 +199,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getPersonAttendanceRateString(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public List<AttendanceRateEntry> getAttendanceRateOfAll() {
             throw new AssertionError("This method should not be called.");
         }

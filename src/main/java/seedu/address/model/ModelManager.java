@@ -333,14 +333,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public String getPersonAttendanceRateString(Person person) {
+        return trainingManager.getPersonAttendanceRateString(person);
+    }
+
+    @Override
     public List<AttendanceRateEntry> getAttendanceRateOfAll() {
         List<Person> allPeople = getAthletick().getPersonList();
-        List<AttendanceRateEntry> attendanceRateEntries = new ArrayList<>();
-        for (Person person : allPeople) {
-            attendanceRateEntries.add(new AttendanceRateEntry(person,
-                    trainingManager.getPersonAttendanceRateString(person)));
-        }
-        return attendanceRateEntries;
+        return trainingManager.getAttendanceRateOfAll(allPeople);
     }
 
     @Override

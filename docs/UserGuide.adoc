@@ -161,7 +161,7 @@ All the details of an athlete (name, phone number, email, address, tags, image) 
 
 Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.
 
-Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
+Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] g/[GENDER] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
 In order to edit Roy Balakrishnan's name to Shawn, type in the following.
 
@@ -193,47 +193,58 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
+// tag::training[]
 === Training
-Athletick allows you to record your team's training sessions, so that you can track your team's attendance and look
-at past training records.
+*Athletick* allows you to record your team's training sessions, so that you can store important information like
+date of training and training attendance. After adding a training session, you can look at past trainings to check
+attendance on that particular date. You can also edit training attendance or delete a training from *Athletick*.
 
-Add a training session by indicating members present (see
-<<Taking attendance of a training session by athletes present : `training`>>) or by indicating absent members
-(see <<Taking attendance of a training session by members absent : `training -a`>>)
+NOTE: *Athletick* does not support recording of multiple trainings on the same date. Recording a training on the same
+date will replace the previous training. (see <<Edit attendance of an existing training session: `training` or `training -a`>>)
 
-After adding a training session, you can look at past trainings to check attendance on that date.
+==== Record training session by indicating athletes present : `training`
 
-==== Taking attendance of a training session by athletes present : `training`
+This command saves a training session to *Athletick*, and marks the athletes indicated as present. You will need
+the date of training and indexes of athletes who were present.
 
-This command saves a training session to Athletick, and marks the team members indicated as attended.
+Let's say you want to record a training session that took place on the 28th of November 2019 and only Michael and Joseph
+were present.
 
 *What you should do*
-Let's say you want to record a training session that took place on the 20th of October 2019 and only Alex and David
-attended. Type in the training command, date and the indexes of athletes who attended in the following format and press `Enter` to execute it.
+
+Type in the `training` command, date and the indexes of athletes who were present in the following format and press
+`Enter` to execute it.
 
 Format : `training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
 NOTE: If no date is entered, the training will be recorded under today's date.
 
-Examples : `training d/20102019 #/1 4` or `training #/1 3 4 7`
+Examples : `training d/28112019 #/2 4` or `training #/1 3 4 7`
 
 image::training_without_flag_before.png[width=450]
 *What you should see*
 
+If successfully added, the result box will display the following result in the diagram below. A green dot will
+also appear at the date on the calendar, indicating that the training has been recorded.
+
 image::training_without_flag_after.png[width=350]
-If successfully added, the result box will display the following result.
 
-==== Taking attendance of a training session by members absent : `training -a`
+==== Record training session by indicating athletes absent : `training -a`
 
-This command saves a training session to Athletick, and marks the team members indicated as absent.
+This command saves a training session to *Athletick*, and marks the athletes indicated as absent. You will need
+the date of training and indexes of athletes who were absent.
+
+Let's say you want to record a training session that took place today and everyone was present except Tao Li.
 
 *What you should do*
-Let's say you want to record a training session that took place today and everyone attended except Charlotte. Type in
-the training command, the absent flag, date and the indexes of athletes who were absent in the following format and press `Enter` to execute it.
+
+Type in the `training` command, the absent flag `-a`, date and the indexes of athletes who were absent in the following
+format and
+press `Enter` to execute it.
 
 Format : `training -a [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-Examples : `training -a d/23112019 #/3 6` or `training -a #/2`
+Examples : `training -a d/29112019 #/3 6` or `training -a #/3`
 
 NOTE: If no date is entered, the training will be recorded under today's date.
 
@@ -241,36 +252,113 @@ image::training_with_flag_before.png[width=450]
 
 *What you should see*
 
+If successfully added, the result box will display the following result as shown in the diagram below. A green dot
+will appear also at the date on the calendar, indicating that the training has been recorded.
+
 image::training_with_flag_after.png[width=350]
-If successfully added, the result box will display the following result.
+
+==== Edit attendance of an existing training session: `training` or `training -a`
+This command allows you to edit the attendance of a training session. You will need the date of training and indexes
+of athletes.
+
+Let's say you recorded a training session on the 23rd of November and indicated that Amanda and Joseph were absent.
+However, you later realised that Joseph was actually present that day and want to change the attendance for that
+training.
+
+*What you should do*
+
+Type in the `training` command, date and the correct indexes of athletes in the following format and press `Enter` to
+execute it. This will edit the training on the date by replacing it with the newly entered training session.
+
+NOTE: In this case, you can type either `training` or `training -a`.
+
+Format : `training [-a] d/DDMMYYYY #/INDEX [INDEX] [INDEX ] …`
+
+Examples : `training d/23112019 #/2 3 4 5` or `training -a d/23112019 #/1`
+
+image::edit_training_before.png[width=350]
+
+*What you should see*
+
+If successfully edited, the result box will display the following result as shown in the diagram below.
+
+image::edit_training_after.png[width=350]
+
+==== Delete a training session: `delete -t`
+This command allows you to delete a training session. You will need the date of the training session you wish to delete.
+
+Let's say you previously recorded a training session on the 29th of November and you wish to delete that training
+session.
+
+*What you should do*
+
+Type in the `delete` command with the training flag `-t` and the date of training in the following format and press
+`Enter` to execute it.
+
+Format : `delete -t d/DDMMYYYY`
+
+Examples : `delete -t d/29112019`
+
+image::delete_training_before.png[width=350]
+
+*What you should see*
+
+If successfully deleted, the result box will display the following result as shown in the diagram below. The green dot
+at the date will also disappear, indicating that it has been removed.
+
+image::delete_training_after.png[width=350]
 
 === Attendance
 To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
 checks your team's overall attendance rate as you record trainings.
 
 After recording a training, you can check the attendance of an athlete
-(see <<Check attendance of an athlete : `attendance`>>)
-or check overall team attendance (see: <<Check overall attendance of team : ` view attendance` `Coming in v1.4`>>)
+(see <<Check attendance of an athlete : `attendance`>>) or check overall team attendance (see: <<Check overall attendance of your team : `view attendance`>>)
 
 ==== Check attendance of an athlete : `attendance`
-This command allows you to check the attendance of an Athlete.
+This command allows you to check the attendance of an athlete.
+
+Let's say you notice that Michael hasn't been attending recent trainings and would like to check on his overall
+attendance rate.
 
 *What you should do*
-Let's say you notice that Alex hasn't been attending recent trainings and would like to check on his overall
-attendance rate. Type the attendance command, athlete index and press `Enter` to execute it.
+
+Type the `attendance` command and the athlete's index. Press `Enter` to execute it.
 
 Format : `attendance INDEX`
 
-Examples: `attendance 1`
+Examples: `attendance 2`
 
-image::attendance_before.png[width=350]
+image::attendance_command_before.png[width=350]
 
 *What you should see*
 
-image::attendance_after.png[width=350]
-If the command is successful, the athlete's name and attendance will be displayed in the result box.
+If the command is successful, the athlete's name and attendance rate will be displayed in the result box as shown in
+the diagram below.
 
-==== Check overall attendance of team : ` view attendance` [Coming in v1.4]
+image::attendance_command_after.png[width=350]
+
+==== Check overall attendance of your team : `view attendance`
+This command allows you to check the overall attendance of your team.
+
+Let's say you would like to track your team's overall attendance rate but don't want to manually type the attendance
+command multiple times.
+
+*What you should do*
+
+Type the `view attendance` command and press `Enter` to execute it.
+
+image::view_attendance_before.png[width=350]
+
+*What you should see*
+
+If the command is successful, the result box will display the following result as shown in the diagram below. The
+feature box will show you your team's overall attendance rate.
+
+image::view_attendance_after.png[width=350]
+
+// end::training[]
+
 
 === Performance
 To help you keep track of your team's performance,
@@ -402,7 +490,7 @@ Let's say that you have been entering training and performance records into **At
 
 *What you should do*
 
-Type `view calender` into the command box, and press kbd:[Enter] to execute it.
+Type `view calendar` into the command box, and press kbd:[Enter] to execute it.
 
 image::calendar1.png[width=450]
 
@@ -505,12 +593,12 @@ With reference to the diagram below, **Attendance Pie Chart** indicates the over
 image::calendar11.png[width=450]
 
 === Athlete Management
-
+// tag::select[]
 ==== Viewing more details of a team member : `select`
 
 This command shows the profile of the athlete that you have selected.
 
-Let's say you want to view David's personal information.
+Let's say you want to view Michael's personal information.
 
 *What you should do*
 
@@ -533,11 +621,12 @@ image::afterSelect.png[width=450]
 
 [NOTE]
 If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
-`images` folder. You may refer to the *"FAQ"* section to know more on where to include the image files
-which are going to be used and *Section 4.1.3. "Editing an athlete"* to understand further how to edit the image of an athlete.
+`images` folder. You may refer to <<FAQ>> section to know more on where to include the image files
+which are going to be used and <<Editing an athlete : `edit`>> to understand further how to edit the image of
+an athlete.
 
 image::noImage.png[width=450]
-
+// end::select[]
 ==== Sorting athletes alphabetically : `sort`
 
 This command sorts your **Athletick** list alphabetically by the athletes' name.
@@ -663,11 +752,13 @@ It deletes all players, trainings, attendance, events and performances.
 
 Type the clear command.
 
+image::clear.png[width="450"]
+
 Format : `clear`
 
 *What you should see*
 
-// insert picture
+image::afterclear.png[width="450"]
 
 The following prompt will show if data was successfully cleared.
 
@@ -679,13 +770,16 @@ This command provides a user guide for Athletick.
 
 Type the help command.
 
+image::beforehelp.png[width="450"]
 Format: `help`
 
 *What you should see*
 
-image::help.png[width="350"]
+image::afterhelp.png[width="450"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
+
+//tag::undoredo[]
 
 ==== Undoing a previous command : `undo`
 
@@ -724,15 +818,14 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::Undo.png[width=450]
-
+image::Undo0.png[width="450"]
 
 *What you should see*
 
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::AfterUndo.png[width=450]
+image::AfterUndo0.png[width="450"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -769,13 +862,15 @@ Enter to execute it.
 
 Format : `redo`
 
-image::Redo.png[width=450]
+image::Redo0.png[width="450"]
 *What you should see*
 
 The result box will display a success message.
 Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
 
-image::AfterRedo.png[width=450]
+image::AfterRedo0.png[width="450"]
+
+//end::undoredo[]
 
 === Upcoming features
 
@@ -800,6 +895,7 @@ There is no need to save manually.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Athletick folder.
 
+// tag::FAQ[]
 *Q*: How do I add my image files to the `images` folder? +
 *A*: Make sure that the `images` folder is in the same directory as the Athletick executable jar file. If the
 `images` folder is not created, the following steps will guide you through the creating of the `images` folder and
@@ -816,7 +912,7 @@ image::imageFile.png[width="790"]
 * Add the image files that you want to use into the folder.
 
 image::addingPhotos.png[width="790"]
-
+//end::FAQ[]
 == Command Summary
 
 [horizontal]

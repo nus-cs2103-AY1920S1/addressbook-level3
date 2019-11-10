@@ -182,6 +182,11 @@ public interface Model {
     List<AttendanceEntry> getTrainingAttendanceListOnDate(AthletickDate date);
 
     /**
+     * Returns String representation of {@code person} attendance rate.
+     */
+    String getPersonAttendanceRateString(Person person);
+
+    /**
      * Returns a list of AttendanceRateEntry, where each entry indicates the attendance rate of a person.
      */
     List<AttendanceRateEntry> getAttendanceRateOfAll();

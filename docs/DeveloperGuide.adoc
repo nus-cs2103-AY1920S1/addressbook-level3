@@ -22,7 +22,9 @@ This section specifies the purpose of this document and design goals of Athletic
 
 === Purpose
 
-This document describes the software architecture and system design of Athletick, a team management desktop application for coaches and team captains of timing-based performance sports. It also includes some of the design considerations for the implementation of Athletick's features.
+This document describes the software architecture and system design of Athletick, a team management desktop
+application for coaches and team captains of timing-based performance sports. It also includes some of the design
+considerations for the implementation of Athletick's features.
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
@@ -40,7 +42,9 @@ NOTE:: This symbol indicates important information
 
 Athletick was developed as part of https://nusmods.com/modules/CS2103T/software-engineering[CS2103T], a software engineering module taken in the National University of Singapore. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.
 
-As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI). Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration, the following principles guide the design of Athletick:
+As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI).
+Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration,
+the following principles guide the design of Athletick:
 
 . **Detailed Command Syntax Instructions**
 +
@@ -48,12 +52,17 @@ In order to make Athletick more user-friendly, we have provided detailed command
 
 . **Optimised Performance**
 +
-Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing and retrieval of data.
+Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable
+sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing
+and retrieval of data.
 
 
 . **Designer Friendly**
 +
-As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour, adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to understand how they work.
+As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour,
+adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of
+abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to
+understand how they work.
 
 == Setting up
 
@@ -61,7 +70,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == System design
 
-This section introduces the high-level design of Athletick and gives you a basic understanding of how each component operates and interacts with one another.
+This section introduces the high-level design of Athletick and gives you a basic understanding of how each component
+operates and interacts with one another.
 
 [[Design-Architecture]]
 === Architecture
@@ -71,32 +81,34 @@ image::ArchitectureDiagram.png[width=400]
 
 The *_Architecture Diagram_* given above explains the high-level design of Athletick. Given below is a quick overview of each component.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`[green]#Main#` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`[green]#Main#`] and
+link:{repoURL}/src/main/java/seedu/address/MainApp.java[`[green]#MainApp#`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+<<Design-Commons,*`[green]#Commons#`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `[green]#LogsCenter#` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: Displays the UI of Athletick.
-* <<Design-Logic,*`Logic`*>>: Executes commands from the user.
-* <<Design-Model,*`Model`*>>: Holds the data of Athletick in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`[green]#UI#`*>>: Displays the UI of Athletick.
+* <<Design-Logic,*`[green]#Logic#`*>>: Executes commands from the user.
+* <<Design-Model,*`[green]#Model#`*>>: Holds the data of Athletick in-memory.
+* <<Design-Storage,*`[green]#Storage#`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+* Defines its _API_ in an interface with the same name as the Component.
+* Exposes its functionality using a `[green]#{Component Name}Manager#` class.
 
-For example, the `Logic` component (refer to the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `[green]#Logic#` component (refer to the class diagram given below) defines it's API in the
+`[green]#Logic.java#` interface and exposes its functionality using the `[green]#LogicManager.java#` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponent.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -114,57 +126,72 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`[green]#Ui.java#`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `[green]#MainWindow#` that is made up of parts e.g.`[green]#CommandBox#`,
+`[green]#ResultDisplay#`, `[green]#PersonListPanel#`, `[green]#StatusBarFooter#` etc. All these, including the
+`[green]#MainWindow#`, inherit from the abstract
+`[green]#UiPart#` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `[green]#UI#` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml`
+files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`[green]#MainWindow#`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`[green]#MainWindow.fxml#`]
 
-The `UI` component,
+The `[green]#UI#` component,
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user commands using the `[green]#Logic#` component.
+* Listens for changes to `[green]#Model#` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicComponent.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`[green]#Logic.java#`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  `[green]#Logic#` uses the `[green]#AthletickParser#` class to parse the user command.
+.  This results in a `[green]#Command#` object which is executed by the `[green]#LogicManager#`.
+.  The command execution can affect the `[green]#Model#` (e.g. adding a person).
+.  The result of the command execution is encapsulated as a `[green]#CommandResult#` object which is passed back to the
+`[green]#Ui#`.
+.  In addition, the `[green]#CommandResult#` object can also instruct the `[green]#Ui#` to perform certain actions, such
+as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `[green]#Logic#` component for the `[green]#execute
+("delete 1")#` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `[green]#DeleteCommandParser#` should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelComponent.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`[green]#Model.java#`]
 
-The `Model`,
+The `[green]#Model#`,
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a `[green]#UserPref#` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `*ObservableList<Person>*`` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `[green]#*ObservableList<Person>*#` that can be 'observed' e.g. the UI can be bound to this
+list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a Tag list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a Tag list in `[green]#Athletick#`, which `[green]#Person#` can reference. This would
+allow `[green]#Athletick#` to only require one `[green]#Tag#` object per unique `[green]#Tag#`, instead of each
+`[green]#Person#` needing their own `[green]#Tag#`
+object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -174,106 +201,223 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`[green]#Storage.java#`]
 
-The `Storage` component,
+The `[green]#Storage#` component,
 
-* can save `UserPref` objects in json format and read it back.
+* can save `[green]#UserPref#` objects in json format and read it back.
 * can save the Athletick data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `[green]#seedu.addressbook.commons#` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
+// tag::training[]
 === Training feature
 
-Athletick allows users to record training information like date and an athlete's attendance. With this information
-recorded, Athletick allows users to get important information like the team's overall attendance rate and an overview
-of all training sessions in a month.
+*Athletick* allows users to record training information like the date of training and an athlete's attendance. This
+is done using a `training` command. With this information recorded, *Athletick* allows users to get the team's
+overall attendance rate, and get an overview of all training sessions in a month.
 
 ==== Implementation
-To facilitate this, the `Model` has a `TrainingManager` that stores all `Training`
-sessions in Athletick. The class diagram below shows how the different components interact with each other.
+A `[green]#Training#` class stores the training information. To facilitate management of trainings, a
+`[green]#TrainingManager#` class stores all the `[green]#Training#` sessions. The class diagram below shows the
+interaction of different components to produce the training feature.
 
+.Class diagram of the training feature components
 image::training_class_diagram.png[]
 
-The `Training` class contains a date and a hash map.
-The date in the training class represents the date of training session and the hash map is used to check the
-attendance of a Person. We used a `AthletickDate` class to  represent a date of training. This class is shared across
-both the `Ui` and backend, allowing training information to be shown in the `view calendar` function.
-The hash map uses `Person` objects as keys and a boolean as it’s value. This is used to check whether a `Person` has
-attended a training session, indicated by the boolean value attached to  a `Person` key. If a `Person` attended a
-training session on that day, the value associated with the key will be  true, and false if he did not attend.
+A training session is represented by a `[green]#Training#` class and it contains information like the date of
+training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
+`[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
+information to be used in other features, such as the `view calendar` command. A `[green]#HashMap<Person, Boolean>#`
+represents attendance in `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training
+session. If a `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#`
+will be true, and false if he did not attend.
 
-A `TrainingManager` is used to store and manage all `Training` sessions in Athletick. It has a list
-containing `Training` sessions. A `Training` is added to this list whenever a user records a `Training` session
-using a `TrainingCommand`. The sequence diagram below shows how `TrainingManager` stores and manages training records.
+The `[green]#TrainingCommand#` is an abstract class that extends the `[green]#Command#` class and allows users to
+record training sessions. Users have the ability to add training sessions by indicating members present or members
+absent using the `training` or `training -a` commands. The `[green]#TrainingCommandPresent#` and
+`[green]#TrainingCommandAbsent#` are classes that extend `[green]#TrainingCommand#` which allows for this
+polymorphism. They are created by the `[green]#TrainingCommandParser#` class.
 
-image::add_training.png[]
+A `[green]#TrainingManager#` stores and manages all `[green]#Training#` sessions in *Athletick*. It contains a
+list which is used to maintain information of multiple trainings. A `[green]#Training#` is added to this list
+whenever a user executes a `training` command. The activity diagram below shows how training information is
+stored after a user executes the `training` command.
 
-image::delete_training.png[]
+.Activity diagram showing execution of `training` command
+image::training_command_activity_diagram.png[]
 
-`TrainingManager` provides functions for users to calculate the attendance rate of one individual, or the entire
-team. The sequence diagram below shows a use case of how `TrainingManager` gets attendance rate.
+`[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
+individual, or the entire team. The following operations provides this feature:
 
-image::to_add.png[]
+* `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
+* `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
 
-`TrainingManager` also allows users to view `Training` information on a specified date. The sequence diagram below
-shows a use case of how `TrainingManager` gets `Training` information.
 
-image::to_add.png[]
+These operations are used by the `select`, `attendance` and `view attendance` commands. The following sequence diagram
+shows how the `TrainingManager` provides other components with attendance rates.
+
+.Sequence diagram showing how `view attendance` command gets attendance rate
+image::view_attendance_sequence_diagram.png[]
+
+`[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
+operation:
+
+* `TrainingManager#getTrainingAttendanceListOnDate` -- Returns training attendance on the specified date.
+
+The sequence diagram below shows a use case of how training attendance is obtained from `[green]#TrainingManager#`
+when a `calendar` command is executed.
+
+.Sequence diagram showing how `calendar` command gets training attendance
+image::calendar_sequence_diagram.png[]
 
 ==== Design Considerations
-Aspect: Where to store attendance information of an individual.
 
-* Alternative 1: Extend on the `AddressBook` by storing and tagging each person with number of
-trainings attended and total number of trainings.
+Aspect: How to store attendance information of an individual.
 
-** Pros: Easy to implement.
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1:* Make extensions to the `[green]#AddressBook#` by storing and tagging each `[green]#Person#` with
+number of trainings attended and total number of trainings.
+|*Alternative 2 (Current Choice):* Create separate classes to manage training information.
 
-** Cons: Violates Single Responsibility Principle (SRP) and not useful when we want more detailed information
-(attendance on specific date) about a training session.
+|*Pros*
+|It is easy to implement.
+|Allows storing of specific training information without depending on the `[green]#AddressBook#`. This also allows new
+features to be easily introduced to training in the future.
 
-* Alternative 2 (current choice): Create a separate class to manage Training information.
+|*Cons*
+|Violates software engineering principles (single responsibility principle) and is not useful when we want more
+detailed information (attendance on specific date) about a training session.
+|More time needed to design system architecture.
+|===
 
-** Pros: Allows storing of specific training information without depending on the `AddressBook`.
-
-** Cons: Harder to code and introduces more dependencies to Model.
-
+Reason of choice: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone classes to
+contain training information. We intend to introduce new features (e.g. training category) in the future and this
+implementation allows us to easily do so.
 
 Aspect: Which data structure to store training attendance.
-* Alternative 1: Use a linked list to store training attendance.
 
-** Pros: Easy to maintain.
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1:* Use a linked list to store training attendance.
+|*Alternative 2 (Current Choice):* Use a hash table to store training attendance.
 
-** Cons: Accessing training information requires more time (e.g. accessing attendance rate of one person).
+|*Pros*
+|Most intuitive way to maintain training attendance. Also provides us with functions to easily access and edit data.
+|Makes obtaining information much quicker.
 
-* Alternative 2 (current choice): Use a hash map to store training attendance.
+|*Cons*
+|Accessing accessing attendance and attendance rate of one person takes more time.
+|Requires more effort to maintain and coding of new functions to edit data.
+|===
 
-** Pros: Makes obtaining information much quicker.
+Reason of choice: A hash table is used as the `select` and `attendance` commands require the attendance rate of only
+one person. A hash table provides us with the fastest access time to access attendance information of one person.
 
-** Cons: Requires more effort to maintain.
+Aspect: How to edit training information.
 
-Aspect: How to edit training information
+[width="100%", cols="1, 5, 5"]
+|===
+||*Alternative 1 (Current Choice)*: Edit by replacing an existing training with a new training on the same date.
+|*Alternative 2:* Create a command to support editing of training.
 
-* Alternative 1 (current choice): Edit by replacing with new training on the same date
+|*Pros*
+|Users no need to type lengthy edit commands.
+|More intuitive to a user who wants to edit.
 
-** Pros: Users no need to type lengthy edit commands.
+|*Cons*
+|Unable to support multiple trainings on same date.
+|Lengthy commands. Users have the option to edit date, attendance and even add a person.
+|===
 
-** Cons: Unable to support multiple trainings on same date.
+Reason of choice: Editing training information would require long commands which defeats the purpose of having a command
+line interface. Editing training by replacing an old one with the `training` command makes it quicker.
 
-** Alternative 2: Create a command to support editing of training.
-
-** Pros: More intuitive to a user who wants to edit.
-
-** Cons: Lengthy commands. Users have the option to edit date, attendance and even add a person.
-
+// end::training[]
 === Performance feature
+
+Athletick allows users to record athlete's performance details from timed trials.
+With this information recorded, Athletick allows users to get an overview of the team's capability and
+progress in specific events.
+
+==== Implementation
+
+To facilitate this, `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
+Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
+The class diagram below shows how the different components mentioned interact with one another.
+
+.Class diagram for showing how Performance is implemented.
+image::performance_classdiagram.png[width="250"]
+
+As the name suggests, all `[green]#Event#` names are unique in `[green]#UniqueEventList#`.
+This is ensured by `[green]#UniqueEventList#contains()#` that checks whether there is an `[green]#Event#`
+with the same name before the `[green]#Event#` is added.
+
+Every event has its own https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html[HashMap]
+where performances under this event are stored. The key and value of the HashMap are explained below.
+
+[horizontal]
+
+Key:: `[green]#Person#` that the performance records will be under.
+Value:: List of `[green]#Record#` s under the `[green]#Person#`.
+
+.Class diagram showing how Records are stored in Event.
+image::event_classdiagram.png[width="250']
+
+This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
+their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
+attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
+`[green]#HashMap#get()#` method.
+
+A `[green]#Person#` will only be in the HashMap if they have a `[green]#Record#` under the `[green]#Event#`.
+If their only `[green]#Record#` is removed from Athletick (using ``[green]#DeleteRecordCommand#`), they will
+be removed from the HashMap as well.
+
+`[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
+ `[green]#PerformanceCommand#`. In these commands, changes to `[green]#UniqueEventList#` are called through
+  `[green]#Model#` in `[green]#EventCommand#execute()#` and `[green]#PerformanceCommand#execute()#` since
+  `[green]#Model#` carries a common copy of all the data stored in Athletick.
+
+The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data through the `[green]#UI#`.
+`[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
+`[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
+and is updated accordingly when data in`[green]#Performance#` changes.
+
+The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
+example scenario when `event freestyle 50m` is given as a user input.
+
+.Sequence diagram showing the operations in Logic and Model when an event is added.
+image::addevent_sequencediagram.png[width="700"]
+
+Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
+50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
+boolean from `[green]#Model#hasEvent()#`.
+
+Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
+methods involved as there is a greater degree of nesting.
+
+The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
+`performance 1 e/freestyle 50m d/31102019 t/31.20` (ie. adding a performance record for the player at index
+1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).
+
+.Activity diagram showing how a Record is added to an Event.
+image::addrecord_activitydiagram.png[width="700"]
+
+Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
+The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
+
+.Sequence diagram showing how Records are viewed.
+image::viewrecords_sequencediagram.png[width="700"]
+
+==== Design Considerations
 
 === Calendar feature
 
@@ -413,34 +557,41 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
 
+
 === Select feature
+//tag::select[]
 The `select` feature allows user to view the profile of a selected athlete.
 
 ==== Implementation
 The implementation of the `select` feature consists of two parts, mainly the implementation of the command and the
 implementation of the UI.
 
-The implementation of the command is facilitated by `SelectCommand` class. It extends
-`Command` and parses the arguments using `SelectCommandParser`. It implements one operation:
+The implementation of the command is facilitated by `[green]#SelectCommand#` class. It extends
+`[green]#Command#` and parses the arguments using `[green]#SelectCommandParser#`. It implements one operation:
 
-* `CommandResult#execute()` -- Executes the selectCommand which returns the athlete selected to be displayed in the UI.
+* `[green]#CommandResult#execute()#` -- Executes the selectCommand which returns the athlete selected to be displayed in
+the
+UI.
 
-The implementation of the UI portion for the `select` feature  is facilitated by `InformationDisplay`. It extends
-`UiPart<Region>` and displays the personal information of the selected athlete. Additionally, it implements the
+The implementation of the UI portion for the `select` feature  is facilitated by `[green]#InformationDisplay#`. It
+extends
+`[green]#UiPart<Region>#` and displays the personal information of the selected athlete. Additionally, it implements the
 following operations:
 
-* `InformationDisplay#displayPersonalInfo()` -- Displays the personal information of the selected athlete such as the
-name, email, address, phone number and other personal details.
+* `[green]#InformationDisplay#displayPersonalInfo()#` -- Displays the personal information of the selected athlete
+such as the name, email, address, phone number and other personal details.
 
-* `InformationDisplay#performanceDisplay()` -- Displays the performance of the selected athlete, which includes the
-event, best performance and most recent performance.
+* `[green]#InformationDisplay#performanceDisplay()#` -- Displays the performance of the selected athlete, which includes
+the event, best performance and most recent performance.
 
 An example usage scenario is given below which elaborates how the `select` feature behaves at each step.
 
-Step 1. The user executes the `select 3` command. The command is then parsed by `SelectCommandParser` which creates
-an instance of `SelectCommand`. `SelectCommand` retrieves the athlete based on the index of the list panel on the left.
-When the command is executed, the athlete selected at the specified index will be stored in ModelManager as
-`selectedPerson` using the operation `Model#storePerson(Person)`.
+Step 1. The user executes the `select 3` command. The command is then parsed by `[green]#SelectCommandParser#` which
+creates
+an instance of `[green]#SelectCommand#`. `[green]#SelectCommand#` retrieves the athlete based on the index of the list
+panel on the left.
+When the command is executed, the athlete selected at the specified index will be stored in `[green]#ModelManager#` as
+`[green]#selectedPerson#` using the operation `[green]#Model#storePerson(Person)#`.
 
 Step 2. After the command has been executed, the selected athlete is retrieved in the MainWindow class. It checks
 whether an athlete has been selected and displays the selected athlete's personal information.
@@ -448,11 +599,11 @@ whether an athlete has been selected and displays the selected athlete's persona
 The diagram below summarises the steps of the example scenario when a user executes the `select` command:
 
 .Activity diagram of `select` command execution
-image::SelectActivityDiagram.png[]
+image::SelectActivityDiagram.png[width=400]
 
 The implementation was done this way because the Ui component interacts with both the Logic and Model component.
-Firstly, the Ui component takes in the input from the user and allows `SelectCommandParser` in Logic component to parse
-the argument.
+Firstly, the Ui component takes in the input from the user and allows `[green]#SelectCommandParser#` in Logic component
+to parse the argument.
 After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
 app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.
 
@@ -488,17 +639,19 @@ There were two ways on how an athlete could be selected and it was between choos
 to consider.
 
 * Alternative 1 (current choice): Choosing by the index number.
-** Pros: Intuitive to use and can be used with other commands such as `FindCommand` and `FilterCommand` to narrow
-down the list of people.
+** Pros: Intuitive to use and can be used with other commands such as `[green]#FindCommand#` and
+`[green]#FilterCommand#` to narrow down the list of people.
 ** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
 * Alternative 2: Choosing by name.
 ** Pros: Can omit the filtering step and select the athlete directly.
 ** Cons: There may be 2 people with the same name and thus result in an error.
 
 Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
-other functions such as `DeleteCommand` or `FindCommand` which also uses index. It also reduces the need to type out
-the full name of the selected athlete.
+other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
+need to type out the full name of the selected athlete.
+//end::select[]
 
+//tag::undoredo[]
 === Undo / Redo feature
 The `undo` command enables users to undo their previous commands while the `redo` command enables users to redo their
 undone commands.
@@ -521,6 +674,7 @@ Step 1. The user launches the application for the first time. The `[green]#Histo
 initialised with the initial `[green]#Athletick#`, `[green]#Attendance#` and
 `[green]#Performance#` state pushed to the respective stacks.
 
+.Initial stacks of states
 image::initialStack.png[width=450]
 
 Step 2. The user executes the `delete -p 3` command to delete the 3rd person in the `[green]#Athletick#` list. The
@@ -529,6 +683,7 @@ since the `delete -p 3` command only alters the `[green]#Athletick#` state, the 
 state will then be pushed to the `[green]#Athletick#` stack while the `[green]#Attendance#` and
 `[green]#Performance#` stacks are left untouched as their states remain the same.
 
+.Stacks of states after `delete -p 3` command
 image::afterUndoStack.png[width=450]
 
 Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
@@ -538,6 +693,7 @@ stack and the latest `[green]#Athletick#` state from the `[green]#Athletick#` st
 It then peeks at the `[green]#Athletick#` stack to retrieve the `[green]#Athletick#` state
 before `delete -p 3` command was executed.
 
+.Stacks of states after `undo` command
 image::initialStack.png[width=450]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
@@ -546,8 +702,9 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 
 The following sequence diagram shows how the undo operation works:
 
+.Sequence diagram for undo implementation
 image::undoSQ.png[width=450]
-Sequence diagram for undo implementation
+
 
 ==== Redo Implementation
 
@@ -568,10 +725,8 @@ Implementation.]
 
 The activity diagram for `redo` command is as follows:
 
+.Activity diagram for `redo` command
 image::redoactivity.png[width=450]
-Activity diagram for `redo` command
-
-
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
@@ -600,20 +755,20 @@ outweighs the tedious cost of implementing the alternative.
 Furthermore, as we realise that each time the application starts, the memories of the states
 are cleared.
 This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
-accumulate. As such, we
-decided to
-go with the first alternative.
+accumulate. As such, we decided to go with the first alternative.
 
-
+//end::undoredo[]
+//tag::photo[]
 === Adding/editing photo feature
 ==== Implementation
-The sub feature of `AddCommand` and `EditCommand` allows the inclusion of photo for an athlete. The sub feature is
-facilitated by `Photo`.
+The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete. The
+sub feature is
+facilitated by `[green]#Photo#`.
 
-This sub feature is similar to the other features such as `Name` and `Phone` which uses a prefix `i/` followed by the
-file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
-has to be in the `images` folder which will be generated when the jar file is executed. `Photo` takes in the file name as a
-`String` and retrieves the photo to be added or edited from the `images` folder.
+This sub feature is similar to the other features such as `[green]#Name#` and `[green]#Phone#` which uses a prefix `i/`
+followed by the file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
+has to be in the `images` folder which will be generated when the jar file is executed. `[green]#Photo#` takes in the
+file name as a `[green]#String#` and retrieves the photo to be added or edited from the `images` folder.
 
 NOTE: The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
 This is done to keep the file name simple.
@@ -629,6 +784,7 @@ The following consists of some of the design consideration when I was designing 
 
 Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
 have if special characters were included.
+//end::photo[]
 
 === Filter feature
 
@@ -638,18 +794,20 @@ Filtering by multiple tags will be available by `v1.2`.
 
 ==== Implementation
 
-Filter makes use of a `TagMatchesPredicate` class to determine if the athlete has tags matching the user input.
+Filter makes use of a `[green]#TagMatchesPredicate#` class to determine if the athlete has tags matching the user input.
 Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
 
 image::filter_sequence_diagram.png[]
 
-Once filtering by multiple tags is implemented, the parsing of tag from `AddressBookParser` to `FilterCommandParser` will involve splitting them by spaces and storing the tag queries in a list.
+Once filtering by multiple tags is implemented, the parsing of tag from `[green]#AddressBookParser#` to
+`[green]#FilterCommandParser#`
+will involve splitting them by spaces and storing the tag queries in a list.
 Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
 
 However, since currently only filtering by one tag is supported,
 the parsing of tag simply involves trimming the tag of white spaces.
 
-Finally, the list shown to the user is updated through `Model#updateFilteredPersonsList()`.
+Finally, the list shown to the user is updated through `[green]#Model#updateFilteredPersonsList()#`.
 
 ==== Design considerations
 
