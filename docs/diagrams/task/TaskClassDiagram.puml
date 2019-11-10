@@ -3,10 +3,10 @@
 left to right direction
 
 class Task {
-    + {final} id: Id
-    + {final} problem: Problem
-    + {final} isDone: boolean
-    + {final} dueDate: LocalDate
+    - {final} id: Id
+    - {final} problem: Problem
+    - {final} isDone: boolean
+    - {final} dueDate: LocalDate
     + equals(Object other): boolean
     + getAuthor(): Author
     + getDescription(): Description

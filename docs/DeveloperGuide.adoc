@@ -270,13 +270,10 @@ The task management feature supports eight main operations:
 * `UndoneTask` - marks a task as undone in a specified plan.
 
 This feature is mainly supported by the `Task` class.
-Given below are class diagrams of the `Task` class.
+Given below is the class diagram of the `Task` class.
 
-.High Level Class Diagram for Task
+.Class Diagram for Task
 image::task/HighLevelTaskClassDiagram.png[width="40%", scaledwidth=8cm]
-
-.Detailed Class Diagram for Task
-image::task/TaskClassDiagram.png[width="30%", scaledwidth=6cm]
 
 Given below is an example usage scenario and how the mechanism for adding tasks behaves at each step.
 
