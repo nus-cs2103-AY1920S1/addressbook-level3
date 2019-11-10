@@ -646,6 +646,8 @@ Reason: In the end, I went with alternative 1 because it was more intuitive to u
 other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
 need to type out the full name of the selected athlete.
 //end::select[]
+
+//tag::undoredo[]
 === Undo / Redo feature
 The `undo` command enables users to undo their previous commands while the `redo` command enables users to redo their
 undone commands.
@@ -718,8 +720,6 @@ The activity diagram for `redo` command is as follows:
 image::redoactivity.png[width=450]
 Activity diagram for `redo` command
 
-
-
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
 
@@ -747,10 +747,9 @@ outweighs the tedious cost of implementing the alternative.
 Furthermore, as we realise that each time the application starts, the memories of the states
 are cleared.
 This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
-accumulate. As such, we
-decided to
-go with the first alternative.
+accumulate. As such, we decided to go with the first alternative.
 
+//end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
 ==== Implementation
