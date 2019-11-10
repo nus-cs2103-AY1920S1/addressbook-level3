@@ -24,7 +24,7 @@ public class JsonAdaptedBudgetTest {
 
     private static final String VALID_NAME = KOREA.getName().toString();
     private static final String VALID_AMOUNT = KOREA.getAmount().toString();
-    private static final String VALID_CURRENCY = KOREA.getCurrency().value;
+    private static final String VALID_CURRENCY = KOREA.getCurrency().name;
     private static final String VALID_START_DATE = KOREA.getStartDate().rawValue;
     private static final String VALID_END_DATE = KOREA.getEndDate().rawValue;
     private static final JsonSerializableExpenseList VALID_EXPENSELIST =
