@@ -15,7 +15,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.assignment.Assignment;
 import seedu.address.model.assignment.AssignmentDeadline;
+import seedu.address.model.assignment.AssignmentGrades;
 import seedu.address.model.assignment.AssignmentName;
+import seedu.address.model.student.Student;
 
 /**
  * Edits the details of an existing student in the classroom.
@@ -65,6 +67,13 @@ public class EditAssignmentCommand extends Command {
 
         Assignment assignmentToEdit = lastShownList.get(index.getZeroBased());
         Assignment editedAssignment = createEditedAssignment(assignmentToEdit, editAssignmentDescriptor);
+
+        if (!editedAssignment.isCompleted()) {
+            List<Student> studentList = model.getFilteredStudentList();
+            for (Student student: studentList) {
+                editedAssignment.addOneStudentGrade(student.getName().fullName);
+            }
+        }
 
         if (!assignmentToEdit.isSameAssignment(editedAssignment) && model.hasAssignment(editedAssignment)) {
             throw new CommandException(MESSAGE_DUPLICATE_ASSIGNMENT);
@@ -122,6 +131,7 @@ public class EditAssignmentCommand extends Command {
     public static class EditAssignmentDescriptor {
         private AssignmentName assignmentName;
         private AssignmentDeadline assignmentDeadline;
+        private AssignmentGrades assignmentGrades;
 
         public EditAssignmentDescriptor() {}
 
@@ -132,6 +142,7 @@ public class EditAssignmentCommand extends Command {
         public EditAssignmentDescriptor(EditAssignmentDescriptor toCopy) {
             setAssignmentName(toCopy.assignmentName);
             setAssignmentDeadline(toCopy.assignmentDeadline);
+            setAssignmentGrades(toCopy.assignmentGrades);
         }
 
         /**
@@ -155,6 +166,10 @@ public class EditAssignmentCommand extends Command {
 
         public Optional<AssignmentDeadline> getAssignmentDeadline() {
             return Optional.ofNullable(assignmentDeadline);
+        }
+
+        public void setAssignmentGrades(AssignmentGrades assignmentGrades) {
+            this.assignmentGrades = assignmentGrades;
         }
 
         @Override

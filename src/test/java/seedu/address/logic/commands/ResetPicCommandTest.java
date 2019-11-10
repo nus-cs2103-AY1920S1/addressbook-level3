@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
 
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ public class ResetPicCommandTest {
 
     @Test
     public void execute_duplicateStudentUnfilteredList_failure() {
-        ResetDisplayPictureCommand resetCommand = new ResetDisplayPictureCommand(INDEX_FIRST_STUDENT);
+        ResetDisplayPictureCommand resetCommand = new ResetDisplayPictureCommand(INDEX_FIRST_OBJECT);
         assertCommandFailure(resetCommand, model, ResetDisplayPictureCommand.MESSAGE_PICTURE_ALREADY_DEFAULT);
     }
     @Test

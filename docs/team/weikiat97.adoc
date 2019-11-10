@@ -9,7 +9,10 @@
 
 == Overview
 
-Teacher's Notebook is a desktop application used by teachers to manage their classes and provides them with reminders for lessons. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Teacher's Notebook is a desktop application used by teachers to manage their classes and provides them with reminders for lessons.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+Teacher's Notebook serves as a one-stop platform to consolidate all the information that teachers will need, that is information about students, assignments, classes and lessons.
 
 == Summary of contributions
 
@@ -21,7 +24,7 @@ The implementation was very challenging as one command had to be suited for vari
 ** Credits: Idea was inspired from the Memento Design Pattern, a software design pattern to restore objects to their previous states. The idea became more concrete as I saw the example UML diagram used for undo/redo commands from AB3.
 
 * *Minor enhancement*:
-** Added a getgrades command to retrieve students grades.
+** Added a getgrades and getunsubmitted command to retrieve students grades and unsubmitted assignments respectively.
 ** Refactored the code from AB3 with persons, to students and added in additional fields (MedicalConditions, ParentPhone).
 ** Added various general commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
 
@@ -32,13 +35,13 @@ The implementation was very challenging as one command had to be suited for vari
 ** Project management:
 *** Managed releases `v1.1 - v1.3` (4 releases) on GitHub
 *** Added Travis, Coveralls and AppVeyor support for the team
-*** Gave comments to peers before merging PRs
+*** Gave comments to peers before merging PRs.
 *** Helped to merge and fix all merge conflicts among the PRs in the team (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/60[#60])
 ** Enhancements to existing features:
 *** Retrieving specific students grades and updating grades individually (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/84/[#84])
 *** Added ability to edit assignments (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/91/[#91])
 *** Proper time parsing for dates and times (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/83[#83])
-*** Wrote additional tests to the current project to increase coverage.
+*** Wrote additional tests to the current project to increase coverage (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/186[#186] increased coverage by 12.6%).
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88]
 *** Made changes to the current puml diagrams from AB3 to suit our current project: https://github.com/AY1920S1-CS2103-T14-1/main/pull/185[#185]

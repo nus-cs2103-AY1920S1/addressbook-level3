@@ -32,9 +32,4 @@ public interface ReadOnlyClassroom {
      */
     ObservableList<Assignment> getAssignmentList();
 
-    /**
-     * returns unmodifiable view of assignment list
-     */
-    //ObservableList<Lesson> getLessonList();
-
 }
