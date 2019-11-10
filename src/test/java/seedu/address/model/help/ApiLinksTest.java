@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class ApiLinksTest extends ApiLinks {
 
-       @Test
+    @Test
     public void get_allCommandApiLinks_success() {
 
         String base = "/javadocs/seedu/address/logic/commands/";
@@ -36,7 +36,7 @@ public class ApiLinksTest extends ApiLinks {
                         "DeleteShortcutCommand.html"
                 ));
 
-        ArrayList<String> commandList =  SecondaryCommand.getCommandList();
+        ArrayList<String> commandList = SecondaryCommand.getCommandList();
         for (int i = 0; i < commandList.size(); i++) {
             assertEquals(base + expectedStringList.get(i), getLink(new SecondaryCommand(commandList.get(i))));
         }

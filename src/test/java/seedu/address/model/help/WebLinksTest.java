@@ -36,7 +36,7 @@ public class WebLinksTest extends WebLinks {
                         "#deleting-a-shortcut-code-delete_shortcut-code"
                 ));
 
-        ArrayList<String> commandList =  SecondaryCommand.getCommandList();
+        ArrayList<String> commandList = SecondaryCommand.getCommandList();
         for (int i = 0; i < commandList.size(); i++) {
             assertEquals(base + expectedStringList.get(i), getLink(new SecondaryCommand(commandList.get(i))));
         }

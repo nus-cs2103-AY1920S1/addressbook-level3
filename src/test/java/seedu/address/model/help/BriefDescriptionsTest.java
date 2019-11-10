@@ -53,7 +53,7 @@ public class BriefDescriptionsTest extends BriefDescriptions {
                         DeleteShortcutCommand.MESSAGE_USAGE
                         ));
 
-        ArrayList<String> commandList =  SecondaryCommand.getCommandList();
+        ArrayList<String> commandList = SecondaryCommand.getCommandList();
         for (int i = 0; i < commandList.size(); i++) {
             assertEquals(expectedStringList.get(i), getDescription(new SecondaryCommand(commandList.get(i))));
         }
