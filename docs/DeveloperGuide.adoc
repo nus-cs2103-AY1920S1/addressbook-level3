@@ -81,14 +81,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/sugarmummy/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `MainDisplayPane`, `MotivationQuotesLabel`, `ReminderListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/sugarmummy/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data. (Not shown in class diagram)
 
 [[Design-Logic]]
 === Logic component
@@ -158,9 +158,9 @@ Classes used by multiple components are in the `seedu.sugarmummy.commons` packag
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::average[]
-=== Data Sumamry/Analysis feature
+=== Data Summary/Analysis feature
 
-==== Average graph feature: Displays the daily/weekly/monthly average of records in a line graph: `average`
+==== Average graph feature: Displays the average values of records in a line graph: `average`
 
 The average graph shows how the average blood sugar level or BMI of users change over time.
 Daily, weekly, monthly average are supported.
@@ -191,10 +191,10 @@ Step 1. User launches the application for the first time. The `AverageMap` will 
 initialized and `internalMap` will be empty.
 
 Step 2. User enters `average a/daily rt/bloodsugar n/4` in SugarMummy to get daily average blood sugar.
-Input is parsed and send to `AverageCommand`. `AverageCommand` then calls `Model#updateFilteredRecordList`
+Input is parsed and send to `AverageCommand`. `AverageCommand` then calls `Model#updateFilteredRecordList()`
 to filter record list with `RecordContainsRecordTypePredicate`. This results in a list of
 records containing only blood sugar records. Subsequently, `AverageCommand` calls
-`Model#calculateAverageMap()` to update the `internalMap` to store 4 most recent daily average values by using the filtered
+`Model#calculateAverageMap()` to update the `internalMap` to store 4 most recent daily average values based on the filtered
 record list.
 
 The following sequence diagram shows how the average operation works:
@@ -210,7 +210,7 @@ then the command will fail to execute and throw a `CommandException`. Alternativ
 an invalid command, a `ParseException` will be thrown.
 This is illustrated in the activity diagram below.
 
-.Activity diagram of user enter an average command.
+.Activity diagram of user entering an average command.
 image::AverageCommandFailureActivityDiagram.png[]
 
 Step 3. `Ui` receives average `CommandResult` from `LogicManager` and creates a new `AverageGraphPane`
@@ -263,7 +263,7 @@ filtered record list. These 3 statistics will be displayed right under the pie c
 
 The implementation will be similar to average graph feature. But now, `UniqueRecordList` needs to
 be filtered so that it only contains the two record types needed. To do this, future developer
-need to tweak the current `RecordContainsRecordTypePredicate` to be able to filter two record types.
+need to tweak the current `RecordContainsRecordTypePredicate` to be able to filter two different record types.
 
 NOTE: Since SugarMummy only supports two record types now, filtering `UniqueRecordList` is
 redundant. However, this implementation consider the situation that more record types may be added
@@ -1360,23 +1360,6 @@ Use case resumes at step 2.
 Windows, Linux, Unix, OS-X
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1421,10 +1404,10 @@ Expected: A message indicating the list is empty will be shown.
 
 .. Prerequisites: List all records using the `list` command. Multiple records in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First record is deleted from the list. Details of the deleted record shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Average Command
