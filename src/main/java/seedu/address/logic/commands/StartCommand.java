@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
 import seedu.address.model.category.CategoryContainsAnyKeywordsPredicate;
@@ -89,7 +90,8 @@ public class StartCommand extends Command {
 
         CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
         logger.log(Level.INFO, "Getting a list of flashcards to test");
-        return new LinkedList<>(model.getFilteredFlashCardListNoCommit(predicate));
+        ObservableList<FlashCard> testList = model.getFilteredFlashCardListNoCommit(predicate);
+        return new LinkedList<>(testList);
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */
