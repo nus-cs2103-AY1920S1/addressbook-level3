@@ -86,8 +86,6 @@ import seedu.moolah.logic.parser.statistics.StatsTrendCommandParser;
 import seedu.moolah.model.Timekeeper;
 import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.statistics.Statistics;
-import seedu.moolah.model.statistics.TabularStatistics;
-import seedu.moolah.model.statistics.TrendStatistics;
 import seedu.moolah.ui.alias.AliasListPanel;
 import seedu.moolah.ui.budget.BudgetListPanel;
 import seedu.moolah.ui.budget.BudgetPanel;
@@ -97,8 +95,10 @@ import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
-import seedu.moolah.ui.textfield.CommandBox;
 import seedu.moolah.ui.statistics.StatisticsRegionFactory;
+import seedu.moolah.ui.statistics.StatsPanel;
+import seedu.moolah.ui.textfield.CommandBox;
+
 
 /**
  * The Main Window. Provides the basic application layout containing

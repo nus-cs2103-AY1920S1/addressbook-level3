@@ -1,4 +1,4 @@
-package seedu.moolah.ui;
+package seedu.moolah.ui.statistics;
 
 import java.util.logging.Logger;
 
@@ -19,7 +19,7 @@ public class StatsPanel extends Panel {
 
     public static final PanelName PANEL_NAME = new PanelName("Statistics");
     private static final String FXML = "StatsPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(seedu.moolah.ui.StatsPanel.class);
+    private final Logger logger = LogsCenter.getLogger(StatsPanel.class);
 
     @FXML
     private StackPane titlePlaceHolder;
