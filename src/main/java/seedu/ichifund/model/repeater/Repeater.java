@@ -93,7 +93,6 @@ public class Repeater {
         }
 
         return otherRepeater != null
-                && otherRepeater.getUniqueId().equals(getUniqueId())
                 && otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
@@ -119,8 +118,7 @@ public class Repeater {
         }
 
         Repeater otherRepeater = (Repeater) other;
-        return otherRepeater.getUniqueId().equals(getUniqueId())
-                && otherRepeater.getDescription().equals(getDescription())
+        return otherRepeater.getDescription().equals(getDescription())
                 && otherRepeater.getAmount().equals(getAmount())
                 && otherRepeater.getCategory().equals(getCategory())
                 && otherRepeater.getTransactionType().equals(getTransactionType())

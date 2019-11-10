@@ -58,6 +58,7 @@ public class AddRepeaterCommand extends Command {
             + PREFIX_END_YEAR + "2020";
 
     public static final String MESSAGE_ADD_REPEATER_SUCCESS = "New repeater added: %1$s";
+    public static final String MESSAGE_DUPLICATE_REPEATER = "This repeater already exists in IchiFund";
 
     private final Repeater toAdd;
 
@@ -72,6 +73,10 @@ public class AddRepeaterCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.hasRepeater(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_REPEATER);
+        }
 
         // Check repeater span.
         if (toAdd.getEndDate().compareTo(toAdd.getStartDate()) > 0) {
