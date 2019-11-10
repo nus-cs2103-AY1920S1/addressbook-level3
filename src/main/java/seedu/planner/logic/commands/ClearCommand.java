@@ -47,9 +47,9 @@ public class ClearCommand extends UndoableCommand {
             updateEventStack(this, model);
         }
 
+        model.setContacts(new ContactManager());
         model.setAccommodations(new AccommodationManager());
         model.setActivities(new ActivityManager());
-        model.setContacts(new ContactManager());
         model.setItinerary(new Itinerary());
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }

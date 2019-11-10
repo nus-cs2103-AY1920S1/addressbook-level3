@@ -159,8 +159,20 @@ public class ModelManager implements Model {
      * Removes the mapping of an {@code Activity} in all the relevant {@code Contact} related {@code HashMap}.
      */
     private void removeActivityMapping(Activity act) {
-        Contact contact = getContact(act.getContact().get()).get();
-        contactActivityMap.remove(contact);
+        if (act.getContact().isPresent()) {
+            Contact contact = getContact(act.getContact().get()).get();
+            contactActivityMap.remove(contact);
+        }
+    }
+
+    /**
+     * Removes the mapping of an {@code Accommodation} in all the relevant {@code Contact} related {@code HashMap}.
+     */
+    private void removeAccommodationMapping(Accommodation acc) {
+        if (acc.getContact().isPresent()) {
+            Contact contact = getContact(acc.getContact().get()).get();
+            contactAccommodationMap.remove(contact);
+        }
     }
 
     /**
@@ -236,9 +248,9 @@ public class ModelManager implements Model {
                     newListOfDays.add(newDay);
                 }
             });
-            activityDayMap.remove(oldAct);
-            activityDayMap.put(newAct, newListOfDays);
         }
+        activityDayMap.remove(oldAct);
+        activityDayMap.put(newAct, newListOfDays);
     }
 
     /**
@@ -252,6 +264,7 @@ public class ModelManager implements Model {
             if (contactAccommodationMap.containsKey(oldContact)) {
                 contactActivityMap.remove(oldContact);
             } else {
+                contactActivityMap.remove(oldContact);
                 removeContact(oldContact);
             }
 
@@ -285,6 +298,7 @@ public class ModelManager implements Model {
             if (contactActivityMap.containsKey(oldContact)) {
                 contactAccommodationMap.remove(oldContact);
             } else {
+                contactAccommodationMap.remove(oldContact);
                 removeContact(oldContact);
             }
             if (newAcc.getContact().isPresent()) {
@@ -487,6 +501,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteAccommodation(Accommodation target) {
+        removeAccommodationMapping(target);
         accommodations.removeAccommodation(target);
     }
 
