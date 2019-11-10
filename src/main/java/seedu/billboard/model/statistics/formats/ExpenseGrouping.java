@@ -4,7 +4,9 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
+import java.time.format.TextStyle;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,6 +24,16 @@ public enum ExpenseGrouping {
                     .map(tag -> new Pair<>(tag, expense)))
             .collect(groupingBy(pair -> pair.getKey().tagName,
                     mapping(Pair::getValue, toList())))),
+
+    MONTH("month", expenses -> expenses.stream()
+            .collect(groupingBy(expense -> expense.getCreated().dateTime
+                    .getMonth()
+                    .getDisplayName(TextStyle.SHORT, Locale.getDefault())))),
+
+    DAY_OF_WEEK("day-of-week", expenses -> expenses.stream()
+            .collect(groupingBy(expense -> expense.getCreated().dateTime
+                    .getDayOfWeek()
+                    .getDisplayName(TextStyle.SHORT, Locale.getDefault())))),
 
     NONE("none", expenses -> Map.of("All expenses", expenses));
 
