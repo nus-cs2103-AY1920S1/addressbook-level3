@@ -94,35 +94,35 @@ public class TypicalObjects {
 
     public static final Claim CLAIM_1 = new ClaimBuilder().withName(VALID_NAME_AMY)
             .withDescription(VALID_DESCRIPTION_FUNDRAISING).withAmount(VALID_AMOUNT_CORPORATECLAIMS)
-            .withDate(VALID_DATE_DURINGMONTH).build();
+            .withDate(VALID_DATE_DURINGMONTH).withId("1").build();
 
     public static final Claim CLAIM_2 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_SHIRTSALES).withAmount(VALID_AMOUNT_SCHOOLCLAIMS)
-            .withDate(VALID_DATE_FIRSTDAYOFMONTH).build();
+            .withDate(VALID_DATE_FIRSTDAYOFMONTH).withId("1").build();
 
     public static final Claim CLAIM_3 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_LOGISTICS).withAmount(VALID_AMOUNT_PROJECTCLAIMS)
-            .withDate(VALID_DATE_BEFOREMONTH).buildRejected();
+            .withDate(VALID_DATE_BEFOREMONTH).withId("1").buildRejected();
 
     public static final Claim CLAIM_4 = new ClaimBuilder().withName(VALID_NAME_AMY)
             .withDescription(VALID_DESCRIPTION_TEST1).withAmount(VALID_AMOUNT_CORPORATECLAIMS)
-            .withDate(VALID_DATE_DURINGMONTH).buildApproved();
+            .withDate(VALID_DATE_DURINGMONTH).withId("1").buildApproved();
 
     public static final Claim CLAIM_5 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_TEST2).withAmount(VALID_AMOUNT_SCHOOLCLAIMS)
-            .withDate(VALID_DATE_FIRSTDAYOFMONTH).buildApproved();
+            .withDate(VALID_DATE_FIRSTDAYOFMONTH).withId("1").buildApproved();
 
     public static final Claim CLAIM_6 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_TEST3).withAmount(VALID_AMOUNT_PROJECTCLAIMS)
-            .withDate(VALID_DATE_BEFOREMONTH).buildApproved();
+            .withDate(VALID_DATE_BEFOREMONTH).withId("1").buildApproved();
 
     public static final Claim CLAIM_7 = new ClaimBuilder().withName(VALID_NAME_AMY)
             .withDescription(VALID_DESCRIPTION_TEST4).withAmount(VALID_AMOUNT_LOGISTICCLAIMS)
-            .withDate(VALID_DATE_AFTERMONTH).buildApproved();
+            .withDate(VALID_DATE_AFTERMONTH).withId("1").buildApproved();
 
     public static final Claim CLAIM_8 = new ClaimBuilder().withName(VALID_NAME_BOB)
             .withDescription(VALID_DESCRIPTION_TEST5).withAmount(VALID_AMOUNT_SCHOOLCLAIMS)
-            .withDate(VALID_DATE_DURINGMONTH2).buildApproved();
+            .withDate(VALID_DATE_DURINGMONTH2).withId("1").buildApproved();
 
 
     public static final AutocorrectSuggestion SUGGESTION_1 = new AutocorrectSuggestionBuilder()

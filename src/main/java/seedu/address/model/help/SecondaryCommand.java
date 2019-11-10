@@ -22,12 +22,9 @@ public class SecondaryCommand {
                     "add_income",
                     "delete_contact",
                     "delete_income",
-                    //"delete_claim",
                     "edit_contact",
-                    "edit_claim",
                     "edit_income",
                     "exit",
-                    "find",
                     "check",
                     "goto",
                     "reject",
@@ -35,7 +32,8 @@ public class SecondaryCommand {
                     "clear",
                     "approve",
                     "sort",
-                    "reverse"));
+                    "reverse",
+                    "delete_shortcut"));
 
     public final String value;
 

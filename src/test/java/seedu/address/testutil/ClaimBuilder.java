@@ -10,6 +10,7 @@ import seedu.address.model.claim.Description;
 import seedu.address.model.claim.PendingClaim;
 import seedu.address.model.claim.RejectedClaim;
 import seedu.address.model.commonvariables.Date;
+import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -19,12 +20,13 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class ClaimBuilder {
 
+    public static final String DEFAULT_ID = "1";
     public static final String DEFAULT_DESCRIPTION = "Logistics";
     public static final String DEFAULT_AMOUNT = "152.86";
     public static final String DEFAULT_DATE = "15-12-2019";
     public static final String DEFAULT_NAME = "John";
-    public static final String DEFAULT_PHONE = "91234567";
 
+    private Id id;
     private Description description;
     private Amount amount;
     private Date date;
@@ -32,6 +34,7 @@ public class ClaimBuilder {
     private Set<Tag> tags;
 
     public ClaimBuilder() {
+        id = new Id(DEFAULT_ID);
         description = new Description(DEFAULT_DESCRIPTION);
         amount = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
@@ -40,11 +43,20 @@ public class ClaimBuilder {
     }
 
     public ClaimBuilder(Claim claimToCopy) {
+        id = claimToCopy.getId();
         description = claimToCopy.getDescription();
         amount = claimToCopy.getAmount();
         date = claimToCopy.getDate();
         name = claimToCopy.getName();
         tags = new HashSet<>(claimToCopy.getTags());
+    }
+
+    /**
+     * Sets the {@code Id} of the {@code Claim} that we are building.
+     */
+    public ClaimBuilder withId(String id) {
+        this.id = new Id(id);
+        return this;
     }
 
     /**
@@ -87,15 +99,15 @@ public class ClaimBuilder {
         return this;
     }
 
-    public Claim build() {
-        return new PendingClaim(description, amount, date, name, tags);
+    public PendingClaim build() {
+        return new PendingClaim(id, description, amount, date, name, tags);
     }
 
     public ApprovedClaim buildApproved() {
-        return new ApprovedClaim(description, amount, date, name, tags);
+        return new ApprovedClaim(id, description, amount, date, name, tags);
     }
 
     public RejectedClaim buildRejected() {
-        return new RejectedClaim(description, amount, date, name, tags);
+        return new RejectedClaim(id, description, amount, date, name, tags);
     }
 }

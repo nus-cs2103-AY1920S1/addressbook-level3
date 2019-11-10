@@ -23,7 +23,7 @@ public class CheckCommandParser implements Parser<CheckCommand> {
             return new CheckCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CheckCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Invalid Index Provided"), pe);
         }
     }
 }

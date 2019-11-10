@@ -74,14 +74,16 @@ user one more time to ensure that the command was not by accident.
 
 ** Project management:
 *** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.0 and 1.2
+*** Fixed a few bugs found during PE. https://github.com/AY1920S1-CS2103T-W12-1/main/issues/269[269], https://github.com/AY1920S1-CS2103T-W12-1/main/issues/270[270],
+https://github.com/AY1920S1-CS2103T-W12-1/main/issues/262[262]
 
 ** Enhancements to existing features:
-*** Updated Mockup for UI of product (Commit https://github.com/AY1920S1-CS2103T-W12-1/main/commit/560d7bdc3c9e4ea835285441bc7cc013f6f90ab2[560d7bdc3c9e4ea835285441bc7cc013f6f90ab2])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the mock up for UI of product (Commit https://github.com/AY1920S1-CS2103T-W12-1/main/commit/560d7bdc3c9e4ea835285441bc7cc013f6f90ab2[560d7bdc3c9e4ea835285441bc7cc013f6f90ab2])
 *** Updated the UI of the whole application to suit our general theme of a more pastel-coloured application to allow the user to feel comfortable using it
+*** Wrote additional tests for existing features to increase coverage from 49% to 53%. https://coveralls.io/jobs/55463719[529] and from 57% to 60%. https://coveralls.io/builds/26886555[561]
 
 ** Documentation:
-*** Shifted the contents of the Developer Guide around as well as made major changes to my own section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/143[#143]
+*** Fixed the formatting of the developer guide and made major changes to my own section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/143[#143]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W12-1/main/pull/74[#74],
@@ -96,8 +98,12 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
 
 |===
 |_Given below are sections I contributed to the User Guide. The following is an excerpt from our FinSec User Guide, showing additions that I have
-made for `sort` and `check` features. There is also a section on the 2 features I am proposing to implement in v2.0_
+made for `goto` , `sort` and `check` features. There is also a section on the 2 features I am proposing to implement in v2.0_
 |===
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=gotofeature]
 
 include::../UserGuide.adoc[tag=sortfeature]
 
@@ -111,16 +117,14 @@ include::../UserGuide.adoc[tag=statsfeature]
 
 |===
 |_Given below are sections I contributed to the Developer Guide. The following is an except from our FinSec Developer guide, showing additions that
-I have made for `goto` and `check` features._
+I have made for `sort` and `check` features._
 |===
 
-include::../DeveloperGuide.adoc[tag=gotofeature]
+include::../DeveloperGuide.adoc[tag=sortfeature]
 
 include::../DeveloperGuide.adoc[tag=checkfeature]
 
 
-
-== PROJECT: FinSec
 
 ---
 

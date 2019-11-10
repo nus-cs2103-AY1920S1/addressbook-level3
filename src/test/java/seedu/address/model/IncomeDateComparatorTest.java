@@ -34,6 +34,12 @@ class IncomeDateComparatorTest {
     }
 
     @Test
+    public void equal() {
+        int result = incomeDateComparator.compare(INCOME_1, INCOME_1);
+        assertEquals(result, 0);
+    }
+
+    @Test
     public void moreThan() {
         int result = incomeDateComparator.compare(INCOME_2, INCOME_1);
         assertEquals(result, -1);

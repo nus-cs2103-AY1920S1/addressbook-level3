@@ -570,7 +570,6 @@ Format: `check INDEX`
 
 Examples:
 
-****
 *Checking of a contact in the contacts page:* +
 *Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
 
@@ -586,6 +585,7 @@ image::UG-CheckExample2.png[width="800"]
 able to see the claims that belong to this contact
 [[UG-CheckExample3]]
 image::UG-CheckExample3.png[width="800"]
+
 
 *Checking of a claim in the claims page:* +
 *Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
@@ -604,7 +604,6 @@ details that belong to this claim.
 [[UG-CheckExample3]]
 image::UG-CheckExample6.png[width="600"]
 
-****
 
 //end::checkfeature[]
 
@@ -655,8 +654,8 @@ Format: `sort status`
 *Warning*
 `sort status` only applies to the claims list
 
-<<UG-BudgetExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
-[[UG-BudgetExample]]
+<<UG-SortExample>> shows what you can expect to see when typing in the `sort status` command in claims list.
+[[UG-SortExample]]
 [reftext="Figure 3.15.1"]
 [caption="Figure 3.15.1: "]
 .FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
@@ -738,8 +737,8 @@ Format: `budget`
 
 <<UG-BudgetExample>> shows what you can expect to see when typing in the `budget` command.
 [[UG-BudgetExample]]
-[reftext="Figure 3.13.1"]
-[caption="Figure 3.13.1: "]
+[reftext="Figure 3.21.1"]
+[caption="Figure 3.21.1: "]
 .FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
 image::UG-BudgetExample.PNG[width="800"]
 

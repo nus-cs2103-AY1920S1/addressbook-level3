@@ -191,12 +191,12 @@ public class ModelStub implements Model {
 
     @Override
     public void sortFilteredContactListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredContactListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -211,32 +211,32 @@ public class ModelStub implements Model {
 
     @Override
     public void sortFilteredClaimListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortFilteredClaimListByDate() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortFilteredClaimListByStatus() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredClaimListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredClaimListByDate() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredClaimListByStatus() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
@@ -251,22 +251,22 @@ public class ModelStub implements Model {
 
     @Override
     public void sortFilteredIncomeListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortFilteredIncomeListByDate() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredIncomeListByName() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void sortReverseFilteredIncomeListByDate() {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override

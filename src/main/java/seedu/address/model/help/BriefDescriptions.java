@@ -9,11 +9,10 @@ import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteIncomeCommand;
-import seedu.address.logic.commands.EditClaimCommand;
+import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
@@ -51,23 +50,14 @@ public class BriefDescriptions {
         case "delete_contact":
             return DeleteContactCommand.MESSAGE_USAGE;
 
-        //case "delete_claim":
-            //return DeleteClaimCommand.MESSAGE_USAGE;
-
         case "delete_income":
             return DeleteIncomeCommand.MESSAGE_USAGE;
-
-        case "edit_claim":
-            return EditClaimCommand.MESSAGE_USAGE;
 
         case "edit_contact":
             return EditContactCommand.MESSAGE_USAGE;
 
         case "edit_income":
             return EditIncomeCommand.MESSAGE_USAGE;
-
-        case "find":
-            return FindCommand.MESSAGE_USAGE;
 
         case "goto":
             return GotoCommand.MESSAGE_USAGE;
@@ -95,6 +85,9 @@ public class BriefDescriptions {
 
         case "reverse":
             return SortReverseCommand.MESSAGE_USAGE;
+
+        case "delete_shortcut":
+            return DeleteShortcutCommand.MESSAGE_USAGE;
 
         default: return "Command should be self-explanatory with no additional parameters.\n"
                 + "Use 'type/guide' if you really want to know the exact details "

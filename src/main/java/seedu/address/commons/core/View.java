@@ -1,6 +1,7 @@
 package seedu.address.commons.core;
 
 //@@author {lawncegoh}
+
 /**
  * Gives the specific view that the user inputs
  */
@@ -26,6 +27,14 @@ public class View {
      */
     public int getIndex() {
         return index;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof View // instanceof handles nulls
+                && index == ((View) other).index // state check
+                && togo == ((View) other).togo);
     }
 
 }

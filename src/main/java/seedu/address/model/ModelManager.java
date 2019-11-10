@@ -38,6 +38,7 @@ public class ModelManager implements Model {
     private final FilteredList<AutocorrectSuggestion> filteredSuggestions;
     private final FilteredList<CommandItem> filteredCommands;
     private Stack<String> savedCommand;
+    private String state;
 
     /**
      * Initializes a ModelManager with the given finSec and userPrefs.

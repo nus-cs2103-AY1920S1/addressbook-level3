@@ -7,10 +7,55 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.claim.Claim;
+import seedu.address.model.contact.Contact;
+import seedu.address.testutil.ClaimBuilder;
+import seedu.address.testutil.ContactBuilder;
+
 public class CommandResultTest {
+
+    private CommandResult commandResult = new CommandResult("feedback");
+    private Claim claim = new ClaimBuilder().build();
+    private Contact contact = new ContactBuilder().build();
+    private CommandResult commandResult1 = new CommandResult("", false, false,
+            true, claim);
+    private CommandResult commandResult2 = new CommandResult("", false, false,
+            false, true, contact);
+    private CommandResult commandResult3 = new CommandResult("", false, false,
+            false, false, false, true);
+
+    //@@author{lawncegoh}
+    @Test
+    public void checkGiveClaim() {
+        assertTrue(commandResult1.giveClaim().equals(claim));
+    }
+
+    //@@author{lawncegoh}
+    @Test
+    public void checkGiveContact() {
+        assertTrue(commandResult2.giveContact().equals(contact));
+    }
+
+    //@@author{lawncegoh}
+    @Test
+    public void checkShowClaim() {
+        assertTrue(commandResult1.hasClaim());
+    }
+
+    //@@author{lawncegoh}
+    @Test
+    public void checkShowContact() {
+        assertTrue(commandResult2.hasContact());
+    }
+
+    //@@author{lawncegoh}
+    @Test
+    public void checkToClear() {
+        assertTrue(commandResult3.isToClear());
+    }
+
     @Test
     public void equals() {
-        CommandResult commandResult = new CommandResult("feedback");
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));

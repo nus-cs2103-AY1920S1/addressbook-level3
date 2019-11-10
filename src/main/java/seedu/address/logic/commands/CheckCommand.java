@@ -66,14 +66,25 @@ public class CheckCommand extends Command {
             return new CommandResult(MESSAGE_SUCCESS_CLAIM, false, false, true, claimToShow);
         } else if (UiManager.getState().equals("contacts")) {
             List<Contact> contactList = model.getFilteredContactList();
+
             //throw error if index not valid
             if (index.getZeroBased() >= contactList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            } else if (index.getZeroBased() < 0) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
+
             Contact contactToShow = contactList.get(index.getZeroBased());
             return new CommandResult(MESSAGE_SUCCESS_CONTACT, false, false, false, true, contactToShow);
         } else {
             throw new CommandException(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CheckCommand // instanceof handles nulls
+                && index.equals(((CheckCommand) other).index)); // state check
     }
 }

@@ -28,6 +28,12 @@ class ClaimDateComparatorTest {
     }
 
     @Test
+    public void equal() {
+        int result = claimDateComparator.compare(CLAIM_1, CLAIM_1);
+        assertEquals(result, 0);
+    }
+
+    @Test
     public void moreThan() {
         int result = claimDateComparator.compare(CLAIM_2, CLAIM_1);
         assertEquals(result, 2);
