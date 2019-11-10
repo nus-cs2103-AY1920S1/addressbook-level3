@@ -489,8 +489,8 @@ To view the full transaction list, the user would be required to enter the
 back command where `BackCommand` calls `Model#resetPredicate()`. The Sequence Diagram for the `BackCommand` is shown in the
 following section <<BackCommandSD, 3.1.3. Back Command Feature>>
 
-After this, the list of transactions and the Reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 14>>
-and <<update-reimbursement, 3.1.1. Add Command feature: Figure 15>>
+After this, the list of transactions and the Reimbursement tab is updated as shown in <<updateTL, 3.1.1. Add Command feature: Figure 16>>
+and <<update-reimbursement, 3.1.1. Add Command feature: Figure 17>>
 respectively.
 
 The implementation of the command to delete transactions according to the specified index would be similar but does not require interaction with the `CheckAndGetPersonByNameOnlyModel` from the
@@ -538,14 +538,14 @@ object for viewing that can be sorted such that when [blue]`sort reset` is calle
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
-alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 20>>
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shownin <<lists, Figure 24>>, below the table.
 
 |The Members t's `Model` interface is passed as parameters into Home tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
 |A new interface is made to allow the only used method of Members tab's `ModelManager` to be accessed in Home tab's
 `Logic`.
 |Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 21 >>
+to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown in <<facade, Figure 25>>, below the table.
 
 |An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
 |A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
