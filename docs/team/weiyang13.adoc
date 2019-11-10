@@ -2,6 +2,13 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+
+The following document is a portfolio of software engineering projects I have participated in. The purpose
+of this document is to give an overview of my contributions to these projects, and to thus highlight my
+capabilities as a software engineer.
 
 == PROJECT: IchiFund
 
@@ -9,53 +16,99 @@
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+IchiFund is a desktop finance management application for students to manage transactions, budgets and loans.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is therefore optimised for
+students that
+
+My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Transactions[Transactions] component of the application.
+This document summarises the contributions I have made to this project within and beyond my role as a developer.
+
+=== Callouts
+Note the following callouts used in this document:
+
+[TIP]
+This callout shares informative tips. While these tips are not vital, the information provided may prove useful to you.
+
+[NOTE]
+This callout shares noteworthy information that can enhance your understanding of the document.
+
+[WARNING]
+This callout highlights vital information. You are encouraged to read the information found here.
 
 == Summary of contributions
+* *Major enhancement*: Developed the `Model`, `Logic`, `Storage`, and `Ui` infrastructure for transactions.
+** Functionality: Provides the foundation on which features related to transactions, such as `add`, `filter`, `edit` and `delete`, are built.
+** Justification: The ability to easily create, read, update and delete transactions on the GUI of the application depends on properly
+establishing the infrastructure for transaction.
+** Highlights: This enhancement demonstrates a deep understanding of the underlying MVC design pattern of the existing code.
+The modifications to the GUI (addition of a filter title and reorganizing information in cells) also demonstrate an understanding of how to work with JavaFX.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Added the ability to *add and filter transactions* with *optional arguments based on the current filter* (enhancement with greatest depth)
+** Functionality: The `filter` command changes the existing filter for the list of transactions. The `add` command adds a transaction to the list of transactions.
+If left unfilled, the values taken by the optional arguments are inferred from the current filter.
+** Justification: This add and filter features on their own are basic functionalities of the software. The
+implementation of optional arguments filled in based on the current filter allows user to provide minimal information to add
+a transaction, which significantly improves user experience.
+** Highlights: This enhancement required the implementation of an intermediate between `Model` and `Logic`, `TransactionContext` for `Logic` to easily
+access information about the current filter used in the list of transactions. With further development, this can be generalized to a `Context` component
+that stores read-only information about the state of `Model` that is vital to the function of `Logic`.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Added the ability to edit and delete transactions (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/175[#175])
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=weiyang13[here] to view the code I have contributed on the CS2103T tP Dashboard.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed https://github.com/AY1920S1-CS2103T-W12-4/main/pulls[pull requests (PRs)] by assigning PRs to team members
+*** Managed https://github.com/AY1920S1-CS2103T-W12-4/main/issues[issue tracker] by
+https://github.com/AY1920S1-CS2103T-W12-4/main/issues/created_by/weiyang13[authoring issues], assigning issues to team members, labelling
+issues, and closing issues
+*** Managed https://github.com/AY1920S1-CS2103T-W12-4/main/milestones[project milestones] by creating milestones, assigning issues and PRs to milestones,
+and wrapping up milestones
+*** Refactored existing code of Address Book 3 to IchiFund (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/252[#252])
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Restructured architecture of code to enable separate parsing for features in different tabs using the same command line
+(PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/137[#137])
+*** Modified sample data for initialization of IchiFund (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/239[#239])
+
+** Testing:
+*** Added tests for transaction component and parsing (PRs https://github.com/AY1920S1-CS2103T-W12-4/main/pull/169[#169],
+ https://github.com/AY1920S1-CS2103T-W12-4/main/pull/252[#252])
+
+** Documentation: hi
+*** Modified the section on https://github.com/AY1920S1-CS2103T-W12-4/main/blob/master/docs/UserGuide.adoc#ichifund-basics[IchiFund Basics]
+to be more reader-friendly
+*** Wrote the sections on https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Navigation[Navigation]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Transactions[Transactions] to User Guide
+*** Wrote the sections on https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#separate-parsing-and-tab-switching[Separate Parsing and Tab Switching]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#transaction[Transactions] in the Developer Guide.
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T09-1/main/issues/196[196], https://github.com/AY1920S1-CS2103T-T09-1/main/issues/197[197],
+https://github.com/AY1920S1-CS2103T-T09-1/main/issues/198[198], https://github.com/AY1920S1-CS2103T-T09-1/main/issues/200[200],
+https://github.com/AY1920S1-CS2103T-T09-1/main/issues/201[201])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is a sample of what I have contributed to the User Guide. It showcases my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=tx]
+include::../UserGuide.adoc[tag=addtx]
+
+|===
+|_For more sample contributions refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Navigation[Navigation]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Transactions[Transactions] sections of the User Guide._
+|===
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is a sample of what I have contributed to the Developer Guide. It showcases my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=tabswitching]
@@ -66,9 +119,7 @@ include::../DeveloperGuide.adoc[tag=transfilter]
 
 include::../DeveloperGuide.adoc[tag=transadd]
 
-
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
+|===
+|_For more sample contributions refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#separate-parsing-and-tab-switching[Separate Parsing and Tab Switching]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#transaction[Transactions] sections of the User Guide._
+|===
