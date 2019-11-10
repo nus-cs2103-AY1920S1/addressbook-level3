@@ -53,13 +53,8 @@ public class SearchCommandParserTest {
         searchHash.put(SearchKey.KEY_IS_WATCHED, emptyList);
         SearchCommand expectedSearchCommand = new SearchCommand(searchHash);
 
-        // no leading and trailing whitespaces
-        // assertParseSuccess(parser, "n/" + VALID_SHOW_NAME_ANNABELLE + "t/" + VALID_TYPE_MOVIE, expectedSearchCommand,
-        // CURRENT_TAB_SEARCH_TAB);
-
         // leading whitespaces
         assertParseSuccess(parser, "         n/Annabelle t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
-        
         // multiple type input, the last type input will be considered only
         assertParseSuccess(parser, "n/Annabelle t/tv t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
     }
