@@ -154,8 +154,8 @@ public class MainApp extends Application {
             }
             exerciseData = exerciseBookOptional.orElseGet(DefaultExerciseDatabaseUtil::getExerciseDatabaseBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in correct format. Will be starting with an empty ExerciseBook");
-            exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);
+            logger.warning("Data file not in correct format. Will be starting with a sample exercise database book");
+            exerciseData = DefaultExerciseDatabaseUtil.getExerciseDatabaseBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ExerciseBook");
             exerciseData = new ReadOnlyResourceBook<>(DEFAULT_EXERCISE_COMPARATOR);

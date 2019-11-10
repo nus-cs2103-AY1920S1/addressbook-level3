@@ -336,9 +336,9 @@ public class ParserUtil {
     /**
      * Parses a {@code String operationType} into a boolean.
      *
-     * @param operationType the intended operation type
-     * @return a {@code boolean} representing the whether the operation type is "and" or "or".
-     * @throws ParseException if the intended operation type is invalid
+     * @param   operationType the intended operation type
+     * @return  a {@code boolean} representing the whether the operation type is "and" or "or".
+     * @throws  ParseException if the intended operation type is invalid
      */
     public static boolean parseOperationType(String operationType) throws ParseException {
         requireNonNull(operationType);

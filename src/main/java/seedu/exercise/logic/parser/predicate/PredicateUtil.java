@@ -39,7 +39,7 @@ public class PredicateUtil {
      */
     public static ExercisePredicate getExercisePredicate(
             Set<Muscle> muscles, Map<String, String> customProperties, boolean isStrict) {
-        assert (!(muscles.isEmpty() && customProperties.isEmpty()));
+        assert(!(muscles.isEmpty() && customProperties.isEmpty()));
 
         BasePropertyPredicate musclePredicate = getBasePredicateMuscle(muscles, isStrict);
         BasePropertyPredicate customPropertiesPredicate = getBasePredicateCustomProperty(customProperties, isStrict);

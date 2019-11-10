@@ -78,6 +78,7 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
         Set<Muscle> muscles = ParserUtil.parseMuscles(argMultimap.getAllValues(PREFIX_MUSCLE));
         Map<String, String> customPropertiesMap =
             ParserUtil.parseCustomProperties(argMultimap.getAllCustomProperties());
+        boolean isStrict = true;
         int numberOfPredicateTags = getNumberOfPredicateTags(muscles, customPropertiesMap);
 
         if (numberOfPredicateTags == 0) {
@@ -92,12 +93,10 @@ public class SuggestCommandParser implements Parser<SuggestCommand> {
         }
 
         if (argMultimap.arePrefixesPresent(PREFIX_OPERATION_TYPE)) {
-            boolean operationType = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
-            Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, operationType);
-            return new SuggestPossibleCommand(predicate);
+            isStrict = ParserUtil.parseOperationType(argMultimap.getValue(PREFIX_OPERATION_TYPE).get());
         }
 
-        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, true);
+        Predicate<Exercise> predicate = parsePredicate(muscles, customPropertiesMap, isStrict);
         return new SuggestPossibleCommand(predicate);
     }
 
