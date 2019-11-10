@@ -493,6 +493,9 @@ There are hence a few alternatives in which we can combine these elements and st
 ** Pros: Will use less memory since the content of the website is not duplicated.
 ** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
 
+I decided to proceed with Alternative 1 as it is easier to implement and more feasible to implement in light of time constraints. This alternative offers accessibility to
+model components that are highly related in functionality.
+
 ===== Aspect: How to handle annotation commands
 The _family of annotation commands_ includes the three main aspects: add, delete and edit. Each aspect can encompass
 more than one kind of use case (e.g. `annotate-delete` can be used to delete the entire annotation from a paragraph; it can also
@@ -509,6 +512,9 @@ This means there are multiple options to choose from to parse an annotation comm
 a similar way as the other commands, improving the overall clarity of the implementations.
 ** Cons: Need to write many lines of code due to multiple layers of abstraction.
 
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Furthermore,
+responsibility is more segregated which makes it easier to manipulate objects to achieve a functionality.
+
 ===== Aspect: How to implement command to delete annotations
 There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
 only the highlight of a paragraph with a note will have a side effect where the note becomes general.
@@ -521,6 +527,9 @@ Considering these variations, there are a few alternatives that we can consider 
 * **Alternative 2 (current choice):** Use a different subtype of `DeleteAnnotationCommand` to represent and execute each use case.
 ** Pros: Easier to implement since delete functionality is rather discrete and each function is mutually exclusive. Less checks will be required for each class implemented. Also easier to extend functionality in future.
 ** Cons: Need to write multiple lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Since the individual functions of `annotate-delete` do not overlap,
+this alternative makes it less cumbersome to modify if there needed to be a change in delete functionality.
 
 ===== Aspect: How to implement command to edit annotations
 The edit function for manipulating annotations also has multiple functions: editing existing
@@ -535,6 +544,8 @@ Hence, there are also a few options we can take to implement the edit functional
 ** Pros: Easier to extend. Also, less checks on conditions can be performed for each class implemented.
 ** Cons: Not straightforward to implement. The functions can overlap, which makes it difficult to segregate into separate responsibilities.
 
+I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
+makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
 // end::annotation[]
 
 
