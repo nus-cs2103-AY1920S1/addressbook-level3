@@ -17,6 +17,8 @@ import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 
+//@@author bruceskellator
+
 class UndoRedoManagerTest {
 
     @Test
@@ -54,8 +56,8 @@ class UndoRedoManagerTest {
         assertEquals(0, undoRedoManager.getUndoIndex());
         // Test whether a deep-copied version of ModelData in ModelManager has been stored to UndoRedoManager,
         // and not the original object itself
-        assertTrue(undoRedoManager.getUndoStateList().get(0) != modelManager.getModel());
-        assertEquals(undoRedoManager.getUndoStateList().get(0), modelManager.getModel());
+        assertTrue(undoRedoManager.getUndoStateList().get(0) != modelManager.getModelData());
+        assertEquals(undoRedoManager.getUndoStateList().get(0), modelManager.getModelData());
 
         String description = "description";
         DateTime start = DateTime.now();
@@ -66,11 +68,11 @@ class UndoRedoManagerTest {
         assertEquals(1, undoRedoManager.getUndoIndex());
 
         // ModelData in ModelManager should no longer match the previous version in UndoRedoManager
-        assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModel()));
+        assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModelData()));
         // Test whether a deep-copied version of ModelData in ModelManager has been stored to UndoRedoManager,
         // and not the original object itself
-        assertTrue(undoRedoManager.getUndoStateList().get(1) != modelManager.getModel());
-        assertEquals(undoRedoManager.getUndoStateList().get(1), modelManager.getModel());
+        assertTrue(undoRedoManager.getUndoStateList().get(1) != modelManager.getModelData());
+        assertEquals(undoRedoManager.getUndoStateList().get(1), modelManager.getModelData());
     }
 
     @Test
@@ -89,11 +91,11 @@ class UndoRedoManagerTest {
         assertDoesNotThrow(undoRedoManager::undo);
         assertEquals(0, undoRedoManager.getUndoIndex());
         // ModelData in ModelManager should no longer match the latest version in UndoRedoManager
-        assertFalse(undoRedoManager.getUndoStateList().get(1).equals(modelManager.getModel()));
+        assertFalse(undoRedoManager.getUndoStateList().get(1).equals(modelManager.getModelData()));
         // Test whether ModelData in ModelManager has been updated to match the previous version in UndoRedoManager
         // (Value-equality but not reference equality)
-        assertTrue(undoRedoManager.getUndoStateList().get(0) != modelManager.getModel());
-        assertEquals(undoRedoManager.getUndoStateList().get(0), modelManager.getModel());
+        assertTrue(undoRedoManager.getUndoStateList().get(0) != modelManager.getModelData());
+        assertEquals(undoRedoManager.getUndoStateList().get(0), modelManager.getModelData());
     }
 
     @Test
@@ -114,11 +116,11 @@ class UndoRedoManagerTest {
         assertDoesNotThrow(undoRedoManager::redo);
         assertEquals(1, undoRedoManager.getUndoIndex());
         // ModelData in ModelManager should no longer match the previous version in UndoRedoManager
-        assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModel()));
+        assertFalse(undoRedoManager.getUndoStateList().get(0).equals(modelManager.getModelData()));
         // Test whether ModelData in ModelManager has been updated to match the previous version in UndoRedoManager
         // (Value-equality but not reference equality)
-        assertTrue(undoRedoManager.getUndoStateList().get(1) != modelManager.getModel());
-        assertEquals(undoRedoManager.getUndoStateList().get(1), modelManager.getModel());
+        assertTrue(undoRedoManager.getUndoStateList().get(1) != modelManager.getModelData());
+        assertEquals(undoRedoManager.getUndoStateList().get(1), modelManager.getModelData());
     }
 
 }

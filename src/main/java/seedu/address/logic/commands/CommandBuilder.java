@@ -56,19 +56,19 @@ public abstract class CommandBuilder {
     }
 
     /**
-     * Accepts a sentence from user input tokens.
-     * A sentence can either be an option or an argument.
+     * Accepts a command phrase from user input.
+     * A phrase can either be an option or an argument.
      *
-     * @param sentence a sentence from user input
+     * @param phrase a command phrase from user input
      */
-    public CommandBuilder acceptSentence(String sentence) {
-        if (this.commandOptions.containsKey(sentence)) {
+    public CommandBuilder acceptPhrase(String phrase) {
+        if (this.commandOptions.containsKey(phrase)) {
             // Sets the context.
-            this.context = this.commandOptions.get(sentence);
+            this.context = this.commandOptions.get(phrase);
             this.context.setRequired();
         } else {
             // Adds an argument to the context.
-            this.context.acceptArgument(sentence);
+            this.context.acceptArgument(phrase);
         }
         return this;
     }

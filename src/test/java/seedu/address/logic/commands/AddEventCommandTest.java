@@ -26,16 +26,16 @@ class AddEventCommandTest {
         String remind = "11/11/1111 08:00";
         String[] tags = new String[] {"a", "b", "c"};
         assertDoesNotThrow(() -> AddEventCommand.newBuilder(null)
-            .acceptSentence(description)
-            .acceptSentence(start)
-            .acceptSentence(OPTION_END_DATE_TIME)
-            .acceptSentence(end)
-            .acceptSentence(OPTION_REMIND_DATE_TIME)
-            .acceptSentence(remind)
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
-            .acceptSentence(tags[2])
+            .acceptPhrase(description)
+            .acceptPhrase(start)
+            .acceptPhrase(OPTION_END_DATE_TIME)
+            .acceptPhrase(end)
+            .acceptPhrase(OPTION_REMIND_DATE_TIME)
+            .acceptPhrase(remind)
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
+            .acceptPhrase(tags[2])
             .build());
     }
 
@@ -47,8 +47,8 @@ class AddEventCommandTest {
         assertEquals(0, model.getEvents().size());
 
         assertDoesNotThrow(() -> AddEventCommand.newBuilder(model)
-            .acceptSentence(description)
-            .acceptSentence(start.toUserString())
+            .acceptPhrase(description)
+            .acceptPhrase(start.toUserString())
             .build()
             .execute());
 
@@ -65,8 +65,8 @@ class AddEventCommandTest {
         assertEquals(0, model.getEvents().size());
 
         assertDoesNotThrow(() -> AddEventCommand.newBuilder(model)
-            .acceptSentence(description)
-            .acceptSentence(start.toUserString())
+            .acceptPhrase(description)
+            .acceptPhrase(start.toUserString())
             .build()
             .execute());
 
@@ -74,8 +74,8 @@ class AddEventCommandTest {
         assertEquals(1, model.getEvents().size());
 
         assertThrows(CommandException.class, () -> AddEventCommand.newBuilder(model)
-            .acceptSentence(description)
-            .acceptSentence(start.toUserString())
+            .acceptPhrase(description)
+            .acceptPhrase(start.toUserString())
             .build()
             .execute());
 

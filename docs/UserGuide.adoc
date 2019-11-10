@@ -127,11 +127,7 @@ Examples: +
 .Delete Event Command
 image::DeleteEventCommandScreenShot.png[]
 
-.Index found on the top right of the event.
-image::EventCardScreenShot.png[]
-
 You may use the `delete_event` command to delete one or more events from the calendar. +
-Note that deletion is based of a zero-indexing that is found on the event's top right corner. +
 
 Command Format: +
 `*delete_event* INDEX...`
@@ -141,6 +137,7 @@ Command Parameters: +
 
 Remarks: +
 Events which match both `INDEX` and `TAG` will be deleted.
+`INDEX` can be found on the event's top right corner.
 
 Examples: +
 `*delete_event* 1` +
@@ -541,6 +538,8 @@ The below commands will only affect state-changing, and not UI-related commands.
 * *add_task*
 * *delete_task*
 * *edit_task*
+* *import*
+* *export*
 
 
 ==== Undo
@@ -692,12 +691,17 @@ Executing the `redo` command here will not do anything because `add_task` was ex
 
 {empty} +
 
+// tag::ics[]
 === iCalendar (ICS) Integration
 
 Horo stores data in the ICS format. Files saved in this format have the extension `.ics`.
-This allows for data to be imported to and exported from other calendar applications that also use the `.ics` format.
+This allows for data to be imported from and exported to other calendar applications that also use the `.ics` format.
 
-==== Export current calendar
+This means you can export and import your calendar events and todo items straight from Google Calendar into Horo,
+and vice versa!
+It also means that you can export and import your save data between different machines running Horo.
+
+==== Export Current Data
 
 .Export Command
 image::ExportCommandScreenShot.png[]
@@ -708,6 +712,9 @@ image::ExportFileScreenShot.png[]
 The `export` command exports your current calendar as an ICS file to the specified directory.
 If no directory is specified, the file will be created in the same directory as Horo.
 
+If you want to export the ICS file to a certain directory like your desktop,
+all you have to do is specify it with the `*--directory*` parameter.
+
 Command Format: +
 `*export*` +
 `*export* *--directory* DIRECTORY`
@@ -715,13 +722,16 @@ Command Format: +
 Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
 
-==== Import other calendar
+{empty} +
 
-.Import Command
-image::ImportCommandScreenShot.png[]
+==== Import other ICS Data
+
 
 .Imported File
 image::ImportFileScreenShot.png[]
+
+.Import Command
+image::ImportCommandScreenShot.png[]
 
 The `import` command imports an ICS file from the specified filepath.
 
@@ -730,6 +740,7 @@ Command Format: +
 
 Example: +
 `*import* "C:\Users\USER_NAME\Desktop\OtherCalendars\Others.ics"`
+// end::ics[]
 
 === Exiting the program
 
