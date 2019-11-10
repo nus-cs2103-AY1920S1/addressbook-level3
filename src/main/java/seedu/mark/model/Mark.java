@@ -1,11 +1,17 @@
 package seedu.mark.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.mark.model.annotation.OfflineDocument.NAME_NO_DOCUMENT;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -47,6 +53,7 @@ public class Mark implements ReadOnlyMark {
     private final SimpleStringProperty offlineDocCurrentlyShowing;
 
 
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
@@ -57,7 +64,9 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
-        offlineDocCurrentlyShowing = new SimpleStringProperty("NOTHING");
+
+        offlineDocCurrentlyShowing = new SimpleStringProperty(NAME_NO_DOCUMENT);
+
     }
 
     /**
@@ -92,7 +101,12 @@ public class Mark implements ReadOnlyMark {
         setAutotagController(newData.getAutotagController());
 
         setAnnotatedDocument(newData.getAnnotatedDocument());
+
+
+        setReminders();
+
         setOfflineDocCurrentlyShowing(newData.getOfflineDocCurrentlyShowing().getValue());
+
     }
 
     //// bookmark-level operations
@@ -216,6 +230,16 @@ public class Mark implements ReadOnlyMark {
         for (int i = 0; i < newReminders.size(); i++) {
             reminders.add(newReminders.get(i));
         }
+    }
+
+    /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return reminderAssociation.getBookmarkFromReminder(reminder);
     }
 
     //// autotag controller operations
@@ -361,6 +385,51 @@ public class Mark implements ReadOnlyMark {
     public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return reminderAssociation.isBookmarkHasReminder(bookmark);
     }
+
+    /**
+     * Compares two time in hours.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in hour.
+     */
+    private long compareHour(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(after, before).toHours();
+    }
+
+    /**
+     * Deletes expired reminders.
+     */
+    public void deleteExpiredReminder(ScheduledExecutorService executor) {
+        Runnable task = new Runnable() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Reminder> expiredReminders = new ArrayList<>();
+                        LocalDateTime now = LocalDateTime.now();
+
+                        for (int i = 0; i < reminders.size(); i++) {
+                            Reminder reminder = reminders.get(i);
+                            LocalDateTime time = reminder.getRemindTime();
+                            if (compareHour(now, time) >= 1) {
+                                expiredReminders.add(reminder);
+                            }
+                        }
+
+                        for (int i = 0; i < expiredReminders.size(); i++) {
+                            Reminder expiredReminder = expiredReminders.get(i);
+                            removeReminder(expiredReminder);
+                        }
+                    }
+                });
+
+            }
+        };
+
+        executor.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
+    }
+
 
     @Override
     public int hashCode() {

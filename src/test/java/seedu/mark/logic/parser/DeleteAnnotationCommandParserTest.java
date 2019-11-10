@@ -22,17 +22,17 @@ class DeleteAnnotationCommandParserTest {
     @Test
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2   h/ false n/falSe",
+                PREAMBLE_WHITESPACE + "1 p/ g2   h/ false n/falSe",
                 new DeleteAnnotationAllCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2   h/ false n/true",
+                PREAMBLE_WHITESPACE + "1 p/ g2   h/ false n/true",
                 new DeleteAnnotationHighlightCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2   h/ true n/ falSe",
+                PREAMBLE_WHITESPACE + "1 p/ g2   h/ true n/ falSe",
                 new DeleteAnnotationNoteCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
 
@@ -44,11 +44,11 @@ class DeleteAnnotationCommandParserTest {
     @Test
     public void parse_missingOnlyHighlight_success() {
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2 n/true",
+                PREAMBLE_WHITESPACE + "1 p/ g2 n/true",
                 new DeleteAnnotationHighlightCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2 n/false",
+                PREAMBLE_WHITESPACE + "1 p/ g2 n/false",
                 new DeleteAnnotationAllCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
 
@@ -57,11 +57,11 @@ class DeleteAnnotationCommandParserTest {
     @Test
     public void parse_missingOnlyNote_success() {
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2 h/true",
+                PREAMBLE_WHITESPACE + "1 p/ g2 h/true",
                 new DeleteAnnotationNoteCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + "1 p/ s2 h/false",
+                PREAMBLE_WHITESPACE + "1 p/ g2 h/false",
                 new DeleteAnnotationAllCommand(Index.fromOneBased(1),
                         ParagraphIdentifier.makeStrayId(Index.fromOneBased(2))));
 

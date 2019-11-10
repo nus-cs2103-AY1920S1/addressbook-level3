@@ -17,7 +17,7 @@ public class TypicalReminders {
             .withUrl(ALICE.getUrl().toString()).withTime("12/12/2020 1800")
             .build();
     public static final Reminder READ = new ReminderBuilder().withNote("Read")
-            .withUrl(BENSON.getUrl().toString()).withTime("02/03/2019 0500")
+            .withUrl(BENSON.getUrl().toString()).withTime("02/03/2099 0500")
             .build();
 
     private TypicalReminders() {} // prevents instantiation

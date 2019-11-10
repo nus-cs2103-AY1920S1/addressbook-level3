@@ -9,16 +9,16 @@
 <?import javafx.scene.control.Label?>
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" >
-    <Label fx:id="docLabel"/>
+    <Label fx:id="docLabel" style="-fx-text-fill: #ff21a6"/>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" >
-    <VBox fx:id="annotationList"
-          styleClass="pane-with-border" VBox.vgrow="NEVER">
-        <padding>
-            <Insets bottom="10" left="10" right="10" top="10" />
-        </padding>
-        <StackPane fx:id="annotationListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-    </VBox>
-</ScrollPane>
+    <ScrollPane fitToHeight="true" fitToWidth="true" fx:id="offlineScrollPane" prefHeight="800">
+        <VBox fx:id="annotationList"
+              styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+            <StackPane fx:id="annotationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </ScrollPane>
 
 </VBox>

@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -76,6 +78,11 @@ class DeleteCacheCommandTest {
         @Override
         public void updateCurrentDisplayedCache(Bookmark bookmarkToDisplayCache) {
             // phantom update just for testing
+        }
+
+        @Override
+        public ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing() {
+            return new SimpleStringProperty("");
         }
     }
 }

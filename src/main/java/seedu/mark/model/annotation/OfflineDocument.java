@@ -35,6 +35,8 @@ public class OfflineDocument {
             + "phantom paragraphs must have a note to exist";
     public static final String MESSAGE_ASSERT_IS_PHANTOM = "Cannot delete a non phantom paragraph";
 
+    public static final String NAME_NO_DOCUMENT = "NOTHING";
+
     public final Logger logger = LogsCenter.getLogger(OfflineDocument.class);
 
     /** Paragraphs with notes. */

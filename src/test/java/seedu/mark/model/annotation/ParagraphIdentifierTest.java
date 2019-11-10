@@ -42,7 +42,7 @@ class ParagraphIdentifierTest {
     @Test
     public void toString_check() {
         assertEquals("P1", new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.EXIST).toString());
-        assertEquals("S1", new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY).toString());
+        assertEquals("G1", new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY).toString());
     }
 
 }

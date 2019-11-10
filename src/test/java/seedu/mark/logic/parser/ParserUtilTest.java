@@ -191,9 +191,9 @@ public class ParserUtilTest {
         assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.EXIST),
                 ParserUtil.parseParagraphIdentifier("P1"));
         assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY),
-                ParserUtil.parseParagraphIdentifier("s1"));
+                ParserUtil.parseParagraphIdentifier("g1"));
         assertEquals(new ParagraphIdentifier(index, ParagraphIdentifier.ParagraphType.STRAY),
-                ParserUtil.parseParagraphIdentifier("S1"));
+                ParserUtil.parseParagraphIdentifier("G1"));
     }
 
     @Test

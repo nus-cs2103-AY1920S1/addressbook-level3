@@ -110,7 +110,7 @@ public class ParagraphIdentifier implements Comparable<ParagraphIdentifier> {
             if (this == EXIST) {
                 return "P";
             }
-            return "S";
+            return "G";
         }
     }
 

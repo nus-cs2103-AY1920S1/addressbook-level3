@@ -2,6 +2,7 @@ package seedu.mark.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.logging.Logger;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -138,4 +139,19 @@ public class LogicManager implements Logic {
     public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
         return model.getBookmarkDisplayingCacheProperty();
     }
+
+    @Override
+    /**
+     * Delete mark's timer.
+     */
+    public void startMarkTimer(ScheduledExecutorService executor) {
+        model.startTimer(executor);
+    }
+
+    @Override
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return model.getBookmarkFromReminder(reminder);
+    }
+
+
 }

@@ -3,7 +3,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="5">
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="dashboardPanel">
     <HBox maxHeight="200">
         <HBox HBox.hgrow="ALWAYS">
             <StackPane fx:id="reminderListPlaceholder" HBox.hgrow="ALWAYS"/>

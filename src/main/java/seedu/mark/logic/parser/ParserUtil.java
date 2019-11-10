@@ -217,9 +217,9 @@ public class ParserUtil {
 
         ParagraphIdentifier.ParagraphType t;
         switch (pidString.charAt(0)) {
-        case 's':
+        case 'g':
             //fallthrough
-        case 'S':
+        case 'G':
             t = ParagraphIdentifier.ParagraphType.STRAY;
             break;
         case 'p':

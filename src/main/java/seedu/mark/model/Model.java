@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -221,6 +222,14 @@ public interface Model {
     void editReminder(Reminder targetReminder, Reminder editedReminder);
 
     /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder);
+
+    /**
      * Checks if the bookmark already has reminder.
      *
      * @param bookmark the bookmark to check.
@@ -262,7 +271,14 @@ public interface Model {
      */
     SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty();
 
+
+    /**
+     * Starts mark's timer.
+     */
+    void startTimer(ScheduledExecutorService executor);
+
     ObservableValue<String> getObservableOfflineDocNameCurrentlyShowing();
 
     void setOfflineDocNameCurrentlyShowing(String name);
+
 }

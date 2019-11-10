@@ -45,8 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_FOLDER_CS2101 = "CS2101";
     public static final String VALID_NOTE_OPEN = "Open Website";
     public static final String VALID_NOTE_READ = "READ ARTICLE";
-    public static final String VALID_TIME_OPEN = "12/12/2020 1800";
-    public static final String VALID_TIME_READ = "02/03/2019 0500";
+    public static final String VALID_TIME_OPEN = "12/12/2029 1800";
+    public static final String VALID_TIME_READ = "02/03/2099 0500";
     public static final String VALID_CACHED_HTML = "<div> Some HTML </div>";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;

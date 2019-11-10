@@ -23,11 +23,11 @@ bookmarks*. More importantly, it is *optimized for those who prefer to
 work with a Command Line Interface* (CLI) while still having the
 benefits of a Graphical User Interface (GUI). If you can type fast, Mark
 can get your bookmark organisation and note-taking done faster than
-traditional GUI apps. Interested? Jump to
-<<Quick Start>> to get
-started. Enjoy!
+traditional GUI apps. Interested? Move on to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
+
+=== Installing Mark
 
 Here are a few steps to get you started on Mark: +
 
@@ -38,10 +38,11 @@ Here are a few steps to get you started on Mark: +
 +
 image::Ui.png[width="790"]
 +
+// TODO: move this part to <<Using Mark>>
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 +
-Some example commands you can try:
+Here are some example commands that you can try:
 
 * *`list`* : lists all bookmarks
 * *`folder Tutorials`* : create a folder named `Tutorials`
@@ -51,6 +52,53 @@ named `Pro Git` to Mark.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+=== Using Mark
+
+Here is an overview of Mark's layout.
+
+There are three main areas in Mark:
+
+. A __command box__ at the top of the screen
+. A __bookmark list__ on the left of the screen
+. A __main viewing area__ that occupies most of the right side of the screen
+
+// TODO: describe properly (this is very 'functional' but may not be user-friendly)
+The __command box__ is the area for you to enter commands. The result of each command will be shown
+in the result display box, immediately below the command box.
+
+.Command box and result display box
+image::ui-screenshots/CommandBox.png[]
+
+The __bookmark list__ shows details about the bookmarks in Mark.
+
+.Bookmark list
+image::ui-screenshots/BookmarkList.png[]
+
+The __main viewing area__ shows one of three available tabs at any point in time.
+Mark has three [[Tabs]] tabs: **Dashboard**, **Online** and **Offline**.
+
+* The **Dashboard** tab contains information about reminders, favorite bookmarks,
+folders, and autotags in Mark.
++
+[#imgId-dashboard]
+.Mark's Dashboard tab
+image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
+
+* The **Online** tab contains a web browser, which you can use to search for
+and view web pages.
++
+[#imgId-online]
+.Mark's Online tab
+image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
+
+* The **Offline** tab displays offline copies of bookmarked web pages,
+which you can browse and annotate directly.
++
+[#imgId-offline]
+.Mark's Offline tab
+image::ui-screenshots/Ui_OfflineTab.png[@Offline Tab View, 600, 400]
+
 
 [[Features]]
 == Features
@@ -75,93 +123,181 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 ====
 
-=== Viewing help: *`help`*
+// TBC: might remove this if we can't update it on time
+|======
+|Parameter |Constraints
+|`FILENAME` |`FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
+|`FOLDER_NAME` |`FOLDER_NAME` must be alphanumeric
+|`URL` |`URL` should have the format: `scheme://authority[/path][?query][\#fragment][/]` and adhere to the following
+constraints: +
+1. The scheme should be either 'http', 'https', 'ftp', or 'file', followed by '://'. +
+2. The authority should only contain alphanumeric characters and any of the characters `(.-_~!$&'*+,;=:@)`. +
+3. This can be followed by zero or more path segments. Each path segment begins with a '/' followed by zero or more
+alphanumeric or special characters. +
+4. Next, a URL may contain a query string, which begins with a '?'. +
+5. It may also contain a fragment after the query string (if present), which begins with a '#'. +
+6. Finally, a URL can end with an optional slash '/'.
+|======
+
+
+=== General
+
+The following commands carry out general operations in Mark.
+
+==== Viewing help: *`help`*
 Shows the list of commands in the bookmark manager.
 
 Format: *`help`*
 
-=== Adding a bookmark: *`add`*
+==== Switching tabs: *`tab`*
 
-Adds a bookmark to the bookmark manager.
+Switches the current app view to the <<Tabs, tab>> that corresponds to the given
+index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
 
-Format: `*add* u/URL n/NAME [r/REMARK] [f/FOLDER] [t/TAG]...​`
-
-****
-* A bookmark can have any number of tags (including 0).
-* `FOLDER` must be an existing folder (see <<folder>>).
-* The keyword `this` can be used in place of a URL to bookmark the current page,
-e.g. `*add* u/this n/Homepage`
-****
-
-Examples:
-
-* `*add* u/this n/Homepage` +
-Bookmarks the current page and names it `Homepage`. The new bookmark contains
-a default remark of "-" and is added to the root folder since they are not
-specified.
-* `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
-f/CS2103T r/Contains textbook & important deadlines` +
-Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
-The new bookmark's remark is `Contains textbook & important deadlines`.
-* `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
-Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
-`video` and `watchLater`.
-
-[[folder]]
-=== Adding a new folder: *`folder`*
-
-Creates a new folder for organizing bookmarks into.
-
-Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+Format: `*tab* INDEX` or `*tab* KEYWORD`
 
 ****
-* `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
-* `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
-* `FOLDER_NAME` must be alphanumeric.
-* `PARENT_FOLDER` must be an existing folder.
-* If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
+* `INDEX` is `1`, `2` or `3`, which correspond to the
+<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
+* `KEYWORD` is `dash`, `on` or `off`, which correspond to the
+<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
 Examples:
 
-* `*folder* CS2103 p/NUS` +
-Creates a new folder named `CS2103` under the parent folder `NUS`.
+* `*tab* 1` +
+Goes to the <<Dashboard,Dashboard>> tab.
 
-=== Listing all bookmarks: *`list`*
+* `*tab* on` +
+Goes to the Online tab which is a web view.
+
+* `*tab* 3` +
+Goes to the Offline tab which shows the offline copy of bookmarks.
+
+// tag::undo-redo-command[]
+==== Undoing previous commands: *`undo`*
+
+Restores the list to the state before the given number of previous undoable commands were
+executed.
+
+Format: `*undo* [STEP=1]`
+
+//TODO:Check whether reminder supports undo/redo, include other
+//undoable commands as well
+****
+* Undoable commands include commands that modify the bookmark list or
+reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder edit`, `reminder delete`, etc).
+* The step must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*undo*` +
+Restores the list to the state before the previous undoable command was executed.
+
+==== Redoing previously undone commands: *`redo`*
+
+Reverses the given number of `*undo*` commands.
+
+Format: `*redo* [STEP=1]`
+
+****
+* The step must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*redo*` +
+Reverses the most recent `*undo*` command.
+// end::undo-redo-command[]
+
+// tag::exportcommand[]
+[[exporting-bookmarks]]
+==== Exporting bookmarks: *`export`*
+
+This command exports Mark data to a specified file on the hard disk. The saved file is
+identical in format to the data file `mark.json` and can be used to save back-up copies
+of Mark data.
+
+Note that Mark data are automatically saved in the hard disk after any command
+that changes the data, so if you do not need outdated Mark data, there is no need to
+save manually.
+
+Format: `*export* [FILENAME]`
+
+****
+* {blank}
++
+`FILENAME` should not include the file extension. E.g. `myBookmarks` and not
+`myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
+* The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
+If the given file already exists, it is overwritten.
+****
+
+Example:
+
+* `*export* myBookmarks` +
+Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
+(assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
+is identical to the current content of `mark.json`.
+// end::exportcommand[]
+
+==== Importing bookmarks: *`import`*
+
+This command imports bookmarks from a file on the hard disk to Mark. A bookmark is, by default, imported
+into a folder with the same name as its original folder (even if the folder
+structure is different). If no such folder is found, the bookmark will be imported
+into the folder `ImportedBookmarks`.
+
+Bookmarks with the same name or URL as existing bookmarks are not imported.
+
+Format: `*import* FILENAME`
+
+****
+* `FILENAME` is case sensitive and should not include the file extension. E.g.
+`myBookmarks` and not `myBookmarks.json`
+* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
+* `FILENAME.json` should be a file stored in the folder
+`[applicationHome]/data/bookmarks/`.
+* The file corresponding to `FILENAME` should have a valid format, identical
+to the JSON files produced by `*export*`.
+****
+
+Example:
+
+* `*import* myBookmarks` +
+Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
+file `mark/data/bookmarks/myBookmarks.json`.
+
+==== Clearing all data: *`clear`*
+
+Clears all data from Mark. All bookmarks, folders, autotags, and reminders will be cleared.
+
+Format: `*clear*`
+
+==== Exiting the program: *`exit`*
+
+Exits the program.
+
+Format: `*exit*`
+
+
+=== Bookmarks
+
+The following commands operate on bookmarks in Mark. Apart from the *`list`* and *`find`* command,
+all other bookmark-related commands operate on bookmarks using the bookmark index that is
+currently shown in the bookmark list.
+
+==== Showing all bookmarks: *`list`*
 
 Shows a list of all bookmarks in the bookmark manager.
 
 Format: `*list*`
 
-[[editing-bookmarks]]
-=== Editing a bookmark: *`edit`*
-
-Edits an existing bookmark in the bookmark manager.
-
-Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
-
-****
-* The bookmark at the specified `INDEX` will be edited. The index refers to the index
-number shown in the displayed bookmark list. The index must be a
-positive integer `1`, `2`, `3`, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the bookmark will be removed i.e
-adding of tags is not cumulative.
-* You can remove all the bookmark’s tags by typing `t/` without specifying
-any tags after it.
-****
-
-Examples:
-
-* `*edit* 1 n/CS2103T Website f/AY1920S1` +
-Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
-
-* `*edit* 2 t/` +
-Clears all existing tags from the 2nd bookmark.
-
-[[locating-bookmarks]]
-=== Locating bookmarks by name, URL, tag or folder: *`find`*
+[[finding-bookmarks]]
+==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s).
@@ -189,7 +325,100 @@ Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its URL.
 * `*find* GitHub t/School f/CS2103T` +
 Returns any bookmark with the tag School or folder CS2103T or that contains github in either name or URL.
 
-=== Deleting a bookmark: *`delete`*
+// tag::goto-command[]
+==== Opening a bookmark: *`goto`*
+
+Opens the specified the bookmark from the bookmark manager.
+
+Format: `*goto* INDEX`
+
+****
+* Opens the bookmark at the specified INDEX.
+* The index refers to the index number shown in the displayed bookmark list.
+* The index must be a positive integer `1`, `2`, `3`, …​
+****
+
+Examples:
+
+* `*list*` +
+`*goto* 1` +
+Opens the first bookmark in the bookmark manager.
+// end::goto-command[]
+
+==== Adding a bookmark: *add*
+
+// Context: When to use this command?
+If you're browsing the web and want to bookmark a website, you can do so using the `add` command.
+You can also use `add` to bookmark web pages using their URLs.
+
+Format: `*add* u/URL n/NAME [r/REMARK=-] [f/FOLDER=ROOT] [t/TAG]...​`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* While surfing the Internet in Mark, input `add u/this n/Homepage` into the command box.
++
+image::AddCommandUi1.png[]
+// online tab, showing mark User Guide
+* Observe that a bookmark of the current page has been added and is visible in the bookmark list.
+The new bookmark has the name `Homepage`. Since the folder and remark are not specified,
+it is added to the root folder and has the default remark "-".
++
+image::AddCommandUi2.png[]
+
+// More details about command constraints
+****
+* A bookmark can have any number of tags (including 0).
+* `FOLDER` must be an existing folder (see <<folder>>).
+* The keyword `this` can be used in place of a URL to bookmark the current page,
+e.g. `*add* u/this n/Homepage`
+****
+
+Other examples:
+
+* `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
+f/CS2103T r/Contains textbook & important deadlines`
++
+Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
+The new bookmark's remark is `Contains textbook & important deadlines`.
++
+image::AddCommandExample1.png[]
+
+* `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
++
+Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
+`video` and `watchLater`.
++
+image::AddCommandExample2.png[]
+
+[[editing-bookmarks]]
+==== Editing a bookmark: *`edit`*
+
+Edits an existing bookmark in the bookmark manager.
+
+Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
+
+****
+* The bookmark at the specified `INDEX` will be edited. The index refers to the index
+number shown in the displayed bookmark list. The index must be a
+positive integer `1`, `2`, `3`, …​
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the bookmark will be removed i.e
+adding of tags is not cumulative.
+* You can remove all the bookmark’s tags by typing `t/` without specifying
+any tags after it.
+****
+
+Examples:
+
+* `*edit* 1 n/CS2103T Website f/AY1920S1` +
+Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
+
+* `*edit* 2 t/` +
+Clears all existing tags from the 2nd bookmark.
+
+==== Deleting a bookmark: *`delete`*
 
 Deletes the specified bookmark from the bookmark manager.
 
@@ -211,28 +440,8 @@ Deletes the 2nd bookmark in the bookmark manager.
 `*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
-// tag::goto-command[]
-=== Opening a bookmark: *`goto`*
-
-Opens the specified the bookmark from the bookmark manager.
-
-Format: `*goto* INDEX`
-
-****
-* Opens the bookmark at the specified INDEX.
-* The index refers to the index number shown in the displayed bookmark list.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*list*` +
-`*goto* 1` +
-Opens the first bookmark in the bookmark manager.
-// end::goto-command[]
-
 // tag::favorite-command[]
-=== Adding a bookmark to Favorites: *`favorite|fav`*
+==== Adding a bookmark to Favorites: *`favorite|fav`*
 
 Adds a Favorite tag to the specified bookmark.
 
@@ -254,123 +463,73 @@ Adds a Favorite tag to the first bookmark in the bookmark manager.
 Adds a Favorite tag to the second bookmark in the bookmark manager.
 // end::favorite-command[]
 
-=== Clearing all entries: *`clear`*
 
-Clears all entries from the bookmark manager.
+=== Folders
 
-Format: `*clear*`
+The following commands carry out operations on folders in Mark.
 
-// tag::undo-redo-command[]
-=== Undoing previous commands: *`undo`*
+==== Expanding the folder hierarchy: *`expand`*
 
-Restores the list to the state before the given number of previous undoable commands were
-executed.
+Expands the folder hierarchy by the specified number of levels.
 
-Format: `*undo* [STEP=1]`
+Format: `*expand* [LEVEL=1]`
 
-//TODO:Check whether reminder supports undo/redo, include other
-//undoable commands as well
 ****
-* Undoable commands include commands that modify the bookmark list or
-reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, `reminder delete`, etc).
-* The step must be a positive integer `1`, `2`, `3`, …​
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
+* If `LEVEL` is not specified, expand by 1 level.
 ****
 
 Examples:
 
-* `*undo*` +
-Restores the list to the state before the previous undoable command was executed.
+* `*expand* 3` +
+Expands the folder hierarchy by 3 levels.
 
-=== Redoing previously undone commands: *`redo`*
+==== Collapsing the folder hierarchy: *`collapse`*
 
-Reverses the given number of `*undo*` commands.
+Collapses the folder hierarchy by the specified number of levels.
 
-Format: `*redo* [STEP=1]`
+Format: `*collapse* [LEVEL=1]`
 
 ****
-* The step must be a positive integer `1`, `2`, `3`, …​
+* `LEVEL` should be a positive integer.
+* If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
+* If `LEVEL` is not specified, collapse by 1 level.
 ****
 
 Examples:
 
-* `*redo*` +
-Reverses the most recent `*undo*` command.
-// end::undo-redo-command[]
+* `*collapse* 1` +
+Collapses the folder hierarchy by 1 level.
 
-=== Exiting the program: *`exit`*
+[[folder]]
+==== Adding a new folder: *`folder`*
 
-Exits the program.
+Creates a new folder for organizing bookmarks into.
 
-Format: `*exit*`
-
-=== Saving the data
-
-Mark data are saved in the hard disk automatically after any command
-that changes the data.
-
-There is no need to save data manually. It is also possible to save
-Mark data with a different file name using the command `*export*`
-(see <<exporting-bookmarks>>).
-
-// tag::exportcommand[]
-[[exporting-bookmarks]]
-=== Exporting bookmarks: *`export`*
-
-This command exports Mark data to a specified file on the hard disk. The saved file is
-identical in format to the data file `mark.json` and can be used to save back-up copies
-of Mark data.
-
-Format: `*export* [FILENAME]`
+Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 
 ****
-* {blank}
-+
-`FILENAME` should not include the file extension. E.g. `myBookmarks` and not
-`myBookmarks.json`
-* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
-* The data file is saved at `[applicationHome]/data/bookmarks/FILENAME.json`.
-If the given file already exists, it is overwritten.
+* `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
+* `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
+* `FOLDER_NAME` must be alphanumeric.
+* `PARENT_FOLDER` must be an existing folder.
+* If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
 
-Example:
+Examples:
 
-* `*export* myBookmarks` +
-Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
-(assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
-is identical to the current content of `mark.json`.
-// end::exportcommand[]
+* `*folder* CS2103 p/NUS` +
+Creates a new folder named `CS2103` under the parent folder `NUS`.
 
-=== Importing bookmarks: *`import`*
 
-This command imports bookmarks from a file on the hard disk to Mark. A bookmark is, by default, imported
-into a folder with the same name as its original folder (even if the folder
-structure is different). If no such folder is found, the bookmark will be imported
-into the folder `ImportedBookmarks`.
+=== Autotags
 
-Bookmarks with the same name or URL as existing bookmarks are not imported.
-
-Format: `*import* FILENAME`
-
-****
-* `FILENAME` is case sensitive and should not include the file extension. E.g.
-`myBookmarks` and not `myBookmarks.json`
-* `FILENAME` should consist of only alphanumeric characters, hyphens, and/or underscores.
-* `FILENAME.json` should be a file stored in the folder
-`[applicationHome]/data/bookmarks/`.
-* The file corresponding to `FILENAME` should have a valid format, identical
-to the JSON files produced by `*export*`.
-****
-
-Example:
-
-* `*import* myBookmarks` +
-Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
-file `mark/data/bookmarks/myBookmarks.json`.
+The following commands carry out autotag-related operations in Mark.
 
 // tag::autotagcommand[]
 [[Autotag-Command]]
-=== Creating an automatic tag: *`autotag`*
+==== Creating an automatic tag: *`autotag`*
 
 This command creates a tag that will be automatically applied to bookmarks which match
 the given conditions.
@@ -382,7 +541,7 @@ Format: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
 * `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
 * `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in a similar way
-as the keywords in `*find*` (see <<locating-bookmarks>>). The only difference is that a single
+as the keywords in `*find*` (see <<finding-bookmarks>>). The only difference is that a single
 keyword parameter can contain multiple words. E.g. `n/Module W` will match names `CS2103T Module Website` and
 `module work to do` but not `Future modules`.
 * `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
@@ -424,7 +583,7 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
 
-=== Deleting automatic tags: *`autotag-delete`*
+==== Deleting an automatic tag: *`autotag-delete`*
 
 This command deletes a previously created <<autotag, autotag>> from Mark. Tags that are already present will
 not be removed, but no bookmarks will be tagged by this autotag after it is deleted.
@@ -444,7 +603,13 @@ Example:
 with the tag `Quiz`. No existing tags are removed, but new and edited bookmarks
 will no longer be automatically tagged with `Quiz`.
 
-=== Saving an offline copy: *`cache`*
+
+=== Offline Copies
+
+The following commands carry out operations relating to <<offline-copy, offline copies>>
+of bookmarked web pages.
+
+==== Saving an offline copy: *`cache`*
 
 Saves the bookmarked website locally for offline viewing.
 
@@ -459,7 +624,7 @@ Examples:
 * `*cache* 1` +
 Saves an offline copy of the first bookmark.
 
-=== Deleting an offline copy: *`cache-delete`*
+==== Deleting an offline copy: *`cache-delete`*
 
 Deletes an offline copy of a bookmark.
 
@@ -474,171 +639,10 @@ Examples:
 * `*cache-delete* 2` +
 Deletes the offline copy of the second bookmark.
 
-=== Making annotations on an offline copy: *`annotate`*
+==== Viewing an offline copy: *`offline`*
 
-This adds a new annotation on the offline copy of the given bookmarked
-website. When you give this command, the UI will switch to the offline tab showing the results of your command.
-With this command, you can highlight a paragraph on the offline document and optionally attach a supplementary
-note to said paragraph. (You can add notes to justify the highlight or as
-content-relevant notes to refer to in future).
-You can also add a general note not pertaining to any specific paragraph to the bottom of the document,
-hereby known as the _General notes section_.
-
-NOTE: A general note is known to attach to a <<phantom-paragraph,_phantom paragraph_>>. As you can see in the offline
-copy, phantom paragraphs do not have any content displayed; they do not belong to the original web page.
-The phantom paragraphs altogether make up the _General notes section_.
-
-You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
-a phantom paragraph, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
-
-
-NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `S`. You can refer to the
-numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
-Phantom paragraphs are identified using numbered identifiers that begin with `S`, as opposed to <<true-paragraph,_true paragraphs_>>, whose identifiers begin with `P`.
-
-Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
-
-****
- * `INDEX` is the bookmark that you want to annotate offline version of.
- If `INDEX` is invalid, a warning message will be displayed.
- * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
- `PARA_NUM` must be `NULL` or it must begin with `P` or `S` (e.g. `P3`).
- If `PARA_NUM` is invalid, a warning message will be displayed.
- * `NOTES` is the content of notes to add.
- * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
-the highlight colour to mark out paragraphs. If no colour is specified,
-the colour is set to yellow by default.
-If the colour provided is invalid, a warning message will be displayed.
-****
-
-Examples:
-
-* `*annotate* 1 p/p2 n/summary of paragraph h/orange` +
-This highlights paragraph 2 orange and attaches note with content “summary of paragraph” to the paragraph
-in the offline copy of bookmark 1.
-//TODO: add screenshots
-
-
-
-* `*annotate* 1 p/p2 h/pink` +
-This overwrites any existing highlight of paragraph 2 with pink
-in the offline copy of bookmark 1. Any notes attached remain attached.
-
-* `*annotate* 1 p/p2 n/change or add note content` +
-This overwrites any note attached to paragraph 2 to a note with content “change or add note content”
-in the offline copy of bookmark 1. Highlight
-colour remains the same. Otherwise, paragraph 2 will be highlighted yellow and
-a new note with content "change or add note content" will be added to the paragraph.
-
-* `*annotate* 1 n/adding a general note` +
-This adds a note with content "adding a general note" to the _General notes section_ in the
-offline copy of bookmark 1.
-
-[[annotatedelete]]
-=== Deleting annotations on an offline copy: *`annotate-delete`*
-
-This deletes selected highlights or notes from the offline copy of the given bookmarked website.
-When you give this command, the UI will switch to the offline tab showing the results of your command.
-You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
-on the offline copy to revert it to a clean slate. You can also choose to remove a note from the
-<<stray-notes,_General notes section_>>. If the given paragraph does not have any annotations to remove, nothing is performed.
-
-You are not allowed to remove only the highlight from a phantom paragraph since it does not display a highlight in the first place.
-
-Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
-
-****
-* `INDEX` is the bookmark that you want to remove annotations of.
- If `INDEX` is invalid, a warning message will be displayed.
-* `PARA_NUM` is the numbered identifier of the paragraph to remove annotation(s) from. `PARA_NUM` must be either `all` or begin with `P` or `S`.
- If you entered `all` for this parameter, all annotations will be cleared regardless of other options, reverting the offline document to a clean slate.
- If you specified a phantom paragraph instead, the phantom paragraph will be deleted if `n/KEEP_NOTES` parameter is set to `false`.
- If `PARA_NUM` is invalid or there is no annotation to delete, a warning message will be displayed.
-* `KEEP_NOTES` is _boolean_ (either `true` or `false`). If `true`, the notes of the paragraph will not be deleted. Otherwise,
-the notes will be removed. `KEEP_NOTES` is `false` by default.
- If `KEEP_NOTES` is invalid, a warning message will be displayed.
-* `KEEP_HIGHLIGHT` is _boolean_ (either `true` or `false`). If `true`, the highlight of the paragraph will not be deleted. Otherwise,
-the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
- If `KEEP_HIGHLIGHT`` is invalid, a warning message will be displayed.
-****
-
-Examples:
-
-* `*annotate-delete* 1 p/p2` +
-This removes both the note and highlight from paragraph 2 in the offline copy of bookmark 1.
-
-* `*annotate-delete* 1 p/p2 n/true` +
-This removes the highlight of paragraph 2 and moves the note to _General notes section_ in the offline copy of bookmark 1.
-
-* `*annotate-delete* 1 p/p2 h/true` +
-This removes the note of paragraph 2 in the offline copy of bookmark 1, leaving the highlight untouched.
-
-* `*annotate-delete* 2 p/s1` +
-This deletes the general note from phantom paragraph `S1` in the offline copy of bookmark 2.
-
-* `*annotate-delete* 1 p/all` +
-This removes all annotations of the offline copy of bookmark 1.
-
-[[annotate-edit]]
-=== Modifying annotations on an offline copy: *`annotate-edit`*
-
-This modifies existing annotations on the offline copy of the given bookmarked
-website. When you give this command, the UI will switch to the offline tab showing the results of your command.
-With this command, you can choose to overwrite the existing notes to a particular paragraph with another note, change the highlight or
-choose to move notes from a paragraph to another paragraph. This command also supports moving notes of a
-<<phantom-paragraph, phantom paragraph>> back to the main text by specifying which true paragraph to move it to.
-
-NOTE: While both `*annotate-edit*` and `*annotate*` can be used to change current annotation highlight and notes, `*annotate-edit*`
-allows you to shift your annotations from one paragraph to another in a single step.
-
-Moving of notes to the <<stray-notes, _General notes section_>> is not supported. If you really want to shift them,
-use <<annotatedelete, `*annotate-delete*`>> with  `n/true` as the only optional flag you include.
-
-Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
-
-****
- * `INDEX` is the bookmark that you want to annotate offline version of.
- If `INDEX` is invalid, a warning message will be displayed.
- * `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of.
- If `PARA_NUM` is invalid or the corresponding paragraph does not have existing annotations, a warning message will be displayed.
- * `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to. If `NEW_PARA_NUM` is the same as `PARA_NUM` or
-is invalid, a warning message will be displayed.
- * `NOTES` is the content of notes to change to. Whenever notes is given, it
- replaces any pre-existing note to paragraph `PARA_NUM`, if applicable.
- * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
-the highlight colour to mark out paragraphs. When no colour is specified, the higlihgt of the source paragraph is
-used.
-If colour provided is invalid, a warning message will be displayed.
-****
-
-Examples:
-
-* `*annotate-edit* 1 p/p2 to/p3` +
-This moves both the highlight and notes from paragraph 2 to paragraph 3 in the offline copy of bookmark 1.
-The highlight of paragraph 2 is removed.
-
-* `*annotate-edit* 1 p/p2 to/p3 h/orange` +
-This moves the note from paragraph 2 to paragraph 3 in the offline copy of bookmark 1. The highlight of paragraph 2
-is removed and paragraph 3 is highlighted with orange.
-
-* `*annotate-edit* 1 p/p1 n/new notes` +
-This replaces the content of the note for paragraph 1 with "new notes" in the offline copy of bookmark 1.
-
-* `*annotate-edit* 1 p/p1 h/yellow` +
-This changes the highlight colour to yellow for paragraph 1 in the offline copy of bookmark 1.
-
-* `*annotate-edit* 1 p/s2 to/p1` +
-This moves the general note of phantom paragraph `S2` to paragraph 1 in the offline copy of bookmark 1.
-
-* `*annotate-edit* 1 p/p2 to/p3 n/changing and moving notes` +
-This annotates paragraph 3 with the highlight of paragraph 2 and
-a note with content "changing and moving notes". The annotation on paragraph 2 is removed.
-
-
-=== Viewing an annotated offline copy: *`offline`*
-
-Switches to offline tab and shows offline copy of a selected bookmark. The offline view tab will
-show the latest offline copy with annotations by default.
+If you want to view the offline copy of a bookmark, you can do so using the `offline` command. Your view will be switched
+to the offline tab where the offline copy is shown.
 
 Format: `*offline* INDEX`
 //TODO: [v/VERSION = current]`
@@ -657,9 +661,212 @@ Shows annotated offline copy of bookmark 1.
 //Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
 //then annotations are shown as well.
 
+
+[[annotate]]
+==== Making annotations on an offline copy: *`annotate`*
+
+If you want to add a new annotation on the offline copy of a bookmark,
+you can do so using the `annotate` command.
+With this command, you can highlight a paragraph on the offline document and
+optionally attach a supplementary note to said paragraph. You can add notes
+to justify the highlight or as content-relevant notes to refer to in future.
+
+If you are looking to add a general note not pertaining to any specific paragraph, you
+can also use this command to add it to the bottom of the page, hereby known as the _General notes section_.
+
+Upon annotating, the your view will be switched to the offline tab
+showing the results of your command.
+
+NOTE: A general note is not attached to any paragraph of the original web page. Instead, when adding general notes, they are attached
+to newly created paragraphs that do not have any content displayed.
+General notes are found at the bottom of the page, referred to as the _General notes section_.
+
+You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
+the paragraph of a general note, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
+
+NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `G`. You can refer to the
+numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
+Paragraphs of general notes are identified using numbered identifiers that begin with `G`, as opposed to paragraphs originating from the original web page, whose identifiers begin with `P`.
+
+Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
+
+For example:
+
+* Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
+
+image::AddAnnotationCommandUi1.png[]
+// offline tab, showing result after   annotate 1 p/p2
+
+* Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
+
+image::AddAnnotationCommandUi2.png[]
+// offline tab, showing result.
+
+
+// More details about command constraints
+****
+ * `INDEX` is the bookmark that you want to annotate offline version of.
+ If `INDEX` is invalid, a warning message will be displayed.
+ * `PARA_NUM` is the numbered identifier of the paragraph to be marked.
+ `PARA_NUM` must be `NULL` or it must begin with `P` or `G` (e.g. `P3`). `PARA_NUM` is case-insensitive.
+ If `PARA_NUM` is invalid, a warning message will be displayed.
+ * `NOTES` is the content of notes to add.
+ * `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
+the highlight colour to mark out paragraphs. If no colour is specified,
+the colour is set to yellow by default.
+If the colour provided is invalid, a warning message will be displayed.
+****
+
+//TODO: remove all the description of result and replace with GUI image?
+Other examples:
+
+* `*annotate* 1 p/p2` +
+This highlights paragraph P2 yellow in the offline copy of bookmark 1.
+
+* `*annotate* 1 p/p2 h/pink` +
+This overwrites any existing highlight of paragraph P2 with pink
+in the offline copy of bookmark 1. Any notes attached remain attached.
+
+* `*annotate* 1 p/p2 n/change or add note content` +
+This overwrites any note attached to paragraph P2 to a note with content “change or add note content”
+in the offline copy of bookmark 1. Highlight
+colour remains the same. Otherwise, paragraph P2 will be highlighted yellow and
+a new note with content "change or add note content" will be added to the paragraph.
+
+* `*annotate* 1 p/null n/adding a general note` +
+This adds a note with content "adding a general note" to the _General notes section_ in the
+offline copy of bookmark 1.
+
+[[annotate-edit]]
+==== Modifying annotations on an offline copy: *`annotate-edit`*
+
+If you want to modify existing annotations on the offline copy of a bookmark, you can do so using the `annotate-edit` command.
+You can choose to overwrite the existing note of a particular paragraph with another note, change the highlight or
+choose to move notes from a paragraph to another paragraph. You can also use this command to move a general note to the main text by specifying which original paragraph to move it to.
+
+NOTE: While both `*annotate-edit*` and `*annotate*` can be used to change current annotation highlight and notes, `*annotate-edit*`
+allows you to shift your annotations from one paragraph to another in a single step.
+
+Moving of notes to the <<stray-notes, _General notes section_>> is not supported. If you really want to shift them,
+use <<annotatedelete, `*annotate-delete*`>> with  `n/true` as the only optional flag you include.
+
+Upon editing an annotation, your view will be switched to the offline tab showing the results of your command.
+
+Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIGHT_COLOUR]`
+
+For example:
+
+* Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
+
+image::EditAnnotationCommandUi1.png[]
+// offline tab after   annotate 1 p/null n/this note was once a general note
+
+* Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
+
+image::EditAnnotationCommandUi2.png[]
+
+****
+* `INDEX` is the bookmark that you want to annotate offline version of.
+If `INDEX` is invalid, a warning message will be displayed.
+* `PARA_NUM` is the numbered identifier of the paragraph which you want to edit annotation of. `PARA_NUM` is case-insensitive.
+If `PARA_NUM` is invalid or the corresponding paragraph does not have existing annotations, a warning message will be displayed.
+* `NEW_PARA_NUM` is the numbered identifier of the paragraph to move the annotation to. `NEW_PARA_NUM` is also case-insensitive.
+If `NEW_PARA_NUM` is the same as `PARA_NUM` or is invalid, a warning message will be displayed.
+* `NOTES` is the content of notes to change to. Whenever notes is given, it
+replaces any pre-existing note to paragraph `PARA_NUM`, if applicable.
+* `HIGHLIGHT_COLOUR` is either `orange`, `pink`, `green` or `yellow`. This selects
+the highlight colour to mark out paragraphs. When no colour is specified, the higlihgt of the source paragraph is
+used.
+If colour provided is invalid, a warning message will be displayed.
+****
+
+Other examples:
+
+* `*annotate-edit* 1 p/p2 to/p3` +
+This moves both the highlight and notes from paragraph P2 to paragraph P3 in the offline copy of bookmark 1.
+The highlight of paragraph P2 is removed.
+
+* `*annotate-edit* 1 p/p2 to/p3 h/orange` +
+This moves the note from paragraph P2 to paragraph P3 in the offline copy of bookmark 1. The highlight of paragraph P2
+is removed and paragraph P3 is highlighted with orange.
+
+* `*annotate-edit* 1 p/p1 n/new notes` +
+This replaces the content of the note for paragraph P1 with "new notes" in the offline copy of bookmark 1.
+
+* `*annotate-edit* 1 p/p1 h/yellow` +
+This changes the highlight colour to yellow for paragraph P1 in the offline copy of bookmark 1.
+
+* `*annotate-edit* 1 p/g2 to/p1` +
+This moves the general note G2 to paragraph P1 in the offline copy of bookmark 1.
+
+* `*annotate-edit* 1 p/p2 to/p3 n/changing and moving notes` +
+This annotates paragraph P3 with the highlight of paragraph 2 and
+a note with content "changing and moving notes". The annotation on paragraph P2 is removed.
+
+[[annotatedelete]]
+==== Deleting annotations on an offline copy: *`annotate-delete`*
+
+If you want to delete highlights or notes from the offline copy of a bookmark, you can do so using the `annotate-delete` command.
+You can choose to remove just the notes and/or highlight of a paragraph, or clear all annotations
+on the offline copy to revert it to a clean slate. You can also choose to remove a note from the
+<<stray-notes,_General notes section_>>.
+
+If the given paragraph does not have any annotations to remove, nothing is performed.
+Also, you cannot choose to remove only the highlight from the paragraph of a general note since it does not display a highlight in the first place.
+
+Upon deleting an annotation, your view will be switched to the offline tab showing the results of your command.
+
+Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIGHT=false]`
+
+For example:
+
+* Input `*annotate-delete* 1 p/p2 n/true` into the command box.
+
+image::DeleteAnnotationCommandUi1.png[]
+// offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
+
+* Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
+
+image::DeleteAnnotationCommandUi2.png[]
+
+
+****
+* `INDEX` is the bookmark that you want to remove annotations of.
+ If `INDEX` is invalid, a warning message will be displayed.
+* `PARA_NUM` is the numbered identifier of the paragraph to remove annotation(s) from. `PARA_NUM` must be either `all` or begin with `P` or `S`.
+ If you entered `all` for this parameter, all annotations will be cleared regardless of other options, reverting the offline document to a clean slate.
+ If you specified a phantom paragraph instead, the phantom paragraph will be deleted if `n/KEEP_NOTES` parameter is set to `false`.
+ If `PARA_NUM` is invalid or there is no annotation to delete, a warning message will be displayed.
+* `KEEP_NOTES` is _boolean_ (either `true` or `false`). If `true`, the notes of the paragraph will not be deleted. Otherwise,
+the notes will be removed. `KEEP_NOTES` is `false` by default.
+ If `KEEP_NOTES` is invalid, a warning message will be displayed.
+* `KEEP_HIGHLIGHT` is _boolean_ (either `true` or `false`). If `true`, the highlight of the paragraph will not be deleted. Otherwise,
+the highlight will be removed. `KEEP_HIGHLIGHT` is `false` by default.
+ If `KEEP_HIGHLIGHT`` is invalid, a warning message will be displayed.
+****
+
+Other examples:
+
+* `*annotate-delete* 1 p/p2` +
+This removes both the note and highlight from paragraph P2 in the offline copy of bookmark 1.
+
+* `*annotate-delete* 1 p/p2 h/true` +
+This removes the note of paragraph P2 in the offline copy of bookmark 1, leaving the highlight untouched.
+
+* `*annotate-delete* 2 p/g1` +
+This deletes the general note G1 in the offline copy of bookmark 2.
+
+* `*annotate-delete* 1 p/all` +
+This removes all annotations of the offline copy of bookmark 1.
+
+
+=== Reminders
+
+The following commands carry out operations on reminders in Mark.
+
 //tag::ReminderCommand[]
 [[Reminder-Command]]
-=== Adding a reminder: *`reminder`*
+==== Adding a reminder: *`reminder`*
 
 Adds a reminder of a specified bookmark. You can set the time for the reminder.
 
@@ -682,7 +889,7 @@ The reminder reminds you to read announcements.
 
 
 
-=== Editing a reminder: *`reminder-edit`*
+==== Editing a reminder: *`reminder-edit`*
 Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
 
 Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
@@ -701,7 +908,7 @@ Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/
 Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
-=== Deleting a reminder: *`reminder-delete`*
+==== Deleting a reminder: *`reminder-delete`*
 
 Deletes the the reminder at the specified index.
 
@@ -717,83 +924,12 @@ Delete the reminder of index 1.
 
 //end::ReminderCommand[]
 
-=== Expanding the folder hierarchy: *`expand`*
+=== Coming Soon
 
-Expands the folder hierarchy by the specified number of levels.
-
-Format: `*expand* [LEVEL=1]`
-
-****
-* `LEVEL` should be a positive integer.
-* If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
-* If `LEVEL` is not specified, expand by 1 level.
-****
-
-Examples:
-
-* `*expand* 3` +
-Expands the folder hierarchy by 3 levels.
-
-=== Collapsing the folder hierarchy: *`collapse`*
-
-Collapses the folder hierarchy by the specified number of levels.
-
-Format: `*collapse* [LEVEL=1]`
-
-****
-* `LEVEL` should be a positive integer.
-* If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
-* If `LEVEL` is not specified, collapse by 1 level.
-****
-
-Examples:
-
-* `*collapse* 1` +
-Collapses the folder hierarchy by 1 level.
-
-=== Switching <<Tabs,tabs>>: *`tab`*
-
-Switches the current app view to the tab that corresponds to the given
-index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
-
-Format: `*tab* INDEX` or `*tab* KEYWORD`
-
-****
-* `INDEX` is `1`, `2` or `3`, which correspond to the
-<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
-* `KEYWORD` is `dash`, `on` or `off`, which correspond to the
-<<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
-****
-
-Examples:
-
-* `*tab* 1` +
-Goes to the <<Dashboard,Dashboard>> tab.
-
-* `*tab* on` +
-Goes to the Online tab which is a web view.
-
-* `*tab* 3` +
-Goes to the Offline tab which shows the offline copy of bookmarks.
-
-=== Deleting a folder: *`folder-delete`* `[coming in v2.0]`
-//TODO: What happens to the bookmarks under the folder?
-Deletes the specified folder and its subfolders.
-
-Format: `*folder-delete* FOLDER_NAME`
-
-****
-* `FOLDER_NAME` must be an existing folder.
-* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
-****
-
-Examples:
-
-* `*folder-delete* CS2103` +
-Deletes the folder named `CS2103` and all of its subfolders.
+The following commands will be implemented in Mark v2.0.
 
 // tag::sort[]
-=== Sorting bookmarks: *`sort`* `[coming in v2.0]`
+==== Sorting bookmarks: *`sort`* `[coming in v2.0]`
 
 Sorts the displayed bookmarks according to different criterion (name,
 order added) and displays them as a list.
@@ -816,7 +952,24 @@ Lists all the bookmarks based on name/alphabetical order.
 Sort all the bookmarks based on the order they were added.
 // end::sort[]
 
-=== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
+==== Deleting a folder: *`folder-delete`* `[coming in v2.0]`
+//TODO: What happens to the bookmarks under the folder?
+Deletes the specified folder and its subfolders.
+
+Format: `*folder-delete* FOLDER_NAME`
+
+****
+* `FOLDER_NAME` must be an existing folder.
+* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
+****
+
+Examples:
+
+* `*folder-delete* CS2103` +
+Deletes the folder named `CS2103` and all of its subfolders.
+
+
+==== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
 
 Opens the related bookmark of the specified reminder from the bookmark manager.
 
@@ -833,41 +986,21 @@ Examples:
 If reminder 1 points to bookmark 5, this command is equivalent to
 `*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
-=== Automatically completing partially typed commands `[coming in v2.0]`
+==== Automatically completing partially typed commands `[coming in v2.0]`
 
 Automatically fills in partially typed commands if the command is unique.
 
-=== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
+==== Sharing bookmarks and notes via Email/ Telegram `[coming in v2.0]`
 
 Shares your bookmarks and notes with your friends via Email or Telegram.
 
 == FAQ
 
-*How do I transfer my data to another Computer?*
+=== How do I transfer my data to another Computer?
 
 Install the app in the other computer and overwrite the empty data file it creates with the file that contains
 the data of your previous Mark folder.
 
-*What are [[Tabs]] Tabs?*
-
-Different user displays. There are three tabs: dashboard, online view
-(web browser), and offline view (caches and notes).
-
-****
-[#imgId-dashboard]
-.Mark's Dashboard Tab View
-image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
-
-[#imgId-online]
-.Mark's Online Tab View
-image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
-
-[#imgId-offline]
-.Mark's Offline Tab View
-image::ui-screenshots/Ui_OfflineTab.png[@Offline Tab View, 600, 400]
-****
-
-_{ more coming soon }_
 
 == Glossary
 This glossary aims to provide a definition for the special vocabulary used in this user guide.
@@ -895,18 +1028,9 @@ The structure of folders in Mark. This is displayed in the dashboard tab when th
 An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
 
 [[stray-notes]] General notes::
-Annotated notes that are not attached to an existing paragraph are described to be general.
+Annotation notes that are not attached to a paragraph from the corresponding web page are described to be general.
 General notes are found at the bottom of the rightmost column on the offline copy, known as the _General notes section_.
 
-[[phantom-paragraph]] Phantom paragraph::
-A phantom paragraph does not have any displayed content and does not show any highlights. It exists to present the general note you added to the document.
-Phantom paragraphs are identified using a numbered identifier that begins with a `S` (e.g. `S2` refers to the second
-phantom paragraph displayed in the document).
-
-[[true-paragraph]] True paragraph::
-A true paragraph contains content extracted from the original web page. Highlights and notes attached to it are displayed along with the content as well.
-True paragraphs are identified using a numbered identifier that begins with a `P` (e.g. `P2` refers to the third paragraph of the web page
-displayed in the document).
 
 //TODO: Check
 == Command Summary

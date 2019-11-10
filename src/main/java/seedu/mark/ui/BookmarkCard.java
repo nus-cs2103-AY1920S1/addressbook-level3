@@ -70,7 +70,7 @@ public class BookmarkCard extends UiPart<Region> {
         if ("Favorite".equals(tag.tagName)) {
             return "orange";
         } else {
-            return "teal";
+            return "purple";
         }
     }
 
