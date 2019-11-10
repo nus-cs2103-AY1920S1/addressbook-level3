@@ -41,11 +41,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      *
      * @param filePath of storage. By default, it is at data folder.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
-     * @throws DataConversionException if there is corrupted file.
-     * @throws IllegalValueException if word banks contain duplicate names or it's card contain duplicate values.
      */
-    public JsonWordBankListStorage(Path filePath, boolean isSampleInitiated)
-            throws DataConversionException, IllegalValueException {
+    public JsonWordBankListStorage(Path filePath, boolean isSampleInitiated) {
         initDataByDefault(filePath, isSampleInitiated);
         initWordBankList();
     }
@@ -58,11 +55,8 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * @param filePath of storage. By default, it is at data folder.
      * @param folder specifies another layer of folder to contain word banks.
      * @param isSampleInitiated checks to see if sample data has been initiated before.
-     * @throws DataConversionException if there is corrupted file.
-     * @throws IllegalValueException if word banks contain duplicate names or it's card contain duplicate values.
      */
-    public JsonWordBankListStorage(Path filePath, String folder, boolean isSampleInitiated)
-            throws DataConversionException, IllegalValueException {
+    public JsonWordBankListStorage(Path filePath, String folder, boolean isSampleInitiated) {
         initData(filePath, folder, isSampleInitiated);
         initWordBankList();
     }
@@ -138,27 +132,30 @@ public class JsonWordBankListStorage implements WordBankListStorage {
      * Initialise word bank list from the word banks directory on creation.
      * All json files will initialise a word bank.
      *
-     * @throws DataConversionException if word bank file is corrupted.
-     * @throws IllegalValueException if the word banks contain duplicate cards.
      */
-    private void initWordBankList() throws DataConversionException, IllegalValueException {
+    private void initWordBankList() {
         List<WordBank> wordBankList = new ArrayList<>();
         File wordBanksDirectory = wordBanksFilePath.toFile();
         String[] pathArray = wordBanksDirectory.list();
 
         for (int i = 0; i < pathArray.length; i++) {
+            Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
             if (pathArray[i].endsWith(".json")) {
-                Path wordBankPath = Paths.get(wordBanksFilePath.toString(), pathArray[i]);
                 ReadOnlyWordBank readOnlyWordBank = null;
                 try {
                     readOnlyWordBank = jsonToWordBank(wordBankPath).get();
-                } catch (IllegalValueException e) {
-                    logger.info("Failed to initialise word bank list");
+                    WordBank wbToAdd = (WordBank) readOnlyWordBank;
+                    wordBankList.add(wbToAdd);
+                } catch (Exception e) {
+                    logger.info("Bad files found, deleting them.");
+                    File badFile =  wordBankPath.toFile();
+                    badFile.delete();
                     e.printStackTrace();
-                    throw e;
                 }
-                WordBank wbToAdd = (WordBank) readOnlyWordBank;
-                wordBankList.add(wbToAdd);
+            } else {
+                logger.info("Bad files found, deleting them.");
+                File badFile =  wordBankPath.toFile();
+                badFile.delete();
             }
         }
         this.wordBankList = new WordBankList(wordBankList);

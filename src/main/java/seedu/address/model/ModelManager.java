@@ -348,7 +348,8 @@ public class ModelManager implements Model {
 
     @Override
     public void clearWordBankStatistics() {
-        this.wordBankStatistics = null;
+//        this.wordBankStatistics = null;
+        this.wordBankStatistics.clear();
     }
 
     @Override

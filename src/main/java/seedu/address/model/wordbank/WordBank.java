@@ -24,7 +24,7 @@ public class WordBank implements ReadOnlyWordBank {
      * @param name of the word bank.
      */
     public WordBank(String name) {
-        this.name = name;
+        this.name = name.toLowerCase();
         cards = new UniqueCardList();
     }
 
