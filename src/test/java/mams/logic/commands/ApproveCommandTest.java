@@ -18,7 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
+
 import mams.logic.commands.exceptions.CommandException;
+
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Credits;
