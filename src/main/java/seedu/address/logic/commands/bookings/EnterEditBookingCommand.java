@@ -47,7 +47,7 @@ public class EnterEditBookingCommand extends Command {
                 new EditBookingsFieldCommand.EditBookingsDescriptor(bookingToEdit);
 
         model.setPageStatus(model.getPageStatus()
-                .withNewPageType(PageType.ADD_EXPENDITURE)
+                .withNewPageType(PageType.ADD_BOOKINGS)
                 .withNewBooking(bookingToEdit)
                 .withNewEditBookingsDescriptor(editBookingsDescriptor));
 

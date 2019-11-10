@@ -10,14 +10,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.currency.EditCurrencyFieldCommand;
 import seedu.address.model.Model;
 import seedu.address.model.currency.Symbol;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
 /**
- * TODO: Implement display for inventory and booking labels.
+ * A component for displaying the details of preset currency symbols.
  */
 public class PresetSymbols extends UiPart<VBox> {
+
     private static final String FXML = "currency/PresetSymbols.fxml";
 
     @FXML
@@ -38,9 +39,8 @@ public class PresetSymbols extends UiPart<VBox> {
 
     @FXML
     private VBox propertiesContainer;
-
     private ToggleGroup group;
-    private Expenditure expenditure;
+    private Expense expense;
     private Index displayedIndex;
     private Model model;
     private MainWindow mainWindow;
@@ -52,7 +52,7 @@ public class PresetSymbols extends UiPart<VBox> {
     }
 
     /**
-     * Fills the labels of this expenditure card.
+     * Fills the labels of this expense card.
      */
     private void fillPresetSymbols() {
         group = new ToggleGroup();
@@ -71,6 +71,7 @@ public class PresetSymbols extends UiPart<VBox> {
         option7.setText(new Symbol("7").toString() + " (7)");
         option7.setToggleGroup(group);
     }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -87,4 +88,5 @@ public class PresetSymbols extends UiPart<VBox> {
         mainWindow.executeGuiCommand(EditCurrencyFieldCommand.COMMAND_WORD
                 + " " + PREFIX_SYMBOL + toggleButton.getText().split(" ")[1].charAt(1));
     }
+
 }

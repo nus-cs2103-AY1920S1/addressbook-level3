@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.bookings.edit.EditBookingsFieldCommand;
-import seedu.address.logic.commands.expenditure.edit.EditExpenditureFieldCommand;
+import seedu.address.logic.commands.expense.edit.EditExpenseFieldCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -61,7 +61,7 @@ public class EditBookingFieldParser implements Parser<EditBookingsFieldCommand> 
                     BookingParserUtil.parseContact(argMultimap.getValue(PREFIX_CONTACT).get()));
         }
         if (!editBookingsDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditExpenditureFieldCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditExpenseFieldCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditBookingsFieldCommand(editBookingsDescriptor);

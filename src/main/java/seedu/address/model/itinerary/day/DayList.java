@@ -18,8 +18,8 @@ import seedu.address.model.itinerary.day.exceptions.DayNotFoundException;
 public class DayList extends ConsecutiveOccurrenceList<Day> {
     private static final String MESSAGE_INVALID_DATETIME = "Date should be within valid duration";
 
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public DayList(LocalDateTime startDate, LocalDateTime endDate) {
         this.startDate = startDate;
@@ -30,8 +30,27 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
      * Checks if target day can be added to the list.
      */
     public boolean isValidDay(Day day) {
-        return (day.getStartDate().compareTo(startDate) >= 0)
-                && (day.getEndDate().compareTo(endDate) <= 0);
+        return !(day.getStartDate().isBefore(startDate))
+                && !(day.getEndDate().isAfter(endDate));
+    }
+
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+        this.internalList.removeIf(day -> !this.isValidDay(day));
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+        this.internalList.removeIf(day -> !this.isValidDay(day));
+    }
+
+    /**
+     * Get day from daylist by index.
+     * @param index the index of Day to be returned
+     * @return the day with the specified index
+     */
+    public Day get(int index) throws IndexOutOfBoundsException {
+        return internalList.get(index);
     }
 
     @Override
@@ -64,8 +83,13 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         if (index == -1) {
             throw new DayNotFoundException();
         }
-
-        internalList.set(index, editedDay);
+        Day day = internalList.remove(index);
+        if (containsClashing(editedDay)) {
+            internalList.add(day);
+            throw new ClashingDayException();
+        } else {
+            internalList.add(editedDay);
+        }
     }
 
     @Override
@@ -109,4 +133,5 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         }
         return true;
     }
+
 }

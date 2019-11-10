@@ -53,8 +53,8 @@ public class DeleteEventCommand extends Command {
         Event eventToDelete = lastShownList.get(rawZeroBasedIndex);
         try {
             model.getPageStatus().getDay().getEventList().remove(Index.fromZeroBased(rawZeroBasedIndex));
-            if (eventToDelete.getExpenditure().isPresent()) {
-                model.getPageStatus().getTrip().getExpenditureList().remove(eventToDelete.getExpenditure().get());
+            if (eventToDelete.getExpense().isPresent()) {
+                model.getPageStatus().getTrip().getExpenseList().remove(eventToDelete.getExpense().get());
             }
         } catch (Exception ex) {
             return new CommandResult(MESSAGE_DELETE_EVENT_FAILURE);

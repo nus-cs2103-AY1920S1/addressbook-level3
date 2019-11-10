@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.bookings.EnterEditBookingCommand;
-import seedu.address.logic.commands.expenditure.EnterEditExpenditureCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -20,7 +19,7 @@ public class EnterEditBookingParser implements Parser<EnterEditBookingCommand> {
             return new EnterEditBookingCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnterEditExpenditureCommand.MESSAGE_USAGE), pe);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EnterEditBookingCommand.MESSAGE_USAGE), pe);
         }
     }
 }

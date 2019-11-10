@@ -1,0 +1,66 @@
+@startuml
+!include ../style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package ui.itinerary <<Rectangle>>{
+Interface ReadOnlyAddressBook <<Interface>>
+Interface Model <<Interface>>
+Interface Logic <<Interface>>
+Class EditTripPage
+
+Class Model
+Class ModelManager
+Class LogicManager
+Class PageStatus
+Class EditTripDescriptor
+
+}
+
+Package ui.components.form {
+abstract FormItem
+Class DateFormItem
+Class TextFormItem
+Class PhotoFormItem
+Class DoubleFormItem
+}
+
+Package ui.template {
+abstract Page
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> ui.template
+
+ModelManager .up.|> Model
+ModelManager o--> "1" PageStatus
+PageStatus o--> "1" EditTripDescriptor
+
+
+LogicManager .up.|> Logic
+
+EditTripPage -up-> EditTripDescriptor
+
+EditTripPage ..|> Page
+
+EditTripPage -right-> LogicManager
+
+EditTripPage o-down-> "2" DateFormItem
+EditTripPage o-down-> "2" TextFormItem
+EditTripPage o-down-> "1" PhotoFormItem
+EditTripPage o-down-> "1" DoubleFormItem
+
+DateFormItem ..|> formItem
+TextFormItem ..|> formItem
+PhotoFormItem ..|> formItem
+DoubleFormItem ..|> formItem
+
+
+@enduml

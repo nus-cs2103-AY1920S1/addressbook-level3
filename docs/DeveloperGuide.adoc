@@ -175,7 +175,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 === [Itinerary] Edit trip/day/event feature
-==== Implementation
+==== Aspect: Model
 Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively. The
 The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` and respectively.
 They extends from `PageParser` class which serves as the abstraction for all parsers related to each __Page__.
@@ -219,6 +219,22 @@ Upon completion of the edit, the user is returned to the `TripPage/DaysPage/Even
 Below is an sequence diagram illustrating the execution of the command "edit ds/10/10/2019":
 
 image::ItineraryEditSequenceDiagram.png[]
+
+==== Aspect: User Interface
+The UI for to edit fields are associated with the `EditTripPage/EditDayPage/EditEventPage` respectively.
+
+image::EditTripPageClassDiagram.png[title="Class diagram showing EditTripPage's associations"]
+
+The diagram above shows the `EditTripPage` of the 3 pages and how it displays its contents. All the pages extend the `Page` class and contains several `FormItems`. These pages classes can also navigate to the `Model` and `Logic` interfaces through the `ModelManager` and `LogicManager` class respectively.
+
+The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+
+The contents of the fields are updated by the execution to the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+
+=== Aspect: Workflow of execution
+The logic of editing a field and committing it to memory is a simple process of validating each field. If any field fails to meet the specifications, the `Trip/Day/Event` will not be created/edited. Below is an example execution of validating the edit:
+
+image::EditTripPageActivityDiagram.png[title="Execution of the done command on any edit page"]
 
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation

@@ -31,6 +31,6 @@ public class EnterCreateBookingCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || other instanceof seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
+                || other instanceof seedu.address.logic.commands.bookings.EnterCreateBookingCommand;
     }
 }

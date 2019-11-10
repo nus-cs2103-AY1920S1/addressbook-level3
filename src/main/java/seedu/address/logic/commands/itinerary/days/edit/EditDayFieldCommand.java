@@ -16,15 +16,16 @@ import java.util.Optional;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
+import seedu.address.model.itinerary.Photo;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.EventList;
+
 
 /**
  * Placeholder.
@@ -101,6 +102,7 @@ public class EditDayFieldCommand extends Command {
         private Optional<Location> destination;
         private Optional<Budget> totalBudget;
         private Optional<Description> description;
+        private Optional<Photo> photo;
 
         public EditDayDescriptor() {
             startDate = Optional.empty();
@@ -108,6 +110,7 @@ public class EditDayFieldCommand extends Command {
             destination = Optional.empty();
             totalBudget = Optional.empty();
             description = Optional.empty();
+            photo = Optional.empty();
         }
 
         /**
@@ -120,6 +123,7 @@ public class EditDayFieldCommand extends Command {
             destination = toCopy.getDestination();
             totalBudget = toCopy.getBudget();
             description = toCopy.getDescription();
+            photo = toCopy.getPhoto();
         }
 
 
@@ -133,6 +137,7 @@ public class EditDayFieldCommand extends Command {
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getTotalBudget());
             setDescription(toCopy.getDescription());
+            setPhoto(toCopy.getPhoto());
         }
 
 
@@ -162,6 +167,9 @@ public class EditDayFieldCommand extends Command {
 
             newDescriptor.description.ifPresentOrElse(this::setDescription, () ->
                     oldDescriptor.description.ifPresent(this::setDescription));
+
+            newDescriptor.photo.ifPresentOrElse(this::setPhoto, () ->
+                    oldDescriptor.photo.ifPresent(this::setPhoto));
         }
 
 
@@ -176,7 +184,7 @@ public class EditDayFieldCommand extends Command {
         public Day buildDay() {
             if (isAllPresent(startDate, endDate, destination)) {
                 return new Day(startDate.get(), endDate.get(), description,
-                        destination.get(), totalBudget, new EventList(startDate.get()));
+                        destination.get(), totalBudget, new EventList(startDate.get()), photo);
             } else {
                 throw new NullPointerException();
             }
@@ -195,6 +203,8 @@ public class EditDayFieldCommand extends Command {
             Location destination = day.getDestination();
             Optional<Budget> budget = day.getTotalBudget();
             Optional<Description> description = day.getDescription();
+            Optional<Photo> photo = day.getPhoto();
+
             if (this.startDate.isPresent()) {
                 startDate = this.startDate.get();
             }
@@ -210,15 +220,18 @@ public class EditDayFieldCommand extends Command {
             if (this.description.isPresent()) {
                 description = this.description;
             }
+            if (this.photo.isPresent()) {
+                photo = this.photo;
+            }
 
-            return new Day(startDate, endDate, description, destination, budget, day.getEventList());
+            return new Day(startDate, endDate, description, destination, budget, day.getEventList(), photo);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(startDate, endDate, destination, totalBudget, description);
+            return CollectionUtil.isAnyPresent(startDate, endDate, destination, totalBudget, description, photo);
         }
 
 
@@ -264,6 +277,13 @@ public class EditDayFieldCommand extends Command {
             this.totalBudget = totalBudget;
         }
 
+        public void setPhoto(Optional<Photo> photo) {
+            this.photo = photo;
+        }
+        public void setPhoto(Photo photo) {
+            this.photo = Optional.of(photo);
+        }
+
         public Optional<Budget> getBudget() {
             return totalBudget;
         }
@@ -271,6 +291,11 @@ public class EditDayFieldCommand extends Command {
         public Optional<Description> getDescription() {
             return description;
         }
+
+        public Optional<Photo> getPhoto() {
+            return photo;
+        }
+
 
         @Override
         public boolean equals(Object other) {
@@ -280,7 +305,7 @@ public class EditDayFieldCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditCommand.EditPersonDescriptor)) {
+            if (!(other instanceof EditDayDescriptor)) {
                 return false;
             }
 
@@ -291,7 +316,8 @@ public class EditDayFieldCommand extends Command {
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
                     && getBudget().equals(e.getBudget())
-                    && getDescription().equals(e.getDescription());
+                    && getDescription().equals(e.getDescription())
+                    && getPhoto().equals(e.getPhoto());
         }
 
         @Override
@@ -299,13 +325,13 @@ public class EditDayFieldCommand extends Command {
             StringBuilder builder = new StringBuilder();
 
             this.startDate.ifPresent(startDate ->
-                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
+                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayDateTime(startDate)));
             this.endDate.ifPresent(endDate ->
-                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+                    builder.append(" End date: ").append(ParserDateUtil.getDisplayDateTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
             this.description.ifPresent(description -> builder.append(" Description: ").append(description));
-
+            this.photo.ifPresent(photo -> builder.append(" Photo ").append(photo));
             return builder.toString();
         }
     }

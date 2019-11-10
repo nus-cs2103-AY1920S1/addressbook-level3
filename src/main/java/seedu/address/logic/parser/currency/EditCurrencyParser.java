@@ -13,7 +13,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 
 /**
- * The page parser for parsing the edit currency page commands.
+ * The page parser for parsing the currency page commands.
  */
 public class EditCurrencyParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"

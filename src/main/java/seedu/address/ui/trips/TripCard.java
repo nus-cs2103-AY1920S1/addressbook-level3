@@ -53,8 +53,8 @@ public class TripCard extends UiPart<GridPane> {
         tripNameLabel.setText(trip.getName().toString());
         tripBudgetLabel.setText(trip.getBudget().getValueStringInCurrency(model.getTravelPal().getCurrencies().get(0)));
         tripDestinationLabel.setText(trip.getDestination().toString());
-        tripStartDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getStartDate()));
-        tripEndDateLabel.setText(ParserDateUtil.getDisplayTime(trip.getEndDate()));
+        tripStartDateLabel.setText(ParserDateUtil.getDisplayDateTime(trip.getStartDate()));
+        tripEndDateLabel.setText(ParserDateUtil.getDisplayDateTime(trip.getEndDate()));
         trip.getPhoto().ifPresent(photo -> {
             Image image = photo.getImage();
             tripImageView.setImage(photo.getImage());

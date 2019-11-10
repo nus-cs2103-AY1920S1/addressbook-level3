@@ -1,11 +1,11 @@
 package seedu.address.logic.parser.itinerary.eventview.edit;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -44,7 +44,8 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
                         PREFIX_LOCATION,
                         PREFIX_INDEX,
                         PREFIX_BOOKING,
-                        PREFIX_INVENTORY);
+                        PREFIX_INVENTORY,
+                        PREFIX_DESCRIPTION);
 
         Optional<Index> index;
 
@@ -69,12 +70,12 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
             editEventDescriptor.setName(ItineraryParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE_START).isPresent()) {
-            editEventDescriptor.setStartDate(
-                    ParserDateUtil.getDateTimeFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
+            editEventDescriptor.setStartTime(
+                    ParserDateUtil.getTimeFromString(argMultimap.getValue(PREFIX_DATE_START).get()));
         }
         if (argMultimap.getValue(PREFIX_DATE_END).isPresent()) {
-            editEventDescriptor.setEndDate(
-                    ParserDateUtil.getDateTimeFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
+            editEventDescriptor.setEndTime(
+                    ParserDateUtil.getTimeFromString(argMultimap.getValue(PREFIX_DATE_END).get()));
         }
         if (argMultimap.getValue(PREFIX_BUDGET).isPresent()) {
             editEventDescriptor.setBudget(ItineraryParserUtil.parseBudget(argMultimap.getValue(PREFIX_BUDGET).get()));
@@ -82,6 +83,10 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
         if (argMultimap.getValue(PREFIX_LOCATION).isPresent()) {
             editEventDescriptor.setDestination(
                     ItineraryParserUtil.parseLocation(argMultimap.getValue(PREFIX_LOCATION).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            editEventDescriptor.setDescription(
+                    ItineraryParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
         /*
         if(argMultimap.getValue(PREFIX_BOOKING).isPresent()) {

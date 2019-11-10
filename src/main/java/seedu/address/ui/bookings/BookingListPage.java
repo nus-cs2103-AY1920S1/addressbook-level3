@@ -11,8 +11,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.expenditure.EnterCreateExpenditureCommand;
-import seedu.address.logic.commands.expenditure.EnterDaysViewCommand;
+import seedu.address.logic.commands.expense.EnterCreateExpenseCommand;
+import seedu.address.logic.commands.expense.EnterDaysViewCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.MainWindow;
 
@@ -54,7 +54,7 @@ public class BookingListPage extends BookingsPage {
 
     @FXML
     private void handleAddExpenditure() {
-        mainWindow.executeGuiCommand(EnterCreateExpenditureCommand.COMMAND_WORD);
+        mainWindow.executeGuiCommand(EnterCreateExpenseCommand.COMMAND_WORD);
     }
 
 }

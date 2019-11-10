@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
+import seedu.address.model.itinerary.Photo;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.EventList;
@@ -28,6 +29,7 @@ public class JsonAdaptedDay {
     private final Optional<String> description;
     private final String destination;
     private final Optional<Double> totalBudget;
+    private final Optional<JsonAdaptedDayPhoto> photo;
     private final List<JsonAdaptedEvent> eventList = new ArrayList<>();
 
     /**
@@ -39,13 +41,15 @@ public class JsonAdaptedDay {
                           @JsonProperty("destination") String destination,
                           @JsonProperty("description") Optional<String> description,
                           @JsonProperty("totalBudget") Optional<Double> totalBudget,
-                          @JsonProperty("dayList") List<JsonAdaptedEvent> eventList
+                          @JsonProperty("eventList") List<JsonAdaptedEvent> eventList,
+                          @JsonProperty("photo") Optional<JsonAdaptedDayPhoto> photo
     ) {
         this.startTime = from;
         this.endTime = to;
         this.description = description;
         this.destination = destination;
         this.totalBudget = totalBudget;
+        this.photo = photo;
         if (eventList != null) {
             this.eventList.addAll(eventList);
         }
@@ -65,9 +69,14 @@ public class JsonAdaptedDay {
             this.description = Optional.empty();
         }
         if (source.getTotalBudget().isPresent()) {
-            this.totalBudget = Optional.of(source.getTotalBudget().get().value);
+            this.totalBudget = Optional.of(source.getTotalBudget().get().getValue());
         } else {
             this.totalBudget = Optional.empty();
+        }
+        if (source.getPhoto().isPresent()) {
+            this.photo = Optional.of(new JsonAdaptedDayPhoto(source.getPhoto().get()));
+        } else {
+            this.photo = Optional.empty();
         }
         this.eventList.addAll(source.getEventList()
                 .asUnmodifiableObservableList()
@@ -128,6 +137,13 @@ public class JsonAdaptedDay {
             modelDescription = Optional.empty();
         }
 
+        Optional<Photo> modelPhoto;
+        if (photo.isPresent()) {
+            modelPhoto = Optional.of(photo.get().toModelType());
+        } else {
+            modelPhoto = Optional.empty();
+        }
+
         //No check for TotalBudget (defaults endTime 0)
         final Optional<Budget> modelTotalBudget;
 
@@ -137,6 +153,6 @@ public class JsonAdaptedDay {
         modelEventList.set(events);
 
         return new Day(modelStartTime, modelEndTime, modelDescription,
-                modelDestination, modelTotalBudget, modelEventList);
+                modelDestination, modelTotalBudget, modelEventList, modelPhoto);
     }
 }

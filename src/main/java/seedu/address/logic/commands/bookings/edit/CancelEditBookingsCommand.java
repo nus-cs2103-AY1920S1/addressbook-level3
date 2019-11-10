@@ -7,7 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
-import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.expense.Expense;
 
 /**
  * Command that cancels editing the expenditure, bringing the user back to the expenses manager screen.
@@ -23,17 +23,17 @@ public class CancelEditBookingsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        Expenditure currentlyEditingExpenditure = model.getPageStatus().getExpenditure();
+        Expense currentlyEditingExpense = model.getPageStatus().getExpense();
         model.setPageStatus(model.getPageStatus()
-                .withResetEditExpenditureDescriptor()
+                .withResetEditExpenseDescriptor()
                 .withNewPageType(PageType.BOOKINGS)
-                .withResetExpenditure());
+                .withResetExpense());
 
-        if (currentlyEditingExpenditure == null) {
+        if (currentlyEditingExpense == null) {
             return new CommandResult(MESSAGE_CANCEL_CREATE_SUCCESS, true);
         } else {
             return new CommandResult(
-                    String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentlyEditingExpenditure), true);
+                    String.format(MESSAGE_CANCEL_EDIT_SUCCESS, currentlyEditingExpense), true);
         }
     }
 

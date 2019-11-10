@@ -1,5 +1,6 @@
 package seedu.address.ui.trips;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
@@ -17,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.trips.edit.CancelEditTripCommand;
 import seedu.address.logic.commands.trips.edit.DoneEditTripCommand;
 import seedu.address.logic.commands.trips.edit.EditTripFieldCommand;
+import seedu.address.logic.commands.trips.edit.EditTripFieldCommand.EditTripDescriptor;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.trips.edit.EditTripCommand;
 import seedu.address.model.Model;
@@ -33,6 +35,11 @@ import seedu.address.ui.template.Page;
 public class EditTripPage extends Page<AnchorPane> {
 
     private static final String FXML = "trips/EditTripPage.fxml";
+
+    private static final String FORM_ITEM_STYLESHEET = "/view/trips/trips.css";
+
+    /** Format string for executing commands from the user interface form. */
+    private static final String EXECUTE_COMMAND_FORMAT = EditTripFieldCommand.COMMAND_WORD + " %1$s%2$s";
 
     private TextFormItem tripNameFormItem;
     private TextFormItem tripDestinationFormItem;
@@ -56,8 +63,7 @@ public class EditTripPage extends Page<AnchorPane> {
      * Fills up all the controls of this window.
      */
     public void fillPage() {
-        EditTripFieldCommand.EditTripDescriptor currentEditDescriptor =
-                model.getPageStatus().getEditTripDescriptor();
+        EditTripDescriptor currentEditDescriptor = model.getPageStatus().getEditTripDescriptor();
         if (currentEditDescriptor == null) {
             return;
         }
@@ -71,7 +77,7 @@ public class EditTripPage extends Page<AnchorPane> {
         currentEditDescriptor.getEndDate().ifPresent(endDate ->
                 tripEndDateFormItem.setValue(endDate.toLocalDate()));
         currentEditDescriptor.getBudget().ifPresent(budget ->
-                tripTotalBudgetFormItem.setValue(budget.value));
+                tripTotalBudgetFormItem.setValue(budget.getValue()));
         currentEditDescriptor.getPhoto().ifPresent(photo ->
                 tripPhotoFormItem.setValue(photo));
     }
@@ -80,41 +86,8 @@ public class EditTripPage extends Page<AnchorPane> {
      * Initialises and fills up all the placeholders of this window.
      */
     private void initFormWithModel() {
-        //Initialise with new display data
-        tripNameFormItem = new TextFormItem("Name of trip : ", nameFormValue -> {
-            mainWindow.executeGuiCommand(
-                    EditTripFieldCommand.COMMAND_WORD
-                            + " " + PREFIX_NAME + nameFormValue);
-        });
-        tripStartDateFormItem = new DateFormItem("Start date : ", startDate -> {
-            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DATE_START
-                    + ParserDateUtil.getStringFromDate(startDate.atStartOfDay()));
-        });
-        tripEndDateFormItem = new DateFormItem("End date : ", endDate -> {
-            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DATE_END
-                    + ParserDateUtil.getStringFromDate(endDate.atTime(23, 59)));
-        });
-        tripTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget -> {
-            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_BUDGET + totalBudget);
-        });
-        tripDestinationFormItem = new TextFormItem("Destination : ", destinationValue -> {
-            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_LOCATION + destinationValue);
-        });
-        tripPhotoFormItem = new PhotoFormItem("Photo : ", photo -> {
-            mainWindow.executeGuiCommand(EditTripFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_DATA_FILE_PATH + photo.getImageFilePath());
-        }, () -> {
-            mainWindow.executeGuiCommand(EditTripCommand.EDIT + " "
-                    + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH);
-
-        }
-        );
-
-        fillPage(); //update and overwrite with existing edit descriptor
+        initFormItems();
+        initFormItemStyles();
 
         formItemsPlaceholder.getChildren().addAll(
                 tripNameFormItem.getRoot(),
@@ -123,6 +96,58 @@ public class EditTripPage extends Page<AnchorPane> {
                 tripTotalBudgetFormItem.getRoot(),
                 tripDestinationFormItem.getRoot(),
                 tripPhotoFormItem.getRoot());
+    }
+
+    /**
+     * Overrides the default style sheets used by the form items.
+     * Checks that the form items are not null before doing so.
+     */
+    private void initFormItemStyles() {
+        requireAllNonNull(tripNameFormItem, tripStartDateFormItem, tripEndDateFormItem, tripTotalBudgetFormItem,
+                tripDestinationFormItem, tripPhotoFormItem);
+
+        tripNameFormItem.getRoot().getStylesheets().clear();
+        tripStartDateFormItem.getRoot().getStylesheets().clear();
+        tripEndDateFormItem.getRoot().getStylesheets().clear();
+        tripTotalBudgetFormItem.getRoot().getStylesheets().clear();
+        tripDestinationFormItem.getRoot().getStylesheets().clear();
+        tripPhotoFormItem.getRoot().getStylesheets().clear();
+
+        tripNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripStartDateFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripEndDateFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        tripPhotoFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+    }
+
+    /**
+     * Initialises the form items used by the edit trip page.
+     */
+    private void initFormItems() {
+        tripNameFormItem = new TextFormItem("Name of trip : ", nameFormValue ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_NAME, nameFormValue)));
+
+        tripStartDateFormItem = new DateFormItem("Start date : ", startDate ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATE_START,
+                        ParserDateUtil.getStringFromDate(startDate.atStartOfDay()))));
+
+        tripEndDateFormItem = new DateFormItem("End date : ", endDate ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATE_END,
+                        ParserDateUtil.getStringFromDate(endDate.atTime(23, 59, 59)))));
+
+        tripTotalBudgetFormItem = new DoubleFormItem("Total budget (in Singapore Dollar): ", totalBudget ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_BUDGET,
+                        String.format("%.2f", totalBudget))));
+
+        tripDestinationFormItem = new TextFormItem("Destination : ", destinationValue ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_LOCATION, destinationValue)));
+
+        tripPhotoFormItem = new PhotoFormItem("Photo : ", photo ->
+                mainWindow.executeGuiCommand(String.format(EXECUTE_COMMAND_FORMAT, PREFIX_DATA_FILE_PATH,
+                        photo.getImageFilePath())), () ->
+                mainWindow.executeGuiCommand(EditTripCommand.EDIT + " "
+                        + PREFIX_FILE_CHOOSER + " " + PREFIX_DATA_FILE_PATH));
     }
 
     @FXML

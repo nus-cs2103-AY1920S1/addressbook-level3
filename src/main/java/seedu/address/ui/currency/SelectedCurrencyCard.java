@@ -8,9 +8,10 @@ import seedu.address.model.currency.CustomisedCurrency;
 
 
 /**
- * TODO: Implement display for inventory and booking labels.
+ * A component for displaying the details of a singular {@code CustomisedCurrency} that is selected.
  */
 public class SelectedCurrencyCard extends CurrencyCard {
+
     private static final String FXML = "currency/SelectedCurrencyCard.fxml";
 
     @FXML
@@ -30,6 +31,6 @@ public class SelectedCurrencyCard extends CurrencyCard {
     public SelectedCurrencyCard(CustomisedCurrency currency, Index displayedIndex) {
         super(FXML, currency, displayedIndex);
         heading.setText("Currency in use");
-
     }
+
 }

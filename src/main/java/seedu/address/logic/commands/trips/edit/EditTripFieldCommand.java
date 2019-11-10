@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATA_FILE_PATH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
@@ -20,7 +21,7 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -46,12 +47,13 @@ public class EditTripFieldCommand extends Command {
             + "[" + PREFIX_DATE_START + "START DATE] "
             + "[" + PREFIX_DATE_END + "END DATE] "
             + "[" + PREFIX_LOCATION + "DESTINATION] "
-            + "[" + PREFIX_BUDGET + "TOTAL BUDGET]...\n"
+            + "[" + PREFIX_BUDGET + "TOTAL BUDGET] "
+            + "[" + PREFIX_DATA_FILE_PATH + "FILE PATH TO PHOTO]\n"
             + "Example: " + COMMAND_WORD + " 1 Thailand trip"
             + PREFIX_BUDGET + "3000";
 
-    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
-    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form:%1$s";
+    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!\n" + MESSAGE_USAGE;
+    private static final String MESSAGE_EDIT_SUCCESS = "Edited the current form: %1$s";
 
     private final EditTripDescriptor editTripDescriptor;
 
@@ -183,7 +185,7 @@ public class EditTripFieldCommand extends Command {
             if (isAllPresent(name, startDate, endDate, destination, totalBudget)) {
                 Trip trip = new Trip(name.get(), startDate.get(), endDate.get(),
                         destination.get(), totalBudget.get(), new DayList(startDate.get(), endDate.get()),
-                        new ExpenditureList(), new Diary(), new BookingList(), new InventoryList(), photo);
+                        new ExpenseList(), new Diary(), new BookingList(), new InventoryList(), photo);
                 trip.initializeDayList();
                 return trip;
             } else {
@@ -225,7 +227,7 @@ public class EditTripFieldCommand extends Command {
             }
 
             Trip newTrip = new Trip(tripName, startDate, endDate, destination, budget,
-                    trip.getDayList(), trip.getExpenditureList(), trip.getDiary(), trip.getBookingList(),
+                    trip.getDayList(), trip.getExpenseList(), trip.getDiary(), trip.getBookingList(),
                     trip.getInventoryList(), photo);
             newTrip.initializeDayList();
 
@@ -321,12 +323,13 @@ public class EditTripFieldCommand extends Command {
 
             this.name.ifPresent(name -> builder.append(" Name of trip: ").append(name));
             this.startDate.ifPresent(startDate ->
-                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayTime(startDate)));
+                    builder.append(" Start date: ").append(ParserDateUtil.getDisplayDateTime(startDate)));
             this.endDate.ifPresent(endDate ->
-                    builder.append(" End date: ").append(ParserDateUtil.getDisplayTime(endDate)));
+                    builder.append(" End date: ").append(ParserDateUtil.getDisplayDateTime(endDate)));
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
-            this.photo.ifPresent(photo -> builder.append("Photo path: ").append(photo));
+            this.photo.ifPresent(photo -> builder.append(" Photo path: ").append(photo));
+
             return builder.toString();
         }
     }

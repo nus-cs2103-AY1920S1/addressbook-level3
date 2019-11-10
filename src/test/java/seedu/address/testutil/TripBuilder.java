@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -26,7 +26,7 @@ public class TripBuilder {
     private Location destination;
     private Budget totalBudget;
     private DayList dayList;
-    private ExpenditureList expenditureList;
+    private ExpenseList expenseList;
     private Diary diary;
     private BookingList bookingList;
     private Photo photo;
@@ -55,7 +55,9 @@ public class TripBuilder {
                 .setLocation(trip.getDestination())
                 .setTotalBudget(trip.getBudget())
                 .setDayList(trip.getDayList())
-                .setExpenditureList(trip.getExpenditureList())
+                .setDiary(trip.getDiary())
+                .setInventoryList(trip.getInventoryList())
+                .setExpenseList(trip.getExpenseList())
                 .setDiary(trip.getDiary());
         //.setDayList(trip.getDayList());
     }
@@ -94,8 +96,8 @@ public class TripBuilder {
         this.photo = photo;
         return this;
     }
-    public TripBuilder setExpenditureList(ExpenditureList expenditureList) {
-        this.expenditureList = expenditureList;
+    public TripBuilder setExpenseList(ExpenseList expenseList) {
+        this.expenseList = expenseList;
         return this;
     }
 
@@ -113,8 +115,9 @@ public class TripBuilder {
      * Terminal method to construct new {@link Trip}.
      */
     public Trip build() {
-        return new Trip(name, startDate, endDate, destination, totalBudget, dayList, expenditureList, diary,
-                bookingList, inventoryList, photo);
+        requireAllNonNull(name, startDate, endDate, destination, totalBudget, dayList,
+                expenseList, diary, bookingList, inventoryList);
+        return new Trip(name, startDate, endDate, destination, totalBudget,
+                dayList, expenseList, diary, bookingList, inventoryList, photo);
     }
-
 }

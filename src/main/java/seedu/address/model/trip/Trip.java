@@ -1,5 +1,6 @@
 package seedu.address.model.trip;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,7 @@ import java.util.Optional;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
@@ -31,10 +32,12 @@ public class Trip {
     private final TripId tripId;
     private final Location destination;
     private final DayList dayList;
-    private final ExpenditureList expenditureList;
+    private final ExpenseList expenseList;
     private final Budget totalBudget;
     private final Diary diary;
     private final BookingList bookingList;
+
+    //Optional Fields
     private final Photo photo;
     private final InventoryList inventoryList;
 
@@ -42,7 +45,7 @@ public class Trip {
      * Constructs a trip.
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList, Diary diary,
+                Budget totalBudget, DayList dayList, ExpenseList expenseList, Diary diary,
                 BookingList bookingList, InventoryList inventoryList, Photo photo) {
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -51,7 +54,7 @@ public class Trip {
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
-        this.expenditureList = expenditureList;
+        this.expenseList = expenseList;
         this.tripId = new TripId();
         this.diary = diary;
         this.bookingList = bookingList;
@@ -63,7 +66,7 @@ public class Trip {
      * Constructs a trip with optional fields
      */
     public Trip(Name name, LocalDateTime startDate, LocalDateTime endDate, Location destination,
-                Budget totalBudget, DayList dayList, ExpenditureList expenditureList,
+                Budget totalBudget, DayList dayList, ExpenseList expenseList,
                 Diary diary, BookingList bookingList, InventoryList inventoryList, Optional<Photo> photo) {
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -72,7 +75,7 @@ public class Trip {
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.dayList = dayList;
-        this.expenditureList = expenditureList;
+        this.expenseList = expenseList;
         this.tripId = new TripId();
         this.diary = diary;
         this.bookingList = bookingList;
@@ -84,17 +87,25 @@ public class Trip {
      * Creates a list of days upon first initialization.
      */
     public void initializeDayList() {
-        int totalDays = endDate.getDayOfMonth() - startDate.getDayOfMonth() + 1;
-        assert(totalDays > 0);
-        this.dayList.internalList.clear();
+        int totalDays = (int) DAYS.between(startDate, endDate) + 1;
+        assert (totalDays > 0);
+
+        // Remove all days outside interval
+        dayList.setStartDate(startDate);
+        dayList.setEndDate(endDate);
+
+        // Add all days not in list
         for (int i = 0; i < totalDays; i++) {
             LocalDateTime currentDay = startDate.plusDays(i);
-            this.dayList.add(new Day(currentDay.withHour(0).withMinute(0),
+            Day toAdd = new Day(currentDay.withHour(0).withMinute(0),
                     currentDay.withHour(23).withMinute(59),
                     Optional.empty(),
                     destination,
                     Optional.empty(),
-                    new EventList(currentDay)));
+                    new EventList(currentDay), Optional.empty());
+            if (!this.dayList.containsClashing(toAdd)) {
+                this.dayList.add(toAdd);
+            }
         }
     }
 
@@ -127,8 +138,8 @@ public class Trip {
         return dayList;
     }
 
-    public ExpenditureList getExpenditureList() {
-        return expenditureList;
+    public ExpenseList getExpenseList() {
+        return expenseList;
     }
 
     public Budget getBudget() {
@@ -186,7 +197,7 @@ public class Trip {
                 && otherTrip.getBudget().equals(getBudget())
                 && otherTrip.getDayList().equals(getDayList())
                 && otherTrip.getDiary().equals(getDiary())
-                && otherTrip.getExpenditureList().equals(getExpenditureList());
+                && otherTrip.getExpenseList().equals(getExpenseList());
     }
 
     /**
@@ -208,9 +219,9 @@ public class Trip {
         builder.append("Name: ")
                 .append(name.toString())
                 .append(" From: ")
-                .append(ParserDateUtil.getDisplayTime(startDate))
+                .append(ParserDateUtil.getDisplayDateTime(startDate))
                 .append(" To: ")
-                .append(ParserDateUtil.getDisplayTime(endDate))
+                .append(ParserDateUtil.getDisplayDateTime(endDate))
                 .append(" Destination: ")
                 .append(destination.toString())
                 .append(" Total Budget: ")
