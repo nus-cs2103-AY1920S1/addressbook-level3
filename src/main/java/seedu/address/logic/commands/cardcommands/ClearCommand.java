@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 public class ClearCommand extends CardCommand {
 
     public static final String COMMAND_WORD = "clear";
-    private static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
+    public static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " \n";
 
     @Override
