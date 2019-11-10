@@ -29,6 +29,11 @@ public class ClashCommandParser implements Parser<ClashCommand> {
                     ClashCommand.MESSAGE_USAGE));
         }
 
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+        }
+
         verifyNumberOfParameters(argMultimap);
 
         try {

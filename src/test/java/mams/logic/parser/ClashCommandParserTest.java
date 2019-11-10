@@ -47,6 +47,17 @@ public class ClashCommandParserTest {
     }
 
     @Test
+    public void parse_nonEmptyPreAmple_throwsParseException() {
+        assertParseFailure(parser,
+                " p/ a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,
+                " alice a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+    }
+
+    @Test
     public void parse_emptyFields_throwsParseException() {
         // single prefix
         assertParseFailure(parser,
