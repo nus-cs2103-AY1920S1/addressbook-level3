@@ -35,7 +35,7 @@ or society's finances.
 
 This is what our application looks like when it is first opened:
 
-.Graphical User Interface of treasurerPro
+.Graphical user interface of treasurerPro
 image::Reimbursement/AnnotatedUi.png[width="500"]
 
 ===  Icons and formatting
@@ -156,7 +156,7 @@ You can set the deadline as any day you want. It is your responsibility to set a
 
 . Type the command with all parameters filled in, as shown in the screenshot below:
 
-//.Screenshot of the user input into Command Box for Deadline Command in Reimbursement Tab
+.Input deadline command in reimbursement tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[width="500"]
 
 [start = 2]
@@ -166,7 +166,7 @@ If the deadline is successfully added, Leo will respond with a success message a
 deadline will now display for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
 
-//.Screenshot of a successful user input for Deadline Command in Reimbursement Tab
+.Result of deadline command in reimbursement tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[width="500"]
 
 [NOTE]
@@ -196,7 +196,7 @@ No indication will be shown in the Transaction Tab.
 as shown in the screenshot below:
 
 
-//.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
+.Input done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommand.png[width="500"]
 
 [start = 2]
@@ -205,7 +205,7 @@ image::Reimbursement/ReimbursementDoneCommand.png[width="500"]
 The reimbursement for that person will be removed from the tab, as shown below:
 
 
-//.Screenshot of a successful user input for Done Command in Reimbursement Tab
+.Result of done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="500"]
 
 
@@ -226,7 +226,7 @@ Tab.
 
 The following sequence diagram shows the execution of deadline command:
 
-.Sequence Diagram of Deadline Command in Reimbursements Tab (reimbursement package)
+.Sequence diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
 As shown, a user needs to add a deadline to a reimbursement by specifying
@@ -236,7 +236,7 @@ This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and i
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
-.Activity Diagram of Deadline Command in Reimbursements Tab (reimbursement package)
+.Activity diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
 As shown by the above activity diagram, when a user inputs a person who does not exist in any
@@ -251,7 +251,7 @@ The find command requires access to `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Sequence diagram of find command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
@@ -260,7 +260,7 @@ As shown in the above figure, `FindCommand` is executed by calling `findReimburs
 and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
-.Activity Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Activity diagram of find command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
 The above activity diagram shows the steps needed for find command.
@@ -270,37 +270,30 @@ is found and displayed in the tab.
 
 
 == Overall design considerations
-This section's table explains the design considerations for some implementations in the Home Tab.
+This section's table explains the design considerations for some implementations in the reimbursement tab.
 
 |===
-|Alternative 1 |Alternative 2 |Conclusion and Explanation
+|Aspect|Alternative 1 |Alternative 2 |Conclusion and Explanation
+|How [blue]`done` command in reimbursement tab updates transactions model and storage.
+|The `reimbursementLogic` keeps a `transactionModel` and a `transactionStorage` to update transactions.
+|`MainWindow` calls methods from `reimbursementLogic` and `transactionLogic` when a command is executed.
+|Alternative 2 is chosen.
+`transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
+So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
+the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
 
-|`ModelManager` contains 2 attributes that point to a `TransactionList` object in original order and a `TransactionList`
-object for viewing in the UI table that can be sorted such that when [blue]`sort reset` is called, the `TransactionList` for viewing can be set to be equals to the original one.
-|`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
-the `TransactionList` object in original order when [blue]`sort reset` is called.
-|Alternative 1 was implemented. Alternative 1 allows the data file to be exported in the desired order anytime while treasurerPro is running while
-alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown below the table in <<lists, Figure 22>>.
+|How reimbursement records are saved and read from `.txt` files
+|The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
+|The reimbursement tab only saves person's name, amount and the deadline information into `reimbursementInformation.txt`.
+When launching the application, reimbursement tab reads the transactions information from `transactionHistory.txt`.
+|Alternative 2 is chosen.
+Alternative 2 does not save duplicate information that has already been saved into `transactionHistory.txt`.
+So, alternative 2 is more efficient.
 
-|The Members Tab's `Model` interface is passed as parameters into Transaction Tab's `Logic` to give `Logic` access to all public methods
-of `ModelManager`.
-|A new interface is made to allow the only used method of Members Tab's `ModelManager` to be accessed in Transaction Tab's
-`Logic`.
-|Alternative 2 was implemented. The new interface acts as a facade for `ModelManager` which prevent unwanted modifications
-to `AddressBook`. The interface implemented is `CheckAndGetPersonByNameOnlyModel` as shown below the table in <<facade, Figure 23>>.
-
-|An `ArrayList` is used to store `Transaction` objects in `TransactionList`.
-|A `LinkedList` is used to store `Transaction` objects in `TransactionList`.
-|Alternative 1 was implemented. An `ArrayList` has better performance for the set and get methods than a `LinkedList` which would be used frequently in `ModelManager`.
 |===
-
-[[lists]]
-[caption = "Figure 22. "]
-.Code snippet of `ModelManager` class with 2 `TransactionList` objects
-image::homeDG/2lists.png[width = "450"]
 
 [[facade]]
-[caption = "Figure 23. "]
-.Code snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
-image::homeDG/facadeForDesignConsiderations.png[width = "450"]
+.Code snippet of `transactionLogic` facade class in `MainWindow`
+image::Reimbursement/codeSnippetTransactionLogic.png[width = "500"]
+
 
