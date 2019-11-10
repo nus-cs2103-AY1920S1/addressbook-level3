@@ -110,17 +110,15 @@ https://github.com/junhuplim/ped/issues/9[3])
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+This section showcases my contribution to the User Guide. They showcase my ability to write
+documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
