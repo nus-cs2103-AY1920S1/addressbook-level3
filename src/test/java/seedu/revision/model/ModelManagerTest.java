@@ -115,7 +115,7 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different revision tool -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentRevisionTool, userPrefs, history)));
 
         // different filteredList -> returns false

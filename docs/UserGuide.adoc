@@ -15,7 +15,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 :javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
-By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -227,6 +227,7 @@ Returns `How do you gather user requirements?` and `What is the recommended user
 * `find User, Brownfield, Greenfield` +
 Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
 
+
 === Clearing all entries : `clear`
 
 Clears all questions from the test bank. +
@@ -267,21 +268,19 @@ Levels are separated by difficulty. At the end of each level, user has the choic
 The user is given 30 seconds to answer each question.
 
 === Arcade Mode
-Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
-The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
-level 3 giving the user 10 seconds to answer each question.
+Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
+The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 20 seconds to answer each question.
 
 === Custom Mode
 Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
 difficulty.
 
 === Answering Questions
-* MCQ
-** Answers can only be A, B, C, or D (Case insensitive)
-* True and False
-** Answers can only be True (T) / False (F) (Case insensitive)
-* SAQ
-** Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
+|MCQ |TFQ |SAQ
+|Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
 //end::wilfred-quiz[]
 
 === Exiting the quiz

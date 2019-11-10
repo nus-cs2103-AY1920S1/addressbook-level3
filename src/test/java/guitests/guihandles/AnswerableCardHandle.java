@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.revision.model.answerable.Answerable;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a answerable card in the answerable list panel.
  */
 public class AnswerableCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -78,7 +78,7 @@ public class AnswerableCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code answerable}.
      */
     public boolean equals(Answerable answerable) {
         return getQuestion().equals(answerable.getQuestion().question)
