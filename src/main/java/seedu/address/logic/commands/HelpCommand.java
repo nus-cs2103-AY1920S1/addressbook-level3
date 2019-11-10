@@ -82,8 +82,8 @@ public class HelpCommand extends Command {
                 if (htmlFile.exists()) {
                     htmlFile.delete();
                 }
-                    InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
-                    Files.copy(link, htmlFile.getAbsoluteFile().toPath());
+                InputStream link = (getClass().getResourceAsStream(ApiLinks.getLink(command)));
+                Files.copy(link, htmlFile.getAbsoluteFile().toPath());
                 Desktop.getDesktop().browse(htmlFile.toURI());
                 break;
             default:

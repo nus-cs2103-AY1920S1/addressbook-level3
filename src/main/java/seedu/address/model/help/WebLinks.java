@@ -59,7 +59,7 @@ public class WebLinks {
             return base + "#sorting-the-contacts-claims-incomes-list-by-contact-s-name";
 
         case "reverse":
-        return base + "#sorting-the-contacts-claims-incomes-list-in-reverse-order";
+            return base + "#sorting-the-contacts-claims-incomes-list-in-reverse-order";
 
         case "check":
             return base + "#checking-a-person-or-claim-code-check-code";
