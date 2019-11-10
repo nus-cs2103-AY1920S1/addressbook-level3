@@ -27,7 +27,7 @@ import seedu.guilttrip.ui.income.IncomeListPanel;
 public class IncomeListPanelTest extends GuiUnitTest {
     private static final ObservableList<Income> TYPICAL_INCOMES = FXCollections.observableList(getTypicalIncomes());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Income> selectedIncome = new SimpleObjectProperty<>();
     private IncomeListPanelHandle incomeListPanelHandle;

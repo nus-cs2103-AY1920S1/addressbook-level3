@@ -24,7 +24,7 @@ public class AutoExpenseListPanelTest extends GuiUnitTest {
     private static final ObservableList<AutoExpense> TYPICAL_AUTOEXPENSES =
             FXCollections.observableList(getTypicalAutoExpenses());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<AutoExpense> selectedAutoExpense = new SimpleObjectProperty<>();
     private AutoExpenseListPanelHandle autoExpenseListPanelHandle;

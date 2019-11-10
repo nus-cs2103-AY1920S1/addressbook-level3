@@ -27,7 +27,7 @@ import seedu.guilttrip.ui.wishlist.WishListPanel;
 public class WishListPanelTest extends GuiUnitTest {
     private static final ObservableList<Wish> TYPICAL_WISHES = FXCollections.observableList(getTypicalWishes());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Wish> selectedWish = new SimpleObjectProperty<>();
     private WishListPanelHandle wishListPanelHandle;

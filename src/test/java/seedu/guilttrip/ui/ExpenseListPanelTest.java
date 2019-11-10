@@ -28,7 +28,7 @@ import seedu.guilttrip.ui.gui.guihandles.ExpenseListPanelHandle;
 public class ExpenseListPanelTest extends GuiUnitTest {
     private static final ObservableList<Expense> TYPICAL_EXPENSES = FXCollections.observableList(getTypicalExpenses());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Expense> selectedExpense = new SimpleObjectProperty<>();
     private ExpenseListPanelHandle expenseListPanelHandle;

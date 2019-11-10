@@ -28,7 +28,7 @@ import seedu.guilttrip.ui.gui.guihandles.BudgetListPanelHandle;
 public class BudgetListPanelTest extends GuiUnitTest {
     private static final ObservableList<Budget> TYPICAL_BUDGETS = FXCollections.observableList(getTypicalBudgets());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 5000;
 
     private final SimpleObjectProperty<Budget> selectedBudget = new SimpleObjectProperty<>();
     private BudgetListPanelHandle budgetListPanelHandle;
