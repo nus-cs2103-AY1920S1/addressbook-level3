@@ -49,6 +49,11 @@ class AddCommandParser {
             throw new ParseException(ParserUtil.MESSAGE_ARG_DUPLICATED);
         }
 
+        if (ParserUtil.hasMismatchDatePrefixes(argMultimap)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ParserUtil.MESSAGE_DATE_INFO_MISMATCH));
+        }
+
         // assumptions: if no start month/year specified it is the current month/year
         Date startDate = DateParser.parseStartDate(argMultimap, CliSyntax.PREFIX_START_MONTH,
                 CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_START_DAY);
@@ -60,7 +65,8 @@ class AddCommandParser {
         boolean isValidPeriod = EventQuery.isValidEventTime(startDate, endDate);
 
         if (!isValidPeriod) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CommandUtil.MESSAGE_DATE_RESTRICTION));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    CommandUtil.MESSAGE_DATE_RESTRICTION));
         }
 
         Name name = new NameParser().parse(argMultimap.getValue(CliSyntax.PREFIX_NAME)).get();
