@@ -14,7 +14,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
 
 /**
- * Views a meme identified using it's displayed index from Weme.
+ * Views a meme identified using its displayed index from Weme.
  */
 public class MemeViewCommand extends Command {
 

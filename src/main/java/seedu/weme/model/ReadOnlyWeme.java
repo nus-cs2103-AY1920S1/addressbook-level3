@@ -44,7 +44,7 @@ public interface ReadOnlyWeme {
     ObservableList<Meme> getImportList();
 
     /**
-     * Returns an unmodifiable view of the meme.
+     * Returns an unmodifiable view of the meme the user is currently viewing.
      */
     ObservableValue<Meme> getViewableMeme();
 

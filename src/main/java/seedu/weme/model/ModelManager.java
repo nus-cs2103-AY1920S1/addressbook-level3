@@ -533,10 +533,12 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        Optional<Meme> viewingMeme = Optional.ofNullable(viewableMeme.getValue());
+        Optional<Meme> otherViewingMeme = Optional.ofNullable(other.getViewableMeme().getValue());
         return versionedWeme.equals(other.versionedWeme)
                 && userPrefs.equals(other.userPrefs)
                 && filteredMemes.equals(other.filteredMemes)
-                && viewableMeme.getValue() == other.viewableMeme.getValue()
+                && viewingMeme.equals(otherViewingMeme)
                 && stagedMemeList.equals(other.stagedMemeList)
                 && importMemeList.equals(other.importMemeList)
                 && context.getValue().equals(other.context.getValue());
