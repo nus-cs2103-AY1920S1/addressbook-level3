@@ -55,6 +55,10 @@ public class ReminderTime implements Comparable<ReminderTime> {
         }
         return dateStart != null;
     }
+
+    public String getStartTime() {
+        return starting;
+    }
     /*
     public boolean hasTimeConflict(TaskTime otherTaskTime) throws ParseException {
         Date thisStarting = convertToDate(starting);
