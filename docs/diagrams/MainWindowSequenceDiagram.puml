@@ -11,10 +11,10 @@ participant "EditModeCommand" as EditModeCommand LOGIC_COLOR
 participant "cr:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-[-> MainWindow : executeCommand("edit 1")
+[-> MainWindow : executeCommand("editmode 1")
 activate MainWindow
 
-MainWindow -> LogicManager : execute("edit 1")
+MainWindow -> LogicManager : execute("editmode 1")
 activate LogicManager
 
 LogicManager -> EditModeCommand : execute()
@@ -40,7 +40,7 @@ CommandResult --> MainWindow : context
 deactivate CommandResult
 
 opt isNewContext
-     MainWindow -> MainWindow : changeDisplay()
+     MainWindow -> MainWindow : changeDisplay(context)
      activate MainWindow
      deactivate MainWindow
 end
