@@ -6,10 +6,12 @@ import static seedu.guilttrip.testutil.TypicalEntries.getTypicalBudgets;
 
 import java.util.Collections;
 
+import org.junit.jupiter.api.Test;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;

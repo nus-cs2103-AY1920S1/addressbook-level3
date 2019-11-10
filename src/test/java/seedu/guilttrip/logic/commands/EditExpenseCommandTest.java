@@ -15,6 +15,7 @@ import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_THIRD_ENTRY;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;

@@ -3,6 +3,7 @@ package seedu.guilttrip.logic.commands;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 
 import org.junit.jupiter.api.BeforeEach;
+
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.model.Model;

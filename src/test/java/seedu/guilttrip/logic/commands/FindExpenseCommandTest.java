@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;

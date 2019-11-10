@@ -1,6 +1,7 @@
 package seedu.guilttrip.ui;
 
 import org.junit.jupiter.api.BeforeEach;
+
 import seedu.guilttrip.ui.gui.guihandles.ResultDisplayHandle;
 
 public class ResultDisplayTest extends GuiUnitTest {
