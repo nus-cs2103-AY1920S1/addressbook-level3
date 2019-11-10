@@ -652,6 +652,7 @@ Feature by
 
 {sp} +
 
+// tag::courseplanner[]
 === Course Planner
 
 Unable to keep track of what modules you have been taking? Need to quickly
@@ -778,6 +779,8 @@ Information on the CAP system can be found
 http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[here].
 
 Format: `cap`
+
+// end::courseplanner[]
 
 ////
 Undo/Redo
