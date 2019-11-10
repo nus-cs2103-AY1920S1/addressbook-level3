@@ -1382,6 +1382,16 @@ the current day, backed by the `FilteredList` of `Planner`
 * `Model#getTasksThisWeek()` - Returns an unmodifiable view of the list of `Task` objects that coincide with
 the current week, backed by the `FilteredList` of `Planner`.
 
+One example of the interaction between the `Model` and commands for the `Planner` can be seen when the user
+executes a `pull-task` command.
+
+.Sequence Diagram for pull-task command
+image::PullTaskSequenceDiagram.png[align=left]
+
+In the figure above, `pull-task` will result in the filtered lists in the `Planner` to be updated according to
+the appropriate predicates. In this case, the predicate called will be `TaskPredicateMatchesPredicate` as the
+user had specified a `pull-task` according to the `Priority` levels of the `Task` objects.
+
 ==== Design Considerations
 
 ===== Aspect: Task Descriptions in a Task
