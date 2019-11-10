@@ -289,9 +289,8 @@ The current state of this newly-added book is further illustrated by the object 
 image::BookObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*.
-This makes it consistent with the class diagram of `Book` above.
-We can also observe that the `LoanHistory` object of the `Book` is empty since the book is new and is not loaned out before.
+We can see that the book holds an `Optional<Loan>` and has an empty `LoanHistory`,
+making it consistent with the class diagram of `Book` above.
 
 ==== Design Considerations
 
@@ -299,36 +298,27 @@ We can also observe that the `LoanHistory` object of the `Book` is empty since t
 
 * **Alternative 1 :** Store them only in a ObservableList as per the original AddressBook implementation.
 ** Pros: Will be easy to implement.
-** Cons: May have performance issues in terms of efficiency in retrieving books.
+** Cons: Iterating through the list of books to retrieve one may be inefficient.
 * **Alternative 2 (current choice):** Store them in a HashMap.
-** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
+** Pros: Will be easier (and more readable ) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
-*We have decided to go with Alternative 2.* In contrast to the original AddressBook3, there is much more retrieval of
-book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
-outweigh the additional memory costs incurred to maintain the HashMap.
+*We have decided to go with Alternative 2.* There is a lot of retrieval of book objects within the Book and Loan features.
+Therefore, the benefits of quick retrieval of book will outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
-Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
-number using the number of books or the largest serial number.
+Since we allow librarians to provide their own valid serial number when adding a book, we cannot use the
+number of books or the largest serial number to generate the next serial number.
 
-Eg: The system now has "B00009" and "B00010".
-
-If we generate based on number of books, we get the serial number "B00003", wasting the serial numbers "B00001" and "B00002".
-
-If we generate based on the largest serial number, we get the serial number "B00011", wasting all the unused serial numbers before it.
-
-We need to come up with a solution to give us "B00001" in the given example.
-
-* **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
+* **Alternative 1:** Use a TreeMap to store current serial numbers.
 ** Pros: Will be efficient in generating the next valid serial number.
 ** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
-* **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
+* **Alternative 2 (Current choice):** Iterate from the beginning to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to the implementation in
-Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some cases which leads to
+unexpected behaviour from Alternative 1. Furthermore, Alternative 2 is in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
 // tag::undo/redo[]
@@ -479,14 +469,14 @@ We chose alternative 1 as it is easier to maintain a single data structure.
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
 Essentially, `LoanSlipUtil` implements the following operations:
 
-* `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
-* `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
+* `LoanSlipUtil#mountLoan()` -- Mounts a loan in the current loan session.
+* `LoanSlipUtil#clearSession()` -- Clears the loan session by unmounting all loans.
 * `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loans as a single loan slip, saved in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
 .Sequence Diagram for the generation of a loan slip
-image::LoanSlipGeneration.png[align=center]
+image::LoanSlipGeneration.png[width=500, align=center]
 {nbsp} +
 
 The sequence diagram above is described by the following sequence of events:
@@ -494,9 +484,9 @@ The sequence diagram above is described by the following sequence of events:
 . `LoanCommand` is executed
 . `LoanCommand` retrieves the `Book` and the `Borrower` to create a new `Loan`
 . `LoanCommand` mounts the new loan in `LoanSlipUtil`
-. `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder
-. `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
-. `Logic` component clears the session in `LoanSlipUtil` at the end of the process
+. `Storage` component creates and saves a new PDF in a saved folder
+. `Logic` component opens the newly generated `LoanSlipDocument`
+. `Logic` component clears the session in `LoanSlipUtil`
 ****
 
 ==== Design Considerations
@@ -505,14 +495,13 @@ The sequence diagram above is described by the following sequence of events:
 
 * **Alternative 1 :** Use the `LoanSlipDocument` constructor directly.
 ** Pros: Will be straightforward to implement.
-** Cons: The `Logic` component and the `LoanCommand` object needs to have knowledge on all individual methods of `LoanSlipDocument` to be able to create a loan slip.
+** Cons: The `Logic` component and the `LoanCommand` object needs to know all the methods of `LoanSlipDocument` to be able to create a loan slip.
 * **Alternative 2 (current choice):** Create a Facade class `LoanSlipUtil` to facilitate creation of `LoanSlipDocument`.
 ** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
-** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
+** Cons: There is more code to be written and maintained.
 
-*We have decided to go with Alternative 2.* The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
-It also *decouples* the code, making it easier to modify in the future.
-On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies between classes, thereby *increasing coupling* and *reducing maintainability*.
+*We have decided to go with Alternative 2* as it *decouples* the code, making it easier to modify in the future.
+On the contrary, Alternative 1 will introduce unnecessary dependencies between classes, thereby *increasing coupling* and *reducing maintainability*.
 
 ===== Aspect: Implementation to allow extension (loan multiple books at one go).
 
@@ -520,7 +509,7 @@ On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies 
 ** Pros: Will be able to mount multiple loans using `LoanSlipUtil` before generating all loans in a single loan slip.
 ** Cons: Will require more code when mounting loans in the Facade class.
 * **Alternative 2:** Re-create `LoanSlipDocument` whenever a new loan comes in.
-** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
+** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update when a new `Loan` comes in.
 ** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 
 *We have decided to go with Alternative 1* as it allows us to have flexible code that is *easily extendable*. Furthermore,
