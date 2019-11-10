@@ -50,8 +50,8 @@ public class AddTaskCommand extends Command {
         }
 
         model.addTask(toAdd);
-        //return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        return new CommandResult("Type-3 /" + String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+//        return new CommandResult("Type-3 /" + String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
