@@ -109,7 +109,7 @@ public class CommandTestUtil {
     public static final String VALID_TASKDATE1 = "12/12/2019";
     public static final String VALID_TASKDATE2 = "13/12/2019";
     public static final String VALID_TASKDATE3 = "14/12/2019";
-    public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETE";
+    public static final String VALID_TASKSTATUS_COMPLETE = "COMPLETED";
     public static final String VALID_TASKSTATUS_INCOMPLETE = "NOT COMPLETE";
 
     /** User Profile */
@@ -620,6 +620,6 @@ public class CommandTestUtil {
         final String[] splitName = dashboard.getDashboardName().fullName.split("\\s+");
         model.updateFilteredDashboardList(new DashboardNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredDashboardList().size());
+        assertEquals(2, model.getFilteredDashboardList().size());
     }
 }
