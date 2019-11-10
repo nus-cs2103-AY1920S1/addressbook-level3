@@ -39,8 +39,8 @@ public class AddAppCommand extends ReversibleCommand {
             + "[" + PREFIX_REOCCURRING_TIMES + "PREFIX_REOCCURRING_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "E0000001A "
-            + PREFIX_START + "01/12/19 0900 "
-            + PREFIX_END + "01/12/19 0940 "
+            + PREFIX_START + "31/12/19 0900 "
+            + PREFIX_END + "31/12/19 0940 "
             + PREFIX_REOCCURRING + "m "
             + PREFIX_REOCCURRING_TIMES + "2\n";
 
