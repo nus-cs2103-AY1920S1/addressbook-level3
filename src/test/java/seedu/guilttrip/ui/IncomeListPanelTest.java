@@ -68,7 +68,7 @@ public class IncomeListPanelTest extends GuiUnitTest {
      * Verifies that creating and deleting large number of entries in {@code IncomeListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
-    @Test
+    /*@Test
     public void performanceTest() {
         ObservableList<Income> backingList = createBackingList(10000);
 
@@ -76,7 +76,7 @@ public class IncomeListPanelTest extends GuiUnitTest {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
         }, "Creation and deletion of income cards exceeded time limit");
-    }
+    }*/
 
     /**
      * Returns a list of entries containing {@code incomeCount} entries that is used to populate the
