@@ -13,6 +13,7 @@ public class Messages {
     public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
     public static final String MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE = "The task is already marked as complete";
 
+    public static final String MESSAGE_CANNOT_EDIT_RECORD_TYPE = "Record type cannot be edited!";
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
     public static final String MESSAGE_RECORDS_LISTED_OVERVIEW = "%1$d records listed!";
 

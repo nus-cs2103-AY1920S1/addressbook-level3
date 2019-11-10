@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import dukecooks.logic.commands.CommandResult;
 import dukecooks.model.ModelStub;
+import dukecooks.model.health.components.Record;
 import dukecooks.model.profile.ReadOnlyUserProfile;
 import dukecooks.model.profile.UserProfile;
 import dukecooks.model.profile.person.Person;
@@ -28,7 +29,7 @@ public class AddProfileCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPersonAndRecordAdded modelStub = new ModelStubAcceptingPersonAndRecordAdded();
         Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = new AddProfileCommand(validPerson).execute(modelStub);
@@ -62,7 +63,7 @@ public class AddProfileCommandTest {
     }
 
     /**
-     * A RecipeModel stub that contains a single person.
+     * A ProfileModel stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
         private final Person person;
@@ -74,10 +75,46 @@ public class AddProfileCommandTest {
     }
 
     /**
-     * A RecipeModel stub that always accept the person being added.
+     * A ProfileModel stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasProfile() {
+            return !personsAdded.isEmpty();
+        }
+
+        @Override
+        public void addPerson(Person person) {
+            requireNonNull(person);
+            personsAdded.add(person);
+        }
+
+        @Override
+        public ReadOnlyUserProfile getUserProfile() {
+            return new UserProfile();
+        }
+    }
+
+    /**
+     * A ProfileModel stub that always accept the person being added.
+     */
+    private class ModelStubAcceptingPersonAndRecordAdded extends ModelStub {
+        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<Record> recordsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasRecord(Record record) {
+            requireNonNull(record);
+            return recordsAdded.stream().anyMatch(record::isSameRecord);
+        }
+
+        @Override
+        public void addRecord(Record record) {
+            requireNonNull(record);
+            recordsAdded.add(record);
+        }
 
         @Override
         public boolean hasProfile() {

@@ -1,6 +1,5 @@
 package dukecooks.logic;
 
-import static dukecooks.testutil.profile.TypicalProfiles.AMY;
 import static dukecooks.testutil.recipe.TypicalRecipes.FISH;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,7 +16,6 @@ import dukecooks.logic.commands.CommandResult;
 import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.logic.commands.exceptions.CommandException;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
-import dukecooks.logic.commands.profile.AddProfileCommand;
 import dukecooks.logic.commands.recipe.AddRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
@@ -28,7 +26,6 @@ import dukecooks.model.dashboard.ReadOnlyDashboard;
 import dukecooks.model.diary.DiaryRecords;
 import dukecooks.model.diary.ReadOnlyDiary;
 import dukecooks.model.profile.ReadOnlyUserProfile;
-import dukecooks.model.profile.person.Person;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.components.Recipe;
 import dukecooks.model.workout.ReadOnlyWorkoutCatalogue;
@@ -44,7 +41,6 @@ import dukecooks.storage.recipe.JsonRecipeBookStorage;
 import dukecooks.storage.workout.JsonWorkoutCatalogueStorage;
 import dukecooks.storage.workout.exercise.JsonExerciseCatalogueStorage;
 import dukecooks.testutil.Assert;
-import dukecooks.testutil.profile.PersonBuilder;
 import dukecooks.testutil.recipe.RecipeBuilder;
 
 
@@ -163,16 +159,9 @@ public class LogicManagerTest {
         expectedModel.addRecipe(expectedRecipe);
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
-        addCommand = AddProfileCommand.COMMAND_WORD + " " + AddProfileCommand.VARIANT_WORD
-                + CommandTestUtil.NAME_DESC_AMY + CommandTestUtil.DOB_DESC
-                + CommandTestUtil.GENDER_DESC + CommandTestUtil.BLOODTYPE_DESC
-                + CommandTestUtil.HEIGHT_DESC + CommandTestUtil.WEIGHT_DESC;
-        Person expectedPerson = new PersonBuilder(AMY).withMedicalHistories().build();
         //Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
         //       .withDetails(null, null, null, null, null, null)
         //        .build();
-        expectedModel.addPerson(expectedPerson);
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 
     /**  ------------------------------------  DIARY ---------------------------------------- */

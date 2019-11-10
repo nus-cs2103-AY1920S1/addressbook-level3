@@ -145,7 +145,6 @@ asciidoctor {
         'site-name': 'DukeCooks',
         'site-githuburl': 'https://ay1920s1-cs2103t-t10-2.github.io/main/'
     ]
-
     options['template_dirs'].each {
         inputs.files fileTree(it)
     }

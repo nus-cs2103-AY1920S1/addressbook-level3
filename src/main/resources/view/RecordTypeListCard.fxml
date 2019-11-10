@@ -26,10 +26,15 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-         <Label fx:id="timestamp" styleClass="cell_big_label" text="\$timestamp" />
+            <VBox>
+               <children>
+                  <Label style="-fx-font-size: 10; -fx-text-fill: grey;" text="Timestamp:" />
+               <Label fx:id="timestamp" styleClass="cell_big_label" text="\$timestamp" />
+               </children>
+            </VBox>
       </HBox>
-      <Label fx:id="value" styleClass="cell_small_label_label" text="\$value" />
-         <FlowPane fx:id="pages" />
+      <Label fx:id="value" styleClass="cell_big_label" text="\$value" />
+         <FlowPane fx:id="remarkPages" />
     </VBox>
       <rowConstraints>
          <RowConstraints />

@@ -8,7 +8,7 @@ import dukecooks.commons.util.AppUtil;
  * Represents User's height in CM.
  */
 public class Height {
-    public static final int HEIGHT_LIMIT = 300;
+    public static final double HEIGHT_LIMIT = 300;
 
     public static final String MESSAGE_CONSTRAINTS =
             "Height should only contain numeric characters and represented by centimeters.";
@@ -20,9 +20,9 @@ public class Height {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9]+";
+    public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1})?";
 
-    public final int height;
+    public final double height;
 
     /**
      * Constructs a {@code Height}.
@@ -32,8 +32,8 @@ public class Height {
     public Height(String height) {
         requireNonNull(height);
         AppUtil.checkArgument(isValidNumber(height), MESSAGE_CONSTRAINTS);
-        AppUtil.checkArgument(isValidHeight(Integer.parseInt(height)), MESSAGE_INFLATED_HEIGHT);
-        this.height = Integer.parseInt(height);
+        AppUtil.checkArgument(isValidHeight(Double.parseDouble(height)), MESSAGE_INFLATED_HEIGHT);
+        this.height = Double.parseDouble(height);
     }
 
     /**
@@ -47,7 +47,7 @@ public class Height {
      * Returns true if height is within the limit set.
      * Prevents input of large values set to height.
      */
-    public static boolean isValidHeight(int test) {
+    public static boolean isValidHeight(double test) {
         return test > 0 && test <= HEIGHT_LIMIT;
     }
 

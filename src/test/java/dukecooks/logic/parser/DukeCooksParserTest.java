@@ -291,7 +291,7 @@ public class DukeCooksParserTest {
         EditProfileCommand command = (EditProfileCommand) parser.parseCommand(EditProfileCommand.COMMAND_WORD
                 + " " + EditProfileCommand.VARIANT_WORD
                 + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditProfileCommand(descriptor), command);
+        assertEquals(new EditProfileCommand(descriptor, false, false), command);
     }
 
     /**  ------------------------------------  PROFILE ----------------------------------------- */

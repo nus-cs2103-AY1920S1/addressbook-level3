@@ -19,7 +19,7 @@ public class TypicalProfiles {
             .withBloodType("A+")
             .withWeight("50")
             .withHeight("165")
-            .withMedicalHistories("friends").build();
+            .withMedicalHistories("high blood pressure").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withGender("male")
             .withDoB("03/01/1965")
@@ -43,6 +43,9 @@ public class TypicalProfiles {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(CommandTestUtil.VALID_NAME_AMY)
+            .withBloodType(CommandTestUtil.VALID_BLOODTYPE).withGender(CommandTestUtil.VALID_GENDER)
+            .withDoB(CommandTestUtil.VALID_DOB).withWeight(CommandTestUtil.VALID_WEIGHT)
+            .withHeight(CommandTestUtil.VALID_HEIGHT)
             .withMedicalHistories(CommandTestUtil.VALID_HISTORY_STROKE).build();
     public static final Person BOB = new PersonBuilder().withName(CommandTestUtil.VALID_NAME_BOB)
             .withMedicalHistories(CommandTestUtil.VALID_HISTORY_DENGUE, CommandTestUtil.VALID_HISTORY_STROKE)
