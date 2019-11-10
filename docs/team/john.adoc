@@ -12,13 +12,11 @@
 My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into an activity tracking bill-splitting system called *SplitWiser*.
 This enhanced application enables people who participate in group activities together with shared expenses to split the cost evenly without the hassle of manual calculation. +
  +
- +
 This is what our project looks like:
 
-image::SplitWiserGUI.png[]
-Figure 1. The graphical user interface for *SplitWiser*. +
- +
- +
+image::SplitWiserGUI.png[SplitWiser, 1000, 700]
+.Figure 1. The graphical user interface for *SplitWiser*. +
+
 My role was to design and write codes for the `invite`, `disinvite` and `delete` features. The following sections illustrate
 these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements. +
  +
@@ -54,13 +52,13 @@ Note the following formatting used in this document. +
 *** Implemented `invite` and `disinvite` command to invite or disinvite participants from current viewed activity (Pull requests https://github.com/AY1920S1-CS2103T-W11-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108])
 *** Wrote additional tests for `delete`, `invite` and `disinvite` (Pull requests https://github.com/AY1920S1-CS2103T-W11-2/main/pull/196[#196], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/136[#136])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[190],
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[190], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23#pullrequestreview-296001593[23]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/JohnNzj/ped/issues/4[4], https://github.com/JohnNzj/ped/issues/1[1], https://github.com/JohnNzj/ped/issues/5[5], https://github.com/JohnNzj/ped/issues/6[6], https://github.com/JohnNzj/ped/issues/3[3], https://github.com/JohnNzj/ped/issues/2[2])
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide for the `invite`, `disinvite` and `delete` features. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=invite]

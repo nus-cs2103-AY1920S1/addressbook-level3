@@ -150,7 +150,7 @@ Format: `invite p/PERSON ...`
 Example: +
 Suppose you have already created an activity with Alice, Bob and Carl in it.
 
-image::Activity.png[]
+image::Activity.png[Activity, 400, 400]
 
 And you have friends that wants to join an activity midway.
 
@@ -158,11 +158,11 @@ To invite:
 
 Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-image::../images/InviteExample.png[]
+image::../images/InviteExample.png[InviteExample, 450, 400]
 
 Step 2: Observe the output in result box and the activity details box.
 
-image::InviteOutput.png[]
+image::InviteOutput.png[InviteOutput, 400, 400]
 
 NOTE: *The `invite` command only invites to current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
@@ -184,7 +184,7 @@ Format: `disinvite p/PERSON ...`
 Example: +
 Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
 
-image::DisinviteExample.png[]
+image::DisinviteExample.png[DisinviteExample, 300, 300]
 
 And you feel that the activity has too many participants that do not participate in any event, thus having no shared expense and you decided to remove them.
 
@@ -192,11 +192,11 @@ To disinvite:
 
 Step 1: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-image::DisinviteCommand.png[]
+image::DisinviteCommand.png[DisinviteCommand, 450, 400]
 
 Step 2: Observe the output in result box and the activity details box.
 
-image::DisinviteOutput.png[]
+image::DisinviteOutput.png[DisinviteOutput, 400, 400]
 
 NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
@@ -329,22 +329,15 @@ If currently viewing list of activities, returns activities (e.g `lunch with joh
 
 Deletes the contact/activity/expense at the specified index from the current display. +
 
-If current display is listing contacts `list c/`, the contact at that specified index will be deleted if he/she is not involved in any activities.
-
-If current display is listing activities `list a/`, the activity at that specified index will be deleted.
-
-If viewing an activity instead `view a/1`, it will soft-delete an expense* by index.
-
-If the current display is not any of the above displays mentioned, error will be thrown.
-
 Format: `delete INDEX`
 
-****
-* Deletes the entry at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list of contacts/activities.
-* The index *must be a positive integer* 1, 2, 3, ...
-* *Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.
-****
+If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activities.
+
+If current display is listing activities e.g. `list a/`, the activity at that specified `INDEX` will be deleted.
+
+If viewing an activity instead e.g. `view a/1`, it will soft-delete the expense* at that `INDEX`.
+
+If the current display is not any of the above displays mentioned, error will be thrown.
 
 Examples:
 
@@ -356,6 +349,15 @@ If viewing the list of activities, deletes the 1st activity by index. +
 
 * `delete 1` +
 If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.
+
+NOTE: *Deletes the entry at the specified `INDEX`.* +
+ +
+*The `INDEX` refers to the index number shown in the displayed list of contacts/activities/expenses.* +
+ +
+*The `INDEX` must be a positive integer 1, 2, 3, ...* +
+ +
+*Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view.*
+
 // end::delete[]
 
 //tag::varexpense[]

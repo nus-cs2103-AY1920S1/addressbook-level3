@@ -465,7 +465,7 @@ NOTE: The sequence diagram for the disinvite operation is omitted as it is simil
 
 The following activity diagram summarizes what happens when a user executes an invite command:
 
-image::InviteActivityDiagram.png[]
+image::InviteActivityDiagram.png[InviteActivityDiagram, 200, 200]
 
 NOTE: The activity diagram for the disinvite command is omitted as it is similar to the invite operation.
 
@@ -517,7 +517,7 @@ Step 7. The user executes `delete 1` again, but this time the expense at the fir
 
 The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:
 
-image::DeleteContactActivityDiagram.png[]
+image::DeleteContactActivityDiagram.png[DeleteContactActivityDiagram, 200, 200]
 
 NOTE: The activity diagram for deletion of expense and contact are omitted as they are similar to the deletion of activity.
 
