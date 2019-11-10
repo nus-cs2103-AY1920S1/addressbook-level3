@@ -1775,3 +1775,27 @@ such as a spending with empty `name`, `cost` or `date` parameter.
 Expected: All spending data will be exported into a `moneygowhere.csv` file at whichever folder the jar file is.
 .. Test case: `export p/C:\Users\user\Documents\MoneyGoWhere` +
 Expected: All spending data will be exported into `C:\Users\user\Documents\MoneyGoWhere\moneygowhere.csv`.
+
+=== Showing Statistics
+
+. Showing statistics based on spending listed in MoneyGoWhere
+
+.. Prerequisites: There should be existing spending with tags in MoneyGoWhere.
+.. Test case: `stats` +
+   Expected: Tab switches to Statistics tab if not already showing. MoneyGoWhere will display statistics for all spending.
+If there are no spending to be displayed, MoneyGoWhere will display a message showing that there is no data to show.
+.. Test case: `stats d/last week d/today` +
+   Expected: Tab switches to Statistics tab if not already showing. MoneyGoWhere will display statistics for spending that fall between last week and today.
+If there are no spending in the date range to be displayed, MoneyGoWhere will display a message showing that there is no data to show.
+
+=== Showing Graph
+
+. Showing graph based on spending listed in MoneyGoWhere
+
+.. Prerequisites: There should be existing spending with varying dates in MoneyGoWhere.
+.. Test case: `graph` +
+   Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for all spending.
+If there are no spending to be displayed, an empty graph is shown.
+.. Test case: `graph d/last week d/today` +
+   Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for spending that fall between last week and today.
+If there are no spending in the date range to be displayed, an empty graph is shown.
