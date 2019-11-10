@@ -1,0 +1,37 @@
+@startuml
+start
+:TrieManager initializes;
+:Tries insert command words;
+if () then (String.isEmpty())
+else ([else])
+    if () then ([String.length == 1])
+        :Convert String to Character;
+        if () then ([!HashMap.containsKey(c)])
+            :Create new Trie;
+            :Put Character and new Trie
+            into HashMap of current Trie;
+        else ([else])
+        endif
+        :Get Trie corresponding to
+        Character in HashMap;
+        :Add command word to Trie;
+        :Add prefixes to Trie;
+    else ([else])
+        :Get first Character;
+        if () then ([!HashMap.containsKey(c)])
+            :Create new Trie;
+            :Put Character and new Trie
+            into HashMap of current Trie;
+        else ([else])
+        endif
+        :Get substring(1) of String;
+        :Get Trie corresponding to
+        Character in HashMap;
+        :Call insertCommand(substring)
+        in current Trie;
+        :Call insertCommand(substring)
+        in corresponding Trie;
+    endif
+endif
+stop
+@enduml
