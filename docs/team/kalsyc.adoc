@@ -8,7 +8,7 @@ image::kalsyc.png[width="150", align="left"]
 {empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kalsyc&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
 
 Role: Developer +
-Responsibilities: Testing + UI/UX Designer
+Responsibilities: Testing + Undo/Redo/Tagging System
 
 '''
 
@@ -16,7 +16,7 @@ Responsibilities: Testing + UI/UX Designer
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
 
 == Summary of contributions
 
@@ -26,11 +26,11 @@ Xpire is a desktop application used for tracking expiry dates of items.  The use
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a tagging command that allows users to tag items in Xpire so that they are able to search it up easily and group items together easily.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-* *Other contributions*:
+* *Other contributions*: In-charge of writing tests as well as approving tests written by other members.
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
