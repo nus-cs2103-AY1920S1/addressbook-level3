@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class SlotTest {
 
     @Test
-    public void constructor_null_throwsNUllPointerException() {
+    public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> Slot.fromString(null));
     }
 
@@ -52,6 +52,7 @@ class SlotTest {
         assertTrue(Slot.isValidSlot("30/12/9999 00:00-23:59"));
         assertTrue(Slot.isValidSlot("16/10/2019 03:01-20:01"));
         assertTrue(Slot.isValidSlot("03/12/1997 10:00-13:00"));
+        assertTrue(Slot.isValidSlot("29/02/2020 10:00-11:00"));
     }
 
     @Test

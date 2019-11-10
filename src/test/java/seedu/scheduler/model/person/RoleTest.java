@@ -37,7 +37,8 @@ class RoleTest {
         assertTrue(Role.isValidRole("interviewer"));
     }
 
-    @Test public void getRole() {
+    @Test
+    public void getRole() {
         // interviewee role
         assertEquals(RoleType.INTERVIEWEE, new Role("interviewee").getRole());
 
@@ -46,5 +47,11 @@ class RoleTest {
 
         // invalid role
         assertThrows(IllegalArgumentException.class, () -> new Role("Interviewer").getRole());
+    }
+
+    @Test
+    public void hashCode_validInput_success() {
+        assertEquals("interviewee".hashCode(), new Role("interviewee").hashCode());
+        assertEquals("interviewer".hashCode(), new Role("interviewer").hashCode());
     }
 }

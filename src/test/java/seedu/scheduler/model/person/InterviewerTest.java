@@ -1,5 +1,6 @@
 package seedu.scheduler.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_DEPARTMENT_BOB;
@@ -11,6 +12,8 @@ import static seedu.scheduler.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.scheduler.testutil.Assert.assertThrows;
 import static seedu.scheduler.testutil.TypicalPersons.ALICE_INTERVIEWER;
 import static seedu.scheduler.testutil.TypicalPersons.BENSON_INTERVIEWER;
+
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -80,5 +83,16 @@ class InterviewerTest {
         // different slots -> returns false
         editedAlice = new InterviewerBuilder(ALICE_INTERVIEWER).withAvailabilities(VALID_SLOT_BOB).build();
         assertFalse(ALICE_INTERVIEWER.equals(editedAlice));
+    }
+
+    @Test
+    public void hashCode_validInterviewer_success() {
+        int expectedHash = Objects.hash(ALICE_INTERVIEWER.getDepartment(), ALICE_INTERVIEWER.getEmail(),
+                ALICE_INTERVIEWER.getAvailabilities(), ALICE_INTERVIEWER.getName(), ALICE_INTERVIEWER.getPhone(),
+                ALICE_INTERVIEWER.getTags());
+
+        Interviewer interviewer = new InterviewerBuilder(ALICE_INTERVIEWER).build();
+
+        assertEquals(expectedHash, interviewer.hashCode());
     }
 }

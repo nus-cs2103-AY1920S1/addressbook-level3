@@ -13,8 +13,8 @@ import seedu.scheduler.testutil.SampleInterviewee;
 import seedu.scheduler.testutil.SampleInterviewer;
 
 public class ImportCommandTest {
-    private static final String INTERVIEWER_FILE_PATH = "src/test/data/ImportsTest/InterviewerTestData.csv";
-    private static final String INTERVIEWEE_FILE_PATH = "src/test/data/ImportsTest/IntervieweeTestData.csv";
+    private static final String INTERVIEWER_FILE_PATH = "src/test/data/ImportsTest/validInterviewerList.csv";
+    private static final String INTERVIEWEE_FILE_PATH = "src/test/data/ImportsTest/validIntervieweeList.csv";
     private static final String INTERVIEWER = "interviewer";
     private static final String INTERVIEWEE = "interviewee";
 
