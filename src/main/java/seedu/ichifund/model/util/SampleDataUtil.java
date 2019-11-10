@@ -9,6 +9,9 @@ import seedu.ichifund.model.date.Date;
 import seedu.ichifund.model.date.Day;
 import seedu.ichifund.model.date.Month;
 import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
+import seedu.ichifund.model.loan.Name;
 import seedu.ichifund.model.repeater.MonthOffset;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
@@ -73,6 +76,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static Loan[] getSampleLoans() {
+        return new Loan[] {
+            new Loan(new LoanId("0"),
+                    new Amount("420.69"), new Name("Felix Kjellberg"),
+                    new Date(new Day("1"), new Month("2"), new Year("2019")),
+                    new Date(new Day("2"), new Month("5"), new Year("2020")),
+                    new Description("For Trees Donation")),
+            new Loan(new LoanId("0"),
+                    new Amount("23"), new Name("Mr. Schlansky"),
+                    new Date(new Day("1"), new Month("1"), new Year("2017")),
+                    new Date(new Day("1"), new Month("1"), new Year("2019")),
+                    new Description("Borrowed for Nandos"))
+        };
+    }
+
     public static ReadOnlyFundBook getSampleFundBook() {
         FundBook sampleFundBook = new FundBook();
         for (Transaction sampleTransaction : getSampleTransactions()) {
@@ -88,6 +106,12 @@ public class SampleDataUtil {
         for (Budget sampleBudget : getSampleBudgets()) {
             sampleFundBook.addBudget(sampleBudget);
         }
+
+        for (Loan sampleLoan : getSampleLoans()) {
+            sampleFundBook.addLoan(sampleLoan);
+        }
+        sampleFundBook.setCurrentLoanId(new LoanId(getSampleLoans().length + ""));
+
         return sampleFundBook;
     }
 

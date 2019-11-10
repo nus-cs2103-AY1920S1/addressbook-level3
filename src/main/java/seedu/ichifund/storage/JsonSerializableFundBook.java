@@ -12,6 +12,7 @@ import seedu.ichifund.commons.exceptions.IllegalValueException;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.budget.Budget;
+import seedu.ichifund.model.loan.Loan;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -25,6 +26,7 @@ class JsonSerializableFundBook {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Repeater's %s field is missing!";
     public static final String MESSAGE_DUPLICATE_REPEATER = "Repeaters list contains duplicate repeater(s).";
     public static final String MESSAGE_DUPLICATE_BUDGET = "Budgets list contains duplicate budget(s).";
+    public static final String MESSAGE_DUPLICATE_LOAN = "Budgets list contains duplicate budget(s).";
 
     private final String currentRepeaterUniqueId;
     private final List<JsonAdaptedTransaction> transactions = new ArrayList<>();
@@ -39,6 +41,7 @@ class JsonSerializableFundBook {
             @JsonProperty("currentRepeaterUniqueId") String currentRepeaterUniqueId,
             @JsonProperty("transactions") List<JsonAdaptedTransaction> transactions,
             @JsonProperty("repeaters") List<JsonAdaptedRepeater> repeaters,
+            @JsonProperty("loans") List<JsonAdaptedLoan> loans,
             @JsonProperty("budgets") List<JsonAdaptedBudget> budgets) {
         this.currentRepeaterUniqueId = currentRepeaterUniqueId;
         this.transactions.addAll(transactions);
