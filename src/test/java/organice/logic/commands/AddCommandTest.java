@@ -12,6 +12,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import organice.logic.commands.exceptions.CommandException;
+
 import organice.model.AddressBook;
 import organice.model.ModelStub;
 import organice.model.ReadOnlyAddressBook;

@@ -9,9 +9,9 @@ import organice.model.person.MatchedPatient;
 /**
  * An UI component that displays information of a {@code Patient}.
  */
-public class NumberOfMatches extends UiPart<Region> {
+public class MatchedPatientCard extends UiPart<Region> {
 
-    private static final String FXML = "NumberOfMatches.fxml";
+    private static final String FXML = "MatchedPatientCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -48,7 +48,7 @@ public class NumberOfMatches extends UiPart<Region> {
     @FXML
     private Label match;
 
-    public NumberOfMatches(MatchedPatient patient, int displayedIndex) {
+    public MatchedPatientCard(MatchedPatient patient, int displayedIndex) {
         super(FXML);
         this.patient = patient;
         id.setText(displayedIndex + ". ");
@@ -72,12 +72,12 @@ public class NumberOfMatches extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NumberOfMatches)) {
+        if (!(other instanceof MatchedPatientCard)) {
             return false;
         }
 
         // state check
-        NumberOfMatches card = (NumberOfMatches) other;
+        MatchedPatientCard card = (MatchedPatientCard) other;
         return id.getText().equals(card.id.getText())
                 && patient.equals(card.patient);
     }
