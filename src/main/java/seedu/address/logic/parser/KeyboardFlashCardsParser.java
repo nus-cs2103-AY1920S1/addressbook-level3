@@ -92,6 +92,7 @@ public class KeyboardFlashCardsParser {
 
     /**
      * Sets the answer status in test mode to further restrict inappropriate test commands.
+     *
      * @param isAwaitingAnswer True if the program is waiting for user input to show answer, otherwise false.
      */
     public void setAwaitingAnswer(boolean isAwaitingAnswer) {

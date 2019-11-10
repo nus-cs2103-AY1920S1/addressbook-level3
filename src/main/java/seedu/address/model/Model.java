@@ -164,12 +164,14 @@ public interface Model {
 
     /**
      * Initializes the test mode model with a list of FlashCards.
+     *
      * @param testList List of FlashCards to be tested.
      */
     void initializeTestModel(List<FlashCard> testList);
 
     /**
      * Checks if the list of FlashCards in the test model is fully expended.
+     *
      * @return A boolean to indicate if the test model still has FlashCards.
      */
     boolean hasTestFlashCard();
