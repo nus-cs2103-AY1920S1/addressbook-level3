@@ -8,6 +8,14 @@ import static java.util.Objects.requireNonNull;
 public class Appointment {
 
     /**
+     * Enumeration for Appointment Type: Reminder or Follow-up
+     */
+    public static final class Type {
+        public static final Integer REMINDER = 0;
+        public static final Integer FOLLOWUP = 1;
+    }
+
+    /**
      * The description of the Appointment.
      */
     private String description;
