@@ -318,8 +318,9 @@ image::TransactionClassDiagram.png[]
 Of note, we differentiate transactions into income and expenditure items using the `TransactionType` field, which accepts
 two unique string values, `"in"` for income and `"exp"` for expenditure in the constructor.
 
-In addition, the list of transactions is subject to a filter created by `TransactionContext`.
+In addition, the list of transactions is subject to a filter created by an immutable `TransactionContext`.
 `TransactionContext` keeps track of the `Month`, `Year`, `Category` (optional) and `TransactionType` (optional) in the current filter.
+Naturally, this implies that a filter for `Month` and `Year` is always applied to the list of transactions.
 We defer the demonstration of how `TransactionContext` is used to filter the list of transactions to <<filtertx>>
 
 The `TransactionContext` is also used to fill in optional fields that are not specified by the user when adding transactions.
@@ -366,7 +367,7 @@ Currently, we differentiate transactions that are income items and expenditure i
 
 *Cons*: More tedious to code for different behaviours for income and expenditure items in the future.
 
-| Using inheritance. |
+| Using inheritance |
 *Pros*: Allows for polymorphism of methods from a `Transaction` interface in the long run.
 
 *Cons*: Requires either the use of separate commands, or asymmetry in the parsing of command arguments.
@@ -382,7 +383,7 @@ very limited.
 ==== Filtering Transactions
 
 The filter transactions feature allows the user to change the filter for the list of transactions.
-This feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `FilterTransactionCommand`.
+As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `FilterTransactionCommand`.
 The arguments supported by this feature includes:
 
 - `Month` (optional)
@@ -395,9 +396,20 @@ to be valid.
 
 ===== Implementation
 
-As prefaced in <<overviewtx>>,
+As prefaced in <<overviewtx>>, the `filter` command interacts with `TransactionContext` to filter the list of
+transactions exposed to the UI component.
 
-===== Design Considerations
+Following the creation of `FilterTransactionCommand`, the execution of the command results
+in the following chain of events:
+
+1. The `FilterTransactionCommand` retrieves the current `TransactionContext` from the model.
+2. The `FilterTransactionCommand` creates a new `TransactionContext`, facilitated by `TransactionContextBuilder`
+3. The `FilterTransactionCommand` sets the new context in model as the newly created `TransactionContext`.
+4. The `ModelManager` retrieves a `Predicate<Transaction>` from the new `TransactionContext`.
+5. The `ModelManager` filters the list of transactions using the `Predicate<Transaction>`.
+
+The above sequence of events is shown in greater detail in the following sequence diagram:
+image::FilterTransactionSequenceDiagram.png[]
 // end::transfilter[]
 
 // tag::transadd[]
@@ -405,7 +417,7 @@ As prefaced in <<overviewtx>>,
 ==== Adding Transactions
 
 The add transaction feature allows the user to add a transaction into IchiFund.
-This feature is facilitated by `TransactionFeatureParser`, `AddTransactionCommandParser`, and `AddTransactionCommand`.
+As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `AddTransactionCommandParser`, and `AddTransactionCommand`.
 The arguments supported by this feature includes:
 
 - `Description`
