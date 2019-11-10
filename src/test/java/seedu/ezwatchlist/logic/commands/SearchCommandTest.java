@@ -191,7 +191,7 @@ public class SearchCommandTest {
         showHash.put(SearchKey.KEY_TYPE, emptyList);
         showHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
         showHash.put(SearchKey.KEY_ACTOR, emptyList);
-        showHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        showHash.put(SearchKey.KEY_IS_WATCHED, emptyList);
         SearchCommand command = new SearchCommand(showHash);
 
         List<Show> expectedList = new ArrayList<>();
@@ -209,7 +209,7 @@ public class SearchCommandTest {
         expectedList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
         expectedList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);
 
-        expectedModel.updateSearchResultList(expectedList);
+        model.updateSearchResultList(expectedList);
         assertEquals(expectedList, model.getSearchResultList());
     }
 
