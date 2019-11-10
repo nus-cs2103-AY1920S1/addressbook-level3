@@ -53,7 +53,7 @@ public class EditUserCommand extends Command {
         try {
             User user = model.editUser(personDescriptor);
 
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
 
             return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, user.getName().toString())).build();
 

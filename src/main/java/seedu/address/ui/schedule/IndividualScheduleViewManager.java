@@ -10,39 +10,38 @@ import seedu.address.model.person.Name;
 /**
  * Class to handle schedule views of individuals. Schedule of individuals do not show free time.
  */
-public class IndividualScheduleViewManager implements ScheduleViewManager {
+public class IndividualScheduleViewManager extends ScheduleViewManager {
     private PersonSchedule personSchedule;
-    private ScheduleView scheduleView;
-    private int weekNumber;
-    private LocalDate currentDate;
 
     public IndividualScheduleViewManager(PersonSchedule personSchedule) {
         this.personSchedule = personSchedule;
-        this.weekNumber = 0;
-        this.currentDate = LocalDate.now();
-        initScheduleView();
+        super.weekNumber = 0;
+        super.currentDate = LocalDate.now();
+        super.type = ScheduleState.PERSON;
+        super.LOGGER.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
     }
 
     /**
      * Method to initialise or reinitialise individual ScheduleView object to be displayed in the UI.
      * Individual schedules do not show free time.
      */
-    private void initScheduleView() {
+    private void update() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
-        this.scheduleView = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().get(weekNumber)),
-                personSchedule.getPersonDisplay().getName().fullName, dateToShow);
-        this.scheduleView.generateSchedule();
+        super.scheduleView = new ScheduleView(List.of(personSchedule
+                .getScheduleDisplay().get(weekNumber)), "Week " + (weekNumber + 1) + " "
+                + personSchedule.getPersonDisplay().getName().fullName, dateToShow);
+        super.scheduleView.generateSchedule();
     }
 
     @Override
     public ScheduleView getScheduleView() {
-        return this.scheduleView;
+        update();
+        return super.scheduleView;
     }
 
     @Override
     public void scrollNext() {
-        this.scheduleView.scrollNext();
+        super.scheduleView.scrollNext();
     }
 
     @Override
@@ -56,17 +55,11 @@ public class IndividualScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public void toggleNext() {
-        this.weekNumber = (weekNumber + 1) % 4;
-        initScheduleView();
+        super.weekNumber = (weekNumber + 1) % 4;
     }
 
     @Override
     public void filterPersonsFromSchedule(List<Name> persons) {
         //Cannot filter persons from individual schedule.
-    }
-
-    @Override
-    public ScheduleState getScheduleWindowDisplayType() {
-        return ScheduleState.PERSON;
     }
 }

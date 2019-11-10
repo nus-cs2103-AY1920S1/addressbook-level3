@@ -35,7 +35,7 @@ public class ScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         ArrayList<Person> persons = new ArrayList<>();
-
+        persons.add(model.getUser());
         for (Name name: names) {
             try {
                 persons.add(model.findPerson(name));
@@ -45,7 +45,7 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
+        model.updateScheduleWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
 
         return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }

@@ -37,6 +37,7 @@ import seedu.address.ui.popup.TimeslotView;
 import seedu.address.ui.schedule.GroupInformation;
 import seedu.address.ui.schedule.PersonDetailCard;
 import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 import seedu.address.ui.util.ColorGenerator;
 
 /**
@@ -59,6 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private ScheduleViewManager scheduleViewManager;
+    private CommandBox commandBox;
 
     private SidePanelDisplayType currentSidePanelDisplay;
 
@@ -152,7 +154,6 @@ public class MainWindow extends UiPart<Stage> {
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox;
         if (logic instanceof SuggestionLogic) {
             logger.info("logic supports suggestions, loading SuggestingCommandBox");
             final SuggestionLogic suggestionLogic = (SuggestionLogic) logic;
@@ -168,6 +169,18 @@ public class MainWindow extends UiPart<Stage> {
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getScheduleDisplay()
                 .getPersonSchedules().get(0))
                 .getRoot());
+    }
+
+    /**
+     * Sets the default size based on {@code guiSettings}.
+     */
+    private void setWindowDefaultSize(GuiSettings guiSettings) {
+        primaryStage.setHeight(guiSettings.getWindowHeight());
+        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.getWindowCoordinates() != null) {
+            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
+            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
     }
 
     /**
@@ -196,9 +209,8 @@ public class MainWindow extends UiPart<Stage> {
      * Handles tab switch view.
      */
     public void handleTabSwitch() {
-        System.out.println(currentSidePanelDisplay.toString());
         if (!currentSidePanelDisplay.equals(SidePanelDisplayType.TABS)) {
-            handleChangeToTabsPanel();
+            //Do nothing.
         } else if (tabPanel.getTabs().getSelectionModel().getSelectedIndex() == 0) {
             tabPanel.getTabs().getSelectionModel().select(1);
         } else {
@@ -213,18 +225,6 @@ public class MainWindow extends UiPart<Stage> {
         sideBarPlaceholder.getChildren().clear();
         sideBarPlaceholder.getChildren().add(details);
         currentSidePanelDisplay = type;
-    }
-
-    /**
-     * Sets the default size based on {@code guiSettings}.
-     */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
-        if (guiSettings.getWindowCoordinates() != null) {
-            primaryStage.setX(guiSettings.getWindowCoordinates().getX());
-            primaryStage.setY(guiSettings.getWindowCoordinates().getY());
-        }
     }
 
     /**
@@ -334,10 +334,6 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isFilter()) {
-
-                if (scheduleDisplay.getState() != ScheduleState.GROUP) {
-                    return commandResult;
-                }
                 GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
                 if (!groupScheduleDisplay.getFilteredNames().isEmpty()) {
                     handleSidePanelChange(new GroupInformation(groupScheduleDisplay.getPersonDisplays(),
@@ -357,9 +353,8 @@ public class MainWindow extends UiPart<Stage> {
                     TimeslotView timeslotView = new TimeslotView(personTimeslot);
                     new TimeslotPopup(timeslotView.getRoot()).show();
 
-                } else {
-                    return commandResult;
                 }
+                return commandResult;
             }
 
             if (commandResult.isPopUp()) {
@@ -373,6 +368,7 @@ public class MainWindow extends UiPart<Stage> {
             if (ScheduleViewManager.getInstanceOf(scheduleDisplay) != null) {
                 scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleDisplay);
             }
+
 
             switch (displayType) {
             case PERSON:
@@ -413,13 +409,16 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
+        } catch (InvalidScheduleViewException e) {
+            logger.severe("Schedule(s) given is/are not valid. Database must have been corrupted.");
+            resultDisplay.setFeedbackToUser("Database corrupted. " + e.getMessage());
+            return new CommandResult("Database corrupted");
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.commandTextField.clear();
             throw e;
         }
     }
-
 }

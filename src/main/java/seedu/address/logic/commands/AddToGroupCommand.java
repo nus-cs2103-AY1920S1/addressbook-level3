@@ -78,7 +78,7 @@ public class AddToGroupCommand extends Command {
             model.addPersonToGroupMapping(mapping);
 
             // updates main window
-            model.updateDisplayWithGroup(group.getGroupName(),
+            model.updateScheduleWithGroup(group.getGroupName(),
                     LocalDateTime.now(), ScheduleState.GROUP);
 
             // updates side panel
@@ -92,7 +92,7 @@ public class AddToGroupCommand extends Command {
         } catch (AlreadyInGroupException e) {
 
             try {
-                model.updateDisplayWithGroup(group.getGroupName(),
+                model.updateScheduleWithGroup(group.getGroupName(),
                         LocalDateTime.now(), ScheduleState.GROUP);
             } catch (GroupNotFoundException ex) {
                 return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();

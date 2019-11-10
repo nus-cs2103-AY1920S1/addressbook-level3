@@ -7,9 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 
 import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.GroupDescription;
 import seedu.address.model.group.GroupDescriptor;
-import seedu.address.model.group.GroupName;
 
 /**
  * Parses input arguments and creates a new AddGroupCommand object.
@@ -29,11 +27,11 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
 
 
         GroupDescriptor groupDescriptor = new GroupDescriptor();
-        groupDescriptor.setGroupName(new GroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()));
+        groupDescriptor.setGroupName(ParserUtil.parseGroupName(argMultimap.getValue(PREFIX_GROUPNAME).get()));
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
-            groupDescriptor.setGroupDescription(new GroupDescription(
-                    argMultimap.getValue(PREFIX_DESCRIPTION).get().trim()));
+            groupDescriptor.setGroupDescription(
+                    ParserUtil.parseGroupDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get()));
         }
 
         if (argMultimap.getValue(PREFIX_ROLE).isPresent()) {

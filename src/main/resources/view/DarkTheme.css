@@ -467,13 +467,13 @@
     -fx-font-family: Garamond;
 }
 
-#freeTimeslot #freeTimeslotBlock {
+#freeTimeSlot #freeTimeSlotBlock {
     -fx-background-radius: 0 !important;
     -fx-border-radius: 0 !important;
     -fx-background-color: rgba(152, 251, 152, 0.35) !important;
 }
 
-#freeTimeslot .label {
+#freeTimeSlot .label {
     -fx-text-fill: white !important;
     -fx-font-family: "Segoe UI Semibold" !important;
     -fx-alignment: center !important;
@@ -602,11 +602,11 @@
     -fx-font-size: 11;
 }
 
-#timeslotContainer {
+#timeSlotContainer {
     -fx-padding: 0 2 0 2;
 }
 
-#timeslotLabelContainer {
+#timeSlotLabelContainer {
     -fx-background-color: #222831;
     -fx-border-color: #222831;
 }

@@ -29,7 +29,7 @@ public class LookAtGroupMemberCommandParser implements Parser<LookAtGroupMemberC
         }
 
         List<String> namesInString = argMultimap.getAllValues(PREFIX_NAME);
-        List<Name> names = namesInString.stream()
+        List<Name> names = namesInString.stream().filter(string -> !string.trim().equals(""))
                 .map(name -> new Name(name)).collect(Collectors.toCollection(ArrayList::new));
 
         return new LookAtGroupMemberCommand(names);

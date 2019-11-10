@@ -9,11 +9,12 @@ import seedu.address.model.display.scheduledisplay.ScheduleState;
  */
 public class ToggleNextWeekCommand extends Command {
 
-    public static final String COMMAND_WORD = "toggle";
+    public static final String COMMAND_WORD = "togglenext";
     public static final String MESSAGE_SUCCESS = "Showing subsequent weeks' schedule! You can only view schedules up "
             + "to 4 weeks ahead.";
-    public static final String MESSAGE_USAGE = "To view next week's schedule, type nw!";
-    public static final String MESSAGE_FAILURE = "Nothing to toggle";
+    public static final String MESSAGE_USAGE = "To view next week's schedule, type togglenext!";
+    public static final String MESSAGE_FAILURE = "No schedule is shown.\n"
+            + "The toggle next command only works when there is an existing schedule in your schedule window!";
 
     public ToggleNextWeekCommand() {
 
@@ -27,7 +28,7 @@ public class ToggleNextWeekCommand extends Command {
                 || status == ScheduleState.GROUP) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setToggleNextWeek().build();
         } else {
-            return new CommandResultBuilder(MESSAGE_FAILURE).build();
+            throw new CommandException(MESSAGE_FAILURE);
         }
     }
 
