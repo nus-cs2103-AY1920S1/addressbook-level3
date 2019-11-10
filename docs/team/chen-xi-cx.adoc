@@ -64,3 +64,5 @@ include::../UserGuide.adoc[tag=average]
 |===
 
 include::../DeveloperGuide.adoc[tag=average]
+
+include::../DeveloperGuide.adoc[tag=averageTest]

@@ -1410,6 +1410,7 @@ Expected: A message indicating the list is empty will be shown.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+// tag::averageTest[]
 === Average Command
 
 .. Prerequisites: There are exactly 7 different days of blood sugar and exactly 7 different days of BMI records.
@@ -1453,6 +1454,8 @@ Expected: A message indicating the list is empty will be shown.
     Expected: COUNT field only takes integer value. Following error message will be shown: +
     `Please enter correct input for n/COUNT! +
     COUNT takes integer value between 1 and 12 inclusive.`
+// end::averageTest[]
+
 
 === Achievement Commands
 
