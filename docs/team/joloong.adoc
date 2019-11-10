@@ -24,14 +24,21 @@ For the project, my main role was
 ** What it does: Undo command allows the user to undo all previous commands one at a time. Redo command reverses
 preceding undo command.
 
-** Justification: It gives users the ability to
+** Justification: It gives users the ability to easily rectify their mistakes in commands. Hence, it improves
+the user experience and a more convenient way of self-correction.
 
 
-** Highlights:
+** Highlights: This requires a thorough understanding of the starting infrastructure of the application in other
+to make changes to it. This enhancement affects existing commands and commands to be added in future. I need to
+ensure the commands are undoable and redoable, and that there are no conflicts.
 
 * *Minor enhancement*:
 
-** Placeholder
+** *View* command for users to switch tabs without the need of a mouse to click another tab. This meets the needs
+of the target audiences who prefer using the command line.
+** *Sort* command for users to sort their lists of transactions in PalPay.
+** *Filter* command for users to filter their lists of transactions to reduce the need of scrolling through their lists.
+
 
 * *Other contributions*:
 
