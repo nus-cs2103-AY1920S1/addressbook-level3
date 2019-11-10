@@ -2,3 +2,4 @@ MYMorise — Manage Your Money(MYM) is a desktop application for those who p
 computers. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful functionalities.
 More importantly, MYMorise is optimized for those who prefer to work with Command Line Interface (CLI) while still
 having the benefits of a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 20 kLoC.
+
