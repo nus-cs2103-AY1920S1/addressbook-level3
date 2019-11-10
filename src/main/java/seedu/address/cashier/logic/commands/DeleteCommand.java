@@ -18,7 +18,6 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
     private final int index;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private seedu.address.cashier.model.Model modelManager;
 
     /**
      * Creates a DeleteCommand to delete an item

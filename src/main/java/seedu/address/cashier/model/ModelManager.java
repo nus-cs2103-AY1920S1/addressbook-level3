@@ -30,6 +30,7 @@ public class ModelManager implements Model {
 
     protected static boolean onCashierMode = false;
 
+    private static final double MAX_AMOUNT = 999999.99;
     private static final String SALES_DESCRIPTION = "Items sold";
     private static final String SALES_CATEGORY = "Sales";
     private static ArrayList<Item> salesList = new ArrayList<Item>();
@@ -532,14 +533,14 @@ public class ModelManager implements Model {
 
         double price = inventoryList.getOriginalItem(description).getPrice();
         double itemPrice = price * qty;
-        if (itemPrice > 999999.99) {
+        if (itemPrice > MAX_AMOUNT) {
             return false;
         } else {
             double total = 0;
             for (Item i : salesList) {
                 total += (i.getPrice() * i.getQuantity());
             }
-            if ((total + itemPrice) > 999999.99) {
+            if ((total + itemPrice) > MAX_AMOUNT) {
                 throw new AmountExceededException(MESSAGE_TOTAL_AMOUNT_EXCEEDED);
             }
             return true;

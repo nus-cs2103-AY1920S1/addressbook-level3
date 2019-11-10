@@ -34,11 +34,7 @@ public class SetCashierCommand extends Command {
                                  seedu.address.person.model.CheckAndGetPersonByNameModel personModel)
             throws NoSuchIndexException, CommandException,
             seedu.address.cashier.logic.commands.exception.NoSuchPersonException, NoSuchPersonException {
-        /*try {
-            personModel.getPersonByName(cashier.getName().toString());
-        } catch (PersonNotFoundException e) {
-            throw new NoSuchPersonException(NO_SUCH_PERSON);
-        }*/
+
         if (!personModel.hasPerson(cashier)) {
             throw new NoSuchPersonException(NO_SUCH_PERSON);
         }
