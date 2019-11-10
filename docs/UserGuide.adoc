@@ -708,33 +708,6 @@ Resets the scripting environment.
 Format: `script reset`
 // end::scripting[]
 
-// tag::aliases[]
-=== Aliases *(Coming in v1.4)* : `alias`
-
-==== Add an alias: `alias add`
-
-Adds an alias.
-
-Format: `alias add <alias name> c/<alias replacement>`
-
-****
-* When executed, the alias name will be replaced by the replacement, and the resulting command line executed.
-** For example, suppose you add an alias named `abcd efgh 7890`, with replacement `script run x`.
-** Executing `abcd efgh 7890 abcd` is equivalent to executing `script run x abcd`.
-* The alias name must appear at the start of a command line, followed by a space, for it to be recognised.
-* There is no restriction on the characters in the alias name. However, leading and trailing whitespace will be trimmed.
-* Aliases can expand to other aliases.
-****
-
-WARNING: Built-in commands take precedence. If you add an alias with the same name as a built-in command, it will have no effect.
-
-==== Delete an alias: `alias delete`
-
-Deletes an alias.
-
-Format: `alias delete <alias name>`
-// end::aliases[]
-
 == Coming In v2.0
 
 Look forward to these features coming up in version 2.0 of Budget Buddy!
@@ -843,6 +816,33 @@ if a budget has been set up,  or a report that breaks your income and expenditur
 If the type is omitted, it defaults to a total report.
 * Your goal progress will also be shown in both reports.
 ****
+
+// tag::aliases[]
+=== Aliases *(Coming in v1.4)* : `alias`
+
+==== Add an alias: `alias add`
+
+Adds an alias.
+
+Format: `alias add <alias name> c/<alias replacement>`
+
+****
+* When executed, the alias name will be replaced by the replacement, and the resulting command line executed.
+** For example, suppose you add an alias named `abcd efgh 7890`, with replacement `script run x`.
+** Executing `abcd efgh 7890 abcd` is equivalent to executing `script run x abcd`.
+* The alias name must appear at the start of a command line, followed by a space, for it to be recognised.
+* There is no restriction on the characters in the alias name. However, leading and trailing whitespace will be trimmed.
+* Aliases can expand to other aliases.
+****
+
+WARNING: Built-in commands take precedence. If you add an alias with the same name as a built-in command, it will have no effect.
+
+==== Delete an alias: `alias delete`
+
+Deletes an alias.
+
+Format: `alias delete <alias name>`
+// end::aliases[]
 
 // tag::importexport[]
 === Import and export *(Coming in v1.4)* : `import`, `export`
