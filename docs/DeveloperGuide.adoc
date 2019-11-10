@@ -412,9 +412,9 @@ the validation would prompt the user on the failed component.
 
 *Current Implementation*
 
-Here is an example of a step-by-step process on how the edit command alters an attribute of the homework entry. For each step, you may follow the activity diagram at the end of this section to better understand the flow of events within FinSec when an edit_income command is entered.
+Here is an example of a step-by-step process on how the edit command alters an attribute of the income entry. For each step, you may follow the activity diagram at the end of this section to better understand the flow of events within FinSec when an edit_income command is entered.
 
-*Step 1 :* The user launches the application and nagivates to the income page. There is a list of existing income entries in FinSec.
+*Step 1 :* The user launches the application and navigates to the income page. There is a list of existing income entries in FinSec.
 
 *Step 2 :* The user then wishes to alter the income description of the second entry in the income list to "Fundraising". He then types `edit_income 2 d/Fundraising` into the Command Line Interface(CLI) and executes it.
 
