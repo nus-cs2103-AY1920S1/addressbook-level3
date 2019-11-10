@@ -474,10 +474,9 @@ Examples:
 
 * `assign_class 1,2,3 c/CS2030`
 
-// tag::includeStudentProfile[]
 ==== Edit a student: 'edit'
 
-Edits a Student's fields.
+To edits a Student's fields.
 Format: `edit INDEX n/NAME pic/PICTURE r/RESULT att/ATTENDANCE part/PARTICIPATION c/CLASS`
 
 [NOTE]
@@ -489,7 +488,7 @@ Examples:
 
 ==== List students: 'list'
 
-List all students in TutorAid.
+To list all students in TutorAid.
 Format: `list`
 
 image::list.png[width="600", align="left"]
@@ -499,7 +498,7 @@ image::list.png[width="600", align="left"]
 
 ==== Add a picture to a student: 'set_pic'
 
-Adds a picture to display next to the student card.
+To add a picture to a student.
 Format: `set_pic INDEX pic/FILENAME`
 
 [NOTE]
@@ -511,7 +510,7 @@ Examples:
 
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 
-Displays list of all students who have not met the set threshold in terms of attendance.
+To display list of all students who have not met the set threshold in terms of attendance.
 Format: `absentees THRESHOLD_PERCENTAGE`
 
 [NOTE]
@@ -523,7 +522,7 @@ Examples:
 
 ==== Check on status of student: 'check_status' [Coming in v2.0]
 
-Checks on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
+To check on status of students currently displayed in the list by sending them an e-mail enquiring on their status.
 Format: `check_status`
 
 [NOTE]
@@ -531,7 +530,7 @@ To be used in conjunction with `absentees`. A preset generic email will be sent 
 
 ==== Upload a picture of the student: 'upload_pic' [Coming in v2.0]
 
-Launches a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
+To launch a separate window where the user can either choose an image file on his computer or take a picture with his webcam.
 The picture will be assigned to the indicated student and be displayed in TutorAid.
 Format: `upload_pic INDEX`
 
@@ -542,31 +541,61 @@ Examples:
 
 * `upload_pic 1`
 
-=== Learn wrong commands
+// tag::customCommands[]
+=== Learn wrong commands as custom commands
+To help map the command you entered wrongly to the command you originally intended to use.
 
-Accidentally typing in a wrong/unknown command laucnhes TutorAid into learner mode. You can choose to learn this wrong command to execute an existing
-command by typing in its command word. Alternatively, you can type `cancel` to revert back to normal operations.
+Example:
+Let's say you frequently use the `add` command but can never remember it and always type in `plus` instead.
+This feature helps you map `plus` to `add` so you no longer need to remember the `add` command.
 
-image::customCommandError.png[width="600", align="left"]
+To learn the wrong command `plus` as `add`:
 
-[NOTE]
+. You want to do an `add` command but carelessly type in `plus` instead and hit in Enter to execute.
++
+image::step1.png[width="800", align="left"]
+
+. Oh no TutorAid does not know what `plus` means! You realise you've entered an unknown command. Thankfully, TutorAid offers to help you learn `plus`. You should type in `add` now since it's what you actually intended to do. Hit Enter!
++
+image::step2.png[width="800", align="left"]
+*Warning*
 You can't learn a full command (e.g. `add n/Caesar c/CS1231`). Doing so will result in an error. TutorAid only allows command words like `add`.
+[NOTE]
+You can also choose to discard the wrong command at this stage and carry on with normal operations. If you do not want to map `plus` to `add`. Just type `cancel`.
 
-Examples:
+. The result box tells you that `plus` has now been mapped to `add`.
++
+image::step3.png[width="800", align="left"]
 
-* `ad` (instead of `add`) -> TutorAid will prompt the user what they meant. Type `add` now to be able
-to use `ad` as an `add` command in the future.
+. Let's test our new command by trying to add a student named John in our CS2101 class. Type in `plus n/John c/CS2101` and hit Enter.
++
+image::step4.png[width="800", align="left"]
 
-// end::includeStudentProfile[]
+. You should see that the command is successful and a new student called John in CS2101 has been added!
++
+image::step5.png[width="800", align="left"]
+
+
 ==== Delete a custom command: 'deleteCustomCommand'
-
-Deletes a custom command you previously added. This custom command will be forgotten by TutorAid and will not be able to be used anymore.
+To delete a custom command you previously added.
 Format: `deleteCustomCommand CUSTOMCOMMAND`
 
-Examples:
+Example:
+Let's try to delete the `plus` command you learned as `add` previously.
 
-* `deleteCustomCommand insertPreviouslyAddedCommandHere`
+. Type in `deleteCustomCommand plus` and hit Enter.
++
+image::step1Delete.png[width="800", align="left"]
 
+. The result box informs you that they've deleted the custom command `plus`.
++
+image::step2Delete.png[width="800", align="left"]
+
+. You should no longer be able to use `plus` as `add`.
+[NOTE]
+You can't use `deleteCustomCommand` to delete basic commands like `add`, `delete`, `list` etc. You can only delete custom commands you added.
+
+// end::customCommands[]
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
