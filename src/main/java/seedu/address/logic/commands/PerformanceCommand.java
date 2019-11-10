@@ -16,6 +16,7 @@ import seedu.address.model.performance.Event;
 import seedu.address.model.performance.Record;
 import seedu.address.model.performance.Timing;
 import seedu.address.model.person.Person;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Records a player's performance under a certain event.
@@ -82,7 +83,8 @@ public class PerformanceCommand extends Command {
         date.setType(2);
         model.addRecord(event, athlete, record);
         return new CommandResult(
-            String.format(MESSAGE_SUCCESS, athlete.getName().fullName, event, date, time), date, model);
+            String.format(MESSAGE_SUCCESS, athlete.getName().fullName, event, date, time),
+                new Feature("calendar"), date, model);
     }
 
     @Override

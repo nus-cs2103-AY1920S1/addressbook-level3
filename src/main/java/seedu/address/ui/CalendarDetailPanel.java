@@ -44,7 +44,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * name and attendance in the same row.
      */
     private void initialiseAttendanceData() {
-        if (model.hasTrainingOnDate(date)) {
+        if (model.hasTrainingOn(date)) {
             addAttendanceChart();
             addAttendanceTableHeader();
             addAttendanceTableContent();

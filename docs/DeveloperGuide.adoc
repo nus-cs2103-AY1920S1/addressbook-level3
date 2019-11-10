@@ -293,7 +293,7 @@ Function 1 is facilitated by `[green]#CalendarPanel#`. It extends `[green]#UiPar
 
 * `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
 * `[green]#CalendarPanel#retrieveProvidedDate()#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
-* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
 In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.
@@ -302,17 +302,20 @@ These operations are performed when an instance of `[green]#CalendarPanel#` is c
 
 Given below is an example usage scenario for the first function and how the operation behaves at each step:
 
-Step 1:. The user either issues the `view calendar` or `calendar [MMYYYY]` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.
+Step 1:. The user either issues the `view calendar` or `calendar MMYYYY` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.
 
 Step 2. The issued command
 
 // to be continued
 
-The following sequence diagram shows how the `calendar [MMYYYY]` operation works:
+The following sequence diagram shows how the `calendar MMYYYY` (e.g. `calendar 012019`) operation works:
 
-// sequence diagram
+.Interactions Inside the UI, Logic and Model Components for the `calendar MMYYYY` Command
+image::CalendarCommandSequenceDiagram1.png[]
 
-The following activity diagram summarises what happens when a user executes the `view calendar` or `calendar [MMYYYY]` command:
+The `view calendar` command is similar except that the `[green]#CalendarPanel#` class is constructed without an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year.
+
+The following activity diagram summarises what happens when a user executes the `view calendar` or `calendar MMYYYY` command:
 
 // activity diagram
 
@@ -327,17 +330,18 @@ These operations are performed when an instance of `[green]#CalendarDetailPanel#
 
 Given below is an example usage scenario for the second function and how the operation behaves at each step:
 
-Step 1: The user either issues the `calendar [DDMMYYYY]` (e.g. `calendar 01012019`) command.
+Step 1: The user either issues the `calendar DDMMYYYY` (e.g. `calendar 01012019`) command.
 
 Step 2. The issued command
 
 // to be continued
 
-The following sequence diagram shows how the `calendar [DDMMYYYY]` operation works:
+The following sequence diagram shows how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works:
 
-// sequence diagram
+.Interactions Inside the UI, Logic and Model Components for the `calendar DDMMYYYY` Command
+image::CalendarCommandSequenceDiagram2.png[]
 
-The following activity diagram summarises what happens when a user executes the `calendar [DDMMYYYY]` command:
+The following activity diagram summarises what happens when a user executes the `calendar DDMMYYYY` command:
 
 // activity diagram (show what happens when records found vs not found)
 
@@ -362,7 +366,7 @@ a|* Displays information in rows and columns which is no better than using Excel
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 displays information more clearly when users have a large amount of training and performance information, which is a probable scenario in the case of sports teams. In contrast, alternative 2 uses a list similar to Excel which we are trying to improve upon.
 * Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it and implement more date-related functionalities.
@@ -384,7 +388,7 @@ a|* Increases difficulty of implementation
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 is easier to implement since the dimensions of the calendar are fixed so we do not have to recalculate it constantly. The ease of implementation is important given the tight deadlines we have to contend with in our software engineering module.
 * Alternative 1 emulates the implementation of other successful calendar applications (e.g. Google Calendar) so we do not have to reinvent the wheel.
@@ -393,7 +397,7 @@ a|* Increases difficulty of implementation
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Use one `calendar [DDMMYYYY]` command to view _both_ attendance and performance records on the specified date|Alternative 2: Use two separate commands to view attendance and performance records _separately_ on the specified date
+||Alternative 1 (Current Choice): Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date|Alternative 2: Use two separate commands to view attendance and performance records _separately_ on the specified date
 
 |**Pros**
 a|* Makes access of data more efficient
@@ -405,7 +409,7 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
 

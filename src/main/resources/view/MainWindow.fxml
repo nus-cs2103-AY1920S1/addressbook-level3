@@ -36,7 +36,7 @@
               <VBox fx:id="personList" maxHeight="1.7976931348623157E308" maxWidth="350.0" minWidth="120.0" prefWidth="120.0" styleClass="pane-with-border" HBox.hgrow="ALWAYS">
                 <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
               </VBox>
-                  <VBox maxHeight="1.7976931348623157E308" prefWidth="400.0" HBox.hgrow="ALWAYS">
+                  <VBox maxHeight="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-color: #ffffff;" HBox.hgrow="ALWAYS">
                      <children>
                           <StackPane fx:id="commandBoxPlaceholder" alignment="TOP_CENTER" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" style="-fx-background-color: #95AFC0;" styleClass="pane-with-border" VBox.vgrow="NEVER" />
                     <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100.0" prefHeight="100.0" style="-fx-background-color: #FFFFFF;" styleClass="pane-with-border" VBox.vgrow="NEVER" />

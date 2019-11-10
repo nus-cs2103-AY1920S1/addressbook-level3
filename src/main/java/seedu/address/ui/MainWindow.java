@@ -199,11 +199,8 @@ public class MainWindow extends UiPart<Stage> {
         if (!(commandResult.getPerson() == null)) {
             displayInformationDisplay();
         }
-        if (!(commandResult.getDate() == null)) {
-            displayCalendar(commandResult);
-        }
         if (commandResult.isClear()) {
-            showCalendar(commandResult.getModel());
+            displayCalendar(commandResult.getModel());
         }
         if (commandResult.isShowHelp()) {
             handleHelp();
@@ -220,7 +217,11 @@ public class MainWindow extends UiPart<Stage> {
     private void updateFeatureBox(CommandResult commandResult) {
         switch (commandResult.getFeature().getName()) {
         case "calendar":
-            showCalendar(commandResult.getModel());
+            if (!(commandResult.getDate() == null)) {
+                displayCalendarWithDate(commandResult);
+            } else {
+                displayCalendar(commandResult.getModel());
+            }
             break;
         case "attendance":
             showAttendancePanel(commandResult.getModel());
@@ -240,7 +241,7 @@ public class MainWindow extends UiPart<Stage> {
      * Displays {@code CalendarPanel} in the feature box.
      * @param model Represents state of data in Athletick
      */
-    private void showCalendar(Model model) {
+    private void displayCalendar(Model model) {
         CalendarPanel calendarPanel = new CalendarPanel(model);
         featureBoxPlaceholder.getChildren().clear();
         featureBoxPlaceholder.getChildren().add(calendarPanel.getRoot());
@@ -294,7 +295,7 @@ public class MainWindow extends UiPart<Stage> {
      * provided in {@code commandResult}.
      * @param commandResult Command result from executing user command
      */
-    private void displayCalendar(CommandResult commandResult) {
+    private void displayCalendarWithDate(CommandResult commandResult) {
         Model model = commandResult.getModel();
         switch (commandResult.getDate().getType()) {
         case 1:

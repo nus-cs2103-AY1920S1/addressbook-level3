@@ -457,7 +457,7 @@ public class CalendarPanel extends UiPart<Region> {
      */
     private boolean checkTrainingEntryExists(String day, int monthChange) {
         AthletickDate ad = dateConstructor(day, monthChange);
-        return model.hasTrainingOnDate(ad);
+        return model.hasTrainingOn(ad);
     }
 
     /**

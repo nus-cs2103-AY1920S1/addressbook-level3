@@ -34,16 +34,20 @@ public class UndoCommand extends Command {
         Command undoneCommand = model.undo();
         if (undoneCommand instanceof TrainingCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
-                + " Success!", ((TrainingCommand) undoneCommand).getDate(), model);
+                + " Success!", new Feature("calendar"),
+                    ((TrainingCommand) undoneCommand).getDate(), model);
         } else if (undoneCommand instanceof DeleteTrainingCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
-                + " Success!", ((DeleteTrainingCommand) undoneCommand).getDate(), model);
+                + " Success!", new Feature("calendar"),
+                    ((DeleteTrainingCommand) undoneCommand).getDate(), model);
         } else if (undoneCommand instanceof PerformanceCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
-                + " Success!", ((PerformanceCommand) undoneCommand).getDate(), model);
+                + " Success!", new Feature("calendar"),
+                    ((PerformanceCommand) undoneCommand).getDate(), model);
         } else if (undoneCommand instanceof DeleteRecordCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
-                + " Success!", ((DeleteRecordCommand) undoneCommand).getDate(), model);
+                + " Success!", new Feature("calendar"),
+                    ((DeleteRecordCommand) undoneCommand).getDate(), model);
         } else if (undoneCommand instanceof ClearCommand) {
             return new CommandResult(MESSAGE_SUCCESS + undoneCommand
                 + " Success!", new Feature("calendar"), model);
