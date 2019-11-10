@@ -62,6 +62,9 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     private DiaryEditBox diaryEntryEditBox;
     private DiaryEntryDisplay diaryEntryDisplay;
 
+    private Button doneButton;
+    private Button editButton;
+    private Button addPhotoButton;
 
     @FXML
     private StackPane diaryEntryPlaceholder;
@@ -86,25 +89,23 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Initialises the javafx components of the page, to be placed inside the various placeholders.
      */
     private void initPlaceholders() {
+        initRightPlaceholderButtons();
+
         diaryGallery = new DiaryGallery();
-        diaryEntryEditBox = new DiaryEditBox(editBoxText ->
-                mainWindow.executeGuiCommand(String.format("%1$s %2$s%3$s",
-                        EditEntryTextCommand.COMMAND_WORD,
-                        PREFIX_DESCRIPTION,
-                        editBoxText)));
+        diaryEntryEditBox = new DiaryEditBox(editBoxText -> {
+            mainWindow.executeGuiCommand(String.format("%1$s %2$s%3$s",
+                    EditEntryTextCommand.COMMAND_WORD,
+                    PREFIX_DESCRIPTION,
+                    editBoxText));
 
-        //Setup background of diary entry display placeholder
-        Background diaryEntryBackground = new Background(new BackgroundImage(
-                getImage(DIARY_ENTRY_BACKGROUND_IMAGE),
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(BACKGROUND_REPEAT_LENGTH, BACKGROUND_REPEAT_LENGTH,
-                        false, false, false, false)));
-        diaryEntryPlaceholder.setBackground(diaryEntryBackground);
-
+            //Workaround for done button click handler not executing, due to loss of focus from edit box event
+            if (doneButton.isPressed()) {
+                doneButton.onMouseClickedProperty().get().handle(null);
+            }
+        });
         diaryEntryDisplay = new DiaryEntryDisplay(diaryEntryEditBox.getObservableParagraphs());
-        diaryEntryPlaceholder.getChildren().add(diaryEntryDisplay.getRoot());
+
+        initDiaryEntryPlaceholder();
 
         fillButtonBar();
         addButtonBarListeners();
@@ -138,6 +139,23 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
 
         //Fill bottom gallery / edit window bar depending on which is open
         fillRightPlaceholderButtons();
+    }
+
+    /**
+     * Initialises the {@code diaryEntryPlaceholder}'s background image and adds the {@code diaryEntryDisplay}
+     * as one of its children.
+     */
+    private void initDiaryEntryPlaceholder() {
+        //Setup background of diary entry display placeholder
+        Background diaryEntryBackground = new Background(new BackgroundImage(
+                getImage(DIARY_ENTRY_BACKGROUND_IMAGE),
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(BACKGROUND_REPEAT_LENGTH, BACKGROUND_REPEAT_LENGTH,
+                        false, false, false, false)));
+        diaryEntryPlaceholder.setBackground(diaryEntryBackground);
+        diaryEntryPlaceholder.getChildren().add(diaryEntryDisplay.getRoot());
     }
 
     /**
@@ -194,6 +212,25 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
     }
 
     /**
+     * Initialises the gui buttons used for the gallery or edit box, to be placed under {@code dayRightButtonBar}.
+     */
+    private void initRightPlaceholderButtons() {
+        doneButton = new Button("Done");
+        ButtonBar.setButtonData(doneButton, ButtonBar.ButtonData.LEFT);
+        doneButton.setOnMouseClicked(ev -> mainWindow.executeGuiCommand(DoneEditEntryTextCommand.COMMAND_WORD));
+
+        editButton = new Button("Edit");
+        addPhotoButton = new Button("Add");
+
+        ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
+        ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
+
+        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(ShowTextEditorCommand.COMMAND_WORD));
+        addPhotoButton.setOnMouseClicked(buttonEvent ->
+                mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
+    }
+
+    /**
      * Fills the smaller button bar on the right, depending on whether the gallery or edit box
      * is currently shown.
      */
@@ -209,12 +246,6 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Fills the {@code diaryRightButtonBar} with functional gui buttons for the edit box.
      */
     private void fillEditBoxButtons() {
-        Button doneButton = new Button("Done");
-        ButtonBar.setButtonData(doneButton, ButtonBar.ButtonData.LEFT);
-
-        doneButton.setOnMouseClicked(buttonEvent ->
-                mainWindow.executeGuiCommand(DoneEditEntryTextCommand.COMMAND_WORD));
-
         diaryRightButtonBar.getButtons().clear();
         diaryRightButtonBar.getButtons().add(doneButton);
     }
@@ -223,16 +254,6 @@ public class DiaryPage extends PageWithSidebar<BorderPane> {
      * Fills the {@code diaryRightButtonBar} with functional gui buttons for the gallery.
      */
     private void fillGalleryButtons() {
-        Button editButton = new Button("Edit");
-        Button addPhotoButton = new Button("Add");
-
-        ButtonBar.setButtonData(editButton, ButtonBar.ButtonData.LEFT);
-        ButtonBar.setButtonData(addPhotoButton, ButtonBar.ButtonData.LEFT);
-
-        editButton.setOnMouseClicked(buttonEvent -> mainWindow.executeGuiCommand(ShowTextEditorCommand.COMMAND_WORD));
-        addPhotoButton.setOnMouseClicked(buttonEvent ->
-                mainWindow.executeGuiCommand(AddPhotoCommand.COMMAND_WORD + " " + PREFIX_FILE_CHOOSER));
-
         diaryRightButtonBar.getButtons().clear();
         diaryRightButtonBar.getButtons().addAll(editButton, addPhotoButton);
     }

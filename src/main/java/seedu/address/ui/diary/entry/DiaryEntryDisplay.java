@@ -38,9 +38,12 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
 
     private PhotoList photoList;
 
+    private ObservableList<CharSequence> observableParagraphs;
+
     public DiaryEntryDisplay(ObservableList<CharSequence> observableParagraphs) {
         super(FXML);
         this.photoList = new PhotoList();
+        this.observableParagraphs = observableParagraphs;
         getRoot().setItems(observableParagraphs);
         getRoot().setCellFactory(listViewCell -> new DiaryTextLineCell());
     }
@@ -56,7 +59,9 @@ public class DiaryEntryDisplay extends UiPart<ListView<CharSequence>> {
         @Override
         protected void updateItem(CharSequence item, boolean empty) {
             super.updateItem(item, empty);
-            String lineNumber = getIndex() == -1 ? "" : String.valueOf(getIndex() + 1);
+            String lineNumber = getIndex() == -1 || getIndex() >= observableParagraphs.size()
+                    ? ""
+                    : String.valueOf(getIndex() + 1);
 
             DiaryLine diaryLine;
             if (empty || item == null) {

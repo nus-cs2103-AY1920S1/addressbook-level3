@@ -6,8 +6,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
@@ -30,14 +31,21 @@ class DiaryLine extends UiPart<GridPane> {
     private static final double GRAPHIC_WIDTH_PERCENTAGE = 30.0;
     /** The width percentage of the containing {@link GridPane} the graphic node itself should occupy. */
     private static final double GRAPHIC_NODE_WIDTH_PERCENTAGE = GRAPHIC_WIDTH_PERCENTAGE - 5.0;
+    /** The width percentage of the containing {@link GridPane} the text node {@code lineIndexText} should occupy. */
+    private static final double LINE_INDEX_NODE_WIDTH_PERCENTAGE = 2.0;
     /** The padding between the text and the graphic. */
     private static final double GRAPHIC_TEXT_PADDING = 30.0;
 
+    /** The default grid pane index indicating the grid cell on the left. */
     private static final int DEFAULT_LEFT_GRID_INDEX = 0;
+    /** The default grid pane index indicating the grid cell on the right. */
     private static final int DEFAULT_RIGHT_GRID_INDEX = 1;
 
     @FXML
     private Label lineTextLabel;
+
+    @FXML
+    private ScrollPane photoCardsScroller;
 
     @FXML
     private HBox photoCardsDisplay;
@@ -55,7 +63,7 @@ class DiaryLine extends UiPart<GridPane> {
 
         lineIndexText.setText(index);
         lineTextLabel.setText(text);
-        getRoot().getChildren().remove(photoCardsDisplay);
+        getRoot().getChildren().remove(photoCardsScroller);
     }
 
     /**
@@ -96,10 +104,11 @@ class DiaryLine extends UiPart<GridPane> {
         DiaryEntryPhotoCard diaryEntryPhotoCard = new DiaryEntryPhotoCard(photo);
         diaryEntryPhotoCard.bindImageViewDimensions(
                 getRoot().prefWidthProperty().multiply(GRAPHIC_NODE_WIDTH_PERCENTAGE / 100.0));
-        photoCardsDisplay.setAlignment(Pos.CENTER);
-        photoCardsDisplay.getChildren().add(diaryEntryPhotoCard.getRoot());
 
-        setTextGraphicConstraints(lineTextLabelIndex, photoCardIndex);
+        getRoot().getChildren().add(diaryEntryPhotoCard.getRoot());
+        getRoot().getChildren().remove(photoCardsScroller);
+        getRoot().setPadding(new Insets(15, 0, 0, 0));
+        setTextGraphicConstraints(lineTextLabelIndex, photoCardIndex, diaryEntryPhotoCard);
     }
 
     /**
@@ -107,7 +116,8 @@ class DiaryLine extends UiPart<GridPane> {
      */
     private void setGraphicOnlyConstraints() {
         getRoot().getColumnConstraints().get(DEFAULT_LEFT_GRID_INDEX).setPercentWidth(0.0);
-        getRoot().getColumnConstraints().get(DEFAULT_RIGHT_GRID_INDEX).setPercentWidth(100.0);
+        getRoot().getColumnConstraints().get(DEFAULT_RIGHT_GRID_INDEX)
+                .setPercentWidth(100.0 - LINE_INDEX_NODE_WIDTH_PERCENTAGE);
     }
 
     /**
@@ -115,14 +125,17 @@ class DiaryLine extends UiPart<GridPane> {
      *
      * @param textGridIndex The grid index the {@code lineTextLabel} should be placed in.
      * @param graphicGridIndex The grid index the {@code photoCardsDisplay} should be placed in.
+     * @param card The {@link DiaryEntryPhotoCard} to set the column index for.
      */
-    private void setTextGraphicConstraints(int textGridIndex, int graphicGridIndex) {
+    private void setTextGraphicConstraints(int textGridIndex, int graphicGridIndex, DiaryEntryPhotoCard card) {
         getRoot().setHgap(GRAPHIC_TEXT_PADDING);
         getRoot().getColumnConstraints()
-                .get(textGridIndex).setPercentWidth(100.0 - GRAPHIC_WIDTH_PERCENTAGE);
+                .get(textGridIndex)
+                .setPercentWidth(100.0 - GRAPHIC_WIDTH_PERCENTAGE - LINE_INDEX_NODE_WIDTH_PERCENTAGE);
         getRoot().getColumnConstraints()
-                .get(graphicGridIndex).setPercentWidth(GRAPHIC_WIDTH_PERCENTAGE);
+                .get(graphicGridIndex)
+                .setPercentWidth(GRAPHIC_WIDTH_PERCENTAGE);
         GridPane.setColumnIndex(lineTextLabel, textGridIndex);
-        GridPane.setColumnIndex(photoCardsDisplay, graphicGridIndex);
+        GridPane.setColumnIndex(card.getRoot(), graphicGridIndex);
     }
 }
