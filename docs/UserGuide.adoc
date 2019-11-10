@@ -53,6 +53,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+// tag::tutorial[]
 == Tutorial
 
 Insurelytics is a Command Line Interface (CLI) application for insurance agents like yourself to manage your contacts and policies. Here is a quick tutorial to help you get started using the application!
@@ -122,6 +123,7 @@ are always based off the latest view of the person page. The same applies for po
 
 The various functions outlined in the following section are available to further help the user manage contacts and policies.
 These include additional functions to help the user gather insights, rectify mistakes and validate input among others.
+// end::tutorial[]
 
 [[Features]]
 == Features
@@ -303,8 +305,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Partially-matching keywords will be matched e.g. `Han` will match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`.
 ****
 
 Examples:
@@ -314,6 +316,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+// tag::findpolicy[]
 === Locating policies by keywords: `findpolicy`
 
 Finds policies whose names or descriptions contain any of the given keywords. +
@@ -322,15 +325,17 @@ Format: `findpolicy KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `senior` will match `Seniors`
 * The order of the keywords does not matter. e.g. `Senior Care` will match `Care Seniors`
-* Partially-matching words will be matched e.g. `Senior` will match `Seniors`
-* Policies matching at least one keyword will be returned (i.e. `OR` search).
+* Partially-matching keywords will be matched e.g. `Senior` will match `Seniors`
+* Policies matching at least one keyword will be returned (i.e. `OR` search). e.g. `Senior Life` will return `Life Insurance`, `Senior Insurance`.
 ****
 
 Examples:
 
 * `findpolicy family children` +
 Returns any policy having names or descriptions containing `family` or `children`
+// end::findpolicy[]
 
+// tag::findtagpeople[]
 === Locating people by tags: `findtagpeople`
 
 Finds people who have the specified tag(s). +
@@ -342,7 +347,9 @@ Format: `findtagpeople TAG [MORE_TAGS]`
 * Tags must be specified completely and accurately.
 * Only people who possess all specified tags will be returned (e.g. searching `diabetic` and `smoker` will only return people with both tags).
 ****
+// end::findtagpeople[]
 
+// tag::findtagpolicy[]
 === Locating policies by tags: `findtagpolicy`
 
 Finds policies who have the specified tag(s) +
@@ -354,7 +361,9 @@ Format: `findtagpolicy TAG [MORE_TAGS]`
 * Tags must be specified completely and accurately.
 * Only policies that possess all specified tags will be returned (e.g. searching `accident` and `life` will only return policies with both tags).
 ****
+// end::findtagpolicy[]
 
+// tag::findpolicyholders[]
 === Find current policyholders: `findpolicyholders`
 
 Finds people in possession of a policy (or policies) +
@@ -370,7 +379,9 @@ Examples:
 * `listpolicy` +
 `findpolicyholders 1` +
 Finds all people who are in current possession of the 1st policy in the list of policies.
+// end::findpolicyholders[]
 
+// tag::eligiblepolicies[]
 === Find eligible policies: `eligiblepolicies`
 
 Finds policies a specific person is eligible for +
@@ -386,7 +397,9 @@ Examples:
 * `listpeople` +
 `eligiblepolicies 1` +
 Finds all policies the 1st person in the displayed person list is eligible for.
+// end::eligiblepolicies[]
 
+// tag::eligiblepeople[]
 === Find eligible people: `eligiblepeople`
 
 Finds people eligible for a specific policy +
@@ -402,6 +415,7 @@ Examples:
 * `listpolicy` +
 `eligiblepeople 1` +
 Finds all people eligible for the 1st policy in the displayed policy list.
+// end::eligiblepeople[]
 
 === Adding tags to a person : `addtag`
 
@@ -446,6 +460,7 @@ Adds a `life_insurance` tag to the 2nd policy in the list of polciies.
 `addpolicytag 1 t/motor_insurance` +
 Adds a `motor_insurance` tag to the 1st policy in the results of the `find` command.
 
+// tag::addcriteria[]
 === Adding criteria to a policy : `addcriteria`
 
 Adds new criteria (singular or plural) to the policy at the specified index. +
@@ -466,7 +481,9 @@ Adds a `nonsmoker` criteria to the 2nd policy in the list of policies.
 * `findpolicy Betsy` +
 `addcriteria 1 t/nonsmoker` +
 Adds a `nonsmoker` tag to the 1st policy in the results of the `findpolicy` command.
+// end::addcriteria[]
 
+// tag::deletecriteria[]
 === Deleting criteria from a policy : `deletecriteria`
 
 Deletes criteria (singular or plural) from the policy at the specified index. +
@@ -487,6 +504,7 @@ Deletes the `nonsmoker` criteria from the 2nd policy in the list of policies.
 * `findpolicy Betsy` +
 `deletecriteria 1 t/nonsmoker` +
 Deletes the `nonsmoker` tag from the 1st policy in the results of the `findpolicy` command.
+// end::deletecriteria[]
 
 // tag::deleteperson[]
 === Deleting a person : `delete`

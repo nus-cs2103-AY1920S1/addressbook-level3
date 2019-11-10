@@ -20,28 +20,34 @@ The user interacts with it using a CLI and has a GUI created with JavaFX. It is 
 
 == Summary of contributions
 
-* *Major enhancement*: added *features to complement input validation to ease the correction of invalid commands*
-** What it does: allows merging of duplicate profiles and policies and also gives suggestions for incorrectly entered command words.
-** Justification: this feature improves the product significantly because a user can make mistakes in commands and the app provides a convenient way to rectify them.
-Specifically, information does not have be re-entered after discovering a duplicate profile/policy. Additionally, typos can be corrected quickly through command suggestions.
-** Highlights: this enhancement affects existing commands and commands to be added in the future. The list of command words and prefixes has to be updated when new commands are added for the suggestion of commands.
-Moreover, the information used to create a duplicate profile/policy has to be stored to carry out a merge process and hence made the design process challenging.
+* *Major enhancement*: added *features to enable searching for people/policies for various specialized purposes*
+** What it does: allows the user to search for people/policies according to different purposes (current policyholders,
+potential policyholders, potential policies, by tag, by partial keyword), notably by *eligibility*.
+** Justification: insurance agents are likely to have many different people and policies in their contact list. To make
+information retrieval as fast as possible, different specialized search functionalities are important. In particular, the
+eligibility-related search functions are useful for the insurance agent in deciding who to approach to sell what policies.
+** Highlights: The way of implementing eligibility is not trivial, as we need to find a way to map people to a boolean
+value given a policy, and vice versa. The chosen design of the underlying implementation of criteria as tags is an elegant
+solution which makes intuitive sense to the user. In addition, the use of `Predicate` to implement list filtering makes
+future extensions convenient and simple.
 
-* *Minor enhancement*: added a command to turn suggestions on and off.
+* *Minor enhancement*: Create partial keyword search for people and policies.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=olivercheok20&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=olivercheok20&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]
 
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Added right panel to GUI (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
-*** Added classes for Policy and for new Person Fields (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75])
-*** Implemented command to add policy and wrote tests for the command (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75], https://github.com/AY1920S1-CS2103-F09-4/main/pull/93[#93])
-*** Implemented command to expand profiles and policies onto right panel (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
+*** Created the Insurelytics logo
+*** Add/maintain commands to add tags/criteria to people and policies: https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103-F09-4/main/pull/117[#117]
+*** Format person and policy cards in the UI: https://github.com/AY1920S1-CS2103-F09-4/main/pull/117[#117]
+*** Formatting user messages: https://github.com/AY1920S1-CS2103-F09-4/main/pull/193[#193]
+*** Fixed miscellaneous bugs
 ** Documentation:
-*** Added the new basic commands to User Guide: https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
+*** Added miscellaneous commands to User Guide: https://github.com/AY1920S1-CS2103-F09-4/main/pull/70[#70], https://github.com/AY1920S1-CS2103-F09-4/main/pull/71[#71], https://github.com/AY1920S1-CS2103-F09-4/main/pull/133[#133], https://github.com/AY1920S1-CS2103-F09-4/main/pull/99[#136], https://github.com/AY1920S1-CS2103-F09-4/main/pull/206[#206]
+*** Added documentation for eligibility function to Developer Guide: https://github.com/AY1920S1-CS2103-F09-4/main/pull/228[#228]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103-F09-4/main/pull/70[#70]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/99[#99], https://github.com/AY1920S1-CS2103-F09-4/main/pull/108[#108], https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109], https://github.com/AY1920S1-CS2103-F09-4/main/pull/207[#207], https://github.com/AY1920S1-CS2103-F09-4/main/pull/206[#206],
 
 == Contributions to the User Guide
 
@@ -50,7 +56,16 @@ Moreover, the information used to create a duplicate profile/policy has to be st
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=inputvalidation]
+include::../UserGuide.adoc[tag=tutorial]
+include::../UserGuide.adoc[tag=findpolicy]
+include::../UserGuide.adoc[tag=findtagpeople]
+include::../UserGuide.adoc[tag=findtagpolicy]
+include::../UserGuide.adoc[tag=findpolicyholders]
+include::../UserGuide.adoc[tag=eligiblepolicies]
+include::../UserGuide.adoc[tag=addcriteria]
+include::../UserGuide.adoc[tag=deletecriteria]
+include::../UserGuide.adoc[tag=assignpolicy]
+
 
 == Contributions to the Developer Guide
 
@@ -58,12 +73,4 @@ include::../UserGuide.adoc[tag=inputvalidation]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=merging]
-
-include::../DeveloperGuide.adoc[tag=mergingusecase]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=eligibility]
