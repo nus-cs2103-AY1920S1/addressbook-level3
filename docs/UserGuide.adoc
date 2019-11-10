@@ -977,29 +977,6 @@ Step 3. Now your expense list inside the _Expense list panel_ has been switched 
 
 image::FinancialTrackerSwitch2.png[width=600]
 
-=== Requesting help: ``help``
-At anytime, not sure what to do? Simply ask for help!
-
-*Format:*
-
-``help``
-
-*Example:*
-
- help
-
-*Step by step:*
-
-Step 1. Type ``help`` in the _Command box_ and press _Enter_.
-
-image::FinancialTrackerHelp1.png[width=600]
-
-Step 2. The _Result box_ will display the message "Currently viewing the financial tracker help window".
-
-Step 3. As you should have noticed, the help window has been popped out for your reference!
-
-image::FinancialTrackerHelp2.png[width=600]
-
 === Sort out your expense list: ``sort``
 The default sorting way of the expense list is not your thing? Just sort your expense list according your needs!
 
@@ -1007,7 +984,9 @@ TIP: All of the sorting is done in reversed order :)
 
 *Format:*
 
-``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
+``sort CRITERIA``
+
+Where ``CRITERIA`` can be ``amount``, ``date``, ``time``, ``type`` and ``default``
 
 *Example:* to sort by amount
 
@@ -1405,9 +1384,9 @@ Here is a summary for the list of features available:
 |Switch to another country's expense list
 |``switch COUNTRY``
 
-|``help``
-|View Help
-|``help``
+|``sort``
+|Sort your expense list based on amount, type, date, time or default
+|``sort CRITERIA``
 
 |``summary``
 |Generate an overview of your expenses statistics
