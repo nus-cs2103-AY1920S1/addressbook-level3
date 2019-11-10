@@ -40,12 +40,12 @@ public class EditCommand extends Command {
         + "by the index number used in the displayed flashcard list. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "
-        + "[" + PREFIX_QUESTION + "WORD] "
-        + "[" + PREFIX_CHOICE + "Choice]"
+        + "[" + PREFIX_QUESTION + "QUESTION] "
+        + "[" + PREFIX_CHOICE + "CHOICE] "
         + "[" + PREFIX_DEFINITION + "DEFINITION] "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_CHOICE + "Sample"
+        + PREFIX_CHOICE + "Sample "
         + PREFIX_QUESTION + "A* Search "
         + PREFIX_TAG + "Artificial Intelligence";
 
