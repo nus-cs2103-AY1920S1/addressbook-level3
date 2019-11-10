@@ -142,6 +142,7 @@ For instance, shopping lists require its food items to have additional attribute
 
 //end::modelcomponent[]
 
+//tag::storagecomponent[]
 [[Design-Storage]]
 === Storage component
 
@@ -155,6 +156,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
+//end::storagecomponent[]
 [[Design-Commons]]
 === Common classes
 

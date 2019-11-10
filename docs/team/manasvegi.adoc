@@ -84,6 +84,8 @@ include::../UserGuide.adoc[tag=shoppinglistfeatures]
 |_Below are some notable sections that I contributed to the Developer's Guide that showcase my ability to write technical documentation and the technical depth, completeness, and difficulty of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=storagecomponent]
+
 include::../DeveloperGuide.adoc[tag=mergeBoughtFeature]
 
 include::../DeveloperGuide.adoc[tag=shoppinglistmanualtesting]
