@@ -98,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `EatMeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an `Eatery`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -107,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -122,14 +122,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the EateryList data.
+* stores the FeedList data.
 * exposes an unmodifiable `ObservableList<Eatery>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<FeedPost>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store all the Tag objects in a static Tag HashMap which resides in the Tag class. An Eatery can reference a Tag object from the static Tag HashMap. This would allow EatMe to only require one Tag object per unique Tag, instead of each Eatery needing their own Tag object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,7 +139,8 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save `EateryList` data in json format and read it back.
+* can save `FeedList` data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -154,30 +152,36 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::add[]
-=== Add Eatery feature
+=== Add Eatery feature : `add`
 ==== Implementation
 
-The add mechanism is facilitated by `AddressBook`. It implements the following operations:
+The add feature allows the user to add an eatery with the compulsory fields: `Name`, `Address`, and `Category`. The `Tag` field(s), however, is an optional field. The user can add tag(s) to the eatery later on using the `addtag` feature, if needed. The add mechanism is facilitated by `EateryList`. It implements the following operations:
 
-* `AddressBook#hasEatery()` -- Checks if an Eatery with the same identity as Eatery e exists in the address book.
-* `AddressBook#addEatery()` -- Adds an Eatery to the address book. The eatery must not already exist in the address book.
+* `EateryList#hasEatery()` -- Checks if an eatery with the same identity already exists in the eatery list.
+* `EateryList#addEatery()` -- Adds an eatery to the eatery list. The eatery must not already exist in the eatery list.
 
 These operations are exposed in the `Model` interface as `Model#hasEatery()` and `Model#addEatery()` respectively.
 
 Given below is an example usage scenario and how the add mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
+Step 1. The user launches the application for the first time. The `EateryList` will be initialized with the initial json data stored.
 
-Step 2. The user executes `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` to add a new eatery. The `add` command will call `Model#addEatery()`.
+Step 2. The user executes `add \n Two Chefs Eating Place \a 116 Commonwealth Cres, #01-129 \c Chinese` to add a new eatery. Before executing the command, the command would need to be parsed first. Hence, the `EatMeParser` would create `AddCommandParser`.
 
 [NOTE]
-If the command is missing a `Name`, `Address`, or `Category` parameter, it will return an error to the user rather than attempting to add the Eatery.
+If the command is missing the name, address, or category (i.e. `\n`, `\a`, and `\c`), `AddCommandParser` will throw an `ParserException` to the user with an error message specifying that the command parameters are incorrect, and an example usage of the command.
 
-The following sequence diagram shows how the add operation works:
-image:add-sd.PNG[]
+Step 3. `AddCommandParser` creates new objects for the different compulsory fields i.e. `Name`, `Address`, and `Category` (and also the `Tag`, if present), and passes these objects into the constructor for `Eatery` to create a new `Eatery`.
 
-The following activity diagram summarizes what happens when a user executes a new command:
-image::add-ad.PNG[]
+Step 4. `AddCommandParser` returns a new `AddCommand` with the newly created `Eatery` as a parameter.
+
+Step 5. `AddCommand` calls `Model#hasEatery` to check if the eatery already exists. If it does exist, `AddCommand` will throw a CommandException specifying that there's already a duplicate eatery in `EateryList`. Else, `AddCommand` will call `Model#addEatery` to add the eatery into `EateryList`.
+
+Step 6. After successfully adding the eatery into `EateryList`, `AddCommand` will return the `CommandResult` to the `Ui`.
+
+The following sequence diagram shows how the add eatery feature is executed.
+image:AddSequenceDiagram.png[]
+image:AddCreateSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How Add executes
@@ -191,6 +195,94 @@ image::add-ad.PNG[]
 ** Pros: Follows the logic of the original Address Book 3 application; don't need to refactor more code.
 ** Cons: Not as user-friendly.
 // end ::add[]
+
+// tag::edit[]
+The edit feature allows the user to edit any fields from the selected eatery i.e. `Name`, `Address`, `Category`, and `Tag` field(s). This feature would replace existing `Name`, `Address`, `Category`, and `Tag` associated with the eatery, with the new ones inputted by the user. Hence, this feature is not advised for users who wants to add more tags to the current list of tags. The edit mechanism is facilitated by `EateryList`. It implements the following operations:
+
+* `EateryList#setEatery()` -- Replaces an eatery with another eatery in the `EateryList`.
+
+These operations are exposed in the `Model` interface as `Model#setEatery()`.
+
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `EateryList` will be initialized with the initial json data stored.
+
+Step 2. The user executes `edit 1 \a 116 Commonwealth Cres, #01-140` to edit the address of an existing eatery. Before executing the command, the command would need to be parsed first. Hence, the `EatMeParser` would create `EditCommandParser`.
+
+Step 3. `EditCommandParser` creates `EditEateryDescriptor` using the parameters specified (i.e. address, in this scenario).
+
+Step 4. `EditCommandParser` returns a new `EditCommand` with the newly created `EditEateryDescriptor` as a parameter.
+
+Step 5. `EditCommand` creates a new `Eatery` using the existing `Eatery` to be edited and `EditEateryDescriptor`.
+
+Step 6. If the newly created `Eatery` is not a duplicate of the existing `Eatery`, `EditCommand` calls `Model#hasEatery` to check if the eatery exists in the list. If the eatery is a duplicate or it exists in the list, `EditCommand` will throw a CommandException specifying that there's already a duplicate eatery in `EateryList`. Else, `EditCommand` will call `Model#setEatery` to modify the eatery.
+
+Step 7. After successfully editing the eatery, `EditCommand` will return the `CommandResult` to the `Ui`.
+
+The following sequence diagram shows how the add eatery feature is executed.
+image:EditSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Replace or add on to eatery's list of tags
+* **Alternative 1 (current choice):** Replace the entire list of tags
+** Pros:
+*** Easy to implement.
+*** More user-friendly -- command makes more sense to the user.
+** Cons: Need to create additional command to handle adding of tags to the current list of tags.
+
+* **Alternative 2:** Adding to the list of tags
+** Pros:
+*** Easy to implement.
+*** Don't need to create an additional command to add tags.
+** Cons: Not as user-friendly.
+// end::edit[]
+
+// tag:stats[]
+=== Statistics feature : `stats`
+==== Implementation
+
+The stats feature allows the user to generate statistics about the eateries they have visited and reviews they have made at those visited eateries.
+
+Given below is an example usage scenario and how the stats mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `EateryList` will be initialised with the initial or previous json data stored.
+
+Step 2. The user executes `stats` to generate statistics for the current application state. The `EatMeParser` would return a `StatsCommand` to execute the command.
+
+Step 3. `StatsCommand` then creates `Statistics` to generate the different types of statistics needed. To create the different types of statistics, `Statistics` would, first, sort the eateries in `EateryList` based on different conditions i.e. categories, total expense, total number of visits. After sorting the eateries, `Statistics` would then use these sorted lists to generate the appropriate statistics.
+
+[NOTE]
+If the user executes the `stats` command in the Todo mode, `StatsCommand` would throw a `CommandException` to the user specifying that the user is in the wrong mode. In addition, if there is no eateries with any reviews in the application at the time of `stats` execution, the `StatsCommand` would throw a `CommandException` error saying that there is no data to generate statistics. Lastly, if there is any error during the generating of statistics, the `StatsCommand` will throw another `CommandException` saying that there is an unknown error and the application is unable to generate statistics.
+
+Step 4. `StatsCommand` would then call `Model#setStatistics()` with `Statistics` as a a parameter.
+
+Step 5. After successfully generating the statistics, `StatsCommand` will return the `CommandResult` to the `Ui`.
+
+The following sequence diagram shows how the statistics feature is executed.
+image:StatsSequenceDiagram.png[]
+
+Since the statistic feature has a different user interface compared to the other commands i.e. `AddCommand`, `AddTagCommand`, etc., it would be useful to explain how the different user interface components work.
+
+Step 1. When the `Ui` receives the `CommandResult` from `StatsCommand`, the `Ui` will call `MainWindow#showStats()`.
+
+Step 2. `MainWindow#showStats() will check if `StatsWindow` is already open. If it is opened, it will call `StatsWindow#initStats()` and focuses the window. Else, it will call `StatsWindow#initStats()` and displays the window.
+
+Step 3. In `StatsWindow#initStats()`, `StatsWindow` will create a `CustomLayeredGraph` and `CustomPiechart` to create the graph and pie chart needed for the statistics report.
+
+The following sequence diagram shows how the statistics feature shows the statistics to the user.
+image:StatsUiSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Whether the statistics should auto-update when an eatery is added or a review is added to an eatery.
+* ** Alternative 1 (current choice):** Not making the statistics auto-update
+*** Pros: Easy to implement; don't need to refactor existing code to make use of ObservableList and add ListChange listeners.
+*** Cons: User would need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
+
+* ** Alternative 2: ** Making the statistics auto-update
+*** Pros: User would not need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
+*** Cons: Need to refactor a lot of existing code.
+
+Reason for choosing alternative 1: Although it may be annoying for the user to keep calling `stats` command after every change made, we realise that since `stats` acts as a statistics report for the users, users may not call the `stats` command as often to justify refactoring the entire code. Furthermore, to make a change to the eatery or reviews, the user would still need to minimize `StatsWindow` and unminimize it to view the auto-updated changes. Hence, the number of steps the user would need to execute to see the change in statistics is the same even for both auto-update and without auto-update.
 
 // tag::revieweatery[]
 === [Proposed] Review Eatery feature
@@ -311,6 +403,75 @@ image::ModeCommandActivity.png[]
 ** Pros: Data between the two modes will be separated. Commands executed will only affect data stored in the list for the particular mode.
 ** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
 //end::modeCommand[]
+
+// tag::newsFeedFeature
+=== News Feed Feature
+As people who really love food, we are interested in keeping up-to-date with the latest food trends and newest eateries to try.
+The news feed allows the user to save their favorite food blogs to EatMe and have access to the latest food-related articles right from within the app.
+Should a food blog become irrelevant, the user also has the option to remove it and no longer display its articles.
+
+==== Terminology
+Some terms are used in this feature:
+
+- `Feed` - A food blog
+- `Feed Post` - An article from a feed
+- `News Feed Panel` - The right column of the app showing news articles
+
+==== Implementation
+The current news feed supports two commands:
+
+- `AddFeed` - Add a new feed
+- `DeleteFeed` - Delete a feed and its associated feed posts
+
+===== `AddFeed` - Add a new feed
+The following activity diagram shows the flow when the user wants to add a new feed.
+
+image::AddFeedActivityDiagram.png[]
+
+Step 1. The user launches the application.
+
+Step 2. EatMe fetches the latest feed posts from the user's existing feeds and displays them to the user in the news feed panel.
+
+Step 3. The user finds a new favorite food blog called _Eatbook_ and wants to add it into the app. The user executes `addfeed \n Eatbook \a https://eatbook.sg/feed` to add the new feed. `AddFeedCommand` calls `Model#addFeed` with the new feed object, which will in turn add the new feed to the Model's internal feed list.
+
+The following sequence diagram shows how the `AddFeed` command executes.
+
+image::AddFeedSequenceDiagram.png[]
+
+===== `DeleteFeed` - Delete a feed and its associated feed posts
+The following activity diagram shows the flow when the user wants to delete a feed.
+
+image::DeleteFeedActivityDiagram.png[]
+
+Step 1. The user launches the application.
+
+Step 2. EatMe fetches the latest feed posts from the user's existing feeds and displays them to the user in the news feed panel.
+
+Step 3. The user is no longer interested in the food blog _Eatbook_ and wants to delete it from the app. The user executes `deletefeed \n Eatbook` to delete the feed. `DeleteFeedCommand` calls `Model#deleteFeed` with the feed to delete, which will in turn remove the feed to the Model's internal feed list.
+
+The following sequence diagram shows how the `DeleteFeed` command executes.
+
+image::DeleteFeedSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Storage of feed list
+* Alternative 1: Store the feed list in the existing Eatery list JSON file.
+** Pros: Single JSON file for all of the user's data (eateries, todos, feeds).
+** Cons: When sharing your JSON file with another user, the feeds would be transferred as well - Poor user experience because favorite food blogs are a personal choice and should not be transferred when sharing eateries.
+* Alternative 2 (current choice): Store the feed list as a separate JSON file.
+** Pros: Separation of eatery-related and feed-related information into two separate JSON files - Allows sharing of eateries without affecting feeds.
+** Cons: Two separate files - Minor inconvenience if the user wants to backup their data to another location.
+
+==== Aspect: Offline behavior of news feed
+* Alternative 1 (current implementation): Store the feed posts from the last successful update in the feed list JSON file
+** Pros: Allows for offline access to feed posts.
+** Cons:
+*** Feed posts may be outdated if the user has not opened the app with Internet connectivity for a long time.
+*** Larger feed list JSON file size.
+* Alternative 2: Show an error message when offline.
+** Pros: Small and simple feed list JSON file.
+** Cons: Unable to view feed posts when offline.
+// end::newsFeedFeature
 
 //tag::saveTodoCommand[]
 === Saving Todo Eatery feature

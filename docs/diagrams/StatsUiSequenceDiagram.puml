@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+box Ui UI_COLOR_T1
+    participant ":MainWindow" UI_COLOR
+    participant ":StatsWindow" UI_COLOR
+    participant "clg:CustomLayeredGraph" UI_COLOR
+    participant "cp:CustomPiechart"UI_COLOR
+end box
+box Logic LOGIC_COLOR_T1
+    participant ":Logic" LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+    participant ":Model" MODEL_COLOR
+end box
+
+[-> ":MainWindow" : showStats()
+activate ":MainWindow"
+
+":MainWindow" -> ":Logic" : getStatistics()
+activate ":Logic"
+
+":Logic" -> ":Model" : getStatistics()
+activate ":Model"
+":Model" --> ":Logic" : stats
+deactivate ":Model"
+
+":Logic" --> ":MainWindow" : stats
+deactivate ":Logic"
+
+":MainWindow" -> ":StatsWindow" : initStats()
+activate ":StatsWindow"
+
+create "clg:CustomLayeredGraph"
+":StatsWindow" -> "clg:CustomLayeredGraph"
+activate "clg:CustomLayeredGraph"
+"clg:CustomLayeredGraph" --> ":StatsWindow"
+deactivate "clg:CustomLayeredGraph"
+
+create "cp:CustomPiechart"
+":StatsWindow" -> "cp:CustomPiechart"
+activate "cp:CustomPiechart"
+"cp:CustomPiechart" --> ":StatsWindow"
+deactivate "cp:CustomPiechart"
+
+deactivate ":StatsWindow"
+":StatsWindow" --> ":MainWindow"
+
+[<-- ":MainWindow"
+@enduml

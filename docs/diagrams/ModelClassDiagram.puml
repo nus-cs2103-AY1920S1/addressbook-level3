@@ -5,48 +5,68 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
-Interface Model <<Interface>>
-Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class Model
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
+    Interface Model <<Interface>>
+    Interface ReadOnlyFeedList <<Interface>>
+    Interface ReadOnlyEateryList <<Interface>>
+    Interface ReadOnlyUserPrefs <<Interface>>
+    Interface ObservableList <<Interface>>
 
-Package Eatery {
-Class Eatery
-Class Address
-Class Name
-Class UniqueEateryList
-}
+    Class ReadOnlyEateryList
+	Class ReadOnlyUserPrefs
+	Class ReadOnlyFeedList
+	Class UserPrefs
+	Class Model
+	Class ObservableList
+	Class ModelManager
+	Class EateryList
+	Class FeedList
 
-Package Tag {
-Class Tag
-}
+    Package Eatery {
+        Class UniqueEateryList
+		Class Eatery
+		Class Name
+		Class Address
+		Class Tag
+		Class Review
+		Class Category
+    }
+
+    Package Feed {
+        Class Feed
+        Class FeedPost
+        Class UniqueFeedList
+    }
+
+    Package Statistics {
+        Class Statistics
+    }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
-
+Model ..> ObservableList
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+ModelManager o..> "1" UserPrefs
+UserPrefs ..|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueEateryList
+ModelManager o--> "1" EateryList
+EateryList --|> ReadOnlyEateryList
+EateryList *--> "1" UniqueEateryList
 UniqueEateryList o--> "*" Eatery
+
+ModelManager o--> "1" FeedList
+FeedList --|> ReadOnlyFeedList
+FeedList *--> "1" UniqueFeedList
+UniqueFeedList o--> "*" FeedPost
+
+ModelManager o--> "1" Statistics
+
+ModelManager o-right-> "*" Review : list of active reviews
+
 Eatery *--> Name
 Eatery *--> Address
+Eatery *--> Category
 Eatery *--> "*" Tag
-
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
-ModelManager -->"1" Eatery : filtered list
+Eatery *--> "*" Review
 @enduml

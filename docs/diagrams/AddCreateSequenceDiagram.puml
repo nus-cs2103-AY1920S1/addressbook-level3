@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+	participant "ac:AddCommand" LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+	participant "n:Name" MODEL_COLOR
+	participant "a:Address" MODEL_COLOR
+	participant "c:Category" MODEL_COLOR
+	participant "t:Tags" MODEL_COLOR
+	participant "e:Eatery" MODEL_COLOR
+end box
+
+activate "ac:AddCommand"
+
+create "n:Name"
+"ac:AddCommand" -> "n:Name"
+activate "n:Name"
+"n:Name" -> "ac:AddCommand"
+deactivate "n:Name"
+
+
+create "a:Address"
+"ac:AddCommand" -> "a:Address"
+activate "a:Address"
+"a:Address" -> "ac:AddCommand"
+deactivate "a:Address"
+
+create "c:Category"
+"ac:AddCommand" -> "c:Category"
+activate "c:Category"
+"c:Category" -> "ac:AddCommand"
+deactivate "c:Category"
+
+opt Tags were given
+	create "t:Tags"
+	"ac:AddCommand" -> "t:Tags"
+	activate "t:Tags"
+	"t:Tags" -> "ac:AddCommand"
+	deactivate "t:Tags"
+end
+
+create "e:Eatery"
+"ac:AddCommand" -> "e:Eatery"
+activate "e:Eatery"
+"e:Eatery"-> "ac:AddCommand"
+deactivate "e:Eatery"
+
+deactivate "ac:AddCommand"
+@enduml

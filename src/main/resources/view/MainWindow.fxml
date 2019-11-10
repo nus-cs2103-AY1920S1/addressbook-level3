@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="EatMe" minWidth="1000" minHeight="800" onCloseRequest="#handleExit">
+         title="EatMe" minWidth="1200" minHeight="800" onCloseRequest="#handleExit">
     <scene>
         <Scene>
             <stylesheets>
@@ -32,7 +32,7 @@
                 </left>
 
                 <center>
-                    <VBox fx:id="resultDisplayPlaceholder" minWidth="400" prefWidth="400" styleClass="container"/>
+                    <VBox fx:id="resultDisplayPlaceholder" minWidth="600" prefWidth="600" styleClass="container"/>
                 </center>
 
                 <right>

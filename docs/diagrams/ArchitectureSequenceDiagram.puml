@@ -7,31 +7,28 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
+
 user -[USER_COLOR]> ui : "delete 1"
-activate ui UI_COLOR
+activate ui
 
-ui -[UI_COLOR]> logic : execute("delete 1")
-activate logic LOGIC_COLOR
+ui -> logic : "execute("delete 1")"
+activate logic
 
-logic -[LOGIC_COLOR]> model : deleteEatery(p)
-activate model MODEL_COLOR
-
-model -[MODEL_COLOR]-> logic
+logic -> model : "deleteEatery()"
+activate model
+model --> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
-activate storage STORAGE_COLOR
+logic -> storage : saveEateryList()
+activate storage
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
+storage -> storage : save to file
+storage --> logic
 deactivate storage
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
-
-logic --[LOGIC_COLOR]> ui
+logic --> ui
 deactivate logic
 
-ui--[UI_COLOR]> user
+ui --> user
 deactivate ui
 @enduml

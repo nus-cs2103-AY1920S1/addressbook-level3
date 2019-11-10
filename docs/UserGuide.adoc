@@ -252,11 +252,14 @@ Format: `random`
 
 ===== Viewing an eatery: `show`
 
-Shows an eatery with all its details i.e. address, category, tags, reviews, and a map of its location. +
+Shows an eatery with all its details - address, category, tags, reviews, and a map of its location.
+
 Format: `show [index]`
 
 ****
 * Shows the eatery at the specified index.
+* The index refers to the index number shown in the displayed eatery list.
+* In order *to view the eatery's map, you must be connected to the Internet*.
 ****
 
 Examples:
@@ -278,7 +281,7 @@ Example: `delete 1`
 // tag::stats[]
 ===== Showing overall statistics: `stats`
 
-Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at, eateries you spent the least at, price per category, number of visits per category. +
+Presents a visual overview of the user’s eateries and reviews. Eatery and review data used to generate the statistics are collated from the start of the application. The command will generate six types of statistics:  most visited eateries, least visited eateries, eateries you spent the most at (on average), eateries you spent the least at (on average), price per category, number of visits per category. +
 Format: `stats`
 
 ****
@@ -361,8 +364,15 @@ Examples:
 
 ==== Viewing an eatery: `show`
 
-Shows an eatery with all its details i.e. address, category, tags, reviews, external reviews (from Google), and a map of its location.
+Shows an eatery with all its details - address, tags, reviews, and a map of its location.
+
 Format: `show [index]`
+
+****
+* Shows the eatery at the specified index.
+* The index refers to the index number shown in the displayed eatery list.
+* In order *to view the eatery's map, you must be connected to the Internet*.
+****
 
 Examples:
 
@@ -377,19 +387,44 @@ Examples:
 * `delete 1`
 
 === News Feed
+
+EatMe allows you to stay up-to-date with the latest food trends from right within the app!
+Add your favorite food blogs into the app and EatMe will show you a list of the latest articles from those blogs on the right panel.
+To view any of the articles, simply click on the title of the post.
+
+Terminology:
+
+* `feed` - A food blog
+* `feed post` - A single post from a food blog
+
 ==== Adding a feed : `addfeed`
 
-Adds a feed to the news feed. +
-Format: `addfeed \n [name of feed] \a [address of the RSS feed]`
+Adds a new feed to the app.
 
-Examples:
+Format: `addfeed \n [name of feed] \a [Web address of the feed]`
 
-* `addfeed \n [Eatbook] \a https://eatbook.com/feed`
+****
+* Adds a new feed with the given name and Web address.
+* Fetches the 5 latest posts from the feed and displays them in the right panel.
+* The Web address *must point to a valid RSS XML feed*.
+* In order *to fetch the latest posts, you must be connected to the Internet*.
+If you are not connected to the Internet, you can still add the feed but feed posts will only be fetched when the app is restarted with Internet connectivity.
+****
+
+Example:
+
+* `addfeed \n Eatbook \a https://eatbook.com/feed`
 
 ==== Deleting a feed : `deletefeed`
 
-Deletes a feed from the news feed. +
+Deletes a feed from the app.
+
 Format: `deletefeed \n [name of feed]`
+
+****
+* Deletes the feed with the specified name and all its associated feed posts.
+* The name *must match the feed's name exactly*.
+****
 
 Examples:
 

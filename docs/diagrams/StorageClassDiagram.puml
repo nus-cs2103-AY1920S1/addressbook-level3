@@ -4,21 +4,37 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+interface Storage <<Interface>>
+interface UserPrefsStorage <<Interface>>
+interface EateryListStorage <<Interface>>
+interface FeedListStorage <<Interface>>
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+class JsonAdaptedEatery
+class JsonAdaptedFeed
+class JsonAdaptedFeedPost
+class JsonAdaptedReview
+class JsonAdaptedTag
+class JsonEateryListStorage
+class JsonFeedListStorage
+class JsonUserPrefsStorage
+class JsonSerializableEateryList
+class JsonSerializableFeedList
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager .up.|> Storage
+StorageManager o-down-> UserPrefsStorage
+StorageManager o-down-> EateryListStorage
+StorageManager o-down-> FeedListStorage
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializableEatery
-JsonSerializableEatery .right.> JsonAdaptedTag
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonEateryListStorage .up.|> EateryListStorage
+JsonFeedListStorage .up.|> FeedListStorage
+
+JsonEateryListStorage ..> JsonSerializableEateryList
+JsonSerializableEateryList --> JsonAdaptedEatery
+JsonAdaptedEatery --> JsonAdaptedReview
+JsonAdaptedEatery --> JsonAdaptedTag
+
+JsonFeedListStorage ..> JsonSerializableFeedList
+JsonSerializableFeedList --> JsonAdaptedFeed
+JsonAdaptedFeed --> JsonAdaptedFeedPost
 @enduml
