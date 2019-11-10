@@ -162,9 +162,6 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        //Bind placeholder to to schedule view manager.
-        ScheduleViewManager.setPlaceholder(detailsViewPlaceholder);
-
         //setting up default detailsview
         detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
                 .getPersonSchedules().get(0))

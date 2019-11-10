@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.scene.Node;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
@@ -22,15 +21,10 @@ import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 public abstract class ScheduleViewManager {
 
     protected static final Logger logger = LogsCenter.getLogger(ScheduleViewManager.class);
-    protected static Node placeholder;
     protected ScheduleWindowDisplayType type;
     protected ScheduleView scheduleView;
     protected int weekNumber;
     protected LocalDate currentDate;
-
-    public static void setPlaceholder(Node node) {
-        placeholder = node;
-    }
 
     public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay)
             throws InvalidScheduleViewException {
