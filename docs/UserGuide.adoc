@@ -649,16 +649,19 @@ The following are the correct formats for typing in stats commands, with example
 * To display the last 10 days: `stats` +
 The line chart will display statistics over the last 10 days. The line chart will appear as below:
 
+.Line chart displaying the last ten days
 image::statsTenDays.png[width="790"]
 
 * To display a specific week: `stats /week 25/10/2019` +
 The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019. The line chart will appear as below:
 
+.Line chart displaying the week containing the day 25/10/2019
 image::statsWeek.png[width="790"]
 
 * To display a specific month: `stats /month 5/2019` +
 The line chart will display statistics or the month specified. In this case, it is May 2019. The line chart will appear as below:
 
+.Line chart displaying the month of October
 image::statsMonth.png[width="790"]
 
 * To display a specific year: `stats /year 2019` +
