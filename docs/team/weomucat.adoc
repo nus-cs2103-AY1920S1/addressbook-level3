@@ -116,7 +116,7 @@ https://github.com/AY1920S1-CS2103T-F12-1/main/pull/223/commits/4b1e2808bdc1477d
 
 ==== User Guide Contributions
 ****
-Below are excerpts taken from the User Guide, written by me.
+The section below contains excerpts taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/UserGuide.adoc[User Guide], written by me.
 ****
 
 === 3. Features
@@ -152,33 +152,6 @@ Below are excerpts taken from the User Guide, written by me.
 
 <<<
 
-=== 3.2.1. Adding Events
-
-.Add Event Command
-image::AddEventCommandScreenShot.png[]
-
-You may use the `add_event` command to add an event to the calendar.
-
-Command Format: +
-`*add_event* DESCRIPTION START_DATE`
-
-Command Parameters: +
-`*--end* END_DATE` +
-`*--remind* REMIND_DATE` +
-`*--tag* TAG...`
-
-Argument Format: +
-`START_DATE` : `"DD/MM/YYYY HH:MM"` +
-`END_DATE` : `"DD/MM/YYYY HH:MM"` +
-`REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
-
-Examples: +
-`*add_event* "Roris Birthday" "18/08/2019 16:00"` +
-`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00"` +
-`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00" *--remind* "18/08/2019 12:00" *--tag* Birthday Rori`
-
-<<<
-
 === 3.2.2. Deleting Events
 
 .Delete Event Command
@@ -207,7 +180,7 @@ Examples: +
 
 ==== Developer Guide Contributions
 ****
-Below are excerpts taken from the Developer Guide, written by me.
+The section below contains excerpts taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide], written by me.
 ****
 
 [[Design-CommandManager]]
@@ -292,7 +265,7 @@ Referring to the diagram above, the definition the command is implemented in two
 To understand how `CommandBuilder` works, study the activity diagram below:
 
 .Activity diagram of CommandBuilder
-image::CommandBuilderActivityDiagram.png[CommandBuilder, 300]
+image::CommandBuilderActivityDiagram.png[CommandBuilderActivityDiagram, 300]
 
 ===== Design Considerations
 
@@ -326,3 +299,28 @@ Each `Command` does not require any logic, only arguments are required to be def
 
 Since all logic is in `CommandBuilder`, it is simple for developers to test.
 |===
+
+<<<
+
+****
+The section below contains excerpts of the Architecture and Model from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide], written by me.
+****
+
+=== 3.1. Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[ArchitectureDiagram, 300]
+
+Most components follow the https://en.wikipedia.org/wiki/Observer_pattern[observer design pattern], to reduce tight coupling and increase cohesion.
+They implement these listeners:
+
+...
+
+=== 3.4. ModelManager Component
+
+The `ModelManager` is responsible for the reading and writing of events and tasks in Horo.
+
+.Class diagram of the ModelManager
+image::ModelManagerClassDiagram.png[ModelManagerClassDiagram, 500]
+
+...
