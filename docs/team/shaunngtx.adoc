@@ -85,9 +85,3 @@ include::../DeveloperGuide.adoc[tag=shaun-logic]
 include::../DeveloperGuide.adoc[tag=shaun-designmodel]
 include::../DeveloperGuide.adoc[tag=shaun-storage]
 include::../DeveloperGuide.adoc[tag=shaun-add]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
