@@ -38,6 +38,10 @@ public class SecondaryCommand {
     public final String value;
 
 
+    public static ArrayList<String> getCommandList() {
+        return commandList;
+    }
+
     /**
      * Constructs an {@code SecondaryCommand}.
      *
@@ -79,5 +83,7 @@ public class SecondaryCommand {
     public int hashCode() {
         return value.hashCode();
     }
+
+
 
 }
