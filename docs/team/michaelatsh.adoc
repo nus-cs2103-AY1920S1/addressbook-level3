@@ -204,7 +204,7 @@ This section explains the implementation of the delete command feature of the In
 of items from the inventory. This feature requires only the command keyword and an index or description as input.
 
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
-DeleteCommand works:
+`DeleteCommand` works:
 
 .Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
 image::inventoryDG/DeleteCommandSeqDiagram.png[]
