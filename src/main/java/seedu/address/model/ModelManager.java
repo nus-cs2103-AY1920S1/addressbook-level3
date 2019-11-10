@@ -573,8 +573,8 @@ public class ModelManager implements Model {
         List<Phone> phones = phoneBook.getList();
         List<Customer> customers = customerBook.getList();
 
-        logger.info("Ensure that all orders in orderBooks have an exact copy of phone and customer in their " +
-                        "respective books. If not, cancel the order and dump it into archives.");
+        logger.info("Ensure that all orders in orderBooks have an exact copy of phone and customer in their "
+                + "respective books. If not, cancel the order and dump it into archives.");
 
         for (int i = orders.size() - 1; i >= 0; i--) {
             Order o = orders.get(i);
@@ -609,8 +609,8 @@ public class ModelManager implements Model {
         ArrayList<Integer> toCancelIndexList = new ArrayList<>();
         archivedOrders = archivedOrderBook.getList();
 
-        logger.info("Ensure that archived orders list has no completed orders with duplicate phones. " +
-                "If not, cancel the orders.");
+        logger.info("Ensure that archived orders list has no completed orders with duplicate phones. "
+                + "If not, cancel the orders.");
 
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
@@ -654,10 +654,10 @@ public class ModelManager implements Model {
 
         phones = phoneBook.getList();
 
-        logger.info("Ensure that completed orders do not have phones in the existing phone book. " +
-                "If not, delete the phones");
-        logger.info("Also ensure that completed orders are scheduled. " +
-                "If not, cancel the orders.");
+        logger.info("Ensure that completed orders do not have phones in the existing phone book. "
+                + "If not, delete the phones");
+        logger.info("Also ensure that completed orders are scheduled. "
+                + "If not, cancel the orders.");
         for (int i = archivedOrders.size() - 1; i >= 0; i--) {
             Order o = archivedOrders.get(i);
             assert (o.getStatus().equals(Status.CANCELLED) || o.getStatus().equals(Status.COMPLETED));
@@ -694,8 +694,8 @@ public class ModelManager implements Model {
 
         List<Schedule> schedules = scheduleBook.getList();
 
-        logger.info("Ensure that schedules that do not have " +
-                "an order attached to it in ScheduleBook are deleted.");
+        logger.info("Ensure that schedules that do not have "
+                + "an order attached to it in ScheduleBook are deleted.");
 
         for (int i = schedules.size() - 1; i >= 0; i--) {
 
