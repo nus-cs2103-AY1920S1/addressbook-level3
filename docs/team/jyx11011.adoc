@@ -14,19 +14,32 @@ and it has a GUI created with JavaFx. It is written in Java and has about 24 kLO
 
 == Summary of contributions
 
-* *Major enhancement*: added *a calendar system*
-** What it does: allows the user to add calendar entries(reminder and event) and view calendar and generates reminders.
-** Justification: This feature improves the product significantly because a user can add important events to their calendar and be reminded at the time set.
-** Highlights: This enhancement creates a calendar system that provides both static and dynamic viewing of calendar entries. Calendar entries can be viewed by day, which requires recurring
-reminders to be filtered by their date and repetition. Also when the app is running, reminders are automatically shown according to the time set.
+* *Major enhancement*: added *a calendar system* with *real-time reminder*
+** What it does: allows the user to add calendar entries(reminder and event) and automatically generate real-time reminders.
+** Justification: This feature improves the product significantly because a diabetic patients could be busy with their work or study already and they may need to keep track of important events, such as appointment with doctor,
+buying medicine regularly and be reminded at certain time so they do not forget, such as injecting insulin.
+** Highlights: This enhancement deals with date and time and scheduling tasks using the java multithreaded API `ScheduledExecutorService`. It provides both dynamic and static viewing of calendar entries.
+When the app is running concurrently, reminders are automatically shown in the side pane according to the time set by the user without interrupting user typing other commands. Reminder list can be updated at times during the running time of the app,
+it requires the scheduler to update scheduled tasks. Also reminders can recur daily or weekly so scheduler needs to adapt those reminders to an one-time reminder on certain date. Moreover, to avoid potential duplicate reminder shown in the side pane,
+the calendar checks any reminders that overlap with each other.
+
 * *Minor enhancement*:
+** added a calendar command that allows the user to view monthly calendar and a list of calendar entries on a day or each day in a month or in a week.
+** added a pane for showing reminders that the user might miss.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jyx11011&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View RepoSense]]
 
 * *Other contributions*:
 
-== Contributions to the User Guide
+** Project management:
+*** Wrote additional tests for existing features to increase coverage. (Pull request: https://github.com/AY1920S1-CS2103-T16-1/main/pull/166[#21])
+*** Clean up unused code. (Pull request: https://github.com/AY1920S1-CS2103-T16-1/main/pull/96[#96])
+*** Update UG,DG and refactor package. (Pull request: https://github.com/AY1920S1-CS2103-T16-1/main/pull/109[#109])
+** Documentation:
+*** Update intro, quickstart and summary of user guide. (Pull request: https://github.com/AY1920S1-CS2103-T16-1/main/pull/19[#19])
+*** Draft about us page. (Pull request: https://github.com/AY1920S1-CS2103-T16-1/main/pull/21[#21])
 
+== Contributions to the User Guide
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -43,7 +56,8 @@ include::../UserGuide.adoc[tag=calendar]
 
 include::../DeveloperGuide.adoc[tag=calendar]
 
+include::../DeveloperGuide.adoc[tag=calendarcommand]
+
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
