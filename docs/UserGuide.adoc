@@ -227,6 +227,8 @@ To help you easily differentiate between various types of _events_, _TravEzy_ ha
 
 WARNING: The _labels_ indicate the *type* of _event_ you have for that particular day. It does not indicate the number of _events_.
 
+WARNING: You will not be able to see the _labels_ on your calendar if your window (the display screen of this application) size is too small. If you need some help with that, click https://www.computerhope.com/issues/ch001478.htm[here].
+
 === Adding an event to your calendar: ``add``
 
 Whew! After reading so much, it is time to find out how you can add your _event_ so that _TravEzy_ can start suggesting when you can travel! 😊
