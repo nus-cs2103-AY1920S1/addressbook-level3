@@ -16,7 +16,7 @@ public class TypicalAssignments {
             .withAssignmentDeadline("12/12/2019 1800").build();
 
     public static final Assignment ASSIGNMENT_TWO = new AssignmentBuilder()
-            .withAssignmentName("Science Assignemnt 2")
+            .withAssignmentName("Science Assignment 2")
             .withAssignmentDeadline("08/02/2020 2020").build();
 
     public static final Assignment ASSIGNMENT_THREE = new AssignmentBuilder()

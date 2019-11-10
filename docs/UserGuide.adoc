@@ -46,7 +46,7 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 === Classes
 The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-image::class/class1.jpg[]
+image::class/class1.JPG[]
 
 The class colored in blue shows the class that the user is currently viewing.
 Viewing a class enables a user to see the full profiles of the students, +
