@@ -160,7 +160,7 @@ Trying to open up the another _page_? Use this command!
 
 *Step by step:*
 
-Step 1. Type ``goto itinerary`` in the _command box_ and click _Enter_. +
+Step 1. Type ``goto itinerary`` in the _command box_ and press _Enter_. +
 
 image::mainGoto1.png[Goto command]
 
@@ -179,7 +179,7 @@ If you are lost, this command will be helpful.
 
 *Step by step:*
 
-Step 1. Type ``help`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``help`` in the _command box_ and press _Enter_. + 
 
 image::mainHelp1.png[Help command]
 
@@ -198,7 +198,7 @@ It's time to catch your flight, exit  _TravEzy_ and start your trip!
 
 *Step by step:*
 
-Step 1. Type ``exit`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``exit`` in the _command box_ and press _Enter_. + 
 
 image::exit1.png[Exit command]
 
@@ -253,7 +253,7 @@ Whew! After reading so much, it is time to find out how you can add your _event_
 
 *Step by step:*
 
-Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
+Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/add1.png[Add command,width=600]
 
@@ -300,7 +300,7 @@ But how? Well, this is the section for you. 😀
 
 *Step by step:*
 
-Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
+Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/delete1.png[Delete command,width=600]
 
@@ -327,7 +327,7 @@ How easy is it?
     
 *Step by step:*
 
-Step 1. Type ``show m/Dec`` in the _command box_ and click _Enter_. +
+Step 1. Type ``show m/Dec`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/show1.png[Show command,width=600]
 
@@ -360,7 +360,7 @@ If you would like to view your events as a list instead, this command would be h
 
 *Step by step:*
 
-Step 1. Type ``list`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``list`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/list1.png[List command,width=600]
 
@@ -393,7 +393,7 @@ Let's find out how!
 
 *Step by step:*
 
-Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/check1.png[Check command,width=600]
 
@@ -427,7 +427,7 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
 
 *Step by step:*
 
-Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/suggest1.png[Suggest command,width=600]
 
