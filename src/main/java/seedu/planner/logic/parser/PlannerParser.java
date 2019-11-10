@@ -11,9 +11,9 @@ import seedu.planner.logic.commands.Command;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
-import seedu.planner.logic.commands.InitCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
+import seedu.planner.logic.commands.SetCommand;
 import seedu.planner.logic.commands.UndoCommand;
 import seedu.planner.logic.commands.addcommand.AddCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteCommand;
@@ -82,8 +82,8 @@ public class PlannerParser {
         case UnscheduleCommand.COMMAND_WORD:
             return new UnscheduleCommandParser().parse(arguments);
 
-        case InitCommand.COMMAND_WORD:
-            return new InitCommandParser().parse(arguments);
+        case SetCommand.COMMAND_WORD:
+            return new SetCommandParser().parse(arguments);
 
         case AutoScheduleCommand.COMMAND_WORD:
             return new AutoScheduleCommandParser().parse(arguments);
