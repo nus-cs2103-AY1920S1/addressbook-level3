@@ -1,7 +1,6 @@
 package seedu.moolah.logic;
 
 import java.nio.file.Path;
-import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.moolah.commons.core.GuiSettings;
@@ -29,6 +28,8 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText, String commandGroup) throws CommandException, ParseException;
+
+    void save() throws CommandException;
 
     boolean hasBudgetWithName(Description targetDescription);
 
@@ -72,7 +73,7 @@ public interface Logic {
 
     boolean deleteAliasWithName(String aliasName);
 
-    void deleteTranspiredEvents(List<Event> eventsToBeRemoved);
+    void deleteTranspiredEvent(Event eventToBeRemoved);
 
     CommandResult addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
 

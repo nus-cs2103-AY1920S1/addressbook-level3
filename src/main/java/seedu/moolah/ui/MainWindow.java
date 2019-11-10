@@ -644,6 +644,7 @@ public class MainWindow extends UiPart<Stage> {
     public void handleTranspiredEvents() {
         List<Event> transpiredEvents = timekeeper.getTranspiredEvents();
         for (Event event : transpiredEvents) {
+            logic.deleteTranspiredEvent(event);
             TranspiredEventsWindow eventWindow = new TranspiredEventsWindow(logic, this);
             eventWindow.show(event);
         }

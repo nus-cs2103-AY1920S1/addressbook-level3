@@ -1,5 +1,6 @@
 package seedu.moolah.logic.parser.event;
 
+import static seedu.moolah.commons.core.Messages.MESSAGE_EVENT_WITH_PAST_TIMESTAMP;
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.commands.CommandTestUtil.EVENT_CATEGORY_DESC_BUFFET;
@@ -10,6 +11,7 @@ import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EVENT_CATEGORY
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EVENT_DESCRIPTION_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EVENT_PRICE_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_EVENT_TIMESTAMP_DESC;
+import static seedu.moolah.logic.commands.CommandTestUtil.INVALID_PAST_TIMESTAMP_EVENT_TIMESTAMP_DESC;
 import static seedu.moolah.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_CATEGORY_BUFFET;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_DESCRIPTION_BUFFET;
@@ -95,6 +97,13 @@ public class AddEventCommandParserTest {
         assertParseFailure(parser, EVENT_DESCRIPTION_DESC_BUFFET + EVENT_PRICE_DESC_BUFFET
                         + EVENT_TIMESTAMP_DESC_BUFFET + EVENT_CATEGORY_DESC_BUFFET + EVENT_CATEGORY_DESC_BUFFET,
                 MESSAGE_REPEATED_PREFIX_COMMAND);
+    }
+
+    @Test
+    public void parse_eventWithPastTimestamp_throwsParseException() {
+        assertParseFailure(parser, EVENT_DESCRIPTION_DESC_BUFFET + EVENT_PRICE_DESC_BUFFET
+                        + INVALID_PAST_TIMESTAMP_EVENT_TIMESTAMP_DESC + EVENT_CATEGORY_DESC_BUFFET,
+                MESSAGE_EVENT_WITH_PAST_TIMESTAMP);
     }
 
 }

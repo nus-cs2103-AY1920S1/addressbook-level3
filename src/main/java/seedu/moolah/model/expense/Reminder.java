@@ -4,6 +4,8 @@ package seedu.moolah.model.expense;
 // import java.time.temporal.ChronoUnit;
 // import java.util.Optional;
 
+import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * A reminder of an upcoming task that the user had inputted.
  */
@@ -12,6 +14,7 @@ public class Reminder {
     private long daysLeft;
 
     public Reminder(Event event, long daysLeft) {
+        requireAllNonNull(event);
         this.event = event;
         this.daysLeft = daysLeft;
     }

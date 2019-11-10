@@ -7,12 +7,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.FormatStyle;
-import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,15 +39,6 @@ public class Timestamp implements Comparable<Timestamp> {
 
     private static final DateTimeFormatter FORMATTER_WITH_YEAR =
             DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);
-
-
-    private static final int MONTH_CHANGE = 1;
-
-    private static final DateTimeFormatter FORMATTER_WITHOUT_YEAR =
-            new DateTimeFormatterBuilder()
-                    .appendPattern("dd-MM")
-                    .parseDefaulting(ChronoField.YEAR, CURRENT_YEAR)
-                    .toFormatter(Locale.ENGLISH);
 
     private static final DateTimeFormatter FORMATTER_WITHOUT_TIME = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
@@ -211,10 +199,6 @@ public class Timestamp implements Comparable<Timestamp> {
         }
         return result;
     }
-
-
-
-
 
     public static Timestamp getCurrentTimestamp() {
         return new Timestamp(LocalDateTime.now());

@@ -2,7 +2,6 @@ package seedu.moolah.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -58,7 +57,7 @@ public class LogicManager implements Logic {
      * Saves any changes in MooLah or in user preferences into Storage.
      * @throws CommandException If there is an IO error.
      */
-    private void save() throws CommandException {
+    public void save() throws CommandException {
         try {
             storage.saveMooLah(model.getMooLah());
             storage.saveUserPrefs(model.getUserPrefs());
@@ -97,15 +96,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void deleteTranspiredEvents(List<Event> eventsToBeRemoved) {
-        for (Event event : eventsToBeRemoved) {
-            model.deleteEvent(event);
-        }
+    public void deleteTranspiredEvent(Event event) {
+        model.deleteEvent(event);
 
         try {
             save();
         } catch (CommandException e) {
-            logger.info(e.getMessage());
+            e.printStackTrace();
         }
     }
 

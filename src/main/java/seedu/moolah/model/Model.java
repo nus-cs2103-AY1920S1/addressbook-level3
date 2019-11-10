@@ -254,4 +254,5 @@ public interface Model {
 
     void setStatistics(Statistics statistics);
 
+    void handleAlreadyTranspiredEvents();
 }

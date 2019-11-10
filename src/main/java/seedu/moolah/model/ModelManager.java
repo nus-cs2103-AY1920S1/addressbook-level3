@@ -2,8 +2,10 @@ package seedu.moolah.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.moolah.model.Timekeeper.hasTranspired;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -143,6 +145,7 @@ public class ModelManager implements Model {
         Model prevModel = modelHistory.getPrevModel();
         requireNonNull(prevModel);
         prevModel.addToFutureHistory(new ModelManager(this));
+        prevModel.handleAlreadyTranspiredEvents();
         resetData(prevModel);
     }
 
@@ -364,6 +367,19 @@ public class ModelManager implements Model {
         this.statistics = statistics;
     }
 
+    @Override
+    public void handleAlreadyTranspiredEvents() {
+        List<Event> toBeDeleted = new ArrayList<>();
+        for (Event event : filteredEvents) {
+            if (hasTranspired(event.getTimestamp())) {
+                toBeDeleted.add(event);
+            }
+        }
+
+        for (Event event : toBeDeleted) {
+            deleteEvent(event);
+        }
+    }
 
 
     //=========== Filtered Expense List Accessors =============================================================

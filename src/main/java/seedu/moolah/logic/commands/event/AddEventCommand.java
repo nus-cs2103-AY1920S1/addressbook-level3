@@ -21,7 +21,7 @@ public class AddEventCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = GenericCommandWord.ADD + CommandGroup.EVENT;
 
-    public static final String COMMAND_DESCRIPTION = "Add event %1$s (%1$s)";
+    public static final String COMMAND_DESCRIPTION = "Add event %1$s (%2$s)";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an event to MooLah. \n"
             + "Parameters: "

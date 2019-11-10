@@ -16,5 +16,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_DISPLAY_STATISTICS_WITHOUT_BUDGET = "Statistics without budgets is not allowed";
     public static final String MESSAGE_CONSTRAINTS_END_DATE = "Start date must be before end date.";
+    public static final String MESSAGE_EVENT_WITH_PAST_TIMESTAMP = "An event must occur in the future!";
+    public static final String MESSAGE_EXPENSE_WITH_FUTURE_TIMESTAMP =
+            "An expense cannot be in the future! Add an event instead.";
 
 }
