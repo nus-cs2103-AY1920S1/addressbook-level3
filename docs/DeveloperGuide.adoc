@@ -281,7 +281,7 @@ It does this by identifying the `commandWord` (e.g. `deleteperson`, `addperson`,
 Given below is an example usage scenario and how the command suggestions mechanism behaves at each step. Ultimately, this is what the user will see:
 
 .Example of the command suggestions mechanism
-image::command-suggestions/developer-guide-caret-within-arguments.png[width=50%]
+image::command-suggestions/developer-guide-caret-within-arguments.png[width=50%,pdfwidth=50vw]
 {nbsp} +
 Step 1. The user types in the command `deleteperson n/|` and the `SuggestingCommandBox` UI class passes the command text (i.e. `deleteperson n/`) and the caret position index (i.e. 15) to `SuggestionLogic`.
 
@@ -299,10 +299,10 @@ image::command-suggestions/Step2.svg[]
 {nbsp} +
 
 [#command-suggestions-caret-within-arguments]
-Step 3. The `SuggestionLogic` then checks where the caret is currently positioned, either within the `commandWord` or within the `arguments` section. In this case, the caret is placed after the `n/` so it is within the `arguments` section. link:#command-suggestions-caret-within-commandWord[To read how the behaviour changes if the caret was placed within the `commandWord` section, click here.]
+Step 3. The `SuggestionLogic` then checks where the caret is currently positioned, either within the `commandWord` or within the `arguments` section. In this case, the caret is placed after the `n/` so it is within the `arguments` section. <<command-suggestions-caret-within-commandWord,To read how the behaviour changes if the caret was placed within the `commandWord` section, click here.>>
 
 .The tokenized command and its caret indices
-image::command-suggestions/Step3.svg[width=50%]
+image::command-suggestions/Step3.svg[width=50%,pdfwidth=50vw]
 {nbsp} +
 
 Step 4. The `SuggestionLogic` asks the static `Suggester` class which ``Prefix``es are supported by the current `commandWord` (i.e. `deleteperson`) for tokenizing the `arguments`. This list of supported ``Prefix``es, together with the command `arguments`, are passed to the static `ArgumentTokenizer` to parse it into an `ArgumentList` containing ``CommandArgument``s. Each `CommandArgument` contains the type of `Prefix` and the user-entered value.
@@ -336,7 +336,7 @@ image:command-suggestions/DeletePersonSequenceDiagram.svg[]
 {nbsp} +
 
 [#command-suggestions-caret-within-commandWord]
-The `SuggestionLogic` behaves differently when the caret position is within the `commandWord` section. The sequence diagram below shows the behaviour for the case of `find|person n/`. link:#command-suggestions-caret-within-arguments[To read how the behaviour changes if the caret was placed within the `arguments` section, click here.]
+The `SuggestionLogic` behaves differently when the caret position is within the `commandWord` section. The sequence diagram below shows the behaviour for the case of `find|person n/`. <<command-suggestions-caret-within-arguments,To read how the behaviour changes if the caret was placed within the `arguments` section, click here.>>
 
 .Sequence diagram for when the caret position is within the `commandWord` section
 image:command-suggestions/SuggestingCommands.svg[]
@@ -345,7 +345,7 @@ image:command-suggestions/SuggestingCommands.svg[]
 The result is the following:
 
 .What users see when the caret is placed within the `commandWord` section
-image::command-suggestions/developer-guide-caret-within-commandWord.png[width=50%]
+image::command-suggestions/developer-guide-caret-within-commandWord.png[width=50%,pdfwidth=50vw]
 {nbsp} +
 
 The following activity diagram summarizes what happens when a user interacts with the command input box:

@@ -156,7 +156,7 @@ When you type a command, TimeBook will show a dropdown with similarly matching c
 For example, you type in the command `add`.
 TimeBook will then suggest commands such as `addevent`, `addgroup`, `addperson` like so:
 
-image::command-suggestions/user-guide-example-step1.png[width=50%]
+image::command-suggestions/user-guide-example-step1.png[width=50%,pdfwidth=50vw]
 
 If you meant to type the `addevent` command, you can immediately select it by pressing the kbd:[Tab] key.
 Otherwise, you can pick other options by using the kbd:[Up] or kbd:[Down] arrow keys and then hit the kbd:[Tab] key to confirm your selection.
@@ -173,12 +173,12 @@ For example, instead of typing `addtogroup`, try `atg`.
 Remember how TimeBook can also suggest relevant values?
 Let's try that by specifying a person's name using the `n/` parameter like so:
 
-image::command-suggestions/user-guide-example-step3.png[width=50%]
+image::command-suggestions/user-guide-example-step3.png[width=50%,pdfwidth=50vw]
 
 Again, TimeBook provides useful suggestions, in this case, the names of the people we've previously added.
 Now, try using the kbd:[Tab] key to immediately fill in "Bobby".
 
-image::command-suggestions/user-guide-example-step4.png[width=50%]
+image::command-suggestions/user-guide-example-step4.png[width=50%,pdfwidth=50vw]
 
 Now, let's complete the `addtogroup` command.
 Let's add Bobby to the Friends group by typing `g/` and using the suggestions to help us pick the Friends group.
