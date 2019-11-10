@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.commands.AddClaimCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commonvariables.Id;
@@ -68,12 +69,15 @@ class AddClaimCommandParserTest {
         static final String VALID_TEST_TAGS_FRIENDS = "friends";
         static final String VALID_TEST_TAGS_COMPUTING = "computing";
 
-        String name = "";
-        String description = "";
-        String cash = "";
-        String date = "";
-        List<String> tags = new ArrayList<>();
+        private String name = "";
+        private String description = "";
+        private String cash = "";
+        private String date = "";
+        private List<String> tags = new ArrayList<>();
 
+        /**
+         * Adds all valid fields into the fields.
+         */
         TestAddClaimCommand withAllFields() {
             return this.withName(VALID_TEST_NAME)
                     .withDescription(VALID_TEST_DESCRIPTION)
@@ -81,6 +85,9 @@ class AddClaimCommandParserTest {
                     .withDate(VALID_TEST_DATE);
         }
 
+        /**
+         * Adds all valid fields, including tags, into the fields.
+         */
         TestAddClaimCommand withAllFieldsAndTags() {
             return this.withName(VALID_TEST_NAME)
                     .withDescription(VALID_TEST_DESCRIPTION)
@@ -109,6 +116,9 @@ class AddClaimCommandParserTest {
             return this;
         }
 
+        /**
+         * Adds tags into the tag field.
+         */
         TestAddClaimCommand withTag(String ... tags) {
             for (String s: tags) {
                 this.tags.add(s);
@@ -116,6 +126,9 @@ class AddClaimCommandParserTest {
             return this;
         }
 
+        /**
+         * Build the TestAddClaimCommand into a String.
+         */
         String build() {
             StringBuilder s = new StringBuilder(" ");
             if (!name.equals("")) {
