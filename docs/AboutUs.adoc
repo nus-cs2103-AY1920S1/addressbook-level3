@@ -31,7 +31,7 @@ image::kohyida1997.png[width="150", align="left"]
 {empty}[http://github.com/kohyida1997[github]] [<<kohyida1997#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Game Logic + Timer 
+Responsibilities: Game Logic + Timer
 
 '''
 
