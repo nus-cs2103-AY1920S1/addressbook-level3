@@ -328,15 +328,16 @@ Format: `pdf i/LIST_INDEX t/RECEIVER f/FROM` +
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 t/Harry f/John` to generate the document.
 
-NOTE: User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. System will not allow generating documents that already exists in the directory.
+[NOTE]
+User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
+System will not allow generating documents that already exists in the directory.
 
 .report document window
 image::pdf_1.png[width="520"]
 
-Once user enters the command, system will display the command result in the output panel, showing "Engagement Report successfully generated."
-Now, if the user clicks the green refresh button on top right of the documents explorer, explorer will display the generated pdf as a list item.
+Once user enters the command, system will automatically open the generated document and display the command result in the output panel, showing "Engagement Report successfully generated."
 
-NOTE: Documents explorer view will not display the newly generated document until user clicks the green refresh button.
+NOTE: User can alternatively click the green refresh button on top right of the documents explorer to refresh the documents directory.
 
 .refresh button and delete button.
 image::pdf_function_btns.png[width="450", float="left"]
@@ -344,7 +345,7 @@ image::pdf_function_btns.png[width="450", float="left"]
 .After clicking refresh button
 image::pdf_2.png[width="450"]
 
-Once document generation is executed, system will automatically open the document file. Alternatively, user can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
+User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
 
 .pdf document sample
 image::pdf_sample.png[width="600", align="center"]
@@ -365,8 +366,11 @@ NOTE: PDF generation and deletion operations cannot be undone via `undo` command
 ==== Error Handling
 
 1. Documents Explorer in Report Window only displays files with .pdf format in reports/ directory. Files with different format will not be displayed in the explorer.
-2. System will not allow user to delete directories in the documents explorer tree view.
-3. System will throw an exception message in the status field if user locks the document.
++
+.duplicate file exception message displayed in status text field.
+image::pdf_error_2.png[width="600"]
+2. System will not allow user to delete directories in the documents explorer tree view. (Figure 26)
+3. System will throw an exception message in the status field if user locks the document. (Figure 26)
 +
 .file deletion exception message displayed in the status text field.
 image::pdf_error_1.png[width="600"]
