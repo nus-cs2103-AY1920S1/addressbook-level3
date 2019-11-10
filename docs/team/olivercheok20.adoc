@@ -57,13 +57,21 @@ future extensions convenient and simple.
 |===
 
 include::../UserGuide.adoc[tag=tutorial]
+
 include::../UserGuide.adoc[tag=findpolicy]
+
 include::../UserGuide.adoc[tag=findtagpeople]
+
 include::../UserGuide.adoc[tag=findtagpolicy]
+
 include::../UserGuide.adoc[tag=findpolicyholders]
+
 include::../UserGuide.adoc[tag=eligiblepolicies]
+
 include::../UserGuide.adoc[tag=addcriteria]
+
 include::../UserGuide.adoc[tag=deletecriteria]
+
 include::../UserGuide.adoc[tag=assignpolicy]
 
 
