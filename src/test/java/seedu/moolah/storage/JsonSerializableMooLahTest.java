@@ -24,15 +24,6 @@ public class JsonSerializableMooLahTest {
     private static final Path DUPLICATE_EVENT_FILE = TEST_DATA_FOLDER.resolve("duplicateEventMooLah.json");
 
     @Test
-    public void toModelType_typicalExpensesFile_success() throws Exception {
-        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-                JsonSerializableMooLah.class).get();
-        MooLah mooLahFromFile = dataFromFile.toModelType();
-        MooLah typicalExpensesMooLah = TypicalMooLah.getTypicalExpensesOnlyMooLah();
-        assertEquals(mooLahFromFile, typicalExpensesMooLah);
-    }
-
-    @Test
     public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {
         JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(INVALID_EXPENSE_FILE,
                 JsonSerializableMooLah.class).get();

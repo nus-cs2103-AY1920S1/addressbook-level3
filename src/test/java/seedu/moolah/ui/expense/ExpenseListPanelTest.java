@@ -36,7 +36,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
     private static final ObservableList<Expense> TYPICAL_EXPENSES =
             FXCollections.observableList(getTypicalExpenses());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 3000;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 3500;
 
     private final SimpleObjectProperty<Expense> selectedPerson = new SimpleObjectProperty<>();
     private ExpenseListPanelHandle expenseListPanelHandle;

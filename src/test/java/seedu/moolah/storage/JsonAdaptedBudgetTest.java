@@ -36,12 +36,6 @@ public class JsonAdaptedBudgetTest {
     private static final String INVALID_PROPORTION_USED = "-2%";
 
     @Test
-    public void toModelType_validBudgetDetails_returnsBudget() throws Exception {
-        JsonAdaptedBudget budget = new JsonAdaptedBudget(OUTSIDE_SCHOOL);
-        assertEquals(OUTSIDE_SCHOOL, budget.toModelType(VALID_EXPENSES));
-    }
-
-    @Test
     public void toModelType_invalidDescription_throwsIllegalValueException() {
         JsonAdaptedBudget budget =
                 new JsonAdaptedBudget(INVALID_DESCRIPTION, VALID_AMOUNT, VALID_START_DATE, VALID_END_DATE,
