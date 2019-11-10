@@ -138,6 +138,9 @@ public class ParserUtil {
         return trimmedDate;
     }
 
+    /**
+     * @throws ParseException if the given {@code index} is smaller than 1.
+     */
     public static int parseVisitReportIndex(String index) throws ParseException {
         if (index.equals(EMPTY_REPORT_INDEX)) {
             return EMPTY_REPORT_INDICATOR;

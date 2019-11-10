@@ -15,9 +15,8 @@ import unrealunity.visit.model.person.Person;
  * Edits record of patient by index.
  */
 public class EditVisitCommand extends Command {
-    public static final String COMMAND_WORD = "editvisit";
-    private static final int EMPTY_REPORT_INDICATOR = -1;
 
+    public static final String COMMAND_WORD = "editvisit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the visitation record of the person identified "
             + "by the index number used in the last person listing.\n "
@@ -30,6 +29,8 @@ public class EditVisitCommand extends Command {
     public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be edited\n"
             + "Usage: " + COMMAND_WORD + " [PERSON INDEX] "
             + PREFIX_EDIT_VISIT + "[REPORT INDEX]\n";
+
+    private static final int EMPTY_REPORT_INDICATOR = -1;
 
     private final Index index;
     private final int id;

@@ -18,9 +18,8 @@ import unrealunity.visit.model.person.VisitReport;
  * Deletes record of patient by index.
  */
 public class DeleteVisitCommand extends Command {
-    public static final String COMMAND_WORD = "deletevisit";
-    private static final int EMPTY_REPORT_INDICATOR = -1;
 
+    public static final String COMMAND_WORD = "deletevisit";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the visitation record of the person identified "
             + "by the index number used in the last person listing.\n "
@@ -33,6 +32,8 @@ public class DeleteVisitCommand extends Command {
     public static final String MESSAGE_MISSING_INDEX_PROMPT = "Please specify index of report to be deleted\n"
             + "Usage: " + COMMAND_WORD + " [PERSON INDEX] "
             + PREFIX_DELETE_VISIT + "[REPORT INDEX]";;
+
+    private static final int EMPTY_REPORT_INDICATOR = -1;
 
     private final Index index;
     private final int id;

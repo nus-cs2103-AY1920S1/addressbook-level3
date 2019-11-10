@@ -3,7 +3,6 @@ package unrealunity.visit.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static unrealunity.visit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static unrealunity.visit.logic.parser.CliSyntax.PREFIX_DELETE_VISIT;
-import static unrealunity.visit.logic.parser.CliSyntax.PREFIX_EDIT_VISIT;
 
 import unrealunity.visit.commons.core.Messages;
 import unrealunity.visit.commons.core.index.Index;
