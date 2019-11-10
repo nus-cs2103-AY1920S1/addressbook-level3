@@ -66,7 +66,7 @@ tabs that they belong to.
 
 These are commands available for use in the Command Box for all tabs.
 
-=== Navigation between tabs
+=== Navigation Between Tabs
 Command: `go TAB`
 
 This command allows you to navigate between tabs.
@@ -80,12 +80,17 @@ This command allows you to navigate between tabs.
 
 Alternatively, you may also choose to click the tabs to switch to them.
 
-=== Exit the application
+=== Exit the Application
 Command: `exit`
 
 This command allows you to exit the application immediately.
-Alternatively, you may also click the `x` button on the top right (for Windows/Linux) or
-top left (for macOS) to close the application.
+Alternatively, you may also click the `x` button on the top right (for Windows/Linux) or top left (for macOS) to close
+the application.
+
+=== Undo/Redo the Last Command `[coming in v2.0]`
+Command: `undo` or `redo`
+
+This command allows you undo/redo the last command.
 
 == Application Tab Specific Commands
 
