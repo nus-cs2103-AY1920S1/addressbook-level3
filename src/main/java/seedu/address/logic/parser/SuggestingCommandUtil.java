@@ -27,11 +27,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
-<<<<<<< HEAD
-=======
 import seedu.address.logic.commands.LookAtGroupMemberCommand;
-import seedu.address.logic.commands.PopupCommand;
->>>>>>> master
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
 import seedu.address.logic.commands.SelectFreeTimeCommand;
@@ -63,12 +59,8 @@ public class SuggestingCommandUtil {
             ExportCommand.COMMAND_WORD,
             HelpCommand.COMMAND_WORD,
             HomeCommand.COMMAND_WORD,
-<<<<<<< HEAD
             SelectFreeTimeCommand.COMMAND_WORD,
-=======
             LookAtGroupMemberCommand.COMMAND_WORD,
-            PopupCommand.COMMAND_WORD,
->>>>>>> master
             ScheduleCommand.COMMAND_WORD,
             ScrollCommand.COMMAND_WORD,
             ShowCommand.COMMAND_WORD,

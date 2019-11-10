@@ -24,11 +24,7 @@ import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.commands.ExportCommand;
-<<<<<<< HEAD
-=======
 import seedu.address.logic.commands.LookAtGroupMemberCommand;
-import seedu.address.logic.commands.PopupCommand;
->>>>>>> master
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.commands.ShowCommand;
