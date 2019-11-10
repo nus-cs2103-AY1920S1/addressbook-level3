@@ -49,6 +49,7 @@ public class FullCalendarView extends UiPart<Region> {
         GridPane calendar = new GridPane();
         calendar.setPrefSize(600, 400);
         calendar.setGridLinesVisible(true);
+        calendar.autosize();
         // Create rows and columns with anchor panes for the calendar
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 7; j++) {
@@ -163,12 +164,12 @@ public class FullCalendarView extends UiPart<Region> {
                     count = count + 1;
                 }
             }
-            Label num = new Label("Tasks: " + count);
-            num.setFont(Font.font ("Cambria", 8));
+            Text num = new Text("Tasks: " + count);
+            num.setFont(Font.font ("Cambria", 10));
             ap.getChildren().add(num);
             ap.getChildren().add(newvb);
-            ap.setTopAnchor(num, 5.0);
-            ap.setRightAnchor(num, 10.0);
+            ap.setTopAnchor(num, 7.0);
+            ap.setLeftAnchor(num, 25.0);
             ap.setTopAnchor(newvb, 20.0);
             ap.setLeftAnchor(newvb, 5.0);
 
