@@ -78,12 +78,12 @@ public class DiaryBook {
         return entries.deleteDiaryEntry(input);
     }
 
-    public void setDiaryEntryPrivate(int index) {
-         entries.setDiaryEntryPrivate(index);
+    public void setDiaryEntryPrivate(DiaryEntry input) {
+         entries.setDiaryEntryPrivate(input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-       entries.setDiaryEntryUnPrivate(index);
+    public void setDiaryEntryUnPrivate(DiaryEntry input) {
+       entries.setDiaryEntryUnPrivate(input);
     }
 
 

@@ -19,7 +19,7 @@ public class UnLockCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "unlock";
     private static final String OVERFLOW = "For the unlock command, your index has to be less than the size" +
             " of the list! Make your number smaller.";
-    private static final String MESSAGE_UNLOCK_ENTRY_SUCCESS = "Entry %1$d is now unlocked. Everyone can see it";
+    private static final String MESSAGE_UNLOCK_ENTRY_SUCCESS = "Your Entry is now unlocked. Everyone can see it";
     private static final String MESSAGE_UNLOCK_ENTRY_FAILURE = "Password is wrong!";
     private static final String MESSAGE_NO_DETAILS = "There are no details set! \n Use" +
             "the unprivate command";
@@ -56,8 +56,9 @@ public class UnLockCommand extends Command<DiaryModel> {
             return new CommandResult(MESSAGE_NO_DETAILS);
             //Next, if the details match the stored ones, then you can show the memory
         } else if (model.checkDetails(detail)) {
-            model.setDiaryEntryUnPrivate(targetIndex.getOneBased());
-            return new CommandResult(String.format(MESSAGE_UNLOCK_ENTRY_SUCCESS,targetIndex.getOneBased()));
+            DiaryEntry unlock = lastShownList.get(targetIndex.getZeroBased());
+            model.setDiaryEntryUnPrivate(unlock);
+            return new CommandResult(String.format(MESSAGE_UNLOCK_ENTRY_SUCCESS));
             //If the details don't match, don't show the memory
         } else {
             return new CommandResult(MESSAGE_UNLOCK_ENTRY_FAILURE);

@@ -41,16 +41,18 @@ public class DiaryEntryList {
     }
 
 
-    public void setDiaryEntryPrivate(int index) {
-        DiaryEntry removed = entries.get(index - 1 );
-        removed.setPrivate();
-        //entries.set(index-1,removed);
+    public void setDiaryEntryPrivate(DiaryEntry output) {
+        int change = entries.indexOf(output);
+        DiaryEntry input = entries.get(change);
+        input.setPrivate();
+        entries.set(change,input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-        DiaryEntry removed = entries.get(index - 1);
-        removed.unPrivate();
-        //entries.set(index-1,removed);
+    public void setDiaryEntryUnPrivate(DiaryEntry output) {
+        int change = entries.indexOf(output);
+        DiaryEntry input = entries.get(change);
+        input.unPrivate();
+        entries.set(change,input);
     }
 
 

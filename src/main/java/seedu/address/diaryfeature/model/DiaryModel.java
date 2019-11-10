@@ -54,12 +54,12 @@ public class DiaryModel {
     }
 
 
-    public void setDiaryEntryPrivate(int index) {
-        diaryBook.setDiaryEntryPrivate(index);
+    public void setDiaryEntryPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryPrivate(input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-        diaryBook.setDiaryEntryUnPrivate(index);
+    public void setDiaryEntryUnPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryUnPrivate(input);
     }
 
     public void setDetails(Details attempt) {
