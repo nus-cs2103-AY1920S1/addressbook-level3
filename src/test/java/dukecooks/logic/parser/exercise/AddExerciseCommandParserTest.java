@@ -22,6 +22,7 @@ public class AddExerciseCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Exercise expectedExercise = new ExerciseBuilder(SITUP)
                 .withDetails(null, null, null, null, null, CommandTestUtil.VALID_SETS_FIVE)
+                .withEmptyHistory()
                 .build();
 
         // whitespace only preamble
@@ -42,6 +43,7 @@ public class AddExerciseCommandParserTest {
                 .withIntensity(Intensity.MEDIUM)
                 .withDetails(null, null, null, null,
                         CommandTestUtil.VALID_REPS_SIXTY, CommandTestUtil.VALID_SETS_FIVE)
+                .withEmptyHistory()
                 .build();
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_SITUP
                 + CommandTestUtil.MUSCLE_DESC_ABS + CommandTestUtil.INTENSITY_DESC_MEDIUM
@@ -54,6 +56,7 @@ public class AddExerciseCommandParserTest {
         // zero tags
         Exercise expectedExercise = new ExerciseBuilder(PUSHUP)
                 .withDetails(null, null, null, null, null, null)
+                .withEmptyHistory()
                 .build();
         CommandParserTestUtil.assertParseSuccess(parser, CommandTestUtil.NAME_DESC_PUSHUP
                         + CommandTestUtil.MUSCLE_DESC_CHEST + CommandTestUtil.INTENSITY_DESC_HIGH,

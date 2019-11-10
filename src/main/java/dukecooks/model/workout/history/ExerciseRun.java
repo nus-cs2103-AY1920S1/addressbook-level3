@@ -98,6 +98,11 @@ public class ExerciseRun {
     }
 
     @Override
+    public ExerciseRun clone() {
+        return new ExerciseRun(timeStarted, timeEnded, setsAttempted, setsCompleted, exerciseSetAttempts, workoutName);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(timeStarted, timeStarted, setsAttempted, setsCompleted, exerciseSetAttempts,
                 totalTimeTaken);

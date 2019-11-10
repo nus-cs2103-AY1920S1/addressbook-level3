@@ -1,5 +1,7 @@
 package dukecooks.model.workout.history;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,6 +17,7 @@ public class ExerciseHistory {
     private final ArrayList<ExerciseRun> previousRuns;
 
     public ExerciseHistory(ArrayList<ExerciseRun> previousRuns) {
+        requireNonNull(previousRuns);
         noTimesRan = previousRuns.size();
         this.previousRuns = previousRuns;
         averageRunTime = getAverageRunTime();
@@ -24,6 +27,7 @@ public class ExerciseHistory {
      * Creates a new ExerciseHistory that accounts for a new ExerciseRun
      */
     public ExerciseHistory addRun(ExerciseRun runToAdd) {
+        requireNonNull(runToAdd);
         ArrayList<ExerciseRun> newPreviousRuns = new ArrayList<>();
         newPreviousRuns.addAll(previousRuns);
         newPreviousRuns.add(runToAdd);
@@ -47,6 +51,10 @@ public class ExerciseHistory {
 
     public ArrayList<ExerciseRun> getPreviousRuns() {
         return previousRuns;
+    }
+
+    public ExerciseHistory clone() {
+        return new ExerciseHistory(previousRuns);
     }
 
     /**

@@ -4,6 +4,7 @@ import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class ExerciseCatalogueTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    public void resetData_withDuplicateExercises_throwsDuplicateExerciseException() {
         // Two persons with the same identity fields
         Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT)
                 .withDetails(null, null, null, null, 99, 99)
@@ -56,7 +57,7 @@ public class ExerciseCatalogueTest {
     }
 
     @Test
-    public void hasPerson_nullExercise_throwsNullPointerException() {
+    public void hasExercise_nullExercise_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> exerciseCatalogue.hasExercise(null));
     }
 
@@ -78,6 +79,45 @@ public class ExerciseCatalogueTest {
                 .withDetails(null, null, null, null, 99, 99)
                 .build();
         assertTrue(exerciseCatalogue.hasExercise(editedAbsRollout));
+    }
+
+    @Test
+    public void addExercise_nullExercise_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> exerciseCatalogue.addExercise(null));
+    }
+
+    @Test
+    public void addExercise_duplicateExercise_throwsDuplicateExerciseException() {
+        exerciseCatalogue.addExercise(ABS_ROLLOUT);
+        Exercise editedAbsRollout = new ExerciseBuilder(ABS_ROLLOUT)
+                .withDetails(null, null, null, null, 99, 99)
+                .build();
+        Assert.assertThrows(DuplicateExerciseException.class, () ->exerciseCatalogue
+                .addExercise(editedAbsRollout));
+    }
+
+    @Test
+    public void getExercise_exerciseNotInWorkoutPlanner_addSuccess() {
+        exerciseCatalogue.addExercise(ABS_ROLLOUT);
+        ExerciseCatalogue otherCatalogue = new ExerciseCatalogue();
+        otherCatalogue.addExercise(ABS_ROLLOUT);
+        assertEquals(exerciseCatalogue, otherCatalogue);
+    }
+
+    @Test
+    public void findExercise_nullExerciseName_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> exerciseCatalogue.findExercise(null));
+    }
+
+    @Test
+    public void findExercise_exerciseNameNotInWorkoutPlanner_returnsNull() {
+        assertNull(exerciseCatalogue.findExercise(ABS_ROLLOUT.getExerciseName()));
+    }
+
+    @Test
+    public void findExercise_exerciseNameInWorkoutPlanner_returnValidExercise() {
+        exerciseCatalogue.addExercise(ABS_ROLLOUT);
+        assertEquals(exerciseCatalogue.findExercise(ABS_ROLLOUT.getExerciseName()), ABS_ROLLOUT);
     }
 
     @Test

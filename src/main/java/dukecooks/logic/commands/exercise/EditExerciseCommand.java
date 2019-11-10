@@ -31,6 +31,7 @@ import dukecooks.model.workout.exercise.components.Intensity;
 import dukecooks.model.workout.exercise.components.MuscleType;
 import dukecooks.model.workout.exercise.components.MusclesTrained;
 import dukecooks.model.workout.exercise.details.ExerciseDetail;
+import dukecooks.model.workout.history.ExerciseHistory;
 
 /**
  * Edits the details of an existing exercise in Duke Cooks.
@@ -114,8 +115,11 @@ public class EditExerciseCommand extends EditCommand {
         Intensity updatedIntensity = editExerciseDescriptor.getIntensity().orElse(exerciseToEdit.getIntensity());
         Set<ExerciseDetail> updatedExerciseDetails = editExerciseDescriptor
                 .getExerciseDetails().orElse(exerciseToEdit.getExerciseDetails());
+        ExerciseHistory updatedHistory = editExerciseDescriptor.getExerciseHistory()
+                .orElse(exerciseToEdit.getHistory());
 
-        return new Exercise(updatedExerciseName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails);
+        return new Exercise(updatedExerciseName, updatedMusclesTrained, updatedIntensity, updatedExerciseDetails,
+                updatedHistory);
     }
 
     @Override
@@ -146,6 +150,7 @@ public class EditExerciseCommand extends EditCommand {
         private ArrayList<MuscleType> secondaryMuscles;
         private Intensity intensity;
         private Set<ExerciseDetail> exerciseDetails;
+        private ExerciseHistory exerciseHistory;
 
         public EditExerciseDescriptor() {}
 
@@ -159,6 +164,7 @@ public class EditExerciseCommand extends EditCommand {
             setSecondaryMuscles(toCopy.secondaryMuscles);
             setIntensity(toCopy.intensity);
             setExerciseDetails(toCopy.exerciseDetails);
+            setExerciseHistory(toCopy.exerciseHistory);
         }
 
         /**
@@ -185,6 +191,10 @@ public class EditExerciseCommand extends EditCommand {
             this.secondaryMuscles = secondaryMuscles;
         }
 
+        public void setExerciseHistory(ExerciseHistory history) {
+            this.exerciseHistory = history;
+        }
+
         public Optional<ExerciseName> getExerciseName() {
             return Optional.ofNullable(exerciseName);
         }
@@ -201,6 +211,9 @@ public class EditExerciseCommand extends EditCommand {
             return Optional.ofNullable(secondaryMuscles);
         }
 
+        public Optional<ExerciseHistory> getExerciseHistory() {
+            return Optional.ofNullable(exerciseHistory);
+        }
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
