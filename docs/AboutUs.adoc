@@ -24,7 +24,7 @@ image::irene-lly.png[width="150", align="left"]
 {empty}[https://github.com/irene-lly[github]] [<<irene-lly#, portfolio>>]
 
 Role: Code Quality +
-Responsibilities: Implementing the report feature
+Responsibilities: Implementing the statistics feature
 
 '''
 
@@ -39,7 +39,7 @@ Responsibilities: Implementing the revision feature
 
 === Wang Xueting
 image::shirleywangxt.png[width="150", align="left"]
-{empty}[https://github.com/ShirleyWangxt[github]][<<shirleywangxt#, protfolio>>]
+{empty}[https://github.com/ShirleyWangxt[github]][<<shirleywangxt#, portfolio>>]
 
 Role: Testing, Co-maintainer of documentation +
 Responsibilities: Implementing question management feature
