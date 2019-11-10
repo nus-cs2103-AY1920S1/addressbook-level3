@@ -116,7 +116,7 @@ public class MemeCard extends UiPart<Region> {
      * Returns the limit on the number of tags a meme card can contain such that there is no overflow of content.
      */
     private int getTagLimit(Meme meme) {
-        Image imageCopy = new Image(meme.getImagePath().toUrl().toString());
+        Image imageCopy = display.getImage();
         int limit = 0;
 
         // get the number of rows for tag display.
