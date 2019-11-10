@@ -214,6 +214,7 @@ public class AddCommandTest {
         public void setCurrency(CustomisedCurrency target, CustomisedCurrency editedCurrency) {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 
     /**

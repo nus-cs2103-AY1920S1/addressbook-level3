@@ -7,7 +7,8 @@ import java.util.List;
 
 import seedu.address.model.TravelPal;
 import seedu.address.model.diary.Diary;
-import seedu.address.model.expenditure.ExpenditureList;
+import seedu.address.model.expense.ExpenseList;
+import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -27,8 +28,9 @@ public class TypicalTrips {
             .setTotalBudget(new Budget(123))
             .setDayList(new DayList(LocalDateTime.of(2019, 2, 6, 8, 0),
                     LocalDateTime.of(2019, 2, 20, 9, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
             .build();
     public static final Trip TRIP_B = TripBuilder.newInstance().setName(new Name("Bangkok Trip"))
             .setStartDate(LocalDateTime.of(2019, 1, 4, 15, 0))
@@ -36,8 +38,10 @@ public class TypicalTrips {
             .setLocation(new Location("Bangkok"))
             .setDayList(new DayList(LocalDateTime.of(2019, 1, 4, 15, 0),
                     LocalDateTime.of(2019, 1, 16, 0, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setTotalBudget(new Budget(1234))
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
             .build();
     public static final Trip TRIP_C = TripBuilder.newInstance().setName(new Name("Canada Trip"))
             .setStartDate(LocalDateTime.of(2019, 3, 5, 10, 0))
@@ -45,8 +49,10 @@ public class TypicalTrips {
             .setLocation(new Location("Canada"))
             .setDayList(new DayList(LocalDateTime.of(2019, 3, 5, 10, 0),
                     LocalDateTime.of(2019, 3, 10, 6, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
+            .setTotalBudget(new Budget(12345))
             .build();
     public static final Trip TRIP_D = TripBuilder.newInstance().setName(new Name("Denmark Trip"))
             .setStartDate(LocalDateTime.of(2019, 4, 4, 15, 0))
@@ -54,8 +60,10 @@ public class TypicalTrips {
             .setLocation(new Location("Denmark"))
             .setDayList(new DayList(LocalDateTime.of(2019, 4, 4, 15, 0),
                     LocalDateTime.of(2019, 4, 16, 0, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
+            .setTotalBudget(new Budget(123456))
             .build();
     public static final Trip TRIP_E = TripBuilder.newInstance().setName(new Name("Ethiopia Trip"))
             .setStartDate(LocalDateTime.of(2019, 5, 2, 3, 0))
@@ -63,8 +71,10 @@ public class TypicalTrips {
             .setLocation(new Location("Ethiopia"))
             .setDayList(new DayList(LocalDateTime.of(2019, 5, 7, 3, 0),
                     LocalDateTime.of(2019, 5, 2, 9, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
+            .setTotalBudget(new Budget(1234567))
             .build();
     public static final Trip TRIP_F = TripBuilder.newInstance().setName(new Name("Finland Trip"))
             .setStartDate(LocalDateTime.of(2019, 6, 2, 19, 0))
@@ -72,8 +82,10 @@ public class TypicalTrips {
             .setLocation(new Location("Finland"))
             .setDayList(new DayList(LocalDateTime.of(2019, 6, 2, 19, 0),
                     LocalDateTime.of(2019, 6, 4, 17, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
+            .setTotalBudget(new Budget(12345678))
             .build();
     public static final Trip TRIP_G = TripBuilder.newInstance().setName(new Name("Germany Trip"))
             .setStartDate(LocalDateTime.of(2019, 7, 3, 4, 0))
@@ -81,8 +93,10 @@ public class TypicalTrips {
             .setLocation(new Location("Germany"))
             .setDayList(new DayList(LocalDateTime.of(2019, 7, 3, 4, 0),
                     LocalDateTime.of(2019, 7, 17, 11, 0)))
-            .setExpenditureList(new ExpenditureList())
+            .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setInventoryList(new InventoryList())
+            .setTotalBudget(new Budget(123456789))
             .build();
 
     private TypicalTrips() {

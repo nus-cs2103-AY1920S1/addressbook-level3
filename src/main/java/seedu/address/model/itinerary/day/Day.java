@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
+import seedu.address.model.itinerary.Photo;
 import seedu.address.model.itinerary.event.EventList;
 
 /**
@@ -22,10 +23,11 @@ public class Day {
     // Optional Fields
     private final Budget totalBudget;
     private final Description description;
+    private final Photo photo;
 
     /** Constructs a Day */
     public Day(LocalDateTime startDate, LocalDateTime endDate, Description description,
-               Location destination, Budget totalBudget, EventList eventList) {
+               Location destination, Budget totalBudget, EventList eventList, Photo photo) {
         assert(startDate.isBefore(endDate));
         this.startDate = startDate;
         this.endDate = endDate;
@@ -33,11 +35,12 @@ public class Day {
         this.destination = destination;
         this.totalBudget = totalBudget;
         this.eventList = eventList;
+        this.photo = photo;
     }
 
     /** Constructs a day with optional fields */
     public Day(LocalDateTime startDate, LocalDateTime endDate, Optional<Description> description,
-               Location destination, Optional<Budget> totalBudget, EventList eventList) {
+               Location destination, Optional<Budget> totalBudget, EventList eventList, Optional<Photo> photo) {
         assert(startDate.isBefore(endDate));
         this.startDate = startDate;
         this.endDate = endDate;
@@ -45,6 +48,7 @@ public class Day {
         this.destination = destination;
         this.totalBudget = totalBudget.orElse(null);
         this.eventList = eventList;
+        this.photo = photo.orElse(null);
     }
 
     public LocalDateTime getStartDate() {
@@ -72,6 +76,9 @@ public class Day {
         return Optional.ofNullable(totalBudget);
     }
 
+    public Optional<Photo> getPhoto() {
+        return Optional.ofNullable(photo);
+    }
 
     /**
      * Soft check of whether the days clash.

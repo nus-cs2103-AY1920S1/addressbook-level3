@@ -114,7 +114,7 @@ public class Photo {
                 .append(" File path: ")
                 .append(imageFilePath)
                 .append(" Date Taken: ")
-                .append(ParserDateUtil.getDisplayTime(dateTaken));
+                .append(ParserDateUtil.getDisplayDateTime(dateTaken));
 
         return builder.toString();
     }

@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.ParserDateUtil.DATE_FORMATTER;
 import static seedu.address.logic.parser.ParserDateUtil.DATE_TIME_FORMATTER;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
@@ -51,7 +52,7 @@ public class ModelTestUtil {
     public static final String VALID_STARTDATE_DAY_2_2 = "02/02/2018 1300";
     public static final String VALID_STARTDATE_DAY_2_3 = "1300";
     public static final String VALID_ENDDATE_DAY_1_1 = "01/02/2019";
-    public static final String CLASHING_ENDDATE_DAY_1_1 = "31/02/2019";
+    public static final String CLASHING_ENDDATE_DAY_1_1 = "31/01/2019";
     public static final String CLASHING_ENDDATE_DAY_1_2 = "02/02/2019";
     public static final String VALID_ENDDATE_DAY_1_2 = "01/11/2019 1200";
     public static final String VALID_ENDDATE_DAY_1_3 = "1500";
@@ -83,7 +84,7 @@ public class ModelTestUtil {
     public static final String CLASHING_ENDDATE_EVENT_1_2 = "01/01/2019 2100";
     public static final String VALID_ENDDATE_EVENT_1_3 = "1500";
     public static final String VALID_ENDDATE_EVENT_2_1 = "05/05/2018";
-    public static final String VALID_ENDDATE_EVENT_2_2 = "07/07/2018 1300";
+    public static final String VALID_ENDDATE_EVENT_2_2 = "02/02/2018 1400";
     public static final String VALID_ENDDATE_EVENT_2_3 = "2100";
     public static final String VALID_DESTINATION_EVENT_1 = "Gambia";
     public static final String VALID_DESTINATION_EVENT_2 = "Bali";
@@ -100,7 +101,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(VALID_ENDDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
     public static final Day CLASHING_DAY_1 = DayBuilder.newInstance()
@@ -109,7 +109,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(CLASHING_ENDDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -119,7 +118,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(VALID_ENDDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -129,7 +127,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(CLASHING_ENDDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -139,7 +136,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(CLASHING_ENDDATE_DAY_1_2, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_2, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -149,7 +145,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(CLASHING_ENDDATE_DAY_1_2, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_1))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_1))
-            .setName(new Name(VALID_NAME_DAY_1))
             .setEventList(new EventList(LocalDate.parse(CLASHING_STARTDATE_DAY_1_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -159,7 +154,6 @@ public class ModelTestUtil {
             .setEndDate(LocalDate.parse(VALID_ENDDATE_DAY_2_1, DATE_FORMATTER).atStartOfDay())
             .setLocation(new Location(VALID_DESTINATION_DAY_2))
             .setTotalBudget(new Budget(VALID_TOTAL_BUDGET_DAY_2))
-            .setName(new Name(VALID_NAME_DAY_2))
             .setEventList(new EventList(LocalDate.parse(VALID_STARTDATE_DAY_2_1, DATE_FORMATTER).atStartOfDay()))
             .build();
 
@@ -167,43 +161,52 @@ public class ModelTestUtil {
     //Valid events
     public static final Event VALID_EVENT_1 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
-            .setStartDate(LocalDate.parse(VALID_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(VALID_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(VALID_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
             .build();
 
     public static final Event VALID_EVENT_2 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_2))
-            .setStartDate(LocalDate.parse(VALID_STARTDATE_EVENT_2_2, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(VALID_ENDDATE_EVENT_2_2, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_2_2, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(VALID_ENDDATE_EVENT_2_2, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_2))
             .build();
 
+    public static final Event VALID_EVENT_3 = EventBuilder.newInstance()
+            .setName(new Name(VALID_NAME_DAY_2 + "1234"))
+            .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_1_1 + " 2100", DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(VALID_ENDDATE_EVENT_1_1 + " 2200", DATE_TIME_FORMATTER))
+            .setLocation(new Location(VALID_DESTINATION_EVENT_1))
+            .setDescription(new Description(VALID_DESCRIPTION_DAY_2))
+            .build();
+
+
     public static final Event CLASHING_EVENT_1 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
-            .setStartDate(LocalDate.parse(VALID_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(CLASHING_ENDDATE_EVENT_1_1, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(CLASHING_ENDDATE_EVENT_1_1, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
             .build();
 
     public static final Event CLASHING_EVENT_2 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
-            .setStartDate(LocalDate.parse(CLASHING_STARTDATE_EVENT_1_1, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(VALID_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(CLASHING_STARTDATE_EVENT_1_1, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(VALID_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
             .build();
 
     public static final Event CLASHING_EVENT_3 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
-            .setStartDate(LocalDate.parse(CLASHING_STARTDATE_EVENT_1_1, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(CLASHING_ENDDATE_EVENT_1_1, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(CLASHING_STARTDATE_EVENT_1_1, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(CLASHING_ENDDATE_EVENT_1_1, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
             .build();
 
     public static final Event CLASHING_EVENT_4 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
-            .setStartDate(LocalDate.parse(CLASHING_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
-            .setEndDate(LocalDate.parse(CLASHING_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER).atStartOfDay())
+            .setStartDate(LocalDateTime.parse(CLASHING_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(CLASHING_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
             .build();
 

@@ -36,6 +36,6 @@
             <HBox fx:id="dayButtonsContainer" />
          </content>
       </ScrollPane>
-      <Label fx:id="nameLabel" layoutX="312.0" layoutY="30.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-alignment: center; -fx-background-color: white; -fx-font-family: Arial;" text="\$Name" AnchorPane.topAnchor="30.0" />
+      <Label fx:id="nameLabel" layoutX="312.0" layoutY="30.0" maxWidth="600.0" style="-fx-font-size: 50; -fx-font-weight: bold; -fx-alignment: center; -fx-background-color: white; -fx-font-family: Arial;" text="\$Name" textAlignment="CENTER" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="30.0" />
    </children>
 </AnchorPane>
