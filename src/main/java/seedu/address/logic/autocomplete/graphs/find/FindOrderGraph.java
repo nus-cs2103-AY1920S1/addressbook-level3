@@ -38,9 +38,14 @@ public class FindOrderGraph extends GraphBuiltFromModel {
         List<String> statusList = orderList.stream()
                 .map(order -> order.getStatus().toString())
                 .collect(Collectors.toList());
+        List<String> tagList = orderList.stream()
+                .flatMap(order -> order.getTags().stream()
+                        .map(tag -> tag.toString().replaceAll("\\[|\\]", "")))
+                .collect(Collectors.toList());
         values.addAll(idList);
         values.addAll(priceList);
         values.addAll(statusList);
+        values.addAll(tagList);
         String stringToCompare;
         if (input.endsWith(" ")) {
             stringToCompare = "";

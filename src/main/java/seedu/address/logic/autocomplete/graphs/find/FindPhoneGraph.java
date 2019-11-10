@@ -50,6 +50,10 @@ public class FindPhoneGraph extends GraphBuiltFromModel {
         List<String> nameList = phoneList.stream()
                 .map(phone-> phone.getPhoneName().toString())
                 .collect(Collectors.toList());
+        List<String> tagList = phoneList.stream()
+                .flatMap(phone -> phone.getTags().stream()
+                        .map(tag -> tag.toString().replaceAll("\\[|\\]", "")))
+                .collect(Collectors.toList());
         values.addAll(identityNumberList);
         values.addAll(serialNumberList);
         values.addAll(costList);
@@ -57,6 +61,7 @@ public class FindPhoneGraph extends GraphBuiltFromModel {
         values.addAll(colourList);
         values.addAll(nameList);
         values.addAll(capacityList);
+        values.addAll(tagList);
         String stringToCompare;
         if (input.endsWith(" ")) {
             stringToCompare = "";
