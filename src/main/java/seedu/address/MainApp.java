@@ -42,12 +42,6 @@ import seedu.address.storage.wordbanks.WordBankListStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-/*
-Step 0.
-
-import seedu.address.Game.*;
- */
-
 /**
  * Runs the application.
  */
