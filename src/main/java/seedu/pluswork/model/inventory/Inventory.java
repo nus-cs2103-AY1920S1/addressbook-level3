@@ -39,8 +39,6 @@ public class Inventory {
         this.price = new Price(0);
     }
 
-    // TODO add multiple constructors so that users can add aditional info later
-
     public InvName getName() {
         return name;
     }

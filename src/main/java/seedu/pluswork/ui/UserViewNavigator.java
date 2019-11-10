@@ -91,8 +91,6 @@ public class UserViewNavigator {
     }
 
 
-    // TODO get filtered member list from logic interface
-
     /**
      * Relays to controller to swap current user view with member list.
      *
