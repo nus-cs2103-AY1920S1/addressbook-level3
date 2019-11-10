@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TRANSACTIONS;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -24,7 +23,6 @@ public class RedoCommand extends Command {
         }
 
         model.redoUserState();
-        model.updateFilteredTransactionList(PREDICATE_SHOW_ALL_TRANSACTIONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

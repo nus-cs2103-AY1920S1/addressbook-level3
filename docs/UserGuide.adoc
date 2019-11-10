@@ -493,6 +493,7 @@ Format: `undo`
 ** `update`
 ** `delete`
 ** `clear`
+** `list`
 ****
 
 ==== Example Usage:
