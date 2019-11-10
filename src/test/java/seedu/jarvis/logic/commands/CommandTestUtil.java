@@ -25,8 +25,6 @@ public class CommandTestUtil {
     public static final String CCA_DESC = " " + PREFIX_CCA_NAME + VALID_CCA_DESC_TRACK;
     public static final String CCA_TYPE = " " + PREFIX_CCA_TYPE + VALID_CCA_TYPE_TRACK;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "James&"; // '&' not allowed in names
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
