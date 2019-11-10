@@ -65,9 +65,14 @@ deactivate NotebookParser
 LogicManager -> UploadPictureCommand : execute()
 activate UploadPictureCommand
 
+UploadPictureCommand -> UploadPictureCommand : createEditedStudent(currentStudent, filePath)
+activate UploadPictureCommand  #DarkSalmon
 
-UploadPictureCommand -> Model : setStudent(1, editedStudent)
+UploadPictureCommand -> UploadPictureCommand : editedStudent
+deactivate UploadPictureCommand #DarkSalmon
+UploadPictureCommand -> Model : setStudent(currentStudent, editedStudent)
 activate Model
+
 
 Model --> UploadPictureCommand
 deactivate Model

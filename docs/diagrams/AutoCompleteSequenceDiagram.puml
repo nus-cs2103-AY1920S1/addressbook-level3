@@ -1,35 +1,17 @@
 @startuml
 !include style.puml
+box UI UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompleteTextField" as AutoCompleteTextField UI_COLOR
+end box
 
-Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
-Participant ":Logic" as logic LOGIC_COLOR
 
-user -[USER_COLOR]> ui : "deletestudent 1"
-activate ui UI_COLOR
+[-> CommandBox : user types input
+activate CommandBox
+activate AutoCompleteTextField
 
-ui -[UI_COLOR]> logic : execute("deletestudent 1")
-activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteStudent(p)
-activate model MODEL_COLOR
-
-model -[MODEL_COLOR]-> logic
-deactivate model
-
-logic -[LOGIC_COLOR]> storage : saveNotebook(notebook)
-activate storage STORAGE_COLOR
-
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
-
-storage --[STORAGE_COLOR]> logic
-deactivate storage
-
-logic --[LOGIC_COLOR]> ui
-deactivate logic
-
-ui--[UI_COLOR]> user
-deactivate ui
+deactivate AutoCompleteTextField
+[<--CommandBox
+deactivate CommandBox
 @enduml

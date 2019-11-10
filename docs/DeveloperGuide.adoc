@@ -160,8 +160,10 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Current Implementation
 
-The AutoCompleteFeature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`. +
+The AutoComplete feature is facilitated by 2 classes: the `AutoCompleteTextField`, and the class `Styles`.
+Both are represented in the class diagram below.
 
+The `AutoCompleteTextField` adds a `ChangeListener` to textProperty() that notifies
 
 
 
@@ -187,8 +189,8 @@ The main operation implemented is `UploadPictureCommand#execute`.
 Step 1. The user wants to upload a display picture for their student. User identifies the student's index
 number and enters the command `upload INDEX`.
 
-Step 2. `MainWindow` detects the `upload` command word and uses `FileChooser` to open a window for users to select a picture from their computer.
-`MainWindow` then saves the path of the selected file as a string, adds a prefix "f/" to the input arguments.
+Step 2. `MainWindow` detects the `upload` command word and uses `FileChooser` to open a window for the user to select a picture from their computer.
+`MainWindow` then saves the path of the selected file as a string and adds a prefix "f/" to the input arguments.
 The path of the file is also appended to the end of the input string before the input arguments are passed to `NotebookParser`
 
 Step 3. `NotebookParser` parses the input and detects the `upload` command word, and calls `UploadPictureCommandParser`.
@@ -201,13 +203,20 @@ A visual representation of the order of checks for the input arguments are displ
 
 image::upload/upload_dg_1.JPG[checksdiagram,400,480,pdfwidth=50%,scaledwidth=50%]
 
-Step 5.
+Step 5. After these checks, the `createEditedStudent` method in `UploadPictureCommand` is called to create a new `Student` object, editedStudent,
+which has its display filepath changed to the file the user chose.
 
-Step 6.
+Step 6. `UploadPictureCommand` calls Model to replace the current student with the editedStudent.
+The command result is then passed back all the way to `MainWindow` which refreshes the GUI,
+and displays the new picture for the chosen student.
 
 The following diagram illustrates the process above.
 
 image::SebastianDG/UploadSequenceDiagram.png[]
+
+==== Design Considerations
+
+Alternative implementations:
 
 // end::upload[]
 
