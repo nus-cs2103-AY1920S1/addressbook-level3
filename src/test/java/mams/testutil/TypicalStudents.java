@@ -14,15 +14,22 @@ import mams.model.student.Student;
 public class TypicalStudents {
 
     public static final Student ALICE = new StudentBuilder().withName("Alice Pauline")
-            .withMatricId("A0156273R").withPrevMods("CS2030, CS1231")
+            .withMatricId("A0156273R")
             .withCredits("20")
-            .withTags("friends").build();
+            .withTags("CS1010", "CS1020")
+            .build();
     public static final Student BENSON = new StudentBuilder().withName("Benson Meier")
             .withMatricId("A01527367W")
-            .withPrevMods("CS2030, CS1231").withCredits("20")
-            .withTags("owesMoney", "friends").build();
-    public static final Student CARL = new StudentBuilder().withName("Carl Kurz").withCredits("20")
-            .withPrevMods("CS2030, CS1231").withMatricId("A01527367W").build();
+            .withPrevMods("CS2030, CS1231")
+            .withCredits("20")
+            .withTags("CS1010", "CS1231")
+            .build();
+    public static final Student CARL = new StudentBuilder().withName("Carl Kurz")
+            .withCredits("20")
+            .withPrevMods("CS2030, CS1231")
+            .withMatricId("A01527367W")
+            .withTags("CS1010", "CS1231")
+            .build();
     public static final Student DANIEL = new StudentBuilder().withName("Daniel Meier").withCredits("20")
             .withPrevMods("CS2030, CS1231").withMatricId("A01527367W").withTags("friends").build();
     public static final Student ELLE = new StudentBuilder().withName("Elle Meyer").withCredits("20")
