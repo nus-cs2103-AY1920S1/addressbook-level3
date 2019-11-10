@@ -260,7 +260,7 @@ The method will compare the `Tab` in `CommandResult` and once there is a matchin
 Below is the basic activity diagram of fetchTabInformation method
 
 .fetchTabInformation method Activity Diagram
-image::fetchTabInformationActivityDiagram.png[]
+image::fetchTabInformationActivityDiagram.png[width="340"]
 
 //end::tab-switch[]
 
@@ -271,7 +271,7 @@ This feature allows user to generate a pre-selected engagement in to a report an
 ==== Implementation Structure
 
 .PdfCommand Implementation Class Diagram
-image::PdfCommandClassDiagram.png[]
+image::PdfCommandClassDiagram.png[width="600"]
 
 The feature will be implemented as an additional type of Command; `PdfCommand`
 
