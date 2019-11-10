@@ -584,7 +584,6 @@ Format: `check INDEX`
 
 Examples:
 
-****
 *Checking of a contact in the contacts page:* +
 *Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
 
@@ -600,6 +599,7 @@ image::UG-CheckExample2.png[width="800"]
 able to see the claims that belong to this contact
 [[UG-CheckExample3]]
 image::UG-CheckExample3.png[width="800"]
+
 
 *Checking of a claim in the claims page:* +
 *Step 1:* Type `check 2` into the command box and press kbd:[Enter] to execute it. This index 2 represents the claimID
@@ -618,7 +618,6 @@ details that belong to this claim.
 [[UG-CheckExample3]]
 image::UG-CheckExample6.png[width="600"]
 
-****
 
 //end::checkfeature[]
 

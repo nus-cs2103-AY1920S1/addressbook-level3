@@ -111,9 +111,9 @@ class SortCommandTest {
         // same object -> returns true
         assertTrue(sortFirstCommand.equals(sortFirstCommand));
 
-        //        // same values -> returns true
-        //        SortCommand sortFirstCommandCopy = new SortCommand(FIRST_FILTER);
-        //        assertEquals(sortFirstCommand, sortFirstCommandCopy);
+        // same values -> returns true
+        SortCommand sortFirstCommandCopy = new SortCommand(FIRST_FILTER);
+        assertEquals(sortFirstCommand, sortFirstCommandCopy);
 
         // different types -> returns false
         assertFalse(sortFirstCommand.equals(1));

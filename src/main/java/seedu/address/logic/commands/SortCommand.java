@@ -116,14 +116,12 @@ public class SortCommand extends Command {
         }
     }
 
-    //    @Override
-    //    public boolean equals(Object other) {
-    //        if (gotoFilter.equals(((SortCommand) other).gotoFilter)) {
-    //            return true;
-    //        } else {
-    //            return false;
-    //        }
-    //    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && gotoFilter.equals(((SortCommand) other).gotoFilter)); // state check
+    }
 }
 
 
