@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.SetCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.parser.PlannerParser;
@@ -29,6 +30,7 @@ import seedu.planner.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String FILE_DELETION_ERROR_MESSAGE = "Could not delete file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -49,12 +51,19 @@ public class LogicManager implements Logic {
         Command command = plannerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        try {
-            storage.setAccommodationFilePath(model.getAccommodationFilePath());
-            storage.setActivityFilePath(model.getActivityFilePath());
-            storage.setContactFilePath(model.getContactFilePath());
-            storage.setItineraryFilePath(model.getItineraryFilePath());
+        if (command instanceof SetCommand) {
+            try {
+                storage.deletePlannerFilePath();
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_DELETION_ERROR_MESSAGE + ioe, ioe);
+            }
+            storage.setAccommodationFilePath(getAccommodationFilePath());
+            storage.setActivityFilePath(getActivityFilePath());
+            storage.setContactFilePath(getContactFilePath());
+            storage.setItineraryFilePath(getItineraryFilePath());
+        }
 
+        try {
             storage.saveAccommodation(model.getAccommodations());
             storage.saveActivity(model.getActivities());
             storage.saveContact(model.getContacts());
@@ -122,8 +131,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getFolderName() {
-        return model.getFolderName();
+    public Path getPlannerFilePath() {
+        return model.getPlannerFilePath();
     }
 
     @Override

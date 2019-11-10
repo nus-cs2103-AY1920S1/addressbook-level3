@@ -75,9 +75,9 @@ public interface Logic {
     Path getContactFilePath();
 
     /**
-     * Returns the user prefs' folder name.
+     * Returns the user prefs' planner file path.
      */
-    String getFolderName();
+    Path getPlannerFilePath();
 
     /**
      * Returns the Itinerary.

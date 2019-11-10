@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -23,6 +26,8 @@ import seedu.planner.model.field.Name;
 public class SetCommand extends Command {
 
     public static final String COMMAND_WORD = "set";
+    public static final String DIRECTORY_OPS_ERROR_MESSAGE = "Could not list files in planner: ";
+    public static final String DUPLICATE_PLANNER_MESSAGE = "This planner already exists";
     public static final String MESSAGE_NOTHING_TO_SET = "Neither name nor start date is being set.";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
@@ -65,7 +70,18 @@ public class SetCommand extends Command {
             if (this.name.name.length() > 30) {
                 throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
             }
-            model.setFolderName(this.name);
+
+            Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.toString());
+
+            try {
+                if (Files.exists(newPlannerFilePath) && Files.list(newPlannerFilePath).findAny().isPresent()) {
+                    throw new CommandException(DUPLICATE_PLANNER_MESSAGE);
+                }
+            } catch (IOException ioe) {
+                throw new CommandException(DIRECTORY_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+
+            model.setPlannerFilePath(newPlannerFilePath.getFileName());
             model.setItineraryName(this.name);
         }
         if (!(startDate == null)) {

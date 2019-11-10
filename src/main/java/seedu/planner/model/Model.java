@@ -83,14 +83,14 @@ public interface Model {
     void setContactFilePath(Path contactFilePath);
 
     /**
-     * Returns the user prefs' folder name.
+     * Returns the user prefs' planner file path.
      */
-    String getFolderName();
+    Path getPlannerFilePath();
 
     /**
-     * Sets the user prefs' folder name.
+     * Sets the user prefs' planner file path.
      */
-    void setFolderName(Name folderName);
+    void setPlannerFilePath(Path plannerFilePath);
 
     /**
      * Returns the user prefs' itinerary file path.

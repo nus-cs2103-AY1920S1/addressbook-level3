@@ -21,7 +21,7 @@ public interface ItineraryStorage {
     /**
      * Sets the file path of the data file.
      */
-    void setItineraryFilePath(Path itineraryFilePath) throws IOException;
+    void setItineraryFilePath(Path itineraryFilePath);
 
     /**
      * Returns Itinerary data as a {@link ReadOnlyItinerary}.

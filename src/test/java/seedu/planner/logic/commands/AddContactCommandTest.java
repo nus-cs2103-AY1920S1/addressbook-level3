@@ -281,12 +281,12 @@ public class AddContactCommandTest {
 
         // FOLDER METHODS
         @Override
-        public String getFolderName() {
+        public Path getPlannerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setFolderName(Name folderName) {
+        public void setPlannerFilePath(Path plannerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

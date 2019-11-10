@@ -37,7 +37,7 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getAccommodationFilePath();
 
     @Override
-    void setAccommodationFilePath(Path accommodationFilePath) throws IOException;
+    void setAccommodationFilePath(Path accommodationFilePath);
 
     @Override
     Optional<ReadOnlyAccommodation> readAccommodation() throws DataConversionException, IOException;
@@ -51,7 +51,7 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getActivityFilePath();
 
     @Override
-    void setActivityFilePath(Path activityFilePath) throws IOException;
+    void setActivityFilePath(Path activityFilePath);
 
     @Override
     Optional<ReadOnlyActivity> readActivity() throws DataConversionException, IOException;
@@ -65,7 +65,7 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getContactFilePath();
 
     @Override
-    void setContactFilePath(Path contactFilePath) throws IOException;
+    void setContactFilePath(Path contactFilePath);
 
     @Override
     Optional<ReadOnlyContact> readContact() throws DataConversionException, IOException;
@@ -79,11 +79,18 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     Path getItineraryFilePath();
 
     @Override
-    void setItineraryFilePath(Path itineraryFilePath) throws IOException;
+    void setItineraryFilePath(Path itineraryFilePath);
 
     @Override
     Optional<ReadOnlyItinerary> readItinerary() throws DataConversionException, IOException;
 
     @Override
     void saveItinerary(ReadOnlyItinerary itinerary) throws IOException;
+
+    // ================ PlannerFilePath methods ==============================
+
+    /**
+     * Deletes the user prefs' planner file path.
+     */
+    void deletePlannerFilePath() throws IOException;
 }
