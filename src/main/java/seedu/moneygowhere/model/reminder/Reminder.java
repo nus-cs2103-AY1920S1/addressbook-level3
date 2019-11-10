@@ -54,15 +54,15 @@ public class Reminder {
     /**
      * Returns the due date description of a reminder for displaying on UI.
      */
-    public String getDueDateDescription() {
-        if (remainingDays == 0) {
+    public static String getReminderDueDateDescription(Reminder reminder) {
+        if (reminder.remainingDays == 0) {
             return "Today";
-        } else if (remainingDays == 1) {
+        } else if (reminder.remainingDays == 1) {
             return "Tomorrow";
-        } else if (remainingDays < 0) {
-            return "Overdue\n" + DateUtil.twoDigitYearFormatDate(deadline.value);
+        } else if (reminder.remainingDays < 0) {
+            return "Overdue\n" + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         } else {
-            return "Due in \n" + remainingDays + " days " + DateUtil.twoDigitYearFormatDate(deadline.value);
+            return "Due in \n" + reminder.remainingDays + " days " + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         }
     }
 

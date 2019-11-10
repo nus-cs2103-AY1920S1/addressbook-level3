@@ -38,7 +38,7 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        deadline.setText(this.reminder.getDueDateDescription());
+        deadline.setText(Reminder.getReminderDueDateDescription(this.reminder));
 
         switch (this.reminder.getType()) {
         case DEADLINED_TODAY:
