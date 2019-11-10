@@ -33,7 +33,6 @@ class WatchCommandTest {
     private int invalidSeasonNum = 100;
     private int invalidEpisodeNum = 1000;
 
-    /*
     @Test
     void execute_noFieldsSpecifiedUnfilteredList_success() {
         //testing marking a show
@@ -56,7 +55,6 @@ class WatchCommandTest {
         expectedModel.setShow(model.getFilteredShowList().get(0), unwatchedShow);
         assertCommandSuccess(watchCommand, model, expectedUnmarkMessage, expectedModel);
     }
-     */
 
     @Test
     public void execute_invalidShowIndexUnfilteredList_failure() {
