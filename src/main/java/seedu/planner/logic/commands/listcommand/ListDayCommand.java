@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.autocomplete.CommandInformation;
+import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.ResultInformation;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -44,8 +46,13 @@ public class ListDayCommand extends ListCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException{
         requireNonNull(model);
+
+        if (dayIndex.getZeroBased() >= model.getFilteredItinerary().size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+        }
+
         List<ActivityWithTime> activityWithTimeList = model.getFilteredItinerary().get(dayIndex.getZeroBased())
                 .getListOfActivityWithTime();
         int listSize = activityWithTimeList.size();
