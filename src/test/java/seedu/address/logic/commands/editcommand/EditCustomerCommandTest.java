@@ -34,7 +34,7 @@ import seedu.address.testutil.CustomerBuilder;
 import seedu.address.testutil.EditCustomerDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * Contains integration tests (interaction with the Model)
  * and unit tests for EditCustomerCommand.
  */
 public class EditCustomerCommandTest {

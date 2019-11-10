@@ -36,7 +36,7 @@ import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.PhoneBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * Contains integration tests (interaction with the Model)
  * and unit tests for EditPhoneCommand.
  */
 public class EditPhoneCommandTest {
