@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -41,14 +42,19 @@ import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.ui.GuiUnitTest;
 
 //@@author arjavibahety
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
-public class DeleteCommandTest {
+public class DeleteCommandTest extends GuiUnitTest {
 
+    @BeforeEach
+    public void setup() {
+        UniqueIdentificationNumberMaps.clearAllEntries();
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

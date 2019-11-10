@@ -30,6 +30,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_BODY_ID_NUM;
+import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_FRIDGE_ID_NUM;
 import static seedu.address.testutil.TypicalIdentificationNumbers.FIRST_WORKER_ID_NUM;
 
 import java.util.Arrays;
@@ -91,11 +92,16 @@ public class AddressBookParserTest {
         assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "b"), bodyCommand);
 
         DeleteCommand workerCommand = (DeleteCommand) parser.parseCommand(
-                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG_STRING + "b "
+                DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG_STRING + "w "
                         + FIRST_WORKER_ID_NUM.getIdNum());
         assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_WORKER_ID_NUM.getIdNum()), "w"), workerCommand);
 
-        // todo add parser test for fridge class
+        //@@author arjavibahety
+        DeleteCommand frigeCommand =
+                (DeleteCommand) parser.parseCommand(DeleteCommand.COMMAND_WORD + " " + PREFIX_FLAG_STRING + "f "
+                        + FIRST_FRIDGE_ID_NUM.getIdNum());
+        assertEquals(new DeleteCommand(Index.fromZeroBased(FIRST_FRIDGE_ID_NUM.getIdNum()), "f"), frigeCommand);
+        //@@author
     }
     /*
     @Test

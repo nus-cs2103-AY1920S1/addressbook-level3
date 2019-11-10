@@ -17,10 +17,12 @@ import seedu.address.model.notif.Notif;
  */
 public class NotificationPopOver {
 
-    private static PopOver notificationPopOver;
+    private PopOver notificationPopOver;
+    private ObservableList<Notif> notifObservableList;
 
     public NotificationPopOver(ObservableList<Notif> notifList) {
         this.notificationPopOver = new PopOver();
+        this.notifObservableList = notifList;
         notificationPopOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
         notificationPopOver.setOpacity(0.95);
         notificationPopOver.setHeaderAlwaysVisible(true);
@@ -30,6 +32,16 @@ public class NotificationPopOver {
                 .toExternalForm());
         notificationPopOver.getRoot().getStyleClass().add("popover");
         initContent(notifList);
+    }
+
+    /**
+     * Refreshes the popover with the updated list.
+     */
+    public void refresh() {
+        ListView<Notif> notifListView = (ListView<Notif>) notificationPopOver.getContentNode();
+        notifListView.getItems().clear();
+        notifListView.setItems(notifObservableList);
+        notificationPopOver.setContentNode(notifListView);
     }
 
     /**

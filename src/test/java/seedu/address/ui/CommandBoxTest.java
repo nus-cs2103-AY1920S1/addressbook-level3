@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.CommandBoxHandle;
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
@@ -69,7 +70,7 @@ public class CommandBoxTest extends GuiUnitTest {
     private void assertBehaviorForFailedCommand() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(COMMAND_THAT_FAILS, commandBoxHandle.getInput());
-        assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
+        Platform.runLater(() -> assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass()));
     }
 
     /**

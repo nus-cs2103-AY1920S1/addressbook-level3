@@ -41,6 +41,8 @@ public class ModelManager implements Model {
     private final FilteredList<Fridge> filteredFridges;
     private final SimpleObjectProperty<Body> selectedBody = new SimpleObjectProperty<>();
 
+    private FilteredList<Notif> filteredActiveNotifs;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -55,6 +57,7 @@ public class ModelManager implements Model {
         filteredWorkers = new FilteredList<>(this.addressBook.getWorkerList());
         filteredBodies = new FilteredList<>(this.addressBook.getBodyList());
         filteredNotifs = new FilteredList<>(this.addressBook.getNotifList());
+        filteredActiveNotifs = filteredNotifs.filtered(PREDICATE_SHOW_ACTIVE_NOTIFS);
         commandHistory = new CommandHistory();
         undoHistory = new CommandHistory();
         filteredFridges = new FilteredList<>(this.addressBook.getFridgeList());
@@ -170,21 +173,20 @@ public class ModelManager implements Model {
     public void deleteEntity(Entity target) {
         addressBook.removeEntity(target);
         target.getIdNum().removeMapping();
+        updateAllFilteredLists();
     }
 
     @Override
     public void addEntity(Entity entity) {
         addressBook.addEntity(entity);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
-        updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
-        updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
+        updateAllFilteredLists();
     }
 
     @Override
     public void setEntity(Entity target, Entity editedEntity) {
         requireAllNonNull(target, editedEntity);
         addressBook.setEntity(target, editedEntity);
+        updateAllFilteredLists();
     }
 
     @Override
@@ -196,24 +198,31 @@ public class ModelManager implements Model {
     @Override
     public void deleteNotif(Notif target) {
         addressBook.removeNotif(target);
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
     }
 
     @Override
     public void addNotif(Notif notif) {
         addressBook.addNotif(notif);
         updateFilteredNotifList(PREDICATE_SHOW_ALL_NOTIFS);
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
     }
 
     @Override
     public void setNotif(Notif target, Notif editedNotif) {
         requireAllNonNull(target, editedNotif);
-
         addressBook.setNotif(target, editedNotif);
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
     }
 
     @Override
     public int getNumberOfNotifs() {
         return filteredNotifs.size();
+    }
+
+    @Override
+    public int getNumberOfActiveNotifs() {
+        return filteredActiveNotifs.size();
     }
     //=========== Filtered Body List Accessors =============================================================
     /**
@@ -289,10 +298,27 @@ public class ModelManager implements Model {
         return filteredNotifs;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Notif> getFilteredActiveNotifList() {
+        filteredActiveNotifs = filteredNotifs.filtered(PREDICATE_SHOW_ACTIVE_NOTIFS);
+        return filteredActiveNotifs;
+    }
+
     @Override
     public void updateFilteredNotifList(Predicate<Notif> predicate) {
         requireNonNull(predicate);
         filteredNotifs.setPredicate(predicate);
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
+    }
+
+    @Override
+    public void updateFilteredActiveNotifList(Predicate<Notif> predicate) {
+        requireNonNull(predicate);
+        filteredActiveNotifs = filteredNotifs.filtered(predicate);
     }
 
     //=========== Filtered Entities List Accessors =============================================================
@@ -366,6 +392,20 @@ public class ModelManager implements Model {
         }
     }
     //@@ shaoyi1997-reused
+
+    //@@ author shaoyi1997
+
+    /**
+     * Updates all FilteredLists in Mortago to display all entities.
+     */
+    private void updateAllFilteredLists() {
+        updateFilteredActiveNotifList(PREDICATE_SHOW_ACTIVE_NOTIFS);
+        updateFilteredNotifList(PREDICATE_SHOW_ALL_NOTIFS);
+        updateFilteredBodyList(PREDICATE_SHOW_ALL_BODIES);
+        updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
+        updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
+    }
+    //@@ author
 
     @Override
     public boolean equals(Object obj) {

@@ -200,6 +200,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeNotif(Notif key) {
         notifs.remove(key);
+        indicateModified();
     }
 
 
@@ -211,7 +212,6 @@ public class AddressBook implements ReadOnlyAddressBook {
                 + entities.asUnmodifiableObservableListBody().size() + " bodies\n"
                 + entities.asUnmodifiableObservableListFridge().size() + " fridges\n"
                 + notifs.asUnmodifiableObservableListNotif().size() + " notifs";
-        // TODO: refine later
     }
 
     @Override
@@ -234,6 +234,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return notifs.asUnmodifiableObservableListNotif();
     }
 
+    @Override
     public ObservableList<Fridge> getFridgeList() {
         return entities.asUnmodifiableObservableListFridge();
     }
