@@ -9,6 +9,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.Optional;
 
+/**
+ * Command which allows user to list his/her events. If no date is specified, all events will be listed.
+ * If not, only events from the relevant time period will be listed.
+ */
 public class ListCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_LIST_FAILED = "There are no events found";
@@ -27,10 +31,18 @@ public class ListCommand extends Command<Calendar> {
 
     private Optional<EventQuery> eventQuery;
 
+    /**
+     * Creates a {@code ListCommand} that will list all events that happen during the specified event query.
+     *
+     * @param eventQuery The specified event query
+     */
     public ListCommand(EventQuery eventQuery) {
         this.eventQuery = Optional.of(eventQuery);
     }
 
+    /**
+     * Creates a {@code ListCommand} that will list all events from the user's calendar.
+     */
     public ListCommand() {
         this.eventQuery = Optional.empty();
     }
