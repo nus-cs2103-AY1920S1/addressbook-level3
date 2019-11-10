@@ -1,0 +1,89 @@
+= Ge Shuming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ModuleBook
+
+== Overview
+
+The purpose of this portfolio is to document the contributions I have made to the ModuleBook project.
+
+The ModuleBook project is developed by a team of 4 software engineering students as a requirement for the CS2103T module taught at the National University of Singapore (NUS).
+
+ModuleBook is a module tracking and planning application for students of NUS. It allows students to view and track modules, as well as add deadlines and other useful information such as hyperlinks.
+
+image::Ui.png[]
+
+== Summary of contributions
+
+*Major enhancement*: added *archived modules*
+
+* *What it is*: Archived modules contain module data from NUSMods, such as the module code, title, description, prerequisites, preclusions and semester data (exam dates and whether the module is offered for the semester).
+
+* *Justification*: This feature allows developers to use existing data from NUSMods to perform operations, such as filtering (find command). This feature also allows users to view data from NUSMods.
+
+* *Code*: Pull requests https://github.com/AY1920S1-CS2103T-W13-1/main/pull/27[#27], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/28[#28] and https://github.com/AY1920S1-CS2103T-W13-1/main/pull/44[#44]
+
+*Major enhancement*: added *the ability to view modules*
+
+* *What it does*: Allows users to view an archived module to get more details. Also allows users to view a tracked module to access and modify deadlines and hyperlinks.
+
+* *Justification*: This feature enhances the user experience by only displaying details from a single module at any one time. It also minimizes details to be displayed on the module list.
+
+* *Highlights*: This feature creates a context for users to perform commands pertaining to a module. For example, a user can specify that they want to add a hyperlink to the module they are viewing without specifying the module in the command.
+
+* *Credits*: The view feature is a result of the observation of many popular applications on the market, such as Telegram, Discord, Outlook.
+
+* *Code*: Pull requests https://github.com/AY1920S1-CS2103T-W13-1/main/pull/46[#46] and https://github.com/AY1920S1-CS2103T-W13-1/main/pull/72[#72]
+
+*Minor enhancement*: Refactor module list to display archived modules and tracked modules together, with tracked modules overriding the referenced archived modules. (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/142[#142])
+
+*Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=geshuming&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=geshuming&tabRepo=AY1920S1-CS2103T-W13-1%2Fmain%5Bmaster%5D[Link to RepoSense] for functional and test code
+
+*Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (https://github.com/AY1920S1-CS2103T-W13-1/main/releases[Release page])
+*** Managed milestones `v1.1` - `v1.4` on Github (https://github.com/AY1920S1-CS2103T-W13-1/main/milestones[Milestone page])
+*** Managed user stories on Github (https://github.com/AY1920S1-CS2103T-W13-1/main/projects/1[User stories page])
+
+** Morphing from AddressBook to ModuleBook:
+*** Helped to rename files during morphing (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/16[#16])
+*** Helped to integrate add and delete command with new archived module storage features (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/33[#33])
+*** Migrated tests over from AddressBook (Pull requests https://github.com/AY1920S1-CS2103T-W13-1/main/pull/68[#68] and https://github.com/AY1920S1-CS2103T-W13-1/main/pull/69[#69])
+
+** Documentation:
+*** Update website style to center images and image titles (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/164[#164])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W13-1/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/38[#38], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/76[#76], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/147[#147], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/157[#157]
+*** Contributed https://github.com/nus-cs2103-AY1920S1/forum/issues/140[a tip to the module forum]
+
+** Tools:
+*** Setup project repo with CI tools: travis and coveralls
+*** Setup project repo with netlify for website deployment preview
+
+<<<
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=moduleview]
+
+include::../UserGuide.adoc[tag=glossary]
+
+<<<
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=moduleview]
+
+include::../DeveloperGuide.adoc[tag=markmodulestatus]

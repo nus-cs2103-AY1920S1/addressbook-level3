@@ -71,6 +71,7 @@ Format: `exit`
 Shows a list of all current tracked modules. +
 Format: `list`
 
+// tag::moduleview[]
 === Viewing a module: `view`
 
 ==== Method 1: Typing the command
@@ -94,6 +95,8 @@ image::userguide/ViewCommandGuiStep2.png[]
 Returns from the module view.
 
 Format: `back`
+
+// end::moduleview[]
 
 === Finding an archived module: `find`
 
@@ -327,6 +330,8 @@ e.g. `add cs2101`
 * *Delete* : `delete MODULE_CODE` +
 e.g. `delete cs2101`
 
+// tag::glossary[]
+
 [[Glossary]]
 == Glossary
 
@@ -349,3 +354,5 @@ image::userguide/Glossary_ArchivedModule.png[]
 **Tracked** - A module that is tracked. References an archived module. Can be viewed and untracked. It is indicated by a green vertical bar on the module list.
 
 image::userguide/Glossary_TrackedModule.png[]
+
+// end::glossary[]

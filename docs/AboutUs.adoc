@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ge Shuming
 image::geshuming.png[width="150", align="left"]
-{empty}[https://github.com/geshuming[github]]
+{empty}[https://github.com/geshuming[github]][<<geshuming#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Storage design
