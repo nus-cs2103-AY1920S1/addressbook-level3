@@ -418,8 +418,8 @@ image::deleteevent_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully deleted, the result box (red box) will display message "_Deleted event:_" followed by the name
-of the event you just deleted, as shown in the diagram below.
+If successfully deleted, the result box (red box) will display the message "_Deleted event:_" followed by
+the name of the event you just deleted, as shown in the diagram below.
 
 Additionally, the feature box (orange box) will show the current list of events you have in Athletick. The
 deleted event should not appear in the list.
@@ -494,19 +494,20 @@ Let's say you want to know what events you have added to *Athletick*.
 
 *What you should do*
 
-Type `view performance` in the command box, and press `Enter` to execute it.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format: `view performance`
 
-image::viewperformance_wysd.png[width=350]
+image::viewevents_wysd.png[width=450]
 
 *What you should see*
 
-If successfully executed, the success message will be displayed in the result box (red box).
+If successfully executed, the result box (red box) will display the message "_Here are your events stored
+in Athletick_" followed, as shown in the diagram below.
 
-The feature box (green box) will display all your events saved in *Athletick*.
+Additionally, the feature box (orange box) will show the list of events you have in Athletick.
 
-image::viewperformance_wyss.png[width=450]
+image::viewevents_wyss.png[width=450]
 
 === Calendar
 
