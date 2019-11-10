@@ -125,7 +125,8 @@ public class SampleDataUtil {
     public static Order[] getSampleOrders() {
         return new Order[]{
             new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh99"))
-                    .setRestaurant(new Name("Burger Palace")).setDeliveryman(new Name("Damith"))
+                    //.setRestaurant(new Name("Burger Palace")).setDeliveryman(new Name("Damith"))
+                    .setRestaurant(new Name("Burger Palace"))
                     .setFood(Map.ofEntries(Map.entry(new Name("Ginger Burger"), 2),
                             Map.entry(new Name("Crispy Duck Burger"), 4),
                             Map.entry(new Name("Pickle Burger"), 1)))
@@ -170,11 +171,11 @@ public class SampleDataUtil {
                     getTagSet("inactive", "giveCharlieAplus"), new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
-                    new StatusTag("DELIVERING")),
+                    new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
                 getTagSet("active", "AisEnough"), new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
-                    new StatusTag("DELIVERING")),
+                    new StatusTag("UNAVAILABLE")),
             new Deliveryman(new Name("Yuen Jun Rong"), new Phone("92345678"), getTagSet("veryactive"),
                     new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Jynn Shen"), new Phone("82632181"), getTagSet("veryactive"),
@@ -184,7 +185,8 @@ public class SampleDataUtil {
             new Deliveryman(new Name("Barry Allen"), new Phone("88547422"), getTagSet("lightningfast"),
                     new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Gloria Tan"), new Phone("83123111"), getTagSet()),
-            new Deliveryman(new Name("Ethan Lim"), new Phone("83123875"), getTagSet("loyal")),
+            new Deliveryman(new Name("Ethan Lim"), new Phone("83123875"), getTagSet("loyal"),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Lee Hsien Kun"), new Phone("88887777"), getTagSet(),
                 new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Lee Hsien Kong"), new Phone("88889999"), getTagSet(),
