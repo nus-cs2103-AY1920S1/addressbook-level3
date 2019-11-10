@@ -285,6 +285,41 @@ image::CommitActivityDiagram.png[]
 
 // end::undoredo[]
 
+// tag::reactivesearch[]
+
+=== Reactive Search
+
+The main concept behind reactive searching is that we would like time-consuming searching to be UI non-blocking and executed as rapidly as possible so that user is instantly provided with results for a given keyword.
+
+Similar to eager evaluation, Reactive Search attempts to process commands if it does not mutate the storage. Otherwise it does a simple redirect to the tab relevant to the command.
+
+.Reactive Search Sequence Diagram showing how a thread is created to do the expensive processing.
+image::ReactiveSearchSequenceDiagram.png[]
+
+After the newly created thread starts, it will attempt to kill any previous thread that is still processing asynchronously before starting its own processing.
+
+After which, changes to the ObservableList will trigger the updateItem listener in UI. And since each graphical update is fast and can only be executed from the JavaFX main application thread, we defer each of them via Platform.run() so that the FX main application thread can execute them in order whenever it is free.
+
+[source, java]
+----
+class EventListViewCell extends ListCell<Event> {
+    @Override
+    protected void updateItem(Event event, boolean empty) {
+        super.updateItem(event, empty);
+
+        if (empty || event == null) {
+            Platform.runLater(() -> setGraphic(null));
+        } else {
+            Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
+        }
+    }
+}
+----
+
+Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
+
+// end::reactivesearch[]
+
 // tag::autocomplete[]
 
 === AutoComplete
@@ -293,8 +328,6 @@ We are using Prefix Tree which is known as a Trie for AutoComplete. This gives u
 
 .AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
-
-// tag::autocompleteDesignConsideration[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
@@ -320,7 +353,6 @@ image::AutoCompleteSequenceDiagram.png[]
 1. Time Complexity Inefficient.
 |===
 
-// end::autocompleteDesignConsideration[]
 // end::autocomplete[]
 
 === Queue feature

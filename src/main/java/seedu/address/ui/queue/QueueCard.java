@@ -18,8 +18,6 @@ public class QueueCard extends UiPart<Region> {
     public final Person person;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label id;
     @FXML
     private Label name;
