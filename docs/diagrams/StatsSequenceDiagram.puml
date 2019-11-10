@@ -36,7 +36,7 @@ activate "stats:Statistics"
 "stats:Statistics" --> "s:StatsCommand" : stats
 deactivate "stats:Statistics"
 
-"s:StatsCommand" -> ":Model" : setStatistics()
+"s:StatsCommand" -> ":Model" : setStatistics(stats)
 
 create "cr:CommandResult"
 "s:StatsCommand" -> "cr:CommandResult"

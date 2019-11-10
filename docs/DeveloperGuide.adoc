@@ -181,6 +181,8 @@ Step 6. After successfully adding the eatery into `EateryList`, `AddCommand` wil
 
 The following sequence diagram shows how the add eatery feature is executed.
 image:AddSequenceDiagram.png[]
+
+The following sequence diagram shows the reference sequence diagram for creating `Eatery e`.
 image:AddCreateSequenceDiagram.png[]
 
 ==== Design Considerations
@@ -219,8 +221,13 @@ Step 6. If the newly created `Eatery` is not a duplicate of the existing `Eatery
 
 Step 7. After successfully editing the eatery, `EditCommand` will return the `CommandResult` to the `Ui`.
 
-The following sequence diagram shows how the add eatery feature is executed.
+The following sequence diagram shows how the edit eatery feature is executed.
 image:EditSequenceDiagram.png[]
+
+The following sequence diagram shows the reference sequence diagram for creating an `EditEateryDescriptor e`.
+image:EditEateryDescriptorSequenceDiagram.png[]
+
+The reference sequence diagram for creating `Eatery edited` has been omitted as the steps are the same as the reference sequence diagram for `add` command above.
 
 ==== Design Considerations
 ===== Aspect: Replace or add on to eatery's list of tags
