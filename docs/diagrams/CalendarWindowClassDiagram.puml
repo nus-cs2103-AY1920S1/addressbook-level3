@@ -13,7 +13,7 @@ Class CalendarDateCell
 Class DateDisplayGrid
 Class CalendarDateStackPane
 Class SingleDayEngagementsDisplayWindow
-Class ListView
+Class EngagementListView
 Class EngagementListViewCell
 Class Engagement
 Class LocalDate
@@ -52,9 +52,9 @@ CalendarDateCell *-right-> SingleDayEngagementsDisplayWindow
 CalendarDateCell -down-> LocalDate
 
 SingleDayEngagementsDisplayWindow .up.|> UiPart
-SingleDayEngagementsDisplayWindow -down-> "1" ListView
+SingleDayEngagementsDisplayWindow -down-> "1" EngagementListView
 
-ListView -down-> "*" EngagementListViewCell
+EngagementListView -down-> "*" EngagementListViewCell
 
 EngagementListViewCell -down-> "1" Engagement
 

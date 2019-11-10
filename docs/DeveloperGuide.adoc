@@ -353,9 +353,54 @@ show more detailed descriptions of the stored engagements for a particular day.
 ==== Implementation Structure
 .Structure of the Calendar Window
 image::CalendarWindowClassDiagram.png[]
-
+{empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
+
+.Calendar Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `DateDisplayGrid`
+| GridPane
+| Displays a grid which represents 35 calendar dates.
+| Shows the user the days of the month which is currently being displayed.
+
+| `CalendarDateStackPane`
+| StackPane
+| Displays the date of a single `CalendarDateCell` and the number of engagements for that date.
+| Provides the user with some general engagement information for a particular date.
+
+| `PreviousMonthButton`
+| Button
+| Switches the calendar's display to the previous month.
+| Allows the user to navigate to the previous month.
+
+| `CalendarTitle`
+| Text
+| Indicates the month and year currently being displayed by the calendar window.
+| Informs the month and year currently being displayed by the calendar window.
+
+| `NextMonthButton`
+| Button
+| Switches the calendar's display to the next month.
+| Allows the user to navigate to the next month.
+
+| `EngagementListView`
+| ListView
+| Displays a list of engagements for a particular date.
+| Lets the user see more detailed information about all of his/her engagements for a particular date
+
+| `EngagementListViewCell`
+| ListCell
+| Displays information for a single engagement.
+| Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
+
+|===
 
 .CalendarWindow Initialization Sequence Diagram
 image::CalendarWindowSequenceDiagram.png[]
