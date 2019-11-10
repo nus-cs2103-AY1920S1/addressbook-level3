@@ -191,19 +191,22 @@ public class MainWindow extends UiPart<Stage> implements CommandBoxManager, Omni
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int screenWidth = gd.getDisplayMode().getWidth();
         int screenHeight = gd.getDisplayMode().getHeight();
+        double targetWidth = guiSettings.getWindowWidth();
+        double targetHeight = guiSettings.getWindowHeight();
 
-        if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
+        if (screenHeight < targetHeight || screenWidth < targetWidth || targetHeight < primaryStage.getMinHeight()
+                || targetWidth < primaryStage.getMinWidth()) {
             logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
                     + " Window Sizing.");
             return;
         }
 
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        primaryStage.setWidth(targetWidth);
+        primaryStage.setHeight(targetHeight);
 
         if (guiSettings.getWindowCoordinates() == null
-                || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
-                || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
+                || screenWidth < targetWidth + guiSettings.getWindowCoordinates().getX()
+                || screenHeight < targetHeight + guiSettings.getWindowCoordinates().getY()) {
             logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
                     + " Window Sizing.");
             return;
