@@ -193,19 +193,19 @@ The keywords supported by this feature includes:
 | `name` | New name of the student to be edited.
 |==============================
 
-image::editStudent1.png[]
-_Original list of students._
-
-image::editStudent2.png[]
-_Type in the command to change name of student in index 1 to John Doe._
-
-image::editStudent3.png[]
-_Successfully change the name of student in index 1 to John Doe._
-
 Examples:
 
 * `student 1 name/John Doe` +
 Changes the name of the student with index number 1 in the student list to John Doe
+
+image::EditStudent1.png[]
+_Original list of students._
+
+image::EditStudent2.png[]
+_Type in the command to change name of student in index 1 to John Doe._
+
+image::EditStudent3.png[]
+_Successfully change the name of student in index 1 to John Doe._
 
 
 
@@ -432,13 +432,13 @@ Examples:
 * `group groupID/G01` +
 Shows all the students that belong to group with groupID `G01`
 
-image::groupView1.png[]
+image::GroupView1.png[]
 _Create a group G02 with students John Doe, Jane Doe and Ben Tan._
 
-image::groupView2.png[]
+image::GroupView2.png[]
 _Type in the command to display group G02._
 
-image::groupView3.png[]
+image::GroupView3.png[]
 _View of G02._
 
 === Questions ​-​ `question`
