@@ -190,11 +190,11 @@ image::StorageClassDiagramV2.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save and read data of the particulars of patients and doctors in json format.
-* can save and read data of the Appointments and duty shifts data in json format.
-* able to reuse `JsonAddressBookStorage` to store the details of doctors and patients.
-* able to reuse `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
+* saves `UserPref` objects in json format and read it back.
+* saves and read data of the particulars of patients and doctors in json format.
+* saves and read data of the Appointments and duty shifts data in json format.
+* reuses `JsonAddressBookStorage` to store the details of doctors and patients.
+* reuses `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
 
 [[Design-Commons]]
 === Common classes
@@ -288,7 +288,6 @@ If the undo stack is empty then there are no previous states to be restored. The
 The following sequence diagram shows how the undo operation works:
 
 .Undo Sequence Diagram
-//TODO: Update Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
