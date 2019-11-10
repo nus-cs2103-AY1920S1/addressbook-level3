@@ -19,7 +19,7 @@ public class FindPredicate implements Predicate<DiaryEntry> {
     @Override
     public boolean test(DiaryEntry diaryEntry) {
         String title = diaryEntry.getTitle().toString();
-        String date = diaryEntry.getDateAsString();
+        String date = diaryEntry.getDateAsStringtoStore();
         String place = diaryEntry.getPlace().toString();
         String memory = diaryEntry.getMemory().toString();
         String[] myHolder = new String[]{title,date,place,memory};
