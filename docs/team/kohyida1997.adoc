@@ -81,15 +81,15 @@ the _Timer_ effectively.
 * *Implemented and designed the _Game_ logic, UI and Difficulty.*
 
 ** [underline]#_Brief Description_#:
-*** The game is a primary feature _Game_ where the User makes guesses for _Words_ based on a _Meaning_ shown. Different _Difficulty_ modes are available that changes the time allowed per question.
+*** The _Game_ is a primary feature of the app where the User makes guesses for _Words_ based on a _Meaning_ shown. Different _Difficulty_ modes are available that changes the time allowed per question.
 
 * *Code contributed*: +
-[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional(Game Logic)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional (Game Difficulty)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Tests (Game)]] +
+[https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/game[Functional (Game Logic)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/appsettings/DifficultyEnum.java[Functional (Game Difficulty)]], [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/model/game[Tests (Game)]] +
 
 === image:documents_icon.png[width=20] Other contributions
 
 ** [underline]#_Project management_#:
-*** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 *** *Designed and prototyped* the general _Game_ program flow and commands, which was adopted by the team.
 *** Worked closely with teammates in *discovering and resolving bugs* in other areas of code.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/348951bf148ac4c19bfe1f635c4e76de631e5430[#133]
@@ -98,20 +98,20 @@ https://github.com/AY1920S1-CS2103T-T11-2/main/pull/141[#141] https://github.com
 *** Researched about and implemented _Callbacks_ and _Event-Driven Design_ which was adopted in other teammate's features.
 https://github.com/AY1920S1-CS2103T-T11-2/main/commit/d88513c8c11c6e10b0852c078db84e8ad507408a#diff-88f06211563ad55170a8a9c11829abf0[#185]
 ** [underline]#_Documentation_# (_Details in next section_):
-*** Added icons and diagrams to *User Guide* to aid in reading: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/137[#137]
+*** Added icons and diagrams to *User Guide* to aid in navigability: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/137[#137]
 *** Edited and wrote Introduction, Installation, and Quickstart sections in *User Guide*: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/149[#149]
 *** Drew and explained overall architecture of _Dukemon_ in *Developer Guide* https://github.com/AY1920S1-CS2103T-T11-2/main/pull/94/files[#94]
-*** Oversaw and ensured quality and cohesiveness of *User Guide* and *Developer Guide*.
+*** Oversaw and ensured quality and cohesiveness of *User Guide* and *Developer Guide*. https://github.com/AY1920S1-CS2103T-T11-2/main/pull/226[#226]
 ** [underline]#_Community_#:
 *** Reviewed PRs (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T11-2/main/pull/49[#49], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/71[#71]
-*** Contributed to the module forum (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/154[1])
+*** Contributed to the CS2103T module forum (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/154[1])
 ** [underline]#_Tools_#:
 *** Integrated external testing library (https://github.com/TestFX/TestFX[TestFX]) to the project (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/79[#79]) and Travis CI builds (https://github.com/AY1920S1-CS2103T-T11-2/main/pull/113[#113]).
 
 == image:user-manual-icon.png[width=35] Contributions - User Guide
 
 |===
-|_Given below are the highlights of what I contributed to the User Guide, showcasing my ability to write documentation targeting end-users._
+|_Below are the highlights of my contributions to the https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#game-commands-span-class-image-img-src-images-game_mode_icon-png-alt-game-mode-icon-width-30-span)[User Guide], showcasing my ability to write documentation targeting end-users._
 |===
 
 === Game Commands image:game_mode_icon.png[width="30"]
@@ -181,7 +181,7 @@ Format: `stop`
 == image:source-code-icon.png[width=34] Contributions - Developer Guide
 
 |===
-|_Given below are the highlights of what I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Below are the highlights my contributions to the https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#span-class-underline-timer-based-features-span[Developer Guide], showcasing my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 === [underline]#Timer-based Features#
@@ -290,25 +290,41 @@ There were a few reasons for designing the `Timer` this way.
 |**Aspect 1**: +
 Where and How to effect changes to the `Ui` and other components when the `Timer` triggers an event.
 | **Holding a reference to `Ui` and other components directly inside `GameTimer` itself**: +
-
-_Pros:_ +
+*_Pros:_* +
 Straightforward and direct, can perform many different tasks on the dependent components.  +
-
-_Cons:_ +
+*_Cons:_* +
 Poor abstraction and high potential for cyclic dependencies, resulting in high coupling.
 
 |**Using _Functional Interfaces_ as Call-backs to notify components indirectly.** +
-
-_Pros:_ +
+*_Pros:_* +
 Maintains abstraction and minimal coupling between `Timer` and other components  +
-
-_Cons:_ +
+*_Cons:_* +
 Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
 implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
 
-3+|**Why did we choose Alternative 2:** +
+3+|**Why we chose Alternative 2:** +
 To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
 abstraction between components. This is also to make life easier when there comes a need to
 debug and resolve problems in the code.
  +
+ ||**Alternative 1**|**Alternative 2**
+ |**Aspect 2**: +
+ Where and how to perform string formatting for `Hints` to be displayed.
+ | **Move retrieval of individual Hint characters and all formatting outside of the Game component completely**: +
+ *_Pros:_* +
+Maintains immutability of each `Card` inside `Game` component.  +
+ *_Cons:_* +
+Breaking abstraction as higher level components should not have to deal with string formatting.
+
+ |**Perform formatting at the lowest level possible, using a `FormattedHint` class.** +
+ *_Pros:_* +
+Higher level components need not know about string formatting at all, maintains good abstraction.  +
+*_Cons:_* +
+Individual `Game` components like each `Card` become stateful, need to make deep copies to prevent
+state from carrying across `Game` sessions.
+
+ 3+|**Why we chose Alternative 2:** +
+Implementing cloning of `Cards` affects other areas of code the least, and reduces unnecessary coupling. Since changes to higher level
+elements can potentially affect all other components, it was safer to modify more atomic areas of code.
+  +
 |===
