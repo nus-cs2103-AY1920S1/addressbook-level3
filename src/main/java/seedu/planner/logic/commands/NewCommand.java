@@ -81,8 +81,7 @@ public class NewCommand extends Command {
         model.setContacts(new ContactManager());
         model.setAccommodations(new AccommodationManager());
         model.setActivities(new ActivityManager());
-        model.setItinerary(new Itinerary());
-        model.setItineraryName(this.name);
+        model.setItinerary(new Itinerary(this.name));
 
         return new CommandResult(
                 MESSAGE_SUCCESS,

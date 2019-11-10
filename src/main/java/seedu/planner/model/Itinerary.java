@@ -45,7 +45,15 @@ public class Itinerary implements ReadOnlyItinerary {
     }
 
     /**
-     * Creates an Itinerary using the Persons in the {@code toBeCopied}
+     * Creates an Itinerary using the given name.
+     */
+    public Itinerary(Name itineraryName) {
+        this.nameProperty = new SimpleObjectProperty<>(itineraryName);
+        this.startDateProperty = new SimpleObjectProperty<>(LocalDate.now());
+    }
+
+    /**
+     * Creates an Itinerary using the Itinerary in the {@code toBeCopied}
      */
     public Itinerary(ReadOnlyItinerary toBeCopied) {
         this();
