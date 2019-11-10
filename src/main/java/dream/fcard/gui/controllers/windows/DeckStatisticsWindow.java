@@ -71,11 +71,11 @@ public class DeckStatisticsWindow extends ScrollPane {
         this.numCards.setText("Number of cards in deck: " + numberOfCards
             + (numberOfCards == 1 ? " card" : " cards"));
 
-        SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
-            testSessionList);
-        int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
-        this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
-            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
+        //SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
+        //    testSessionList);
+        //int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
+        //this.sessionsThisWeek.setText("Total test sessions this week: " + numSessionsThisWeek
+        //    + (numSessionsThisWeek == 1 ? " session" : " sessions"));
 
         int numSessions = this.testSessionList.getNumberOfSessions();
         totalSessions.setText("Total test sessions: " + numSessions

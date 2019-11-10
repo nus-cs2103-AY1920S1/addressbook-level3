@@ -29,9 +29,6 @@ public class DeckStats extends Stats implements JsonInterface {
         this.currentSession = null;
         this.currentDeck = null;
         logger.info("New DeckStats object created.");
-
-        // temporary, for testing
-        this.deckHashMap.put("test", new SessionList());
     }
 
     /** Gets the hash map containing session lists for all decks. */
@@ -121,7 +118,10 @@ public class DeckStats extends Stats implements JsonInterface {
 
     /** Returns the SessionList related to the specified deck. */
     public SessionList getSessionListForDeck(String deckName) {
-        // assumes that the deck can be found? or throw exception?
+        // if the session list corresponding to the deck does not yet exist, create it
+        if (!this.deckHashMap.containsKey(deckName)) {
+            this.deckHashMap.put(deckName, new SessionList());
+        }
         return this.deckHashMap.get(deckName);
     }
 
@@ -132,7 +132,6 @@ public class DeckStats extends Stats implements JsonInterface {
 
     /** Adds the given Session to the SessionList corresponding to the given deck. */
     public void addSessionToDeckSessionList(Session session, String deckName) {
-        // if deck not found in hashmap, throw deck not found exception?
         SessionList sessionList = this.getSessionListForDeck(deckName);
         sessionList.addSession(session);
         logger.info("Added a session to the sessionList for deck: " + deckName + "!");

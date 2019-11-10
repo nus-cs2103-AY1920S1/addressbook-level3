@@ -151,10 +151,7 @@ public class Session implements JsonInterface {
 
     /** Returns true if this Session has a Score. */
     public boolean hasScore() {
-        if (this.score == null) {
-            return false;
-        }
-        return true;
+        return this.score != null;
     }
 
     /** Gets the score of this session, as a String. */

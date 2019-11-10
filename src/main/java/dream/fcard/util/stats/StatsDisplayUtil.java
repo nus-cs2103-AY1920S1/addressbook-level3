@@ -52,13 +52,6 @@ public class StatsDisplayUtil {
         ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
         TableView<Session> sessionsTableView = new TableView<>();
 
-        // temporary debug
-        for (Session session : sessionsArrayList) {
-            System.out.println("Start: " + session.getSessionStartString());
-            System.out.println("End: " + session.getSessionEndString());
-            System.out.println("Duration: " + session.getDurationString());
-        }
-
         sessionsTableView.setItems(FXCollections.observableArrayList(sessionsArrayList));
 
         TableColumn<Session, String> startColumn = new TableColumn<>("Start");
