@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Typee
+== CS2103T Team Project: Typee
 
 == Overview
 
@@ -52,15 +52,12 @@ Document template is fully customisable, hence it makes the application flexible
 
 * *Other contributions*:
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage by roughly 7% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Major updates in Main Window UI with css styling (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/223[#223], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65])
+*** Wrote additional tests for existing features to increase coverage by roughly 9% (Pull requests https://github.com/AY1920S1-CS2103T-F14-3/main/pull/201[#201], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/200[#200],
+https://github.com/AY1920S1-CS2103T-F14-3/main/pull/226[#226])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (iTextPdf) to the project
 *** Integrated a third party library (common-IO) to the project

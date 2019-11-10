@@ -238,29 +238,31 @@ image::CommitActivityDiagram.png[width="190", align="center"]
 
 //tag::tab-switch[]
 === Tab Switch Feature
-Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. System UI structure is generally divided into 2 parts;
+Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. +
+Tab switch function is implemented in using both CLI and GUI approach; user can execute tab-switch by typing command in the input text-area or by interaction with the UI component (Button).
 
 ==== Implementation Structure
 
 .TabCommand Implementation Class Diagram
-image::TabCommandClassDiagram.png[width="550"]
+image::TabCommandClassDiagram.png[width="500"]
 
-1. `MainWindow` which contains necessary text input for `Command` inputs and output display for displaying the `CommandResult`
-2. Window component, which is a type of `VBox`, that acts as a container for other different UI windows.
-3. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
+1. Tab Menu List, which displays the name of the tab/menus, which has respective separate UI windows. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
 * Upon first startup of the system, by system default, system will display the `EngagementList` window.
-4. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
+2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner. Below is the class diagram for `Tab` class
 
-[.text-center]
+[.float-group]
+[.clearfix]
+--
 .Tab Class Diagram
-image::TabClassDiagram.png[width="400"]
+image::TabClassDiagram.png[width="350", float="left"]
+[.left]
+.fetchTabInformation Activity Diagram
+image::fetchTabInformationActivityDiagram.png[width="300"]
+--
 
-From figure 9, MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property.
-The method will compare the `Tab` in `CommandResult` and once there is a matching result, the method will load the respective fxml file in the MainWindow to display the respective feature window.
-Below is the basic activity diagram of fetchTabInformation method
+MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
 
-.fetchTabInformation method Activity Diagram
-image::fetchTabInformationActivityDiagram.png[width="340"]
+Next, system checks whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return withn an empty tab with only name attached.
 
 //end::tab-switch[]
 
@@ -275,12 +277,12 @@ image::PdfCommandClassDiagram.png[width="600"]
 
 The feature will be implemented as an additional type of Command; `PdfCommand`
 
-* Proposed syntax of the PdfCommand is as follow: `pdf i/[engagementList_index] to/[Person] from/[Person]`.
+* Proposed syntax of the PdfCommand is as follow: `pdf i/ENGAGEMENT_LIST_INDEX t/RECEIVER f/SENDER`.
 
-Util class `PdfUtil` will be implemented for handling all pdf document creation related methods.
+Util class `PdfUtil` will be implemented for handling all pdf document creation related methods. Figure below is the class diagram for PdfUtil class.
 
 .PdfUtil Class Diagram
-image::PdfUtilClassDiagram.png[]
+image::PdfUtilClassDiagram.png[width="700"]
 
 PdfUtil class will be implemented under `util` package and it will be able to deliver few essential features
 that are necessary for document creation.
@@ -294,6 +296,11 @@ To fulfill the document format, `Report` class needs to be implemented in order 
 ***  `engagement`: specific engagement information to include in the document
 *** `to`: A `Person` who is receiving the document
 *** `from`: A `Person` who is either a receptionist or a secretary who is sending the document.
+
+Below is the sequence diagram for document generation which displays the concept of how this feature will be implemented by multiple interaction between different architecture components.
+
+.Sequence diagram for document generation.
+image::GenerateReportSequenceDiagram.png[width="650"]
 
 ==== UI Design
 `ReportWindow` will be the UI container which helps the user to interact using `PdfCommand`.
