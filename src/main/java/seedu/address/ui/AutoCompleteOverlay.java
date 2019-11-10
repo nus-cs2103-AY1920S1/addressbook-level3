@@ -18,11 +18,11 @@ import javafx.scene.text.TextFlow;
 public class AutoCompleteOverlay extends UiPart<Region> {
 
     private static final int CELL_HEIGHT = 20;
-    private static final double FONT_WIDTH = 10.82; //via experimenting, currently no solution to get an exact
+    private static final double FONT_WIDTH = 10.81; //via experimenting, currently no solution to get an exact
     private static final int SCROLL_NEGATE_OFFSET = 20;
     private static final int NUM_IN_VIEW = 10;
     private static final int MAX_HEIGHT = CELL_HEIGHT * NUM_IN_VIEW;
-    private static final int X_OFFSET = 24;
+    private static final int X_OFFSET = 22;
 
     private final SelectionNotifier selectionNotifier;
 
