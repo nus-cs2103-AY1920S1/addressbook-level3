@@ -3,11 +3,11 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial state
+title newpatient -id S9729970A -name Mark
 
-package "Command History" {
-    class add1 as "AddDutyShiftCommand    "
-    class cancel1 as "CancelDutyShiftCommand    "
+package "CommandHistory" {
+    class add1 as "RegisterPatientCommand    "
+    class cancel1 as "unregisterPatientCommand    "
 
     class add2 as "EnqueueCommand    "
     class cancel2 as "DequeueCommand    "
@@ -43,5 +43,8 @@ hide cancel2
 hide State3
 hide add3
 hide cancel3
+
+class TopOfUndoStack as " Top Of Undo Stack    " #FFFFF
+TopOfUndoStack -up-> State1
 
 @end

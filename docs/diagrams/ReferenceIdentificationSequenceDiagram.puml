@@ -6,25 +6,19 @@ participant ":RegisterPatientCommandParser    " as AddCommandParser #black
 end box
 
 box Model MODEL_COLOR_T1
-participant ":ModelManager" as model MODEL_COLOR
-participant "patientAddressBook:AddressBook     " as IdentificationNumber MODEL_COLOR
-participant "uniqueIds:UniqueIdentificationNumberMaps" as UniqueIdentificationNumberMaps MODEL_COLOR
+participant ":PersonReferenceId" as PersonReferenceId MODEL_COLOR
 end box
 
-create model
-AddCommandParser -> model
-activate model
-    model -> IdentificationNumber : generateNewWorkerId(this)
-    activate IdentificationNumber
-        IdentificationNumber -> IdentificationNumber: new IdentificationNumber
-        activate IdentificationNumber
-            IdentificationNumber -> UniqueIdentificationNumberMaps : addEntity
-            activate UniqueIdentificationNumberMaps
-                UniqueIdentificationNumberMaps -> UniqueIdentificationNumberMaps : putWorker
-                activate UniqueIdentificationNumberMaps
-                return newId
-            return newId
-        return IdentificationNumber
-    return IdentificationNumber
-AddCommandParser <-- model
+AddCommandParser -> PersonReferenceId : issuePatientReferenceId("E1234567A")
+activate PersonReferenceId
+    PersonReferenceId -> PersonReferenceId : issueReferenceId(...)
+    activate PersonReferenceId
+
+    PersonReferenceId -> PersonReferenceId : issueReferenceId(...)
+
+
+    activate PersonReferenceId
+    return
+
+return newId
 @enduml

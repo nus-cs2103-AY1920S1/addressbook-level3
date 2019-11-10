@@ -28,6 +28,10 @@ package "commandRedoHistory" {
     class Hidden5 as "__action:ReversibleActionPairCommand____"
     class Hidden6 as "__action:ReversibleActionPairCommand____"
 }
+
+class TopOfUndoStack as " Top Of Undo Stack    " #FFFFF
+class TopOfRedoStack as " Top Of Redo Stack    " #FFFFF
+
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> Hidden4
 
@@ -47,13 +51,16 @@ State3 -up-> add3
 State3 -up-> cancel3
 add3 -[hidden]down-> cancel3
 
-add3 -[hidden]up-> State1
-Hidden5 -[hidden]up-> State2
-Hidden6 -[hidden]up-> Hidden4
+add3 -[hidden]up--> State1
+Hidden5 -[hidden]up--> State2
+Hidden6 -[hidden]up--> Hidden4
 
 hide Hidden4
 hide Hidden5
 hide Hidden6
+
+TopOfUndoStack -up-> State2
+TopOfRedoStack -up-> State3
 
 @end
 

@@ -19,6 +19,8 @@ package "CommandHistory" {
     class State2 as "__action1:ReversibleActionPairCommand____"
     class State3 as "__action3:ReversibleActionPairCommand____"
 }
+class TopOfUndoStack as " Top Of Undo Stack    " #FFFFF
+
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
@@ -34,6 +36,6 @@ cancel2 -[hidden]right-> cancel3
 
 State3 -up-> add3
 State3 -up-> cancel3
-add3 -[hidden]down-> cancel3
 
+TopOfUndoStack -up-> State3
 @end
