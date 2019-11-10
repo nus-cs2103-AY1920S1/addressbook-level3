@@ -20,7 +20,7 @@ Responsibilities: Model component, Autotag implementation
 
 === Daryl Tan
 image::openorclose.png[width="150", align="left"]
-{empty}[https://github.com/openorclose[github]] [<<daryl-tan#, portfolio>>]
+{empty}[https://github.com/openorclose[github]] [<<openorclose#, portfolio>>]
 
 Role: Testing & Code Quality +
 Responsibilities: Storage
