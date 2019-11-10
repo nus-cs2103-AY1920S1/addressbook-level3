@@ -3,9 +3,9 @@ package mams.logic.commands;
 import static mams.logic.commands.CommandTestUtil.assertCommandFailure;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
+import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_FOURTH;
@@ -15,11 +15,6 @@ import static mams.testutil.TypicalMams.getTypicalMams;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import mams.commons.core.Messages;
-import mams.commons.core.index.Index;
-
-import mams.logic.commands.exceptions.CommandException;
 
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
@@ -38,6 +33,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import mams.commons.core.Messages;
+import mams.commons.core.index.Index;
 
 public class ApproveCommandTest {
 
