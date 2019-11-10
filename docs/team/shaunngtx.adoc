@@ -1,9 +1,20 @@
-= Shaun Ng - Project Portfolio
+= Shaun Ng - Project Portfolio for CS2103 - Revision Tool
 :site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+:contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=shaunngtx
+:ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
+:pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+:restoreCommand: https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java
+:AutoComplete: https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java
 
-== PROJECT: RevisionTools - V1.4
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 ---
 
@@ -18,32 +29,33 @@ has about 14 kLoC.
 * *Major enhancement*: added *the Restore Command function*
 ** What it does: allows the user to restore their current Question Bank to the default question bank.
 ** Justification: This feature improves the product rather significantly as users tend to over-add questions and this would allow them to revert their Question Bank to the default bank
-as a form of "Restart", as most of our default questions are taken from the weekly lecture quiz questions.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was
-challenging as it required changes to existing commands and models.
+as a form of "Restart", as most of our default questions are taken from the weekly lecture quiz questions, and hence deemed as important by the professor.
+** Highlights: This enhancement required changes to the existing models and command classes as a warning alert would pop up to seek confirmation from the users before performing the restore command. Hence the implementation was challenging as it required UI, and model changes.
 
 * *Major enhancement*: added *the Auto Complete function*
-** What it does: shows the user a list of possible AutoCompleted commands while they are typing in which they select in order to simplify things for the user.
-** Justification: This feature improves the product significantly because for a CLI, users have to do a lot of typing and this greatly eases the amount of work they have to do, and
-reap the maximum benefits from the application.
-** Highlights: This enhancement required in-depth analysis of design alternatives as the implementation required changes to the commandBox which was used in almost every file which
-had a textBox in it. A significant amount of thought was placed into the implementation as well as I had to formulate what sort of AutoComplete would be most intuitive and value-add to users.
+** What it does: shows the user a list of possible AutoComplete commands while they are typing, in which they can select, in order to simplify the user's journey.
+** Justification: This feature improves the product significantly because for a CLI, users have to do a lot of typing and this greatly eases the amount of work they have to do, and hence allow them to reap the maximum benefits from the application.
+** Highlights: This enhancement required in-depth analysis of design alternatives as the implementation required changes to the commandBox which was used in almost every file which had a textBox in it. A significant amount of thought was placed into the implementation as well as I had to formulate what sort of AutoComplete would be most intuitive and value-add to users.
 ** Credits: _Took references and suggestions from 2 different sources:_
  [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java[JavaFX AutoComplete]]
  [https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions[Stackoverflow JavaFX Auto-Suggestions]]
 
+* *Minor enhancement*:
+** Created the initial UI interface for the startCommand that users use to start the quiz. The different modes such as "start mode/normal", "start mode/arcade", "start mode/custom" were built upon this.
+** Made test cases for
 
-* *Minor enhancement*: added the startCommand that users use to start the quiz.
+* *Code contributed*:
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/logic/commands/main/RestoreCommand.java[Restore Command]]
- [https://github.com/AY1920S1-CS2103-F10-3/main/blob/master/src/main/java/seedu/revision/ui/AutoComplete.java[AutoComplete]]
+** link:{restoreCommand}/[Restore Command]
+
+** link:{AutoComplete}/[Auto Complete]
+
+** link:{contributedCodeUtl}/[Tp Dashboard]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Name refactoring from AB3 to Revision Tool (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
