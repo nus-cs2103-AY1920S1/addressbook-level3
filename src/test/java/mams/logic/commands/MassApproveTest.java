@@ -79,7 +79,7 @@ public class MassApproveTest {
     }
 
     @Test
-    public void execute_validInput_invalidIDs_nothingApproved_Success() {
+    public void execute_nothingApproved_Success() {
         ArrayList<String> validIDs = new ArrayList<>();
         ArrayList<String> invalidIDs = new ArrayList<>();
         String expectedMessage = "";
@@ -91,7 +91,7 @@ public class MassApproveTest {
     }
 
     @Test
-    public void execute_validInput_noSuchAppealID_Success() {
+    public void execute_noSuchAppealId_Success() {
         ArrayList<String> validIDs = new ArrayList<>();
         ArrayList<String> invalidIDs = new ArrayList<>();
         String expectedMessage = "";
