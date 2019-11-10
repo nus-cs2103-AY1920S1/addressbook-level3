@@ -438,7 +438,7 @@ e.g. `calendar c/closedisplay d/11/11/2019`
 e.g. `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
-* *Sort* : `sort ORDER`
+* *Sort* : `sort p/PROPERTY o/ORDER`
 * *Undo* : `undo`
 * *List* : `list`
 * *Help* : `help`
