@@ -14,7 +14,7 @@ This enhanced application enables people who participate in group activities tog
  +
 This is what our project looks like:
 
-image::SplitWiserGUI.png[SplitWiser, 1000, 700]
+image::SplitWiserGUI.png[]
 .Figure 1. The graphical user interface for *SplitWiser*. +
 
 My role was to design and write codes for the `invite`, `disinvite` and `delete` features. The following sections illustrate
