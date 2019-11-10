@@ -81,11 +81,7 @@ public class AutoComplete extends TextField {
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CUSTOM);
         entries.add(HistoryCommand.COMMAND_WORD);
     }
-
-    public static SortedSet<String> getEntries() {
-        return entries;
-    }
-
+    
     /**
      * Populate the entry set with the given search results.
      * @param searchResult The set of matching strings.
