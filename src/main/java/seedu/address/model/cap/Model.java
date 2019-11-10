@@ -143,5 +143,5 @@ public interface Model {
 
     String getRankTitle();
 
-    void updateRank();
+    void updateRank(double cap);
 }

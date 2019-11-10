@@ -1,0 +1,69 @@
+= Tuan Ding Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Modulo
+image::modulo.png[]
+
+---
+
+== Overview
+
+Modulo (Level 3) is a NUS student life application specially designed for busy and motivated NUS students.
+
+As busy students in NUS, we understand that it can be daunting to keep track of various
+tasks and concurrently do well for exams. Modulo features a one-stop app to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
+
+The user interacts with it using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 40 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: greatly enhanced the grades tracking feature and developed the person class into module class
+** What it does: The CAP tracker allows our user to keep track of his/her grades, overall Cumulative Average Point (CAP), MC taken and the degree classification (also known as "class") the user is in.
+** Justification: This feature complements the function of Modulo as an all-in-one application for NUS students to manage their life in NUS. For students in NUS who are well-concerned and motivated, the CAP Tracker allows students to keep track of their CAP and grades with ease.
+** Highlights: The implementation of the CAP feature was challenging but satisfying. It requires in-depth design considerations around the students. The implementation also required an overhaul of existing commands. The single 'add' command initiates a series of major operations that generates the CAP, displays the right degree classifications and generates the pie chart. The implementation requires knowledge in object-oriented programming, data structure and algorithms. Many classes are interlinked hence increased the complexity of the modification and implementation.
+
+* *Minor enhancement*: Enhanced the find command to search for keywords in module code and title. The enhanced search returns any module that contains the keyword in the module code and/or module title.
+
+* *Minor enhancement*: Added a filter command that allows the student to filter his/her grades.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme and command bar design (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/159#pullrequestreview-314558487[#159]
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167#issuecomment-552096062[1] https://github.com/AY1920S1-CS2103-T16-2/main/issues/161[2] https://github.com/nus-cs2103-AY1920S1/forum/issues/157#issuecomment-552096555[3])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/46[Mortago], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/167[T.A.rence])
+** Tools:
+*** Integrated a third party library (https://o7planning.org/en/11057/javafx-tooltip-tutorial[Tooltip]) for the pie chart animation (https://github.com[#42])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view my contributions._
+|===
+
+include::../UserGuide.adoc[tag=add]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to view my contributions._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]

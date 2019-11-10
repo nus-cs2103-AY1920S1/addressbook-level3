@@ -7,23 +7,39 @@ import java.util.ArrayList;
 import seedu.address.model.common.Module;
 
 /**
- * Represents a Semester and the academic year.
+ * Represents a Semester in a specific academic year and semesterPeriod.
  */
 public class Semester {
+
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect academic year or semester period.";
 
     private final SemesterPeriod semesterPeriod;
     private final AcademicYear academicYear;
     private final ArrayList<Module> modules;
+
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code Semester}.
      *
      * @param semesterPeriod A valid semester period.
+     * @param academicYear A valid academic year.
      */
     public Semester(SemesterPeriod semesterPeriod, AcademicYear academicYear) {
         requireNonNull(semesterPeriod);
         requireNonNull(academicYear);
         this.semesterPeriod = semesterPeriod;
         this.academicYear = academicYear;
+        modules = new ArrayList<>();
+    }
+
+    /**
+     * Constructs a {@code Semester}.
+     *
+     * @param semester
+     */
+    public Semester(String semester) {
+        requireNonNull(semester);
+        this.academicYear = new AcademicYear(semester.substring(0, 4));
+        this.semesterPeriod = new SemesterPeriod(Integer.valueOf(semester.substring(5, 6)));
         modules = new ArrayList<>();
     }
 
@@ -38,7 +54,7 @@ public class Semester {
     /**
      * Compares if two modules are the same.
      * @param otherSemester module of comparison
-     * @return
+     * @return boolean value on whether the modules are identical
      */
     public boolean isSameSemester(Semester otherSemester) {
         if (otherSemester == this) {
@@ -46,8 +62,8 @@ public class Semester {
         }
 
         return otherSemester != null
-                && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
-                && (otherSemester.getAcademicYear().equals(getAcademicYear()));
+            && otherSemester.getSemesterPeriod().equals(getSemesterPeriod())
+            && (otherSemester.getAcademicYear().equals(getAcademicYear()));
     }
 
     /**
@@ -63,13 +79,27 @@ public class Semester {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Semester // instanceof handles nulls
-                && semesterPeriod == semesterPeriod
-                && academicYear.equals(((Semester) other).academicYear)); // state check
+            || (other instanceof Semester // instanceof handles nulls
+            && semesterPeriod == semesterPeriod // check for same semester period
+            && academicYear.equals(((Semester) other).academicYear)); // state check
     }
 
     @Override
     public String toString() {
         return academicYear.toString() + "S" + semesterPeriod.toString();
+    }
+
+    /**
+     * Returns true if a given string is a valid Semester.
+     */
+    public static boolean isValidSemester(String test) {
+        try {
+            requireNonNull(test);
+            AcademicYear.isValidAcademicYear(test.substring(0, 4));
+            SemesterPeriod.isValidSemesterPeriod(Integer.parseInt(test.substring(5, 6)));
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 }

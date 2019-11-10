@@ -40,7 +40,7 @@ public class LogicCapManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         //Logging, safe to ignore
-        logger.info("----------------[USER COMMAND][" + commandText + "]");
+        logger.info("----------------[USER COMMAND][" + commandText + "]-----------------------");
 
         CommandResult commandResult;
         //Parse user input from String to a Command
@@ -126,7 +126,7 @@ public class LogicCapManager implements Logic {
     }
 
     @Override
-    public void updateRank() {
-        model.updateRank();
+    public void updateRank(double cap) {
+        model.updateRank(cap);
     }
 }

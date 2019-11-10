@@ -13,7 +13,7 @@ public class Grade {
             "Grade should be of a valid grade and it is case-sensitive.";
     private final String grade;
     /**
-     * Constructs a {@code Phone}.
+     * Constructs a {@code grade}.
      *
      * @param grade A valid grade.
      */
@@ -30,7 +30,7 @@ public class Grade {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Grade // instanceof handles nulls
+            || (other instanceof Grade // instanceof handles nulls
                 && this.grade == grade); // state check
     }
 

@@ -70,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
+        logger.fine("Initialising the set up of the Main Window...");
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -127,13 +128,14 @@ public class MainWindow extends UiPart<Stage> {
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
-        informationPanel = new InformationPanel();
+        informationPanel = new InformationPanel(logic.getFilteredCapInformation(), logic.getFilteredMcInformation());
         capPanelPlaceholder.getChildren().add(informationPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        setGraphDisplay();
+        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
+        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
 
         achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
         achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
@@ -203,15 +205,12 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            informationPanel.setCapToUser(logic.getFilteredCapInformation());
-            informationPanel.setMcToUser(logic.getFilteredMcInformation());
-
-            setGraphDisplay();
-
-            logic.updateRank();
-            achievementBadge = new AchievementBadge(logic.getRankImage(), logic.getRankTitle());
-            achievementPlaceHolder.getChildren().add(achievementBadge.getRoot());
+            if (!commandText.split(" ")[0].equals("find")) {
+                informationPanel.setMcToUser(logic.getFilteredMcInformation());
+                informationPanel.setCapToUser(logic.getFilteredCapInformation());
+                achievementBadge.setUpdatedRankToUser(logic.getRankImage(), logic.getRankTitle());
+                pieChartDisplay.setPieChartUpdate(logic.getFilteredGradeCounts());
+            }
 
             return commandResult;
         } catch (CommandException | IllegalArgumentException | ParseException e) {
@@ -219,11 +218,6 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    private void setGraphDisplay() {
-        pieChartDisplay = new CapPieChart(logic.getFilteredGradeCounts());
-        pieChartDisplayPlaceholder.getChildren().add((pieChartDisplay.getRoot()));
     }
 
     //=========== Achievements =============================================================
