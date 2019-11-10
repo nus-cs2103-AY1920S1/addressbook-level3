@@ -6,8 +6,8 @@ import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 
 /**
@@ -30,17 +30,18 @@ public class LookAtGroupMemberCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        ScheduleWindowDisplayType status = model.getState();
-        if (!status.equals(ScheduleWindowDisplayType.GROUP) && !status.equals(ScheduleWindowDisplayType.NONE)) {
+        ScheduleState status = model.getState();
+
+        if (!status.equals(ScheduleState.GROUP)) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        ScheduleWindowDisplay scheduleWindowDisplay = model.getScheduleWindowDisplay();
-        scheduleWindowDisplay.setFilteredNames(membersToBeFiltered);
-        model.updateScheduleWindowDisplay(scheduleWindowDisplay);
+        GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) model.getScheduleDisplay();
+        groupScheduleDisplay.setFilteredNames(membersToBeFiltered);
+        //model.updateScheduleWindowDisplay(groupScheduleDisplay);
 
         //Present names.
-        List<Name> namesFoundInGroup = scheduleWindowDisplay.getFilteredNames().get();
+        List<Name> namesFoundInGroup = groupScheduleDisplay.getFilteredNames().get();
         StringBuilder found = new StringBuilder();
         for (Name name : namesFoundInGroup) {
             found.append(name.fullName);
@@ -63,6 +64,7 @@ public class LookAtGroupMemberCommand extends Command {
 
         return new CommandResultBuilder(feedback)
                 .setFilter().build();
+
     }
 
     @Override

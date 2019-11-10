@@ -4,14 +4,13 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -51,10 +50,11 @@ import seedu.address.model.person.schedule.Event;
  * The API of the Model component.
  */
 public interface Model {
+
     /**
-     * {@code Predicate} that always evaluate to true
+     * Returns the TimeBook Object.
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    TimeBook getTimeBook();
 
     //=========== UserPrefs ==================================================================================
 
@@ -284,7 +284,7 @@ public interface Model {
     /**
      * Returns the current main window display model.
      */
-    ScheduleWindowDisplay getScheduleWindowDisplay();
+    ScheduleDisplay getScheduleDisplay();
 
     /**
      * Returns the current side panel display model.
@@ -292,29 +292,25 @@ public interface Model {
     SidePanelDisplay getSidePanelDisplay();
 
     /**
-     * Updates the current main window display.
-     */
-    void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay);
-
-    /**
      * Updates the current main window display with a Person's schedule.
      */
-    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type) throws PersonNotFoundException;
 
     /**
      * Updates the current main window display with the User's schedule.
      */
-    void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithUser(LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current main window display with a Group's schedule.
      */
-    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
+            throws GroupNotFoundException;
 
     /**
      * Updates the current main window display with an Array of Person's schedule.
      */
-    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleWindowDisplayType type);
+    void updateDisplayWithPersons(ArrayList<Person> persons, LocalDateTime time, ScheduleState type);
 
     /**
      * Updates the current side panel display.
@@ -327,9 +323,14 @@ public interface Model {
     void updateSidePanelDisplay(SidePanelDisplayType type);
 
     /**
+     * Initializes the default scheduleDisplay.
+     */
+    void initialiseDefaultWindowDisplay();
+
+    /**
      * Gets the current state of the schedule window display
      */
-    ScheduleWindowDisplayType getState();
+    ScheduleState getState();
 
     //=========== Suggesters =============================================================
 
@@ -388,15 +389,5 @@ public interface Model {
      * Returns the common closest location.
      */
     String getClosestLocationDataString(ArrayList<String> locationNameList);
-
-    //=========== Others =============================================================
-
-    /**
-     * Returns a summary of all Persons, Groups, and Mappings.
-     */
-    String list();
-
-    TimeBook getTimeBook();
-
 
 }

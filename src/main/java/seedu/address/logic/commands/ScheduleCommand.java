@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -45,7 +45,7 @@ public class ScheduleCommand extends Command {
         }
 
         // update main window
-        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
 
         return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }

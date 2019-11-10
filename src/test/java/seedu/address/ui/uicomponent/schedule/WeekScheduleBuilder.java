@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.timeslots.PersonTimeslot;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.model.person.schedule.Venue;
 import seedu.address.ui.util.ColorGenerator;
 

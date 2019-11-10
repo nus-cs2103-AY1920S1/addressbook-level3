@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 
 /**
  * Command to handle tab switches.
@@ -19,8 +19,7 @@ public class SwitchTabCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType state = model.getState();
-        if (state == ScheduleWindowDisplayType.HOME) {
+        if (model.getState() == ScheduleState.HOME) {
             return new CommandResultBuilder(MESSAGE_SUCCESS).setSwitchTabs().build();
         } else {
             return new CommandResultBuilder(MESSAGE_FAILURE).setSwitchTabs().build();

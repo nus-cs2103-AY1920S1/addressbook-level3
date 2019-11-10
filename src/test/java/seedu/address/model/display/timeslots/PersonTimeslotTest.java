@@ -1,4 +1,4 @@
-package seedu.address.model.display.schedulewindow;
+package seedu.address.model.display.timeslots;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.person.schedule.Venue;
 import seedu.address.ui.util.ColorGenerator;
 

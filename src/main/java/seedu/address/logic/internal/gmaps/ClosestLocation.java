@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ArrayListUtil;
 import seedu.address.commons.util.LocationArrayListUtils;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
 

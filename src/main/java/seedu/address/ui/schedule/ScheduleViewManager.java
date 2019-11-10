@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.model.person.Name;
 import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 
@@ -21,33 +22,34 @@ import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 public abstract class ScheduleViewManager {
 
     protected static final Logger LOGGER = LogsCenter.getLogger(ScheduleViewManager.class);
-    protected ScheduleWindowDisplayType type;
+    protected ScheduleState type;
     protected ScheduleView scheduleView;
     protected int weekNumber;
     protected LocalDate currentDate;
 
-    public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay)
+    public static ScheduleViewManager getInstanceOf(ScheduleDisplay scheduleDisplay)
             throws InvalidScheduleViewException {
-        ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
+        ScheduleState displayType = scheduleDisplay.getState();
 
-        if (!isValidSchedules(scheduleWindowDisplay.getPersonSchedules())) {
+        if (!isValidSchedules(scheduleDisplay.getPersonSchedules())) {
             LOGGER.severe("Schedule given is invalid.");
             throw new InvalidScheduleViewException("The schedule has clashes between events!");
         }
 
         switch(displayType) {
         case PERSON:
-            //There is only 1 schedule in the scheduleWindowDisplay
-            if (scheduleWindowDisplay.getPersonSchedules().size() != 1) {
+            //There is only 1 schedule in the scheduleDisplay
+            if (scheduleDisplay.getPersonSchedules().size() != 1) {
                 throw new InvalidScheduleViewException("Error! Multiple schedules in a person.");
             }
 
-            return new IndividualScheduleViewManager(scheduleWindowDisplay.getPersonSchedules().get(0));
+            return new IndividualScheduleViewManager(scheduleDisplay.getPersonSchedules().get(0));
         case GROUP:
-            return new GroupScheduleViewManager(scheduleWindowDisplay
+            GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
+            return new GroupScheduleViewManager(scheduleDisplay
                     .getPersonSchedules(),
-                    scheduleWindowDisplay.getGroupDisplay().getGroupName(),
-                    scheduleWindowDisplay.getFreeSchedule());
+                    groupScheduleDisplay.getGroupDisplay().getGroupName(),
+                    groupScheduleDisplay.getFreeSchedule());
         default:
             break;
         }
@@ -59,13 +61,13 @@ public abstract class ScheduleViewManager {
      * @param personSchedules List of schedules given.
      * @return boolean.
      */
-    private static boolean isValidSchedules(List<PersonSchedule> personSchedules) {
+    private static boolean isValidSchedules(ArrayList<PersonSchedule> personSchedules) {
         boolean isValid = true;
         for (PersonSchedule personSchedule : personSchedules) {
             for (int i = 0; i < 4; i++) {
                 for (int j = 1; j <= 7; j++) {
                     ArrayList<PersonTimeslot> timeSlots = personSchedule
-                            .getScheduleDisplay().getScheduleForWeek(i).get(DayOfWeek.of(j));
+                            .getScheduleDisplay().get(i).get(DayOfWeek.of(j));
                     LocalTime curr = LocalTime.of(ScheduleView.START_TIME, 0);
                     for (PersonTimeslot timeSlot : timeSlots) {
                         if (timeSlot.getStartTime().isBefore(curr)) {
@@ -80,7 +82,7 @@ public abstract class ScheduleViewManager {
         return isValid;
     }
 
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
+    public ScheduleState getScheduleWindowDisplayType() {
         return type;
     };
 

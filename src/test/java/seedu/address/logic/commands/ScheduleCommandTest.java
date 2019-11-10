@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -33,12 +33,12 @@ class ScheduleCommandTest {
             personNames.add(person.getName());
         }
         model.updateDisplayWithPersons(persons,
-                LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+                LocalDateTime.now(), ScheduleState.GROUP);
     }
 
     @Test
     void execute_success() throws CommandException {
-        assertEquals(ScheduleWindowDisplayType.GROUP, model.getState());
+        assertEquals(ScheduleState.GROUP, model.getState());
 
         CommandResult actualCommandResult =
                 new ScheduleCommand(personNames).execute(model);
@@ -52,7 +52,7 @@ class ScheduleCommandTest {
 
     @Test
     void execute_failure() throws CommandException {
-        assertEquals(ScheduleWindowDisplayType.GROUP, model.getState());
+        assertEquals(ScheduleState.GROUP, model.getState());
 
         personNames.add(ZACK.getName());
 

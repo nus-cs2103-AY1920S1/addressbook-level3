@@ -128,21 +128,6 @@ public class GroupList {
     }
 
     /**
-     * Converts to String.
-     *
-     * @return String
-     */
-    public String toString() {
-        int i;
-        String output = "";
-        for (i = 0; i < groups.size(); i++) {
-            output += groups.get(i).toString();
-            output += "\n";
-        }
-        return output;
-    }
-
-    /**
      * Retrun an unmodifiable observable list of Groups.
      *
      * @return ObservableList

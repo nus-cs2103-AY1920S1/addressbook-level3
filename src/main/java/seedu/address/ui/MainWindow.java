@@ -21,10 +21,13 @@ import seedu.address.logic.export.Exporter;
 import seedu.address.logic.export.GroupScheduleExporter;
 import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
 import seedu.address.ui.home.DefaultStartView;
 import seedu.address.ui.popup.LocationPopup;
@@ -163,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getMainWindowDisplay()
+        detailsViewPlaceholder.getChildren().add(new DefaultStartView(logic.getScheduleDisplay()
                 .getPersonSchedules().get(0))
                 .getRoot());
     }
@@ -267,8 +270,8 @@ public class MainWindow extends UiPart<Stage> {
      * Method to handle exportation of the current schedule view.
      */
     private void handleExport() {
-        ScheduleWindowDisplayType type = scheduleViewManager.getScheduleWindowDisplayType();
-        if (type.equals(ScheduleWindowDisplayType.PERSON)) {
+        ScheduleState type = scheduleViewManager.getScheduleWindowDisplayType();
+        if (type.equals(ScheduleState.PERSON)) {
             Exporter exporter = new IndividualScheduleExporter(scheduleViewManager.getScheduleViewCopy(),
                     "png", "./export.png");
             try {
@@ -276,9 +279,10 @@ public class MainWindow extends UiPart<Stage> {
             } catch (IOException e) {
                 resultDisplay.setFeedbackToUser("Error exporting");
             }
-        } else {
-            GroupInformation groupInformation = new GroupInformation(logic.getMainWindowDisplay().getPersonDisplays(),
-                    null, logic.getMainWindowDisplay().getGroupDisplay(),
+        } else if (type.equals(ScheduleState.GROUP)) {
+            GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) logic.getScheduleDisplay();
+            GroupInformation groupInformation = new GroupInformation(groupScheduleDisplay.getPersonDisplays(),
+                    null, groupScheduleDisplay.getGroupDisplay(),
                     ColorGenerator::generateColor);
             Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
                     "png", "./export.png");
@@ -305,8 +309,8 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            ScheduleDisplay scheduleDisplay = logic.getScheduleDisplay();
 
-            ScheduleWindowDisplay scheduleWindowDisplay = logic.getMainWindowDisplay();
             //Command results that require early return statements.
             if (commandResult.isScroll()) {
                 handleScroll();
@@ -330,11 +334,16 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isFilter()) {
-                if (!scheduleWindowDisplay.getFilteredNames().isEmpty()) {
-                    handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(),
-                            scheduleWindowDisplay.getFilteredNames().get(), scheduleWindowDisplay.getGroupDisplay(),
+
+                if (scheduleDisplay.getState() != ScheduleState.GROUP) {
+                    return commandResult;
+                }
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
+                if (!groupScheduleDisplay.getFilteredNames().isEmpty()) {
+                    handleSidePanelChange(new GroupInformation(groupScheduleDisplay.getPersonDisplays(),
+                            groupScheduleDisplay.getFilteredNames().get(), groupScheduleDisplay.getGroupDisplay(),
                             ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
-                    scheduleViewManager.filterPersonsFromSchedule(scheduleWindowDisplay.getFilteredNames().get());
+                    scheduleViewManager.filterPersonsFromSchedule(groupScheduleDisplay.getFilteredNames().get());
                     handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 }
                 return commandResult;
@@ -359,35 +368,36 @@ public class MainWindow extends UiPart<Stage> {
                 return commandResult;
             }
 
-            ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
+            ScheduleState displayType = scheduleDisplay.getState();
 
-            if (ScheduleViewManager.getInstanceOf(scheduleWindowDisplay) != null) {
-                scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleWindowDisplay);
+            if (ScheduleViewManager.getInstanceOf(scheduleDisplay) != null) {
+                scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleDisplay);
             }
 
 
             switch (displayType) {
             case PERSON:
+                PersonScheduleDisplay personScheduleDisplay = (PersonScheduleDisplay) scheduleDisplay;
                 //There is only 1 schedule in the scheduleWindowDisplay
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(
-                        new PersonDetailCard(scheduleWindowDisplay
+                        new PersonDetailCard(personScheduleDisplay
                                 .getPersonSchedules()
                                 .get(0)
                                 .getPersonDisplay())
                                 .getRoot(), SidePanelDisplayType.PERSON);
                 break;
             case GROUP:
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-                handleSidePanelChange(new GroupInformation(scheduleWindowDisplay.getPersonDisplays(), null,
-                                scheduleWindowDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
+                handleSidePanelChange(new GroupInformation(groupScheduleDisplay.getPersonDisplays(), null,
+                                groupScheduleDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
                         SidePanelDisplayType.GROUP);
                 break;
-            case DEFAULT:
-                // do nothing
-                break;
             case HOME:
-                handleChangeOnDetailsView(new DefaultStartView(scheduleWindowDisplay
+                HomeScheduleDisplay homeScheduleDisplay = (HomeScheduleDisplay) scheduleDisplay;
+
+                handleChangeOnDetailsView(new DefaultStartView(homeScheduleDisplay
                         .getPersonSchedules().get(0))
                         .getRoot());
                 handleChangeToTabsPanel();

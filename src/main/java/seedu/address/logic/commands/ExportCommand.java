@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 
 /**
  * Command to export visual representations
@@ -27,9 +27,9 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         //Does nothing to the model.
         requireNonNull(model);
-        ScheduleWindowDisplayType state = model.getState();
-        if (!state.equals(ScheduleWindowDisplayType.PERSON) && !state.equals(ScheduleWindowDisplayType.GROUP)) {
-            return new CommandResult(MESSAGE_FAILURE);
+        ScheduleState state = model.getState();
+        if (!state.equals(ScheduleState.PERSON) && !state.equals(ScheduleState.GROUP)) {
+            throw new CommandException(MESSAGE_FAILURE);
         }
         return new CommandResultBuilder(MESSAGE_SUCCESS)
                 .setExport().build();

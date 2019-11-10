@@ -1,8 +1,11 @@
 package seedu.address.ui.uicomponent.schedule;
 
-import seedu.address.model.display.schedulewindow.MonthSchedule;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.model.display.sidepanel.PersonDisplay;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -15,10 +18,10 @@ public class PersonScheduleBuilder {
      * @return
      */
     public static PersonSchedule buildEmptySchedule() {
-        MonthSchedule monthSchedule = new MonthSchedule(WeekScheduleBuilder.getEmptySchedule(),
+        ArrayList<WeekSchedule> monthSchedule = new ArrayList<>(List.of(WeekScheduleBuilder.getEmptySchedule(),
                 WeekScheduleBuilder.getEmptySchedule(), WeekScheduleBuilder.getEmptySchedule(),
-                WeekScheduleBuilder.getEmptySchedule());
-        PersonSchedule personSchedule = new PersonSchedule("", new PersonDisplay(TypicalPersons.ALICE),
+                WeekScheduleBuilder.getEmptySchedule()));
+        PersonSchedule personSchedule = new PersonSchedule(new PersonDisplay(TypicalPersons.ALICE),
                 monthSchedule);
         return personSchedule;
     }
@@ -28,10 +31,10 @@ public class PersonScheduleBuilder {
      * @return PersonSchedule.
      */
     public static PersonSchedule buildValidSchedule() {
-        MonthSchedule monthSchedule = new MonthSchedule(WeekScheduleBuilder.getValidSchedule(),
+        ArrayList<WeekSchedule> monthSchedule = new ArrayList<>(List.of(WeekScheduleBuilder.getValidSchedule(),
                 WeekScheduleBuilder.getValidSchedule(), WeekScheduleBuilder.getEmptySchedule(),
-                WeekScheduleBuilder.getEmptySchedule());
-        PersonSchedule personSchedule = new PersonSchedule("", new PersonDisplay(TypicalPersons.ALICE),
+                WeekScheduleBuilder.getEmptySchedule()));
+        PersonSchedule personSchedule = new PersonSchedule(new PersonDisplay(TypicalPersons.ALICE),
                 monthSchedule);
         return personSchedule;
     }
@@ -41,10 +44,10 @@ public class PersonScheduleBuilder {
      * @return PersonSchedule.
      */
     public static PersonSchedule buildInvalidSchedule() {
-        MonthSchedule monthSchedule = new MonthSchedule(WeekScheduleBuilder.getInvalidSchedule(),
+        ArrayList monthSchedule = new ArrayList(List.of(WeekScheduleBuilder.getInvalidSchedule(),
                 WeekScheduleBuilder.getValidSchedule(), WeekScheduleBuilder.getEmptySchedule(),
-                WeekScheduleBuilder.getEmptySchedule());
-        PersonSchedule personSchedule = new PersonSchedule("", new PersonDisplay(TypicalPersons.ALICE),
+                WeekScheduleBuilder.getEmptySchedule()));
+        PersonSchedule personSchedule = new PersonSchedule(new PersonDisplay(TypicalPersons.ALICE),
                 monthSchedule);
         return personSchedule;
     }

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -54,10 +54,10 @@ public class AddEventCommand extends Command {
             try {
                 if (name == null) {
                     model.addEvent(event);
-                    model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
                 } else {
                     model.addEvent(name, event);
-                    model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
                 }
                 return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, event.getEventName())).build();
 

@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import java.util.Optional;
 
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.timeslots.PersonTimeslot;
 
 /**
  * Builder class for CommandResult.

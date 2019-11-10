@@ -3,8 +3,8 @@ package seedu.address.ui.schedule;
 import java.time.LocalDate;
 import java.util.List;
 
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.PersonSchedule;
 import seedu.address.model.person.Name;
 
 /**
@@ -17,7 +17,7 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
         this.personSchedule = personSchedule;
         super.weekNumber = 0;
         super.currentDate = LocalDate.now();
-        super.type = ScheduleWindowDisplayType.PERSON;
+        super.type = ScheduleState.PERSON;
         super.LOGGER.info("Generating schedule for " + personSchedule.getPersonDisplay().getName().fullName + ".");
     }
 
@@ -28,7 +28,7 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(weekNumber * 7);
         super.scheduleView = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                .getScheduleDisplay().get(weekNumber)),
                 personSchedule.getPersonDisplay().getName().fullName, dateToShow);
         super.scheduleView.generateSchedule();
     }
@@ -47,7 +47,7 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
     @Override
     public ScheduleView getScheduleViewCopy() {
         ScheduleView copy = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().getScheduleForWeek(weekNumber)),
+                .getScheduleDisplay().get(weekNumber)),
                 personSchedule.getPersonDisplay().getName().fullName, currentDate.plusDays(7 * weekNumber));
         copy.generateSchedule();
         return copy;

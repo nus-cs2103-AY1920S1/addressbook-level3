@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
 
@@ -31,7 +30,7 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
         this.freeSchedules = freeSchedules;
         super.weekNumber = 0;
         super.currentDate = LocalDate.now();
-        super.type = ScheduleWindowDisplayType.GROUP;
+        super.type = ScheduleState.GROUP;
         super.LOGGER.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
@@ -41,8 +40,10 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
      */
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
-        super.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredPersonSchedules.stream()
-                .map(PersonSchedule::getScheduleDisplay).collect(Collectors.toCollection(ArrayList::new)), weekNumber),
+        ArrayList<WeekSchedule> weekSchedules = filteredPersonSchedules
+                .stream().map(personSchedule -> personSchedule.getScheduleDisplay().get(weekNumber))
+                .collect(Collectors.toCollection(ArrayList::new));
+        super.scheduleView = new ScheduleView(weekSchedules,
                 groupName.toString(), dateToShow);
         //Required to set the free time schedule first before generating the schedule.
         super.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
@@ -79,10 +80,12 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        List<WeekSchedule> weekToBeExported = MonthSchedule.getWeekSchedulesOf(originalPersonSchedules
-                .stream().map(PersonSchedule::getScheduleDisplay)
-                .collect(Collectors.toCollection(ArrayList::new)), weekNumber);
-        ScheduleView copy = new ScheduleView(weekToBeExported,
+        List<WeekSchedule> weekSchedules = new ArrayList<>();
+        for (int i = 0; i < originalPersonSchedules.size(); i++) {
+            weekSchedules.add(originalPersonSchedules.get(i).getScheduleDisplay().get(weekNumber));
+        }
+
+        ScheduleView copy = new ScheduleView(weekSchedules,
                 groupName.toString(), currentDate.plusDays(7 * weekNumber));
         copy.setFreeTime(freeSchedules.get(weekNumber));
         copy.generateSchedule();

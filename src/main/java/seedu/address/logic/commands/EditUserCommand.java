@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.User;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
@@ -53,7 +53,7 @@ public class EditUserCommand extends Command {
         try {
             User user = model.editUser(personDescriptor);
 
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
 
             return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, user.getName().toString())).build();
 

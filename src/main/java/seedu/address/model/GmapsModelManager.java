@@ -8,7 +8,7 @@ import seedu.address.logic.internal.gmaps.ClosestLocation;
 import seedu.address.logic.internal.gmaps.GenerateImage;
 import seedu.address.logic.internal.gmaps.ProcessLocationGraph;
 import seedu.address.logic.internal.gmaps.ProcessVenues;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
 

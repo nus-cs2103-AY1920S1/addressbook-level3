@@ -29,10 +29,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.FreeTimeslot;
-import seedu.address.model.display.schedulewindow.PersonTimeslot;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.FreeTimeslot;
+import seedu.address.model.display.timeslots.PersonTimeslot;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.ui.schedule.ScheduleView;
 import seedu.address.ui.util.DateFormatter;
 import seedu.address.ui.util.TimeUtil;
