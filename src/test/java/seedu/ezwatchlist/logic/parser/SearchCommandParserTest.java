@@ -33,9 +33,6 @@ public class SearchCommandParserTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE),
                 CURRENT_TAB_SEARCH_TAB);
 
-        // no field specified
-        assertParseFailure(parser, "n/", "0 shows found!", CURRENT_TAB_SEARCH_TAB);
-
         // no index and no field specified
         assertParseFailure(parser, "", "Search", CURRENT_TAB_SEARCH_TAB);
     }
@@ -52,19 +49,19 @@ public class SearchCommandParserTest {
         SearchCommand expectedSearchCommand = new SearchCommand(searchHash);
 
         // no leading and trailing whitespaces
-        assertParseSuccess(parser, "n/Alice t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
+        assertParseSuccess(parser, "n/Annabelle t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
 
         // leading whitespaces
-        assertParseSuccess(parser, "         n/Alice t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
+        assertParseSuccess(parser, "         n/Annabelle t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, "n/Alice      t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
+        assertParseSuccess(parser, "n/Annabelle      t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
 
         // trailing whitespaces
-        assertParseSuccess(parser, "n/Alice t/movie     ", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
+        assertParseSuccess(parser, "n/Annabelle t/movie     ", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
 
         // multiple type input, the last type input will be considered only
-        assertParseSuccess(parser, "n/Alice t/tv t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
+        assertParseSuccess(parser, "n/Annabelle t/tv t/movie", expectedSearchCommand, CURRENT_TAB_SEARCH_TAB);
     }
 
 }
