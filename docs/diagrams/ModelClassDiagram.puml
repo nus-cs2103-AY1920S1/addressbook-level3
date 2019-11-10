@@ -5,40 +5,39 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyPlanner <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class Planner
-Class ReadOnlyPlanner
 Class Model
 Class ModelManager
+Class AccommodationManager
+Class ActivityManager
+Class ContactManager
+Class Itinerary
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Field\n {
 Class Address
-Class H1 #FFFFFF
+Class Cost
 Class Name
 }
-
-Package ItineraryItem {
-    Abstract Class ItineraryItem
-    Package Activity {
-    Class Activity
-    Class UniqueActivityList
-    }
-
-    Package Accommodation {
-    Class Accommodation
-    Class UniqueAccommodationList
-    }
+Package Activity {
+Class Activity
+Class UniqueActivityList
+Class Duration
+Class Priority
 }
+
+Package Accommodation {
+Class Accommodation
+Class UniqueAccommodationList
+}
+
 
 Package Day {
 Class ActivityWithTime
 Class Day
 Class Timetable
-Class Itinerary
 }
 
 Package Contact {
@@ -55,54 +54,56 @@ Class Tag
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-Planner .up.|> ReadOnlyPlanner
-
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" Planner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-Planner *--> UniqueAccommodationList
-Planner *--> UniqueContactList
-Planner *--> UniqueActivityList
-Planner *--> Itinerary
-
-ItineraryItem *-->  Name
-ItineraryItem *-[hidden]-> Name
-ItineraryItem *-[hidden]-> Name
-ItineraryItem *--> Address
-ItineraryItem *--> "0..1  \n" Contact
-ItineraryItem *-[hidden]-> Contact
-ItineraryItem *-up-> "\n        *" Tag
-ItineraryItem <|-- Accommodation
-ItineraryItem <|-[hidden]- Accommodation
-
-ItineraryItem <|-- Activity
+AccommodationManager *--> UniqueAccommodationList
+ContactManager *--> UniqueContactList
+ActivityManager *--> UniqueActivityList
+ModelManager *--> Itinerary
+ModelManager *--> AccommodationManager
+ModelManager *--> ActivityManager
+ModelManager *--> ContactManager
 
 UniqueActivityList o--> "         *" Activity
 UniqueAccommodationList o--> "        *" Accommodation
 
 UniqueContactList o--> "*" Contact
 
+
+Contact *-[hidden]->  Name
 Contact *-->  Name
-Contact *-[hidden]->  Phone
-Contact *-[hidden]->  Phone
+Contact *-[hidden]-> Phone
+Contact *-[hidden]-> Phone
 Contact *-->  Phone
+Contact *-[hidden]-> "0..1" Email
 Contact *-[hidden]-> "0..1" Email
 Contact *-[hidden]-> "0..1" Email
 Contact *--> "0..1" Email
 Contact *-[hidden]-> "0..1" Address
 Contact *-[hidden]-> "0..1" Address
-Contact *--> "0..1" Address
-
+Contact *--> "0..1\n" Address
 Contact *-up-> "*" Tag
 
+Activity *-->  Name
+Activity *-->  Duration
+Activity *-->  Priority
+Activity *--> Contact
+Activity *--> "0..1\n" Cost
+Activity *--> Address
+Activity *--> "*" Tag
 
-Itinerary o--> " *" Day
+Accommodation *-->  Name
+Accommodation *--> Contact
+Accommodation *--> Address
+Accommodation *--> "*" Tag
+
+
+Itinerary o--> "*" Day
 Day *--> Timetable
-Timetable o--> " *" ActivityWithTime
+Timetable o--> "     *" ActivityWithTime
 
-Name -[hidden]right-> H1
 
 @enduml

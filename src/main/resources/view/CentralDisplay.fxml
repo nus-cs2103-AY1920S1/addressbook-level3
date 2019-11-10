@@ -21,16 +21,8 @@
         <TabPane fx:id="tabDisplay" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
                 <Tab fx:id="agendaTab" text="Itinerary" />
-                <Tab fx:id="infoTab" text="Info">
-				   <content>
-					  <ListView fx:id="infoList" />
-				   </content>
-			   </Tab>
-                <Tab fx:id="helpTab" text="Help">
-				   <content>
-					  <ListView fx:id="helpList" />
-				   </content>
-			   </Tab>
+                <Tab fx:id="infoTab" text="Info" />
+                <Tab fx:id="helpTab" text="Help" />
             </tabs>
         </TabPane>
     </right>

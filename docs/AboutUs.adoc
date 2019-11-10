@@ -55,6 +55,7 @@ image::1nefootstep.png[width="150", align="left"]
 {empty}[https://github.com/1nefootstep[github]] [<<1nefootstep#, portfolio>>]
 
 Role: Developer +
+
 Responsibilities: UI Expert, Integration +
 Components: Model, UI
 
