@@ -39,13 +39,8 @@ public class DoneCommandParser implements CommandParserWithPersonModel<DoneComma
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_DONECOMMAND_FORMAT);
         }
-
-        try {
-            Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            DoneCommand doneCommand = new DoneCommand(person);
-            return doneCommand;
-        } catch (Exception e) {
-            throw new NoSuchPersonReimbursementException();
-        }
+        Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+        DoneCommand doneCommand = new DoneCommand(person);
+        return doneCommand;
     }
 }

@@ -40,12 +40,8 @@ public class FindCommandParser implements CommandParserWithPersonModel<FindComma
             throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_FINDCOMMAND_FORMAT);
         }
 
-        try {
-            Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            FindCommand deadlineCommand = new FindCommand(person);
-            return deadlineCommand;
-        } catch (Exception e) {
-            throw new NoSuchPersonReimbursementException();
-        }
+        Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+        FindCommand deadlineCommand = new FindCommand(person);
+        return deadlineCommand;
     }
 }

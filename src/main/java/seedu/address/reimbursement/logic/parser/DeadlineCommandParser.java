@@ -42,13 +42,9 @@ public class DeadlineCommandParser implements CommandParserWithPersonModel<Deadl
         }
 
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();
-        try {
 
-            Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
-            DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
-            return deadlineCommand;
-        } catch (Exception e) {
-            throw new NoSuchPersonReimbursementException();
-        }
+        Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
+        DeadlineCommand deadlineCommand = new DeadlineCommand(person, datetime);
+        return deadlineCommand;
     }
 }
