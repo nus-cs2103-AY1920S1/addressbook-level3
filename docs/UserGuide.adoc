@@ -299,7 +299,7 @@ Format: `redo`
 
 Sets the user settings for loan period (in days), renew period (in days), fine increment (in cents) and maximum renews allowed. +
 
-Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS] `
+Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
 
 ****
 * Updates the user settings with the specified `LOAN_PERIOD`,

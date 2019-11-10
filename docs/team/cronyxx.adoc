@@ -14,17 +14,18 @@ with relevant documentation from the user guide and developer guide.
 
 === About the project
 *LiBerry* is a *free*, *single-user*, and *lightweight* library management system,
-that is designed to manage small community and private libraries. It does not
-require any internet connection to function and is optimized for librarians
-who prefer to work with a *Command Line Interface* (CLI). The *Graphical User
-Interface* (GUI) of *LiBerry* is created with *JavaFX* while the entire software
-is written in *Java*.
+developed by my team of 5 people for our software engineering module.
+It is a command line application designed for small community and private libraries in
+rural areas. Considering the lack of internet access in rural areas, the
+application is designed to not require any internet connection to function.
+
+The figure below displays the graphical user interface of our application.
 
 .Screenshot of LiBerry user interface
 image::Ui.png[]
 
-The figure above shows the graphical user interface of our application,
-LiBerry.
+The *Graphical User Interface* (GUI) of *LiBerry*, as shown above,
+is created with *JavaFX* while the entire software is written in *Java*.
 
 === Motivations
 *LiBerry* is created to promote the setting up of private and community
@@ -132,8 +133,6 @@ They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=UGHelp]
-include::../UserGuide.adoc[tag=UGUndo]
-include::../UserGuide.adoc[tag=UGRedo]
 include::../UserGuide.adoc[tag=UGSet]
 
 == Contributions to the Developer Guide
