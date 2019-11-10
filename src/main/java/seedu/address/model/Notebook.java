@@ -62,7 +62,7 @@ public class Notebook implements ReadOnlyNotebook {
             Classroom newClassroom = new Classroom();
             setCurrentClassroom(newClassroom);
         } else {
-            setCurrentClassroom(getFirstClassroom());
+            setCurrentClassroom(newData.getCurrentClassroom());
         }
 
         for (int i = 0; i < 7; i++) {
@@ -382,9 +382,7 @@ public class Notebook implements ReadOnlyNotebook {
         // state check
         Notebook other = (Notebook) obj;
         return classrooms.equals(other.classrooms)
-                && lessons.equals(other.lessons);
-                //&& students.equals(other.students)
-                //&& assignments.equals(other.assignments);
+                && lessonLists.equals(other.lessonLists);
     }
 
 }

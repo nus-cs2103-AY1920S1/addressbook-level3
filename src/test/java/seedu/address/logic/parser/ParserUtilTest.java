@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +26,8 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_FILE_1 = "a";
+    private static final String INVALID_FILE_2 = "aaaaaaaa/b.pdf";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +35,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_FILE_1 = "path/file.png";
+    private static final String VALID_FILE_2 = "path/file.jpg";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -50,10 +54,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_STUDENT, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST_OBJECT, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_FIRST_STUDENT, ParserUtil.parseIndex("  1  "));
+        assertEquals(INDEX_FIRST_OBJECT, ParserUtil.parseIndex("  1  "));
     }
 
     @Test
@@ -193,4 +197,21 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseDisplayPic_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDisplayPicture((String) null));
+    }
+
+    @Test
+    public void parseDisplayPic_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseDisplayPicture(INVALID_FILE_1));
+        assertThrows(ParseException.class, () -> ParserUtil.parseDisplayPicture(INVALID_FILE_2));
+    }
+
+    @Test
+    public void parseDisplayPic_validValueWithoutWhitespace_returnsDisplayPic() throws Exception {
+        assertEquals(VALID_FILE_1, ParserUtil.parseDisplayPicture(VALID_FILE_1));
+    }
+
 }

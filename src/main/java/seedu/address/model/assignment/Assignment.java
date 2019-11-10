@@ -57,13 +57,25 @@ public class Assignment {
     }
 
     /**
-     * Parses a {@code List<String> grades} and {@code List<Integer> newGrades} to update assignmentGrades.
+     * Parses a {@code List<String> grades} and {@code List<String> newGrades} to update assignmentGrades.
      *
      */
     public void setGrades(List<String> studentNames, List<String> newGrades) {
         requireAllNonNull(studentNames, newGrades);
         this.assignmentGrades.setGrades(studentNames, newGrades);
-        this.isCompleted = true;
+        //this.isCompleted = true;
+        checkCompletion();
+    }
+
+    /**
+     * Checks if the given assignment is completed from the assignment grades map.
+     */
+    private void checkCompletion() {
+        for (String value : getGrades().values()) {
+            if (value != "Not submitted.") {
+                isCompleted = true;
+            }
+        }
     }
 
     /**
@@ -71,11 +83,11 @@ public class Assignment {
      * Returns the updated assignment after adding key-value pair for key: studentName.
      * Value is set to zero as student was added after assignment was graded.
      */
-    public Assignment addOneStudentGrade (String studentName) {
+    public void addOneStudentGrade (String studentName) {
         assignmentGrades.addOneStudentGrade(studentName);
-        Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
-        outputAssignment.setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
-        return outputAssignment;
+        //Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
+        setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
+        //return outputAssignment;
     }
 
     /**

@@ -1,33 +1,33 @@
 package seedu.address.logic.commands;
 
-//import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//import static seedu.address.commons.core.Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW;
-//import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.testutil.TypicalStudents.CARL;
-//import static seedu.address.testutil.TypicalStudents.ELLE;
-//import static seedu.address.testutil.TypicalStudents.FIONA;
-//import static seedu.address.testutil.TypicalStudents.getTypicalClassroom;
+import static seedu.address.commons.core.Messages.MESSAGE_STUDENTS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
+import static seedu.address.testutil.TypicalStudents.CARL;
+import static seedu.address.testutil.TypicalStudents.ELLE;
+import static seedu.address.testutil.TypicalStudents.FIONA;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
-//import seedu.address.model.Model;
-//import seedu.address.model.ModelManager;
-//import seedu.address.model.UserPrefs;
 
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.student.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindStudentCommand}.
  */
 public class FindStudentCommandTest {
-    /*
-    private Model model = new ModelManager(getTypicalClassroom(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalClassroom(), new UserPrefs());
-     */
+
+    private Model model = new ModelManager(getTypicalNotebook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalNotebook(), new UserPrefs());
+
 
     @Test
     public void equals() {
@@ -56,7 +56,7 @@ public class FindStudentCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
-    /*
+
     @Test
     public void execute_zeroKeywords_noStudentFound() {
         String expectedMessage = String.format(MESSAGE_STUDENTS_LISTED_OVERVIEW, 0);
@@ -66,9 +66,8 @@ public class FindStudentCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredStudentList());
     }
-     */
 
-    /*
+
     @Test
     public void execute_multipleKeywords_multipleStudentsFound() {
         String expectedMessage = String.format(MESSAGE_STUDENTS_LISTED_OVERVIEW, 3);
@@ -78,7 +77,7 @@ public class FindStudentCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredStudentList());
     }
-     */
+
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

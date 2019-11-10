@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI:AutoCompleteTextField <<Rectangle>>{
+Class AutoCompleteTextField
+Class TextField
+Class Styles
+Class CommandBox
+}
+
+CommandBox "1"-left-> AutoCompleteTextField
+AutoCompleteTextField -up-|> TextField
+AutoCompleteTextField ..> Styles
+@enduml

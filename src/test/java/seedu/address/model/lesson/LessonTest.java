@@ -2,13 +2,12 @@ package seedu.address.model.lesson;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_MON;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_TUE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDTIME_MON;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ENDTIME_TUE;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalLessons.MON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_MON;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STARTTIME_TUE;
 import static seedu.address.testutil.TypicalLessons.ANOTHER_MON;
+import static seedu.address.testutil.TypicalLessons.MON;
 import static seedu.address.testutil.TypicalLessons.TUE;
 
 import org.junit.jupiter.api.Test;

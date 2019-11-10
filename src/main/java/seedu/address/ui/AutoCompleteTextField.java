@@ -14,7 +14,9 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.text.TextFlow;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandMasterList;
 
@@ -29,12 +31,13 @@ public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
     private final Logger logger = LogsCenter.getLogger(getClass());
+    private final int maxEntries = 10;
     private ArrayList<String> entriesList = new ArrayList<>();
 
     /**
      * the listener that will be added to textproperty
      * listens for changes in user input and suggests
-     * commands accordingly
+     * commands accordingly, filters by contains()
      */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
@@ -51,7 +54,7 @@ public class AutoCompleteTextField extends TextField {
                         .filter(e -> e.toLowerCase().contains(mainRequest.toLowerCase()))
                         .collect(Collectors.toList());
                 if (!filteredEntries.isEmpty()) {
-                    populatePopup(filteredEntries, enteredText);
+                    populatePopUp(filteredEntries, mainRequest);
                     if (!entriesPopup.isShowing()) {
                         //position of popup
                         entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
@@ -71,9 +74,10 @@ public class AutoCompleteTextField extends TextField {
         super();
         this.entries = new TreeSet<>();
         this.entriesPopup = new ContextMenu();
-        entries.addAll(CommandMasterList.getCommandWords());
+        List<String> commandMasterList = new ArrayList<String>(CommandMasterList.getCommandWords());
+        assert !commandMasterList.isEmpty() : "Command master list cannot be empty!";
+        entries.addAll(commandMasterList);
         setListener();
-
     }
 
     /**
@@ -85,37 +89,68 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * populates contextmenu
-     * of command to be entered
+     * populates contextmenu with suggestions from listener
      * if any suggestion is selected,
      * set the textfield to suggestion
-     * @param searchResult
+     * @param searchResults
      * @param searchRequest
      */
-    private void populatePopup(List<String> searchResult, String searchRequest) {
-        assert !searchResult.isEmpty() : "Search result must be non-empty in this method.";
-        List<CustomMenuItem> menuItems = new LinkedList<>();
-        int maxEntries = 10;
-        int count = Math.min(searchResult.size(), maxEntries);
-        entriesList.clear();
-        for (int i = 0; i < count; i++) {
-            final String result = searchResult.get(i);
-
-            entriesList.add(result);
-            Label entryLabel = new Label();
-            entryLabel.setGraphic(Styles.buildTextFlow(result, searchRequest));
-            entryLabel.setPrefHeight(10);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            menuItems.add(item);
-
-            item.setOnAction(actionEvent -> {
-                setText(result);
-                positionCaret(result.length());
-                entriesPopup.hide();
-            });
+    private void populatePopUp(List<String> searchResults, String searchRequest) {
+        assert !searchResults.isEmpty() : "Search result must be non-empty in this method.";
+        if (searchRequest.equals("")) {
+            return;
         }
-        entriesPopup.getItems().clear();
-        entriesPopup.getItems().addAll(menuItems);
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+        int numEntries = Math.min(searchResults.size(), maxEntries);
+        entriesList.clear();
+        for (int i = 0; i < numEntries; i++) {
+            final String mainText = searchResults.get(i);
+            boolean requestLongerThanResult = searchRequest.length() >= mainText.length();
+            if (mainText.equals("") || requestLongerThanResult) {
+                continue;
+            }
+            CustomMenuItem popUpItem = buildPopUpEntry(mainText, searchRequest);
+            menuItems.add(popUpItem);
+
+            setOnSelection(popUpItem, mainText);
+        }
+        List<MenuItem> popUpList = entriesPopup.getItems();
+        popUpList.clear();
+        popUpList.addAll(menuItems);
+    }
+
+    /**
+     * helper for populatePopup
+     * builds highlighted portion of text
+     * for each popup entry
+     * @param mainText
+     * @param portionToHighlight
+     * @return
+     */
+    private CustomMenuItem buildPopUpEntry(String mainText, String portionToHighlight) {
+        entriesList.add(mainText);
+        Label entryLabel = new Label();
+        TextFlow highlightText = Styles.buildTextFlow(mainText, portionToHighlight);
+        entryLabel.setGraphic(highlightText);
+        entryLabel.setPrefHeight(10);
+        CustomMenuItem popupItem = new CustomMenuItem(entryLabel, true);
+        return popupItem;
+    }
+
+    /**
+     * upon selection,
+     * item text placed into textfield,
+     * cursor set to back of command and
+     * popup menu closed
+     * @param popUpItem
+     * @param mainText
+     */
+    public void setOnSelection(CustomMenuItem popUpItem, String mainText) {
+        popUpItem.setOnAction(actionEvent -> {
+            setText(mainText);
+            positionCaret(mainText.length());
+            entriesPopup.hide();
+        });
     }
 
     /**

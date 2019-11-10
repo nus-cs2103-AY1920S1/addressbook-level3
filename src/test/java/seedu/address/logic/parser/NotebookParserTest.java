@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_STUDENT;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +13,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-//import seedu.address.logic.commands.AddStudentCommand;
-
+import seedu.address.logic.commands.AddStudentCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteStudentCommand;
 import seedu.address.logic.commands.EditStudentCommand;
@@ -33,14 +32,14 @@ import seedu.address.testutil.StudentUtil;
 public class NotebookParserTest {
 
     private final NotebookParser parser = new NotebookParser();
-    /*
+
     @Test
     public void parseCommand_add() throws Exception {
         Student student = new StudentBuilder().build();
         AddStudentCommand command = (AddStudentCommand) parser.parseCommand(StudentUtil.getAddStudentCommand(student));
         assertEquals(new AddStudentCommand(student), command);
     }
-    */
+
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
@@ -50,8 +49,8 @@ public class NotebookParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         DeleteStudentCommand command = (DeleteStudentCommand) parser.parseCommand(
-                DeleteStudentCommand.COMMAND_WORD + " " + INDEX_FIRST_STUDENT.getOneBased());
-        assertEquals(new DeleteStudentCommand(INDEX_FIRST_STUDENT), command);
+                DeleteStudentCommand.COMMAND_WORD + " " + INDEX_FIRST_OBJECT.getOneBased());
+        assertEquals(new DeleteStudentCommand(INDEX_FIRST_OBJECT), command);
     }
 
     @Test
@@ -59,8 +58,8 @@ public class NotebookParserTest {
         Student student = new StudentBuilder().build();
         EditStudentDescriptor descriptor = new EditStudentDescriptorBuilder(student).build();
         EditStudentCommand command = (EditStudentCommand) parser.parseCommand(EditStudentCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_STUDENT.getOneBased() + " " + StudentUtil.getEditStudentDescriptorDetails(descriptor));
-        assertEquals(new EditStudentCommand(INDEX_FIRST_STUDENT, descriptor), command);
+                + INDEX_FIRST_OBJECT.getOneBased() + " " + StudentUtil.getEditStudentDescriptorDetails(descriptor));
+        assertEquals(new EditStudentCommand(INDEX_FIRST_OBJECT, descriptor), command);
     }
 
     @Test

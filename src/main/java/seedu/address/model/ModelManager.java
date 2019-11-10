@@ -42,7 +42,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with notebook: " + notebook + " and user prefs " + userPrefs);
         this.notebook = new Notebook(notebook);
         this.userPrefs = new UserPrefs(userPrefs);
-        this.caretaker = new Caretaker(new Memento(notebook), this.notebook);
+        this.caretaker = new Caretaker(this.notebook);
 
         filteredStudents = new FilteredList<>(getCurrentClassroom().getStudentList());
         filteredAssignments = new FilteredList<>(getCurrentClassroom().getAssignmentList());
@@ -357,7 +357,10 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return notebook.equals(other.notebook)
-                && userPrefs.equals(other.userPrefs);
+                && userPrefs.equals(other.userPrefs)
+                && filteredStudents.equals(other.filteredStudents)
+                && filteredAssignments.equals(other.filteredAssignments)
+                && filteredLessonLists.equals(other.filteredLessonLists);
     }
 
 }

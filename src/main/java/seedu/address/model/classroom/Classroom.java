@@ -2,6 +2,7 @@ package seedu.address.model.classroom;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +23,6 @@ public class Classroom implements ReadOnlyClassroom {
     private String classroomName = "My First Classroom";
     private final UniqueStudentList students;
     private final UniqueAssignmentList assignments;
-    //private final UniqueLessonList lessons;
     private boolean isDisplayStudents = true;
 
     /*
@@ -80,6 +80,11 @@ public class Classroom implements ReadOnlyClassroom {
 
     public void setAssignments(List<Assignment> assignments) {
         this.assignments.setAssignments(assignments);
+        for (Assignment assignment : assignments) {
+            if (assignment.getGrades().isEmpty()) {
+                assignment.initialiseGrades(getStudentNameList());
+            }
+        }
     }
 
     /**
@@ -123,6 +128,7 @@ public class Classroom implements ReadOnlyClassroom {
      * The assignment must not already exist in the classroom.
      */
     public void addAssignment(Assignment p) {
+        p.initialiseGrades(getStudentNameList());
         assignments.add(p);
     }
 
@@ -190,6 +196,13 @@ public class Classroom implements ReadOnlyClassroom {
         return students.asUnmodifiableObservableList();
     }
 
+    private List<String> getStudentNameList() {
+        List<String> toReturn = new ArrayList<>();
+        for (Student student : getStudentList()) {
+            toReturn.add(student.getName().toString());
+        }
+        return toReturn;
+    }
 
     @Override
     public ObservableList<Assignment> getAssignmentList() {

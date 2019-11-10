@@ -8,7 +8,7 @@ import javafx.scene.text.TextFlow;
 
 //@@author SebastianLie
 /**
- * helper class for autocomplete textfield
+ * helps to highlight user input in the suggestions offered by autocomplete
  */
 public class Styles {
 
@@ -18,15 +18,18 @@ public class Styles {
      * @param textToHighlight - string to select in text
      * @return - TextFlow
      */
-    public static TextFlow buildTextFlow(String text, String textToHighlight) {
-        assert text != null : "Text cannot be empty";
-        assert textToHighlight != null : "Text to be highlighted cannot be null";
-        assert text.contains(textToHighlight) : "Text to highlight must be in original";
+    public static TextFlow buildTextFlow(String text, String textToHighlight) throws IllegalArgumentException {
+        //(text.equals("") && textToHighlight.equals(""))
+        if (text == null || textToHighlight == null || (text.equals("") && textToHighlight.equals(""))) {
+            throw new IllegalArgumentException("Text cannot be null or empty!");
+        }
 
         String caseIndependent = text.toLowerCase();
-        String caseIndependentFilter = textToHighlight.toLowerCase();
+        String caseIndependentToHighlight = textToHighlight.toLowerCase();
 
-        int highlightIndex = caseIndependent.indexOf(caseIndependentFilter);
+        assert caseIndependent.contains(caseIndependentToHighlight) : "Text to highlight must be in original";
+
+        int highlightIndex = caseIndependent.indexOf(caseIndependentToHighlight);
         int highlightIndexWithinLength = Math.max(0, highlightIndex);
 
         Text textBefore = new Text(text.substring(0, highlightIndexWithinLength));

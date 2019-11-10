@@ -1,16 +1,14 @@
 package seedu.address.testutil;
 
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 
 import seedu.address.logic.parser.ParserUtil;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.ClassName;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.Time;
 
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Lesson objects.
@@ -49,6 +47,7 @@ public class LessonBuilder {
         return this;
     }
 
+
     /**
      * Sets the {@code StartTime} of the {@code Lesson} that we are building.
      */
@@ -61,6 +60,7 @@ public class LessonBuilder {
         return this;
     }
 
+
     /**
      * Sets the {@code EndTime} of the {@code Lesson} that we are building.
      */
@@ -72,6 +72,7 @@ public class LessonBuilder {
         }
         return this;
     }
+
 
     public Lesson build() {
         return new Lesson(startTime, endTime, className);

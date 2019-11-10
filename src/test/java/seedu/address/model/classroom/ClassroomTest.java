@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.classroom;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -6,24 +6,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalClassrooms.getTypicalClassroom;
 import static seedu.address.testutil.TypicalStudents.ALICE;
-import static seedu.address.testutil.TypicalStudents.getTypicalClassroom;
-//import java.util.Arrays;
-//import java.util.Collection;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
-//import java.util.List;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import seedu.address.model.assignment.Assignment;
 
-import seedu.address.model.classroom.Classroom;
-//import seedu.address.model.classroom.ReadOnlyClassroom;
-//import seedu.address.model.lesson.Lesson;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.assignment.Assignment;
+
 import seedu.address.model.student.Student;
-//import seedu.address.model.student.exceptions.DuplicateStudentException;
+import seedu.address.model.student.exceptions.DuplicateStudentException;
 import seedu.address.testutil.StudentBuilder;
 
 public class ClassroomTest {
@@ -42,12 +40,12 @@ public class ClassroomTest {
 
     @Test
     public void resetData_withValidReadOnlyClassroom_replacesData() {
-        Classroom newData = getTypicalClassroom();
+        Classroom newData = getTypicalClassroom().get(0);
         classroom.resetData(newData);
         assertEquals(newData, classroom);
     }
 
-    /*
+
     @Test
     public void resetData_withDuplicateStudents_throwsDuplicateStudentException() {
         // Two students with the same identity fields
@@ -58,7 +56,7 @@ public class ClassroomTest {
 
         assertThrows(DuplicateStudentException.class, () -> classroom.resetData(newData));
     }
-     */
+
 
     @Test
     public void hasStudent_nullStudent_throwsNullPointerException() {
@@ -92,14 +90,23 @@ public class ClassroomTest {
     /**
      * A stub ReadOnlyClassroom whose students list can violate interface constraints.
      */
-    /*
     private static class ClassroomStub implements ReadOnlyClassroom {
         private final ObservableList<Student> students = FXCollections.observableArrayList();
         private final ObservableList<Assignment> assignments = FXCollections.observableArrayList();
-        private final ObservableList<Lesson> lessons = FXCollections.observableArrayList();
+        private String classroomName = "My First Classroom";
 
         ClassroomStub(Collection<Student> students) {
             this.students.setAll(students);
+        }
+
+        @Override
+        public String getClassroomName() {
+            return classroomName;
+        }
+
+        @Override
+        public void setClassroomName(String classroomName) {
+            this.classroomName = classroomName;
         }
 
         @Override
@@ -108,14 +115,9 @@ public class ClassroomTest {
         }
 
         @Override
-        public ObservableList<Lesson> getLessonList() {
-            return lessons;
-        }
-
-        @Override
         public ObservableList<Assignment> getAssignmentList() {
             return assignments;
         }
     }
-     */
+
 }
