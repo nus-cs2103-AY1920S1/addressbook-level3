@@ -27,7 +27,16 @@ The Module Appeal Management System (MAMS) is a desktop app that aims to combine
 .  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
 . **Important**: Unzip `data.zip`. Inside, there should be a folder containing `mams.json`, ie. `data/mams.json`.
 Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`. Due to the special nature of
-app, users are specifically restricted from deleting/adding data entries.
+app, users are specifically restricted from deleting/adding data entries. Note that certain un-archiver tools
+may automatically create a new parent `data/` folder around the zipped `data/` folder. Should that happen, please only
+move the inner `data/` folder containing `mams.json` to the target directory. In any case, the resulting
+folder structure should look a little like the below:
+
+  .
+  ├── mams.jar
+  └── data/
+      └── mams.json
+
 .  Double-click the file to start the app. The GUI should appear in a few seconds..
 +
 image::Ui.png[width="790"]
@@ -56,7 +65,6 @@ A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Scienc
 * Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]` can be used as `list` or `list -s`.
 * Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
 * Arguments within square brackets can be supplied in any order.
-* There
 * Tags will often be used in the command to specify the targeted list for the command. Certain commands allow operations on multiple lists.
 ** `a/` : prefix for the `Appeal List`
 ** `m/` : prefix for the `Module List`

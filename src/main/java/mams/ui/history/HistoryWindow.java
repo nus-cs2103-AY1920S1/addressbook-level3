@@ -125,6 +125,7 @@ public class HistoryWindow extends UiPart<Stage> {
      * Scroll display list to bottom.
      */
     public void scrollToBottom() {
+        historyDisplayPanelPlaceholder.requestFocus();
         historyListPanel.scrollToBottom();
     }
 
