@@ -53,14 +53,14 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 === Enhancements
 
-* Extracting reimbursements from transactions by person
+* Extracting reimbursements from transactions grouped by person
 ** What it does:
 The reimbursements are automatically extracted from transaction records if they have not been paid.
 The reimbursements are grouped by person.
 And any updates to transactions will also be reflected in reimbursements.
 ** Justification:
 This feature helps the user to quickly view how much money the treasurer needs to pay to a member.
-The amount, descriptions are aggregated together for a member.
+The amount and descriptions are aggregated together from transactions for the member.
 So it will be very easy to manage reimbursements.
 ** Highlights:
 If there are any changes to transactions, the reimbursement records are also updated in accordance with new transaction information.
@@ -153,16 +153,15 @@ It is your responsibility to set a reasonable deadline.
 * Steps:
 
 . Type the command with all parameters filled in, as shown in the screenshot below:
-
++
 .Input deadline command in reimbursement tab
 image::Reimbursement/ReimbursementDeadlineCommand.png[width="500"]
-
-[start = 2]
++
 . Hit `Enter`
-
++
 If the deadline is successfully added, Leo will respond with a success message and the deadline will now display for the specified person's reimbursement. +
 Otherwise, Leo will show an error message indicating that the person is not in the reimbursement list.
-
++
 .Result of deadline command in reimbursement tab
 image::Reimbursement/ReimbursementDeadlineCommandSuccess.png[width="500"]
 
@@ -190,17 +189,17 @@ No indication will be shown in the Transaction Tab.
 
 * Steps:
 . Type the command, along with the person's name whose reimbursement is to be marked as done, as shown in the screenshot below:
-
++
 
 .Input done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommand.png[width="500"]
 
-[start = 2]
++
 . Hit `Enter`
-
++
 The reimbursement for that person will be removed from the tab, as shown below:
 
-
++
 .Result of done command in reimbursement tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="500"]
 
