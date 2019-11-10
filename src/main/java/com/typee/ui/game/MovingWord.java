@@ -36,7 +36,7 @@ public class MovingWord extends UiPart<Pane> {
         this.parent = parent;
         this.player = player;
         this.fallingRate = fallingRate;
-        word = Words.get(random.nextInt(Words.SIZE));
+        word = Words.get(randomNumberWithin(Words.SIZE));
         setXCoordinate();
         parent.getChildren().add(getRoot());
         continuouslyUpdate();
@@ -46,8 +46,15 @@ public class MovingWord extends UiPart<Pane> {
         animationTimer.stop();
     }
 
+    /**
+     * Randomly generate integer based on {@code limit}
+     */
+    private int randomNumberWithin(int limit) {
+        return random.nextInt(limit);
+    }
+
     private void setXCoordinate() {
-        getRoot().setLayoutX(random.nextInt(WINDOW_BOUNDARY));
+        getRoot().setLayoutX(randomNumberWithin(WINDOW_BOUNDARY));
     }
 
     /**
@@ -87,8 +94,8 @@ public class MovingWord extends UiPart<Pane> {
     private void highlightWords() {
         ObservableList<Node> words = getRoot().getChildren();
         words.clear();
-        Node highlightedNode = TextHighlighter.convertToTextFlowUsing(player.getInputText(), word);
-        Node nodeWithoutHighlight = TextHighlighter.convertToTextFlowUsing(word);
+        Node highlightedNode = TextHighlighterUtil.convertToTextFlowUsing(player.getInputText(), word);
+        Node nodeWithoutHighlight = TextHighlighterUtil.convertToTextFlowUsing(word);
         words.add(highlightedNode);
         words.add(nodeWithoutHighlight);
     }
