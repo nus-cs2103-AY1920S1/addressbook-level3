@@ -274,6 +274,7 @@ Examples:
 Clear the WatchList +
 Format: `clear`
 
+// tag::watch[]
 ==== Mark/Unmark as watched : `watch`
 
 To mark an unwatched show in the watchlist as watched, use the command format listed below. +
@@ -321,6 +322,7 @@ Marks all episodes of the first 5 seasons of the second show as watched.
 * `watch 3 s/5 e/2` +
 Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
 
+// end::watch[]
 ==== Editing a show's details : `edit`
 
 Edits an existing show in the list +

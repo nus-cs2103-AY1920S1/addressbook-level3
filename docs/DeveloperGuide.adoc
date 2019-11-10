@@ -170,32 +170,38 @@ Step 1. The user launches the application, and executes `watch 1 s/2 e/3` comman
 
 Step 2. Entering the command calls `WatchListParser#parseCommand()`, which in turn returns a new `WatchCommandParser` and the `WatchCommandParser#parse()` command is called.
 
-Step 3. A new `WatchCommand` is created, with the index of the show being parsed as a field of the `WatchCommand`. A new WatchShowDescriptor is also created to relay the episode number and season number to the WatchCommand object.
+Step 3. A new `WatchCommand` is created, with the index of the show being parsed as a field of the `WatchCommand`. A new `WatchShowDescriptor` is also created to relay the episode number and season number to the `WatchCommand` object.
 
 Step 4. The `WatchCommand#execute()` method is called, referencing the current `model`, and the show that is in the current `FilteredShowList` is referenced based off the current `model`.
 
 [NOTE]
 If the `index` is out of bounds, a new `CommandException` is thrown.
 
-Step 5. A copy of the show is created through the use of `WatchCommand#createEditedShow()`, which determines the new total number of episodes watched from the given seasons and episodes.
-A new isWatched value of the show is also determined based on the number of episodes that are watched.
+Step 5. A copy of the show is created through the use of `WatchCommand#createEditedShow()`, with the new total number of seasons and episodes updated if there are any changes.
+A new `isWatched` value of the show is also determined based on the number of episodes that are watched.
+
+The following activity diagram below summarizes the calculation of the number of episodes watched:
+
+.Calculating the Number of Episodes Watched
+image::WatchActivityDiagram.png[]
 
 Step 6. The show in the current show list is updated to the newly created copy with the updated watched status and latest episode watched, and a `CommandResult` with the new watched status of the show is created.
 
 The following sequence diagram shows how the watch operation works:
 
+.WatchSequenceDiagram Showing Events in Sequence
 image::WatchSequenceDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: Creating a new WatchCommand instead of an altered EditCommand
 
-* **Alternative 1 (current choice):** Creating a new WatchCommand class for changing the 'watch' status of a show.
+* **Alternative 1 (current choice):** Creating a new `WatchCommand` class for changing the 'watch' status of a show.
 ** Pros: Enables for greater cohesion since there is a specific command for editing the 'watch' status of a show.
-** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the edit command
-* **Alternative 2:** Use the WatchCommandParser to create a new EditCommand object that edits the watch status of the show.
+** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the `EditCommand`.
+* **Alternative 2:** Use the `WatchCommandParser` to create a new `EditCommand` object that edits the watch status of the show.
 ** Pros: Less code repetition and shorter code in general.
-** Cons: This will mean that there is less cohesion of the code and perhaps greater dependencies since more classes depend on the EditCommand class.
+** Cons: This will mean that there is less cohesion of the code and greater dependencies since more classes depend on the `EditCommand` class.
 // end::markaswatched[]
 
 // tag::statistics[]
