@@ -38,7 +38,7 @@ public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a worker or body in Mortago.\n"
-            + "Please refer to the User Guide for more details on how to update an entity";
+            + "Please refer to the User Guide for more details on how to update an entity.";
 
     public static final String MESSAGE_UPDATE_ENTITY_SUCCESS = "This entity was successfully updated. ID Number: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
