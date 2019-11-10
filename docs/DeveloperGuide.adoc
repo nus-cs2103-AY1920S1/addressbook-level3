@@ -373,14 +373,25 @@ image::DraftingActivityDiagram.png[width="500"]
 
 ===== Aspect: How incident draft creation executes
 
-* **Current Choice:** Manual assignment by prompting user
+For auto vehicle assignment:
+
+* **Current Choice:** Taking first vehicle on list of available vehicles in district.
+** Pros: Easy to implement
+** Cons: May not be the vehicle nearest to the incident site in real life, thus may not be optimal.
+* **Alternative:** Add details to location of vehicles to actually allocate the vehicle closest to the incident site.
+** Pros: Optimal efficiency in dispatching vehicles.
+** Cons: Difficult to implement; we do not have enough time.
+
+Fro manual vehicle assignment:
+
+* **Current Choice:** Throw exception to prompt user to enter index of vehicle to dispatch.
 ** Pros:
-*** Reduces number of steps of execution.
-*** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
-** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
-* **Alternative:** Manual assignment of vehicles
-** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
-** Cons: More number of steps, potentially a waste of time.
+*** User need not key in the entire new command again, only need to add the relevant prefix and index.
+*** Easy to implement.
+** Cons: May not seem logical to throw an exception for this.
+* **Alternative:** Show prompt message as a command result instead of exception message.
+** Pros: Logically seems to make more sense.
+** Cons: User has to retype the entire command, potentially a waste of time.
 // end::incidentdraftcreation[]
 
 // tag::incidentfillandsubmit[]
