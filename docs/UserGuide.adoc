@@ -650,28 +650,43 @@ Swaps the ordering of the 2nd rule and the 4th rule.
 The scripting engine allows you to evaluate arbitrary scripts to perform complex operations on your transaction data,
 as well as extend the application and add commands and features of your own.
 
+The scripting language is JavaScript (specifically, ECMAScript 5.1). For more details on the scripting environment and API, see <<Scripting API,here>>.
+
 WARNING: Scripts have full access to the application's internals, as well as all Java standard library classes and APIs.
 It is possible to corrupt the application state by execution of a malicious or buggy script. There are no guarantees on
 application behaviour if scripts are used.
 
+[#script-eval]
 ==== Evaluate a script: `script eval`
 
-Evaluates a script and displays the result.
+Evaluates a script and displays the result, which is the last expression evaluated in the script.
 
 Format: `script eval <script>`
 
-****
-* The scripting language is JavaScript (specifically, ECMAScript 5.1).
-****
+Examples:
 
+* `script eval 1`
++
+Evaluates to: `1`
+
+* `addTxn(1000, 'out', 'Lunch')`
++
+Adds an out-transaction for $10 with description "Lunch".
+
+[#script-add]
 ==== Add a stored script: `script add`
 
-Stores a script for future invocation.
+Stores a script for future invocation. If a script with the same name already exists, that script is replaced.
 
-Format: `script add <script name> [p/<file path> | s/<script>]`
+Format: `script add <script name> [d/<description>] [p/<file path> | s/<script>]`
 
 ****
-* The script name may contain only alphanumeric characters, underscores, and dashes.
+* Script names may contain only alphanumeric characters, underscores, and dashes.
+* Script names are case-sensitive.
+* The file path may be absolute or relative. If it is relative, it is relative to the _current working directory_ of Budget Buddy.
+** If you launched Budget Buddy from the command line, the current working directory starts from the directory your shell was in.
+** If you launched Budget Buddy by double-clicking the JAR file, the current working directory is typically the directory the JAR file is in.
+** There is no command that changes the current working directory, but a script may have done that.
 * If neither a file path nor the script code is given, a file browser is opened for you to
 select the script file.
 ****
@@ -679,31 +694,61 @@ select the script file.
 WARNING: The script is not checked for correctness before it is stored. Any syntax errors
 will be reported only when the script is run.
 
+Examples:
+
+* `script add hello-world s/"Hello world!"`
++
+Adds a script named `hello-world` that simply results in "Hello world!" being printed.
+
+* `script add add-transport d/Adds today's transport fare.`
++
+Adds a script named `add-transport` with description "Adds today's transport fare.". A file picker is opened for you to select the script file.
+
+[#script-delete]
 ==== Delete a stored script: `script delete`
 
 Deletes a previously-stored script.
 
 Format: `script delete <script name>`
 
+****
+* Script names are case-sensitive.
+****
+
+[#script-run]
 ==== Run a stored script: `script run`
 
-Runs a previously-stored script.
+Runs a previously-stored script and displays the result, which is the last expression evaluated in the script.
 
 Format: `script run <script name> [<argument>]`
 
 ****
+* Script names are case-sensitive.
+* The script is run in the current script environment, which may contain variables from previous scripts that have run.
 * The argument is the rest of the command line after the script name, and is passed to the script as a single string.
 ****
 
+Examples:
+
+* `script run add-transport`
++
+Runs the script named `add-transport`. `argv` is an empty array.
+
+* `script run echo Hello world!`
++
+Runs the script named `echo`, with `argv[0]` set to `"Hello world!"`.
+
+[#script-list]
 ==== List stored scripts: `script list`
 
 Lists stored scripts.
 
 Format: `script list`
 
+[#script-reset]
 ==== Reset the scripting environment: `script reset`
 
-Resets the scripting environment.
+Resets the scripting environment. This clears all previously defined variables, and restores all global variables and functions that may have been modified by scripts.
 
 Format: `script reset`
 // end::scripting[]
@@ -881,9 +926,119 @@ Format: `help <command word>`
 
 The Nashorn scripting engine is used. All features and Java class access of the Nashorn engine are available. See the https://docs.oracle.com/en/java/javase/11/nashorn/nashorn-java-api.html[Nashorn documentation] for more details.
 
-Currently, the only exposed interface to the Budget Buddy model is `bb`, which exposes the full application model to scripts.
+Budget Buddy defines a few global variables and functions to ease script writing. These are documented below.
 
-Convenience functions as well as access to the UI will be added in v1.4.
+NOTE: Due to the nature of JavaScript, scripts may modify these variables and functions. To reset the script
+environment, use <<script-reset,the `script reset` command>>.
+
+=== Global variables
+
+The following global variables are predefined in the script environment.
+
+* `bb`: The application's model, of type `ModelManager`.
++
+[WARNING]
+====
+Modifying data through the model directly can result in inconsistent state,
+or corrupted data. Where possible, you are strongly recommended to use the helper functions
+documented below.
+
+To discourage use of `bb`, the API is intentionally left undocumented. You may
+https://github.com/AY1920S1-CS2103T-W13-4/main/blob/master/src/main/java/budgetbuddy/model/ModelManager.java[refer to the Java source code]
+if you wish to use `bb`.
+====
+
+=== Functions
+
+The following helper functions are predefined in the script environment.
+
+==== Account functions
+
+* `refreshAccountView()`
+* `getAccounts() -> List<Account>`
+* `getActiveAccount() -> Account`
+* `setActiveAccount(nameOrIndex) -> Account`
+* `getAccount(nameOrIndex) -> Account`
+* `addAccount(name, description) -> Account`
+* `morphAccount(oldAccount, { name, description }) -> Account`
+* `editAccount(nameOrIndex, { name, description }) -> Account`
+* `deleteAccount(nameOrIndex)`
+* `accountName(account) -> string`
+* `accountDescription(account) -> string`
+* `accountBalance(account) -> number`
+* `accountTxns(account) -> List<Transaction>`
+
+==== Transaction functions
+
+* `refreshTxnView()`
+* `addTxn(amount, direction, description, { account, date, categories }) -> Transaction`
+* `morphTxn(oldTxn, { amount, direction, description, date, categories }) -> Transaction`
+* `editTxn(account, oldTxn, { amount, direction, description, date, categories }) -> Transaction`
+* `deleteTxn(account, txn)`
+* `getShownTxn(index) -> Transaction`
+* `editShownTxn(index, { amount, direction, description, date, categories }) -> Transaction`
+* `deleteShownTxn(index)`
+* `getShownTxns() -> List<Transaction>`
+* `txnAmount(txn) -> number`
+* `txnDescription(txn) -> string`
+* `txnDate(txn) -> LocalDate`
+* `txnDirection(txn) -> string ("IN" | "OUT")`
+* `txnCategories(txn) -> [string]`
+
+==== Loan functions
+
+* `addLoan(amount, direction, person, { description, date, paid }) -> Loan`
+* `morphLoan(loan, { amount, direction, person, description, date, paid }) -> Loan`
+* `editShownLoan(index, { amount, direction, person, description, date, paid }) -> Loan`
+* `deleteShownLoan(index)`
+* `getShownLoans() -> List<Loan>`
+* `getLoans() -> List<Loan>`
+* `loanAmount(loan) -> number`
+* `loanDirection(loan) -> string ("IN" | "OUT")`
+* `loanPerson(loan) -> string`
+* `loanDate(loan) -> LocalDate`
+* `loanDescription(loan) -> string`
+* `loanIsPaid(loan) -> boolean`
+
+==== Miscellaneous functions
+
+* `parseDate(date) -> LocalDate`
++
+Parses a date.
++
+Parameters:
++
+** `date`: The date, as a `string` in the format `d/M/yyyy`, e.g. `"1/1/2011"`
+
+'''
+
+* `makeDate(year, month, day) -> LocalDate`
++
+Constructs a date from the year, month and day, passed as `number`s.
+
+'''
+
+* `showAlert(title, message)`
++
+Shows an alert dialog and waits for the user to dismiss the dialog.
+
+'''
+
+* `executeCommand(command) -> CommandResult`
++
+Executes a command.
++
+Parameters:
++
+** `command`: The command, as a `string`.
++
+[WARNING]
+====
+You are recommended not to use this, where possible, and instead use the other helper
+functions documented above.
+
+Use of this function may result in undefined behaviour.
+====
 
 == FAQ
 
