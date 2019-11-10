@@ -42,7 +42,7 @@ Responsibilities: In charge of Transactions
 === Tang Shu Hui, Michaela
 
 image::michaelatsh.png[width="150",align="left"]
-{empty}[http://github.com/MichaelaTSH[github]] [<<michealatsh#, portfolio>>]
+{empty}[http://github.com/MichaelaTSH[github]] [<<michaelatsh#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: In charge of Inventory
