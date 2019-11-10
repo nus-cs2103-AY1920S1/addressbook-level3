@@ -44,42 +44,40 @@ of existing commands.
 * *Minor enhancement*: made certain commands such as sort and search stackable. This has great utility when there are lots of items and 1 search is insufficient to sieve out an item.
 This allows users to narrow down to items with greater ease, by sorting or searching the results of previous searches.
 
-* *Minor enhancement*: added the ability to auto-sort items in both lists by their name and date,
+* *Minor enhancement*: added the ability to auto-sort as well as manually sort items in both lists by their name and date,
 allowing the user to add items and have them arranged in an organised fashion.
-
-* *Minor enhancement*: added a sort command that allows the user to sort items by their name or date.
 
 * *Minor enhancement*: added expiry date and quantity fields to item, and disallowed expiry dates before today.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=febee99&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[Reposense]]
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+[https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Team tasks:
-*** Refactor Person to Item (Pull request https://github.com[#3])
+*** Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
 ** Project management:
 *** Set up and maintaining the issue tracker, assign issues to team members for each milestone
 
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
+** *Enhancements to existing features:*
 
-*** Add functionality to view different lists, edit fxml files (Pull request https://github.com[#122])
-*** Restrict commands for replenish list with new parser created (Pull request https://github.com[#122])
-*** Allow storage of both lists in a single json object (Pull request https://github.com[#122])
-*** Suggest closely related words when command executed displays no results (Pull requests https://github.com[#92], https://github.com[#121])
-*** Add Sort Command (Pull requests https://github.com[#7], https://github.com[#16])
-*** Wrote tests for sort command and its dependencies (Pull request https://github.com[#82])
-*** Render commands stackable (Pull requests https://github.com[#71])
-*** Auto-sort items added (Pull requests https://github.com[#51], https://github.com[#79])
-*** Disallow expiry dates before today (Pull request https://github.com[#53])
+*** Add functionality to view different lists, edit fxml files (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Add and restrict certain commands for replenish list with new parser created (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/198[#198])
+*** Allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Suggest closely related words when command executed displays no results (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/92[#92], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/121[#121])
+*** Add Sort Command (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/7[#7], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/16[#16])
+*** Wrote tests for sort command and its dependencies (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/82[#82])
+*** Render commands stackable (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/71[#71])
+*** Auto-sort items added (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/51[#51], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/79[#79])
+*** Disallow expiry dates before today (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/53[#53])
 
 //*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Add sub-headings for commands with usage variations and a command summary table, re-ordered content: https://github.com[#126]
-
-** Tools:
+** *Documentation:*
+*** Add sub-headings for commands with usage variations and a command summary table, re-ordered content: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/126[#126])
+*** Add screenshots of app to User Guide for all commands: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/145[#145])
+** *Tools:*
 *** Integrated the team repo with Github's project board
 //_{you can add/remove categories in the list above}_
 

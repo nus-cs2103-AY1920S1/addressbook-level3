@@ -238,11 +238,9 @@ that both implement `SortedUniqueItemList`, in a relationship summarised in the 
 .Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
 image::SortedUniqueItemListClassDiagram.png[]
 
-`SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
-`MethodOfSorting` and comparator to be used for the list.
-
 In both `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`, items are stored in a `SortedList<Item>` and
-subsequently sorted based on the comparator defined.
+subsequently sorted based on the comparator defined. `SortedUniqueXpireItemList` supports a new function, `SortedUniqueItemList#setMethodOfSorting()`, that specifies the
+`MethodOfSorting` and comparator to be used for the list.
 
 The following sequence diagrams break down the intricacies in the view operation that works to display the sorted items in each list:
 
