@@ -18,6 +18,12 @@ import seedu.ichifund.commons.core.LogsCenter;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
+import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Day;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
@@ -183,6 +189,31 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedRepeater);
         fundBook.setRepeater(target, editedRepeater);
     }
+
+    // Loans ->
+
+    @Override
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return fundBook.hasLoan(loan);
+    }
+
+    @Override
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        fundBook.addLoan(loan);
+    }
+
+    @Override
+    public LoanId getCurrentLoanId() {
+        return fundBook.getCurrentLoanId();
+    }
+
+    @Override
+    public void setCurrentLoanId(LoanId loanId) {
+        fundBook.setCurrentLoanId(loanId);
+    }
+
 
     @Override
     public boolean hasBudget(Budget budget) {

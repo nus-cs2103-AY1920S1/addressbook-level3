@@ -96,14 +96,14 @@ public class AddRepeaterCommand extends Command {
 
         // Create new repeater.
         Repeater newRepeater = new Repeater(
-                    repeaterUniqueId,
-                    toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
-                    toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
-                    toAdd.getStartDate(), toAdd.getEndDate());
+                repeaterUniqueId,
+                toAdd.getDescription(), toAdd.getAmount(), toAdd.getCategory(),
+                toAdd.getTransactionType(), toAdd.getMonthStartOffset(), toAdd.getMonthEndOffset(),
+                toAdd.getStartDate(), toAdd.getEndDate());
 
         // Update current repeater unique id.
         model.setCurrentRepeaterUniqueId(new RepeaterUniqueId(String.valueOf(
-                    repeaterUniqueId.id + 1)));
+                repeaterUniqueId.id + 1)));
 
         // Add repeater.
         model.addRepeater(newRepeater);
