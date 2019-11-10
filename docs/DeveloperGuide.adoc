@@ -397,11 +397,11 @@ Instantiation of the `Event` object when the app is started will be more complic
 ==== Proposed Implementation
 
 The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event and the
-specific events that is happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
+specific events that are happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
 The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
-process through these events to create specific `DistinctDate` Objects which stores a list of events which occurs on the date
+process through these events to create specific `DistinctDate` Objects which stores a list of events that occurs on the date
 they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature
 can be seen in the generate schedule window as well as the employee fetch window.
 
@@ -439,13 +439,13 @@ again using the current EventList.
 **Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
 
 **Step 6**. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored,
-however the DistinctDateList would not.
+however, the DistinctDateList would not.
 
 [NOTE]
 Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when
 it is called upon or when the application starts.
 
-**Step 5**. Done.
+**Step 7**. Done.
 
 The following sequence diagram shows how the `generate_schedule` operation works:
 
@@ -464,12 +464,12 @@ NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 
 *Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
 
-*Cons*: May have performance issues in terms of speed and time Complexity if database gets extremely big. The program will have to iterate through the entire list of events and create
+*Cons*: May have performance issues in terms of speed and time Complexity if the user's database gets extremely big. The program will have to iterate through the entire list of events and create
 the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
 
 **Decision: Alternative 1
 ** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
-Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalise all the events and details before generating
+Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalised all the events and details before generating
 the schedule.
 
 |Creates and Stores the DistinctDate object whenever a new event is added.
@@ -477,7 +477,7 @@ the schedule.
 *Pros*: Do not have to create a new list of DistinctDate object every time it is called.
 
 *Cons*: May have performance issues in terms of storage and processing needed, requires new storage unit to store a new entity which is not as important
-and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev etc
+and frequently used. This implementation can cause speed and time complexity issues as well, whenever edits are made to the existing eventList - add_ev, delete_ev, etc
 the program is required to process through all DistinctDate Object to make the necessary changes. If the user does not even want to call the `generate_schedule` command
 after the changes, then this process is actually unnecessary and redundant.
 
@@ -486,17 +486,17 @@ after the changes, then this process is actually unnecessary and redundant.
 
 *Pros*: Users are able to view the generated schedule directly from the application's schedule tab, without the need of another window.
 
-*Cons*: May cause confusion, as the list being displayed might be outdated, if user forgets to call the `generate_schedule` command after altering the events.
+*Cons*: May cause confusion, as the list being displayed might be outdated if the user forgets to call the `generate_schedule` command after altering the events.
 
-| Display on a separate window, generates and display the list on the new window when `generate_schedule` command is called. (Current choice)
+| Display on a separate window generates and display the list on the new window when `generate_schedule` command is called. (Current choice)
 
-*Pros*: Allows for better user experience, since the generated list is only displayed when the user needs it. Ensures that the list being
+*Pros*: Allows for better user experience since the generated list is only displayed when the user needs it. Ensures that the list being
 displayed is always updated as of when the user needs it, since the window is only produced when `generate_schedule` command is called.
 
 *Cons*: Harder to implement, requires additional JavaFx windows and implementations. Will require additional windows being opened.
 
 **Decision: Alternative 2
-** Alternative 2 is a cleaner and more user friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many list and information.
+** Alternative 2 is a cleaner and more user-friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many lists and information.
 Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
 |========================================================================================
 
