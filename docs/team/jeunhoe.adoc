@@ -155,6 +155,8 @@ write technical documentation to developers, as well as the technical depth of m
 
 {Start of extract from Developer Guide}
 
-include::../DeveloperGuide.adoc[tag=training]
+include::../DeveloperGuide.adoc[tag=training_structure]
+
+include::../DeveloperGuide.adoc[tag=training_design]
 
 {End of extract from Developer Guide}
