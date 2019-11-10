@@ -73,6 +73,8 @@ image::Ui.PNG[width="790"]
   There are only two contexts: During Competition (In-session) and Outside of Competition (Out-session)
 ====
 
+//tag::Competition[]
+
 == Context: Outside Of Competition (Out-session)
 
 === Commands related to competition
@@ -114,6 +116,8 @@ Examples:
 * `editCompetition 1 n/IPF World Championships`
 
 * `editCompetition 1 endDate/15/02/1995`
+
+//end::Competition[]
 
 ==== Listing all records of current and past competitions: listCompetition
 This command has no parameters
@@ -293,6 +297,8 @@ Examples:
 
 * `lift Y`
 
+//tag::Rank[]
+
 ==== Getting the rank of a person (athlete) for a given competition: `rank`
 Retrieves the rank of a person relative other competitors in the competition.
 
@@ -301,6 +307,8 @@ Format: `rank n/NAME`
 Example:
 
 * `rank n/Ho`
+
+//end::Rank[]
 
 ==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
 Retrieves a sorted order of all the participants of a the competition in-session based on the ranking method

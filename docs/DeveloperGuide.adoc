@@ -267,7 +267,7 @@ This section describes some noteworthy details on how certain features are imple
 
 === Context-Switching feature between sessions
 
-===== Overview
+==== Overview
 
 Our features are mainly split into 2 contexts. An in-competition, and an out-of-competition session mode.
 A session is started when the user wants to start an existing competition to call lifters to perform their attempt,
@@ -287,7 +287,7 @@ However, the end of every competition session does not signify the end of a user
 The user can still go in and out of the competition session (start and end), to perform the different commands
 from the different states.
 
-===== How it is being implemented (mingsheng)
+==== How it is being implemented (mingsheng)
 
 === In-Session
 In-Session is the state where the user enters competition mode, where users can command the app to generate
@@ -370,7 +370,7 @@ together with the following lifter.
 .Sequence Diagram for the AttemptLiftedCommand
 image::LiftSequenceDiagram.png[]
 
-
+//tag::Rank[]
 ==== Rank feature
 A RankCommand class is created to facilitate ranking of an athlete for a given competition he or she participates in.
 
@@ -404,6 +404,8 @@ a Command Design Pattern by requiring different types of command classes to exte
 
 Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
 we decide to apply the Command Design Pattern for the Rank command too.
+
+//end::Rank[]
 
 ==== Rank list feature
 
@@ -450,74 +452,123 @@ athletes) is made possible.
 .Sequence Diagram for the StartSessionCommand
 image::StartSequenceDiagram.png[]
 
+//tag::Competition[]
 
-==== Competition/Person features
-There are 4 competition/person features: adding, deleting, editing and listing competitions/persons.
-The features are briefly described below. Except for the listing and deleting competition/persons commands, the crux of
-adding and editing a competition/person commands is the CustomDate class (which will be discussed later).
+==== Competition features
+There are 4 competition/person features: adding, deleting, editing and listing competitions.
+The features are briefly described below. The crux of adding and editing a competition commands is the CustomDate class
+, the CustomDate class is important for validating the starting and ending dates for a competition event. The date
+validation process will be discussed in detail in words and with the aid of class and sequence diagrams.
 
-===== Adding a competition/person
-To add a competition, supply the name of a competition and it's start and end dates. But, start date must be equal or
-before end date.
+===== Adding a competition
+To add a competition, a user supplies the name of a competition and its start and end dates. But, the start date must
+be equal or before end date.
 
-To add a person, supply a person's name, a date of birth and a gender (male or female only). A person must have
-already been born. Example, if today os 11/09/2019, a user cannot add a person who is borned in 15/09/2019 (in the
-future).
+===== Deleting a competition
+To delete a competition, a user supplies the index of that competition. The index of a competition will be displayed
+in the user interface of that programme.
 
-===== Deleting a competition/person
-To delete a competition, supply the index of that competition.
+===== Editing a competition
+A user has the choice of editing one or more of the following competition fields:the competition name, start and end dates
+of a competition. But, similar to adding a competition, the edited start date must be equal or before the edited end date.
 
-To delete a person, supply the index of that person.
-
-===== Editing a competition/person
-For competition, a user has the choice of editing either the competition name, start date of a competition or end date
-of a competition.
-
-But, start date cannot be after end date after editing a competition information.
-
-For person, a user has the choice of editing either the person name, date of birth or a gender.
-
-But,  person must have already been born.
-
-===== Listing a competition/person
-To list all competitions/person stored in the programme.
+===== Listing a competition
+To list all competitions stored in the programme.
 
 ===== Choice of Design Pattern
 Similar to the Rank feature.
 
 ===== Implementation
-To ensure the dates given for a competition/person are valid, we created a CustomDate class which has the following
-important attributes: a Java Date object and a string which stores a date format (hard-coded).
+As mentioned earlier, editing or adding competitions require start date to be equal or before the end date.
+To ensure the dates given for a competition are valid, we created a CustomDate class.
+Please see the following class diagram for more information on the association between CustomDate and Competition
+classes.
 
-Pros:
+.Class Diagram for the CustomDate and Competition classes
+image::CustomDate.png[]
 
-1. By storing a hard-coded date format, our programme can ensure consistency of the date format for all
-competition events.
-2. By storing a Date object, we allow the our programme to use a method from Java Date class: before(). As mentioned
-previously, this allows our programme to check if a competition start date is before or equals to the end date.
-Similarly, to allow a input person's date of birth is before or equal to the current date. For example, if today's
-date is 11/09/2019, a person's date of birth must be equal or before 11/09/2019
+To see the mechanism of the date validation process, please see the following sequence diagram.
 
-Con:
+.Sequence Diagram of the addCompetition Command
+image::addComp.png[]
 
-1. We need to ensure exceptions due to inappropriate date format and due to start date occurring after an end date are
-handled properly by functions which depend on CustomDate.
+Pros of CustomDate:
+
+1. Note that DATE_FORMAT is hard-coded by us (class diagram cannot explicitly show this), this ensures our programme
+maintains a consistent date format for all competitions.
+
+2. By storing a Date object in the CustomDate class, we enable ParserUtil to call the before() method of the Date
+class to check for valid dates. Please the sequence diagram for the addCompetitionCommand, which provides illustration
+on how this is achieved.
+
+Cons of CustomDate:
+
+1. We need to ensure functions/classes which rely on CustomDate can catch and handle errors due to inappropriate
+date properly. This means that any changes to CustomDate in the future requires some work to propagate the changes to
+the rest of the code base.
+
 2. Users may wish to have their own date format.
 
 Alternative:
 
-We have considered using just the Java Date object, but we think it will be neater to have a CustomDate class to keep a
-date object and its associated date format string together in a CustomDate object. Furthermore, we can use the
-functions available in the CustomDate class for competition and person objects. In particular, we can use the get
-method to obtain the Date objects for two different CustomDate objects and compare them to decide if a user input for
-dates is valid or not.
+We have considered using only the Java Date object, but we think it will be neater to have a CustomDate class to
+package a date object and its associated date format string in a CustomDate object. Furthermore, we can recycle the
+functions available in the CustomDate class for person features too (read the next section).
+//end::Competition[]
 
-Please see the following activity diagram to understand the utility of CustomDate class in the context of adding a
-person.
+==== Person Features
+There are 4 person features: adding, deleting, editing and listing persons. Similar to competition features, the
+programme needs to validate date of birth when a user adds a person or edit a existing person's date of birth. In
+particular, the programme needs to ensure a person added or edited will not have a date of birth which occurs in the
+future. In other words, the person added or edited must have a date of birth equal to or before today's date.
+For example, if today is the 11/10/2019, a person's date of birth must be prior to 11/10/2019 or it must be exactly
+11/10/2019.
+
+The features are briefly described below. Similar to the competition features, we will describe the association
+between CustomDate and Person classes. Subsequently, we will describe the validation process for person features.
+
+===== Adding a person
+To add a person, supply a person's name, a date of birth and a gender (male or female only). A person must have
+already been born. Example, if today os 11/09/2019, a user cannot add a person who is borned in 15/09/2019 (in the
+future).
+
+===== Deleting a person
+To delete a person, supply the index of that person.
+
+===== Editing a person
+For person, a user has the choice of editing either the person name, date of birth or a gender.
+But,  person must have already been born.
+
+===== Listing people
+To list all people stored in the programme.
+
+===== Implementation
+Similar to competition, the crux of editing or adding persons rely on the CustomDate class for date validation.
+
+Please see the following class diagram for more information on the association between CustomDate and Person
+classes.
+
+.Class Diagram for the CustomDate and Person classes
+image::CustomDatePerson.png[]
+
+To see the mechanism of the date validation process, please see the following sequence diagram.
 
 .Sequence Diagram of the addPerson Command
 image::addPerson.png[]
 
+Pros:
+
+1. Note that DATE_FORMAT is hard-coded by us (similar to Competition features), this ensures our programme
+maintains a consistent date format for all people.
+
+2. By storing a Date object in the CustomDate class, we enable ParserUtil to call the before() method of the Date
+class to check for valid dates.
+
+Con:
+Similar to the Competition section.
+
+Alternative:
+Alternative consideration is similar to the Competition section.
 
 ==== Participation features
 A Participation is an association class we have created for every Person who has participation in a particular
