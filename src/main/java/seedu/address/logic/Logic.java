@@ -38,6 +38,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    //@@author shaoyi1997
     /** Returns an unmodifiable view of the filtered list of workers*/
     ObservableList<Worker> getFilteredWorkerList();
 
@@ -49,6 +50,7 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of notifs */
     ObservableList<Notif> getFilteredNotifList();
+    //@@author
 
     /** Returns an unmodifiable view of the filtered list of active notifs */
     ObservableList<Notif> getFilteredActiveNotifList();
@@ -68,7 +70,7 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    //@@ shaoyi1997-reused
+    //@@author shaoyi1997-reused
     //Reused from SE-EDU Address Book Level 4
     /**
      * Selected body in the filtered body list.
@@ -84,5 +86,5 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedBody(Body)
      */
     void setSelectedBody(Body body);
-    //@@ shaoyi1997-reused
+    //@@author
 }

@@ -27,7 +27,7 @@ import seedu.address.model.entity.IdentificationNumber;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.body.BodyStatus;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * Table View for list of bodies.
  */
@@ -53,7 +53,7 @@ public class BodyTableView extends UiPart<Region> {
         setCellSelectionHandler(selectedBody, onSelectedBodyChange);
     }
 
-    //@@ author shaoyi1997-reused
+    //@@author shaoyi1997-reused
     //Reused from SE-EDU Address Book Level 4
     private void setCellSelectionHandler(ObservableValue<Body> selectedBody, Consumer<Body> onSelectedBodyChange) {
         bodyTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -91,7 +91,8 @@ public class BodyTableView extends UiPart<Region> {
 
     private TableColumn<Body, IdentificationNumber> setupFridgeIdColumn() {
         TableColumn<Body, IdentificationNumber> fridgeId = new TableColumn<>("Fridge ID");
-        fridgeId.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().getFridgeId().orElse(null)));
+        fridgeId.setCellValueFactory(param ->
+                new ReadOnlyObjectWrapper<>(param.getValue().getFridgeId().orElse(null)));
         fridgeId.setCellFactory(tableColumn -> new FridgeIdTableCell());
         fridgeId.prefWidthProperty().bind(bodyTableView.widthProperty().multiply(COLUMN_WIDTH_FRIDGE_ID));
         fridgeId.setStyle("-fx-padding: 0 15 0 0");
@@ -169,7 +170,7 @@ public class BodyTableView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FridgeIdLabel(id).getRoot());
+                setGraphic(new FridgeIdLabel(id).getPane());
                 setStyle("-fx-padding: 0 15 0 0");
             }
         }
@@ -207,4 +208,4 @@ public class BodyTableView extends UiPart<Region> {
         }
     }
 }
-//@@ author
+//@@author

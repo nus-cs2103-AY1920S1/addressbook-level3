@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.ResultDisplayHandle;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
 public class ResultDisplayTest extends GuiUnitTest {
 
     private ResultDisplay resultDisplay;
@@ -34,4 +34,4 @@ public class ResultDisplayTest extends GuiUnitTest {
         assertEquals("Dummy feedback to user", resultDisplayHandle.getText());
     }
 }
-//@@ author
+//@@author

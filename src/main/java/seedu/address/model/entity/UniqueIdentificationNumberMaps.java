@@ -1,8 +1,11 @@
 package seedu.address.model.entity;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashMap;
 import java.util.Set;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.entity.body.Body;
 import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
@@ -20,13 +23,17 @@ public class UniqueIdentificationNumberMaps {
      * Adds the {@code entity} to the respective map and returns the identification number assigned.
      */
     public static Integer addEntity(Entity entity) {
-        assert(entity != null);
+        requireNonNull(entity);
         if (entity instanceof Worker) {
             return putWorker((Worker) entity);
         } else if (entity instanceof Body) {
             return putBody((Body) entity);
-        } else {
+        } else if (entity instanceof Fridge) {
             return putFridge((Fridge) entity);
+        } else {
+            LogsCenter.getLogger(UniqueIdentificationNumberMaps.class)
+                    .severe("Not a valid entity subclass");
+            return null;
         }
     }
 
@@ -149,16 +156,16 @@ public class UniqueIdentificationNumberMaps {
         return uniqueFridgeMap.containsKey(id);
     }
 
-    public void removeWorkerId(int id) {
-        uniqueWorkerMap.remove(id);
+    public Worker removeWorkerId(int id) {
+        return uniqueWorkerMap.remove(id);
     }
 
-    public void removeBodyId(int id) {
-        uniqueBodyMap.remove(id);
+    public Body removeBodyId(int id) {
+        return uniqueBodyMap.remove(id);
     }
 
-    public void removeFridgeId(int id) {
-        uniqueFridgeMap.remove(id);
+    public Fridge removeFridgeId(int id) {
+        return uniqueFridgeMap.remove(id);
     }
 
     /**
@@ -172,15 +179,17 @@ public class UniqueIdentificationNumberMaps {
 
     /**
      * Returns the entity that belongs to the supplied Identification Number details.
-     * Guarantee: Identification Number is present and will not retrieve a null.
      */
-    public static Entity getMapping(String typeOfEntity, int id) {
-        if (typeOfEntity.equals("W")) {
+    protected static Entity getMapping(String typeOfEntity, int id) {
+        if (typeOfEntity.equalsIgnoreCase("w")) {
             return uniqueWorkerMap.get(id);
-        } else if (typeOfEntity.equals("B")) {
+        } else if (typeOfEntity.equalsIgnoreCase("b")) {
             return uniqueBodyMap.get(id);
-        } else {
+        } else if (typeOfEntity.equalsIgnoreCase("f")) {
             return uniqueFridgeMap.get(id);
+        } else {
+            LogsCenter.getLogger(UniqueIdentificationNumberMaps.class).severe("Invalid typeOfEntity");
+            return null;
         }
     }
 }

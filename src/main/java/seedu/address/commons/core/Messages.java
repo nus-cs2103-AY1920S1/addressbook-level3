@@ -38,5 +38,4 @@ public class Messages {
     public static final String MESSSAGE_NOTIF_DOES_NOT_EXIST = "Notif does not exist";
     public static final String MESSAGE_BODY_COULD_NOT_BE_UPDATED = "Error updating the status of the body";
 
-
 }

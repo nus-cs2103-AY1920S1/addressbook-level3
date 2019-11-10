@@ -341,7 +341,7 @@ public class ModelManager implements Model {
         }
     }
 
-    //@@ shaoyi1997-reused
+    //@@author shaoyi1997-reused
     //Reused from SE-EDU Address Book Level 4
     //=========== Selected person ===========================================================================
 
@@ -391,9 +391,9 @@ public class ModelManager implements Model {
             }
         }
     }
-    //@@ shaoyi1997-reused
+    //@@author
 
-    //@@ author shaoyi1997
+    //@@author shaoyi1997
 
     /**
      * Updates all FilteredLists in Mortago to display all entities.
@@ -405,7 +405,7 @@ public class ModelManager implements Model {
         updateFilteredWorkerList(PREDICATE_SHOW_ALL_WORKERS);
         updateFilteredFridgeList(PREDICATE_SHOW_ALL_FRIDGES);
     }
-    //@@ author
+    //@@author
 
     @Override
     public boolean equals(Object obj) {

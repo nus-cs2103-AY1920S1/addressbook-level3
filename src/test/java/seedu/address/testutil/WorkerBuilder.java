@@ -13,6 +13,7 @@ import seedu.address.model.entity.worker.Photo;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 
+//@@author shaoyi1997
 /**
  * A utility class to help with building Worker objects.
  */
@@ -153,3 +154,4 @@ public class WorkerBuilder {
         return new Worker(name, phone, sex, employmentStatus, dateOfBirth, dateJoined, designation, photo);
     }
 }
+//@@author

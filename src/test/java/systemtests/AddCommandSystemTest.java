@@ -38,6 +38,8 @@ import seedu.address.model.person.Name;
 import seedu.address.testutil.WorkerBuilder;
 import seedu.address.testutil.WorkerUtil;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
@@ -232,3 +234,4 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertStatusBarUnchanged();
     }
 }
+//@@author

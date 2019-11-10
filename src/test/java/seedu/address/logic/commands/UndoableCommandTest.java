@@ -72,7 +72,7 @@ class UndoableCommandTest {
         UndoCommand undoCommand = new UndoCommand();
         undoCommand.execute(model);
 
-        String expectedString = String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, TYPICAL_BODY);
+        String expectedString = String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, TYPICAL_BODY.getIdNum());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addEntity(TYPICAL_BODY);
         RedoCommand redoCommand = new RedoCommand();

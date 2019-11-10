@@ -17,8 +17,10 @@ import seedu.address.model.entity.fridge.Fridge;
 import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.notif.Notif;
 
+//@@author shaoyi1997-reused
+//Reused from AB3
 /**
- * Adds a person to Mortago.
+ * Adds an entity to Mortago.
  */
 public class AddCommand extends UndoableCommand {
 
@@ -130,3 +132,4 @@ public class AddCommand extends UndoableCommand {
                 && toAdd.equals(((AddCommand) other).toAdd));
     }
 }
+//@@author

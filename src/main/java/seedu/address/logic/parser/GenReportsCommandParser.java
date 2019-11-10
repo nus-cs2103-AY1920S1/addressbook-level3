@@ -18,7 +18,9 @@ public class GenReportsCommandParser implements Parser<GenReportsCommand> {
      * and returns a GenReportsCommand object for execution.
      */
     public GenReportsCommand parse(String args) throws ParseException {
-        if (args.matches(".*\\d.*") || args.length() > 40) {
+        if (args.equals("")) {
+            return new GenReportsCommand("");
+        } else if (!args.matches("^[ A-Za-z]+$") || args.length() > 40) {
             throw new ParseException(MESSAGE_INVALID_SIGNATURE_FORMAT);
         }
         return new GenReportsCommand(args);

@@ -11,8 +11,7 @@
 
 This document serves to note down my contributions to Mortago, our team’s product for our Software Engineering project.
 
-Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
-
+=== 1.1 About the project
 Mortago is a desktop application used for managing mortuaries efficiently. It is primarily used for keeping records of entries into the mortuary.
 
 Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
@@ -21,13 +20,17 @@ management to be more accurate in managing tasks, calculating the availability o
 
 The user keys in commands using a CLI, and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
 
+=== 1.2 About the team
+Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
+
+=== 1.3 About my role
 My role was to design and write the codes for the generate PDF reports feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
 
 ====
-* `genReports`:  A grey highlight (also known as a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
-* `[subheader]#GenReportCommand.java#`: Maroon text with grey highlight indicates a component, class or object in the architecture of the application.
+* `genReports`:  A dark red text with grey highlight (also known as a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+* `[purple]#GenReportCommand.java#`: A purple text with grey highlight indicates a component, class or object in the architecture of the application.
 ====
 
 == 2. Summary of contributions
@@ -65,14 +68,14 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 ** Project management: Remove non-existing developers photos from `docs/images` folder (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/130[#130])
 ** Documentation
 *** updated Section 3.3 Document Generation in the User Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/219[#219])
+*** updated Section 4.4 Generate PDF feature in the Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102])
 *** made cosmetic tweaks to existing contents of the Developer Guide (Commits: https://github.com/AY1920S1-CS2103T-T13-2/main/commit/02abc4c16450c0f627eb0401e210a4e82e883dc6[1], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/8a189ab2262d3e28a64f05fbc4f7f09fca6f6bca[2], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/c22ec137fdfa00f9530a22d4b319910c0158e338[3])
 *** updated existing diagrams and color scheme for diagrams of the Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/137[#137])
-*** updated Section 4.4 Generate PDF feature in the Developer Guide (Pull request )
 *** updated Appendix B User Stories in the Developer Guide (Commit https://github.com/AY1920S1-CS2103T-T13-2/main/commit/96c7bdd079d527cfa6e1fbdec7cfe630bafe84c4[1])
 ** Community
 *** reviewed PRs: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102]
 *** contributed to forum discussions (Issue: https://github.com/nus-cs2103-AY1920S1/forum/issues/89[#89])
-*** reported bugs and suggestions for other teams (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** reported bugs and suggestions for other teams (Issues: https://github.com/AY1920S1-CS2103T-F11-4/main/issues/133[133], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/136[136], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/137[137], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/139[139], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/140[140])
 ** Tools: Integrated a third party library (iText) to the project (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/77/files[#77])
 
 == 3. Contributions to the User Guide
@@ -82,11 +85,17 @@ I have contributed 3 supportive enhancements for Mortago’s main feature Genera
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{start of extract}_
+_{start of extract 1: list command}_
+
+include::../UserGuide.adoc[tag=list]
+
+_{end of extract 1}_
+
+_{start of extract 2: document generation}_
 
 include::../UserGuide.adoc[tag=documentGeneration]
 
-_{end of extract}_
+_{end of extract 2}_
 
 == 4. Contributions to the Developer Guide
 

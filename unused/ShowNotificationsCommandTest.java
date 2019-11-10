@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 class ShowNotificationsCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
@@ -25,4 +25,4 @@ class ShowNotificationsCommandTest {
         assertCommandSuccess(new ShowNotificationsCommand(), model, expectedCommandResult, expectedModel);
     }
 }
-//@@ author
+//@@author

@@ -1,19 +1,42 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor ITEXT_COLOR_T1
-skinparam classBackgroundColor ITEXT_COLOR_T1
+skinparam arrowColor USER_COLOR
 
-Interface Parser <<Interface>>
-Class GenReportCommandParser
-Class GenReportsCommandParser
-Class GenReportSummaryCommandParser
+Package Commons {
+Class Index COMMONS_COLOR
+}
 
-Class GenReportCommand
-Class GenReportsCommand
-Class GenReportSummaryCommand
+Package Logic {
+Class FilteredBodyList LOGIC_COLOR
+Package Parser {
+Interface Parser <<Interface>> LOGIC_COLOR
+Class GenReportCommandParser LOGIC_COLOR
+Class GenReportsCommandParser LOGIC_COLOR
+Class GenReportSummaryCommandParser LOGIC_COLOR
+}
+
+Package Command {
+Class GenReportCommand LOGIC_COLOR
+Class GenReportsCommand LOGIC_COLOR
+Class GenReportSummaryCommand LOGIC_COLOR
 'Class "{abstract}\nCommand" as Command'
+}
+}
 
+Package Storage {
+Class ReportGenerator STORAGE_COLOR
+}
+
+Package iText {
+Class Document ITEXT_COLOR_T1
+Class PdfWriter ITEXT_COLOR_T1
+Class PdfPTable ITEXT_COLOR_T1
+Class PdfPCell ITEXT_COLOR_T1
+Class Font ITEXT_COLOR_T1
+Class List ITEXT_COLOR_T1
+Class Paragraph ITEXT_COLOR_T1
+}
 GenReportCommandParser .up.|> Parser
 GenReportsCommandParser .up.|> Parser
 GenReportSummaryCommandParser .up.|> Parser
@@ -22,7 +45,7 @@ GenReportCommandParser -down-> "1" GenReportCommand
 GenReportsCommandParser -down-> "1" GenReportsCommand
 GenReportSummaryCommandParser -down-> "1" GenReportSummaryCommand
 
-GenReportCommand *-left-> "1" Index
+GenReportCommand *-right-> "1" Index
 GenReportsCommand .up.> FilteredBodyList
 GenReportSummaryCommand .up.> FilteredBodyList
 GenReportCommand -down-> "1" ReportGenerator
