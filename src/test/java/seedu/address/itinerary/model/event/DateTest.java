@@ -12,7 +12,7 @@ class DateTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Date(null));
+        assertThrows(AssertionError.class, () -> new Date(null));
     }
 
     @Test

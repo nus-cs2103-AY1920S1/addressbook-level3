@@ -116,36 +116,36 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                <items>
-                                                   <Label text="Add event: add t/[title] date/[date] time/[time] l/[location] d/[desc]" />
-                                                   <Region prefHeight="20.0" prefWidth="11.0" />
+                                                   <Label text="Add event: add title/TITLE date/DATE time/TIME [l/LOC] d/[DESC]" />
+                                                   <Region prefHeight="20.0" prefWidth="16.0" />
                                                  <Button fx:id="addCommand" mnemonicParsing="false" onAction="#copyAdd" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="200.0">
                                                <items>
-                                                   <Label text="Delete event: delete [index]" />
-                                                   <Region prefHeight="20.0" prefWidth="249.0" />
+                                                   <Label text="Delete event: delete INDEX" />
+                                                   <Region prefHeight="20.0" prefWidth="253.0" />
                                                  <Button fx:id="deleteCommand" mnemonicParsing="false" onAction="#copyDelete" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                <items>
-                                                   <Label text="Edit event: edit [index] [type]/[details]" />
-                                                   <Region prefHeight="20.0" prefWidth="184.0" />
+                                                   <Label text="Edit event: edit INDEX [type/DETAILS]" />
+                                                   <Region prefHeight="20.0" prefWidth="185.0" />
                                                  <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
                                                </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
-                                                   <Label text="Done event: done [index]" />
-                                                   <Region prefHeight="20.0" prefWidth="264.0" />
+                                                   <Label text="Done event: done INDEX" />
+                                                   <Region prefHeight="20.0" prefWidth="267.0" />
                                                    <Button fx:id="Command" mnemonicParsing="false" onAction="#copyDone" text="Copy" />
                                                 </items>
                                              </ToolBar>
                                              <ToolBar prefHeight="68.0" prefWidth="496.0">
                                                 <items>
                                                    <Label text="List event: list" />
-                                                   <Region prefHeight="20.0" prefWidth="333.0" />
+                                                   <Region prefHeight="20.0" prefWidth="332.0" />
                                                    <Button fx:id="listCommand" mnemonicParsing="false" onAction="#copyList" text="Copy" />
                                                 </items>
                                              </ToolBar>
@@ -167,8 +167,8 @@
                                           <children>
                                              <ToolBar prefHeight="29.0" prefWidth="493.0">
                                                 <items>
-                                                   <Label text="Sort: sort by/[alphabetical | chronological | completion | priority]" />
-                                                   <Region prefHeight="20.0" prefWidth="24.0" />
+                                                   <Label text="Sort: sort by/[title] [location] [chronological] [completion] [priority]" />
+                                                   <Region prefHeight="20.0" prefWidth="6.0" />
                                                    <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
                                                 </items>
                                              </ToolBar>
@@ -188,8 +188,8 @@
                                              </ToolBar>
                                              <ToolBar prefHeight="40.0" prefWidth="232.0">
                                                 <items>
-                                                   <Label text="Search event: search by/[title | date | time | location] [keyword]" />
-                                                   <Region prefHeight="20.0" prefWidth="29.0" />
+                                                   <Label text="Search event: search [SEARCH CONDITION]" />
+                                                   <Region prefHeight="20.0" prefWidth="145.0" />
                                                    <Button fx:id="searchCommand" mnemonicParsing="false" onAction="#copySearch" text="Copy" />
                                                 </items>
                                              </ToolBar>
