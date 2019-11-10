@@ -19,6 +19,10 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class TabStateTest {
 
+    public static final String EXPECTED_MESSAGE = "Which tab would you like to shift to? Please enter the tab"
+            + " to shift to, prefixed by " + PREFIX_TAB.getPrefix()
+            + ". Example - [b/calendar]";
+
     @Test
     void transition_validArgumentMultimapOneValidInput_returnsPostTransitionState() {
         try {
@@ -103,9 +107,7 @@ class TabStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new TabState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "Tab command initiated. Please enter the tab you would like"
-                + " to shift to, prefixed by \"b/\"."
-                + " The available tabs are \"game\", \"calendar\", \"engagement\" and \"report\".");
+        assertEquals(EXPECTED_MESSAGE, state.getStateConstraints());
     }
 
     @Test
