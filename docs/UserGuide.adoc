@@ -503,6 +503,7 @@ Examples:
 Collapses the folder hierarchy by 1 level.
 
 [[folder]]
+//tag::AddFolderCommand[]
 ==== Adding a new folder: *`folder`*
 
 Creates a new folder for organizing bookmarks into.
@@ -521,7 +522,7 @@ Examples:
 
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
-
+//end::AddFolderCommand[]
 
 === Autotags
 

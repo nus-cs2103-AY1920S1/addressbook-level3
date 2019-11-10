@@ -1,0 +1,75 @@
+= Daryl Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: Mark (adapted from AddressBook - Level 3)
+
+'''
+
+== Introduction
+
+This project portfolio aims to document my contributions to Mark, a project by my team of 5 Computer Science students from NUS.
+
+Adapted from AddressBook - Level 3, Mark is a user-friendly bookmark manager application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands.
+
+Here are some key features of Mark:
+
+- Save and annotate content from a website for convenient offline access
+
+- Set reminders for your to-dos
+
+- Organize your bookmarks automatically
+
+
+== Contribution Summary
+
+This section serves to describe some of contributions I made to the development of Mark, such as enhancements, documentation, and code reviews.
+
+* *Major enhancement*: implemented *folders in a hierarchical structure* to organize bookmarks:
+** What it does: Allows users to have an alternate organization of their bookmarks, instead of showing all of them in
+one long list and having to search for them.
+** Justification: Users are familiar with organising their files on a computer into folders, so providing this functionality makes their transition to Mark smoother.
+** Highlights: This enhancement required knowledge of data structures and algorithms, as displaying, transforming, and other interactions with the folder hierarchy was quite challenging.
+
+* *Minor enhancement*: added a caching command that allows the user to "download" an copy of a website, for access when there is limited internet access.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Readability4J) to the project ()
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_(start of extract from User Guide)_
+
+include::../UserGuide.adoc[tag=AddFolderCommand]
+
+_(end of extract from User Guide)_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=folders]
