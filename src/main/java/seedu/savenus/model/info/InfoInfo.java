@@ -2,6 +2,7 @@ package seedu.savenus.model.info;
 
 import seedu.savenus.logic.commands.InfoCommand;
 
+//@@author robytanama
 /**
  * Contains information on Info command.
  */

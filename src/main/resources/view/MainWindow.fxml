@@ -4,13 +4,10 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -29,11 +26,11 @@
             </stylesheets>
             <HBox>
                 <children>
-                    <AnchorPane styleClass="menu-pane-with-border" HBox.hgrow="NEVER">
-                        <children>
-                            <Button layoutX="2.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+               <VBox alignment="TOP_CENTER" spacing="5.0" styleClass="menu-pane-with-border" HBox.hgrow="NEVER">
+                  <children>
+                            <Button fx:id="helpButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                             <Image url="@../images/Help.png" />
                                         </image>
@@ -43,9 +40,9 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                             </Button>
-                            <Button layoutX="2.0" layoutY="50.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                            <Button fx:id="quitButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                                 <graphic>
-                                    <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
                                             <Image url="@../images/Quit.png" />
                                         </image>
@@ -55,21 +52,92 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                             </Button>
-                     <MenuButton layoutX="2.0" layoutY="100.0" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" popupSide="RIGHT" prefHeight="50.0" prefWidth="50.0">
-                       <items>
-                         <MenuItem mnemonicParsing="false" onAction="#changeThemeToDark" text="Dark" />
-                         <MenuItem mnemonicParsing="false" onAction="#changeThemeToLight" text="Light" />
-                       </items>
+                     <Button fx:id="themeButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleTheme" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
-                           <ImageView fitHeight="30.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
-                                 <Image url="@../images/ThemeLight.png" />
+                                 <Image url="@../images/Theme.png" />
                               </image>
                            </ImageView>
                         </graphic>
-                     </MenuButton>
-                        </children>
-                    </AnchorPane>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="recommendButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleRecommend" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/Recommend.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="listButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleList" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/List.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="defaultButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleDefault" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/Default.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="historyButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHistory" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/History.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="viewSortButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleViewSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/ViewSort.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                     <Button fx:id="customSortButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleCustomSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                        <graphic>
+                           <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@../images/CustomSort.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                        <padding>
+                           <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        </padding>
+                     </Button>
+                  </children>
+               </VBox>
                     <VBox maxWidth="1.7976931348623157E308" prefWidth="1830.0" HBox.hgrow="ALWAYS">
                         <children>
                             <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
@@ -96,38 +164,38 @@
                                  </padding>
                                         </VBox>
                                     </VBox>
-                           <VBox styleClass="vbox-tab-pane-with-border">
+                           <VBox styleClass="vbox-tab-pane-with-border" HBox.hgrow="NEVER">
                               <children>
-                                 <HBox>
+                                 <HBox alignment="CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                       <AnchorPane>
+                                       <ImageView fitHeight="167.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                                          <image>
+                                             <Image url="@../images/Wallet.png" />
+                                          </image>
+                                       </ImageView>
+                                       <VBox alignment="CENTER_LEFT">
                                           <children>
-                                             <ImageView fitHeight="222.0" fitWidth="222.0" layoutX="46.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-                                                <image>
-                                                   <Image url="@../images/Wallet.png" />
-                                                </image>
-                                             </ImageView>
-                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" layoutX="202.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="386.0">
+                                                      <Text fx:id="savingsAccountPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="savings" wrappingWidth="400.0">
                                                           <font>
                                                               <Font name="Monospaced Regular" size="15.0" />
                                                           </font>
                                                       </Text>
-                                                        <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" layoutX="203.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="386.0">
+                                                        <Text fx:id="remainingBudgetPlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-balance" text="money" wrappingWidth="400.0">
                                                             <font>
                                                                 <Font name="Monospaced Regular" size="15.0" />
                                                             </font>
                                                         </Text>
-                                                        <Text fx:id="daysToExpirePlaceholder" fill="WHITE" layoutX="203.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="174.0">
+                                                        <Text fx:id="daysToExpirePlaceholder" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="account-days-left" text="days" wrappingWidth="400.0">
                                                             <font>
                                                                 <Font name="Franklin Gothic Demi Cond" size="27.0" />
                                                             </font>
                                                         </Text>
                                           </children>
-                                          <padding>
-                                             <Insets bottom="10.0" top="10.0" />
-                                          </padding>
-                                       </AnchorPane>
+                                       </VBox>
                                     </children>
+                                    <padding>
+                                       <Insets bottom="20.0" top="20.0" />
+                                    </padding>
                                  </HBox>
                                  <TabPane styleClass="tab-pane-with-border" tabClosingPolicy="UNAVAILABLE">
                                    <tabs>

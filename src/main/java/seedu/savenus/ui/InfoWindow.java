@@ -39,6 +39,7 @@ import seedu.savenus.model.info.TopUpInfo;
 import seedu.savenus.model.info.ViewSortInfo;
 import seedu.savenus.model.info.WithdrawInfo;
 
+//@@author robytanama
 /**
  * Controller for a info page
  */

@@ -7,19 +7,28 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
 import seedu.savenus.logic.commands.CommandResult;
+import seedu.savenus.logic.commands.CustomSortCommand;
+import seedu.savenus.logic.commands.DefaultCommand;
+import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
+import seedu.savenus.logic.commands.ListCommand;
+import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Food;
 
+//@@author robytanama
 /**
  * The Main Window.
  */
@@ -79,6 +88,33 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Text daysToExpirePlaceholder;
 
+    @FXML
+    private Button helpButton;
+
+    @FXML
+    private Button quitButton;
+
+    @FXML
+    private Button themeButton;
+
+    @FXML
+    private Button recommendButton;
+
+    @FXML
+    private Button listButton;
+
+    @FXML
+    private Button defaultButton;
+
+    @FXML
+    private Button historyButton;
+
+    @FXML
+    private Button viewSortButton;
+
+    @FXML
+    private Button customSortButton;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -92,6 +128,43 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         infoWindow = new InfoWindow();
+
+        // All the buttons tooltip configuration
+        Tooltip help = new Tooltip("Help");
+        help.setShowDelay(Duration.seconds(0));
+        helpButton.setTooltip(help);
+
+        Tooltip quit = new Tooltip("Quit");
+        quit.setShowDelay(Duration.seconds(0));
+        quitButton.setTooltip(quit);
+
+        Tooltip theme = new Tooltip("Change theme");
+        theme.setShowDelay(Duration.seconds(0));
+        themeButton.setTooltip(theme);
+
+        Tooltip recommend = new Tooltip("Recommend");
+        recommend.setShowDelay(Duration.seconds(0));
+        recommendButton.setTooltip(recommend);
+
+        Tooltip list = new Tooltip("List");
+        list.setShowDelay(Duration.seconds(0));
+        listButton.setTooltip(list);
+
+        Tooltip defaults = new Tooltip("Default");
+        defaults.setShowDelay(Duration.seconds(0));
+        defaultButton.setTooltip(defaults);
+
+        Tooltip history = new Tooltip("History");
+        history.setShowDelay(Duration.seconds(0));
+        historyButton.setTooltip(history);
+
+        Tooltip viewSort = new Tooltip("View sort");
+        viewSort.setShowDelay(Duration.seconds(0));
+        viewSortButton.setTooltip(viewSort);
+
+        Tooltip customSort = new Tooltip("Custom sort");
+        customSort.setShowDelay(Duration.seconds(0));
+        customSortButton.setTooltip(customSort);
     }
 
     public Stage getPrimaryStage() {
@@ -154,26 +227,6 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
-    }
-
-    /**
-     * Method that allows the mouse to click on the window to be moved.
-     *
-     * @param event The event that the user clicks on the window.
-     */
-    public void handleWindowPress(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    /**
-     * Method that allows the window to be moved.
-     *
-     * @param event The event that the user drags the window.
-     */
-    public void handleWindowDrag(MouseEvent event) {
-        primaryStage.setX(event.getScreenX() - xOffset);
-        primaryStage.setY(event.getScreenY() - yOffset);
     }
 
     /**
@@ -250,6 +303,84 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+    }
+
+    /**
+     * Runs {@code theme} command.
+     */
+    @FXML
+    private void handleTheme() {
+        if (primaryStage.getScene().getStylesheets().get(0).equals(LIGHT_THEME_CSS)) {
+            changeThemeToDark();
+        } else {
+            changeThemeToLight();
+        }
+    }
+
+    /**
+     * Runs {@code recommend} command.
+     */
+    @FXML
+    private void handleRecommend() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(RecommendCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code list} command.
+     */
+    @FXML
+    private void handleList() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(ListCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code default} command.
+     */
+    @FXML
+    private void handleDefault() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(DefaultCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code history} command.
+     */
+    @FXML
+    private void handleHistory() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(HistoryCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code viewsort} command.
+     */
+    @FXML
+    private void handleViewSort() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(ViewSortCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Runs {@code customsort} command.
+     */
+    @FXML
+    private void handleCustomSort() throws CommandException, ParseException {
+        CommandResult commandResult = logic.execute(CustomSortCommand.COMMAND_WORD);
+        foodListPanel.updateFoodList(logic.getFilteredFoodList());
+        logger.info("Result: " + commandResult.getFeedbackToUser());
+        resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
     }
 
     public FoodListPanel getFoodListPanel() {
