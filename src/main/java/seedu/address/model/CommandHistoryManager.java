@@ -61,4 +61,11 @@ public class CommandHistoryManager implements CommandHistory {
         this.currIndex += 1;
         return this.history.get(this.currIndex);
     }
+
+    /**
+     * Gets size of LinkedList storing command Strings
+     */
+    public int getSizeOfHistory() {
+        return this.history.size();
+    }
 }

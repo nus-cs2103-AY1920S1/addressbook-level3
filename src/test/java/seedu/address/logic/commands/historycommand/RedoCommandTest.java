@@ -24,4 +24,12 @@ class RedoCommandTest {
         assertEquals(String.format(RedoCommand.MESSAGE_SUCCESS, 1), commandResult.getFeedbackToUser());
         assertEquals(null, commandResult.getCommandType());
     }
+
+    @Test
+    void equals_success() throws AlfredException {
+        RedoCommand orig = new RedoCommand(1);
+        RedoCommand other = new RedoCommand(1);
+        assertEquals(orig, orig);
+        assertEquals(orig, other);
+    }
 }

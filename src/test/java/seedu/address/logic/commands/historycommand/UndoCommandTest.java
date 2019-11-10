@@ -24,4 +24,12 @@ class UndoCommandTest {
         assertEquals(String.format(UndoCommand.MESSAGE_SUCCESS, 1), commandResult.getFeedbackToUser());
         assertEquals(null, commandResult.getCommandType());
     }
+
+    @Test
+    void equals_success() throws AlfredException {
+        UndoCommand orig = new UndoCommand(1);
+        UndoCommand other = new UndoCommand(1);
+        assertEquals(orig, orig);
+        assertEquals(orig, other);
+    }
 }
