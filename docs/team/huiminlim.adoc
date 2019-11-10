@@ -11,6 +11,10 @@ FlashCard Pro is an application designed for students of all fields who prefer t
 
 It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). The GUI is to support the user if he/she prefers using the GUI to interact with FlashCard Pro.
 
+This is a screenshot of our application:
+
+image::Ui.png[width="790"]
+
 == Summary of contributions
 
 * *Major enhancement*: expanded the *functionality and type of FlashCards*.
@@ -25,11 +29,14 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 ** Added support for shuffling choices of Multiple Choice cards when displaying the Multiple Choice cards in `test` mode.
 
+** Wrote JUnit tests for MultipleChoiceCard and FrontBackCard.
+
 * Justification: This feature allows the user to explore multiple modes of learning using flash cards.
 
 * Highlights:
 
 ** This enhancement allowed the user to have more flexibility in exploring various types of flash cards to support the usage of the `test` function.
+
 ** In addition, this feature is challenging because it requires in-depth analysis and design of the Regex parser to determine which card type (Front and Back card or Multiple Choice card) is created.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=huiminlim&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]][https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/model[Test code]]
@@ -42,9 +49,9 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 ** Enhancements to existing features:
 *** Wrote the regular expression parsing, user input validation, and command execution for:
-**** `add` Front and Back, Multiple Choice Card addition
-**** `edit` Front and Back Card, Multiple Choice Card
-**** `delete` Flash card
+**** `add` Front and Back, Multiple Choice Card addition.
+**** `edit` Front and Back Card, Multiple Choice Card.
+**** `delete` Flash card and deck.
 
 ** Documentation:
 *** Did documentation for the CLI commands in the User Guide. (See <<Contributions to the User Guide>> below)
@@ -76,8 +83,6 @@ include::../UserGuide.adoc[tag=add_front_MCQ]
 include::../UserGuide.adoc[tag=edit]
 
 include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=stop]
 
 include::../UserGuide.adoc[tag=stats]
 

@@ -370,7 +370,6 @@ If there are no more cards, will trigger a popup with test results.
 
 Gets the previous card in the test deck.
 
-// tag::stop[]
 ==== Quit test: `exit`
 
 Exits the test process when the user is in test mode.
@@ -410,6 +409,7 @@ Do note that premature ending of a test will still count towards your Statistics
 
 * Upon running their programs, if they pass all test cases, their results will automatically be counted.
 ====
+
 // tag::stats[]
 === Viewing user statistics : `stats`
 
