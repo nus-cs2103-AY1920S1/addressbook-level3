@@ -734,7 +734,7 @@ public class ModelManager implements Model {
      *
      * @param type
      */
-    private void saveList(PrefixType type){
+    private void saveList(PrefixType type) {
         try {
 
             switch (type) {
@@ -784,7 +784,6 @@ public class ModelManager implements Model {
     /**
      * Filters out the {@code sortedTeam} list so that it only contains teams with a specific
      * subject {@code subject} if the {@code subject} is specified - therefore is not null.
-     *
      */
     private void filterSortedList(SubjectName subject) {
         ObservableList<Team> teams = FXCollections.observableArrayList(this.teamList.getSpecificTypedList());
@@ -801,7 +800,6 @@ public class ModelManager implements Model {
      * then arranges it to sort the current teams stored in Alfred in descending order of their score. Implements
      * additional Comparators {@code comparators} for tie-breaking if specified by the user. Additionally this also
      * filters out teams working on a specific subject if specified by the user.
-     *
      */
     public final void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators, SubjectName subject) {
         filterSortedList(subject);

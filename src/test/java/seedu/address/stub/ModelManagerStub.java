@@ -13,7 +13,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.entity.Id;
 import seedu.address.model.entity.Mentor;
 import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.PrefixType;
 import seedu.address.model.entity.Team;
 
 /**

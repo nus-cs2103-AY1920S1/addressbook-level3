@@ -14,10 +14,10 @@ public enum PrefixType {
     // Constants
     public static final String MESSAGE_CONSTRAINTS =
             "Prefix type should be a string of either one of the following values:\n"
-            + "P: to indicate Entity is a Participant\n"
-            + "M: to indicate Entity is a Mentor\n"
-            + "I: to indicate Entity is an Issue\n"
-            + "T: to indicate Entity is  a Team\n";
+                    + "P: to indicate Entity is a Participant\n"
+                    + "M: to indicate Entity is a Mentor\n"
+                    + "I: to indicate Entity is an Issue\n"
+                    + "T: to indicate Entity is  a Team\n";
 
 
     /**

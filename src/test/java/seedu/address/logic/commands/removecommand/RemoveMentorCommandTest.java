@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalIds.ID_FIRST_MENTOR;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignMentorCommand;
@@ -36,7 +37,7 @@ public class RemoveMentorCommandTest {
     }
 
     @Test
-    public void execute_MentorNotFound_throwsCommandException() throws Exception {
+    public void execute_mentorNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
         Mentor validMentor = new MentorBuilder().build();
         Team validTeam = new TeamBuilder().build();
@@ -46,7 +47,9 @@ public class RemoveMentorCommandTest {
 
         RemoveMentorCommand command = new RemoveMentorCommand(validMentor.getId(), validTeam.getId());
 
-        assertThrows(CommandException.class, RemoveMentorCommand.MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX, () -> command.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                RemoveMentorCommand.MESSAGE_INVALID_MENTOR_DISPLAYED_INDEX, () -> command.execute(modelStub));
     }
 
     @Test
@@ -60,12 +63,14 @@ public class RemoveMentorCommandTest {
 
         RemoveMentorCommand command = new RemoveMentorCommand(validMentor.getId(), validTeam.getId());
 
-        assertThrows(CommandException.class, RemoveMentorCommand.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX, () -> command.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                RemoveMentorCommand.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX, () -> command.execute(modelStub));
 
     }
 
     @Test
-    public void execute_removeMentorFromTeam_RemoveSuccessful() throws Exception {
+    public void execute_removeMentorFromTeam_removeSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
         Mentor validMentor = new MentorBuilder().build();
         Team validTeam = new TeamBuilder().build();
@@ -74,12 +79,21 @@ public class RemoveMentorCommandTest {
         modelStub.addMentor(validMentor);
 
         //add mentor to team
-        AssignMentorCommand assignMentorCommand = new AssignMentorCommand(validMentor.getId(), validTeam.getId());
+        AssignMentorCommand assignMentorCommand =
+                new AssignMentorCommand(validMentor.getId(), validTeam.getId());
         assignMentorCommand.execute(modelStub);
 
-        CommandResult commandResult = new RemoveMentorCommand(validMentor.getId(), validTeam.getId()).execute(modelStub);
+        CommandResult commandResult =
+                new RemoveMentorCommand(validMentor.getId(), validTeam.getId()).execute(modelStub);
 
-        assertEquals(String.format(RemoveMentorCommand.MESSAGE_REMOVE_MENTOR_SUCCESS, validMentor.getName(), validMentor.getId(), validTeam.getName(), validTeam.getId()),
+        assertEquals(
+                String.format(
+                        RemoveMentorCommand.MESSAGE_REMOVE_MENTOR_SUCCESS,
+                        validMentor.getName(),
+                        validMentor.getId(),
+                        validTeam.getName(),
+                        validTeam.getId()
+                ),
                 commandResult.getFeedbackToUser());
     }
 
@@ -96,8 +110,9 @@ public class RemoveMentorCommandTest {
         RemoveMentorCommand command = new RemoveMentorCommand(validMentor.getId(), validTeam.getId());
 
 
-        assertThrows(CommandException.class, RemoveMentorCommand.MESSAGE_TEAM_DOES_NOT_HAVE_MENTOR, () -> command.execute(modelStub));
-
+        assertThrows(
+                CommandException.class,
+                RemoveMentorCommand.MESSAGE_TEAM_DOES_NOT_HAVE_MENTOR, () -> command.execute(modelStub));
     }
 
 }

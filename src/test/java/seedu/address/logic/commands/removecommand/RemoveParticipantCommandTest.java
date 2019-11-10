@@ -7,11 +7,11 @@ import static seedu.address.testutil.TypicalIds.ID_FIRST_PARTICIPANT;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignParticipantCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.removecommand.RemoveParticipantCommand;
 import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
@@ -37,7 +37,7 @@ public class RemoveParticipantCommandTest {
     }
 
     @Test
-    public void execute_ParticipantNotFound_throwsCommandException() throws Exception {
+    public void execute_participantNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
         Participant validParticipant = new ParticipantBuilder().build();
         Team validTeam = new TeamBuilder().build();
@@ -47,7 +47,9 @@ public class RemoveParticipantCommandTest {
 
         RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
 
-        assertThrows(CommandException.class, RemoveParticipantCommand.MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX, () -> command.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                RemoveParticipantCommand.MESSAGE_INVALID_PARTICIPANT_DISPLAYED_INDEX, () -> command.execute(modelStub));
     }
 
     @Test
@@ -61,12 +63,13 @@ public class RemoveParticipantCommandTest {
 
         RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
 
-        assertThrows(CommandException.class, RemoveParticipantCommand.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX, () -> command.execute(modelStub));
-
+        assertThrows(
+                CommandException.class,
+                RemoveParticipantCommand.MESSAGE_INVALID_TEAM_DISPLAYED_INDEX, () -> command.execute(modelStub));
     }
 
     @Test
-    public void execute_removeParticipantFromTeam_RemoveSuccessful() throws Exception {
+    public void execute_removeParticipantFromTeam_removeSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
         Participant validParticipant = new ParticipantBuilder().build();
         Team validTeam = new TeamBuilder().build();
@@ -75,12 +78,18 @@ public class RemoveParticipantCommandTest {
         modelStub.addParticipant(validParticipant);
 
         //add mentor to team
-        AssignParticipantCommand assignParticipantCommand = new AssignParticipantCommand(validParticipant.getId(), validTeam.getId());
+        AssignParticipantCommand assignParticipantCommand =
+                new AssignParticipantCommand(validParticipant.getId(), validTeam.getId());
         assignParticipantCommand.execute(modelStub);
 
-        CommandResult commandResult = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId()).execute(modelStub);
+        CommandResult commandResult =
+                new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId()).execute(modelStub);
 
-        assertEquals(String.format(RemoveParticipantCommand.MESSAGE_REMOVE_PARTICIPANT_SUCCESS, validParticipant.getName(), validParticipant.getId(), validTeam.getName(), validTeam.getId()),
+        assertEquals(
+                String.format(
+                        RemoveParticipantCommand.MESSAGE_REMOVE_PARTICIPANT_SUCCESS,
+                        validParticipant.getName(), validParticipant.getId(), validTeam.getName(), validTeam.getId()
+                ),
                 commandResult.getFeedbackToUser());
 
     }
@@ -98,7 +107,9 @@ public class RemoveParticipantCommandTest {
         RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
 
 
-        assertThrows(CommandException.class, RemoveParticipantCommand.MESSAGE_TEAM_DOES_NOT_HAVE_PARTICIPANT, () -> command.execute(modelStub));
+        assertThrows(
+                CommandException.class,
+                RemoveParticipantCommand.MESSAGE_TEAM_DOES_NOT_HAVE_PARTICIPANT, () -> command.execute(modelStub));
 
     }
 
