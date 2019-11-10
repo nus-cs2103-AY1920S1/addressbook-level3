@@ -15,14 +15,14 @@ import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.events.EventSource;
 import seedu.address.model.events.EventSourceBuilder;
-import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelDataListener;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.model.tasks.TaskSourceBuilder;
 
 /**
  * Manages saving and loading (to local storage) of the Model in Horo.
  */
-public class StorageManager implements ModelListListener {
+public class StorageManager implements ModelDataListener {
 
     private final ObjectMapper mapper;
     private final ModelManager model;
@@ -30,10 +30,13 @@ public class StorageManager implements ModelListListener {
     private Path eventsFile;
     private Path tasksFile;
 
+    private boolean start;
+
     public StorageManager(ModelManager model) {
         this.mapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT);
         this.model = model;
+        this.start = true;
     }
 
     public void setEventsFile(Path eventsFile) {
@@ -74,24 +77,33 @@ public class StorageManager implements ModelListListener {
                 .map(TaskSourceBuilder::build)
                 .collect(Collectors.toList());
 
-            this.model.setModelData(new ModelData(events, tasks));
+            if (this.start) {
+                // Ignore changes to model made by itself.
+                this.start = false;
+                this.model.setModelData(new ModelData(events, tasks));
+                this.start = true;
+            }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new StorageIoException();
         }
     }
 
     @Override
-    public void onModelListChange(ModelData lists) {
+    public void onModelDataChange(ModelData modelData) {
+        if (!start) {
+            return;
+        }
+
         try {
             Files.createDirectories(this.eventsFile.getParent());
             Files.createDirectories(this.tasksFile.getParent());
 
             if (this.eventsFile != null) {
-                this.mapper.writeValue(this.eventsFile.toFile(), lists.getEvents());
+                this.mapper.writeValue(this.eventsFile.toFile(), modelData.getEvents());
             }
 
             if (this.tasksFile != null) {
-                this.mapper.writeValue(this.tasksFile.toFile(), lists.getTasks());
+                this.mapper.writeValue(this.tasksFile.toFile(), modelData.getTasks());
             }
         } catch (IOException e) {
             throw new StorageIoException();

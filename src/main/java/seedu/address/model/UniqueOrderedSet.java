@@ -42,4 +42,13 @@ public class UniqueOrderedSet<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         return this.set.iterator();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof UniqueOrderedSet) {
+            UniqueOrderedSet u = (UniqueOrderedSet) o;
+            return Objects.equals(this.set, u.set);
+        }
+        return false;
+    }
 }

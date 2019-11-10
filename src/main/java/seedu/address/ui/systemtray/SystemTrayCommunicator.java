@@ -52,7 +52,7 @@ public class SystemTrayCommunicator {
                 logger.warning(e.toString());
             }
         } else {
-            logger.info("System tray is not supported.");
+            logger.warning("System tray is not supported. Popup notifications will not be posted.");
         }
     }
 

@@ -9,6 +9,7 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.panel.calendar.CalendarPanel;
 
+//@@author Kyzure
 /**
  * Represents a stub for CalendarPanel that is mainly used for testing purpose only.
  *

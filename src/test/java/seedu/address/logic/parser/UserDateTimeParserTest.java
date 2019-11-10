@@ -13,7 +13,7 @@ class UserDateTimeParserTest {
 
     @Test
     void parse_invalidDateTime_failure() {
-        String[] tests = { "", " ", "01010001 0101", "1/1/1 01:01", "29/02/2019 00:00" };
+        String[] tests = { "", " ", "29/02/2019 00:00" };
         for (String test : tests) {
             assertThrows(ParseException.class, () -> PARSER.parse(test));
         }

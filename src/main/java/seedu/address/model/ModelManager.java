@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.events.EventSource;
-import seedu.address.model.listeners.ModelListListener;
+import seedu.address.model.listeners.ModelDataListener;
 import seedu.address.model.tasks.TaskSource;
+
+//@@author bruceskellator
 
 /**
  * Represents a class that manages the {@link ModelData} of Horo.
+ * Horo's Storage, Ui and UndoRedoManager components implement the ModelDataListener interface
+ * which listens for any changes to this ModelData so that they can be updated accordingly.
  */
 public class ModelManager {
+
     private ModelData model;
 
-    private final List<ModelListListener> modelListListeners;
+    private final List<ModelDataListener> modelDataListeners;
 
     /**
      * Creates a ModelManager.
@@ -22,24 +27,27 @@ public class ModelManager {
         super();
         this.model = new ModelData();
 
-        this.modelListListeners = new ArrayList<>();
-    }
-
-    public void addModelListListener(ModelListListener listener) {
-        this.modelListListeners.add(listener);
+        this.modelDataListeners = new ArrayList<>();
     }
 
     /**
-     * Replaces the current EventList and TaskList with a deep copy of a ModelLists provided.
-     * @param lists a ModelLists to replace this Model
+     * Adds ModelDataListeners.
      */
-    public void setModelData(ModelData lists) {
+    public void addModelDataListener(ModelDataListener listener) {
+        this.modelDataListeners.add(listener);
+    }
+
+    /**
+     * Replaces the current ModelData with a deep copy of a ModelData provided.
+     * @param modelData a ModelData to replace this Model
+     */
+    public void setModelData(ModelData modelData) {
         // Deep copy and reassign model.
-        this.model = new ModelData(lists);
+        this.model = new ModelData(modelData);
 
         // Notify all listeners whenever either the EventList or TaskList is changed.
-        this.modelListListeners
-            .forEach(listener -> listener.onModelListChange(this.getModelData()));
+        this.modelDataListeners
+            .forEach(listener -> listener.onModelDataChange(this.getModelData()));
     }
 
     /**
@@ -70,4 +78,14 @@ public class ModelManager {
     public List<TaskSource> getTasks() {
         return this.model.getTasks();
     }
+
+    /**
+     * Returns the original ModelData. This method is used for testing UndoRedoManager.
+     *
+     * @return the original ModelData
+     */
+    public ModelData getModel() {
+        return model;
+    }
+
 }

@@ -8,6 +8,7 @@ import seedu.address.logic.parser.CalendarDayParser;
 import seedu.address.logic.parser.CalendarMonthParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author Kyzure
 /**
  * Represents the date without a time, mainly for the UI system.
  */
@@ -117,9 +118,6 @@ public class CalendarDate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
         if (obj instanceof CalendarDate) {
             CalendarDate calendarDate = (CalendarDate) obj;
             return sameDate(calendarDate.getDay(), calendarDate.getMonth(), calendarDate.getYear());

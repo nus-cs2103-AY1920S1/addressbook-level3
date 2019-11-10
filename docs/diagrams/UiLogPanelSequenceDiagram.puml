@@ -1,0 +1,47 @@
+*@startuml
+!include style.puml
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":LogPanel" as LogPanel UI_COLOR
+participant "logBox:LogBox" as LogBox UI_COLOR
+participant "popUpBox:PopUpBox" as PopUpBox UI_COLOR
+end box
+
+[-> MainWindow : onUserOutput(output, colorTheme)
+activate MainWindow
+MainWindow -> MainWindow : getColor(colorTheme)
+activate MainWindow
+MainWindow --> MainWindow : color
+deactivate MainWindow
+
+MainWindow -[hidden]--> MainWindow
+
+'==== LogPanel ====
+MainWindow -> LogPanel : createLogBox(feedbackToUser, color)
+activate LogPanel
+create LogBox
+LogPanel -> LogBox : LogBox()
+activate LogBox
+LogBox --> LogPanel : logBox
+deactivate LogBox
+LogPanel --> MainWindow
+deactivate LogPanel
+LogPanel -[hidden]--> LogPanel
+
+MainWindow -> MainWindow : createPopUpBox
+activate MainWindow
+create PopUpBox
+MainWindow -> PopUpBox : PopUpBox()
+activate PopUpBox
+PopUpBox --> MainWindow : popUpBox
+deactivate PopUpBox
+PopUpBox -[hidden]-> PopUpBox
+destroy PopUpBox
+MainWindow --> MainWindow
+deactivate MainWindow
+
+MainWindow -[hidden]> MainWindow
+MainWindow -->[
+deactivate MainWindow
+
+@enduml

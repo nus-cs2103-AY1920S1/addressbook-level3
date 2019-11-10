@@ -40,46 +40,28 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Horo. Given below is a quick overview of each component.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+`LogsCenter` is used by many classes to write log messages to Horo's log file.
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+The rest of Horo is managed by seven components.
 
-The rest of the App consists of four components.
-
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+* <<Design-CommandManager,*`CommandManager`*>>: Responsible for executing commands from the user.
+* <<Design-Ics,*`Ics`*>>: Responsible for handling the importing and exporting of ICS files.
+* <<Design-ModelManager,*`ModelManager`*>>: Responsible for reading and writing to the in-memory data of Horo.
+* <<Design-NotificationManager,*`NotificationManager`*>>: Responsible for sending notifications to the user.
+* <<Design-StorageManager,*`StorageManager`*>>: Responsible for reading and writing to an external disk.
+* <<Design-UiManager,*`UiManager`*>>: Responsible for managing the user interface (UI) of Horo.
+* <<Design-UndoRedoManager,*`UndoRedoManager`*>>: Responsible for tracking changes in ModelManager, and reverting its history when needed.
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
+[[Design-UiManager]]
 === UI component
 
 .Main structure of the UI Component
@@ -91,23 +73,19 @@ The UI consists of a `MainWindow` that is contains 3 main view parts - `Calendar
 
 The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-
-
-
 The `UI` component does the following:
 
 * Executes user two different types commands using the `Logic` component.
 ** One command, when executed, affect the actual Events.
 ** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
-* It listens for any changes in the list of events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/EventListListener.java[`EventListListener`].
-* It also listens for the output to the user with another listener: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/listeners/UserOutputListener.java[`UserOutputListener`].
+* Listens for any changes in both lists of Tasks and Events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/ModelDataListener.java[`ModelDataListener`].
 
 ==== Calendar UI View
 
 .Structure of the Calendar UI View
 image::UiCalendarClassDiagram.png[]
 
-The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays two UI parts of the Calendar: `CalendarScreen` and `TimelineView`.
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays three different UI parts of the Calendar: `CalendarScreen`, `TimelineView` and `UpcomingView`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
 
@@ -117,7 +95,9 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/Timelin
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
 
-Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of EventCards for displaying the event name and date.
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of `Card` for displaying the event name and date. The details of `Card` will be explained in the one of the next few sections.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/UpcomingView.java[`UpcomingView`] represents a miniature list of Events and Tasks that has a start date or due date in the same month as the user's system current month, but not before the date as the user's date. This list will then hold up to a certain amount of `UpcomingEventCard` and `UpcomingTaskCard` which will be explained together with `Card` as well.
 
 ==== List UI View
 
@@ -128,43 +108,252 @@ The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/a
 
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
 
-* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task. [__To be implemented__]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task.
 
-Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card`, but it will not be held in the `CardHolder`.
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card` to display the information.
 
 ==== Log UI View
 
 .Structure of the Log UI View
 image::UiLogClassDiagram.png[]
 
-The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains several instances of `LogBox`.
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains the list of `LogBox`.
 
 link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
 
-[[Design-Logic]]
-=== Logic component
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/PopUpBox.java[`PopUpBox`] is rather similar to LogBox. It holds up to the same amount of information, as much until the size of the application window, and collapses the rest. It represents the pop up that animates and displays for a few seconds to the user about the given command.
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+==== Card UI ====
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+Firstly, there are two types of ways to display information to the user regarding a Event or Task.
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+* For Events, it is `EventCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingEventCard`
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+* For Tasks, it is `TaskCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingTaskCard`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/EventCard.java[`EventCard`] may display the following information:
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+. Event Description
+. Event Start Date
+. Event End Date (Optional)
+. Event Reminder Date (Optional)
+. Event Tags (Optional)
+. Event Index (For deleting or editing)
 
-[[Design-Model]]
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/TaskCard.java[`TaskCard`] may display the following information:
+
+. Task Description
+. Task Due Date (Optional)
+. Task Reminder Date (Optional)
+. Task Tags (Optional)
+. Task Index (For deleting or editing)
+
+As for link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingEventCard.java[`UpcomingEventCard`] and link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingTaskCard.java[`UpcomingTaskCard`], they only hold the Description of the Event or Task.
+
+[[Design-CommandManager]]
+=== CommandManager Component
+
+The `CommandManager` class manages the addition and invoking of `Commands` in Horo.
+
+.Class diagram of CommandManager
+image::CommandManagerClassDiagram.png[]
+
+Referring to the diagram above, it performs the following operations:
+
+. Listen for user input in `onCommandInput()`.
+. Pass the user input to `commandParser`, to obtain a `Command`.
+. Execute the `Command` and obtain a `UserOutput`.
+. Notify all `userOutputListeners` about the `UserOutput`.
+
+To give a more concrete example, refer to the sequence diagram below of adding a task:
+
+.Sequence diagram of adding a task
+image::AddTaskSequenceDiagram.png[]
+
+[NOTE]
+====
+CommandManager closely follows the https://en.wikipedia.org/wiki/Command_pattern[command design pattern].
+====
+
+==== Command
+
+A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions.
+After executing the set of instructions, it will optionally return output to be displayed to the user.
+
+In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method.
+To create a new concrete command, extend from `Command` and implement `execute()`.
+
+If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
+
+For example, if your command needs to be able to access `ModelManager`:
+
+[source,java]
+----
+public class MyCommand extends Command {
+    private final ModelManager model;
+    MyCommand(ModelManager model) {
+        this.model = model;
+    }
+
+    @Override
+    UserOutput execute() {
+        this.model.doSomething();
+        // ...
+    }
+}
+----
+
+
+==== CommandParser
+
+A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
+
+In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It parses user input token by token, and it transitions from state to state depending on the next token.
+
+What the FSM is trying to do is tokenize user input into:
+
+. `Command keyword`
+. `Command phrase(s)`
+
+A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input.
+For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’.
+A word can be described in the form of a regular expression (regex) as `[^\s]+`.
+
+Examples of valid command keywords:
+
+- `exit`
+- `add_event`
+- `123`
+- `😺`
+
+A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes.
+Command phrases come after a command keyword.
+
+Examples of valid command phrases:
+
+- `Horse`
+- `”Homework”`
+- `”Horo’s Birthday”`
+- `”24/10/2019 07:00”`
+- `’24/10/2019 07:00’`
+- `--description`
+
+A valid command contains exactly one command keyword, and zero or more command phrases.
+(i.e. `[keyword] [phrase] [phrase] [phrase] ...`)
+
+`CommandParser` is trying to tokenize any command input into a keyword and phrases.
+To understand how the FSM works, study the activity diagram below:
+
+.Activity diagram of CommandParser
+image::CommandParserActivityDiagram.png[]
+
+After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
+The remaining command phrases are sent to the `CommandBuilder`, which builds the `Command` we want.
+
+
+==== CommandKeywordParser
+
+A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
+
+In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a `Supplier<CommandBuilder>`.
+
+
+==== CommandBuilder
+
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command phrases, and eventually create a `Command` using those phrases.
+
+In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`.
+The `CommandBuilder` will use those definitions to automagically parse command phrases.
+
+.Class diagram of CommandBuilder
+image::CommandBuilderClassDiagram.png[]
+
+Referring to the diagram above, the definition the command is implemented in two methods:
+
+. `defineCommandArguments()`
+. `defineCommandOptions()`
+
+A *command option* is defined to have a keyword and a list of arguments.
+An *option’s keyword* is defined to be a command phrase.
+An *option’s argument* is defined to be a command phrase that is not an option’s keyword, and lies after it.
+
+Example of option’s keyword & arguments below. The option’s keyword is underlined:
+
+- `+++<u>--description</u>+++ Horse`
+- `+++<u>--tags</u>+++ Animal Cat Dog`
+- `+++<u>-d</u>+++ Horse`
+
+A *command argument* is defined to be a command phrase that is not an option’s keyword.
+This is similar to an option’s argument, except that the position of this argument in the user input is important.
+A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
+
+Example of command’s arguments below. The command’s keyword is underlined.
+
+- `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
+- `+++<u>delete_event</u>+++ 1 2 3`
+
+To understand how `CommandBuilder` works, study the activity diagram below:
+
+.Activity diagram of CommandBuilder
+image::CommandBuilderActivityDiagram.png[]
+
+To demonstrate an example of how to use `CommandBuilder`, suppose you would like to create a `MyCommand` which takes in one String argument,
+and have an option which also takes in one String argument, you could do this:
+
+[source, java]
+----
+class MyCommandBuilder extends CommandBuilder {
+
+    private String arg1;
+    private String arg2;
+
+    @Override
+    protected RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(StringArgument.newBuilder("Argument 1", s -> this.arg1 = s));
+    }
+
+    @Override
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
+        return Map.of(
+            "--option", ArgumentList.optional()
+                .addArgument(StringArgument.newBuilder("Argument 2", s -> this.arg2 = s))
+        );
+    }
+
+    @Override
+    protected Command commandBuild() {
+        return new MyCommand(this.arg1, this.arg2);
+    }
+}
+----
+
+[NOTE]
+====
+CommandBuilder closely follows the https://en.wikipedia.org/wiki/Builder_pattern[builder design pattern].
+====
+
+==== Argument
+
+A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
+
+For example, an `Argument<DateTime>` which receives “24/10/2019 10:00” will be parsed into a `DateTime` object.
+
+
+==== Variable Argument
+
+A `VariableArgument` is a special type of argument. A variable argument will be parsed from a list of command phrases to a list of similar type objects. The `VariableArgument` class is a generic class, where the type of the class defines what types of objects the command phrases should be parsed into. A variable argument can accept zero or more command phrases to be parsed.
+
+For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be parsed into a list of Integers. `A VariableArgument<Integer>` which receives {} will be parsed into an empty list.
+
+
+==== ArgumentList
+
+A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
+
+Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
+
+[[Design-ModelManager]]
 === Model component
 
 .Structure of the Model Component
@@ -184,7 +373,7 @@ As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person`
 +
 image:BetterModelClassDiagram.png[]
 
-[[Design-Storage]]
+[[Design-StorageManager]]
 === Storage component
 
 .Structure of the Storage Component
@@ -197,11 +386,6 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
 
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
@@ -210,48 +394,60 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Implementation Details
 
-The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `UndoRedoStates`. Each `UndoRedoState` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. UndoRedoManager also contains a `currentStateIndex`, which keeps track of the index of the `UndoRedoState` being used presently.
+The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `ModelLists`. Each `ModelList` object contains two lists: one to store `EventSources` and the other to store `TaskSources`, together representing the state of all event and task data at that point in time. `UndoRedoManager` also contains a `undoIndex`, which keeps track of the index of the `ModelList` being used presently.
 
-A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `UndoRedoStates` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `UndoRedoState` in the list of duplicates.
+A key point to take note of is that `ModelManager` contains an `eventList` (a list of `EventSources`) and a `taskList` (a list of `TaskSources`), both of which cannot be reinitialized. This is because these two lists are directly in sync with the GUI; changes to these specific list instances are reflected as changes to the GUI, but changes to other copies of `EventSource` or `TaskSource` lists will not affect the GUI. Hence, the history of `ModelLists` held by `UndoRedoManager` stores deep-copies of `EventSource` and `TaskSource` lists. Should there be a need to revert back to a past or future state (if undo or redo is called), these lists will retrieve their data from the appropriate copy of `ModelList` in the list of duplicates.
 
 `UndoRedoManager` also implements the following operations:
 
-* `UndoRedoManager#commit(UndoRedoState state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
-* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
-* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `UndoRedoListener`
-* `UndoRedoManager#clearFutureHistory()` -- Delete all duplicates of `UndoRedoState` that occur in `undoStateList` after the index given by the `currentStateIndex`
+* `UndoRedoManager#commit(ModelList state)` -- Adds the new state (which contains a deep-copied version of `TaskSource` and `EventSource` lists) to the `undoStateList`
+* `UndoRedoManager#undo()` -- Restore `eventList` and `taskList` in `ModelManager` to their previous versions from the appropriate duplicate in `undoStateList` via an `ModelListListener`
+* `UndoRedoManager#redo()` -- Restore `eventList` and `taskList` in `ModelManager` to their future versions from the appropriate duplicate in `undoStateList` via an `ModelListListener`
+* `UndoRedoManager#clearFutureHistory()` -- Delete all `ModelList` states that occur in `undoStateList` after the index given by the `undoIndex`
 
 The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands (such as adding or deleting tasks) will interact only with `ModelManager`.
 
-There are three key *Listener* interfaces that help us achieve the desired undo-redo functionality:
+There are two key *Listener* interfaces that help us achieve the desired undo-redo functionality:
 
-* `EventListListener`
-* `TaskListListener`
-* `UndoRedoListener`
+* `ModelListListener`
+* `ModelResetListener`
 
-The `UndoRedoManager` implements the `EventListListener` interface’s method `onEventListChange(List<EventSource> events)` to “listen” for any changes to `ModelManager`’s `eventList`. (e.g. when an event is added or deleted) If such a change exists, it will be handled by first calling `UndoRedoManager#clearFutureHistory()`, instantiating a `UndoRedoState` with a deep-copied version of the `taskList` and the modified `eventList`, and calling `UndoRedoManager#commit(UndoRedoState state)` to commit this state. `UndoRedoManager` also implements `TaskListListener` in the same fashion, except that changes to the `taskList` are “listened” to rather than the `eventList`.
+These listener interfaces each contain a single method, `ModelListListener` contains `onModelListChange(ModelList list)` and `ModelResetListener`
+contains `onModelReset(ModelList state, Object caller)`.
 
-The `ModelManager` implements the `UndoRedoListener` interface’s method `onUndoRedo(UndoRedoState state)` to “listen” for any undo or redo being executed. This will be handled by updating `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
+The `UndoRedoManager` implements the `ModelListListener` interface’s method `onModelListChange(ModelList list)` to “listen” for any changes to `ModelManager`’s lists (`eventList` or `taskList`). (e.g. when an event or task is added or deleted)
+If such a change exists, it will be handled by first instantiating a `ModelList` with a deep-copied version of the `taskList` and the modified `eventList`, calling `UndoRedoManager#clearFutureHistory()`, and calling `UndoRedoManager#commit(ModelList state)` to commit the state.
+
+The `ModelManager` implements the `ModelResetListener` interface’s method `onModelReset(ModelList state, Object caller)` to “listen” for any undo or redo being executed. This will be handled by resetting `ModelManager`’s `eventList` and `taskList` data to match the data of the `ModelList` with index `undoIndex` in `undoStateList`.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. An `UndoRedoState` will be added to `undoStateList` and the `currentStateIndex` will point to that single `undoRedoState` in the list.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`. A `ModelList` will be added to `undoStateList` and the `undoIndex` will point to that single `ModelList` in the list.
 
-image::UndoRedoState0.png[]
+image::ModelList0.png[]
 
-Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`. Then, `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), clearing all future states beyond the `currentStateIndex` as they are no longer useful. In this particular case, there are no future states to be cleared. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`. The event will be added to `ModelManager`’s `eventList`.
+Then, `UndoRedoManager#onModelListChange(ModelList list)` will be called (as there has been a change to the `eventList`),
+deep-copying the modified `eventList` and `taskList` and instantiating a new state `ModelList` with these copies.
+All future states beyond the `undoIndex` will be cleared as they are no longer useful. In this particular case, there are no future states to be cleared. Finally, the new `ModelList` state will be committed; added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model list state.
 
-image::UndoRedoState1.png[]
-
-[NOTE]
-If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`. Hence, there is no change to trigger the listener methods and thus no `UndoRedoState` will be saved to `undoStateList`.
-
-Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error. The undo command will decrement the `currentStateIndex` by one to contain the index of the previous undo redo state, thereafter triggering the `UndoRedoListener#onUndoRedo` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the `UndoRedoState` with index `currentStateIndex` in `undoStateList`.
-
-image::UndoRedoState2.png[]
+image::ModelList1.png[]
 
 [NOTE]
-If the `currentStateIndex` is 0, pointing to the initial undo redo state, then there are no previous undo redo states to restore. The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not result in any change to `ModelManager#eventList` or `ModelManager#taskList`.
+Hence, there is no change to trigger the listener methods and thus no `ModelList` will be saved to `undoStateList`.
+
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error.
+The undo command will decrement the `undoIndex` by one to contain the index of the previous undo redo state, thereafter triggering the
+`ModelManager#onModelReset` method. This method updates `ModelManager`’s `eventList` and `taskList` data to match the data of the
+`ModelList` with index `undoIndex` in `undoStateList`.
+
+image::ModelList2.png[]
+
+[NOTE]
+If the `undoIndex` is 0, pointing to the initial model list state, then there are no previous model list states to restore.
+The undo command uses `UndoRedoManager#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -259,18 +455,25 @@ image::UndoSequenceDiagram.png[width=100%]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `currentStateIndex` by one to contain the index of the previously undone state. The `UndoRedoListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `undoIndex` by one to contain the index of the previously undone state.
+The `ModelResetListener` then causes `ModelManager#eventList` and `ModelManager#taskList` to reset their data to this state’s list data.
 
 [NOTE]
-If the `currentStateIndex` is at index `undoStateList.size() - 1`, pointing to the latest undo redo state, then there are no undone undo redo states to restore. The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `undoIndex` is at index `undoStateList.size() - 1`, pointing to the latest model list state, then there are no undone model list states to restore.
+The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data. Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `UndoRedoState` will be saved to `undoStateList`. Thus, the `undoStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data.
+Since no changes to `taskList` or `eventList` have been made, the listener methods will not be triggered and no `ModelList` will be saved to `undoStateList`.
+Thus, the `undoStateList` remains unchanged.
 
-image::UndoRedoState3.png[]
+image::ModelList3.png[]
 
-Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onEventListChange(List<EventSource> events)` will be called (as there has been a change to the `eventList`), purging all future states beyond the `currentStateIndex` as they are no longer useful. Then, the modified `eventList` and `taskList` will be deep-copied and a new `UndoRedoState` containing the deep-copies will be added to `undoStateList`. The `currentStateIndex` is incremented by one to contain the index of the newly inserted undo redo state.
+Step 5. The user executes `delete_event 1`, removing the event from `ModelManager`’s `eventList`. `UndoRedoManager#onModelListChange(ModelList list)`
+will be called (as there has been a change to the `eventList`), purging all future states beyond the `undoIndex` as they are no longer useful.
+The modified `eventList` and `taskList` will be deep-copied and a new `ModelList` containing the deep-copies will also be added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model list state.
 
-image::UndoRedoState4.png[]
+image::ModelList4.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -405,12 +608,140 @@ This further makes it easier for future debugging,
 and makes adding new exportable objects a lot easier as there are common functions that can be used.
 // end::ics[]
 
-== Implementation
+// tag::uiImplementation[]
+=== UI Component
 
-[[Implementation-Configuration]]
-=== Configuration
+==== Implementation during change in Events and Tasks
+.A general Sequence Diagram during a change in the Event and Task Lists model.
+image::UiSequenceDiagram.png[]
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The UI system is managed by the `UiManager`, which is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which represents the base of the UI, and holds the different panels of the UI. Here is the sequence of a change in Events and Tasks for the UI.
+
+Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will, in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterward, two HashMaps, `eventHash` and `taskHash` are created to deal with the indexing of the UI later on.
+
+Step 2. `MainWindow` will be called by `UiManager` using `onModelListChange(events, tasks, eventHash, taskHash)`, which will in turn proceed to call the methods that will update the different views represented by:
+
+* `CalendarPanel` - `onModelListChange(events, tasks, eventHash, taskHash)`
+* `ListPanel` - `onEventListChange(events, eventHash)` and `onTaskListChange(tasks, taskHash)`
+
+Step 3. `UiManager` will also be called using `onUserOutput(output, colorTheme)`, which will in turn call `onUserOutput(output, colorTheme)` for MainWindow.
+
+As for these 3 main panels, each of them will be explained further below
+
+.Sequence Diagram for `CalendarPanel`
+image::UiCalendarPanelSequenceDiagram.png[]
+
+Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two lists into a single list for sorting purposes.
+
+Step 2.2. Afterward, it will call `onChange` for the 3 smaller components:
+
+* `TimelineView` - When called, it will reset the current timeline using `resetTimeline()`
+
+* `CalendarScreen` - When called, it will change the calendar to the given date, as well as calling `changeColor(eventTaskList)` to change the color of a day in the calendar.
+
+* `UpcomingView` - When called, it will simply reset the view to input the correct events and tasks.
+
+.Sequence Diagram for `ListPanel`
+image::UiListPanelSequenceDiagram.png[]
+
+Step 2.3. `ListPanel` will be called using `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
+
+Step 2.4. Additionally, `ListPanel` will also be called using `onTaskListChange(tasks, taskHash)`, which will eventually call `TaskListPanel` to change the list accordingly as well.
+
+.Sequence Diagram for `LogPanel`
+image::UiLogPanelSequenceDiagram.png[]
+
+Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme in the form of a `String`, and creates 2 different boxes to display the output.
+
+Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedbackToUser, color)` to display the output to the user in `LogPanel`
+
+Step 3.3. Next, it creates `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterward.
+// end::uiImplementation[]
+
+// tag::uiDayView[]
+==== Implementation when changing the date of timeline
+
+.Sequence Diagram for changing the timeline date
+image::UiViewDaySequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `DayViewCommand` is executed to change the date of the timeline.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewDay(calendarDate)`, which in turn will call `MainWindow` and subsequently `CalendarPanel`.
+
+Step 2. `CalendarPanel` will proceed to execute `changeCalendarScreenDate(calendarDate)`, which will create an instance of `CalendarScreen` to display the calendar.
+
+Step 3. Afterward, a new instance of `TimelineDayView` will be created to display the timeline.
+
+Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, allowing `CalendarPanel` to be visible while the other panels remain invisible.
+
+// end::uiDayView[]
+
+==== Implementation when changing views
+.Sequence Diagram for changing to Calendar View
+image::UiViewCalendarSequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `CalendarViewCommand` is executed.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null or a date. The validity check is previously check in the parser.
+
+Step 2. If calendarDate is null, the `UiManager` will simply call `MainWindow` to switch the view with the method `viewCalendar()`.
+
+Step 3. `MainWindow` will obtain the `Region` of the 3 panels: `CalendarPanel`, `ListPanel` and `LogPanel`, and proceed to set only `CalendarPanel` to be visible.
+
+Step 4. If calendarDate is not null, `UiManager` will then call `MainWindow` using `changeCalendarScreenDate(calendarDate)`, to change the `CalendarScreen` to the given date.
+
+Step 5. Afterward, it will proceed and continue with Step 3, which is simply calling `viewCalendar()` again.
+
+Since the sequence for `CalendarViewCommand` is roughly similar to `ListViewCommand` and `LogViewCommand`, those 2 commands will not be explained.
+
+// tag::uiDesign[]
+==== Design Considerations
+
+The design considerations are more towards how the appearance of the UI, as well as how the architecture of the code would have changed depending on such appearance.
+
+.Old design of the UI
+image::OldUI.png[]
+
+.Current design of the UI
+image::Ui.png[]
+
+===== Aspect: Design of the `CalendarPanel`
+* Alternative 1: The `CalendarPanel` is of an actual calendar, depicting a limited number of events and tasks on each day of the month.
+
+** **Pros**: It will provide a better representation of a calendar, allowing people to judge how much is going on in a day of that month in one look.
+
+** **Cons**: Due to the nature of how limited in size a calendar can be, the user will be required to either check `ListPanel` for the details of an event or task, or have an extra screen beside the calendar for the user to check the details.
+
+** **Cons**: Similarly, a calendar can only input up to a fixed amount of events or tasks there are on a particular day.
+
+* Alternative 2 (current choice): The `CalendarPanel` consists of a mini-calendar as well as a timeline. An additional slot for upcoming events and tasks was later designed with an increase in space.
+
+** **Pros**: Provides a much greater space to show how much events or tasks one can have in a day, week or month.
+
+** **Pros**: The user can easily manage and check the Events and Tasks of a certain day.
+
+** **Cons**: Even though it is a timeline, it is still rather similar to list view, just with the timeline added to limit the number of events or tasks seen on that day, week or month.
+
+** **Cons**: The user will not be able to easily know what Events or Tasks there are, unless they change the view to Month view. On the other hand, the increase in space allows a small section for the upcoming events and tasks which tackles this problem.
+
+===== Aspect: Design of the `LogPanel`
+* Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
+
+** **Pros**: The users can always have a visualization of the success of their commands
+
+** **Cons**: A large portion of the space is used for the `LogPanel`, even if it is scaled down compared to the other panels.
+
+** **Cons**: Appearance-wise, it looks extremely clunky due to most of the users' time will be looking at the calendar or list itself instead of the log.
+
+* Alternative 2 (current choice): The `LogPanel` is placed separately as a different panel that can be accessed at any time from other panels. After each command is typed, a pop-up box will appear to indicate the success or failure of the command.
+
+** **Pros**: Most of the time, users would only want to know if their command is successful or not. Thus having the pop-up box will be sufficient for such an indication.
+
+** **Cons**: The user will have to check the `LogPanel`
+
+The initial design is as of the image above showing the old UI. However, we decided to scrape it and did an overhaul of the UI using alternative 2 instead. This is due to our decision of wanting a better-looking and minimalist UI instead of one packed with information.
+
+// end::uiDesign[]
 
 == Documentation
 
@@ -730,15 +1061,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-  Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-  Expected: The most recent window size and location is retained.
-
-=== ICS Export and Import Component
+  Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
 
 . Export
 
@@ -759,4 +1082,14 @@ going into the list view.
 .. Import the save data using the import command `import <FILEPATH>`. +
 Expected: The imported events and tasks should be the same as when they were exported.
 
-_{ more test cases ... }_
+// tag::notifmanualtesting[]
+=== Notification System
+
+. Posting notifications to the desktop
+.. Prerequisites: Make sure notifications have been switched on by using the `notif_on` command. +
+                  Make sure the System Tray is supported.
+.. Test case: `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"` +
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+.. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+// end::notifmanualtesting[]

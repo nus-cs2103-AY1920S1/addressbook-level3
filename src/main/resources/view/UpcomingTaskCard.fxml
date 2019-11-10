@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
+<!-- @@author Kyzure -->
 <StackPane fx:id="upcomingTaskCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane>
@@ -40,7 +41,7 @@
                 </StackPane>
                 <StackPane fx:id="upcomingTaskBase" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowSpan="2">
                     <children>
-                        <Label fx:id="upcomingTaskName" text="taskName">
+                        <Label fx:id="upcomingTaskName" maxWidth="225.0" text="taskName">
                             <StackPane.margin>
                                 <Insets left="10.0" />
                             </StackPane.margin></Label>

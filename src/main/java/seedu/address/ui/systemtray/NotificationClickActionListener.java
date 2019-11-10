@@ -20,10 +20,7 @@ public class NotificationClickActionListener implements ActionListener {
      * @param e The ActionEvent that this Listener is listening to.
      */
     public void actionPerformed(ActionEvent e) {
-        /*
-         This is currently undefined behaviour for the current milestone.
-         In the future, as things get more developed, this should be replaced with opening up the app.
-         */
-        logger.info("Notification Clicked");
+        // This is currently undefined behaviour for the current milestone.
+        // This comment should be removed if ever this class' behaviour is defined.
     }
 }

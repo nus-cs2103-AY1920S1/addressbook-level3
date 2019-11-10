@@ -37,8 +37,9 @@ public class NotificationCheckerTest {
         ModelManager model = new ModelManager();
         NotificationChecker notificationChecker = new NotificationChecker(model);
 
-        EventSource es1 = EventSource.newBuilder("Test1", DateTime.now()).build();
-        EventSource es2 = EventSource.newBuilder("Test2", DateTime.now()).build();
+        DateTime start = DateTime.now();
+        EventSource es1 = EventSource.newBuilder("Test1", start).build();
+        EventSource es2 = EventSource.newBuilder("Test2", start).build();
 
         model.setModelData(new ModelData(
             List.of(es1, es2),
@@ -52,8 +53,9 @@ public class NotificationCheckerTest {
         ModelManager model = new ModelManager();
         NotificationChecker notificationChecker = new NotificationChecker(model);
 
-        EventSource es1 = EventSource.newBuilder("Test1", DateTime.now()).build();
-        EventSource es2 = EventSource.newBuilder("Test2", DateTime.now()).build();
+        DateTime start = DateTime.now();
+        EventSource es1 = EventSource.newBuilder("Test1", start).build();
+        EventSource es2 = EventSource.newBuilder("Test2", start).build();
 
         model.setModelData(new ModelData(
             List.of(es1, es2),
