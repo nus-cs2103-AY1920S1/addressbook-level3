@@ -7,6 +7,7 @@ import seedu.address.model.commonvariables.Id;
 import seedu.address.model.commonvariables.Name;
 import seedu.address.model.tag.Tag;
 
+//@@author{weigenie}
 /**
  * Represent an approved claim in the Financial Planner
  */

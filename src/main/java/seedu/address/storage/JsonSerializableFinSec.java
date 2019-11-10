@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import static seedu.address.logic.commands.EditClaimCommand.MESSAGE_DUPLICATE_CLAIM;
 import static seedu.address.logic.commands.EditIncomeCommand.MESSAGE_DUPLICATE_INCOME;
 
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ import seedu.address.model.income.Income;
 
 class JsonSerializableFinSec {
 
+    public static final String MESSAGE_DUPLICATE_CLAIM = "Claims list contains duplicate claim(s).";
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate contact(s).";
     public static final String MESSAGE_DUPLICATE_COMMAND = "Commands list contains duplicate command(s).";
 

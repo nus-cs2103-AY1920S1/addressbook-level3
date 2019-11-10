@@ -24,6 +24,7 @@ public class JsonSerializableFinSecTest {
     private static final Path TYPICAL_APPROVED_CLAIMS_FILE = TEST_DATA_FOLDER.resolve(
             "typicalApprovedClaimsFinSec.json");
 
+    //@@author{weigenie}
     @Test
     public void toModelType_typicalClaimsFile_success() throws Exception {
         JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_CLAIMS_FILE,
@@ -33,6 +34,7 @@ public class JsonSerializableFinSecTest {
         assertEquals(finSecFromFile, typicalClaimsFinSec);
     }
 
+    //@@author{weigenie}
     @Test
     public void toModelType_typicalApprovedClaimsFile_success() throws Exception {
         JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_APPROVED_CLAIMS_FILE,

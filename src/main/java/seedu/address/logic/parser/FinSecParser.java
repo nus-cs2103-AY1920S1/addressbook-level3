@@ -24,7 +24,6 @@ import seedu.address.logic.commands.CreateShortCutCommand;
 import seedu.address.logic.commands.DeleteContactCommand;
 import seedu.address.logic.commands.DeleteIncomeCommand;
 import seedu.address.logic.commands.DeleteShortcutCommand;
-import seedu.address.logic.commands.EditClaimCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -110,7 +109,6 @@ public class FinSecParser {
         FinSecParser.commandList.put(EditContactCommand.COMMAND_WORD, EditContactCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteContactCommand.COMMAND_WORD, DeleteContactCommand.COMMAND_WORD);
         FinSecParser.commandList.put(AddClaimCommand.COMMAND_WORD, AddClaimCommand.COMMAND_WORD);
-        FinSecParser.commandList.put(EditClaimCommand.COMMAND_WORD, EditClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(AddIncomeCommand.COMMAND_WORD, AddIncomeCommand.COMMAND_WORD);
         FinSecParser.commandList.put(EditIncomeCommand.COMMAND_WORD, EditIncomeCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteIncomeCommand.COMMAND_WORD, DeleteIncomeCommand.COMMAND_WORD);
@@ -157,9 +155,6 @@ public class FinSecParser {
 
             case AddClaimCommand.COMMAND_WORD:
                 return new AddClaimCommandParser().parse(arguments);
-
-            case EditClaimCommand.COMMAND_WORD:
-                return new EditClaimCommandParser().parse(arguments);
 
             case AddIncomeCommand.COMMAND_WORD:
                 return new AddIncomeCommandParser().parse(arguments);
