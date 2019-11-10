@@ -18,7 +18,7 @@ computing students (in particular, NUS School of Computing students), who will b
 enhance their learning experience. It does this by simulating a real deck of flashcards on the user's
 computer, complete with features including creation, editing, deletion, revision, and sharing of
 flashcards. The application is written in the Java programming language, and has a GUI (graphical
-user interface) created with the JavaFX library. It has roughly 17 KLoC, up from the original
+user interface) created with the JavaFX library. It has roughly 25 KLoC, up from the original
 addressbook application's 10 KLoC.
 
 Here is a screenshot of our project:
