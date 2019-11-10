@@ -414,7 +414,7 @@ create a pie chart. It will then show a statistics panel, hiding all notes, task
 The following sequence diagram shows how the UI handles the `GetStatisticsCommand`:
 
 .UI sequence diagram for `GetStatisticsCommand`
-image::statistics/StatisticsSequenceDiagram.png[]
+image::statistics/StatisticsSequenceDiagram.png[height = "250"]
 
 Step 4. The user now wants to stop viewing statistics and decides to view all notes, tasks and questions
 again using the `listnote` command. The statistics panel will now be hidden.
@@ -838,7 +838,7 @@ Use case ends.
 
 // tag::statsUseCase[]
 [discrete]
-=== Use case: get statistics for subjects (Irene)
+=== Use case: Get statistics for subjects (Irene)
 
 *MSS*
 
@@ -851,12 +851,13 @@ Use case ends
 [none]
 * 1a. Student provides an invalid difficulty or invalid subjects
 [none]
-** 1a1. Application will inform students that there are no statistics for that difficulty/subject
-** 1a2. Student will re-enter the command with a valid difficulty/subject
+** 1a1. Application will inform students that there are no statistics for that difficulty/subjects
+** 1a2. Student will re-enter the command
+** Repeat 1a1 and 1a2 until valid difficulty/subjects is/are provided
 * Use case resumes from step 2
 
 [discrete]
-=== Use case: get report of individual questions (Irene)
+=== Use case: Get report of individual questions (Irene)
 
 *MSS*
 
@@ -879,6 +880,7 @@ Use case ends
 [none]
 ** 1b1. Application displays a message indicating that the command format is invalid
 ** 1b2. Student re-enters the command
+** Repeat 1b1 and 1b2 until a valid index is provided
 * Use case resumes from step 2
 // end::statsUseCase[]
 
@@ -1021,6 +1023,7 @@ Use case ends
 rather than merely linking to somewhere on the filesystem
 . Export format of lecture notes and flash cards must be human-readable text
 . Images must be referenced by pathnames with respect to the image folder
+. Charts returned by statistics feature must be simple enough that it is universally understood
 
 [appendix]
 == Glossary
@@ -1098,6 +1101,28 @@ NOTE: Ensure the application has at least one question to do the quiz.
 .. Type `quit` in the command line when the application is in the quiz mode.
 .. The application will exit from the quiz mode and return to the original mode.
 
+=== Getting statistics
+NOTE: Ensure that there are some questions in the app and some of them have been answered in quiz mode.
+
+. Getting statistics
+.. Type `stats`.
+.. The application will display "Here are the statistics:".
+All notes, tasks and questions will be hidden, a panel containing a pie chart will appear.
+. Getting questions
+.. Type `question -c`.
+.. The application will display "Here are the correct questions:".
+All notes, tasks and questions will be hidden, a panel containing a pie chart and a
+list of all correct quiz results will appear.
+. Getting report
+.. Type `report 1`.
+.. The application will display "Here is a report of question 1:".
+All notes, tasks and questions will be hidden, a panel containing a pie chart and
+all quiz results for question 1 will appear.
+. Getting overview
+.. Type `overview`.
+.. The application will display "Here is an overview of the questions:".
+All notes, tasks and questions will be hidden, a panel containing a stack bar chart will appear.
+
 === Revision task management
 . Before adding task
 .. Add some notes to the app to be used for tasks.
@@ -1133,4 +1158,3 @@ If the question list is empty, an error message will be shown.
 .. Type `rclear`.
 .. All tasks will be cleared.
 .. Type `rlist` and you can see no task is left in the list.
-
