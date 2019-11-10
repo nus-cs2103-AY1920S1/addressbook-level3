@@ -711,6 +711,9 @@ image::ug-command/ug-undo.png[width="800"]
 ==== Redo : `redo`
 Redo the previous undone command. Inverse of undo.  +
 
+When you redo a delete command, it will specifically delete the customer/phone/order that was previously deleted.
+When you redo an add command, it will specifically add the customer/phone/order that was previously added.
+
 Currently, the following commands are undoable and redoable. +
 
 . Add Customer
