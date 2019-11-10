@@ -17,9 +17,8 @@ Our final product is _KeyboardFlashCards_ - a desktop flashcard manager applicat
 computing students (in particular, NUS School of Computing students), who will be able to use it to
 enhance their learning experience. It does this by simulating a real deck of flashcards on the user's
 computer, complete with features including creation, editing, deletion, revision, and sharing of
-flashcards. The application is written in the Java programming language, and has a GUI (graphical
-user interface) created with the JavaFX library. It has roughly 25 KLoC, up from the original
-addressbook application's 10 KLoC.
+flashcards. The application is written in the Java programming language, and has an approximate 25 KLoC
+(for comparison, the original addressbook application had about 10 KLoC).
 
 Here is a screenshot of our project:
 
@@ -37,10 +36,10 @@ CAUTION: A cautionary piece of advice
 == Summary of contributions
 
 |===
-|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and various helpful contributions._
+|_This section is a summary of the contributions I have made to the team project. It includes code, documentation, and other types of helpful contributions._
 |===
 
-* *Major enhancement #1*: I added *the ability to export flashcards to various file formats*.
+* *Major enhancement #1*: I added the ability to *export flashcards to various file formats*.
 ** What it does: It allows the user to save their flashcards from the application into a specified external file.
     The file format can be either '.docx' or '.json', and is inferred from the file extension specified by the user.
     To avoid clutter, any data that would only be relevant in the context of the application (e.g. a user-given rating)
@@ -55,15 +54,15 @@ CAUTION: A cautionary piece of advice
 ** Credits: All writing of flashcards to the '.docx' and '.json' formats is done with the use of two external libraries;
     these are Apache POI and Jackson, respectively.
 
-* *Major enhancement #2: I added *the ability to import flashcards from an external file*.
+* *Major enhancement #2: I added the ability to *import flashcards from an external file*.
 ** What it does: It allows the user to import flashcards from a JSON file (a file that ends in '.json').
     The imported flashcards are added to the application, and the user will be able to use them as if they were their own.
-** Justification: This feature, when used in combination with the `export` feature, allows users to share their flashcards with
+** Justification: This feature, when used in combination with the Export feature, allows users to share their flashcards with
     one another.
 ** Highlights: This feature does not import flashcards which the user already has. This is because
     there's no good reason for the user to have two copies of the same flashcard.
     The user will be notified if a duplicate is detected in a file while importing.
-** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library.
+** Credits: All reading of flashcards from the '.json' format is done with the use of Jackson, an external library.
 
 * *Code contributed*: +
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalCommits&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=LeowWB&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D[Please click here to view a sample of my code!]
@@ -71,7 +70,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
 * *Other contributions*
 
 ** Project management
-*** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
+*** Managed releases v1.1 - v1.2 (2 releases) on GitHub
 *** Set up automatic publishing of the project's documentation (using Travis CI)
 *** Oversaw the general integration of the various team members' work into the project
 *** Created and managed the team's organization on GitHub (
