@@ -72,7 +72,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
 * Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MEDICAL CONDITION]...` can be used as `{nbsp}` (i.e. 0 times), `m/Type II Diabetes`, `m/Type II Diabetes m/High Blood Pressure` etc.
 * Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
 //tag::datalog[]
@@ -974,7 +974,9 @@ If COUNT is given, SugarMummy shows **up to** COUNT most recent number of averag
 Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
 NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
-that means you do not have enough records in the database.
+that means you do not have enough records in the database. Also, if you enter a field
+more than once e.g `average a/daily rt/bloodsugar a/weekly`, only the last field will be
+taken. In the example, weekly average will be calculated instead of daily average.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
 Shows the 5 latest weekly average of blood sugar records.

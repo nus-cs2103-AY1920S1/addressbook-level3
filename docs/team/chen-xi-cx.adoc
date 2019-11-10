@@ -11,7 +11,7 @@
 
 SugarMummy is a desktop application tailored for type 2 diabetics to better manage their day-to-day life.
 Users interact with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and has
-about 19 kLOC.
+about 24 kLOC.
 
 Besides being a schedule planner cum reminder app, SugarMummy also supports logging of data such as
 blood sugar level and BMI. As these data are closely linked to the severity of type 2 diabetes, data
@@ -39,13 +39,15 @@ The second difficulty was highlighting graph background with colors. JavaFX `Lin
 such functionality hence I had to implement the functionality using through link:https://github.com/AY1920S1-CS2103-T16-1/main/tree/master/src/main/java/seedu/sugarmummy/ui/statistics/CustomLineChart.java[`CustomLineChart.java`]
 which overrides JavaFX `LineChart`.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chen-xi-cx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chen-xi-cx&tabRepo=AY1920S1-CS2103-T16-1%2Fmain%5Bmaster%5D[Code contribution on Reposense Report]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chen-xi-cx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code contribution on Reposense Report]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed release `v1.3`
-** Enhancements to existing features:
+** Documentation:
+*** Update developer guide section 2.1, 2.2 and 2.3 to suit SugarMummy (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/178[#178], https://github.com/AY1920S1-CS2103-T16-1/main/pull/222[#222])
+** Removal of unused existing features:
 *** Refactor original addressbook to suit our app (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/119[#119])
 
 == Contributions to the User Guide
@@ -64,3 +66,6 @@ include::../UserGuide.adoc[tag=average]
 |===
 
 include::../DeveloperGuide.adoc[tag=average]
+
+=== Instructions for Manual Testing
+include::../DeveloperGuide.adoc[tag=averageTest]
