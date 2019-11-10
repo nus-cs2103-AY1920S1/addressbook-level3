@@ -38,7 +38,7 @@ class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
+        if (!Tag.isValidTagName(tagName) || tagName.equals("#forRefresh#")) {
             throw new IllegalValueException(Tag.MESSAGE_NAME_CONSTRAINTS);
         }
         if (!Tag.isValidTagColor(tagColor)) {

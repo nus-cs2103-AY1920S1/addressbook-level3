@@ -185,7 +185,7 @@ public class ModelManager implements Model {
                 problem.deleteTag(target);
             }
         }
-        algoBase.deleteTagForProblemsWithTag(target);
+        algoBase.refreshTagForProblemsWithTag();
     }
 
     @Override
