@@ -112,6 +112,9 @@ according to feedback received from tutor and peers.
 * Reviewed other team's https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pulls?q=is%3Apr+is%3Aopen+reviewed-by%3Aseeziyang[documentation],
 including their user stories, non-functional requirements and use of UML diagrams.
 
+* Contributed a helpful https://github.com/nus-cs2103-AY1920S1/forum/issues/169[tip] on the forum regarding the hiding
+of URL links when printing to PDF.
+
 ==== Tools
 
 * Integrated a new Github plugin, Coveralls, to the project repository. Coveralls was immensely helpful in tracking the
