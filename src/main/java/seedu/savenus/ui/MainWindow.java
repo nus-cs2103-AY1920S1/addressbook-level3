@@ -23,6 +23,7 @@ import seedu.savenus.logic.commands.HistoryCommand;
 import seedu.savenus.logic.commands.InfoCommand;
 import seedu.savenus.logic.commands.ListCommand;
 import seedu.savenus.logic.commands.RecommendCommand;
+import seedu.savenus.logic.commands.ThemeCommand;
 import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.logic.parser.exceptions.ParseException;
@@ -441,6 +442,16 @@ public class MainWindow extends UiPart<Stage> {
                     infoWindow.closeWindow();
                 }
                 handleInfo(commandResult.getFeedbackToUser());
+            }
+
+            // Handles the theme command change to dark theme
+            if (commandResult.getFeedbackToUser().equals(ThemeCommand.MESSAGE_SUCCESS_DARK)) {
+                changeThemeToDark();
+            }
+
+            // Handles the theme command change to light theme
+            if (commandResult.getFeedbackToUser().equals(ThemeCommand.MESSAGE_SUCCESS_LIGHT)) {
+                changeThemeToLight();
             }
 
             // Update foodListPanel after every command
