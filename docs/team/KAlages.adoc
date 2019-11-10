@@ -17,6 +17,7 @@ their schedules with an interactive timetable.
 
 This is what our project looks like:
 
+.User Interface for nJoyAssistant
 image::NjoyMainPage.png[]
 
 My role was to design and write code for the `student`, `group`, `tag` and `mark` features. The rest of the sections will cover the
@@ -208,15 +209,15 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the add `student` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=695..700]
+include::../DeveloperGuide.adoc[lines=712..717]
 
-include::../DeveloperGuide.adoc[lines=712..728]
+include::../DeveloperGuide.adoc[lines=730..746]
 
 *The following is the add `mark` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=886..892]
+include::../DeveloperGuide.adoc[lines=904..910]
 
 
 *The following shows the relationship of `Student`, `Group`, `Mark` and `Tag` via a class diagram in the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1090..1093]
+include::../DeveloperGuide.adoc[lines=1109..1112]
