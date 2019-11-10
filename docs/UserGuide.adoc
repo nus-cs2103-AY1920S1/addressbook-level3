@@ -758,7 +758,7 @@ image::ItinerarySearch2.png[width=600]
 
 === Sorting the events: ``sort``
 
-Organizing your events in the _event list_ has never been easier with the Itinerary's sorting capabilities.
+Organizing your events in the _event list_ has never been easier the Itinerary's awesome sorting capabilities. 💯
 
 Format:
 
