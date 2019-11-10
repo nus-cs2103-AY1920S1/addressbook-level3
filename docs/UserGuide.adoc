@@ -79,25 +79,19 @@ Users can switch between respective windows in order to make full use of the app
 
 [NOTE]
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
-The `Engagement` window will be the default window upon starting the application.
+`Engagement` window is set to default window upon starting the application.
 
-.Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[width="520"]
+If the user wants to switch to different windows, simply enter the tab command
+with refer to the menu name listed on the left end of the application window. +
 
-Now, if the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. For example, user enters `tab b/calendar`
-switch to calendar view window.
-
-.input section with tab command entered `tab b/calendar`
-image::tab_2.png[width="520"]
+For example, user enters `tab b/calendar`
+, which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
 
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-Below is the screenshot after entering the command.
+image::tab_2.png[width="800"]
 
-.tab switch successfully executed from engagement window to calendar window.
-image::tab_3.png[width="520"]
 
 //end::tab-command[]
 
@@ -354,9 +348,6 @@ User sets the sender as `John`, which is the user's name, and sets `receiver` as
 User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
 System will not allow generating documents that already exists in the directory.
 
-.report document window
-image::pdf_1.png[width="520"]
-
 Once user enters the command, system will automatically open the generated document and display the command result in the output panel, showing "Engagement Report successfully generated."
 
 NOTE: User can alternatively click the green refresh button on top right of the documents explorer to refresh the documents directory.
@@ -367,21 +358,29 @@ image::pdf_function_btns.png[width="450", float="left"]
 .After clicking refresh button
 image::pdf_2.png[width="450"]
 
-User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
+NOTE: Do not manually modify the document file name in the `reports/` directory as it might cause system failure in recognising the documents.
 
+--
 .pdf document sample
-image::pdf_sample.png[width="600", align="center"]
+image::pdf_sample.png[width="400", float="left"]
 
-If the user does not want to keep the document, instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
-button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
+[.left]
+User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
+--
+
+*Deleting Documents* +
+Instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
+button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. +
+
+Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
-.pdf delete pop up message
-image::pdf_delete.png[width="520"]
+.pdf delete pop up message and after click
+image::pdf_delete_before_after.png[width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
-image::pdf_delete_after.png[width="520"]
+
 
 NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
 
@@ -391,8 +390,8 @@ NOTE: PDF generation and deletion operations cannot be undone via `undo` command
 +
 .duplicate file exception message displayed in status text field.
 image::pdf_error_2.png[width="600"]
-2. System will not allow user to delete directories in the documents explorer tree view. (Figure 26)
-3. System will throw an exception message in the status field if user locks the document. (Figure 26)
+2. System will not allow user to delete directories in the documents explorer tree view.
+3. System will throw an exception message in the status field if user locks the document.
 +
 .file deletion exception message displayed in the status text field.
 image::pdf_error_1.png[width="600"]
