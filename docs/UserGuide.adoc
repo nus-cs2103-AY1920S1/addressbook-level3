@@ -312,15 +312,15 @@ There are 2 modes to the game: `easy` and `hard`. Type `game hard` to enter the 
 
 Controls: `UP`, `DOWN`, `LEFT`, `RIGHT`
 
-.Snake game `EASY`
-image::SnakeGame.PNG[Snake, 600, 600]
+.Snake game `EASY` +
+image::SnakeGame.PNG[Snake, 600, 600] 
 
 
 `EASY`
 
 New to the game? Try out the `easy` mode, where all you have to do is collect the food, which is indicated by the pink box. Biting your own tail will result in GAME OVER! Be careful!
 
-.Snake game `HARD`
+.Snake game `HARD` +
 image::snakegamehard.PNG[SnakeHard, 600, 600]
 
 
