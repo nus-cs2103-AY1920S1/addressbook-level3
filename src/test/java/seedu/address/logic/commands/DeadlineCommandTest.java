@@ -40,7 +40,7 @@ public class DeadlineCommandTest {
         assertFalse(addTestCommand.equals(addExamCommand));
 
         //same question different answer
-        Deadline testCopy = new DeadlineBuilder(test).withDueDate("22/12/2019").build();
+        Deadline testCopy = new DeadlineBuilder(test).withDueDate("22/12/2020").build();
         addTestCommandCopy = new DeadlineCommand(testCopy);
         assertFalse(addTestCommandCopy.equals(testCopy));
     }
@@ -57,7 +57,7 @@ public class DeadlineCommandTest {
         assertTrue(deadlineCommand.toString().equals(deadlineCommandCopy.toString()));
 
         //same question diff answer
-        deadlineCommandCopy = new DeadlineCommand(new DeadlineBuilder(validDeadline).withDueDate("10/10/2019").build());
+        deadlineCommandCopy = new DeadlineCommand(new DeadlineBuilder(validDeadline).withDueDate("10/10/2020").build());
         assertFalse(deadlineCommand.toString().equals(deadlineCommandCopy.toString()));
     }
 }

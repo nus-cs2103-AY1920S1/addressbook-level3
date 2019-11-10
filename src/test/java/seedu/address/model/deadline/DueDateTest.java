@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.time.format.DateTimeParseException;
-
 import org.junit.jupiter.api.Test;
 
 public class DueDateTest {
@@ -18,7 +16,7 @@ public class DueDateTest {
     @Test
     public void constructor_invalidDueDate_throwsIllegalArgumentException() {
         String invalidDueDate = "";
-        assertThrows(DateTimeParseException.class, () -> new DueDate(invalidDueDate));
+        assertThrows(IllegalArgumentException.class, () -> new DueDate(invalidDueDate));
     }
 
     @Test

@@ -224,6 +224,7 @@ image::ListcatStep3.png[width="600"]
 
 //end::flashcard[]
 
+// tag::deadline[]
 === Add general deadlines reminders: `deadline t>TASK d>DUE DATE`
 
 This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
@@ -240,9 +241,31 @@ After which, the result box will show the success message. The new deadline will
 
 image::deadline-entered.png[width="600"]
 
-=== Set a reminder for a specific category of flashcards. [coming in v1.3]
+=== Set Flashcard as "Bad", with reminder to re-test: `bad index`
 
-`remind Math 04/11 1030`
+Sets a specific flashcard as a "bad" flashcard. The flashcard will be stored as a deadline in the list on the right-side pane.
+
+`bad 2`
+
+****
+* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+You can refer to the example below:
+
+
+
+`bad 2`
+
+Key the above mentioned into the command box
+
+image::BadFlashcard.png[width="600"]
+
+The command will add the 2nd flashcard on the list, "How to declare a pointer in C?" as a 'bad' flashcard.
+After which, the result box will show the success message.
+A new deadline will now be shown at the right side-bar, 3 days later from the day it was entered.
+
+image::BadFlashcardAdded.png[width="600"]
 
 === Remove deadline from list: `remove index`
 
@@ -259,6 +282,8 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 Shows the calendar filled with all deadlines in the month. The calendar will be shown as a new window pop-up.
 
 `calendar`
+
+//end::deadline[]
 
 === Test mode
 

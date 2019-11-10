@@ -137,6 +137,9 @@ public class ParserUtil {
         if (!DueDate.isValidDate(trimmedDateStr)) {
             throw new ParseException(DueDate.MESSAGE_CONSTRAINTS);
         }
+        if (!DueDate.isLaterDate(trimmedDateStr)) {
+            throw new ParseException(DueDate.EARLY_DATE);
+        }
         return new DueDate(trimmedDateStr);
     }
 

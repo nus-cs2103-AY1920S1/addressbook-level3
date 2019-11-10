@@ -1,3 +1,5 @@
+//@author dalsontws
+
 package seedu.address.ui.calendar;
 
 import java.time.LocalDate;
@@ -5,7 +7,6 @@ import java.time.LocalDate;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 
-//@author dalsontws
 /**
  * Create an Calendar anchor pane that can store additional data.
  */
@@ -22,6 +23,7 @@ public class CalendarPane extends AnchorPane {
         super(children);
         // Add action handler for mouse clicked
         this.setOnMouseClicked(e -> System.out.println("This pane's date is: " + date));
+
     }
 
     public LocalDate getDate() {
