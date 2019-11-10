@@ -370,7 +370,8 @@ public class Item {
                 throw new IllegalArgumentException("Task, Event & Reminder cannot all be empty!");
             }
 
-            if (newItem.getReminder().isPresent() && newItem.getEvent().isPresent() && newItem.getEvent().get().hasAutoReschedule()) {
+            if (newItem.getReminder().isPresent() && newItem.getEvent().isPresent()
+                    && newItem.getEvent().get().hasAutoReschedule()) {
                 throw new IllegalArgumentException("An auto-rechedule event can't have a reminder and vice versa!");
             }
 
