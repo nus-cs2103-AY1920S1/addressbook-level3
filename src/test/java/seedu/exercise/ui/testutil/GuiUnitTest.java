@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import javafx.scene.Node;
+import javafx.stage.Stage;
 import seedu.exercise.guihandlers.GuiRobot;
 import seedu.exercise.guihandlers.exceptions.NodeNotFoundException;
 
@@ -35,5 +36,9 @@ public abstract class GuiUnitTest {
     protected <T extends Node> T getChildNode(Node rootNode, String query) {
         Optional<T> node = guiRobot.from(rootNode).lookup(query).tryQuery();
         return node.orElseThrow(NodeNotFoundException::new);
+    }
+
+    protected <T extends Node> T getChildNode(Stage stage, String query) {
+        return getChildNode(stage.getScene().getRoot(), query);
     }
 }

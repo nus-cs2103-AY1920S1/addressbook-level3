@@ -286,4 +286,20 @@ public class CommonTestData {
     //=====================For invalid list type=========================================================
     public static final String INVALID_LIST_TYPE_ADDRESS = "address";
     public static final String INVALID_PREFIX_LIST_TYPE_ADDRESS = " " + PREFIX_CATEGORY + INVALID_LIST_TYPE_ADDRESS;
+
+    //=====================For GUI id's=========================================================
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String EXERCISE_LIST_PANEL_LIST_VIEW_ID = "#exerciseListView";
+    public static final String EXERCISE_LABEL_ID = "#exerciseTitle";
+    public static final String RESULT_DISPLAY_FIELD_ID = "#resultDisplay";
+    public static final String HELP_WINDOW_BUTTON_ID = "#copyButton";
+    public static final String HELP_WINDOW_LABEL_ID = "#helpMessage";
+    public static final String HELP_WINDOW_STAGE_TITLE = "Help";
+    public static final String SCHEDULE_LIST_PANEL_LIST_VIEW_ID = "#scheduleListView";
+    public static final String REGIME_LIST_PANEL_LIST_VIEW_ID = "#regimeListView";
+    public static final String SUGGESTION_LIST_PANEL_LIST_VIEW_ID = "#suggestionListView";
+    public static final String INFO_PANEL_STACK_PANE_ID = "#infoPanelPlaceholder";
+
+    //=====================For GUI tests=========================================================
+    public static final String GUI_TITLE_TEXT = "test title";
 }

@@ -27,12 +27,12 @@ public class SuggestionListPanel extends ResourceListPanel {
     }
 
     @Override
-    protected void resetListSelection() {
+    public void resetListSelection() {
         suggestionListView.getSelectionModel().clearSelection();
     }
 
     @Override
-    protected ListView<Exercise> getResourceListView() {
+    public ListView<Exercise> getResourceListView() {
         return suggestionListView;
     }
 

@@ -17,10 +17,10 @@ import seedu.exercise.model.resource.Schedule;
  */
 public class InfoDisplayPanel extends UiPart<Region> {
 
-    private static final Logger logger = LogsCenter.getLogger(InfoDisplayPanel.class);
+    public static final String DEFAULT_MESSAGE = "Select an exercise/regime/schedule to display its info.";
 
+    private static final Logger logger = LogsCenter.getLogger(InfoDisplayPanel.class);
     private static final String FXML = "InfoDisplayPanel.fxml";
-    private static final String DEFAULT_MESSAGE = "Select an exercise/regime/schedule to display its info.";
 
     @FXML
     private StackPane infoPanelPlaceholder;

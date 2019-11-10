@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Testing
+= ExerHealth - Testing
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -32,8 +32,10 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 
 == Types of tests
 
-We have three types of tests:
+We have four types of tests:
 
+. _GUI Unit Tests_ targetting reusable GUI components +
+e.g. `seedu.exercise.ui.CommandBoxTest`
 .  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.exercise.commons.StringUtilTest`
 .  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +

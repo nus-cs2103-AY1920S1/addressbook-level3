@@ -39,7 +39,7 @@ public class ExerciseListPanel extends ResourceListPanel {
     }
 
     @Override
-    protected void resetListSelection() {
+    public void resetListSelection() {
         exerciseListView.getSelectionModel().clearSelection();
     }
 

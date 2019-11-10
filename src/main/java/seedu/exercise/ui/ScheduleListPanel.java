@@ -23,12 +23,12 @@ public class ScheduleListPanel extends ResourceListPanel {
     }
 
     @Override
-    protected void resetListSelection() {
+    public void resetListSelection() {
         scheduleListView.getSelectionModel().clearSelection();
     }
 
     @Override
-    protected ListView<Schedule> getResourceListView() {
+    public ListView<Schedule> getResourceListView() {
         return scheduleListView;
     }
 

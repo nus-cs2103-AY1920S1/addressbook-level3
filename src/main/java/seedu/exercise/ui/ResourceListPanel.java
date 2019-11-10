@@ -133,7 +133,7 @@ public abstract class ResourceListPanel extends UiPart<Region> {
      *     that has been selected.
      * </p>
      */
-    protected void selectGivenIndex(int index) {
+    public void selectGivenIndex(int index) {
         ListView<? extends Resource> resourceListView = getResourceListView();
         if (index >= 0) {
             /*
@@ -148,9 +148,9 @@ public abstract class ResourceListPanel extends UiPart<Region> {
         }
     }
 
-    protected abstract void resetListSelection();
+    public abstract void resetListSelection();
 
-    protected abstract ListView<? extends Resource> getResourceListView();
+    public abstract ListView<? extends Resource> getResourceListView();
 
     /**
      * Listener for item selection events in this {@code ResourceListPanel}.

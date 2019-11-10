@@ -23,12 +23,12 @@ public class RegimeListPanel extends ResourceListPanel {
     }
 
     @Override
-    protected void resetListSelection() {
+    public void resetListSelection() {
         regimeListView.getSelectionModel().clearSelection();
     }
 
     @Override
-    protected ListView<Regime> getResourceListView() {
+    public ListView<Regime> getResourceListView() {
         return regimeListView;
     }
 

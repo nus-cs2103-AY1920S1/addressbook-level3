@@ -1,7 +1,7 @@
 {
   "jsonResources" : [ {
     "name" : "Bench Press",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "50",
     "quantity" : "70",
     "unit" : "kg",
@@ -9,7 +9,7 @@
     "customProperties" : { }
   }, {
     "name" : "Deadlift",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "80",
     "quantity" : "120",
     "unit" : "kg",
@@ -17,7 +17,7 @@
     "customProperties" : { }
   }, {
     "name" : "Pull Ups",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "50",
     "quantity" : "50",
     "unit" : "counts",
@@ -25,7 +25,7 @@
     "customProperties" : { }
   }, {
     "name" : "Push Ups",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "30",
     "quantity" : "100",
     "unit" : "counts",
@@ -33,7 +33,7 @@
     "customProperties" : { }
   }, {
     "name" : "Run",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "200",
     "quantity" : "10",
     "unit" : "km",
@@ -41,7 +41,7 @@
     "customProperties" : { }
   }, {
     "name" : "Sit ups",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "30",
     "quantity" : "100",
     "unit" : "counts",
@@ -49,7 +49,7 @@
     "customProperties" : { }
   }, {
     "name" : "Squat",
-    "date" : "09/11/2019",
+    "date" : "10/11/2019",
     "calories" : "100",
     "quantity" : "100",
     "unit" : "kg",

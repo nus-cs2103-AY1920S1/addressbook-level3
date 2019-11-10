@@ -5,15 +5,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 /**
- * Handler for command box gui test
- */
-
-/**
  * A handle to the {@code CommandBox} in the GUI.
  */
 public class CommandBoxHandle extends NodeHandle<TextField> {
 
-    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     public CommandBoxHandle(TextField commandBoxNode) {
         super(commandBoxNode);
@@ -35,6 +30,10 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);
+    }
+
+    public boolean isFocused() {
+        return getRootNode().isFocused();
     }
 
     /**
