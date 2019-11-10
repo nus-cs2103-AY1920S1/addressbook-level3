@@ -81,15 +81,8 @@ Also, as the enhancement is able to work with future commands, the implementatio
 this enhancement has to be considerable of the future features implementations and
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
-<<<<<<< HEAD
-*Code contributed*: The links provided show my code contribution for the project. (https://nus-cs2103-ay1920s1.github
-.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false
-&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
-
-=======
 *Code contributed*: The links provided show my code contribution for the project. 
 (https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
->>>>>>> 0f45c7f97a57a344d4256f7256014899b6a4af87
 
 *Other contributions*
 
@@ -126,10 +119,6 @@ include::../UserGuide.adoc[tag=undoredo]
 
 This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project.
-<<<<<<< HEAD
-
-=======
->>>>>>> 0f45c7f97a57a344d4256f7256014899b6a4af87
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
