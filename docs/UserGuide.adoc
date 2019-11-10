@@ -1197,39 +1197,31 @@ In the Address Book Achievements, you will be able to see:
 == FAQ
 
 *Q:* How do I backup my data onto cloud storage? +
-*A:* Locate The Traveller Diary folder in your local drive and compact it into a zip file before uploading it onto a cloud storage online.
+*A:* Locate the ``data`` folder in the same directory where you saved you jar file. Compact it into zip file before uploading it onto cloud storage.
 
 *Q:* How do I transfer my data onto another computer? +
-*A:* Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
+*A:* Backup your data first. Then, download TravEzy in the other computer and put your ``data`` folder on the same directory where you saved the jar file. Execute TravEzy and you should see your data has been safely transferred.
 
 *Q:* Can I change the theme of the application? I prefer to work with a night theme interface. +
-*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are
-comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful
-and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
+*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
 
-*Q:* Who can view my travel posts in my TTD? +
-*A:* As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips. +
+*Q:* Who can view my travel posts in my TravEzy? +
+*A:* As TravEzy is a single user application, it is not opened to the public, and unable to be viewed by others. You can however, showcase your application in front of your friends to show off your overseas trips. +
 
 *Q:* Is it possible to connect to social media such as Facebook, Snapchat, Instagram? +
-*A:* Currently, it is not possible to connect to social media using TTD. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
+*A:* Currently, it is not possible to connect to social media using TravEzy. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
 
 *Q:* Is there any in-app purchase for this application? +
-*A:* NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get TTD today!
+*A:* NO there isn’t. TravEzy is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get?  Get TravEzy today!
 
 *Q:* I’m having difficulties uploading the pictures onto the travel diary. +
-*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However,
-this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and
-subsequently in a cloud database which is stored online. The Traveller Diary initial uploads will only allow uploads
-of pictures that are in jpg or png. Unfortunately, we do not support gif.
-Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
+*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However, this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and subsequently in a cloud database which is stored online.
 
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
-*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
+*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TravEzy. Thank you and we looking forward to serving you better!
 
 *Q:* What are some of the cool features that are available in TravEzy currently? +
-*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary,
-financial tracker and achievements page. All these features work in tandem with each other to give you the best and only
-the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
+*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
 application for users to discuss and discover. Hope that you have fun finding these cool easter egg features! 🐰🐰🐰
 
 == Command Summary
