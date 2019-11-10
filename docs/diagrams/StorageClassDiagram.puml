@@ -24,4 +24,5 @@ JsonSerializableCentralManager .right.> JsonAdaptedCustomer
 JsonSerializableCentralManager .left.> JsonAdaptedDriver
 JsonSerializableCentralManager .down.> JsonAdaptedTask
 JsonSerializableCentralManager .down.> JsonAdaptedID
+JsonSerializableCentralManager .down.> JsonAdaptedCompany
 @enduml

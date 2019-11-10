@@ -3,22 +3,16 @@
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":PdfCreator" as PdfCreator MODEL_COLOR
 participant ":TaskManager" as TaskManager MODEL_COLOR
+participant ":PdfManager" as PdfManager MODEL_COLOR
+participant ":PdfCreator" as PdfCreator MODEL_COLOR
 participant ":PdfWrapperLayout" as PdfWrapperLayout MODEL_COLOR
 end box
 
 
-[-> Model : saveDriverTaskPdf( \n FILEPATH*, 5/11/2019)
+[-> Model : generateTaskSummaryPdf( \n FILEPATH*, 5/11/2019)
 note right: FILEPATH*: "./data/DeliveryTasks 2019-11-5".pdf"
 activate Model
-
-create PdfCreator
-Model -> PdfCreator : new PdfCreator(FILEPATH*)
-activate PdfCreator
-
-PdfCreator --> Model
-deactivate PdfCreator
 
 Model -> TaskManager : getList()
 activate TaskManager
@@ -26,13 +20,23 @@ activate TaskManager
 TaskManager --> Model: tasks
 deactivate TaskManager
 
-Model -> TaskManager : getDriversFromTasks()
+Model -> TaskManager : getDriversFromTasks(tasks);
 activate TaskManager
 
 TaskManager --> Model: drivers
 deactivate TaskManager
 
-Model -> PdfCreator : saveDriverTaskPdf(tasks, drivers, 5/11/2019)
+Model -> PdfManager : generateTaskSummary(\nFILEPATH*, tasks, drivers, 5/11/2019)
+activate PdfManager
+
+create PdfCreator
+PdfManager -> PdfCreator : new PdfCreator(FILEPATH*)
+activate PdfCreator
+
+PdfCreator --> PdfManager
+deactivate PdfCreator
+
+PdfManager -> PdfCreator : saveDriverTaskPdf(task, \ndrivers, 5/11/2019)
 activate PdfCreator
 
 PdfCreator -> PdfCreator ++: createDocument()
@@ -41,7 +45,7 @@ PdfCreator --> PdfCreator --: document
 PdfCreator -> PdfCreator ++: insertCoverPage(document, 5/11/2019)
 PdfCreator --> PdfCreator --
 
-PdfCreator -> PdfCreator ++: insertDriverTask(document, 5/11/2019)
+PdfCreator -> PdfCreator ++: insertDriverTask(document, tasks, drivers, 5/11/2019)
 
 create PdfWrapperLayout
 PdfCreator -> PdfWrapperLayout :  new PdfWrapperLayout(document)
@@ -58,8 +62,11 @@ deactivate PdfWrapperLayout
 
 PdfCreator --> PdfCreator --
 
-PdfCreator --> Model
+PdfCreator --> PdfManager
 deactivate PdfCreator
+
+PdfManager --> Model
+deactivate PdfManager
 
 [<-- Model
 deactivate Model

@@ -9,10 +9,12 @@ Class CustomerManager
 Class DriverManager
 Class TaskManager
 class IdManager
+class Company
 
 CentralManager ..> CustomerManager
 CentralManager ..> DriverManager
 CentralManager ..> TaskManager
 CentralManager .right.> IdManager
+CentralManager .left.> Company
 note right of IdManager: To keep track of \n ID used so far. \n E.g. task ID, customerID
 @enduml

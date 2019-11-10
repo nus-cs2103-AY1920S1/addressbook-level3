@@ -13,11 +13,12 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute(\n"savepdf 5/11/2019")
+[-> LogicManager : execute(savepdf)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(\n"savepdf 5/11/2019")
+LogicManager -> AddressBookParser : parseCommand(savepdf)
 activate AddressBookParser
+note right: savepdf's FULL COMMAND: "savepdf pdf/summary dt/5/11/2019"
 
 create SavePdfCommandParser
 AddressBookParser -> SavePdfCommandParser : SavePdfCommandParser()
@@ -26,11 +27,11 @@ activate SavePdfCommandParser
 SavePdfCommandParser --> AddressBookParser
 deactivate SavePdfCommandParser
 
-AddressBookParser -> SavePdfCommandParser : parse("savepdf 5/11/2019")
+AddressBookParser -> SavePdfCommandParser : parse(savepdf)
 activate SavePdfCommandParser
 
 create SavePdfCommand
-SavePdfCommandParser -> SavePdfCommand : SavePdfCommand(5/11/2019)
+SavePdfCommandParser -> SavePdfCommand : SavePdfCommand(\n"summary", 5/11/2019)
 activate SavePdfCommand
 
 SavePdfCommand --> SavePdfCommandParser : p
@@ -51,7 +52,7 @@ activate SavePdfCommand
 
 
 note right : FILEPATH*: "./data/DeliveryTasks 2019-11-05.pdf"
-SavePdfCommand -> Model : saveDriverTaskPdf(FILEPATH*, 5/11/2019)
+SavePdfCommand -> Model : generateTaskSummaryPdf(\nFILEPATH*, 5/11/2019)
 activate Model
 
 Model --> SavePdfCommand
