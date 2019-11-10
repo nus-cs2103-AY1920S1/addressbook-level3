@@ -32,9 +32,6 @@ public class Amount {
                 amount += "0";
             }
         }
-        while(amount.charAt(0) == '0') {
-            amount = amount.substring(1);
-        }
         return amount;
     }
 

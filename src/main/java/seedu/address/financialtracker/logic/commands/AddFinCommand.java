@@ -15,10 +15,9 @@ public class AddFinCommand extends Command<Model> {
 
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the financial tracker.\n"
-            + "Parameters: add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE "
+            + "e.g. add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE "
             + "(Remember to select where you at currently!)\n"
-            + "You can also specify date and time with [date/DATE] and [time/TIME]\n"
-            + "Example: add a/4.5 d/breakfast t/food";
+            + "You can also specify date and time with [date/DATE] and [time/TIME]";
     public static final String MESSAGE_SUCCESS = "Expense added";
 
     private final Expense expense;
