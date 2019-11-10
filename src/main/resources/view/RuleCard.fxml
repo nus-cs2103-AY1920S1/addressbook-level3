@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
+
 <HBox id="cardPane" fx:id="cardPane" mouseTransparent="true" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane mouseTransparent="true" HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -44,7 +45,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
       </Label>
-   <FlowPane fx:id="predicateFlow" alignment="CENTER_LEFT" hgap="5.0" prefWrapLength="1000.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+   <FlowPane fx:id="predicateFlow" alignment="CENTER_LEFT" hgap="5.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets bottom="10.0" left="30.0" />
          </GridPane.margin>
@@ -52,7 +53,7 @@
             <Insets />
          </opaqueInsets>
       </FlowPane>
-      <FlowPane fx:id="actionFlow" alignment="CENTER_LEFT" hgap="5.0" prefWrapLength="1000.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <FlowPane fx:id="actionFlow" alignment="CENTER_LEFT" hgap="5.0" vgap="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="30.0" />
          </GridPane.margin>
