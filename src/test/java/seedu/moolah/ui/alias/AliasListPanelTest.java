@@ -31,8 +31,8 @@ public class AliasListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code aliasListPanelHandle} with a {@code AliasListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code AliasListPanel}.
      */
     private void initUi(AliasMappings aliasMappings) {
         AliasListPanel listPanel =

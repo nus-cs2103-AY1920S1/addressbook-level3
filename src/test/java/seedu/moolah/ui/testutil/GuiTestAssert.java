@@ -104,8 +104,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code ExpenseListPanelHandle} displays the details of {@code expense} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Expense> persons) {
-        assertListMatching(expenseListPanelHandle, persons.toArray(new Expense[0]));
+    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Expense> expenses) {
+        assertListMatching(expenseListPanelHandle, expenses.toArray(new Expense[0]));
     }
 
     /**

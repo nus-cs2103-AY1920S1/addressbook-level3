@@ -38,7 +38,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 3500;
 
-    private final SimpleObjectProperty<Expense> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Expense> selectedExpense = new SimpleObjectProperty<>();
     private ExpenseListPanelHandle expenseListPanelHandle;
 
     @Test
@@ -47,32 +47,32 @@ public class ExpenseListPanelTest extends GuiUnitTest {
 
         for (int i = 0; i < TYPICAL_EXPENSES.size(); i++) {
             expenseListPanelHandle.navigateToCard(TYPICAL_EXPENSES.get(i));
-            Expense expectedPerson = TYPICAL_EXPENSES.get(i);
+            Expense expectedExpense = TYPICAL_EXPENSES.get(i);
             ExpenseCardHandle actualCard = expenseListPanelHandle.getCardHandle(i);
 
-            assertCardDisplaysExpense(expectedPerson, actualCard);
+            assertCardDisplaysExpense(expectedExpense, actualCard);
             assertEquals(Integer.toString(i + 1), actualCard.getIndex());
         }
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedExpenseChanged_selectionChanges() {
         initUi(TYPICAL_EXPENSES);
-        Expense secondPerson = TYPICAL_EXPENSES.get(INDEX_SECOND.getZeroBased());
+        Expense secondExpense = TYPICAL_EXPENSES.get(INDEX_SECOND.getZeroBased());
         guiRobot.interact(() -> {
-            selectedPerson.set(secondPerson);
+            selectedExpense.set(secondExpense);
             expenseListPanelHandle.select(INDEX_SECOND.getZeroBased());
         });
 
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle expectedPerson = expenseListPanelHandle.getCardHandle(INDEX_SECOND.getZeroBased());
-        ExpenseCardHandle selectedPerson = expenseListPanelHandle.getHandleToSelectedCard();
-        assertCardEqualsExpense(expectedPerson, selectedPerson);
+        ExpenseCardHandle expectedExpense = expenseListPanelHandle.getCardHandle(INDEX_SECOND.getZeroBased());
+        ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
+        assertCardEqualsExpense(expectedExpense, selectedExpense);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of expenses in {@code ExpenseListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -82,22 +82,22 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of expense cards exceeded time limit");
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * Returns a list of expenses containing {@code expenseCount} expenses that is used to populate the
+     * {@code ExpenseListPanel}.
      */
-    private ObservableList<Expense> createBackingList(int personCount) {
+    private ObservableList<Expense> createBackingList(int expenseCount) {
         ObservableList<Expense> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
+        for (int i = 0; i < expenseCount; i++) {
             Description name = new Description(i + "a");
             Description budgetName = new Description("budgey");
             Price price = new Price("1");
             Category category = new Category("FOOD");
             UniqueIdentifier uniqueIdentifier =
-                    new UniqueIdentifier(String.format("Expense@00000000-0000-0000-0000-0000000%5d", personCount));
+                    new UniqueIdentifier(String.format("Expense@00000000-0000-0000-0000-0000000%5d", expenseCount));
             Timestamp timestamp = new Timestamp(LocalDateTime.of(2019, 11, 1, 0, 0));
             backingList.add(new Expense(name, price, category, timestamp, budgetName, uniqueIdentifier));
         }
@@ -105,8 +105,8 @@ public class ExpenseListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code expenseListPanelHandle} with a {@code ExpenseListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code ExpenseListPanel}.
      */
     private void initUi(ObservableList<Expense> backingList) {
         ExpenseListPanel listPanel =

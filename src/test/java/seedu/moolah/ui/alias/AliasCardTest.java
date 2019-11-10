@@ -48,7 +48,7 @@ public class AliasCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code aliasCard} displays the details of {@code expectedAlias} correctly and matches
      * {@code expectedId}.
      */
     private void assertCardDisplay(AliasCard aliasCard, Alias expectedAlias) {
@@ -56,7 +56,7 @@ public class AliasCardTest extends GuiUnitTest {
 
         AliasCardHandle aliasCardHandle = new AliasCardHandle(aliasCard.getRoot());
 
-        // verify person details are displayed correctly
+        // verify alias details are displayed correctly
         assertCardDisplaysAlias(expectedAlias, aliasCardHandle);
     }
 }
