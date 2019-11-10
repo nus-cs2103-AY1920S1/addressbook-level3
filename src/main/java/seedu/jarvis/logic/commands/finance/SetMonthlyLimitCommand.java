@@ -2,6 +2,8 @@ package seedu.jarvis.logic.commands.finance;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
+import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.AMOUNT_CLOSE_TO_LIMIT;
+import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.AMOUNT_LIMIT_REACHED;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -36,9 +38,14 @@ public class SetMonthlyLimitCommand extends Command {
     public static final String MESSAGE_MONEY_ERROR = COMMAND_SYNTAX + "\n"
             + MonthlyLimit.MESSAGE_CONSTRAINTS;
 
-    public static final String MESSAGE_SUCCESS = "New limit set: %1$s";
+    public static final String MESSAGE_SUCCESS = "Jarvis has set your new limit: %1$s";
 
     public static final String MESSAGE_INVERSE_SUCCESS_RESET = "Monthly limit has been reset";
+
+    public static final String MESSAGE_ALMOST_TO_LIMIT = "Note: You're almost at your spending limit for"
+            + " the month!\n" + MESSAGE_SUCCESS;
+    public static final String MESSAGE_OVERSPEND = "Note: You've reached your spending limit this month!"
+            + " Please change your monthly limit with the command 'set-limit'.\n" + MESSAGE_SUCCESS;
 
     public static final boolean HAS_INVERSE = true;
 
@@ -118,6 +125,15 @@ public class SetMonthlyLimitCommand extends Command {
 
         model.setMonthlyLimit(updatedLimit);
         model.setViewStatus(ViewType.LIST_FINANCE);
+
+        boolean isReachingLimit = model.calculateRemainingAmount() < AMOUNT_CLOSE_TO_LIMIT
+                && model.calculateRemainingAmount() > AMOUNT_LIMIT_REACHED;
+        boolean hasExceededLimit = model.calculateRemainingAmount() <= AMOUNT_LIMIT_REACHED;
+        if (isReachingLimit) {
+            return new CommandResult(String.format(MESSAGE_ALMOST_TO_LIMIT, updatedLimit), true);
+        } else if (hasExceededLimit) {
+            return new CommandResult(String.format(MESSAGE_OVERSPEND, updatedLimit), true);
+        }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedLimit), true);
     }
