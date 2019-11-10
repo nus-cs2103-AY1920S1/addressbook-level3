@@ -5,6 +5,8 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SugarMummyParser" as SugarMummyParser LOGIC_COLOR
 participant ":RecmFoodCommandParser" as RecmFoodCommandParser LOGIC_COLOR
+participant "typePre:FoodTypeIsWantedPredicate" as FoodTypeIsWantedPredicate LOGIC_COLOR
+participant "namePre:FoodNameContainsKeywordsPredicate" as FoodNameContainsKeywordsPredicate LOGIC_COLOR
 participant "recmf:RecmFoodCommand" as RecmFoodCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -26,11 +28,23 @@ activate RecmFoodCommandParser
 RecmFoodCommandParser --> SugarMummyParser
 deactivate RecmFoodCommandParser
 
-SugarMummyParser -> RecmFoodCommandParser : parse("recmf -f fn/Cherry")
+SugarMummyParser -> RecmFoodCommandParser : parse("-f fn/Cherry")
 activate RecmFoodCommandParser
 
+create FoodTypeIsWantedPredicate
+RecmFoodCommandParser -> FoodTypeIsWantedPredicate : {FoodType.FRUIT}
+activate FoodTypeIsWantedPredicate
+FoodTypeIsWantedPredicate -> RecmFoodCommandParser : typePre
+deactivate FoodTypeIsWantedPredicate
+
+create FoodNameContainsKeywordsPredicate
+RecmFoodCommandParser -> FoodNameContainsKeywordsPredicate : {"Cherry"}
+activate FoodNameContainsKeywordsPredicate
+FoodNameContainsKeywordsPredicate -> RecmFoodCommandParser : namePre
+deactivate FoodNameContainsKeywordsPredicate
+
 create RecmFoodCommand
-RecmFoodCommandParser -> RecmFoodCommand
+RecmFoodCommandParser -> RecmFoodCommand : typePre, namePre
 activate RecmFoodCommand
 
 RecmFoodCommand --> RecmFoodCommandParser : recmf
@@ -48,7 +62,7 @@ deactivate SugarMummyParser
 LogicManager -> RecmFoodCommand : execute()
 activate RecmFoodCommand
 
-RecmFoodCommand -> Model : updateFilteredFoodList(filters)
+RecmFoodCommand -> Model : updateFilteredFoodList(typePre.and(namePre))
 activate Model
 
 Model --> RecmFoodCommand

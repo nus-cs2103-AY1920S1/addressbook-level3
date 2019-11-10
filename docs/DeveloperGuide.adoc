@@ -119,14 +119,11 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component for a `User`
 image::ModelClassDiagramUser.png[]
 
-.Structure of the Model Component for `Food`
-image::ModelClassDiagramFood.png[]
-
-Similar structures can also be applied for `Record` and `Calendar`.
+Similar structures can also be applied for `Food`, `Record` and `Calendar`.
 
 *API* : link:{repoURL}/src/main/java/seedu/sugarmummy/model/Model.java[`Model.java`]
 
-The `Model`,
+The `Model`
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores SugarMummy data.
@@ -351,26 +348,6 @@ Step 5. After add or delete commands have been executed in `LogicManager`, the M
 ** Pros: Do not need to perform type checks when retrieving from list. 
 ** Cons: Listing all records together becomes difficult, must build a new list from all separate lists. Each class must reference a different kind of list.
 //end::datalogDG[]
-
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 //tag::calendar[]
 === Calendar feature
@@ -881,11 +858,11 @@ reminded about his/her `Goal` inputs at specific time intervals desired.
 
 // tag::recmf[]
 === Food Recommendation Feature
-The food recommendation mechanism is based on the manipulation of `UniqueFoodList`, with the implementation of operations:
+The food recommendation mechanism is based on the manipulation of `UniqueFoodList`, via the implementation of the following operations:
 
-* *Showing food recommendations as cards* filtered by `Flags` and / or `FoodNames`.
-* *Sorting the food list* based on comparing food fields specified in `SortOrderType`.
-* *Showing combined recommendations* from each food type with an additional _summary_.
+* *Showing food recommendations as cards* filtered by `Flags` and / or `Food Names`.
+* *Sorting the food list* according to `SortOrderType`.
+* *Showing combined recommendations* from each food type with an additional _Summary_ card.
 * *Adding foods* and *Deleting foods*
 * *Resetting food database* which clears modifications on the food list done by the user
 
@@ -896,44 +873,43 @@ anchor:recmf_overview[]
 ==== Data Structure Overview
 
 The main data structures used to support food recommendation are listed as follows.
-
 anchor:recmf_food_model[]
 
 .*1. Food Model*
-It encapsulates `FoodName`, `FoodType`, and four `NutritionValues` and has following usages:
+It encapsulates `FoodName`, `FoodType`, and four `NutritionValues` and has the following usages:
 
 ** Fields are visualized in `FoodCards`, which collectively compose the `FoodFlowPane`.
 ** Fields are `Comparable` to support `sortFoodList()` function.
 ** `NutritionValues` are used by `FoodCalculator` to obtain summary statistics.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/Food.java[`Food.java`]
+*API:* link:{repoURL}{generalPath}/model/recmf/Food.java[Food.java]
 
 anchor:recmf_uniqueFoodList[]
 
 .*2. UniqueFoodList*
 It holds the collection of foods, and it exposes necessary methods in `ModelManager`.
 Internally, it holds an `ObservableList` available for modifications, such as adding foods.
-It also implements `getMixedFoodList` method for `recmfmix` command via randomly selecting foods from its `internalUnmodifiableList`.
+It also implements `getMixedFoodList()` method for `recmfmix` command via randomly selecting foods from its `internalUnmodifiableList`.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/UniqueFoodList.java[`UniqueFoodList.java`]
+*API:* link:{repoURL}{generalPath}/model/recmf/UniqueFoodList.java[UniqueFoodList.java]
 
 The following class diagram summaries how these two main components interact.
+
+image::FoodModelClassDiagram.png[[,500]]
 
 anchor:recmf_predicates[]
 
 .*3. Predicates*
-Both `Predicates` hold desired conditions as `Collections`, such as `List` and `Set`.
+Both `Predicates`, `FoodNameContainsKeywordsPredicate` and `FoodTypeIsWantedPredicate` hold desired conditions as `Collections`, such as `List` and `Set`.
 They literate through the whole food list to select foods that matches any of given conditions.
-However, if the conditions are empty, the `test()` result is always set to be true.
+If the conditions are empty, the `test()` result is always set to be true.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/predicates/FoodNameContainsKeywordsPredicate.java[`FoodNameContainsKeywordsPredicate.java`]
-link:{repoURL}{generalPath}/model/recmf/predicates/FoodTypeIsWantedPredicate.java[`FoodTypeIsWantedPredicate.java`]
-
-image::FoodModelClassDiagram.png[[,500]]
+*API:* link:{repoURL}{generalPath}/model/recmf/predicates/FoodNameContainsKeywordsPredicate.java[FoodNameContainsKeywordsPredicate.java];
+link:{repoURL}{generalPath}/model/recmf/predicates/FoodTypeIsWantedPredicate.java[FoodTypeIsWantedPredicate.java]
 
 ==== Implementation of _recmf_ and _recmfmix_ command
 
-===== _recmf_ command
+===== `recmf` command
 `RecmFoodCommandParser` parses user inputs to standard parameters for the customised presentation of food recommendations, detailing in the following three ways:
 
 .*1. Specifying flags* +
@@ -941,74 +917,80 @@ image::FoodModelClassDiagram.png[[,500]]
 Available `Flags` depend on available `FoodTypes`, as they will be eventually translated to a `HashSet` of `FoodTypes` and supplied to <<recmf_predicates, FoodTypeIsWantedPredicate>>.
 
 [NOTE]
-If no flag is specified, `RecmFoodCommandParser#getWantedFoodTypes(flagsStr)` will return an empty `HashSet`.
+If no flag is specified, `RecmFoodCommandParser#getWantedFoodTypes(flagsStr)` just returns an empty `HashSet`.
 
-*API:* link:{repoURL}{generalPath}/model/recmf/Flag.java[Flag.java]
+*API:* link:{repoURL}{generalPath}/model/recmf/Flag.java[Flag.java]; {repoURL}{generalPath}/model/recmf/FoodType.java[FoodType.java]
 
 .*2. Filtering food names* +
-It is similar to and simpler than the implementation of specifying flags. A `List` of food name strings will be supplied to <<recmf_predicates, FoodNameContainsKeywordsPredicate>>.
+It is similar to but simpler than the implementation of specifying flags. A `List` of food name strings will be supplied to <<recmf_predicates, FoodNameContainsKeywordsPredicate>>.
 
-The following sequence diagrams shows the how `recmf` command with flag and food name as the filters works.
+The following sequence diagram shows the how `recmf` command with flag and food name as the filters works.
 
 image::RecmFoodSequenceDiagram.png[]
 
+[NOTE]
+The sorting related (refer to the following section) parts, such `FoodComparator`, are omitted in this diagram.
+
 .*3. Sorting* +
 It is implemented via supplying a `FoodComparator` to `model#sortFoodList()` method. +
-`FoodComparator` wraps A `Comparator` to handle the main logic, such as reversing the `FoodComparator` via `Comparator#reversed()`. +
+`FoodComparator` wraps A `Comparator` to handle the main logic, such as reversing the `FoodComparator` via `Comparator#reversed()`.
 An inner enum class `SortOrderType` holds all the comparable <<recmf_food_model, food fields>> for sorting.
 
 [NOTE]
-A private `FoodComparator` constructor directly taking in `Comparator` is for internal usage of getting reversed `FoodComparator`. Outside instantiation is done by supplying `SortOrderType` strings.
+The private `FoodComparator` constructor that directly takes in `Comparator` is for internal usage of getting reversed `FoodComparator`. Outside instantiation is done by supplying `SortOrderType` strings.
 
 *API:* link:{repoURL}{generalPath}/model/recmf/FoodComparator.java[`FoodComparator.java`]
 
-The following object diagram summaries the components in the food recommendation mechanism.
+The following object diagram summaries the described components in the `recmf` command.
 
 image::RecmFoodObjectDiagram.png[]
 
-===== _recmfmix_ command
+===== `recmfmix` command
 `UniqueFoodList#getMixedFoodList()` generates a temporary `ObservableList` from the existing food data. This list will eventually be supplied to `FoodFlowPane` via `Model` and then `Logic`.
 
-*Food Summary Card:* It is essentially treated as `Food` with _Summary_ as food name and _meal_ as food type.
+* Food Summary Card: It is essentially treated as `Food` with _Summary_ as food name and _meal_ as food type.
 The total / average nutrition values are calculated by `FoodCalculator`.
 
 [NOTE]
-This command has to override the `Command#isToCreateNewPane()` to return a `true` value,
-since it must refresh the display pane each time by randomly getting new foods, rather than getting the existing display pane from `typeToPaneMap`.
+This command has to override the `Command#isToCreateNewPane()` and return `true`,
+since it must refresh the display pane each time by randomly getting new foods, rather than getting the existing display pane from `typeToPaneMap` (refer to link:{repoURL}{generalPath}/ui/MainDisplayPane.java[`MainDisplayPane.java`]).
 
 *API:* link:{repoURL}{generalPath}/model/recmf/FoodCalculator.java[`FoodCalculator.java`]
 
 ==== Implementation of other supplementary commands
 
-The following three commands are designed for user to modify the food database.
+The following three commands can be used modify the food database.
 
-===== _addfood_ and _deletef_ commands
+===== `addfood` and `deletef` commands
 `AddFoodCommandParser` and `DeleteFoodCommandParser` are used for parsing these two commands respectively.
 Parameter validation is done by `RecmFoodParserUtil`.
 
 *API:* link:{repoURL}{generalPath}/parser/RecmFoodParserUtil.java[`RecmFoodParserUtil.java`]
 
-===== _resetf_ command
-It is implemented by setting the internal list of `UniqueFoodList` to be the pre-loaded food data in `SampleFoodDataUtil`.
+===== `resetf` command
+It is implemented by setting the internal list of `UniqueFoodList` to be the sample food data in `SampleFoodDataUtil`.
+
+*API:* link:{repoURL}{generalPath}/model/util/SampleFoodDataUtil.java[`SampleFoodDataUtil.java`]
 
 ==== Example Usage Scenario and Summary
 
 Given below is an example usage scenario and how the food recommendation mechanism behaves at each step.
 
 . The user launches the application and enter `recmf`.
-.. If the command is used for the first time, a `foodlist.json` storage file will be created and written with the pre-loaded food data. Otherwise, data is loaded from the existing storage file.
+.. If it is the first time entering a command, a `foodlist.json` storage file will be created with sample food data. Otherwise, data is loaded from the existing storage file.
 .. `FoodFlowPane` obtains food list information from `Logic` and displays food cards to the user.
 
 . The user executes `recmf -f -m +sort/gi` command.
-.. `FoodTypeIsWantedPredicate` selects foods of _fruit_ and _meal_ types. `FoodComparator` sorts foods in ascending order based on their GI values.
+.. `FoodTypeIsWantedPredicate` is set to select foods of _fruit_ and _meal_ types. `FoodComparator` is set to sort foods in ascending order based on their GI values.
 .. `Model` updates the `filteredFoodList` with this predicate and sorts the list with this comparator.
 .. `FoodFlowPane` notices the such updates from `Listener` and refreshes the GUI.
 
 . The user executes `recmfmix` command.
-.. `UniqueFoodList#getMixedFoodList()` is executed, during which `FoodCalculator` calculates the nutrition values for _Summary_ food.
+.. `Logic` gets a list of foods from UniqueFoodList#getMixedFoodList()`, which contains a _Summary_ food calculated by `FoodCalculator`.
+.. `FoodFlowPane` updates its content with this new list.
 
 . The user executes `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`.
-.. The display switches to show the full list containing the newly added food.
+.. The display switches to show the full list which also contains this newly added food.
 .. The storage file updates accordingly.
 
 The following activity diagram summarizes the above steps.
@@ -1024,8 +1006,8 @@ image::RecmFoodActivityDiagram.png[400,400]
 ** Cons: Operations on foods, such as filtering and adding, need to iterating through the whole list.
 * **Alternative 2:** Use a `Map` that categorizes foods based on their food types
 ** Pros: Impoves efficiency of filtering by flags by simply `get()`. Besides, maintaining the order after adding a new food only requires to sort foods of the same type.
-It can improve efficiency especially the database is large.
-** Cons: There is no `FilteredMap` class supported by JavaFX. Extra work is needed to make it accept `Predicate`.
+It can improve efficiency especially when the database is large.
+** Cons: There is no `FilteredMap` class supported by JavaFX. Extra work is needed to apply `Predicate` on the Map.
 
 ===== Aspect: The presentation (UI) of food recommendations
 
@@ -1034,14 +1016,14 @@ It can improve efficiency especially the database is large.
 ** Cons: The size of food cards cannot be customized. If the window size is relatively small, the user may need to
 repeatedly scroll up and down to locate certain foods.
 * **Alternative 2:** Use several horizontal `ListViews` to hold different food type.
-** Pros: The content is more organized and the user does not need to specify food types in the filter.
+** Pros: The content can be more organized and the user does not need to specify the food types for filtering.
 Besides, the food cards can be customized for each `ListView`, such as omitting GI and Sugar for proteins since they are usually zero.
 ** Cons: The operations targeting at the whole list need to be applied separately for each food list.
 
 ===== Aspect: Inputting New Food Data
 
 * **Alternative 1 (current choice):** Require inputs for all fields (e.g. calorie, gi...).
-** It prevents some foods from permanently having empty fields, which may result in inappropriate sorting and summaries.
+** It prevents some foods from permanently having empty fields, which may result in inaccurate sorting and summaries.
 ** Cons: There is no way to add new foods with currently unavailable fields.
 * **Alternative 2: ** Use a separate list to hold foods with incomplete inputs.
 ** Pros: This makes user inputs more flexible.
@@ -1049,24 +1031,39 @@ Besides, the food cards can be customized for each `ListView`, such as omitting 
 
 ==== Future Developments [Proposed Features]
 
-** Recovering data after resetting `[coming in v2.0]`
+** Recovering data after resetting `[coming in v2.0]` +
 This would be useful if the user wrongly enter `resetf` command, or another user want to temporarily use the same jar file on the same PC.
 This may be implemented by using a separate file to store the food data before executing `resetf` command.
 
-** Editing Foods `[coming in v2.0]`
-This would provide more flexibility to the user to manipulate food data, instead of resetting all the food data.
-This can be adapted from exiting `edit` command from `AddressBook3`.
-However, since foods are identified by names instead of indexes, how to quickly get the food may be taken into consideration.
+** Editing Foods `[coming in v2.0]` +
+This would provide more flexibility to the user to manipulate food data, instead of directly deleting a food.
+This can be adapted from exiting `edit` command from `AddressBook3`. However, since foods are identified by names instead of indexes, may consider using a `Map` that maps food names to food objects.
 
-** Disliking Foods `[coming in v2.0]`
-This may be implemented by either
-
-** Recording and Analyzing diets `[coming in v2.0]`
+** Recording and Analyzing diets `[coming in v2.0]` +
 This would allow the user to have an overview of his food consumption statistics.
 This can be adapted from existing `Record` model for daily, weekly, and monthly data summaries.
 Bases on such statistics, more specific suggestions can be proposed to to balance the user's nutrition intake.
 // end::recmf[]
 
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -1757,7 +1754,7 @@ Expected: A monthly calendar of 2019 Nov is shown. Below are calendar entries on
 Nov 22.
 //end::calendarcommand[]
 
-=== Food Recommendation Feature
+=== Food Recommendation Commands
 . Recommending food with specified flags
 .. Test case: `recmf -f -p -m` +
 Expected: The display pane updates food recommendations that only contain foods of _fruit_, _protein_, and _meal_, indicated by three different colors.
