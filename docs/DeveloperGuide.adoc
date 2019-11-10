@@ -444,6 +444,29 @@ image::CalendarNextMonthActivityDiagram.png[]
 image::CalendarPreviousMonthActivityDiagram.png[]
 {empty} +
 
+==== Design Considerations
+
+===== Aspect: Deciding whether to let engagements list windows from other months remain open when changing the displayed month
+
+* **Alternative 1 (current choice):** Only engagements list windows from the current month can be opened. Switching to other months
+causes all opened engagements list windows to be closed.
+** Pros: Easier to implement and does not take up much memory.
+** Cons: Does not let users view engagement lists from different months simultaneously.
+* **Alternative 2:** Letting engagements list windows remain open, regardless of the month, until they are closed by users.
+** Pros: Users are able to view side-by-side comparisons of their engagement lists across different months.
+** Cons: Introduces additional dependencies because many references to `ObervableList` instances must be maintained.
+
+===== Aspect: Information being displayed in each calendar cell
+
+* **Alternative 1 (current choice):** Only display the number of engagements for each date.
+** Pros: Does not take up a lot of on-screen space. More detailed information about each day's engagements can be viewed
+by opening the engagements list window for that particular date.
+** Cons: The information shown in the calendar window is very generalized.
+* **Alternative 2:** Display the descriptions (and maybe more detailed information) of each date's engagements.
+** Pros: Shows more detailed information in the calendar window.
+** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
+The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
+
 === Game Window
 
 .Structure of the Game Window
@@ -521,6 +544,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::SortUpdateActivityDiagram.png[width="190", align="center"]
 
 ==== Design Considerations
+
 
 ===== Aspect: How sort executes
 
