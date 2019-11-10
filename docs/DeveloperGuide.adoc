@@ -582,16 +582,17 @@ From the sequence diagram above:
 
 3. The resulting `ExercisePredicate` is then returned to `ParserUtil`, followed by `SuggestCommandParser`.
 
+A `SuggestPossibleCommand` contains an `ExercisePredicate` object.
+An `ExercisePredicate` object contains a `list` of `BasePropertyPredicate`,
+where each contains either a `Collection` of `Muscle` or `CustomProperty`.
 The diagram below shows the structure of a `ExercisePredicate` object.
-A `ExercisePredicate` contains a `list` of `BasePropertyPredicate`,
-where each contains a `Collection` of `Muscle` or `CustomProperty`.
 
 .Class diagram of the classes behind the suggest possible feature
 
 image::SuggestCommandClassDiagram.png[align="center"]
 
 Creating classes such as `ExerciseCustomPropertyPredicate` and `ExerciseMusclePredicate`
-allows us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` that is being considered.
+allows us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` between different predicates.
 
 <<<
 

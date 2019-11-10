@@ -15,14 +15,14 @@ Package Model <<Rectangle>>{
     Class XYZReadOnlyResourceBook
     Class XYZUniqueResourceList
 
-    Package Resource {
+    Package resource {
         class "{abstract}\nResource"
         Class Exercise
         Class Regime
         Class Schedule
     }
 
-    Package Property {
+    Package property {
         Class PropertyBook
     }
 }
