@@ -18,6 +18,8 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
 
+    private static final String NO_EMAIL_MESSAGE = "no email provided";
+
     private final Person person;
 
     @FXML
@@ -41,8 +43,17 @@ public class PersonDetailsPanel extends UiPart<Region> {
 
         name.setText(person.getName().toString());
         phone.setText(person.getPhone().toString());
-        email.setText(person.getEmail().toString());
         address.setText(person.getAddress().toString());
+
+        String emailString = person.getEmail().toString();
+        boolean hasEmail = emailString.length() > 0;
+
+        if (hasEmail) {
+            email.setText(emailString);
+        } else {
+            email.setText(NO_EMAIL_MESSAGE);
+        }
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
