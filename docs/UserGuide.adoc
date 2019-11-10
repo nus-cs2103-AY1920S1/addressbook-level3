@@ -916,6 +916,13 @@ _Results of the show answers of quiz command._
 
 === Events ​-​ `event`
 
+This feature aims to provide event management into nJoy assistance through a visually-pleasing scheduler / calendar.
+
+image::EventScheduleMain.png[]
+_Event Calendar / Schedule in weekly view mode_
+
+Note that the red line in the calendar marks the current date and time.s
+
 ==== Creating a event
 
 Create, store and render a event +
@@ -923,6 +930,10 @@ Format: `event eventName/... startDateTime/... endDateTime/... recur/... color/.
 [NOTE]
 Note that for start and end date-time, it is necessary to input it in the following manner:
 YYYY-MM-DDThh:mm. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
+[NOTE]
+Note that the event name should not contain backslash characters.
+[NOTE]
+Events in the future have a slightly darker color than those in the past and present.
 
 The options supported by this feature includes:
 
@@ -934,16 +945,23 @@ The options supported by this feature includes:
 
 Examples:
 
-* *Weekly Event*: `event eventName/CS2101 Lecture startDateTime/2019-10-21T14:00 endDateTime/2019-10-21T16:00
-recur/weekly color/1` +
-Creates a weekly event with event name _'CS2101 Lecture'_ with start date and time _'21st Oct 2019, 1400'_ with end
-date and time _'21st Oct 2019, 1600'_ and a color grouping of _'1'_.
+* *Weekly Event*: `event eventName/Teachers Meeting startDateTime/2019-11-07T15:00 endDateTime/2019-11-07T17:00
+recur/none color/17` +
+Creates a event with event name _'Teachers Meeting'_ with start date and time _'7th Nov 2019, 1500'_ with end
+date and time _'7th Nov 2019, 1700'_ and a color grouping of _'17'_.
+
+image::EventScheduleAdd.png[]
+_Adding a teachers meeting event to the schedule_
 
 [[Feature-Event-Index]]
 ==== Indexing a event
 
 Gets the index a event based on its event name. If more than one event has the same name, the command will return all of them.
 Else if the event name is not found, it shows the event which has the most similar event name.
+
+[NOTE]
+Should always run this command before edit or delete event commands. As the index of a event CAN change while the application is running.
+For example, deleting another event will affect the index of other events.
 
 Format: `event indexOf/...`
 
@@ -1010,8 +1028,27 @@ The screenshot will be saved based on the current settings of your event schedul
 For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
 
 
-* `event screenshot` +
+* Example: `event screenshot` +
 Takes a screenshot of the current calendar and saves it into Printable folder.
+
+The following example demonstrates how to find the screenshot:
+
+*Step 1.* After executing the event screenshot command, the user should
+navigate to their current directory. An printable folder as shown in the image below should be created!
+
+image::EventPrintableLocation.png[]
+
+{nbsp} +
+*Step 2.* The png file should be named according to your schedule settings in the format VIEWMODE_TARGETDATE.png
+
+image::EventScreenshotFile.PNG[]
+
+{nbsp} +
+*Step 3.* Now you can share your calendar screenshot with others (or yourself)!
+
+image::EventScreenshotSample.PNG[]
+
+{nbsp} +
 
 ==== Viewing all events
 
@@ -1028,8 +1065,11 @@ The target date option must be specified in the following format: yyyy-mm-dd. E.
 
 Example:
 
-* `event view scheduleMode/weekly targetDate/2019-11-23` +
-Opens the calendar view in weekly mode with the target date 23 November 2019.
+* `event view scheduleMode/daily targetDate/2019-11-07` +
+Opens the calendar view in daily mode with the target date 7 November 2019.
+
+image::EventViewDailyMode.PNG[]
+_Viewing the calendar in daily mode with target date 7 November 2019_
 
 ==== Export all events
 
@@ -1050,6 +1090,23 @@ Example:
 
 * `event export` +
 Exports your events into the exports directory with file name nJoy_Schedule.ics
+
+The following example demonstrates how to find the export file:
+
+*Step 1.* After executing the event export command, the user should
+navigate to their current directory. An exports folder as shown in the image below should be created!
+
+image::EventExportLocation.png[]
+
+{nbsp} +
+*Step 2.* The file should be named nJoy_Schedule.ics inside the exports directory.
+
+image::EventExportFile.PNG[]
+
+{nbsp} +
+*Step 3.* Now you can import your events into other calendar applications with this ics file!
+
+{nbsp} +
 
 === Notes - `notes`
 

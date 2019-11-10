@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_EVENT_NAME_BACKSLASH;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
 import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
@@ -274,5 +275,33 @@ public class ParserUtil {
         } catch (DateTimeParseException ex) {
             throw new ParseException(MESSAGE_INVALID_DATE);
         }
+    }
+
+    /**
+     * Validates and format event name String and return if valid.
+     * @param eventName event name to be validated
+     * @return validated and formatted event name
+     */
+    public static String parseEventName(String eventName) throws ParseException {
+        requireNonNull(eventName);
+
+        if (hasBackSlash(eventName)) {
+            throw new ParseException(MESSAGE_EVENT_NAME_BACKSLASH);
+        }
+        return eventName.trim();
+    }
+
+    /**
+     * validates that a given string does not contain a backslash character
+     * @param toCheck string to be checked
+     * @return true if there is a backslash in the string
+     */
+    private static boolean hasBackSlash(String toCheck) {
+        for (int i = 0; i < toCheck.length(); i++) {
+            if (toCheck.charAt(i) == '\\') {
+                return true;
+            }
+        }
+        return false;
     }
 }
