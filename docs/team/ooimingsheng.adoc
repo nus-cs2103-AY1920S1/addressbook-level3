@@ -57,7 +57,7 @@ competitions can be very unprofessional and damaging to the reputation of the us
 * *Major enhancement 3*: added *the ability to give a ranking of the athletes using different ranking methods
 
 ** What it does: allows the user to list the participations in a selected competition in a sorted order
-as determined by the rank method (i.e. overall score or maximum weight lifted for a given exercise like
+as determined by the inputted rank method (i.e. overall score or maximum weight lifted for a given exercise like
 bench press or squat)
 
 ** Justification: This feature improves the product significantly as competitions are only relevant if we
@@ -74,7 +74,8 @@ for additional entities to be added should a developer require
 
 * *Minor enhancement*: Updated the user interface to support 3 different lists
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t11-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ooimingsheng&tabRepo=AY1920S1-CS2103-T11-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ooimingsheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]] _
 
 * *Other contributions*:
 
@@ -209,7 +210,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
 
@@ -329,23 +331,86 @@ When you are ready to start coding:
 
 
 
+== Design
+
+This section documents the design and interaction of components in Powerlifting Competition Coordinator.
+Please take a moment to understand the different components before making any code changes.
+
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the System data.
+* exposes unmodifiable `ObservableList<Person>`, `ObservableList<Competition>` and `ObservableList<Participation>`
+that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the
+data in the list change.
+* exposes a Session class to handle the context switching between in and out of competition sessions.
+* does not depend on any of the other three components.
+
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the `Person`, `Competition`, `Participation` data in json format and read it back.
 
 
 
+== Implementation
 
+This section describes some noteworthy details on how certain features are implemented.
 
+==== Ranklist feature
+A RanklistCommand class is created to facilitate ranking of all the participants for a given competition that is
+currently ongoing (i.e. in-session). The ranking can be altered depending on the ranking method chosen by the user.
+This provides the user a variety of ranking methods to suit the user's need during a powerlifting competition.
+Typically, a powerlifting competition usually provides rankings for their participants based either on their overall
+score or the maximum weight lifted for a particular lift.
 
+===== Implementation
+RankCommand extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern`
+sub-section of the Ranklist feature.
 
+Rank feature has 1 check:
+1. Checks if a competition session is ongoing, Ranklist command can only be used if a competition session
+is currently ongoing.
 
+Finally, the feature returns a listing of the athletes based on the ranking method provided. For example,
 
+ Ranking of athletes by overall score in competition NUS Powerlifting Open 2019:
+1. Alex Yeoh (Score: 100)
+2. Bernice Yu (Score: 97)
+3. Charlotte Oliveiro (Score: 2)
 
+When the Ranklist feature is used, RankCommand interacts with other classes to return a participant's score for
+a given ranking method before sorting the list and displaying it on the screen as seen above. Please refer to the
+sequence diagram for a high level depiction of how RanklistCommand interacts with other classes.
 
+.Sequence Diagram of the RanklistCommand
+image::RanklistCommand.png[]
 
+===== Choice of Design Pattern
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
+without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
+a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class.
 
-
-
-
-
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
+we decide to apply the Command Design Pattern for the Ranklist command too.
 
 
 [appendix]

@@ -46,7 +46,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(persons, userPrefs);
 
-        logger.fine("Initializing with address book: " + persons + " and user prefs " + userPrefs);
+        logger.fine("Initializing system with user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
         this.persons = new Data<>(persons);
