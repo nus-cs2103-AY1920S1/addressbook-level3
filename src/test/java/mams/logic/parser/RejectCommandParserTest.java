@@ -6,10 +6,11 @@ import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 
+import org.junit.jupiter.api.Test;
+
 import mams.commons.core.index.Index;
 import mams.logic.commands.Reject;
 import mams.logic.commands.RejectCommand;
-import org.junit.jupiter.api.Test;
 
 public class RejectCommandParserTest {
 

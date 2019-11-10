@@ -12,13 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
 import mams.model.appeal.Appeal;
-import org.junit.jupiter.api.Test;
 
 public class RejectCommandTest {
 

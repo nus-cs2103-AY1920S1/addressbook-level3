@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
