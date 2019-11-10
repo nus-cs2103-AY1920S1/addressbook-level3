@@ -771,21 +771,23 @@ image::ItinerarySort2.png[]
 == Address Book
 
 You are heading to a different country for a trip this holiday and you want to let your friends in other countries know
-that you are coming over. The troubles of managing contacts from many different countries can be overwhelming with a
+that you are coming over. The trouble of managing contacts from many different countries can be overwhelming with a
 large number of contacts. Looking for a better contacts management application?
 
-_TravEzy_ is the better contact management you are looking for. _TrazvEzy_ allows you to add your contacts information
-specifying your contact's country. How does _TravEzy_ do it? Read on to find our more.
+_TravEzy_ is definitely the application you are looking for. _TrazvEzy_ allows you to add your contact information
+specifying your contact's country. How does _TravEzy_ do that? Read on to find our more...
 
 === Interface
 
-Navigating around the address book page:
+Navigating around the address book page: +
 
 image::AddressBookInterface.png[width=800]
 
 === Adding a person: `add`
 
 Met a new friend in a new foreign country during your holiday trip? Add him / her to your _TravEzy_ address book.
+_TravEzy_ address book is different from other address book by allowing you to add a country field beside your contact
+information.
 
 *Format:* +
 `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [r/REMARK][c/COUNTRY]`
@@ -846,18 +848,19 @@ See everyone in your address book with one command!
 
 Step 1. Type `list` in the _command box_ and click _Enter_.
 
-image::AddressBookList1.png[wdith=600]
+image::AddressBookList1.png[width=600]
 
-Step 2. See the overview of your contact information in the _persons list panel_
+Step 2. See an overview of your contact information in the _persons list panel_
 
 Step 3. The _result box_ will also display a message that all your contact information has been listed.
 
 image::AddressBookList2.png[width=600]
+image::AddressBookList2.png[width=600]
 
 === Editing a person : `edit`
 
-Oh no, you have added a wrong contact into the address book! Edit all your contact information in the address book
-inside _TravEzy_.
+Oh no, you have added a wrong contact information into the address book! Edit all your contact information in the address book
+inside _TravEzy_ is easy by specifying a field of the contact information you want to edit.
 
 *Format:* +
 `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [r/REMARK] [c/COUNTRY]`
@@ -902,16 +905,17 @@ Step 1. Type `edit7 p/9082373645` to edit Alice's phone number to reflect the co
 
 image::AddressBookEdit1.png[width=600]
 
-Step 2. The _persons list panel_ will now display the updated information for Alice after the edit
+Step 2. The _persons list panel_ will now display the updated information for Alice after the edit.
 
 Step 3. The _result box_ will display a message that the person has been edited if successful.
 
-image::AddressBookEdit2.png[wdith=600]
+image::AddressBookEdit2.png[width=600]
 
 
 === Locating persons by name: `find`
 
-Your address book have many contacts and you would need to have a way to find your contacts information with keywords. +
+Too many contacts in your address book? _TravEzy_ address book provides a simple way to find your contact information
+with keywords. How about let _TravEzy_ address book do the finding for you! +
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -924,7 +928,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
  +
  Only full words will be matched e.g. `Han` will not match `Hans` +
 [TIP]
-Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`,
+`Bo Yang`
 
 Examples:
 ****
@@ -938,13 +943,13 @@ Examples:
 
 ****
 
-*Step by Step*
+*Step by Step:*
 
 Step 1. Type `find Alice` in the _command box_ and click _Enter_
 
 image::AddressBookFind1.png[width=600]
 
-Step 2. The found results will be displayed at the _persons list panel_.
+Step 2. The results found will be displayed at the _persons list panel_.
 
 Step 3. The _result box_ will also display a message to indicate the number of matching results found.
 
@@ -952,7 +957,8 @@ image::AddressBookFind2.png[width=600]
 
 === Deleting a person : `delete`
 
-While organizing your _TravEzy_ address book, you want to clear your old contacts.
+Make your address book neat and organized! Clear off any old and unused contact information. _Travezy_ address book
+application allows you to delete your old contact information. Time to make your address book look pretty and neat!
 
 *Format:* +
  `delete INDEX`
@@ -991,7 +997,8 @@ image::AddressbookDelete2.png[width=600]
 // end::delete[]
 === Clearing all entries : `clear`
 
-Your address book is in a mess, and you would like to clear all exisiting entries in the address book and restart from scratch +
+Restarting your address book from scratch? Rather than deleting your contacts one by one, start with a fresh new address
+book by clearing all existing contact entries.  +
 
 Format: +
 `clear`
