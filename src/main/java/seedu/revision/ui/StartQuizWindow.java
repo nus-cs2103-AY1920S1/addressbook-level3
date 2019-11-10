@@ -108,7 +108,7 @@ public class StartQuizWindow extends ParentWindow {
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, false);

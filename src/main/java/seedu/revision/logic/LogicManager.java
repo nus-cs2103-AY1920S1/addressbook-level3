@@ -17,7 +17,6 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyHistory;
-import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.quiz.Statistics;
 import seedu.revision.storage.Storage;
@@ -79,11 +78,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyRevisionTool getAddressBook() {
-        return model.getRevisionTool();
-    }
-
-    @Override
     public ReadOnlyHistory getHistory() {
         return model.getHistory();
     }
@@ -118,7 +112,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getRevisionToolFilePath() {
         return model.getRevisionToolFilePath();
     }
 

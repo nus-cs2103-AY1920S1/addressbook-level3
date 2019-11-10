@@ -52,7 +52,7 @@ of many of the other features.
 ** *What it does*: After entering quiz mode, the driver parses user input, determines whether the answer is correct and displays the next question. At the end of each level and the entire quiz, the user is shown his/her score and given the choice to continue (i.e. proceed to the next level or restart) or exit the quiz.
 ** *Justification*: This essential feature is the core of the application and allows other features to be built upon it. Furthermore, it significantly improves the product as it adds the element of interaction to the application.
 ** *Highlights*: This enhancement required the deep understanding of the entire project structure as it can be considered the nervous system that connects the application from UI to Storage. Other functionality such as answering MCQs, True & False or Short-Answer Questions (SAQ) were built upon this feature.
-** Credits: Code for the GUI display was adapted from Address Book – Level 3
+** Credits: Code for the GUI display was adapted from Address Book – Level 3 and the structure for GUI tests was adapted from Address Book - Level 4.
 
 * *Minor enhancements*:
 ** Created the Normal and Arcade mode for the quiz. In Arcade Mode, each level has increasing difficulty and a shorter time limit, whenever a user gets a question wrong, the quiz ends and the user has to restart.
