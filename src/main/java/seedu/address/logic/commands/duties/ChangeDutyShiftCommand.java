@@ -31,7 +31,8 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_START + "02/12/19 0900 "
             + PREFIX_END + "02/12/19 2100";
 
-    public static final String MESSAGE_SUCCESS = "The duty shift has changed to %1$s";
+    public static final String MESSAGE_SUCCESS = "The duty shift for [%1$s] %2$s has been changed:\n"
+            + "from %3$s to %4$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -56,14 +57,19 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
         }
 
         model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(editedEvent.getPersonId()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+        return new CommandResult(String.format(
+                MESSAGE_SUCCESS,
+                editedEvent.getPersonId(),
+                editedEvent.getPersonName(),
+                eventToEdit.getEventTiming(),
+                editedEvent.getEventTiming()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ChangeDutyShiftCommand // instanceof handles nulls
-                && editedEvent.equals(((ChangeDutyShiftCommand) other).editedEvent));
+                && editedEvent.equals(((ChangeDutyShiftCommand) other).editedEvent.getEventTiming()));
     }
 
 }

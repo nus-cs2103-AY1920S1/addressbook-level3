@@ -24,8 +24,10 @@ public class CancelAppCommand extends ReversibleCommand {
             + "Parameters: INDEX (positive integer)\n"
             + "need to go to patient's appointment list first\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "appointment cancelled: %1$s";
-    public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s repeated appointments cancelled: \n%2$s";
+    public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "The appointment for [%1$s] %2$s "
+            + "was cancelled:\n%3$s";
+    public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s reoccurring appointments for [%2$s]"
+            + " %3$s were cancelled:\n%4$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS =
             "Must indicate at least 1 appointment to delete";
 
@@ -53,7 +55,11 @@ public class CancelAppCommand extends ReversibleCommand {
             checkHasEvent(model, toDelete);
             model.deleteAppointment(toDelete);
             model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(toDelete.getPersonId()));
-            return new CommandResult(String.format(MESSAGE_CANCEL_APPOINTMENT_SUCCESS, toDelete));
+            return new CommandResult(String.format(
+                    MESSAGE_CANCEL_APPOINTMENT_SUCCESS,
+                    toDelete.getPersonId(),
+                    toDelete.getPersonName(),
+                    toDelete.getEventTiming()));
         }
 
         for (Event e : eventList) {
@@ -65,11 +71,14 @@ public class CancelAppCommand extends ReversibleCommand {
         return new CommandResult(String.format(
                 MESSAGE_CANCEL_APPOINTMENTS_SUCCESS,
                 eventList.size(),
+                eventList.get(0).getPersonId(),
+                eventList.get(0).getPersonName(),
                 eventList.stream()
-                        .map(e -> e.toString()).collect(Collectors.joining("\n"))));
+                        .map(e -> e.getEventTiming().toString()).collect(Collectors.joining("\n"))));
     }
 
     //@@author SakuraBlossom
+
     /**
      * Checks if the given {@code eventToDelete} exist in the appointment book.
      */

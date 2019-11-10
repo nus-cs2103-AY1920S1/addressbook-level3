@@ -18,37 +18,37 @@ By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than GUI apps.
+This desktop application is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It enables clerks to rapidly manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than Graphical User Interface (GUI) apps.
 
+// tag::ui[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `ClerkPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for ClerkPro.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The User Interface (UI) should appear in a few seconds.
 +
-image::Ui.png[width="100%"]
+image::Ui.png[]
 +
 . You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 . The figure below shows the layout.
 +
-image::Layout.PNG[width="100%"]
+image::Layout.png[]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
+e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
-
 
 * `register -id E0000001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
 * `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
-* *`exit`* : exits the app.
+* `exit` : exits the application.
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 
 == Features
-// tag::ui[]
+
 ====
 *AutoComplete & History*
 
@@ -172,7 +172,7 @@ Format: `dequeue <QUEUE_INDEX>`
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
-Assigns the next patient in the queue to a doctor.. +
+Assigns the next patient in the queue to a doctor. +
 
 Format: `next <ENTRY_ID>`
 
@@ -203,18 +203,18 @@ Schedules a new appointments for a patient. +
 NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 e.g. Cannot schedule more appointments than available doctors on duty.
 
-If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+If both `-reoccur <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
 appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
 
 If the optional field `[-end <END_TIMING>]` is absent, default end timing is 30 mins after start timing of the appointment. Otherwise, end Timing will be `[-end <END_TIMING>]`. +
 
-The optional field `[-rec <INTERVALS>]` can be `-rec w`, `-rec m`, or `-rec y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+The optional field `[-reoccur <INTERVALS>]` can be `-reoccur w`, `-reoccur m`, or `-reoccur y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
 
-Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 
 ==== Acknowledges a appointment: `ackappt` ====
 
-Acknowledges an existing appointment once the patient has arrived +
+Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
 Format: `ackappt <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====
@@ -271,10 +271,10 @@ Format: `shifts [<REFERENCE_ID>]`
 ==== Adds a duty shift for a doctor: `newshift` ====
 
 Adds a new duty shift for a doctor. +
-If both -rec <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
+If both -reoccur <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
 Otherwise, only one shift will be added. +
 
-Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
+Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur REOCCURRING -num REOCCURRING_TIMES]`
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -382,7 +382,7 @@ Format: `redo`
 
 * *Appointment Management* +
 ** Search for appointments: `appointments [<REFERENCE_ID>]`
-** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 ** Edit appointment: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 ** Cancel appointment: `cancelappt <ENTRY_ID>`
 ** Acknowledge arrival of patient for appointment: `ackappt <REFERENCE_ID>`
@@ -391,7 +391,7 @@ Format: `redo`
 
 * *Duty-shift Management* +
 ** Search for shift: `shifts [<REFERENCE_ID>]`
-** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 ** Change shift: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 ** Cancel shift: `cancelshift <ENTRY_ID>`
 

@@ -62,6 +62,17 @@ public class Timing implements Comparable<Timing> {
         return testStart.getTime().isAfter(LocalDateTime.now());
     }
 
+    //timing is before endtime and after opening time
+    //have the event timing, ca ack only when current time is on that day.
+    /**
+     * Returns true if current time and appointment's timing os on the same date and before endTiming.
+     */
+    public static boolean isTheSameDayToAck(Timing timing) {
+        LocalDateTime openTimeOnThatDay = timing.getStartTime().getTime().withHour(0).withMinute(0);
+        LocalDateTime current = LocalDateTime.now();
+        return current.isAfter(openTimeOnThatDay) && current.isBefore(timing.getEndTime().getTime());
+    }
+
     public DateTime getStartTime() {
         return startTiming;
     }

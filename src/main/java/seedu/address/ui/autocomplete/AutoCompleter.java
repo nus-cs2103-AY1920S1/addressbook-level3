@@ -46,8 +46,8 @@ public class AutoCompleter {
             Map.entry("editshift", Set.of("-entry", "-start", "-end")),
             Map.entry("editdoctor", Set.of("-entry", "-id", "-name", "-phone", "-address", "-email")),
             Map.entry("editpatient", Set.of("-entry", "-id", "-name", "-phone", "-address", "-tag", "-email")),
-            Map.entry("newappt", Set.of("-id", "-rec", "-num", "-start", "-end")),
-            Map.entry("newshift", Set.of("-id", "-rec", "-num", "-start", "-end")),
+            Map.entry("newappt", Set.of("-id", "-reoccur", "-num", "-start", "-end")),
+            Map.entry("newshift", Set.of("-id", "-reoccur", "-num", "-start", "-end")),
             Map.entry("newdoctor", Set.of("-id", "-name", "-phone", "-address", "-email")),
             Map.entry("newpatient", Set.of("-id", "-name", "-phone", "-address", "-tag", "-email"))
     );
