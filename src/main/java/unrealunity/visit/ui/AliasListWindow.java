@@ -1,13 +1,13 @@
 package unrealunity.visit.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import unrealunity.visit.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Window containing the list of existing user-defined aliases.
