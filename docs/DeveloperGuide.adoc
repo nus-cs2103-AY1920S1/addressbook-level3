@@ -287,7 +287,7 @@ Here is where the Command pattern comes in. A class extending `UndoableCommand` 
 ``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
 
 ===== Defensive programming
-When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of ModelManager` respectively.
+When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of `ModelManager` respectively.
 Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
 To defend against improper undoing or redoing, an `UndoableCommand` will not be added to a CommandHistory list unless it has been executed or undone before.
 Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.

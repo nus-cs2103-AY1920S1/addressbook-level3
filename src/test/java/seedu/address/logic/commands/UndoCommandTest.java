@@ -36,7 +36,7 @@ class UndoCommandTest {
         updateCommand.execute(model);
 
         UndoCommand undoCommand = new UndoCommand();
-        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, body);
+        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);

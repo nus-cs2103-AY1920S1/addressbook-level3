@@ -36,7 +36,7 @@ class RedoCommandTest {
         undoCommand.execute(model);
 
         RedoCommand redoCommand = new RedoCommand();
-        String expectedMessage = String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+        String expectedMessage = String.format(MESSAGE_UPDATE_ENTITY_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.addEntity(body);
