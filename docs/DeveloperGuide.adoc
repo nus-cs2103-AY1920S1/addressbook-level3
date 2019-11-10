@@ -508,6 +508,9 @@ on the current context.
 ** Cons: Every single universal command would have to be checked repeatedly in each context-specific parser.
 
 ===== Aspect: Changing of User Interface
+* **Current:** Ui changed depending on
+** Pros: Will only need 1 method signature to change the display of User Interface.
+** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
 * **Alternative:**
 ** Pros: Will only need 1 method signature to change the display of User Interface.
 ** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
