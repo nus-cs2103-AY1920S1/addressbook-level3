@@ -26,6 +26,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sheryltay28&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tp code dashboard]]
 
 ** Project management:
+*** Managed releases `v1.1 - v1.3` (4 releases) on GitHub
 ** Gave comments to other people in the group before merging pr.
 ** Enhancements to existing features:
 ** Fixed exit issues for the app (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/183)
