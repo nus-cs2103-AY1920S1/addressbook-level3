@@ -327,13 +327,6 @@ public class ItemModelManager implements ItemModel {
      */
     public void replaceItem(Item item, Item newItem) {
         int index = visualList.indexOf(item);
-        if (index >= 0) {
-            if (visualList.belongToList(newItem)) {
-                visualList.setItem(index, newItem);
-            } else {
-                visualList.remove(index);
-            }
-        }
 
         if ((index = itemStorage.indexOf(item)) >= 0) {
             itemStorage.setItem(index, newItem);
@@ -366,6 +359,7 @@ public class ItemModelManager implements ItemModel {
         }
 
         System.out.println("Boo");
+        System.out.println(reminderList.indexOf(item));
         if ((index = reminderList.indexOf(item)) >= 0) {
             if (newItem.hasReminder()) {
                 reminderList.setItem(index, newItem);
@@ -373,8 +367,8 @@ public class ItemModelManager implements ItemModel {
                 reminderList.remove(index);
             }
 
-            //Need to check in both active and future if it exists
-            //
+            System.out.println("Help");
+
             if (!item.getReminder().equals(newItem.getReminder())) {
                 System.out.println("Hello?");
                 if (newItem.getReminder().isEmpty()) {
@@ -410,6 +404,15 @@ public class ItemModelManager implements ItemModel {
                         //Otherwise do not add
                     }
                 }
+            }
+        }
+
+        System.out.println(index);
+        if (index >= 0) {
+            if (visualList.belongToList(newItem)) {
+                visualList.setItem(index, newItem);
+            } else {
+                visualList.remove(index);
             }
         }
 
@@ -466,6 +469,7 @@ public class ItemModelManager implements ItemModel {
         eventList.clear();
         reminderList.clear();
         calendarList.clear();
+        futureReminders.clear();
     }
 
     /**
