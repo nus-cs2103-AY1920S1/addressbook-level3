@@ -111,7 +111,7 @@ public class ItineraryPage extends UiPart<VBox> implements Page {
         this.codeWindow = new CodeWindow();
 
         fillInnerParts();
-        this.clearCommandWindow = new ClearCommandWindow();
+        this.clearCommandWindow = new ClearCommandWindow(itineraryLogic);
     }
 
     /**

@@ -23,7 +23,6 @@ public class ClearEventCommand extends Command<Model> {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        model.clearEvent();
         return new CommandResult(MESSAGE_WARNING, true);
     }
 

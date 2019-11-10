@@ -10,7 +10,7 @@
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
-:warning-caption: ⚠️ 
+:warning-caption: ⚠️
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://ay1920s1-cs2103t-t17-2.github.io/main/
@@ -115,7 +115,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 
 | _italics_
 | Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
- 
+
 | ``command``
 | A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks to make travel easier for you
 
@@ -128,12 +128,12 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | ``[m/MONTH]``
 | Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
-| 💡  
+| 💡
 | A light bulb indicates that the enclosed text is a tip.
 
-| ⚠️  
+| ⚠️
 | A warning sign indicates that enclosed text is important.
- 
+
 |===
 
 
@@ -770,111 +770,251 @@ image::ItinerarySort2.png[]
 
 == Address Book
 
-Helps you to keep track of your friends’ contact information from different countries.
+You are heading to a different country for a trip this holiday and you want to let your friends in other countries know
+that you are coming over. The troubles of managing contacts from many different countries can be overwhelming with a
+large number of contacts. Looking for a better contacts management application?
 
-=== Viewing help : `help`
+_TravEzy_ is the better contact management you are looking for. _TrazvEzy_ allows you to add your contacts information
+specifying your contact's country. How does _TravEzy_ do it? Read on to find our more.
 
-Format: `help`
+=== Interface
+
+Navigating around the address book page:
+
+image::AddressBookInterface.png[width=800]
 
 === Adding a person: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [r/REMARK][c/COUNTRY]`
+Met a new friend in a new foreign country during your holiday trip? Add him / her to your _TravEzy_ address book.
+
+*Format:* +
+`add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [r/REMARK][c/COUNTRY]`
+
+[WARNING]
+Address Book does not allow duplicate contacts. A person should not have the same `NAME`, `PHONE` and `EMAIL`
 
 [TIP]
+Tags are useful ways to categorize your contacts. For example, tag a person with: +
+ +
+`add n/Alice p/918273645 e/alice@example.com t/friend`,
+the `t/` prefix is used for tagging. +
+ +
 A person can have any number of tags (including 0)
 
-Examples:
+*Examples:*
+****
+* To add a person into the address book,
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal r/Best friend c/Singapore`
+    add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
+
+* To add a person into the address book specifying a tag and country,
+
+    add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal r/Best friend c/Singapore
+
+****
+
+*Step by Step:*
+
+Step 1. Type `add n/Alice p/918273645 e/alice@example.com a/566,Yishun Ring Road, #14-113` in the _command box_ and
+click _Enter_.
+
+image::AddressBookAdd1.png[width=600]
+
+Step 2. In the _persons list panel_, you can now see that Alice has been added into the address book.
+
+Step 3. The _result box_ will also display a message that your contact has been added.
+
+image::AddressBookAdd2.png[width=600]
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
-Shows a list of all persons in the address book. +
-Format: `list`
+After adding your contacts, you may want to see an overview of your contact information in the address book.
+See everyone in your address book with one command!
+
+*Format:* +
+`list`
+
+****
+*Examples:*
+
+* To list your contacts,
+
+    list
+****
+
+*Step by Step:*
+
+Step 1. Type `list` in the _command box_ and click _Enter_.
+
+image::AddressBookList1.png[wdith=600]
+
+Step 2. See the overview of your contact information in the _persons list panel_
+
+Step 3. The _result box_ will also display a message that all your contact information has been listed.
+
+image::AddressBookList2.png[width=600]
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [r/REMARK] [c/COUNTRY]`
+Oh no, you have added a wrong contact into the address book! Edit all your contact information in the address book
+inside _TravEzy_.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* You can remove the person's remark by typing `r/` without specifying any remark after it.
-* You can remove the person's country by typing `c/` without specifying any country after it.
+*Format:* +
+`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG] [r/REMARK] [c/COUNTRY]`
+
+[WARNING]
+Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ... +
+ +
+At least one of the optional fields must be provided. +
+ +
+ Existing values will be updated to the input values. +
+ +
+When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+
+[TIP]
+ You can remove all the person's tags by typing `t/` without specifying any tags after it. +
+ +
+ You can remove the person's remark by typing `r/` without specifying any remark after it. +
+ +
+ You can remove the person's country by typing `c/` without specifying any country after it.
 
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-* `edit 3 n/Alexander Bell c/` +
-Clear the country of the 3rd person to be `Alexander Bell`.
+* To edit a 1st person's phone number and email address to be `91234567` and `johndoe@example.com` respectively. +
+
+    edit 1 p/91234567 e/johndoe@example.com
+
+* To edit the name of the 2nd person to be `Betsy Crower` and clears all exisiting tags.
+
+    edit 2 n/Betsy Crower t/
+
+* To edit the name of the 3rd person to be `Alexander Bell` and clears all existing country information.
+
+    edit 3 n/Alexander Bell c/
+
+****
+
+*Step by Step:*
+
+Step 1. Type `edit7 p/9082373645` to edit Alice's phone number to reflect the correct phone number `908237645`
+
+image::AddressBookEdit1.png[width=600]
+
+Step 2. The _persons list panel_ will now display the updated information for Alice after the edit
+
+Step 3. The _result box_ will display a message that the person has been edited if successful.
+
+image::AddressBookEdit2.png[wdith=600]
+
 
 === Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
+Your address book have many contacts and you would need to have a way to find your contacts information with keywords. +
+
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+[WARNING]
+ The search is case insensitive. e.g `hans` will match `Hans` +
+ +
+ The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans` +
+ +
+ Only the name is searched. +
+ +
+ Only full words will be matched e.g. `Han` will not match `Hans` +
+[TIP]
+Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
+****
+* To find `John`,
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+    find John
 
-// tag::delete[]
+* To return any person having names `Besty`, `Time` or `John`,
+
+    find Betsy Tim John
+
+****
+
+*Step by Step*
+
+Step 1. Type `find Alice` in the _command box_ and click _Enter_
+
+image::AddressBookFind1.png[width=600]
+
+Step 2. The found results will be displayed at the _persons list panel_.
+
+Step 3. The _result box_ will also display a message to indicate the number of matching results found.
+
+image::AddressBookFind2.png[width=600]
+
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+While organizing your _TravEzy_ address book, you want to clear your old contacts.
+
+*Format:* +
+ `delete INDEX`
+
+[WARNING]
+The index refers to the index number shown in the displayed person list. +
+ +
+The index *must be a positive integer* 1, 2, 3, ...
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* Delete the 2nd person in the address book. +
+
+    delete 2
+
+* Deletes the 1st person in the results of the `find` command. +
+
+    find Betsy
+    delete 1
+
+****
+
+*Step By Step:*
+
+Step 1. Type `delete 7` in the _command box_ and click _Enter_
+
+image::AddressBookDelete1.png[width=600]
+
+Step 2. The _persons list panel_ will display the updated address book after deleting the specified contact
+
+Step 3. The _result box_ will also display a message to notify that the person has been deleted from the contact book.
+
+image::AddressbookDelete2.png[width=600]
 
 // end::delete[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+Your address book is in a mess, and you would like to clear all exisiting entries in the address book and restart from scratch +
 
-=== Exiting the program : `exit`
+Format: +
+`clear`
 
-Exits the program. +
-Format: `exit`
+[WARNING]
+You will not be able to undo this operation. Think twice before entering this command!
+
+*Step by step:*
+
+Step 1. Type `clear` into the _command box_ and click _Enter_
+
+image::AddressBookClear1.png[width=600]
+
+Step 2. The _persons list panel_ is now cleared. You will see an empty _persons list panel_.
+
+Step 3. The _result box_ will display a message that tells you that the address book has been cleared.
+
+image::AddressBookClear2.png[width=600]
 
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
+
 There is no need to save manually.
 
 == Financial Tracker
@@ -1610,3 +1750,4 @@ NUS trips: +
 
 ``selectSoc``   : select a certain society to load trips
 
+== Glossary
