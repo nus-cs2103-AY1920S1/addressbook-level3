@@ -17,11 +17,6 @@ import seedu.address.testutil.BudgetBuilder;
 public class BudgetTest {
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Budget budget = new BudgetBuilder().build();
-    }
-
-    @Test
     public void isSameBudget() {
         // same object -> returns true
         assertTrue(KOREA.isSameBudget(KOREA));
