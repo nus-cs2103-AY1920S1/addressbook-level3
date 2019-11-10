@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
  */
 public class Title {
 
-    public static final String MESSAGE_CONSTRAINTS = "Faculty should only contain characters,"
-            + " there " + "should not be special characters and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Title should contain words,"
+            + " there " + "should not have special characters and it should not left blank.";
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String title;

@@ -1,0 +1,17 @@
+{
+  "modules" : [ {
+    "moduleCode" : "CS2103",
+    "title" : "Software Engineering",
+    "semester" : "1819S1",
+    "credit" : "4",
+    "faculty" : "Computing",
+    "grade" : "A"
+  }, {
+    "moduleCode" : "CS2103",
+    "title" : "Software Engineering",
+    "semester" : "1819S1",
+    "credit" : "4",
+    "faculty" : "Computing",
+    "grade" : "A"
+  }]
+}

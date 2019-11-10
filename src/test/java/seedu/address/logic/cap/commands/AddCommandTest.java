@@ -14,9 +14,9 @@ import java.util.function.Predicate;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.CapLog;
@@ -26,8 +26,6 @@ import seedu.address.model.cap.ReadOnlyUserPrefs;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 import seedu.address.testutil.ModuleBuilder;
-
-
 
 public class AddCommandTest {
 
@@ -131,6 +129,16 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyCapLog getCapLog() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public FilteredList<Module> getFilteredListbyTime() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSortedList() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import seedu.address.model.cap.person.AcademicYear;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
 import seedu.address.model.cap.person.Semester;
@@ -19,10 +18,7 @@ public class ModuleBuilder {
     private static final String DEFAULT_TITLE = "Software Engineering";
     private static final String DEFAULT_ACADEMIC_YEAR = "1920";
     private static final int DEFAULT_SEMESTER_PERIOD = 1;
-    private static final String DEFAULT_DESCRIPTION = "This module introduces the necessary conceptual and analytical "
-            + "tools for systematic and rigorous development of software systems. ";
     private static final int DEFAULT_CREDIT = 4;
-    private static final String DEFAULT_FACULTY = "Computing";
     private static final String DEFAULT_GRADE = "A";
 
     private ModuleCode moduleCode;
@@ -31,7 +27,6 @@ public class ModuleBuilder {
     private AcademicYear academicYear;
     private SemesterPeriod semesterPeriod;
     private Credit credit;
-    private Faculty faculty;
     private Grade grade;
 
     public ModuleBuilder() {
@@ -41,7 +36,6 @@ public class ModuleBuilder {
         semesterPeriod = new SemesterPeriod(DEFAULT_SEMESTER_PERIOD);
         semester = new Semester(semesterPeriod, academicYear);
         credit = new Credit(DEFAULT_CREDIT);
-        faculty = new Faculty(DEFAULT_FACULTY);
         grade = new Grade(DEFAULT_GRADE);
     }
 
@@ -55,7 +49,6 @@ public class ModuleBuilder {
         semesterPeriod = moduleToCopy.getSemester().getSemesterPeriod();
         semester = moduleToCopy.getSemester();
         credit = moduleToCopy.getCredit();
-        faculty = moduleToCopy.getFaculty();
         grade = moduleToCopy.getGrade();
     }
 
@@ -108,14 +101,6 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Faculty} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withFaculty(String faculty) {
-        this.faculty = new Faculty(faculty);
-        return this;
-    }
-
-    /**
      * Sets the {@code Grade} of the {@code Module} that we are building.
      */
     public ModuleBuilder withGrade(String grade) {
@@ -127,6 +112,6 @@ public class ModuleBuilder {
      * Initiates the build of a module.
      */
     public Module build() {
-        return new Module(moduleCode, title, semester, credit, faculty, grade);
+        return new Module(moduleCode, title, semester, credit, grade);
     }
 }

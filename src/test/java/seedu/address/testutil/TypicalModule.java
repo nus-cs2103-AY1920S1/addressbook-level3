@@ -14,40 +14,35 @@ import seedu.address.model.common.Module;
 public class TypicalModule {
 
     public static final Module CS2103 = new ModuleBuilder().withModuleCode("CS2103")
-            .withModuleTitle("Software Programming")
+            .withModuleTitle("Software Engineering")
             .withSemester("1920", 1)
             .withCredit(4)
-            .withFaculty("Computing")
             .withGrade("A").build();
     public static final Module CS2100 = new ModuleBuilder().withModuleCode("CS2100")
             .withModuleTitle("Computer Organisation")
             .withSemester("1920", 1)
-            .withFaculty("Computing")
             .withCredit(4)
             .withGrade("A").build();
     public static final Module CS2101 = new ModuleBuilder().withModuleCode("CS2101")
             .withModuleTitle("Effective Communication for Computing Professionals")
             .withSemester("1920", 1)
-            .withFaculty("Computing")
             .withCredit(4)
-            .withGrade("A-").build();
+            .withGrade("B").build();
     public static final Module CS3226 = new ModuleBuilder().withModuleCode("CS3226")
             .withSemester("1920", 2)
             .withModuleTitle("Web Programming and Applications")
             .withGrade("A-")
-            .withFaculty("Computing")
             .withCredit(4).build();
     public static final Module CS3233 = new ModuleBuilder().withModuleCode("CS3233")
             .withSemester("2021", 2)
-            .withFaculty("Computing")
             .withCredit(4)
-            .withGrade("A-")
+            .withGrade("B+")
             .withModuleTitle("Competitive Programming").build();
 
     private TypicalModule() {} // prevents instantiation
 
     /**
-     * Returns an {@ModuleCode CalendarAddressBook} with all the typical s.
+     * Returns a {@ModuleCode CapLog} with all the typical modules.
      */
     public static CapLog getTypicalCapLog() {
         CapLog capLog = new CapLog();
