@@ -9,17 +9,17 @@
    <children>
       <AnchorPane fx:id="anchorPane" onMouseClicked="#handleEnterDay" prefHeight="133.3333" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="destinationLabel" style="-fx-text-fill: grey; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Label fx:id="destinationLabel" style="-fx-background-color: white; -fx-text-fill: black;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Destination" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label fx:id="indexLabel" style="-fx-text-fill: black; -fx-font-weight: bold; -fx-font-size: 25;" styleClass="IndexLabel" stylesheets="@days.css" text="\$Index" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="indexLabel" style="-fx-background-color: white; -fx-text-fill: black;" styleClass="IndexLabel" stylesheets="@days.css" text="\$Index" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
-            <Label fx:id="dateLabel" layoutY="36.0" style="-fx-text-fill: grey; -fx-font-size: 25;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Date" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="61.333333333334" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="36.0">
+            <Label fx:id="dateLabel" layoutY="36.0" prefHeight="36.0" prefWidth="200.0" style="-fx-background-color: white; -fx-text-fill: black;" styleClass="DestinationLabel" stylesheets="@days.css" text="\$Date" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="36.0">
                <font>
                   <Font size="26.0" />
                </font>

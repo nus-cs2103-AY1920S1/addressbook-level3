@@ -110,19 +110,18 @@ public class EventList extends ConsecutiveOccurrenceList<Event> {
             throw new EventNotFoundException();
         }
 
-        Event event = internalList.remove(index);
-
-        boolean hasSameEventName = IntStream.range(0, internalList.size())
+        boolean hasSameEventName = IntStream.range(0, internalList.size()).filter(i -> i != index)
                 .anyMatch(i -> internalList.get(i).hasSameName(edited));
 
+        boolean hasClashingEvent = IntStream.range(0, internalList.size()).filter(i -> i != index)
+                .anyMatch(i -> internalList.get(i).isClashingWith(edited));
+
         if (hasSameEventName) {
-            internalList.add(event);
             throw new DuplicatedEventNameException();
-        } else if (containsClashing(edited)) {
-            internalList.add(event);
+        } else if (hasClashingEvent) {
             throw new ClashingEventException();
         } else {
-            internalList.add(edited);
+            internalList.set(index, edited);
         }
     }
 

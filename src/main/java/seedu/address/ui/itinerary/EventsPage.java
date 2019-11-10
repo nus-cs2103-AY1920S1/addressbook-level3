@@ -35,6 +35,7 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     @FXML
     private ListView<Event> eventListView;
 
+    @FXML
     private Label inventoryLabel;
 
     @FXML
