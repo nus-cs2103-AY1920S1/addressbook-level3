@@ -4,47 +4,71 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ProjectDashboardParser" as ProjectDashboardParser LOGIC_COLOR
-participant "GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
+participant "getStatsCommand:GetStatisticsCommand" as GetStatisticsCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Statistics" as Statistics MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
+participant "stats:Statistics" as Statistics MODEL_COLOR
 end box
 
-[-> LogicManager : execute(get-task-stats)
+[-> LogicManager : execute(task-stats)
 activate LogicManager
 
-LogicManager -> ProjectDashboardParser : parseCommand(get-task-stats)
+LogicManager -> ProjectDashboardParser : parseCommand(task-stats)
 activate ProjectDashboardParser
 
 create GetStatisticsCommand
-ProjectDashboardParser -> GetStatisticsCommand
+ProjectDashboardParser -> GetStatisticsCommand : GetStatisticsCommand()
 activate GetStatisticsCommand
 
-GetStatisticsCommand --> ProjectDashboardParser
+GetStatisticsCommand --> ProjectDashboardParser: getStatsCommand
 deactivate GetStatisticsCommand
 
-ProjectDashboardParser --> LogicManager
+ProjectDashboardParser --> LogicManager: getStatsCommand
 deactivate ProjectDashboardParser
 
-LogicManager -> GetStatisticsCommand : execute()
+LogicManager -> GetStatisticsCommand : execute(model)
 activate GetStatisticsCommand
 
+GetStatisticsCommand -> Model : getFilteredTasksList()
+activate Model
+Model --> GetStatisticsCommand : tasks
+
+GetStatisticsCommand -> Model : getFilteredMembersList()
+Model --> GetStatisticsCommand : members
+GetStatisticsCommand -> Model : getFilteredTasMemMappingsList()
+Model --> GetStatisticsCommand : tasMem
+GetStatisticsCommand -> Model : getFilteredInvMemMappingsList()
+Model --> GetStatisticsCommand : invMem
+deactivate Model
+
 create Statistics
-GetStatisticsCommand -> Statistics
+GetStatisticsCommand -> Statistics : Statistics(members, tasks, tasMem, invMem)
 activate Statistics
 
-Statistics -> GetStatisticsCommand : s
-
-GetStatisticsCommand -> Statistics : s.doCalculations()
+Statistics --> GetStatisticsCommand : stats
 deactivate Statistics
 
-GetStatisticsCommand -> Model : setStatistics(s)
+GetStatisticsCommand -> Statistics : doCalculations()
+activate Statistics
+
+Statistics --> GetStatisticsCommand :
+deactivate Statistics
+
+GetStatisticsCommand -> Model : setStatistics(stats)
 activate Model
 
 Model --> GetStatisticsCommand
 deactivate Model
+
+create CommandResult
+GetStatisticsCommand -> CommandResult : CommandResult()
+activate CommandResult
+
+CommandResult --> GetStatisticsCommand : result
+deactivate CommandResult
 
 GetStatisticsCommand --> LogicManager : result
 deactivate GetStatisticsCommand

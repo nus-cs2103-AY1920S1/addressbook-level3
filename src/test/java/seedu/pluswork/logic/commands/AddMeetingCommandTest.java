@@ -6,14 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
@@ -21,7 +20,6 @@ import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
-import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.ReadOnlyUserPrefs;
 import seedu.pluswork.model.UserSettings;
@@ -38,7 +36,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-import seedu.pluswork.testutil.MeetingBuilder;
 import seedu.pluswork.testutil.MeetingQueryBuilder;
 
 public class AddMeetingCommandTest {

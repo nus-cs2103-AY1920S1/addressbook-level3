@@ -52,7 +52,7 @@ class JsonAdaptedMember {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        memberImage = source.getImageUrl();
+        memberImage = source.getImagePath();
     }
 
     /**

@@ -111,8 +111,8 @@ public class LogicManagerTest {
      *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      Model expectedModel) throws CommandException, ParseException, FileNotFoundException {
+    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) throws
+            CommandException, ParseException, FileNotFoundException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);

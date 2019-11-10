@@ -163,6 +163,6 @@ public class UniqueMemberListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueMemberList.asUnmodifiableObservableList().remove(0));
+            -> uniqueMemberList.asUnmodifiableObservableList().remove(0));
     }
 }

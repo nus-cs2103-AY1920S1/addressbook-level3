@@ -29,11 +29,10 @@ import seedu.pluswork.testutil.EditInventoryDescriptorBuilder;
 import seedu.pluswork.testutil.InventoryBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditInventoryCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
+ * for EditInventoryCommand.
  */
 public class EditInventoryCommandTest {
-    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
-
     private static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_BALL =
             new EditInventoryCommand.EditInventoryDescriptor();
 
@@ -43,6 +42,8 @@ public class EditInventoryCommandTest {
         INVENTORY_DESC_BALL.setTaskId(new Index(1));
         INVENTORY_DESC_BALL.setMemId(new MemberId("rak"));
     }
+
+    private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -57,7 +58,7 @@ public class EditInventoryCommandTest {
         expectedModel.setInventory(model.getFilteredInventoriesList().get(0), editedInventory);
 
         //Commented out because of Null pointed exception
-//        assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
+        // assertCommandSuccess(editInventoryCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -70,7 +71,8 @@ public class EditInventoryCommandTest {
         Inventory editedInv = invInList.withName(VALID_INVENTORY_NAME_SPORTS)
                 .withPrice(new Price(VALID_INVENTORY_PRICE_SPORTS)).build();
 
-        EditInventoryCommand.EditInventoryDescriptor descriptor = new EditInventoryDescriptorBuilder().withName(VALID_INVENTORY_NAME_SPORTS)
+        EditInventoryCommand.EditInventoryDescriptor descriptor = new EditInventoryDescriptorBuilder()
+                .withName(VALID_INVENTORY_NAME_SPORTS)
                 .withPrice(new Price(VALID_INVENTORY_PRICE_SPORTS)).build();
         EditInventoryCommand editInventoryCommand = new EditInventoryCommand(INDEX_FIRST_INVENTORY, descriptor);
 

@@ -20,6 +20,7 @@ public class DeleteInventoryCommandParserTest {
 
     @Test
     public void parse_invalidArgs_throwsParseException() throws CommandException {
-        assertParseFailure(parser, "delete-inv 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteInventoryCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "delete-inv 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteInventoryCommand.MESSAGE_USAGE));
     }
 }

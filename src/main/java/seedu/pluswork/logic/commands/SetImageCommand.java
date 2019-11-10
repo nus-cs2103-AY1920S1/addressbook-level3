@@ -27,7 +27,7 @@ public class SetImageCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Image set for user";
     public static final String MESSAGE_DUPLICATE_MEMBER = "This member already has this image as profile picture.";
-    public static final String MESSAGE_NO_IMAGE_FOUND = "The file path entered is does not have an image.";
+    public static final String MESSAGE_NO_IMAGE_FOUND = "The file path entered does not have an image.";
 
     private final MemberId memId;
     private final String imageURL;
