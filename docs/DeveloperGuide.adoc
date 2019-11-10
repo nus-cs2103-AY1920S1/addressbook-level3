@@ -510,13 +510,13 @@ This feature allows users to set reminders for their tasks with certain deadline
 
 In this feature, a reminder is constructed with following two key information as attributes.
 
-* Deadline
-* Message
+* Deadline of a task
+* Reminder Message
 
 With the given deadline from users, the following two attributes are created further in the reminder constructor.
 
-* Reminder type
-* Remaining days
+* Type of reminder (e.g. Overdue)
+* Remaining days before deadline
 
 The purpose of the above two attributes are for sorting reminders based on the number of days between current date and their deadline in ascending order.
 These two attributes are also utilized in formatting how a reminder should be displayed on the User Interface.
@@ -527,16 +527,18 @@ The following class diagram illustrates the summary of the reminder class.
 [align="center"]
 image::ReminderClassDiagram.png[width=75%]
 
-As indicated in the above diagram, a reminder uses the Date class from spending package as deadline attribute, therefore, it is also supported with Natural Language Processing (NLP).
+[NOTE]
+As indicated in the above diagram, a reminder uses the `Date` class from spending package as `deadline` attribute, therefore, it is also supported with Natural Language Processing (NLP).
+Since the `remainingDays` attribute is of `long` data type, it is not included in the above diagram.
 
 ==== Implementation for Adding Reminder
 
-First of all, for users to add reminders into MoneyGoWhere, the following command is made available.
-
+First of all, for the user to add reminders into MoneyGoWhere, the following command is made available.
 
 * Adding a reminder `reminder add d/DATE m/MESSAGE` +
 e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
+In this command, the parameter values behind the prefixes are string values for `parser` to convert them into `Date` and `ReminderMessage` attributes later on.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
