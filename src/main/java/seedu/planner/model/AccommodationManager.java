@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.accommodation.UniqueAccommodationList;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
 //@@author OneArmyj
 /**
  * Wraps all data at the address-book level
@@ -102,6 +104,13 @@ public class AccommodationManager implements ReadOnlyAccommodation {
         requireNonNull(editedAccommodation);
 
         accommodations.setAccommodation(target, editedAccommodation);
+    }
+
+    /**
+     * Returns the accommodation that matches the specified name and address
+     */
+    public Optional<Accommodation> getAccommodation(Name name, Address address) {
+        return accommodations.getAccommodation(name, address);
     }
 
     /**

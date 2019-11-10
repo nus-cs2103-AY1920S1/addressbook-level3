@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.model.activity.Activity;
 import seedu.planner.model.activity.UniqueActivityList;
+import seedu.planner.model.field.Address;
+import seedu.planner.model.field.Name;
 //@@author OneArmyj
 /**
  * Wraps all data at the address-book level
@@ -66,6 +68,13 @@ public class ActivityManager implements ReadOnlyActivity {
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
         return activities.contains(activity);
+    }
+
+    /**
+     * Returns the activity that matches the specified name and address
+     */
+    public Optional<Activity> getActivity(Name name, Address address) {
+        return activities.getActivity(name, address);
     }
 
     /**

@@ -26,6 +26,7 @@ import seedu.planner.model.contact.Phone;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.day.exceptions.EndOfTimeException;
+import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Name;
 
 /**
@@ -373,6 +374,31 @@ public class ModelManager implements Model {
     }
 
     /**
+     * A method to map a new contact to existing Activity or Accommodation if they share the same name and address
+     * fields.
+     */
+    private void redoContactMapping(Contact contact) {
+        if (contact.getAddress().isPresent()) {
+            Name name = contact.getName();
+            Address address = contact.getAddress().get();
+            Activity activityToMap = this.activities.getActivity(name, address).orElse(null);
+            Accommodation accommodationToMap = this.accommodations.getAccommodation(name, address).orElse(null);
+
+            if (activityToMap != null) {
+                Activity newActivity = new Activity(activityToMap.getName(), activityToMap.getAddress(), contact,
+                        activityToMap.getCost().orElse(null), activityToMap.getTags(), activityToMap.getDuration(),
+                        activityToMap.getPriority());
+                setActivity(activityToMap, newActivity);
+            }
+            if (accommodationToMap != null) {
+                Accommodation newAccommodation = new Accommodation(accommodationToMap.getName(),
+                        accommodationToMap.getAddress(), contact, activityToMap.getTags());
+                setAccommodation(accommodationToMap, newAccommodation);
+            }
+        }
+    }
+
+    /**
      * Clears all the mappings related to {@code Day} and re-populates the mappings.
      */
     private void redoDayMapping(List<Day> days) {
@@ -602,12 +628,14 @@ public class ModelManager implements Model {
     @Override
     public void addContact(Contact contact) {
         contacts.addContact(contact);
+        redoContactMapping(contact);
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
     public void addContactAtIndex(Index index, Contact contact) {
         contacts.addContactAtIndex(index, contact);
+        redoContactMapping(contact);
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 

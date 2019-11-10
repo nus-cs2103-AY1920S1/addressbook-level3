@@ -133,6 +133,9 @@ public class UniqueContactList implements Iterable<Contact> {
         internalList.setAll(contacts);
     }
 
+    /**
+     * Gets the first instance of the specified contact
+     */
     public Optional<Contact> getContact(Contact contact) {
         requireNonNull(contact);
         return internalList.stream().filter(x -> x.equals(contact)).findFirst();
