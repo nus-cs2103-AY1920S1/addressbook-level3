@@ -45,7 +45,7 @@ public class Statistics {
     public ObservableList<Show> getForgotten() {
         ObservableList<Show> watchlist = model.getWatchList().getShowList().filtered(show -> !show.isWatched().value);
         UniqueShowList forgotten = new UniqueShowList();
-        if (watchlist.size() > 4) {
+        if (watchlist != null && watchlist.size() > 4) {
             forgotten.add(watchlist.get(0));
             forgotten.add(watchlist.get(1));
             forgotten.add(watchlist.get(2));
@@ -59,7 +59,9 @@ public class Statistics {
      */
     public ObservableMap<String, Integer> getFavouriteGenre() {
         HashMap<String, Integer> genreRecords = new HashMap<>();
-
+        if (model.getWatchList().getShowList() == null) {
+            return FXCollections.observableHashMap();
+        }
         model.getWatchList().getShowList().stream().forEach(show -> {
             show.getGenres().stream().forEach(genre -> {
                 if (genreRecords.containsKey(genre.getGenreName())) {
