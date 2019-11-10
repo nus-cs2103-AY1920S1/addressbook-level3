@@ -20,6 +20,10 @@ By: `CS2103-T16-3`      Since: `September 2019`      Licence: `MIT`
 
 Refer to the guide <<SettingUp#, here>>.
 
+****
+We recommend a minimum resolution of 1920x1080 with at maximum 150% scaling for best usage. Weme requires a resolution that provides at least 750 pixels in height and 1000 pixels in width for smooth usage.
+****
+
 == Design
 
 [[Design-Architecture]]

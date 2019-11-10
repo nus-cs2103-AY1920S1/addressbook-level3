@@ -54,6 +54,8 @@ public class CreatePanel extends UiPart<Region> {
             memeCreationPlaceholder.setVisible(false);
         } else {
             memeImage.setImage(null);
+            verticalRule.setFitHeight(memeImage.getBoundsInParent().getHeight());
+            horizontalRule.setFitWidth(memeImage.getBoundsInParent().getWidth());
             memeCreationBox.setVisible(false);
             memeCreationPlaceholder.setVisible(true);
         }
