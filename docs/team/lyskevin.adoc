@@ -1,0 +1,59 @@
+= Lim Yong Shen, Kevin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Typee
+
+---
+
+== Overview
+
+Typee is a desktop engagement manager which helps secretaries and receptionists manage their daily work. Engagements comprise of appointments,
+interviews and meetings. Secretaries and receptionists are likely to manage these tasks as part of their profession. The primary means of
+interaction is through the Command Line Interface (CLI) because the application was built with fast typers in mind. The application also
+provides a Graphical User Interface (GUI) which was created using JavaFX and FXML. The rest of the software was built with Java.
+
+== Summary of Contributions
+
+*Major enhancement*: Added the *calendar window* feature
+** What it does: The calendar displays general date and engagement information. It is capable of displaying a list of engagements
+for each displayed date and lets users navigate back and forth between months.
+** Justification: This feature gives the user a visual representation of the engagements that they have for the month. It adds
+both breadth (engagement information across the entire month) and depth (individual engagement lists for each day) to the application.
+** Highlights: This enhancement was challenging to implement because it required heavy use of JavaFX and FXML, which I was not well-versed
+in. The calendar window also updates itself in real-time as engagements are added or deleted, which involved careful management of dependencies
+between different areas of the codebase. The implementation involved parsing dates, which can be notoriously tedious in programming.
+** Credits: The UI code for the calendar window was adapted from https://github.com/SirGoose3432/javafx-calendar.
+
+* *Minor enhancement*:
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lyskevin&tabRepo=AY1920S1-CS2103T-F14-3%2Fmain%5Bmaster%5D[Link]]
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Refactored unit tests to increase test coverage from 24% to 47%. This was just after refactoring Address Book 3's code, which broke a lot
+of tests (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/89[#89], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/90/files[#90],
+https://github.com/AY1920S1-CS2103T-F14-3/main/pull/91/files[#91], and https://github.com/AY1920S1-CS2103T-F14-3/main/pull/92[#92]).
+** Documentation:
+*** Changed Address Book 3's user guide to reflect Typee's features (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/27/files[#27])
+*** Added use cases to the developer guide (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/61[#61])
+*** Updated README and UI screenshot (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/47/files[#47])
+*** Updated Contact Us page (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/9/files[#9])
+*** Updated Abous Us page (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/35/files[#35])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/111[Tagline],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11[MoneyGoWhere]
+*** Some class mates used parts of the calendar feature which I implemented (https://github.com/AY1920S1-CS2103T-F14-2/main/pull/221/files[TutorAid]) 
+** Tools:
+*** Set up Travis Continuous Integration (CI) for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/47/files[#47],
+https://github.com/AY1920S1-CS2103T-F14-3/main/pull/49/files[#49]).
+*** Set up AppVeyor CI for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/66[#66]).
+*** Set up Coveralls for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/64[#64]).
+
+== Contributions to the User Guide
+
+== Contributions to the Developer Guide
+
