@@ -461,49 +461,50 @@ Hope that you are excited as I am in all these cool features that are coming up 
 
 // tag::financialtracker[]
 === Financial Tracker
-The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
+The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure by different countries.
 
 *Architecture:*
+
+The Architecture Diagram given below explains the high-level design of the financial tracker feature.
 
 .Architecture Diagram of the Financial Tracker feature
 image::FinancialTrackerDiagram.png[]
 
-The Architecture Diagram given above explains the high-level design of the financial tracker feature.
-Inputs given by the user are channeled from the `textUI` and parsed by `CommandParser` before different commands are formed which generates
+
+Inputs given by the user are channeled from the `textUI` and handled by `Logic` before different commands are formed which execute on
 the `Model` and updates the `FinancialTracker` object which contains the expense list.
 
-The `textUI`, `Log Centre` and `Storage` all stem from the common package of the main TravEzy application.
-This is to ensure that each command in financial tracker have only one parser validating the command.
-The GUI also collaborate with `Model` Class directly, which will be changed to only communicate with `Logic` class in later time.
+The `textUI` and `Log Centre` stem from the common package of the main TravEzy application while ``Logic``, ``Model,`` and ``Storage`` all have similar architecture design with the other features (Calendar, Itinerary, etc.).
 
-*Financial Tracker Class Diagram*
+*Financial Tracker Class Diagram:*
 
 .Class Diagram of the Financial Tracker feature
 image::FinancialTrackerClassDiagram.png[]
-The Model,
-stores the `FinancialTracker` data which includes the `ExpenseList` which keeps track of all the expenses
-that are included by the user and stores it into the storage in a JSON file.
+The `Model` stores the `FinancialTracker` data which includes several `ExpenseList` each associated with a country that keeps track of all the expenses.
 
-It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+``Financial Tracker`` exposes an unmodifiable `ObservableMap<String, ExpenseList>` that can be observed. The UI is bound to the `Model` whereby the `Model` returns an expense list associated with the current ``Country`` of the `Financial Tracker` and updates when the querying `Country` changed.
 
 [NOTE]
-Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
-implementation is to ease categorising and sorting.
+Each time a new `Country` is selected from the Countries dropdown box, the respective expense list will be returned for that specific country, this implementation is to ease categorising and sorting.
 
-*Sequence Diagram example*
+*Sequence Diagram example:*
+
+The sequence diagram below shows the sequence of events that will take place when a user calls `Summary` command.
 
 .Sequence Diagram of the Financial Tracker feature
 image::FinancialTrackerSummaryCommandDiagram.png[]
 
-The above sequence diagram shows the sequence of events that will take place when a user calls `Summary` command.
-Note that that above sequence of events are very likely to those for the other commands in Financial Tracker feature.
 
-*Activity Diagram example*
+The sequence of events are very likely to those of the other commands in Financial Tracker feature.
+
+*Activity Diagram example:*
+
+The activity diagram below shows how `edits` command works.
 
 .Activity Diagram of the Financial Tracker feature
 image::FinancialTrackerActivityDiagram.png[]
 
-The above activity shows how `edits` command works.
+
 
 // end::financialtracker[]
 

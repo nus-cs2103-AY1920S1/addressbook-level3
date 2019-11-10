@@ -8,7 +8,7 @@
 Package " "<<Rectangle>>{
     Class GUI UI_COLOR
     Class TextUI UI_COLOR
-    Class "Command Parser" as Logic LOGIC_COLOR
+    Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
     Class Model MODEL_COLOR
     Class FinancialTracker MODEL_COLOR_T1
@@ -21,10 +21,11 @@ Class "<$user>\nUser" as User MODEL_COLOR_T2
 Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
 Class "<$documents>\nJson File" as File UI_COLOR_T1
 
-GUI -> Logic
-GUI -right-> Model
+GUI -right-> Logic
+Model -up-> GUI
 
 Logic -down-> Model
+Logic --> Storage
 
 TextUI -up-> GUI
 TextUI .up.> Commons
@@ -40,6 +41,5 @@ Developer -up[hidden]-> User
 Developer <-right-> Test
 
 Model -down-> FinancialTracker
-Model -right-> Storage
 
 @enduml
