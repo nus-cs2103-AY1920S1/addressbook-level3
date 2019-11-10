@@ -239,15 +239,14 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Changes the Ui to display depending the {@code Class} commandName.
+     * Changes the Ui to display depending the {@code Class} commandClassName.
      * */
-    private void changeDisplay(Class commandName) {
+    private void changeDisplay(Class commandClassName) {
         if (statisticsPlaceholder.getChildren().size() > 0) {
             statisticsPlaceholder.getChildren().remove(0);
         }
         personList.setMinWidth(340);
-        System.out.println(commandName.getSimpleName());
-        switch(commandName.getSimpleName()) {
+        switch(commandClassName.getSimpleName()) {
         case "CustomerHistoryCommand":
             orderListPanel = new OrderListPanel(logic.getCustomerOrders());;
             statisticsPlaceholder.getChildren().add(orderListPanel.getRoot());
