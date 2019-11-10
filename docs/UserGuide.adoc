@@ -1180,8 +1180,8 @@ The user is able to interact with others who is using SugarMummy. A community pl
 [start=1]
 . *Achievement*: `achvm`
 . *Add*: `add rt/RECORD_TYPE dt/DATETIME` and parameters a record requires
-E.g. `add rt/BLOODSUGAR dt/2019-12-12 12:12 con/10`
-E.g. `add rt/BMI dt/2019-12-12 12:12 h/1 w/1`
+E.g. `add rt/BLOODSUGAR dt/2019-10-10 12:12 con/10`
+E.g. `add rt/BMI dt/2019-10-10 12:12 h/1.8 w/70`
 . *Add Biography* : `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
 . *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
@@ -1205,11 +1205,8 @@ E.g. `calendar ymd/2019-12-24`
 E.g. `calendar ymw/`
 E.g. `calendar ym/2019-11`
 . *Clear Biography* : `clrbio`
-. *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
 E.g. `delete 2`
-. *Export*: `export [d/START_DATE]`
-E.g `export d/01.09.2019`
 . *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 E.g. `event d/appointment dt/2019-12-20 11:00 dt/2019-12-20 11:30`
