@@ -1131,14 +1131,14 @@ All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sa
 `priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
 
 [NOTE]
-The notes panel is not responsive. The User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see <<Feature-Note-List, notes list>> command.
+The notes panel is not responsive. The User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see the note list command.
 
 Examples:
 
 * *Unmarked Note*: `note note/Friday morning class 6A desc/give back prelim papers` +
-Creates an unmarked note with title _'Friday morning class 6A'_ with description _'give back prelim papers'_.
+Creates an unmarked note with title _'Friday morning class 6A'_ and description _'give back prelim papers'_.
 * *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
-Creates a high priority note with title _'Tuesday 1pm'_ with description _'Science Conference'_.
+Creates a high priority note with title _'Tuesday 1pm'_ and description _'Science Conference'_.
 
 ==== Editing a note
 
@@ -1229,7 +1229,7 @@ The statistics feature only supports file type in the ‘Excel’ format. Data f
 The `print` option allows the generation of a _'.png'_ file containing a snapshot of the statistics report generated. Regardless of the print specifications, a new window is opened with the statistics report.
 
 [NOTE]
-The statistics report is stored in the same place as where the JAR file is installed. The report can be found under a newly created `printable` directory. If the directory exists beforehand, no new directory is created.
+Printable statistics reports if specified are stored in the same place as where the JAR file is installed. The report can be found under a newly created `printable` directory. If the directory exists beforehand, no new directory is created.
 
 [NOTE]
 Filenames without _`.png`_ extension will automatically have the extension appended to the end of the file name.
@@ -1253,7 +1253,7 @@ The data file needs to be specified in the following format to ensure that the s
 Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
 If the report is generated, it might be correct but the behavior is not guaranteed should the specifications mentioned below be violated or overlooked.
 
-* *Entries starts at cell A1 with the cell `Students`, regardless of whether there is score data.*
+* *Entries start at cell A1 with the cell `Students`, regardless of whether there is score data.*
 * *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
 * *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
 * *There is at least one student.*
@@ -1263,7 +1263,7 @@ If the report is generated, it might be correct but the behavior is not guarante
 * *All students have a corresponding score for all subjects*
 * *All scores are numeric characters (integer or decimals)*
 * *There are no gaps between rows and columns.*
-* *All cells within the row and column range have at least one non-whitespace characters.*
+* *All cells within the row and column range have at least one non-whitespace character.*
 * *All cells outside the row and column range are empty.*
 
 [NOTE]
