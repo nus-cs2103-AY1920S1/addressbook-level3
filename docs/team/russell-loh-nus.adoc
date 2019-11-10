@@ -3,20 +3,20 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-==== Project Title: NJoy Teaching Assistant
+==== Project Title: Njoy Teaching Assistant
 
 ---
 
 === Overview
 
-*NJoy Teaching Assistant* is a command line interface(CLI) desktop application built by a team for 5 computing students for our Software Engineering project.
+*Njoy Teaching Assistant* is a command line interface(CLI) desktop application built by a team for 5 computing students for our Software Engineering project.
 It enables teachers of various disciplines to create a more interactive classroom through the use of slideshow and polling. Outside the classroom, it
 allows them to manage their classes, timetables, notes, questions and quizzes.
 
-Below is an example image of our application:
+Below is an example image of the application:
 
 image::InterfaceWithLabels.png[width=80%, scaledwidth=12cm]
-_The graphical user interface of NJoy._
+_Njoy Teaching Assistant application._
 
 I was tasked to brainstorm a solution that could enhance classroom learning and implement it. Eventually, I came up with the solution of using question prompts through
 a slideshow that is able to facilitate discussions in the classroom and at the same time, allow teachers to manage these questions more efficiently.
@@ -48,7 +48,7 @@ question their understanding about a topic before revealing the answer.
 It was challenging to ensure that the controls are familiar to the teachers and the layout is simple enough for the students to view.
 
 * *Minor enhancement 1*: Restyled the general application interface.
-* *Minor enhancement 2*: Designed the *NJoy* logo and banner.
+* *Minor enhancement 2*: Designed the *Njoy* logo and banner.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Russell-Loh-NUS&tabRepo=AY1920S1-CS2103T-W13-2%2Fmain%5Bmaster%5D[Functional and test code]]
 
