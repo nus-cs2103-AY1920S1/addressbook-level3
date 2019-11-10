@@ -116,15 +116,27 @@ public class SearchCommandTest {
     public void equals() {
         HashMap<SearchKey, List<String>> firstHash = new HashMap<>();
         HashMap<SearchKey, List<String>> secondHash = new HashMap<>();
+
+        ArrayList<String> emptyList = new ArrayList<>();
         ArrayList<String> firstNameList = new ArrayList<>();
-        ArrayList<String> secondNameList = new ArrayList<>();
-        ArrayList<String> secondGenreList = new ArrayList<>();
         firstNameList.add(VALID_SHOW_NAME_ANNABELLE);
+        ArrayList<String> secondNameList = new ArrayList<>();
         secondNameList.add(VALID_SHOW_NAME_BOB_THE_BUILDER);
-        secondGenreList.add(VALID_GENRE_ACTION);
+
         firstHash.put(SearchKey.KEY_NAME, firstNameList);
-        firstHash.put(SearchKey.KEY_NAME, firstNameList);
-        secondHash.put(SearchKey.KEY_GENRE, secondGenreList);
+        firstHash.put(SearchKey.KEY_GENRE, emptyList);
+        firstHash.put(SearchKey.KEY_TYPE, emptyList);
+        firstHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        firstHash.put(SearchKey.KEY_ACTOR, emptyList);
+        firstHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+
+        secondHash.put(SearchKey.KEY_NAME, secondNameList);
+        secondHash.put(SearchKey.KEY_GENRE, emptyList);
+        secondHash.put(SearchKey.KEY_TYPE, emptyList);
+        secondHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        secondHash.put(SearchKey.KEY_ACTOR, emptyList);
+        secondHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+
         SearchCommand searchFirstCommand = new SearchCommand(firstHash);
         SearchCommand searchSecondCommand = new SearchCommand(secondHash);
 
@@ -170,6 +182,12 @@ public class SearchCommandTest {
         ArrayList<String> showNameList = new ArrayList<>();
         showNameList.add("Fantastic Beasts and Where to Find Them");
         showHash.put(SearchKey.KEY_NAME, showNameList);
+        ArrayList<String> emptyList = new ArrayList<>();
+        showHash.put(SearchKey.KEY_GENRE, emptyList);
+        showHash.put(SearchKey.KEY_TYPE, emptyList);
+        showHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        showHash.put(SearchKey.KEY_ACTOR, emptyList);
+        showHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
         SearchCommand command = new SearchCommand(showHash);
 
         List<Show> expectedList = new ArrayList<>();
