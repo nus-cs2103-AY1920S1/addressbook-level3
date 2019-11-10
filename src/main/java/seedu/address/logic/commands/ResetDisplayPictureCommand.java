@@ -101,12 +101,12 @@ public class ResetDisplayPictureCommand extends Command {
             return true;
         }
         // instanceof handles nulls
-        if (!(other instanceof UploadPictureCommand)) {
+        if (!(other instanceof ResetDisplayPictureCommand)) {
             return false;
         }
 
         // state check
-        UploadPictureCommand c = (UploadPictureCommand) other;
+        ResetDisplayPictureCommand c = (ResetDisplayPictureCommand) other;
         return index.equals(c.getIndex());
     }
 
