@@ -32,18 +32,14 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns a DeleteCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            ReferenceId referenceId = ParserUtil.getEntryFromList(lastShownList, index).getReferenceId();
-            Room roomToAdd = new Room(referenceId);
-            return new ReversibleActionPairCommand(new AddConsultationRoomCommand(roomToAdd),
-                    new RemoveRoomCommand(roomToAdd));
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddConsultationRoomCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(args);
+        ReferenceId referenceId = ParserUtil.getEntryFromList(lastShownList, index).getReferenceId();
+        Room roomToAdd = new Room(referenceId);
+        return new ReversibleActionPairCommand(new AddConsultationRoomCommand(roomToAdd),
+                new RemoveRoomCommand(roomToAdd));
     }
 }

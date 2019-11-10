@@ -35,8 +35,7 @@ public class DequeueCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a",
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DequeueCommand.MESSAGE_USAGE));
+    public void parse_invalidArgs_throwsParseException() {assertParseFailure(parser, "a",
+            DequeueCommandParser.MESSAGE_INVALID_INDEX);
     }
 }

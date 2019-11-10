@@ -17,7 +17,7 @@ import seedu.address.model.queue.Room;
  * Parses input arguments and creates a new EnqueueCommand object
  */
 public class ResumeCommandParser {
-    public static final String MESSAGE_INVALID_INDEX = "Invalid index given";
+    public static final String MESSAGE_INVALID_INDEX = "The index provided is invalid.";
 
     private Model model;
     private ObservableList<Room> filteredRoomList;
@@ -35,12 +35,7 @@ public class ResumeCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
-        try {
-            index = ParserUtil.parseIndex(args);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ResumeCommand.MESSAGE_USAGE), pe);
-        }
+        index = ParserUtil.parseIndex(args);
 
         filteredRoomList = model.getConsultationRoomList();
         if (filteredRoomList.size() < index.getOneBased()) {
