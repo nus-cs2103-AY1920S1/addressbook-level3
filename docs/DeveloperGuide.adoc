@@ -504,56 +504,106 @@ In contrast, for Alternative 2, manipulating the internal elements of the list d
 // tag::reminder[]
 === Reminder feature
 
-With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
+This feature allows users to set reminders for their tasks with certain deadline and delete them when respective tasks are completed.
 
-==== Implementation
+==== Implementation for Reminder
 
-A reminder is constructed with
+In this feature, a reminder is constructed with following two key information as attributes.
 
-* Deadline `d/DATE`
-* Reminder Message `m/MESSAGE`
+* Deadline
+* Message
 
-The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
+With the given deadline from users, the following two attributes are created further in the reminder constructor.
 
-This feature is implemented with the following operations:
+* Reminder type
+* Remaining days
+
+The purpose of the above two attributes are for sorting reminders based on the number of days between current date and their deadline in ascending order.
+These two attributes are also utilized in formatting how a reminder should be displayed on the User Interface.
+
+The following class diagram illustrates the summary of the reminder class.
+
+.Class diagram for reminder
+[align="center"]
+image::ReminderClassDiagram.png[width=75%]
+
+As indicated in the above diagram, a reminder uses the Date class from spending package as deadline attribute, therefore, it is also supported with Natural Language Processing (NLP).
+
+==== Implementation for Adding Reminder
+
+First of all, for users to add reminders into MoneyGoWhere, the following command is made available.
+
 
 * Adding a reminder `reminder add d/DATE m/MESSAGE` +
 e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
-* Deleting a reminder `reminder delete INDEX` +
-e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
 .Activity diagram for adding a reminder
+[align="center"]
 image::AddReminderActivityDiagram.png[width=75%]
 
 [NOTE]
-In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
+In the above diagram, it can be seen that a reminder input from user will only be recorded after it passes all the validation checks.
 
-Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
+To illustrate how a reminder is added to the Model component when user inputs `AddReminderCommand`, the sequence diagram is shown below.
 
-.Sequence diagram while user attempts to add a new reminder
-image::AddReminderSequenceDiagram.png[width=75%]
+.Sequence diagram when a new reminder is added to the model component.
+[#AddReminderSequenceDiagram,align="center"]
+image::AddReminderSequenceDiagram.png[pdfwidth="95%",width="100%"]
 
 [NOTE]
-The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
+The above sequence diagram only demonstrates how an `AddReminderCommand` is constructed from valid user input and how it is executed. It does not show how a reminder is added into the storage component and how the UI component is updated.
 
-Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
+The following are the brief explanation of <<AddReminderSequenceDiagram>>
 
+1. The user enters `reminder add d/today m/Pay bill`.
+2. `SpendingBookParser#parseCommand()` is called by `LogicManger`
+3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder, delete a reminder or invalid.
+4. Next, `AddReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
+5. After successful validation, `AddReminderCommand` is created and passed to back callers until it reaches to `LogicManager`.
+6. `LogicManger` then executes the command, adding the new reminder to the model through `Model#addReminder()`.
+
+==== Implementation for Removing Reminder
+
+In order for users to delete unwanted reminders, the following command is implemented in MoneyGoWhere application.
+
+* Deleting a reminder `reminder delete INDEX` +
+e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
+
+Following is the activity diagram which indicates the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`.
+
+[align="center"]
 .Activity diagram for removing a reminder
-image::DeleteReminderActivityDiagram.png[width=75%]
+image::DeleteReminderActivityDiagram.png[width=90%]
 
 [NOTE]
-The negative index from user input will leads to invalid command format error.
+The negative index from user input will leads to invalid command format error as shown in the above diagram.
 
 The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
 
 .Sequence diagram while user attempt to remove a reminder
-image::DeleteReminderSequenceDiagram.png[width=75%]
+[#DeleteReminderSequenceDiagram,align="center"]
+image::DeleteReminderSequenceDiagram.png[width=100%]
+
+The following are the brief explanation of <<DeleteReminderSequenceDiagram>>
+
+1. The user enters `reminder delete 1`
+2. `SpendingBookParser#parseCommand()` called by `LogicManager`.
+3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder, delete a reminder or invalid.
+4. Next, `DeleteReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
+5. After successful validation, `DeleteReminderCommand` is created and passed to back callers until it reaches to `Logic Manager`.
+6. `LogicManger` then executes the command, removing the specified reminder from the model through `Model#deleteReminder()`.
 
 [NOTE]
-The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+The above sequence diagram only shows how a `DeleteReminderCommand` is created and executed. It does not include how a reminder is removed from the storage component and how the UI component is updated.
+
+==== Limitations
+
+1. The date value of the deadline attribute is limited to before the end of next year and must be in the future. This prevent users from entering overdue tasks as inputs.
+
+2. In this feature, the reminder message cannot be constructed with empty spaces. The purpose of this limitation is to prevent users from entering a reminder without specifying a message to be displayed.
 // end::reminder[]
 
 // tag::import[]

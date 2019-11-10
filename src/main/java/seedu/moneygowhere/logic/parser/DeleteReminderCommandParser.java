@@ -9,7 +9,7 @@ import seedu.moneygowhere.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DeleteReminderCommand object
  */
-public class DeleteReminderCommandParser extends ReminderCommandParser {
+public class DeleteReminderCommandParser implements Parser<DeleteReminderCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteReminderCommand
      * and returns a DeleteReminderCommand object for execution.

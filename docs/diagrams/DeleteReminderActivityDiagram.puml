@@ -4,16 +4,13 @@ start
 
 if() then ([Index present])
     if() then ([Index within bound])
-        : Delete the specified reminder
-         from the current reminder list;
-        : Update the list display;
+        : Delete the specified reminder from the current reminder list in the model;
+        : Update User Interface with the updated reminder list;
     else ([Index out of bound])
-        : Show Invalid error
-         Index message;
+        : Show error message for invalid index;
     endif
 else([Index absent])
-    : Show Invalid command
-     format error message;
+    : Show error message for invalid command format;
 endif
 stop
 @enduml

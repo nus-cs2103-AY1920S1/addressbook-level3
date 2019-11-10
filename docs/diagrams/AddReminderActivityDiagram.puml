@@ -3,18 +3,18 @@ start
 :User executes AddReminderCommand;
 
 if() then ([All parameters present])
-    if() then ([Valid Date Format])
-        : Add a new reminder to
-        the current reminder list;
-        : Update the list display
-        with the new reminder;
-    else ([Invalid Date Format])
-        : Show Invalid date
-        format error message;
+    if() then ([Valid Date])
+        if() then ([Valid Message])
+            : Add a new reminder to the current reminder list in the Model;
+            : Update User Interface with the newly added reminder;
+        else ([else])
+            : Show error message for invalid message value;
+        endif
+    else ([else])
+        : Show error message for invalid date value;
     endif
-else([Missing date and/or message field(s)])
-    : Show Invalid command
-      format error message;
+else([else])
+    : Show error message for invalid command format;
 endif
 stop
 @enduml

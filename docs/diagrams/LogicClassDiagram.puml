@@ -10,6 +10,7 @@ package Parser {
 Interface Parser <<Interface>>
 Class SpendingBookParser
 Class XYZCommandParser
+Class XYZReminderCommandParser
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap
@@ -21,6 +22,9 @@ package Command {
 Class XYZCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
+package Reminder {
+Class XYZReminderCommand
+}
 }
 
 Interface Logic <<Interface>>
@@ -37,23 +41,36 @@ HiddenOutside ..> Logic
 LogicManager .up.|> Logic
 LogicManager -->"1" SpendingBookParser
 SpendingBookParser .left.> XYZCommandParser: creates >
+XYZCommandParser .left.> XYZReminderCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
+
+XYZReminderCommandParser ..|> Parser
+XYZReminderCommandParser ..> ArgumentMultimap
+XYZReminderCommandParser ..> ArgumentTokenizer
+
+
+ArgumentTokenizer ..> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
+XYZReminderCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
+XYZReminderCommandParser ..> ParserUtil
 ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
+XYZReminderCommand -up-|> XYZCommand
 LogicManager .left.> Command : executes >
+
+XYZReminderCommandParser ..> XYZReminderCommand : creates >
 
 LogicManager --> Model
 Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZReminderCommand: XYZReminderCommand = AddReminderCommand, \nDeleteReminderCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
