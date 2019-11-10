@@ -416,7 +416,7 @@ Step 2. The user executes the command string `list a/` to prompt the app to disp
 
 The following sequence diagram demonstrates the role of the respective components.
 
-image::ViewSequenceDiagram.png[]
+image::ListSequenceDiagram.png[]
 
 ==== Design Considerations
 
