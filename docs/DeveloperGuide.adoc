@@ -1307,9 +1307,10 @@ rendering when implementing the Ui of JARVIS.
 
 ==== Overview
 
-The planner feature in JARVIS enables users to easily organise and manage
+The planner feature in `Jarvis` enables users to easily organise and manage
 their different tasks in school. Users will be able to keep track of tasks
-they have done, and tasks they have yet to do.
+they have done, tasks they have yet to do, and sort these tasks by
+different attributes like task type and priority levels.
 
 There are three types of tasks in the planner:
 
@@ -1323,21 +1324,25 @@ as add `Priority` and `Frequency` levels to them.
 ==== Implementation
 
 The `Planner` contains a `TaskList`, which in turn, contains a number of tasks
-a user has. A simple outline of the `Planner` can be seen below.
+a user has. Each task has a `TaskType` and `Status` and may also have a `Priority` level,
+`Frequency` level and any number of `Tag` objects.
+
+A simple outline of the `Planner` can be seen below, in Figure 26.
 
 .Overview of the entire Planner
 image::plannermodel.png[align=left]
 
-JARVIS' `Model` extends `PlannerModel` which facilitates all operations
+
+The `Model` in `Jarvis` extends `PlannerModel` which facilitates all operations
 necessary to carry out commands by the user.
 
 * `Model#getPlanner()` -- Returns an instance of a `Planner`.
 
 * `Model#addTask(int zeroBasedIndex, Task task` -- Adds a `Task` to the
-  planner at the specified `Index`.
+planner at the specified `Index`.
 
 * `Model#addTask(Task t)` -- Adds a `Task` to the `Planner`. Since no `Index`
-  is specified, the `Task` is appended to the end of the `TaskList`.
+is specified, the `Task` is appended to the end of the `TaskList`.
 
 * `Model#deleteTask(Index index)` -- Deletes the `Task` at the specified
   `Index` from the `Planner`.
@@ -1351,26 +1356,55 @@ necessary to carry out commands by the user.
 * `Model#hasTask(Task t)` -- Checks if a given `Task` is already in the
   `Planner`.
 
+* `Model#markTaskAsDone(Index i)` - Changes the `Status` of a `Task` at the given
+`Index` from `DONE` to `NOT_DONE`
+
 * `Model#getTasks()` -- Returns the `TaskList` in the `Planner`.
 
+* `Model#getTask(Index index)` - Retrieves the `Task` at the specified `Index` of
+the `TaskList`
+
+* `Model#updateFilteredTaskList(Predicate<Task> predicate)` - Updates the `FilteredList` in the
+`Planner` according to the given `Predicate`.
+
+* `Model#updateSchedule()` - Updates the `FilteredList` of `Task` objects whose dates coincide with
+the current date.
+
+* `Model#getUnfilteredTaskList()` - Returns an `ObservableList<Task>` of all the `Task` objects
+in the `Planner`.
+
+* `Model#getFilteredTaskList()` - Returns an `ObservableList<Task>` of all the `Task` objects in
+the `FilteredList`.
+
+* `Model#getTasksToday()` - Returns an unmodifiable view of the list of `Task` objects that coincide with
+the current day, backed by the `FilteredList` of `Planner`
+
+* `Model#getTasksThisWeek()` - Returns an unmodifiable view of the list of `Task` objects that coincide with
+the current week, backed by the `FilteredList` of `Planner`.
 
 ==== Design Considerations
 
 ===== Aspect: Task Descriptions in a Task
-* **Alternative 1 (Current choice):** As a string attribute in `Task`
+
+* **Option 1 (Current choice):** As a string attribute in `Task`
 
 ** Pros: Intuitive, easy to implement, less code required
 
-** Cons: Provides a lower level of abstraction, especially when `edit-task`
-   command is implemented
+** Cons: Provides a lower level of abstraction, especially if an `edit-task`
+command is implemented
 
-* **Alternative 2:** Building a separate `TaskDescription` class
+* **Option 2:** Building a separate `TaskDescription` class
 
 ** Pros: Higher level of abstraction
 
 ** Cons: More code, will take time to replace current methods that deal with
-   String `TaskDes` directly
+String `TaskDes` directly
 
+Ultimately, we decided on Option 1 as there are no limitations on what a description of
+a `Task` should be (other than not _null_). Further more, there is no manipulation of the
+Task Description at the current stage of `Jarvis`, hence there is no real need to provide an
+additional layer of abstraction for it. If we do intend to continue developing `Jarvis` in
+the future, however, Option 2 might be a viable choice.
 
 // tag:: ccatracker[]
 === CcaTracker Feature
