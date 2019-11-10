@@ -855,7 +855,6 @@ Step 2. See an overview of your contact information in the _persons list panel_
 Step 3. The _result box_ will also display a message that all your contact information has been listed.
 
 image::AddressBookList2.png[width=600]
-image::AddressBookList2.png[width=600]
 
 === Editing a person : `edit`
 
@@ -992,9 +991,8 @@ Step 2. The _persons list panel_ will display the updated address book after del
 
 Step 3. The _result box_ will also display a message to notify that the person has been deleted from the contact book.
 
-image::AddressbookDelete2.png[width=600]
+image::AddressBookDelete2.png[width=600]
 
-// end::delete[]
 === Clearing all entries : `clear`
 
 Restarting your address book from scratch? Rather than deleting your contacts one by one, start with a fresh new address
