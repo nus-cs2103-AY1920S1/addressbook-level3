@@ -23,7 +23,7 @@ year 4 Computer Engineering Undergraduate student.
 
 === About the Project
 
-This project is part of the module 'Software Engineering Project CS2103T' where we were tasked to develop a basic
+This project is part of the module 'Software Engineering CS2103T' where we were tasked to develop a basic
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
@@ -239,7 +239,7 @@ This command sorts the table of transactions into the specified order for viewin
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 * Steps
-1. Type the any one of the above command in blue font into the command box.
+1. Type any one of the above commands in blue font into the command box.
 
 2. Hit `Enter`. The table will now be sorted in the specified order for you.
 
@@ -289,7 +289,7 @@ find command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current delete command.
 To view the full transaction list, the user would be required to enter the
 back command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3. Back Command Feature>>
+following section <<BackCommandSD, 3.1.3. Back Command Feature>>.
 
 After this, the list of transactions and Reimbursement Tab is updated as shown in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#updateTL[3.1.1. Add Command feature: Figure 14]
 and https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#update-reimbursement[3.1.1. Add Command feature: Figure 15]
