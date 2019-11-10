@@ -319,6 +319,7 @@ Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
 ****
 * At least one keyword, tag or folder must be provided.
+* The list of keywords to be searched must be before tags and folders.
 * Search for keywords, tags and folders is case insensitive. e.g video will match Video.
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.

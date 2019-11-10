@@ -5,7 +5,6 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sectnums:
 
 == Overview
 *Mark* is designed for those who prefer to use a desktop application for managing bookmarks as well as tasks related to web pages.

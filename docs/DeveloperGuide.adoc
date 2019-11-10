@@ -1170,13 +1170,27 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
 .. Test case: `delete 1` +
-   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message. Timestamp in the status bar is updated.
+   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message.
 .. Test case: `delete 0` +
    Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Opening a bookmark
+
+. Opening a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `goto 1` +
+   Expected: Tab view is switched to the online tab if the current view is not online tab.
+First bookmark is opened in the online tab.
+Details of the opened bookmark shown in the status message.
+.. Test case: `goto 0` +
+   Expected: No bookmark is opened. Error details shown in the status message.
+.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
 
 === Saving data
 
