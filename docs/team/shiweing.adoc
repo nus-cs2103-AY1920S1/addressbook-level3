@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master
 
 == PROJECT: Tagline
 
@@ -13,7 +14,7 @@ My team of 5 software engineering students were tasked with enhancing a basic co
 This is  what our project looks like:
 
 .The graphical user interface for TagLine
-image::ui.png[]
+image::Ui.png[width=400]
 
 My role was to design and write the codes for the note commands, including basic add, delete, edit command as well as a filter feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
 
@@ -37,11 +38,16 @@ This section shows a summary of my coding, documentation, and other helpful cont
 ** The implementation was challenging as TagLine has 3 different tags – Hashtags, Contact as tag, and Group name as tag. The note list command has to be implemented such that the filtering applies generally to all 3 tags.
 ** Credit: The architecture and code of note create/delete/edit commands were reused and morphed from AddressBook commands.
 
-**Code contributed:** Please click these links to see a sample of my code: [Functional code ] [Test code]
+**Code contributed:** Please click these links to see a sample of my code:
+[ link:{repoURL}/src/main/java/tagline/logic/parser/note/ListNoteParser.java[ListNoteParser] ]
+[ link:{repoURL}/src/main/java/tagline/logic/commands/note/ListNoteCommand.java[ListNoteCommand] ]
+[ link:{repoURL}/src/test/java/tagline/logic/parser/note/ListNoteParserTest.java[ListNoteParserTest] ]
+[ link:{repoURL}/src/test/java/tagline/logic/commands/note/ListNoteCommandTest.java[ListNoteCommandTest] ]
 
 **Other contributions:**
 
 * Documentation:
+** Add the details for basic note commands in user guide: link:../UserGuide.adoc#note-command[NoteCommand]
 ** Add the logic of note commands in developer guide after their addition to TagLine: link:../DeveloperGuide.html#Design-NoteLogic[NoteLogic]
 
 * Community:
@@ -54,12 +60,82 @@ This section shows a summary of my coding, documentation, and other helpful cont
 |We had to update the original AddressBook User Guide with instructions for the enhancements that we had added. The following is an excerpt from our **TagLine User Guide**, showing additions that I have made for the `note` commands.
 |===
 
-include::../UserGuide.adoc[tag=note-command]
-include::../UserGuide.adoc[tag=note-create]
-include::../UserGuide.adoc[tag=note-delete]
-include::../UserGuide.adoc[tag=note-edit]
-include::../UserGuide.adoc[tag=note-list]
-include::../UserGuide.adoc[tag=note-clear]
+==== List notes: `list`
+
+Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
+
+Format:
+
+`note list [# / @ / %][FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`note list`
+|`note list`
+|Lists all notes.
+
+|`note list KEYWORD`
+|`note list meeting`
+|Lists all notes which contain the phrase “_meeting_”.
+
+|`note list #HASHTAG`
+|`note list #cs2100`
+|Lists all notes with the hashtag '_#cs2100_'.
+
+|`note list @CONTACTID`
+|`note list @12345`
+|Lists all notes tagged with the contact of ID '_12345_'.
+
+|`note list %GROUPNAME`
+|`note list %cs2103t`
+|Lists all notes tagged with the group '_cs2103 team_'.
+|===
+
+. When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
++
+.Entering `note list` command
+image::ug_notelist1.png[width=400]
+
+. All notes are displayed.
++
+.All notes displayed
+image::ug_notelist2.png[width=400]
+
+. When you would like to find the notes containing the keyword "cs", you can enter the command `note list cs`.
++
+.Entering `note list` command with keyword
+image::ug_notelist3.png[width=400]
+
+. Notes with the keyword "cs" found in the title or content are displayed.
++
+.Notes containing keyword displayed
+image::ug_notelist4.png[width=400]
+
+. When you would like to see the notes tagged with the hashtag "assignment", you can enter the command `note list #assignment`.
++
+.Entering `note list` command with tag filter
+image::ug_notelist5.png[width=400]
+
+. Notes tagged with "#assignment" are displayed.
++
+.Filtered tagged notes displayed
+image::ug_notelist6.png[width=400]
+
+. When you would like to filter by multiple tags, you can enter the command `note list @00001 %cs2103t`.
++
+.Entering `note list` command with multiple tag filter
+image::ug_notelist7.png[width=400]
+
+. Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.
++
+.Filtered notes displayed
+image::ug_notelist8.png[width=400]
 
 === Contributions to the Developer Guide
 ---
@@ -67,6 +143,76 @@ include::../UserGuide.adoc[tag=note-clear]
 |The following section shows my additions to the TagLine Developer Guide for the `note` logic and filter feature.
 |===
 
-include::../DeveloperGuide.adoc[tag=note-filter]
+=== Note filtering feature
+==== Description
 
+The user can filter notes by providing a filter in the <<UserGuide#note-list, `note list`>> command.
 
+Types of filter:
+
+* No prefix - filter by String keyword
+* Prefix `#` - filter by hashtag
+* Prefix `@` - filter by contact
+* Prefix `%` - filter by group
+
+==== Implementation
+
+The note filter mechanism is facilitated by the link:{repoURL}/src/main/java/tagline/logic/commands/note/NoteFilter.java[`NoteFilter`] class.
+It contains the filter value and the enum `FilterType`.
+
+A `NoteFilter` is generated by the `NoteFilterUtil` inner class in link:{repoURL}/src/main/java/tagline/logic/parser/note/ListNoteParser.java[`ListNoteParser`] and passed into link:{repoURL}/src/main/java/tagline/logic/commands/note/ListNoteCommand.java[`ListNoteCommand`].
+
+`ListNoteCommand` then creates a `Predicate` based on the filter and updates the list of notes in the UI via `Model`.
+
+===== Filter by String keyword
+
+Filter by keyword is facilitated by the following classes:
+
+* link:{repoURL}/src/main/java/tagline/logic/commands/note/KeywordFilter.java[`KeywordFilter`] - implementation of `NoteFilter` that is passed into `ListNoteCommand`
+* link:{repoURL}/src/main/java/tagline/model/note/NoteContainsKeywordsPredicate.java[`NoteContainsKeywordsPredicate`] - `Predicate` passed into `Model#updateFilteredNoteList()` to list only notes that contain the keywords.
+
+Given below is an example scenario where the user enters a command to filter notes by keywords.
+
+**Step 1:** The user command is passed through the `LogicManager` to `ListNoteParser`. `ListNoteParser` checks the input arguments and identify the String keywords.
+
+The keywords are passed into `NoteFilterUtil#generateKeywordFilter()`  which returns a `KeywordFilter` containing the keywords and `FilterType.KEYWORD`.
+
+.Sequence diagram of parsing `note list` user command to obtain a `ListNoteCommand`
+image::FilterKeywordSequenceDiagram1.png[width=500]
+
+**Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.KEYWORD`, `ListNoteCommand#filterAndListByKeyword()` will be called.
+
+.Sequence diagram of executing `ListNoteCommand` to update filtered note list by keyword in `Model`
+image::FilterKeywordSequenceDiagram2.png[width=300]
+
+The method will create a `NoteContainsKeywordsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
+
+image::FilterKeywordExample.png[width=300]
+
+===== Filter by Tag
+
+Filter by `Tag` is facilitated by the following classes/methods:
+
+* link:{repoURL}/src/main/java/tagline/logic/parser/tag/TagParserUtil.java[`TagParserUtil#parseTag()`] - to obtain the `Tag` objects from the user input tag strings
+* link:{repoURL}/src/main/java/tagline/logic/commands/note/TagFilter.java[`TagFilter`] - implementation of `NoteFilter` that is passed into `ListNoteCommand`
+* link:{repoURL}/src/main/java/tagline/model/note/NoteContainsKeywordsPredicate.java[`NoteContainsTagsPredicate`] - `Predicate` passed into `Model#updateFilteredNoteList()` to list only notes that is tagged by specified `Tag`
+
+Given below is an example scenario where the user enters a command to filter notes by tag.
+
+**Step 1:** Similar to filtering by keyword, the user command is passed to the `ListNoteParser`. The `ListNoteParser` checks the input arguments and identify the tag strings.
+
+The tag strings are passed into `NoteFilterUtil#generateTagFilter()`. `TagParserUtil#parseTag()` is called to get `Tag` from the tag string. `TagFilter` containing the list of tags and `FilterType.TAG` is returned.
+
+.Sequence diagram of parsing user input tag strings to obtain a `ListNoteCommand`
+image::FilterTagSequenceDiagram1.png[width=400]
+
+**Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.TAG`, `ListNoteCommand#filterAndListByTag()` will be called.
+
+.Sequence diagram of executing `ListNoteCommand` to update filtered note list by `Tag` in `Model`
+image::FilterTagSequenceDiagram2.png[width=400]
+
+The method will check if the tags in the `NoteFilter` exists via `Model#findTag()`. If a `Tag` does not exist, an error message will be displayed.
+
+If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
+
+image::FilterTagExample.png[width=400]

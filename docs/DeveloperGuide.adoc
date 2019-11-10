@@ -614,11 +614,11 @@ image::FilterKeywordSequenceDiagram1.png[]
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.KEYWORD`, `ListNoteCommand#filterAndListByKeyword()` will be called.
 
 .Sequence diagram of executing `ListNoteCommand` to update filtered note list by keyword in `Model`
-image::FilterKeywordSequenceDiagram2.png[]
+image::FilterKeywordSequenceDiagram2.png[width=700]
 
 The method will create a `NoteContainsKeywordsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
 
-image::FilterKeywordExample.png[]
+image::FilterKeywordExample.png[width=700]
 
 ===== Filter by Tag
 
@@ -635,18 +635,18 @@ Given below is an example scenario where the user enters a command to filter not
 The tag strings are passed into `NoteFilterUtil#generateTagFilter()`. `TagParserUtil#parseTag()` is called to get `Tag` from the tag string. `TagFilter` containing the list of tags and `FilterType.TAG` is returned.
 
 .Sequence diagram of parsing user input tag strings to obtain a `ListNoteCommand`
-image::FilterTagSequenceDiagram1.png[]
+image::FilterTagSequenceDiagram1.png[width=700]
 
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.TAG`, `ListNoteCommand#filterAndListByTag()` will be called.
 
 .Sequence diagram of executing `ListNoteCommand` to update filtered note list by `Tag` in `Model`
-image::FilterTagSequenceDiagram2.png[]
+image::FilterTagSequenceDiagram2.png[width=700]
 
 The method will check if the tags in the `NoteFilter` exists via `Model#findTag()`. If a `Tag` does not exist, an error message will be displayed.
 
 If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
 
-image::FilterTagExample.png[]
+image::FilterTagExample.png[width=700]
 // end::note-filter[]
 
 === Logging

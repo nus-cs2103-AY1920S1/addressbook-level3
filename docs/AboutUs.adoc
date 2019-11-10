@@ -42,7 +42,7 @@ Roles:
 
 === Ng Shi Wei
 image::shiweing.png[width="150", align="left"]
-{empty}[https://github.com/shiweing[github]] [<<shiwei#, portfolio>>]
+{empty}[https://github.com/shiweing[github]] [<<shiweing#, portfolio>>]
 
 Roles:
 

@@ -556,7 +556,7 @@ Example:
 . When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
 +
 .Entering `note list` command
-image::ug_notelist1.png[width="600"]
+image::ug_notelist1.png[width=600]
 
 . All notes are displayed.
 +
