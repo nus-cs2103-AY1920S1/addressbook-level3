@@ -205,33 +205,97 @@ from the last time they were analysed.
 // end::undoredo[]
 
 // tag::dataencryption[]
-=== Data Encryption
+=== General Data Encryption
 
 ==== Initialization and Validation
 
-All data files of SecureIT are encrypted with a master password set by the user. The initialization and validation of the master password is handled by `TestStorage`.
+All data files of SecureIT are encrypted with a master password set by the user. The initialization and validation of the master password are handled by `*TestStorage*`.
 
-The following sequence diagram shows how the master password is initialized when the user uses the app for the first time, and validated for subsequent uses of the app.
+The following diagram shows how the master password is initialized when the user uses the app for the first time and validated for subsequent uses of the app.
 
-image::InitPasswordSequenceDiagram.png[]
+image::InitPasswordActivityDiagram.png[]
 
-Note that the main components of the app (`Storage`, `Ui`, `Logic`, `Model`) can only be initialised with a correct master password.
+Note that to protect users' data, the main components of the app (`*Storage*`, `*Ui*`, `*Logic*`, `*Model*`) can only be initialised with a correct master password.
 
-The app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the storage. For validation, the app tries to decrypt the stored magic word using the password given and compares if the original word is obtained. If the password given is correct, the decrypted magic word should be the same as the original one.
+Also, the app does not store the master password itself. Instead, during initialization, the app encrypts a magic word using the password and stores it in the file system. For validation, the app tries to decrypt the stored magic word using the password given and checks if the original word is obtained. If the password given is correct, the original magic word should be obtained.
 
 ==== Encryption Method
 
-The following sequence diagram explains how the `EncryptionUtil` class encrypts an input byte array (`byte[] input`) using using a password (`String pwd`).
+The following sequence diagram explains how the `*EncryptionUtil*` class encrypts an input byte array using a password.
 
 image::EncryptionUtilSequenceDiagram.png[]
 
-Before the encryption, both a key (`SecretKey key`) and a set of parameter specification (`PBEParameterSpec paramSpec`) are required. The key is generated from the password string and a specified encryption method (`PBEWithMD5AndTripleDES`) via a utility class (`SecretKeyFactory`). On the other hand, the parameter specification is generated with hardcoded parameters (`SALT`, `ITERATION`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+The process of encrypting a byte array is outlined as follows:
 
-Finally, a `Cipher` class is constructed with the same encryption method specified above (`PBEWithMD5AndTripleDES`) and initialised with the key and the set of parameter specifications. The `doFinal` method conducts the actual encryption on the input array and returns the encrypted byte array.
+Step 1. A key (`*SecretKey key*`) is generated from the password string (`*pwd*`) and a specified encryption method (`*PBEWithMD5AndTripleDES*`) via a utility class (`*SecretKeyFactory*`).
 
-The decryption process is similar to the encryption process, except that the `ENCRYPT_MODE` is changed to `DECRYPT_MODE`. The same password is necessary to decrypt an encrypted byte array to its original content.
+Step 2. A set of parameter specification (`*PBEParameterSpec paramSpec*`) is generated with hardcoded parameters (`*SALT*`, `*ITERATION*`). Hardcoded parameters ensure that the same password can always be correctly validated at different times.
+
+Step 3. A `*Cipher*` class is constructed with the same encryption method specified above (`*PBEWithMD5AndTripleDES*`) and initialised with the key and the set of parameter specifications.
+
+Step 4. The `*doFinal*` method conducts the actual encryption on the input array and returns the encrypted byte array.
+
+The decryption process is similar to the encryption process, except that the `*ENCRYPT_MODE*` is changed to `*DECRYPT_MODE*`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
+
+// tag::fileencryption[]
+=== File Management
+SecureIT does not store users' encrypted files directly. Instead, it reads the files' data, carries out the encryption, and replaces the original files with encrypted ones in users' file system. Meanwhile, it also maintains records of files that it encrypts, represented by `*EncryptedFile*` class, in an internal data structure, `*FileBook*`.
+
+The following diagram illustrates how the record of an encrypted file is represented internally.
+
+image::FileModelClassDiagram.png[Diagram, 700]
+
+The `*FileBook*`, managed by the app's `*ModelManager*`, keeps a `*UniqueFileList*`. The list encapsulates an internal mechanism to prevent file duplication. Each entry in the list represents a record of an encrypted file.
+
+An `*EncryptedFile*` must have the following attributes:  a `*FileName*`, a `*FilePath*`, and a `*FileStatus*`. While the first two attributes allow the app to locate the file, the file status provides users with an indication of the current state of the file. It defaults to `*ACTIVE*` for newly encrypted/added files.
+
+Two timestamps, `*EncryptedAt*` and `*ModifiedAt*`, provide users with more details about the file. These two attributes may not always be available. For example, encrypted files added with `add` command do not contain this information.
+
+Lastly, while a `*ViewableFile*` contains the file's content for preview. It is a generic class which is extendable to accommodate even more file types in future. The `*FilePreviewPanel*`, which is a `*UI*` component, depends on `*ViewableFile*` to render the preview.
+
+==== Logic
+
+The user can perform the following operations: `encrypt`, `decrypt`, `add`, `remove`, `move`, `rename`, and `preview`. There are two differences between the commands of the file manager and those of the address book. First, some file commands require a password for encryption/decryption. Second, most file commands involve interaction with the external file system.
+
+The solution to the first difference is a `*FileCommandParser*` class which is similar to the `*Parser*` class, but it packages the password within the commands during parsing.
+
+image::FileCommandParserClassDiagram.png[]
+
+The second difference is addressed by the separation of access to the file system from the parser. For example, during encryption, at the parsing stage, an `*EncryptedFile toAdd*` is created without the knowledge of the actual file. Both the validation and encryption are carried out only at the execution stage. This is illustrated in the following sequence diagram:
+
+image::EncryptSequenceDiagram.png[]
+
+==== Design Considerations
+
+Below is a summary of my considerations and analysis while developing the file manager:
+
+. When to do file validation with the file system
++
+*Alternative 1*: When a command is parsed +
+*Pros*: No need to construct `*EncryptedFile*` objects for invalid files. +
+*Cons*: Both the command parsing and execution requires interaction with the file system. `*Parser*` violates the single responsibility principle.
++
+*Alternative 2*: When a command is executed +
+*Pros*: Interaction with the file system only occurs during execution. Easier to debug. +
+*Cons*: Need to construct `*EncryptedFile*` when file information is not yet available. Cannot initialise `*ModifiedAt*` in the constructor.
++
+Alternative 2 is chosen because according to single responsibility principle, `*Parser*` should only convert user input to correct command format, without the knowledge of the file.
+
+. How to implement the file preview feature
++
+*Alternative 1*: UI components read file content +
+*Pros*: No need to create extra classes in `*Model*`, such as `*ViewableFile*` +
+*Cons*: UI has to interact directly with the file system
++
+*Alternative 2*: Read file content during command execution +
+*Pros*: File system access is limited to command execution +
+*Cons*: Need to pass the file content to UI via `*CommandResult*`
++
+Alternative 2 is chosen because it is better to keep all access to the file system in one place.
+
+// end::fileencryption[]
 
 === Notes Feature
 ==== Open Note

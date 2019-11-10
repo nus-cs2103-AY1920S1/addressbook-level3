@@ -55,6 +55,10 @@ public class EncryptFileCommand extends Command {
         this.password = password;
     }
 
+    private static Date getModifyDateFromFile(EncryptedFile file) throws IOException {
+        return new Date(Files.getLastModifiedTime(Path.of(file.getFullPath())).toMillis());
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -72,15 +76,7 @@ public class EncryptFileCommand extends Command {
             if (EncryptionUtil.isFileEncrypted(toAdd.getFullPath())) {
                 throw new CommandException(MESSAGE_ENCRYPTED_FILE);
             }
-            toAdd.setModifiedAt(
-                    new ModifiedAt(
-                            new Date(
-                                    Files.getLastModifiedTime(
-                                            Path.of(toAdd.getFullPath())
-                                    ).toMillis()
-                            )
-                    )
-            );
+            toAdd.setModifiedAt(new ModifiedAt(getModifyDateFromFile(toAdd)));
             EncryptionUtil.encryptFile(toAdd.getFullPath(), toAdd.getEncryptedPath(), password);
             toAdd.setEncryptedAt(new EncryptedAt(new Date()));
         } catch (FileSystemException e) {
