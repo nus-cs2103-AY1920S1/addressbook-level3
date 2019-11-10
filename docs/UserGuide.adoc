@@ -53,7 +53,7 @@ Universal commands are displayed first. Tab-specific commands are organised acco
 tabs that they belong to.
 
 ====
-*General Command Format Tabs*
+*General Command Format for All Tabs*
 
 * Highlighted words, like `add n/John Doe` or `add n/NAME` indicate that they can be entered into the Command Box.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -62,11 +62,11 @@ tabs that they belong to.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-== Universal Commands For All Tabs
+== Universal Commands for All Tabs
 
 These are commands available for use in the Command Box for all tabs.
 
-=== Navigation between tabs
+=== Navigation Between Tabs
 Command: `go TAB`
 
 This command allows you to navigate between tabs.
@@ -80,12 +80,17 @@ This command allows you to navigate between tabs.
 
 Alternatively, you may also choose to click the tabs to switch to them.
 
-=== Exit the application
+=== Exiting the Application
 Command: `exit`
 
 This command allows you to exit the application immediately.
-Alternatively, you may also click the `x` button on the top right (for Windows/Linux) or
-top left (for macOS) to close the application.
+Alternatively, you may also click the `x` button on the top right (for Windows/Linux) or top left (for macOS) to close
+the application.
+
+=== Undo/Redo the Last Command `[coming in v2.0]`
+Command: `undo` or `redo`
+
+This command allows you undo/redo the last command.
 
 == Application Tab Specific Commands
 
@@ -109,8 +114,8 @@ it adds money to the club's funds).
 from the club's funds).
 
 [WARNING]
-There is a limitation to the amount that you may enter which would be -999999.99 to 999999.99. If more decimal points
-are entered, it will be rounded off to the nearest 2 decimal point.
+The amount you may enter is limited to -999999.99 to 999999.99. If more decimal points are entered, it will be rounded
+off to 2 decimal points.
 
 ====
 
@@ -125,13 +130,13 @@ This command allows you to add a transaction to the table and saves it into the 
 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format and is case-sensitive. (Eg. 24-Aug-2019 or 03-Sep-2019)
-The person must be someone recorded in the Members Tab and is case-sensitive.
+The person specified must already exist in the Members tab and is case-sensitive.
 
 [WARNING]
 If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
 and under the "Sales" category for it to show up in the Overview Tab correctly.
-If you are adding a transaction that is considered a spending which requires reimbursement to the member, the transaction *must* be negative-valued for it
-to show up in Reimbursements Tab.
+If you are adding a transaction that is considered a spending which requires reimbursement to the member, the transaction
+*must* be negative-valued for it to show up in Reimbursements tab automatically.
 
 * Steps
 
@@ -147,46 +152,37 @@ will be shown in the table. This is shown in the screenshot below:
 //.Screenshot of a successful user input for Add Command in Home Tab
 image::homeUG/HomeAddStep2cr.png[]
 
-
 [[NoSuchPerson]]
-If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the transaction
-record will not be added.
+If the person's name does not exactly match a current member in the Members Tab, Leo will respond with an error and the
+transaction record will not be added.
 
 [NOTE]
-In addition, there is no character limitations to
-the description or category entered. If the words are truncated, the columns in the table can be expanded by dragging the
-right border of the column. Just be careful not to resize the column too much that it exceeds the window which would require
-closing treasurerPro to restore back to original. Alternatively, you may click on the row to have the full details of the
-transaction displayed as
-a response from Leo.
-
-////
-This is shown in the screenshot below:
-
-.Screenshot of an unsuccessful user input for Add Command in the Home Tab due to an invalid name
-
-image::homeUG/HomeAddUnsuccessfulStep2cr.png[]
-////
+There is no character limit for the description or category. If the words appear truncated, the columns in the table can
+be expanded by dragging the right border of the column. Just be careful not to resize the column to the point that it
+exceeds the width of the window, which would require restarting treasurerPro to restore the column back to the original
+size. Alternatively, you may click on the row to have the full details of the transaction displayed as a response from
+Leo.
 
 After step 2, if the added transaction contains a negative amount (indicating an expenditure), a corresponding entry will
-automatically be shown in the Reimbursement Tab, tagged to the member who spent it.
+automatically be shown in the Reimbursement tab, tagged to the member who spent it. +
 Since reimbursements are aggregated by member, if the member already has other outstanding reimbursements,
-it will simply be added to his existing row. This is shown in the screenshot below:
+it will simply be added to his existing row. +
+This is shown in the screenshot below:
 
 //.Screenshot of the Reimbursement Tab after successfully adding a transaction
 image::homeUG/HomeAddShowInR.png[width = "700"]
 
-
 ==== To Delete Transactions in the Home Tab
-This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
+This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the
+table.
 
 * Command
 `delete ID` or `delete p/PERSON`
 
 * Examples
-** Delete by ID: [blue]`delete 1` - Deletes the transaction at the index shown in the table. If the table shows a filtered
-list of transactions due to the Find command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions that Match Keywords in the Home Tab>>,
-the 1st transaction in the filtered list is deleted.
+** Delete by ID: [blue]`delete 1` - Deletes the transaction at the index shown in the table. If the table shows a
+filtered list of transactions due to the Find command detailed in <<findCommandHome, Section 5.1.5 To Find Transactions
+that Match Keywords in the Home Tab>>, the 1st transaction in the filtered list is deleted.
 ** Delete by Person: [blue]`delete p/Alex Yeoh` - Deletes all transactions of the person in full list of transactions.
 
 * Steps for Deleting by ID:
@@ -195,35 +191,29 @@ the 1st transaction in the filtered list is deleted.
 //.Screenshot of the user input into Command Box for Delete by ID command in Home tab
 image::homeUG/HomeDeleteStep1cr.png[]
 
-
 [start = 2]
 2. Hit `Enter`. Leo will respond with a success message and the transaction will be removed from the table as shown below:
 
 .Screenshot of a successful user input for Delete by ID Command in Home Tab
 image::homeUG/HomeDeleteStep2cr.png[]
 
-
 * Steps for Deleting by Person:
 1. Type the command with the person's name to delete all transactions related to that person, as shown in the screenshot below:
-
 
 //.Screenshot of a user input into Command Box for Delete by ID command in Home Tab
 image::homeUG/HomeDeletePStep1cr.png[]
 
 [start = 2]
-2. Hit `Enter`. Leo will respond with the success message and the transaction(s) will be removed from the table as shown below:
+2. Hit `Enter`. Leo will respond with a success message and the transaction(s) will be removed from the table as shown
+in the screenshot below:
 
 //.Screenshot of a successful user input for Delete by Person Command in Home Tab
 image::homeUG/HomeDeletePStep2cr.png[]
 
-For both Delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be removed from that
-reimbursement record. On the other hand, if the person entered is not part of our database as shown in the Members Tab,
-Leo will respond with a message to inform you.
-////
-as shown in the screenshot below:
-
-image::homeUG/HomeAddUnsuccessfulStep2cr.png[width = "500"]
-////
+For both Delete commands, if the transaction(s) deleted was part of a pending reimbursement record, it will also be
+removed from that reimbursement record. +
+On the other hand, if the person entered is not part of our database as shown
+in the Members Tab, Leo will respond with a message to inform you. +
 If the person does not have any transactions, Leo will also respond with a message to inform you.
 
 ==== To Edit a Transaction in the Home Tab
@@ -275,7 +265,7 @@ This command enables you to sort the table of transactions into a specified orde
 * Examples:
 ** [blue]`find Alex` +
 [blue]`sort date` - Sorts both the results of the [blue]`find` command shown and the actual transaction list. The Find command is detailed
-in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home Tab>>. To view the full sorted list,
+in <<findCommandHome, Section 5.1.5. To Find Transactions that Match Keywords in the Home tab>>. To view the full sorted list,
 enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6. To Go Back to Display the Full List in the Home Tab>>
 
 
@@ -614,7 +604,7 @@ This command helps you to sort the reimbursement lists based on name, in alphabe
 * Steps:
 . Type the command [blue]`sort name`, as shown in the screenshot below:
 +
-//.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Sort Name Command in Reimbursement tab
 image::Reimbursement/ReimbursementSortNameCommand.png[width="600"]
 
 +
@@ -622,7 +612,7 @@ image::Reimbursement/ReimbursementSortNameCommand.png[width="600"]
 +
 The reimbursements are sorted in alphabetical order of person's name.
 +
-//.Screenshot of a successful user input for Sort Name Command in Reimbursement Tab
+//.Screenshot of a successful user input for Sort Name Command in Reimbursement tab
 image::Reimbursement/ReimbursementSortNameCommandSuccess.png[width="600"]
 
 ==== Sorting the list based on deadline: `sort date`
@@ -633,7 +623,7 @@ This command helps you to sort the reimbursement lists based on deadline, in ord
 * Steps:
 . Type the command [blue]`sort date `, as shown in the screenshot below:
 +
-//.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement Tab
+//.Screenshot of the user input into Command Box for Sort Date Command in Reimbursement tab
 image::Reimbursement/ReimbursementSortDateCommand.png[width="600"]
 
 +
@@ -641,7 +631,7 @@ image::Reimbursement/ReimbursementSortDateCommand.png[width="600"]
 +
 The reimbursements are sorted by deadline date.
 +
-//.Screenshot of a successful user input for Sort Date Command in Reimbursement Tab
+//.Screenshot of a successful user input for Sort Date Command in Reimbursement tab
 image::Reimbursement/ReimbursementSortDateCommandSuccess.png[width="600"]
 
 === Inventory Tab
@@ -677,7 +667,7 @@ The attributes can also be inputted in any order.
 * Steps:
 . Type the command with all parameters filled in, as shown in the screenshot below:
 
-//.Screenshot of the user input into the Command Box for the Add Command in the Inventory Tab
+//.Screenshot of the user input into the Command Box for the Add Command in the Inventory tab
 image::inventoryUG/AddStep1.png[width="600"]
 
 [start = 2]
@@ -686,7 +676,7 @@ image::inventoryUG/AddStep1.png[width="600"]
 If the command is successfully added, Leo will respond with a success message and the item
 will be shown in the table. This is shown in the screenshot below:
 
-//.Screenshot of a successful user input for the Add Command in the Inventory Tab
+//.Screenshot of a successful user input for the Add Command in the Inventory tab
 image::inventoryUG/AddSuccess.png[width="600"]
 
 [NOTE]
@@ -714,7 +704,7 @@ image::inventoryUG/DeleteStep1.png[width="600"]
 Leo will respond with a success message and the item will be removed from the table as shown below:
 
 
-//.Screenshot of a successful user input for the Delete Command in the Inventory Tab
+//.Screenshot of a successful user input for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteSuccess.png[width="600"]
 
 ==== Edit an Item:
@@ -733,7 +723,7 @@ You may edit any combination, permutation and number of the attributes, as long 
 * Steps:
 . Type the command with the ID of the item to be edited, along with the new parameters to be changed, as shown below:
 
-//.Screenshot of user input into Command Box for the Edit Command in the Inventory Tab
+//.Screenshot of user input into Command Box for the Edit Command in the Inventory tab
 image::inventoryUG/EditStep1.png[width="600"]
 
 [start = 2]
@@ -741,7 +731,7 @@ image::inventoryUG/EditStep1.png[width="600"]
 
 Leo will respond with a success message and the updated item will be shown in the table as shown below:
 
-//.Screenshot of a successful user input for the Edit Command in the Inventory Tab
+//.Screenshot of a successful user input for the Edit Command in the Inventory tab
 image::inventoryUG/EditSuccess.png[width="600"]
 
 ==== Sort Items:
@@ -830,20 +820,20 @@ description even if the category of the item does *not* match with the specified
 If you do not remember the exact description of the item to add, you can type the command "add" with a category
 specified as shown in the screenshot below.
 
-//.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
+//.Screenshot of user input (category) into Command Box for Add Command in Cashier tab
 image::cashierUG/AddCommand1.png[width="620"]
 
 
 [start = 2]
 2. Then, you can enter the desired description and quantity according to the items suggested by Leo as shown below.
 
-//.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
+//.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier tab
 image::cashierUG/AddCommand2.png[width="600"]
 
 [start = 3]
 . Now, you can hit `Enter`.
 
-//.Screenshot of the response message for Add Command in Cashier Tab
+//.Screenshot of the response message for Add Command in Cashier tab
 image::cashierUG/AddCommand3.png[width="600"]
 
 Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
@@ -865,13 +855,13 @@ The specified index should correspond to the row index of the item in the table.
 1.
 To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
 
-//.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
+//.Screenshot of the user input into Command Box for Delete Command in Cashier tab
 image::cashierUG/DeleteCommand1.png[width="600"]
 
 [start = 2]
 . Now, you can hit `Enter`.
 
-//.Screenshot of the response message for Delete Command in Cashier Tab
+//.Screenshot of the response message for Delete Command in Cashier tab
 image::cashierUG/DeleteCommand2.png[width="600"]
 
 Leo will respond to the successful deletion with a response message. The item will be deleted from the table.
@@ -903,19 +893,19 @@ If the quantity is invalid, Leo will display the quantity of stock left.
 
 1.1 To edit by its *index*, you can enter the command "edit" with an index and quantity specified as shown in the screenshot below.
 
-//.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier Tab
+//.Screenshot of user input (index, description) into Command Box for Edit Command in Cashier tab
 image::cashierUG/EditCommand1.png[width="600"]
 
 [start = 2]
 1.2 To edit by its *description*, you can enter the command "edit"  with the required description and quantity as shown below.
 
-//.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier Tab
+//.Screenshot of user input (description, quantity) into Command Box for Edit Command in Cashier tab
 image::cashierUG/EditCommand3.png[width="600"]
 
 [start = 2]
 . Now, you can hit `Enter`.
 
-//.Screenshot of response message for Edit Command in Cashier Tab
+//.Screenshot of response message for Edit Command in Cashier tab
 image::cashierUG/EditCommand2.png[width="600"]
 
 If successfully updated, Leo will respond with a response message. The quantity will now be updated in the table.
@@ -943,13 +933,13 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 1.
 To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
 
-//.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
+//.Screenshot of user input into Command Box for Set Cashier Command in Cashier tab
 image::cashierUG/SetCashierCommand1.png[width="600"]
 
 [start = 2]
 . Now, you can hit `Enter`.
 
-//.Screenshot of response message for Set Cashier Command in Cashier Tab
+//.Screenshot of response message for Set Cashier Command in Cashier tab
 image::cashierUG/SetCashierCommand2.png[width="600"]
 
 If set successfully, Leo will respond with a response message. The cashier will be updated in the bottom row.
@@ -979,13 +969,13 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 1.
 To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
 
-//.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
+//.Screenshot of user input into Command Box for Checkout Command in Cashier tab
 image::cashierUG/CheckoutCommand1.png[width="600"]
 
 [start = 2]
 . Now, you can hit `Enter`.
 
-//.Screenshot of response message for Checkout Command in Cashier Tab
+//.Screenshot of response message for Checkout Command in Cashier tab
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
 
@@ -1017,13 +1007,13 @@ This command is irreversible. Please use at your own discretion.
 1.
 To clear, you can type the "clear" command word only as shown in the screenshot below.
 
-//.Screenshot of user input into Command Box for Clear Command in Cashier Tab
+//.Screenshot of user input into Command Box for Clear Command in Cashier tab
 image::cashierUG/ClearCommand1.png[width="600"]
 
 [start = 2]
 . Now, you can hit `Enter`.
 
-//.Screenshot of response message for Clear Command in Cashier Tab
+//.Screenshot of response message for Clear Command in Cashier tab
 image::cashierUG/ClearCommand2.png[width="600"]
 
 
@@ -1069,19 +1059,19 @@ This command enables you to set a financial goal.
 
 [NOTE]
 The amount should be non-negative, and the maximum amount you may set is 10,000,000
-(10 million). +
+(10 million). If more than 2 decimal places are specified, the amount will be rounded to 2 decimal places. +
 To reset the goal, simply set it to 0.
 
 * Steps:
 . Type the command with the corresponding target and amount.
 
-//.Screenshot of user input into Command Box for Set Command in Overview Tab
+//.Screenshot of user input into Command Box for Set Command in Overview tab
 image::overviewUG/SetCommandExample.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of a successful user input for Set Command in Overview Tab
+//.Screenshot of a successful user input for Set Command in Overview tab
 image::overviewUG/SetCommandResult.png[width="600"]
 
 Leo displays a confirmation showing that the goal was successfully set. +
@@ -1091,9 +1081,6 @@ The user interface reflects this under the respective section.
 This command allows you to set a percentage threshold for notifications. +
 For example, an 80 percent threshold will mean that you will receive a notification once you have reached 80% of the
 goal set for that particular financial goal.
-
-[NOTE]
-
 
 * Command:
 ** To set budget goal notification: `notify b/PERCENTAGE`
@@ -1114,13 +1101,13 @@ To disable notifications for a particular financial goal, simply set its notific
 * Steps:
 . Type the command with the corresponding target and amount.
 
-//.Screenshot of user input into Command Box for Notify Command in Overview Tab
+//.Screenshot of user input into Command Box for Notify Command in Overview tab
 image::overviewUG/NotifyCommandExample.png[width="600"]
 
 [start = 2]
 . Hit `Enter`
 
-//.Screenshot of a successful user input for Notify Command in Overview Tab
+//.Screenshot of a successful user input for Notify Command in Overview tab
 image::overviewUG/NotifyCommandResult.png[width="600"]
 
 Leo displays a confirmation showing that the notification was successfully set. +
@@ -1133,7 +1120,7 @@ Notifications show only once per app run, or whenever a target or threshold is m
 
 The following screenshot shows an example of the notifications:
 
-//.Screenshot of notifications displayed by Leo for Notify Command in Overview Tab
+//.Screenshot of notifications displayed by Leo for Notify Command in Overview tab
 image::overviewUG/NotificationExample.png[width="600"]
 
 === Saving the data
@@ -1153,9 +1140,9 @@ Data in treasurerPro is saved automatically after executing any command. There i
 
 *Q*: What is `Cashier Mode`? How can I switch it off? +
 *A*: `Cashier Mode` is a feature implemented for security reasons. It is considered turned on when there are sales items
-in the cart on the `Cashier Tab`. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
+in the cart on the Cashier tab. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
 new items. +
-To switch it off, please enter `clear` on the Command Line Interface (CLI) of the `Cashier Tab`.
+To switch it off, please enter `clear` on the Command Line Interface (CLI) of the Cashier tab.
 
 == Command Summary
 
