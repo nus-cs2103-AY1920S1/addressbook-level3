@@ -8,12 +8,6 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-[NOTE]
-====
-This document was originally written for _AddressBook Level 4_ and hence its screenshots refer to `addressbook-level4`.
-For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
-====
-
 == Configuring Checkstyle-IDEA
 
 . Install the Checkstyle-IDEA plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS). +
@@ -26,7 +20,7 @@ Restart the IDE to complete the installation.
 +
 image::checkstyle-idea-scan-scope.png[width="500"]
 . Click the plus sign under `Configuration File`
-. Enter an arbitrary description e.g. addressbook
+. Enter an arbitrary description e.g. jarvis
 . Select `Use a local Checkstyle file`
 . Use the checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
 . Click `Next` > `Finish`
