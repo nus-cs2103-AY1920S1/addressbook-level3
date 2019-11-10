@@ -103,11 +103,7 @@ public class CentralDisplay extends UiPart<Region> {
         agendaTab.setText(nameProperty.getValue().toString() + " Itinerary");
         agendaManager.updateAgenda(dayList);
 
-        if (dayList.size() == 0) {
-            agendaTab.setContent(null);
-        } else {
-            agendaTab.setContent(agendaManager.getAgenda());
-        }
+        emptyAgendaTabIfNoDays();
     }
 
 
@@ -126,6 +122,7 @@ public class CentralDisplay extends UiPart<Region> {
             if (agendaTab.isSelected()) {
                 agendaManager.updateAgenda(dayList);
                 agendaManager.updateSkin(dayList, startDateProperty.getValue());
+                emptyAgendaTabIfNoDays();
             }
         });
         helpTab.setOnSelectionChanged((event) -> {
@@ -153,6 +150,7 @@ public class CentralDisplay extends UiPart<Region> {
                 tabDisplay.getSelectionModel().select(agendaTab);
                 agendaManager.updateSkin(dayList, startDateProperty.getValue());
                 agendaManager.updateAgenda(dayList);
+                emptyAgendaTabIfNoDays();
                 break;
             case INFO:
                 tabDisplay.getSelectionModel().select(infoTab);
@@ -180,5 +178,17 @@ public class CentralDisplay extends UiPart<Region> {
      */
     public void generateCommandHelpSummary() {
         helpListPanel.generateCommandHelpSummary();
+    }
+
+    /**
+     * Makes the agenda disappear if there are 0 days.
+     * Otherwise, Agenda appears in the agendaTab.
+     */
+    private void emptyAgendaTabIfNoDays() {
+        if (dayList.size() == 0) {
+            agendaTab.setContent(null);
+        } else {
+            agendaTab.setContent(agendaManager.getAgenda());
+        }
     }
 }
