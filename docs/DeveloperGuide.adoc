@@ -413,7 +413,7 @@ return an error to the user rather than attempting to perform the undo.
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo command
-image::UndoSequenceDiagram.png[align=center]
+image::UndoSequenceDiagram.png[width=600, align=center]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X)
 but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -451,7 +451,7 @@ image::UndoRedoState5.png[width=250, align=center]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 .Activity diagram for committing Command
-image::CommitActivityDiagram.png[width=250, align=center]
+image::CommitActivityDiagram.png[width=200, align=center]
 
 ==== Design Considerations
 
