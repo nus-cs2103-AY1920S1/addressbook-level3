@@ -3,6 +3,7 @@ package seedu.ichifund.logic.parser.loan;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import seedu.ichifund.logic.commands.Command;
+import seedu.ichifund.logic.commands.loan.AddLoanCommand;
 import seedu.ichifund.logic.parser.FeatureParser;
 import seedu.ichifund.logic.parser.exceptions.ParseException;
 
@@ -25,7 +26,9 @@ public class LoanFeatureParser implements FeatureParser {
 
     @Override
     public Command parseCommand(String commandWord, String arguments) throws ParseException {
-        switch(commandWord) {
+        switch (commandWord) {
+        case AddLoanCommand.COMMAND_WORD:
+            return new AddLoanCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
