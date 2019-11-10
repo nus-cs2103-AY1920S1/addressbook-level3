@@ -3,7 +3,6 @@ package seedu.deliverymans.model.deliveryman;
 import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
