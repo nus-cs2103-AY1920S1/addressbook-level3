@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * A utility class to help with building Debtor objects.

@@ -28,6 +28,7 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
@@ -35,7 +36,6 @@ import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Splits a group payment among a list of persons.

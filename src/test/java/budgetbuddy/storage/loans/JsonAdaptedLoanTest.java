@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import budgetbuddy.commons.exceptions.IllegalValueException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
-import budgetbuddy.model.transaction.Amount;
 
 public class JsonAdaptedLoanTest {
 

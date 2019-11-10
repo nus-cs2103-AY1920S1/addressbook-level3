@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 import budgetbuddy.commons.core.GuiSettings;
 import budgetbuddy.commons.core.LogsCenter;
 import budgetbuddy.model.transaction.Transaction;
-
 import javafx.collections.transformation.FilteredList;
 
 /**

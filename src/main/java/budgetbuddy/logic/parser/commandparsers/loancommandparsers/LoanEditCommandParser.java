@@ -15,9 +15,9 @@ import budgetbuddy.logic.parser.ArgumentTokenizer;
 import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Parses input arguments and creates a new LoanEditCommand object.

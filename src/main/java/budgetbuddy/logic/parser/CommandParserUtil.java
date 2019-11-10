@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.commons.util.StringUtil;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
@@ -37,7 +38,6 @@ import budgetbuddy.model.rule.expression.Value;
 import budgetbuddy.model.rule.script.ActionScript;
 import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.model.script.ScriptName;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 
 /**

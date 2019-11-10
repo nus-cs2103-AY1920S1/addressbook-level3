@@ -7,11 +7,11 @@ import java.util.Objects;
 import java.util.Set;
 
 import budgetbuddy.commons.core.index.Index;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import javafx.beans.Observable;

@@ -16,7 +16,7 @@ import budgetbuddy.model.account.exceptions.EmptyAccountListException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Amount;
+import budgetbuddy.model.attributes.SignedAmount;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 import budgetbuddy.storage.export.HtmlExporter;
@@ -241,14 +241,14 @@ public class AccountsManager {
      * Gets the nett outflow/inflow of money within a filtered transaction list.
      * When the filter is default, the value should be the same as account balance.
      */
-    public Amount getFilteredTransactionListNettFlow() {
+    public SignedAmount getFilteredTransactionListNettFlow() {
         long total = 0;
         for (Transaction t : filteredTransactions) {
             total += t.getDirection().equals(Direction.IN)
                     ? t.getAmount().toLong()
                     : -t.getAmount().toLong();
         }
-        return new Amount(total);
+        return new SignedAmount(Math.abs(total), total >= 0);
     }
 
     @Override
@@ -311,7 +311,9 @@ public class AccountsManager {
         if (activeTransactionList != null) {
             activeTransactionList.setAll(account.getTransactionList());
         }
-        resetSortedTransactionList();
+        if (sortedTransactions != null) {
+            resetSortedTransactionList();
+        }
     }
 
     /**

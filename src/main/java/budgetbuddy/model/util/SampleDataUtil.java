@@ -5,13 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import budgetbuddy.model.LoansManager;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Contains utility methods for populating {@code BudgetBuddy} with sample data.

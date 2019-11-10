@@ -22,11 +22,11 @@ import budgetbuddy.logic.parser.CommandParser;
 import budgetbuddy.logic.parser.CommandParserUtil;
 import budgetbuddy.logic.parser.Prefix;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
-import budgetbuddy.model.transaction.Amount;
 import budgetbuddy.model.transaction.Transaction;
 
 /**

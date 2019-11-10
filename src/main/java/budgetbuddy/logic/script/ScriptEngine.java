@@ -2,6 +2,7 @@ package budgetbuddy.logic.script;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.script.Bindings;
 import javax.script.ScriptContext;
 import javax.script.ScriptEngineManager;

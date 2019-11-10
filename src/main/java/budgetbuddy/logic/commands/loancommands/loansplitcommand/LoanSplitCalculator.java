@@ -8,8 +8,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * A utility class containing various methods for calculating the splitting of a group payment.

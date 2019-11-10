@@ -19,7 +19,6 @@ import budgetbuddy.ui.tab.PanelTab;
 import budgetbuddy.ui.tab.RuleTab;
 import budgetbuddy.ui.tab.ScriptTab;
 import budgetbuddy.ui.tab.TransactionTab;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

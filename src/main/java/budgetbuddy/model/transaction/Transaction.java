@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;

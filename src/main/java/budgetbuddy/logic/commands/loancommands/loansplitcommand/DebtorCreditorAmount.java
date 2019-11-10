@@ -1,7 +1,7 @@
 package budgetbuddy.logic.commands.loancommands.loansplitcommand;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * A utility class containing information about a debtor and the money they owe to a creditor.

@@ -1,9 +1,9 @@
-package budgetbuddy.model.transaction;
+package budgetbuddy.model.attributes;
 
 import budgetbuddy.commons.util.AppUtil;
 
 /**
- * Represents the Amount in a Transaction.
+ * Represents an Amount.
  * Guarantees: immutable, is valid as declared in {@link #isValidAmount(long)}
  */
 public class Amount implements Comparable<Amount> {
@@ -19,7 +19,7 @@ public class Amount implements Comparable<Amount> {
 
     public static final String VALIDATION_REGEX = "^\\d+$";
 
-    private final long amount;
+    protected final long amount;
 
     /**
      * Constructs an {@code Amount}

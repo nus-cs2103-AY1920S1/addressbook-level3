@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 

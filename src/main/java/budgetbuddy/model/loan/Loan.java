@@ -6,10 +6,10 @@ import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.person.Person;
-import budgetbuddy.model.transaction.Amount;
 
 /**
  * Represents a loan.

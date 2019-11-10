@@ -15,8 +15,7 @@ public class ComparatorUtil {
     public static final Comparator<Transaction> SORT_BY_ASCENDING_AMOUNT = (
         t1, t2) -> t1.getAmount().compareTo(t2.getAmount());
     public static final Comparator<Transaction> SORT_BY_DESCENDING_DESCRIPTION = (
-        t1, t2) -> t1.getDescription().compareTo(t2.getDescription());
+        t1, t2) -> t2.getDescription().compareTo(t1.getDescription());
     public static final Comparator<Transaction> SORT_BY_ASCENDING_DESCRIPTION = (
         t1, t2) -> t1.getDescription().compareTo(t2.getDescription());
-
 }
