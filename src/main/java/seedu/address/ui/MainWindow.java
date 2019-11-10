@@ -390,8 +390,11 @@ public class MainWindow extends UiPart<Stage> {
                 if (!listChangedSinceLastExpand) {
                     renderRightPanel(rightPanelCommandText);
                 } else {
-                    renderHistoryOrDisplay(rightPanelCommandText);
-                    expandPersonOrPolicy();
+                    if (!rightPanelCommandText.startsWith("expand")) {
+                        renderHistoryOrDisplay(rightPanelCommandText);
+                    } else {
+                        expandPersonOrPolicy();
+                    }
                 }
             }
 
