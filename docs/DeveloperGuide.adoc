@@ -488,34 +488,39 @@ However, all of them manipulate annotations.
 This means there are multiple options to choose from to parse an annotation command:
 
 * **Alternative 1:**  Use a single parser to parse all annotation commands.
+** Pros: Will likely be faster due to less layers of abstraction.
+** Cons: Does not abide by the Single Responsibility Principle and Open-close Principle.
 
-* **Alternative 2:** Use a different parser for each command word.
-
-* **Alternative 3:** Use a different parser for each use case.
+* **Alternative 2 (current choice):** Use a different parser for each command word.
+** Pros: Easier to implement. This ensures the individual command words are parsed separately and in
+a similar way as the other commands, improving the overall clarity of the implementations.
+** Cons: Need to write many lines of code due to multiple layers of abstraction.
 
 ===== Aspect: How to implement command to delete annotations
 There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
 only the highlight of a paragraph with a note will have a side effect where the note becomes general.
 Considering these variations, there are a few alternatives that we can consider to implement the delete function:
 
-* **Alternative 1:** Use
+* **Alternative 1:** Use a single `DeleteAnnotationCommand` object to execute the entire delete functionality
+** Pros: Makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not follow the Single Responsibility Principle and Open-close Principle. All checks will have to be performed in the same class, which makes it messy as well.
+
+* **Alternative 2 (current choice):** Use a different subtype of `DeleteAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to implement since delete functionality is rather discrete and each function is mutually exclusive. Less checks will be required for each class implemented. Also easier to extend functionality in future.
+** Cons: Need to write multiple lines of code due to multiple layers of abstraction.
 
 ===== Aspect: How to implement command to edit annotations
-The edit function for manipulating annotations also has multiple responsibilities: editing existing
-annotations and moving annotations from paragraph to paragraph.
+The edit function for manipulating annotations also has multiple functions: editing existing
+annotations and moving annotations from paragraph to paragraph. These functions can be combined together.
+Hence, there are also a few options we can take to implement the edit functionality:
 
-This means each command has multiple cases to handle.
-There are hence a few alternatives in which we can segregate the responsibility of parsing and executing:
+* **Alternative 1 (current choice):** Use a single `EditAnnotationCommand` object to execute the entire edit functionality
+** Pros: Easier to implement and also makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not abide by the Single Responsibility Principle. All checks will have to be performed in the same class.
 
-* **Alternative 1:** Use a single parser to parse all the annotation-related commands and for each command create
-** Pros:
-** Cons:
-
-* **Alternative 2:** For each of `annotate`, `annotate-delete` and `annotate-edit`, use a separate parser.
-** Pros:
-** Cons:
-
-* **Alternative 3:** For each small function, create
+* **Alternative 2:** Use a different subtype of `EditAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to extend. Also, less checks on conditions can be performed for each class implemented.
+** Cons: Not straightforward to implement. The functions can overlap, which makes it difficult to segregate into separate responsibilities.
 
 // end::annotation[]
 
