@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
+import seedu.address.model.cap.module.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all modules in Modulo Grades Tracker whose module code or title
+ * contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -16,7 +17,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all modules whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: KEYWORD...\n"
             + "Example: " + COMMAND_WORD + " CS2103";
 
     private final NameContainsKeywordsPredicate predicate;

@@ -1,10 +1,10 @@
-package seedu.address.model.cap.person;
+package seedu.address.model.cap.module;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Module's Credit in the Modulo Grades Tracker.
  * Guarantees: immutable.
  */
 public class Credit {

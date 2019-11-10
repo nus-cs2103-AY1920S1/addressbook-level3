@@ -1,6 +1,6 @@
-package seedu.address.model.cap.person.rank;
+package seedu.address.model.cap.module.rank;
 
-import seedu.address.model.cap.person.DegreeClassification;
+import seedu.address.model.cap.module.DegreeClassification;
 
 /**
  * Represents a SecondLower grade.

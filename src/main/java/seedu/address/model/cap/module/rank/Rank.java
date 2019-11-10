@@ -1,8 +1,8 @@
-package seedu.address.model.cap.person.rank;
+package seedu.address.model.cap.module.rank;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.cap.person.DegreeClassification;
+import seedu.address.model.cap.module.DegreeClassification;
 
 /**
  * Represents an degree classification.

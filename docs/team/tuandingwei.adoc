@@ -22,11 +22,11 @@ The user interacts with it using a CLI, and it features an outstanding user-frie
 * *Major enhancement*: greatly enhanced the grades tracking feature and developed the person class into module class
 ** What it does: The CAP tracker allows our user to keep track of his/her grades, overall Cumulative Average Point (CAP), MC taken and the degree classification (also known as "class") the user is in.
 ** Justification: This feature complements the function of Modulo as an all-in-one application for NUS students to manage their life in NUS. For students in NUS who are well-concerned and motivated, the CAP Tracker allows students to keep track of their CAP and grades with ease.
-** Highlights: The implementation of the CAP feature was challenging but satisfying. It requires in-depth design considerations around the students. The implementation also required an overhaul of existing commands. The single 'add' command initiates a series of major operations that generates the CAP, displays the right degree classifications and generates the pie chart. The implementation requires knowledge in object-oriented programming, data structure and algorithms. Many classes are interlinked hence increased the complexity of the modification and implementation.
+** Highlights: The implementation of the CAP feature was challenging but satisfying. It requires in-depth design considerations around the students. The implementation also required an overhaul of existing commands and codes. The structure remains intact but the code required heavy refractoring along with new implementations. The single 'add' command initiates a series of major operations that generates the CAP, displays the right degree classifications and generates the pie chart. The implementation requires knowledge in object-oriented programming, data structure and algorithms. Many classes are interlinked hence increased the complexity of the modification and implementation.
 
 * *Minor enhancement*: Enhanced the find command to search for keywords in module code and title. The enhanced search returns any module that contains the keyword in the module code and/or module title.
 
-* *Minor enhancement*: Added a filter command that allows the student to filter his/her grades.
+* *Minor enhancement*: Added a sort command that allows the student to sort all the modules in chronological order.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 

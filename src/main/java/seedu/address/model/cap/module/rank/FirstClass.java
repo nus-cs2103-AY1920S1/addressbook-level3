@@ -1,19 +1,19 @@
-package seedu.address.model.cap.person.rank;
+package seedu.address.model.cap.module.rank;
 
-import seedu.address.model.cap.person.DegreeClassification;
+import seedu.address.model.cap.module.DegreeClassification;
 
 /**
- * Represents a ThirdClass grade.
+ * Represents a FirstClass grade.
  */
-public class ThirdClass extends Rank {
+public class FirstClass extends Rank {
 
-    private static final String TITLE = "THIRD CLASS HONOURS";
-    private static final double MAXIMUM_CAP = 3.49;
-    private static final double MINIMUM_CAP = 3.00;
-    private static final String imageFilePath = "/images/third_class.png";
+    private static final String TITLE = "FIRST CLASS HONOURS";
+    private static final double MAXIMUM_CAP = 5.0;
+    private static final double MINIMUM_CAP = 4.5;
+    private static final String imageFilePath = "/images/first_class.png";
 
-    public ThirdClass() {
-        super(DegreeClassification.THIRD, TITLE);
+    public FirstClass() {
+        super(DegreeClassification.FIRST, TITLE);
     }
 
     public static double getMaximumCap() {

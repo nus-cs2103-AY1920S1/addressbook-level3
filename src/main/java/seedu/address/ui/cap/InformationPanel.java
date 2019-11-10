@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the modular credit and Cumulative Average Point.
  */
 public class InformationPanel extends UiPart<Region> {
     private static final String FXML = "InformationPanel.fxml";

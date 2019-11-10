@@ -16,7 +16,7 @@ import seedu.address.logic.cap.parser.CapLogParser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyCapLog;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 import seedu.address.model.common.Module;
 import seedu.address.storage.cap.Storage;
 

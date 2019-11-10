@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Semester}.
  */
 public class SemesterCard extends UiPart<Region> {
 
@@ -22,7 +22,7 @@ public class SemesterCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final seedu.address.model.cap.person.Semester semester;
+    public final seedu.address.model.cap.module.Semester semester;
 
     @javafx.fxml.FXML
     private HBox cardPane;

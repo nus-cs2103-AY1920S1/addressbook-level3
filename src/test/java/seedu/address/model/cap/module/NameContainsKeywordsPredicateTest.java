@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.ModuleBuilder;
 
 public class NameContainsKeywordsPredicateTest {

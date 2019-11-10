@@ -1,4 +1,4 @@
-package seedu.address.model.cap.person;
+package seedu.address.model.cap.module;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,16 +8,18 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.cap.person.exceptions.DuplicateModuleException;
-import seedu.address.model.cap.person.exceptions.ModuleNotFoundException;
+import seedu.address.model.cap.module.exceptions.DuplicateModuleException;
+import seedu.address.model.cap.module.exceptions.ModuleNotFoundException;
 
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of semesters that enforces uniqueness between its elements and does not allow nulls.
+ * A semester is considered unique by comparing using {@code Person#isSamePerson(Person)}.
+ * As such, adding and updating of
+ * semesters uses Person#isSamePerson(Person) for equality so as to ensure that the semester being added or updated is
+ * unique in terms of identity in the UniquePersonList.
+ * However, the removal of a semester uses Person#equals(Object) so
+ * as to ensure that the semester with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -30,7 +32,7 @@ public class UniqueSemesterList implements Iterable<Semester> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent module as the given argument.
      */
     public boolean contains(Semester toCheck) {
         requireNonNull(toCheck);
@@ -38,8 +40,8 @@ public class UniqueSemesterList implements Iterable<Semester> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a semester to the list.
+     * The semester must not already exist in the list.
      */
     public void add(Semester toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +51,9 @@ public class UniqueSemesterList implements Iterable<Semester> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the semester {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The semester identity of {@code editedPerson} must not be the same as another existing semester in the list.
      */
     public void setSemester(Semester targetSemester, Semester editedSemester) {
         requireAllNonNull(targetSemester, editedSemester);
@@ -69,8 +71,8 @@ public class UniqueSemesterList implements Iterable<Semester> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent semester from the list.
+     * The semester must exist in the list.
      */
     public void remove(Semester toRemove) {
         requireNonNull(toRemove);
@@ -109,7 +111,7 @@ public class UniqueSemesterList implements Iterable<Semester> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code semesters} contains only unique semesters.
      */
     private boolean semestersAreUnique(List<Semester> semesters) {
         for (int i = 0; i < semesters.size() - 1; i++) {

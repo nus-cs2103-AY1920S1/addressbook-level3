@@ -10,7 +10,7 @@ import seedu.address.logic.cap.commands.CommandResult;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 import seedu.address.model.cap.ReadOnlyCapLog;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 import seedu.address.model.common.Module;
 
 /**
@@ -19,7 +19,7 @@ import seedu.address.model.common.Module;
 public interface Logic {
     /**
      * Executes the command and returns the result.
-     * @param commandText The command as entered by the user.
+     * @param commandText The command as entered by the user i.e. student.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
@@ -27,19 +27,19 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Modulo.
      *
      * @see seedu.address.model.cap#getCapLog()
      */
     ReadOnlyCapLog getCapLog();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
+    /** Returns an unmodifiable view of the filtered list of modules */
     ObservableList<Module> getFilteredModuleList();
 
     ObservableList<Semester> getFilteredSemesterList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' Modulo file path.
      */
     Path getCapLogFilePath();
 

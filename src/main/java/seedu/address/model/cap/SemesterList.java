@@ -5,12 +5,12 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.cap.person.UniqueModuleList;
+import seedu.address.model.cap.module.UniqueModuleList;
 import seedu.address.model.common.Module;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the capLog level
+ * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class SemesterList implements ReadOnlySemesterList {
 
@@ -30,7 +30,7 @@ public class SemesterList implements ReadOnlySemesterList {
     public SemesterList() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an CapLog using the Modules in the {@code toBeCopied}
      */
     public SemesterList(ReadOnlySemesterList toBeCopied) {
         this();
@@ -40,15 +40,15 @@ public class SemesterList implements ReadOnlySemesterList {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the semester list with {@code semesters}.
+     * {@code semesters} must not contain duplicate semesters.
      */
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
     }
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CapLog} with {@code newData}.
      */
     public void resetData(ReadOnlySemesterList newData) {
         requireNonNull(newData);
@@ -56,10 +56,10 @@ public class SemesterList implements ReadOnlySemesterList {
         setModules(newData.getModuleList());
     }
 
-    //// person-level operations
+    //// semester-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a semester with the same identity as {@code semester} exists in the address book.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -67,17 +67,18 @@ public class SemesterList implements ReadOnlySemesterList {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a semester to the cap log.
+     * The semester must not already exist in the address book.
      */
     public void addModule(Module module) {
         modules.add(module);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given semester {@code target} in the list with {@code editedSemester}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The semester identity of {@code editedModule} must
+     * not be the same as another existing semester in the cap log.
      */
     public void setModule(Module target, Module editedPerson) {
         requireNonNull(editedPerson);
@@ -86,8 +87,8 @@ public class SemesterList implements ReadOnlySemesterList {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code CapLog}.
+     * {@code key} must exist in the capLog.
      */
     public void removeModule(Module module) {
         modules.remove(module);

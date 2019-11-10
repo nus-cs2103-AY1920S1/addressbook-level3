@@ -6,11 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.logic.cap.parser.ParserUtil;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.module.Credit;
+import seedu.address.model.cap.module.Grade;
+import seedu.address.model.cap.module.ModuleCode;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.Title;
 import seedu.address.model.common.Module;
 
 /**
@@ -56,7 +56,7 @@ class JsonAdaptedModule {
      * Converts this Jackson-friendly adapted module object into the model's {@code Module} object.
      *
      * @return a Module
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted module.
      */
     public Module toModelType() throws IllegalValueException {
 

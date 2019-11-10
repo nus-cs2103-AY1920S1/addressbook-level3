@@ -16,7 +16,7 @@ import seedu.address.model.cap.ReadOnlyCapLog;
 
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access CapLog data stored as a json file on the hard disk.
  */
 public class JsonCapStorage implements CapStorage {
 

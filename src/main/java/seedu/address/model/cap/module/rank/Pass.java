@@ -1,19 +1,19 @@
-package seedu.address.model.cap.person.rank;
+package seedu.address.model.cap.module.rank;
 
-import seedu.address.model.cap.person.DegreeClassification;
+import seedu.address.model.cap.module.DegreeClassification;
 
 /**
- * Represents a class for a new student to the school that has no degree classification yet.
+ * Represents a Pass grade.
  */
-public class Freshie extends Rank {
+public class Pass extends Rank {
 
-    private static final String TITLE = "FRESHIE";
-    private static final double MAXIMUM_CAP = 0.0;
-    private static final double MINIMUM_CAP = 0.0;
-    private static final String imageFilePath = "/images/freshie.png";
+    private static final String TITLE = "PASS";
+    private static final double MAXIMUM_CAP = 2.99;
+    private static final double MINIMUM_CAP = 2.00;
+    private static final String imageFilePath = "/images/pass.png";
 
-    public Freshie() {
-        super(DegreeClassification.FRESHIE, TITLE);
+    public Pass() {
+        super(DegreeClassification.PASS, TITLE);
     }
 
     public static double getMaximumCap() {

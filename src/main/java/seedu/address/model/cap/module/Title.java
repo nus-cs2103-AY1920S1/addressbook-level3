@@ -1,4 +1,4 @@
-package seedu.address.model.cap.person;
+package seedu.address.model.cap.module;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -14,6 +14,10 @@ public class Title {
 
     public static final String MESSAGE_CONSTRAINTS = "Title should contain words,"
             + " there " + "should not have special characters and it should not left blank.";
+    /*
+     * The first character of the title must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String title;

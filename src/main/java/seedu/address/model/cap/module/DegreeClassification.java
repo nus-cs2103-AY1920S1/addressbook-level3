@@ -1,4 +1,4 @@
-package seedu.address.model.cap.person;
+package seedu.address.model.cap.module;
 
 /**
  * Enumerations representing the various honours degree classifications.

@@ -23,7 +23,7 @@ import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 import seedu.address.model.common.Module;
 import seedu.address.testutil.ModuleBuilder;
 

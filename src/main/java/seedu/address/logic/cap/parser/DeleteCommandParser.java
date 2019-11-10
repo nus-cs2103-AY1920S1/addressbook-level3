@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import seedu.address.logic.cap.commands.DeleteCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.module.ModuleCode;
 
 
 /**

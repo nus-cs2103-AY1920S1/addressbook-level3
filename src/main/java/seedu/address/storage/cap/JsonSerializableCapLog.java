@@ -14,7 +14,7 @@ import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.common.Module;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable CapLog that is serializable to JSON format.
  */
 @JsonRootName(value = "capmodulelog")
 class JsonSerializableCapLog {
@@ -24,7 +24,7 @@ class JsonSerializableCapLog {
     private final List<JsonAdaptedModule> modules = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given modules.
      */
     @JsonCreator
     public JsonSerializableCapLog(@JsonProperty("modules") List<JsonAdaptedModule> modules) {
@@ -32,9 +32,9 @@ class JsonSerializableCapLog {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyCapLog} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableCapLog}.
      */
     public JsonSerializableCapLog(ReadOnlyCapLog source) {
         modules.addAll(source
@@ -45,7 +45,7 @@ class JsonSerializableCapLog {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this Cap Log into the model's {@code CapLog} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

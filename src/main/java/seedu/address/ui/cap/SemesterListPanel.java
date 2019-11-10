@@ -8,7 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 
 /**
  * Panel containing the list of modules for the semester.
@@ -27,7 +27,7 @@ public class SemesterListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
     class SemesterListViewCell extends ListCell<Semester> {
         @Override

@@ -1,19 +1,19 @@
-package seedu.address.model.cap.person.rank;
+package seedu.address.model.cap.module.rank;
 
-import seedu.address.model.cap.person.DegreeClassification;
+import seedu.address.model.cap.module.DegreeClassification;
 
 /**
- * Represents a Fail grade.
+ * Represents a SecondUpper grade.
  */
-public class Fail extends Rank {
+public class SecondUpper extends Rank {
 
-    private static final String TITLE = "FAIL";
-    private static final double MAXIMUM_CAP = 1.99;
-    private static final double MINIMUM_CAP = 0.0;
-    private static final String imageFilePath = "/images/failcourse.png";
+    private static final String TITLE = "SECOND CLASS HONOURS (UPPER)";
+    private static final double MAXIMUM_CAP = 4.49;
+    private static final double MINIMUM_CAP = 4.00;
+    private static final String imageFilePath = "/images/second_upper.png";
 
-    public Fail() {
-        super(DegreeClassification.FIRST, TITLE);
+    public SecondUpper() {
+        super(DegreeClassification.SECONDUPPER, TITLE);
     }
 
     public static double getMaximumCap() {

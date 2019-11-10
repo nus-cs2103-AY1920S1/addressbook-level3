@@ -1,4 +1,4 @@
-package seedu.address.model.cap.person;
+package seedu.address.model.cap.module;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -7,7 +7,8 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.common.Module;
 
 /**
- * Tests that a {@code Module}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Module}'s {@code Title} and {@code ModuleCode} matches any of the keywords given.
+ * Let's claim {@code Title} and {@code ModuleCode} as name.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Module> {
     private final List<String> keywords;
