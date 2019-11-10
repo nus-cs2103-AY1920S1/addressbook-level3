@@ -18,7 +18,7 @@
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </Label>
-        <Label fx:id="noteTitle" prefHeight="17.0" prefWidth="73.0">
+        <Label fx:id="noteTitle" prefHeight="17.0">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>

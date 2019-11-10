@@ -60,6 +60,7 @@ public class MainApp extends Application {
     /**
      * The constant VERSION.
      */
+    private static Config config;
     private static final Version VERSION = new Version(1, 3, 1, true);
     private static Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -72,13 +73,17 @@ public class MainApp extends Application {
     private NotesLogic notesLogic;
     private ApplicationState applicationState;
 
+    public static Config getConfig() {
+        return config;
+    }
+
     @Override
     public void init() throws Exception {
         super.init();
 
         // Retrieves config parameters
         AppParameters appParameters = AppParameters.parse(getParameters());
-        Config config = initConfig(appParameters.getConfigPath());
+        config = initConfig(appParameters.getConfigPath());
 
         // Sets logging level as described
         initLogging(config);
@@ -154,6 +159,7 @@ public class MainApp extends Application {
     private void initAppPaths(Config config) {
         Path testOutputPath = config.getTestOutputPath();
         Path dataOutputPath = config.getDataPath();
+        Path loadPath = config.getLoadPath();
 
         if (!testOutputPath.toFile().exists()) {
             logger.info("Test output folder not found at : " + testOutputPath);
@@ -164,6 +170,18 @@ public class MainApp extends Application {
             }
         }
 
+        if (!loadPath.toFile().exists()) {
+            logger.info("Loading new question folder not found at : " + loadPath);
+            logger.info("Creating load new questions folder at : " + loadPath);
+
+            if (!loadPath.toFile().mkdirs()) {
+                logger.warning("Unable to create load new questions directory"
+                    + " : " + testOutputPath);
+            }
+
+            createCustomQuestionFile(loadPath.resolve("NewProblems.txt"));
+        }
+
         if (!dataOutputPath.toFile().exists()) {
             logger.info("Data folder not found at : " + dataOutputPath);
             logger.info("Creating data folder at : " + testOutputPath);
@@ -172,6 +190,37 @@ public class MainApp extends Application {
             createNoteBankFile(dataOutputPath.resolve("NoteBank.json"));
         }
     }
+
+    /**
+     * Helper method to create a custom question file at the specified
+     * location. Default custom questions are copied.
+     * @param loadPath the path at which to create the file.
+     */
+    private void createCustomQuestionFile(Path loadPath) {
+        try {
+            logger.info("Creating custom question text file.");
+            // Copy default questions
+            FileUtil.createIfMissing(loadPath);
+            InputStream customQuestionsInputStream =
+                this.getClass().getClassLoader().getResourceAsStream(
+                    "NewProblems.txt");
+            if (customQuestionsInputStream != null) {
+                logger.info("Copying custom questions into the specified "
+                    + "sample \"DukeAcademy/newQuestions\" directory");
+                Files.copy(customQuestionsInputStream, loadPath,
+                    StandardCopyOption.REPLACE_EXISTING);
+                customQuestionsInputStream.close();
+            } else {
+                logger.warning("Fatal: custom questions for loadquestions "
+                    + "command not found.");
+                this.stop();
+            }
+        } catch (IOException | NullPointerException e) {
+            logger.warning("Unable to create custom question data file for "
+                + "loadquestions usage.");
+        }
+    }
+
 
     /**
      * Helper method to create a question bank json file at the specified location. Default questions are copied.
