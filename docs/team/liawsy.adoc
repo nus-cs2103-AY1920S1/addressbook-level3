@@ -57,9 +57,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=shift]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=add]
 
 == Contributions to the Developer Guide
 
@@ -70,8 +70,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=replenishListItems]
 
 
-== PROJECT: PowerPointLabs
-
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
