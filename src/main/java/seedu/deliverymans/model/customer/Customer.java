@@ -4,14 +4,13 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
 import seedu.deliverymans.model.Name;
 import seedu.deliverymans.model.Phone;
 import seedu.deliverymans.model.Tag;
@@ -28,19 +27,21 @@ public class Customer {
     private final Address address;
 
     // Data fields
-    private final Set<Tag> tags = new HashSet<>();
-    private final ObservableMap<Tag, Integer> totalTags = FXCollections.observableHashMap();
-    private int noOfOrders;
+    private final Set<Tag> tags;
+    private final Map<Tag, Integer> totalTags;
+    private final int noOfOrders;
 
     /**
      * Every field must be present and not null.
      */
     public Customer(Name userName, Name name, Phone phone, Address address) {
-        requireAllNonNull(userName, phone, tags);
+        requireAllNonNull(userName, phone);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.address = address;
+        tags = Set.of();
+        totalTags = Map.of();
         noOfOrders = 0;
     }
 
@@ -53,10 +54,12 @@ public class Customer {
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.tags.addAll(tags);
+        this.tags = Set.copyOf(tags);
+        Map<Tag, Integer> totalTags = new HashMap<>();
         for (Tag tag : tags) {
             totalTags.put(tag, 1);
         }
+        this.totalTags = Map.copyOf(totalTags);
         this.noOfOrders = noOfOrders;
     }
 
@@ -64,14 +67,14 @@ public class Customer {
      * Constructor for saving to storage
      */
     public Customer(Name userName, Name name, Phone phone, Address address, Set<Tag> tags,
-                    ObservableMap<Tag, Integer> totalTags, int noOfOrders) {
+                    Map<Tag, Integer> totalTags, int noOfOrders) {
         requireAllNonNull(userName, phone, tags, address, totalTags);
         this.userName = userName;
         this.name = name;
         this.phone = phone;
         this.address = address;
-        this.tags.addAll(tags);
-        this.totalTags.putAll(totalTags);
+        this.tags = Set.copyOf(tags);
+        this.totalTags = Map.copyOf(totalTags);
         this.noOfOrders = noOfOrders;
     }
 
@@ -104,25 +107,30 @@ public class Customer {
     }
 
     /**
-     * Adds Customer's noOfOrders and adds the tags to {@code ObservableMap<Tag, Integer>} totalTags.
+     * Adds Customer's noOfOrders and adds the tags to {@code ObservableMap<Tag, Integer>} totalTags,
+     * returning a new Customer as the result.
      */
-    public void addOrder(Set<Tag> tags) {
-        noOfOrders++;
-        addTags(tags);
+    public Customer addOrder(Set<Tag> tags) {
+        Map<Tag, Integer> totalTags = addTags(tags);
+        Set<Tag> mainTags = getMainTags(totalTags);
+        return new Customer(userName, name, phone, address, mainTags, totalTags, noOfOrders + 1);
     }
 
     /**
-     * Reduces Customer's noOfOrders and deletes the tags from {@code ObservableMap<Tag, Integer>} totalTags.
+     * Reduces Customer's noOfOrders and deletes the tags from {@code ObservableMap<Tag, Integer>} totalTags,
+     * returning a new Customer as the result.
      */
-    public void deleteOrder(Set<Tag> tags) {
-        noOfOrders--;
-        deleteTags(tags);
+    public Customer deleteOrder(Set<Tag> tags) {
+        Map<Tag, Integer> totalTags = deleteTags(tags);
+        Set<Tag> mainTags = getMainTags(totalTags);
+        return new Customer(userName, name, phone, address, mainTags, totalTags, noOfOrders - 1);
     }
 
     /**
-     * Adds {@code Set<Tag>} tags into {@code ObservableMap<Tag, Integer>} totalTags.
+     * Adds {@code Set<Tag>} tags into {@code ObservableMap<Tag, Integer>} totalTags and returns a new map.
      */
-    private void addTags(Set<Tag> tags) {
+    private Map<Tag, Integer> addTags(Set<Tag> tags) {
+        Map<Tag, Integer> totalTags = new HashMap<>(this.totalTags);
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
             if (i != null) {
@@ -130,16 +138,15 @@ public class Customer {
             } else {
                 totalTags.put(tag, 1);
             }
-            if (!this.tags.contains(tag)) {
-                changeMainTags();
-            }
         }
+        return totalTags;
     }
 
     /**
-     * Deletes {@code Set<Tag>} tags from totalTags
+     * Deletes {@code Set<Tag>} tags from totalTags and returns a new map.
      */
-    private void deleteTags(Set<Tag> tags) {
+    private Map<Tag, Integer> deleteTags(Set<Tag> tags) {
+        Map<Tag, Integer> totalTags = new HashMap<>(this.totalTags);
         for (Tag tag : tags) {
             Integer i = totalTags.get(tag);
             if (i == null) {
@@ -149,29 +156,28 @@ public class Customer {
             } else {
                 totalTags.replace(tag, i, i - 1);
             }
-            changeMainTags();
         }
+        return totalTags;
     }
 
     /**
-     * Changes Customer's tags to new tags depending on the number of occurrence of {@code Tag}.
+     *  Generates new tags for Customer depending on the number of occurrences of {@code Tag}.
      */
-    private void changeMainTags() {
-        tags.clear();
+    private Set<Tag> getMainTags(Map<Tag, Integer> totalTags) {
+        Set<Tag> newTags = new HashSet<>();
         if (!totalTags.isEmpty()) {
             List<Map.Entry<Tag, Integer>> list = new ArrayList<>(totalTags.entrySet());
             list.sort(Map.Entry.comparingByValue());
-            Set<Tag> newTags = new HashSet<>();
             newTags.add(list.get(list.size() - 1).getKey());
             if (list.size() > 1) {
                 newTags.add(list.get(list.size() - 2).getKey());
             }
-            tags.addAll(newTags);
         }
+        return newTags;
     }
 
-    public void setNoOfOrders(int noOfOrders) {
-        this.noOfOrders = noOfOrders;
+    public Customer setNoOfOrders(int noOfOrders) {
+        return new Customer(userName, name, phone, address, tags, totalTags, noOfOrders);
     }
 
     public int getNoOfOrders() {
@@ -210,13 +216,15 @@ public class Customer {
                 && otherCustomer.getName().equals(getName())
                 && otherCustomer.getPhone().equals(getPhone())
                 && otherCustomer.getAddress().equals(getAddress())
-                && otherCustomer.getTags().equals(getTags());
+                && otherCustomer.getTags().equals(getTags())
+                && otherCustomer.getTotalTags().equals(getTotalTags())
+                && otherCustomer.getNoOfOrders() == getNoOfOrders();
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(userName, name, phone, address, tags, noOfOrders);
+        return Objects.hash(userName, name, phone, address, tags, totalTags, noOfOrders);
     }
 
     @Override
