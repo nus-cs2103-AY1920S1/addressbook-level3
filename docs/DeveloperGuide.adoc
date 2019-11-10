@@ -409,6 +409,27 @@ This feature necessitates the tracking of the orders each deliveryman has comple
 
 // end::deliverymen statistics
 
+// tag::auto tagging customer cuisine
+=== Automated tagging of customer
+
+Tags determine the customer's favourite cuisine. It is helpful to the user as having this information will enable the user to make better analysis on the current trend of food. Although we can opt for the user to manually add in tags, it might be problematic once the number of customers in the database gets too large for a single user to handle. Thus, this feature aids the user by automatically tagging the customer based on the customer's order history.
+
+==== Implementation
+
+The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple `Order` s, the `Tag` that will be shown on the `CustomerCard` will be the highest two `Tag` s. This is the main process on how the application automatically tags the customers.
+
+An activity diagram below shows the automated tagging process.
+
+ activity diagram
+
+
+
+==== Design considerations
+
+
+
+// end::auto tagging customer cuisine
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
