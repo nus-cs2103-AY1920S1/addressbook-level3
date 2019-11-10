@@ -145,11 +145,11 @@ image:Variables.png[]
 [source, java]
 ----
 ...
-case EditCommand.COMMAND_WORD:
-    return new EditCommandParser().parse(arguments);
+case EditExpenseCommand.COMMAND_WORD:
+    return new EditExpenseCommandParser().parse(arguments);
 ...
 ----
-. Let's see what `EditCommandParser#parse()` does by stepping into it.
+. Let's see what `EditExpenseCommandParser#parse()` does by stepping into it.
 . Stepping through the method shows that it calls `ArgumentTokenizer#tokenize()` and `ParserUtil#parseIndex()` to
 obtain the arguments and index required.
 +
@@ -173,7 +173,7 @@ image::LogicSequenceDiagram.png[]
 
 . Now let's see what happens when we call `command#execute()`!
 +
-.EditCommand#execute()
+.EditExpenseCommand#execute()
 [source, java]
 ----
 @Override
