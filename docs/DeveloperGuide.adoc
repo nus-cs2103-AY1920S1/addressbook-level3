@@ -357,6 +357,12 @@ image::CalendarWindowClassDiagram.png[]
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
 
+==== UI Design
+The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
+list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
+`EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
+The following tables shows all UI components which are used and their respective purposes.
+
 .Calendar Window UI Components
 [%header, cols=4*]
 |===
