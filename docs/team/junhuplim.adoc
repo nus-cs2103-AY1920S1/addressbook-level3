@@ -70,16 +70,21 @@ a command, the `undo` command enables them to revert to a version immediately be
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
  * Highlights:
-This enhancement works with existing as well as future commands. As there were
-a few ways to implement this enhancement, an in-depth analysis of design alternatives was
-necessary to weigh the different alternatives and decide on the implementation for this enhancement.
-The implementation too was challenging as it required a full understanding of
+** This enhancement works with existing as well as future commands.
+
+** As there were a few ways to implement this enhancement, an in-depth analysis of design
+alternatives was necessary to weigh the different alternatives and decide on the implementation for this enhancement.
+
+** The implementation too was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
 Also, as the enhancement is able to work with future commands, the implementation of
 this enhancement has to be considerable of the future features implementations and
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
-*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Code contributed*: The links provided show my code contribution for the project. (https://nus-cs2103-ay1920s1.github
+.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false
+&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
+
 
 *Other contributions*
 
@@ -104,17 +109,16 @@ https://github.com/junhuplim/ped/issues/9[3])
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+This section showcases my contribution to the User Guide. They showcase my ability to write
+documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project.
+
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
