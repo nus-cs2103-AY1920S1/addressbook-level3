@@ -58,7 +58,7 @@ public class JavascriptCard extends FlashCard {
     public FlashCard duplicate() {
         String frontText = front;
         String backText = back;
-        return new JavascriptCard(frontText, backText);
+        return new JavascriptCard(frontText, backText, priority);
     }
 
     /**

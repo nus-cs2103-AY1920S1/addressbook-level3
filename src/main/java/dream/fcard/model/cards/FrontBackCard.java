@@ -57,7 +57,7 @@ public class FrontBackCard extends FlashCard {
 
     @Override
     public FlashCard duplicate() {
-        return new FrontBackCard(front, back, 0);
+        return new FrontBackCard(front, back, priority);
     }
 
     /**
