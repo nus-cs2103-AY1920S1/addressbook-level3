@@ -183,7 +183,7 @@ Step 7. startgame() calls the method gameCheck on the canvas to check the keys t
 Step 8. startgame() creates a new scene and sets primaryStage's scene to this new scene. +
 Step 9. startgame() creates a new thread to run the game. +
 
-The figures below shows the sequence diagram on what happens after the startgame() method is called.
+The figure below shows the sequence diagram on what happens after the startgame() method is called.
 
 .Sequence Diagram for game creation
 image::CreatingGameSequenceDiagram.png[500, 600]
