@@ -279,7 +279,7 @@ public class ScheduleManager {
             }
         }
 
-        for (int i = 1; i < DAYS_OF_A_WEEK; i++) {
+        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
             scheduleDisplay.get(DayOfWeek.of(i)).sort(
                     Comparator.comparing(PersonTimeslot::getStartTime));
         }
