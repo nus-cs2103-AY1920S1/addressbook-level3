@@ -37,7 +37,7 @@ GUI apps!
 ====
 *Command Format*
 
-* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `expense add [DESCRIPTION] [AMOUNT]`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add “buy a book” 10`.
+* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `add n/[NAME] d/[DESCRIPTION] a/[AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
 * The mandatory parameters must be supplied in the order specified.
 * Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
 * Some commands may have optional parameters denoted under options. These can be included by specifying a flag, usually of the format `--flag` or `-f`. E.g `--description` can be used as `expense edit 2 --description "changed description"`.
@@ -513,11 +513,11 @@ Example: +
 Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
 {nbsp} +
 
-
+// tag::undoredo[]
 === Undo and Redo: `undo/redo`
 
 . _Undo the previous action: undo_ +
-Undo will restore the previous billboard state from state history. Undo will ignore all arguments. +
+You can use `undo` command restore the previous billboard state from state history. `undo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -525,7 +525,7 @@ Usage:
 +
 {nbsp} +
 . _Redo the previous undo action: redo_ +
-Redo will restore a previously undone billboard state from state history. Redo will ignore all arguments. +
+You can use `redo` command to redo a previously undone command and restore undone billboard state from state history. `redo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -539,7 +539,7 @@ Usage:
 === Viewing History: `history`
 
 . _View the past command history: history_ +
-History will show all previous command histories. History will ignore all arguments. +
+You can view all previous command histories by using `history` command. `history` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -553,13 +553,22 @@ Usage:
 === Up and down key: `&uarr;/&darr;`
 
 . _Get the previous entered command: &uarr;_ +
-Up arrow key(&uarr;) will get the previous command entered in the command history on the text field. +
+By pressing the Up(&uarr;) key, you can get the previous command entered in the command history on the text field. +
 {nbsp} +
 . _Get the sequential entered command: &darr;_ +
-Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
+By pressing the Down(&darr;) key, you can get the sequential command entered in the command history on the text field. +
 {nbsp} +
 
 // end::updownkey[]
+
+// tag::clear[]
+=== Clear the expenses: `clear`
+
+. _Get the previous entered command: &uarr;_ +
+You can clear all the expenses in Billboard by simply executing the `clear` command. `clear` will ignore the parameter you key in. +
+{nbsp} +
+
+// end::clear[]
 
 === Viewing help: `help`
 
