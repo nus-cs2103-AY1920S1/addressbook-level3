@@ -161,6 +161,11 @@ This section describes some noteworthy details on how certain features are imple
 This section talks about how the `game` function is implemented. This feature aims to encourage users to take a break by playing the traditional Nokia (phone) game: Snake. 
 
 ==== Implementation
+The game screen appears after the user enters the command `game` into the command box. A separate scene handled by a separate thread is created to run the game so that Elisa's scenes and threads are not overloaded. When the game screen is launched, the following classes and methods are invoked:
+
+<Insert sequence diagram>
+
+
 
 ==== Internal workings of the Game
 
