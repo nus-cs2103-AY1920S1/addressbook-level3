@@ -7,6 +7,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.Name;
+import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
 
 /**
  * This class's execute function is called whenever an item is added to the inventory
@@ -19,14 +21,16 @@ public class AddInventoryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "The thing has been added to inventory list";
 
-    private final String name;
+    private static final String MESSAGE_DUPLICATED_INVENTORY = "There is an already an inventory item with the same name";
+
+    private final Name name;
 
 
     /**
      * Initialise AddInventoryCommand with name of inventory to add
      * @param name name of inventory to add
      */
-    public AddInventoryCommand (final String name) {
+    public AddInventoryCommand (final Name name) {
         this.name = name;
     }
 
@@ -45,11 +49,15 @@ public class AddInventoryCommand extends Command {
 
         System.out.println("BEFORE");
 
-        Inventory toAdd = new Inventory(name, false);
+        Inventory toAdd = new Inventory(name, false, 0);
 
         System.out.println("AFTER");
 
-        model.getPageStatus().getTrip().getInventoryList().add(toAdd);
+        try {
+            model.getPageStatus().getTrip().getInventoryList().add(toAdd);
+        } catch (DuplicateInventoryException e) {
+            throw new CommandException(MESSAGE_DUPLICATED_INVENTORY);
+        }
 
         System.out.println("I AM JEWISH FUCK");
 

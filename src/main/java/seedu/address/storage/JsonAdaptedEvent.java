@@ -62,6 +62,9 @@ public class JsonAdaptedEvent {
      * Converts a given {@code Event} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
+
+        System.out.println("PRESENCE OF MIND");
+
         this.name = source.getName().fullName;
         this.startTime = source.getStartDate();
         this.endTime = source.getEndDate();
@@ -76,12 +79,9 @@ public class JsonAdaptedEvent {
 
         if (source.getInventoryList().isPresent()) {
 
-            System.out.println("PRESENCE OF MIND");
-
             this.inventoryList = Optional.of(new ArrayList<>());
 
             this.inventoryList.get().addAll(source.getInventoryList().get()
-                    .asUnmodifiableObservableList()
                     .stream().map(JsonAdaptedInventory::new)
                     .collect(Collectors.toList())
             );
@@ -149,7 +149,7 @@ public class JsonAdaptedEvent {
             modelExpenditure = Optional.empty();
         }
 
-        Optional<InventoryList> modelInventoryList;
+        Optional<List<Inventory>> modelInventoryList;
 
 
         if (inventoryList.isPresent()) {
@@ -160,8 +160,8 @@ public class JsonAdaptedEvent {
                 inventories.add(inventory.toModelType());
             }
 
-            modelInventoryList = Optional.of(new InventoryList());
-            modelInventoryList.get().set(inventories);
+            modelInventoryList = Optional.of(new ArrayList<>());
+            modelInventoryList.get().addAll(inventories);
 
         } else {
             modelInventoryList = Optional.empty();

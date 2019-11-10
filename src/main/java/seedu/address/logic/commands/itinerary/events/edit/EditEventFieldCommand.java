@@ -6,6 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import seedu.address.commons.core.index.Index;
@@ -20,6 +21,7 @@ import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.DayNumber;
 import seedu.address.model.expenditure.Expenditure;
 import seedu.address.model.expenditure.exceptions.ExpenditureNotFoundException;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.inventory.exceptions.InventoryNotFoundException;
 import seedu.address.model.itinerary.Budget;
@@ -28,6 +30,8 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
 import seedu.address.model.itinerary.event.Event;
+
+import javax.swing.text.html.Option;
 
 /**
  * Placeholder.
@@ -67,6 +71,9 @@ public class EditEventFieldCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+
+        //System.out.println("model's event's inventoryList's size is " + model.getPageStatus().getEvent().getInventoryList().get().getSize());
+
         requireNonNull(model);
         EditEventDescriptor currentDescriptor = model.getPageStatus().getEditEventDescriptor();
         EditEventDescriptor newEditEventDescriptor = currentDescriptor == null
@@ -151,8 +158,17 @@ public class EditEventFieldCommand extends Command {
             setEndDate(toCopy.getEndDate());
             setDestination(toCopy.getDestination());
             setBudget(toCopy.getExpenditure().get().getBudget());
-            inventoriesToDelete = Optional.empty();
-            setInventoryList(toCopy.getInventoryList());
+            setInventoriesToDelete(Optional.empty());
+
+            if (toCopy.getInventoryList().isPresent()) {
+                InventoryList inventoryList = new InventoryList();
+                inventoryList.set(toCopy.getInventoryList().get());
+                setInventoryList(inventoryList);
+            } else {
+                setInventoryList(Optional.empty());
+            }
+
+            setInventoryList(inventoryList);
             setBooking(toCopy.getBooking());
         }
 
@@ -200,10 +216,17 @@ public class EditEventFieldCommand extends Command {
             newDescriptor.inventoryList.ifPresentOrElse(inventoryList -> {
 
                     if (oldDescriptor.inventoryList.isPresent()) {
-                        inventoryList.getList().addAll(0, oldDescriptor.getInventoryList().get().getList());
+
+                        oldDescriptor.inventoryList.get().addAll(inventoryList);
+
+                        setInventoryList(oldDescriptor.inventoryList.get());
+
+                        //inventoryList.getList().addAll(0, oldDescriptor.getInventoryList().get().getList());
+                    } else {
+                        setInventoryList(inventoryList);
                     }
 
-                    setInventoryList(inventoryList);
+                    //setInventoryList(inventoryList);
 
 
             }, () -> oldDescriptor.inventoryList.ifPresent(this::setInventoryList));
@@ -236,7 +259,25 @@ public class EditEventFieldCommand extends Command {
                             new DayNumber(Integer.toString(index + 1)), false);
                     expenditure = Optional.of(newExpenditure);
                 }
+
+
+                Optional<List<Inventory>> inventoryList = Optional.empty();
+
+                if (this.inventoryList.isPresent()) {
+
+                    inventoryList = Optional.of(new ArrayList<Inventory>());
+
+                    for (int i =0; i<this.inventoryList.get().getSize(); i++){
+                        inventoryList.get().add(this.inventoryList.get().getList().get(i));
+                    }
+
+                } else {
+                    this.inventoryList = Optional.empty();
+                }
+
+
                 return new Event(name.get(), startDate.get(), endDate.get(), expenditure, destination.get(), inventoryList);
+
             } else {
                 throw new NullPointerException();
             }
@@ -257,7 +298,7 @@ public class EditEventFieldCommand extends Command {
             LocalDateTime endDate = event.getEndDate();
             Location destination = event.getDestination();
             Optional<Booking> booking = event.getBooking();
-            Optional<InventoryList> inventoryList = event.getInventoryList();
+            Optional<List<Inventory>> inventoryList = event.getInventoryList();
             Optional<Expenditure> expenditure = event.getExpenditure();
 
             if (this.name.isPresent()) {
@@ -280,11 +321,16 @@ public class EditEventFieldCommand extends Command {
                 expenditure = Optional.of(newExpenditure);
             }
             if (this.inventoryList.isPresent()) {
-                inventoryList = this.inventoryList;
+                inventoryList = Optional.of(new ArrayList<Inventory>());
+
+                for (int i =0; i<this.inventoryList.get().getSize(); i++){
+                    inventoryList.get().add(this.inventoryList.get().getList().get(i));
+                }
             }
             if (this.booking.isPresent()) {
                 booking = this.booking;
             }
+
 
             return new Event(eventName, startDate, endDate, expenditure, destination, inventoryList);
         }
@@ -400,7 +446,7 @@ public class EditEventFieldCommand extends Command {
                     && getEndDate().equals(e.getEndDate())
                     && getDestination().equals(e.getDestination())
                     && getBudget().equals(e.getBudget())
-                    && getInventoriesToDelete().equals(e.getInventoriesToDelete())
+//                    && getInventoriesToDelete().equals(e.getInventoriesToDelete())
                     && getInventoryList().equals((e.getInventoryList()));
 //                    && getBooking().equals((e.getBooking()));
         }

@@ -1,17 +1,22 @@
 package seedu.address.ui.inventory;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.layout.AnchorPane;
 
+import javafx.util.Callback;
 import seedu.address.logic.Logic;
 import seedu.address.model.Model;
 
@@ -34,17 +39,33 @@ public class InventoryPage extends PageWithSidebar<AnchorPane> {
     private TableView<Inventory> tableView;
 
     @FXML
+    private TableColumn<Inventory, String> indexColumn;
+
+    @FXML
     private TableColumn<Inventory, String> nameColumn;
 
     @FXML
     private TableColumn<Inventory, Boolean> isDoneColumn;
 
-
-
     public InventoryPage(MainWindow mainWindow, Logic logic, Model model) {
         super(FXML, mainWindow, logic, model);
 
+        indexColumn.setCellFactory(col -> new TableCell<Inventory, String>() {
+            @Override
+            public void updateIndex(int index) {
+                super.updateIndex(index);
+                if (isEmpty() || index < 0) {
+                    setText(null);
+                } else {
+                    setText(Integer.toString(index + 1));
+                }
+            }
+        });
+
+
         this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        this.isDoneColumn.setCellFactory(CheckBoxTableCell.forTableColumn(isDoneColumn));
 
         Function<Inventory, ObservableValue<Boolean>> property = Inventory::getIsDoneProperty;
 

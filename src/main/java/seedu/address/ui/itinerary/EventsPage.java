@@ -2,6 +2,7 @@ package seedu.address.ui.itinerary;
 
 import java.util.Comparator;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.logic.commands.itinerary.events.ShowEventDetailsCommand;
 import seedu.address.logic.parser.itinerary.eventview.EventViewCommand;
 import seedu.address.model.Model;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.template.PageWithSidebar;
@@ -35,8 +37,6 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
     @FXML
     private ListView<Event> eventListView;
 
-    private Label inventoryLabel;
-
     @FXML
     private Label totalBudgetLabel;
 
@@ -45,6 +45,12 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
 
     @FXML
     private Label nameLabel;
+
+    @FXML
+    private ListView<Inventory> inventoryListView;
+
+
+
 
 
     public EventsPage(MainWindow mainWindow, Logic logic, Model model) {
@@ -73,6 +79,20 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
             public void handle(MouseEvent e) {
                 mainWindow.executeGuiCommand(ShowEventDetailsCommand.COMMAND_WORD
                         + " " + (eventListView.getSelectionModel().getSelectedIndex() + 1));
+            }
+        });
+
+        //Added by Karan Dev Sapra
+        inventoryListView.setCellFactory(param -> new ListCell<Inventory>() {
+            @Override
+            protected void updateItem(Inventory item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null || item.getName() == null) {
+                    setText(null);
+                } else {
+                    setText(item.getName().fullName);
+                }
             }
         });
     }
@@ -122,6 +142,10 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
             totalBudgetLabel.setText("Total Budget: 0");
         }
         nameLabel.setText(event.getName().toString());
+
+        if (event.getInventoryList().isPresent()) {
+            inventoryListView.setItems(FXCollections.observableList(event.getInventoryList().get()));
+        }
     }
 
     @FXML

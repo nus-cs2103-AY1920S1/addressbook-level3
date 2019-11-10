@@ -18,6 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
 import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
+import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
 
 /**
  * Placeholder javadoc.
@@ -91,7 +92,11 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
 
             for (String name : argMultimap.getAllValues(PREFIX_ADD_INVENTORY)) {
                 Inventory inventory = ItineraryParserUtil.parseAddInventory(name);
-                inventoryList.add(inventory);
+                try {
+                    inventoryList.add(inventory);
+                } catch (DuplicateInventoryException e) {
+
+                }
             }
 
             editEventDescriptor.setInventoryList(inventoryList);

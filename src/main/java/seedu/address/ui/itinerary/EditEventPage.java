@@ -119,13 +119,18 @@ public class EditEventPage extends Page<AnchorPane> {
                     + " " + PREFIX_LOCATION + destinationValue);
         });
 
+        eventInventoryFormItem = new TextFormItem("Inventory Items Needed : ", null);
+
+
+        //No need for any action since this is already done by the add button
+        /*
         eventInventoryFormItem = new TextFormItem("Inventory Items Needed : ", itemName -> {
 
             //No need for any action since this is already done by the add button
-            /*
+
             mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_ADD_INVENTORY + itemName);*/
-        });
+                    + " " + PREFIX_ADD_INVENTORY + itemName);
+        });*/
 
         addInventoryButton = new Button("add");
 
@@ -137,6 +142,8 @@ public class EditEventPage extends Page<AnchorPane> {
 
         listView = new ListView<>();
 
+
+
         listView.setCellFactory(param -> new ListCell<Inventory>() {
             @Override
             protected void updateItem(Inventory item, boolean empty) {
@@ -145,7 +152,7 @@ public class EditEventPage extends Page<AnchorPane> {
                 if (empty || item == null || item.getName() == null) {
                     setText(null);
                 } else {
-                    setText(item.getName());
+                    setText(item.getName().fullName);
                 }
             }
         });
@@ -190,30 +197,23 @@ public class EditEventPage extends Page<AnchorPane> {
         mainWindow.executeGuiCommand(commandText);
     }
 
-    static class XCell extends ListCell<String> {
-        HBox hbox = new HBox();
-        Label label = new Label("");
-        Pane pane = new Pane();
-        Button button = new Button("Del");
+    public static class HBoxCell extends HBox {
+        Label label = new Label();
+        Button button = new Button();
 
-        public XCell() {
+        HBoxCell(String labelText, String buttonText) {
             super();
 
-            hbox.getChildren().addAll(label, pane, button);
-            HBox.setHgrow(pane, Priority.ALWAYS);
-            button.setOnAction(event -> getListView().getItems().remove(getItem()));
-        }
+            label.setText(labelText);
+            label.setMaxWidth(Double.MAX_VALUE);
+            HBox.setHgrow(label, Priority.ALWAYS);
 
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(null);
-            setGraphic(null);
+            button.setText(buttonText);
 
-            if (item != null && !empty) {
-                label.setText(item);
-                setGraphic(hbox);
-            }
+            this.getChildren().addAll(label, button);
         }
     }
+
+
+
 }

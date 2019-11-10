@@ -2,21 +2,34 @@ package seedu.address.model.inventory;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Placeholder javadoc.
  */
 public class Inventory {
 
-    private final String name;
+    private final Name name;
 
     private BooleanProperty isDoneProperty;
 
-    public Inventory(String name, boolean isDone) {
+    private boolean isRemovable;
+
+    private int eventInstances;
+
+    public Inventory(Name name, boolean isDone, int eventInstances) {
+
+        requireAllNonNull(name, isDone);
+
         this.name = name;
+
         this.isDoneProperty = new SimpleBooleanProperty(isDone);
+
+        //this.isRemovable = isRemovable;
+
+        this.eventInstances = eventInstances;
+
     }
 
     public void setIsDone (Boolean boo) {
@@ -31,7 +44,7 @@ public class Inventory {
         return this.isDoneProperty.get();
     }
 
-    public String getName() {
+    public Name getName() {
         return name;
     }
 
@@ -50,6 +63,7 @@ public class Inventory {
 
     @Override
     public boolean equals(Object other) {
+
         if (other == this) {
             return true;
         }
@@ -60,6 +74,27 @@ public class Inventory {
 
         Inventory otherInventory = (Inventory) other;
         return otherInventory.getName().equals(getName());
+    }
+
+    @Override
+    public String toString() {
+        return name.toString();
+    }
+
+    public void setIsRemovable (Boolean boo) {
+        this.isRemovable = boo;
+    }
+
+    public boolean getIsRemovable() {
+        return this.isRemovable;
+    }
+
+    public int getEventInstances () {
+        return this.eventInstances;
+    }
+
+    public void setEventInstances (int eventInstances) {
+        this.eventInstances = eventInstances;
     }
 
     /*

@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.inventory.Inventory;
-import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
@@ -64,19 +63,10 @@ public abstract class ItineraryParserUtil {
     public static Inventory parseAddInventory(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (!seedu.address.model.inventory.Name.isValidName(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Inventory(trimmedName, false);
-    }
-
-    public static Inventory parseDeleteInventory(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return new Inventory(trimmedName, false);
+        return new Inventory(new seedu.address.model.inventory.Name(trimmedName), false, 1);
     }
 
     /**

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.Name;
 
 /**
  * Jackson friendly version of {@code Inventory}.
@@ -14,22 +15,25 @@ public class JsonAdaptedInventory {
 
     private final String name;
     private final boolean isDone;
+    private final int eventInstances;
 
     /**
      * Constructs a {@code JsonAdaptedInventory} with the given JsonAdaptedInventory details.
      */
     @JsonCreator
-    public JsonAdaptedInventory(@JsonProperty("name") String name, @JsonProperty("isDone") boolean isDone) {
+    public JsonAdaptedInventory(@JsonProperty("name") String name, @JsonProperty("isDone") boolean isDone, @JsonProperty("eventInstances") int eventInstances) {
         this.name = name;
         this.isDone = isDone;
+        this.eventInstances = eventInstances;
     }
 
     /**
      * Converts a given {@code Inventory} into this class for Jackson use.
      */
     public JsonAdaptedInventory(Inventory source) {
-        this.name = source.getName();
+        this.name = source.getName().fullName;
         this.isDone = source.getIsDone();
+        this.eventInstances = source.getEventInstances();
     }
 
     /**
@@ -54,6 +58,8 @@ public class JsonAdaptedInventory {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, "name"));
         }
 
-        return new Inventory(name, isDone);
+        final Name modelName = new Name(name);
+
+        return new Inventory(modelName, isDone, eventInstances);
     }
 }

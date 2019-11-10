@@ -4,10 +4,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.model.booking.Booking;
 import seedu.address.model.expenditure.Expenditure;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
@@ -27,7 +30,7 @@ public class Event {
     private final Location destination;
 
     // Optional fields
-    private final Optional<InventoryList> inventoryList;
+    private final Optional<List<Inventory>> inventoryList;
     private final Expenditure expenditure;
     private final Booking booking;
 
@@ -45,12 +48,23 @@ public class Event {
         this.booking = booking;
         this.destination = destination;
         this.expenditure = expenditure;
-        this.inventoryList = inventoryList;
+
+        if (inventoryList.isPresent()) {
+
+            this.inventoryList = Optional.of(new ArrayList<Inventory>());
+
+            for (int i =0; i<inventoryList.get().getSize(); i++){
+                this.inventoryList.get().add(inventoryList.get().getList().get(i));
+            }
+
+        } else {
+            this.inventoryList = Optional.empty();
+        }
     }
 
     // temporary constructor until we implement booking and inventoryList, accepts null for now
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Expenditure expenditure, Location destination, Optional<InventoryList> inventoryList) {
+                 Expenditure expenditure, Location destination, Optional<List<Inventory>> inventoryList) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -60,13 +74,14 @@ public class Event {
         this.destination = destination;
         this.expenditure = expenditure;
         this.inventoryList = inventoryList;
+
     }
 
     /**
      * Constructs a trip with optional expenditure field.
      */
     public Event(Name name, LocalDateTime startDate, LocalDateTime endDate,
-                 Optional<Expenditure> expenditure, Location destination, Optional<InventoryList> inventoryList) {
+                 Optional<Expenditure> expenditure, Location destination, Optional<List<Inventory>> inventoryList) {
         requireAllNonNull(name, startDate, endDate, expenditure);
         checkArgument(isValidDuration(startDate, endDate), MESSAGE_INVALID_DATETIME);
         this.name = name;
@@ -75,6 +90,7 @@ public class Event {
         this.booking = null;
         this.destination = destination;
         this.expenditure = expenditure.orElse(null);
+
         this.inventoryList = inventoryList;
     }
 
@@ -105,7 +121,7 @@ public class Event {
         return Optional.ofNullable(expenditure);
     }
 
-    public Optional<InventoryList> getInventoryList() {
+    public Optional<List<Inventory>> getInventoryList() {
         return inventoryList;
     }
 
