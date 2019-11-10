@@ -1,0 +1,14 @@
+@startuml
+start
+
+:Scheduler resets current starting date time;
+:Scheduler filters out reminders between the starting date time and the deadline;
+:Scheduler groups reminders according to their time;
+if () then ([not the first scheduling])
+    :Scheduler cancels all tasks that have not been executed;
+else ([else])
+endif
+:Scheduler schedules each adding reminder task with delay;
+:Scheduler schedules a task for moving on to next day;
+stop
+@enduml
