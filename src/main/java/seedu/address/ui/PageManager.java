@@ -45,6 +45,7 @@ public class PageManager {
         if (pageManager.isEmpty()) {
             assert false : "Page manager has to be initialised before other pages can be retrieved";
         }
+        pages.stream().forEach(p -> p.closeResources());
 
         Optional<Parent> requestedPage = pages.stream()
                 .filter(p -> p.getPageType().equals(pageType))
@@ -78,9 +79,9 @@ public class PageManager {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         guiSettingsLogic.setGuiSettings(guiSettings);
+        primaryStage.hide();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
-            primaryStage.hide();
             Platform.exit();
         });
         delay.play();
