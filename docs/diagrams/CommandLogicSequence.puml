@@ -1,0 +1,8 @@
+@startuml
+User -> Application: Enter command text
+Application -> CommandLogicManager: executeCommand(commandText)
+CommandLogicManager -> CommandParser: parseCommandText(commandText)
+CommandParser -> CommandLogicManager: Command
+CommandLogicManager -> Application: CommandResult
+Application -> User: Ui feedback
+@enduml
