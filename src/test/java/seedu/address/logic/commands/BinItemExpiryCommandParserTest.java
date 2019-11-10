@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_DAYS_THIRTY;
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_HOURS_THIRTY;
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_INVALID_AMOUNT;
@@ -8,12 +7,12 @@ import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_MINUTES
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_MONTHS_THIRTY;
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_SECONDS_THIRTY;
 import static seedu.address.logic.commands.CommandTestUtil.BINITEMEXPIRY_YEARS_THIRTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_POSITIVE_INT;
 
 import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.BinItemExpiryCommandParser;
