@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.weme.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.weme.logic.commands.CommandTestUtil.showTemplateAtIndex;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.weme.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
@@ -57,13 +58,12 @@ public class TemplateArchiveCommandTest extends ApplicationTest {
         assertCommandFailure(templateArchiveCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
-    /* Commenting out until implementation of TemplateFindCommand.
     @Test
     public void execute_validIndexFilteredList_success() {
-        showTemplateAtIndex(model, INDEX_FIRST_MEME);
+        showTemplateAtIndex(model, INDEX_FIRST);
 
-        Template templateToArchive = model.getFilteredTemplateList().get(INDEX_FIRST_MEME.getZeroBased());
-        TemplateArchiveCommand templateArchiveCommand = new TemplateArchiveCommand(INDEX_FIRST_MEME);
+        Template templateToArchive = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
+        TemplateArchiveCommand templateArchiveCommand = new TemplateArchiveCommand(INDEX_FIRST);
         Template archivedTemplate = new TemplateBuilder(templateToArchive).withIsArchived(true).build();
 
         String expectedMessage = String.format(TemplateArchiveCommand.MESSAGE_ARCHIVE_TEMPLATE_SUCCESS,
@@ -78,17 +78,16 @@ public class TemplateArchiveCommandTest extends ApplicationTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showTemplateAtIndex(model, INDEX_FIRST_MEME);
+        showTemplateAtIndex(model, INDEX_FIRST);
 
-        Index outOfBoundIndex = INDEX_SECOND_MEME;
+        Index outOfBoundIndex = INDEX_SECOND;
         // ensures that outOfBoundIndex is still in bounds of template list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getWeme().getTemplateList().size());
 
         TemplateArchiveCommand templateArchiveCommand = new TemplateArchiveCommand(outOfBoundIndex);
 
-        assertCommandFailure(templateArchiveCommand, model, Messages.MESSAGE_INVALID_MEME_DISPLAYED_INDEX);
+        assertCommandFailure(templateArchiveCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
-    */
 
     @Test
     public void execute_archivedTemplate_throwsCommandException() {
