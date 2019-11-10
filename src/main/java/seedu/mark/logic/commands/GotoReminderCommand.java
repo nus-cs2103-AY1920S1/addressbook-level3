@@ -19,7 +19,7 @@ import seedu.mark.storage.Storage;
  */
 public class GotoReminderCommand extends Command {
 
-    public static final String COMMAND_WORD = "goto-reminder";
+    public static final String COMMAND_WORD = "reminder-goto";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Opens the bookmark of the reminder with the index in the reminder list.\n"
