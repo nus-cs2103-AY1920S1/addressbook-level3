@@ -396,9 +396,9 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event that is mapped to it and the
-specific events that are happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
-new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
+The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event and the
+specific events that are happening on those dates listed. Do note that the `generate_schedule` command will only display dates and events that have a set date and time allocated to it.
+The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
 The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
 process through these events to create specific `DistinctDate` Objects which stores a list of events that occurs on the date

@@ -7,6 +7,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Config;
@@ -92,6 +94,13 @@ public class EventDate implements Comparable<EventDate> {
     }
 
     /**
+     * Increments the EventDate by a user specified number of days
+     */
+    public EventDate plusDays(int numberOfDays) {
+        return new EventDate(date.plusDays(numberOfDays));
+    }
+
+    /**
      * Returns a sequential stream of {@code EventDate}.
      *
      * @param endInclusive an {@code EventDate} that acts as the ending range (inclusive) of the Stream.
@@ -99,6 +108,21 @@ public class EventDate implements Comparable<EventDate> {
     public Stream<EventDate> datesUntil(EventDate endInclusive) {
         return getDate().datesUntil(endInclusive.getDate().plusDays(1))
                 .map(date -> new EventDate(date));
+    }
+
+    /**
+     * Returns a list of all sequential dates between 2 {@code EventDate}.
+     *
+     * @param endInclusive an {@code EventDate} that acts as the ending range (inclusive) of the Stream.
+     */
+    public List<EventDate> getListOfDatesUntil(EventDate endInclusive) {
+        EventDate startOfEvent = this;
+        List<EventDate> eventDates = new ArrayList<>();
+        while (!startOfEvent.isAfter(endInclusive)) {
+            eventDates.add(startOfEvent);
+            startOfEvent = startOfEvent.plusDays(1);
+        }
+        return eventDates;
     }
 
     @Override
