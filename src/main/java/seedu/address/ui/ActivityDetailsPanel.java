@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Expense;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,7 +22,7 @@ import seedu.address.model.person.Person;
 public class ActivityDetailsPanel extends UiPart<Region> {
     private static final String FXML = "ActivityDetailsPanel.fxml";
 
-    public final Activity activity;
+    private final Activity activity;
 
     @FXML
     private ScrollPane detailsPane;
@@ -53,9 +55,11 @@ public class ActivityDetailsPanel extends UiPart<Region> {
         double totalSpending = activity.getTotalSpending();
         spending.setText(String.format("$%.2f", totalSpending));
 
-        activity.getExpenses().stream()
-                .forEach(expense -> {
-                    expenseHistory.getChildren().add(new ExpenseCard(expense, participants).getRoot());
+        List<Expense> expenses = activity.getExpenses();
+        IntStream.range(0, expenses.size())
+                .forEach(index -> {
+                    ExpenseCard newNode = new ExpenseCard(expenses.get(index), participants, index + 1);
+                    expenseHistory.getChildren().add(newNode.getRoot());
                 });
 
         List<Integer> participantIds = activity.getParticipantIds();

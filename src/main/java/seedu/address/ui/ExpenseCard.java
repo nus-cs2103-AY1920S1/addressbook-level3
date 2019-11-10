@@ -23,7 +23,8 @@ public class ExpenseCard extends UiPart<Region> {
     private static final String DELETED_LABEL_CLASS = "deleted-label";
     private static final String DELETED_TAGS_CLASS = "deleted-tags";
 
-    public final Expense expense;
+    private final int index;
+    private final Expense expense;
 
     @FXML
     private VBox detailsContainer;
@@ -36,24 +37,22 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private Label amount;
 
-    public ExpenseCard(Expense expense, List<Person> activityParticipants) {
+    public ExpenseCard(Expense expense, List<Person> activityParticipants, int displayIndex) {
         super(FXML);
+        this.index = displayIndex;
         this.expense = expense;
 
-        String expenseDescription = expense.getDescription();
-        boolean hasDescription = expenseDescription.length() > 0;
-
-        if (hasDescription) {
-            description.setText(expense.getDescription());
-        } else {
-            // Remove the description label if this expense has no description
-            detailsContainer.getChildren().remove(description);
+        // If this expense was soft-deleted, apply the style classes for soft-deleted expenses
+        if (expense.isDeleted()) {
+            setSoftDeletedStyle();
         }
 
+        description.setText(getFormattedDescription());
         amount.setText(String.format("$%s", expense.getAmount().toString()));
 
+        int expenseOwnerId = expense.getPersonId();
         Optional<Person> expenseOwnerOpt = activityParticipants.stream()
-                .filter((participant) -> participant.getPrimaryKey() == expense.getPersonId())
+                .filter((participant) -> expenseOwnerId == participant.getPrimaryKey())
                 .findFirst();
         assert expenseOwnerOpt.isPresent();
 
@@ -65,30 +64,38 @@ public class ExpenseCard extends UiPart<Region> {
                 .boxed()
                 .collect(Collectors.toUnmodifiableSet());
 
+        // Retrieve the name of each participant and create a separate tag to display it
         activityParticipants.stream()
                 .filter((participant) -> involvedIds.contains(participant.getPrimaryKey()))
                 .map((participant) -> participant.getName().toString())
                 .forEach(name -> sharedBy.getChildren().add(new Label(name)));
-
-        // If this expense was soft-deleted, apply the style classes for soft-deleted expenses
-        if (expense.isDeleted()) {
-            setSoftDeletedStyle(hasDescription);
-        }
     }
 
     /**
      * Sets the component styles of this expense card to indicate a soft-deleted expense or settlement.
-     * @param hasDescription A {@code boolean} indicating if this expense card contains a description.
      */
-    private void setSoftDeletedStyle(boolean hasDescription) {
+    private void setSoftDeletedStyle() {
         // Grey out amount and description labels
         amount.getStyleClass().add(DELETED_LABEL_CLASS);
-        if (hasDescription) {
-            description.getStyleClass().add(DELETED_LABEL_CLASS);
-        }
+        description.getStyleClass().add(DELETED_LABEL_CLASS);
 
         // Grey out all participant tags in the FlowPane of this expense card
         sharedBy.getStyleClass().add(DELETED_TAGS_CLASS);
+    }
+
+    /**
+     * Formats the description of this {@code Expense} into a {@code String} for this expense card
+     * to display.
+     */
+    private String getFormattedDescription() {
+        String expenseDescription = expense.getDescription();
+        boolean hasDescription = expenseDescription.length() > 0;
+
+        if (hasDescription) {
+            return String.format("#%d: %s", index, expenseDescription);
+        } else {
+            return String.format("#%d", index);
+        }
     }
 
     @Override

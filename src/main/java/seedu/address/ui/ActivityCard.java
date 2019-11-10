@@ -11,7 +11,7 @@ import seedu.address.model.activity.Activity;
 public class ActivityCard extends UiPart<Region> {
     private static final String FXML = "ActivityCard.fxml";
 
-    public final Activity activity;
+    private final Activity activity;
 
     @FXML
     private Label index;

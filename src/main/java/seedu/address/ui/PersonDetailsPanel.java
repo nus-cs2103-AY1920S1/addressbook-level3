@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
 public class PersonDetailsPanel extends UiPart<Region> {
     private static final String FXML = "PersonDetailsPanel.fxml";
 
-    public final Person person;
+    private final Person person;
 
     @FXML
     private ScrollPane detailsPane;
@@ -50,7 +50,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
         activities.stream()
                 .forEach(activity -> {
                     Double transferAmount = activity.getTransferAmount(person.getPrimaryKey());
-                    activityHistory.getChildren().add(new ActivityHistoryCard(activity, transferAmount).getRoot());
+                    ActivityHistoryCard newNode = new ActivityHistoryCard(activity, transferAmount);
+                    activityHistory.getChildren().add(newNode.getRoot());
                 });
     }
 }

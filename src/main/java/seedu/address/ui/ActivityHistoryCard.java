@@ -14,8 +14,8 @@ public class ActivityHistoryCard extends UiPart<Region> {
     private static final String ACTIVITY_OWED_CLASS = "activity-owed";
     private static final String ACTIVITY_OWING_CLASS = "activity-owing";
 
-    public final Activity activity;
-    public final double transferAmt;
+    private final Activity activity;
+    private final double transferAmt;
 
     @FXML
     private Label title;
