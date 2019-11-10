@@ -43,8 +43,8 @@ public class UniqueLessonListTest {
     @Test
     public void add_duplicateLesson_throwsDuplicateLessonException() {
         uniqueLessonList.add(LESSON_ONE);
-        assertThrows(seedu.address.model.lesson.exceptions.DuplicateLessonException.class,
-                () -> uniqueLessonList.add(LESSON_ONE));
+        assertThrows(seedu.address.model.lesson.exceptions.DuplicateLessonException.class, () ->
+                uniqueLessonList.add(LESSON_ONE));
     }
 
     @Test

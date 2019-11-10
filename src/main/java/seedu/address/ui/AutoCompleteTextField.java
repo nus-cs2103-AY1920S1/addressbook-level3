@@ -31,7 +31,7 @@ public class AutoCompleteTextField extends TextField {
     private final SortedSet<String> entries;
     private ContextMenu entriesPopup;
     private final Logger logger = LogsCenter.getLogger(getClass());
-    private final int MAX_ENTRIES = 10;
+    private final int maxEntries = 10;
     private ArrayList<String> entriesList = new ArrayList<>();
 
     /**
@@ -101,7 +101,7 @@ public class AutoCompleteTextField extends TextField {
             return;
         }
         List<CustomMenuItem> menuItems = new LinkedList<>();
-        int numEntries = Math.min(searchResults.size(), MAX_ENTRIES);
+        int numEntries = Math.min(searchResults.size(), maxEntries);
         entriesList.clear();
         for (int i = 0; i < numEntries; i++) {
             final String mainText = searchResults.get(i);
