@@ -621,6 +621,7 @@ image::gui/OpenTabUiActionActivityDiagram.png[]
 In AlgoBase, the state of the GUI is also saved to Storage after every action. This is so that when the user closes the application and opens it again later, the state is stored.
 The Sequence diagram below also shows how the GuiState is saved to Storage:
 
+[.text-center]
 .Sequence Diagram for storing new GUI state
 image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=12cm]
 
