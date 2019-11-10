@@ -53,7 +53,7 @@ class HeightTest {
     @Test
     void testToString() {
         Height height = new Height("190");
-        String expected = "190";
+        String expected = "190.0";
         assertEquals(height.toString(), expected);
     }
 }

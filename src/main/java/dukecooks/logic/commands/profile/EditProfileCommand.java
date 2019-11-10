@@ -56,13 +56,19 @@ public class EditProfileCommand extends EditCommand {
 
     private final EditPersonDescriptor editPersonDescriptor;
 
+    private final boolean isWeightEdited;
+    private final boolean isHeightEdited;
+
     /**
      * @param editPersonDescriptor details to edit the person with
      */
-    public EditProfileCommand(EditPersonDescriptor editPersonDescriptor) {
+    public EditProfileCommand(EditPersonDescriptor editPersonDescriptor, boolean isWeightEdited,
+                              boolean isHeightEdited) {
         requireNonNull(editPersonDescriptor);
 
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.isWeightEdited = isWeightEdited;
+        this.isHeightEdited = isHeightEdited;
     }
 
     @Override
@@ -78,7 +84,22 @@ public class EditProfileCommand extends EditCommand {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        if (isWeightEdited || isHeightEdited) {
+            LinkHealth.updateHealth(model, editedPerson, isWeightEdited, isHeightEdited);
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    /**
+     * Updates profile with the latest weight/height found in health records.
+     * This method is only called to ensure profile's data is in sync with health records
+     */
+    public void updateProfile(Model model) {
+        List<Person> lastShownList = model.getFilteredPersonList();
+        Person personToEdit = lastShownList.get(0);
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        model.setPerson(personToEdit, editedPerson);
     }
 
     /**
