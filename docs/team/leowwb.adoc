@@ -65,8 +65,8 @@ CAUTION: A cautionary piece of advice
     The user will be notified if a duplicate is detected in a file while importing.
 ** Credits: All reading of flashcards from the `.json` format is done with the use of Jackson, an external library.
 
-* *Code contributed*: Please click on these links to see a sample of my code:
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_ (reposense link??)
+* *Code contributed*: +
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalCommits&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=LeowWB&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D[Please click here to view a sample of my code!]
 
 * *Other contributions*
 
