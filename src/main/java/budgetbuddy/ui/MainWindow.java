@@ -13,12 +13,16 @@ import budgetbuddy.logic.commands.CommandContinuation;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.logic.parser.exceptions.ParseException;
+import budgetbuddy.logic.script.ScriptBindingInterfaces;
+import budgetbuddy.logic.script.ScriptEngine;
+import budgetbuddy.logic.script.ScriptEnvironmentInitialiser;
 import budgetbuddy.ui.tab.AccountTab;
 import budgetbuddy.ui.tab.LoanTab;
 import budgetbuddy.ui.tab.PanelTab;
 import budgetbuddy.ui.tab.RuleTab;
 import budgetbuddy.ui.tab.ScriptTab;
 import budgetbuddy.ui.tab.TransactionTab;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -75,6 +79,7 @@ public class MainWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         logic.addToScriptEnvironment(new ScriptUiBinding());
+        logic.addToScriptEnvironment(new ScriptBinding());
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -99,6 +104,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -148,7 +154,8 @@ public class MainWindow extends UiPart<Stage> {
         ScriptTab scriptTab = new ScriptTab(logic.getScriptList());
         tabMap.put(CommandCategory.SCRIPT, scriptTab);
 
-        OutputDisplay outputDisplay = new OutputDisplay(accountTab, transactionTab, ruleTab, loanTab, scriptTab);
+        OutputDisplay outputDisplay =
+                new OutputDisplay(accountTab, transactionTab, ruleTab, loanTab, scriptTab);
         outputDisplayPlaceholder.getChildren().add(outputDisplay.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -172,7 +179,8 @@ public class MainWindow extends UiPart<Stage> {
             }
             // add hotkey (Ctrl + D) to switch between primary and secondary panels (if secondary panel exists)
             PanelTab currentTab = (PanelTab) outputDisplay.getRoot().getSelectionModel().getSelectedItem();
-            if (currentTab.hasSecondaryPanel() && event.isControlDown() && event.getCode().equals(KeyCode.D)) {
+            if (currentTab.hasSecondaryPanel() && event.isControlDown() && event.getCode()
+                    .equals(KeyCode.D)) {
                 if (currentTab.isPrimaryPanelSelected()) {
                     currentTab.setSecondaryPanel();
                 } else {
@@ -233,8 +241,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        GuiSettings guiSettings =
+                new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                        (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -303,5 +312,30 @@ public class MainWindow extends UiPart<Stage> {
             }
         }
         return null;
+    }
+
+    /**
+     * Provides convenience classes to the script environment.
+     * <p>
+     * This class breaks a lot of abstraction barriers in order for the scripting experience to be ergonomic.
+     * The abstraction-breaking is contained within this class.
+     */
+    private class ScriptBinding implements ScriptEnvironmentInitialiser {
+        @Override
+        public void initialise(ScriptEngine engine) {
+            engine.setVariable("executeCommand",
+                    (ScriptBindingInterfaces.StringOnly) this::scriptExecuteCommand);
+        }
+
+        /**
+         * Provides <code>executeCommand(command) -> CommandResult</code>.
+         */
+        private Object scriptExecuteCommand(String command) throws Exception {
+            if (Platform.isFxApplicationThread()) {
+                return MainWindow.this.executeCommand(command);
+            } else {
+                throw new IllegalStateException("Cannot execute command from non-application thread");
+            }
+        }
     }
 }
