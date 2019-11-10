@@ -382,10 +382,10 @@ The calendar feature is mainly supported by `Calendar` along with a `Scheduler`.
 It also handles checking for duplicate and overlapping calendar entries.
 Calendar entries consists of `Reminder`s and `Event`s. `calendarEntries` list is an unique list for all calendar entries added
 by the user. Aside from it, `pastReminders` list is dynamically determined by time. The `Scheduler`, which utilizes java `ScheduledExecutorService` is responsible for adding reminders at specific time to the
-`pastReminders` list and all reminders in this list is shown to the user. The read-time reminder works parallel with all other features in this app. Also `Scheduler` keeps track of the current date and the starting
+`pastReminders` list and all reminders in this list is shown to the user. The real-time reminder works parallel with all other features in this app. Also `Scheduler` keeps track of the current date and the starting
 time of running the app.
 
-It implements the following operations:
+Calendar implements the following operations:
 
 * `Calendar#addCalendarEntry` -- Adds a new calendar entry to the calendar.
 * `Calendar#addPastReminder` -- Adds a reminder to the past reminders list.
@@ -398,7 +398,7 @@ These operations are exposed in the `Model` interface as `Model#addCalendarEntry
 
 See the class diagram below for calendar related classes.
 
-image::CalendarClassDiagram.png[]
+image::CalendarClassDiagram.png[CCD,400,]
 
 ===== Reminder and Event class
 Basically, both `Reminder` and `Event` which extend from the abstract class `CalendarEntry` consist of a `Description` and a `DateTime` field.
@@ -435,10 +435,13 @@ Each time any reminder being added or removed, the scheduler is triggered to res
 Besides scheduling tasks of adding reminders, the scheduler always schedules a task with `Initializer` class for initializing right after the current deadline, so that it can transfer smoothly to the next day if the app is open overnight. This initializer will set the
 deadline to be end of the next day, update date and schedule tasks.
 
+The following activity diagram shows how scheduler works when it is called to schedule tasks:
+
+image::SchedulerActivityDiagram.png[SAD,500,]
 
 The following activity diagram shows an example of how event command and scheduler work together:
 
-image::CalendarActivityDiagram.png[]]
+image::CalendarActivityDiagram.png[CAD,600,]
 
 ===== Example usage scenario
 Given below is an example usage scenario and how the calendar behaves at each step.
@@ -464,6 +467,11 @@ Step 5. At 17:30, a scheduled task is executed to call `Calendar#addPastReminder
 The following sequence diagram shows how a single `reminder` command works:
 
 image::CalendarSequenceDiagram.png[]
+
+===== CalendarCommand class
+`CalendarCommand` is implemented for showing calendar entries and monthly calendar. It consists of a `YearMonth`, an optional `YearMonthDay`, `isShowingWeek`
+and `isShowingRaw` fields. The result of executing a `CalendarCommand` is a subclass `CalendarCommandResult` extending from `CommandResult`, which will be considered
+differently in the `MainWindow`. `MainWindow` will create a pane depending on the attributes of `CalendarCommandResult`.
 
 ==== Design Considerations
 
@@ -1340,6 +1348,41 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 //end::useCases[]
+
+=== Use case: Add a reminder
+*MSS*
+
+1.  User requests to add a reminder
+2.  System adds the reminder
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The reminder already exists or the reminder is covered by existing reminder
++
+[none]
+** 1a1. System shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The reminder covers some other existing reminders
++
+[none]
+** 1b1. System removes the existing reminders covered by the new reminder
+** 1b2. Use case resumes at step 2.
+
+[none]
+* 1c. The reminder and some existing reminders conflict
++
+[none]
+** 1c1. System shows an error message.
++
+Use case resumes at step 1.
+
+
 
 //tag::nfr[]
 [appendix]
