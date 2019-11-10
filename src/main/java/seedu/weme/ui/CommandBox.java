@@ -20,6 +20,7 @@ import seedu.weme.logic.commands.memecommand.MemeDislikeCommand;
 import seedu.weme.logic.commands.memecommand.MemeLikeCommand;
 import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.parser.util.CliSyntax;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.meme.Meme;
@@ -201,18 +202,23 @@ public class CommandBox extends UiPart<Region> {
                 float distance = TextMoveCommand.DEFAULT_MOVE_DISTANCE * multiplier;
                 switch (event.getCode()) {
                 case UP:
-                    commandExecutor.execute(commandTextField.getText() + " y/-" + distance);
+                    commandExecutor.execute(commandTextField.getText() + " "
+                            + CliSyntax.PREFIX_Y_COORDINATE_STRING + "-" + distance);
                     return true;
                 case DOWN:
-                    commandExecutor.execute(commandTextField.getText() + " y/" + distance);
+                    commandExecutor.execute(commandTextField.getText() + " "
+                            + CliSyntax.PREFIX_Y_COORDINATE_STRING + distance);
                     return true;
                 case LEFT:
-                    commandExecutor.execute(commandTextField.getText() + " x/-" + distance);
+                    commandExecutor.execute(commandTextField.getText() + " "
+                            + CliSyntax.PREFIX_X_COORDINATE_STRING + "-" + distance);
                     return true;
                 case RIGHT:
-                    commandExecutor.execute(commandTextField.getText() + " x/" + distance);
+                    commandExecutor.execute(commandTextField.getText() + " "
+                            + CliSyntax.PREFIX_X_COORDINATE_STRING + distance);
                     return true;
                 default:
+                    return false;
                 }
             } catch (CommandException | ParseException e) {
                 setStyleToIndicateCommandFailure();
