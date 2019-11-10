@@ -15,7 +15,7 @@ image::davidcwh.png[width="150", align="left"]
 {empty}[https://github.com/davidcwh[github]] [<<davidcwh#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Deliverables and deadlines, In charge of Storage
+Responsibilities: Deliverables and deadlines
 
 '''
 
