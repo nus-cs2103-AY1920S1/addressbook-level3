@@ -14,8 +14,8 @@ import seedu.planner.ui.UiPart;
  * @author 1nefootstep
  */
 public class UserGuideHelpCard extends UiPart<Region> {
-    private static final String FXML = "UserGuideHelpCard.fxml";
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-t09-1.github.io/main/UserGuide.html";
+    private static final String FXML = "UserGuideHelpCard.fxml";
 
     @FXML
     private Hyperlink hyperlink;

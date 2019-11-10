@@ -2,7 +2,6 @@ package seedu.planner.ui.panels;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.planner.logic.commands.ClearCommand;
