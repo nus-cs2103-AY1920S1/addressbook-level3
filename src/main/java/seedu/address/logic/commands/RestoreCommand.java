@@ -48,6 +48,7 @@ public class RestoreCommand extends Command {
             Person p = (Person) itemToRestore.getItem();
             model.addPerson(new PersonBuilder(p).build());
         } else {
+            assert itemToRestore.getItem() instanceof Policy : "Item is not a Policy object!";
             Policy p = (Policy) itemToRestore.getItem();
             model.addPolicy(new PolicyBuilder(p).build());
         }

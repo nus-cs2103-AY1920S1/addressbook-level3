@@ -77,7 +77,7 @@ public class BinItem {
     }
 
     /**
-     * Returns true if both BinItems have the same item, dateDeleted and expiryDate.
+     * Returns true if both BinItems have the same item.
      */
     @Override
     public boolean equals(Object other) {
@@ -90,9 +90,7 @@ public class BinItem {
         }
 
         BinItem otherItem = (BinItem) other;
-        return otherItem.getItem().equals(getItem())
-            && otherItem.getDateDeleted().equals(getDateDeleted())
-            && otherItem.getExpiryDate().equals(getExpiryDate());
+        return otherItem.getItem().equals(getItem());
     }
 
     @Override

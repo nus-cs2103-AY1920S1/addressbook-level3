@@ -46,6 +46,7 @@ public class BinItemListPanel extends UiPart<Region> {
                     setGraphic(new BinPersonCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate())
                         .getRoot());
                 } else {
+                    assert binItem.getItem() instanceof Policy : "Item is not a Policy object!";
                     Policy p = (Policy) binItem.getItem();
                     setGraphic(new BinPolicyCard(p, getIndex() + 1, binItem.getDateDeleted(), binItem.getExpiryDate())
                         .getRoot());

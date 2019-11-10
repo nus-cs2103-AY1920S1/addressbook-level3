@@ -409,7 +409,8 @@ public class ModelManager implements Model {
         return statefulAddressBook.equals(other.statefulAddressBook)
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons)
-            && filteredPolicies.equals(other.filteredPolicies);
+            && filteredPolicies.equals(other.filteredPolicies)
+            && filteredBinItems.equals(other.filteredBinItems);
     }
 
 }

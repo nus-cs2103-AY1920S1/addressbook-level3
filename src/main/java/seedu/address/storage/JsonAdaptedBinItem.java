@@ -46,6 +46,7 @@ class JsonAdaptedBinItem {
             this.personItem = new JsonAdaptedPerson(p);
             this.policyItem = null;
         } else {
+            assert source.getItem() instanceof Policy : "Item is not a Policy object!";
             Policy p = (Policy) source.getItem();
             this.policyItem = new JsonAdaptedPolicy(p);
             this.personItem = null;

@@ -35,6 +35,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.binitem.BinItem;
+import seedu.address.model.binitem.Binnable;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.policy.Policy;
@@ -144,36 +146,42 @@ public class CommandTestUtil {
     public static final String VALID_NAME_FIRE_INSURANCE = "Fire Insurance";
     public static final String VALID_NAME_CAR_INSURANCE = "Car Insurance";
     public static final String VALID_NAME_SENIOR_INSURANCE = "Senior Insurance";
+    public static final String VALID_NAME_UNASSIGNED_INSURANCE = "Unassigned";
 
     public static final String VALID_DESCRIPTION_HEALTH_INSURANCE = "Insurance for healthcare";
     public static final String VALID_DESCRIPTION_LIFE_INSURANCE = "Insurance for life";
     public static final String VALID_DESCRIPTION_FIRE_INSURANCE = "Insurance for fire";
     public static final String VALID_DESCRIPTION_CAR_INSURANCE = "Insurance for car";
     public static final String VALID_DESCRIPTION_SENIOR_INSURANCE = "Insurance for senior";
+    public static final String VALID_DESCRIPTION_UNASSIGNED_INSURANCE = "Unassigned insurance policy. Do not use this!";
 
     public static final String VALID_COVERAGE_HEALTH_INSURANCE = "days/10 months/11 years/12";
     public static final String VALID_COVERAGE_LIFE_INSURANCE = "years/50";
     public static final String VALID_COVERAGE_FIRE_INSURANCE = "days/30 months/12";
     public static final String VALID_COVERAGE_CAR_INSURANCE = "months/6 years/5";
     public static final String VALID_COVERAGE_SENIOR_INSURANCE = "months/10 years/20";
+    public static final String VALID_COVERAGE_UNASSIGNED_INSURANCE = "years/1";
 
     public static final String VALID_START_AGE_HEALTH_INSURANCE = "30";
     public static final String VALID_START_AGE_LIFE_INSURANCE = "21";
     public static final String VALID_START_AGE_FIRE_INSURANCE = "0";
     public static final String VALID_START_AGE_CAR_INSURANCE = "18";
     public static final String VALID_START_AGE_SENIOR_INSURANCE = "50";
+    public static final String VALID_START_AGE_UNASSIGNED_INSURANCE = "0";
 
     public static final String VALID_END_AGE_HEALTH_INSURANCE = "75";
     public static final String VALID_END_AGE_LIFE_INSURANCE = "80";
     public static final String VALID_END_AGE_FIRE_INSURANCE = "85";
     public static final String VALID_END_AGE_CAR_INSURANCE = "100";
     public static final String VALID_END_AGE_SENIOR_INSURANCE = "100";
+    public static final String VALID_END_AGE_UNASSIGNED_INSURANCE = "100";
 
     public static final String VALID_PRICE_HEALTH_INSURANCE = "$50000";
     public static final String VALID_PRICE_LIFE_INSURANCE = "$1000000";
     public static final String VALID_PRICE_FIRE_INSURANCE = "$7500";
     public static final String VALID_PRICE_CAR_INSURANCE = "$5000";
     public static final String VALID_PRICE_SENIOR_INSURANCE = "$100000";
+    public static final String VALID_PRICE_UNASSIGNED_INSURANCE = "$1";
 
     public static final String VALID_CRITERIA_HEALTH_INSURANCE = "diabetic";
     public static final String VALID_CRITERIA_LIFE_INSURANCE = "high blood pressure";
@@ -317,6 +325,17 @@ public class CommandTestUtil {
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
+    public static void assertListBinCommandSuccess(Command command, Model actualModel, String expectedMessage,
+                                                      Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, false , false,
+            false, false, false, false, false, true);
+        assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
     public static void assertHistoryCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                                    Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false,
@@ -381,5 +400,21 @@ public class CommandTestUtil {
         model.updateFilteredPolicyList(new PolicyNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPolicyList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the binItem at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     *
+     * @param model
+     * @param targetIndex
+     */
+    public static void showBinItemAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBinItemList().size());
+
+        BinItem item = model.getFilteredBinItemList().get(targetIndex.getZeroBased());
+        model.updateFilteredBinItemList((binItem) -> binItem.equals(item));
+
+        assertEquals(1, model.getFilteredBinItemList().size());
     }
 }

@@ -34,6 +34,7 @@ public class BinItemBuilder {
         if (binItemToCopy.getItem() instanceof Person) {
             item = new PersonBuilder(((Person) binItemToCopy.getItem())).build();
         } else {
+            assert binItemToCopy.getItem() instanceof Policy : "Item is not a Policy object!";
             item = new PolicyBuilder(((Policy) binItemToCopy.getItem())).build();
         }
         dateDeleted = LocalDateTime.parse(binItemToCopy.getDateDeleted(), DATE_TIME_FORMATTER);
@@ -47,6 +48,7 @@ public class BinItemBuilder {
         if (binItem instanceof Person) {
             item = new PersonBuilder(((Person) binItem)).build();
         } else {
+            assert binItem instanceof Policy : "Item is not a Policy object!";
             item = new PolicyBuilder(((Policy) binItem)).build();
         }
         return this;
