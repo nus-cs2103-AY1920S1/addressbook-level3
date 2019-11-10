@@ -346,7 +346,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Calendar Window
 
-The calendar window provides a visual representation of stored engagements over a monthly period.
+The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
 Users can choose to change the month being displayed and also open scrolling text windows which
 show more detailed descriptions of the stored engagements for a particular day.
 
@@ -361,7 +361,7 @@ displayed. The `CalendarWindow` class and any of its associated UI components ca
 The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
 list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
 `EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
-The following tables shows all UI components which are used and their respective purposes.
+The following table shows all UI components which are used and their respective purposes.
 
 .Calendar Window UI Components
 [%header, cols=4*]
@@ -407,6 +407,35 @@ The following tables shows all UI components which are used and their respective
 | Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
 
 |===
+
+==== Command Execution Workflows
+
+The following are the four commands which interact with `CalendarWindow`. They are accompanied by their respective activity diagrams
+which are used to model their workflows:
+
+* `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
+
+.Open Display Activity Diagram
+image::CalendarOpenDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
+
+.Close Display Activity Diagram
+image::CalendarCloseDisplayActivityDiagram.png[]
+{empty} +
+
+* `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
+
+.Next Month Activity Diagram
+image::CalendarNextMonthActivityDiagram.png[]
+{empty} +
+
+* `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
+
+.Previous Month Activity Diagram
+image::CalendarPreviousMonthActivityDiagram.png[]
+{empty} +
 
 .CalendarWindow Initialization Sequence Diagram
 image::CalendarWindowSequenceDiagram.png[]
