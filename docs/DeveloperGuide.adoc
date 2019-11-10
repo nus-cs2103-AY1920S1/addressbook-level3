@@ -342,13 +342,14 @@ When designing the undo/redo feature, scalability and speed were the key conside
 There was also an extra layer of difficulty as Mortago has automated commands that are both time-based and user-triggered.
 After the analysis described below, the Command pattern was thought to be the best solution.
 
-===== Aspect: Designing the mechanism
+===== Aspect: Designing the undo/redo mechanism
+Alternative 1 was chosen despite its difficult implementation because it is faster and more scalable.
 
-* **Alternative 1 (current choice):** Individual command knows how to undo/redo by itself.
+* **Alternative 1:** Individual command knows how to undo/redo by itself.
 ** Pros:
-    *** Better scalability. Will use less memory (e.g. for `add`, only the added entity needs to be saved).
+    *** Better scalability. Will use less memory (e.g. For `add`, only the added entity needs to be saved).
     *** Faster for big programs.
-    *** Elegant.
+    *** Easier to implement defensive measures.
 ** Cons:
     *** Must implement custom undo functions for each command.
     *** More difficult to implement and maintain.
@@ -360,10 +361,29 @@ After the analysis described below, the Command pattern was thought to be the be
     *** Likely to use a lot of memory.
     *** Slower for big programs.
 
-===== Aspect: Handling automated commands
-* ** Alternative 1 : Allow automated commands to be undone
+===== Aspect: Handling automated timed commands
+Mortago has a Notification feature, which are user-triggered automated commands that are triggered by time.
+Though the undo/redo feature does not support it directly, the Notification can make changes to
+program state at any time. When undoing or redoing, it was essential that data integrity was preserved.
 
-* ** Alterative 2 : Do not undo the automated command
+Alternative 1 was chosen as it causes almost no overhead, guarantees data integrity, and causes the user the least inconvenience.
+
+* ** Alternative 1:** Allow automated commands to be undone
+** Pros:
+    *** Causes minimal overhead as only one additional command needs to be stored.
+    *** Maintains data integrity.
+    *** Allows the user to undo automated changes, if it is not desired.
+    *** Shows consistency and will not cause visual jumps between states.
+** Cons:
+    *** Confuses the user initially.
+
+* ** Alternative 2:** Do not undo the automated command
+** Pros:
+    *** Easiest to implement.
+** Cons:
+    *** Confuses the user initially.
+    *** Causes visible jumps between states (e.g. The user might see changes to 2 fields being undone even though his `update` command only changed one field).
+    *** Loss of data integrity.
 
 ===== Aspect: Storing executed/undone commands
 
@@ -715,7 +735,7 @@ Finally, the last functionality to rebuilt is the resizability of the Window. Th
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
-In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
+In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order as described below:
 
 * `LineChartPanel#initialiseTreeMap()` -- Initialises a tree map that contains the dates as the keys and the number of bodies admitted as the frequency.
 * `LineChartPanel#initialiseLineChart()` -- Creates a Line Chart with Xaxis and Yaxis.
@@ -724,32 +744,43 @@ In `LineChartPanel`, four key operations that constructs the line chart and upda
 
 The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
 
-The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected.
-The following sequence diagram shows hows `LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The following sequence diagram shows hows adding a body changes the `AddressBook`, and then how`LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
 image::LineChartAddBodySequenceDiagram.png[]
+
+The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide). The following sequence diagram shows how the stats command affect the appearance of the line chart:
+
+image::LineChartTimeFrameSequenceDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How data is stored and updated
 
-* **Alternative 1 (current choice):** Use a tree map to keep track of bodies and initialise the last 10 days.
-** Pros: Implementation is easy and ensures only the last 10 days is visible.
-** Cons: Series is regenerated for the whole 10 days whenever there is a change. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+The line chart needs data to refer to. Below are two alternatives for how to access the data and update the line chart:
+
+* **Alternative 1 (current choice):** Data is not stored. Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
+
+The following activity diagram illustrates the current choice for accessing and updating data:
 
 image::LineChartActivityDiagram.png[]
 
+** Pros: Implementation is easy.
+** Cons: Series is regenerated whenever there is a change in time frame. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+
+
 * **Alternative 2:** Store all data in a separate storage class.
-** Pros: Implementation allows user to see beyond 10 days.
+** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
 ** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
 
-===== Aspect: How line chart appears to end user
+===== Aspect: The time frame of the line chart
 
-* **Alternative 1 (current choice):** Only the last 10 days is visible.
+Currently the line chart supports four types of time frames as aforementioned. Below are two alternatives to which users are limited by the time frames:
+
+* **Alternative 1 (current choice):** Users can toggle between four types of time frames.
 ** Pros: Implementation is easy and simple.
-** Cons: The statistics is limited in meaning if only the last 10 days is known.
+** Cons: The statistics is limited in meaning if it cannot be compared between other time frames.
 
-* **Alternative 2:** Users have the option to toggle between the last week, month, or year.
+* **Alternative 2:** Users can print a summary of statistics over a specified period.
 ** Pros: The statistics will have more meaning.
 ** Cons: Implementation is difficult.
 

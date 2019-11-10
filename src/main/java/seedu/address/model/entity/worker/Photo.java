@@ -17,14 +17,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.AppUtil;
 import seedu.address.commons.util.FileUtil;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * Represents the display picture of a worker in Mortago.
  */
 public class Photo {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Error in importing display photo: Photo should be less than 2MB or it does not exist.";
+            "Error in importing display photo: Photo should be a jpeg, jpg or png file, or it does not exist.";
     public static final String MESSAGE_DATA_COPY_ERROR =
             "Error in copying photo to the data directory";
     public static final String PATH_TO_DATA_DIRECTORY = "data" + File.separator + "photo" + File.separator;
@@ -80,7 +80,7 @@ public class Photo {
      */
     public String getStoragePathToDataDirectory() {
         String path = Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
-        if (AppUtil.isWindows()) {
+        if (path.charAt(0) == '/' && AppUtil.isWindows()) {
             return path.substring(1); // removes the additional leading forward slash
         } else {
             return path; // keeps the leading forward slash required
@@ -92,13 +92,15 @@ public class Photo {
     /**
      * Loads the example photo from resources into the data directory when the user launches app for the first time.
      */
-    private static void initExamplePhoto() {
+    private static boolean initExamplePhoto() {
         try {
             Files.createDirectories(Paths.get(PATH_TO_DATA_DIRECTORY));
             InputStream photo = MainApp.class.getResourceAsStream("/images/ExamplePhoto.jpg");
             Files.copy(photo, Paths.get(PATH_TO_EXAMPLE_PHOTO), REPLACE_EXISTING);
+            return true;
         } catch (IOException e) {
             logger.severe("Unable to load example photo.");
+            return false;
         }
     }
 
@@ -139,4 +141,4 @@ public class Photo {
         return Objects.hash(originalDirectory, dataDirectory);
     }
 }
-//@@ author
+//@@author

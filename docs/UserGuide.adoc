@@ -141,9 +141,7 @@ You can add a body, worker or fridge by entering an add command that follows the
 This table details how you can craft your add command to add an entity in Mortago.
 |===
 
-| Purpose |  Format
-
-| Add a new worker
+| Adding a Worker |  Adding a Body | Adding a Fridge
 
 a|
 ====
@@ -161,11 +159,10 @@ add -w +
 If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
 You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file.
 
+
 ====
 
----
 
-| Add a new body
 a|
 ====
 add -b +
@@ -183,22 +180,23 @@ add -b +
 (/cod causeOfDeath) +
 (/organsForDonation organsForDonation) +
 (/fridgeId fridgeId)
+
+
 ====
 
-[TIP]
-Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
-
----
-| Add a new fridge
 a|
 ====
 add -f
 ====
 
+
 [TIP]
 Default status: `UNOCCUPIED`
 
 |===
+
+[TIP]
+Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 
 Example:
 
@@ -214,7 +212,6 @@ a|
  /dateJoined 18/08/2019
  /designation Autopsy Technician`
 
----
 
 | Worker added
 
@@ -235,7 +232,7 @@ a|
 /details Heavy bleeding and head injury
 /organsForDonation NIL`
 
----
+
 | Body added
 
 a|
@@ -316,10 +313,16 @@ Photo `/photo`
 Make sure you key in dates in the format DD/MM/YYYY.
 
 Example: +
-Imagine that someone (Jane Doe) just got promoted! You have to change her designation in Mortago.
+Imagine that someone (Jane Doe) just got promoted! You have to change her designation to 'Manager' in Mortago.
 
 Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
-and her new designation. You see that her ID number is W00001.
+and her new designation.
+
+To update Jane Doe's designation: +
+1. Locate her identification number on the dashboard. You see on the dashboard that her ID number is W00001. +
+2. Type `update -w /id 1 /designation Manager` into the command box, and press `Enter` to execute it. +
+3. The result box will indicate that the `delete` command has been undone. +
+4. You will also see  on the dashboard that Jane Doe's designation has been updated.
 
 |===
 | Command | Expected Output
@@ -439,7 +442,30 @@ Format: `showNotifs`
 
 // end::notifs[]
 
-// tag::sortfilter[]
+// tag::sort[]
+
+==== Sort all entries: `sort` `[coming in v2.0]`
+Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
+Types of ordering can be found below:
+
+* `name`: entries are sorted by alphabetical order of their names
+* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
+    ** `id asc`: entries are sorted in ascending order of id number
+    ** `id desc`: entries are sorted in descending order of id number
+         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
+* `status`: entries are sorted by their statuses in this order:
+
+Format: `sort /order order`
+
+Example:
+
+* `sort /order status` +
+All entries will be sorted and grouped according to their statuses.
+* `sort /order id asc` +
+All entries will be sorted according to their id number in ascending order.
+// end::sort[]
+// tag::filter[]
 
 ==== Filter all entries: `filter`
 You can filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
@@ -449,17 +475,18 @@ All attributes of a body or worker entry can be filtered. If more than one attri
 Format: `filter -FLAG [/attributeName attributeValue ...]`
 
 Example:
+
 * `filter -w /sex female` +
 All female worker entries will be displayed.
 
 * `filter -b /cod Car Accident /sex male` +
 All body entries with car accident as the cause of death and those that are male will be displayed.
-// end::sortfilter[]
+// end::filter[]
 
 // tag::undoredo[]
 ==== Undoing a command: `undo`
 
-This command undoes the effects of the last command you executed. You can undo up to 10 of your most recent commands.
+This command undoes the effects of the last command you executed. You can undo up to 10 most recent commands.
 The commands are undone starting from the most recent to the least recent.
 
 Format: `undo` or `u`
@@ -467,8 +494,8 @@ Format: `undo` or `u`
 The `add`, `update`, `clear`, and `delete` commands can be undone.
 Commands like `list` or `find` cannot be undone.
 
-Changes caused by automated commands, such as a `NotifCommand` can be undone and redone.
-For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE` can be undone. However, note that this feature does not support
+Commands caused by automated commands, such as a `NotifCommand` can be undone and redone.
+For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE`  is caused by an `UpdateCommand` and can be undone. However, note that this feature does not support
 the `NotifCommand` itself.
 
 
@@ -613,24 +640,37 @@ Outputs the PDF report summary for all bodies in the folder containing the jar f
 // end::documentGeneration[]
 
 === Administrative
+
+// tag::stats[]
+
 ==== View admission statistics: `stats`
 This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
 
-The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days and is automatically updated when a body is added or deleted. You can change the time frame with the commands.
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
 
-The following is the correct format for typing in stats commands, with example usage:
+The following are the correct formats for typing in stats commands, with example usage:
 
 * To display the last 10 days: `stats` +
-The line chart will display statistics over the last 10 days.
+The line chart will display statistics over the last 10 days. The line chart will appear as below:
 
-* To display a specific week: `stats /week 12/10/2019` +
-The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019.
+image::statsTenDays.png[width="790"]
+
+* To display a specific week: `stats /week 25/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019. The line chart will appear as below:
+
+image::statsWeek.png[width="790"]
 
 * To display a specific month: `stats /month 5/2019` +
-The line chart will display statistics or the month specified. In this case, it is May 2019.
+The line chart will display statistics or the month specified. In this case, it is May 2019. The line chart will appear as below:
+
+image::statsMonth.png[width="790"]
 
 * To display a specific year: `stats /year 2019` +
-The line chart will display statistics for the year specified. In this case is it 2019.
+The line chart will display statistics for the year specified. In this case is it 2019. The line chart will appear as below:
+
+image::statsYear.png[width="790"]
+
+// end::stats[]
 
 ==== Archive entries: `archive` `[coming in v2.0]`
 This command allows you to archive old or irrelevant entries. One entry can be archived at a time, or all entries of a certain specification can be archived at once.

@@ -5,7 +5,7 @@ package seedu.address.logic.parser;
  */
 public class CliSyntax {
 
-    //@@ author shaoyi1997
+    //@@author shaoyi1997
     /* Prefix definitions */
     public static final Prefix PREFIX_BODY = new Prefix("/body");
     public static final Prefix PREFIX_IDENTIFICATION_NUMBER = new Prefix("/id");
@@ -30,7 +30,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_FRIDGE_ID = new Prefix("/fridgeId");
     public static final Prefix PREFIX_RELATIONSHIP = new Prefix("/relationship");
     public static final Prefix PREFIX_FLAG = new Prefix("-");
-    //@@ author
+    //@@author
 
     // for stats command
     public static final Prefix PREFIX_WEEK = new Prefix("/week");

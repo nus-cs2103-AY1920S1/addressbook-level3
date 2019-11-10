@@ -15,7 +15,7 @@ Our team comprises 5 dedicated Year 2 Computer Science students taking CS2103T, 
 
 === About the Project
 
-Our task for CS2103T was to build upon and enhance https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)],
+Our task for CS2103T was to build upon and enhance https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book Level 3 (AB3)],
 a sample address book application used to teach software engineering. It primarily uses a command line interface (CLI) for user interaction,
 and our enhanced application was required to have this as well.
 
@@ -46,47 +46,80 @@ is a command that can be inputted into the command line and executed by the appl
 * `[subheader]#GenReportCommand.java#`: Maroon text with grey highlight indicates a component, class or object in the architecture of the application.
 ====
 
+== 2. Summary of Contributions
+The contributions I have made towards the team project are detailed in this section.
 
-== Summary of Contributions
+=== Enhancements
+*Major enhancement*: I added the ability to undo/redo commands.
 
-* *Major enhancement*: added *the ability to undo/redo commands*
-
-** What it does: allows the user to undo all previous commands one at a time.
-Previously undone commands can be reversed by using the redo command.
+** What it does: The `undo` command allows the user to undo all previous commands one at a time.
+Previously undone commands can be redone by using the redo command.
 
 ** Justification: This feature improves the product significantly because a user can
-make mistakes and needs a convenient way of undoing them. Undo and redo are utility functions that many users have come to expect.
+make mistakes and needs a convenient way of undoing them. Undo and redo are utility functions that many users have come to expect in desktop applications.
 
 ** Highlights: This feature affects existing commands and has to support future commands.
-It required a careful analysis of design choices. Among the different alternatives, the chosen design is more difficult to implement but provides much better scalability.
-*** Undo/redo implemented through saving state was given as an example of a feature deserving an 'A' grade in the module.
-*** The current implementation requires an individual command to have undo/redo functionality, which is more challenging to implement than the example given by the module.
+It contains a defensive design to ensure that commands were not undone or redone in error.
+It also required a careful analysis of design choices.
+In particular, this feature posed these unique challenges:
+*** The design I chose for this feature is challenging to implement, as it requires an individual command to have undo/redo functionality.
+Compared to designs in https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.adoc#undoredo-feature[Address Book Level 4]
+or https://nus-cs2103-ay1920s1.github.io/website/admin/project-grading.html[module examples], this design requires a lot more effort to implement.
+However, it is faster, requires less space, and provides much better scalability.
+*** The application carries out automated actions when certain fields are changed, which had to be accounted for in undo/redo's implementation.
+*** The application contains automated user-triggered, time-based pop-ups that trigger additional changes. It was extremely important
+that undo/redo maintained data integrity. This was especially difficult to do because these automated changes could
+happen at any time.
 
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*Major enhancement*: I morphed the `edit` command in AB3 to an `update` command.
 
-* *Minor enhancement*: morphed the `edit` command in AB3 to an `update` command.
-* *Minor enhancement*: added the `Body` class, a foundational class in Mortago.
+** What it does: The `update` command allows users to update any field of a body or worker in Mortago.
+The command only requires the updated field itself to be specified, instead of every field.
+It can also take in multiple fields to update at once.
 
-*Code Contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+** Justification: The `edit` command in AB3 did not support any Mortago-specific entities. Being able
+to update the fields of an entity is essential, as the states of entities must be allowed to change.
+It was vital that the command didn't require every field to be supplied, as it would require excessive user effort.
 
-* *Other contributions*:
+** Highlights: The `update` command took a lot of effort to implement because Mortago's entities contain many fields.
+For instance, the `Body` class contains 16 fields. To make updating more efficient and easy to undo or redo, `update` makes use of special descriptors
+to store the fields' values.
+
+*Minor enhancement*: I added storage functionality for Mortago's entities.
+
+** What it does: The storage functionality allows Mortago's `Body`, `Worker`, `Fridge`, and `Photo` objects to be stored on the user's
+computer. Data is automatically saved after every change to Mortago.
+
+** Justification: The storage functionality is critical to Mortago, as its core purpose is to act
+as a digital database.
+
+** Highlights: The storage functionality took more effort to implement and write tests for, because Mortago's
+entities contain many fields. I also had to deal with storing entities that contained other entities.
+
+=== Code Contributed
+You can view my code at the link here: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via Reposense]]
+
+=== Other contributions
+Other contributions I have made to the team and the project are listed in this section, along with relevant links.
 
 ** Project management:
-*** Maintained the issue tracker on GitHub
-*** Managed release `v1.2` on GitHub. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88]
-** Enhancements to existing features: [to add more]
+*** Maintained the issue tracker and project discussion board on GitHub (https://github.com/AY1920S1-CS2103T-T13-2/main/issues?q=is%3Aissue+is%3Aclosed[link to issue tracker], https://github.com/AY1920S1-CS2103T-T13-2/main/projects/1[link to discussion board])
+*** Managed release `v1.2` on GitHub. (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88])
+** Enhancements to existing features:
+*** Added storage functionality for Mortago's `Body`, `Worker`, `Fridge`, and `Photo` classes (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/91[#91])
 *** Wrote additional tests for existing features to increase coverage from []% to []% (Pull requests https://github.com[#00], https://github.com[#00])
 ** Documentation:
-*** Wrote the UG and DG for the `undo` and `update` features.
-*** Updated all parts of the User Guide that are not feature-specific. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22]
-*** Added tags to the User Guide for all features. https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70]
+*** Wrote the UG and DG for the `undo`, `redo`, and `update` features (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/229/files[#229], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70])
+*** Morphed the AB3 User Guide for Mortago (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22])
+*** Updated the User Guide diagrams to fit the team's chosen colour scheme (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/249[#249])
+*** Added tags to the User Guide for all features (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70])
+*** Added use cases and a value preposition to the Developer Guide (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/41/files[#41], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/43[#43])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#00]
+*** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/49[#49])
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/88[88], https://github.com/nus-cs2103-AY1920S1/forum/issues/135[135])
-*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[114 (AddMin+)], https://github.com[2], https://github.com[3])
-** Tools:
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[for Team AddMin+], https://github.com/ambervoong/ped/issues?q=is:issue+is:open[for Team CaloFit])
 
-== Contributions to the User Guide
+== 3. Contributions to the User Guide
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -103,17 +136,12 @@ include::../UserGuide.adoc[tag=undoredo]
 _{end of extract}_
 
 
-== Contributions to the Developer Guide
+== 4. Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+_{start of extract}_
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-
-== PROJECT: Isextreme
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+_{end of extract}_

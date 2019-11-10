@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 /**
  * Manages a list of {@link InvalidationListener}.
  */
@@ -48,5 +50,5 @@ public class InvalidationListenerManager {
         requireNonNull(listener);
         listeners.remove(listener);
     }
-
 }
+//@@author
