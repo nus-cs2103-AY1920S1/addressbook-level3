@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.SortFilter;
 import seedu.address.ui.UiManager;
@@ -51,14 +50,7 @@ public class SortCommand extends Command {
      */
     public SortCommand(SortFilter sortFilter) {
         requireNonNull(sortFilter);
-        try {
-            if (sortFilter == null) {
-                throw new ParseException("error");
-            }
-            gotoFilter = sortFilter;
-        } catch (ParseException e) {
-            e.getMessage();
-        }
+        gotoFilter = sortFilter;
     }
 
     /**
@@ -116,14 +108,12 @@ public class SortCommand extends Command {
         }
     }
 
-    //    @Override
-    //    public boolean equals(Object other) {
-    //        if (gotoFilter.equals(((SortCommand) other).gotoFilter)) {
-    //            return true;
-    //        } else {
-    //            return false;
-    //        }
-    //    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && gotoFilter.equals(((SortCommand) other).gotoFilter)); // state check
+    }
 }
 
 

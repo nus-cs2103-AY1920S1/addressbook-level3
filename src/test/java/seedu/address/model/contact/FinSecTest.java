@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalObjects.ALICE;
 import static seedu.address.testutil.TypicalObjects.BOB;
+import static seedu.address.testutil.TypicalObjects.INCOME_1;
 
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,9 @@ public class FinSecTest {
 
     @Test
     public void isSameIncome() {
+        assertTrue(INCOME_1.isSameIncome(INCOME_1));
 
+        assertFalse(INCOME_1.isSameIncome(null));
     }
 
     @Test

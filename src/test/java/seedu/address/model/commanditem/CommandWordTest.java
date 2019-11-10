@@ -1,5 +1,6 @@
 package seedu.address.model.commanditem;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -34,5 +35,17 @@ public class CommandWordTest {
         assertTrue(CommandWord.isValidWord("add 23")); // alphanumeric characters
         assertTrue(CommandWord.isValidWord("Exit now")); // with capital letters
         assertTrue(CommandWord.isValidWord("Adding income only")); // long commands
+    }
+
+    @Test
+    public void checkHashCode() {
+        CommandWord commandWord = new CommandWord("12345");
+        assertEquals(commandWord.hashCode(), commandWord.word.hashCode());
+    }
+
+    @Test
+    public void checkString() {
+        CommandWord commandWord = new CommandWord("12345");
+        assertEquals(commandWord.toString(), "12345");
     }
 }

@@ -121,8 +121,8 @@ class SortReverseCommandTest {
         assertTrue(sortReverseFirstCommand.equals(sortReverseFirstCommand));
 
         // same values -> returns true
-        SortCommand sortFirstCommandCopy = new SortCommand(FIRST_FILTER);
-        assertFalse(sortReverseFirstCommand.equals(sortFirstCommandCopy));
+        SortReverseCommand sortReverseFirstCommandCopy = new SortReverseCommand(FIRST_FILTER);
+        assertEquals(sortReverseFirstCommand, sortReverseFirstCommandCopy);
 
         // different types -> returns false
         assertFalse(sortReverseFirstCommand.equals(1));
