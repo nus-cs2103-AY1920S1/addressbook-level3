@@ -33,7 +33,7 @@ public class DequeueCommandParser implements Parser<ReversibleActionPairCommand>
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         Index index = ParserUtil.parseIndex(args);
-        if (lastShownList.size() < index.getOneBased() || index.getOneBased() > lastShownList.size()) {
+        if (lastShownList.size() < index.getOneBased()) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         ReferenceId personToDequeue = ParserUtil.getEntryFromList(lastShownList, index);
