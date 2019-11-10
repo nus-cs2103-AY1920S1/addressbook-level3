@@ -52,6 +52,7 @@ public class ParserUtil {
     public static final ExportParser EXPORT_PARSER = new ExportParser();
     public static final CreateParser CREATE_PARSER = new CreateParser();
     public static final ViewParser VIEW_PARSER = new ViewParser();
+    public static final WemeParser BASE_PARSER = new WemeParser();
 
     /**
      * Returns a Parser depending on the given ModelContext.
@@ -75,9 +76,7 @@ public class ParserUtil {
             return VIEW_PARSER;
         case CONTEXT_STATISTICS:
         case CONTEXT_PREFERENCES:
-            // TODO: This is a temporary placeholder until all tabs have been implemented
-            return new WemeParser() {
-            };
+            return BASE_PARSER;
         default:
             throw new IllegalArgumentException();
         }

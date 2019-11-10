@@ -20,7 +20,7 @@ import seedu.weme.model.meme.Meme;
 public class ViewPanel extends UiPart<Region> {
 
     private static final String FXML = "ViewPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PreferencesPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ViewPanel.class);
 
     @FXML
     private HBox cardPane;

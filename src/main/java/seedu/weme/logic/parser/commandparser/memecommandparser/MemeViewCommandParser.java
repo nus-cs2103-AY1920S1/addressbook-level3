@@ -9,13 +9,13 @@ import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.logic.parser.util.ParserUtil;
 
 /**
- * Parses input arguments and creates a new MemeDeleteCommand object
+ * Parses input arguments and creates a new MemeViewCommand object
  */
 public class MemeViewCommandParser implements Parser<MemeViewCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the MemeDeleteCommand
-     * and returns a MemeDeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the MemeViewCommand
+     * and returns a MemeViewCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public MemeViewCommand parse(String args) throws ParseException {
