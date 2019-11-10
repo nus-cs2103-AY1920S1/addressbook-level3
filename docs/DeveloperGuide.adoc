@@ -366,10 +366,69 @@ will occur internally within the application:
 - The `AMOUNT` specified by the user is added into the user's saving account.
 - The saving is reflected in the savings history.
 
+[NOTE]
+If the user enters an `AMOUNT` that is negative, a `ParseException` is thrown. This exception is thrown from `ParserUtil#parseSavings(savings)`.
+
 ===== Deduction of savings amount from user's wallet
 
-A `Savings` object is instantiated in the `SaveCommand` with the user's input.
+A `Savings` object is instantiated in the `SaveCommand` with the user's input. It contains information about the how much `Money`
+was saved, and the `TimeStamp` of the savings made. The `Money` object contains the amount of savings made, and the `TimeStamp`
+object contains the time and date the saving was made by the user.
 
+When `SaveCommand#execute()` is called, `model#depositInSavings(savingsAmount)` is called. Within the `Model` of $aveNUS, the user's
+wallet is checked. If the user attempts to save more money than he/she has in his/her wallet, they will be prompted that the command
+is invalid.
+
+If the check passes, the saving amount is deducted from the user's account within the `Model`.
+
+===== Adding of savings amount into user's savings account.
+
+Subsequently after the savings amount is deducted from the wallet, `savingsAccount#addToSavings(savings)`
+is called in the `Model` class. This method call will result in the addition of the savings into the `SavingsAccount`.
+
+===== Adding of the savings into the user's saving history
+
+After the savings is added into the user's savings account, `model#addToHistory(savingsAmount)` is called, and the details
+of the savings are added into the `SavingsHistoryList`, found within the `SavingsHistory` object.
+
+The following sequence diagram shows how the making of a savings works:
+
+ADD SEQUENCE DIAGRAM HERE
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+ADD ACTIVITY DIAGRAM HERE.
+
+===== Design Considerations
+Detailed below are the design considerations taken into account when engineering the
+ `model#depositInSavings(savingsAmount)` function.
+
+.Design considerations of the `model#depositInSavings(savingsAmount)` function.
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Make `CurrentSavings` a standalone class that does not extend `Savings` class
+
+* Pros:
+** `CurrentSavings` can have its own set of methods that make it unmodifiable. `Savings` on the other hand is modifiable internally.
+** More efficient as the number of method calls to retrieve the value of the user's savings is reduced.
+
+* Cons:
+** Does not maintain good abstraction of `CurrentSavings` since logically, it is a type of savings.
+
+a|Make `CurrentSavings` extend the class `Savings`
+
+* Pros:
+** Maintains better abstraction since in reality, a current saving is a type of savings.
+
+* Cons:
+** Decreases the efficiency of getting the value of the savings, since it would mean increase coupling of classes, i.e.
+calling methods from `Savings` and `Money` classes to obtain the savings amount.
+** `Savings` is a modifiable class internally. Better data integrity will be ensured if the `CurrentSavings` remain a view-only
+class.
+
+|===
 //end::savings[]
 
 //tag::budgeting[]
