@@ -28,6 +28,9 @@ public class Book implements Comparable<Book> {
     private final Optional<Loan> loan;
     private final LoanList loanHistory;
 
+    /**
+     * Constructor of book when specifying attributes.
+     */
     public Book(Title title, SerialNumber serialNumber, Author author, Loan loan, Set<Genre> genres) {
         this(title, serialNumber, author, loan, genres, new LoanList());
     }
@@ -46,14 +49,29 @@ public class Book implements Comparable<Book> {
         this.loanHistory = loanHistory;
     }
 
+    /**
+     * Returns the title of the book.
+     *
+     * @return {@code Title} of book.
+     */
     public Title getTitle() {
         return title;
     }
 
+    /**
+     * Returns the serial number of the book.
+     *
+     * @return {@code serialNumber} of book.
+     */
     public SerialNumber getSerialNumber() {
         return serialNumber;
     }
 
+    /**
+     * Returns the author of the book.
+     *
+     * @return {@code Author} of book.
+     */
     public Author getAuthor() {
         return author;
     }
@@ -68,15 +86,22 @@ public class Book implements Comparable<Book> {
 
     /**
      * Returns an optional of Loan object. If book is not loaned, Optional will be null.
+     *
      * @return Optional of Loan object.
      */
     public Optional<Loan> getLoan() {
         return loan;
     }
 
+    /**
+     * Returns loan history of book
+     *
+     * @return {@code LoanList} containing the history of loans associated with the book object.
+     */
     public LoanList getLoanHistory() {
         return loanHistory;
     }
+
     /**
      * Returns true if book is currently on loan.
      *
@@ -87,7 +112,7 @@ public class Book implements Comparable<Book> {
     }
 
     /**
-     * Check if a book is currently overdue.
+     * Checks if a book is currently overdue.
      *
      * @return true if book is on loan and overdue.
      */
@@ -135,6 +160,7 @@ public class Book implements Comparable<Book> {
 
     /**
      * Renews a book.
+     *
      * @param renewedLoan renewed loan to be updated in the book's loan history.
      * @return a new renewed book.
      */
@@ -210,13 +236,15 @@ public class Book implements Comparable<Book> {
                 newHistory);
     }
 
-
+    /**
+     * Compares this book with another book, ordered from smallest serial number to largest.
+     */
     public int compareTo(Book b) {
         return this.getSerialNumber().compareTo(b.getSerialNumber());
     }
 
     /**
-     * Checks if a book is same, regardless of serial number.
+     * Checks if a book is same, regardless of serial number, loan status and loan history.
      *
      * @param b Book to be checked against
      * @return true if both books are the same, even if they are different copies
@@ -258,10 +286,13 @@ public class Book implements Comparable<Book> {
                 && otherBook.getGenres().equals(getGenres());
     }
 
+    /**
+     * Provides a hashcode for the Book object
+     */
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, serialNumber, author, genres);
+        return Objects.hash(title, serialNumber, author, genres, loan, loanHistory);
     }
 
     /**

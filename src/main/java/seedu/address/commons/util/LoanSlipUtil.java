@@ -111,6 +111,7 @@ public class LoanSlipUtil {
     }
 
     /**
+     * Removes a loan from the current session.
      * To be used only with unloan commands.
      *
      * @param loan loan to be removed
@@ -122,6 +123,7 @@ public class LoanSlipUtil {
 
     /**
      * Returns true if book is in current session.
+     *
      * @param book book to check against
      * @return true if book is in current session.
      */
@@ -169,7 +171,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to assist in generating a file name based on the first loan of the entire loan slip.
+     * Generates a file name based on the first loan of the entire loan slip.
      *
      * @return a String representation of the file name generated.
      */
@@ -216,7 +218,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to write the logo section of the document.
+     * Writes the logo section of the document.
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
@@ -226,7 +228,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to write the header section of the document.
+     * Writes the header section of the document.
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
@@ -239,7 +241,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to populate the table of the document.
+     * Populates the table of the document.
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
@@ -253,7 +255,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to populate the table with all books being loaned out.
+     * Populates the table with all books being loaned out.
      *
      * @param noOfBooks number of books loaned out.
      * @param doc {@code LoanSlipDocument} to be written to.
@@ -264,7 +266,7 @@ public class LoanSlipUtil {
     }
 
     /**
-     * Helper method to add the table to the document.
+     * Adds the table to the document.
      *
      * @param doc {@code LoanSlipDocument} to be written to.
      */
@@ -301,7 +303,7 @@ public class LoanSlipUtil {
 
     /**
      * Opens loan slip pdf to allow ease of printing loan slip.
-     * (Cannot be tested autonomously)
+     * (Cannot be tested with JUnit)
      */
     public static void openGeneratedLoanSlip() throws LoanSlipException {
         if (!isMounted || !isGenerated) {

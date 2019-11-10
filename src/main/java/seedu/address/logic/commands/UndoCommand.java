@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_UNDO_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNUSED_ARGUMENT;
 
 import javafx.util.Pair;
 
@@ -17,6 +18,14 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Undone most recent command: \n";
 
+    private String unusedArguments = null;
+
+    public UndoCommand(String unusedArguments) {
+        if (!unusedArguments.equals("")) {
+            this.unusedArguments = unusedArguments;
+        }
+    }
+
     /**
      * Executes the command and returns the result message.
      *
@@ -29,11 +38,15 @@ public class UndoCommand extends Command {
         if (!model.canUndoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_UNDO_COMMAND);
         }
-        Pair<CommandResult, CommandResult> commandResults = model.undoCommand();
-        CommandResult actualResult = commandResults.getKey();
-        CommandResult resultOfUndoneCommand = commandResults.getValue();
+        Pair<Command, ReversibleCommand> commands = model.getUndoCommand();
+        CommandResult actualResult = commands.getKey().execute(model);
+        CommandResult resultOfUndoneCommand = commands.getValue().getCommandResult();
 
         String msgSuccess = MESSAGE_SUCCESS + resultOfUndoneCommand.getFeedbackToUser();
+
+        if (unusedArguments != null) {
+            msgSuccess += String.format(MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD);
+        }
 
         if (actualResult.isDone()) {
             return CommandResult.commandResultDone(msgSuccess);

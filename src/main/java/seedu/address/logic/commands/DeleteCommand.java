@@ -32,7 +32,9 @@ public abstract class DeleteCommand extends ReversibleCommand {
 
     public abstract CommandResult execute(Model model) throws CommandException;
 
-    /** Helper method to assist in marking a book as returned before deletion */
+    /**
+     * Marks a book as returned.
+     */
     private void markBookAsReturned(Model model, Book bookToBeReturned, Book returnedBook,
                                       Loan loanToBeReturned, Loan returnedLoan) {
         requireAllNonNull(model, bookToBeReturned, returnedBook, loanToBeReturned, returnedBook);
@@ -48,7 +50,7 @@ public abstract class DeleteCommand extends ReversibleCommand {
     }
 
     /**
-     * Helper method to mark a book as returned before deleting it.
+     * Marks a book as returned with the given loans.
      */
     protected void returnBook(Model model, Book bookToDelete) {
         boolean wasInServeMode = model.isServeMode();

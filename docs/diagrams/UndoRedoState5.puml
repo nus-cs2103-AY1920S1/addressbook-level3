@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "clear"
+title After command "set lp/7"
 
 package CommandHistory <<rectangle>> {
     class Command1 as "__c0:Command__"

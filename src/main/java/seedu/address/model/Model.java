@@ -8,9 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ReversibleCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.borrower.Borrower;
@@ -201,7 +200,7 @@ public interface Model {
 
     void unregisterBorrower(Borrower toUnregister);
 
-    //=========== CommandHistory ===============================================================================
+    //=========== CommandHistoryManager ===============================================================================
 
     /**
      * Checks whether there is {@code Command} to undo.
@@ -218,19 +217,20 @@ public interface Model {
     boolean canRedoCommand();
 
     /**
-     * Commits {@code ReversibleCommand} to the {@code CommandHistory}.
+     * Commits {@code ReversibleCommand} to the {@code CommandHistoryManager}.
      */
     void commitCommand(ReversibleCommand command);
 
     /**
-     * Undoes the most recent committed {@code ReversibleCommand}.
+     * Returns the undo command for the most recent committed {@code ReversibleCommand} and the
+     * {@code ReversibleCommand}
      */
-    Pair<CommandResult, CommandResult> undoCommand() throws CommandException;
+    Pair<Command, ReversibleCommand> getUndoCommand();
 
     /**
-     * Redoes the most recent undone {@code ReversibleCommand}.
+     * Returns the redo command for the most recent undone {@code ReversibleCommand}.
      */
-    CommandResult redoCommand() throws CommandException;
+    Command getRedoCommand();
 
     /**
      * Resets the command history.

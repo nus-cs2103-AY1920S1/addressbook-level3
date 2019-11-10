@@ -299,7 +299,7 @@ Format: `redo`
 
 Sets the user settings for loan period (in days), renew period (in days), fine increment (in cents) and maximum renews allowed. +
 
-Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS] `
+Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
 
 ****
 * Updates the user settings with the specified `LOAN_PERIOD`,
@@ -384,7 +384,10 @@ Enters save mode to serve a borrower with the ID `K0001`
 '''
 === Using Serve Mode
 
-The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian. All commands in Normal Mode can be used in Serve Mode too.
+The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian.
+All commands in Normal Mode, except for `serve` and `exit`, can be used in Serve Mode too.
+The command `unregister` cannot be used on the currently serving borrower.
+
 
 // tag::loanSlip[]
 ==== Exiting Serve Mode: `done`

@@ -34,7 +34,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 import seedu.address.model.loan.LoanList;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Liberry} with sample data.
  */
 public class SampleDataUtil {
 
@@ -82,6 +82,8 @@ public class SampleDataUtil {
                 BorrowerIdGenerator.generateBorrowerId()),
             new Borrower(new Name("Yabobani Shima"), new Phone("998765432"), new Email("shima@griiko.yogaruto"),
                 BorrowerIdGenerator.generateBorrowerId()),
+            new Borrower(new Name("Im not wanted"), new Phone("91119222"), new Email("banana@baba.com"),
+                new BorrowerId("K0069")),
         };
     }
 

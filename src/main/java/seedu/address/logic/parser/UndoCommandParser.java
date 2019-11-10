@@ -14,6 +14,6 @@ public class UndoCommandParser implements Parser<UndoCommand> {
      * @return {@code UndoCommand} object.
      */
     public UndoCommand parse(String args) {
-        return new UndoCommand();
+        return new UndoCommand(args);
     }
 }
