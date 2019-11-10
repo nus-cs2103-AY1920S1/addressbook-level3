@@ -100,7 +100,7 @@ image::questionindex.png[width="1000"]
 [[Overview]]
 == Overview
 
-The application is divided into 3 separate tabs, each one of them serving a specific purpose. You can toggle between the
+The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
 === Home
@@ -150,6 +150,43 @@ To submit your attempt, enter `submit` into the *CommandBox*.
 To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
 
 To submit your attempt, enter `submit` into the *CommandBox*.
+
+=== Notes
+The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
+
+image::notespage.png[width="1000"]
+
+. NotesListDisplay
++
+Displays all of the notes that you have previously created.
++
+
+. CurrentNoteTitle
++
+Shows the title of the note that you are currently viewing/editing.
++
+
+. NoteTextInput
++
+Input space for any text-based notes that you wish to record.
++
+
+. Sketchpad
++
+A canvas for you to draw any ideas you may have pertaining to data structures!
++
+
+
+To create a new note, enter `newnote <Title>` into the *CommandBox*
+
+To open an exiting note, enter `opennote <Id> into the *CommandBox*.
+
+The id of the note is the number that appears next to the title in the *NotesListDisplay*.
+
+To save any changes to your notes, enter `savenote` into the *CommandBox*.
+
+=== Help
+The help page is where you can get a quick summary of all of the features and commands in the application.
 
 [[BeforeStart]]
 == Before you start
@@ -353,6 +390,8 @@ image::loadquestions.png[width="1000"]
 * `loadquestions my_problem_set.txt` +
 Loads the questions from the file "my_problem_set.txt" located on your desktop.
 //end::load[]
+
+
 === Exit the application: `exit`
 
 Exits the application
@@ -395,8 +434,6 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 //end::summary[]
 
 == Question storage file format
-
-image::samplequestions.png[width="920"]
 
 ****
 * The text file is a json list of json objects representing each question.
