@@ -23,6 +23,7 @@ public class AddNotesCommand extends Command {
             + PREFIX_CLASSID + "MODULE CODE "
             + PREFIX_TYPE + "TYPE "
             + PREFIX_CONTENT + "NOTE CONTENT"
+            + "... \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CLASSID + "CS2103T "
             + PREFIX_TYPE + "tut "

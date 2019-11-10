@@ -32,6 +32,14 @@ public class CommandAction {
     }
 
     /**
+     * Returns a defensive copy of the {@code CommandAction}.
+     */
+    public CommandAction copy() {
+        CommandAction copiedCommandAction = new CommandAction(this.toString());
+        return copiedCommandAction;
+    }
+
+    /**
      * Returns true if a given string is a valid action.
      */
     public static boolean isValidAction(String test) {

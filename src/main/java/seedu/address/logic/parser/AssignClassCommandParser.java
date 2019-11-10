@@ -34,6 +34,7 @@ public class AssignClassCommandParser implements Parser<AssignClassCommand> {
             String allIndexes = argMultimap.getPreamble();
             String[] splitIndex = allIndexes.split(",");
             for (String index : splitIndex) {
+                assert Integer.parseInt(index.trim()) > 0 : "the index should be greater than 0";
                 Index parsedIndex = ParserUtil.parseIndex(index);
                 indexes.add(parsedIndex);
             }

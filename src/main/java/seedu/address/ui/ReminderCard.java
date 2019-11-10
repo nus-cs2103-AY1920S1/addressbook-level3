@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.reminder.Reminder;
 
 /**
@@ -17,6 +18,8 @@ public class ReminderCard extends UiPart<Region> {
     private static final String FXML = "ReminderListCard.fxml";
 
     public final Reminder reminders;
+
+    private final int index;
 
     @FXML
     private HBox cardPane;
@@ -33,6 +36,7 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminders = reminders;
         id.setText(displayedIndex + ". ");
+        index = displayedIndex;
         description.setText(reminders.getDescription().toString());
         //date.setText(reminders.getDate().dateNum);
         //amount.setText(reminders.getAmount().amount);
@@ -40,6 +44,15 @@ public class ReminderCard extends UiPart<Region> {
         reminders.getTime().stream()
                 .sorted(Comparator.comparing(reminderTime -> reminderTime.fullTime))
                 .forEach(reminderTime -> times.getChildren().add(new Label(reminderTime.fullTime)));
+    }
+
+    /**
+     * To handle delete button action.
+     * @throws ParseException If there is parsing error.
+     */
+    @FXML
+    public void handleDelete() throws ParseException {
+        UiManager.deleteReminderButton(index);
     }
 
     @Override

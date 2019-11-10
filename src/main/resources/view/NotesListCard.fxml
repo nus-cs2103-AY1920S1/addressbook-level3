@@ -42,10 +42,13 @@
     </GridPane>
    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
       <children>
-         <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" style="-fx-border-color: none; -fx-background-color: #489d64;" text="x" textAlignment="CENTER" textFill="#979797">
+         <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDelete" style="-fx-border-color: #BEE9C0; -fx-background-color: #489d64; -fx-border-width: 0" text="x" textAlignment="CENTER" textFill="#979797">
             <font>
                <Font size="10.0" />
             </font></Button>
       </children>
+       <padding>
+           <Insets bottom="5" left="0" right="5" top="5" />
+       </padding>
    </HBox>
 </HBox>

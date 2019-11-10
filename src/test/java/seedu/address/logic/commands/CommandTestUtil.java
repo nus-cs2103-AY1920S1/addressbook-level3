@@ -119,8 +119,6 @@ public class CommandTestUtil {
     public static final String VALID_TYPE_NOTES_LAB = "lab";
     public static final String VALID_TYPE_NOTES_C = "c";
 
-    public static final String INVALID_TYPE_DESC_NOTE = " " + PREFIX_TYPE + "interview";
-
     public static final String VALID_NOTE_CONTENT_1 = "check project consultation time";
     public static final String VALID_NOTE_CONTENT_2 = "remember to bring test result";
     public static final String VALID_NOTE_CONTENT_3 = "meeting with lecturer";

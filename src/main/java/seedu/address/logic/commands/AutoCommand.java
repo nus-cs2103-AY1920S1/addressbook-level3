@@ -29,6 +29,7 @@ public class AutoCommand extends Command {
             + "every time you log in for the auto addition of earnings to be done. \n";
 
     public static final String MESSAGE_SUCCESS = "New earnings automatically added!";
+    public static final String MESSAGE_FAILURE = "No earnings to add!";
     public static final String MESSAGE_DUPLICATE_EARNINGS =
             "This earnings with the same module, date and amount already exists in the address book";
 
@@ -71,11 +72,13 @@ public class AutoCommand extends Command {
                         throw new CommandException("Unable to auto add weekly earnings. " + MESSAGE_DUPLICATE_EARNINGS);
                     }
                     model.addEarnings(newEarnings);
-                    Earnings.EARNINGS_LIST.add(newEarnings);
+                    Earnings.getEarningsList().add(newEarnings);
                 } else if (Integer.parseInt(e.getCount().count) == 0) {
                     earnings.removeEarnings(currentDay, e);
                 }
             }
+        } else {
+            throw new CommandException(MESSAGE_FAILURE);
         }
     }
 

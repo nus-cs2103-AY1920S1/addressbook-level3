@@ -24,7 +24,7 @@ Do you sometimes *wish* that there was an easier way to organize and filter thro
 
 As a broke uni student, do you *desperately* need a tool to keep track of your earnings?
 
-### Look no further! TutorAid is the one stop solution to answer all of your TA woes!
+##### Look no further! TutorAid is the one stop solution to answer all of your TA woes!
 
 TutorAid is for teaching assistants or tutors who prefer to use a desktop app for managing their classes and related tasks. TutorAid helps in organizing all the information you need in one place so that you can optimize your workflow.
 More importantly, TutorAid is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
@@ -76,6 +76,7 @@ Register an account with the application to start using it. +
 Format: `register user/USERNAME pass/PASSWORD`
 
 Examples:
+
 * `register user/Steve pass/Pa55w0rd!`
 
 ****
@@ -88,6 +89,7 @@ Login a registered account with the correct username and password. +
 Format: `login user/USERNAME pass/PASSWORD`
 
 Examples:
+
 * `login user/Steve pass/Pa55w0rd!`
 
 === Change tab : `tab`
@@ -240,6 +242,7 @@ Example:
 * `change_tab tab/calendar`
 * `change_tab tab/tasks`
 
+
 === Earnings
 
 ==== Add Earnings: `add_earnings`
@@ -280,7 +283,7 @@ Format: `delete_earnings INDEX`
 Examples:
 
 * `delete_earnings 2`
-
+//tag::[startEarningsTag]
 ==== Find Earnings: `find_earnings`
 
 Find Earnings in the list of earnings. +
@@ -309,6 +312,44 @@ Examples:
 * Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
 * Only one status is allowed at a time.
 ****
+
+==== Auto Add Weekly Earnings: `weekly_earnings`
+
+Adds an earnings from the list of existing earnings to be added in the on the same
+day every week. +
+Format: `weekly_earnings INDEX count/NUMBER_OF_WEEKS
+
+Examples:
+
+* `weekly_earnings 2 count/2
+* `weekly_earnings 3 count/13
+
+****
+* Only numbers in the range of 0 - 13 (inclusive) are valid.
+* This auto add will only occur on the day itself by invoking `auto` command.
+* It is not allowed to add earnings 2 weeks prior and expect the application to add
+the earnings twice. It will only add on the day itself.
+* Using this command assumes that all attributes of the indexed earnings are the same for future earnings other
+than the date.
+****
+
+==== Adds Weekly Earnings: `auto`
+
+Adds all the earnings that were invoked by `weekly_earnings`. +
+Format: `auto`
+
+Example:
+
+* `auto`
+
+****
+* It must be invoked on the day itself for it to work.
+* If user has missed a day, the earnings will not be added. For example, if an earnings
+ has a date of 02/02/2019, and the `auto` command is invoked on the day of 10/02/2019 instead
+of 09/02/2019, the earnings will not be added.
+* Suggested to invoked everyday.
+****
+// end::[startEarningsTag]
 
 === Notes
 ==== Add Note: `addnote`

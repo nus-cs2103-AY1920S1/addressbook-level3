@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class ClassType {
     public static final String MESSAGE_CONSTRAINTS =
-            "Types should only contain the registered types of earnings. "
+            "Types should only contain the registered types of notes. "
                     + "Eg. tutorials(tut)/lab/consultations(c)/sectionals(s)/preparation_time(p)";
+
     public static final String VALIDATION_REGEX = "tutorials|tut|lab|consultations|c|sectionals|s|preparation_time|p";
 
     public final String type;
@@ -49,4 +50,3 @@ public class ClassType {
         return type.hashCode();
     }
 }
-

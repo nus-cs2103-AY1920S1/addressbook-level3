@@ -16,7 +16,7 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
-    public static final List<Earnings> EARNINGS_LIST = new ArrayList<>();
+    private static List<Earnings> earningsList = new ArrayList<>();
     private static ArrayList<Amount> totalEarnings = new ArrayList<>();
     private static HashMap<String, ArrayList<Earnings>> earningsListToAdd = new HashMap<String, ArrayList<Earnings>>();
 
@@ -89,6 +89,18 @@ public class Earnings {
         int number = Integer.parseInt(this.count.count);
         number--;
         this.count = new Count(String.valueOf(number));
+    }
+
+    public static void setList(List<Earnings> list) {
+        earningsList = list;
+    }
+
+    public static void setHashMap(HashMap<String, ArrayList<Earnings>> map) {
+        earningsListToAdd = map;
+    }
+
+    public static List<Earnings> getEarningsList() {
+        return earningsList;
     }
 
     public void setClaim(Claim claim) {
