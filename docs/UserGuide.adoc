@@ -559,7 +559,7 @@ image::step1.png[width="800", align="left"]
 +
 image::step2.png[width="800", align="left"]
 [NOTE]
-You can also choose to discard the wrong command at this stage and carry on with normal operations. If you do not want to map `plus` to `add`. Just type `cancel`.
+You can also choose to discard the wrong command at this stage and carry on with normal operations if you do not want to map `plus` to `add`. Just type `cancel`.
 
 . The result box tells you that `plus` has now been mapped to `add`.
 +
