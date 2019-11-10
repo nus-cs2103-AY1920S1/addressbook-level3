@@ -22,9 +22,9 @@ Role: Project Advisor
 image::HoWeiChin.png[width="180", align="left"]
 {empty}[https://github.com/HoWeiChin[github]] [<<HoWeiChin#, portfolio>>]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: Deliverable, Tracking, User Interface +
-Component IC: Person, Competition
+Component IC: Person, Competition, Ranking
 
 '''
 
