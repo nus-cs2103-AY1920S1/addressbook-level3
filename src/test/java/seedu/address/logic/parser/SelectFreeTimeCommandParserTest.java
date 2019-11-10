@@ -25,7 +25,7 @@ class SelectFreeTimeCommandParserTest {
     @Test
     void parse_successWeek() {
         assertParseSuccess(parser,
-                WHITESPACE +PREFIX_WEEK + 1 + WHITESPACE + PREFIX_ID + 1,
+                WHITESPACE + PREFIX_WEEK + 1 + WHITESPACE + PREFIX_ID + 1,
                 new SelectFreeTimeCommand(1, 1));
     }
 
