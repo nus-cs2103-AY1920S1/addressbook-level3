@@ -1,11 +1,13 @@
 package seedu.address.ui.schedule;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.scene.Node;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.display.schedulewindow.PersonSchedule;
 import seedu.address.model.display.schedulewindow.PersonTimeslot;
@@ -18,7 +20,18 @@ import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
  * Abstract class to control schedule view in the UI.
  */
 public abstract class ScheduleViewManager {
+
     protected static final Logger logger = LogsCenter.getLogger(ScheduleViewManager.class);
+    protected static Node placeholder;
+    protected ScheduleWindowDisplayType type;
+    protected ScheduleView scheduleView;
+    protected int weekNumber;
+    protected LocalDate currentDate;
+
+    public static void setPlaceholder(Node node) {
+        placeholder = node;
+    }
+
     public static ScheduleViewManager getInstanceOf(ScheduleWindowDisplay scheduleWindowDisplay)
             throws InvalidScheduleViewException {
         ScheduleWindowDisplayType displayType = scheduleWindowDisplay.getScheduleWindowDisplayType();
@@ -73,10 +86,13 @@ public abstract class ScheduleViewManager {
         return isValid;
     }
 
+    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
+        return type;
+    };
+
     public abstract ScheduleView getScheduleView();
     public abstract void scrollNext();
     public abstract void toggleNext();
     public abstract void filterPersonsFromSchedule(List<Name> persons);
-    public abstract ScheduleWindowDisplayType getScheduleWindowDisplayType();
     public abstract ScheduleView getScheduleViewCopy();
 }

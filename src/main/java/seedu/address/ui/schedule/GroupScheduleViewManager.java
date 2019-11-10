@@ -24,9 +24,6 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
     private List<MonthSchedule> filteredMonthSchedules;
     private GroupName groupName;
     private ArrayList<FreeSchedule> freeSchedules;
-    private int weekNumber;
-    private ScheduleView scheduleView;
-    private LocalDate currentDate;
 
     public GroupScheduleViewManager(List<PersonSchedule> originalPersonSchedules,
                                     GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
@@ -36,8 +33,9 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
                 .collect(Collectors.toCollection(ArrayList::new));
         this.groupName = groupName;
         this.freeSchedules = freeSchedules;
-        this.weekNumber = 0;
-        this.currentDate = LocalDate.now();
+        super.weekNumber = 0;
+        super.currentDate = LocalDate.now();
+        super.type = ScheduleWindowDisplayType.GROUP;
         super.logger.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
@@ -47,11 +45,11 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
      */
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
-        this.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredMonthSchedules, weekNumber),
+        super.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredMonthSchedules, weekNumber),
                 groupName.toString(), dateToShow);
         //Required to set the free time schedule first before generating the schedule.
-        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
-        this.scheduleView.generateSchedule();
+        super.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
+        super.scheduleView.generateSchedule();
     }
 
     /**
@@ -79,12 +77,7 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
 
     @Override
     public void toggleNext() {
-        this.weekNumber = (weekNumber + 1) % 4;
-    }
-
-    @Override
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
-        return ScheduleWindowDisplayType.GROUP;
+        super.weekNumber = (weekNumber + 1) % 4;
     }
 
     @Override
@@ -102,11 +95,11 @@ public class GroupScheduleViewManager extends ScheduleViewManager {
     @Override
     public ScheduleView getScheduleView() {
         update();
-        return this.scheduleView;
+        return super.scheduleView;
     }
 
     @Override
     public void scrollNext() {
-        this.scheduleView.scrollNext();
+        super.scheduleView.scrollNext();
     }
 }
