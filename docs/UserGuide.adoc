@@ -47,7 +47,7 @@ With FlashCard Pro's *Java and JavaScript cards*, teachers can define basic codi
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `flashcardpro.jar` link:{repoURL}/releases[here].
+.  Download the latest `FlashCardPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -86,7 +86,7 @@ Examples:
 
 * `help` +
 
-Displays the commands available for use in FlashCard Pro.
+Displays the User Guide for reference in FlashCard Pro.
 
 * `help command/view` +
 
@@ -376,6 +376,20 @@ Displays an overview of your statistics, grouped by your login sessions and stat
 Displays the overview of time spent reviewing the deck `science_deck`, as well as the list of test sessions involving the deck and their results.
 
 // end::stats[]
+
+
+// tag::quit[]
+=== Quit FlashCard Pro : `quit`
+
+Leaves FlashCard Pro application.
+
+Format: `quit`
+
+Example:
+
+* `quit`
+
+// end::quit[]
 
 // tag::FAQ[]
 == FAQ
