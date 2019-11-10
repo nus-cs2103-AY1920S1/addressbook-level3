@@ -60,9 +60,10 @@ public class LogicManager implements Logic {
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
-                || (command instanceof FilterTagCommand) || (command instanceof RemoveTagCommand)) {
-            VersionedBillboard.addCmd(commandText, commandResult);
+                || (command instanceof RemoveTagCommand)) {
             VersionedBillboard.commit(model.getClone());
+            VersionedBillboard.addCmd(commandText, commandResult);
+
         }
 
         try {
