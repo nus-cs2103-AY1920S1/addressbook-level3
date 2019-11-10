@@ -115,6 +115,7 @@ When given prompts, to minimize inconvenience to you, the autocomplete menu is t
 * Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t #friend`, `--t #friend --t #family`, etc.
 * Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t #friend` and `--t #friend --t #family` but cannot be used as `<empty>` (i.e. 0 times),
 * Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
+* For parameters that cannot be used multiple times (i.e. without `*` or `+` after them), if there are multiple values provided (e.g. `--p 12345 --p 67890`), only the last value will be considered as part of the user input.
 ====
 
 === Basic Commands
@@ -622,11 +623,13 @@ Sort notes in different orders (i.e last updated date, alphabetically).
 
 ==== Filter tags: `list`
 
-Lists all tags that are currently associated with your notes. You can also choose to filter them by name or type.
+Lists all tags that have ever been associated with your notes. You can also choose to filter them by name or type.
+A tag will appear in this list if it has been successfully used to tag a note previously. However, if you untag a
+note, it will still appear in this. The tag list serves as a history to remind you of tags that you can use.
 
 Format:
 
-`tag list [FILTER]`
+`tag list`
 
 Example:
 
@@ -639,9 +642,5 @@ Example:
 |`tag list`
 |`tag list`
 |Lists all hashtags.
-
-|`tag list FILTER`
-|`tag list cs`
-|Lists all hashtags matching the filter “cs”, which may include “cs2100” or “cs2103” but not “trip”.
 |===
 
