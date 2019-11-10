@@ -1,0 +1,93 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Graphs {
+
+Interface Graph <<Interface>>
+Class "{abstract}\nAutoCompleteGraph" as AutoCompleteGraph
+Class "{abstract}\nGraphBuiltFromModel" as GraphBuiltFromModel
+Class "{abstract}\nGraphWithStartNode" as GraphWithStartNode
+Class "{abstract}\nGraphWithPreamble}" as GraphWithPreamble
+Class "{abstract}\nGraphWithStartNodeAndPreamble}" as GraphWithStartNodeAndPreamble
+
+package Add {
+Class AddCustomerGraph
+Class AddOrderGraph
+Class AddPhoneGraph
+Class AddScheduleGraph
+}
+
+package Copy {
+Class CopyCustomerGraph
+Class CopyOrderGraph
+Class CopyPhoneGraph
+}
+
+package Delete {
+Class DeleteCustomerGraph
+Class DeletePhoneGraph
+Class DeleteScheduleGraph
+}
+
+package Edit {
+Class EditCustomerGraph
+Class EditOrderGraph
+Class EditPhoneGraph
+Class EditScheduleGraph
+}
+
+package Find {
+Class FindCustomerGraph
+Class FindOrderGraph
+Class FindPhoneGraph
+}
+
+package Misc {
+Class CancelOrderGraph
+Class CompleteOrderGraph
+Class GenerateStatsGraph
+Class ViewScheduleGraph
+}
+
+}
+
+AutoCompleteGraph .up.|> Graph
+
+GraphBuiltFromModel -up-|> AutoCompleteGraph
+GraphWithStartNode -up-|> GraphBuiltFromModel
+GraphWithPreamble -up-|> GraphBuiltFromModel
+GraphWithStartNodeAndPreamble -up---|> GraphWithStartNode
+
+AddCustomerGraph -up--|> GraphWithStartNode
+AddOrderGraph -up--|> GraphWithStartNode
+AddPhoneGraph -up--|> GraphWithStartNode
+AddScheduleGraph ---|> GraphWithStartNodeAndPreamble
+
+CopyCustomerGraph ---|> GraphWithPreamble
+CopyOrderGraph ---|> GraphWithPreamble
+CopyPhoneGraph ---|> GraphWithPreamble
+
+DeleteCustomerGraph ---|> GraphWithPreamble
+DeletePhoneGraph ---|> GraphWithPreamble
+DeleteScheduleGraph ---|> GraphWithPreamble
+
+EditCustomerGraph -up--|> GraphWithStartNodeAndPreamble
+EditOrderGraph -up--|> GraphWithStartNodeAndPreamble
+EditPhoneGraph -up--|> GraphWithStartNodeAndPreamble
+EditScheduleGraph -up--|> GraphWithStartNodeAndPreamble
+
+FindCustomerGraph ---|> GraphBuiltFromModel
+FindOrderGraph ---|> GraphBuiltFromModel
+FindPhoneGraph ---|> GraphBuiltFromModel
+
+CancelOrderGraph -up--|> GraphWithPreamble
+CompleteOrderGraph -up--|> GraphWithPreamble
+GenerateStatsGraph -up---|> GraphWithStartNode
+ViewScheduleGraph -up--|> GraphWithStartNode
+
+GraphWithPreamble -right[Hidden]-> GraphWithStartNode
+
+@enduml

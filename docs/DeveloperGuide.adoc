@@ -378,6 +378,8 @@ class.
 === Autocomplete feature
 
 image::AutoCompleteClassDiagram.png[]
+image::GraphsClassDiagram.png[]
+image::NodesClassDiagram.png[]
 
 ==== Current Implementation
 

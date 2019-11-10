@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+'left to right direction
+
+package Nodes {
+Class "{abstract}\nNode" as Node
+Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode
+Class EmptyAutoCompleteNode
+
+package Customer {
+Class CustomerContactNumberNode
+Class CustomerEmailNode
+Class CustomerNameNode
+Class CustomerTagNode
+}
+
+package Order {
+Class OrderCustomerIndexNode
+Class OrderPhoneIndexNode
+Class OrderPriceNode
+Class OrderTagNode
+}
+
+package Phone {
+Class PhoneBrandNode
+Class PhoneCapacityNode
+Class PhoneColourNode
+Class PhoneCostNode
+Class PhoneIdentityNumberNode
+Class PhoneNameNode
+Class PhoneSerialNumberNode
+Class PhoneTagNode
+}
+
+package Schedule {
+Class ScheduleDateNode
+Class ScheduleTagNode
+Class ScheduleTimeNode
+Class ScheduleVenueNode
+}
+
+package Stats {
+Class StatsTypeNode
+}
+
+}
+
+EmptyAutoCompleteNode -down|> AutoCompleteNode
+AutoCompleteNode -down|> Node
+
+CustomerContactNumberNode --|> AutoCompleteNode
+CustomerEmailNode --|> AutoCompleteNode
+CustomerNameNode --|> AutoCompleteNode
+CustomerTagNode --|> AutoCompleteNode
+
+OrderCustomerIndexNode -down-|> AutoCompleteNode
+OrderPhoneIndexNode -down-|> AutoCompleteNode
+OrderPriceNode -down-|> AutoCompleteNode
+OrderTagNode -down-|> AutoCompleteNode
+
+PhoneBrandNode -up-|> AutoCompleteNode
+PhoneCapacityNode -up-|> AutoCompleteNode
+PhoneColourNode -up-|> AutoCompleteNode
+PhoneCostNode -up-|> AutoCompleteNode
+PhoneIdentityNumberNode -up-|> AutoCompleteNode
+PhoneNameNode -up-|> AutoCompleteNode
+PhoneSerialNumberNode -up-|> AutoCompleteNode
+PhoneTagNode -up-|> AutoCompleteNode
+
+ScheduleDateNode --|> AutoCompleteNode
+ScheduleTagNode --|> AutoCompleteNode
+ScheduleTimeNode --|> AutoCompleteNode
+ScheduleVenueNode --|> AutoCompleteNode
+
+StatsTypeNode -up-|> AutoCompleteNode
+
+@enduml

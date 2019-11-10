@@ -6,41 +6,53 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package AutoComplete {
 
-Class AutoCompleteResultGenerator
+package Graphs {
 Interface Graph <<Interface>>
-Interface AutoCompleteResultProvider <<Interface>>
 Class "{abstract}\nAutoCompleteGraph" as AutoCompleteGraph
-Interface AutoCompleteValueProvider <<Interface>>
 Class "{abstract}\nGraphBuiltFromModel" as GraphBuiltFromModel
 Class "{abstract}\nGraphWithStartNode" as GraphWithStartNode
-Class "{abstract\nGraphWithPreamble}" as GraphWithPreamble
-Class "{abstract\nGraphWithStartNodeAndPreamble}" as GraphWithStartNodeAndPreamble
-Class EmptyProvider
-Interface Edge <<Interface>>
-Class AutoCompleteEdge
-Class "{abstract}\nNode" as Node
-Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode
+Class "{abstract}\nGraphWithPreamble}" as GraphWithPreamble
+Class "{abstract}\nGraphWithStartNodeAndPreamble}" as GraphWithStartNodeAndPreamble
 }
 
-AutoCompleteResultGenerator *-down-> "*" AutoCompleteResultProvider
+package Edges {
+Interface Edge <<Interface>>
+Class AutoCompleteEdge
+}
+
+package Nodes {
+Class "{abstract}\nNode" as Node
+Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode
+Class EmptyAutoCompleteNode
+}
+
+Class AutoCompleteResultGenerator
+Interface AutoCompleteResultProvider <<Interface>>
+Interface AutoCompleteValueProvider <<Interface>>
+Class EmptyProvider
+}
+
+AutoCompleteResultGenerator *-right-> "*" AutoCompleteResultProvider
 
 AutoCompleteGraph .up.|> Graph
-AutoCompleteGraph .up.|> AutoCompleteResultProvider
+AutoCompleteGraph .up..|> AutoCompleteResultProvider
 
 GraphBuiltFromModel -up-|> AutoCompleteGraph
 GraphWithStartNode -up-|> GraphBuiltFromModel
 GraphWithPreamble -up-|> GraphBuiltFromModel
 GraphWithStartNodeAndPreamble -up-|> GraphWithStartNode
 
-EmptyProvider .up.|> AutoCompleteResultProvider
+EmptyProvider .left.|> AutoCompleteResultProvider
 
 AutoCompleteEdge .up.|> Edge
 AutoCompleteGraph *--> "*" AutoCompleteEdge
 
 AutoCompleteNode -up-|> Node
 AutoCompleteEdge *--> "2" AutoCompleteNode
-AutoCompleteNode .up.|> AutoCompleteValueProvider
+AutoCompleteNode .up...|> AutoCompleteValueProvider
 
 Graph ...> Node
+
+EmptyAutoCompleteNode -up-|> AutoCompleteNode
 
 @enduml
