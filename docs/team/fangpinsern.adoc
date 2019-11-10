@@ -1,0 +1,92 @@
+= Fang Pin Sern - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CaloFit
+
+---
+
+== Overview
+
+My team was tasked with improving the basic Address Book 3 (AB3) application
+for our Software Engineering project. We chose to morph the existing AB3
+application to a calorie recording system called CaloFit which also stores a native
+food database with accurate calorie information.
+This enhanced application enables individuals to track their calorie intake
+everyday, manage their diet and get monthly reports on their calorie consumption.
+
+CaloFit is a Command Line Interface (CLI) desktop application that assist users
+in keeping track of their calories. It was designed with the user experience in
+mind as we set to keep the number of commands to a minimum. The Graphic User Interface (GUI)
+created using JavaFX displays useful information clearly to the user. To interact
+with CaloFit, the user just enters a command at the top in the command box and
+press the `Enter` key.
+
+Shown below in Figure 1 is how the project looks like:
+
+image::CalofitUImAC.png[]
+Figure 1: The GUI for CaloFit.
+
+My role was to design and write the codes for the meal tracking which are the add, edit
+and delete commands. The following sections illustrate my contributions to the
+project as well as relevant documentations I have added to the user and developer guide
+using with regards the these enhancements.
+
+My role was to design and write the codes for the `report` feature. The following sections
+illustrate these enhancements in more detail, as well as the relevant documentation I have added to
+the user and developer guides in relation to these enhancements.
+
+Note the following symbols and formatting used in this document:
+
+[NOTE]
+This symbol indicates important information.
+
+`add` A grey highlight(called a mark-up) indicates
+that this is a command that can be inputted into the command line and executed by the application.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation,
+and other helpful contributions to the team project
+
+* *Major enhancement*: added *the ability to generate a Report*.
+** What it does: creates a Report that displays the statistics calculated from the user's meal history for that particualar month.
+** Justification: This feature gives purpose to the application as the user should be someone who wants to keep track of their calorie intake. By implementing this feature, the user is able to know their calorie intake for the month, as well as other statistics generated from it, whenever they want.
+** Highlights: As virtually any form of statistical data can be generated from a user's meal history, the scope of the data calculated and shown to the user is not exhaustive. The statistics chosen to be calculated are decided based on the user stories and use cases that our team has considered and is linked here.
+** Credits: {Calculation of statistics}
+
+* *Minor enhancement*: added *automatic saving of the meal history of the user as a JavaScript Objection Notation(JSON) file*.
+** What it does: The user's meal entries into CaloFit will be saved into a JSON file, allowing the user's meal history to be loaded upon starting up CaloFit.
+** Justification: This small feature is crucial as we need to ensure that the user's meal log is saved in order to track his or her progress since he or she started using CaloFit.
+** Credits: The methods and structure of converting a Class into a JSON file was taken from the original AddressBook-Level 3 and refactored for the purpose mentioned above.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=fangpinsern&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=fangpinsern&tabRepo=AY1920S1-CS2103T-W11-4%2Fmain%5Bmaster%5D[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.4` (1 release) on GitHub.
+*** Assigned issues to team mates relating to their features.
+** Documentation:
+*** Made the User Guide more reader friendly and easy to understand.
+*** Added images to improve readability and reduce confusion.
+** Community:
+*** Reported bugs and suggestions for other teams in the class (https://github.com/fangpinsern/ped/issues[List of bugs reported])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide as we had to update the original AddressBook-Level3 User Guide with instructions for the enhancements that we had added. The following is an excerpt from our *CaloFit User Guide*, showing additions that I have made for the `report` feature. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=mealTracking]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for the `report` feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=add]
+
+include::../DeveloperGuide.adoc[tag=delete]

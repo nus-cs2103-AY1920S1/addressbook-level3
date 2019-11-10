@@ -154,6 +154,7 @@ Classes used by multiple components are in the `seedu.calofit.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::add[]
 === Add feature
 ==== Implementation
 ===== Addition though flags (e.g add n/Chicken c/200 t/dry)
@@ -228,11 +229,33 @@ meals are first added to separate a `toBeAddedMealList` and once all the indexes
 ** Pros: Easy comparison. Reduces complications when adding meals.
 ** Cons: High collision.
 
+* **Alternative 3** Compare name, calories and tags
+** Pros: Very precise comparison.
+** Cons: May cause the dish database to get very large just because the tag is different
+
 * **Explanation of choice:** As a calorie counter, the calories is an important
 part of the meal. Hence we need to consider it when comparing meals. Certain meals
 with the same name may not have the same amount of calories. Hence we decided to go
 with alternative 1.
 
+==== Aspect: Data structure when storing in meals in meal log
+* **Alternative 1 (Current choice):** Use arraylist to store meals in meal log
+** Pros: Able to delete by index.
+** Cons: Interacting with the meal log will be slow.
+
+* **Alternative 2:** Use a hash map to store the meals in meal log
+** Pros: Able quickly retrieve information from the meal log.
+** Cons: Unable to delete through index. Also unable to store duplicates of the same meal.
+
+* **Explanation of choice:** The user may consume the same meal within the day. If we use a hash
+map, we will not be able to store the duplicate meals easily. Hash map does not preserve order.
+Hence, showing on the meal list section would be difficult as well. A user may not have a large
+amount of meals daily. Hence the array list would not be that large. Therefore, despite its limitation,
+an array list is still used.
+
+// end::add[]
+
+// tag::delete[]
 === Delete feature
 ==== Implementation
 The `delete` feature is implemented through the `DeleteCommand` class that extends the abstract `Command` class.
@@ -270,9 +293,8 @@ only has 1 meal.)
 ** Cons: Have to change other parts of the model breaking abstraction.
 
 * ** Explanation of Choice:** The command is for the deletion of meals for that day. A person on average consumes 3 - 4 meals a day.
-Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant. Also,
-
-
+Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
+// end::delete[]
 
 === Budget Bar display
 

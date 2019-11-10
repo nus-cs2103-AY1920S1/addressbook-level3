@@ -5,7 +5,7 @@ import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -27,25 +27,28 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
-        try {
-            String[] argsArr = args.split(" ");
-            LinkedList<Integer> dishIntList = new LinkedList<Integer>();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenizeAny(args);
+        if (!argMultimap.getPreamble().isBlank()) {
+            argMultimap.checkAllowedPrefixes(unknown -> AddCommand.MESSAGE_USAGE, new Prefix(""));
+            String[] argsArr = argMultimap.getPreamble().split(" ");
+            ArrayList<Integer> dishIntList = new ArrayList<>();
             if (argsArr.length == 0) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
 
-            for (int i = 1; i < argsArr.length; i++) {
-                // Check if are they all numbers
-                int dishNumber = Integer.parseInt(argsArr[i]);
-                dishIntList.add(dishNumber);
+            try {
+                for (String dishIndexStr : argsArr) {
+                    int dishNumber = Integer.parseInt(dishIndexStr);
+                    dishIntList.add(dishNumber);
+                }
+            } catch (NumberFormatException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
             return new AddCommand(dishIntList);
-        } catch (NumberFormatException e) {
-            System.out.println(argMultimap.getPreamble());
+        } else {
+            argMultimap.checkAllowedPrefixes(unknown -> AddCommand.MESSAGE_USAGE,
+                PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
             if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                    || !argMultimap.getPreamble().isEmpty()
                     || argMultimap.getAllValues(PREFIX_NAME).size() != 1
                     || argMultimap.getAllValues(PREFIX_CALORIES).size() > 1) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -64,7 +67,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             Dish dish = new Dish(name, calories, tagList);
             return new AddCommand(dish);
         }
-
     }
 
     /**
