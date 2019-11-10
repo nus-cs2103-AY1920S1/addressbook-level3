@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_TEST_COMMAND;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +49,8 @@ public class KeyboardFlashCardsParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     //@@author keiteo
+    private static Logger logger = Logger.getLogger("Foo");
+
     private boolean isRunningFlashcardTest = false;
 
     private boolean isAwaitingAnswer = false;
@@ -96,6 +100,7 @@ public class KeyboardFlashCardsParser {
 
     /** Parses test specific commands. */
     private Command parseTestCommand(Matcher matcher) throws ParseException {
+        logger.log(Level.INFO, "Parsing test command");
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
@@ -124,6 +129,7 @@ public class KeyboardFlashCardsParser {
     //@@author keiteo-reused
     /** Parses commands outside test mode i.e. list, add etc. */
     private Command parseNormalCommand(Matcher matcher) throws ParseException {
+        logger.log(Level.INFO, "Parsing normal command");
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {

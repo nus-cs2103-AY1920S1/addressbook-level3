@@ -14,7 +14,6 @@ import seedu.address.ui.TestFlashCardPanel;
 public class FlashCardTestModel {
 
     private FlashCard currentFlashCard;
-
     private List<FlashCard> testList;
     private TestFlashCardPanel testFlashCardPanel;
 

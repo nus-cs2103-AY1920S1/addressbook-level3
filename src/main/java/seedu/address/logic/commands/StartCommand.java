@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.address.logic.parser.KeyboardFlashCardsParser;
 import seedu.address.model.Model;
@@ -30,6 +32,8 @@ public class StartCommand extends Command {
 
     private static final String MESSAGE_START_TEST_SUCCESS = "Starting test...";
 
+    private static Logger logger = Logger.getLogger("Foo");
+
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 
     private final String tagName;
@@ -38,6 +42,7 @@ public class StartCommand extends Command {
         requireNonNull(keyboardFlashCardsParser);
         this.keyboardFlashCardsParser = keyboardFlashCardsParser;
         this.tagName = tagName;
+        logger.log(Level.INFO, String.format("StartCommand created with the following tags: %s", tagName));
     }
 
     @Override
@@ -46,11 +51,13 @@ public class StartCommand extends Command {
         List<FlashCard> testList = searchTag(model);
         model.initializeTestModel(testList);
         if (!model.hasTestFlashCard()) {
+            logger.log(Level.WARNING, String.format("No flashcards found with the following tag(s):\n%s", tagName));
             return new CommandResult(MESSAGE_NO_FLASHCARDS);
         }
         keyboardFlashCardsParser.startTestMode();
         model.setTestFlashCard();
         keyboardFlashCardsParser.setAwaitingAnswer(true);
+        logger.log(Level.INFO, "Initialising test mode in ModelManager and KeyboardFlashCardParser");
 
         CommandResult result = new CommandResult(
                 MESSAGE_START_TEST_SUCCESS,
@@ -75,6 +82,7 @@ public class StartCommand extends Command {
             return new LinkedList<>(model.getFlashCardList());
         }
         CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
+        logger.log(Level.INFO, "Getting a list of flashcards to test");
         return new LinkedList<>(model.getFilteredFlashCardListNoCommit(predicate));
     }
 
