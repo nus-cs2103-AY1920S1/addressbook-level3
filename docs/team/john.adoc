@@ -29,17 +29,17 @@ Note the following formatting used in this document. +
 * *Major enhancement*: added *the ability to invite contacts to current viewed activity*
 ** What it does: allows the user to `invite` multiple contacts at once to the current viewed activity.
 ** Justification: This feature improves the product significantly because the participants in an activity is not static as people can join midway during an activity and the app should provide a convenient way to `invite` them without creating a new activity.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
 
 * *Major enhancement*: added *the ability to disinvite contacts from current viewed activity*
 ** What it does: allows the user to `disinvite` multiple contacts at once from the current viewed activity.
 ** Justification: It is sort of an "undo" function if user mistakenly invited the wrong person to an activity. Since `invite` allows multiple invitees at once, an "undo" function will be inconvenient as it removes everyone that was invited previously, `disinvite` allows user to remove particular participants that was invited mistakenly to the activity conveniently.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
 
 * *Major enhancement*: added *the ability to delete contact/activity/expense in an activity*
 ** What it does: allows the user to `delete` contact/activity or soft-delete expense one at a time.
 ** Justification: This feature improves the product significantly especially for the deletion of expense. Since money is a sensitive issue, the soft deletion of expense allows the expense to still be visible but striked-off so it remains as a history for accountability.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Highlights: This enhancement affects existing commands and commands to be added in future. The implementation was challenging due to the fact that it depends on the user's screen.
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=JohnNzj&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Functional and test codes]
 

@@ -347,7 +347,7 @@ If viewing the list of contacts, deletes the 2nd person by index if he/she is no
 If viewing the list of activities, deletes the 1st activity by index. +
 
 * `delete 1` +
-If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.
+If viewing a particular activity, fades (soft-deletes) the 1st expense by index.
 
 NOTE: *Deletes the entry at the specified `INDEX`.* +
  +
@@ -355,7 +355,7 @@ NOTE: *Deletes the entry at the specified `INDEX`.* +
  +
 *The `INDEX` must be a positive integer 1, 2, 3, ...* +
  +
-*Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view.*
+*Expenses cannot be completely deleted. It will instead be faded (but still visible) in the activity view.*
 
 // end::delete[]
 
