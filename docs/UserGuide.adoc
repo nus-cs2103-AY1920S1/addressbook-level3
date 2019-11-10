@@ -211,6 +211,28 @@ ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a wind
 image::InfoEditUI.png[]
 |===
 
+==== Changing the application's theme: `theme`
+
+Changes the look of the application depending on the desired theme. +
+List of themes available are `light` and `dark`
+
+The default theme of the application is `dark`
+
+[NOTE]
+You are able to subsequently set the same theme one after another but it would not result in any change in themes. +
+e.g. calling `theme dark` and then `theme dark` again will only result in one time change to dark theme.
+
+****
+*Format*: `theme THEME` +
+*Example*: `theme dark`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The application's theme will now change to dark theme.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The application's theme will now change to dark theme.]
+|===
+
 ==== Exiting the application: `exit`
 Exits the app. +
 
