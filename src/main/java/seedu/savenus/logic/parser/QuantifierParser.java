@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.Price;
 
+//@@author seanlowjk
 /**
  * Checks if the fields and quantifiers are valid.
  */

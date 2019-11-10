@@ -9,6 +9,7 @@ import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.logic.commands.SortCommand;
 import seedu.savenus.model.alias.AliasPair;
 
+//@@author seanlowjk
 public class JsonSerializableAliasPairTest {
     @Test
     public void noCommandWord_error() throws Exception {

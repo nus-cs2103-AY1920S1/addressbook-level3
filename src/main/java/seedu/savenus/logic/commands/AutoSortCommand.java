@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.savenus.model.Model;
 
+//@@author seanlowjk
 /**
  * An Extended Command to do Sorting based on user specified custom fields, everytime a user adds a new item.
  */
@@ -29,6 +30,10 @@ public class AutoSortCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         if (shouldAutoSort) {
+
+            // Clear the recommendation system (if it was used)
+            model.setRecommendationSystemInUse(false);
+
             model.setAutoSortFlag(true);
             String customSorterAsString = model.getCustomSorter().toString();
             return new CommandResult(String.format(AUTO_SORT_ON_MESSAGE_SUCCESS, customSorterAsString));

@@ -3,6 +3,7 @@ package seedu.savenus.model.alias;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
+//@@author seanlowjk
 /**
  * Represents a Pair containing the command word and the alias word assigned .
  */

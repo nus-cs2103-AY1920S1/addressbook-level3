@@ -11,6 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.alias.AliasList;
 
+//@@author seanlowjk
 public class JsonAliasListStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonAliasListStorageTest");
