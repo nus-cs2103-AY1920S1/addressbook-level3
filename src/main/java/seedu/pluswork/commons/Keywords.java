@@ -1,6 +1,7 @@
 package seedu.pluswork.commons;
 
 import java.util.List;
+import java.util.Arrays;
 
 import seedu.pluswork.logic.commands.AddCalendarCommand;
 import seedu.pluswork.logic.commands.AddInventoryCommand;
@@ -40,7 +41,7 @@ import seedu.pluswork.logic.commands.ThemeCommand;
 import seedu.pluswork.logic.commands.UndoCommand;
 
 public class Keywords {
-    public static List<String> commandList = List.of(
+    public static List<String> commandList = Arrays.asList(
             // TASK
             AddTaskCommand.COMMAND_WORD,
             DeleteTaskCommand.COMMAND_WORD,
