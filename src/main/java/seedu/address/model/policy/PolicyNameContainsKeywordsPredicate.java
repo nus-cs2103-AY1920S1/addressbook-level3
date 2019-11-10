@@ -3,6 +3,8 @@ package seedu.address.model.policy;
 import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
+
 /**
  * Tests that a {@code Policy}'s {@code Name} matches any of the keywords given.
  */
@@ -16,7 +18,7 @@ public class PolicyNameContainsKeywordsPredicate implements Predicate<Policy> {
     @Override
     public boolean test(Policy policy) {
         return keywords.stream()
-                .anyMatch(keyword -> policy.getName().toString().toLowerCase().contains(keyword.toLowerCase()));
+                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(policy.getName().policyName, keyword));
     }
 
     @Override
