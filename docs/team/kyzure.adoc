@@ -63,11 +63,10 @@ Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure
 ==== Community:
 * Reviewed Pull Requests: link:{repoURL}/pull/41[#41]
 
-
 == Contributions to the User Guide
 
 |===
-|_The following sections are an excerpt of my contribution to the User Guide to indicate my ability for writing readable help sections to the user._
+|_The following sections are an excerpt from my contribution to the User Guide to indicate my ability for writing readable help sections to the user._
 |===
 
 include::../UserGuide.adoc[tag=uiCalendarView]
@@ -77,9 +76,11 @@ include::../UserGuide.adoc[tag=uiTimelineDay]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections are an excerpt of my contribution to the Developer Guide to showcase my prowess in the technical aspect of the project._
+|_The following sections are an excerpt from my contribution to the Developer Guide to showcase my prowess in the technical aspect of the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=uiImplementation]
+
+include::../DeveloperGuide.adoc[tag=uiDayView]
 
 include::../DeveloperGuide.adoc[tag=uiDesign]

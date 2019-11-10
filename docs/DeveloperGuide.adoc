@@ -606,15 +606,16 @@ and keep all code relevant to converting objects to ICS Strings in the same clas
 This further makes it easier for future debugging,
 and makes adding new exportable objects a lot easier as there are common functions that can be used.
 
+// tag::uiImplementation[]
 === UI Component
 
 ==== Implementation during change in Events and Tasks
 .A general Sequence Diagram during a change in the Event and Task Lists model.
 image::UiSequenceDiagram.png[]
 
-The UI system is managed by the `UiManager`, that is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which is the bsae of the UI and holds every other smaller components and views of the rest of the UI. Here is the sequence of a change in Events and Tasks for the UI.
+The UI system is managed by the `UiManager`, which is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which represents the base of the UI, and holds the different panels of the UI. Here is the sequence of a change in Events and Tasks for the UI.
 
-Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterwards, two HashMaps, `eventHash` and `taskHash` is created to deal with the indexing of the Ui later on.
+Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will, in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterward, two HashMaps, `eventHash` and `taskHash` are created to deal with the indexing of the UI later on.
 
 Step 2. `MainWindow` will be called by `UiManager` using `onModelListChange(events, tasks, eventHash, taskHash)`, which will in turn proceed to call the methods that will update the different views represented by:
 
@@ -628,9 +629,9 @@ As for these 3 main panels, each of them will be explained further below
 .Sequence Diagram for `CalendarPanel`
 image::UiCalendarPanelSequenceDiagram.png[]
 
-Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two list into a single list for sorting purpose.
+Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two lists into a single list for sorting purposes.
 
-Step 2.2. Afterwards, it will call `onChange` for the 3 smaller components:
+Step 2.2. Afterward, it will call `onChange` for the 3 smaller components:
 
 * `TimelineView` - When called, it will reset the current timeline using `resetTimeline()`
 
@@ -641,20 +642,21 @@ Step 2.2. Afterwards, it will call `onChange` for the 3 smaller components:
 .Sequence Diagram for `ListPanel`
 image::UiListPanelSequenceDiagram.png[]
 
-Step 2.3. `ListPanel` will be called with `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
+Step 2.3. `ListPanel` will be called using `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
 
-Step 2.4. `ListPanel` will also be called with `onTaskListChange(tasks, taskHash)`. It will afterwards call `TaskListPanel` to change the list accordingly as well.
+Step 2.4. Additionally, `ListPanel` will also be called using `onTaskListChange(tasks, taskHash)`, which will eventually call `TaskListPanel` to change the list accordingly as well.
 
 .Sequence Diagram for `LogPanel`
 image::UiLogPanelSequenceDiagram.png[]
 
-Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme, and create 2 different boxes to display the output.
+Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme in the form of a `String`, and creates 2 different boxes to display the output.
 
 Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedbackToUser, color)` to display the output to the user in `LogPanel`
 
-Step 3.3. Next, it create `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterwards.
+Step 3.3. Next, it creates `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterward.
+// end::uiImplementation[]
 
-// tag::uiImplementation[]
+// tag::uiDayView[]
 ==== Implementation when changing the date of timeline
 
 .Sequence Diagram for changing the timeline date
@@ -666,9 +668,11 @@ Step 1. When the command is executed, it will proceed to call `UiManager` throug
 
 Step 2. `CalendarPanel` will proceed to execute `changeCalendarScreenDate(calendarDate)`, which will create an instance of `CalendarScreen` to display the calendar.
 
-Step 3. Afterwards, a new instance of `TimelineDayView` will be created to display the timeline.
+Step 3. Afterward, a new instance of `TimelineDayView` will be created to display the timeline.
 
-Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, so as to allow `CalendarPanel` to be visible while the other panels are not.
+Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, allowing `CalendarPanel` to be visible while the other panels remain invisible.
+
+// end::uiDayView[]
 
 ==== Implementation when changing views
 .Sequence Diagram for changing to Calendar View
@@ -676,7 +680,7 @@ image::UiViewCalendarSequenceDiagram.png[]
 
 Here is an example of the sequence for the UI when `CalendarViewCommand` is executed.
 
-Step 1. When command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null, or a date. The validity check is previously check in the parser.
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null or a date. The validity check is previously check in the parser.
 
 Step 2. If calendarDate is null, the `UiManager` will simply call `MainWindow` to switch the view with the method `viewCalendar()`.
 
@@ -684,16 +688,14 @@ Step 3. `MainWindow` will obtain the `Region` of the 3 panels: `CalendarPanel`, 
 
 Step 4. If calendarDate is not null, `UiManager` will then call `MainWindow` using `changeCalendarScreenDate(calendarDate)`, to change the `CalendarScreen` to the given date.
 
-Step 5. Afterwards, it will proceed to repeat step 3 again, which is simply calling `viewCalendar()` again.
+Step 5. Afterward, it will proceed and continue with Step 3, which is simply calling `viewCalendar()` again.
 
-Since the sequence for `CalendarViewCommand` is roughly similar, or in fact, more complicated than `ListViewCommand` and `LogViewCommand`, it will not be further explained.
-
-// end::uiImplementation[]
+Since the sequence for `CalendarViewCommand` is roughly similar to `ListViewCommand` and `LogViewCommand`, those 2 commands will not be explained.
 
 // tag::uiDesign[]
 ==== Design Considerations
 
-The design considerations are more towards how the UI would have look like, as well as how the architecture of the code would have change if depending on the arrangement of the UI.
+The design considerations are more towards how the appearance of the UI, as well as how the architecture of the code would have changed depending on such appearance.
 
 .Old design of the UI
 image::OldUI.png[]
@@ -702,36 +704,36 @@ image::OldUI.png[]
 image::Ui.png[]
 
 ===== Aspect: Design of the `CalendarPanel`
-* Alternative 1: The `CalendarPanel` is of an actual calendar, depicting a number events and tasks on each day of the month.
+* Alternative 1: The `CalendarPanel` is of an actual calendar, depicting a limited number of events and tasks on each day of the month.
 
 ** **Pros**: It will provide a better representation of a calendar, allowing people to judge how much is going on in a day of that month in one look.
 
-** **Cons**: Due to the nature of how limited in size a calendar can be, the user will be required to either check `ListPanel` for the details of an event or tasks, or have an extra screen beside the calendar for the user to check the details.
+** **Cons**: Due to the nature of how limited in size a calendar can be, the user will be required to either check `ListPanel` for the details of an event or task, or have an extra screen beside the calendar for the user to check the details.
 
-** **Cons**: Similarly, a calendar can only input up to a fix amount of events or tasks there are on a particular day.
+** **Cons**: Similarly, a calendar can only input up to a fixed amount of events or tasks there are on a particular day.
 
-* Alternative 2 (current choice): The `CalendarPanel` consists of a mini-calendar as well as a timeline. An additional slot for upcoming events and tasks was later designed with the increase in space.
+* Alternative 2 (current choice): The `CalendarPanel` consists of a mini-calendar as well as a timeline. An additional slot for upcoming events and tasks was later designed with an increase in space.
 
-** **Pros**: There is a much more greater space to show how much events or tasks one can have in a day, week or month.
+** **Pros**: Provides a much greater space to show how much events or tasks one can have in a day, week or month.
 
-** **Pros**: The user can easily managed and check the Events and Tasks of a certain day.
+** **Pros**: The user can easily manage and check the Events and Tasks of a certain day.
 
-** **Cons**: Even though it is a timeline, it is still rather similar to list view, just with the timeline added to limit the amount of events seen on that day, week or month.
+** **Cons**: Even though it is a timeline, it is still rather similar to list view, just with the timeline added to limit the number of events or tasks seen on that day, week or month.
 
-** **Cons**: :The user will not be able to know what Events or Tasks there are easily, unless they change the view to month view. However, the increase space allows a small section for the upcoming events and tasks which tackles this problem.
+** **Cons**: The user will not be able to easily know what Events or Tasks there are, unless they change the view to Month view. On the other hand, the increase in space allows a small section for the upcoming events and tasks which tackles this problem.
 
 ===== Aspect: Design of the `LogPanel`
 * Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
 
 ** **Pros**: The users can always have a visualization of the success of their commands
 
-** **Cons**: A large portion of the space is used for the `LogPane`, even if the it is scaled down compared to the other panels.
+** **Cons**: A large portion of the space is used for the `LogPanel`, even if it is scaled down compared to the other panels.
 
 ** **Cons**: Appearance-wise, it looks extremely clunky due to most of the users' time will be looking at the calendar or list itself instead of the log.
 
-* Alternative 2 (current choice): The `LogPanel` is placed separately as a different panel which can be access at any time from other panels. After each command is typed, a pop-up box will appear to indicate the success or failure of the command.
+* Alternative 2 (current choice): The `LogPanel` is placed separately as a different panel that can be accessed at any time from other panels. After each command is typed, a pop-up box will appear to indicate the success or failure of the command.
 
-** **Pros**: Since the user most of the time would only want to know if their command is successful or not, the pop-up box will be sufficient for such indication.
+** **Pros**: Most of the time, users would only want to know if their command is successful or not. Thus having the pop-up box will be sufficient for such an indication.
 
 ** **Cons**: The user will have to check the `LogPanel`
 
