@@ -42,7 +42,7 @@ public interface Logic {
     boolean isPersonView();
 
     /** Toggles the current view mode */
-    void isPersonView(boolean isPersonView);
+    void setPersonView(boolean isPersonView);
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
