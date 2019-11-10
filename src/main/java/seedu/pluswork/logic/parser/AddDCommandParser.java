@@ -1,16 +1,16 @@
 package seedu.pluswork.logic.parser;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.AddDCommand;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-import seedu.pluswork.model.member.MemberId;
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 
 import java.time.LocalDateTime;
 import java.util.stream.Stream;
 
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import seedu.pluswork.commons.util.DateTimeUtil;
+import seedu.pluswork.logic.commands.AddDCommand;
+import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.model.member.MemberId;
 
 public class AddDCommandParser implements Parser<AddDCommand> {
     /**

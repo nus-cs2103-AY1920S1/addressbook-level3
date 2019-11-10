@@ -1,11 +1,11 @@
 package seedu.pluswork.commons.util;
 
-import seedu.pluswork.commons.core.Config;
-import seedu.pluswork.commons.exceptions.DataConversionException;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
+
+import seedu.pluswork.commons.core.Config;
+import seedu.pluswork.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

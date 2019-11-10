@@ -1,8 +1,15 @@
 package seedu.pluswork.logic.MultiLine;
 
 
+import java.util.ArrayList;
+
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.*;
+import seedu.pluswork.logic.commands.AddICommand;
+import seedu.pluswork.logic.commands.AddInventoryCommand;
+import seedu.pluswork.logic.commands.Command;
+import seedu.pluswork.logic.commands.CommandResult;
+import seedu.pluswork.logic.commands.DoneTaskCommand;
+import seedu.pluswork.logic.commands.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
@@ -11,8 +18,6 @@ import seedu.pluswork.model.inventory.Price;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
-
-import java.util.ArrayList;
 
 public class DoneTaskInvTag {
 

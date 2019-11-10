@@ -1,5 +1,8 @@
 package seedu.pluswork.ui.views;
 
+import java.util.logging.Logger;
+import java.util.stream.Stream;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -9,9 +12,6 @@ import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 /**
  * Layout displaying the current settings in +Work.

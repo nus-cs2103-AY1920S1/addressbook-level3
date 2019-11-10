@@ -1,5 +1,19 @@
 package seedu.pluswork.model.calendar;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import net.fortuna.ical4j.model.DateTime;
@@ -8,12 +22,6 @@ import net.fortuna.ical4j.model.PeriodList;
 import seedu.pluswork.model.calendar.exceptions.CalendarNotFoundException;
 import seedu.pluswork.model.calendar.exceptions.DuplicateCalendarException;
 import seedu.pluswork.model.member.MemberName;
-
-import java.time.*;
-import java.util.*;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 
 /**
@@ -32,10 +40,6 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
     private final ObservableList<CalendarWrapper> internalList = FXCollections.observableArrayList();
     private final ObservableList<CalendarWrapper> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
-//    private static final TimeZone DEFAULT_TIMEZONE = TimeZoneRegistryFactory
-//            .getInstance()
-//            .createRegistry()
-//            .getTimeZone("Asia/Hong_Kong");
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -45,9 +49,9 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
         return internalList.stream().anyMatch(toCheck::isSameCalendar);
     }
 
-    public boolean containsMemberName(MemberName toCheck) {
+    public boolean containsMemberName(CalendarWrapper toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::hasSameMemberName);
     }
 
     /**
@@ -56,7 +60,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
      */
     public void add(CalendarWrapper toAdd) {
         requireNonNull(toAdd);
-        if (containsMemberName(toAdd.getMemberName())) {
+        if (containsMemberName(toAdd)) {
             throw new DuplicateCalendarException();
         }
         internalList.add(toAdd);
@@ -350,11 +354,7 @@ public class UniqueCalendarList implements Iterable<CalendarWrapper> {
                 meetingList.add(newMeetingDate);
             }
         }
-        if (maxAttendance == 0) {
-            return null;
-        } else {
-            return new MeetingQuery(meetingList, startDate, endDate, duration);
-        }
+        return new MeetingQuery(meetingList, startDate, endDate, duration);
     }
 
     public static void addMemberAvailability(HashMap<LocalDateTime, List<MemberName>> attendance,

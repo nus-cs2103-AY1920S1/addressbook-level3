@@ -1,9 +1,9 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_MEMBERS;
+
+import seedu.pluswork.model.Model;
 
 /**
  * Lists all persons in the address book to the user.

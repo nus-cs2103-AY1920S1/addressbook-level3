@@ -1,5 +1,12 @@
 package seedu.pluswork.model.util;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import net.fortuna.ical4j.model.Calendar;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.parser.ParserUtil;
@@ -21,13 +28,6 @@ import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Contains utility methods for populating {@code ProjectDashboard} with sample data.
@@ -107,14 +107,14 @@ public class SampleTaskDataUtil {
 
     public static Meeting[] getSampleMeeting() {
         try {
-            LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-10-2019 18:00");
+            LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-11-2019 18:00");
             Duration sampleHours1 = ParserUtil.parseHours("4");
             List<MemberName> sampleMembers1 = Arrays.asList(new MemberName[]{
                     new MemberName("Gabriel"),
                     new MemberName("Abhinav"),
                     new MemberName("Lynn")
             });
-            LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("11-11-2019 20:00");
+            LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("30-11-2019 20:00");
             Duration sampleHours2 = ParserUtil.parseHours("2");
             List<MemberName> sampleMembers2 = Arrays.asList(new MemberName[]{
                     new MemberName("Gabriel"),

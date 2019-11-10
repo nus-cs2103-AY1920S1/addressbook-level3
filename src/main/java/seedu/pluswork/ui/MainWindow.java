@@ -1,5 +1,10 @@
 package seedu.pluswork.ui;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.FileNotFoundException;
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -16,11 +21,6 @@ import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.settings.Theme;
-
-import java.io.FileNotFoundException;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * The Main Window. Provides the basic application layout containing

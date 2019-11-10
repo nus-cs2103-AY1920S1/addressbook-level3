@@ -1,10 +1,10 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.pluswork.logic.commands.ThemeCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.settings.Theme;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new ThemeCommand parser object
@@ -13,8 +13,7 @@ public class ThemeCommandParser implements Parser<ThemeCommand> {
     /**
      * Parses {@code userInput} into a command and returns it.
      *
-     * @param userInput
-     * @throws ParseException if {@code userInput} does not conform the expected format
+     * @throws ParseException if {@code userInput} does not conform to the expected format
      */
     @Override
     public ThemeCommand parse(String userInput) throws ParseException {

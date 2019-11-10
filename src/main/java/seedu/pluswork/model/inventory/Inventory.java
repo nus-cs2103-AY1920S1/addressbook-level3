@@ -1,8 +1,8 @@
 package seedu.pluswork.model.inventory;
 
-import java.util.Objects;
-
 import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 //import seedu.address.model.task.Task;
 

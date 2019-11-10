@@ -83,8 +83,8 @@
                                 <Insets top="60.0"/>
                             </padding>
                         </VBox>
-                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="250.0"
-                              HBox.hgrow="ALWAYS">
+                        <VBox id="taskBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                              prefHeight="250.0" HBox.hgrow="ALWAYS">
                             <children>
                                 <Label styleClass="label-dashboard" text="Upcoming Meetings"/>
                                 <ListView fx:id="meetingListView"/>

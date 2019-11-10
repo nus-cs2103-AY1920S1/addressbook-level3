@@ -1,15 +1,15 @@
 package seedu.pluswork.logic.MultiLine;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.ArrayList;
+
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
-
-import java.util.ArrayList;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class ClearQuestion {
 

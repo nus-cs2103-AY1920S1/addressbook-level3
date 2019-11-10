@@ -1,17 +1,52 @@
 package seedu.pluswork.commons;
 
-import seedu.pluswork.logic.commands.*;
-
 import java.util.List;
+
+import seedu.pluswork.logic.commands.AddCalendarCommand;
+import seedu.pluswork.logic.commands.AddInventoryCommand;
+import seedu.pluswork.logic.commands.AddMeetingCommand;
+import seedu.pluswork.logic.commands.AddMemberCommand;
+import seedu.pluswork.logic.commands.AddTaskCommand;
+import seedu.pluswork.logic.commands.AssignCommand;
+import seedu.pluswork.logic.commands.ClearCommand;
+import seedu.pluswork.logic.commands.ClockCommand;
+import seedu.pluswork.logic.commands.DeleteCalendarCommand;
+import seedu.pluswork.logic.commands.DeleteInventoryCommand;
+import seedu.pluswork.logic.commands.DeleteMeetingCommand;
+import seedu.pluswork.logic.commands.DeleteMemberCommand;
+import seedu.pluswork.logic.commands.DeleteTaskCommand;
+import seedu.pluswork.logic.commands.DoingTaskCommand;
+import seedu.pluswork.logic.commands.DoneTaskCommand;
+import seedu.pluswork.logic.commands.EditInventoryCommand;
+import seedu.pluswork.logic.commands.EditMemberCommand;
+import seedu.pluswork.logic.commands.EditTaskCommand;
+import seedu.pluswork.logic.commands.ExitCommand;
+import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
+import seedu.pluswork.logic.commands.FindMemberCommand;
+import seedu.pluswork.logic.commands.FindTaskCommand;
+import seedu.pluswork.logic.commands.FireCommand;
+import seedu.pluswork.logic.commands.GetStatisticsCommand;
+import seedu.pluswork.logic.commands.HelpCommand;
+import seedu.pluswork.logic.commands.HomeCommand;
+import seedu.pluswork.logic.commands.ListInventoryCommand;
+import seedu.pluswork.logic.commands.ListMemberByTaskCommand;
+import seedu.pluswork.logic.commands.ListMemberCommand;
+import seedu.pluswork.logic.commands.ListTaskCommand;
+import seedu.pluswork.logic.commands.RedoCommand;
+import seedu.pluswork.logic.commands.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.SetImageCommand;
+import seedu.pluswork.logic.commands.SettingsCommand;
+import seedu.pluswork.logic.commands.ThemeCommand;
+import seedu.pluswork.logic.commands.UndoCommand;
 
 public class Keywords {
     public static List<String> commandList = List.of(
             // TASK
             AddTaskCommand.COMMAND_WORD,
             DeleteTaskCommand.COMMAND_WORD,
-            FindCommand.COMMAND_WORD,
-            ListCommand.COMMAND_WORD,
-            EditCommand.COMMAND_WORD,
+            FindTaskCommand.COMMAND_WORD,
+            ListTaskCommand.COMMAND_WORD,
+            EditTaskCommand.COMMAND_WORD,
             DoingTaskCommand.COMMAND_WORD,
             SetDeadlineCommand.COMMAND_WORD,
             DoneTaskCommand.COMMAND_WORD,
@@ -69,14 +104,14 @@ public class Keywords {
             case DeleteTaskCommand.COMMAND_WORD:
                 return commandWord + " " + DeleteTaskCommand.PREFIX_USAGE;
 
-            case FindCommand.COMMAND_WORD:
-                return commandWord + " " + FindCommand.PREFIX_USAGE;
+            case FindTaskCommand.COMMAND_WORD:
+                return commandWord + " " + FindTaskCommand.PREFIX_USAGE;
 
-            case ListCommand.COMMAND_WORD:
-                return commandWord + " " + ListCommand.PREFIX_USAGE;
+            case ListTaskCommand.COMMAND_WORD:
+                return commandWord + " " + ListTaskCommand.PREFIX_USAGE;
 
-            case EditCommand.COMMAND_WORD:
-                return commandWord + " " + EditCommand.PREFIX_USAGE;
+            case EditTaskCommand.COMMAND_WORD:
+                return commandWord + " " + EditTaskCommand.PREFIX_USAGE;
 
             case DoingTaskCommand.COMMAND_WORD:
                 return commandWord + " " + DoingTaskCommand.PREFIX_USAGE;
@@ -88,7 +123,7 @@ public class Keywords {
                 return commandWord + " " + DoneTaskCommand.PREFIX_USAGE;
 
             case UndoCommand.COMMAND_WORD:
-                return commandWord + " " + FindCommand.PREFIX_USAGE;
+                return commandWord + " " + FindTaskCommand.PREFIX_USAGE;
 
             case RedoCommand.COMMAND_WORD:
                 return commandWord + " " + RedoCommand.PREFIX_USAGE;

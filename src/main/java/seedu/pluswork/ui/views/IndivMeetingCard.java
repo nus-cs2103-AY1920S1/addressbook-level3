@@ -32,7 +32,7 @@ public class IndivMeetingCard extends UiPart<Region> {
     @FXML
     private Label meetingTime;
     @FXML
-    private Text memberListDisplay;
+    private Label memberListDisplay;
     @FXML
     private SplitPane split_pane_indiv;
 

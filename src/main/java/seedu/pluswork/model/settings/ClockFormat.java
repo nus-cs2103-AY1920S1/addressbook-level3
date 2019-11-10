@@ -1,8 +1,8 @@
 package seedu.pluswork.model.settings;
 
-import seedu.pluswork.commons.util.DateTimeUtil;
-
 import java.time.format.DateTimeFormatter;
+
+import seedu.pluswork.commons.util.DateTimeUtil;
 
 /**
  * Represents the current display format chosen by the user for task deadlines in +Work.
@@ -10,6 +10,9 @@ import java.time.format.DateTimeFormatter;
 public enum ClockFormat {
     TWELVE("12HR", DateTimeUtil.getDisplayFormatterTwelveHour()),
     TWENTY_FOUR("24HR", DateTimeUtil.getDisplayFormatterTwentyFourHour());
+
+    public static final String DISPLAY_NAME_TWELVE = "12HR";
+    public static final String DISPLAY_NAME_TWENTY_FOUR = "24HR";
 
     public static final String MESSAGE_CONSTRAINTS =
             "Invalid clock format, please enter one of twelve or twenty_four.";

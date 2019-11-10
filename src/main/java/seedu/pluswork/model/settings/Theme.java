@@ -1,14 +1,16 @@
 package seedu.pluswork.model.settings;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Represents the current theme selected by the user for +Work.
  * Stores the required CSS Urls.
  */
 public enum Theme {
-    DARK(Theme.class.getClassLoader().getResource("view/DarkTheme.css").toExternalForm(),
-            Theme.class.getClassLoader().getResource("view/Extensions.css").toExternalForm()),
-    LIGHT(Theme.class.getClassLoader().getResource("view/LightTheme.css").toExternalForm(),
-            Theme.class.getClassLoader().getResource("view/ExtensionsLight.css").toExternalForm());
+    DARK(requireNonNull(Theme.class.getClassLoader().getResource("view/DarkTheme.css")).toExternalForm(),
+            requireNonNull(Theme.class.getClassLoader().getResource("view/Extensions.css")).toExternalForm()),
+    LIGHT(requireNonNull(Theme.class.getClassLoader().getResource("view/LightTheme.css")).toExternalForm(),
+            requireNonNull(Theme.class.getClassLoader().getResource("view/ExtensionsLight.css")).toExternalForm());
 
     public static final String MESSAGE_CONSTRAINTS =
             "Invalid theme code, please enter one of light or dark.";

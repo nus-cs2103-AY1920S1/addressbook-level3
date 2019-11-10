@@ -1,15 +1,15 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
+
+import java.util.List;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.calendar.Meeting;
-
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEETING_INDEX;
 
 /**
  * Deletes a task identified using it's displayed index from the address book.

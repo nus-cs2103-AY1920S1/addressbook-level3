@@ -1,5 +1,7 @@
 package seedu.pluswork.ui.views;
 
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,8 +12,6 @@ import seedu.pluswork.commons.core.LogsCenter;
 import seedu.pluswork.model.calendar.Meeting;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.ui.UiPart;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the dashboard, with tasks separated by status.
@@ -91,6 +91,8 @@ public class ProjectDashboardView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
+                meetingCard.getRoot().getStyleClass().clear();
+                meetingCard.getRoot().getStyleClass().add(CARD_STYLE);
                 setGraphic(meetingCard.getRoot());
             }
         }

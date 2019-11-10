@@ -1,19 +1,19 @@
 package seedu.pluswork.storage;
 
-import seedu.pluswork.commons.core.LogsCenter;
-import seedu.pluswork.commons.exceptions.DataConversionException;
-import seedu.pluswork.commons.util.FileUtil;
-import seedu.pluswork.commons.util.JsonUtil;
-import seedu.pluswork.model.ReadOnlyUserSettings;
-import seedu.pluswork.model.UserSettings;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.pluswork.commons.core.LogsCenter;
+import seedu.pluswork.commons.exceptions.DataConversionException;
+import seedu.pluswork.commons.util.FileUtil;
+import seedu.pluswork.commons.util.JsonUtil;
+import seedu.pluswork.model.ReadOnlyUserSettings;
+import seedu.pluswork.model.UserSettings;
 
 /**
  * A class to access user settings stored in the hard disk as a json file.
@@ -41,10 +41,9 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException             if there was any problem when reading from the storage.
      */
     @Override
-    public Optional<UserSettings> readUserSettings() throws DataConversionException, IOException {
+    public Optional<UserSettings> readUserSettings() throws DataConversionException {
         return readUserSettings(filePath);
     }
 
@@ -81,6 +80,6 @@ public class JsonUserSettingsStorage implements UserSettingsStorage {
         requireAllNonNull(userSettings, filePath);
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(userSettings, filePath);
-
+        logger.info("-------------User settings saved successfully-----------------");
     }
 }

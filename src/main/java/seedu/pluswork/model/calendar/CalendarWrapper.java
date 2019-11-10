@@ -40,6 +40,15 @@ public class CalendarWrapper {
                 && otherCalendar.getCalendar().equals(getCalendar());
     }
 
+    public boolean hasSameMemberName(CalendarWrapper otherCalendar) {
+        if (otherCalendar == this) {
+            return true;
+        }
+
+        return otherCalendar != null
+                && otherCalendar.getMemberName().equals(getMemberName());
+    }
+
     public boolean hasMemberName(MemberName otherCalendar) {
         if (otherCalendar == getMemberName()) {
             return true;

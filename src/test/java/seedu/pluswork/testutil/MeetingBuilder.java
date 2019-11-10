@@ -55,7 +55,7 @@ public class MeetingBuilder {
      * Sets the {@code Name} of the {@code Task} that we are building.
      */
     public MeetingBuilder withStartTime(LocalDateTime startTime) throws ParseException {
-        this.startTime = DateTimeUtil.parseDateTime(DateTimeUtil.displayDateTime(startTime));
+        this.startTime = startTime;
         return this;
     }
 
@@ -63,7 +63,7 @@ public class MeetingBuilder {
      * Sets the {@code TaskStatus} of the {@code Task} that we are building.
      */
     public MeetingBuilder withDuration(Duration duration) {
-        this.duration = Duration.parse(duration.toString());
+        this.duration = duration;
         return this;
     }
 
@@ -71,10 +71,7 @@ public class MeetingBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Task} that we are building.
      */
     public MeetingBuilder withMembers(List<MemberName> memberNameList) {
-        this.memberNameList = memberNameList
-                            .stream()
-                            .map(x -> new MemberName(x.fullName))
-                            .collect(Collectors.toList());
+        this.memberNameList = memberNameList;
         return this;
     }
 

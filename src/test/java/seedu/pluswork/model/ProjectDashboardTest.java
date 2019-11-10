@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.pluswork.model.calendar.CalendarWrapper;
 import seedu.pluswork.model.calendar.Meeting;
+import seedu.pluswork.model.calendar.MeetingQuery;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.InvTasMapping;
@@ -31,6 +32,7 @@ import seedu.pluswork.model.mapping.TasMemMapping;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.exceptions.DuplicateTaskException;
+import seedu.pluswork.testutil.MeetingQueryBuilder;
 import seedu.pluswork.testutil.TaskBuilder;
 
 public class ProjectDashboardTest {
@@ -221,6 +223,11 @@ public class ProjectDashboardTest {
         @Override
         public ObservableList<Meeting> getMeetingList() {
             return meetings;
+        }
+
+        @Override
+        public MeetingQuery getMeetingQuery() {
+            return new MeetingQueryBuilder().build();
         }
 
     }

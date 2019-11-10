@@ -1,18 +1,18 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_IMAGE;
+
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_IMAGE;
 
 public class SetImageCommand extends Command {
     public static final String COMMAND_WORD = "set-image";

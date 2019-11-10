@@ -1,5 +1,10 @@
 package seedu.pluswork.model;
 
+import java.nio.file.Path;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.function.Predicate;
+
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.model.calendar.CalendarWrapper;
@@ -15,11 +20,6 @@ import seedu.pluswork.model.settings.ClockFormat;
 import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
-
-import java.nio.file.Path;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.function.Predicate;
 
 //Remove after changing to ObservableList for Calendar
 
@@ -51,6 +51,11 @@ public interface Model {
      * {@code Predicate} that always evaluate to true
      */
     Predicate<Meeting> PREDICATE_SHOW_ALL_MEETINGS = unused -> true;
+
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
+    Predicate<CalendarWrapper> PREDICATE_SHOW_ALL_CALENDARS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -338,7 +343,7 @@ public interface Model {
     void setClockFormat(ClockFormat newClockFormat);
 
     /**
-     * Update the predicates to show all data after a {@code FindCommand} is executed.
+     * Update the predicates to show all data after a {@code FindTaskCommand} is executed.
      */
     void updateData();
 }

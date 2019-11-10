@@ -1,5 +1,13 @@
 package seedu.pluswork.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
+import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Set;
+
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
@@ -8,13 +16,6 @@ import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
-
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
-import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 
 /**
@@ -85,7 +86,11 @@ public class DoingTaskCommand extends Command {
         if (taskStatus == TaskStatus.DOING) {
             throw new CommandException(String.format(MESSAGE_TASK_ALREADY_IN_PROGRESS, taskToUpdate));
         }
-        return new Task(name, TaskStatus.DOING, tags);
+
+        Task newTask = new Task(name, TaskStatus.DOING, tags);
+        newTask.setTimeStart(Instant.now());
+
+        return newTask;
     }
 
     @Override

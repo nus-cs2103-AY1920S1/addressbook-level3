@@ -1,16 +1,16 @@
 package seedu.pluswork.model.statistics;
 
-import seedu.pluswork.model.mapping.InvMemMapping;
-import seedu.pluswork.model.mapping.TasMemMapping;
-import seedu.pluswork.model.member.Member;
-import seedu.pluswork.model.task.Task;
-import seedu.pluswork.model.task.TaskStatus;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import seedu.pluswork.model.mapping.InvMemMapping;
+import seedu.pluswork.model.mapping.TasMemMapping;
+import seedu.pluswork.model.member.Member;
+import seedu.pluswork.model.task.Task;
+import seedu.pluswork.model.task.TaskStatus;
 
 public class Statistics {
     private final List<Member> members;
@@ -29,23 +29,6 @@ public class Statistics {
         this.invMem = invMem;
     }
 
-
-    /**
-     * Returns true if both tasks of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
-     */
-    public boolean isSameStatistics(Statistics otherStats) {
-        if (otherStats == this) {
-            return true;
-        }
-
-        // TODO change the logic to check for the identity fields of status and member
-        // basically the name cannot be the same, that's it
-        return members.equals(otherStats.getMemberList())
-                && tasks.equals(otherStats.getTaskList())
-                && invMem.equals(otherStats.getInvMemList())
-                && tasMem.equals((otherStats.getTasMemList()));
-    }
 
     public List<Task> getTaskList() {
         return this.tasks;

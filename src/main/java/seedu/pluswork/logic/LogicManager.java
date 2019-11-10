@@ -9,6 +9,12 @@ import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PDFTYPE;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_START_PERIOD;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_END_PERIOD;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Logger;
+import java.util.LinkedList;
+
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.LogsCenter;
@@ -32,14 +38,6 @@ import seedu.pluswork.model.settings.Theme;
 import seedu.pluswork.model.statistics.Statistics;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.storage.Storage;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.LinkedList;
-import java.util.logging.Logger;
 
 /**
  * The main LogicManager of the app.
@@ -81,8 +79,6 @@ public class LogicManager implements Logic {
             }
             return commandResultMl;
         }
-
-        logger.info("goes here");
 
         try {
             storage.saveProjectDashboard(model.getProjectDashboard());

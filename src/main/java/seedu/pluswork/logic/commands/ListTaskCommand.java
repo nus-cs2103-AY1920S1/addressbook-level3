@@ -1,14 +1,14 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.model.Model;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.model.Model.PREDICATE_SHOW_ALL_TASKS;
+
+import seedu.pluswork.model.Model;
 
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListCommand extends Command {
+public class ListTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "list-tasks";
     public static final String PREFIX_USAGE = "";

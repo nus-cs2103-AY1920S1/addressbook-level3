@@ -22,9 +22,9 @@ import seedu.pluswork.model.UserSettings;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code FindTaskCommand}.
  */
-public class FindCommandTest {
+public class FindTaskCommandTest {
     private Model model = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
     private Model expectedModel = new ModelManager(getTypicalProjectDashboard(), new UserPrefs(), new UserSettings());
 
@@ -35,14 +35,14 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate secondPredicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindTaskCommand findFirstCommand = new FindTaskCommand(firstPredicate);
+        FindTaskCommand findSecondCommand = new FindTaskCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindTaskCommand findFirstCommandCopy = new FindTaskCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -59,7 +59,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noTaskFound() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
+        FindTaskCommand command = new FindTaskCommand(predicate);
         expectedModel.updateFilteredTasksList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredTasksList());
@@ -69,7 +69,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_multipleTasksFound() {
         String expectedMessage = String.format(MESSAGE_TASKS_LISTED_OVERVIEW, 3);
         NameContainsKeywordsPredicate predicate = preparePredicate("sponsors presentation store");
-        FindCommand command = new FindCommand(predicate);
+        FindTaskCommand command = new FindTaskCommand(predicate);
         expectedModel.updateFilteredTasksList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(GET_SPONSORS, BRIEFING_PREPARATION, ORGANISE_STORE), model.getFilteredTasksList());

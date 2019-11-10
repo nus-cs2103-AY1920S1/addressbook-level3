@@ -1,14 +1,14 @@
 package seedu.pluswork.model.member;
 
-import javafx.scene.image.Image;
-import seedu.pluswork.model.tag.Tag;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.scene.image.Image;
+import seedu.pluswork.model.tag.Tag;
 
 /**
  * Represents a Member in the address book.

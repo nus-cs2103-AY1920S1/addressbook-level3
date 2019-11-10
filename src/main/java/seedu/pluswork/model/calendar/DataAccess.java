@@ -1,13 +1,14 @@
 package seedu.pluswork.model.calendar;
 
-import org.apache.commons.io.IOUtils;
-import seedu.pluswork.logic.parser.exceptions.ParseException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+
+import org.apache.commons.io.IOUtils;
+
+import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 public class DataAccess {
     public static String getCalendarStorageFormat(FilePath filePath) throws FileNotFoundException, ParseException {

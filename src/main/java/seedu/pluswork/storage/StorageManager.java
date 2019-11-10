@@ -1,13 +1,17 @@
 package seedu.pluswork.storage;
 
-import seedu.pluswork.commons.core.LogsCenter;
-import seedu.pluswork.commons.exceptions.DataConversionException;
-import seedu.pluswork.model.*;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.pluswork.commons.core.LogsCenter;
+import seedu.pluswork.commons.exceptions.DataConversionException;
+import seedu.pluswork.model.ReadOnlyProjectDashboard;
+import seedu.pluswork.model.ReadOnlyUserPrefs;
+import seedu.pluswork.model.ReadOnlyUserSettings;
+import seedu.pluswork.model.UserPrefs;
+import seedu.pluswork.model.UserSettings;
 
 /**
  * Manages storage of ProjectDashboard data in local storage.

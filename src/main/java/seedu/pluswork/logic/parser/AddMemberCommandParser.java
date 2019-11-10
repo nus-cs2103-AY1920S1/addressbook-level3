@@ -1,17 +1,19 @@
 package seedu.pluswork.logic.parser;
 
+import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_TAG;
+
+import java.util.Set;
+import java.util.stream.Stream;
+
 import seedu.pluswork.logic.commands.AddMemberCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;
-
-import java.util.Set;
-import java.util.stream.Stream;
-
-import static seedu.pluswork.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.pluswork.logic.parser.CliSyntax.*;
 
 /**
  * Parses input arguments and creates a new AddMemberCommand object

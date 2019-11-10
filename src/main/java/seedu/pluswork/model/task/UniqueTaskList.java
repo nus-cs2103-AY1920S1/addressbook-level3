@@ -1,16 +1,16 @@
 package seedu.pluswork.model.task;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.pluswork.model.task.exceptions.DuplicateTaskException;
-import seedu.pluswork.model.task.exceptions.TaskNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.pluswork.model.task.exceptions.DuplicateTaskException;
+import seedu.pluswork.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.

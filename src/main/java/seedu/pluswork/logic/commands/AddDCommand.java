@@ -1,15 +1,15 @@
 package seedu.pluswork.logic.commands;
 
-import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.model.Model;
-import seedu.pluswork.model.member.MemberId;
-
-import java.time.LocalDateTime;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
+
+import java.time.LocalDateTime;
+
+import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.model.Model;
+import seedu.pluswork.model.member.MemberId;
 
 public class AddDCommand extends Command {
     public static final String COMMAND_WORD = "add-d";
@@ -20,7 +20,7 @@ public class AddDCommand extends Command {
             + PREFIX_DEADLINE + "DEADLINE "
             + PREFIX_MEMBER_ID + "MEMBERID"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DEADLINE + "10/10/2019 18:00"
+            + PREFIX_DEADLINE + "10-10-2019 18:00"
             + PREFIX_MEMBER_ID + "AR";
 
     public static final String MESSAGE_SUCCESS = "Details added: %1$s";

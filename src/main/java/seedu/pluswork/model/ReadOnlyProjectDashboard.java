@@ -3,6 +3,7 @@ package seedu.pluswork.model;
 import javafx.collections.ObservableList;
 import seedu.pluswork.model.calendar.CalendarWrapper;
 import seedu.pluswork.model.calendar.Meeting;
+import seedu.pluswork.model.calendar.MeetingQuery;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.mapping.InvMemMapping;
 import seedu.pluswork.model.mapping.InvTasMapping;
@@ -46,6 +47,8 @@ public interface ReadOnlyProjectDashboard {
     ObservableList<CalendarWrapper> getCalendarList();
 
     ObservableList<Meeting> getMeetingList();
+
+    MeetingQuery getMeetingQuery();
 
     ObservableList<Task> getTasksNotStarted();
 
