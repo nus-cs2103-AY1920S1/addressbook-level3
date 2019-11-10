@@ -541,6 +541,7 @@ The index is used to reference a particular budget in the commands,
 the description is a phrase you set to identify your budget,
 and the criteria tell you which expenditure the budget takes into account.
 
+// tag::addbud[]
 ==== Creating monthly budget: `add`
 
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
@@ -571,7 +572,9 @@ image::addbud3.png[]
 If you want to track all monthly expenditures, simply leave out the `c/CATEGORY` argument.
 For instance, the following command creates a $500.00 budget that applies to all expenditures:
 `add de/General budgeting a/500`.
+// end::addbud[]
 
+// tag::deletebud[]
 ==== Deleting monthly budget: `delete`
 
 Format: `delete INDEX`
@@ -586,7 +589,9 @@ image::deletebud1.png[]
 [start=2]
 2. Type `delete 2` into the command bar and press enter.
 You should see the _Saving my tummy_ budget disappear from the list.
+// end::deletebud[]
 
+// tag::findbud[]
 ==== Finding monthly budget by keywords: `find`
 
 Format: `find [KEYWORDS]...`
@@ -603,6 +608,7 @@ IchiFund will return to you all results that match with at least one keyword.
 
 You can also revert the budget list to show all budgets by executing `find` without any argument.
 To revert the budget list so that all budgets are listed, simply execute `find` without any argument.
+// end::findbud[]
 
 === Loans [Coming in v2.0]
 

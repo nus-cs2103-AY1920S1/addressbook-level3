@@ -3,45 +3,64 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: IchiFund
 
 '''
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+This portfolio documents my contributions towards the project, IchiFund,
+which is part of a software engineering module, CS2103T.
+My team decided to morph an existing address book software into a
+desktop finance management application for university students who prefer
+using a command-line interface. We call this application IchiFund.
+
+My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Budget[Budgets]
+component and design the user interface for the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Developed the `Model`, `Logic`, `Storage`, and `Ui`
+infrastructure for budgeting features.
+** Functionality: Provides the foundation on which features related to budget,
+such as `add`, `delete`, and `find`, are built upon.
+** Justification: The ability to read, create, delete, and find budgets on the
+application depends on the budget infrastructure. With this infrastructure in
+place, it is easy to implement and extend the budgeting features within IchiFund.
+** Highlights: This enhancement is part of the core features in IchiFund. The
+ability to implement this enhancement demonstrates a deep understanding of the
+underlying MVC design pattern of the original addressbook3 codebase. This is
+clearly highlighted when I introduced a `Task` abstraction to update all budgets
+upon an update of any transaction.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+- Redesigned the user interface from bottom up (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/131[#131]).
+- Added the ability to add transactions (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/99[#99]).
+- Added the ability to delete transactions (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/103[#103]).
+- Added the ability to find transactions (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/163[#163]).
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=nexolute[here] to
+view the code that I have contributed.
 
 * *Other contributions*:
-
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed https://github.com/AY1920S1-CS2103T-W12-4/main/pulls[pull requests (PRs)] and
+https://github.com/AY1920S1-CS2103T-W12-4/main/issues[issue tracker].
+*** Refactored existing code of Address Book 3 to IchiFund (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/83[#83]).
+*** Protected the master branch.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Modified the GUI (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/131[#131]).
+*** Wrote additional tests for budget features (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/162[#162]).
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Redesigned the logo for IchiFund (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/244[#244]).
+*** Redesigned the existing class diagrams for the developer guide (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/144[#144]).
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/259[#259]).
+*** Contributed to forum discussions https://github.com/nus-cs2103-AY1920S1/forum/issues/91[here].
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated Travis to the team repository.
+*** Integrated a new Github plugin (SlackBot) to the team repository.
 
 == Contributions to the User Guide
 
@@ -50,9 +69,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=addbud]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=deletebud]
+
+include::../UserGuide.adoc[tag=findbud]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +81,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=designlogic]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=tasks]
 
-
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=budgetadd]
