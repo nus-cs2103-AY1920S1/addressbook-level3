@@ -24,8 +24,9 @@ public class SettleAppCommand extends ReversibleCommand {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_DUPLICATE_SETTLE = "you have settled this missed appointment already";
-    public static final String MESSAGE_SUCCESS = "this missed appointment has been settled: %1$s";
-    public static final String MESSAGE_SUCCESS_UNDO = "this missed appointment has been unsettled: %1$s";
+    public static final String MESSAGE_SUCCESS = "This missed appointment for [%1$s] %2$s has been settled: \n%3$s";
+    public static final String MESSAGE_SUCCESS_UNDO = "The missed appointment for [%1$s]"
+            + " %2$s has been unsettled: \n%3$s";
 
 
     private final Event eventToEdit;
@@ -58,9 +59,17 @@ public class SettleAppCommand extends ReversibleCommand {
 
 
         if (editedEvent.getStatus().isSettled()) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS,
+                    editedEvent.getPersonId(),
+                    editedEvent.getPersonName(),
+                    editedEvent));
         } else {
-            return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO, editedEvent));
+            return new CommandResult(String.format(
+                    MESSAGE_SUCCESS_UNDO,
+                    editedEvent.getPersonId(),
+                    editedEvent.getPersonName(),
+                    editedEvent));
         }
     }
 

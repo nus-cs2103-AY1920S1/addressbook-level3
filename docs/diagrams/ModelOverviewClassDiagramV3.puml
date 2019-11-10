@@ -6,10 +6,8 @@ skinparam classBackgroundColor MODEL_COLOR
 
 
 Package Model <<Rectangle>>{
-Interface ObservableList <<Interface>>
 Interface ReadOnlyAddressBook <<Interface>>
 Interface Model <<Interface>>
-Interface Identical <<Interface>>
 Interface ReferenceId <<Interface>>
 
 Class AddressBook
@@ -19,7 +17,6 @@ Class ReadOnlyAppointmentBook
 Class Model
 Class ModelManager
 
-Class UniqueTagList
 Class Tag
 
 Package UserPrefs {
@@ -27,19 +24,30 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 }
 
-Package UniqueList {
-Class UniqueTreeList
-Class UniqueElementList
-Class UniquePersonList
-}
-
 Package Person {
+Class Person
+Class Address
+Class Email
+Class Name
+Class Phone
+Class PersonReferenceId
 }
 
 Package Events {
+Class Event
+Class Timing
+Class DateTime
+Class Status
 }
 
 Package Queue {
+Class QueueManager
+Class QueueList
+Class Room
+}
+
+Package common {
+Interface Identical <<Interface>>
 }
 
 }
@@ -48,44 +56,53 @@ Class HiddenOutside #FFFFFF
 HiddenOutside .down-> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
+AddressBook --> Person
 
 AppointmentBook .up.|> ReadOnlyAppointmentBook
+AppointmentBook --> Event
 
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-Model .right.> ObservableList
 ModelManager .up.-|> Model
 
-AddressBook *-> "1" UniquePersonList
-AddressBook *-> "1" UniqueTagList
-UniqueTagList --> "*" Tag
-AppointmentBook *--down-> "1" UniqueElementList : UniqueElementList<Appointment>
-AppointmentBook *-down-> "*" Events
-
-UniqueTreeList *-> Identical
-UniqueElementList *-down> UniqueTreeList
-UniquePersonList -down-> "*" Person
-UniquePersonList *-up> "1" UniqueElementList : UniqueElementList<Person>
-
 ReferenceId .-|> Identical
+PersonReferenceId .up.|> ReferenceId
 
 Person .up.-|> Identical
 Person *.-|> ReferenceId
-Person *.-|> Tag
+Person *-down-> Name
+Person *--> Phone
+Person *--> Email
+Person *--> Address
+Person *-left-> "*" Tag
 
-Events *.left.|> Identical
-Events .--|> ReferenceId
+Timing *--> DateTime
+Timing -[hidden]right-> Status
 
-Queue -up-> UniqueElementList : UniqueElementList<Room>
-Queue *.---|> ReferenceId
+Event .up.|> Identical
+Event *.--|> ReferenceId
+Event *--> Timing
+Event *--> Status
+
+Room .-|> Identical
+Room *---|> "* ... 1" ReferenceId : Doctor
+Room *---|> "* ... 1" ReferenceId : Patient
+
+
+QueueManager *-down-> "1" QueueList
+QueueManager *---> "*" Room
+QueueList *.---|> ReferenceId
 
 ModelManager -left--> "1" AddressBook : staff
 ModelManager -left--> "1" AddressBook : patients
 ModelManager -down--> "1" AppointmentBook : Appointments
 ModelManager -down--> "1" AppointmentBook : StaffDutyRoster
 ModelManager -right--> "1" UserPrefs
+ModelManager ---> QueueManager
 
-Queue -[hidden]up-> Events
-UniqueList -[hidden]down----> Identical
+Person -[hidden]up----> Identical
+Identical -[hidden]right----> ReferenceId
+ReferenceId -[hidden]right-> Events
+
 
 @enduml

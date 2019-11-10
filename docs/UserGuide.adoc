@@ -1,4 +1,4 @@
-= ClerkPro - User Guide
+= ClerkPro v2.0 - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,37 +18,46 @@ By: `T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-This program is targeted at clerks working in small clinics. It is designed for those who prefer to work with a Command Line Interface (CLI). It allows clerks to manage appointments, staff's duty roster, inventories and queues. Typing fast allows you to complete your tasks much faster than GUI apps.
+ClerkPro is an appointment and queue management system targeted at clerks working in small clinics.
+This desktop application is optimised for individuals who *prefer to work with a Command Line Interface (CLI).*
+while still having the benefits of a Graphical User Interface (GUI).
+
+ClerkPro enables clerks to rapidly manage patient's details, appointments, queues and the staff's duty roster.
+Typing fast allows you to complete your tasks much faster than GUI apps.
+
+Interested? Refer to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `clerkPro.jar` link:{repoURL}/releases[here].
+.  Download the latest `ClerkPro.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for ClerkPro.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The User Interface (UI) should appear in a few seconds. For testing purposes, ClerkPro is pre-loaded with sample data to allow you to explore and familiarise with the application.
 +
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 . You may navigate through the entire UI with kbd:[UP], kbd:[DOWN], kbd:[LEFT], kbd:[RIGHT] and kbd:[TAB].
 . The figure below shows the layout.
 +
-image::Layout.PNG[width="790"]
+image::Layout.png[]
 +
 . Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
+e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternatively, just press kbd:[F1].
 .  Some example commands you can try:
 
-
-* `register -id 001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
-* `enqueue 001A` : enqueues patient with reference id `001A` into the queue. The patient `001A` must be registered.
+* `newpatient -id E0000001A -name John Doe -phone 98765432 -email johnd@example.com -address John street, block 123, #01-01` : registers a patient named `John Doe`.
+* `patient John Doe` : searches for a patient whose name contains `John Doe`
+* `enqueue E0000001A` : enqueues patient with reference id `E0000001A` into the queue. The patient `E0000001A` must be registered.
 * *`exit`* : exits the app.
 
 .  Refer to <<Features>> for details of each command.
 
+Do not directly edit any of the  following json files: e.g. `appointments.json`, `dutyRoster.json`, `patientDetails.json`, `staffDetails.json`, `preferences.json`, `config.json`
+
 [[Features]]
 
 == Features
-// tag::ui[]
+
 ====
 *AutoComplete & History*
 
@@ -56,18 +65,51 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window. Alterna
 
 * When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
 
+*Full keyboard navigable UI*
+
+* kbd:[LEFT] & kbd:[RIGHT] changes focus between OmniPanel and TabBar when focus is not on CommandBox.
+
+* kbd:[TAB] changes focus from TabBar/OmniPanel to CommandBox and from CommandBox to TabBar.
+
+
+*Reactive search*
+
+* The listing automatically filters to display only the most relevant results when searching for an existing entry.
+
+* When searching for a specific patient or staff, using the `patient` or `doctor` command, the results are filtered based
+    on whether the person's reference Id, name or phone number contains the given keyword.
+
+* When searching for a specific appointment or duty shift, using the `appointments` or `shifts` command, the results are filtered based
+    on whether the events involves a person whose reference Id contains the given keyword.
+
+*Validity of Appointment's timings*
+
+* Ensures that appointments can only be scheduled at timings when there are sufficient staffing.
+
+* The scheduling of a patient's appointment will be rejected by the system, if the doctors on-duty at that timing are already
+    pre-occupied by other appointments.
+
+* The cancellation or changing of a doctor's duty shift will be rejected by the system, if the action results in there being
+    insufficient staffing to accommodate already scheduled appointments.
+
 ====
 // end::ui[]
 ====
 *Command Format*
 
 * Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
+
 * Items in square brackets are optional e.g `-name <NAME> [-tag <TAG>]` can be used as `-name John Doe -tag friend` or as `-name John Doe`.
+
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[-tag <TAG>]...` can be used as `{nbsp}` (i.e. 0 times), `-tag friend`, `-tag friend -tag family` etc.
+
 * Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `-phone <PHONE_NUMBER> -name <NAME>` is also acceptable.
-* A Reference Id refers to a case-insensitive string, of 3 to 10 (inclusive) alphanumeric characters, that can be used to uniquely identify a person, such as a membership number or NRIC.
-A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
-Words in `<UPPER_CASE>` are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
+
+* A Reference Id refers to a 9 case-insensitive alphanumeric characters, that can be used to uniquely identify a person, such as a membership number or NRIC.
+
+* A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
+
+* Words in triangle brackets(`<` and `>`) are the parameters to be supplied by the user e.g. in `register -name <NAME>`, `NAME` is a parameter which can be used as `register -name John Doe`.
 
 ====
 
@@ -82,12 +124,16 @@ If no search keyword is provided, all registered patients will be displayed. +
 
 Format: `patient [<SEARCH_KEYWORD>]`
 
+* e.g. `patient S0000001A`
+
 ==== Registers a new patient: `newpatient` ====
 
 Registers a new patient. Only patient's reference id and name are compulsory fields +
 
 Format:  `newpatient -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
+
+* e.g. `newpatient -id E0000001A -name Edmond Halley -phone 85732743 -email halley@example.com -address 12, Kent ridge Ave 3, #01-11 -tag AIDS`
 
 IMPORTANT: As a design decision, undoing the registration of a patient is allowed, via the `undo` command.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
@@ -104,6 +150,7 @@ IMPORTANT: Editing tags will overwrite all existing tags. +
 Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+* e.g. `editpatient -entry 1 -phone 91200567 -email edmond@example.com`
 
 === Staff Personal Management ===
 
@@ -114,12 +161,16 @@ If no search keyword is provided, all registered doctors will be displayed. +
 
 Format: `doctor [<SEARCH_KEYWORD>]`
 
+* e.g. `doctor S0111111A`
+
 ==== Registers a new doctor: `newdoctor` ====
 
 Registers a new doctor. Only doctor's reference id and name are compulsory fields. +
 
 Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <TAGS>]...`
+
+* e.g. `newdoctor -id W0000001A -name John Doe -phone 98765432 -email johnd@example.com -address 311, Clementi Ave 2, #02-25 -tag Male`
 
 IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed, via the `undo` command.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
@@ -136,11 +187,15 @@ IMPORTANT: Editing tags will overwrite all existing tags. +
 Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
+* e.g. `editdoctor -entry 1 -phone 91234567 -email johndoe@example.com`
+
 ==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
 
 Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
+
+* e.g. `onduty 1`
 
 ==== Marks the doctor as off-duty: `offduty` ====
 
@@ -148,6 +203,7 @@ Marks the doctor, based on the index given, as off-duty and removes him/her from
 
 Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 
+* e.g. `offduty 1`
 
 === Queue Management
 
@@ -157,18 +213,24 @@ Adds a patient to the queue based based on the patient's Id. The enqueued patien
 
 Format: `enqueue <PATIENT_REFERENCE_ID>` +
 
+* e.g. `enqueue E0000001A`
+
 ==== Removes a patient from the queue: `dequeue` ====
 
 Removes a patient from the queue based on their queue position. +
 
 Format: `dequeue <QUEUE_INDEX>`
 
+* e.g.
+
 ==== Assigns next patient to an available doctor : `next` ====
 //todo add doctor first
 
-Assigns the next patient in the queue to a doctor.. +
+Assigns the next patient in the queue to a doctor. +
 
 Format: `next <ENTRY_ID>`
+
+* e.g.
 
 ==== Doctor takes a break: `break`  ====
 
@@ -176,12 +238,15 @@ Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
 
 Format: `break <ENTRY_ID>`
 
+* e.g.
+
 ==== Doctor resumes his/her duty: `resume` ====
 
 Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
 
 Format: `resume <ENTRY_ID>`
 
+* e.g.
 
 === Appointment Management
 
@@ -189,7 +254,10 @@ Format: `resume <ENTRY_ID>`
 
 Displays a sorted list of upcoming appointments for the patient that is associated to the given `REFERENCE_ID`.
 If no keyword is given, all upcoming appointments will be displayed. +
+
 Format: `appointments [<REFERENCE_ID>]`
+
+* e.g.
 
 ==== Schedules an appointment: `newappt` ====
 
@@ -197,19 +265,23 @@ Schedules a new appointments for a patient. +
 NOTE: The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 e.g. Cannot schedule more appointments than available doctors on duty.
 
-If both `-rec <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
+If both `-reoccur <INTERVALS>` and `-num <NUMBER_OF_TIMES>` fields are present, appointments of these `<NUMBER_OF_TIMES>` will be added to the patient
 appointment schedule in `<INTERVALS>`. Otherwise, only one event will be added. +
 
 If the optional field `[-end <END_TIMING>]` is absent, default end timing is 30 mins after start timing of the appointment. Otherwise, end Timing will be `[-end <END_TIMING>]`. +
 
-The optional field `[-rec <INTERVALS>]` can be `-rec w`, `-rec m`, or `-rec y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
+The optional field `[-reoccur <INTERVALS>]` can be `-reoccur w`, `-reoccur m`, or `-reoccur y`.They represent to add weekly, monthly, yearly repeat appointment respectively.
 
-Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
+
+* e.g.
 
 ==== Acknowledges a appointment: `ackappt` ====
 
-Acknowledges an existing appointment once the patient has arrived +
+Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
 Format: `ackappt <REFERENCE_ID>`
+
+* e.g.
 
 ==== Cancels an appointment: `cancelappt` ====
 Cancels the specified appointment. +
@@ -217,6 +289,8 @@ Cancels the specified appointment. +
 NOTE: To avoid accidental cancellation of another patient's appointments, the user must first narrow down the search to a single patient using the `appointments [<REFERENCE_ID>]` command. +
 
 Format: `cancelappt <ENTRY_ID>`
+
+* e.g.
 
 ==== Changes the appointment date: `editappt` ====
 
@@ -229,6 +303,9 @@ NOTE: The operation is rejected if there are insufficient staff doctors on duty 
 
 Format: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 
+* e.g.
+
+
 ==== Lists patients who have missed their appointments: `missappt` ====
 
 Lists all appointments that are missed. +
@@ -238,6 +315,8 @@ NOTE: An appointment is considered missed if the appointment was not acknowledge
 
 Format: `missappt`
 
+* e.g.
+
 ==== Sets missed appointments as settled/notified: `settleappt` ====
 
 Settles and removes the missed appointment based on the given index. +
@@ -246,6 +325,8 @@ Settling refers to the user following up on contacting the patient who has misse
 NOTE: Only missed appointments can be settled. The user must first display the missed appointment listing, using `missappt`, before using this command. +
 
 Format: `settleappt <ENTRY_ID>`
+
+* e.g.
 
 ==== Shows the empty slots: `slot` (v2.0) ====
 
@@ -262,13 +343,17 @@ If no keyword is given, all upcoming appointments will be displayed. +
 
 Format: `shifts [<REFERENCE_ID>]`
 
+* e.g.
+
 ==== Adds a duty shift for a doctor: `newshift` ====
 
 Adds a new duty shift for a doctor. +
-If both -rec <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
+If both -reoccur <INTERVALS> and -num <NUMBER_OF_TIMES> fields are present, duty shifts of these <NUMBER_OF_TIMES> will be added to the doctor duty roster in <INTERVALS>.
 Otherwise, only one shift will be added. +
 
-Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-rec REPEATEDLY -num REPEATED_TIMES]`
+Format: `newshift -id <STAFF_REFERENCE_ID> -start <START_TIMING> -end <END_TIMING> [-reoccur REOCCURRING -num REOCCURRING_TIMES]`
+
+* e.g.
 
 ==== Cancels a duty shift for a doctor: `cancelshift` ====
 
@@ -279,6 +364,8 @@ NOTE: To avoid accidental cancellation of another doctor's shift, the user must 
 NOTE: The operation is rejected if it results in there being more appointments than staff doctors on duty at any given point in time. The appointments affected by the deletion of the duty shift must be resolved first. +
 
 Format: `cancelshift <ENTRY_ID>`
+
+* e.g.
 
 ==== Changes the duty shift for a doctor: `editshift` ====
 
@@ -291,6 +378,8 @@ NOTE: The operation is rejected if it results in there being more appointments t
 The patient's appointment affected by the deletion of the duty shift must be resolved first. +
 
 Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
+
+* e.g.
 
 === Inventory Commands (v2.0) ===
 
@@ -376,7 +465,7 @@ Format: `redo`
 
 * *Appointment Management* +
 ** Search for appointments: `appointments [<REFERENCE_ID>]`
-** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new appointment: `newappt -id <REFERENCE_ID> -start <START_TIMING> [-end <END_TIMING>] [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 ** Edit appointment: `editappt -entry <ENTRY_ID> -start <START_TIMING> [-end <END_TIMING>]`
 ** Cancel appointment: `cancelappt <ENTRY_ID>`
 ** Acknowledge arrival of patient for appointment: `ackappt <REFERENCE_ID>`
@@ -385,7 +474,7 @@ Format: `redo`
 
 * *Duty-shift Management* +
 ** Search for shift: `shifts [<REFERENCE_ID>]`
-** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-rec <INTERVALS> -num <NUMBER_OF_TIMES>]`
+** Add new shift: `newshift -id STAFF_REFERENCE_ID -start <START_TIMING> -end <END_TIMING> [-reoccur <INTERVALS> -num <NUMBER_OF_TIMES>]`
 ** Change shift: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 ** Cancel shift: `cancelshift <ENTRY_ID>`
 

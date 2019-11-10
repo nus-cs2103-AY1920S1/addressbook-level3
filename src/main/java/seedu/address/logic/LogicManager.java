@@ -20,7 +20,7 @@ import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.common.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.SystemCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
@@ -41,7 +41,7 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final SystemCommandParser addressBookParser;
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
     private Thread lastEagerEvaluationThread;
@@ -51,7 +51,7 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.commandHistory = new CommandHistory();
-        this.addressBookParser = new AddressBookParser(commandHistory);
+        this.addressBookParser = new SystemCommandParser(commandHistory);
         this.queueManager = new QueueManager();
         this.lastEagerEvaluationThread = new Thread();
     }
@@ -63,17 +63,10 @@ public class LogicManager implements Logic {
                                   Consumer<String> displayResult,
                                   Thread previousEagerEvaluationThread) {
         try {
-            Thread.sleep(200);
             previousEagerEvaluationThread.join();
-        } catch (InterruptedException ex) {
-            logger.info("Skipping eager evaluation execution ");
-            return;
-        }
-
-        logger.info("Starting Eager evaluation execution  - " + commandText);
-        displayResult.accept("searching...");
-
-        try {
+            Thread.sleep(200);
+            logger.info("Starting Eager evaluation execution  - " + commandText);
+            displayResult.accept("searching...");
             CommandResult result = command.execute(model);
             if (!result.getFeedbackToUser().isEmpty()) {
                 logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
@@ -83,6 +76,8 @@ public class LogicManager implements Logic {
             logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
         } catch (ForceThreadInterruptException ex) {
             logger.info("Interrupting eager evaluation execution");
+        } catch (InterruptedException ex) {
+            logger.info("Skipping eager evaluation execution");
         }
     }
 

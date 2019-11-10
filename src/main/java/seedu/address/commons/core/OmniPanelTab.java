@@ -12,7 +12,7 @@ public enum OmniPanelTab {
     PATIENTS_TAB("patientsTab", 0),
     APPOINTMENTS_TAB("appointmentsTab", 1),
     DOCTORS_TAB("doctorsTab", 2),
-    DUTY_SHIFT_TAB("dutyShiftTab", 3);
+    DUTY_SHIFT_TAB("dutyShiftsTab", 3);
 
     private static final Map<String, OmniPanelTab> BY_ID = new HashMap<>();
     private static final Map<Integer, OmniPanelTab> BY_INDEX = new HashMap<>();
@@ -42,5 +42,9 @@ public enum OmniPanelTab {
 
     public int getTabBarIndex() {
         return tabBarIndex;
+    }
+
+    public String getId() {
+        return id;
     }
 }

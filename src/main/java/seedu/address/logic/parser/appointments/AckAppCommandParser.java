@@ -23,6 +23,8 @@ import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
  */
 public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
+    public static final String MESSAGE_NOT_SAME_DAY_ACK = "You can only acknowledge today's upcoming appointment!";
+
     public static final String MESSAGE_REFERENCEID_BELONGS_TO_STAFF =
             "Appointments should only be scheduled for patients.";
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
@@ -58,12 +60,13 @@ public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> 
             updateToPatientList(referenceId);
             if (filterEventList.size() == 0) {
                 throw new ParseException(MESSAGE_NOTING_ACK);
-            } else if (filterEventList.get(0).getStatus().isAcked()) {
-                throw new ParseException(AckAppCommand.MESSAGE_DUPLICATE_ACKED);
             } else {
                 Event unAck = filterEventList.get(0);
 
                 Timing timing = unAck.getEventTiming();
+                if (!Timing.isTheSameDayToAck(timing)) {
+                    throw new ParseException(MESSAGE_NOT_SAME_DAY_ACK);
+                }
                 Status status = new Status(Status.AppointmentStatuses.ACKNOWLEDGED);
                 Event toAck = new Appointment(referenceId,
                         model.resolvePatient(referenceId).getName(), timing, status);

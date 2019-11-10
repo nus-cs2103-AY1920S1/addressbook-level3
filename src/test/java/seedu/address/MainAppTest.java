@@ -22,12 +22,7 @@ public class MainAppTest extends ApplicationTest {
      */
     @Init
     public void init() throws Exception {
-        try {
-            ApplicationTest.launch(MainApp.class);
-        } catch (AssertionError e) {
-            System.out.println(e.getStackTrace());
-            throw e;
-        }
+        ApplicationTest.launch(MainApp.class);
     }
 
     @Test
@@ -45,7 +40,18 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("selected-tab");
         Assertions.assertThat(dutyShiftTabStyleClass).containsOnly("unselected-tab");
 
+        var omniPanelListView = lookup("#omniPanelListView").queryListView();
+        var omniPanelSelectionModel = omniPanelListView.getSelectionModel();
+
+        robot.type(KeyCode.RIGHT);
+        Assertions.assertThat(omniPanelSelectionModel.getSelectedIndex()).isEqualTo(0);
         robot.type(KeyCode.UP);
+        Assertions.assertThat(omniPanelSelectionModel.getSelectedIndex())
+                .isEqualTo(omniPanelListView.getItems().size() - 1);
+        robot.type(KeyCode.DOWN);
+        Assertions.assertThat(omniPanelSelectionModel.getSelectedIndex()).isEqualTo(0);
+
+        robot.type(KeyCode.LEFT, KeyCode.UP);
         Assertions.assertThat(patientsTabStyleClass).containsOnly("unselected-tab");
         Assertions.assertThat(appointmentsTabStyleClass).containsOnly("selected-tab");
         Assertions.assertThat(doctorsTabStyleClass).containsOnly("unselected-tab");
@@ -80,11 +86,12 @@ public class MainAppTest extends ApplicationTest {
 
     @Test
     public void autoCompleterTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
         var aco = robot.lookup("#autoCompleteOverlay").queryListView();
 
-        int expectedSearchResultSize = new AutoCompleter().update("a").getSuggestions().size();
+        int expectedSearchResultSize = new AutoCompleter().update("n").getSuggestions().size();
 
-        robot.clickOn("#commandTextField").write('a');
+        robot.clickOn("#commandTextField").write('n');
         Assertions.assertThat(aco).isVisible();
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
 
@@ -93,7 +100,12 @@ public class MainAppTest extends ApplicationTest {
 
         robot.type(KeyCode.DOWN);
         Assertions.assertThat(aco.getSelectionModel().getSelectedIndex()).isEqualTo(0);
-        robot.eraseText(1);
+
+        robot.type(KeyCode.ENTER);
+        int currLen = commandBox.getText().length();
+        Assertions.assertThat(currLen).isNotEqualTo(1);
+
+        robot.eraseText(currLen);
         Assertions.assertThat(aco.isVisible()).isFalse();
     }
 
@@ -114,19 +126,44 @@ public class MainAppTest extends ApplicationTest {
     }
 
     @Test
-    public void enqueueAndDequeueTest(FxRobot robot) {
+    public void queueAndRoomTest(FxRobot robot) {
         var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
         var queueListView = robot.lookup("#queueListView").queryListView();
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
 
-        robot.clickOn("#commandTextField")
-                .write("newpatient -id 001A -name John Doe -phone 98765432"
+        robot.clickOn(commandBox).write("onduty 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).endsWith("is now on duty.");
+
+        robot.write("newpatient -id E0000001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
                 .type(KeyCode.ENTER)
-                .write("enqueue 001A")
+                .write("enqueue E0000001A")
                 .type(KeyCode.ENTER);
 
-        Assertions.assertThat(resultDisplay.getText()).startsWith("New person added to the queue:");
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New patient added to the queue:");
         Assertions.assertThat(queueListView).hasExactlyNumItems(1);
+
+        robot.write("break 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).endsWith("is on break");
+
+        robot.write("next 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).isEqualTo("Doctor is currently on break");
+        Assertions.assertThat(queueListView).hasExactlyNumItems(1);
+
+        robot.write("resume 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).endsWith("resumes his/her duty");
+        Assertions.assertThat(queueListView).hasExactlyNumItems(1);
+
+        robot.write("next 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Next patient has been referred to");
+        Assertions.assertThat(queueListView).hasExactlyNumItems(0);
+
+        robot.write("offduty 1").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).endsWith("is off-duty");
+
+        robot.write("enqueue E0000001A").type(KeyCode.ENTER);
+        Assertions.assertThat(queueListView).hasExactlyNumItems(1);
+
         robot.write("dequeue 1").type(KeyCode.ENTER);
         Assertions.assertThat(queueListView).hasExactlyNumItems(0);
     }
@@ -140,6 +177,24 @@ public class MainAppTest extends ApplicationTest {
         Assertions.assertThat(resultDisplay.getText()).startsWith("Invalid command format!");
 
         robot.eraseText(7);
+    }
+
+    @Test
+    public void newdoctorUndoRedoTest(FxRobot robot) {
+        var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
+        var resultDisplay = robot.lookup("#resultDisplay").queryTextInputControl();
+
+        robot.clickOn(commandBox).write("newdoctor -id E0000001W -name bee").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("New staff added");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
+
+        robot.write("redo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Redo successful!");
+
+        robot.write("undo").type(KeyCode.ENTER);
+        Assertions.assertThat(resultDisplay.getText()).startsWith("Undo successful!");
     }
 
     @Test

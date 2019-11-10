@@ -6,17 +6,21 @@ skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
+Interface CommandBoxManager <<Interface>>
+Interface OmniPanelManager <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
 Class PersonListPanel
+Class EventListPanel
 Class PersonCard
+Class EventCard
 Class StatusBarFooter
 Class CommandBox
 Class AutoCompleteOverlay
 Class TabBar
+Class "{abstract}\nOmniPanel" as OmniPanel
 }
 
 package Model <<Rectangle>> {
@@ -30,38 +34,41 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .|> Ui
-UiManager --> MainWindow
-MainWindow --> HelpWindow
+UiManager .up|> Ui
+MainWindow .up.|> OmniPanelManager
+MainWindow .up.|> CommandBoxManager
+UiManager --=> MainWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
+MainWindow *-down-> EventListPanel
 MainWindow *-down-> StatusBarFooter
 MainWindow *-down-> AutoCompleteOverlay
 MainWindow *-down-> TabBar
 
 
-PersonListPanel -down-> PersonCard
+PersonListPanel -> PersonCard
+EventListPanel -> EventCard
 
 MainWindow --|> UiPart
-
 ResultDisplay --|> UiPart
+CommandBox -up-> CommandBoxManager
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
+PersonListPanel -down-|> OmniPanel
 PersonCard -right-|> UiPart
+EventListPanel --|> OmniPanel
+EventCard -right-|> UiPart
 StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
 AutoCompleteOverlay --|> UiPart
-TabBar -right-|> UiPart
+TabBar --|> UiPart
+OmniPanel -right-|> UiPart
+
+OmniPanelManager -[hidden]up-> Ui
 
 PersonCard ..> Model
-UiManager -right-> Logic
+EventCard ..> Model
+UiManager --> Logic
 MainWindow -left-> Logic
+Logic ..> OmniPanelManager
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
 @enduml

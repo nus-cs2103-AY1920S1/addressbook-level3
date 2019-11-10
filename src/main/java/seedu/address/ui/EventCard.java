@@ -21,7 +21,7 @@ public class EventCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Event event;
+    private final Event event;
 
     @FXML
     private HBox cardPane;
@@ -50,23 +50,5 @@ public class EventCard extends UiPart<Region> {
             status.setVisible(false);
             status.setText("");
         }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof EventCard)) {
-            return false;
-        }
-
-        // state check
-        EventCard card = (EventCard) other;
-        return id.getText().equals(card.id.getText())
-                && event.equals(card.event);
     }
 }

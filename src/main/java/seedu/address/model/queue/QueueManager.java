@@ -1,3 +1,4 @@
+//@@author wongsm7
 package seedu.address.model.queue;
 
 import static java.util.Objects.requireNonNull;
@@ -46,17 +47,6 @@ public class QueueManager {
         //roomList.serve(index, id);
     }
 
-    /**
-     * Enqueue back the patient which was allocated to a room
-     *
-     * @param index of the room which a patient was allocated
-     */
-    public void undoServeNext(int index) {
-        //ReferenceId id = roomList.get(index).getCurrentPatient();
-        //queueList.addPatient(0, id);
-        //roomList.remove(index);
-    }
-
     public void addPatient(ReferenceId id) {
         queueList.add(id);
     }
@@ -71,10 +61,6 @@ public class QueueManager {
 
     public void removePatient(int index) {
         queueList.remove(index);
-    }
-
-    public void poll() {
-        queueList.remove(0);
     }
 
     public boolean hasIdInQueue(ReferenceId id) {
@@ -114,15 +100,6 @@ public class QueueManager {
 
     public boolean hasRoom(Room room) {
         return roomList.contains(room);
-    }
-
-    public ReferenceId getCurrentlyServed(int index) {
-        return roomList.get(index).getCurrentPatient().get();
-    }
-
-    public void setRoom(Room target, Room editedRoom) {
-        requireNonNull(editedRoom);
-        roomList.set(target, editedRoom);
     }
 
     public ObservableList<ReferenceId> getReferenceIdList() {

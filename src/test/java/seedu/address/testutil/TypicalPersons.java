@@ -26,72 +26,72 @@ import seedu.address.model.queue.QueueManager;
  */
 public class TypicalPersons {
 
-    public static final Person ALICE = new PersonBuilder().withPatientId("001A").withName("Alice Pauline")
+    public static final Person ALICE = new PersonBuilder().withPatientId("S0000001A").withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
-    public static final Person BENSON = new PersonBuilder().withPatientId("002B").withName("Benson Meier")
+    public static final Person BENSON = new PersonBuilder().withPatientId("S0000002B").withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Person CARL = new PersonBuilder().withPatientId("003C").withName("Carl Kurz")
+    public static final Person CARL = new PersonBuilder().withPatientId("S0000003C").withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street").build();
-    public static final Person DANIEL = new PersonBuilder().withPatientId("004D").withName("Daniel Meier")
+    public static final Person DANIEL = new PersonBuilder().withPatientId("S0000004D").withName("Daniel Meier")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withPatientId("005E").withName("Elle Meyer")
-            .withPhone("9482224")
+    public static final Person ELLE = new PersonBuilder().withPatientId("S0000005E").withName("Elle Meyer")
+            .withPhone("94822243")
             .withEmail("werner@example.com")
             .withAddress("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withPatientId("006F").withName("Fiona Kunz")
-            .withPhone("9482427")
+    public static final Person FIONA = new PersonBuilder().withPatientId("S0000006F").withName("Fiona Kunz")
+            .withPhone("94824273")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withPatientId("007G").withName("George Best")
-            .withPhone("9482442")
+    public static final Person GEORGE = new PersonBuilder().withPatientId("S0000007G").withName("George Best")
+            .withPhone("94824423")
             .withEmail("anna@example.com")
             .withAddress("4th street").build();
 
-    public static final Person STAFF_ALICE = new PersonBuilder().withStaffId("S001A").withName("DR Alice Pauline")
+    public static final Person STAFF_ALICE = new PersonBuilder().withStaffId("W0000001A").withName("DR Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253")
             .withTags("friends").build();
-    public static final Person STAFF_BENSON = new PersonBuilder().withStaffId("S002B").withName("DR Benson Meier")
+    public static final Person STAFF_BENSON = new PersonBuilder().withStaffId("W0000002B").withName("DR Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
             .withTags("owesMoney", "friends").build();
-    public static final Person STAFF_CARL = new PersonBuilder().withStaffId("S003C").withName("DR Carl Kurz")
+    public static final Person STAFF_CARL = new PersonBuilder().withStaffId("W0000003C").withName("DR Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street").build();
-    public static final Person STAFF_DANIEL = new PersonBuilder().withStaffId("S004D").withName("DR Daniel Meier")
+    public static final Person STAFF_DANIEL = new PersonBuilder().withStaffId("W0000004D").withName("DR Daniel Meier")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
             .withTags("friends").build();
-    public static final Person STAFF_ELLE = new PersonBuilder().withStaffId("S005E").withName("DR Elle Meyer")
-            .withPhone("9482224")
+    public static final Person STAFF_ELLE = new PersonBuilder().withStaffId("W0000005E").withName("DR Elle Meyer")
+            .withPhone("94822243")
             .withEmail("werner@example.com")
             .withAddress("michegan ave").build();
-    public static final Person STAFF_FIONA = new PersonBuilder().withStaffId("S006F").withName("DR Fiona Kunz")
-            .withPhone("9482427")
+    public static final Person STAFF_FIONA = new PersonBuilder().withStaffId("W0000006F").withName("DR Fiona Kunz")
+            .withPhone("94824273")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo").build();
-    public static final Person STAFF_GEORGE = new PersonBuilder().withStaffId("S007G").withName("DR George Best")
-            .withPhone("9482442")
+    public static final Person STAFF_GEORGE = new PersonBuilder().withStaffId("W0000007G").withName("DR George Best")
+            .withPhone("94824423")
             .withEmail("anna@example.com")
             .withAddress("4th street").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withPatientId("08H")
-            .withName("Hoon Meier").withPhone("8482424")
+    public static final Person HOON = new PersonBuilder().withPatientId("S0000008H")
+            .withName("Hoon Meier").withPhone("84824243")
             .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person IDA = new PersonBuilder().withPatientId("09I")
-            .withName("Ida Mueller").withPhone("8482131")
+    public static final Person IDA = new PersonBuilder().withPatientId("S0000009I")
+            .withName("Ida Mueller").withPhone("84821313")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}

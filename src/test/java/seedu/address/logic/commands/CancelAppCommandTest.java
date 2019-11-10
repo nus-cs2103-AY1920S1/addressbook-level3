@@ -34,7 +34,8 @@ class CancelAppCommandTest {
     public void execute_validUnfilteredList_success() throws Exception {
         Event eventToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         CommandResult commandResult = new CancelAppCommand(eventToDelete).execute(model);
-        assertEquals(String.format(CancelAppCommand.MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventToDelete),
+        assertEquals(String.format(CancelAppCommand.MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventToDelete.getPersonId(),
+                eventToDelete.getPersonName(), eventToDelete.getEventTiming()),
                 commandResult.getFeedbackToUser());
     }
 

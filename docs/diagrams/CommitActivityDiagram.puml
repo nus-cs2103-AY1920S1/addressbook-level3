@@ -1,15 +1,35 @@
 @startuml
 start
-:User executes command;
+:User executes command    ;
 
-'Since the beta syntax does not support placing the condition outside the
-'diamond we place it as the true branch instead.
+if () then ([command execution is successful]         )
+    if () then (
+    [command is an
+    ReversibleActionPairCommand]          )
 
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
-else ([else])
+
+        :Purge redundant
+        commands in the
+           Redo stack           ;
+
+        :Adds the command
+        to the undo stack        ;
+
+        :Inform user of
+        command result   ;
+
+        :Invoke storage to
+        save the current
+        state of the model   ;
+
+    else (  [else])
+        :Inform user of
+        command result   ;
+    endif
+
+else (  [else])
+    :Inform user that
+    an error occurred   ;
 endif
 stop
 @enduml

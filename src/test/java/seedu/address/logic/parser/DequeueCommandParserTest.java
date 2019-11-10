@@ -1,13 +1,17 @@
+//@@author wongsm7
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.queue.DequeueCommand;
+import seedu.address.logic.commands.queue.UndoDequeueCommand;
 import seedu.address.logic.parser.queue.DequeueCommandParser;
 import seedu.address.model.Model;
+import seedu.address.model.ReferenceId;
 import seedu.address.testutil.TestUtil;
 
 /**
@@ -23,8 +27,14 @@ public class DequeueCommandParserTest {
     private DequeueCommandParser parser = new DequeueCommandParser(model);
 
     @Test
+    public void parse_validArgs_returnsDequeueCommand() {
+        ReferenceId id = model.getQueueList().get(0);
+        assertParseSuccess(parser, "1", new ReversibleActionPairCommand(new DequeueCommand(id),
+                new UndoDequeueCommand(id, 0)));
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a",
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DequeueCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", DequeueCommandParser.MESSAGE_INVALID_INDEX);
     }
 }

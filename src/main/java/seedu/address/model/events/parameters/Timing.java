@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.events.parameters;
 
 import static java.util.Objects.requireNonNull;
@@ -59,6 +60,17 @@ public class Timing implements Comparable<Timing> {
      */
     public static boolean isValidTimingFromCurrentTime(DateTime testStart) {
         return testStart.getTime().isAfter(LocalDateTime.now());
+    }
+
+    //timing is before endtime and after opening time
+    //have the event timing, ca ack only when current time is on that day.
+    /**
+     * Returns true if current time and appointment's timing os on the same date and before endTiming.
+     */
+    public static boolean isTheSameDayToAck(Timing timing) {
+        LocalDateTime openTimeOnThatDay = timing.getStartTime().getTime().withHour(0).withMinute(0);
+        LocalDateTime current = LocalDateTime.now();
+        return current.isAfter(openTimeOnThatDay) && current.isBefore(timing.getEndTime().getTime());
     }
 
     public DateTime getStartTime() {

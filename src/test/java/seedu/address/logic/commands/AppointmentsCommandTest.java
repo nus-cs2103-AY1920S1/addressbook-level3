@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
@@ -78,7 +79,7 @@ class AppointmentsCommandTest {
     public void execute_invalidKeywords_noEventFound() throws ParseException {
 
         EventMatchesRefIdPredicate invalidPredicate = new EventMatchesRefIdPredicate(
-                PersonReferenceId.issuePatientReferenceId("0000"));
+                PersonReferenceId.issuePatientReferenceId(VALID_ID_AMY));
 
         String expectedMessage = String.format(
                 Messages.MESSAGE_ALL_EVENTS_LISTED_OVERVIEW, 0, invalidPredicate.toString());

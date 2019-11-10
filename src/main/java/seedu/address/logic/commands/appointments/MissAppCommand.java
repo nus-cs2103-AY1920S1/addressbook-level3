@@ -3,7 +3,6 @@ package seedu.address.logic.commands.appointments;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
@@ -15,6 +14,9 @@ import seedu.address.model.events.predicates.EventsMissedPredicate;
  */
 public class MissAppCommand extends NonActionableCommand {
     public static final String COMMAND_WORD = "missappt";
+
+    public static final String MESSAGE_MISSED_EVENT_LISTED_OVERVIEW = "%1$d missed appointment need to settle!";
+    public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missed appointments need to settle!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment "
             + "and displays them as a list with index numbers.\n"
@@ -33,9 +35,9 @@ public class MissAppCommand extends NonActionableCommand {
         String displayMess;
 
         if (size <= 1) {
-            displayMess = Messages.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW;
+            displayMess = MESSAGE_MISSED_EVENT_LISTED_OVERVIEW;
         } else {
-            displayMess = Messages.MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW;
+            displayMess = MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW;
         }
         return new CommandResult(
                 String.format(displayMess, size));

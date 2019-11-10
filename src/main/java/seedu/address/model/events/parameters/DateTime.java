@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.model.events.parameters;
 
 import static java.util.Objects.requireNonNull;
@@ -45,11 +46,18 @@ public class DateTime implements Comparable<DateTime> {
             return null;
         }
 
+        LocalDateTime localDateTime;
         try {
-            return new DateTime(LocalDateTime.parse(dateString, DATE_FORMATTER));
+            localDateTime = LocalDateTime.parse(dateString, DATE_FORMATTER);
         } catch (DateTimeParseException ex) {
             return null;
         }
+
+        if (!DATE_FORMATTER.format(localDateTime).equals(dateString)) {
+            return null;
+        }
+
+        return new DateTime(localDateTime);
     }
 
     /**

@@ -12,9 +12,15 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/tree/master
 
 By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+ClerkPro is an appointment and queue management system targeted at clerks working in small clinics.
+This developer guide is organised in a top-down approach, beginning with the Architecture Design.
+You may jump to any section by clicking on the heading in the contents page.
 
 == Setting up
 
@@ -28,11 +34,7 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The *_Architecture Diagram_* given above explains the high-level design of ClerkPro. Given below is a quick overview of each component.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -98,35 +100,46 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SystemCommandParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-    * A `Command` object can be classified as one of two types, a reversible command and a Non-Actionable command.
-    * Reversible command refers to any action which modifies the data in the system's model.
-    * Conversely, a Non-Actionable command only reads data from the system's model without modifying it.
+    * A `Command` object can be classified as one of two types, a `ReversibleCommand` and a `NonActionableCommand`.
+    * A `ReversibleCommand` refers to any command which modifies the data in the system's model.
+        To enable the user to revert their changes, the actions of such commands needs to be reversible.
+    * Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
 
-.  The command execution can affect the `Model` (e.g. adding a person).
-    *  If the user intends to execute a reversible command, an ActionPair command is created and pushed into an undo stack.
-        The ActionPair command contains a pairing of of the action itself and its inverse.
+.  The command execution can affect the `Model` (e.g. adding a patient).
+    *  If the user intends to execute a reversible command, a `ReversibleActionPairCommand` is created and pushed into an undo stack.
+        This action pair command contains a pairing of of the action itself and its inverse.
         (e.g. Pairing 'add person A' and 'delete person A' command).
-    *  If the user intends to execute a Non-Actionable command, the command will be directly executed.
+    *  If the user intends to execute a `NonActionableCommand`, the command will be directly executed.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue 001A` API call.
+. Handles the mutli-threading of reactive search requests by the user.
+    * When the user is searching for an existing entry, the system will attempt to filter through the results as the user types.
 
-.Interactions inside the Logic Component for the `enqueue 001A` Command.
+    * Each key stroke will trigger a new reactive search request which is processed on a separate thread.
+        This is done to avoid lagging the UI.
+
+    * If a new reactive search request is triggered before the previous request has been completed.
+        The previous request thread will be interrupted before the new request thread is allowed to be executed.
+
+    * The execution of a reactive search differs from the normal command, in the way that it only allows the execution of `NonActionableCommand` types.
+        Hence, there is no modification of any data in the system's model when executing a reactive search.
+
+
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `enqueue E0000001A` API call.
+
+.Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
-
-
-.Interactions inside the Logic Component for the `next 1` Command
-image::NextSequenceDiagram.png[]
 
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelOverviewClassDiagramV2.png[]
+image::ModelOverviewClassDiagramV3.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -134,19 +147,38 @@ image::ModelOverviewClassDiagramV2.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* consists of 3 sub-components: Queue Manager, Address Book and Appointment Book.
-* stores the details of patients and staff in an Address Book.
-* stores the Appointment details of patients and staff in an Appointment Book.
-* improves code reusability, we can reuse the `Person` class to derive classes which can represent patients or staff doctors.
-* likewise, we can reuse the `Event` class to derive classes which can represent patient's appointments and staff duty shifts.
+
+* does not depend on any of the other three components: `Logic`, `Ui`, and `Storage`.
+
+* consists of 3 sub-components: `QueueManager`, `AddressBook` and `AppointmentBook`.
+
+* stores the details of patients and staff in 2 separate instances of `AddressBook`.
+
+* stores the patients' appointments and duty shifts of staff doctors in 2 separate instances of `Appointment Book.
+
 * exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-* stores a unique list of `Tags` in the `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
+
+* stores a unique list of `Tags` and `ReferenceId`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
 
 The `QueueManager`,
 
 * stores a `QueueList` object that represents the queue.
 * stores a `UniqueElementList<Room>` which represents a list of consultation rooms where staff doctors are stationed.
+
+
+The `AddressBook`,
+
+* stores a `Person` object that, depending on its usage, can represent either a staff doctor or patients.
+* stores a `UniquePersonList` which represents a list of all registered doctors or patients.
+
+
+The `AppointmentBook`,
+
+* stores a `Event` object that, depending on its usage, can represent either a patient's appointment and staff duty shift.
+* stores a `UniquePersonList` which represents a list of all registered appointments or shifts.
+
+
+
 
 [[Design-Storage]]
 === Storage component
@@ -158,11 +190,11 @@ image::StorageClassDiagramV2.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save and read data of the Address Book in json format.
-* can save and read data of the Appointment Book data in json format.
-* able to reuse `JsonAddressBookStorage` to store the details of doctors and patients.
-* able to reuse `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
+* saves `UserPref` objects in json format and read it back.
+* saves and read data of the particulars of patients and doctors in json format.
+* saves and read data of the Appointments and duty shifts data in json format.
+* reuses `JsonAddressBookStorage` to store the details of doctors and patients.
+* reuses `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
 
 [[Design-Commons]]
 === Common classes
@@ -173,185 +205,360 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Unique Reference Identification
+
+In ClerkPro, each person is assigned a unique `ReferenceId`.
+    Appointments and duty shifts are tagged to the respective patients and doctors through the use of `ReferenceId`.
+
+This unique reference identifier consist of two parts:
+
+    . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID
+    . a boolean referring to whether the reference identifier belonged to a person who is registered as a patient or a staff doctor.
+
+
+//TODO [Implementation]
+
+
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo feature allows users to revert the action of a command or redo a command action that has been undone.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
+The history class stores undoable commands as a `ReversibleActionPairCommand`,
+which pairs two `ReversibleActionCommand`, the first command being the action to be executed and its inverse. (e.g. Pairing 'add event A' and 'delete event A' command).
 
+A `Command` object can be classified as one of two types, a `ReversibleCommand` and a `NonActionableCommand`.
+A `ReversibleCommand` refers to any command which modifies the data in the system's model.
+Commands that only reads data from the model without modifying it, will not be added to the undo history stack.
+Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
+
+//TODO: insert class diagram
+
+Consider that the undo functionality of an 'add event' command is similar to the action of the 'delete event' command.
+The execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
+Hence, with such an implementation, we can avoid unnecessary duplication of code.
+
+The design of `CommandHistory` uses the Command pattern, a common design pattern often used in software engineering.
+It implements the following operations:
+
+* `CommandHistory#addToCommandHistory()` -- Saves the most recent command that modifies the system's model in its undo history.
+* `CommandHistory#performUndo()` -- Performs the inverse operation to restore the system to its previous state.
+* `CommandHistory#performRedo()` -- Restores a previously undone state by re-executing the respective undone command.
+* `CommandHistory#canUndo()` -- Checks if there are previous states to be restored
+* `CommandHistory#canRedo()` -- Checks if the a previously undone state can be restored
+
+These operations are all contained within the `Logic` component and do not depend on any other components.
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `CommandHistory` will be initialised with an empty undo and redo stack.
+
+Step 2. The user executes `newpatient ... -name Mark` command which registers a new patient named `Mark` with the unique id of `S9729970A`.
+The `newpatient` command creates a `ReversibleActionPairCommand`, which pairs of a `RegisterPatientCommand` and `UnregisterPatientCommand`.
+After the invoking execution of the `RegisterPatientCommand`, the whole `ReversibleActionPairCommand` is pushed to the undo history stack
+via the `CommandHistory#addToCommandHistory()`
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 3. The user executes `enqueue S9729970A` command to add a patient whose reference id matches `S9729970A`.
+    The `enqueue` command also calls the `CommandHistory#addToCommandHistory()`, which pushes the enqueue action pair into the command history stack.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 4. The user executes `newpatient ... -name John Doe` to register a new patient. Similar to the previous command, also causes another action pair to be added into the command history undo stack.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `CommandHistory#performRedo()`. Hence, the command will not be saved into the command history.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 5. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `CommandHistory#performUndo()`.
+This invokes the `UnregisterPatientCommand` which reverts the system to its previous state,
+and moves the action from the top undo stack to the top of the redo history stack.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the undo stack is empty then there are no previous states to be restored. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `CommandHistory#performRedo()` which restores the address book to that state by invoking the original command again.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `commandRedoHistory` is empty, then there are no undone states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `patient S9482963D`.
+A command that searches for a patient whose id matches `S9482963D`,
+only reads and does not modify any data from the model.
+Such commands will not call `CommandHistory#addToCommandHistory()`,
+`CommandHistory#performUndo()`, `CommandHistory#performRedo()`.
+
+Thus, the undo and redo stacks remain unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `newappt ...` to schedule a new appointment for a patient.
+This action invokes `CommandHistory#addToCommandHistory()`, pushing the new action pair command in the undo stack.
+However, the commands in the `commandRedoHistory` stack will be purged.
+
+We designed it this way because it no longer makes sense to redo the `newpatient ... -name John Doe`​ command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+.Commit Activity Diagram
 image::CommitActivityDiagram.png[]
+
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* *Alternative 1 (current choice):* Pair Individual commands with their inverse action.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Use less memory (e.g. for `delete`, just save the person being deleted).
+|*Cons*|
+1. Must ensure that the implementation of each individual command are correct.
+|===
+
+* *Alternative 3:* Individual command knows how to undo/redo by itself.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Use less memory (e.g. for `delete`, just save the person being deleted).
+|*Cons*|
+1. Must ensure that the implementation of each individual command are correct.
+|===
+
+
+* *Alternative 2:* Save the entire address book.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Implementation is easy.
+|*Cons*|
+1. May have performance issues in terms of memory usage.
+|===
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* *Alternative 1 (current choice):* Use a list to store the history of address book states.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+|*Cons*|
+1. Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+|===
+
+* *Alternative 2:* Use `HistoryManager` for undo/redo
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. We do not need to maintain a separate list, and just reuse what is already in the codebase.
+|*Cons*|
+1. Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|===
 
 // end::undoredo[]
+
+// tag::reactivesearch[]
+
+=== Reactive Search
+
+The main concept behind reactive searching is that we would like time-consuming searching to be UI non-blocking and executed as rapidly as possible so that user is instantly provided with results for a given keyword.
+
+Similar to eager evaluation, Reactive Search attempts to process commands if it does not mutate the storage. Otherwise it does a simple redirect to the tab relevant to the command.
+
+.Reactive Search Sequence Diagram showing how a thread is created to do the expensive processing.
+image::ReactiveSearchSequenceDiagram.png[]
+
+After the newly created thread starts, it will attempt to kill any previous thread that is still processing asynchronously before starting its own processing.
+
+After which, changes to the ObservableList will trigger the updateItem listener in UI. And since each graphical update is fast and can only be executed from the JavaFX main application thread, we defer each of them via Platform.run() so that the FX main application thread can execute them in order whenever it is free.
+
+[source, java]
+----
+class EventListViewCell extends ListCell<Event> {
+    @Override
+    protected void updateItem(Event event, boolean empty) {
+        super.updateItem(event, empty);
+
+        if (empty || event == null) {
+            Platform.runLater(() -> setGraphic(null));
+        } else {
+            Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
+        }
+    }
+}
+----
+
+Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
+
+// end::reactivesearch[]
 
 // tag::autocomplete[]
 
 === AutoComplete
 
-We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique alphabets used, m is length of longest word stored.
+We are using Prefix Tree which is known as a Trie for AutoComplete. This gives us a worst case time complexity of O(m), where m is length of the search string. While the space complexity is O(bm), where b is number of unique characters used, m is length of longest word stored.
 
+.AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
+
+===== Aspect: Data structure to implement AutoComplete
+
+* *Alternative 1 (current choice):* Using Trie (as known as Prefix Tree).
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Time Complexity Efficient +
+2. One of the most natural data structure for text prediction.
+|*Cons*|
+1. Requires initialisation. +
+2. Requires rebuilding of strings.
+|===
+
+* *Alternative 2:* Using ArrayList.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Extremely simple to implement.
+|*Cons*|
+1. Time Complexity Inefficient.
+|===
 
 // end::autocomplete[]
 
 === Queue feature
 The queue feature allows the user to enqueue and dequeue a patient from the queue.
 
-* e.g. `enqueue 003A` - Enqueues the patient with reference id 003A.
+* e.g. `enqueue 003A` - Enqueues the patient with `referenceId` 003A.
 * e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
+
+Queue supports a few basic commands:
+
+* Enqueue -- Enqueues a patient into the queue. +
+Format: `enqueue <PATIENT_REFERENCE_ID>`
+* Dequeue -- Dequeues a patient from the queue. +
+Format: `dequeue <QUEUE_INDEX>`
+* Next -- Assigns the next patient in the queue to a doctor. +
+Format: `next <ENTRY_ID>`
+* Break -- Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
+Format: `break <ENTRY_ID>`
+* Resume -- Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
+Format: `resume <ENTRY_ID>`
 
 ==== Current Implementation
 The queue will be displayed in a list.
 
 The following activity diagram summarizes what happens when a user executes an enqueue command:
 
+.Enqueue Activity Diagram
 image::EnqueueActivityDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes an next command:
+The following activity diagram summarizes what happens when a user executes a next command:
 
+.Next Activity Diagram
 image::NextActivityDiagram.png[]
 
 Below is an example usage of the queue feature.
 
-Step 1: User enters the `enqueue 001A` command.
+Step 1: User enters the `enqueue E0000001A` command.
 
 Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
 
-Step 3: Patient will then be showed in the queue.
+Step 3: Patient will then displayed in the queue.
 
 === Appointment feature
-The Appointment feature provides users the ability to manage appointments for patients. It can help patients to add, change, delete appointments. It also helps user to find the missed appointments and settles each missing appointment efficiently.
 
-* e.g. `addappt i/001A str/01/11/19 1800 rec/m num/2` - allows the user to create two monthly appointments to patient whose referenceId is 001A.
-* e.g. `changeappt 1 str/02/11/19 1800` - allows the user to change a patient's first appointment timing to be the input timing if there is no conflict.
+The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
+
+* e.g. `newappt -id E0000001A -start 01/12/19 0900 -end 01/12/19 0940 -reoccur m -num 2` - creates two monthly reoccurring appointments to patient whose `referenceId` is E0000001A.
+* e.g. `editappt -entry 1 -start 01/12/19 1000 -end 01/12/19 1040` - edits a patient's first appointment timing to be the input timing if there is no conflict with doctor's duty shift.
+
+
+
+The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
 ==== Current Implementation
-The Appointment feature contains multiple operations to indirectly manipulate the UniqueAppointmentList. The implemented operations include:
+The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
-`addappt` Command - Adds a appointment or recursive appointments to a patient.
+`newappt` Command - Creates an new appointment or reoccurring appointments for a patient.
 
-`ackappt` Command - Acknowledges a appointment once the patient reaches.
+`ackappt` Command - Acknowledges an appointment whenever the patient checks in with the clerk.
 
-`appointments` Command - Lists all upcoming appointment schedule or lists a specific patient's upcoming appointments.
+`appointments` Command - Lists all upcoming appointments or appointments which involves the patient whose referenceId contains a certain keyword.
 
-`changeappt` Command - Change a current appointment's timing to a different timing.
+`editappt` Command - Edits an appointment timing.
 
-`cancelappt` Command - Cancels appointments found within the appointment schedule.
+`cancelappt` Command - Cancels an appointment.
 
-`missappt` Command - Lists all missing appointment.
+`missappt` Command - Lists all missed appointments.
 
-`settleappt` Command - Settles a missing appointment when user contact with patient.
+`settleappt` Command - Removes a missed appointment.
 
 
-The class diagram below illustrates the interactions between the Appointment class and associated classes.
-
-.Appointment class diagram
+.Appointment class diagram illustrating interactions between the Appointment class and associated classes.
 image::AppointmentClassDiagram.png[]
 
-Each Appointment object consists of a PatientId, Timing, Status. Timing class has 2 DateTime object as they indicates the starting and ending time of the appointment. The UniqueAppointmentList contains 0 or more Appointments.
+he appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
+Each `Appointment` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` objects which indicates the start and end time of the `appointment`. The `UniqueEventList` contains 0 or more appointments.
 
-The current implementation of Appointment will do check with patient object by the unique referenceId and it will also check timing with doctors' dutyRoster. If the referenceId exists within the Model#UniquePatientList and the timing is valid, then constructing the Appointment object. This ensures that the patient is registered and the appointment's timing is valid before making an appointment.
+The current implementation of `Appointment` checks with `patient` object by the unique `referenceId` and also checks the timing with doctors' dutyRoster. If the `referenceId` exists within the Model#UniquePersonList and the timing is valid, then the `Appointment` object is constructed. This ensures that the patient is registered before making any appointments and the appointment's timing is valid.
 
-==== `addappt` Command
-The addAppointment command behaves similarly to the add command used for Patient and Doctor. The command takes in the parameters required to construct ReferenceId, DateTime and Status. The image below shows how the Appointment object is constructed.
+The appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
 
-The following activity diagram summarizes what happens when a user executes a AddAppointment command:
+Before an appointment can be scheduled, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the appointment will be scheduled. Otherwise, the appointment will not be scheduled.
 
-.Interactions Inside the Logic Component when a user executes a `addappt` command
+==== `newappt` Command
+The `newappt` command is similar to the `new` command of patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`. The image below shows how the `Appointment` object is constructed.
+
+The following activity diagram summarizes what happens when a user executes a `AddAppointment` command:
+
+.Interactions Inside the Logic Component when a user executes a `newappt` command
 image::AddAppointmentActivityDiagram.png[]
 
 ==== `ackappt` command
 
-The ackAppointment command will mark the patient's the most upcoming appointment as Acknowledge when the patient is reaching and it will updateUniqueAppointmentList to display the rest appointments that are belong to the patient.
+The `ackappt` command marks the patient's the most upcoming appointment as acknowledged only if it is on the same day and it is before the appointment's end time and also updates `UniqueEventList` to display the rest appointments belonging to the patient.
 
 ==== `appointments` Command
 
-The appointments command works in two different cases for different purpose.
+The `appointments` command works in two different ways.
 
-Case 1: `appointments patientId`
+Case 1: `appointments referenceId`
 
-The appointments command searches for appointments that were belong to the patient that was entered by the user. The filtered appointments are found in ModelManager. The list is instantiated by filtering the UniqueAppointmentList using EventContainsKeywordPredicate which is created from the patientId argument supplied by the user.
+The `appointments` command searches for appointments that belong to the patient based on the given `referenceId`. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventContainsKeywordPredicate` which is created from the `ReferenceId` argument supplied by the user.
 
 Case 2: `appointments`
 
-The appointments behaves similarly to appointments with the exception that it does not take in any arguments. Instead, it automatically executes with the predicate EventContainsApprovedStatusPredicate. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
+If the `appointments` command is executed without any other arguments, it executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredAppointmentList() is called and the entire list of upcoming appointments is shown to the user.
 
-==== `changeappt` Command
-The following activity diagram summarizes what happens when a user executes a ChangeAppointment command:
+==== `editappt` Command
+The following activity diagram summarizes what happens when a user executes a `editappt` command:
 
-.Interactions Inside the Logic Component when a user executes a `changeappt` command
+.Interactions Inside the Logic Component when a user executes a `editappt` command
 
 image::ChangeAppointmentActivityDiagram.png[]
 
@@ -359,31 +566,31 @@ image::ChangeAppointmentActivityDiagram.png[]
 
 `cancelappt` simply takes in the index of the target appointment to cancel according to the displayed appointment list.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("cancelappt 1")` API call.
+Given below is the sequence diagram for interactions within the `Logic` component for the `execute("cancelappt 1")` API call.
 
 .Interactions Inside the Logic Component for the `cancelappt 1` Command
 image::CancelAppointmentSequenceDiagram.png[]
 
 ==== `missappt` Command
 
-The missAppointment command searches for appointments that patients did not come. The filtered appointments are found in ModelManager. The list is instantiated by filtering the UniqueAppointmentList using EventsMissedPredicate which checks all APPROVED-Status appointments' ending times with current time.
+The `missappt` command displays appointments that patients did not attend. The filtered appointments are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventsMissedPredicate` which checks all APPROVED-Status appointments' end times with current time.
 
 ==== `settleappt` Command
 
-The settleAppointment command helps users to record if they settled missing appointments. It allows users make any missing appointment to be SETTLE once users have settled it. it will updateUniqueAppointmentList to display the rest missing appointments.
+The `settleappt` command helps users to remove any missed appointments once users have settled it. It will also update `UniqueEventList` to display the rest of the missed appointments.
 
-In future implementations, i.e. v2.0, the valid timing slot will be given after checking with doctor's dutyRoster and Model#UniqueAppointmentList. This ensures users can easily make appointments for patients.
+In future implementations, i.e. v2.0, the valid timing slot will be given based on the doctor's availability. This ensures users can easily choose a slot to arrange appointments for patients.
 
 ==== Design Considerations
 
 ===== Aspect:  How to store Timing fields
 
-* **Alternative 1 (current choice):** Create DateTime and Timing class to store
+* **Alternative 1 (current choice):** Create `DateTime` and `Timing` class to store
 ** Pros: Makes it easier to calculate timings and clashes between multiple appointments with different timing field.
 ** Cons: Requires additional code to implement Timing class and interact with other common methods that rely on DateTime.
 * **Alternative 2:** Store as Strings
 ** Pros: Makes it easier to implement.
-** Cons: Requires additional code to convert into DateTIme class when carrying out calculating methods.
+** Cons: Requires additional code to convert into `DateTime` class when carrying out calculating methods.
 
 ===== Aspect: display appointments
 
@@ -393,6 +600,58 @@ In future implementations, i.e. v2.0, the valid timing slot will be given after 
 * **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
 ** Pros: Makes it easier to implement.
 ** Cons: Increases difficulty in freely accessing appointments.
+
+=== Duty Shift Scheduling
+
+The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, edit duty shifts efficiently.
+
+* e.g. `newshift -id W0000001A -start 01/11/19 0900 -end 01/12/19 2100 -reoccur m -num 2` - allows the user to create two monthly reoccurring duty shifts to doctor whose `referenceId` is W0000001A.
+* e.g. `editshift -entry 1 -start 02/12/19 0900 -end 02/12/19 2100` - allows the user to change a doctor's first duty shift to be the input timing if there is no conflict with appointments.
+
+==== Current Implementation
+The duty shift scheduling contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
+
+`newshift` Command - Adds a duty shift or reoccurring duty shifts to a doctor.
+
+`shifts` Command - Lists all duty shifts involving the doctor's referenceId which contains the keyword.
+
+`editshift` Command - Change a current duty shift's timing.
+
+`cancelshift` Command - Cancels duty shift.
+
+Each Duty Shift is an `Event` object consists of a `PersonReferenceId`, `Timing`, `Status`. `Timing` class has 2 `DateTime` object as they indicate the start and end times of the duty shift.
+
+The current implementation of duty shift checks with doctor object by the unique `referenceId` and also checks the timing with appointments. If the `referenceId` exists within the Model#UniquePersonList and the timing is valid, then the duty shift is constructed. This ensures that the doctor is registered and the duty shift's timing is valid before making any duty shifts.
+
+The duty  shift will be rejected by the system, if there are insufficient staff doctors on duty at the given time. +
+
+Before a duty shift's time can be edited, the system first checks the total number of staff doctors on duty in that timeslot. Next, the system checks the existing appointments in that timeslot. If the number of appointments in that timeslot is less than the number of doctors, the duty shift's time will be changed. Otherwise, the duty shift will not be allowed to edit.
+
+==== `newshift` Command
+The `newshift` command behaves similarly to the `new` command used for patient and doctor. The command takes in the parameters required to construct `ReferenceId`, `DateTime` and `Status`.
+
+==== `shifts` Command
+
+The `shifts` command works in two different ways.
+
+Case 1: `shifts ReferenceId`
+
+The shifts command searches for duty shifts that belong to the doctor based on the given `ReferenceId`. The filtered shifts are found in `ModelManager`. The list is instantiated by filtering the `UniqueEventList` using `EventContainsKeywordPredicate` which is created from the `referenceId` argument supplied by the user.
+
+Case 2: `shifts`
+
+The shifts behaves similarly to `shifts ReferenceId` when it does not take in any other arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredEventList() is called and the entire list of the upcoming duty shifts is shown to the user.
+
+==== `editshift` Command
+The following activity diagram summarizes what happens when a user executes a `editshift` command:
+
+.Interactions Inside the Logic Component when a user executes a `editshift` command
+
+image::ChangeShiftActivityDiagram.png[]
+
+==== `cancelshift` Command
+
+`cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
 
 === Logging
 
@@ -476,7 +735,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clerk|use the appointment scheduler | schedule appointments for my patients
 
-|`* * *` |clerk |add recursive appointments| schedule new appointments recursively for my patients
+|`* * *` |clerk |add reoccurring appointments| schedule new reoccurring appointments for my patients
 
 |`* * *` |clerk|save time managing the queue | have more time to do my own work
 
@@ -490,7 +749,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|find all patients who have missed their appointments | keep track of the list of patients whom I need to inform
 
-|`* *` |experienced user|create custom aliases to commands | so that it can save time
+|`* *` |clerk|see relevant information only | so that my focus is not lost
 
 |`* *` |clerk|use auto-complete to predict my commands|save time on verifying its existence and correctness
 
@@ -508,8 +767,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -812,19 +1069,15 @@ Use case ends.
 
 Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 10000 persons and 10000 events without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1,000,000 persons and 1,000,000 events without noticeable lag in User Interface within typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  No internet required.
 .  System allows user to undo incorrect or accidental destructive actions
 .  App can be downloaded and run via a jar file
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -892,8 +1145,8 @@ _{ more test cases ... }_
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with missed/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. _{explain how to simulate a missed/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_

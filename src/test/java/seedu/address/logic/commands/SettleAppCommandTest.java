@@ -31,7 +31,8 @@ class SettleAppCommandTest {
         Event eventToSettled = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventSettled = new EventBuilder(eventToSettled).withStatus("SETTLED").build();
         CommandResult commandResult = new SettleAppCommand(eventToSettled, eventSettled).execute(model);
-        assertEquals(String.format(SettleAppCommand.MESSAGE_SUCCESS, eventSettled),
+        assertEquals(String.format(SettleAppCommand.MESSAGE_SUCCESS, eventSettled.getPersonId(),
+                eventSettled.getPersonName(), eventSettled),
                 commandResult.getFeedbackToUser());
         new SettleAppCommand(eventSettled, eventToSettled).execute(model);
     }

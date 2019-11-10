@@ -2,19 +2,16 @@
 package seedu.address.ui;
 
 import java.util.HashSet;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListCell;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends OmniPanel<Person> {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     public PersonListPanel(ObservableList<Person> personList, HashSet<Runnable> deferredUntilMouseClickOuter) {
         super(deferredUntilMouseClickOuter);

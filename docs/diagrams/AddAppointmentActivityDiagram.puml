@@ -5,11 +5,10 @@ start
 if () then ([valid command])
 
     if () then ([valid reference id])
-'    Appointments does not exist
         if () then ([Appointments does not exist])
 
             if() then ([Valid idx and timing format])
-                if() then([not conflict])
+                if() then([no. of appointments < no. of doctor on duty])
                 -Appointment's timing changed
                 -Display patient's all upcoming appointments
                 else([else])

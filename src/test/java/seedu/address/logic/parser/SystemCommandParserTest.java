@@ -26,17 +26,17 @@ import seedu.address.logic.commands.utils.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.predicates.PersonMatchesKeywordPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TestUtil;
 
-public class AddressBookParserTest {
+public class SystemCommandParserTest {
 
     private Model model = TestUtil.getTypicalModelManager();
     private final CommandHistory history = new CommandHistory();
-    private final AddressBookParser parser = new AddressBookParser(history);
+    private final SystemCommandParser parser = new SystemCommandParser(history);
 
     @Test
     public void parseCommand_add() throws Exception {
@@ -76,12 +76,12 @@ public class AddressBookParserTest {
         ListPatientCommand command = (ListPatientCommand) parser.parseCommand(
                 ListPatientCommand.COMMAND_WORD + " foo",
                 model);
-        assertEquals(new ListPatientCommand(new PersonMatchesKeywordPredicate("foo")), command);
+        assertEquals(new ListPatientCommand(new PersonContainsKeywordPredicate("foo")), command);
 
         command = (ListPatientCommand) parser.parseCommand(
                 ListPatientCommand.COMMAND_WORD + " foo bar",
                 model);
-        assertEquals(new ListPatientCommand(new PersonMatchesKeywordPredicate("foo bar")), command);
+        assertEquals(new ListPatientCommand(new PersonContainsKeywordPredicate("foo bar")), command);
     }
 
     @Test

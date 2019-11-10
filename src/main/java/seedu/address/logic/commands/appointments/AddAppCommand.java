@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.List;
@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
+import seedu.address.model.util.SampleAppointmentDataUtil;
 
 
 /**
@@ -29,26 +30,24 @@ public class AddAppCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "newappt";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds recursively appointments"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds reoccurring appointments"
             + " to the address book. \n"
             + "Parameters: "
             + PREFIX_ID + "REFERENCE_ID "
             + PREFIX_START + "PREFIX_START "
             + "[" + PREFIX_END + "PREFIX_END] "
-            + "[" + PREFIX_RECURSIVE + "PREFIX_RECURSIVE w/m/y] "
-            + "[" + PREFIX_RECURSIVE_TIMES + "PREFIX_RECURSIVE_TIMES]\n"
+            + "[" + PREFIX_REOCCURRING + "PREFIX_REOCCURRING w/m/y] "
+            + "[" + PREFIX_REOCCURRING_TIMES + "PREFIX_REOCCURRING_TIMES]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_ID + "001A "
-            + PREFIX_START + "01/12/19 0900 "
-            + PREFIX_END + "01/12/19 0940 "
-            + PREFIX_RECURSIVE + "m "
-            + PREFIX_RECURSIVE_TIMES + "2\n";
+            + PREFIX_ID + "E0000001A "
+            + PREFIX_START + SampleAppointmentDataUtil.ONE_MONTH_LATER_MORNING.toString() + " "
+            + PREFIX_END + SampleAppointmentDataUtil.ONE_MONTH_LATER_MORNING_PLUS.toString() + " "
+            + PREFIX_REOCCURRING + "m "
+            + PREFIX_REOCCURRING_TIMES + "2\n";
 
-    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment added: %1$s";
-    public static final String MESSAGE_SUCCESS_RECURSIVE = "%1$s repeated Appointment were added:\n%2$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This appointment is already scheduled: %1$s";
-    public static final String MESSAGE_CLASH_APPOINTMENT = "This appointment clashes with a pre-existing appointment.";
-    public static final String MESSAGE_ADD_APPOINTMENTS_SUCCESS = "Recursive appointments added: \n";
+    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment for [%1$s] %2$s were added:\n%3$s";
+    public static final String MESSAGE_SUCCESS_REOCCURRING = "%1$s reoccurring Appointments for "
+            + "[%2$s] %3$s were added:\n%4$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS = "Must indicate at least 1 appointment to add";
 
     private final Event toAdd;
@@ -82,16 +81,22 @@ public class AddAppCommand extends ReversibleCommand {
             if (eventList == null) {
                 model.scheduleAppointment(toAdd);
                 model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(toAdd.getPersonId()));
-                return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, toAdd));
+                return new CommandResult(String.format(
+                        MESSAGE_ADD_APPOINTMENT_SUCCESS,
+                        toAdd.getPersonId(),
+                        toAdd.getPersonName(),
+                        toAdd.getEventTiming()));
 
             }
             model.scheduleAppointments(eventList);
             model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
-                    MESSAGE_SUCCESS_RECURSIVE,
+                    MESSAGE_SUCCESS_REOCCURRING,
                     eventList.size(),
+                    eventList.get(0).getPersonId(),
+                    eventList.get(0).getPersonName(),
                     eventList.stream()
-                            .map(e -> e.toString()).collect(Collectors.joining("\n"))));
+                            .map(e -> e.getEventTiming().toString()).collect(Collectors.joining("\n"))));
 
         } catch (InvalidEventScheduleChangeException ex) {
             throw new CommandException(ex.getMessage());

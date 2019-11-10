@@ -8,14 +8,14 @@ https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[G
 https://app.netlify.com/sites/clerkpro/deploys[image:https://api.netlify.com/api/v1/badges/7802a5fb-00fd-4e32-869e-6934507679f2/deploy-status[Netlify Status]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/Ui.png[]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[]
 endif::[]
 
-* ClerkPro is a clinic management application reduces the workload of the clerk.
+* ClerkPro is a clinic management application that minimise mental fatigue & workload of the clerk.
 * ClerkPro is a CLI (Command Line Interface).
 * ClerkPro is intended for clerks/receptionists at small neighbourhood clinics.
 ** Manages patient appointments; arrange follow-up appointment dates.
@@ -40,6 +40,6 @@ endif::[]
 * This project was built off from AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org[se-edu]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/JFXtras/jfxtras[JFXtras]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/TestFX/TestFX[TestFX]
 
 == Licence : link:LICENSE[MIT]

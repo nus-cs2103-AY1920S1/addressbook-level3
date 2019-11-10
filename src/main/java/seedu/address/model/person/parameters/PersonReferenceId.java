@@ -21,11 +21,11 @@ import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationExc
 public class PersonReferenceId implements ReferenceId {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Reference Id should only contain 3 to 10 (inclusive) alphanumeric characters.";
+        "Reference Id should only consist of 9 alphanumeric characters.";
     /*
-     * The reference ID should only contain alphanumeric characters.
+     * The reference ID should only contain 9 alphanumeric characters.
      */
-    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]{3,10}";
+    private static final String VALIDATION_REGEX = "[a-zA-Z0-9]{9}";
     private static final HashMap<String, ReferenceId> UNIQUE_UNIVERSAL_REFERENCE_ID_MAP = new HashMap<>();
 
 

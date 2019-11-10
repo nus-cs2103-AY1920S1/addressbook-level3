@@ -24,8 +24,9 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels shift from the duty roster. "
             + "Parameters: INDEX (positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "Duty shift has been cancelled: \n%1$s";
-    public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "%1$s repeated duty shifts cancelled: \n%2$s";
+    public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "The duty shift for [%1$s] %2$s was cancelled:\n%3$s";
+    public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "%1$s reoccurring duty shifts for [%2$s] %3$s "
+            + "were cancelled:\n%4$s";
     public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to delete";
 
     private final Event toDelete;
@@ -53,7 +54,11 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
                 checkHasEvent(model, toDelete);
                 model.deleteDutyShifts(toDelete);
                 model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(toDelete.getPersonId()));
-                return new CommandResult(String.format(MESSAGE_CANCEL_SHIFT_SUCCESS, toDelete));
+                return new CommandResult(String.format(
+                        MESSAGE_CANCEL_SHIFT_SUCCESS,
+                        toDelete.getPersonId(),
+                        toDelete.getPersonName(),
+                        toDelete.getEventTiming()));
             }
 
             model.deleteDutyShifts(eventList);
@@ -61,8 +66,10 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
             return new CommandResult(String.format(
                     MESSAGE_CANCEL_SHIFTS_SUCCESS,
                     eventList.size(),
+                    eventList.get(0).getPersonId(),
+                    eventList.get(0).getPersonName(),
                     eventList.stream()
-                            .map(e -> e.toString()).collect(Collectors.joining("\n"))));
+                            .map(e -> e.getEventTiming().toString()).collect(Collectors.joining("\n"))));
 
         } catch (InvalidEventScheduleChangeException ex) {
             throw new CommandException(ex.getMessage());
@@ -70,6 +77,7 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
     }
 
     //@@author SakuraBlossom
+
     /**
      * Checks if the given {@code eventToDelete} exist in the duty roster book.
      */

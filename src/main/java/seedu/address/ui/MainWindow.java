@@ -42,9 +42,12 @@ import seedu.address.ui.queue.QueueListPanel;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanelManager {
+public class MainWindow extends UiPart<Stage> implements CommandBoxManager, OmniPanelManager {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String HELP_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features";
+    private static final String UPDATES_URI = "https://github.com/AY1920S1-CS2103T-T09-3/main/releases";
+    private static final String ABOUT_US_URI = "https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -66,6 +69,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     private EventListPanel appointmentListPanel;
     private EventListPanel dutyShiftListPanel;
     private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
     private TabBar tabBar;
 
     @FXML
@@ -120,12 +124,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         getRoot().addEventFilter(MouseEvent.MOUSE_PRESSED, event -> deferredDropSelectors.forEach(Runnable::run));
 
         upperPane.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
-            switch (keyEvent.getCode()) {
-            case TAB:
+            if (keyEvent.getCode() == KeyCode.TAB) {
                 keyEvent.consume();
                 commandBox.getRoot().requestFocus();
-                break;
-            default:
             }
         });
 
@@ -171,15 +172,15 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        commandBox = new CommandBox(this::executeCommand, this);
-        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
-
-        aco = new AutoCompleteOverlay(this::autoCompleterSelected);
+        aco = new AutoCompleteOverlay(this::handleAutoCompleteOverlaySelection);
         anchorPane.getChildren().add(aco.getRoot());
         AnchorPane.setBottomAnchor(aco.getRoot(), 0.0);
+
+        commandBox = new CommandBox(this::executeCommand, this, aco);
+        commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
 
     /**
@@ -192,6 +193,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         int screenHeight = gd.getDisplayMode().getHeight();
 
         if (screenHeight < guiSettings.getWindowHeight() || screenWidth < guiSettings.getWindowWidth()) {
+            logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
+                    + " Window Sizing.");
             return;
         }
 
@@ -201,6 +204,8 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
         if (guiSettings.getWindowCoordinates() == null
                 || screenWidth < guiSettings.getWindowWidth() + guiSettings.getWindowCoordinates().getX()
                 || screenHeight < guiSettings.getWindowHeight() + guiSettings.getWindowCoordinates().getY()) {
+            logger.warning("Existing GUI settings seems to be incompatible with the current display. Skipping Invalid"
+                    + " Window Sizing.");
             return;
         }
 
@@ -218,9 +223,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleHelp() {
         try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/UserGuide#Features"));
+            getDesktop().browse(URI.create(HELP_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + HELP_URI);
         }
     }
 
@@ -230,9 +235,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleCheckForUpdates() {
         try {
-            getDesktop().browse(URI.create("https://github.com/AY1920S1-CS2103T-T09-3/main/releases"));
+            getDesktop().browse(URI.create(UPDATES_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + UPDATES_URI);
         }
     }
 
@@ -242,9 +247,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     @FXML
     private void handleAboutUs() {
         try {
-            getDesktop().browse(URI.create("https://ay1920s1-cs2103t-t09-3.github.io/main/AboutUs"));
+            getDesktop().browse(URI.create(ABOUT_US_URI));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warning("Problem while trying to open " + ABOUT_US_URI);
         }
     }
 
@@ -285,9 +290,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     }
 
     /**
-     * Called to update AutoComplete when new commands.
+     * CommandBox TextChanged Callback.
      */
-    public void updateCommandAutoComplete(String commandText) {
+    public void handleCommandBoxTextChanged(String commandText) {
         if (!commandText.isBlank()) {
             logic.eagerEvaluate(commandText, resultDisplay::setFeedbackToUser);
             requiresReset = true;
@@ -298,9 +303,9 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     }
 
     /**
-     * Receives Key Press event from Command Box and executes expected behaviours.
+     * CommandBox KeyPressed Callback.
      */
-    public void updateSelectionKeyPressedCommandBox(KeyCode keyCode) {
+    public void handleCommandBoxKeyPressed(KeyCode keyCode) {
         switch (keyCode) {
         case UP:
             if (aco.isSuggesting()) {
@@ -330,7 +335,7 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
     /**
      * Called whenever AutoComplete has a selection.
      */
-    private void autoCompleterSelected(String selectedText) {
+    private void handleAutoCompleteOverlaySelection(String selectedText) {
         commandBox.appendCommandTextField(selectedText);
     }
 
@@ -378,9 +383,13 @@ public class MainWindow extends UiPart<Stage> implements AutoComplete, OmniPanel
             region = dutyShiftListPanel.getRoot();
             break;
         default:
+            logger.warning("There is an OmniPanelTab that is not implemented.");
             return;
         }
-        Platform.runLater(() -> omniPanelPlaceholder.getChildren().setAll(region));
+        Platform.runLater(() -> {
+            statusBarFooter.setText("Current selected tab: " + omniPanelTab.getId());
+            omniPanelPlaceholder.getChildren().setAll(region);
+        });
     }
 
     @Override

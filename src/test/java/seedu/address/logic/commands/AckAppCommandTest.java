@@ -31,7 +31,8 @@ class AckAppCommandTest {
         Event eventToAcked = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventAcked = new EventBuilder(eventToAcked).withStatus("ACKNOWLEDGED").build();
         CommandResult commandResult = new AckAppCommand(eventToAcked, eventAcked).execute(model);
-        assertEquals(String.format(AckAppCommand.MESSAGE_SUCCESS, eventAcked),
+        assertEquals(String.format(AckAppCommand.MESSAGE_SUCCESS, eventAcked.getPersonId(),
+                eventAcked.getPersonName(), eventAcked),
                 commandResult.getFeedbackToUser());
         new AckAppCommand(eventAcked, eventToAcked).execute(model);
     }

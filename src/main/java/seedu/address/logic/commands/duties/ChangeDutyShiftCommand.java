@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
+import seedu.address.model.util.SampleAppointmentDataUtil;
 
 
 /**
@@ -28,10 +29,11 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
             + PREFIX_END + "PREFIX_END\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ENTRY + "1 "
-            + PREFIX_START + "02/12/19 0900 "
-            + PREFIX_END + "02/12/19 2100";
+            + PREFIX_START + SampleAppointmentDataUtil.ONE_MONTH_LATER_AFTERNOON.toString() + " "
+            + PREFIX_END + SampleAppointmentDataUtil.ONE_MONTH_LATER_EVENING.toString() + " ";
 
-    public static final String MESSAGE_SUCCESS = "The duty shift has changed to %1$s";
+    public static final String MESSAGE_SUCCESS = "The duty shift for [%1$s] %2$s has been changed:\n"
+            + "from %3$s to %4$s";
 
     private final Event eventToEdit;
     private final Event editedEvent;
@@ -56,14 +58,19 @@ public class ChangeDutyShiftCommand extends ReversibleCommand {
         }
 
         model.updateFilteredDutyShiftList(new EventMatchesRefIdPredicate(editedEvent.getPersonId()));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedEvent));
+        return new CommandResult(String.format(
+                MESSAGE_SUCCESS,
+                editedEvent.getPersonId(),
+                editedEvent.getPersonName(),
+                eventToEdit.getEventTiming(),
+                editedEvent.getEventTiming()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ChangeDutyShiftCommand // instanceof handles nulls
-                && editedEvent.equals(((ChangeDutyShiftCommand) other).editedEvent));
+                && editedEvent.equals(((ChangeDutyShiftCommand) other).editedEvent.getEventTiming()));
     }
 
 }

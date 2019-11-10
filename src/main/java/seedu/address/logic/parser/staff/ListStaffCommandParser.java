@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.predicates.PersonMatchesKeywordPredicate;
+import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -25,7 +25,7 @@ public class ListStaffCommandParser implements Parser<ListStaffCommand> {
             return new ListStaffCommand(PREDICATE_SHOW_ALL_PERSONS);
         }
 
-        return new ListStaffCommand(new PersonMatchesKeywordPredicate(trimmedArgs));
+        return new ListStaffCommand(new PersonContainsKeywordPredicate(trimmedArgs));
     }
 
 }

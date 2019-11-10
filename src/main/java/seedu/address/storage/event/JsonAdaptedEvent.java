@@ -1,3 +1,4 @@
+//@@author SakuraBlossom
 package seedu.address.storage.event;
 
 import com.fasterxml.jackson.annotation.JsonCreator;

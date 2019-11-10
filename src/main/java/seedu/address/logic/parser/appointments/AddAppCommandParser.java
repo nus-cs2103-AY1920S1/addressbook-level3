@@ -4,8 +4,8 @@ package seedu.address.logic.parser.appointments;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_RECURSIVE_TIMES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     public ReversibleActionPairCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_ID,
-                        PREFIX_START, PREFIX_END, PREFIX_RECURSIVE, PREFIX_RECURSIVE_TIMES);
+                        PREFIX_START, PREFIX_END, PREFIX_REOCCURRING, PREFIX_REOCCURRING_TIMES);
 
         if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -76,27 +76,27 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
 
 
 
-        Optional<String> recursiveStringOptional = argMultimap.getValue(PREFIX_RECURSIVE);
-        Optional<String> recursiveStringTimesOptional = argMultimap.getValue(PREFIX_RECURSIVE_TIMES);
+        Optional<String> reoccurringStringOptional = argMultimap.getValue(PREFIX_REOCCURRING);
+        Optional<String> reoccurringStringTimesOptional = argMultimap.getValue(PREFIX_REOCCURRING_TIMES);
 
-        if (recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()) {
-            String recursiveString = recursiveStringOptional.get();
+        if (reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()) {
+            String reoccurringString = reoccurringStringOptional.get();
 
-            if (!recursiveString.equals("w") && !recursiveString.equals("m") && !recursiveString.equals("y")) {
+            if (!reoccurringString.equals("w") && !reoccurringString.equals("m") && !reoccurringString.equals("y")) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddAppCommand.MESSAGE_USAGE));
             }
 
-            Index rescursiveTimes = ParserUtil.parseTimes(recursiveStringTimesOptional.get());
-            int times = rescursiveTimes.getZeroBased() + 1;
+            Index reoccurringTimes = ParserUtil.parseTimes(reoccurringStringTimesOptional.get());
+            int times = reoccurringTimes.getZeroBased() + 1;
             Appointment event = new Appointment(referenceId,
                     model.resolvePatient(referenceId).getName(), timing, new Status());
-            List<Event> eventList = getRecEvents(event, recursiveString, times);
+            List<Event> eventList = getRecEvents(event, reoccurringString, times);
             return new ReversibleActionPairCommand(new AddAppCommand(eventList),
                     new CancelAppCommand(eventList));
         } else {
-            if (!recursiveStringOptional.isPresent() && recursiveStringTimesOptional.isPresent()
-                    || recursiveStringOptional.isPresent() && !recursiveStringTimesOptional.isPresent()) {
+            if (!reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()
+                    || reoccurringStringOptional.isPresent() && !reoccurringStringTimesOptional.isPresent()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddAppCommand.MESSAGE_USAGE));
             }
@@ -108,12 +108,12 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
 
-    private List<Event> getRecEvents(Appointment event, String recursiveString, int times) {
+    private List<Event> getRecEvents(Appointment event, String reoccurringString, int times) {
         List<Event> eventList = new ArrayList<>();
         Timing timing = event.getEventTiming();
         Function<Timing, Timing> func = null;
 
-        switch (recursiveString) {
+        switch (reoccurringString) {
         case "d":
             func = Timing::getOneDayLaterTiming;
             break;
