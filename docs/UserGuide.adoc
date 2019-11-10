@@ -324,10 +324,10 @@ Sorts current spending displayed by Name in descending order.
 An example is shown below.
 
 .Output of `sort n/ASC d/DESC`
-[#sortoutput, align="center"]
+[#SortOutput, align="center"]
 image::SortPreviewUG.png[width="350", pdfwidth="50%"]
 
-Spending entries are sorted based on the example <<sortoutput>>.
+Spending entries are sorted based on the example <<SortOutput>>.
 
 // end::sort[]
 
