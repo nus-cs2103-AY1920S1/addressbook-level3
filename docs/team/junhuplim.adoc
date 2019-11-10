@@ -81,19 +81,19 @@ Also, as the enhancement is able to work with future commands, the implementatio
 this enhancement has to be considerable of the future features implementations and
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
-*Code contributed*: The links provided show my code contribution for the project. 
+*Code contributed*: The links provided show my code contribution for the project.
 (https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
 
 *Other contributions*
 
 * Project management
 ** Introduced Trello for tasks and deadlines management
-** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed. 
+** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed.
 * Enhancements to existing features
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation
-** Added documentation for `undo` and `redo` for both User Guide and Developer Guide: 
+** Added documentation for `undo` and `redo` for both User Guide and Developer Guide:
 (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
 ** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly.
