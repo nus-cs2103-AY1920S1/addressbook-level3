@@ -68,7 +68,7 @@ public class Parser implements InteractiveParser {
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
 
-    private static final String LOG_BEGIN_PARSING = "----------------[BEGIN PARSING][ %s ]";
+    private static final String LOG_END_PARSING = "----------------[PARSED INPUT][%s] ";
     private static final String LOG_EXCESSIVE_ARGUMENTS = "Excessive arguments supplied."
             + " Reverting Parser to temporary state.";
     private static final String LOG_INVALID_ARGUMENTS = "Invalid arguments supplied.";
@@ -115,6 +115,8 @@ public class Parser implements InteractiveParser {
         Prefix[] arrayOfPrefixes = inputProcessor.extractPrefixes(commandText);
         boolean wasActivatedNow = activateStateMachineIfInactive(commandText);
         parseStaticCommand(commandText, wasActivatedNow, arrayOfPrefixes);
+
+        logger.info(String.format(LOG_END_PARSING, commandText));
     }
 
     /**
@@ -139,8 +141,6 @@ public class Parser implements InteractiveParser {
      */
     private void parseDynamicStatelessCommand(String commandText) throws ParseException {
         String trimmedNormalizedText = commandText.trim().toLowerCase();
-
-        logger.info(String.format(LOG_BEGIN_PARSING, commandText));
 
         switch (trimmedNormalizedText) {
 
@@ -215,8 +215,6 @@ public class Parser implements InteractiveParser {
      */
     private void instantiateStateMachine(String commandText) throws ParseException {
         String commandWord = inputProcessor.getCommandWord(commandText);
-
-        logger.info(String.format(LOG_BEGIN_PARSING, commandText));
 
         switch (commandWord) {
 
