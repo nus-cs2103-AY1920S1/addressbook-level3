@@ -29,13 +29,22 @@ public class Event {
             long d1 = formatTime(e1.getDate().toString(), e1.getTime().toString());
             long d2 = formatTime(e2.getDate().toString(), e2.getTime().toString());
 
-            return (int) (d1 - d2);
+            long result = d1 - d2;
+
+            if (result > 0) {
+                return 1;
+            } else {
+                return -1;
+            }
         }
 
         private long formatTime(String date, String time) {
             String result = date.substring(6) + date.substring(3, 5) + date.substring(0, 2);
-            String zone = time.substring(6);
-            if (zone.equals("a.m.")) {
+            String zone = time.substring(5);
+            if (zone.equals(" a.m.")) {
+                if (time.length() == 9) {
+                    time = "0" + time;
+                }
                 String hour = time.substring(0, 2);
                 if (hour.equals("12")) {
                     result = result + "00" + time.substring(3, 5);
@@ -43,6 +52,9 @@ public class Event {
                     result = result + time.substring(0, 2) + time.substring(3, 5);
                 }
             } else {
+                if (time.length() == 9) {
+                    time = "0" + time;
+                }
                 int changeTime = Integer.parseInt(time.substring(0, 2)) + 12;
                 result = result + changeTime + time.substring(3, 5);
             }
