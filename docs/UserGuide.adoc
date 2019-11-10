@@ -431,11 +431,11 @@ image::deleteevent_wyss.png[width="450"]
 
 This command records your athlete’s performance for a certain event, on a certain day, to Athletick.
 
-You will need the event name, athlete’s index, date of performance and timing of performance.
+You will need the event name, athlete’s index, date of record and timing of record.
 
 NOTE: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
 
-Let's say you took a timed trial for Tao Li on 2nd November 2019 under the freestyle 50m event,
+Let's say that you took a timed trial for Tao Li on 2nd November 2019 under the freestyle 50m event,
 and she took 24.01 seconds to complete it. Now you want to store this record in Athletick.
 
 *What you should do*
@@ -446,9 +446,7 @@ Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
 Example : `performance 3 e/freestyle 50m d/02112019 t/24.01`
 
-As seen in the orange box in the diagram below, Tao Li has index `3` in the active list. Hence, `3` is used
-the the `INDEX`.
-
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
 image::addrecord_wysd.png[width=450]
 
 *What you should see*
@@ -460,9 +458,37 @@ success message.
 
 image::addrecord_wyss.png[width=450]
 
+==== Deleting an athlete's record : `delete -r`
+
+This command removes an athlete's record for a certain event, on a certain day, from Athletick.
+
+You will need the event name, athlete's index and date of record.
+
+Let's say that you want to delete Tao Li's record for the freestyle 50m event on 2nd November 2019.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `delete -r INDEX e/EVENT_NAME d/DDMMYYYY`
+
+Example : `delete -r 3 e/freestyle 50m d/02112019`
+
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::deleterecord_wysd.png[width=450]
+
+*What you should see*
+
+If successfully deleted, the result box will display the details of the record you just deleted.
+
+In the diagram below, the details of Tao Li's deleted record - event and date - are displayed in
+the success message.
+
+image::deleterecord_wyss.png[width=450]
+
 ==== Viewings events : `view performance`
 
-This command gives you an overview of what events you have stored in *Athletick*.
+This command shows you what events you have stored in *Athletick*.
 
 Let's say you want to know what events you have added to *Athletick*.
 
