@@ -77,7 +77,7 @@ Please click the following link to see my code contributions dashboard. https://
 === Other contributions
 
 * Project management:
-** Reviewed team's code coverage, resolved issues in the tracker.
+** Reviewed team's code coverage, resolved issues in the tracker, update project Ui.png.
 
 * Enhancements to team documentation:
 ** Updated README and ContactUs with missing acknowledgements and developer contacts.
