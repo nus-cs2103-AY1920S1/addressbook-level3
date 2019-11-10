@@ -40,9 +40,18 @@ If you can type fast, TutorAid can get your tasks done faster than traditional G
 .  Copy the file to the folder you want to use as the home folder for your TutorAid.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::LoginUI.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Login with your account or if you do not have one, register within Tutoraid.
+.  After logging in, you will be directed to the Student Page.
++
+image::UI.png[width="790"]
++
+.  The Reminders Window should pop up as well.
++
+image::reminderwindow.png[width="400"]
++
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
@@ -96,7 +105,17 @@ Examples:
 As of now, the login features allow multiple users to view the same data. This will be upgraded in later versions such
 that different accounts will see different data.
 ****
-=== Change tab : `tab`
+
+//tag::userinterface[]
+=== User Interface
+
+==== Tab Status
+
+The Tab that you are currently on will be shown on the bottom right corner +
+
+image::tabstatus.png[width=600"]
+
+==== Change tab : `tab`
 
 Change tab to any of the available ones. +
 Format: `change_tab tab/DESTINATION`
@@ -110,9 +129,20 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
+.Tab Change GUI
+image::tabchange.png[width=600]
 
+The user may alternatively choose to change tab by using the Items on the Menu Bar.
 
-=== Calender
+==== Delete Button
+
+Delete Button for Reminders and Notes for quick and easy removal of Reminder or Note.
+
+.Delete Button GUI
+image::reminders/deletebutton.png[width=600]
+//end::userinterface[]
+
+=== Tasks
 
 // tag::tasks[]
 ==== Adding task: `add_task`
@@ -124,7 +154,10 @@ Format: `add_task c/MODULE mark/STATUS tt/TASK_TIME...`
 A task can have more than one time slots. +
 STATUS should only be Y or N. +
 `TASK_TIME` should be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm". +
-If there are multiple task times, they will be automatically sorted based on their starting time.
+If there are multiple task times, they will be automatically sorted based on their starting time. +
+Mark indicates whether a Reminder will be created for this task. +
+The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the Task's `TASK_TIME` as its `DATE`.
+
 
 
 Examples:
@@ -214,38 +247,128 @@ image:UserGuide/find_task_4.png[width="500"]
 List all tasks. +
 Format: `list_task`
 
+//tag::calendar[]
+==== Calendar View
+
+Views the Task in Calendar View
+
+[TIP]
+Clicking on a date will show the user the Tasks with that date as its Start Time in normal list view. +
+The Calendar will display the tasks starting on that date and the amount of tasks starting on that date. +
+If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
 
 
-==== Setting Reminder Details  : `addReminder`
+****
+* The maximum number of tasks that can be shown on each date is 2. If there are more than *2* tasks on a date, a `...` will be added at the bottom of that date to indicate that there are more tasks not shown.
+* The Calendar will display the tasks starting on that date and the amount of tasks starting on that date. +
+* If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
+****
 
-===== Add Reminder
+image:calendarview.png[width="700"]
+//end::calendar[]
+
+//tag::reminders[]
+=== Reminders
+
+==== Add Reminder
 
 Adds reminders. +
-Format: `addReminder rd/DESCRIPTION rt/TIME`
+Format: `add_reminder rd/DESCRIPTION rt/START_TIME, END_TIME` +
+
+[TIP]
+A Reminder can have more than one time slots.
+
+****
+* `START_TIME` and `END_TIME` must be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm".
+* If there are multiple task times, they will be automatically sorted based on their `START_TIME`.
+****
 
 Examples:
 
-* `addReminder rd/Cs2103T homework rt/21/9/2019 13:00, 21/9/2019 15:00`
+* `add_reminder rd/CS2103T Homework rt/13/10/2019 13:00, 13/10/2019 15:00`
 
-===== Delete Reminder
+image:reminders/add_reminder.png[width="500"]
+
+image:reminders/add_reminder_2.png[width="500"]
+
+
+==== Delete Reminder
 
 Removes the reminder. +
-Format: `reminder INDEX INTEGER`
+Format: `delete_reminder INDEX`
 
 Examples:
 
-* `deleteReminder 1`
+* `delete_reminder 1`
 
-==== User Interface
+****
+* `INDEX` must be a positive integer.
+****
 
-View in calendar format. +
-Format: `change_tab tab/FORMAT`
+image:reminders/delete_reminder.png[width="500"]
 
-Example:
+image:reminders/delete_reminder_2.png[width="500"]
 
-* `change_tab tab/calendar`
-* `change_tab tab/tasks`
+.Deleting a Reminder using the delete button
+image::reminders/deletebutton.png[width="500"]
 
+Reminders can also be deleted easily by clicking the delete button
+
+==== Finding Reminders based on Description : `find_reminder_by_description`
+
+Find specific reminders by description and list them. +
+Format: `find_reminder_by_description DESCRIPTION ...`
+
+****
+* The `DESCRIPTION` is case insensitive. e.g `cs2100` will match `CS2100`
+* Only full words will be matched. e.g. `2100` will not match `CS2100`
+* Can find using more than one `DESCRIPTION` at a time.
+****
+
+Examples:
+
+* `find_reminder_by_description CS2103T`
+
+image:reminders/find_reminder_1.png[width="500"]
+
+image:reminders/find_reminder_2.png[width="500"]
+
+* `find_reminder_by_description CS2103T, cs2100`
+
+==== Finding Reminders based on Date : `find_reminder_by_date`
+
+Find specific reminders by date and list them. +
+Format: `find_reminders_by_date DATE ...`
+
+****
+* The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
+****
+
+Examples:
+
+* `find_reminders_by_date 13/10/2019`
+
+image:reminders/find_reminder_3.png[width="500"]
+
+image:reminders/find_reminder_4.png[width="500"]
+
+
+==== Listing all reminders : `list_reminder`
+
+List all reminders. +
+Format: `list_reminder`
+
+****
+* Reminders are automatically sorted by Start `DATE` with the most upcoming being on top.
+****
+
+==== Reminder Window
+
+The Reminder Window will pop up when Tutoraid is first loaded up. +
+It will list all the Reminders at hand.
+
+image:reminders/reminderwindow.png[width="500"]
+//end::reminders[]
 
 === Earnings
 
@@ -673,7 +796,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Tutoraid data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 === Logout : `logout`
@@ -745,15 +868,21 @@ _{explain how the user can enable/disable data encryption}_
 `login user/USERNAME pass/PASSWORD` +
 `register user/USERNAME pass/PASSWORD` +
 `logout`
-* *Tab* : `tab TAB_DESTINATION`
-* *Calendar:* +
+* *Tab* : +
+`change_tab tab/TAB_DESTINATION`
+* *Task:* +
 `add_task c/MODULE mark/STATUS tt/TASK_TIME...` +
 `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
 `find_task_by_date DATE ...` +
 `list_task`
-* *Reminder* : `reminder INDEX STATUS`
+* *Reminder* : +
+`add_reminder rd/DESCRIPTION rt/REMINDER_TIME...` +
+`delete_reminder 1` +
+`find_reminder_by_description DESCRIPTION ...` +
+`find_reminder_by_date DATE ...` +
+`list_reminder`
 * *Earnings* : +
 `add_earnings d/DATE c/CLASSID amt/AMOUNT` +
 `update_earnings d/DATE c/CLASSID amt/AMOUNT type/TYPE` +

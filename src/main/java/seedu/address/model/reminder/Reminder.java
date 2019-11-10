@@ -2,6 +2,7 @@ package seedu.address.model.reminder;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.TreeSet;
 
@@ -98,8 +99,8 @@ public class Reminder implements Comparable<Reminder> {
 
     @Override
     public int compareTo(Reminder reminder) {
-        String st = this.getStartTime().getStartTime();
-        String st2 = reminder.getStartTime().getStartTime();
+        Date st = this.getStartTime().getStartTime();
+        Date st2 = reminder.getStartTime().getStartTime();
         return st.compareTo(st2);
     }
 }

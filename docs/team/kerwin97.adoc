@@ -1,0 +1,88 @@
+= Kerwin Lim - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+image::kerwin97.png[width="200", align="left"]
+{empty}[https://github.com/kerwin97[github]] [https://www.linkedin.com/in/kerwin-lim-a6442014b/[linkedin]]
+
+****
+Hello! My name is Kerwin Lim. I'm a Computer Science Major at the National University of Singapore (NUS). I'm currently in my second year of studies.
+
+This portfolio page aims to document the contributions I have made in the development of TutorAid. Tutoraid is a project that my team and I completed for our CS2103T module. We have put in our heart and soul creating Tutoraid. It has been a tremendous learning journey for my team and I and we hope that user will enjoy and benefit from our product.
+****
+== PROJECT: TutorAid
+
+== Overview
+
+TutorAid is a handy application that was created for tutors and teaching assistants in NUS School of Computing to help improve their workflow and save time by better organizing all the information they require in one central location. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view and interact with TutorAid.
+
+TutorAid boasts well thought out features which have been carefully selected and reviewed to fit the exact needs of our target audience. All of TutorAid's features and implementations are well documented in guides for users and developers respectively.
+
+.The Graphical User Interface of TutorAid
+image::../images/Ui.png[width="500"]
+
+== Role
+
+My main role was to prototype and develop the Reminders feature, the Calendar feature and the Graphical User Interface.
+The login command required me to think of how to put up a login window that only shows the main window when the user
+has logged in successfully. It also required me to think of how to encrypt the passwords stored and how to check whether they
+are valid as well. I also did the Earning feature where it tracks what earnings you have earned throughout the weeks. It has a claim status that
+allows you to see if you have claimed your earnings from your respective faculties.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=userinterface]
+
+include::../UserGuide.adoc[tag=reminders]
+
+include::../UserGuide.adoc[tag=calendar]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=reminders]
+
+include::../DeveloperGuide.adoc[tag=calendar]
