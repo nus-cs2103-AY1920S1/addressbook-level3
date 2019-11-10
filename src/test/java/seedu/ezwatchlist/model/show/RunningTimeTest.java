@@ -1,5 +1,6 @@
 package seedu.ezwatchlist.model.show;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -22,5 +23,10 @@ public class RunningTimeTest {
         // valid running time
         assertTrue(RunningTime.isValidRunningTime(123)); // exactly 3 numbers
         assertTrue(RunningTime.isValidRunningTime(12033123)); // long phone numbers
+    }
+
+    @Test
+    void testHashCode() {
+        assertEquals(new RunningTime(1).hashCode(), 1);
     }
 }

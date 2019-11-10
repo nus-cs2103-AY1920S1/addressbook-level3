@@ -226,4 +226,16 @@ public class UniqueShowList implements Iterable<Show> {
         }
         return true;
     }
+
+    public boolean showsAreUniquePublic(List<Show> shows) {
+        return showsAreUnique(shows);
+    }
+
+    public ObservableList<Show> getInternalList() {
+        return internalList;
+    }
+
+    public ObservableList<Show> getInternalUnmodifiableList() {
+        return internalUnmodifiableList;
+    }
 }

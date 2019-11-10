@@ -5,10 +5,13 @@ import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_C
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.NAME_DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ezwatchlist.logic.commands.EditCommand;
+import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 
 public class EditCommandParserTest {
 
@@ -46,5 +49,15 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
+    @Test
+    public void parseInvalidIndex() {
+        assertThrows(ParseException.class, ()-> parser.parse("-1", "1"));
+    }
 
+    @Test
+    public void parseNoEditField() {
+        EditCommand.EditShowDescriptor editShowDescriptor = new EditCommand.EditShowDescriptor();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW, editShowDescriptor);
+        assertThrows(ParseException.class, () -> parser.parse("1", "1"));
+    }
 }

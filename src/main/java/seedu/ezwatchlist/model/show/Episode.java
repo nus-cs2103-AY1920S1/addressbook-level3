@@ -24,8 +24,6 @@ public class Episode {
         this.episodeNum = episodeNum;
     }
 
-
-
     public String getEpisodeName() {
         return episodeName;
     }

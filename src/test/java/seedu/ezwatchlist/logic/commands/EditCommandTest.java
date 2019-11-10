@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ACTOR_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
@@ -19,7 +19,13 @@ import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.WatchList;
+import seedu.ezwatchlist.model.show.Name;
+import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
+import seedu.ezwatchlist.testutil.ShowBuilder;
+
+
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -27,7 +33,7 @@ import seedu.ezwatchlist.testutil.EditShowDescriptorBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
-    /*
+
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Show editedShow = new ShowBuilder().build();
@@ -39,10 +45,10 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(0), editedShow);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertTrue(expectedModel.getFilteredShowList().get(0).equals(editedShow));
     }
-    */
-    /*
+
+
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastShow = Index.fromOneBased(model.getFilteredShowList().size());
@@ -65,7 +71,7 @@ public class EditCommandTest {
 
         //assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
-    */
+
     /*
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
@@ -129,6 +135,9 @@ public class EditCommandTest {
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }
 
+    private void assertCommandFailure(EditCommand editCommand, Model model, String messageInvalidShowDisplayedIndex) {
+    }
+
     /**
      * Edit filtered list where index is larger than size of filtered list,
      * but smaller than size of watch list
@@ -144,6 +153,9 @@ public class EditCommandTest {
                 new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
+    }
+
+    private void showShowAtIndex(Model model, Index indexFirstShow) {
     }
 
     @Test
@@ -169,6 +181,28 @@ public class EditCommandTest {
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_SHOW, DESC_BOB_THE_BUILDER)));
+
+
+    }
+
+    @Test
+    void testCreateEditedShow() {
+        //Show to edit is MOVIE
+        Show avengers = new ShowBuilder().withName("Avengers").build();
+        EditShowDescriptor editShowDescriptor = new EditShowDescriptor();
+        editShowDescriptor.setName(new Name("Hello Kitty"));
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_SHOW, editShowDescriptor);
+        Show hellokitty = new ShowBuilder().withName("Hello Kitty").build();
+        assertTrue(hellokitty.equals(editCommand.createEditedShowTest(avengers, editShowDescriptor)));
+
+        //Show to edit is TV
+        Show friends = new ShowBuilder().withName("Friends").withType("tv").build();
+        EditShowDescriptor editTv = new EditShowDescriptor();
+        editTv.setName(new Name("Flash"));
+        EditCommand editCommand1 = new EditCommand(INDEX_FIRST_SHOW, editTv);
+        Show flash = new ShowBuilder().withName("Flash").withType("tv").build();
+        assertTrue(flash.equals(editCommand1.createEditedShowTest(friends, editTv)));
+
     }
 
 }

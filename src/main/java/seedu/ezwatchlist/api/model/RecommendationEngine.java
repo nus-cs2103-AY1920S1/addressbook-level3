@@ -18,6 +18,7 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.model.core.ResultsPage;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import info.movito.themoviedbapi.tools.MovieDbException;
+
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.util.ApiUtil;
@@ -175,7 +176,13 @@ public class RecommendationEngine {
                 }
 
                 TvResultsPage tvDbs = tmdbApi.getSearch().searchTv(tvShowName, null, 1);
-                int tvId = tvDbs.getResults().get(0).getId(); //retrieves the first Tv Show that matches the name.
+                List<TvSeries> tvResults = tvDbs.getResults();
+
+                if (tvResults.isEmpty()) {
+                    continue;
+                }
+
+                int tvId = tvResults.get(0).getId(); //retrieves the first Tv Show that matches the name.
                 userTvShowsId.add(tvId); //adds the tv show id to a list so that a final filter can take place
 
                 TvSeries series = tmdbApi.getTvSeries().getSeries(tvId, null, TmdbTV.TvMethod.recommendations);
@@ -204,7 +211,13 @@ public class RecommendationEngine {
 
                 MovieResultsPage movieDbs = tmdbApi.getSearch()
                         .searchMovie(movieName, null, null, true, 1);
-                int movieId = movieDbs.getResults().get(0).getId(); //retrieves the first Movie that matches the name.
+                List<MovieDb> movieDbsResults = movieDbs.getResults();
+
+                if (movieDbsResults.isEmpty()) {
+                    continue;
+                }
+
+                int movieId = movieDbsResults.get(0).getId(); //retrieves the first Movie that matches the name.
                 userMoviesId.add(movieId); //adds the movie id to a list so that a final filter can take place
 
                 MovieDb movieDb = tmdbApi.getMovies().getMovie(movieId, null, TmdbMovies.MovieMethod.recommendations);

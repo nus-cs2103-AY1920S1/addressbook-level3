@@ -4,7 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_ACTOR;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DATE_OF_RELEASE;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_IS_WATCHED;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_RUNNING_TIME;
+import static seedu.ezwatchlist.logic.parser.CliSyntax.PREFIX_TYPE;
+
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,24 +29,46 @@ import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
+import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 import seedu.ezwatchlist.testutil.ShowBuilder;
 
 public class AddCommandTest {
 
-    /*
     @Test
     public void constructor_nullShow_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        Show show = null;
+        assertThrows(NullPointerException.class, () -> new AddCommand(show));
     }
-    */
+
+    @Test
+    public void check_static_fields() {
+        final String messageusage = "add" + ": Adds a show to the watchlist. "
+                + "Parameters: "
+                + PREFIX_NAME + "NAME "
+                + PREFIX_TYPE + "TYPE ('movie' or 'tv') "
+                + "[" + PREFIX_DATE_OF_RELEASE + "DATE OF RELEASE] "
+                + "[" + PREFIX_IS_WATCHED + "WATCHED ('true' or 'false')] "
+                + "[" + PREFIX_RUNNING_TIME + "RUNNING TIME] "
+                + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
+                + "[" + PREFIX_ACTOR + "ACTOR]...\n"
+                + "Example: " + "add" + " "
+                + PREFIX_NAME + "Joker "
+                + PREFIX_TYPE + "movie "
+                + PREFIX_DATE_OF_RELEASE + "4 October 2019 "
+                + PREFIX_IS_WATCHED + "true "
+                + PREFIX_RUNNING_TIME + "122 "
+                + PREFIX_DESCRIPTION + "Joker is funny "
+                + PREFIX_ACTOR + "Joaquin Phoenix "
+                + PREFIX_ACTOR + "Robert De Niro";
+        assertEquals(AddCommand.MESSAGE_USAGE, messageusage);
+    }
 
     @Test
     public void execute_showAcceptedByModel_addSuccessful() throws Exception {
@@ -58,8 +90,71 @@ public class AddCommandTest {
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_SHOW, () -> addCommand.execute(modelStub));
     }
 
+
+
     @Test
-    public void equals() {
+    void fromSearch() throws CommandException {
+        ModelManager modelManager = new ModelManager();
+        Show validShow = new ShowBuilder().build();
+        AddCommand addCommand = new AddCommand(INDEX_FIRST_SHOW.getZeroBased());
+        assertThrows(CommandException.class, () -> addCommand.fromSearch(modelManager));
+
+        modelManager.addShow(new ShowBuilder().build());
+        ArrayList<Show> arrayList = new ArrayList<>();
+        arrayList.add(validShow);
+        modelManager.updateSearchResultList(arrayList);
+        AddCommand addCommand2 = new AddCommand(2);
+        assertThrows(CommandException.class, () -> addCommand2.fromSearch(modelManager));
+
+        modelManager.addShow(new ShowBuilder().withName("test").build());
+        arrayList.add(validShow);
+        modelManager.updateSearchResultList(arrayList);
+        AddCommand addCommand3 = new AddCommand(1);
+        assertThrows(CommandException.class, () -> addCommand3.fromSearch(modelManager));
+
+        ModelManager modelManager2 = new ModelManager();
+        ArrayList<Show> arrayList2 = new ArrayList<>();
+        arrayList2.add(validShow);
+        modelManager2.updateSearchResultList(arrayList2);
+        AddCommand addCommand4 = new AddCommand(1);
+        assertTrue(addCommand4.fromSearch(modelManager2) instanceof CommandResult);
+    }
+
+    @Test
+    void testExecute() throws CommandException {
+        ModelStubAcceptingShowAdded modelStub = new ModelStubAcceptingShowAdded();
+        Show validShow = new ShowBuilder().build();
+
+        CommandResult commandResult = new AddCommand(validShow).execute(modelStub);
+
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validShow), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validShow), modelStub.showsAdded);
+        Show validShow2 = new ShowBuilder().build();
+        AddCommand addCommand = new AddCommand(validShow2);
+        ModelStub modelStub2 = new ModelStubWithShow(validShow2);
+
+        AddCommand fromsearch = new AddCommand(1);
+        //assertEquals();
+    }
+
+    @Test
+    public void test() throws CommandException {
+        ModelManager modelManager2 = new ModelManager();
+        ArrayList<Show> arrayList2 = new ArrayList<>();
+        Show validShow2 = new ShowBuilder().build();
+        AddCommand addCommand = new AddCommand(1);
+        arrayList2.add(validShow2);
+        modelManager2.updateSearchResultList(arrayList2);
+        assertTrue(addCommand.execute(modelManager2) instanceof CommandResult);
+    }
+    @Test
+    void testFromSearch() {
+        AddCommand addCommand = new AddCommand(INDEX_FIRST_SHOW.getZeroBased());
+        assertTrue(addCommand.isFromSearch());
+    }
+
+    @Test
+    void testEquals() {
         Show avenger = new ShowBuilder().withName("Avenger").build();
         Show bobthebuilder = new ShowBuilder().withName("Bob The Builder").build();
         AddCommand addAvengerCommand = new AddCommand(avenger);
@@ -67,6 +162,8 @@ public class AddCommandTest {
 
         AddCommand addIndex0 = new AddCommand(1);
         AddCommand addIndex1 = new AddCommand(2);
+        // same object -> returns true test using ==
+        assertTrue(addAvengerCommand == addAvengerCommand);
 
         // same object -> returns true
         assertTrue(addAvengerCommand.equals(addAvengerCommand));
@@ -89,8 +186,9 @@ public class AddCommandTest {
 
         // null -> returns false
         assertFalse(addIndex0.equals(null));
-
     }
+
+
 
     /**
      * A default model stub that have all of the methods failing.
@@ -222,10 +320,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void syncMovie(List<Movie> syncMovie) {
-
-        }
 
         @Override
         public String getPage(String shortCutKey) {

@@ -1,7 +1,11 @@
 package seedu.ezwatchlist.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
+import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
+import static seedu.ezwatchlist.testutil.TypicalShows.GODFATHER2;
+import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -55,33 +59,32 @@ public class JsonWatchListStorageTest {
         assertThrows(DataConversionException.class, () -> readWatchList("invalidAndValidShowWatchList.json"));
     }
 
-    /*
-        @Test
-        public void readAndSaveWatchList_allInOrder_success() throws Exception {
-            Path filePath = testFolder.resolve("TempWatchList.json");
-            WatchList original = getTypicalWatchList();
-            JsonWatchListStorage jsonWatchListStorage = new JsonWatchListStorage(filePath);
 
-            // Save in new file and read back
-            jsonWatchListStorage.saveWatchList(original, filePath);
-            ReadOnlyWatchList readBack = jsonWatchListStorage.readWatchList(filePath).get();
-            assertEquals(original, new WatchList(readBack));
+    @Test
+    public void readAndSaveWatchList_allInOrder_success() throws Exception {
+        Path filePath = testFolder.resolve("TempWatchList.json");
+        WatchList original = getTypicalWatchList();
+        JsonWatchListStorage jsonWatchListStorage = new JsonWatchListStorage(filePath);
 
-            // Modify data, overwrite exiting file, and read back
-            original.addShow(AVENGERSENDGAME);
-            original.removeShow(FIGHTCLUB);
-            jsonWatchListStorage.saveWatchList(original, filePath);
-            readBack = jsonWatchListStorage.readWatchList(filePath).get();
-            assertEquals(original, new WatchList(readBack));
+        // Save in new file and read back
+        jsonWatchListStorage.saveWatchList(original, filePath);
+        ReadOnlyWatchList readBack = jsonWatchListStorage.readWatchList(filePath).get();
+        assertEquals(original, new WatchList(readBack));
 
-            // Save and read without specifying file path
-            original.addShow(GODFATHER2);
-            jsonWatchListStorage.saveWatchList(original); // file path not specified
-            readBack = jsonWatchListStorage.readWatchList().get(); // file path not specified
-            assertEquals(original, new WatchList(readBack));
+        // Modify data, overwrite exiting file, and read back
+        original.addShow(GODFATHER2);
+        original.removeShow(FIGHTCLUB);
+        jsonWatchListStorage.saveWatchList(original, filePath);
+        readBack = jsonWatchListStorage.readWatchList(filePath).get();
+        assertEquals(original, new WatchList(readBack));
 
-        }
-    */
+        // Save and read without specifying file path
+        original.addShow(FIGHTCLUB);
+        jsonWatchListStorage.saveWatchList(original); // file path not specified
+        readBack = jsonWatchListStorage.readWatchList().get(); // file path not specified
+        assertEquals(original, new WatchList(readBack));
+
+    }
 
     @Test
     public void saveWatchList_nullWatchList_throwsNullPointerException() {
@@ -104,4 +107,5 @@ public class JsonWatchListStorageTest {
     public void saveWatchList_nullFilePath_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveWatchList(new WatchList(), null));
     }
+
 }

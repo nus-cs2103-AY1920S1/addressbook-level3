@@ -7,12 +7,18 @@ import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 import static seedu.ezwatchlist.testutil.TypicalShows.AVENGERSENDGAME;
 import static seedu.ezwatchlist.testutil.TypicalShows.FIGHTCLUB;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
+import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.exceptions.DuplicateShowException;
 import seedu.ezwatchlist.model.show.exceptions.ShowNotFoundException;
 import seedu.ezwatchlist.testutil.ShowBuilder;
@@ -157,5 +163,87 @@ public class UniqueShowListTest {
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueShowList.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void hasShowNameTest() {
+        Show test = new ShowBuilder(AVENGERSENDGAME).withName("test").build();
+        uniqueShowList.add(test);
+        List<Show> showList = new ArrayList<>();
+        showList.add(test);
+        assertEquals(uniqueShowList.hasShowName(new Name("test")), true);
+    }
+
+    @Test
+    public void getShowIfHasNameTest() {
+        Show test = new ShowBuilder(AVENGERSENDGAME).withName("test").build();
+        uniqueShowList.add(test);
+        List<Show> showList = new ArrayList<>();
+        showList.add(test);
+        assertEquals(uniqueShowList.getShowIfHasName(new Name("test")), showList);
+    }
+
+    @Test
+    public void hasActorTest() {
+        Show test = new ShowBuilder(AVENGERSENDGAME).withActors("test").build();
+        Show test2 = (TvShow) new ShowBuilder(AVENGERSENDGAME).withType("tv").build();
+        uniqueShowList.add(test);
+        List<Show> showList = new ArrayList<>();
+        showList.add(test);
+        Set<Actor> actors = new HashSet<>();
+        actors.add(new Actor("test"));
+        assertEquals(uniqueShowList.hasActor(actors), true);
+        showList.clear();
+        Show tvShow = new TvShow(new Name(), new Description(), new IsWatched(),
+                new Date(), new RunningTime(), actors, 0, 0, new ArrayList<>());
+        assertEquals(uniqueShowList.hasActor(actors), true);
+    }
+
+    @Test
+    public void getShowIfHasActorTest() {
+        Show test = new ShowBuilder(AVENGERSENDGAME).withActors("test").build();
+        uniqueShowList.add(test);
+        List<Show> showList = new ArrayList<>();
+        showList.add(test);
+        Set<Actor> actors = new HashSet<>();
+        actors.add(new Actor("test"));
+        assertEquals(uniqueShowList.getShowIfHasActor(actors), showList);
+    }
+
+    @Test
+    public void getShowIfIsGenreTest() {
+        Show test = new ShowBuilder(AVENGERSENDGAME).build();
+        uniqueShowList.add(test);
+        List<Show> showList = new ArrayList<>();
+        showList.add(test);
+        Set<Genre> genres = new HashSet<>();
+        genres.add(new Genre("test"));
+        assertEquals(uniqueShowList.getShowIfIsGenre(genres), new ArrayList<>());
+    }
+    @Test
+    public void iteratorTest() {
+        assertTrue(uniqueShowList.iterator() instanceof Iterator);
+    }
+
+    @Test
+    public void hashCodeTest() {
+        assertEquals(uniqueShowList.hashCode(), uniqueShowList.getInternalList().hashCode());
+    }
+
+    @Test
+    public void getInternalUnmodifiableListTest() {
+        assertTrue(uniqueShowList.getInternalUnmodifiableList() instanceof ObservableList);
+    }
+
+    @Test
+    public void showsAreUniqueTest() {
+        Show show = new ShowBuilder(AVENGERSENDGAME).build();
+        Show show1 = new ShowBuilder(FIGHTCLUB).build();
+        List<Show> showList = new ArrayList<>();
+        showList.add(show);
+        showList.add(show1);
+        assertTrue(uniqueShowList.showsAreUniquePublic(showList));
+        showList.add(show);
+        assertFalse(uniqueShowList.showsAreUniquePublic(showList));
     }
 }

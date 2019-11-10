@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true">
+         <content>
+            <VBox styleClass="v-box">
+               <children>
+                  <Label minHeight="25.0" styleClass="label-bright" text="What you might have forgotten to watch:">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <StackPane fx:id="forgottenPlaceHolder">
+                     <children>
+                        <ListView fx:id="forgottenView" maxHeight="250.0" minHeight="250.0" minWidth="700.0" prefHeight="250.0">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" />
+                           </StackPane.margin>
+                        </ListView>
+                     </children>
+                  </StackPane>
+                  <Label minHeight="25.0" styleClass="label-bright" text="Your favourite genres:">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox fx:id="favouriteGenres" spacing="15.0" styleClass="favourite-genre-tag">
+                     <padding>
+                        <Insets bottom="2.0" left="20.0" right="20.0" top="2.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label minHeight="25.0" styleClass="label-bright" text="You might be interested in:">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <StackPane fx:id="recommendationPlaceHolder">
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <HBox HBox.hgrow="ALWAYS" />
+                                    <ListView fx:id="movieRecommendationView" maxHeight="200.0" minHeight="155.0" minWidth="350.0" orientation="HORIZONTAL" prefHeight="155.0" prefWidth="350.0" HBox.hgrow="ALWAYS" />
+                                    <HBox HBox.hgrow="ALWAYS" />
+                                    <ListView fx:id="tvRecommendationView" maxHeight="200.0" minHeight="155.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" orientation="HORIZONTAL" prefHeight="155.0" prefWidth="350.0" HBox.hgrow="ALWAYS" />
+                                    <HBox HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</StackPane>

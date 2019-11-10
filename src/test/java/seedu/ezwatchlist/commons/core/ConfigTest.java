@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.logging.Level;
+
 import org.junit.jupiter.api.Test;
 
 public class ConfigTest {
@@ -23,5 +27,12 @@ public class ConfigTest {
         assertTrue(defaultConfig.equals(defaultConfig));
     }
 
+    @Test
+    public void testConstructor() {
+        Config test = new Config();
+        assertTrue(test.getLogLevel() instanceof Level);
+        assertTrue(test.getUserPrefsFilePath() instanceof Path);
+        assertEquals(test.hashCode(), Objects.hash(test.getLogLevel(), test.getUserPrefsFilePath()));
+    }
 
 }

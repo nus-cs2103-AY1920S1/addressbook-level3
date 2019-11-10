@@ -146,4 +146,8 @@ public class JsonAdaptedMovie {
 
         return show;
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

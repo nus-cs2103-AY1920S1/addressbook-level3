@@ -108,7 +108,7 @@ public class CommandTestUtil {
         WATCH_DESC_BOB_THE_BUILDER = new WatchShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
                 .withType(VALID_TYPE_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withIsWatched(VALID_WATCHED_BOB_THE_BUILDER)
-                .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER)
+                .withDateOfRelease(VALID_DATE_BOB_THE_BUILDER).withTotalNumOfEpisodes(100).withNumOfEpisodesWatched(40)
                 .withRunningTime(VALID_RUNNING_TIME_BOB_THE_BUILDER).withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
     }
 

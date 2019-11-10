@@ -22,3 +22,6 @@ src/test/data/sandbox/
 
 # Poster Storage
 src/main/resources/images/posters/
+
+# Ui Poster to prevent bugs
+docs/images/Ui.png

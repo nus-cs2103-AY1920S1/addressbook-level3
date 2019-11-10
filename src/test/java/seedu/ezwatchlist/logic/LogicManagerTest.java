@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX;
 import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
+
+import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -71,17 +75,25 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(watchListStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
+        String description = "Forever alone in a crowd, failed comedian Arthur Fleck
+        seeks connection as he walks the streets of Gotham "
+                + "City. Arthur wears two masks -- the one he paints for his day job as a clown, and the guise he "
+                + "projects in a futile attempt to feel like he's part of the world around him. Isolated, bullied "
+                + "and disregarded by society, Fleck begins a slow descent into madness as he transforms into the "
+                + "criminal mastermind known as the Joker.";
+
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_ANNABELLE + TYPE_DESC_ANNABELLE
-                + WATCHED_DESC_ANNABELLE + DESCRIPTION_DESC_ANNABELLE
-                + DATE_DESC_ANNABELLE + RUNNING_TIME_DESC_ANNABELLE;
-        Show expectedShow = new ShowBuilder(ANNABELLE).withActors().build();
+        String addCommand = AddCommand.COMMAND_WORD + " n/Joker" + " s/" + description
+                + " w/false" + " d/3/10/2019" + " t/movie"
+                + " r/122";
+        Show expectedShow = new ShowBuilder(JOKER).withActors().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addShow(expectedShow);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        //assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
-    }*/
+        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
 
+    }
+*/
     @Test
     public void getFilteredShowList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredShowList().remove(0));
@@ -141,6 +153,56 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
+    @Test
+    void execute() {
+    }
+
+    @Test
+    void getModel() {
+        assertTrue(logic.getModel() instanceof Model);
+    }
+
+    @Test
+    void getWatchList() {
+        assertTrue(logic.getWatchList() instanceof ReadOnlyWatchList);
+    }
+
+    @Test
+    void getUnWatchedList() {
+        assertTrue(logic.getUnWatchedList() instanceof ObservableList);
+    }
+
+    @Test
+    void getWatchedList() {
+        assertTrue(logic.getWatchedList() instanceof ObservableList);
+    }
+
+    @Test
+    void getFilteredShowList() {
+        assertTrue(logic.getFilteredShowList() instanceof ObservableList);
+    }
+
+    @Test
+    void updateFilteredShowList() {
+        assertTrue(logic.getSearchResultList() instanceof ObservableList);
+    }
+
+    @Test
+    void getSearchResultList() {
+        //assertTrue(logic.updateFilteredShowList() instanceof ObservableList);
+    }
+    @Test
+    void getWatchListFilePath() {
+        assertTrue(logic.getWatchListFilePath() instanceof Path);
+    }
+    @Test
+    void getGuiSettings() {
+        assertTrue(logic.getGuiSettings() instanceof GuiSettings);
+    }
+    @Test
+    void setGuiSettings() {
+        //assertTrue(logic.setGuiSettings() instanceof GuiSettings);
+    }
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */

@@ -4,6 +4,7 @@ import seedu.ezwatchlist.commons.core.index.Index;
 import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.logic.commands.DeleteCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.ui.MainWindow;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -16,6 +17,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteCommand parse(String args, String currentPanel) throws ParseException {
+
+        if (currentPanel.equals(MainWindow.SEARCH_TAB) || currentPanel.equals(MainWindow.STATISTICS_TAB)) {
+            throw new ParseException(Messages.MESSAGE_INVALID_COMMAND);
+        }
+
         try {
             Index index = ParserUtil.parseIndex(args);
             return new DeleteCommand(index);

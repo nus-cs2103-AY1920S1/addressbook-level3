@@ -19,18 +19,79 @@ By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 // tag::intro[]
 == Introduction
+Tired of using multiple sources on the internet to keep track of all your movies and tv shows that you want to watch? EzWatchlist is a solution to your entertainment problems!
 
-`EzWatchList` is for those who *prefer to use a desktop app for managing movies and tv series watchlist*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
+`EzWatchList` is an application is for cinephiles who *prefer to use a desktop for managing movies and tv shows*. More importantly, `EzWatchList` is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI).
 
 .  If you can type fast, `EzWatchList` works faster than traditional GUI apps.
 .  Keep track of movies and tv shows that you plan to watch or have watched.
 .  Access quick information about your favourite shows through our online database.
 .  Discover your personal movie habits, with our statistics page.
-.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `Ezwatchlist` usage.
+.  Can't find any good shows to watch? We will give you recommendations on what to watch based on your `EzWatchlist` usage.
 
 ====
-Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
+Already interested? Jump to <<Quick Start>> to quickly get started. Enjoy!
 ====
+
+=== What else does EzWatchlist offer you?
+
+* Integration with an online database of shows, allowing you to search and get information about shows.
+
+* Functions and works without internet.
+
+* No installations required.
+
+* Auto-saves all data.
+
+* Dual-purpose interface, command line interface for those who prefer typing and graphical for those who prefer using a mouse.
+
+=== How do I use EzWatchlist?
+
+EzWatchlist was built with ease in mind hence our interface reflects this design philosophy.
+
+.EzWatchlist's graphical interface
+image::Ui.png[width="900"]
+
+==== Navigation
+
+EzWatchlist is split into four different pages:
+
+. <<Watchlist Page, *Watchlist*>>, where shows you want to watch are added.
+. <<Watched List, *Watchedlist*>>, where shows you have watched are located.
+. <<Search Page, *Search*>>, where you search for shows both online and offline.
+. <<Statistics Page, *Statistics*>>, where information about your viewing habits are shown.
+
+This pages are represented by the <<Sidebar, *sidebar panel*>> shown visibly in Figure 1. Navigate between pages by using keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] respectively or
+through a button press on the graphical interface.
+
+==== Interaction
+.EzWatchlist's command line interface.
+image::commandline.png[width="900"]
+
+
+EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
+Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) is the main way of interaction in the application.
+The following is an example of adding a movie into your watch list:
+
+===== Steps to quickly add a movie
+
+* **`search`** `n/ip man` : Searched for movie named `ip man` in the offline and online database which will bring you to the search page automatically.
+
+.Search page for "ip man".
+image::searchIpMan.png[width='500']
+
+* **`add`** `2` : Adds "Ip Man" (2008) shown in entry 2 in Figure 3 into your watchlist.
+
+.Watchlist page after entry.
+image::watchlistIpMan.png[width='500']
+
+And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
+go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
+understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
+
+
+What are you waiting for? Start using `EzWatchlist` now!
+
 
 == Quick Start
 
@@ -38,16 +99,12 @@ Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 .  Download the latest `ezwatchlist.jar` link:https://github.com/AY1920S1-CS2103T-F13-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your watchlist.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Interact with `Ezwatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
+.  Interact with `EzWatchlist` with <<UserCommands, commands>> in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`add`**`n/Titanic t/movie` : adds the `movie` named `Titanic` to the Watchlist.
-* **`search`**`n/Titanic` : Searched for movie named `Titanic` in all movies
-* **`delete`**`3` : deletes the 3rd movie shown in the current list
+* **`delete`**`3` : deletes the 3rd movie shown in either watch or watched page.
 * *`exit`* : exits the app
 
 .  Refer to <<UserCommands>> for details of each command.
@@ -59,7 +116,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 ==== Watchlist Page
 
-The watchlist is the default page that is opened upon start-up of ezwatchlist.
+The watchlist is the default page that is opened upon start-up of `EzWatchlist`.
 It shows the user’s unwatched movies and television series.
 The watchlist page also contains a command bar to allow the user to input commands.
 The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `1`.
@@ -107,7 +164,10 @@ image::statistics_page.png[width="790"]
 
 ==== Sidebar
 
-Ezwatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
 
 ==== Details Page (Coming in v2.0)
 
@@ -117,33 +177,43 @@ Upon clicking a movie or tv show title, a pop-up window will emerge, with a deta
 === Advanced Features
 
 ==== Parsing of Movie and Tv Show Information
-In Ezwatchlist, an online database is accessed so that all the information about your favourite Movies and
+In EzWatchlist, an online database is accessed so that all the information about your favourite Movies and
 Television Shows is updated, informative, and concise. What this means for you is that:
 
-* Posters of your Ezwatchlist shows,
-can be displayed in Ezwatchlist's sleek dark interface.
+* Posters of your EzWatchlist shows,
+can be displayed in EzWatchlist's sleek dark interface.
 
 * Moreover, your offline shows can be synced with this database allowing the application to fill in
 the minor details for you.
 
-* Unsure of what actors played in your favourite movie? Ezwatchlist will find that information for you.
+* Unsure of what actors played in your favourite movie? EzWatchlist will find that information for you.
 
 ****
 You don't need to do anything other than be connected to the internet. It is that easy!
 ****
 
 ==== Movie and Tv Show Recommendations
-Ezwatchlist has the ability to recommend Movies and TvShows to you based on
-your Ezwatchlist usage. Ezwatchlist will create your own personalized recommendations for you.
+EzWatchlist has the ability to recommend Movies and TvShows to you based on
+your EzWatchlist usage. EzWatchlist will create your own personalized recommendations for you.
+
+===== How to get your recommendations
+1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
+
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[3] or pressing the `Statistics.` button on the
+in the interface.
+
+3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
+
+.Recommendations shown in the Statistics Page.
+image::recommendations.png[width="900]
 
 ****
 Excited? Enter your statistics page to get started on your recommendations. You might
 just find your next favourite!
 ****
 
-
 ==== Auto-Correct (Coming in v2.0)
-Ezwatchlist aims to provide a smooth experience for our typing users. All typing in Ezwatchlist will be automatically
+EzWatchlist aims to provide a smooth experience for our typing users. All typing in EzWatchlist will be automatically
 corrected for you when typing in your commands.
 
 ****
@@ -195,11 +265,19 @@ Adds a show from search result page after user has already search for show +
 Format: `add INDEX`
 
 [TIP]
-This add command can only be used if user has already search for show using the search online command.
+This add command can only be used if user is currently at search page, and has already search for show using the search online command.
+
 
 Examples:
 
-* `add 2`
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `add 1` +
+Add the movie - Titanic found in search list into watchlist
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
 
 ==== Clear the WatchList: `clear`
 
@@ -221,10 +299,10 @@ image::WatchTheOffice.png[width="790"]
 [start=2]
 2. User enters `watch 1` into the command box in the watchlist tab.
 
-image::Watch1.png[width="790"]
+image::Watch.png[width="790"]
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `1`.
+3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
 
 image::WatchedTheOffice.png[width="790"]
 
@@ -309,6 +387,51 @@ Returns movies with the genre "Action"
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
 
+==== Synchronise user's show data: `sync`
+Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
+Format:
+
+* `sync INDEX`
+
+****
+* User may have added their show with their own information. However, user might not know some of the parameters such as actors.
+* Thus, user can use the search online command `search n/` to look up information regarding that show.
+* Then, Synchronise command `sync` can be used to update information/modify on that show.
+* Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
+* The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
+* Names of the show are not case-sensitive.
+* User must have at least input the name of the show to use sync command. (Both are same name, case-insensitive)
+* User can use `add INDEX` command if a selected show in result page is not found in watchlist.
+****
+====
+Note: `Sync` will write over all the information of show with same name found in watchlist.
+====
+
+Examples:
+
+1. User has already input Titanic show into watchlist manually.
+
+* Watchlist page:
+** Movie #1: Name: titanic
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+Synchronise Titanic show in result page of index 1 with user's Titanic show.
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
+2. User has not input Titanic show into watchlist manually.
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+returns and display error because Titanic show is not found in watchlist page.
+* User can choose to use `add 1` command to add Titanic show.
+* `add 1`
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
 // tag::delete[]
 ==== Deleting a show : `delete`
 
@@ -337,19 +460,13 @@ Format: `exit`
 
 ==== Saving the data
 
-Ezwatchlist data are saved in the hard disk automatically after any command that changes the data. +
+EzWatchlist's data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
-
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Ezwatchlist folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous EzWatchlist folder.
 
 == Command Summary
 
