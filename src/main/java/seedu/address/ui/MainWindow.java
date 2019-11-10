@@ -82,7 +82,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
-        this.unknown = false;
+        this.isUnknown = false;
         reminderWindow = new ReminderWindow(logic);
     }
 
@@ -431,8 +431,6 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
-            } else if (commandResult.isLogin()) {
-                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

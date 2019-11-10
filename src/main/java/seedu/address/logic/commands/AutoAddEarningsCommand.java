@@ -69,12 +69,14 @@ public class AutoAddEarningsCommand extends Command {
                 throw new CommandException(MESSAGE_DUPLICATE_ADDITION);
             } else {
                 earningsList.add(earnings);
+                model.saveListToMap(key, earnings);
             }
 
         } else {
             ArrayList<Earnings> listOfEarnings = new ArrayList<>();
             listOfEarnings.add(earnings);
             earnings.putIntoList(key, listOfEarnings);
+            model.saveToMap(key, listOfEarnings);
         }
 
         return new CommandResult(MESSAGE_SUCCESS,

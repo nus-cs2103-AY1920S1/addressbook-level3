@@ -138,6 +138,39 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+// tag::accountStorage[]
+==== Account Storage
+All accounts are stored in a JSON file called accountslist.json. This file is generated once you register an account. The username
+and password is stored inside the the JSON file with salt hashing thus, the account details cannot be seen by everyone.
+
+*Design Considerations*
+We realised that storing the accounts by itself would allow anyone to see the username and passwords. Hence, we decided to
+use a password authentication method and salt hashing to cover the passwords of the accounts.
+
+In addition, we decided to go with using a JSON file instead of XML file due to these considerations:
+
+.Account File Storage function alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| JSON File (Current Choice)   | *Pros* : More familiarity with JSON files. More compact and can be easily loaded. Flexible
+
+                                        *Cons* : Bad Schema support and namespace support
+
+| XML File | *Pros* : Easy transfer of data between seperate systems. Good at storing data that will be readby 3rd parties.
+
+                                        *Cons* : Not familiar with it and we would require more time to learn how to use it.
+|=======================
+
+*Security Considerations*
+As of now, only password hashing is done to protect the accounts from being seen by unwanted eyes. We have planned ahead of time and decided
+to implement better security options for v2.0.
+
+* *Store accounts on a backend server:* The project restricts us and as of now, it is not implemented. The advantages of storing the accounts in  database
+is that it can be a lot more secure.
+
+* *Encrypt the Account JSON file:* This will prevent other users from easily clicking into the data file and make it more secure.
+// end::accountStorage[]
 
 [[Design-Commons]]
 === Common classes
@@ -147,7 +180,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
+// tag::earnings[]
 === Earnings Feature
 
 ==== Add Earnings
@@ -160,7 +193,7 @@ The format for the `add_earnings` command is as follows:
 
 *Overview*
 
-The add claim `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarningsCommandParser`, taking in the
+The `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarningsCommandParser`, taking in the
 following input from the user: `Date`, `Type`, `ClassId`, `Amount`, which will construct `Earnings` objects.
 
 .Add Earnings Command Sequence Diagram
@@ -189,9 +222,6 @@ DD/MM/YYYY.
 
 * `AddEarningsCommandParser` would then return a `AddEarningsCommand` object with the parameter, `Earnings` object.
 
-The following activity diagram summarizes what happens when a user executes a new command.
-
-image::AddEarningsActivityDiagram.png[]
 
 *Example Scenerio*
 
@@ -215,6 +245,165 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
+
+==== Delete Earnings
+This command allows the user to delete an earnings from the existing earnings list through
+its index.
+
+The delete earnings command is facilitated by the `DeleteEarningsCommand` and `DeleteEarningsCommandParser`.
+
+The delete earnings command is part of the logic component of our application. It interacts with the model component
+of or software application.
+
+*Overview*
+The `DeleteEarningsCommandParser` implements `Parser` with the following operation:
+
+* `DeleteEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, that the
+ user wants to delete, which will correspond to the index shown on the earnings list on the application. This will delete
+ the earnings in the earnings list. If an invalid format is entered or an invalid index is entered, there will be a prompt
+ from the commmand parser.
+
+*Current Implementation*
+The delete earnings command is executed by the `DeleteEarningsCommand`. Currently, the deletion of any earnings is done based
+on the `INDEX` of te earnings entry.
+
+During the design of our delete earnings function, we considered between two alternatives.
+
+* *Alternative 1: (Current Choice)*
+Delete Earnings by Index.
+** *Pros:* Each earnings is already listed with a unique index, deletion by index is intuitive, less prone to bugs and
+ easier to implement.
+
+** *Cons:*  If the user has added a long list of earnings, the user has to look through the whole list and scroll down
+to look for the index of the earnings that the user wants to delete.
+
+* *Alternative 2:*
+Delete Earnings by Class Id or Date.
+** *Pros:* User has no need to scroll through the list and can delete the earnings in mind easily by typing in the class id or
+ the date.
+
+** *Cons:* Different Earnings might have similar class id and/or date, thus deleting by class id or date might
+cause many earnings to be deleted or the wrong ones to be deleted.
+
+We have decided to go with the first alternative as it reduces the number of potential bugs and the complexities involved
+when taking into accout the different cases and scenarios upon the second alternative. In addition, by using the first alternative,
+users can take advantage of the `find_earnings` command and then delete from that list.
+
+==== Update Earnings
+*TutorAid* allows the user to update any earnings by using a combination of its `INDEX` and any of the attributes of earnings.
+
+* `update_earnings 3 type/tutorials`
+* `update_earnings 1 d/03/11/2019`
+
+The above commands update the earnings type at index 3 on the list to type-tutorials and updates the earnings date at
+index 1 to date 03/11/2019.
+
+*Current Implementation*
+The `UpdateEarningsCommandParser` implements `Parser` with the following operation:
+
+* `UpdateEarningsCommandParser#parse()` - This operation will take in an `int` input and any combination of the attributes
+of earnings that the user wants to update, namely: `DATE`, `TYPE`, `AMOUNT` and `CLASSID`. Attributes that are to be updated
+have to be preceded by their respective prefixes, `d/`, `type/`, `amt/` and `c/`. A validation check will be imposed upon updating of each
+object. Any checks that fails the verification will prompt the user on the failed attribute.
+
+Here is a step-by-step process on how the update earnings command alters and updates the attribute of the earnings entry.
+
+*Example Scenario*
+
+* Step 1: The user enters `update_earnings 3 c/CS1101S amt/50.00` to correct a mistake in entering the `CLASS_ID`
+for an earning for teaching classes. This updates the `Earnings` object at index 3 and changes the class id to
+CS11101S.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `update_earnings`, thus, `UpdateEarningsCommandParser` object would be created with the user's input.
+
+* Step 4: `UpdateEarningsCommandParser` performs a validation check on each of the respective objects through
+`UpdateEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`.
+It would then return a `UpdateEarningsCommand` object with an `Index` object and an `EditEarningsDescriptor` object.
+
+* Step 5: `LogicManager` would execute `UpdateEarningsCommand#execute`. In this particular method, another
+method `UpdateEarningsCommand#createEditedEarnings` would make use of the `EditEarningsDescriptor` object to
+create a new `Earnings` object. Afterwards, this `Earnings` object would be check with the rest of
+the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar
+`Earnings` object with the same parameters created previously, it would then be added into the earnings list.
+
+* Step 6: `UpdateEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully updated.
+
+==== Weekly Earnings
+The `weekly_earnings` command allows users to add earnings into a list that adds earnings weekly automatically by invoking the `auto` command.
+This helps to lessen the workload on the user as the user does not need to add a new earnings every week.
+
+The format for the `weekly_earnings` command is as follows:
+
+ weekly_earnings INDEX count/<NUM_OF_WEEKS>
+
+*Overview*
+
+The `weekly_earnings` mechanism is facilitated by `AutoAddEarningsCommand` and `AutoAddEarningsCommandParser`, taking in the
+following input from the user: `Index` and `Count`, which would be associated with the  `Earnings` object that is
+referenced from the `Index`. The `Count` object represents the number of weeks the earnings are to be added to the list.
+
+.Weekly Earnings Command Sequence Diagram
+
+
+The `AutoAddEarningsCommand` implements `Parser` with the following operation:
+
+* `AutoAddEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, followed by a
+ `String` input from the user and create individual objects based on the prefix `count/`. The `String` value after the prefix
+will create a `Count` object. A validation check will be done to ensure that the string that is entered
+by the user is entered correctly. If the string entered are invalid, an error will be shown to the user to
+enter the correct format of the `Count` object.
+
+** `index` would use `ParserUtil#parseIndex()` to ensure that the index typed in by the user is in the correct format and is valid.
+
+** `count` would use `ParserUtil#parseCount()` to ensure that the count typed by the user is in the correct format and
+between 0 - 13 (inclusive).
+
+* After validation of the individual objects, the particular `Earnings` object would have a `Count` object and be added to a list
+that is for automatically adding earnings to the list.
+
+* `AutoAddEarningsCommandParser` would then return a `AutoAddEarningsCommand` object with the parameters, `Index` and `Count` object.
+
+*Example Scenerio*
+
+
+* Step 1: The user enters `weekly_earnings 2 count/3` to add that indexed earnings to a list of earnings to be added on the
+same day of the week, every week. This particular earnings is then added to the list on the specified day for a total of 3 weeks.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `weekly_earnings`, thus, `AutoAddEarningsCommandParser` object would be created with the user's input.
+
+* Step 4: `AutoAddEarningsCommandParser` performs a validation check on each of the respective objects through
+`AutoAddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseIndex()` and `ParserUtil#parseCount()`.
+It would then return a `AutoAddEarningsCommand` object with an `Index` and `Count` objects.
+
+* Step 5: `LogicManager` would execute `AutoAddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
+check with the rest of the prior `Earnings` object that has been added to the auto addition of earnings list,
+ to ensure that there is no duplicate `Earnings` object in the list. If there are no similar
+`Earnings` object with the same parameters created previously, it would then be added into the auto addition earnings list.
+
+* Step 6: `AutoAddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully added to the list.
+
+==== Auto Add
+This command, `auto`, allows the user to add all the earnings that has been previously added before and the command `weekly_earnings`
+ has been used on the particular earnings. You can refer to the example and activity diagram below to have a clearer understanding.
+
+.Auto Command Activity Diagram
+image::AutoActivityDiagram.png[]
+
+*Overview*
+The auto command is facilitated by `AutoCommand`.
+
+* `AutoCommand#execute` - This operation checks the current day of the week and checks against the `HashMap` of the earnings list.
+If there are `Earnings` object associated with the current day of the week and the `Earnings` object has a `Count` object associated
+with it that is more than 1. The earnings inside the `ArrayList` inside the `HashMap` would be added into the earnings list.
+// end::earnings[]
 
 //tag::Calendar[]
 === Calendar Feature

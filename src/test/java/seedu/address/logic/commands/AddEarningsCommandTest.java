@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -217,6 +218,21 @@ public class AddEarningsCommandTest {
 
         @Override
         public boolean hasEarnings(Earnings earnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveToMap(String key, ArrayList<Earnings> list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void saveListToMap(String key, Earnings earnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public HashMap<String, ArrayList<Earnings>> getMap() {
             throw new AssertionError("This method should not be called.");
         }
 
