@@ -33,7 +33,6 @@ public class JsonAdaptedReminder {
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("reminderType") String reminderType,
                                @JsonProperty("header") String header,
-                               @JsonProperty("status") String status,
                                @JsonProperty("uniqueID") String uniqueId,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
                                @JsonProperty("period") String period,
@@ -93,7 +92,7 @@ public class JsonAdaptedReminder {
             IewReminder iewReminder = new IewReminder(modelHeader, uniqueId, modelPeriod, modelFreq);
             return iewReminder;
         } else {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException("Unsupported reminder.");
         }
     }
 }

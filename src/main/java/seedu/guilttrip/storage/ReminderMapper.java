@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
-import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.IewReminder;
