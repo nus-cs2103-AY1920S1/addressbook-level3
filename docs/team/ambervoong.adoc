@@ -116,23 +116,24 @@ Other contributions I have made to the team and the project are listed in this s
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[for Team AddMin+], https://github.com/ambervoong/ped/issues?q=is:issue+is:open[for Team CaloFit])
 
 == 3. Contributions to the User Guide
+These sections of the User Guide teach the user how to use the undo, redo, and update commands. It contains relevant examples,
+useful pictorial guides, and tips for the user.
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
-=== User Commands
-These sections of the User Guide teach the user how to use the undo, redo, and update commands. It contains relevant examples,
-useful pictorial guides, and tips for the user.
+
 
 _{start of extract}_
 
-include::../UserGuide.adoc[tag=update]
-
 include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=update]
 
 _{end of extract}_
 
 
 == 4. Contributions to the Developer Guide
+These sections of the Developer Guide explains to a developer how the undo/redo feature works, its architecture, and important considerations made during its design.
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
