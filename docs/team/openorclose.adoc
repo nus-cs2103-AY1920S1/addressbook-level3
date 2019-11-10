@@ -39,8 +39,8 @@ one long list and having to search for them.
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Overhauled the UI along with Dorcas and K
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Overhauled the UI along with Dorcas and Kai Xin https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246]
+*** Added parser to check that commands without arguments do not get called with arguments https://github.com/AY1920S1-CS2103T-T13-4/main/pull/224[#224]
 ** Documentation:
 *** Converted our user guide from Google Docs to AsciiDoc https://github.com/AY1920S1-CS2103T-T13-4/main/pull/6[#6]
 *** Added user guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/61[#61] and developer guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128] for folders
