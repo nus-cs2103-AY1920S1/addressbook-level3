@@ -142,11 +142,21 @@ You have created an account with name of 'Japan trip'.
 * `account add n/Japan trip d/expense spent in Japan`
 You have created an account with name of 'Japan trip' and description of 'expense spent in Japan'.
 
+image::accountadd_1.png[]
+
+1a. Enter the command "account add n/exchange d/expenses spent during SEP".
+
+image::accountadd_2.png[]
+
+1b. You have created an account to record an account named "exchange" with the successful message displayed.
+
 ==== List accounts: `account list`
 
 If you want to see the full list of accounts you currently own, you can enter command and a list of all accounts will be displayed.
 
 Format: `account list`
+
+image::accountlist.png[]
 
 ==== Edit an account: `account edit`
 
@@ -169,6 +179,14 @@ The name of your first account will be changed to 'money spent on food'.
 *`account edit 1 n/food d/money spent on food`
 The name of your first account will be changed to 'food', at the same time the description of the same account will be changed to 'money spent on food'.
 
+image::accountedit_1.png[]
+
+1a. Enter the command "account edit 2 n/book".
+
+image::accountedit_2.png[]
+
+You have successfully changed the name of the second account to "book".
+
 ==== Delete account: `account delete`
 
 You can delete the account with the specified ID, as in `account list`.
@@ -185,6 +203,14 @@ Examples:
 * `account delete 2`
 You have deleted the second account in your account list.
 
+image::accountdelete_1.png[]
+
+1a. Enter the command "account delete 6".
+
+image::accountdelete_2.png[]
+
+1b. You have successfully deleted the sixth account.
+
 ==== Find account: `account find`
 
 If you want to see a specific type of accounts you have, or find a specific account, you can find the account(s) with a specified keyword.
@@ -196,6 +222,14 @@ Examples:
 
 *`account find trip`
 You can see a list of accounts with the word 'trip' contained in their names.
+
+image::accountfind_1.png[]
+
+1a. Enter the command "account find trip".
+
+image::accountfind_2.png[]
+
+1b. You have found 2 accounts with their names containing the keyword "trip".
 
 ==== View report of an account: `account report`
 
@@ -211,6 +245,14 @@ Format: `account report <id>`
 Example:
 
 *`account report 1` You can view the report of the first account.
+
+image::accountreport_1.png[]
+
+1a. Enter the command "account report 2".
+
+image::accountreport2.png[]
+
+1b. You can view the details of the second account.
 
 ==== Export the overview of all accounts: `account overview`
 
