@@ -3,7 +3,7 @@ package seedu.revision.logic.commands.quiz;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.G_MCQ_COMMAND;
+import static seedu.revision.testutil.TypicalMcqs.G_MCQ_COMMAND;
 
 import org.junit.jupiter.api.Test;
 

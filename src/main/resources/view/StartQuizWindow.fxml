@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="CS2103 Revision Tool" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
+         title="Quiz Mode" minWidth="800" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/idea.png" />
   </icons>

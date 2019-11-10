@@ -11,6 +11,9 @@ import javafx.scene.control.ButtonType;
 /** AlertDialog class that is used to prompt users for inputs.**/
 public class AlertDialog {
 
+    public static final String NEXT_LEVEL_TITLE = "Well done!";
+    public static final String END_QUIZ_TITLE = "End of quiz!";
+
     private Alert alert;
     private ButtonType yesButton;
     private ButtonType noButton;
@@ -52,7 +55,7 @@ public class AlertDialog {
 
     public static AlertDialog getNextLevelAlert(int nextLevel, int score, int totalScore) {
         AlertDialog nextLevelAlert = new AlertDialog();
-        nextLevelAlert.alert.setTitle("Well done!");
+        nextLevelAlert.alert.setTitle(NEXT_LEVEL_TITLE);
         nextLevelAlert.alert.setHeaderText(null);
         nextLevelAlert.alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
                 + "Your current score is: " + score + "/" + totalScore + "\n"
@@ -71,7 +74,7 @@ public class AlertDialog {
      */
     public static AlertDialog getEndAlert(int score, int totalScore, boolean isFailure) {
         AlertDialog endAlert = new AlertDialog();
-        endAlert.alert.setTitle("End of Quiz!");
+        endAlert.alert.setTitle(END_QUIZ_TITLE);
         endAlert.alert.setHeaderText(null);
 
         if (isFailure) {

@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package guitests;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,18 +35,20 @@ class ProgressIndicatorBarTextTest {
     }
 
     /**
+     * Default progress bar should show no progress.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void noChangeInProgress_shouldShowZeroProgress(FxRobot robot) {
+    public void progressBar_noChangeInProgress_shouldShowZeroProgress(FxRobot robot) {
         FxAssert.verifyThat(progressIndicatorBar.getText(), TextMatchers.hasText("0/2"));
     }
 
     /**
+     * Progress updated, should show change in progress.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void progressChanged_inputShouldChange(FxRobot robot) {
+    public void progressBar_progressChanged_inputShouldChange(FxRobot robot) {
         currentProgressIndex.set(1);
         FxAssert.verifyThat(progressIndicatorBar.getText(), TextMatchers.hasText("1/2"));
     }

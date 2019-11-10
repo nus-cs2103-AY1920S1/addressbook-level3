@@ -140,6 +140,7 @@ The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
 *SAQ*: Multiple correct answers, no wrong answers.
+****
 
 Examples:
 

@@ -21,20 +21,20 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     @FXML
     protected Text text = new Text();
 
-    private final ReadOnlyDoubleProperty currentScore;
-    private final double totalScore;
+    private final ReadOnlyDoubleProperty currentProgress;
+    private final double totalProgress;
     private final String labelFormatSpecifier;
 
-    public ProgressIndicatorBar(final ReadOnlyDoubleProperty currentScore, final double totalScore,
+    public ProgressIndicatorBar(final ReadOnlyDoubleProperty currentProgress, final double totalProgress,
                                 final String labelFormatSpecifier) {
         super(FXML);
-        this.currentScore = currentScore;
-        this.totalScore = totalScore;
+        this.currentProgress = currentProgress;
+        this.totalProgress = totalProgress;
         this.labelFormatSpecifier = labelFormatSpecifier;
         bar.getStyleClass().add("progress-bar");
 
         syncProgress();
-        currentScore.addListener(new ChangeListener<Number>() {
+        currentProgress.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 syncProgress();
@@ -49,12 +49,12 @@ public class ProgressIndicatorBar extends UiPart<Region> {
      * Synchronizes the progress indicated with the work done.
      */
     private void syncProgress() {
-        if (currentScore == null || totalScore == 0) {
+        if (currentProgress == null || totalProgress == 0) {
             text.setText("");
             bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         } else {
-            text.setText(String.format(labelFormatSpecifier, Math.ceil(currentScore.get())));
-            bar.setProgress(currentScore.get() / totalScore);
+            text.setText(String.format(labelFormatSpecifier, Math.ceil(currentProgress.get())));
+            bar.setProgress(currentProgress.get() / totalProgress);
         }
 
         bar.setMinHeight(text.getBoundsInLocal().getHeight() + DEFAULT_LABEL_PADDING * 2);
@@ -67,5 +67,13 @@ public class ProgressIndicatorBar extends UiPart<Region> {
 
     public Text getText() {
         return text;
+    }
+
+    public double getCurrentProgress() {
+        return currentProgress.get();
+    }
+
+    public ReadOnlyDoubleProperty currentProgressProperty() {
+        return currentProgress;
     }
 }
