@@ -229,7 +229,7 @@ image::LogicForAB.png[]
 
 ==== Details on `Logic` Implementation for the Overview Tab
 [[OverviewLogic]]
-This section will show further details of the `Logic` Component of the Overview Tab.
+This section will show further details of the `Logic` Component of the Overview tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
 
 .Structure of `Parser` for Overview Tab.
