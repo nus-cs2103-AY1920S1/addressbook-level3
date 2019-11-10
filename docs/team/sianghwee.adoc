@@ -8,9 +8,9 @@
 == Overview
 My team of 5 software engineering students were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
 
-As we are living in a fast-paced world where things are constantly changing it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid students in managing these tasks, events and reminders so we chose to morph the address book into a student assistant.
+As we are living in a fast-paced world where things are constantly changing it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid computer-savvy students in managing these tasks, events and reminders so we chose to morph the address book into a student assistant.
 
-We decided to call her ELISA (Exceptionally Loud and Intelligent Student Assistant). This application enables users to add and track their tasks and events while receiving reminders for them. The assistant is in the form of a chat bot and she was given a sassy and humorous personality to enhance the user experience.
+We decided to call her ELISA (Exceptionally Loud and Intelligent Student Assistant). Our application enables users to add and track their tasks and events while receiving reminders for them. The assistant is in the form of a chat bot and she was given a sassy and humorous personality to enhance the user experience.
 
 == Application introduction
 This is how our application looks like:
@@ -19,41 +19,41 @@ This is how our application looks like:
 image::sianghwee/taskpanel-annotated.PNG[]
 The rest of the report will refer to this components and so their function will be briefly explained.
 
-[cols="3, 10"]
+[cols="2, 10"]
 |===
 |Component |Function
 
 |ELISA icon
-|Icon of the application. Will change with the different mode of the application.
+|Icon of the application which changes with the different mode of the application.
 
 |Result display
-|The "chatbox" with ELISA which will contain all the users past input and ELISA response.
+|The "chat box" with ELISA which contains all past user input and ELISA's response.
 
 |Command box
 |The user can type their commands here to interact with ELISA.
 
 |View panel
-|The current view of the application. It can show the task(currently showing), event, reminder or calendar panel.
+|The current view of the application. It can show the task, event, reminder or calendar panel.
 |===
 
 == Summary of contributions
 
-In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=sianghwee[here].
+In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=sianghwee[here].
 
 === Functional contributions
 * *Priority mode (Major Feature)*:
 
-_What it does?_
+_What does it do?_
 
 This feature allows the user to enter a priority mode where they are able to prioritize tasks with a higher priority first and focus on that task to complete it.
 
-_Why do it?_
+_Why make it?_
 
-This features help to solve the problem of students having too many tasks and being unsure of what task to complete first. It will help to alleviate the stress of the users.
+This features helps to solve the problem of students having too many tasks and being unsure of what task to complete first. It will help to alleviate the stress of the users.
 
-_What's special?_
+_Why is it special?_
 
-There are multiple modes for the user to choose from to suit their needs. Users can choose from a focus mode, a timed mode or just a normal mode. The individual mode will be explained in greater detail in the user guide.
+There are multiple modes for the user to choose from to suit their needs. Users can choose from a focus mode, a timed mode, a normal mode or a combination of multiple modes. The different modes will be explained in greater detail in the user guide.
 
 At the same time, users are able to update their task list in realtime (add, delete, edit) so that they can always be sure that the task that they are currently doing is the most important one.
 
@@ -65,7 +65,7 @@ For example, when a new task of a higher priority (than the current task) is add
 
 * *Sorting (Minor Feature)*:
 
-The sorting feature allows users to sort their items so that they are able to better arrange their items in a way that is most useful to them. Each of the different list have their own sorting algorithm while there are also general sorting using the priority or a description of an item.
+The sorting feature allows users to sort their items so that they are able to better arrange their items in a way that is most useful to them. Each list has its own sorting algorithm while there are also general sorting algorithm using the priority or a description of an item.
 
 * *Find (Minor Feature)*:
 
@@ -75,7 +75,7 @@ The find feature allows users to find an item based on the description of the it
 
 * *Project management*:
 
-Review and made suggestions on the following PR:
+Review and made notable suggestions on the following PR:
 
 . https://github.com/AY1920S1-CS2103T-T10-3/main/pull/69#pullrequestreview-299143917[PR #69] - idea of priority in item class ultimately adopted
 
@@ -97,7 +97,6 @@ Refactored the model and storage class so that it will work with the project.
 Updated the user guide to include the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR #47])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
