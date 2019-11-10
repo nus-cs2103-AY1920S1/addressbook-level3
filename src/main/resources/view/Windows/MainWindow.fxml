@@ -9,11 +9,10 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.TextArea?>
 <VBox prefHeight="700.0" prefWidth="900.0" stylesheets="@../defaultStyles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dream.fcard.gui.controllers.windows.MainWindow">
     <children>
         <MenuBar VBox.vgrow="NEVER">
@@ -72,7 +71,7 @@
                 </ScrollPane>
             </children>
         </HBox>
-        <TextArea fx:id="cli"></TextArea>
+        <TextArea fx:id="cli" />
         <HBox id="HBox" alignment="CENTER_LEFT" VBox.vgrow="NEVER">
             <children>
                   <Label fx:id="messageLabel" textFill="#ed0a0a" HBox.hgrow="ALWAYS" />
