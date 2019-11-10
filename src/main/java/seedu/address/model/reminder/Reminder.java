@@ -8,7 +8,7 @@ import java.util.TreeSet;
 /**
  * Represents a Reminder in the calendar.
  */
-public class Reminder {
+public class Reminder implements Comparable<Reminder> {
     // Identity fields
     private final ReminderDescription reminderDescription;
     private final TreeSet<ReminderTime> reminderTimeSet = new TreeSet<>();
@@ -32,6 +32,9 @@ public class Reminder {
         return reminderTimeSet;
     }
 
+    public ReminderTime getStartTime() {
+        return reminderTimeSet.first();
+    }
 
     /**
      * Returns true if both tasks has the same description.
@@ -91,5 +94,12 @@ public class Reminder {
                 .append("Time: ")
                 .append(getTime());
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Reminder reminder) {
+        String st = this.getStartTime().getStartTime();
+        String st2 = reminder.getStartTime().getStartTime();
+        return st.compareTo(st2);
     }
 }
