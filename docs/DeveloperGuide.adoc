@@ -126,7 +126,7 @@ image::NextSequenceDiagram.png[]
 === Model component
 
 .Structure of the Model Component
-image::ModelOverviewClassDiagramV2.png[]
+image::ModelOverviewClassDiagramV3.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
