@@ -72,7 +72,7 @@ public class InviteCommand extends Command {
         }
 
         Activity activityToInviteTo = model.getContext().getActivity().get();
-        ArrayList<Integer> participantIds = activityToInviteTo.getParticipantIds();
+        List<Integer> participantIds = activityToInviteTo.getParticipantIds();
 
         List<String> keywords;
         List<Person> findResult;

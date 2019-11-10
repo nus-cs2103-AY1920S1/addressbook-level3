@@ -27,7 +27,8 @@ public class JsonAdaptedExpenseTest {
 
     @Test
     public void toModelType_invalidAmount_throwsIllegalValueException() {
-        JsonAdaptedExpense jsonAdaptedExpense = new JsonAdaptedExpense(BENSON.getPrimaryKey(), -0.1, "");
+        JsonAdaptedExpense jsonAdaptedExpense =
+                new JsonAdaptedExpense(BENSON.getPrimaryKey(), -0.1, "", false, false);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, jsonAdaptedExpense::toModelType);
     }

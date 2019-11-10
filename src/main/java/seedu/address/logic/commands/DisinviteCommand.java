@@ -75,7 +75,7 @@ public class DisinviteCommand extends Command {
         }
 
         Activity activityToDisinviteFrom = model.getContext().getActivity().get();
-        ArrayList<Integer> participantIds = activityToDisinviteFrom.getParticipantIds();
+        List<Integer> participantIds = activityToDisinviteFrom.getParticipantIds();
         model.updateFilteredPersonList(x -> participantIds.contains(x.getPrimaryKey()));
         List<Person> searchScope = model.getFilteredPersonList();
 

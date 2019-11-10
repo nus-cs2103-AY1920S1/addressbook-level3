@@ -6,68 +6,58 @@ import static seedu.address.logic.commands.CommandTestUtil.PARTICIPANT_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PARTICIPANT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_ALT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AMOUNT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPTION_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPENSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPANT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.activity.Amount.MESSAGE_CONSTRAINTS;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ExpenseCommand;
+import seedu.address.logic.commands.SettleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.activity.Amount;
 
 
-public class ExpenseCommandParserTest {
-    private ExpenseCommandParser parser = new ExpenseCommandParser();
+public class SettleCommandParserTest {
+    private static ArrayList<String> persons = new ArrayList<>();
+
+    private SettleCommandParser parser = new SettleCommandParser();
+    private Amount amount = new Amount(Double.parseDouble(VALID_AMOUNT));
+
+    @BeforeAll
+    public static void init() {
+        persons.add(VALID_NAME_BOB);
+        persons.add(VALID_NAME_AMY);
+    }
 
     @Test
     public void parse_allFieldsPresent_success() {
-        ArrayList<String> persons = new ArrayList<String>() {
-
-            {
-                add(VALID_NAME_BOB);
-            }
-        };
-        Amount amount = new Amount(Double.parseDouble(VALID_AMOUNT));
 
         assertParseSuccess(
             parser,
             PREAMBLE_WHITESPACE
             + PARTICIPANT_DESC_BOB
-            + VALID_AMOUNT_DESC
-            + VALID_EXPENSE_DESCRIPTION_DESC,
-            new ExpenseCommand(
+            + PARTICIPANT_DESC_AMY
+            + VALID_AMOUNT_DESC,
+            new SettleCommand(
                 persons,
-                amount,
-                VALID_EXPENSE_DESCRIPTION
+                amount
             )
         );
+
     }
 
     @Test
     public void parse_multiplePersons_success() {
-        ArrayList<String> persons = new ArrayList<String>() {
-
-            {
-                add(VALID_NAME_BOB);
-                add(VALID_NAME_AMY);
-            }
-        };
-        Amount amount = new Amount(Double.parseDouble(VALID_AMOUNT));
-
-        ExpenseCommand result = new ExpenseCommand(
+        SettleCommand result = new SettleCommand(
                 persons,
-                amount,
-                VALID_EXPENSE_DESCRIPTION
+                amount
         );
 
         // This checks that the sequence of amounts is indeed as input
@@ -76,19 +66,16 @@ public class ExpenseCommandParserTest {
                 PREAMBLE_WHITESPACE
                 + PARTICIPANT_DESC_BOB
                 + VALID_AMOUNT_DESC
-                + PARTICIPANT_DESC_AMY
-                + VALID_EXPENSE_DESCRIPTION_DESC,
+                + PARTICIPANT_DESC_AMY,
                 result
         );
 
         try {
-            ExpenseCommand e1 = parser.parse(
+            SettleCommand e1 = parser.parse(
                     PREAMBLE_WHITESPACE
-                            + VALID_AMOUNT_ALT_DESC
+                            + PARTICIPANT_DESC_AMY
                             + VALID_AMOUNT_DESC
-                            + VALID_EXPENSE_DESCRIPTION_DESC
-                            + PARTICIPANT_DESC_BOB
-                            + PARTICIPANT_DESC_AMY);
+                            + PARTICIPANT_DESC_BOB);
 
             assertNotEquals(result, e1);
         } catch (ParseException e) {
@@ -103,19 +90,54 @@ public class ExpenseCommandParserTest {
             parser,
             PREAMBLE_WHITESPACE
             + PARTICIPANT_DESC_BOB
+            + PARTICIPANT_DESC_AMY
             + INVALID_AMOUNT_DESC,
             MESSAGE_CONSTRAINTS
         );
+    }
 
-        // zero
+    @Test
+    public void parse_samePerson_fail() {
         assertParseFailure(
-                parser,
-                PREAMBLE_WHITESPACE
-                        + PARTICIPANT_DESC_BOB
-                        + " "
-                        + PREFIX_EXPENSE
-                        + "0",
-                MESSAGE_CONSTRAINTS
+            parser,
+            PARTICIPANT_DESC_BOB
+            + PARTICIPANT_DESC_BOB
+            + VALID_AMOUNT_DESC,
+            SettleCommand.MESSAGE_REPEATED_PERSON
+        );
+    }
+
+    @Test
+    public void parse_multipleExpenses_fail() {
+        assertParseFailure(
+            parser,
+            PARTICIPANT_DESC_BOB
+            + PARTICIPANT_DESC_AMY
+            + VALID_AMOUNT_DESC
+            + VALID_AMOUNT_DESC,
+            SettleCommand.MESSAGE_TOO_MANY_AMOUNTS
+        );
+    }
+
+    @Test
+    public void parse_tooManyPeople_fail() {
+        assertParseFailure(
+            parser,
+            PARTICIPANT_DESC_BOB
+            + PARTICIPANT_DESC_AMY
+            + " " + PREFIX_PARTICIPANT + "hey"
+            + VALID_AMOUNT_DESC,
+            SettleCommand.MESSAGE_NOT_TWO_PEOPLE
+        );
+    }
+
+    @Test
+    public void parse_tooLittlePeople_fail() {
+        assertParseFailure(
+            parser,
+            PARTICIPANT_DESC_BOB
+            + VALID_AMOUNT_DESC,
+            SettleCommand.MESSAGE_NOT_TWO_PEOPLE
         );
     }
 }
