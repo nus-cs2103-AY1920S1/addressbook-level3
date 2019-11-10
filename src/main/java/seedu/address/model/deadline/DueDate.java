@@ -36,7 +36,6 @@ public class DueDate {
         requireNonNull(deadline);
         this.dateStr = deadline;
         checkArgument(isValidDate(deadline), MESSAGE_CONSTRAINTS);
-        checkArgument(isLaterDate(deadline), EARLY_DATE);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse(deadline, formatter);
         this.localDate = date;
