@@ -68,6 +68,14 @@ public class ArchivedModuleBuilder {
     }
 
     /**
+     * Sets the preclusions of the {@code ArchivedModule} that we are building.
+     */
+    public ArchivedModuleBuilder withPreclusions(String preclusion) {
+        this.preclusion = preclusion;
+        return this;
+    }
+
+    /**
      * Constructs and returns the {@code ArchivedModule}.
      */
     public ArchivedModule build() {

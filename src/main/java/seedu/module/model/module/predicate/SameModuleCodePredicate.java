@@ -12,6 +12,7 @@ public class SameModuleCodePredicate implements Predicate<Module> {
     private final String moduleCode;
 
     public SameModuleCodePredicate(String moduleCode) {
+        assert !moduleCode.equals("") : "SameModuleCodePredicate received an empty String.";
         this.moduleCode = moduleCode;
     }
 
