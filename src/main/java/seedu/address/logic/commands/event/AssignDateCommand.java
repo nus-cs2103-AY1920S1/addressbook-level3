@@ -1,3 +1,7 @@
+/*
+@@author DivineDX
+*/
+
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
@@ -13,7 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
-import seedu.address.model.event.EventContainsKeyDateRangePredicate;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDayTime;
 import seedu.address.ui.MainWindow;
@@ -120,12 +123,13 @@ public class AssignDateCommand extends Command {
                     : eventToAssign.getStartDate();
             EventDate endDate = isDateRangeAssign ? endEventDate.get() : eventToAssign.getEndDate();
 
-            EventContainsKeyDateRangePredicate rangeCheck =
-                    new EventContainsKeyDateRangePredicate(startDate, endDate);
+            EventDate eventStartDate = eventToAssign.getStartDate();
+            EventDate eventEndDate = eventToAssign.getEndDate();
 
-            if (!rangeCheck.test(eventToAssign)) {
+            if (eventStartDate.isAfter(startDate) || eventEndDate.isBefore(endDate)) {
                 throw new CommandException(EVENT_DATE_INVALID);
             }
+
             startDate.datesUntil(endDate)
                     .forEach(eventDate -> eventToAssign.assignDateTime(eventDate, eventDayTime));
 
@@ -147,6 +151,8 @@ public class AssignDateCommand extends Command {
 
         // state check
         AssignDateCommand e = (AssignDateCommand) other;
-        return index.equals(e.index);
+        return index.equals(e.index)
+                && startOrTargetEventDate.equals(e.startOrTargetEventDate)
+                && endEventDate.equals(e.endEventDate);
     }
 }

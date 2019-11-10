@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /**
- * Tests that an Event start and end dates is is within a date range
+ * Tests if an Event start and end dates is within a date range
  * {@code Event}'s {@code Date} matches the given date in dd/MM/yyyy format.
  */
 public class EventContainsKeyDateRangePredicate implements Predicate<Event> {
@@ -22,6 +22,10 @@ public class EventContainsKeyDateRangePredicate implements Predicate<Event> {
         this.endDate = end;
     }
 
+    /**
+     * Returns true if at least some date within the event falls within the range
+     * False if no date is within range.
+     */
     @Override
     public boolean test(Event event) {
         EventDate startOfEvent = event.getStartDate();
@@ -30,7 +34,7 @@ public class EventContainsKeyDateRangePredicate implements Predicate<Event> {
         List<EventDate> specifiedDateRange = startDate.getListOfDatesUntil(endDate);
         Collection<EventDate> set = new HashSet<>(specifiedDateRange);
         boolean result = false;
-        for (EventDate date: eventDates) {
+        for (EventDate date : eventDates) {
             result |= set.contains(date);
         }
         return result;
