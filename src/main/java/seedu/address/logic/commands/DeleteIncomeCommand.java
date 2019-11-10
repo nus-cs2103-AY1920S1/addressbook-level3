@@ -51,4 +51,6 @@ public class DeleteIncomeCommand extends Command {
                 || (other instanceof DeleteIncomeCommand // instanceof handles nulls
                 && targetIndex.equals(((DeleteIncomeCommand) other).targetIndex)); // state check
     }
+
+
 }

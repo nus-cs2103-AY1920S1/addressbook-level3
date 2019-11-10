@@ -170,8 +170,8 @@ public class CommandTestUtil {
      * - the address book, filtered contact list and selected contact in {@code actualModel} remain unchanged
      */
     //@@author{joshuaseetss}
-    public static void assertCommandFailureNoExceptionThrown(Command command, Model actualModel, String expectedMessage)
-    {
+    public static void assertCommandFailureNoExceptionThrown(Command command, Model actualModel,
+                                                             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         FinSec expectedFinSec = new FinSec(actualModel.getFinSec());
