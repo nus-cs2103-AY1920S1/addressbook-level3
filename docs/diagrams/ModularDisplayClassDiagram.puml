@@ -19,7 +19,6 @@ Class GameResultPanel
 
 
 package AppManager <<Rectangle>> {
-Class HiddenAppManager #FFFFFF
 }
 
 Class "{abstract}\nUiPart" as UiPart
