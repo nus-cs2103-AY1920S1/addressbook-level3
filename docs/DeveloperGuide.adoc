@@ -168,6 +168,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::Ui[]
 [[Design-Ui]]
 === UI component
 
@@ -176,15 +177,17 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/moneygowhere/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SpendingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SpendingListPanel`, `StatusBarFooter`, `ReminderListPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/moneygowhere/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
+* Responds to the user's keyboard and mouse input.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// end::Ui[]
 [[Design-Logic]]
 === Logic component
 
@@ -211,6 +214,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -224,15 +228,19 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Spending Book data.
-* exposes an unmodifiable `ObservableList<Spending>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Spending data.
+* stores the Reminder data.
+* stores the Budget data.
+* exposes an unmodifiable `ObservableList<Spending>` and `ObservableList<Reminder>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Spending Book`, which `Spending` can reference. This would allow `Spending Book` to only require one `Tag` object per unique `Tag`, instead of each `Spending` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+// end::model[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -247,7 +255,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Spending Book data in json format and read it back.
-
+// end::storage[]
 [[Design-Commons]]
 === Common classes
 
@@ -538,8 +546,15 @@ The above diagram also highlights how logic and model components interact with e
 
 // tag::import[]
 === Import Feature
+[NOTE]
+====
+The current implementation only imports spending data.
+
+*Coming in version 2.0*, +
+Reminder and budget data will also be imported.
+====
 ==== Implementation
-The import feature allows our users to import data from a comma-separated values (`.csv`) files.
+The import feature allows our users to import data from a comma-separated values (Csv) files.
 It allows users to add their spending in bulk.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the
@@ -549,7 +564,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::ImportSequenceDiagram.png[width=100%]
 
 The Import Feature has one main component, which is the `ImportCommand.java` file. This file contains the main logic behind the feature.
-The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in `.csv` files and convert it into maps of objects.
+The `ImportCommand#readSpendingFromCsv()` method utilises the `FasterXML/jackson` library to read in Csv files and convert it into maps of objects.
 The maps will then be processed and parsed into `Spending` objects which will be added into a `Spending` list.
 Those maps that do not pass the parse conditions will then be thrown as an exception and its message will be saved inside an error list.
 After all the maps are processed, the application will then go through the valid spending list and save them by calling the `Model#addSpending()` method.
@@ -560,10 +575,10 @@ The following activity diagram summarizes what happens when a user executes an i
 .Import Feature Activity Diagram
 image::ImportActivityDiagram.png[width=25%]
 
-When a user calls the `import` command and inputs a valid `.csv` file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
+When a user calls the `import` command and inputs a valid Csv file, the application will read and parses all the data inside the file and save them to the `SpendingBookList` and `moneygowhere.json`.
 
-==== CSV File Format and Constraints
-In order for data to be imported into MoneyGoWhere, it must be in a properly formatted CSV file.
+==== [[csv-constraints]]Csv File Format and Constraints
+In order for data to be imported into MoneyGoWhere, it must be in a properly formatted Csv file.
 There should be 5 columns specified for `Name`, `Cost`, `Date`, `Tag` and `Remark`
 
 Header Constraints
@@ -579,12 +594,52 @@ Cell Formatting
 * To specify double quotes within a cell, in addition to start and end double quotes, escape the double quote with another double quote. Eg:
 ** """yummy"", ""juicy"""
 ** """fresh"", ""clean"""
+
+==== Design Considerations
+
+[width="90%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (current choice)|Alternative 2
+
+|How import executes
+|Imports the entire Csv file, converts all the rows into a list of `spending` objects and add the list into the spending list. +
+
+*Pros:* +
+Better performance +
+ +
+*Cons:* +
+Requires additional functions to successfully implement the feature.
+
+|Imports the Csv file, converts all the rows into a list of `spending` objects and add each `spending` object one by one.  +
+
+*Pros:* +
+Easy to implement. +
+Re-use existing functions +
+ +
+*Cons:* +
+May have performance issues in terms of memory usage.
+
+|===
+
+Alternative 1 was chosen as it gives a much better performance as opposed to alternative 2.
+At first alternative 2 was chosen as it was easier to implement.
+However, performance issues was detected when importing more than 50 spending and
+when importing more than 1000 spending, the whole application stops responding.
+
+Hence, alternative 1 was implemented and now the application could handle large amount of spending without a noticeable sluggishness in performance.
 // end::import[]
 
 // tag::export[]
 === Export Feature
+[NOTE]
+====
+The current implementation only exports spending data.
+
+*Coming in version 2.0*, +
+Reminder and budget data will also be exported.
+====
 ==== Implementation
-The export feature allows our  users to export their spending into a comma-separated values(`.csv`) files.
+The export feature allows our  users to export their spending into a comma-separated values(Csv) files.
 It allows users to export their spending allowing the spending data to be portable.
 
 Given below is the Sequence Diagram for the interactions withing the `Logic` component for the `execute("export p/Documents")`
@@ -602,8 +657,7 @@ The following activity diagram summarizes what happens when a user executes an e
 .Export Feature Activity Diagram
 image::ExportActivityDiagram.png[width=25%]
 
-When a user calls the `export` command and inputs a valid folder path, the application will convert all the spending data into a `.csv` file and export it to `moneygowhere.csv`
-
+When a user calls the `export` command and inputs a valid folder path, the application will convert all the spending data into a Csv file and export it to `moneygowhere.csv`
 
 // end::export[]
 
@@ -1145,7 +1199,7 @@ A project often depends on third-party libraries. For example, MoneyGoWhere depe
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
-* wishes to import or export their data to a .csv file
+* wishes to import or export their data to a Csv file
 
 *Value proposition*: manage budget quickly compared to a typical mouse/GUI driven app which saves time and makes it more convenient.
 // end::productscope[]
@@ -1410,12 +1464,12 @@ Use case resumes at step 2.
 
 '''
 [discrete]
-=== UC12 Import external data from a CSV file
+=== UC12 Import external data from a Csv file
 
 *MSS*
 
-1.  User requests to import data from CSV file by specifying the file path.
-2.  MoneyGoWhere imports the data from the CSV file located at specified file path.
+1.  User requests to import data from Csv file by specifying the file path.
+2.  MoneyGoWhere imports the data from the Csv file located at specified file path.
 +
 Use case ends.
 
@@ -1432,12 +1486,12 @@ Use case resumes at step 1.
 
 '''
 [discrete]
-=== UC13 Export data to a CSV file
+=== UC13 Export data to a Csv file
 
 *MSS*
 
-1.  User requests to export data from CSV file by specifying the file path.
-2.  MoneyGoWhere exports the data into the CSV file located at specified file path.
+1.  User requests to export data to a Csv file by specifying the folder path.
+2.  MoneyGoWhere exports the data into `moneygowhere.csv` file located at specified folder path.
 +
 Use case ends.
 
@@ -1621,6 +1675,8 @@ Budget:: The maximum amount of money set by the user to spend.
 
 Cost:: Money spent by the user.
 
+Csv:: Comma-separated values.
+
 Deficit:: The user has spent more than his budget set.
 
 [[mainstream-os]] Mainstream OS::
@@ -1644,15 +1700,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
+   Expected: Shows the GUI with a set of sample spending. The window size will be maximised according to your window size.
 
 === Deleting a Spending
 
@@ -1660,13 +1708,11 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all Spending using the `list` command. Multiple spending in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First spending is deleted from the list. Details of the deleted spending shown in the results display.
 .. Test case: `delete 0` +
-   Expected: No Spending is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No spending is deleted. Error details shown in the results display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
@@ -1675,3 +1721,25 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Importing Spending Data
+
+. Importing valid spending while all spending are listed
+
+.. Prerequisites: Prepare a valid Csv file following the <<csv-constraints,csv constraints>>.
+.. Test case: `import p/./moneygowhere.csv` +
+   Expected: All valid spending will be added to the spending list.
+
+. Importing partially valid spending data while all spending are listed
+.. Prerequisites: Prepare a Csv file with some valid spending and some invalid spending
+such as a spending with empty `name`, `cost` or `date` parameter.
+.. Test case: `import p/./moneygowhere.csv` +
+   Expected: Only valid spending will be added to the spending list, whereas error details specifying which spending is invalid will be shown in the results display.
+
+=== Exporting Spending Data
+. Exporting all spending into `moneygowhere.csv` file
+
+.. Test case: `export p/.` +
+Expected: All spending data will be exported into a `moneygowhere.csv` file at whichever folder the jar file is.
+.. Test case: `export p/C:\Users\user\Documents\MoneyGoWhere` +
+Expected: All spending data will be exported into `C:\Users\user\Documents\MoneyGoWhere\moneygowhere.csv`.

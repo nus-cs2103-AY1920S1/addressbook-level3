@@ -5,35 +5,91 @@
 
 == PROJECT: MoneyGoWhere
 
----
-
 == Overview
 
-MoneyGoWhere is a desktop personal finance application targeted at students of the National University of Singapore (NUS).
-It allows students to keep track of all their spending and their related information such as date, cost and tags.
-Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project.
 
-The user interacts with it using a CLI, and it has a GUI created with JavaFx.
-The CLI is equipped with a Natural Language Processing (NLP) library, natty, to read in date input.
-It is written in Java, and has about 15 kLoC.
+Designed primarily with a Command Line Interface (CLI), it allows students to keep track of all their spending with related information such as date, cost and tags. Users can also set budget goals, view statistics, view exchange rates, set their existing  set reminders for bills, import and export their data from and to a .csv file.
+
+=== My Role
+
+I was tasked to complete import and export feature, as well as to enhance the Graphical User Interface (GUI) to be more user-friendly.
+I have also made notable contributions to the User Guide and Developer Guide.
+
+Listed below are some notations that are used throughout the document.
+
+.Legend table
+[width="100%",cols="^15%,85%"]
+|===
+a| Icon | Description
+a| `command` | Command that can be executed
+ifndef::env-github[]
+a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
+a| icon:info-circle[role="icon-note", size="2x"] | Important information that should be noted
+endif::[]
+|===
+If there are any additional related information, it will be described in a block below:
+====
+Useful information for a deeper understanding of the command.
+====
+
+These icons and their following descriptions enable greater clarity in understanding the document.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to import/export data*
-** What it does: allows the user to import and export data to and from a .csv file.
-** Justification: This feature improves the product significantly because a user can have existing data before starting to use the application and to export the data if he would like to process the data using other applications such as Microsoft Excel.
-** Highlights: This enhancement affects other commands as it modifies the spending list. It required an in-depth analysis of design alternatives.
-** Credits: Jackson library.
+This section shows a summary of my contributions to the team project.
 
-* *Minor enhancement*: Redesign the user interface to fit the application
+=== Major enhancement: Added the ability to import & export spending data
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonathantjendana&tabRepo=AY1920S1-CS2103T-F13-3%2Fmain%5Bmaster%5D[Collated code]
+I have implemented both the import and export feature to make the spending data more portable for the user.
 
-* *Other contributions*:
+==== What it does
+
+It allows the user to save his spending data in an external file and modifies the data before importing it back into the application.
+
+It also allows the user to change between computers without a fear of losing his spending data.
+
+==== Justification
+
+This feature improves the product significantly as the user may have existing data before starting to use the application
+and to export the spending data if he would like to change between multiple computers.
+
+==== Highlights
+This enhancement functions well with existing commands as it adds more spending into the list, all the other features such as budget, graph and statistics are updated as well.
+It required an in-depth analysis of design alternatives.
+
+==== Credits
+https://github.com/FasterXML/jackson[Jackson].
+
+=== Minor enhancement: Redesign the user interface to be more user-friendly
+
+I have also redesigned the entire user interface to be more user-friendly.
+
+==== What it does
+
+This enhancement allows the application to have a better-looking, more user-friendly colour theme
+as well as allows the application window size to be resizeable.
+
+==== Justification
+
+As the application is targeting to solve a financial problem, I figure it would be better to have a light theme coupled with a green colour scheme as opposed to the dark theme given by the base project, AddressBook-Level3.
+
+==== Highlights
+
+When the application window is resized, all components in the application is resized as well according to the window size. This allows the application to still be usable even after the window size is resized.
+
+==== Code contributed:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonathantjendana&tabRepo=AY1920S1-CS2103T-F13-3%2Fmain%5Bmaster%5D[Collated code]
+
+== Other contributions
+
+** Project management
+*** Guided teammates for tips and tricks in regards to using JavaFx and FXML
+*** Helps teammates review their pull requests
 
 ** Enhancements to existing features:
 *** Updated the GUI (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/137[#137])
-*** Changed email field into remark field https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[#68]
+*** Refactored existing class `email` to `remark` to fit the needs of our application. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[#68])
 
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/47[#47]
@@ -44,7 +100,7 @@ It is written in Java, and has about 15 kLoC.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+| Listed below are sections I contributed to the User Guide. This includes the Features section, particularly the Import and Export section.
 |===
 
 include::../UserGuide.adoc[tag=import]
@@ -54,8 +110,14 @@ include::../UserGuide.adoc[tag=export]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+| Listed below are sections I contributed to the Developer Guide. This includes the features section for Import and Export, and the components for UI, model and storage section.
 |===
+
+include::../DeveloperGuide.adoc[tag=Ui]
+
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=storage]
 
 include::../DeveloperGuide.adoc[tag=import]
 
