@@ -344,7 +344,7 @@ a|`JsonImportUtil#importFlashCardsFromJson( JsonExportPath)`
 The number of classes supporting the import/export feature is rather large. The following class diagram will help to clarify the associations
 between these classes:
 
-image::ExportClassDiagram.png[height="600"]
+image::ExportClassDiagram.png[height=600]
 
 _Figure 1: Class diagram showing the classes directly relevant to importing and exporting_
 
@@ -364,7 +364,7 @@ _Figure 3: Activity diagram of when the user executes an export command_
 
 The following activity diagram summarizes what happens when a user executes an import command:
 
-image::ImportActivityDiagram.png[width="300"]
+image::ImportActivityDiagram.png[width=475,height=550]
 
 _Figure 4: Activity diagram of when the user executes an import command_
 
