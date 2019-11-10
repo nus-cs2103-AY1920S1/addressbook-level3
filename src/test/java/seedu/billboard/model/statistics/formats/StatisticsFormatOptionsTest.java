@@ -1,11 +1,12 @@
 package seedu.billboard.model.statistics.formats;
 
-import org.junit.jupiter.api.Test;
-import seedu.billboard.commons.core.date.DateInterval;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import seedu.billboard.commons.core.date.DateInterval;
 
 class StatisticsFormatOptionsTest {
 
