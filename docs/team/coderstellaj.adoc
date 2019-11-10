@@ -10,7 +10,6 @@
 ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
-:autofit-option:
 
 == Introduction
 
@@ -223,7 +222,7 @@ The person's name inputted has to match a person's name already existing in the 
 The following sequence diagram shows the execution of deadline command:
 
 .Sequence diagram of deadline command in reimbursements tab (reimbursement package)
-image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
+image::Reimbursement/ReimbursementDeadlineCommandSD.png[width="300"]
 
 As shown, a user needs to add a deadline to a reimbursement by specifying the person's name and providing a date.
 The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
@@ -233,7 +232,7 @@ After the operations, `LogicManager` gets updated reimbursement list from `Model
 After that, the deadline is saved into a `.txt` file.
 
 .Activity diagram of deadline command in reimbursements tab (reimbursement package)
-image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
+image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[width="300"]
 
 As shown by the above activity diagram, when a user inputs a person who does not exist in any reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
 Otherwise, when the execution is successful, a response informs the user that deadline is successfully added to the reimbursement.
@@ -245,7 +244,7 @@ The find command requires access to `Model` of the person package which the `Add
 Person field should be provided and the person's name should exist in reimbursement list.
 
 .Sequence diagram of find command in reimbursements tab (reimbursement package)
-image::Reimbursement/ReimbursementFindCommandSD.png[]
+image::Reimbursement/ReimbursementFindCommandSD.png[width="300"]
 
 A user needs to find a reimbursement by providing the person's name.
 As shown in the above figure, `FindCommand` is executed by calling `findReimbursement` method in
@@ -254,7 +253,7 @@ After the operations, that reimbursement is returned and reimbursement tab only 
 
 [[ReimbursementTabActivityDiagramFindCommand]]
 .Activity diagram of find command in reimbursements tab (reimbursement package)
-image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
+image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[width="300"]
 
 The above activity diagram shows the steps needed for find command.
 The person's name is checked whether it exists in reimbursement list.
