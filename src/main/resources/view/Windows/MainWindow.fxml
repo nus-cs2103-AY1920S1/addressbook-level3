@@ -9,7 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -71,7 +71,10 @@
                 </ScrollPane>
             </children>
         </HBox>
-        <TextArea fx:id="cli" />
+        <TextField fx:id="commandLine" onAction="#handleUserInput" promptText="Enter a command..." styleClass="code">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding></TextField>
         <HBox id="HBox" alignment="CENTER_LEFT" VBox.vgrow="NEVER">
             <children>
                   <Label fx:id="messageLabel" textFill="#ed0a0a" HBox.hgrow="ALWAYS" />
