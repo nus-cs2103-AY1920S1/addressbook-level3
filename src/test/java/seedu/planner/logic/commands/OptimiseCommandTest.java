@@ -19,12 +19,12 @@ import seedu.planner.testutil.day.TypicalDays;
 public class OptimiseCommandTest {
 
     @Test
-    public void constructor_nullIndex_throwsNullPointerException() {
+    public void constructor_NullIndex_ThrowsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new OptimiseCommand(null, true));
     }
 
     @Test
-    public void execute_emptyDay_throwsCommandException() {
+    public void execute_EmptyDay_ThrowsCommandException() {
         Model model = new ModelManager();
         model.addDays(1);
         OptimiseCommand optimiseCommand = new OptimiseCommand(Index.fromOneBased(1), false);
@@ -32,7 +32,7 @@ public class OptimiseCommandTest {
     }
 
     @Test
-    public void execute_optimise_successful() {
+    public void execute_Optimise_Success() {
         Model model = new ModelManager();
         Day conflictedDay1 = TypicalDays.CONFLICTED_DAY1;
         Day successDay1 = TypicalDays.CONFLICTLESS_DAY1;
