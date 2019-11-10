@@ -30,7 +30,7 @@ Responsibilities: In charge of Model, Testing
 
 === Huang WeiJie
 image::weiijiie.png[width="150", align="left"]
-{empty}[http://github.com/weiijiie[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/weiijiie[github]] [<<weiijiie#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration, Code Quality
@@ -48,7 +48,7 @@ Responsibilities: Javafx expert
 
 === Zhou XinMing
 image::xinmingzh.png[width="150", align="left"]
-{empty}[http://github.com/xinmingzh[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/xinmingzh[github]] [<<xinmingzh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Scheduling and tracking, In charge of Logic
