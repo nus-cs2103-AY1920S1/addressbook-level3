@@ -168,7 +168,7 @@ public class LoansManagerTest {
         Loan editedLoan = new LoanBuilder(targetLoan).withAmount(targetLoan.getAmount().toLong() + 1).build();
 
         loansManager.editLoan(targetIndex, editedLoan);
-        assertEquals(editedLoan, loansManager.getLoan(targetIndex));
+        assertTrue(loansManager.getLoans().stream().anyMatch(loan -> loan.isSameLoan(editedLoan)));
     }
 
     @Test
