@@ -503,6 +503,9 @@ Imagine that you've accidentally deleted the wrong Body (John Doe) from Mortago.
 To undo:
 
 1. Type `undo` or `u` into the command box.
+
+image::Undo1.png[]
+
 2. Press `Enter` to execute the command.
 3. Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
 
