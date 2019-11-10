@@ -1,12 +1,18 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import dream.fcard.logic.storage.Schema;
+import dream.fcard.util.json.JsonInterface;
+import dream.fcard.util.json.exceptions.JsonWrongValueException;
+import dream.fcard.util.json.jsontypes.JsonArray;
+import dream.fcard.util.json.jsontypes.JsonObject;
+import dream.fcard.util.json.jsontypes.JsonValue;
 import java.util.HashMap;
 
 /**
  * Contains statistics pertaining to the user's deck test sessions.
  */
-public class DeckStats extends Stats {
+public class DeckStats extends Stats implements JsonInterface {
 
     /** Data structure mapping decks to their corresponding SessionLists. */
     private HashMap<String, SessionList> deckHashMap;
@@ -148,5 +154,23 @@ public class DeckStats extends Stats {
      */
     public void deleteDeck(String deckName) {
         this.deckHashMap.remove(deckName);
+    }
+
+    @Override
+    public JsonValue toJson() {
+        JsonObject obj = new JsonObject();
+        JsonArray names = new JsonArray();
+        JsonArray sessions = new JsonArray();
+        for (String k : deckHashMap.keySet()) {
+            try {
+                names.add(k);
+                sessions.add(deckHashMap.get(k).toJson().getObject());
+            } catch (JsonWrongValueException e) {
+                System.out.println("SESSIONS MUST BE OBJECT");
+            }
+        }
+        obj.put(Schema.STATS_DECK_STRINGS, names);
+        obj.put(Schema.STATS_DECK_SESSIONS, sessions);
+        return new JsonValue(obj);
     }
 }
