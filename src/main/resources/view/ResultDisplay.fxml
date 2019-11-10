@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="380" prefWidth="380">
-    <VBox minWidth="380" prefWidth="380" styleClass="command-feedback">
+<VBox xmlns:fx="http://javafx.com/fxml/1" minWidth="580" prefWidth="580">
+    <VBox minWidth="580" prefWidth="580" styleClass="command-feedback">
         <Label fx:id="commandFeedback" text="Enter a command on the left to get started." wrapText="true"/>
     </VBox>
 
-    <VBox minWidth="380" prefWidth="380" styleClass="eatery-info">
+    <VBox minWidth="580" prefWidth="580" styleClass="eatery-info">
         <Label fx:id="eateryName" styleClass="h1" wrapText="true"/>
         <Label fx:id="eateryCategory" wrapText="true"/>
         <Label fx:id="eateryAddress" wrapText="true"/>
         <FlowPane fx:id="eateryTags"/>
     </VBox>
 
-    <VBox minWidth="380" prefWidth="380" styleClass="eatery-map">
+    <VBox minWidth="580" prefWidth="580" styleClass="eatery-map">
         <WebView fx:id="eateryMap" minHeight="350" prefHeight="350"/>
     </VBox>
 
