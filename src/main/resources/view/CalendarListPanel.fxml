@@ -12,7 +12,7 @@
          <children>
             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Monday" VBox.vgrow="ALWAYS">
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>
             </Label>
         <ListView fx:id="mondayListView" VBox.vgrow="ALWAYS" />
@@ -22,7 +22,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Tuesday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="tuesdayListView" VBox.vgrow="ALWAYS" />
@@ -32,7 +32,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Wednesday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="wednesdayListView" VBox.vgrow="ALWAYS" />
@@ -42,7 +42,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Thursday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="thursdayListView" VBox.vgrow="ALWAYS" />
@@ -52,7 +52,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Friday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="fridayListView" VBox.vgrow="ALWAYS" />
@@ -62,7 +62,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Saturday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="saturdayListView" VBox.vgrow="ALWAYS" />
@@ -72,7 +72,7 @@
          <children>
              <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Sunday" VBox.vgrow="ALWAYS">
                  <padding>
-                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                  </padding>
              </Label>
         <ListView fx:id="sundayListView" VBox.vgrow="ALWAYS" />

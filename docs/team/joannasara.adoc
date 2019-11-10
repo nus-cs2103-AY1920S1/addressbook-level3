@@ -31,7 +31,7 @@ The implementation too was challenging as it required changes to existing comman
 ** Project management:
 *** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101])
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/163[#163], https://github.com/AY1920S1-CS2103-T16-2/main/pull/165[#165])
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
 *** Wrote additional tests for existing features to increase coverage by 13.09% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
@@ -60,13 +60,7 @@ include::../UserGuide.adoc[tag=calendar]
 include::../DeveloperGuide.adoc[tag=calendar]
 
 
-=== Class diagrams
-
-.Activity diagram on calendar week change
-image::CalendarActivityDiagram.png[]
-
-.Structure of the Model Component for the feature Calendar
-image::CalendarModelClassDiagram.png[]
+=== Other class diagrams
 
 .Interactions Inside the Logic Component for the `sort title` Command for the feature Calendar
 image::CalendarSequenceDiagram.png[]
