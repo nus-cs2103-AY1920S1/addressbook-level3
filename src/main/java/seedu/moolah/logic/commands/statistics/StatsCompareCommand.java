@@ -16,7 +16,7 @@ import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.model.statistics.TabularStatistics;
-import seedu.moolah.ui.StatsPanel;
+import seedu.moolah.ui.statistics.StatsPanel;
 
 /**
  * Calculates comparison statistics for MooLah. Creates a table that shows

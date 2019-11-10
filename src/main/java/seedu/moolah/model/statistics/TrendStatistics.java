@@ -11,9 +11,12 @@ import seedu.moolah.model.budget.BudgetPeriod;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.ui.statistics.LineChartBudgetRegionFactory;
+import seedu.moolah.ui.statistics.LineChartCategoriesRegionFactory;
+import seedu.moolah.ui.statistics.StatisticsRegionFactory;
 
 /**
- * Represents the Statistics class that provides a trend line as its Visual Representation method
+ * Represents the Statistics class that provides a trend line as its Visual Representation method.
  */
 public class TrendStatistics implements Statistics {
 
@@ -58,49 +61,6 @@ public class TrendStatistics implements Statistics {
             }
         }
     }
-
-    /*
-     * Creates 2 trend lines to provide visual aid on the occurrence of total expenses relative to the budget limit
-     *
-     * @param validCategories List of allowed categories in MooLah
-     * @param startDate The start date of the tracking period
-     * @param endDate The end date of the tracking period
-     * @param primaryBudget The primary budget whose statistics is taken
-
-    public static TrendStatistics run(List<Category> validCategories,
-                                      Timestamp startDate, Timestamp endDate,
-                                      Budget primaryBudget, boolean isBudgetMode) {
-
-        requireNonNull(primaryBudget);
-
-
-//        boolean isStartPresent = startDate != null;
-//        boolean isEndPresent = endDate != null;
-//
-//        if (!isStartPresent && !isEndPresent) {
-//            Timestamp centreDate = primaryBudget.getWindowStartDate();
-//            endDate = centreDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
-//                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-//            startDate = centreDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
-//                    StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-//        } else if (isStartPresent && !isEndPresent) {
-//            endDate = startDate.createForwardTimestamp(primaryBudget.getBudgetPeriod(),
-//                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-//        } else if (!isStartPresent) {
-//            startDate = endDate.createBackwardTimestamp(primaryBudget.getBudgetPeriod(),
-//                    2 * StatsTrendCommand.HALF_OF_PERIOD_NUMBER);
-//        }
-
-
-        TrendStatistics statistics = TrendStatistics.verify(primaryBudget.getExpenses(), validCategories,
-                startDate, endDate, primaryBudget, isBudgetMode);
-
-        statistics.generateTrendLine();
-        return statistics;
-
-    }
-    */
-
 
     /**
      * Gathers the data to be used for the elements of the trend line
@@ -255,6 +215,15 @@ public class TrendStatistics implements Statistics {
     @Override
     public void populateData() {
         generateTrendLine();
+    }
+
+    @Override
+    public StatisticsRegionFactory createFactory() {
+        if (budgetLimitMode) {
+            return new LineChartBudgetRegionFactory(dates, periodicTotalExpenditures, periodicBudgetLimits, title);
+        } else {
+            return new LineChartCategoriesRegionFactory(dates, periodicCategoricalExpenses, title);
+        }
     }
 }
 

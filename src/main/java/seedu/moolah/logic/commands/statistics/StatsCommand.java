@@ -16,7 +16,7 @@ import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.statistics.PieChartStatistics;
 import seedu.moolah.model.statistics.Statistics;
-import seedu.moolah.ui.StatsPanel;
+import seedu.moolah.ui.statistics.StatsPanel;
 
 /**
  * Represents a StatsCommand that is meant to output statistics using the visual
