@@ -617,10 +617,8 @@ Example: `add n/John Doe p/91234567`
 
 [NOTE]
 ====
-
 .Requirements
 * The phone number must be at least 3 digits and not exceed 10 digits.
-
 ====
 
 {nbsp} +
@@ -632,15 +630,13 @@ edited must be provided.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]`
 
-Example: `edit 1 n/John Hoe p/97654321`
+Example: `edit 1 n/John Hoe p/97654321`  `edit 2 t/inactive
 
 [NOTE]
 ====
-
 .Requirements
 * The index INDEX provided must be within the deliverymen list size and be at least 1.
 * At least one field must be edited (eg. name, phone number, tag(s)).
-
 ====
 
 {nbsp} +
@@ -656,10 +652,8 @@ Example: `delete 1`
 
 [NOTE]
 ====
-
 .Requirements
 * The index provided must be within the deliverymen list size and be at least 1.
-
 ====
 
 {nbsp} +
@@ -675,7 +669,11 @@ Format: `lists`
 
 Example: `lists`
 
-NOTE: A deliveryman can have one of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
+[NOTE]
+====
+.Note:
+A deliveryman can have one of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
+====
 
 {nbsp} +
 
@@ -690,23 +688,24 @@ Example: `status 3`
 
 [NOTE]
 ====
-
 .Requirements
 * The index INDEX provided must be within the deliverymen list size and be at least 1.
 * The status of the deliveryman must be either *AVAILABLE* or *UNAVAILABLE*.
-
 ====
 
-NOTE: You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. When you assign an
-order to the deliveryman, his status will be automatically set to *DELIVERING*. When you set an order as
-completed, the status of the assigned deliveryman will automatically be set back to *AVAILABLE*.
+[NOTE]
+
+.Note:
+ You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. It can only be changed
+through changes to orders assigned to him.
 
 {nbsp} +
 
 ==== Viewing the statistics of the deliverymen statuses: `stats`
 
 This command allows you to view the statistics of the current statuses of deliverymen. Relevant statistics such as the
-utilisation level will also be computed and displayed for your reference.
+utilisation level will also be computed and displayed for your reference. A brief explanation of each statistic is
+provided as well.
 
 image::userguide\EditMode.png[width="790"]
 
@@ -714,14 +713,9 @@ Format: `stats`
 
 Example: `stats`
 
-[NOTE]
-
-
-{nbsp} +
-
-====
-
-====
+[TIP]
+If you just want a brief update on the current state of your deliverymen, the textual analysis shown on the right panel
+summarizes it for you!
 
 {nbsp} +
 
@@ -765,7 +759,7 @@ Example: `stats`
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`
 - Delete a deliveryman: `delete INDEX`
-- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]`
+- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]`
 - List deliverymen sorted by status: `lists`
 - Switch status of a deliveryman: `status INDEX`
 - View statistics for deliverymen current statuses: `stats`
