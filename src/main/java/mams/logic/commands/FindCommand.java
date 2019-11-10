@@ -80,8 +80,18 @@ public class FindCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && preds.equals(preds)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof FindCommand)) {
+            return false;
+        }
+
+        // state check
+        FindCommand f = (FindCommand) other;
+        return preds.containsAll(f.preds) && f.preds.containsAll(preds);
     }
 }
