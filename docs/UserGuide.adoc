@@ -932,10 +932,13 @@ Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Redo an undone command:: `redo`
 View athlete details:: `select INDEX`
 Sort athletes:: `sort`
-Take attendance (by present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
-Take attendance (by absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
-Undo a command:: `undo`
+Record a training (by athletes present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
+Record a training (by athletes absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
+Edit attendance of a training:: `training` or `training -a`
+Delete a training session:: `delete -t d/DDMMYYYY`
+View attendance of an athlete:: `attendance INDEX`
 View team's attendance:: `view attendance`
+Undo a command:: `undo`
 View calendar:: `view calendar`
 View all created events:: `view performance`
 
