@@ -27,10 +27,10 @@ import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
 import seedu.address.logic.commands.LookAtGroupMemberCommand;
-import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.SwitchTabCommand;
@@ -152,8 +152,8 @@ public class TimeBookParser {
         case ScrollCommand.COMMAND_WORD:
             return new ScrollCommand();
 
-        case PopupCommand.COMMAND_WORD:
-            return new PopupCommandParser().parse(arguments);
+        case SelectFreeTimeCommand.COMMAND_WORD:
+            return new SelectFreeTimeParser().parse(arguments);
 
         case ToggleNextWeekCommand.COMMAND_WORD:
             return new ToggleNextWeekCommand();

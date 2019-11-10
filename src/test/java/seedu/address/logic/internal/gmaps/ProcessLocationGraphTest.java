@@ -23,7 +23,6 @@ class ProcessLocationGraphTest {
         assertDoesNotThrow(() -> {
             for (int i = 0; i < distanceMatrix.size(); i++) {
                 if (distanceMatrix.get(i).get(i) != 0) {
-                    System.out.println(distanceMatrix.get(i).get(i));
                     throw new IllegalValueException("Venue i to venue i is not 0 meter away");
                 }
             }

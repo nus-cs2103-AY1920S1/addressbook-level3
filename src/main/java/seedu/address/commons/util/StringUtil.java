@@ -104,7 +104,6 @@ public class StringUtil {
         if (locationName.contains("NUS_")) {
             return locationName.split("NUS_")[1];
         } else {
-            System.out.println("Weird result " + locationName);
             return locationName;
         }
     }
