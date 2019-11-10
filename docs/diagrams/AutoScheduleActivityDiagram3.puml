@@ -1,6 +1,6 @@
 @startuml
 start
-:Get first  activity with **highest priority** and \n**lowest number of time being scheduled**;
+:Get first  activity with **lowest number of time being scheduled**;
 
 :is it the last activity to schedule?;
     if() then (no)

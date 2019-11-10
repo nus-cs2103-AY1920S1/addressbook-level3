@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant "**:LogicManager**" as LogicManager LOGIC_COLOR
 participant "**:PlannerParser**" as PlannerParser LOGIC_COLOR
 participant "**:ScheduleCommandParser**" as ScheduleCommandParser LOGIC_COLOR
-participant "**a:ScheduleActivityCommand**" as ScheduleActivityCommand LOGIC_COLOR
+participant "**a:ScheduleCommand**" as ScheduleCommand LOGIC_COLOR
 end box
 
 [-> LogicManager : **execute("schedule 2 st/1300 d/1")**
@@ -24,12 +24,12 @@ deactivate ScheduleCommandParser
 PlannerParser -> ScheduleCommandParser : **parse("2 st/1300 d/1")**
 activate ScheduleCommandParser
 
-create ScheduleActivityCommand
-ScheduleCommandParser -> ScheduleActivityCommand
-activate ScheduleActivityCommand
+create ScheduleCommand
+ScheduleCommandParser -> ScheduleCommand
+activate ScheduleCommand
 
-ScheduleActivityCommand --> ScheduleCommandParser : **a**
-deactivate ScheduleActivityCommand
+ScheduleCommand --> ScheduleCommandParser : **a**
+deactivate ScheduleCommand
 
 ScheduleCommandParser --> PlannerParser : **a**
 deactivate ScheduleCommandParser
@@ -41,13 +41,13 @@ destroy ScheduleCommandParser
 PlannerParser --> LogicManager : **a**
 deactivate PlannerParser
 
-LogicManager -> ScheduleActivityCommand : **execute()**
-activate ScheduleActivityCommand
+LogicManager -> ScheduleCommand : **execute()**
+activate ScheduleCommand
 
-ref over ScheduleActivityCommand : **update day**
+ref over ScheduleCommand : **update day**
 
-ScheduleActivityCommand --> LogicManager : **result**
-deactivate ScheduleActivityCommand
+ScheduleCommand --> LogicManager : **result**
+deactivate ScheduleCommand
 
 [<--LogicManager
 deactivate LogicManager

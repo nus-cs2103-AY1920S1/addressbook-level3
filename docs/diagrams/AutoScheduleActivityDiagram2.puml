@@ -11,8 +11,7 @@ endif
 :check if there is any activity;
 if() then (yes)
 
-:Sort the activities from **highest to the lowest priority**;
-:Sort the activities again from the **lowest to the highest number of time being scheduled**;
+:Sort the activities  from the \n**lowest to the highest number of time being scheduled**;
 else (no)
     :inform user of invalid tag or name;
 endif
