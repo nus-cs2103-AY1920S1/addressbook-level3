@@ -62,15 +62,16 @@ Format: `help`
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
-** Engagement
-** TypingGame
-** Calendar
-** Report
+* Typee has 4 major features/menus. They comprise of:
+** Engagements List
+** Typing Game
+** Calendar View
+** Report Generator
+Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
-`Engagement` window will be the default window upon start up of the application.
+The `Engagement` window will be the default window upon starting the application.
 
 .Engagement (default) window displayed on start-up of the application.
 image::tab_1_default.png[width="520"]
@@ -222,15 +223,6 @@ image::undo-result.png[width="450", float="left"]
 .Engagement list after the command `redo`
 image::redo-result.png[width="450"]
 --
-
-=== Changing to calendar view : `tab b/calendar`
-Changes the current view to the calendar view which displays daily engagement information.
-More commands are provided for interaction with the calendar window.
-
-Format: `tab b/calendar`
-
-.Calendar view for November 2019
-image::calendar-view.png[width="450"]
 
 === Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
