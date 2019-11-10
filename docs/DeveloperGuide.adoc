@@ -421,7 +421,7 @@ The sub-sections below will show some examples illustrating how each command wor
 
 ===== Adding annotations
 Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
-sequence diagram as the reference frame:
+sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
 image::AddAnnotationSequenceDiagram.png[]
@@ -432,24 +432,32 @@ The above example adds an annotation to a `:TrueParagraph`. Alternatively, if th
 NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
 
 ===== Deleting annotations
+Users can delete the highlight and/or note of a paragraph or delete all annotations on the document.
 Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
-sequence diagram as the reference frame:
+sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
 image::DeleteAnnotationSequenceDiagram.png[]
 
 The above example deletes only the highlight from a `:TrueParagraph` which has a note. A `:PhantomParagraph` is created to keep a reference to the note.
-If the user requests to remove the entire annotation instead, the `an:Annotation` is simply dereferenced.
-If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Alternatively, if the user requests to remove annotations from all paragraphs, the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
+
+For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
+If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
+If the user requests to remove only the annotation note, `DeleteAnnotationNoteCommand` is used and the `AnnotationNote` of `Annotation` is dereferenced.
+Alternatively, if the user requests to remove annotations from all paragraphs, `DeleteAnnotationClearAllCommand` is used and the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
 
 ===== Editing annotations
+Users can use `annotate-edit` to modify the content of the `AnnotationNote`, colour of `Highlight` or move annotations from one paragraph to another.
+Editing an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram referred to by the reference frame:
 
-//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
-//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
-The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
-The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
-To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
+image::EditAnnotationSequenceDiagram.png[]
+
+The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
+However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
+
+===== Summmary
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
