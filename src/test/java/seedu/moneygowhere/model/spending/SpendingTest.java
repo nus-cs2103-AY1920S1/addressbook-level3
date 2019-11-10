@@ -43,11 +43,6 @@ public class SpendingTest {
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(APPLE.isSameSpending(editedAlice));
 
-        // same name, same remark, different attributes -> returns true
-        editedAlice = new SpendingBuilder(APPLE).withDate(VALID_DATE_BOB)
-                .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(APPLE.isSameSpending(editedAlice));
-
         // same name, same date, same remark, different attributes -> returns true
         editedAlice = new SpendingBuilder(APPLE).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(APPLE.isSameSpending(editedAlice));
