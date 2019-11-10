@@ -40,15 +40,33 @@ public class EditPlanCommandIntegrationTest {
     }
 
     @Test
-    public void editplan() throws CommandException, ParseException {
-        logicManager.execute("editplan 1"
-                + " start/" + LocalDate.now().format(FORMATTER)
-                + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
-        logicManager.execute("editplan 1 n/Two Sequences d/DS"
+    public void editplan_allconstrains() throws CommandException, ParseException {
+        logicManager.execute("editplan 1 n/Basic Data Structures d/DS"
                 + " start/" + LocalDate.now().plusMonths(1).format(FORMATTER)
                 + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
+    }
+
+    @Test
+    public void editplan_name() throws CommandException, ParseException {
+        logicManager.execute("editplan 1 n/Advanced Data Structures");
+    }
+
+    @Test
+    public void editplan_description() throws CommandException, ParseException {
+        logicManager.execute("editplan 1 d/");
+        logicManager.execute("editplan 1 d/CS2040");
+    }
+
+    @Test
+    public void editplan_timerange() throws CommandException, ParseException {
         logicManager.execute("editplan 1"
                 + " start/" + LocalDate.now().minusMonths(1).format(FORMATTER)
                 + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
+        logicManager.execute("editplan 1"
+                + " start/" + LocalDate.now().plusMonths(1).format(FORMATTER)
+                + " end/" + LocalDate.now().plusMonths(1).format(FORMATTER));
+        logicManager.execute("editplan 1"
+                + " start/" + LocalDate.now().plusMonths(1).format(FORMATTER)
+                + " end/" + LocalDate.now().plusMonths(2).format(FORMATTER));
     }
 }
