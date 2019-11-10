@@ -3,6 +3,7 @@ package seedu.moolah.ui.textfield;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.util.Pair;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
 import seedu.moolah.logic.parser.Prefix;
@@ -35,7 +36,7 @@ public class AutofillSupportedCommand {
      * Returns a list of missing prefixes to add to the auto completion suggestions.
      * @param input The string to check for prefixes.
      */
-    public List<Prefix>[] getMissingPrefixes(String input) {
+    public Pair<List<Prefix>, List<Prefix>> getMissingPrefixes(String input) {
         ArrayList<Prefix> prefixes = new ArrayList<>(required);
         prefixes.addAll(optional);
         Prefix[] prefixArray = prefixes.toArray(new Prefix[]{});
@@ -59,6 +60,6 @@ public class AutofillSupportedCommand {
                 missingOpt.add(p);
             }
         });
-        return (List<Prefix>[]) new List[]{missingReq, missingOpt};
+        return new Pair<>(missingReq, missingOpt);
     }
 }

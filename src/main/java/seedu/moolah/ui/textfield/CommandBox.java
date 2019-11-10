@@ -1,19 +1,18 @@
-package seedu.moolah.ui;
+package seedu.moolah.ui.textfield;
 
 import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
 
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
+import seedu.moolah.ui.UiPart;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
-import seedu.moolah.ui.textfield.CommandTextField;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -21,9 +20,8 @@ import seedu.moolah.ui.textfield.CommandTextField;
 public class CommandBox extends UiPart<Region> {
 
     private static final String FXML = "CommandBox.fxml";
-
+    final CommandTextField commandTextField;
     private final CommandExecutor commandExecutor;
-    private final CommandTextField commandTextField;
 
     @FXML
     private StackPane commandInputAreaPlaceholder;
@@ -39,10 +37,6 @@ public class CommandBox extends UiPart<Region> {
         commandInputAreaPlaceholder.getChildren().add(commandTextField);
     }
 
-
-    public void importSyntaxStyleSheet(Scene scene) {
-        commandTextField.importStyleSheet(scene);
-    }
 
     /**
      * Handles the Enter button pressed event.
@@ -79,7 +73,7 @@ public class CommandBox extends UiPart<Region> {
      * @param optionalPrefixes
      */
     public void enableSuggestionAndSyntaxHighlightingFor(String com, List<Prefix> pre, List<Prefix> optionalPrefixes) {
-        commandTextField.addSupportFor(com, pre, optionalPrefixes);
+        commandTextField.addSupport(com, pre, optionalPrefixes);
     }
 
     /**
@@ -87,7 +81,7 @@ public class CommandBox extends UiPart<Region> {
      * @param command The command word of the command.
      */
     public void disableSuggestionsAndSyntaxHighlightingFor(String command) {
-        commandTextField.removeSupportFor(command);
+        commandTextField.removeSupport(command);
     }
 
     public void enableSyntaxHighlighting() {

@@ -20,6 +20,11 @@ import seedu.moolah.ui.UiPart;
  */
 public class ExpenseCard extends UiPart<Region> {
 
+    public static final String DATE_PATTERN = "dd MMM yyyy";
+    public static final String TIME_PATTERN = "HH:mm";
+    public static final String CURRENCY_SYMBOL = "$";
+    public static final String PRICE_TEMPLATE = "%s%,.2f";
+
     private static final Category FOOD = new Category("FOOD");
     private static final Category TRAVEL = new Category("TRAVEL");
     private static final Category TRANSPORT = new Category("TRANSPORT");
@@ -28,7 +33,6 @@ public class ExpenseCard extends UiPart<Region> {
     private static final Category HEALTHCARE = new Category("HEALTHCARE");
     private static final Category ENTERTAINMENT = new Category("ENTERTAINMENT");
     private static final Category EDUCATION = new Category("EDUCATION");
-
 
     // icons (except other.png) made by Freepik from Flaticon.com
     private static final String FXML = "ExpenseListCard.fxml";
@@ -42,14 +46,9 @@ public class ExpenseCard extends UiPart<Region> {
     private static final String HEALTHCARE_ICON = "/images/category/healthcare.png";
     private static final String OTHERS_ICON = "/images/category/others.png";
 
-    private static final String DATE_PATTERN = "dd MMM yyyy";
-    private static final String TIME_PATTERN = "HH:mm";
-    private static final String CURRENCY_SYMBOL = "$";
-
     /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX. As a consequence, UI
+     * elements' variable names cannot be set to such keywords or an exception will be thrown by JavaFX during runtime.
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on MooLah level 4</a>
      */
@@ -62,6 +61,8 @@ public class ExpenseCard extends UiPart<Region> {
     private Label description;
     @FXML
     private Label index;
+    @FXML
+    private Label uniqueId;
     @FXML
     private Label price;
     @FXML
@@ -81,29 +82,35 @@ public class ExpenseCard extends UiPart<Region> {
         this.expense = expense;
 
         index.setText(Integer.toString(displayedIndex));
-
+        uniqueId.setText(expense.getUniqueIdentifier().toString());
         description.setText(expense.getDescription().fullDescription);
-        price.setText(String.format("%s%,.2f", CURRENCY_SYMBOL, expense.getPrice().getAsDouble()));
-
+        price.setText(String.format(PRICE_TEMPLATE, CURRENCY_SYMBOL, expense.getPrice().getAsDouble()));
         date.setText(expense.getTimestamp().getFullTimestamp().format(DateTimeFormatter.ofPattern(DATE_PATTERN)));
         time.setText(expense.getTimestamp().getFullTimestamp().format(DateTimeFormatter.ofPattern(TIME_PATTERN)));
-
         categories.getChildren().add(new Label(expense.getCategory().getCategoryName()));
-        if (FOOD.equals(expense.getCategory())) {
+        setIcon(icon, expense.getCategory());
+    }
+
+    /**
+     * Sets the {@code Expense Card} icon's {@code ImagePattern} fill based on the {@code Category} of the {@code
+     * Expense}.
+     */
+    private void setIcon(Circle icon, Category category) {
+        if (FOOD.equals(category)) {
             icon.setFill(new ImagePattern(getImage(FOOD_ICON)));
-        } else if (TRAVEL.equals(expense.getCategory())) {
+        } else if (TRAVEL.equals(category)) {
             icon.setFill(new ImagePattern(getImage(TRAVEL_ICON)));
-        } else if (HEALTHCARE.equals(expense.getCategory())) {
+        } else if (HEALTHCARE.equals(category)) {
             icon.setFill(new ImagePattern(getImage(HEALTHCARE_ICON)));
-        } else if (EDUCATION.equals(expense.getCategory())) {
+        } else if (EDUCATION.equals(category)) {
             icon.setFill(new ImagePattern(getImage(EDUCATION_ICON)));
-        } else if (ENTERTAINMENT.equals(expense.getCategory())) {
+        } else if (ENTERTAINMENT.equals(category)) {
             icon.setFill(new ImagePattern(getImage(ENTERTAINMENT_ICON)));
-        } else if (UTILITIES.equals(expense.getCategory())) {
+        } else if (UTILITIES.equals(category)) {
             icon.setFill(new ImagePattern(getImage(UTILITIES_ICON)));
-        } else if (SHOPPING.equals(expense.getCategory())) {
+        } else if (SHOPPING.equals(category)) {
             icon.setFill(new ImagePattern(getImage(SHOPPING_ICON)));
-        } else if (TRANSPORT.equals(expense.getCategory())) {
+        } else if (TRANSPORT.equals(category)) {
             icon.setFill(new ImagePattern(getImage(TRANSPORT_ICON)));
         } else {
             icon.setFill(new ImagePattern(getImage(OTHERS_ICON)));

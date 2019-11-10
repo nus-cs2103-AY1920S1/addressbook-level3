@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.model.alias.Alias;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 class ListAliasesCommandTest {
 
@@ -67,6 +67,6 @@ class ListAliasesCommandTest {
     void execute_executed_commandResultPanelIsAliasPanel() {
         assertEquals(
                 new ListAliasesCommand().execute(new ModelSupportingAliasStub()).viewRequest(),
-                AliasPanel.PANEL_NAME);
+                AliasListPanel.PANEL_NAME);
     }
 }

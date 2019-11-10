@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -10,9 +9,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
-<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="MooLah" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="MooLah" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <icons>
         <Image url="@/images/moolah.png" />
     </icons>
@@ -21,19 +20,20 @@
             <stylesheets>
                 <URL value="@DarkTheme.css" />
                 <URL value="@Extensions.css" />
+                <URL value="@syntax-highlighting.css"/>
             </stylesheets>
             <BorderPane>
                 <center>
                     <StackPane fx:id="panelPlaceholder" styleClass="placeholder" BorderPane.alignment="CENTER" />
                 </center>
             <top>
-                    <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+                    <VBox fx:id="vBox1" prefWidth="100.0" BorderPane.alignment="CENTER">
                         <children>
                           <MenuBar fx:id="menuBar">
-                              <Menu mnemonicParsing="false" text="File">
-                                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                              <Menu mnemonicParsing="false" fx:id="file" text="File">
+                                  <MenuItem mnemonicParsing="false" fx:id="exit" onAction="#handleExit" text="Exit" />
                               </Menu>
-                              <Menu mnemonicParsing="false" text="Help">
+                              <Menu mnemonicParsing="false" fx:id="help" text="Help">
                                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                               </Menu>
                           </MenuBar>

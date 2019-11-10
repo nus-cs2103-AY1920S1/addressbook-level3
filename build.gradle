@@ -44,6 +44,7 @@ test {
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
+    String testFxVersion = '4.0.16-alpha'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -69,6 +70,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.joestelmach/natty
     compile group: 'com.joestelmach', name: 'natty', version: '0.13'
+
+    // test fx
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
 }
 
 shadowJar {
@@ -102,22 +107,80 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+
+task guiTests {}
+task nonGuiTests {}
+
+// Run `test` task if `guiTests` or `nonGuiTests` is specified
+guiTests.dependsOn test
+nonGuiTests.dependsOn test
+
+task allTests {}
+
+// `allTests` implies both `guiTests` and `nonGuiTests`
+allTests.dependsOn guiTests
+allTests.dependsOn nonGuiTests
+
 test {
+    systemProperty 'testfx.setup.timeout', '60000'
+
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
         exceptionFormat "full"
+
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
         // stalling the build.
         if (System.env.'CI') {
             events << TestLogEvent.STARTED
         }
+
     }
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+
+    doFirst {
+        boolean runGuiTests = gradle.taskGraph.hasTask(guiTests)
+        boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
+
+        if (!runGuiTests && !runNonGuiTests) {
+            runGuiTests = true
+            runNonGuiTests = true
+        }
+
+        if (runNonGuiTests) {
+            test.include 'seedu/moolah/**'
+        }
+
+        if (runGuiTests) {
+            test.include 'seedu/moolah/ui/**'
+        }
+
+        if (!runGuiTests) {
+            test.exclude 'seedu/moolah/ui/**'
+        }
+    }
 }
+
+
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+            ]
+        }
+    }
+}
+
+// Makes sure that headless properties are set before running tests
+test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'

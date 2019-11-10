@@ -23,30 +23,40 @@ import org.reactfx.Subscription;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
+import javafx.geometry.Side;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import seedu.moolah.logic.parser.Prefix;
 
 /**
  * A single line text area utilising RichTextFX to support syntax highlighting of user input. This has some code which
  * is adapted from OverrideBehaviorDemo and JavaKeywordsDemo in RichTextFX.
  */
-public class CommandTextField extends Region {
+public class CommandTextField extends StyleClassedTextArea {
 
     public static final String ERROR_STYLE_CLASS = "error";
-    private static final String PREFIX_STYLE_PREFIX = "prefix";
-    private static final String ARGUMENT_STYLE_PREFIX = "arg";
-    private static final String COMMAND_WORD_STYLE = "command-word";
-    private static final String PLACEHOLDER_STYLE = "placeholder";
-    private static final String STRING_STYLE = "string";
-    private static final String CSS_FILE_PATH = "/view/syntax-highlighting.css";
+    static final String PREFIX_STYLE_PREFIX = "prefix";
+    static final String ARGUMENT_STYLE_PREFIX = "arg";
+    static final String COMMAND_WORD_STYLE = "command-word";
+    static final String STRING_STYLE = "string";
+    static final String SYNTAX_HIGHLIGHTING_CSS_FILE_PATH = "/view/syntax-highlighting.css";
 
-    private StyleClassedTextArea textField;
+    private static final Border enabledBorder = new Border(
+            new BorderStroke(Color.GREEN, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
+    private static final Border disabledBorder = new Border(
+            new BorderStroke(Color.TRANSPARENT, BorderStrokeStyle.DOTTED, CornerRadii.EMPTY, new BorderWidths(2)));
+
+    private static final double TEXTFIELD_HEIGHT = 25;
+
     private InputHistory inputHistory;
 
     private Map<String, SyntaxHighlightingSupportedInput> stringToSupportedCommands;
+
     private AutofillSuggestionMenu autofillMenu;
     private StringProperty currentCommand;
 
@@ -55,49 +65,34 @@ public class CommandTextField extends Region {
     public CommandTextField(Consumer<String> textGetter) {
         super();
 
-        setId("SyntaxBox"); // for css styling css
+        setId("SyntaxHighlightingTextField"); // for css styling css
 
         // to store patterns/syntax
         stringToSupportedCommands = new HashMap<>();
+        setBorder(disabledBorder);
 
         currentCommand = new SimpleStringProperty("");
-
-        //--------------- textarea with behaviour modified to prevent new lines --------------
-
-        textField = new StyleClassedTextArea() {
-            @Override
-            public void paste() {
-                super.paste();
-                textField.replaceText(textField.getText().replaceAll("[\\n\\r]", ""));
-            }
-
-            @Override
-            public void insertText(int position, String text) {
-                super.insertText(position, text.replaceAll("[\\n\\r]", ""));
-            }
-        };
-        getChildren().addAll(textField);
 
         // ----- sizing ------
 
         // height to look like single line input
-        double h = 25;
-        textField.setPrefHeight(h);
-        textField.setMaxHeight(h);
-        textField.setMinHeight(h);
-
-        // update width so re-sizes properly
-        widthProperty().addListener((unused1, unused2, width) -> {
-            textField.setPrefWidth(width.doubleValue());
-            textField.setMinWidth(width.doubleValue());
-            textField.setMaxWidth(width.doubleValue());
-        });
+        setPrefHeight(TEXTFIELD_HEIGHT);
+        setMaxHeight(TEXTFIELD_HEIGHT);
+        setMinHeight(TEXTFIELD_HEIGHT);
 
         // autofill menu
-        autofillMenu = new AutofillSuggestionMenu(textField, currentCommand);
-        textField.setContextMenu(autofillMenu);
+        autofillMenu = new AutofillSuggestionMenu(this, currentCommand);
+        setContextMenu(autofillMenu);
 
-        textField.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+        autofillMenu.enabledProperty().addListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
+                setBorder(enabledBorder);
+            } else {
+                setBorder(disabledBorder);
+            }
+        });
+
+        focusedProperty().addListener((observableValue, aBoolean, t1) -> {
             if (t1) {
                 enableSyntaxHighlighting();
             } else {
@@ -107,32 +102,36 @@ public class CommandTextField extends Region {
 
         //------------ prevent entering to remain single line ---------------
 
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(ENTER)) {
                 textGetter.accept(getText().replaceAll("[\\r\\n]", ""));
                 keyEvent.consume();
             } else if (keyEvent.getCode().equals(TAB)) {
+                autofillMenu.toggle();
+                if (autofillMenu.enabledProperty().get()) {
+                    autofillMenu.show(this, Side.BOTTOM, 0, 0);
+                }
                 keyEvent.consume();
             }
         });
 
         autofillMenu.showingProperty().addListener((observableValue, aBoolean, t1) -> {
             if (!t1) {
-                textField.requestFocus();
+                requestFocus();
             }
         });
 
         // --------- current command property -------
-        textField.textProperty().addListener((observableValue, s, t1) -> {
+        textProperty().addListener((observableValue, s, t1) -> {
             String commandWordRegex = String.join("|", stringToSupportedCommands.keySet());
 
-            Matcher command =
-                    Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")\\s+")
-                            .matcher(t1);
+            Matcher command = Pattern.compile("^\\s*(?<COMMAND>" + commandWordRegex + ")(?=\\s|$)").matcher(t1);
 
             if (command.find()) {
-                String cmd = command.group("COMMAND");
-                currentCommand.setValue(cmd);
+                String cmd = command.group("COMMAND").trim();
+                if (!currentCommand.getValue().equals(cmd)) {
+                    currentCommand.setValue(cmd);
+                }
             } else {
                 currentCommand.setValue("");
             }
@@ -140,7 +139,7 @@ public class CommandTextField extends Region {
 
         // --------- input history -------
         inputHistory = new InputHistory();
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
             if (keyEvent.getCode().equals(UP)) {
                 try {
                     replaceWithPreviousInput();
@@ -157,11 +156,15 @@ public class CommandTextField extends Region {
         });
     }
 
-    /**
-     * Clears the text.
-     */
-    public void clear() {
-        textField.clear();
+    @Override
+    public void paste() {
+        super.paste();
+        replaceText(getText().replaceAll("[\\n\\r]", ""));
+    }
+
+    @Override
+    public void insertText(int position, String text) {
+        super.insertText(position, text.replaceAll("[\\n\\r]", ""));
     }
 
     /**
@@ -173,6 +176,15 @@ public class CommandTextField extends Region {
         clear();
     }
 
+
+    public AutofillSuggestionMenu getAutofillMenu() {
+        return autofillMenu;
+    }
+
+    public InputHistory getInputHistory() {
+        return inputHistory;
+    }
+
     /**
      * Inserts the previous input in command history character by character.
      * @throws NoSuchElementException
@@ -180,9 +192,7 @@ public class CommandTextField extends Region {
     public void replaceWithPreviousInput() throws NoSuchElementException {
         String previous = inputHistory.getPreviousInput();
         clear();
-        for (Character character : previous.toCharArray()) {
-            textField.insertText(textField.getLength(), character.toString());
-        }
+        replaceText(previous);
     }
 
     /**
@@ -192,23 +202,7 @@ public class CommandTextField extends Region {
     public void replaceWithNextInput() throws NoSuchElementException {
         String next = inputHistory.getNextInput();
         clear();
-        for (Character character : next.toCharArray()) {
-            textField.insertText(textField.getLength(), character.toString());
-        }
-    }
-
-    /**
-     * Filters placeholders from input before returning value.
-     *
-     * @return The text property value of the text area with placeholders replaced with an empty String.
-     */
-    public String getText() {
-        return textField.getText();
-        //return functionalTextField.getText().replaceAll(PLACEHOLDER_REGEX, "");
-    }
-
-    public ObservableValue<String> textProperty() {
-        return textField.textProperty();
+        replaceText(next);
     }
 
     /**
@@ -216,10 +210,10 @@ public class CommandTextField extends Region {
      */
     public void enableSyntaxHighlighting() {
         syntaxHighlightSubscription =
-                textField.multiPlainChanges()
-                        .successionEnds(Duration.ofMillis(50))
+                multiPlainChanges()
+                        .successionEnds(Duration.ofMillis(300))
                         .subscribe(ignore -> {
-                            textField.setStyleSpans(
+                            setStyleSpans(
                                     0, computeHighlighting(getText()));
                         });
     }
@@ -232,22 +226,12 @@ public class CommandTextField extends Region {
      */
     public void overrideStyle(String styleClass) {
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-        spansBuilder.add(Collections.singleton(styleClass), textField.getLength());
-        textField.setStyleSpans(0, spansBuilder.create());
+        spansBuilder.add(Collections.singleton(styleClass), getLength());
+        setStyleSpans(0, spansBuilder.create());
         if (syntaxHighlightSubscription != null) {
             syntaxHighlightSubscription.unsubscribe();
         }
     }
-
-    /**
-     * Import the css stylesheet containing the different styles for the syntax highlighter.
-     */
-    public void importStyleSheet(Scene parentSceneOfNode) {
-        parentSceneOfNode.getStylesheets()
-                .add(CommandTextField.class.getResource(CSS_FILE_PATH).toExternalForm());
-        enableSyntaxHighlighting();
-    }
-
 
     /**
      * Add support for syntax highlighting and auto fill for the specified command.
@@ -256,7 +240,7 @@ public class CommandTextField extends Region {
      * @param prefixes         List of prefixes required in the command
      * @param optionalPrefixes
      */
-    public void addSupportFor(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
+    public void addSupport(String command, List<Prefix> prefixes, List<Prefix> optionalPrefixes) {
         stringToSupportedCommands.put(
                 command,
                 new SyntaxHighlightingSupportedInput(command, prefixes, optionalPrefixes));
@@ -269,7 +253,7 @@ public class CommandTextField extends Region {
      *
      * @param command
      */
-    public void removeSupportFor(String command) {
+    public void removeSupport(String command) {
         if (stringToSupportedCommands.containsKey(command)) {
             stringToSupportedCommands.remove(command);
             autofillMenu.removeCommand(command);
@@ -305,10 +289,10 @@ public class CommandTextField extends Region {
      *
      * @param text        The text to be formatted (guaranteed that the input's command word matches this pattern).
      * @param pattern     The pattern used to apply formatting.
-     * @param prefixcount The number of prefixes in the command.
+     * @param prefixCount The number of prefixes in the command.
      * @return the StyleSpans to apply rich text formatting to the text area.
      */
-    private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern, int prefixcount) {
+    private StyleSpans<Collection<String>> computeHighlighting(String text, Pattern pattern, int prefixCount) {
         // pattern should match the command word
         Matcher matcher = pattern.matcher(text);
         int lastKwEnd = 0;
@@ -328,20 +312,10 @@ public class CommandTextField extends Region {
             // highlight command word
             String styleClass = null;
 
-            if (matcher.group(PLACEHOLDER_STYLE) != null) {
-                styleClass = PLACEHOLDER_STYLE;
-            }
-            if (styleClass != null) {
-                spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-                spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-                lastKwEnd = matcher.end();
-                continue;
-            }
-
             // styleclass for prefix
-            for (int groupNum = 1; groupNum <= prefixcount; groupNum++) {
+            for (int groupNum = 0; groupNum < prefixCount; groupNum++) {
                 if (matcher.group(PREFIX_STYLE_PREFIX + groupNum) != null) {
-                    int styleNumber = (groupNum % 4) + 1;
+                    int styleNumber = groupNum % 4;
                     lastPrefixStyle = PREFIX_STYLE_PREFIX + styleNumber;
                     styleClass = lastPrefixStyle;
                     break;
@@ -362,6 +336,7 @@ public class CommandTextField extends Region {
                     styleClass = STRING_STYLE;
                 }
             }
+
             if (styleClass != null) {
                 spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
                 spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());

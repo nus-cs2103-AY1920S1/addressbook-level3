@@ -8,6 +8,9 @@ import static seedu.moolah.ui.panel.PanelName.isValidPanelName;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Contains tests for {@code PanelName}.
+ */
 class PanelNameTest {
 
     @Test

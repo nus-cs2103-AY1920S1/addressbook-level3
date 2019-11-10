@@ -8,9 +8,9 @@
     -colour-price: #8317ad;
     -colour-additional-info: #787878;
     -colour-result: #554e61;
-    /*-status-background-colour: derive(#1d1d1d, 30%);*/
+    -colour-menuitem-focus: rgb(204, 139, 176);
+
     -status-background-colour: -colour-title;
-    /*-status-border-colour:n derive(#1d1d1d, 30%);*/
     -status-border-colour: transparent;
     -text-colour: white;
 
@@ -21,7 +21,6 @@
     -progress-bar-nearbudget: #ffb55a;
     -progress-bar-halfbudget: #cde460;
     -progress-bar-inbudget: #6ecd8e;
-
 }
 
 .list-view {
@@ -72,6 +71,10 @@
     -fx-background-color: -status-background-colour;
 }
 
+.context-menu .menu-item:focused {
+    -fx-background-color: -colour-menuitem-focus
+}
+
 .context-menu .label {
     -fx-text-fill: -text-colour;
     -fx-font-size: 10px;
@@ -80,6 +83,16 @@
 .menu-bar {
     -fx-background-color: -status-background-colour;
 }
+
+.menu-bar > .container > .menu-button:hover,
+.menu-bar > .container > .menu-button:focused,
+.menu-bar > .container > .menu-button:showing {
+    -fx-background-color: -colour-menuitem-focus;
+}
+
+/*.menu-bar .menu-button {*/
+/*    -fx-background-color: none;*/
+/*}*/
 
 .menu-bar .label {
     -fx-font-size: 10pt;
@@ -140,34 +153,23 @@
     -fx-background-color: -colour-title;
 }
 
-#expenseCardPane {
-    -fx-background-color: #e6e6e6;
-    -fx-background-radius: 10;
-    -fx-border-width: 0;
-    -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
+#aliasCardPane #aliasName {
+    -fx-border-radius: 5;
+    -fx-background-color: -colour-title;
+    -fx-text-fill: orange;
 }
 
-#expenseCardPane #iconBackground {
-    -fx-fill: -colour-category;
+#aliasListView .list-cell:even #aliasCardPane #aliasName {
+    -fx-background-color: derive(-colour-title, 30%)
 }
 
-#expenseCardPane #date, #expenseCardPane #time, #expenseCardPane #categories .label, #expenseCardPane #index {
-    -fx-text-fill: -colour-additional-info;
+#aliasCardPane #aliasInput {
+    -fx-background-insets: -1;
+    -fx-background-color: -colour-result;
+    -fx-text-fill: white;
 }
 
-#expenseCardPane .label {
-    -fx-font-family: -font-mono;
-    -fx-font-size: 16px;
-}
-
-#expenseCardPane #price {
-    -fx-font-family: -font-mono;
-    -fx-font-weight: bold;
-    -fx-font-size: 18px;
-    -fx-text-fill: -colour-price;
-    -fx-padding: 0 5 0 0;
-}
-
+#expenseCardPane,
 #eventCardPane {
     -fx-background-color: #e6e6e6;
     -fx-background-radius: 10;
@@ -175,23 +177,27 @@
     -fx-effect: dropshadow(gaussian, rgba(31, 31, 31, 0.37), 10, .01, 1, 5)
 }
 
+#expenseCardPane #iconBackground,
 #eventCardPane #iconBackground {
     -fx-fill: -colour-category;
 }
 
+#expenseCardPane #date, #expenseCardPane #time, #expenseCardPane #categories .label, #expenseCardPane #index,
+#eventCardPane #index, #eventCardPane #date, #eventCardPane #budgetName, #eventCardPane #categories .label {
+    -fx-text-fill: -colour-additional-info;
+}
+
+#expenseCardPane .label,
 #eventCardPane .label {
     -fx-font-family: -font-mono;
     -fx-font-size: 16px;
 }
 
-#eventCardPane #index, #eventCardPane #date, #eventCardPane #budgetName, #eventCardPane #categories .label {
-    -fx-text-fill: -colour-additional-info;
-}
-
+#expenseCardPane #price,
 #eventCardPane #price {
     -fx-font-family: -font-mono;
-    -fx-font-size: 18px;
     -fx-font-weight: bold;
+    -fx-font-size: 18px;
     -fx-text-fill: -colour-price;
     -fx-padding: 0 5 0 0;
 }
@@ -206,10 +212,6 @@
     -fx-font-family: -font-mono;
     -fx-font-size: 13pt;
     -fx-text-fill: black;
-}
-
-#filterField, #expenseListPanel, #eventListPanel, #expenseWebpage, #eventWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {

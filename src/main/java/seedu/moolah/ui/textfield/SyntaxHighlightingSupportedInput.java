@@ -11,9 +11,8 @@ import seedu.moolah.logic.parser.Prefix;
  */
 public class SyntaxHighlightingSupportedInput {
 
-    static final String PLACEHOLDER_REGEX = "(?<placeholder><[^>]+>)";
     // param1 commandword, param2 concat list of prefixes
-    private static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|" + PLACEHOLDER_REGEX + "|%s(?<arg>\\S+)";
+    public static final String INPUT_PATTERN_TEMPLATE = "(?<COMMAND>%s)|%s(?<arg>\\S+)";
 
     private String command;
     private List<Prefix> prefixes;
@@ -44,8 +43,8 @@ public class SyntaxHighlightingSupportedInput {
         return pattern;
     }
 
-    public Prefix getPrefix(String pre) {
-        return prefixes.stream().filter(x -> x.toString().equals(pre)).findFirst().orElse(null);
+    public Prefix getPrefix(String prefix) {
+        return prefixes.stream().filter(x -> x.toString().equals(prefix)).findFirst().orElse(null);
     }
 
     public int getPrefixCount() {
@@ -56,19 +55,18 @@ public class SyntaxHighlightingSupportedInput {
         return new ArrayList<>(prefixes);
     }
 
-
     /**
      * Compile pattern for a command input syntax used for matching during syntax highlighting.
      * @param commandWord The command word of the command.
      * @param prefixes The list of prefixes of the command.
      * @return The compiled pattern.
      */
-    private Pattern compileCommandPattern(String commandWord, List<Prefix> prefixes) {
+    Pattern compileCommandPattern(String commandWord, List<Prefix> prefixes) {
         StringBuilder prefixesPatterns = new StringBuilder();
         int count = 0;
         for (Prefix prefix : prefixes) {
-            count++;
             prefixesPatterns.append(String.format("(?<prefix%s> %s)|", count, prefix.getPrefix()));
+            count++;
         }
 
         return Pattern.compile(String.format(INPUT_PATTERN_TEMPLATE, commandWord, prefixesPatterns.toString()));

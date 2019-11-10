@@ -86,21 +86,28 @@ public class EventCard extends UiPart<Region> {
         time.setText(null);
         budgetName.setText(event.getBudgetName().fullDescription);
 
-        if (FOOD.equals(event.getCategory())) {
+        setIcon(icon, event.getCategory());
+    }
+
+    /**
+     * Sets the {@code Event Card} icon's {@code ImagePattern} fill based on the {@code Category} of the {@code Event}.
+     */
+    private void setIcon(Circle icon, Category category) {
+        if (FOOD.equals(category)) {
             icon.setFill(new ImagePattern(getImage(FOOD_ICON)));
-        } else if (TRAVEL.equals(event.getCategory())) {
+        } else if (TRAVEL.equals(category)) {
             icon.setFill(new ImagePattern(getImage(TRAVEL_ICON)));
-        } else if (HEALTHCARE.equals(event.getCategory())) {
+        } else if (HEALTHCARE.equals(category)) {
             icon.setFill(new ImagePattern(getImage(HEALTHCARE_ICON)));
-        } else if (EDUCATION.equals(event.getCategory())) {
+        } else if (EDUCATION.equals(category)) {
             icon.setFill(new ImagePattern(getImage(EDUCATION_ICON)));
-        } else if (ENTERTAINMENT.equals(event.getCategory())) {
+        } else if (ENTERTAINMENT.equals(category)) {
             icon.setFill(new ImagePattern(getImage(ENTERTAINMENT_ICON)));
-        } else if (UTILITIES.equals(event.getCategory())) {
+        } else if (UTILITIES.equals(category)) {
             icon.setFill(new ImagePattern(getImage(UTILITIES_ICON)));
-        } else if (SHOPPING.equals(event.getCategory())) {
+        } else if (SHOPPING.equals(category)) {
             icon.setFill(new ImagePattern(getImage(SHOPPING_ICON)));
-        } else if (TRANSPORT.equals(event.getCategory())) {
+        } else if (TRANSPORT.equals(category)) {
             icon.setFill(new ImagePattern(getImage(TRANSPORT_ICON)));
         } else {
             icon.setFill(new ImagePattern(getImage(OTHERS_ICON)));

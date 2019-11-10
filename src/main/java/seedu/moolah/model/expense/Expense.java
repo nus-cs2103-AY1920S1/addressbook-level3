@@ -95,7 +95,7 @@ public class Expense {
         this.budgetName = Budget.DEFAULT_BUDGET_DESCRIPTION;
     }
 
-    public boolean isWithId(String id) {
+    public boolean uniqueIdIs(String id) {
         return this.uniqueIdentifier.value.equals(id);
     }
 
