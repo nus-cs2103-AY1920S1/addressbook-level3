@@ -2,16 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.image.Image?>
 <HBox fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane alignment="CENTER" HBox.hgrow="ALWAYS">
     <columnConstraints>
@@ -22,29 +22,27 @@
         <Insets bottom="5" left="5" right="5" top="5" />
       </padding>
       <Label fx:id="id" styleClass="cell_big_label" />
-      <ImageView fx:id="display" cache="true" cacheHint="SPEED" fitHeight="200" fitWidth="200" pickOnBounds="true" preserveRatio="true" />
-      <FlowPane fx:id="tags" alignment="CENTER" />
-      <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label" text="\$description" />
-        <Pane prefHeight="24.0" prefWidth="240.0">
-          <children>
-            <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="240.0">
-              <children>
-                <ImageView fx:id="likeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/like_icon.png" smooth="true" requestedHeight="11.0" requestedWidth="13.0"/>
-                  </image>
-                </ImageView>
-                <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
-                <ImageView fx:id="dislikeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                    <Image url="@../images/dislike_icon.png" smooth="true" requestedHeight="11.0" requestedWidth="13.0"/>
-                  </image>
-                </ImageView>
-                <Label fx:id="dislikes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
-              </children>
-            </HBox>
-          </children>
-         </Pane>
+        <VBox alignment="CENTER" prefHeight="400.0" spacing="5" prefWidth="100.0">
+            <ImageView fx:id="display" cache="true" cacheHint="SPEED" fitHeight="200" fitWidth="200" pickOnBounds="true"
+                       preserveRatio="true"/>
+            <FlowPane fx:id="tags" alignment="CENTER" maxHeight="50" maxWidth="${cardPane.width}"/>
+            <Label fx:id="description" alignment="CENTER" contentDisplay="CENTER" styleClass="cell_small_label"
+                   text="\$description"/>
+        </VBox>
+         <AnchorPane fx:id="likeAnchor" prefHeight="23.0" prefWidth="240.0">
+            <children>
+           <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="240.0">
+             <ImageView fx:id="likeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+               <Image requestedHeight="11.0" requestedWidth="13.0" smooth="true" url="@../images/like_icon.png" />
+             </ImageView>
+             <Label fx:id="likes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
+             <ImageView fx:id="dislikeIcon" cache="true" cacheHint="SPEED" fitHeight="11.0" fitWidth="13.0" pickOnBounds="true" preserveRatio="true">
+               <Image requestedHeight="11.0" requestedWidth="13.0" smooth="true" url="@../images/dislike_icon.png" />
+             </ImageView>
+             <Label fx:id="dislikes" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="cell_small_label" />
+           </HBox>
+            </children>
+         </AnchorPane>
     </VBox>
       <rowConstraints>
          <RowConstraints />

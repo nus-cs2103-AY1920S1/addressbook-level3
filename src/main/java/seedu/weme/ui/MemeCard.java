@@ -1,6 +1,9 @@
 package seedu.weme.ui;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
@@ -18,6 +21,14 @@ import seedu.weme.model.meme.Meme;
 public class MemeCard extends UiPart<Region> {
 
     private static final String FXML = "MemeGridCard.fxml";
+    private static final String TAG_TRUNCATE_TEXT = "...";
+    private static final int IMAGE_MAX_HEIGHT = 200;
+    private static final int IMAGE_MAX_WIDTH = 200;
+    private static final int TAGS_HEIGHT = 25;
+    private static final int TAGS_GAP_BY_CHAR = 2;
+    private static final int MAX_CHAR_PER_LINE = 35;
+    // a line can accommodate about 38 characters. In the case of a long string of tags followed by \"...\" case,
+    // we use 35 characters per line for display to prevent overflow.
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,6 +51,8 @@ public class MemeCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
+    private HBox likeBox;
+    @FXML
     private Label likes;
     @FXML
     private Label dislikes;
@@ -51,11 +64,18 @@ public class MemeCard extends UiPart<Region> {
         super(FXML);
         this.meme = meme;
         id.setText(displayedIndex + "");
-        display.setImage(new Image(meme.getImagePath().toUrl().toString(), 200, 200, true, true, true));
+        Image image = new Image(meme.getImagePath().toUrl().toString(), IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT,
+                true, true, true);
+        int limit = getTagLimit(meme);
+        display.setImage(image);
         description.setText(meme.getDescription().value);
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
+                .limit(limit)
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (limit < meme.getTags().size()) {
+            tags.getChildren().add(new Label(TAG_TRUNCATE_TEXT));
+        }
         likes.setText(" " + numOfLikes.get() + " ");
         dislikes.setText(" " + numOfDislikes.get() + " ");
         numOfLikes.addListener((observable, oldValue, newValue) ->
@@ -74,15 +94,58 @@ public class MemeCard extends UiPart<Region> {
         id.setText(newIndex + "");
         description.setText(meme.getDescription().value);
         tags.getChildren().clear();
+        int limit = getTagLimit(meme);
         meme.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
+                .limit(limit)
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (limit < meme.getTags().size()) {
+            Label truncatedText = new Label(TAG_TRUNCATE_TEXT);
+            truncatedText.setStyle("-fx-background-color: transparent");
+            tags.getChildren().add(truncatedText);
+        }
         likes.setText(" " + numOfLikes.get() + " ");
         dislikes.setText(" " + numOfDislikes.get() + " ");
         numOfLikes.addListener((observable, oldValue, newValue) ->
                 likes.setText(Integer.toString((int) newValue)));
         numOfDislikes.addListener((observable, oldValue, newValue) ->
                 dislikes.setText(Integer.toString((int) newValue)));
+    }
+
+    /**
+     * Returns the limit on the number of tags a meme card can contain such that there is no overflow of content.
+     */
+    private int getTagLimit(Meme meme) {
+        Image imageCopy = new Image(meme.getImagePath().toUrl().toString());
+        int limit = 0;
+
+        // get the number of rows for tag display.
+        double height = imageCopy.getHeight();
+        double width = imageCopy.getWidth();
+        double aspectRatio = height / width;
+        double imageHeight = height > width ? IMAGE_MAX_HEIGHT : aspectRatio * IMAGE_MAX_HEIGHT;
+        int rowsForTags = 1 + (int) Math.round(Math.floor((IMAGE_MAX_HEIGHT - imageHeight) / TAGS_HEIGHT));
+
+        // get the lengths of the tags for a meme.
+        List<Integer> lengths = meme.getTags().stream()
+                .sorted(Comparator.comparing(tag -> tag.tagName))
+                .map(tag -> tag.getTagName().length())
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        // calculate the number of tags that can fit into the FlowPane.
+        int numOfCharInCurrLine = 0;
+        int row = 1;
+        for (int i = 0; i < meme.getTags().size(); i++) {
+            numOfCharInCurrLine += lengths.get(i) + TAGS_GAP_BY_CHAR;
+            limit++;
+            if (numOfCharInCurrLine > MAX_CHAR_PER_LINE) {
+                if (++row > rowsForTags) {
+                    break;
+                }
+                numOfCharInCurrLine = 0;
+            }
+        }
+        return limit;
     }
 
     @Override
