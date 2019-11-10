@@ -106,6 +106,7 @@ public class MainApp extends Application {
                 initialData.setFlashcards(Arrays.asList(SampleDataUtil.getSampleFlashcards()));
             } else {
                 initialData.setFlashcards(studyBuddyProFlashcardsOptional.get().getFlashcardList());
+                initialData.addAllTags(studyBuddyProFlashcardsOptional.get().getTagList());
             }
         } catch (FlashcardDataConversionException e) {
             logger.warning("Flashcards data file not in the correct format. Will be starting with sample "
@@ -135,6 +136,7 @@ public class MainApp extends Application {
                 initialData.setNotes(Arrays.asList(SampleDataUtil.getSampleNotes()));
             } else {
                 initialData.setNotes(studyBuddyProNotesOptional.get().getNoteList());
+                initialData.addAllTags(studyBuddyProNotesOptional.get().getTagList());
             }
         } catch (NoteDataConversionException e) {
             logger.warning("Notes data file not in the correct format. Will be starting with sample "
@@ -163,6 +165,7 @@ public class MainApp extends Application {
                 logger.info("Cheatsheets data file not found. Will be starting with empty cheatsheets");
             } else {
                 initialData.setCheatSheets(studyBuddyProCheatSheetsOptional.get().getCheatSheetList());
+                initialData.addAllTags(studyBuddyProCheatSheetsOptional.get().getTagList());
             }
         } catch (CheatSheetDataConversionException e) {
             logger.warning("Cheatsheets data file not in the correct format. Will be starting with empty "
