@@ -303,11 +303,11 @@ image::TaskCode.png[]
 2. `TaskManager#executeAll()` will iterate through all active `Task` and call the respective `Task#execute()` method.
 // end::tasks[]
 
-=== Transaction
+=== Transactions
 
 // tag::overviewtx[]
 [[overviewtx]]
-==== Overview of Transaction Model
+==== Overview of the Transactions Model
 
 ===== Implementation
 
