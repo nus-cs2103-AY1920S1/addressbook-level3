@@ -9,9 +9,13 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 public class OpeningHours implements Field {
 
     // This to show the user how they should type the opening hours.
-    public static final String MESSAGE_CONSTRAINTS =
-            "Opening hours should only contain numbers and spaces, and it should not be blank. "
+    public static final String FORMAT_CONSTRAINTS =
+            "Invalid opening hours provided\n"
           + "The format should be in the form of HHMM HHMM";
+
+    public static final String COMPARISON_CONSTRAINTS =
+            "Invalid opening hours provided\n"
+                    + "The ending time should not be before the starting time";
 
     public static final String DEFAULT_VALUE = "No Opening Hours";
 
@@ -28,12 +32,12 @@ public class OpeningHours implements Field {
      */
     public OpeningHours(String hours) {
         requireNonNull(hours);
-        checkArgument(isValidOpeningHours(hours), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidOpeningHours(hours), FORMAT_CONSTRAINTS);
         openingHours = hours;
     }
 
     /**
-     * Checking whether the opening hours is valid or not.
+     * Check validity of input opening hours format.
      *
      * @return True if valid, false otherwise.
      */
@@ -42,10 +46,24 @@ public class OpeningHours implements Field {
             return true;
         } else {
             String[] separateHours = hours.split(" ");
-            return hours.matches(VALIDATION_REGEX)
-                    && separateHours[0].compareTo(separateHours[1]) <= 0;
+            return hours.matches(VALIDATION_REGEX);
         }
     }
+
+    /**
+     * Check validity of input opening hours comparison.
+     *
+     * @return True if valid, false otherwise.
+     */
+    public static boolean isValidComparison(String hours) {
+        if (hours.equals(OpeningHours.DEFAULT_VALUE)) {
+            return true;
+        } else {
+            String[] separateHours = hours.split(" ");
+            return separateHours[0].compareTo(separateHours[1]) <= 0;
+        }
+    }
+
 
     /**
      * Gets the field as a String.
