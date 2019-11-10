@@ -41,8 +41,8 @@ public class UniqueAssignmentListTest {
     @Test
     public void contains_assignmentWithSameIdentityFieldsInList_returnsTrue() {
         uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_ONE).withAssignmentDeadline(EDITED_ASSIGNMENT_DEADLINE)
-                .build();
+        Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_ONE)
+                .withAssignmentDeadline(EDITED_ASSIGNMENT_DEADLINE).build();
         assertTrue(uniqueAssignmentList.contains(editedAss));
     }
     @Test
@@ -124,7 +124,8 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void setAssignments_nullUniqueAssignmentList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueAssignmentList.setAssignments((UniqueAssignmentList) null));
+        assertThrows(NullPointerException.class, () ->
+                uniqueAssignmentList.setAssignments((UniqueAssignmentList) null));
     }
 
     @Test
@@ -155,11 +156,12 @@ public class UniqueAssignmentListTest {
     public void setAssignments_listWithDuplicateAssignments_throwsDuplicateAssignmentException() {
         List<Assignment> listWithDuplicateAssignments = Arrays.asList(ASSIGNMENT_ONE, ASSIGNMENT_ONE);
         assertThrows(
-                DuplicateAssignmentException.class, () -> uniqueAssignmentList.setAssignments(listWithDuplicateAssignments));
+                DuplicateAssignmentException.class, () ->
+                        uniqueAssignmentList.setAssignments(listWithDuplicateAssignments));
     }
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, ()
-                -> uniqueAssignmentList.asUnmodifiableObservableList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () ->
+                uniqueAssignmentList.asUnmodifiableObservableList().remove(0));
     }
 }
