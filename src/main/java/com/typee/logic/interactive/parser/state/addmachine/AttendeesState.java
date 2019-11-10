@@ -17,9 +17,12 @@ import com.typee.model.engagement.AttendeeList;
  */
 public class AttendeesState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter the list of attendees separated by vertical lines"
-            + " and prefixed by \"a/\". Only English names are supported.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Please enter the list of attendees prefixed by \"a/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Who will be present at the engagement? Please enter the list of "
+            + "attendees separated by vertical lines and prefixed by " + PREFIX_ATTENDEES.getPrefix() + ". "
+            + "Example - [Prof Damith | Jon Snow]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid list of attendees after "
+            + PREFIX_ATTENDEES.getPrefix() + ". Names of the attendees must be non-empty and in English. "
+            + "Only alphanumeric characters are supported in names. Vertical lines must be used to separate names.";
 
     protected AttendeesState(ArgumentMultimap soFar) {
         super(soFar);
@@ -39,13 +42,13 @@ public class AttendeesState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> attendees)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(attendees, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(attendees, MESSAGE_INVALID_INPUT);
         enforceValidity(attendees);
     }
 
     private void enforceValidity(Optional<String> attendees) throws StateTransitionException {
         if (!AttendeeList.areValidNames(attendees.get())) {
-            throw new StateTransitionException(AttendeeList.MESSAGE_CONSTRAINTS);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 
