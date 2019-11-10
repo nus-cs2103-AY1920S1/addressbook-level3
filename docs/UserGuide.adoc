@@ -199,7 +199,7 @@ your EzWatchlist usage. EzWatchlist will create your own personalized recommenda
 ===== How to get your recommendations
 1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
 
-2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[3] or pressing the `Statistics.` button on the
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[4] or pressing the `Statistics.` button on the
 in the interface.
 
 3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
@@ -365,9 +365,6 @@ Clears all existing actors of the 2nd show in the list.
 
 // tag::search[]
 ==== Search for a show: `search`
-====
-Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
-====
 
 Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
 the watchlist or watched list. +
@@ -383,21 +380,33 @@ Format:
 * by actor (from watchlist): +
 `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
 
-[NOTE]
-To be able to search from watchlist or watched list, do specify `o/no`. To search specifically from watchlist, include
-`o/no w/no` and to search specifically from watchlist, include `o/no w/yes`. +
-Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+====
+[TIP]
+To be able to search from watchlist or watched list, do specify `o/no`. +
+To search specifically from watchlist, include `o/no w/no` and to search specifically from watchlist, include `o/no w/yes`. +
+
+[TIP]
 For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted. +
-For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered.
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+====
+
+====
+[NOTE]
+For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv".
+
+[NOTE]
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+
+[NOTE]
 When searching based on actor, only shows from the watchlist will be searched. +
 When searching based on genre online, only movies will be searched.
 
-[TIP]
+[NOTE]
 The search is case insensitive. e.g "avengers" will match "Avengers". +
 The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
-Not only full words will be matched. e.g. "Joke" will also match with "Joker". +
-Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+Not only full words will be matched. e.g. "Joke" will also match with "Joker".
+====
 
 *Example Usage:* +
 You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
@@ -421,9 +430,11 @@ After you have entered the command, you will be led to the *Search page* as show
 .User Interface of the search page
 image::emptySearchPage.png[width="790"]
 
+
 [TIP]
 You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
 command, such as the one in Step 2.
+
 
 [start=2]
 2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
