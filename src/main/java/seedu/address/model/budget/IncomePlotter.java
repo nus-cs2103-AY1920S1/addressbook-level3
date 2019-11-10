@@ -43,6 +43,7 @@ public class IncomePlotter {
                 if (income.getDate().date.getDayOfMonth() == day) {
                     currentIncome += Double.parseDouble(income.getAmount().value);
                     currentIncome = Math.round(currentIncome * 100) / 100.0;
+                    assert currentIncome >= 0 : "A negative income value managed to get into the income list";
                 }
             }
             incomeSeries.add(day, currentIncome);
@@ -55,11 +56,14 @@ public class IncomePlotter {
      */
 
     private void findIncomeValueAtStartOfMonth() {
+        assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+        assert currentYearNumber > 0 : "There is an error with LocalDate Year";
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Income income : incomeList) {
             if (income.getDate().date.isBefore(firstDayOfMonth)) {
                 startingIncome += Double.parseDouble(income.getAmount().value);
                 startingIncome = Math.round(startingIncome * 100) / 100.0;
+                assert startingIncome >= 0 : "A negative income value managed to get into the income list";
             }
         }
     }
@@ -73,6 +77,8 @@ public class IncomePlotter {
         for (Income income : incomeList) {
             if (currentMonthNumber == income.getDate().date.getMonthValue()
                     && currentYearNumber == income.getDate().date.getYear()) {
+                assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+                assert currentYearNumber > 0 : "There is an error with LocalDate Year";
                 updatedIncomeList.add(income);
             }
         }
