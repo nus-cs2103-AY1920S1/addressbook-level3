@@ -86,6 +86,16 @@ public interface Model {
     void setEatery(Eatery target, Eatery editedEatery);
 
     /**
+     * Sets {@code eatery} as the active eatery.
+     */
+    void setActiveEatery(Eatery eatery);
+
+    /**
+     * Returns the active eatery.
+     */
+    Eatery getActiveEatery();
+
+    /**
      * Returns an unmodifiable view of the filtered eatery list
      */
     ObservableList<Eatery> getFilteredEateryList();

@@ -25,12 +25,20 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_CATEGORY = "0fish";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_REVIEW_DESCRIPTION = " ";
+    private static final double INVALID_REVIEW_COST_1 = -2;
+    private static final double INVALID_REVIEW_COST_2 = 10001;
+    private static final int INVALID_REVIEW_RATING = 6;
+    private static final double INVALID_REVIEW_RATING_2 = 2.3;
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_CATEGORY = "Chinese";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_REVIEW_DESCRIPTION = "GOOD";
+    private static final double VALID_REVIEW_COST = 3.2;
+    private static final int VALID_REVIEW_RATING = 4;
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -121,6 +129,78 @@ public class ParserUtilTest {
         String categoryWithWhitespace = WHITESPACE + VALID_CATEGORY + WHITESPACE;
         Category expectedCategory = new Category(VALID_CATEGORY);
         assertEquals(expectedCategory, ParserUtil.parseCategory(categoryWithWhitespace));
+    }
+
+    @Test
+    public void parseReviewDescription_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseReviewDescription((String) null));
+    }
+
+    @Test
+    public void parseReviewDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReviewDescription(INVALID_REVIEW_DESCRIPTION));
+    }
+
+    @Test
+    public void parseReviewDescription_validValueWithoutWhiteSpace_returnsReviewDescription() throws ParseException {
+        String expectedReviewDescription = VALID_REVIEW_DESCRIPTION;
+        assertEquals(expectedReviewDescription, ParserUtil.parseReviewDescription(VALID_REVIEW_DESCRIPTION));
+    }
+
+    @Test
+    public void parseReviewDescription_validValueWithWhitespace_returnsTrimmedDescription() throws ParseException {
+        String reviewDescriptionWithWhitespace = WHITESPACE + VALID_REVIEW_DESCRIPTION + WHITESPACE;
+        String expectedReviewDescription = VALID_REVIEW_DESCRIPTION;
+        assertEquals(expectedReviewDescription, ParserUtil.parseReviewDescription(reviewDescriptionWithWhitespace));
+    }
+
+    @Test
+    public void parseReviewCost_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseReviewCost((String) null));
+    }
+
+    @Test
+    public void parseReviewCost_invalidValue1_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReviewCost(String.valueOf(INVALID_REVIEW_COST_1)));
+    }
+
+    @Test
+    public void parseReviewCost_invalidValue2_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReviewCost(String.valueOf(INVALID_REVIEW_COST_2)));
+    }
+
+    @Test
+    public void parseReviewCost_validValueWithoutWhiteSpace_returnsReviewCost() throws ParseException {
+        double expectedReviewCost = VALID_REVIEW_COST;
+        assertEquals(expectedReviewCost, ParserUtil.parseReviewCost(String.valueOf(VALID_REVIEW_COST)));
+    }
+
+    @Test
+    public void parseReviewCost_validValueWithWhitespace_returnsTrimmedCost() throws ParseException {
+        String reviewCostWithWhitespace = WHITESPACE + VALID_REVIEW_COST + WHITESPACE;
+        double expectedReviewCost = VALID_REVIEW_COST;
+        assertEquals(expectedReviewCost, ParserUtil.parseReviewCost(reviewCostWithWhitespace));
+    }
+
+    @Test
+    public void parseReviewRating_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseReviewRating((String) null));
+    }
+
+    @Test
+    public void parseReviewRating_invalidValue1_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReviewRating(String.valueOf(INVALID_REVIEW_RATING)));
+    }
+
+    @Test
+    public void parseReviewEating_invalidValue2_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseReviewRating(String.valueOf(INVALID_REVIEW_RATING_2)));
+    }
+
+    @Test
+    public void parseReviewRating_validValueWithoutWhiteSpace_returnsReviewRating() throws ParseException {
+        double expectedReviewRating = VALID_REVIEW_RATING;
+        assertEquals(expectedReviewRating, ParserUtil.parseReviewRating(String.valueOf(VALID_REVIEW_RATING)));
     }
 
     @Test

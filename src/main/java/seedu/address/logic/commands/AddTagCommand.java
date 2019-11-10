@@ -62,7 +62,7 @@ public class AddTagCommand extends Command {
 
         Eatery eateryToEdit = lastShownList.get(index.getZeroBased());
         Eatery editedEatery = createEditedEatery(eateryToEdit, editEateryDescriptor);
-
+        editedEatery.setReviews(eateryToEdit.getReviews());
         model.setEatery(eateryToEdit, editedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
         return new CommandResult(String.format(ADD_TAG_SUCCESS, editedEatery));

@@ -46,6 +46,7 @@ public class ShowCommand extends Command {
         List<Review> reviews = eateryToShow.getReviews();
         Collections.sort(reviews);
         model.updateActiveReviews(reviews);
+        model.setActiveEatery(eateryToShow);
 
         return new CommandResult(
                 String.format(MESSAGE_SHOW_EATERY_SUCCESS, eateryToShow.getName().fullName), eateryToShow);
