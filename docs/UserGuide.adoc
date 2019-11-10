@@ -36,8 +36,8 @@ What are you waiting for? Download the app now and enjoy!
 +
 <<Ui>> shows the UI of the application upon booting up.
 [[Ui]]
-[reftext="Figure 3.1.1"]
-[caption="Figure 3.1.1: "]
+[reftext="Figure 2.1"]
+[caption="Figure 2.1: "]
 .Finsec's UI when you open up the application
 image::Ui.png[width="790"]
 +
@@ -66,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Provides 3 different types of help for all commands.
+Provides 3 different types of help for all commands in FinSec.
 
 Keyword: `help`
 
@@ -80,10 +80,30 @@ Types include: +
 `guide` (opens a web browser and bring you to our user guide) +
 `api` (for advanced users who want to know the inner workings of the command)
 
-A friendly tip :bulb: +
-If you type `help` without any other parameters, a window will appear and display a command list with similar instructions to this page!
+Friendly tip 1 :bulb: +
+If you type `help` without any other parameters, a help window such as the one below will appear and display a command
+list with similar instructions to this page!
 
-Examples: +
+[[UG-HelpWindow]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
+.The help window that appears when the user asks for the default form of `help`
+image::UG-HelpWindow.png[width="600"]
+
+
+
+Friendly tip 2 :bulb: +
+Instead of typing in `help`, you can also access help by clicking on the `help` button on the top left of the FinSec
+application GUI or just press kbd:[F1] on your keyboard as shown below!
+
+[[UG-HelpLocation]]
+[reftext="Figure 3.1.2"]
+[caption="Figure 3.1.2: "]
+.The location of the help button on FinSec's GUI
+image::UG-HelpLocation.png[width="400"]
+
+
+Example commands: +
 ....
 help cmd/add_contact type/brief
 ....
@@ -99,8 +119,8 @@ This opens up a page in your browser and brings you right here! :smiley:
 
 <<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
 [[UG-HelpExample]]
-[reftext="Figure 3.1.1"]
-[caption="Figure 3.1.1: "]
+[reftext="Figure 3.1.3"]
+[caption="Figure 3.1.3: "]
 .FinSec giving a brief description of the `add_contact` command
 image::UG-HelpExample.PNG[width="800"]
 
@@ -730,17 +750,36 @@ delete_contact 1 (removes first person in the contact list)
 
 === Viewing budget : `budget`
 
-Calculates the projected budget based on all income and approved claim values. +
-Also displays a graph detailing total income, claim and budget values for every day of the current month. +
+Calculates the projected budget based on all income and approved claim values. It
+also displays a graph detailing total income, claim and budget values for every day of the current month. +
 
 Format: `budget`
 
-<<UG-BudgetExample>> shows what you can expect to see when typing in the `budget` command.
-[[UG-BudgetExample]]
+Your projected budget is the balance of money you are expected to have after all your expenses from the approved
+claims have been subtracted from your income stream. +
+<<UG-BudgetExample1>> below shows what you can expect to see when typing in the `budget` command.
+
+[[UG-BudgetExample1]]
 [reftext="Figure 3.21.1"]
 [caption="Figure 3.21.1: "]
-.FinSec calculates your budget from the income and claim totals on the left while simultaneously displaying a graph of the income, claim and budget values for the current month on the right
-image::UG-BudgetExample.PNG[width="800"]
+.FinSec calculating your total projected budget value
+image::UG-BudgetExample1.PNG[width="600"]
+
+Friendly tip 1 :bulb: +
+FinSec will actually warn you if you are over budget, which would result in a negative balance.
+
+
+
+Next up, <<UG-BudgetExample2>> below shows the graph portion of the `budget` command, which shows your
+projected income, claim and budget values for the current month.
+[[UG-BudgetExample2]]
+[reftext="Figure 3.21.2"]
+[caption="Figure 3.21.2: "]
+.FinSec displaying your projected budget over the course of the current month in a graph
+image::UG-BudgetExample2.PNG[width="800"]
+
+Friendly tip 2 :bulb: +
+Clicking on one of the data-points will cause a tooltip similar to the one shown in the picture above to pop up.
 
 //@@{lawncegoh}
 // tag::clearfeature[]
