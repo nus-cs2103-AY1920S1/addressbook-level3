@@ -270,6 +270,8 @@ Step 3. Open the html file in the exports folder to see the overview of all acco
 // tag::loans[]
 === Managing loans: `loan`
 
+image::LoanUG1.png[]
+
 This feature enables you to keep track of who owes you money - and exactly how much they owe you.
 Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
 You can also record who you owe money to, saving you the embarrassment of being publicly reminded by your loan shark friends.
@@ -301,14 +303,12 @@ so the resulting list would be empty.
 * Filter loans by persons, amounts, dates and descriptions
 by adding one or more of the `p/<person>`, `x/<amount>`, `w/<date>`, `d/<description>` filters.
 * If more than one filter is used, filters will be joined using logical `AND`.
-For example, `loan list out p/Duke` will result in the filter: `loans out AND loans with Duke`.
+For example, `loan list out p/Duke` will result in the filter: loans out `AND` loans involving Duke.
+* Adding a new loan to the list will reset all filters. Other list operations (edit, paid/unpaid, delete) will not.
 * Sort loans by date, amount, or persons' names using `s/w`, `s/x`, or `s/p` respectively.
-** Sorting the list using the same method when it is already sorted will reverse the order of sorting
+** Sorting the list by a property when it is already sorted by that property will reverse the order of sorting
 (e.g. newest date first to oldest date first).
 ****
-
-[NOTE]
-Adding a new loan to the list will reset all filters. Other list operations (edit, paid/unpaid, delete) will not.
 
 Examples:
 
@@ -386,15 +386,16 @@ Format: `loan split p/<person> x/<amount paid> [max/<limit>] ... [me/<your name>
 The order of each `person` should match the order of their `amount paid`.
 * The final amount a `person` ends up paying can be restricted to a `<limit>`.
 Persons with limits should be placed at the *head* of the list of persons,
-and the order of all `limits` should match the order of `persons` (as with `amount paid`).
+and the order of all `limits` should match the order of all `persons`
+i.e. the first `<limit>` in the input will correspond to the first `<person>` in the input.
 This is to allow you to enter limits only for those persons who require them.
 +
 The sum of all limits cannot exceed the total amount already paid by all persons.
 * Adding the optional `me/` will add all debts from the resulting list to your loan list.
 +
 `<your name>` must match one of the persons among the other `p/<person>` names.
-* Adding `w/` will set the `<date>` of the loans added to your list.
-* Adding `d/` will set the `<description>` of the loans added to your list.
+* Adding `w/` will set the `<date>` of the loans added to your loan list.
+* Adding `d/` will set the `<description>` of the loans added to your loan list.
 * To switch between your loan list and split list, press `Ctrl + D` (or `Cmd + D` for Mac) while on the Loans tab.
 ** The split list will initially be empty,
 but once a list is calculated it will persist in the Loans tab across sessions (until a new calculation is made).
@@ -404,7 +405,10 @@ Examples:
 
 * `loan split p/John x/0 p/Mary x/40 p/Peter x/60` +
 Calculates the money owed between `John`, `Mary` and `Peter` for a scenario where (initially) `Mary` paid `40` and `Peter` paid `60`. +
-The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*.
+The resulting display should show that `John` owes `Mary` *$6.66* and also owes `Peter` *$26.67*, as seen in the image below.
+
+image::LoanUG2.png[]
+
 * `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/90 me/Mary d/Dinner.` +
 In this scenario, `Mary` paid `10` and `Peter` paid `90`.
 `max/10` restricts the final amount `John` pays/owes to `10`, despite the total amount being `0 + 10 + 90 = 100`.
