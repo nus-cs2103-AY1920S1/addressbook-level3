@@ -8,13 +8,20 @@
 ---
 
 == Overview
-This is the portfolio of *TSAI, HSIAO-HAN*, a team member of *Mark*. +
-The portfolio will introduce my role and contribution in Mark.
+This document will introduce my role and contribution in Mark.
+Mark is a 6 weeks group project for the module CS2103T Software Engineering.
+Our team composed of 5 NUS Computer Science year 2 students.
+We have a team meeting every Tuesday and Thursday.
+From this project, we learn the skill of designing a Java application with basic CRUD structure,
+working on git,
+distributing works on Github,
+negotiating and teamwork.
 
-*Mark* is a *desktop bookmark manager* used for organising websites.
-The user interacts with it using a *Command Line Interface* (CLI),
-and it uses a *Graphical User Interface* (GUI) created with JavaFX.
-It is written in *Java*.
+
+Mark is a __desktop bookmark manage__r used for organising websites.
+The user interacts with it using a _Command Line Interface_ (CLI),
+and it uses a _Graphical User Interface_ (GUI) created with JavaFX.
+It is written in _Java_.
 
 This is what our app looks like: +
 
@@ -24,64 +31,76 @@ My role is to design and implement the `reminder` feature.
 The following section will illustrate more about this feature.
 More details about it are provided in the part of related User and Developer Guide.
 
+Note the following symbols and formatting used in this document:
+
+NOTE: Represents the things you need to notice.
+
+`reminder`: Represents the command.
+
+****
+* `Tag` : Represents the constraints of the command.
+****
+
+
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to add, edit and delete reminders.*
-** What it does: allows the user to add a reminder of the bookmark.
-                 User can also edit or delete it.
-** Justification: This feature enhances the product that can show the time and note of a certain bookmark.
-                    User can use it to plan when to read the bookmark.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: +
+added *the ability to add, edit, delete and goto reminders.*
+** What it does: allows the user to add a reminder to a specific bookmark.
+The reminder will remind users at the time they indicate.
+Users can also edit and delete it, or even using reminder to open the bookmark .
+** Justification: When users want to plan to read or do some task on bookmark,
+this feature can provide them a better way to plan and organize their task,
+and they would not forget to doing it.
+** Highlights: This feature will help the user automatically cleanup expired reminders after one hour,
+so they do not need to bother themselves to delete it. The notification will show up twice,
+the first time will show before five hour to leave users some time before the deadline.
+Even if users do not close the notification, the notification will disappear after one minute.
+** Credits: https://stackoverflow.com/questions/44474391/how-to-get-a-scheduled-event-to-interact-with-javafx-gui[Stackoverflow]
+gives me the idea of how to implement a reminder notification.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: +
+Please click these links to see a sample of my code.[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tsai-hsiao-han&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
+* *Minor enhancement*: +
+Improved current `edit` command so that when bookmarks changes the reminder will also change it's url.
++
+Improved current `delete` command so that when a bookmark been deleted it's reminder will also deleted.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2` - `v1.3` (2 releases) on GitHub
+*** Check and merge pull requests on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Improve the GUI style and format (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/228[#228], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/123[#123])
+*** Wrote tests for existing features to increase coverage form 77.01% to 77.10% (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/251[#251])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added the reminder part for User Guide and Developer Guide: Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/48[#48], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/130[#130], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/162[#162]
+*** Edited About Us and Contact Us document: Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/24[#24], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/26[#26]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/66[#66], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/133[#133], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/139[#139]
+*** Reported bugs and fix issue (Issue  https://github.com/AY1920S1-CS2103T-T13-4/main/issues/229[#229], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/194[#194], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/178[#178])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (ControlsFX) to the project (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/42[#42])
 
 == Contributions to the User Guide
+This part is about the sections I contributed to the User Guide.
+The section extracted from the User Guide below showcase my ability to write a formal document to our target users.
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
+==== _------------- This is the start of extraction -------------_
 include::../UserGuide.adoc[tag=ReminderCommand]
-
 include::../UserGuide.adoc[tag=sort]
 
+==== _------------- This is the end of extraction -------------_
+
 == Contributions to the Developer Guide
+This part is about the sections I contributed to the Developer Guide.
+The section extracted from the Developer Guide below showcase my ability to write a technical documentation to a developer and show technique depth of my contribution.
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
+==== _------------- This is the start of extraction -------------_
 include::../DeveloperGuide.adoc[tag=reminder]
 include::../DeveloperGuide.adoc[tag=use-case-reminder]
 
-
-
-
+==== _------------- This is the end of extraction -------------_
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
