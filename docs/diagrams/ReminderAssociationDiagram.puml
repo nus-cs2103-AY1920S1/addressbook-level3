@@ -19,7 +19,7 @@ Class Folder
 Class UniqueBookmarkList
 }
 
-ReminderAssociation --> "*" Reminder
+ReminderAssociation -- "*" Reminder
 ReminderAssociation --> "*" Bookmark
 Reminder --> "1" Note
 Reminder --> "1" Url

@@ -85,7 +85,7 @@ Remark -[hidden]right-> Folder
 
 ReminderAssociation o--> "*" Bookmark
 ReminderAssociation o--> "*" Reminder
-Reminder --> Bookmark
+Reminder --> Url
 Reminder --> Note
 
 AutotagController o--> "*" SelectiveBookmarkTagger

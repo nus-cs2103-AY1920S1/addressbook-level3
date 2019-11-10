@@ -47,7 +47,7 @@ Responsibilities: UI
 
 === TSAI, HSIAO-HAN
 image::tsai-hsiao-han.png[width="150", align="left"]
-{empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<Hsiao-Han#, portfolio>>]
+{empty}[https://github.com/TSAI-HSIAO-HAN[github]] [<<TSAI-HSIAO-HAN#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Commons
