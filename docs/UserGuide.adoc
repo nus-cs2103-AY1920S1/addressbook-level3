@@ -671,7 +671,7 @@ and a new diary named "Dessert Galore" will be added.
 +
 image::addDiary_after.png[]
 
-[CAUTION]
+[WARNING]
 Diary names are only limited to 25 characters.
 
 
@@ -792,7 +792,7 @@ image::addPage_mid.png[]
 +
 image::addPage_after.png[]
 
-[CAUTION]
+[WARNING]
 Page titles are limited to 40 characters.
 
 [TIP]
