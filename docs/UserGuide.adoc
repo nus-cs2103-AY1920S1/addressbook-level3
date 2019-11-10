@@ -208,7 +208,8 @@ image::delete/Step3.png[,550]
 // tag::update[]
 [[UpdateTag]]
 === Updating a transaction’s details: `update`
-Made a mistake when creating a transaction? Have new details for an existing transaction? Simply utilize THRIFT's `update` feature to make changes.
+Made a mistake when creating a transaction? Have new details for an existing transaction? Simply utilize THRIFT's
+`update` feature to make changes.
 
 ==== Command syntax
 To execute the `update` command, you have to use the following syntax:
@@ -219,9 +220,10 @@ Here is an explanation for the `update` command:
 ****
 * Use this command to update the fields of the transaction at the specified `INDEX`.
 
-- `INDEX` refers to the index number currently shown in the displayed list, and must be a *positive integer*.
+- `INDEX` refers to the index number currently shown in the displayed list, and must be a positive integer.
 
-* You can update any or all of the transaction's **name**, **value**, **remark** and **tags** fields. For information on these fields, see <<TransactionDetailsTag, here>>.
+* You can update any or all of the transaction's name, value, remark and tags fields. For information on
+these fields, see <<TransactionDetailsTag, here>>.
 
 * All fields are optional, but you must specify at least one field to be updated.
 
@@ -229,7 +231,9 @@ Here is an explanation for the `update` command:
 ****
 
 ==== Example usage
-You order a bowl of delicious Laksa and key in the details of this food expense into THRIFT. However, after your meal you realize you recorded some incorrect details - the Laksa was _Asam Laksa_, not Curry Laksa as you thought, and you paid more than the menu price (which you recorded) due to taxes. You also want to add a remark and tag.
+You order a bowl of delicious Laksa and key in the details of this food expense into THRIFT. However, after your meal
+you realize you recorded some incorrect details - the Laksa was _Asam Laksa_, not Curry Laksa as you thought, and you
+paid more than the menu price (which you recorded) due to taxes. You also want to add a remark and tag.
 
 Fortunately, you can easily update such details in THRIFT. Here is what you do from beginning to end:
 
@@ -237,11 +241,13 @@ Fortunately, you can easily update such details in THRIFT. Here is what you do f
 +
 image::update/updateUG/UpdateStep1.png[,550]
 +
-. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type **update i/2 n/Laksa** into the Command Box and press kbd:[Enter].
+. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type
+**update i/2 n/Laksa** into the Command Box and press kbd:[Enter].
 +
 image::update/updateUG/UpdateStep2.png[,550]
 +
-. You should see that the "Curry Laksa" transaction's name is updated to "Laksa". The status message also tells you what the original transaction was.
+. You should see that the "Curry Laksa" transaction's name is updated to "Laksa". The status message also tells you what
+the original transaction was.
 +
 image::update/updateUG/UpdateStep3.png[,550]
 +
@@ -251,7 +257,8 @@ and press kbd:[Enter].
 +
 image::update/updateUG/UpdateStep4.png[,550]
 +
-. You can see the updated details of the transaction at index 2. The status message tells you what the original transaction was. The transaction month's Expense and Balance trackers are also updated.
+. You can see the updated details of the transaction at index 2. The status message tells you what the original
+transaction was. The transaction month's Expense and Balance trackers are also updated.
 +
 image::update/updateUG/UpdateStep5.png[,550]
 // end::update[]
@@ -393,7 +400,8 @@ image::convert/convert/ConvertStep3.png[,550]
 // tag::clone[]
 [[CloneTag]]
 === Cloning a transaction: `clone`
-Occasionally, you may want to copy a transaction, or create multiple copies of a transaction for recurring incomes or expenses such as a yearly donation or monthly bills. Simply use the `clone` feature to achieve this.
+Occasionally, you may want to copy a transaction, or create multiple copies of a transaction for recurring incomes or
+expenses such as a yearly donation or monthly bills. Simply use the `clone` feature to achieve this.
 
 ==== Command syntax
 
@@ -404,31 +412,40 @@ To execute the `clone` command, you have to use the following syntax:
 The following is an explanation for the `clone` command:
 
 ****
-* Clones (creates duplicate(s) of) transaction at `INDEX`. Clones produced are added to new indices at the bottom of the list.
+* Clones (creates duplicate(s) of) transaction at `INDEX`. Clones produced are added to new indices at the bottom of the
+list.
 
 - `INDEX` refers to the index currently shown in the displayed list, and must be a positive integer.
 
-* If you use `clone i/INDEX` without the `o/FREQUENCY:NUMBER_OF_OCCURRENCES` field, one clone is created for the current day.
+* If you use `clone i/INDEX` without the `o/FREQUENCY:NUMBER_OF_OCCURRENCES` field, one clone is created for the current
+day.
 
-* You use the optional `FREQUENCY:NUMBER_OF_OCCURRENCES` field to create multiple clones spanning from the original transaction.
+* You use the optional `FREQUENCY:NUMBER_OF_OCCURRENCES` field to create multiple clones spanning from the original
+transaction.
 
-- `FREQUENCY` is how often or how far apart the clones occur. Valid values are: `daily`, `weekly`, `monthly` and `yearly`.
+- `FREQUENCY` is how often or how far apart the clones occur. Valid values are: `daily`, `weekly`, `monthly` and
+`yearly`.
 
-- `NUMBER_OF_OCCURRENCES` determines how many clones are produced. If `NUMBER_OF_OCCURRENCES` is 0, the result is exactly the same as `clone i/INDEX` without the entire `FREQUENCY:NUMBER_OF_OCCURRENCES` field.
+- `NUMBER_OF_OCCURRENCES` determines how many clones are produced. If `NUMBER_OF_OCCURRENCES` is 0, the result is
+exactly the same as `clone i/INDEX` without the entire `FREQUENCY:NUMBER_OF_OCCURRENCES` field.
 
 - The maximum `NUMBER_OF_OCCURRENCES` is **5 for `yearly`** and **12 for `daily`, `weekly` and `monthly`**.
 
 * For monthly cloning, clones are created on the same day as the original transaction's in subsequent months.
 
-- For example, **clone i/1 o/monthly:3** on transaction at index 1 dated 20 November 2019 creates clones on 20 December 2019, 20 January 2020 and 20 February 2020.
+- For example, **clone i/1 o/monthly:3** on transaction at index 1 dated 20 November 2019 creates clones on 20 December
+2019, 20 January 2020 and 20 February 2020.
 
-* For special cases where subsequent months do not have the day corresponding to the original transaction's month, clones are created on the last day of those months.
+* For special cases where subsequent months do not have the day corresponding to the original transaction's month,
+clones are created on the last day of those months.
 
-- For example, **clone i/1 o/monthly:5** on transaction at index 1 dated 31 October 2019 creates clones on 30 November 2019, 31 December 2019, 31 January 2020 and 29 February 2020 (2020 is a leap year).
+- For example, **clone i/1 o/monthly:5** on transaction at index 1 dated 31 October 2019 creates clones on 30 November
+2019, 31 December 2019, 31 January 2020 and 29 February 2020 (2020 is a leap year).
 ****
 
 ==== Example usage
-You receive your fixed salary on the 30th of every month. You don't want to tediously add your salary to THRIFT every month, so you add clones of your salary income for the next year at one go.
+You receive your fixed salary on the 30th of every month. You don't want to tediously add your salary to THRIFT every
+month, so you add clones of your salary income for the next year at one go.
 
 You do the following on 30 November 2019:
 
@@ -438,7 +455,8 @@ NOTE: The following example uses the displayed list of all existing transactions
 +
 image::clone/cloneUG/CloneStep1.png[,550]
 
-. To create clones of the 30 November 2019 salary income for the next 12 months from 30 December 2019 up to 30 November 2020, you type **clone i/4 o/monthly:12** and press kbd:[Enter].
+. To create clones of the 30 November 2019 salary income for the next 12 months from 30 December 2019 up to 30 November
+2020, you type **clone i/4 o/monthly:12** and press kbd:[Enter].
 +
 image::clone/cloneUG/CloneStep2.png[,550]
 

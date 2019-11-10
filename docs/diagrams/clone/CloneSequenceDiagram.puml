@@ -14,10 +14,6 @@ participant ":ModelManager" as ModelManager MODEL_COLOR
 participant ":Thrift" as Thrift MODEL_COLOR
 end box
 
-box Storage STORAGE_COLOR_T1
-participant ":StorageManager" as StorageManager STORAGE_COLOR
-end box
-
 [-> LogicManager : execute()
 activate LogicManager
 
@@ -76,12 +72,6 @@ deactivate CommandResult
 
 CloneCommand --> LogicManager : r
 deactivate CloneCommand
-
-LogicManager -> StorageManager : saveThrift()
-activate StorageManager
-
-StorageManager --> LogicManager
-deactivate StorageManager
 
 [<-- LogicManager : r
 deactivate LogicManager

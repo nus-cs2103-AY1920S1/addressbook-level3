@@ -2,52 +2,292 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
 
-== PROJECT: THRIFT
+== 1. Introduction
+In 2019, I worked on a team project for CS2103T, a Year Two undergraduate software engineering module at the National
+University of Singapore (NUS). This portfolio serves as a documentation of my contributions to that project, THRIFT.
+Through this portfolio, I hope to showcase my abilities in coding and documentation.
 
----
+=== 1.1. My team
+I have worked with four other talented coders to implement features for the THRIFT product.
+Each of us was assigned an additional role; I was the _Quality Assurance Manager_ in charge of ensuring our product met
+user needs and functioned properly through testing. **Poh Jia Hao** was the _Project Manager_, **Lee Bo Qiang** was the
+_User Experience Developer_, **Melvin Ang** was the _Software Architect_ and **Kenson Oen** was the _Process Analyst_.
 
-== Overview
+=== 1.2. Project THRIFT
+My team morphed the address book application https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3]
+into THRIFT, a desktop finance tracker application. THRIFT is meant for NUS students who wish to keep track of all their
+income and expenditure information to better control, manage and plan out their flow of money.
 
+To that end, some of THRIFT's features include setting a monthly budget, adding and deleting income and expense-type
+entries, updating details of entries, tagging and untagging entries with categories, listing entries in a given month,
+creating copies of entries across periods of occurrence and converting currencies.
 
-== Summary of contributions
+As part of the requirements for CS2103T, THRIFT has an  intuitive Command Line Interface - everything you want
+to do is executed by typing a command in the Command Box indicated in Figure 1 below. The following image shows what
+THRIFT looks like:
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+.Interface of THRIFT as seen by the user
+image::UGUI.png[,700]
 
-* *Minor enhancement*:
+[[PPPFormattingTag]]
+=== 1.3 Text formatting in this portfolio
+The "<<UGTag, Contributions to the User Guide>>" and "<<DGTag, Contributions to the Developer Guide>>" sections use these
+formatting styles for text that have special meaning:
 
-* *Code contributed*:
+NOTE: This symbol indicates information that you may want to take note of at certain points in the guide.
 
-* *Other contributions*:
+[horizontal]
+*add_expense n/Laksa v/4*:: Bold text indicates user input.
 
-== Contributions to the User Guide
+== 2. Summary of contributions
+This section provides an overview of my contributions to THRIFT. Entries in THRIFT are referred to as "transactions".
+Text with grey highlight (called a mark-up) indicates a class, like `Command`.
 
+=== 2.1. Major enhancements
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+* I added the ability to **clone transactions**.
+** What it does: The **clone** command creates one or multiple copies of a specified transaction. The user can set
+the frequency of multiple copies across a **daily**, **weekly**, **monthly** or **yearly** period, for example one copy
+per day for 7 days.
+** Justification: This feature makes it much more convenient to create copies of a transaction. Most users have
+similar recurring transactions across a period of time and will use this feature often.
+** Highlights: I did some in-depth logical analysis to implement the logic for cloning one **or** multiple
+transactions. A new `Occurrence` class was implemented after considering the design alternatives for representing
+clone occurrences.
 
-include::../UserGuide.adoc[tag=update]
+* I overhauled the function of **updating transactions** for THRIFT.
+** What it does: The **update** command allows users to modify details of a transaction.
+** Justification: Being able to update details of a transaction or rectify mistakes in transaction information is a
+basic core feature.
+** Highlights: I refactored AddressBook-Level3's **edit** feature to create an **update** command syntax suitable for
+THRIFT, disallowing the inputting of multiple instances of the same field type which was previously allowed. I also
+changed the way **update** saves the updated transaction as the old implementation only worked when all transactions in the list are unique.
+** Credits: The **update** feature is built on https://github.com/nus-cs2103-AY1920S1/addressbook-level3/blob/master/docs/UserGuide.adoc#editing-a-person-edit[AddressBook-Level3's **edit**].
 
-include::../UserGuide.adoc[tag=clone]
+=== 2.2. Minor enhancements
 
+* I implemented **scrolling** to items in the user interface list for some commands.
+** What it does: Upon execution of commands that modify the displayed list or its transaction entries like
+**add_expense** and **update**, the user interface scrolls to the modified item.
+** Justification: The user can immediately see the result of their command instead of needing to manually scroll and
+find the modified transaction.
+** Highlights: I divided all `Command` classes into children of `ScrollingCommand` and `NonScrollingCommand`. Commands under
+`ScrollingCommand` make the user interface scroll to the modified transaction in the list after command execution.
+
+=== 2.3. Code contributed
+Here are links to the code and solutions contributed by me: +
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lye-jw&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lye-jw&tabRepo=AY1920S1-CS2103T-W12-2%2Fmain%5Bmaster%5D[All code contributed] |
+https://github.com/AY1920S1-CS2103T-W12-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Alye-jw+is%3Amerged+[Pull Requests] |
+https://github.com/AY1920S1-CS2103T-W12-2/main/issues?utf8=%E2%9C%93&q=assignee%3Alye-jw+is%3Aclosed+[Issues assigned] |
+https://github.com/AY1920S1-CS2103T-W12-2/main/commits/master?author=lye-jw[Commits]
+
+=== 2.4. Other contributions
+* Project management:
+** I handled testing in my capacity as Quality Assurance Manager, adding test cases that increased percentage of code
+covered by tests to 80%. (Pull Requests https://github.com/AY1920S1-CS2103T-W12-2/main/pull/268[#268]
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/148[#148] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/121[#121])
+** I managed all issue trackers related to **update** and **clone**. (Pull Requests
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/190[#190] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/113[#113]
+resolving major issues https://github.com/AY1920S1-CS2103T-W12-2/main/issues/58[#58] https://github.com/AY1920S1-CS2103T-W12-2/main/issues/57[#57])
+
+* Documentation:
+** In the User Guide's Command summary section, I included cross-reference links for each command to their full
+sections. (Pull Request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/56/files[#56])
+** I added test cases and use cases for **update** and **clone** to the Developer Guide. (Pull Requests
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/78/files[#78] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/77/files[#77])
+
+* Community:
+** I reviewed these Pull Requests opened by my teammates with non-trivial comments:
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/212[#212] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/206[#206] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/101[#101]
+** I engaged in discussions with teammates to decide how best to implement features (Pull Request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/211[#211])
+** The Scrolling Commands ability I implemented was adopted in some of my teammates' features (Pull Requests
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/205[#205] https://github.com/AY1920S1-CS2103T-W12-2/main/pull/195[#195]
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/165[#165])
+
+[[UGTag]]
+== 3. Contributions to the User Guide
+
+This section showcases part of my contributions to the User Guide, demonstrating my ability to write documentation
+as a guide for end users making use of the product.
+
+The User Guide uses this text style in addition to <<PPPFormattingTag, those in this portfolio's section 1.3>>:
+
+[horizontal]
+`update`:: Text with grey highlight (called a mark-up) indicates anything related to the explanation of user input.
+
+----------_{Start of extract from User Guide}_----------
+
+=== Updating a transaction’s details: `update`
+Made a mistake when creating a transaction? Have new details for an existing transaction? Simply utilize THRIFT's
+`update` feature to make changes.
+
+==== Command syntax
+To execute the `update` command, you have to use the following syntax:
+
+`update i/INDEX [n/NEW_NAME] [v/NEW_VALUE] [r/NEW_REMARK] [t/NEW_TAG] ...`
+
+Here is an explanation for the `update` command:
+****
+* Use this command to update the fields of the transaction at the specified `INDEX`.
+
+- `INDEX` refers to the index number currently shown in the displayed list, and must be a positive integer.
+
+* You can update any or all of the transaction's name, value, remark and tags fields. For information on
+these fields, see https://ay1920s1-cs2103t-w12-2.github.io/main/UserGuide.html#TransactionDetailsTag[here].
+
+* All fields are optional, but you must specify at least one field to be updated.
+
+* You can update multiple fields at once.
+****
+
+==== Example usage
+You order a bowl of delicious Laksa and key in the details of this food expense into THRIFT. However, after your meal
+you realize you recorded some incorrect details - the Laksa was _Asam Laksa_, not Curry Laksa as you thought, and you
+paid more than the menu price (which you recorded) due to taxes. You also want to add a remark and tag.
+
+Fortunately, you can easily update such details in THRIFT. Here is what you do from beginning to end:
+
+. You initially have a "Curry Laksa" expense in THRIFT. It is at index 2 in the list.
++
+image::update/updateUG/UpdateStep1.png[,500]
++
+. When you realize the Laksa is not Curry Laksa and want to change the transaction's name, you type
+**update i/2 n/Laksa** into the Command Box and press kbd:[Enter].
++
+image::update/updateUG/UpdateStep2.png[,500]
++
+. You should see that the "Curry Laksa" transaction's name is updated to "Laksa". The status message also tells you what
+the original transaction was.
++
+image::update/updateUG/UpdateStep3.png[,600]
++
+. Later on, you want to change the name and value, as well as add a remark and tag. In the Command Box, you type: +
+**update i/2 n/Asam Laksa v/12 r/My first time trying! t/Food t/Lunch** +
+and press kbd:[Enter].
++
+image::update/updateUG/UpdateStep4.png[,600]
++
+. You can see the updated details of the transaction at index 2. The status message tells you what the original
+transaction was. The transaction month's Expense and Balance trackers are also updated.
++
+image::update/updateUG/UpdateStep5.png[,600]
+
+----------_{End of extract from User Guide}_----------
+
+[[DGTag]]
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+This section showcases part of my contributions to the Developer Guide, which conveys the technical intricacies of my
+work on the project. It demonstrates my ability to write technical documentation.
 
-//include::../DeveloperGuide.adoc[tag=]
+The Developer Guide uses these text styles in addition to <<PPPFormattingTag, those in this portfolio's section 1.3>>:
 
-//include::../DeveloperGuide.adoc[tag=]
+[horizontal]
+`currentMonth`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable/parameter name.
 
+`**THRIFT**`:: Bold text with mark-up indicates a class/package name.
 
-== PROJECT: PowerPointLabs
+----------_{Start of extract from Developer Guide}_----------
 
----
+=== Cloning transactions
+The **clone** feature creates one or more duplicates of a specified `**Transaction**` and adds them to the end of the
+existing transactions list.
 
-_{Optionally, you may include other projects in your portfolio.}_
+==== Implementation
+An `**Index**` and `**Occurrence**` are obtained from their representation in user input. The `**Index**` specifies
+which transaction to clone, while the `**Occurrence**` informs THRIFT how many clones of the transaction should be
+created (`Occurrence#numOccurrences`) and the time period between them (`Occurrence#frequency`).
+
+Here is a Class Diagram for the implementation of `**Occurrence**`:
+
+.Implementation of `**Occurrence**` class
+image::clone/cloneDG/OccurrenceClassDiagram.png[]
+
+The *clone* functionality is facilitated by common https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#Design-Logic[*Logic*] operations and classes for commands, with
+feature-specific classes `**CloneCommand**` in place of `**Command**`, and `**CloneCommandParser**`.
+The following methods are concrete implementations unique to **clone**:
+
+* `CloneCommandParser#parse()` - Parses user input to extract an `**Index**` and create an `**Occurrence**`, then passes
+them as parameters to a new `**CloneCommand**` for execution.
+* `CloneCommand#execute()` - Adds one or more identical copies of specified `**Transaction**` to `**Model**`, then
+returns a `**CommandResult**` (https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#Design-Logic[Step 4 of Logic]).
+
+The following sequence diagram illustrates **clone** command execution:
+
+.Sequence diagram for **clone** execution with 12 occurrences on an `**Expense**`
+image::clone/cloneDG/CloneSequenceDiagram.png[]
+
+===== Example of usage
+Given next is an example usage scenario for cloning a transaction and explanation of how the **clone** mechanism behaves
+at each step:
+
+[NOTE]
+This entire scenario uses the list of all transactions.
+
+Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here
+depicts the example list used throughout this scenario. In particular, this example will observe the cloning of the
+transaction at index 4.
+
+:figure-caption!:
+.Example list on startup
+image::clone/cloneDG/CloneStep1.png[,500]
+
+Step 2 (i). The user inputs **clone i/4** or **clone i/4 o/daily:0** to create 1 copy of the transaction at index 4 on
+the date when command is called - for this example, current date when command is used is 02/12/2019.
+
+image::clone/cloneDG/CloneStep2Part1.png[,500]
+.Creating one copy of transaction at index 4 and adding it to the list.
+image::clone/cloneDG/CloneStep2Part2.png[,500]
+
+Step 2 (ii). The user removes the clone created in Step 2 (i) using **delete i/6** command.
+
+Step 3. The user inputs **clone i/4 o/monthly:12** to create 12 copies of the transaction at index 4 with dates one
+month apart from each other (30/12/2019 to 30/11/2020), and add them to the list. Input is parsed by
+`CloneCommandParser#parse()` which creates a `**CloneCommand**`.
+
+image::clone/cloneDG/CloneStep3.png[,500]
+
+Step 4. `CloneCommand#execute()` creates copies of the transaction to be cloned with their dates of occurrence set one
+month apart. The copies are then added to the list.
+
+image::clone/cloneDG/CloneStep4Part1.png[,500]
+image::clone/cloneDG/CloneStep4Part2.png[,500]
+.Creating copies of transaction at index 4 and adding them to the list.
+image::clone/cloneDG/CloneStep4Part3.png[,500]
+
+===== Execution observed by user
+The following activity diagram gives an overview of what the user observes when executing **clone** command:
+
+:figure-caption: Figure
+.Activity diagram for execution of **clone** command
+image::clone/cloneDG/CloneActivityDiagram.png[,400]
+
+==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
+
+===== Aspect: Representing occurrences for execution
+* **Alternative 1 (current choice)**: Implement a new class `**Occurrence**` to represent occurrences.
+- Pros: Good Object-Oriented Programming design adhering to principles of abstraction and encapsulation. Utility methods
+to process occurrences can be kept in a single class.
+- Cons: More code and memory required for entire `**Occurrence**` class.
+
+* **Alternative 2**: Directly pass the results from parsing occurrence representation in user input as parameters to
+execution methods.
+- Pros: Quick and efficient in producing parameters for execution.
+- Cons: May be complicated to trace parameters when passing between different methods. Unable to implement utility
+methods to process occurrences within a single class.
+
+===== Aspect: Maintaining a store for valid values of `Occurrence#frequency`
+* **Alternative 1 (current choice)**: Store valid `frequency` values within a static non-modifiable "final" array inside
+`**Occurrence**`
+- Pros: Implementation is simple with relatively little coding needed. Values cannot be modified after initialization of
+array, preventing invalid values from being added later.
+- Cons: An additional field of type array has to be included in `**Occurrence**` class.
+
+* **Alternative 2**: Store valid values as `**Enum**`
+- Pros: Validity of values in `**Enum**` form all but assured, there will never be invalid values.
+- Cons: More code and memory required for entire `**Enum**` classes.
+
+----------_{End of extract from Developer Guide}_----------

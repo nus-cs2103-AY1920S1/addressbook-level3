@@ -1,0 +1,16 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+
+package Logic LOGIC_COLOR_T1 {
+    Class ReportCommand LOGIC_COLOR
+}
+
+package Model MODEL_COLOR_T1 {
+    Class ModelManager MODEL_COLOR
+}
+
+ReportCommand .right.> ModelManager
+
+@enduml

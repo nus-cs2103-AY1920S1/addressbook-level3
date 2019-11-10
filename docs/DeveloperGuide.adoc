@@ -556,17 +556,24 @@ Alternative 2 was chosen as we want to ensure that tags are meaningful to the us
 
 // end:taguntag[]
 
+// tag::update[]
+
 === Updating transactions
-The **update **functionality modifies details of a specified `**Transaction**` in the existing list and saves modifications to the external storage file.
+The **update **functionality modifies details of a specified `**Transaction**` in the existing list and saves
+modifications to the external storage file.
 
 ==== Implementation
-**Update** mechanism utilizes <<Design-Logic, *Logic*>> operations with the `**UpdateCommand**` class in place of `**Command**`, and a unique `**UpdateCommandParser**` class.
-The following methods are concrete implementations for **update** operations:
+**Update** mechanism utilizes <<Design-Logic, *Logic*>> operations with the `**UpdateCommand**` class in place of
+`**Command**`, and a unique `**UpdateCommandParser**` class. The following methods are concrete implementations for
+**update** operations:
 
 * `UpdateCommandParser#parse()` - Parses the user's input and creates an `**UpdateCommand**` to execute the command.
-* `UpdateCommand#execute()` - Modifies the `**Transaction**` in `**Model**` with new details and returns a `**CommandResult**` (<<Design-Logic, Step 4 of Logic>>).
-* `TransactionList#setTransactionWithIndex()` - Sets the modified `**Transaction**` to its correct position in the existing `**TransactionList**`.
-- This `**TransactionList**` is wrapped in `**Thrift**` and its `setTransactionWithIndex()` is called through `Thrift#setTransactionWithIndex()`.
+* `UpdateCommand#execute()` - Modifies the `**Transaction**` in `**Model**` with new details and returns a
+`**CommandResult**` (<<Design-Logic, Step 4 of Logic>>).
+* `TransactionList#setTransactionWithIndex()` - Sets the modified `**Transaction**` to its correct position in the
+existing `**TransactionList**`.
+- This `**TransactionList**` is wrapped in `**Thrift**` and its `setTransactionWithIndex()` is called through
+`Thrift#setTransactionWithIndex()`.
 - `Thrift#setTransactionWithIndex()` is exposed in the `**Model**` interface as `Model#setTransactionWithIndex()`.
 
 The following Object Diagram illustrates objects involved in the execution of **update** command:
@@ -575,15 +582,18 @@ The following Object Diagram illustrates objects involved in the execution of **
 image::update/updateDG/UpdateObjectDiagram.png[]
 
 ===== Example of usage
-Given next is an example usage scenario for updating a transaction and explanation of how the **update** mechanism behaves at each step:
+Given next is an example usage scenario for updating a transaction and explanation of how the **update** mechanism
+behaves at each step:
 
-Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here depicts the example list used throughout this scenario.
+Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here
+depicts the example list used throughout this scenario.
 
 :figure-caption!:
 .Example list on startup
 image::update/updateDG/UpdateStep1.png[,650]
 
-Step 2. The user inputs **update i/1 n/Government Bursary v/600** to update the 1st transaction's name to "Government Bursary" and value to "600". Input is parsed by `UpdateCommandParser#parse()` which creates an `**UpdateCommand**`.
+Step 2. The user inputs **update i/1 n/Government Bursary v/600** to update the 1st transaction's name to "Government
+Bursary" and value to "600". Input is parsed by `UpdateCommandParser#parse()` which creates an `**UpdateCommand**`.
 
 [NOTE]
 The 1st transaction specified here is an `**Income**`.
@@ -591,7 +601,8 @@ The 1st transaction specified here is an `**Income**`.
 .Example user input for update command
 image::update/updateDG/UpdateStep2.png[,650]
 
-Step 3. `UpdateCommand#execute()` creates a new transaction that reflects the changes and gets the index of current transaction to be updated.
+Step 3. `UpdateCommand#execute()` creates a new transaction that reflects the changes and gets the index of current
+transaction to be updated.
 
 .Creation of new updated transaction in `UpdateCommand#execute()`
 image::update/updateDG/UpdateStep3.png[,650]
@@ -603,7 +614,8 @@ image::update/updateDG/UpdateStep4Part2.png[,650]
 .Replacement of original transaction with updated transaction by `UpdateCommand#execute()`
 image::update/updateDG/UpdateStep4Part3.png[,650]
 
-The following code snippet from `UpdateCommand#execute()` shows the creation of an updated transaction and the replacement of the original transaction with the updated one:
+The following code snippet from `UpdateCommand#execute()` shows the creation of an updated transaction and the
+replacement of the original transaction with the updated one:
 
 .UpdateCommand#execute()
 [source, java]
@@ -622,14 +634,16 @@ actualIndex = model.getIndexInFullTransactionList(transactionToUpdate).get();
 model.setTransactionWithIndex(actualIndex, updatedTransaction);
 ----
 
-===== Execution observed by user
-The following activity diagram gives an overview of what the user observes when executing **update** command:
+===== Execution shown to user
+The following activity diagram gives an overview of what THRIFT shows the user when executing **update** command:
 
 :figure-caption: Figure
 .Activity diagram for execution of update command
 image::update/updateDG/UpdateActivityDiagram.png[]
 
 ==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
+
 ===== Aspect: Modifying details of a transaction
 * **Alternative 1 (current choice)**: Replace the original transaction with a new updated transaction.
 - Pros: Easy to implement and keep track of new objects containing new details.
@@ -637,54 +651,75 @@ image::update/updateDG/UpdateActivityDiagram.png[]
 
 * **Alternative 2**: Modify the transaction directly using setter methods.
 - Pros: Easy to implement and highly efficient.
-- Cons: Allowing modification of transactions violates immutability principle, possibly resulting in bugs for UI or accessing modified transaction fields if there is delay in updating.
+- Cons: Allowing modification of transactions violates immutability principle, possibly resulting in bugs for UI or
+accessing modified transaction fields if there is delay in updating.
 
-**Alternative 1 chosen** to maintain better coding practices and keep transactions immutable for the entire project. Overhead of creating new `**Transaction**` object not a significant factor as it is not a very large object.
+**Alternative 1 chosen** to maintain better coding practices and keep transactions immutable for the entire project.
+Overhead of creating new `**Transaction**` object not a significant factor as it is not a very large object.
 
 ===== Aspect: Method of replacing original transaction with updated version
-* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and `set` updated transaction to that index.
-- Pros: High level of certainty that updated transaction replaces the correct outdated transaction and occupies the correct index in the list. Highly efficient.
+* **Alternative 1 (current choice)**: Get the index of original transaction in the transactions list and `set` updated
+transaction to that index.
+- Pros: High level of certainty that updated transaction replaces the correct outdated transaction and occupies the
+correct index in the list. Highly efficient.
 - Cons: A little more coding required to get the index of original transaction.
 
-* **Alternative 2**: Iterate through the transactions list and directly set the updated transaction at the first instance of original transaction found.
-- Pros: Under the assumption that each `**Transaction**` is unique, index to replace can be easily found by iterating through the list with a simple loop.
-- Cons: Efficiency decreases as transactions list size increases. If transactions not unique, incorrect transaction may be replaced if a transaction identical to the one supposed to be replaced is found earlier in the list.
+* **Alternative 2**: Iterate through the transactions list and directly set the updated transaction at the first
+instance of original transaction found.
+- Pros: Under the assumption that each `**Transaction**` is unique, index to replace can be easily found by iterating
+through the list with a simple loop.
+- Cons: Efficiency decreases as transactions list size increases. If transactions not unique, incorrect transaction may
+be replaced if a transaction identical to the one supposed to be replaced is found earlier in the list.
+
+// end::update[]
+
+// tag::clone[]
 
 === Cloning transactions
-The **clone** feature creates one or more duplicates of a specified `**Transaction**` and adds them to the end of the existing transactions list.
+The **clone** feature creates one or more duplicates of a specified `**Transaction**` and adds them to the end of the
+existing transactions list.
 
 ==== Implementation
-An `**Index**` and `**Occurrence**` are obtained from their representation in user input. The `**Index**` specifies which transaction to clone, while the `**Occurrence**` informs THRIFT how many clones of the transaction should be created (`Occurrence#numOccurrences`) and the time period between them (`Occurrence#frequency`).
+An `**Index**` and `**Occurrence**` are obtained from their representation in user input. The `**Index**` specifies
+which transaction to clone, while the `**Occurrence**` informs THRIFT how many clones of the transaction should be
+created (`Occurrence#numOccurrences`) and the time period between them (`Occurrence#frequency`).
 
 Here is a Class Diagram for the implementation of `**Occurrence**`:
 
 .Implementation of `**Occurrence**` class
 image::clone/cloneDG/OccurrenceClassDiagram.png[]
 
-The *clone* functionality is facilitated by common <<Design-Logic, *Logic*>> operations and classes for commands, with feature-specific classes `**CloneCommand**` in place of `**Command**`, and `**CloneCommandParser**`.
+The *clone* functionality is facilitated by common <<Design-Logic, *Logic*>> operations and classes for commands, with
+feature-specific classes `**CloneCommand**` in place of `**Command**`, and `**CloneCommandParser**`.
 The following methods are concrete implementations unique to **clone**:
 
-* `CloneCommandParser#parse()` - Parses user input to extract an `**Index**` and create an `**Occurrence**`, then passes them as parameters to a new `**CloneCommand**` for execution.
-* `CloneCommand#execute()` - Adds one or more identical copies of specified `**Transaction**` to `**Model**`, then returns a `**CommandResult**` (<<Design-Logic, Step 4 of Logic>>).
+* `CloneCommandParser#parse()` - Parses user input to extract an `**Index**` and create an `**Occurrence**`, then passes
+them as parameters to a new `**CloneCommand**` for execution.
+* `CloneCommand#execute()` - Adds one or more identical copies of specified `**Transaction**` to `**Model**`, then
+returns a `**CommandResult**` (<<Design-Logic, Step 4 of Logic>>).
 
-The following Sequence Diagram illustrates **clone** command execution:
+The following sequence diagram illustrates **clone** command execution:
 
 .Sequence diagram for **clone** execution with 12 occurrences on an `**Expense**`
 image::clone/cloneDG/CloneSequenceDiagram.png[]
 
 ===== Example of usage
-Given next is an example usage scenario for cloning a transaction and explanation of how the **clone** mechanism behaves at each step:
+Given next is an example usage scenario for cloning a transaction and explanation of how the **clone** mechanism behaves
+at each step:
 
 [NOTE]
 This entire scenario uses the list of all transactions.
 
-Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here depicts the example list used throughout this scenario. In particular, this example will observe the cloning of the transaction at index 4.
+Step 1. The user starts up the application with an initial list loaded from external storage file. The diagram here
+depicts the example list used throughout this scenario. In particular, this example will observe the cloning of the
+transaction at index 4.
 
 :figure-caption!:
 .Example list on startup
 image::clone/cloneDG/CloneStep1.png[,650]
 
-Step 2 (i). The user inputs **clone i/4** or **clone i/4 o/daily:0** to create 1 copy of the transaction at index 4 on the date when command is called - for this example, current date when command is used is 02/12/2019.
+Step 2 (i). The user inputs **clone i/4** or **clone i/4 o/daily:0** to create 1 copy of the transaction at index 4 on
+the date when command is called - for this example, current date when command is used is 02/12/2019.
 
 image::clone/cloneDG/CloneStep2Part1.png[,650]
 .Creating one copy of transaction at index 4 and adding it to the list.
@@ -692,11 +727,14 @@ image::clone/cloneDG/CloneStep2Part2.png[,650]
 
 Step 2 (ii). The user removes the clone created in Step 2 (i) using **delete i/6** command.
 
-Step 3. The user inputs **clone i/4 o/monthly:12** to create 12 copies of the transaction at index 4 with dates one month apart from each other (30/12/2019 to 30/11/2020), and add them to the list. Input is parsed by `CloneCommandParser#parse()` which creates a `**CloneCommand**`.
+Step 3. The user inputs **clone i/4 o/monthly:12** to create 12 copies of the transaction at index 4 with dates one
+month apart from each other (30/12/2019 to 30/11/2020), and add them to the list. Input is parsed by
+`CloneCommandParser#parse()` which creates a `**CloneCommand**`.
 
 image::clone/cloneDG/CloneStep3.png[,650]
 
-Step 4. `CloneCommand#execute()` creates copies of the transaction to be cloned with their dates of occurrence set one month apart. The copies are then added to the list.
+Step 4. `CloneCommand#execute()` creates copies of the transaction to be cloned with their dates of occurrence set one
+month apart. The copies are then added to the list.
 
 image::clone/cloneDG/CloneStep4Part1.png[,650]
 image::clone/cloneDG/CloneStep4Part2.png[,650]
@@ -711,25 +749,32 @@ The following activity diagram gives an overview of what the user observes when 
 image::clone/cloneDG/CloneActivityDiagram.png[]
 
 ==== Design considerations
+This subsection explores some alternative designs considered for certain aspects of the feature's implementation.
 
 ===== Aspect: Representing occurrences for execution
 * **Alternative 1 (current choice)**: Implement a new class `**Occurrence**` to represent occurrences.
-- Pros: Good Object-Oriented Programming design adhering to principles of abstraction and encapsulation. Utility methods to process occurrences can be kept in a single class.
+- Pros: Good Object-Oriented Programming design adhering to principles of abstraction and encapsulation. Utility methods
+to process occurrences can be kept in a single class.
 - Cons: More code and memory required for entire `**Occurrence**` class.
 
-* **Alternative 2**: Directly pass the results from parsing occurrence representation in user input as parameters to execution methods.
+* **Alternative 2**: Directly pass the results from parsing occurrence representation in user input as parameters to
+execution methods.
 - Pros: Quick and efficient in producing parameters for execution.
-- Cons: May be complicated to trace parameters when passing between different methods. Unable to implement utility methods to process occurrences within a single class.
+- Cons: May be complicated to trace parameters when passing between different methods. Unable to implement utility
+methods to process occurrences within a single class.
 
 ===== Aspect: Maintaining a store for valid values of `Occurrence#frequency`
-* **Alternative 1 (current choice)**: Store valid `frequency` values within a static non-modifiable "final" array inside `**Occurrence**`
-- Pros: Implementation is simple with relatively little coding needed. Values cannot be modified after initialization of array, preventing invalid values from being added later.
+* **Alternative 1 (current choice)**: Store valid `frequency` values within a static non-modifiable "final" array inside
+`**Occurrence**`
+- Pros: Implementation is simple with relatively little coding needed. Values cannot be modified after initialization of
+array, preventing invalid values from being added later.
 - Cons: An additional field of type array has to be included in `**Occurrence**` class.
 
 * **Alternative 2**: Store valid values as `**Enum**`
 - Pros: Validity of values in `**Enum**` form all but assured, there will never be invalid values.
 - Cons: More code and memory required for entire `**Enum**` classes.
 
+// end::clone[]
 
 === Undo/Redoing undoable commands
 *Undo* command allows the user to revert `**THRIFT**` to its previous state when they have made a mistake. *Redo* command does
@@ -979,6 +1024,31 @@ Regardless of what is eventually chosen, the user experience will be improved by
 
 
 //end::ai[]
+
+// tag::report[]
+
+=== [Proposed] External report generation
+We plan to increase the practicality of THRIFT by enabling the user to generate an external report document that they
+can keep for recording purposes. This proposed report will display the user's income, expenditure and budget
+information on a monthly basis. The user can also choose whether to include all transactions in the month or only
+transactions in selected tag categories in the report.
+
+==== Proposed implementation
+To execute report generation, we propose a new `**ReportCommand**` that is a subclass of `**NonScrollingCommand**` and
+works with `**ModelManager**` like other commands as described in the <<Design-Logic, Logic>> section. The following
+diagram shows the dependency between `**ReportCommand**` and `**ModelManager**`:
+
+image::report/ReportClassDiagram.png[]
+
+`ReportCommand#execute()` will retrieve information needed from the existing transactions list through
+`**ModelManager**` retrieval operations, process them and generate an external report document using Java APIs.
+
+The current formats we have in mind for report documents and the relevant Java APIs to handle them are:
+
+* Comma-Separated Values (CSV) with http://opencsv.sourceforge.net/apidocs/com/opencsv/CSVWriter.html[OpenCSV] API.
+* Portable Document Format (PDF) with https://api.itextpdf.com/iText7/java/7.1.8/[PDFWriter] API.
+
+// end::report[]
 
 === Logging
 
