@@ -65,8 +65,8 @@
         </rowConstraints>
 
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="30" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="70" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="60" />
         </columnConstraints>
 
     </GridPane>

@@ -80,4 +80,12 @@ public class ProgramEvaluationPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Clears the ProgramEvaluationPanel display of any old results.
+     */
+    public void clearResults() {
+        evaluationListView.setItems(FXCollections.observableArrayList());
+        compileError.setText(null);
+    }
+
 }
