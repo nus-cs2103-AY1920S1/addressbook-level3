@@ -549,13 +549,13 @@ For this section, a _due flashcard_ refers to a flashcard that is due for revisi
 In other words, the current date (according to the user's system date) matches the date the
 flashcard was next supposed to be viewed for optimum revision. Similarly, an _overdue flashcard_
 refers to a flashcard whose view date for optimum revision was _before_ the current date. Further
-details on how the optimum revision date is calculated is provided in this section!
+details on how the optimum revision date is calculated is provided in this section.
 ====
 
 [NOTE]
 For this section the `remind` command refers specifically to the command itself,
 while the remind feature encompasses the entire feature and all the
-relevant classes modified.
+relevant classes.
 
 ==== Overview
 
@@ -568,7 +568,52 @@ due or overdue flashcards left to revise. StudyBuddyPro will automatically warn 
 unrevised flashcards after which the user can decide if they wish to revise these flashcards or proceed
 to exit StudyBuddyPro anyway.
 
+.Activity diagram of user trying to exit StudyBuddyPro through the `exit` command
 image::remindDiagrams/ExitCommandActivityDiagram.png[]
+
+==== Implementation of `Statistics` class
+
+In order to fully understand how the remind feature was implemented, it is important
+to understand how a flashcard stores the relevant data fields it needs such as its last viewed
+date. All the relevant statistics pertaining to each flashcard is contained within a `Statistics`
+object. Each `Statistics` object also has a `ScheduleIncrement`, which helps keep track
+of when the flashcard should be next viewed for optimum spaced repetition learning. The relationships between the
+`Flashcard`, `Statistics` and `ScheduleIncrement` classes are summarized in the class diagram below.
+
+.Class diagram of `Flashcard`, `Statistics` and `ScheduleIncrement` classes
+image::remindDiagrams/RemindCommandModelsClassDiagram.png[]
+
+[TIP]
+There are currently 7 `ScheduleIncrements` implemented in StudyBuddyPro, each with a
+corresponding integer value. This integer values represent the number of days the flashcard
+should next be viewed (based on spaced repetition principles).
+
+The interactions between the relevant classes can be illustrated through the following
+scenario:
+
+_Today's date is 10/10/2019. Jim decides to view a flashcard which was previously
+viewed on 7/10/2019 and was scheduled to be viewed on 8/10/2019._
+
+*Step 1*. Jim views the flashcard, either through a `timetrial` or by specifically finding the
+relevant flashcard and viewing the flashcard's answer using the `view` and `show` commands.
+
+*Step 2*. When the relevant command is called, the `Flashcard` object's `Statistics#onView()`
+method is invoked to update its statistics.
+
+*Step 3*. The `onView()` method calls its helper functions in the specific order shown in the
+code snippet below. The order is significant as calling the `updateToViewNext()` method
+before the `increaseIncrement()` method would result in the wrong `ScheduleIncrement` being
+used to update the `toViewNext` attribute.
+
+.Code snippet of `Statistics#onView()`
+image::remindDiagrams/OnView.PNG[]
+
+*Step 4*. In this case, the "if" clause of the code snippet above is triggered since
+the `toViewNext` date _(8/10/2019)_ was *before* the current date _(10/10/2019)_.
+
+*Step 5*. The various helper methods execute their relevant functions to update their
+respective fields. For example, the `lastViewed` date is now updated to 10/10/2019.
+
 
 ==== Implementation of `remind` command
 
@@ -579,17 +624,14 @@ The `remind` command is facilitated by the `RemindFeatureUtil` class and extends
 the abstract `Command` class as summarized in the class diagram below. This diagram
 also provides a summary of the `Logic` components of the `remind` command.
 
+.Class diagram of `RemindCommand`
 image::remindDiagrams/RemindCommandLogicClassDiagram.png[]
 
 The `remind` command also interacts with the `Model` component, specifically through indirect
-interactions with each `Flashcard` object currently in `StudyBuddyPro`. The class
-diagram below summarizes the relevant `Model` components that facilitate the `remind`
-command.
+interactions with each `Flashcard` object currently in `StudyBuddyPro`. This was explained
+earlier under section 4.6.2[ADD LINK].
 
-image::remindDiagrams/RemindCommandModelsClassDiagram.png[]
-
-The interactions of all relevant components will be explained by walking through
-Use Case 9[TOADD LINK AND USECASE].
+The following example serves to provide an overview of the high-level architecture involved for the `remind` command.
 
 *Step 1*. The user types "remind" and executes the command to check what flashcards
 the user has due.
@@ -597,33 +639,73 @@ the user has due.
 *Step 2*. `MainWindow` would call `LogicManager#execute()` to hand over control flow to the
 `Logic` component.
 
-*Step 3*.
+*Step 3*. `LogicManager` parses the user input to determine which command is being called.
+After determining that a `remind` command is being executed, the relevant `RemindCommand`
+object is created.
 
-*Step 1*. `RemindCommand`
+*Step 4*. The `RemindCommand` object determines which flashcards are due and overdue, if any,
+and returns the output packaged in a `FlashcardCommandResult` object.
 
+*Step 5*. `MainWindow` extracts the relevant output to be shown to the viewer from the `FlashcardCommandResult`
+and displays it.
+
+These steps are illustrated in further detail in the sequence diagram below.
+
+NOTE: As is standard in this Developer Guide, red classes are part of the `Model` package, blue classes are part of
+the `Logic` package, and green classes are part of the `UI` package.
+
+.Sequence diagram of high-level overview of how the `remind` command works
 image::remindDiagrams/RemindFeatureSequenceDiagramMain.png[]
+
+With reference to *Step 4* above, the implementation of how the `RemindCommand` object determines
+which flashcards are due or overdue can be further examined. A broad overview is provided
+in the sequence diagram below and explained in further detail below the diagram.
+
+.Sequence diagram of checking for due and overdue flashcards
 image::remindDiagrams/RemindCommandReferenceSequenceDiagram.png[]
+
+* Whenever a `RemindCommand` object is created, it creates its own `RemindFeatureUtil` object.
+
+* The `RemindCommand` object communicates directly with the `ModelManager` object through
+the exposed `Model` interface by calling upon the `ModelManager#getFilteredFlashcardList()` to
+get the current list of flashcards in the application.
+
+* The `RemindCommand` passes the list of flashcards to its helper `RemindFeatureUtil` class which
+retrieves due and overdue flashcards through the `RemindFeatureUtil#getDueFlashcards()` and
+`RemindFeatureUtil#getOverdueFlashcards()` respectively.
+
+* As seen from the code snippet below, overdue flashcards are collected by iterating through
+the entire flashcard list and checking if each flashcard's `toViewNext` attribute is before
+the current system date. The `toViewNext` attribute is not stored in the `Flashcard` object
+itself but rather in the flashcard's `Statistics` object. A similar approach is adopted to
+check for due flashcards.
+
+.Method to collect overdue flashcards from a given list of flashcards
+image::remindDiagrams/OverdueFlashcards.PNG[]
+
+* The two lists of due and overdue flashcards are formatted into a String and passed back
+through the `FlashcardCommandResult` object created.
 
 ==== Implementation of the `exit` command
 
 [TIP]
-The `exit` command is a global command and can be used in any mode,
-not just in the _flashcard_ mode.
+The `exit` command is a global command and can be used in any mode, not just in the _flashcard_ mode.
 
-An activity diagram describing the
+The `exit` command is implemented in a similar fashion to the `remind` command described
+above. Each `ExitCommand` also contains a `RemindFeatureUtil` object it uses to check
+which flashcards are due and overdue.
+
+In addition, the `ExitCommand` object calls upon the `CommandHistory` object to check
+if the last command inputted was an `exit` command through the `CommandHistory#getLastCommand()` method.
+This was added to allow the double confirmation feature before the user can exit StudyBuddyPro
+while still having flashcards due or overdue for revision.
 
 
+==== Design and Implementation Considerations
 
+The following describe two major considerations
 
-
-
-==== Design Considerations
-
-===== Aspect: Implementation of utility attributes or classes to keep track of number of times a `Flashcard` object was viewed.
-
-When implementing the remind
-
-===== Aspect: How to keep track of when a `Flashcard` object was last viewed?
+===== Implementation Consideration: How to keep track of when a `Flashcard` object was last viewed?
 
 * **Alternative 1 (current choice):** Design a new `Statistics` class and make a `Flashcard` object store a `Statistics`
 object. The `Statistics` object then keeps track of the flashcard's last viewed date.
@@ -639,7 +721,7 @@ attribute field.
 ** Cons: Bad OOP practice and makes it difficult to implement future changes. It may be unclear what the
 integer value represents and makes debugging more difficult.
 
-===== Aspect: Should the user be given the option to toogle the `exit` command reminder or should it be a set feature?
+===== Design Consideration: Should the user be given the option to toogle the `exit` command reminder?
 
 * **Alternative 1 (current choice):** User is not given the toogle option.
 ** Pros: More in-line with target market. Since StudyBuddyPro is a revision tool the target
@@ -650,7 +732,8 @@ only wants to use the cheatsheet auto-generation feature may not care for the au
 * **Alternative 2:** User is provided with the toogle option.
 ** Pros: More flexibility and customizability of StudyBuddyPro to suit each individual user's needs.
 ** Cons: Extra work required to implement the toogle feature. A user may toogle the reminder off when first using the
-application, and forget about the feature since it is rarely used. When the user later wants
+application, and forget about the feature since it is now out of sight. Even if the user requires
+such an automatic reminding functionality in the future, they may have forgotten this feature existed.
 
 
 ==== [Proposed] Future improvements
