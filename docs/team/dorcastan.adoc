@@ -7,8 +7,8 @@
 
 == Overview
 
-My team of 5 software engineering students was tasked with morphing an existing
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application] with a Command Line Interface (CLI)
+My team of 5 software engineering students was tasked with morphing an existing Command Line Interface (CLI)
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application]
 into a useful application for a specific target group. We chose to create a bookmark manager application
 known as Mark, which is intended for computing students. Mark was conceptualised and implemented over a period of
 8 weeks. It is written in Java and has a Graphical User Interface (GUI) that was created using JavaFX.
@@ -112,21 +112,16 @@ https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below is a sample section that I contributed to the User Guide. It showcases my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=autotagcommand]
-
-include::../UserGuide.adoc[tag=exportcommand]
+include::../UserGuide.adoc[tag=autotags]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is a sample section I contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=autotag]
-
-//include::../DeveloperGuide.adoc[tag=import]

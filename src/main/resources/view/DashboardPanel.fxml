@@ -3,8 +3,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+
 <VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="dashboardPanel">
     <HBox maxHeight="200">
         <HBox HBox.hgrow="ALWAYS">
@@ -15,12 +14,9 @@
         </HBox>
     </HBox>
     <HBox VBox.vgrow="ALWAYS">
-        <VBox HBox.hgrow="ALWAYS">
-            <AnchorPane>
-                <Label text="Folders" textFill="ivory" fx:id="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-            </AnchorPane>
+        <HBox HBox.hgrow="ALWAYS">
             <StackPane fx:id="folderStructurePlaceholder" HBox.hgrow="ALWAYS"/>
-        </VBox>
+        </HBox>
         <HBox maxWidth="400">
             <StackPane fx:id="autotagDisplayPlaceholder"/>
         </HBox>

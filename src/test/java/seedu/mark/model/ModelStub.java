@@ -113,6 +113,21 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void renameFolder(Folder from, Folder to) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canDeleteFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasFolder(Folder folder) {
         throw new AssertionError("This method should not be called.");
     }

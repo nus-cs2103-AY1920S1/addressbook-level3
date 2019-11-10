@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<TreeView xmlns="http://javafx.com/javafx/8"
-  xmlns:fx="http://javafx.com/fxml"
-  fx:id="treeView" style="-fx-background-color: ">
-
-</TreeView>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:id="folderTreeView">
+    <AnchorPane>
+        <Label text="Folders" textFill="ivory" fx:id="title" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+    </AnchorPane>
+    <TreeView fx:id="treeView" style="-fx-background-color: " VBox.vgrow="ALWAYS">
+    </TreeView>
+</VBox>
