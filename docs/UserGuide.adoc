@@ -628,7 +628,8 @@ that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 // show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
 image::ui-screenshots/AutotagCommandUi2.png[]
 
-Parameter constraints:
+[[autotag-parameter-constraints]]
+There are several restrictions on the usage of command parameters:
 ****
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
 * `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
@@ -682,6 +683,50 @@ Creates an autotag named `Quiz` which tags all bookmarks that are either in
 the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
+
+==== Editing an automatic tag: *`autotag-edit`*
+
+If you want to modify an autotag, you can use the *`autotag-edit`* command to edit the autotag's
+name and/or conditions.
+
+TIP: This is essentially a shortcut for *`autotag-delete`* followed by *`autotag-add`*.
+
+Format: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+
+For example:
+
+* To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
++
+image::AutotagEditCommandUi1.png[]
+
+* You can then observe that the autotag `NUS` has been renamed `University`, and its folder conditions now
+include the folder `CS2103T`.
++
+image::AutotagEditCommandUi2.png[]
+
+The parameter constraints are similar to <<autotag-parameter-constraints, those for the `*autotag*` command>>,
+with the following differences:
+****
+* There should only be one `NEW_TAG_NAME`.
+* At least one parameter _in total_ should be specified. In other words, if `t/NEW_TAG_NAME` is present, there is
+no need to specify any conditions.
+****
+
+Other examples:
+
+* `*autotag-edit* Quiz u/luminus.nus.edu.sg u/quiz nu/attempt`
++
+image::AutotagEditCommandExample1.png[]
++
+Modifies the autotag `Quiz` such that it tags bookmarks with URLs that contain either of the keywords
+`luminus.nus.edu.sg` or `quiz`, but do not contain the keyword `attempt`.
+
+* `*autotag-edit* Quiz t/Quizzes`
++
+image::AutotagEditCommandExample2.png[]
++
+Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the tag `Quizzes` instead of `Quiz`.
 
 ==== Deleting an automatic tag: *`autotag-delete`*
 

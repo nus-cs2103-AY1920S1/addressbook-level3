@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
@@ -164,9 +165,11 @@ public interface Model {
      * Removes the tagger with the given {@code taggerName} from Mark.
      *
      * @param taggerName name of the tagger to be removed.
-     * @return false if the tagger is not found.
+     * @return An {@code Optional} containing the {@link SelectiveBookmarkTagger}
+     *         that was removed if the tagger exists, and an empty {@code Optional}
+     *         otherwise.
      */
-    boolean removeTagger(String taggerName);
+    Optional<SelectiveBookmarkTagger> removeTagger(String taggerName);
 
     /**
      * Activates all taggers in Mark to apply tags to Mark's bookmarks based
