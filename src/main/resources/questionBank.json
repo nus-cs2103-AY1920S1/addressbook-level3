@@ -1,5 +1,41 @@
 {
   "questions" : [ {
+    "title" : "Hello World Printer",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "OTHERS" ],
+    "testCases" : [ {
+      "input" : "",
+      "expectedResult" : "Hello World!\n"
+    }],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
+    },
+    "description" : "Write a program that prints \"Hello World!\".\n\nExample:\n\nInput: \nOutput: Hello World!\n"
+  }, {
+    "title" : "Square X",
+    "status" : "NEW",
+    "difficulty" : "EASY",
+    "isBookmarked" : false,
+    "topics" : [ "OTHERS" ],
+    "testCases" : [ {
+      "input" : "1",
+      "expectedResult" : "1\n"
+    }, {
+      "input" : "2",
+      "expectedResult" : "4\n"
+    }, {
+      "input" : "3",
+      "expectedResult" : "9\n"
+    } ],
+    "userProgram" : {
+      "canonicalName" : "Main",
+      "sourceCode" : "// Import Scanner and other Java packages here\n\npublic class Main {\n    public static void main(String[] args) {\n        // Your code here\n    }\n}"
+    },
+    "description" : "Write a program that sqaures the input integer.\n\nExample:\n\nInput: 1\nOutput: 1\n"
+  }, {
     "title" : "Two Number Adder",
     "status" : "NEW",
     "difficulty" : "EASY",
