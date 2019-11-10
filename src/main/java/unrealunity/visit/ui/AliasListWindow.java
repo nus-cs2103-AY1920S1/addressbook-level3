@@ -1,16 +1,20 @@
 package unrealunity.visit.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import unrealunity.visit.commons.core.LogsCenter;
 
 /**
  * Window containing the list of existing user-defined aliases.
  */
 public class AliasListWindow extends UiPart<Stage> {
     private static final String FXML = "AliasListWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(AliasListWindow.class);
 
     @FXML
     private TextArea aliasesGoesHere;
@@ -54,6 +58,7 @@ public class AliasListWindow extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
+        logger.fine("Showing list of aliases.");
         getRoot().show();
         getRoot().centerOnScreen();
         getRoot().addEventHandler(KeyEvent.KEY_RELEASED, (KeyEvent event) -> {

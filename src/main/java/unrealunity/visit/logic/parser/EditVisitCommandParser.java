@@ -13,6 +13,7 @@ import unrealunity.visit.logic.parser.exceptions.ParseException;
  * Parser class for DeleteVisitCommand
  */
 public class EditVisitCommandParser implements Parser<EditVisitCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code EditVisitCommandParser}
      * and returns a {@code EditVisitCommandParser} object for execution.
@@ -24,6 +25,7 @@ public class EditVisitCommandParser implements Parser<EditVisitCommand> {
 
         Index index;
         int reportIdx;
+
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
@@ -32,7 +34,8 @@ public class EditVisitCommandParser implements Parser<EditVisitCommand> {
         }
 
         try {
-            reportIdx = Integer.parseInt(argMultimap.getValue(PREFIX_EDIT_VISIT).orElse("-1"));
+            String input = argMultimap.getValue(PREFIX_EDIT_VISIT).orElse(ParserUtil.EMPTY_REPORT_INDEX);
+            reportIdx = ParserUtil.parseVisitReportIndex(input);
         } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditVisitCommand.MESSAGE_USAGE), e);

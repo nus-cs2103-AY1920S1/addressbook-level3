@@ -17,6 +17,7 @@ import unrealunity.visit.model.appointment.exceptions.DuplicateAppointmentExcept
  * and performs operations dealing with Appointments.
  *
  * Runs in parallel with AppointmentTable, which handles JSON.
+ * This is BY DESIGN and an intentional break of OOP.
  */
 public class AppointmentList implements Iterable<Appointment> {
 
@@ -65,7 +66,7 @@ public class AppointmentList implements Iterable<Appointment> {
     public void addAppointment(int type, String description, int days) {
         requireNonNull(description);
         requireNonNull(days);
-        if (type == 1) {
+        if (type == Appointment.Type.FOLLOWUP) {
             Appointment toAdd = new Appointment("[F] " + description, days);
             internalAddWithCheck(toAdd, description);
         } else {
