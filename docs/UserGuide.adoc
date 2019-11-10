@@ -465,6 +465,10 @@ The `log` command switches the display to the Log View, which displays a catalog
 Command Format and Example: +
 `*log*`
 
+{empty} +
+
+// tag:notification[]
+// tag:chenggengppp[]
 === Notification System
 Horo will post notifications to your system tray to remind you that an event is starting or that a task is due.
 
@@ -506,6 +510,9 @@ image::NotificationOnCommandBoxScreenShot.png[]
 .Feedback for the `notif_on` command
 image::NotificationOnFeedbackScreenShot.png[]
 
+{empty} +
+// end:chenggengppp[]
+
 ==== Switch notifications off
 The `notif_off` command switches notifications off. +
 
@@ -522,6 +529,9 @@ image::NotificationOffCommandBoxScreenShot.png[]
 
 .Feedback for the `notif_off` command
 image::NotificationOffFeedbackScreenShot.png[]
+
+{empty} +
+// end:notification[]
 
 === Undo-Redo
 The following commands allow you to undo and redo previously input commands.
