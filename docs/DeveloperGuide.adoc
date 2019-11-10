@@ -356,12 +356,16 @@ progress in specific events.
 
 ==== Implementation
 
-This section explains how `[green]#Performance#` is implemented in Athletick. It is split into x sections:
-x, y, z.
+This section explains how `[green]#Performance#` is implemented in Athletick. It is split into 4 sections.
+
+. Overview
+. Adding and deleting of  `[green]#Event#`
+. Adding and deleting of  `[green]#Record#`
+. Viewing of  `[green]#Event#` and  `[green]#Record#`
 
 ===== Overview
 
-To facilitate this, `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
+`[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
 Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
 The class diagram below shows how the different components mentioned interact with one another.
 
@@ -396,12 +400,13 @@ attributes in `[green]#Record#`. Additionally, athlete's records can be easily r
 The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data through the `[green]#UI#`.
 `[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
-and is updated accordingly when data in`[green]#Performance#` changes.
+and is updated accordingly when data in `[green]#Performance#` changes.
 
 ===== Function 1: Adding and Deleting of Event
 
 The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
-example scenario when `event freestyle 50m` is given as a user input.
+example scenario when `event freestyle 50m` is given as a user input (ie. when the user adds the `freestyle
+50m` event).
 
 .Sequence diagram showing the operations in Logic and Model when an event is added.
 image::addevent_sequencediagram.png[width="700"]
@@ -412,12 +417,10 @@ boolean from `[green]#Model#hasEvent()#`.
 
 ===== Function 2: Adding and Deleting of Record
 
-Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
-methods involved as there is a greater degree of nesting.
+Operations for `[green]#Record#` - adding and deleting - work similarly to that of `[green]#Event#` as well,
+except there are more methods involved as there is a greater degree of nesting.
 
-The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
-`performance 1 e/freestyle 50m d/31102019 t/31.20` (ie. adding a performance record for the player at index
-1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).
+The workflow for adding a record can be illustrated by the Activity Diagram below.
 
 .Activity diagram showing how a Record is added to an Event.
 image::addrecord_activitydiagram.png[width="700"]
@@ -425,11 +428,14 @@ image::addrecord_activitydiagram.png[width="700"]
 ===== Function 3: Viewing of Event and Record
 
 Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
-The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
+The following sequence diagrams illustrate how the `[green]#Logic#`, `[green]#Ui#` and
+`[green]#Model#` work together when `[green]#Record#` viewing is executed.
 
-.Sequence diagram showing how Records are viewed.
+.Sequence diagram showing how Records are viewed. Interactions in the RecordsPanel are omitted and shown in a separate sequence diagram below.
 image::viewrecords_sequencediagram.png[width="700"]
 
+.Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
+image::recordspanel_sequencediagram.png[width="700"]
 ==== Design Considerations
 
 This section explains the factors that we took into consideration when making decision on how different
