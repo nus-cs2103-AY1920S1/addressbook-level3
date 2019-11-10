@@ -167,10 +167,61 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. +
- +
+//tag::food[]
+==== Food component in Model
+
+The `Food`,
+
+* stores information on `Name`, `Price` and `Category` which are compulsory fields.
+* stores information on `Description`, `Opening Hours` and `Restrictions` which are optional fields.
+* stores information `Tag` which are retrieved from the `UniqueTagList`.
+
+.Structure of the Food Component
 image:BetterModelClassDiagram.png[]
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference.
+This would allow `Menu` to only require one `Tag` object per unique `Tag`,
+instead of each `Food` needing their own `Tag` object.
+
+==== Design considerations for Food-related Models
+
+When implementing Food-related models, it is important not to add duplicate foods. As the user only requires
+to enter the name, price and category as they are compulsory fields, we need to ensure that this does not happen.
+
+For example, you would not want to add Chicken Rice twice into the food list. As a result, our team went through several alternatives
+to deal with this consideration.
+
+.Design considerations of the for `Food` model
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`equals(Food food)` method should rely on Name, and have an additional check for equality of Location, Opening Hours
+and Restrictions
+
+* Pros:
+** Multiple foods with different Location, Opening Hours and Restrictions are allowed.
+** Multiple food with same Price and Category but different Name are also allowed.
+
+* Cons:
+** Harder to Implement.
+
+a|`equals(Food food)` method should return true if the foods have same name, price or category.
+
+* Pros:
+** Easier Implementation
+** Ensures that the compulsory fields are always distinct
+
+* Cons:
+** Multiple foods with different Location, Opening Hours and Restrictions are not allowed.
+** Multiple foods with same Category or Price are not allowed too.
+|===
+
+We chose alternative 1 because there can be multiple instances of `Food` with different `Name` but same `Category`. For
+example, an instance of Chicken Rice from a Chinese stall may be different from an instance of Chicken Rice from an Indian
+stall. As a result, we would want to be able to add these 2 food items into the food list.
+//end::food[]
 
 [[Design-Storage]]
 === Storage component
