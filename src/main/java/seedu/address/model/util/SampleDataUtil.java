@@ -83,7 +83,7 @@ public class SampleDataUtil {
             new Borrower(new Name("Yabobani Shima"), new Phone("998765432"), new Email("shima@griiko.yogaruto"),
                 BorrowerIdGenerator.generateBorrowerId()),
             new Borrower(new Name("I'm not wanted"), new Phone("91119222"), new Email("banana@baba.com"),
-                BorrowerIdGenerator.generateBorrowerId()),
+                new BorrowerId("K0069")),
         };
     }
 
