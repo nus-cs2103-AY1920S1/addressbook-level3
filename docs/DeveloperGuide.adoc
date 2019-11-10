@@ -780,10 +780,12 @@ The above operations are invoked through a wrapper function `LineChartPanel#make
 
 The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The following sequence diagram shows hows adding a body changes the `AddressBook`, and then how`LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
+)Sequence diagram showing the dynamic update of the line chart when user adds a new body.
 image::LineChartAddBodySequenceDiagram.png[]
 
 The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide). The following sequence diagram shows how the stats command affect the appearance of the line chart:
 
+)Sequence diagram showing the changing view of the line chart when user specifies a different time frame.
 image::LineChartTimeFrameSequenceDiagram.png[]
 
 ==== Design Considerations
@@ -796,6 +798,7 @@ The line chart needs data to refer to. Below are two alternatives for how to acc
 
 The following activity diagram illustrates the current choice for accessing and updating data:
 
+)Activity diagram for how the line chart populate values over the last ten days.
 image::LineChartActivityDiagram.png[]
 
 ** Pros: Implementation is easy.
