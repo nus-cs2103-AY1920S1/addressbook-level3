@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[width=70%]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -48,7 +48,7 @@ The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Logic,*`UiLogic`*>>: The UI action handler.
+* <<Design-UiLogic,*`UiLogic`*>>: The UI action handler.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
@@ -65,9 +65,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteprob 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteprob 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user switches tabs in the GUI.
@@ -90,7 +90,7 @@ The UI consists of a `MainWindow` that is made up of parts
 e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/algobase/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -113,9 +113,9 @@ link:{repoURL}/src/main/java/seedu/algobase/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteprob 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deleteprob 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -185,7 +185,7 @@ image::design/model/TaskPackageDiagram.png[width="30%"]
 image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
-image::design/model/PlanSearchRulePackageDiagram.png[width='60%']
+image::design/model/PlanSearchRulePackageDiagram.png[width='90%']
 
 .Structure of the GUI Package
 image::design/model/GuiPackageDiagram.png[width='60%']
@@ -323,14 +323,14 @@ Given below is an example usage scenario and how the tag mechanism behaves at ea
 
 Step 1. The user launches the application for the first time. The UniqueTagList will be initialized with the initial algobase state
 
-Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default color which have not applied in any problems. The addtag command calls Model#addtag(), causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
+Step 2. The user executes `addtag t/easy` to add a tag named [easy] with default color which have not applied in any problems. The addtag command calls `Model#addtag()`, causing the taglist added a tag after the ‘addtag t/easy’ command executes to be saved in the uniqueTagList.
 
 The following sequence diagram shows how the `deletetag` operation works:
 
 .Sequence Diagram for `AddTagCommand`
 image::tag/AddTagSequenceDiagram.png[]
 
-Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls Model#listtag(), causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
+Step 3. The user decides to execute the command `listtag` to show a tag list in the GUI of algobase. The `listtag` command calls `Model#listtag()`, causing the taglist shows the current components of uniqueTagList. Commands that do not modify the address book, such as `listtag`, will not call `Model#addTag()`, `Model#deleteTag()` or `Model#editTag()`. Thus the `uniqueTagList` remains unchanged.
 
 Step 4.The user executes `edittag 1 t/hard c/BLUE` to edit the current tag [easy] to [hard] in the `uniqueTagList`. The `edittag 1 t/hard c/BLUE`
 Command executes `edittag`, causing the taglist find the tag with index 1 in the tag list and change tag [easy] into [hard] and change tag color from default color to blue, and change all [easy] tag into [hard] in blue color in all problems.
@@ -433,7 +433,7 @@ image::find/PredicateClassDiagram.png[width="40%"]
 
 Given below is an example usage scenario and how the find problem mechanism behaves at each step.
 
-Step 1. The user executes `find t/recursion diff/2.0-4.0` to find a problem with a tag “recursion” and difficulty between 2.0 and 4.0.
+Step 1. The user executes `findprob t/recursion diff/2.0-4.0` to find a problem with a tag “recursion” and difficulty between 2.0 and 4.0.
 
 Step 2. `FindCommandParser` processes the user input and returns a `FindCommand` instance with the information of user’s search restrictions.
 
@@ -1130,6 +1130,7 @@ Use case ends.
 ** 2a1. AlgoBase informs user that the form of new tag is invalid.
 +
 Use case ends.
+
 [discrete]
 === Use Case 11: Sort Problems
 
@@ -1361,16 +1362,6 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 16: See details of an item
-
-*MSS*
-
-1.  User requests to see the details of a specified item from the list of items.
-2.  AlgoBase displays the details of that item.
-+
-Use case ends.
-
-[discrete]
 === Use Case 21: Export AlgoBase data
 
 *MSS*
@@ -1463,17 +1454,40 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting Problems
+=== Adding a problem
 
-. Deleting a problem while all problems are listed
+. Adding a new problem to AlgoBase.
+.. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
+   Expected: A problem named 'Sequences' and tagged 'algorithm' is added to AlgoBase.
+.. Test case: `addprob n/ d/unnamed problem` +
+Expected: No problem is added. The problem's name shouldn't be blank. Error details shown in the status message.
 
-.. Prerequisites: List all problems using the `list` command. Multiple problems in the list.
-.. Test case: `delete 1` +
+=== Deleting a problem
+
+. Deleting a problem from AlgoBase.
+.. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
+.. Test case: `deleteprob 1` +
    Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `deleteprob 0` +
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Editing a problem
+
+. Changing fields of an existing problem in AlgoBase.
+.. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
+.. Test case: `editprob 1 n/Two Sequences` +
+   Expected: Change the name of the first problem to 'Two Sequences'.
+.. Test case: `editprob 2 t/` +
+   Expected: Removes all tags from the second problem.
+.. Test case: `editprob x` +
+   Expected: No problem is edited. Index of problem should be a valid integer. Error details shown in the status message.
+
+=== Listing problems
+
+.. Test case: `listprob` +
+Expected: All problems in AlgoBase are listed in the problem panel.
 
 === Sorting problems
 
@@ -1518,7 +1532,6 @@ edittag: Edits the details of the Tag identified by the index number used in the
 Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
 Example: edittag 1 t/Easy c/BLUE
 
-
 === Listing tags
 
 . Listing all tags in the existing AlgoBase
@@ -1562,40 +1575,60 @@ Example: edittag 1 t/Easy c/BLUE
    Expected: The first find rule is deleted and the find rules list is updated.
 
 // tag::plan_test[]
-=== Plans
 
-. Adding a plan to the existing AlgoBase
+=== Adding a plan
 
+. Adding an empty plan into AlgoBase.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
    Expected: A new plan with respective information is added and displayed on plan tab. Start date is now and end date is one month from now.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
-   Expected: No plan is added. Error details shown in the status message. No plans with duplicate names can be added.
+   Expected: No plan is added. No plans with duplicate names can be added. Error details shown in the status message.
+.. Test case: `addplan n/Graph start/2019-1-1 end/2019-3-3` +
+   Expected: No plan is added. The date should be in `yyyy-MM-dd` format. Error details shown in the status message.
+.. Test case: `addplan n/Graph end/1912-06-23` +
+   Expected: No plan is added. If no starting time is specified, the starting time will be `LocalDate#now()`, and the starting time should not be after end time. Error details shown in the status message.
 
-. Editing a plan
+=== Editing a plan
 
-.. Test case: `listplan` +
-`edit 1 d/give up start/2019-01-01 end/2020-02-02` +
-   Expected: All plans are displayed in chronological order. The description and the dates of the first plan is changed.
-.. Test case: `edit 1 end/2018-02-02` +
+. Changing fields of an existing plan in AlgoBase.
+.. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
+.. Test case: `editplan 1 d/give up start/2019-01-01 end/2020-02-02` +
+   Expected: The description and the dates of the first displayed plan is changed.
+.. Test case: `editplan 1 end/2018-02-02` +
    Expected: Edit command is invalid. Error details shown in the status message. Starting date should be before or equal to end date.
+.. Test case: `editplan 1 end/2019-02-02 /f` +
+Expected: The end date of the first displayed plan is changed to `2019-02-02`. Any task's due date after `2019-02-02` will be changed to `2019-02-02`.
+..Test case: `editplan 1 start/2019-01-30 /f` +
+Expected: The starting date of the first displayed plan is changed to `2019-01-30`. Any task's due date before `2019-01-30` will be changed to the plan's end date.
 
-. Finding plans
+=== Finding plans
 
+. Finding plans with matching fields in AlgoBase.
 .. Test case: `findplan n/bytedance` +
    Expected: The plan named 'ByteDance' is listed.
 .. Test case: `findplan start/2019-01-01 end/2019-12-12` +
    Expected: Plans whose time range overlaps with the given time range are listed in the plan panel.
+.. Test case: `findplan start/2019-01-01` +
+   Expected: Invalid command. Both range start and range end should be specified. Error details shown in the status message.
+.. Test case: `findplan start/2019-01-01 end/2018-01-02` +
+   Expected: Invalid command. Range start should not be after range end. Error details shown in the status message.
 
-. Deleting a plan
+=== Deleting a plan
 
+. Deleting a plan from AlgoBase.
+.. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
 .. Test case: `findplan n/bytedance` +
-`delete 1` +
+`deleteplan 1` +
    Expected: The plan with name 'ByteDance' is deleted.
 .. Test case: `listplan` +
-`delete 1` +
+`deleteplan 1` +
    Expected: The first plan among all plans is deleted.
-.. Test case: `delete all` +
-Expected: No plan is deleted. Error message is shown. Plan index must be a valid integer.
+
+=== Listing plans
+
+. Listing all existing plans in AlgoBase.
+.. Test case: `listplan` +
+Expected: All plans in Algobase are listed in the plan display tab.
 // end::plan_test[]
 
 === Saving Data

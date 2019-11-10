@@ -378,19 +378,20 @@ Deletes the 1st problem in the results of the `findplan` command (will be introd
 ==== Editing a plan : `editplan`
 
 Edits an existing plan. +
-Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
+Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]`
 
 * Edits the plan at the specified `INDEX`. The index refers to the index number shown in the displayed plan list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * `START_DATE` should be before or equal to `END_DATE`.
+* The time range of the edited plan should cover due dates of its tasks. However, adding `f/` will force inconsistent due dates to change to the plan's end date.
 
 Examples:
 
 * `editplan 1 d/past year questions of sit-in labs` +
 Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
-* `editplan 2 start/2019-08-13` +
-Edits the starting date of the 2nd plan to be `2019-08-13`.
+* `editplan 2 start/2019-08-13 f/` +
+Edits the starting date of the 2nd plan to be `2019-08-13` and any task with due date before `2019-08-13` to the plan's end date.
 
 ==== Listing all plans : `listplan`
 
@@ -423,8 +424,8 @@ Examples:
 
 * `findplan start/2019-08-05 end/2019-12-07` +
 Finds plans whose duration overlaps with NUS AY 19/20 Semester 1.
-* `findsplan task/Sequences` +
-Finds plans that contain a task names 'Sequences'.
+* `findplan task/Sequences` +
+Finds plans that contain a task named 'Sequences'.
 // end::plan[]
 
 // tag::task[]
@@ -441,17 +442,6 @@ Examples:
 
 * `addtask plan/1 prob/1 due/2019-12-12`
 
-==== Copying a task from one plan to another: `copytask`
-
-Copies a specified task from one plan to another. +
-Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
-
-* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
-
-Examples:
-
-* `copytask task/1 from/1 to/2`
-
 ==== Deleting a task from a plan: `deletetask`
 
 Deletes a specified task from a specified plan. +
@@ -460,15 +450,6 @@ Format: `deletetask plan/PLAN_INDEX task/TASK_INDEX`
 Examples:
 
 * `deletetask plan/1 task/1`
-
-==== Marking a task as done: `donetask`
-
-Marks a specified task in a specified plan as done. +
-Format: `donetask plan/PLAN_INDEX task/TASK_INDEX`
-
-Examples:
-
-* `donetask plan/1 task/1`
 
 ==== Editing due date of a task from a plan: `edittask`
 
@@ -481,6 +462,15 @@ Examples:
 
 * `edittask plan/1 task/1 due/2019-12-12`
 
+==== Marking a task as done: `donetask`
+
+Marks a specified task in a specified plan as done. +
+Format: `donetask plan/PLAN_INDEX task/TASK_INDEX`
+
+Examples:
+
+* `donetask plan/1 task/1`
+
 ==== Marking a task as undone: `undonetask`
 
 Marks a specified task in a specified plan as undone. +
@@ -489,6 +479,17 @@ Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
 Examples:
 
 * `undonetask plan/1 task/1`
+
+==== Copying a task from one plan to another: `copytask`
+
+Copies a specified task from one plan to another. +
+Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+
+* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
+
+Examples:
+
+* `copytask task/1 from/1 to/2`
 
 ==== Moving a task from one plan to another: `movetask`
 
@@ -716,18 +717,18 @@ There is no need to save manually.
 
 == Command Summary
 * Problems
-** *Add Problem* `addprob n/NAME [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+** *Add Problem* : `addprob n/NAME [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...` +
 e.g. `addprob  n/factorial d/define a function factorial that takes in a number n and returns the factorial of the number t/recursion a/Wee Han`
 ** *List Problems* : `listprob` +
-** *Edit Problems* : `editprob INDEX [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...` +
+** *Edit Problems* : `editprob INDEX [n/NAME] [a/AUTHOR] [w/WEBLINK] [d/DESCRIPTION] [diff/DIFFICULTY] [src/SOURCE] [t/TAG]...` +
 e.g. `editprob 2 n/permutations t/`
-** *Delete Problem* : `deleteprob INDEX` +
-e.g. `deleteprob 3`
+** *Delete Problem* : `deleteprob INDEX [f/]` +
+e.g. `deleteprob 3 f/`
 ** *Sort Problems* : `sortprob m/METHOD [ord/ORDER]` +
 e.g. `sortprob m/difficulty ord/ascend`
-** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+** *Find Problems* : `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
 e.g. `findprob t/algorithm diff/2.0-4.0`
-** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG]…` +
+** *Add Find Rule*: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]` +
 e.g. `addfindrule MediumDiffAlgo t/algorithm diff/2.0-4.0`
 ** *Apply Find Rule*: `apply INDEX` +
 e.g. `apply 2`
@@ -749,8 +750,8 @@ e.g. `edittag 1 t/sort c/BLUE`
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
 e.g. `addplan n/CS2040`
-** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
-e.g. `editplan 1 n/training start/2020-02-02`
+** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]` +
+e.g. `editplan 1 n/training start/2020-02-02 f/`
 ** *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
 e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
 ** *List Training Plans* : `listplan`
@@ -760,8 +761,6 @@ e.g. `deleteplan 2`
 * Tasks
 ** *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
-** *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
-e.g. `copytask task/1 from/1 to/2`
 ** *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
 ** *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
@@ -770,6 +769,8 @@ e.g. `edittask plan/1 task/2 due/2019-12-12`
 e.g. `donetask plan/1 task/2`
 ** *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `undonetask plan/1 task/2`
+** *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+e.g. `copytask task/1 from/1 to/2`
 ** *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
 e.g. `movetask task/1 from/1 to/2`
 ** *Set Current Plan* : `setplan PLAN_TASK` +

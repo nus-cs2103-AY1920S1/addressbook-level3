@@ -40,16 +40,16 @@ public class AddPlanCommandIntegrationTest {
 
     @Test
     public void addplan_allConstraints() throws CommandException, ParseException {
-        logicManager.execute("addplan n/test d/test start/2019-01-01 end/2019-01-01\n");
-        logicManager.execute("addplan n/test1 d/test start/2018-01-01 end/2018-02-28\n");
-        logicManager.execute("addplan n/test2 d/test start/2018-01-01 end/2020-02-29\n");
-        logicManager.execute("addplan n/test3 d/test start/2018-01-01 end/2020-03-31\n");
-        logicManager.execute("addplan n/test4 d/test start/2018-01-01 end/2020-04-30\n");
-        logicManager.execute("addplan n/test5 d/test start/2018-01-01 end/2020-05-31\n");
-        logicManager.execute("addplan n/test6 d/test start/2018-01-01 end/2020-06-30\n");
-        logicManager.execute("addplan n/test7 d/test start/2018-01-01 end/2020-07-31\n");
-        logicManager.execute("addplan n/test8 d/test start/2018-01-01 end/2020-08-31\n");
-        logicManager.execute("addplan n/test9 d/test start/2018-01-01 end/2020-09-30\n");
+        logicManager.execute("addplan n/test d/1234 start/2019-01-01 end/2019-01-01\n");
+        logicManager.execute("addplan n/test1 d/_test123 start/2018-01-01 end/2018-02-28\n");
+        logicManager.execute("addplan n/test2 d/T E S T start/2018-01-01 end/2020-02-29\n");
+        logicManager.execute("addplan n/test3 d/t-e-s-t start/2018-01-01 end/2020-03-31\n");
+        logicManager.execute("addplan n/test4 d/test? start/2018-01-01 end/2020-04-30\n");
+        logicManager.execute("addplan n/test5 d/test ??? start/2018-01-01 end/2020-05-31\n");
+        logicManager.execute("addplan n/test6 d/?test start/2018-01-01 end/2020-06-30\n");
+        logicManager.execute("addplan n/test7 d/? test start/2018-01-01 end/2020-07-31\n");
+        logicManager.execute("addplan n/test8 d/$$Test$$ start/2018-01-01 end/2020-08-31\n");
+        logicManager.execute("addplan n/test9 d/test^{n} start/2018-01-01 end/2020-09-30\n");
         logicManager.execute("addplan n/test10 d/test start/2018-01-01 end/2020-10-31\n");
         logicManager.execute("addplan n/test11 d/test start/2018-01-01 end/2020-11-30\n");
         logicManager.execute("addplan n/test12 d/test start/0000-01-01 end/0999-01-31\n");

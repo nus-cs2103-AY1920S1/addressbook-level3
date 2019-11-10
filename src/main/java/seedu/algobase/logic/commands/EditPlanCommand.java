@@ -1,6 +1,7 @@
 package seedu.algobase.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.algobase.logic.parser.CliSyntax.FLAG_FORCE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_NAME;
@@ -15,6 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import seedu.algobase.commons.core.Messages;
 import seedu.algobase.commons.core.index.Index;
@@ -44,30 +47,38 @@ public class EditPlanCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_START_DATE + "START_DATE] "
-            + "[" + PREFIX_END_DATE + "END_DATE]\n"
+            + "[" + PREFIX_END_DATE + "END_DATE] "
+            + "[" + FLAG_FORCE + "]\n"
             + "Example:\n"
             + COMMAND_WORD + " 1 "
             + PREFIX_DESCRIPTION + "future questions of CS2040 "
             + PREFIX_START_DATE + "2019/01/01 "
-            + PREFIX_END_DATE + "3019/12/12";
+            + PREFIX_END_DATE + "3019/12/12 "
+            + FLAG_FORCE;
 
     public static final String MESSAGE_EDIT_PLAN_SUCCESS = "Plan [%1$s] edited.";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PLAN = "A plan of name [%1$s] already exists in AlgoBase.";
+    public static final String MESSAGE_INVALID_TIME_RANGE =
+            "The time range of a plan should cover due dates of its tasks.\n"
+            + "Forcing deleting will change inconsistent due dates to the plan's end date";
 
     private final Index index;
     private final EditPlanDescriptor editPlanDescriptor;
+    private final boolean isForced;
 
     /**
      * @param index of the Plan in the filtered Plan list to edit
      * @param editPlanDescriptor details to edit the Plan with
      */
-    public EditPlanCommand(Index index, EditPlanDescriptor editPlanDescriptor) {
+    public EditPlanCommand(Index index, EditPlanDescriptor editPlanDescriptor, boolean isForced) {
         requireNonNull(index);
         requireNonNull(editPlanDescriptor);
+        requireNonNull(isForced);
 
         this.index = index;
         this.editPlanDescriptor = new EditPlanDescriptor(editPlanDescriptor);
+        this.isForced = isForced;
     }
 
     @Override
@@ -80,10 +91,34 @@ public class EditPlanCommand extends Command {
         }
 
         Plan planToEdit = lastShownList.get(index.getZeroBased());
-        Plan editedPlan = createEditedPlan(planToEdit, editPlanDescriptor);
+        Plan prototypePlan = createEditedPlan(planToEdit, editPlanDescriptor);
+        PlanName planName = prototypePlan.getPlanName();
+        PlanDescription planDescription = prototypePlan.getPlanDescription();
+        LocalDate startDate = prototypePlan.getStartDate();
+        LocalDate endDate = prototypePlan.getEndDate();
+        Set<Task> tasks = prototypePlan.getTasks();
+        Plan editedPlan;
 
-        if (!isValidRange(editedPlan.getStartDate(), editedPlan.getEndDate())) {
+        if (!isValidRange(prototypePlan.getStartDate(), prototypePlan.getEndDate())) {
             throw new CommandException(ORDER_CONSTRAINTS);
+        }
+
+        Stream<LocalDate> dueDates = prototypePlan.getTasks().stream().map(Task::getTargetDate);
+        boolean existsUnmatchDueDates = !dueDates.allMatch(prototypePlan::checkWithinDateRange);
+
+        if (!isForced && existsUnmatchDueDates) {
+            throw new CommandException(MESSAGE_INVALID_TIME_RANGE);
+        } else if (isForced && existsUnmatchDueDates) {
+            Set<Task> forcedTasks = tasks
+                .stream()
+                .map(
+                    task -> prototypePlan.checkWithinDateRange(task.getTargetDate())
+                        ? task
+                        : task.updateDueDate(prototypePlan.getEndDate()))
+                .collect(Collectors.toSet());
+            editedPlan = new Plan(planName, planDescription, startDate, endDate, forcedTasks);
+        } else {
+            editedPlan = new Plan(planName, planDescription, startDate, endDate, tasks);
         }
 
         if (!planToEdit.isSamePlan(editedPlan) && model.hasPlan(editedPlan)) {
