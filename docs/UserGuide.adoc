@@ -103,7 +103,13 @@ it should highlight wrong commands, wrong numbers of arguments, or arguments in 
 === Module
 
 ==== Assigning a module to a given semester: `addmod`
-Assigns the specified module to a given semester of the current study plan. +
+Assigns the specified module to a given semester of the current study plan.
+
+[NOTE]
+Only CS modules may be added to the study plan. Additional modules taken outside of the
+CS curriculum, such as other University Level Requirements (ULRs) or Unrestricted Electives (UEs),
+are outside the scope of our application.
+
 Format:  `addmod SEMESTER MODULE ...` +
 Examples:
 
@@ -393,8 +399,20 @@ Format: `listbypriority`
 
 ==== Checking a study plan's feasibility : `check`
 Shows details about what graduation requirements are left to be fulfilled,
-such as MCs, core or focus area modules that remain to be taken. +
-Format: `check`
+such as MCs, core or focus area modules that remain to be taken.
+
+[NOTE]
+This command will not check for the minimum number of MCs to be taken per semester,
+as additional modules that students may take (such as UEs or ULRs) are outside the scope of our project.
+
+Format: `check [AREA]`
+
+Examples
+
+* `check mcs`
+* `check core`
+* `check focus`
+* `check`
 
 ==== Clear all currently invalid modules : `clearinvalidmods`
 Clears all modules that are currently invalid, whose prerequisites have not been met in previous semesters.

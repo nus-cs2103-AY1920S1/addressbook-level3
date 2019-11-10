@@ -45,7 +45,7 @@ public class CheckCommandTest {
     @Test
     public void execute_check_failCheckActiveStudyPlan() {
         Model model = new CheckCommandTest.ModelStubOne();
-        String expected = "Graduation requirements have not been fulfilled.\n"
+        String expected = "Graduation requirements have not been fulfilled.\n\n"
                 + "MCs: 10/108\n"
                 + "Number of core modules taken: 5/15\n"
                 + "Number of focus area primaries taken:\n"
@@ -66,7 +66,7 @@ public class CheckCommandTest {
     @Test
     public void execute_check_passCheckActiveStudyPlan() {
         Model model = new CheckCommandTest.ModelStubTwo();
-        String expected = "All graduation requirements have been fulfilled!\n"
+        String expected = "All graduation requirements have been fulfilled!\n\n"
                 + "MCs: 200/108\n"
                 + "Number of core modules taken: 15/15\n"
                 + "Number of focus area primaries taken:\n"
@@ -82,6 +82,80 @@ public class CheckCommandTest {
                 + "[SE:P]: 0\n";
         CommandResult expectedCommandResult = new CommandResult(expected, false, false);
         assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkCore_passCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubTwo();
+        String expected = "Core requirements have been fulfilled!\n"
+                + "Number of core modules taken: 15/15";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("CORE"), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkCore_failCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubOne();
+        String expected = "Core requirements have not been fulfilled.\n"
+                + "Number of core modules taken: 5/15";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("CORE"), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkFocus_passCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubTwo();
+        String expected = "Focus area requirements have been fulfilled!\n"
+                + "Number of focus area primaries taken:\n"
+                + "[AI:P]: 0\n"
+                + "[Algo:P]: 2\n"
+                + "[CGG:P]: 0\n"
+                + "[ComSec:P]: 1\n"
+                + "[DB:P]: 3\n"
+                + "[MIR:P]: 2\n"
+                + "[NDS:P]: 0\n"
+                + "[PL:P]: 1\n"
+                + "[Para:P]: 2\n"
+                + "[SE:P]: 0\n";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("FOCUS"), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkFocus_failCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubOne();
+        String expected = "Focus area requirements have not been fulfilled.\n"
+                + "Number of focus area primaries taken:\n"
+                + "[AI:P]: 0\n"
+                + "[Algo:P]: 1\n"
+                + "[CGG:P]: 0\n"
+                + "[ComSec:P]: 0\n"
+                + "[DB:P]: 0\n"
+                + "[MIR:P]: 2\n"
+                + "[NDS:P]: 0\n"
+                + "[PL:P]: 1\n"
+                + "[Para:P]: 2\n"
+                + "[SE:P]: 0\n";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("FOCUS"), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkMcs_passCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubTwo();
+        String expected = "MC requirements have been fulfilled!\n"
+                + "MCs: 200/108";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("MCS"), model, expectedCommandResult, model);
+    }
+
+    @Test
+    public void execute_checkMcs_failCheckActiveStudyPlan() {
+        Model model = new CheckCommandTest.ModelStubOne();
+        String expected = "MC requirements have not been fulfilled.\n"
+                + "MCs: 10/108";
+        CommandResult expectedCommandResult = new CommandResult(expected, false, false);
+        assertCommandSuccess(new CheckCommand("MCS"), model, expectedCommandResult, model);
     }
 
     @Test
