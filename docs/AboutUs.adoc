@@ -41,7 +41,7 @@ image::ShaunNgTX.png[width="150", align="left"]
 {empty}[http://github.com/ShaunNgTX[github]] [<<shaunngtx#, portfolio>>]
 
 Role: Code Quality +
-Responsibilities: In charge of Documentation 
+Responsibilities: In charge of Documentation
 
 '''
 

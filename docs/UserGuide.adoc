@@ -126,6 +126,8 @@ Examples:
 
 * `User wants to type the "start" command in the command box`
 * `He will be able to see a list of dropdown options as shown:`
+* `First "ENTER" button will select the option`
+* `Second "ENTER" button will execute the option`
 +
 image::Autocomplete2.png[width="790"]
 //end::shaun-autocomplete[]
