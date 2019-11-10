@@ -44,11 +44,7 @@ The Incident Management System is a desktop application used for managing incide
 
 include::../UserGuide.adoc[tag=new]
 
-include::../UserGuide.adoc[tag=list-v]
-
 include::../UserGuide.adoc[tag=find-v]
-
-include::../UserGuide.adoc[tag=newincidentwithoutvehicle]
 
 == Contributions to the Developer Guide
 
