@@ -98,7 +98,7 @@ public class DeleteCommandTest {
             model.getExchangeData(), new UserPrefs());
         expectedModel.deleteBudget(budgetToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel, commandHistory);
         model.setViewState(ViewState.DEFAULT_EXPENSELIST);
     }
 
@@ -108,7 +108,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBudgetList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX, commandHistory);
         model.setViewState(ViewState.DEFAULT_EXPENSELIST);
     }
 

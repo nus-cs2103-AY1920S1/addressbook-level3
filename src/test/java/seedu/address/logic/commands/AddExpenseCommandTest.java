@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.ReadOnlyExpenseList;
@@ -22,6 +23,8 @@ import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class AddExpenseCommandTest {
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullExpense_throwsNullPointerException() {
@@ -33,7 +36,7 @@ public class AddExpenseCommandTest {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
-        CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub);
+        CommandResult commandResult = new AddExpenseCommand(validExpense).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddExpenseCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
@@ -46,7 +49,7 @@ public class AddExpenseCommandTest {
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
         assertThrows(CommandException.class, AddExpenseCommand.MESSAGE_DUPLICATE_EXPENSE, ()
-            -> addExpenseCommand.execute(modelStub));
+            -> addExpenseCommand.execute(modelStub, commandHistory));
     }
 
     @Test
