@@ -367,7 +367,7 @@ Upon hitting enter, the flashcard will be deleted.
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
 
-    Format: timetrial [tag/TAG]...
+    Format: timetrial tag/TAG...
 
     Example usage: timetrial cs2103tuml hard
 
@@ -929,9 +929,6 @@ should I do? +
 do this while Mac users can use the Terminal application.
 
 == Command Summary
-
-{To be added}
-
 === Global Commands (Can be executed in any mode)
 * *Switch* : `switch MODE` +
 e.g `switch fc`
