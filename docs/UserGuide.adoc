@@ -308,31 +308,45 @@ Deletes the first card of the deck `german`.
 
 === Start test with flashcards : `test`
 
-Starts a test with a deck of flashcards, with the choice of an untimed test (timed mode will be added in `v1.4`)
+****
+Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
 
-(TBC)
-
-Format: `test deck/DECK_NAME [duration/TIME_LIMIT_ALLOWED]` (to be implemented in `v1.4`)
+Format: `test deck/DECK_NAME duration/TIME_LIMIT`
 
 Examples:
 
-* `test deck/science_deck` +
+* `test deck/science_deck duration/0`
 
 Starts a untimed test with the deck of cards, `science_deck`
 
-* `test duration/50 deck/science_deck` +
+* `test deck/science_deck duration/100` +
 
-Starts a timed test of 50 seconds with the deck of cards, `science_deck`
+Starts a timed test of 100 seconds with the deck of cards, `science_deck`
+****
 
+==== Get next card: `next`
+
+Gets the next card in the test deck.
+
+If there are no more cards, will trigger a popup with test results.
+
+==== Get previous card: `prev`
+
+Gets the previous card in the test deck.
 
 // tag::stop[]
-==== Quit test: `stop`
+==== Quit test: `exit`
 
 Exits the test process when the user is in test mode. +
 
-Exams will also terminate automatically upon running out of cards in the test deck. This will trigger a popup with the results of the test.
+Exams will also terminate automatically upon running out of cards in the test deck.
 
-// end::stop[]
+Triggers a popup with the results of the test.
+
+==== Front-Back Cards
+
+* Flipping the cards: `front` and `back`
+
 
 // tag::stats[]
 === Viewing user statistics : `stats`

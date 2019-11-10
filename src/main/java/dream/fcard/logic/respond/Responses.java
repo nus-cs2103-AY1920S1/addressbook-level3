@@ -754,6 +754,7 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.TEST_MCQ},
                 i -> {
                     LogsCenter.getLogger(i);
+                    StateHolder.getState().setCurrState(StateEnum.TEST_MCQ_BACK);
                     String[] inputArray = i.split(" ");
                     String choice = inputArray[0];
                     Exam exam = ExamRunner.getCurrentExam();
