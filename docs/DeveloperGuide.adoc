@@ -289,9 +289,8 @@ The current state of this newly-added book is further illustrated by the object 
 image::BookObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*.
-This makes it consistent with the class diagram of `Book` above.
-We can also observe that the `LoanHistory` object of the `Book` is empty since the book is new and is not loaned out before.
+We can see that the book holds an `Optional<Loan>` and has an empty `LoanHistory`,
+making it consistent with the class diagram of `Book` above.
 
 ==== Design Considerations
 
@@ -319,8 +318,8 @@ number using the number of books or the largest serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to
-Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some cases which leads to
+unexpected behaviour from Alternative 1. Furthermore, Alternative 2 is in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
 // tag::undo/redo[]
@@ -471,8 +470,8 @@ We chose alternative 1 as it is easier to maintain a single data structure.
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
 Essentially, `LoanSlipUtil` implements the following operations:
 
-* `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
-* `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
+* `LoanSlipUtil#mountLoan()` -- Mounts a loan in the current loan session.
+* `LoanSlipUtil#clearSession()` -- Clears the loan session by unmounting all loans.
 * `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loans as a single loan slip, saved in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
