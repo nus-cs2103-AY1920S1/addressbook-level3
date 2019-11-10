@@ -1,5 +1,5 @@
 
-==== Seah Lynn - Project Portfolio
+= Seah Lynn - Project Portfolio
 :site-section: ProjectPortfolio
 :sectnums:
 :sectnumlevels: 4
@@ -10,8 +10,7 @@
 
 === Introduction
 This project portfolio details my contributions to a Software Engineering group project, where my
-team and I created the Command Line Interface (CLI) desktop application, +Work. It also serves to document the
-key features I implemented in the application.
+team and I created the Command Line Interface (CLI) desktop application, +Work.
 
 ==== About The Team
 We are a group of 5 Year 2 NUS Computer Science students, who worked together to create the CLI application, +Work.
@@ -21,16 +20,17 @@ We are a group of 5 Year 2 NUS Computer Science students, who worked together to
 In this module, each team is required to morph or enhance an existing CLI AddressBook application, to fit the needs of a
 target group of users.
 
-Our application, +Work, is a project management tool aimed at NUS project leaders who are in charge of a small project
-group. It allows project leaders to manage their members, meeting times, task allocations as well as personal claims for items purchased.
-A user can use +Work to find the most popular meeting time among his project members when calling for a meeting, and even add project tasks and members that are assigned under these tasks, into +Work to better manage the project
-manpower.
+Our application, +Work, is a project management tool aimed at NUS project leaders. It allows project leaders to manage
+their members, meeting times, task allocations as well as personal claims for items purchased. A user can use +Work to find
+the most popular meeting time among his project members when calling for a meeting, and even add project tasks and members that are assigned under these tasks,
+into +Work to better manage the project manpower.
 
 ==== Formatting of Document
 Shown below are symbols that will appear in my Project Portfolio, and their significance.
 [IMPORTANT]
 Information listed in this note is essential information that users should
 be mindful of, in order for +Work to function as mentioned in the User Guide.
+
 [NOTE]
 Information listed here are things that users should take note of, so as to more efficiently use +Work.
 
@@ -41,7 +41,7 @@ This section details all of my contributions to the project, and showcases how I
 * *Major enhancement*: I added the ability to retrieve the overall statistics of tasks and members in +Work.
 ** What it does: This feature allows the user to retrieve statistics relating to tasks and members in +Work, including the
 number of tasks and inventory items allocated to each member, and the proportion of tasks of different statuses, along with
-the time spent on each task added into +Work.
+the time spent on each task added.
 ** Justification: This feature increases the functionality of +Work because it gives the user a broad overview of the
 project's progress and members' responsibility allocation at a glance, which is one of the main goals of effective project management.
 ** Highlights: The statistics are displayed in the form of a Pie-Chart for easy comparison of data at a glance.
@@ -53,16 +53,15 @@ mapping concept our team added to +Work, and required extensive consideration in
 ** Justification: This feature improves the product significantly because it adds another aspect of project management (member management) into +Work,
 and allows different tasks and members to be assigned to one another. This allows
 users to be able to draw connections between tasks and members when managing the project.
-** Highlights: One of the unique features that "Member" has is the ability to be assigned profile pictures. Users can
+** Highlights: One of the unique features that `Member` objects has is the ability to be assigned profile pictures. Users can
 link an image on their laptop to a specific member in +Work, to set the image as the member's profile photo. This was
-challenging to implement because I had to ensure the UI would be able to accurately display the profile picture of each
-member in an appealing way.
+challenging to implement because I had to ensure the User Interface (UI) would be able to accurately display the profile picture of each
+member.
 
 * *Minor enhancement*:
-** Created the UI for members in +Work, which can include members' profile photos, as well as list tasks allocated to
+** Enhance the UI for members in +Work, which can include members' profile photos, as well as list tasks allocated to
 each member under individual member cards
-** Created the UI of statistics calculated, and made sure it was in an easy-to-read format
-** Added test cases for all additional commands and classes related to Members and Statistics
+** Created the UI of statistics calculated, and made sure it was in an easy-to-read and aesthetic format
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Functional code]]
  [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seahlynn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=seahlynn&tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D[Test code]]
@@ -84,36 +83,27 @@ each member under individual member cards
 *** Reported bugs and suggestions for another team in the cohort (https://github.com/seahlynn/ped[reports])
 
 === Contributions to the User Guide
-We had to make changes to the original AddressBook User Guide with instructions for the features that we implemented.
 The following section displays excerpts of my additions to the *+Work User Guide* for the `Statistics` and `Member` features.
-
-[NOTE]
-The rest of my additions to the Member and Statistics commands in +Work's User Guide can be viewed in +Work's complete https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#member-related-commands[User Guide].
 
 ==== Member-related Commands
 ===== Adding a member: `add-member` +
-To add a member to the list of team members in +Work, use the command 'add-member' following the format below.
-
-Format: `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
+To add a member to the list of team members in +Work, use the command 'add-member' following the format:
+ `add-member mn/MEMBER_NAME mi/MEMBER_ID mt/TAGS`
 
 Example: `add-member mn/New Member mi/NM mt/UG` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of 6 project members, as shown below.
 
-image::BeforeAdd.png[width="400"]
+image::BeforeAdd.png[width="", align="center"]
 
 *Step 2:* To add a new project member into +Work, you enter the command `add-member mn/New Member mi/NM mt/UG` into the
 command prompt box.
 
-image::DuringAdd.png[width="400"]
+image::DuringAdd.png[width="", align="center"]
 
-*Step 3:* After you hit kbd:[Enter], the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
+*Step 3:* After you hit  kbd:[Enter] , the  result box will display the message "New member added", and a new member with name 'New Member', member ID 'NM' and tag 'UG' is added to +Work.
 
-image::DoneAdd.png[width="400']
-
-The addition of a new member can also be seen from the list of members as shown below:
-
-image::ListAdd.png[width="400"]
+image::DoneAdd.png[width="", align="center"]
 
 [IMPORTANT]
 Member ID is an alphanumeric ID set by you, and cannot be changed once the member is created.
@@ -125,26 +115,23 @@ Member ID is an alphanumeric ID set by you, and cannot be changed once the membe
 `add-member mn/New Member mi/NM mt/UG mt/DG mt/...`
 ====
 
-
-
 ===== Set image for member: `set-image` +
-To set a profile picture for a member in +Work, use the command `set-image` following the format below.
-
-Format: `set-image mi/MEMBER_ID im/IMAGE_PATH` +
+To set a profile picture for a member in +Work, use the command `set-image` following the format:
+`set-image mi/MEMBER_ID im/IMAGE_PATH`
 
 Example: `set-image mi/NM im/C:\Desktop\NewUserImage.png` can be executed as follows:
 
 *Step 1:* +Work initially contains a list of project members with default profile pictures, as shown below.
 
-image::BeforeSet.png[width="400"]
+image::BeforeSet.png[width="", align="center"]
 
 *Step 2:* To update the profile picture of the project member with member ID 'NM' in +Work to a specified image, you
 enter the command `set-image mi/NM im/C:\Desktop\NewUserImage.png` into the command prompt box.
 
-*Step 3:* After you kbd:[Enter] the command, the member 'New Member' with member ID 'NM' has a new profile
+*Step 3:* After you  kbd:[Enter]  the command, the member 'New Member' with member ID 'NM' has a new profile
 picture, specified by the image path you entered.
 
-image::SetImage.png[width="400"]
+image::SetImage.png[width="", align="center"]
 
 [NOTE]
 Image Path refers to the folder path of the image stored in your computer, and should end with .png
@@ -157,13 +144,10 @@ It is recommended that you store all the images in a central folder to prevent t
 ==== Statistics Commands
 
 ===== Getting statistics of members: `member-stats` +
-To get statistics relating to the members in +Work, use the statistics command following the format below. +
-
-Format: `member-stats` +
-
+To get statistics relating to the members in +Work, use the statistics command following the format: `member-stats` +
 Calling the `member-stats` command will result in the statistics being displayed as follows:
 
-image::MemberStats.png[width="400"]
+image::MemberStats.png[align="center"]
 
 [NOTE]
 The resultant statistics displayed shows the proportion and number of tasks and inventory items allocated to each
@@ -178,9 +162,8 @@ The Statistics feature allows users to retrieve statistics relating to members a
 broad overview of the project and members' contribution to the project.
 
 ===== Implementation
-
-The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class 'Statistics'
-that resides within model. The 'Statistics' class implements the following operations:
+The commands introduced by this statistics feature includes: `task-stats` and `member-stats`. These commands are facilitated by the class `Statistics`
+that resides within model. The `Statistics` class implements the following operations:
 
 * `Statistics#doCalculations()` -- Calculates the statistics needed using existing list of tasks, members and mappings.
 * `Statistics#getPortionMembersByTasks()` -- Retrieves statistics of all the members and number of tasks completed by the each individual member.
@@ -191,35 +174,30 @@ These operations are exposed in the `Model` interface as `Model#doCalculations`,
 
 Given below is an example usage scenario and how the Statistics mechanism behaves at each step.
 
-*Step 1.* The user launches the application for the first time. The 'Statistics' object stored by ProjectDashboard is initialised based on the data previously saved.
+*Step 1.* The user launches the application for the first time. The `Statistics` object stored by ProjectDashboard is initialised based on the data previously saved.
 
 [NOTE]
-
 Data previously saved refers to the statistics calculation done based on list of members, tasks and mappings saved.
 
 *Step 2.* The user executes the `task-stats` command to retrieve statistics related to the tasks in the application.
 
-The `task-stats` command obtains the lists of all the members, tasks and mappings saved in the application, and uses the lists to form a Statistics object.
+The `task-stats` command obtains lists of all the members, tasks and mappings saved in the application, and uses the lists to form a Statistics object.
 `Model#setStatistics` is then called to updated the statistics in ProjectDashboard.
 
-The following sequence diagram (Figure 10) shows how the 'task-stats' operation works.
+The following sequence diagram shows how the `task-stats` operation works.
 
-image::GetStatisticsSequenceDiagram.png[]
-Figure 10. Operational flow of `GetStatisticsCommand`
+.Operational flow of `GetStatisticsCommand`
+image::GetStatisticsSequenceDiagram.png[align="center"]
 
-[NOTE]
-The `member-stats` operation is similar to the one shown in figure 10.
+*Step 3.* In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
+`TaskStatisticsView` class is also called to display the task stats. To allow the `UI` to be responsive, `getStatistics()`
+is similarly exposed in the `Logic`interface as `Logic#getStatistics()`.
 
-Step 3. In order for task statistics to be displayed in a comprehensive manner, when the `task-stats` command is called,
-`TaskStatisticsView` class is also called to display the task stats.
+The following sequence diagram shows how calling the `task-stats` operation leads to the comprehensive UI display of task statistics.
 
-[NOTE]
-To allow the `UI` to be responsive, `getStatistics()` is similarly exposed in the `Logic` interface as `Logic#getStatistics()'
+.Operational flow of displaying statistics in +Work
+image::GetStatisticsUISequenceDiagram.png[align="center"]
 
-The following sequence diagram (Figure 11) shows how calling the 'task-stats' operation leads to the comprehensive UI display of task statistics.
-
-image::GetStatisticsUISequenceDiagram.png[]
-Figure 11. Operational flow of displaying statistics in +Work
 // end::statisticsP1[]
 
 // tag::statisticsP2[]
@@ -227,7 +205,8 @@ Figure 11. Operational flow of displaying statistics in +Work
 This section describes the pros and cons of the current and other alternative implementations of the Statistics class in +Work,
 as well as the display of statistics in +Work.
 
-====== Aspect: Implementation of Statistics class
+*Aspect: Implementation of Statistics class*
+
 * **Alternative 1 (current choice):** One statistics object for the entire ProjectDashboard
 ** Pros: Easy to implement, centralised class for all statistics
 ** Cons: May have performance issues due to calculations involving large amounts of tasks and members.
@@ -237,8 +216,7 @@ as well as the display of statistics in +Work.
 
 *Alternative 1* was chosen given the time constraint in implementing the features in time for +Work Version 1.4.
 
-====== Aspect: Display of Statistics for Project Dashboard
-This section describes the pros and cons of the current and other alternative implementations of displaying the calculate statistics in +Work.
+*Aspect: Display of Statistics for Project Dashboard*
 
 * **Alternative 1 (current choice):** Use a pie chart to represent information
 ** Pros: Increases the ease of workload comparison
@@ -260,10 +238,10 @@ This makes +Work a more comprehensive application because project tasks and memb
 
 ===== Implementation
 +Work's members and their related commands are supported by a `Member` class that resides within model.
-The following class diagram exposes the structure of the Member class, and shows how the different components relating to the Member class works together.
+The following class diagram exposes the structure of the `Member` class, and shows how the different components relating to the Member class works together.
 
-image::MemberClassDiagram.png[width="600"]
-Diagram 13. Class diagram of Member package
+.Class diagram of `Member` package
+image::MemberClassDiagram.png[align="center"]
 
 Apart from the typical commands (`add-member`, `delete-member`, `find-member`) involved in such a central class, the member feature also introduces a `set-image` command.
 The `set-image` command allows users to set an image in their computer as the profile picture of a member in +Work.
@@ -283,35 +261,21 @@ The `set-image` command calls `Model#getFilteredMembersList()` to retrieve the M
 A new member object is formed, with all the same parameters as the specified member object, and a new Image Filepath parameter.
 `Model#setMember` is called to replace the old member object with the new one in +Work.
 
-The following sequence diagram shows how the 'set-image' operation works.
 
-image::SetImageSequenceDiagram.png[]
-Figure 14. Operational flow of 'SetImageCommand'
+The following sequence diagram shows how the `set-image` operation works.
+
+.Operational flow of `SetImageCommand`
+image::SetImageSequenceDiagram.png[align="center"]
 
 [NOTE]
 The image's file path is stored in the Member object. If the image is shifted to another location, the file path stored becomes invalid, and the user has to call the `set-image` command again, with the new file path.
 
-*Step 3.* When an operation is called to display a member, `Member#getImage` is called to display the image using Javafx's ImageView.
-
-The following sequence diagram shows how the image is called up and subsequently displayed in the +Work for an individual member.
-
-image::DisplayMemberSequenceDiagram.png[]
-Figure 15. Operational flow of displaying a member with his profile picture
-
-[NOTE]
-The sequence diagram only shows how a member's profile image is called up and displayed. It doesn't show how the member's
-name and tags are displayed, since this is very similar to how AB3 originally displays its `Person` name and tags.
-
-The following activity diagram summarizes what happens when a user executes the `set-image` command:
-
-image::SetImageActivityDiagram.png[width="600"]
-Figure 16. Operational flow during execution of `set-image` command
 
 ===== Design Considerations
-This section describes the pros and cons of the current and other alternative implementations of the image attribute under members,
-as well as the display of members in +Work.
+This section describes the pros and cons of the current and other alternative implementations of the image attribute under members.
 
-====== Aspect: Storage of image under member
+*Aspect: Storage of image under member*
+
 * **Alternative 1:** Storing the image filepath as a changeable attribute
 ** Pros: Editing a member's profile picture involves accessing the member and changing its file path attribute
 ** Cons: The image file path attribute is exposed to the rest of the classes in +Work and may be unintentionally edited, causing
@@ -323,16 +287,6 @@ picture is updated
 
 *Alternative 2* was chosen to keep in line with the original structure of the Person object in AB3, with all attributes
 being final and unchangeable.
-
-====== Aspect: Display of members
-* **Alternative 1:** Display each member with only its member name, ID and profile picture
-** Pros: Concise display of each member in +Work, with only the essential information being exposed
-** Cons: Fewer details of individual members are displayed, making it difficult to draw links between members and the tasks they are involved in
-* **Alternative 2 (current choice):** Display members with its member name, ID, profile picture and tasks assigned
-** Pros: Includes more details for individual members, which increases the ease in which the user can identify a member's responsibilities
-** Cons: Display of members is cluttered, and may expose unnecessary information in certain situations
-
-*Alternative 2* was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
 
