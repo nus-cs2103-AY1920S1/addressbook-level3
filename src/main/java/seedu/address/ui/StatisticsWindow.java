@@ -85,7 +85,7 @@ public class StatisticsWindow extends UiPart<Stage> {
         yAxis.setLabel("Value in $");
         this.testChart.getData().add(axisSeries);
         this.testChart.setLegendVisible(false);
-        this.testChart.setCreateSymbols(false);
+        this.testChart.setCreateSymbols(true);
     }
 
     /**

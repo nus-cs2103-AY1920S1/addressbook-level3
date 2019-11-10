@@ -1,12 +1,14 @@
 package seedu.address.ui.cards;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
 import seedu.address.ui.UiPart;
@@ -17,6 +19,9 @@ import seedu.address.ui.UiPart;
 public class ArchivedOrderCard extends UiPart<Region> {
 
     private static final String FXML = "ArchivedOrderListCard.fxml";
+    public final Order archivedOrder;
+
+    private final Logger logger = LogsCenter.getLogger(ArchivedOrderCard.class);
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,8 +30,6 @@ public class ArchivedOrderCard extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
-
-    public final Order archivedOrder;
 
     @FXML
     private HBox cardPane;
@@ -63,6 +66,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
     @FXML
     private FlowPane customerTags;
 
+
     public ArchivedOrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.archivedOrder = order;
@@ -88,7 +92,7 @@ public class ArchivedOrderCard extends UiPart<Region> {
                 orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
                         order.getSchedule().get().getCalendarString(), order.getSchedule().get().getVenue()));
             } catch (NoSuchElementException e) {
-                System.out.println(e.toString());
+                logger.severe("ERROR: This order should not appear here");
                 orderStatus.setText("ERROR: This order should not appear here, each order can only be here "
                         + "if they have schedule and is completed");
             }

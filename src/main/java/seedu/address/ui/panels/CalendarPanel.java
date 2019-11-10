@@ -3,6 +3,7 @@ package seedu.address.ui.panels;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import jfxtras.scene.control.agenda.Agenda;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.CalendarDate;
 import seedu.address.model.order.Order;
 import seedu.address.model.schedule.Schedule;
@@ -20,6 +22,8 @@ import seedu.address.ui.UiPart;
  */
 public class CalendarPanel extends UiPart<Region> {
     private static final String FXML = "CalendarPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
+
     private Agenda agenda;
     private ObservableList<Schedule> scheduleList;
     private ObservableList<Order> orderList;
@@ -48,14 +52,16 @@ public class CalendarPanel extends UiPart<Region> {
         setAgendaView(Calendar.getInstance());
 
         // set up listener
-        scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
-        calendarDate.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
+        this.scheduleList.addListener((ListChangeListener<Schedule>) change -> populateAgenda());
+        this.calendarDate.getProperty().addListener((observableValue, calendar, t1) -> setAgendaView(t1));
     }
 
     /**
      * To populate the agenda with the schedules in the observable list
      */
-    private void populateAgenda() {
+
+    public void populateAgenda() {
+        logger.info("Populating Calendar with schedules.");
         agenda.appointments().clear();
 
         for (Schedule schedule: scheduleList) {
@@ -81,7 +87,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Helper method to convert the calendar object into LocalDateTime object
+     * Helper method to convert the Calendar object into LocalDateTime object
      */
     private LocalDateTime calendarToLocalDateTime(Calendar calendar) {
         int year = calendar.get(Calendar.YEAR);
@@ -101,6 +107,7 @@ public class CalendarPanel extends UiPart<Region> {
      * Switch the agenda view to the week containing the specified date.
      */
     private void setAgendaView(Calendar calendar) {
+        logger.info("Date view on Calendar changed.");
         LocalDateTime localDateTime = calendarToLocalDateTime(calendar);
         agenda.setDisplayedLocalDateTime(localDateTime);
     }
