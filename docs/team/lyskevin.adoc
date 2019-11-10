@@ -18,11 +18,11 @@ provides a Graphical User Interface (GUI) which was created using JavaFX and FXM
 
 *Major enhancement*: Added the *calendar window* feature
 ** What it does: The calendar displays general date and engagement information. It is capable of displaying a list of engagements
-for each displayed date and lets users navigate back and forth between months.
+for each displayed date and lets users navigate back and forth between months. +
 ** Justification: This feature gives the user a visual representation of the engagements that they have for the month. It adds
-both breadth (engagement information across the entire month) and depth (individual engagement lists for each day) to the application.
+both breadth (engagement information across the entire month) and depth (individual engagement lists for each day) to the application. +
 ** Highlights: This enhancement was challenging to implement because it required heavy use of JavaFX and FXML, which I was not well-versed
-in. The calendar window also updates itself in real-time as engagements are added or deleted, which involved careful management of dependencies
+in. The calendar window also updates itself in real-time as engagements are added or deleted, which involved careful management of dependencies. +
 between different areas of the codebase. The implementation involved parsing dates, which can be notoriously tedious in programming.
 ** Credits: The UI code for the calendar window was adapted from https://github.com/SirGoose3432/javafx-calendar.
 
