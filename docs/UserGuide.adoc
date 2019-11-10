@@ -1495,23 +1495,90 @@ image::DiaryUnLockHackAfter.png[width=600]
 
 == Achievements
 
-Travezy provides a way for you to look through your progress within the app itself. You will be able to see the overall
-statistics of your current progress as you grow to become a top traveller!
 
-=== Address Book Achievements
+You dream to become a top traveller travelling far and wide.. You have used _TravEzy_ extensively and would want to keep
+track of your travel progress. From each of the different features inside _Travezy_, you are curious to find out the
+progress of the goals you have set for yourself. This will allow you to gain insights about your travelling and spending
+habits to motivate yourself to travel more, spend less and record all your favourite moments!
 
-In the Address Book Achievements, you will be able to see:
+_TravEzy_ application consist of 5 different features: Address Book, Calendar, Diary, Financial Tracker and
+Itinerary. For each of the different feature, _TravEzy_ gives you a walkthrough of what statistics you can see for
+each feature when you are at the achievements page itself.
 
-. Total Contacts in your  Address Book out of 200
-. Number of contacts from different country
+=== Interface
 
-=== Calendar Achievements (Coming in v1.4)
+Navigating around the achievements interface:
 
-=== Diary Achievements (Coming in v1.4)
+image::AchievementsInterface.png[width=800]
 
-=== Financial Tracker Achievements (Coming in v1.4)
+[NOTE]
+The statistics for each feature is generated and displayed on the _scroll pane_ upon arriving at the achievements page
 
-=== Itinerary Achievements (Coming in v1.4)
+=== Statistics
+
+The _scroll pane_ contains the statistics for:
+
+* Address Book Statistiscs
+* Calendar Statistics
+* Diary Book Statistics
+* Financial Tracker Statistics
+* Itinerary Statistics
+
+image::Achievements.gif[width=600]
+
+==== Address Book Statistics
+
+In the _scroll pane_ you will be able to see the statistics of the address book feature comprising of the following
+components:
+
+image::AchievementsAddressBook.png[width = 800]
+
+[WARNING]
+If the number of contacts in the address book has past the target goal of 200, the _progress bar_ will show 100% instead
+of the actual percentage.
+
+==== Calendar Achievements
+
+In the _scroll pane_ you will be able to see the statistics of the calendar feature comprising of the following
+components:
+
+image::AchievementsCalendar.png[width=800]
+
+[WARNING]
+The _progress bar_ will not be displayed if the number of vacation days is 0.
+
+==== Diary Achievements
+
+In the _scroll pane_ you will be able to see the statistics of the diary feature comprising of the following components:
+
+image::AchievementsDiaryBook.png[width=800]
+
+[WARNING]
+If the number of entries in the diary book has past the target goal of 200, the _progress bar_ will show 100% instead
+of the actual percentage.
+
+==== Financial Tracker Achievements
+
+In the _scroll pane_ you will be able to see the statistics of the financial tracker feature comprising of the following
+components:
+
+image::AchievementsFinancial1.png[width=800]
+
+image::AchievementsFinancial2.png[width=800]
+
+[WARNING]
+If the number of entries in the diary book has past the target goal of 200, the _progress bar_ will show 100% instead
+of the actual percentage.
+
+==== Itinerary Achievements
+
+In the _scroll pane_ you will be able to see the statistics of the itinerary feature comprising of the following components:
+
+image::AchievementsItinerary.png[width=800]
+
+[WARNING]
+If the number of entries in the itinerary has past the target goal of 200, the _progress bar_ will show 100% instead
+of the actual percentage.
 
 == FAQ
 
