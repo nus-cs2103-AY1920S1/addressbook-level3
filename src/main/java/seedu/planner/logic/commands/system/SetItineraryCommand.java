@@ -5,7 +5,7 @@ import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
 import seedu.planner.model.Model;
 import seedu.planner.model.ReadOnlyItinerary;
-
+//@@author OneArmyj
 /**
  * A command that is not usable by a User, only exist to assist in undoing the effects of AutoSchedule and
  * OptimiseBudget commands.

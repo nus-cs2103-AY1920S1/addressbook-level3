@@ -12,7 +12,7 @@ import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.model.ContactManager;
 import seedu.planner.model.ReadOnlyContact;
 import seedu.planner.model.contact.Contact;
-
+//@@author OneArmyj
 /**
  * An Immutable Contact that is serializable to JSON format.
  */

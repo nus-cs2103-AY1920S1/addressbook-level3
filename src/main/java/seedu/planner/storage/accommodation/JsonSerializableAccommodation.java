@@ -12,7 +12,7 @@ import seedu.planner.commons.exceptions.IllegalValueException;
 import seedu.planner.model.AccommodationManager;
 import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.accommodation.Accommodation;
-
+//@@author OneArmyj
 /**
  * An Immutable Accommodation that is serializable to JSON format.
  */

@@ -9,7 +9,7 @@ import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.ReadOnlyActivity;
 import seedu.planner.model.ReadOnlyContact;
 import seedu.planner.model.ReadOnlyItinerary;
-
+//@@author OneArmyj
 /**
  * A command that is not usable by a User, only exist to assist in undoing the effects of Clear command.
  */

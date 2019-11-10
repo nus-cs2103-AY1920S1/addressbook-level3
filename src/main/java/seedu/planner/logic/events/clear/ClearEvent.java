@@ -10,7 +10,7 @@ import seedu.planner.model.ReadOnlyAccommodation;
 import seedu.planner.model.ReadOnlyActivity;
 import seedu.planner.model.ReadOnlyContact;
 import seedu.planner.model.ReadOnlyItinerary;
-
+//@@author OneArmyj
 /**
  * An event representing a 'clear' command.
  */

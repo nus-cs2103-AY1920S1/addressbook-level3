@@ -6,7 +6,7 @@ import seedu.planner.logic.commands.addcommand.AddActivityCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteActivityCommand;
 import seedu.planner.logic.events.Event;
 import seedu.planner.model.activity.Activity;
-
+//@@author OneArmyj
 /**
  * An event representing a 'delete activity' command.
  */
