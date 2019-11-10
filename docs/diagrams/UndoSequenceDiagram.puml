@@ -30,17 +30,23 @@ deactivate CatalogParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoCommand()
+UndoCommand -> Model : getUndoCommand()
 activate Model
 
-Model -> CommandHistory : undo()
+Model -> CommandHistory : getUndoCommand()
 activate CommandHistory
 
-CommandHistory --> Model :
+CommandHistory --> Model
 deactivate CommandHistory
 
 Model --> UndoCommand
 deactivate Model
+
+UndoCommand -> UndoCommand : execute()
+activate UndoCommand
+
+UndoCommand --> UndoCommand
+deactivate UndoCommand
 
 UndoCommand --> LogicManager : result
 deactivate UndoCommand
