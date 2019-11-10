@@ -23,7 +23,7 @@
         <Label text="Enter your question" />
       <TextArea fx:id="questionField" prefHeight="50.0" />
         <Label fx:id="addAnswerLabel" text="Enter your answers" />
-        <VBox fx:id="answerContainer" maxHeight="50.0" />
+        <VBox fx:id="answerContainer" />
         <Button fx:id="onAddQuestion" mnemonicParsing="false" text="Add card" />
     </children>
 </fx:root>

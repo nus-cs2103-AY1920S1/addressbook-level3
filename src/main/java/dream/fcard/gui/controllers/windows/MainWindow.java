@@ -10,6 +10,7 @@ import dream.fcard.gui.controllers.jsjava.JavaEditorApplication;
 import dream.fcard.gui.controllers.jsjava.JsEditorApplication;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.logic.respond.Responder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
@@ -21,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -50,23 +51,17 @@ public class MainWindow extends VBox {
     @FXML
     private Label messageLabel;
     @FXML
-    private TextArea cli;
-
-    private CliEditor clieditor;
+    private TextField commandLine;
 
     private Consumer<Boolean> displayDecks = b -> render();
     private Consumer<Boolean> renderList = b -> renderDecks();
     private Consumer<Pane> swapDisplays = p -> {
         displayContainer.getChildren().clear();
         displayContainer.getChildren().add(p);
-
-        displayScrollPane.setVvalue(displayScrollPane.getVmin());
-        //
-        //System.out.println(displayScrollPane.getVvalue());
+        //displayScrollPane.setVvalue(0);
     };
     private Consumer<String> displayMessage = message -> {
-        //messageLabel.setText(message);
-        clieditor.printNewLine(message);
+        messageLabel.setText(message);
     };
     private Consumer<Boolean> clearMessage = b -> messageLabel.setText("");
 
@@ -99,7 +94,6 @@ public class MainWindow extends VBox {
      */
     @FXML
     public void initialize() {
-        clieditor = new CliEditor(cli);
         displayScrollPane.vvalueProperty().bind(displayContainer.heightProperty());
         onCreateNewDeckMenuItem.setOnAction(e -> showCreateNewDeckForm());
         registerConsumers();
@@ -176,6 +170,18 @@ public class MainWindow extends VBox {
             displayContainer.getChildren().add(deckDisplay);
             //displayScrollPane.setVvalue(0);
         }
+    }
+
+
+    /**
+     * Responsible for clearing text input area after user presses the Enter key.
+     * Also responsible for getting the Responder class to parse and execute the entered command.
+     */
+    @FXML
+    private void handleUserInput() {
+        String input = commandLine.getText();
+        Responder.takeInput(input);
+        commandLine.clear();
     }
 
     /**
