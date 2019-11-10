@@ -427,36 +427,57 @@ image::view3.png[]
 // tag::delete[]
 === Deleting Finance : `delete`
 
-Deletes the specified Transaction or Budget from the finance manager. +
+Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 Format: `delete TYPE+INDEX`
 
 ****
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `delete b1` refers to deleting an *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
 * You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
+PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` is not allowed)
+
+==== Example Usage:
+
+ Deleting the 5th entry of the transactions list
+
+. Note the index of the entry you want to delete. In this example, *entry 5* is the field we will be deleting.
++
+image::delete_ug_1.png[]
++
+. Since we are deleting a *Transaction* entry of index 5, we will input `t` into our `TYPE` field and `5` into our `INDEX` field.
++
+image::delete_ug_2.png[]
++
+. Success message will be displayed upon successful deletion.
++
+image::delete_ug_3.png[]
+
+
 Examples:
 
 * `delete t1`
 * `delete b3`
+* `delete l2`
+* `delete p4`
 
 [[Update]]
 === Updating Finance : `update`
 
-Updates the specified income or expenditure from the finance manager. +
+Updates the specified entry within PalPay. +
 Format: `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]`
 
 ****
-* `AMOUNT` accepts a non-negative value lesser than 1,000,000.
+* `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
 * `ITEM` accepts the description of this Transaction or Budget.
 * `DATE` accepts the date of this Transaction or Budget
 * `CATEGORY` accepts the CATEGORY for the Transaction or Budget.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update b1 ...` refers to updating a *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `update t1` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted but `update t1` will not be accepted).
 * You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget of `INDEX` does not exists.
