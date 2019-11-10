@@ -12,6 +12,7 @@ EzWatchlist is a desktop application that allows forgetful users to keep track o
 It was developed by a group of 5 students from the National University of Singapore taking the Software Engineering module including
 myself under the premise that we had to either optimize or morph an existing https://github.com/se-edu/addressbook-level3[AddressBook] application. We chose the latter. Another
 constraint was ensuring that the application has a command-line interface, which means that all commands should be executable through typing.
+The picture below shows the various components of EzWatchlist.
 
 .Graphical User Interface of EzWacthlist
 image::Ui.png[width="790"]
