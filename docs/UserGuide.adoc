@@ -261,6 +261,12 @@ the calendar view for November 2019, albeit at the top left corner.
 Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
 for that date.
 
+=== Closing a displayed list of engagements for a specified date (calendar view only): `calendar c/closedisplay`
+Closes the open engagements list window for the specified date. This command does not work if the application
+if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
+
+Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
 === Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
 application is in another tab or if attempting to go above the maximum allowable year of 9999.
