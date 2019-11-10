@@ -82,8 +82,7 @@ this enhancement has to be considerable of the future features implementations a
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
 *Code contributed*: The links provided show my code contribution for the project. 
-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense] 
-[https://github.com/junhuplim/main[Github Repo]]
+(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=junhup&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false[Reposense], https://github.com/junhuplim/main[Github Repository])
 
 *Other contributions*
 
