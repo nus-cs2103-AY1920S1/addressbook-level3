@@ -15,7 +15,7 @@ For our module CS2103T: Software Engineering, my team and I were tasked to enhan
 We eventually turned it into a product called Seller Manager Lite (SML), which aims to help small-scale handphone resellers manage their sales and inventory with ease.
 Users interact with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10,000 lines of code.
 
-My role was being in charge of the Logic Component, implementing the commands and parsers for Customer, Phone and Order data.
+My role was being in charge of the Logic component, implementing the commands and parsers for Customer, Phone and Order data.
 Additionally, I was tasked to implement an undo/redo feature, find feature and copy feature.
 
 
@@ -26,9 +26,9 @@ Additionally, I was tasked to implement an undo/redo feature, find feature and c
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: https://github.com/yamgent[yamgent] - I re-used some of his code to implement the UndoRedoStack. Other than that,
+** Credits: https://github.com/yamgent[yamgent] - I adapted some of his code to implement the UndoRedoStack and fixed the bugs that came with his approach.
 
-* *Minor enhancement*: I added the ability to create/read/update/delete customer, phone and order
+* *Minor enhancement*: I added the ability to create/read/update/delete customer, phone and order.
 
 * *Minor enhancement*: I added find command(s) that allows the user to search for customer, phone or order that matches certain keywords.
 This required enhancing the existing find command.
