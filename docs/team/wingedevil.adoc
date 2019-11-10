@@ -13,8 +13,6 @@ endif::[]
 
 == PROJECT: VISIT
 
----
-
 == Overview
 
 VISIT is an open-source Customer Relationship Management (CRM) software for *House Call Doctors*. It is based on a Command-Line Interface (CLI) application called AddressBook3 by the SE-EDU Initiative. The UnrealUnity Team comprising of 4 people including myself introduced features that allow these doctors on-the-go to manage their appointments in an easy and enhanced fashion. It is written in Java with its GUI created in JavaFX, and has about 16 kLoC.
@@ -22,7 +20,7 @@ VISIT is an open-source Customer Relationship Management (CRM) software for *Hou
 .VISIT Main Window
 image::Ui.png[width="790"]
 
-I was tasked with conceptualizing and implementing the *Appointments* system comprising of *Reminders* and *Follow-ups*. This document highlights these features and provides the documentation for them from the User and Developer Guides.
+I was tasked with conceptualizing and implementing the *Alias* feature. This document highlights this feature and provides excerpts of documentation for them from the User and Developer Guides.
 
 == Summary of contributions
 
@@ -48,80 +46,65 @@ I was tasked with conceptualizing and implementing the *Appointments* system com
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== *Appointment System*
+=== *Optimization for Command-Line Interface (CLI) Users*
 
 ====
-VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up visits or other timed reminders.
-
-There are two kinds of Appointments: Follow-Ups and Reminders.
-
-You can only have one active Appointment of the same title, adding the same Appointment with a different day count will simply update the existing Appointment.
-
-Follow-ups in this version do not update if you change the name of the patient after the follow-up is created.
+VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
 ====
 
-==== Adding a follow-up visit with patient : `followup`
+==== Setting a shorthand command / alias : `alias`
 
-Adds a follow-up visit for a particular patient. You can add one even if you have never had a visit with the patient in the past. The application will keep track of when your next appointment with the patient is on the Appointments window. +
-Format: `followup INDEX [d/DAYS]`
-
-[TIP]
-The follow-up entry will by default generate the follow-up for 7 days' time if not specified.
+Set an alias for a command to enable faster command entry for a customized input. This command will override your previous mapping for the alias if there exists a prior mapping. Additionally, using existing commands as aliases is disallowed. +
+Format: `alias l/SHORTHAND v/COMMAND`
 
 *Examples*:
 
-* `followup 9 d/10` +
-Creates a follow-up entry on patient with index 9 for 10 days later.
-* `followup 1` +
-Creates a follow-up entry on patient with index 1 for 7 days later.
+* `alias l/ls v/list` +
+Typing `ls` now works equivalently as typing `list`.
+* `alias l/display all patients v/list` +
+Typing `display all patients` now works equivalently as typing `list`.
 
-image::UGApptFollowUps.png[width="790"]
+image::UGAddAlias.png[width="800"]
 
-==== Creating a generic reminder : `reminder`
+[NOTE]
+The `alias` command will override any previous alias mapping if any. +
+All your aliases are saved across multiple sessions and are persistent until removed.
 
-Creates a new reminder to show up in the Appointments window. +
-Format: `reminder TEXT [d/DAYS]`
+==== Removing a shorthand command / alias : `unalias`
 
-[TIP]
-The reminder entry will by default generate the prompt for 7 days' time if not specified.
-
-*Examples*:
-
-* `reminder Two Point Hospital closed d/10` +
-Creates a reminder "Two Point Hospital closed" that will display for the next 10 days.
-* `reminder Losartan recall` +
-Creates a reminder "Losartan recall" that will display for the next 7 days.
-
-image::UGApptReminders.png[width="790"]
-
-==== Removing an Appointment : `removeappt`
-
-Remove an appointment from VISIT. This can be either a Follow-up or Reminder. +
-Format: `removeappt DESCRIPTION [d/DAYS]`
-
-[TIP]
-Any appointment matching just the description will be removed if the specific days is not specified.
+Delete an existing alias, if it exists. +
+Format: `unalias SHORTHAND`
 
 *Examples*:
 
-* `removeappt Two Point Hospital closed` +
-Removes any appointment which description is "Two Point Hospital closed".
-* `removeappt Satya Nadella` +
-Removes any appointments with the patient whose name is Satya Nadella.
+* `unalias ls` +
+Typing `ls` will no longer be equivalent to typing `list`.
 
-image::UGApptRemoveAppt.png[width="790"]
+image::UGUnalias.png[width="800"]
 
-==== Show Appointments "Message of the Day" box : `show`
+==== Showing all existing shorthand commands / aliases : `aliaslist`
 
-Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
-Format: `show`
+Show all existing aliases. +
+Format: `aliaslist`
 
-image::UGApptShow.png[width="790"]
+Examples:
 
-==== Sort Appointments : `sort`
+* `aliaslist` +
+Shows all the existing aliases.
 
-Sorts the appointments in order of type, days remaining, and finally by name. +
-Format: `sort`
+image::UGAliasList.png[width="800"]
+
+==== Using aliases
+To use a user-defined alias, you just have to type the alias you defined. Additional optional parameters can also be specified if the aliased command takes in additional arguments. +
+Format: `SHORTHAND [additional arguments]`
+
+Examples:
+
+image::UGApplyAlias.png[width="800"]
+
+[NOTE]
+Matching of aliases uses the longest substring match. (i.e. if there exists an alias _follow 7_ and _follow_, typing _follow 7_ will always match with _follow 7_ instead of _follow_.)
+
 
 == Contributions to the Developer Guide
 
@@ -129,40 +112,39 @@ Format: `sort`
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Appointments feature
+=== Alias feature
 ==== Implementation
-The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
+The alias mechanism is facilitated by `AliasTable`. At a lower level, saving of aliases is facilitated by use of a `HashMap`.
+It is contained within `UserPrefs` and can be serialized together with the rest of the members in `UserPrefs`.
+Additionally, it implements the following operations:
 
-.Appointment Class Diagram
-image::DGApptAppointmentClassDiagram.png[]
+* `AliasTable#applyAlias(commandText)` -- Applies the longest stored aliases to the supplied command.
+* `AliasTable#addAlias(alias, aliasTo)` -- Adds a new alias to the alias table.
+* `AliasTable#removeAlias(alias)` -- Removes a existing alias from the alias table.
 
-.AppointmentList Class Diagram
-image::DGApptAppointmentListClassDiagram.png[]
+These operations are exposed in the `Model` interface as `Model#applyAlias(commandText)`, `Model#addAlias(alias, aliasTo)` and `Model#removeAlias(alias)` respectively.
 
-.AppointmentTable Class Diagram
-image::DGApptAppointmentTableClassDiagram.png[]
+The following sequence diagram shows how adding an alias works:
 
-The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
+image::AddAliasSequenceDiagram.png[]
 
-It implements the following operations:
+[NOTE]
+The check for and illegal alias consists of creating a new `AddressBookParser` and parsing the given alias into it, which is not shown in this diagram.
 
-* `AppointmentTable#getDefaultAppointments()` -- Returns a default, empty `AppointmentTable`.
-* `AppointmentTable#getAppointmentList()` -- Returns an `ObservableList` version of the Appointments for UI usage. This is necessary as `AppointmentTable` is loaded on launch and `AppointmentList` uses this data to propagate the UI.
-* `AppointmentTable#addAppointment(type, description, days)` -- Adds a new Appointment.
-* `AppointmentTable#deleteAppointment(description, days)` -- Deletes an appointment from VISIT.
-* `AppointmentTable#antiDuplicate(check, description, days)` -- Checks if the Appointment already exists. Returns true if there is no duplicate, false if there is a duplicate.
-* `AppointmentTable#sortAppointments()` -- Sorts the list of appointments by days remaining, then name.
-* `AppointmentTable#cascadeDay(days)` -- Decrements the days an Appointment has left. Run on application launch by `UserPrefs` after calculating days elapsed.
-* `AppointmentTable#outputAppointments()` -- Outputs the Appointments to readable String.
+The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` instead which calls `Model#UserPref(alias)` and `AliasTable#removeAlias(alias)`
 
-These operations are exposed in the `Model` interface.
+The following sequence diagram shows how applying alias works:
 
-The following sequence diagram shows how adding an appointment works, using reminders as an example:
+image::ApplyAliasSequenceDiagram.png[]
 
-.Adding an Appointment Sequence Diagram
-image::DGApptAddAppointmentSequenceDiagram.png[]
+[NOTE]
+This is a generalized diagram which depicts what happens between `execute(commandText)` and `LogicManager#parseCommand(alias)`. This process is not shown in other sequence diagrams.
 
-The following activity diagram shows how adding an appointment works, using follow-ups as an example:
+A user-defined alias is considered a match with the user input if the alias is a substring, that starts from the beginning, of the user input. Specifically, `AliasTable` uses the regex `(ALIAS)($| ).*` to check if it is a match. Following that, it picks the longest matching alias to apply to the user input.
 
-.Adding an Appointment Activity Diagram
-image::DGApptFollowUpActivityDiagram.png[]
+The following activity diagram shows how applying alias picks which alias to apply:
+
+image::ApplyAliasActivityDiagram.png[]
+
+[NOTE]
+An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.

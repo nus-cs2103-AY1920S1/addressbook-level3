@@ -394,6 +394,10 @@ Typing `display all patients` now works equivalently as typing `list`.
 
 image::UGAddAlias.png[width="800"]
 
+[NOTE]
+The `alias` command will override any previous alias mapping if any. +
+All your aliases are saved across multiple sessions and are persistent until removed.
+
 ==== Removing a shorthand command / alias : `unalias`
 
 Delete an existing alias, if it exists. +
@@ -425,6 +429,9 @@ Format: `SHORTHAND [additional arguments]`
 Examples:
 
 image::UGApplyAlias.png[width="800"]
+
+[NOTE]
+Matching of aliases uses the longest substring match. (i.e. if there exists an alias _follow 7_ and _follow_, typing _follow 7_ will always match with _follow 7_ instead of _follow_.)
 
 === *Saving the data*
 
