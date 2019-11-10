@@ -71,6 +71,14 @@ Please use scroll bar to view the windows properly.
 * Commands are case-sensitive.
 ====
 
+// tag::cli[]
+====
+*Command History*
+
+* After keying in a command, press up and down arrow keys to navigate your command history.
+* If in multiline editing mode, press (Ctrl+d) to submit the multiline text
+====
+
 
 // tag::help[]
 === Show help page for commands available : `help`
