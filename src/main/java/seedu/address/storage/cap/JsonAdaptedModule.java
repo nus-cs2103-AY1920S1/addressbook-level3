@@ -98,6 +98,15 @@ class JsonAdaptedModule {
         if (!Credit.isValidCredit(credit)) {
             throw new IllegalValueException(Credit.MESSAGE_CONSTRAINTS);
         }
+
+        if (grade == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Credit.class.getSimpleName()));
+        }
+        if (!Grade.isValidGrade(credit)) {
+            throw new IllegalValueException(Grade.MESSAGE_CONSTRAINTS);
+        }
+
         final ModuleCode modelName = new ModuleCode(moduleCode);
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);

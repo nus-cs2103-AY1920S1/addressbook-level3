@@ -89,7 +89,7 @@ public class UniqueModuleListTest {
     @Test
     public void setModule_editedModuleHasSameIdentity_success() {
         uniqueModuleList.add(CS2103);
-        Module editedCS2103 = new ModuleBuilder(CS2103).withFaculty(VALID_MODULE_FACULTY)
+        Module editedCS2103 = new ModuleBuilder(CS2103).withAcademicYear("1920")
                 .build();
         uniqueModuleList.setModule(CS2103, editedCS2103);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();

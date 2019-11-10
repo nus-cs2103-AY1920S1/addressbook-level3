@@ -30,7 +30,6 @@ public class ModuleBuilder {
     private AcademicYear academicYear;
     private SemesterPeriod semesterPeriod;
     private Credit credit;
-    private Faculty faculty;
     private Grade grade;
 
     public ModuleBuilder() {
@@ -40,7 +39,6 @@ public class ModuleBuilder {
         semesterPeriod = new SemesterPeriod(DEFAULT_SEMESTER_PERIOD);
         semester = new Semester(semesterPeriod, academicYear);
         credit = new Credit(DEFAULT_CREDIT);
-        faculty = new Faculty(DEFAULT_FACULTY);
         grade = new Grade(DEFAULT_GRADE);
     }
 
@@ -54,7 +52,6 @@ public class ModuleBuilder {
         semesterPeriod = moduleToCopy.getSemester().getSemesterPeriod();
         semester = moduleToCopy.getSemester();
         credit = moduleToCopy.getCredit();
-        faculty = moduleToCopy.getFaculty();
         grade = moduleToCopy.getGrade();
     }
 
@@ -107,14 +104,6 @@ public class ModuleBuilder {
     }
 
     /**
-     * Sets the {@code Faculty} of the {@code Module} that we are building.
-     */
-    public ModuleBuilder withFaculty(String faculty) {
-        this.faculty = new Faculty(faculty);
-        return this;
-    }
-
-    /**
      * Sets the {@code Grade} of the {@code Module} that we are building.
      */
     public ModuleBuilder withGrade(String grade) {
@@ -126,6 +115,6 @@ public class ModuleBuilder {
      * Initiates the build of a module.
      */
     public Module build() {
-        return new Module(moduleCode, title, semester, credit, faculty, grade);
+        return new Module(moduleCode, title, semester, credit, grade);
     }
 }
