@@ -1330,6 +1330,18 @@ Expected: Only 4 loaned books should appear, and all should contain the letter '
 .. Test case: `find -loaned -overdue` +
 Expected: An error asking for only 1 flag is shown.
 
+==== Add a book
+
+. Add a new book to the catalog.
+
+.. Prerequisites: Arguments are valid and mandatory parameters are provided.
+.. Test case: `add t/Harry Botter a/Raylei Jolking sn/B02010 g/children` +
+    Expected: Adds a children book titled "Harry Botter" by "Raylei Jolking", with the serial number "B02010", to LiBerry.
+.. Test case: `add t/Harry Botter` +
+   Expected: No book is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add`, `add a/Harry` +
+   Expected: Similar to previous.
+
 ==== Deleting a book
 
 . Deleting a book while there are books are listed
@@ -1339,8 +1351,29 @@ Expected: An error asking for only 1 flag is shown.
    Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+==== Retrieving information about a book
+
+. Retrieving a book's information while there are books are listed
+
+.. Prerequisites: Books are displayed in the list on the UI.
+.. Test case: `info 1` +
+   Expected: Information about first book is displayed in a new window.
+.. Test case: `info 0` +
+   Expected: No information is displayed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect info commands to try: `info`, `info x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+==== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
+
 
 ==== Loaning a book
 
