@@ -227,6 +227,7 @@ as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at 
 determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
 
 A snippet of the code which calculates the percentage of budget left is shown below:
+
 ```
 public String displayPercentage() {
     double percentage = this.amount.divideAmount(this.initialAmount) * 100;
@@ -242,8 +243,6 @@ he has overspent beyond the set budget:
 
 .Example of an overspent budget
 image::overspentBudget.png[]
-
-
 
 ==== Design Considerations
 
@@ -350,22 +349,26 @@ When projecting by date and category, all transactions tagged by the specified c
 Similarly, all budgets tagged with the specified category will be projected upon.
 
 ===== Budget Projections
+
 Projections on budgets are made by first projecting the _user_'s balance amount at the point when the budget was set.
 Then, it compares the _user_'s projected balance amount at the point of the budget's deadline, with the budget's amount.
 A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
 than the latter.
 
 ===== Activity Diagram
+
 The activity diagram below depicts how a projection is made.
 
 image::ProjectActivityDiagram.png[]
 
 ===== Graphical Representation
+
 A graphical representation of the _user_'s projections may be rendered using the `display` command.
 
 ==== Future Enhancements
 
 ===== Polynomial Regression
+
 For simplicity of logic and design, the current implementation performs linear regression (via gradient descent),
 projecting user balance and budget states using a best-fit straight line. Ultimately, income and spending trends
 may not be best represented by a straight line, but rather by a polynomial equation. In future updates, the `projection`
@@ -373,6 +376,7 @@ feature will choose a value, _n_, and perform a _n-th_ degree polynomial regress
 and budget states can be more accurately projected.
 
 ===== Normal Equation
+
 Currently, the gradient descent algorithm is used to plot the projection graph, which is used for predicting the
 _user_'s balance and budget states at specified point in time. For smaller data sets, analytically computing the
 normal equation to find the best-fit line graph may have result in a faster runtime. In future updates, the
@@ -607,7 +611,6 @@ If the `currentStatePointer` is at index 0, pointing to the initial user state, 
 user states to restore. The `undo` command uses `Model#canUndoUserState()` to check if this is the case.
 If so, it will return an error to the user rather than attempting to perform the undo.
 
-
 **Step 5**. The user then decides to execute the command `list`.
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
@@ -708,9 +711,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
 [appendix]
-
 [[User-Stories]]
-
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
