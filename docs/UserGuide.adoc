@@ -150,7 +150,7 @@ Format: `invite p/PERSON ...`
 Example: +
 Suppose you have already created an activity with Alice, Bob and Carl in it.
 
-image::Activity.png[Activity, 400, 400]
+image::Activity.png[Activity, 400, 500]
 
 And you have friends that wants to join an activity midway.
 
@@ -158,11 +158,11 @@ To invite:
 
 Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-image::../images/InviteExample.png[InviteExample, 450, 400]
+image::../images/InviteExample.png[InviteExample, 450, 600]
 
 Step 2: Observe the output in result box and the activity details box.
 
-image::InviteOutput.png[InviteOutput, 400, 400]
+image::InviteOutput.png[InviteOutput, 400, 600]
 
 NOTE: *The `invite` command only invites to current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
@@ -184,7 +184,7 @@ Format: `disinvite p/PERSON ...`
 Example: +
 Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
 
-image::DisinviteExample.png[DisinviteExample, 300, 300]
+image::DisinviteExample.png[DisinviteExample, 300, 500]
 
 And you feel that the activity has too many participants that do not participate in any event, thus having no shared expense and you decided to remove them.
 
@@ -192,11 +192,11 @@ To disinvite:
 
 Step 1: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-image::DisinviteCommand.png[DisinviteCommand, 450, 400]
+image::DisinviteCommand.png[DisinviteCommand, 450, 600]
 
 Step 2: Observe the output in result box and the activity details box.
 
-image::DisinviteOutput.png[DisinviteOutput, 400, 400]
+image::DisinviteOutput.png[DisinviteOutput, 400, 600]
 
 NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
