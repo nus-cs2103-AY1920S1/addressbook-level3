@@ -35,7 +35,11 @@ public class StartTimeTrialCommandParser implements Parser<StartTimeTrialCommand
         Set<Tag> tags = new HashSet<>();
         // copy to array of tags
         for (String s : tagKeywords) {
-            tags.add(new Tag(s));
+            try {
+                tags.add(new Tag(s));
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(e.getMessage());
+            }
         }
         return new StartTimeTrialCommand(new FlashcardContainsTagPredicate(tags), tagKeywords);
     }

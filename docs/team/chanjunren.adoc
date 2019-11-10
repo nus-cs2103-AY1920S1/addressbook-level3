@@ -53,7 +53,7 @@ alternatives was necessary to implement the feature in a way that doesn’t disr
 * *Other contributions*:
 
 * Project management:
-** Discussed
+** Facilitated discussion of the overall direction of the application in v1.1.
 
 * Developing existing features:
 ** Implemented the switching of modes and hooking up the activity window to the respective modes(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/162[#162]).
