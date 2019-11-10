@@ -1213,6 +1213,63 @@ Details of the opened bookmark shown in the status message.
 .. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
+=== Adding a bookmark to favorites
+
+. Adding a Favorite tag to a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+The first bookmark does not contain `Favorite` tag.
+.. Test case: `favorite 1` or `fav 1` +
+   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
+   of favorite bookmarks in the top right corner of the dashboard tab.
+Details of the bookmark shown in the status message.
+.. Test case: `fav 0` +
+   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
+.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Undoing previous commands
+
+. Undoing the most recent undoable command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+Details of the `delete` action shown in the status message.
+
+. Undoing multiple previous undoable commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
+   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
+Details of the two reverted `delete` actions shown in the status message.
+.. Test case: `undo 0` +
+   Expected: No action is undone. Error details shown in the status message.
+.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
+   Expected: Similar to previous.
+
+=== Redoing previous undo commands
+
+. Redoing the most recent undo command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` and `redo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+After the `redo` command, the deleted bookmark disappears from the bookmark list again.
+Details of the restored `delete` action shown in the status message.
+
+. Redoing multiple previous undo commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
+   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
+After the `redo 2` commands, the two bookmarks get deleted again.
+Details of the two restored `delete` actions shown in the status message.
+.. Test case: `redo 0` +
+   Expected: No action is redone. Error details shown in the status message.
+.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
+   Expected: Similar to previous.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
