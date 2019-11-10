@@ -32,7 +32,7 @@ public class AvailableInDistrictPredicateTest {
     }
 
     @Test
-    public void test_vehicleNotAvailableInDistrict_returnsTrue() {
+    public void test_vehicleNotAvailableInDistrict_returnsFalse() {
         assertFalse(p1.test(V6));
     }
 }
