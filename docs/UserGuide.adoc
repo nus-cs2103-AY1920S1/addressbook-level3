@@ -572,13 +572,14 @@ will be auto-tagged as "Popular".
 
 === Deliverymen commands
 
-These are the commands you can use after entering the deliverymen context (via the command `deliverymen`).
+These are the commands you can use after entering the deliverymen context (via the command `-deliverymen`).
 
 {nbsp} +
 
 ==== Adding a deliveryman: `add`
 
-This command allows you to add a new deliveryman to the deliverymen database. Name and phone number are compulsory fields.
+This command allows you to add a new deliveryman to the deliverymen database. The name and phone number must be
+provided.
 
 Format: `add n/NAME p/PHONE`
 
@@ -588,20 +589,18 @@ Example: `add n/John Doe p/91234567`
 ====
 
 .Requirements
-* add reqs here
+* The phone number must be at least 3 digits and not exceed 10 digits.
+
 ====
 
 {nbsp} +
 
 ==== Editing a deliveryman: `edit`
 
-This command allows you to edit an existing deliveryman in the deliverymen database. You must edit at least one field
-(eg. name, phone number).
+This command allows you to edit an existing deliveryman in the deliverymen database. The index of the deliveryman to be
+edited must be provided.
 
-NOTE: Editing the info of a deliveryman will reset the status of the deliveryman to *UNAVAILABLE*. You will have
-to switch it back to *AVAILABLE* through the `status` command explained in _Section 3.4.5_.
-
-Format: `edit INDEX [n/NAME] [p/PHONE]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]`
 
 Example: `edit 1 n/John Hoe p/97654321`
 
@@ -609,15 +608,17 @@ Example: `edit 1 n/John Hoe p/97654321`
 ====
 
 .Requirements
-* add reqs here
+* The index INDEX provided must be within the deliverymen list size and be at least 1.
+* At least one field must be edited (eg. name, phone number, tag(s)).
+
 ====
 
 {nbsp} +
 
 ==== Deleting a deliveryman: `delete`
 
-This command allows you to delete an existing deliveryman in the deliverymen database. You only have to provide the
-index of the deliveryman.
+This command allows you to delete an existing deliveryman in the deliverymen database. The index of the deliveryman to
+be deleted must be provided.
 
 Format: `delete INDEX`
 
@@ -627,34 +628,31 @@ Example: `delete 1`
 ====
 
 .Requirements
-* add reqs here
+* The index provided must be within the deliverymen list size and be at least 1.
+
 ====
 
 {nbsp} +
 
-==== Listing status lists of deliverymen: `lista`
+==== Listing status lists of deliverymen: `lists`
 
-This command allows you to view all the deliverymen sorted according to their statuses. For your easy navigation,
-you can click on any of the three buttons to show the status list that you wish to view
-*(Yes, it took me one whole day to learn JavaFX and implement that shit)*, as shown in Fig X.Y below.
+This command allows you to view all the deliverymen sorted according to their statuses. For easy navigation,
+you can click on any of the three buttons to show the status list that you wish to view, as shown in Fig X.Y below.
 
-`(Diagram to be added here)`
+image::userguide\EditMode.png[width="790"]
+
+Format: `lists`
+
+Example: `lists`
 
 NOTE: A deliveryman can have one of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
-
-Format: `lista`
-
-Example: `lista`
 
 {nbsp} +
 
 ==== Changing status of a deliveryman: `status`
 
 This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
-will prompt the status lists as well (that can be done through `lista` command explained in _Section 3.4.4_).
-
-NOTE: You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. Completion of the
-the assigned delivery will automatically set it back to *AVAILABLE*.
+will prompt the status lists as well (that can be done through `lists` command explained in _Section 3.4.4_).
 
 Format: `status INDEX`
 
@@ -664,8 +662,14 @@ Example: `status 3`
 ====
 
 .Requirements
-* add reqs here
+* The index INDEX provided must be within the deliverymen list size and be at least 1.
+* The status of the deliveryman must be either *AVAILABLE* or *UNAVAILABLE*.
+
 ====
+
+NOTE: You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. When you assign an
+order to the deliveryman, his status will be automatically set to *DELIVERING*. When you set an order as
+completed, the status of the assigned deliveryman will automatically be set back to *AVAILABLE*.
 
 {nbsp} +
 
@@ -674,27 +678,19 @@ Example: `status 3`
 This command allows you to view the statistics of the current statuses of deliverymen. Relevant statistics such as the
 utilisation level will also be computed and displayed for your reference.
 
+image::userguide\EditMode.png[width="790"]
+
 Format: `stats`
 
 Example: `stats`
 
+[NOTE]
+
+
 {nbsp} +
 
-==== Entering a specific deliveryman: `enter`
-
-This command allows you to view a deliveryman's basic information.
-
-WARNING: This is half-implemented. But you can still use it. For fun. But if you have time.
-
-Format: `enter INDEX`
-
-Example: `enter 1`
-
-[NOTE]
 ====
 
-.Requirements
-* add reqs here
 ====
 
 {nbsp} +
@@ -740,7 +736,6 @@ Example: `enter 1`
 - Add a deliveryman: `add n/NAME p/PHONE`
 - Delete a deliveryman: `delete INDEX`
 - Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE]`
-- List deliverymen sorted by status: `lista`
+- List deliverymen sorted by status: `lists`
 - Switch status of a deliveryman: `status INDEX`
 - View statistics for deliverymen current statuses: `stats`
-- List specific deliveryman info: `enter INDEX`
