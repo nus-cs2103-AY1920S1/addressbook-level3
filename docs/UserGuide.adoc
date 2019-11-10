@@ -15,7 +15,7 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 :javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
-By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
