@@ -562,7 +562,7 @@ An exception will be thrown under these 2 conditions:
 
 Below is an activity diagram to illustrate the process that the user may go through
 
-image::EditCommandActivity.png[]
+image::EditCommandActivity.png[width=500]
 
 EditIncidentCommand` class makes use of `EditIncident` object to create a new
 `Incident` object with the fields identified by user as well as the untouched
@@ -571,7 +571,7 @@ fields from the original incident. This new `Incident` will replace the original
 
 Below is a sequence diagram to illustrate how the command executes:
 
-image::EditIncidentCommand.png[]
+image::EditIncidentCommand.png[width=500]
 
 [Note]
 The command can only be used by admin accounts or accounts that created/filled/submitted
