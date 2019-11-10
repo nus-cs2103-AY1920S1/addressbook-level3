@@ -90,16 +90,16 @@ public class JsonSpendingBookStorageTest {
 
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));
+        assertThrows(NullPointerException.class, () -> saveSpendingBook(null, "SomeFile.json"));
     }
 
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ReadOnlySpendingBook addressBook, String filePath) {
+    private void saveSpendingBook(ReadOnlySpendingBook spendingBook, String filePath) {
         try {
             new JsonSpendingBookStorage(Paths.get(filePath))
-                    .saveSpendingBook(addressBook, addToTestDataPathIfNotNull(filePath));
+                    .saveSpendingBook(spendingBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
@@ -107,6 +107,6 @@ public class JsonSpendingBookStorageTest {
 
     @Test
     public void saveAddressBook_nullFilePath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAddressBook(new SpendingBook(), null));
+        assertThrows(NullPointerException.class, () -> saveSpendingBook(new SpendingBook(), null));
     }
 }
