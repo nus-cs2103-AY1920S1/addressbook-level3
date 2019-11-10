@@ -380,7 +380,7 @@ Please refer to the table below for a summary of the file formats that we suppor
 |**What is copied from each FlashCard**|Question and answer only|Question, answer, and the category which you specified in the export command
 |====
 
-NOTE: If you're on a Unix-based operating system (e.g. Mac OS, Linux), any absolute paths that you specify will have to begin from the root directory `/`, not the user directory `~`. For example, if you were on a Mac and your username was "jason", and you wanted to export to a document file on your desktop, the file path would be `/Users/jason/Desktop/document.docx`. 
+NOTE: If you're on a Unix-based operating system (e.g. Mac OS, Linux), any absolute paths that you specify will have to begin from the root directory `/`, not the user directory `~`. For example, if you were on a Mac and your username was "jason", and you wanted to export to a document file on your desktop, the file path would be `/Users/jason/Desktop/document.docx`.
 
 CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
 It must also end in one of the supported file extensions - either `.json` or `.docx`.
