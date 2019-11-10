@@ -39,10 +39,10 @@ Responsibilities: Generate PDF
 
 === Chan Dalis
 image::dalisc.png[width="150", align="left"]
-{empty}[http://github.com/dalisc[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/dalisc[github]] [<<dalisc#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Statistics
+Responsibilities: Stats,  Filter
 
 '''
 

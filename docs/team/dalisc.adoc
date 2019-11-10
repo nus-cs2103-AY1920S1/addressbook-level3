@@ -1,0 +1,214 @@
+= Chan Dalis - Project Portfolio for Mortago v1.4
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+---
+
+== 1. Introduction
+
+=== 1.1. About the Project
+
+Mortago, a desktop application, is a comprehensive mortuary management system. It is a student project from the National University of Singapore (NUS). Mortago is a portmanteau of two Latin words: "mortem" (death) and "curago" (to manage). As its name suggests, Mortago aims to streamline mortuary processes such as updating statuses, keeping track of unclaimed bodies, and generating reports for hospital mortuary managers. The user interacts with MORTAGO using a command line interface (CLI), and it displays a dashboard (Figure 1) that shows bodies, workers and fridges entries.
+
+The interface is responsive to suit different screen sizes. However, due to its detailed interface, it is recommended for larger screen sizes such as desktop monitors. Mortago has a graphical user interface (GUI) created with JavaFX. It is written in Java, and maintains a local storage.
+
+The image below shows where the users can type the commands and where the details are displayed:
+
+image::Ui.png[width="790", align="center"]
+
+_Figure 1: Mortago's dashboard._
+
+=== 1.2. About the Team
+
+This project was undertaken by a team of five Year 2 computer science undergraduates, including myself, as part of the NUS module CS2103T Software Engineering. For most of us, it was our first time being part of a small-scale software development team. We were tasked to build the application under the contraints that it must be CLI and targets a small user base.
+
+=== 1.3. About My Role
+
+My role was to design the `stats`, `filter`, and `find` features. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
+
+Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
+
+|===
+| :bulb: a|
+This symbol indicates important information.
+|`stats`|
+A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
+|===
+
+== 2. Summary of Contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+* *Major enhancement 1*: I added the line chart display which shows admissions statistics.
+** What it does: The line chart displays the number of bodies admitted to the mortuary daily over the last ten days. This is the default view. With the `stats` command, users can toggle between a ten-day, weekly, monthly, or yearly display. Furthermore, any particular week, month, or year can be specified.
+** Justification: It is important for users to know how many bodies are admitted daily as well as the trends for admission. As managers of the mortuary, they can make staffing decisions on various times of the year depending on the trends.
+** Highlights: This feature can be further enhanced by adding more data to the display, for example, another line for bodies claimed daily which can show the average lag time between admission and claim dates.
+** Credits: Support for rendering the line chart was provided by JavaFX.
+
+* *Major enhancement 1*: I added the ability to filter entries.
+** What it does: The `filter` command allows users to filter body or worker entries by any attributes,
+** Justification: This is a necessary feature for a system that intends to manage a lot of data. Sometimes, mortuary managers just need to view entries of a specific kind. They can filter entries by sex, status, cause of death, etc.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*: I added the ability to find workers or bodies by their name.
+** Justification: Although the previous command can serve the same purpose, the `find` command is useful for when the user has a specific entry in mind that they want to view as it is a shorter and more efficient command.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chan%20dalis&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dalisc&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D&groupSelect=groupByRepos[via RepoSense]]
+
+* *Other contributions*:
+
+** Enhancements to existing features: I wrote additional tests for existing features to increase coverage from __% to __%. (Pull request: https://github.com[#36])
+** Documentation: I made cosmetic tweaks to existing contents of the User Guide to make it more reader-friendly.(Pull request: https://github.com[#36])
+** Community:
+*** I reviewed PRs, offering non-trivial review comments. (Exampless: https://github.com[#36])
+*** I reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+== 3. Contributions to the User Guide
+We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
+made for the `stats`, `fitler`, and `find` features.
+
+_{start of extract 1: stats command}_
+
+==== 3.4.1. View admission statistics: `stats`
+
+This command allows you to view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year.
+
+The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the `stats` command.
+
+The following are the correct formats for typing in stats commands, with example usage:
+
+* To display the last 10 days: `stats` +
+The line chart will display statistics over the last 10 days. The line chart will appear as below:
+
+image::statsTenDays.png[width="790"]
+
+* To display a specific week: `stats /week 25/10/2019` +
+The line chart will display statistics for the week which contains the specified day. In this case, it is the date 12/10/2019. The line chart will appear as below:
+
+image::statsWeek.png[width="790"]
+
+* To display a specific month: `stats /month 5/2019` +
+The line chart will display statistics or the month specified. In this case, it is May 2019. The line chart will appear as below:
+
+image::statsMonth.png[width="790"]
+
+* To display a specific year: `stats /year 2019` +
+The line chart will display statistics for the year specified. In this case is it 2019. The line chart will appear as below:
+
+image::statsYear.png[width="790"]
+_{end of extract 1}_
+
+
+_{start of extract 2: filter command}_
+
+==== 3.2.3. Filter all entries: `filter`
+
+This command allows you to filter all entries according to the given keywords in any of an entry’s attributes. All entries with matching keywords will be displayed. Keyword is case-insensitive.
+
+All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries displayed must fulfill all attributes. Please refer to <<Section 3.1.1>> for the different fields available to be filtered.
+
+Format: `filter -FLAG [/attributeName attributeValue ...]`
+
+Example:
+
+* `filter -w /sex female` +
+All female worker entries will be displayed.
+
+* `filter -b /cod Car Accident /sex male` +
+All body entries with car accident as the cause of death and those that are male will be displayed.
+
+_{end of extract 2}_
+
+_{start of extract 3: find command}_
+
+==== 3.1.3. Locating entries by name: `find`
+
+Finds bodies or workers whose names contain any of the given keywords. +
+
+Format: `find (flag) (keyword)...`
+
+|===
+| :bulb: a|
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+|===
+
+Format: `find -FLAG [keyword...]`
+
+Examples:
+
+* `find -b John` +
+Returns any bodies having names `John`
+* `find -w Betsy Tim John` +
+Returns any workers having names `Betsy`, `Tim`, or `John`
+
+_{end of extract 3}_
+
+
+== 4. Contributions to the Developer Guide
+
+In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
+
+_{start of extract: implementation of stats command}_
+
+=== 4.8. Statistics feature
+
+==== 4.8.1. Current Implementation
+
+The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
+
+In `LineChartPanel`, four key operations that constructs the line chart and updates it dynamically are implemented, and they are executed in order:
+
+* `LineChartPanel#initialiseTreeMap()` -- Initialises a tree map that contains the dates as the keys and the number of bodies admitted as the frequency.
+* `LineChartPanel#initialiseLineChart()` -- Creates a Line Chart with Xaxis and Yaxis.
+* `LineChartPanel#updateSeries()` -- Adds data to the series of the line chart based on what is in the tree map.
+* `LineChartPanel#updateUponChanged()` -- If a body is added or removed, the tree map is changed accordingly depending on the date of admission of the body, and the series is updated again.
+
+The above operations are invoked through a wrapper function `LineChartPanel#makeLineChart()` which is invoked when the user calls `LineChartPanel#getLineChart()`.
+
+The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The following sequence diagram shows hows adding a body changes the `AddressBook`, and then how`LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
+
+image::LineChartAddBodySequenceDiagram.png[]
+
+The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide). The following sequence diagram shows how the stats command affect the appearance of the line chart:
+
+image::LineChartTimeFrameSequenceDiagram.png[]
+
+==== 4.8.2. Design Considerations
+
+===== Aspect: How data is stored and updated
+
+The line chart needs data to refer to. Below are two alternatives for how to access the data and update the line chart:
+
+* **Alternative 1 (current choice):** Data is not stored. Use a tree map to keep track of bodies and initialise the treemap depending on the given time frame.
+
+The following activity diagram illustrates the current choice for accessing and updating data:
+
+image::LineChartActivityDiagram.png[]
+
+** Pros: Implementation is easy.
+** Cons: Series is regenerated whenever there is a change in time frame. As can be seen from the activity diagram below, the series gets reintialised regardless of whether it will affect a change in the appearance of the line chart.
+
+* **Alternative 2:** Store all data in a separate storage class.
+** Pros: No need to reinitialise the treemap everytime a `stats` command is called.
+** Cons: Implementation requires a lot of storage which may not be tapped on most of the time.
+
+===== Aspect: The time frame of the line chart
+
+Currently the line chart supports four types of time frames as aforementioned. Below are two alternatives to which users are limited by the time frames:
+
+* **Alternative 1 (current choice):** Users can toggle between four types of time frames.
+** Pros: Implementation is easy and simple.
+** Cons: The statistics is limited in meaning if it cannot be compared between other time frames.
+
+* **Alternative 2:** Users can print a summary of statistics over a specified period.
+** Pros: The statistics will have more meaning.
+** Cons: Implementation is difficult.
+
+_{end of extract}_
+
