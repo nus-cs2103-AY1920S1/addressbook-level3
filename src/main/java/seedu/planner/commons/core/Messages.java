@@ -10,7 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ACCOMMODATION_DISPLAYED_INDEX =
             "The accommodation index provided is invalid";
     public static final String MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX = "The activity index provided is invalid";
-    public static final String MESSAGE_INVALID_ACTIVITY_WITH_TIME_INDEX = "The activity index in day"
+    public static final String MESSAGE_INVALID_ACTIVITY_WITH_TIME_INDEX = "The activity in day index"
             + " provided is invalid";
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contacts index provided is invalid";
     public static final String MESSAGE_INVALID_DAY_DISPLAYED_INDEX = "The day index provided is invalid";
