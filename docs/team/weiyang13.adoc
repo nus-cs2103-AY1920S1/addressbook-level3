@@ -13,10 +13,10 @@
 == Overview
 
 This portfolio documents my contributions towards the project, IchiFund, which is part of an introductory software
-engineering module, CS2103T. My team (of 5) was tasked to morph or enhance an existing address book software.
+engineering module, CS2103T. My team of 5 was tasked to morph or enhance an existing address book software.
 Our resulting product, IchiFund, is a desktop finance management application for students to manage transactions, budgets and loans.
 It is optimised for students that prefer using a CLI.
-My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Transactions[Transactions] component of the application.
+My role was to develop the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#transactions[Transactions] component of the application.
 
 == Summary of contributions
 * *Major enhancement*: Developed the `Model`, `Logic`, `Storage`, and `Ui` infrastructure for transactions.
@@ -29,7 +29,7 @@ The modifications to the GUI (addition of a filter title and reorganizing inform
 * *Major enhancement*: Added the ability to *add and filter transactions* with *optional arguments based on the current filter* (enhancement with greatest depth)
 ** Functionality: The `filter` command changes the existing filter for the list of transactions. The `add` command adds a transaction to the list of transactions.
 If left unfilled, the values taken by the optional arguments are inferred from the current filter.
-** Justification: This add and filter features on their own are basic functionalities of the software. The
+** Justification: The add and filter features on their own are basic functionalities of the software. The
 implementation of optional arguments filled in based on the current filter allows user to provide minimal information to add
 a transaction, which significantly improves user experience.
 ** Highlights: This enhancement required the implementation of an intermediate between `Model` and `Logic`, `TransactionContext` for `Logic` to easily
@@ -38,7 +38,7 @@ that stores read-only information about the state of `Model` that is vital to th
 
 * *Minor enhancement*: Added the ability to edit and delete transactions (PR https://github.com/AY1920S1-CS2103T-W12-4/main/pull/175[#175])
 
-* *Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=weiyang13[here] to view the code I have contributed on the CS2103T tP Dashboard.
+* *Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=weiyang13[here] to view the code I have contributed.
 
 * *Other contributions*:
 
@@ -71,8 +71,8 @@ https://github.com/AY1920S1-CS2103T-T09-1/main/issues/201[201])
 include::../UserGuide.adoc[tag=addtx]
 
 |===
-|_For more sample contributions refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Navigation[Navigation]
-and https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Transactions[Transactions] sections of the User Guide._
+|_For more sample user guide contributions, refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#Navigation[Navigation]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/UserGuide.html#transactions[Transactions] sections of the User Guide._
 |===
 
 <<<
@@ -91,6 +91,6 @@ include::../DeveloperGuide.adoc[tag=transfilter]
 include::../DeveloperGuide.adoc[tag=transadd]
 
 |===
-|_For more sample contributions refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#separate-parsing-and-tab-switching[Separate Parsing and Tab Switching]
-and https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#transaction[Transactions] sections of the User Guide._
+|_For more sample developer guide contributions, refer to the https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#separate-parsing-and-tab-switching[Separate Parsing and Tab Switching]
+and https://ay1920s1-cs2103t-w12-4.github.io/main/DeveloperGuide.html#transactions[Transactions] sections of the User Guide._
 |===

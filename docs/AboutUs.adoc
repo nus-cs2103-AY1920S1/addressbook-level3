@@ -22,7 +22,7 @@ Role: Project Advisor
 image::nexolute.png[width="150", align="left"]
 {empty}[http://github.com/nexolute[github]] [<<nexolute#, portfolio>>]
 
-Role: Team Lead and Git Expert
+Role: UI and Git Expert; Budgets Developer
 
 '''
 
@@ -30,7 +30,7 @@ Role: Team Lead and Git Expert
 image::leeyiyuan.png[width="150", align="left"]
 {empty}[http://github.com/LeeYiyuan[github]] [<<leeyiyuan#, portfolio>>]
 
-Role: Code Quality and Integration
+Role: Repeaters Developer
 
 '''
 
@@ -38,15 +38,15 @@ Role: Code Quality and Integration
 image::weiyang13.png[width="150", align="left"]
 {empty}[http://github.com/weiyang13[github]] [<<weiyang13#, portfolio>>]
 
-Role: Documentation
+Role: Team Lead and Transaction Developer
 
 '''
 
-=== Olivia Yu
+=== Olivia Yu Wanzhi
 image::alaete.png[width="150", align="left"]
 {empty}[http://github.com/Alaete[github]] [<<alaete#, portfolio>>]
 
-Role: Testing
+Role: Analytics Developer
 
 '''
 
@@ -54,6 +54,6 @@ Role: Testing
 image::troomtroom.png[width="150", align="left"]
 {empty}[http://github.com/troomtroom[github]] [<<troomtroom#, portfolio>>]
 
-Role: In Charge of UI
+Role: Loans Developer
 
 '''

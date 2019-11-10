@@ -145,7 +145,7 @@ With our transactions feature, you can organise your transactions in a fuss-free
 [[overviewtx]]
 ==== Overview
 
-In the transactions tab, you can maintain a list of your transactions, adding, editing, deleting and filtering items
+In the transactions tab, you can maintain a list of your transactions - adding, editing, deleting and filtering items
 as you like. The image below gives an overview of the GUI of the feature:
 
 [[transactionsScreenshot]]
@@ -429,13 +429,16 @@ with every change to your transactions list, so you do not have to worry about m
 transaction made!
 
 [[repeaters]]
+// tag::introrep[]
 === Repeaters
 There is sometimes a need to add the same transaction over and over again. Such is the case for recurring transactions such as phone bills and salaries. With our repeater feature, you can add these recurring transactions in a hassle free manner.
 
 In the repeater tab, you can maintain a list of your repeaters. Each repeater is associated with a list of transactions, which are managed by the repeater. The image below gives an overview of the GUI of the feature. The associated transactions managed by each repeater are highlighted with the respective colored box.
 
 image::rep.png[]
+// end::introrep[]
 
+// tag::addrep[]
 ==== Creating repeater: `add`
 
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
@@ -467,7 +470,9 @@ Examples:
 
 * `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2020` +
 This creates a repeater titled "Phone bills" as an expenditure for utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2020. This also creates the transactions associated with the created repeater.
+// end::addrep[]
 
+// tag::editrep[]
 ==== Editing repeater `edit`
 
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
@@ -488,7 +493,9 @@ Examples:
 
 * `edit 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
 This edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. This also updates the transactions associated with the edited repeater.
+// end::editrep[]
 
+// tag::deleterep[]
 ==== Deleting repeater: `delete`
 
 Format: `delete INDEX`
@@ -499,17 +506,20 @@ Examples:
 
 * `delete 12` +
 Deletes the 12th repeater in the current list. This also deletes the transactions associated with the deleted repeater.
+// end::deleterep[]
 
+// tag::findrep[]
 ==== Finding repeater: `find`
 
 Format: `find [KEYWORDS]...`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
+You can use the `find` command to find repeaters whose description matches any of the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
 
 Examples:
 
 * `find phone john` +
-This finds all repeaters whose description contains all of the keywords "phone" and "john".
+This finds all repeaters whose description contains any of the keywords "phone" and "john".
+// end::findrep[]
 
 === Budgets
 
@@ -610,72 +620,107 @@ You can also revert the budget list to show all budgets by executing `find` with
 To revert the budget list so that all budgets are listed, simply execute `find` without any argument.
 // end::findbud[]
 
-=== Loans [Coming in v2.0]
 
-==== Adding new loan: `add`
+=== Loans
 
-Adds new loan to list. +
-Format: `loannew  i/AMOUNT  n/NAME d/DESCRIPTION`
+In a social setting, finances aren't limited to just one persons own spending, one is bound to have to borrow/lend money.
 
-Examples:
+This borrowing and lending can make it hard to keep track of how much money you actually have.
+With the loans feature you can keep track of the `amount` you owe, the `name` of the person you owe it to and the `date` by which you have to return it.
 
-* `loannew  a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
-Takes input with initialization values and adds them to a list of current unpaid loans.
+// tag::loanadd[]
 
-==== Marking Loan Paid: `paid`
+==== Adding loan: `add`
 
-Marks loan as paid or reduces amount from payment. +
-Format: `loanpaid i/INDEX [i/AMOUNT]`
 
-Examples:
+Format: `add a/AMOUNT [c/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR] [de/DESCRIPTION]`
 
-* `loanpaid i/4 a/4000` +
-Takes input with initialization values and adds them to a list of current unpaid loans.
+You can use the `add` command to create a loan. This also creates the other objects associated with the created repeater.
 
-==== Finding loan: `find`
+The optional arguments take the following default values if left unspecified:
 
-Shows all loans with certain name or description or date , or all loans +
-Format: `loanshow [s/KEYWORD]`
+|==============================
+| Argument | Default values
 
-Examples:
+| Description | "No Description"
+| Name | "No Name"
+| Start Day | "12"
+| Start Month | "12"
+| Start Year | "2019"
+| End Day | "1"
+| End Month | "2"
+| End Year | "2020"
+|==============================
 
-* `loanshow s/charlie` +
-Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown.
+.Usage of 'add'
+image::Loan_1_help.png[]
 
-==== Adding new loan: `total`
+Constraints:
 
-Finds and shows nett amount to pay/owed with keyword +
-Format: `loantotal s/KEYWORD`
+* Loan end must not occur before it's start.
+* Description, Name and Dates are Alphanumeric.
 
-Examples:
+Example:
 
-* `loantotal s/12/12/2000` +
-If no keyword is given, it returns total difference in amount owed to other parties and amount to be paid.
+* `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods `
+
+This creates a loan of 420.42 for "Buying airpods" taken on 12 December 2019 to 02 February 2020.
+// end::loanadd[]
+
+
+// tag::loanedit[]
 
 ==== Editing new loan: `edit`
 
-Changes existing loan +
-Format: `loanset i/INDEX [a/AMOUNT] [d/DATE] [n/NAME] [d/DESCRIPTION]`
+Format: `edit INDEX [a/AMOUNT] [de/DESCRIPTION] [n/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 
-Examples:
+You can use the edit command to edit a loan. This can change any attribute(s) of the loan.
 
-* `loanset i/3 n/Lee d/For food in NY` +
-Takes input with initialization values for current loan identified by index, change any value.
+[NOTE]
+The loan fields will only be updated where the arguments are specified.
 
-==== Sorting all loans: `sort`
+.Usage of 'edit'
+image::Loan_2_help.png[]
 
-Finds and shows all loans sorted +
-Format: `loansort s/BY`
+Constraints:
 
-Examples:
+* Loan end date must not occur before loan start date.
 
-* `loansort s/DATE` +
-Loans shown sorted by any given constrain, date or value owed.
+* Index must be specified, no change occurs otherwise.
 
+Example:
+
+* edit 1 de/Current Student Loan a/99999.99 n/DBS SG Bank sd/1 sm/1 sy/2020 ed/30 em/12 ey/2021
+
+This edits the first loanr in the current list to - $99999.99 loan taken on 1st January 2020 and to be paid back by 30th December 2021.
+// end::loanedit[]
+
+
+// tag::loanpaid[]
+==== Marking Loan Paid: `paid`
+
+Mark loan as paid and remove it from the list. +
+Take any loan, with an outstanding loan amount, and when it is paid off, it can referenced by it's index to be removed.
+
+Format: `pay i/INDEX`
+
+.Usage of 'paid'
+image::Loan_3_help.png[]
+
+// tag::overviewanalytics[]
 === Analytics
+
 
 Have you ever wondered where all your money is going?
 Our analytics feature provides deeper insights into your incomes and expenditures, so that you can take control of your personal finances.
+
+* `loanpaid 1` +
+Takes the first loan and removes it form the list.
+
+.After Executing loanpaid
+image::Loan_4_help.png[]
+
+// end::loanpaid[]
 
 On startup, the analytics tab is empty.
 
@@ -696,7 +741,9 @@ image::AnalyticsCell.png[]
 [NOTE]
 For all commands in the analytics feature, if the optional arguments `m/MONTH` and/or `y/YEAR` are not provided,
 results for the current month and/or year in the system time will be displayed.
+// end::overviewanalytics[]
 
+// tag::expenditureanalytics[]
 ==== Viewing expenditure trend: `expenditure`
 Format: `expenditure [y/YEAR]`
 
@@ -715,7 +762,9 @@ Examples:
 Displays monthly expenditure trend for current year.
 * `expenditure y/2019` +
 Displays monthly expenditure trend for 2019.
+// end::expenditureanalytics[]
 
+// tag::incomeanalytics[]
 ==== Viewing income trend: `income`
 Format: `income [y/YEAR]`
 
@@ -734,7 +783,9 @@ Examples:
 Displays monthly income trend for current year.
 * `income y/2019` +
 Displays monthly income trend for 2019.
+// end::incomeanalytics[]
 
+// tag::balanceanalytics[]
 ==== Viewing balance trend: `balance`
 Format: `balance [y/YEAR]`
 
@@ -756,7 +807,9 @@ Examples:
 Displays monthly balance trend for current year.
 * `balance y/2019` +
 Displays monthly balance trend for 2019.
+// end::balanceanalytics[]
 
+// tag::breakdownanalytics[]
 ==== Viewing expenditure breakdown by category: `breakdown`
 Format: `breakdown [m/MONTH] [y/YEAR]`
 
@@ -776,7 +829,9 @@ Examples:
 Displays expenditure breakdown by category for current month.
 * `breakdown m/7 y/2019` +
 Displays expenditure breakdown by category for July 2019.
+// end::breakdownanalytics[]
 
+// tag::catrankanalytics[]
 ==== Viewing expenditure category ranking chart: `catrank`
 Format: `catrank [m/MONTH] [y/YEAR]`
 
@@ -805,7 +860,9 @@ Examples:
 Displays expenditure category ranking chart for current month.
 * `catrank m/7 y/2019` +
 Displays expenditure category ranking chart for July 2019.
+// end::catrankanalytics[]
 
+// tag::mthrankanalytics[]
 ==== Viewing expenditure ranking chart by month: `mthrank`
 Format: `mthrank [y/YEAR]`
 
@@ -831,7 +888,9 @@ Examples:
 Displays expenditure ranking chart by month for current year.
 * `mthrank y/2019` +
 Displays expenditure ranking chart by month for 2019.
+// end::mthrankanalytics[]
 
+// tag::exprankanalytics[]
 ==== Viewing expenditure ranking chart: `exprank`
 Format: `exprank [m/MONTH] [y/YEAR]`
 
@@ -857,6 +916,7 @@ Displays expenditure ranking chart for current year.
 Displays expenditure ranking chart for 2019.
 * `exprank m/7 y/2019` +
 Displays expenditure ranking chart for July 2019.
+// end::exprankanalytics[]
 
 == FAQ
 
@@ -874,15 +934,12 @@ Displays expenditure ranking chart for July 2019.
 * *Repeater Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 * *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 * *Repeater Delete* : `delete INDEX`
-* *Repeater Find* : `find [KEYWORDS]...`
-* *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
-* *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
-* *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Net Amount* : `total [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Value Update* : `edit i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
-* *Loan Sort By Value* : `sort s/BY`  (Coming in v2.0)
-* *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
-* *Budget Delete* : `delete INDEX`
+* *Repeater Filter* : `find KEYWORD [MORE_KEYWORDS]`
+* *Loan Add new* : `add a/Amount [d/DATE] [n/NAME] [d/DESCRIPTION] [sd/DAY] [sm/MONTH] [sy/YEAR] [ed/DAY] [em/MONTH] [ey/YEAR]`
+* *Loan Edit* : `add i/Index a/Amount [d/DATE] [n/NAME] [d/DESCRIPTION] [sd/DAY] [sm/MONTH] [sy/YEAR] [ed/DAY] [em/MONTH] [ey/YEAR]`
+* *Loan Pay* : `pay i/Index`
+* *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/day m/MONTH y/YEAR]`
+* *Budget Delete* : `delete i/INDEX a/Amount [n/Name]`
 * *Budget Find* : `find [KEYWORDS]...`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`

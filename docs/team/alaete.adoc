@@ -3,45 +3,47 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: IchiFund
 
 '''
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+The purpose of this portfolio is to document my contributions to IchiFund, a software engineering project under CS2103T Software Engineering module in the National University of Singapore (NUS).
+
+IchiFund is a command-line interface (CLI) application for personal finance management.
+It is designed to be an all-in-one application for finance management,
+allowing the financially conscious Computer Science (CS) undergraduate to
+manage transactions, set budgets and analyse expenditure with ease and convenience.
+
+My role was to design and implement the analytics feature of the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: Developed the `Model`, `Logic` and `Ui` components of the analytics feature of IchiFund.
+** What it does: This feature provides deeper insights into users' incomes and expenditures, allowing users to take control of their personal finances.
+** Justification: This feature enhances IchiFund significantly because users are given a clear and concise overview of their incomes and expenditures over time and across categories using the `expenditure`, `income`, `balance` and `breakdown` commands. Without this feature, the data would be too cluttered and minimally effective at best in achieving the application's goal of easy and convenient finance management.
+** Highlights: This feature affects commands to be added in future. It required an in-depth analysis of design alternatives. Notably, the implementation was challenging as it required a thorough understanding of the existing Address Book (Level 3) (AB3) infrastructure and an overhaul of the existing code base due to the lack of similarity between existing and intended components.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*:
+** `catrank` command: This command allows users to view their expenditure category ranking chart.
+** `mthrank` command: This command allows users to view their expenditure ranking chart by month.
+** `exprank` command: This commands allows users view their expenditure ranking chart.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Alaete[here] to view the code I have contributed.
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Helped manage the issue tracker
+*** Helped review and merge pull requests
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated User Guide remove AB3 references and to be more user-friendly: https://github.com/AY1920S1-CS2103T-W12-4/main/pull/156[#156]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated placeholder image: https://github.com/AY1920S1-CS2103T-W12-4/main/pull/158[#158]
+*** Updated the User Guide and Developer Guide
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T09-2/main/issues/180[#180], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/181[#181], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/182[#182], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/183[#183], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/184[#184], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/185[#185])
 
 == Contributions to the User Guide
 
@@ -50,9 +52,11 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=overviewanalytics]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=catrankanalytics]
+
+include::../UserGuide.adoc[tag=mthrankanalytics]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +64,12 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=overviewanalytics]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=expenditureanalytics]
 
+include::../DeveloperGuide.adoc[tag=balanceanalytics]
 
-== PROJECT: PowerPointLabs
+== PROJECT: IchiFund
 
 '''
-
-_{Optionally, you may include other projects in your portfolio.}_

@@ -269,14 +269,14 @@ passing information about tab switching to `Ui`.
 |====================
 | Description of Implementation | Pros and Cons
 | `Ui` detects change through an `InvalidationListener` (current choice) |
-*Pros*: `Logic` does not need to be aware of `Ui`.
+*Pros*: `Logic` does not need to be aware of `Ui`
 
-*Cons*: Requires greater understanding of JavaFX API to implement.
+*Cons*: Requires greater understanding of JavaFX API to implement
 
 | `Logic` directly calls `Ui` whenever the specific command is made. |
-*Pros*: Easy to implement.
+*Pros*: Easy to implement
 
-*Cons*: Creates a dependency from `Logic` to `Ui`.
+*Cons*: Creates a dependency from `Logic` to `Ui`
 |====================
 
 While Alternative 2 is much simpler to implement, we chose Alternative 1
@@ -321,7 +321,7 @@ the details of the `Transaction` class:
 image::TransactionClassDiagram.png[]
 
 [NOTE]
-We differentiate transactions into income and expenditure items using the `TransactionType` field, which accepts
+We differentiate income items from expenditure items using the `TransactionType` field, which accepts
 two unique string values, `"in"` for income and `"exp"` for expenditure in the constructor.
 
 In addition, the list of transactions is subject to a filter created by an immutable `TransactionContext`.
@@ -346,14 +346,14 @@ also natural to think of transactions being associated with multiple categories.
 |====================
 | Description of Implementation | Pros and Cons
 | Each `Transaction` only has one `Category`  (current choice) |
-*Pros*: Simple to implement. No overlaps in apportionment of expenditure to categories.
+*Pros*: Simple to implement. No overlaps in apportionment of expenditure to categories
 
-*Cons*: Less flexibility for the user to classify transactions.
+*Cons*: Less flexibility for the user to classify transactions
 
 | Each `Transaction` can have more than one `Category` |
-*Pros*: More flexibility for the user to classify transactions.
+*Pros*: More flexibility for the user to classify transactions
 
-*Cons*: Overlaps in apportionment of expenditure to categories.
+*Cons*: Overlaps in apportionment of expenditure to categories
 |====================
 While both implementations are visible, we chose to only have one `Category` associated to each
 `Transaction` as the absence of overlaps in expenditure allows us to eventually implement a clean visual
@@ -369,14 +369,14 @@ Currently, we differentiate income items from expenditure items using the `Trans
 |====================
 | Description of Implementation | Pros and Cons
 | Using the field `TransactionType` (current choice) |
-*Pros*: Fits the parsing methods used in the current architecture well.
+*Pros*: Fits the parsing methods used in the current architecture well
 
-*Cons*: More tedious to code for different behaviours for income and expenditure items in the future.
+*Cons*: More tedious to code for different behaviours for income and expenditure items in the future
 
 | Using inheritance |
-*Pros*: Allows for polymorphism of methods from a `Transaction` interface in the long run.
+*Pros*: Allows for polymorphism of methods from a `Transaction` interface in the long run
 
-*Cons*: Requires either the use of separate commands, or asymmetry in the parsing of command arguments.
+*Cons*: Requires either the use of separate commands, or asymmetry in the parsing of command arguments
 |====================
 While it was a tough decision, we eventually decided to use `TransactionType` for differentiation as we valued maintaining the
 symmetry in the implementation of parsing in our current architecture, and we did not want to use separate commands for adding transactions.
@@ -586,15 +586,22 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 
 // end::transdel[]
 
+// tag::repeaterintro[]
 === Repeaters
+Repeaters allow for the convenient management of repeated transactions through a single `Repeater` entity. The list of associated transactions are automatically synchronized to updates in ``Repeater``s. The following class diagram summarizes the details of the `Repeater` class:
+
+.Class Diagram from Repeaters Model
+image::RepeaterClassDiagram.png[]
+// end::repeaterintro[]
 
 // tag::repeateradd[]
 ==== Adding Repeater
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
 ===== Implementation
-The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the figure below:
+The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the sequence diagram below:
 
+.Sequence Diagram for `AddRepeaterCommand`
 image::AddRepeaterSequenceDiagram.png[]
 
 Below is an example usage scenario of how `add` behaves at each step.
@@ -617,15 +624,22 @@ Below is an example usage scenario of how `add` behaves at each step.
 - The end date of the `Repeater` to be added is no earlier than its start date.
 - The start date and and end date of the `Repeater` to be added span no more than 60 months.
 
-*Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`, and sets it as the created ``Repeater``'s unique id.
+*Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`.
 
-*Step 9*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
+*Step 9*: `AddRepeaterCommand` creates the `Repeater` and sets its unique id as the fetched `RepeaterUniqueId`.
 
-*Step 10*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
+*Step 10*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
 
-*Step 11*: `AddRepeaterCommand` creates the associated ``Transaction``s in the `Model`.
+*Step 11*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
 
-*Step 12*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 12*: `AddRepeaterCommand` creates the associated ``Transaction``s in the `Model`.
+
+*Step 13*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+
+When creating a `Repeater`, `AddRepeaterCommandParser` fills in arguments unspecified by the user with default values, as shown in the activity diagram below:
+
+.Activity Diagram for Optional Arguments in `AddRepeaterCommandParser`
+image::RepeaterOptionalActivityDiagram.png[]
 // end::repeateradd[]
 
 // tag::repeateredit[]
@@ -664,7 +678,7 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 *Step 12*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater` in the `Model`.
 
 *Step 13*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
-// end::repeatereidt[]
+// end::repeateredit[]
 
 // tag::repeaterdelete[]
 ==== Deleting Repeater
@@ -696,14 +710,14 @@ The `delete` command is facilitated by the Logic and Model components of the app
 *Step 11*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeaterdelete[]
 
-// tag::repeaterdelete[]
+// tag::repeaterfind[]
 ==== Finding Repeater
 This feature allows the user to find repeaters in IchiFund. The search by matching provided keywords against repeater descriptions.
 
 ===== Implementation
 The `find` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `find` behaves at each step.
 
-*Step 1*: In the repeaters tab, the user executes `find phone husband` to find all repeaters whose descriptions contain both the keywords "phone" and "husband".
+*Step 1*: In the repeaters tab, the user executes `find phone husband` to find all repeaters whose descriptions contain any of the keywords "phone" and "husband".
 
 *Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
 
@@ -761,9 +775,29 @@ This process is further illustrated in the following sequence diagram:
 image::AddBudgetSequenceDiagram.png[]
 // end::budgetadd[]
 
+// tag::overviewanalytics[]
 === Analytics
 
-// tag::analyticsexpenditure[]
+[[overviewanalytics]]
+==== Overview of the Analytics Model
+
+===== Implementation
+
+Analytical data in IchiFund is represented using the `Data` class. Objects of the `Data` class are immutable in the
+internal structure. The following class diagram summarizes the details of the `Data` class:
+
+.Class Diagram from Analytics Model
+image::AnalyticsClassDiagram.png[]
+
+In addition, analytical data associated with a command is initially stored in a `Report`. Using polymorphism, this report
+is initialised as either a `TrendReport` or a `BreakdownReport` depending on the command that was executed.
+The following class diagram summarizes the details of the `Report` class:
+
+.Class Diagram from Analytics Model
+image::AnalyticsClassDiagram2.png[]
+// end::overviewanalytics[]
+
+// tag::expenditureanalytics[]
 ==== View Expenditure Trend
 
 The view expenditure trend feature allows the user to view monthly expenditure trend for a year.
@@ -774,24 +808,40 @@ The argument supported by this feature is:
 
 ===== Implementation
 
-When the user input the `expenditure` command in the Analytics tab, the following chain of operations occurs:
+After the user inputs the `expenditure` command in the Analytics tab, the following chain of operations occurs:
 
-1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+*Step 1*: The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
 
-2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureTrendCommandParser`.
+*Step 2*: The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureTrendCommandParser`.
 
-3. `ExpenditureTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+*Step 3*: `ExpenditureTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-4. This arguments will be tokenized and the respective models for each argument are created.
+*Step 4*: This arguments will be tokenized and the respective models for each argument are created.
 
-5. If the parsing of all arguments are successful, a new `ExpenditureTrendCommand` is returned back to `LogicManager`.
+*Step 5*: If the parsing of all arguments are successful, a new `ExpenditureTrendCommand` is returned back to `LogicManager`.
 
-6. The `LogicManager` executes `ExpenditureTrendCommand#execute()`.
+*Step 6*: The `LogicManager` executes `ExpenditureTrendCommand#execute()`.
 
-7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsexpenditure[]
+*Step 7*: The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 
-// tag::analyticsincome[]
+The above sequence of events is shown in greater detail in the following sequence diagram:
+
+.Sequence Diagram for `ExpenditureTrendCommand`
+image::ExpenditureTrendSequenceDiagram.png[]
+
+The details of the `fill trend report` interactions have been omitted from the diagram above, and are shown in the following separate sequence diagram:
+
+.Sequence Diagram for `fill trend report`
+image::FillTrendReportSequenceDiagram.png[]
+
+In addition, this activity diagram shows the action sequence for one iteration of the internal for-loop for the
+execution of the `fillExpenditureTrendReport` method of an `ExpenditureTrendCommand`.
+
+.Activity Diagram for `fillExpenditureTrendReport` method
+image::FillExpenditureTrendReportActivityDiagram.png[]
+// end::expenditureanalytics[]
+
+// tag::incomeanalytics[]
 ==== View Income Trend
 
 The view income trend feature allows the user to view monthly income trend for a year.
@@ -804,22 +854,26 @@ The argument supported by this feature is:
 
 When the user input the `income` command in the Analytics tab, the following chain of operations occurs:
 
-1. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
 
-2. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `IncomeTrendCommandParser`.
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `IncomeTrendCommandParser`.
 
-3. `IncomeTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
+*Step 3*. `IncomeTrendCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-4. This arguments will be tokenized and the respective models for each argument are created.
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
 
-5. If the parsing of all arguments are successful, a new `IncomeTrendCommand` is returned back to `LogicManager`.
+*Step 5*. If the parsing of all arguments are successful, a new `IncomeTrendCommand` is returned back to `LogicManager`.
 
-6. The `LogicManager` executes `IncomeTrendCommand#execute()`.
+*Step 6*. The `LogicManager` executes `IncomeTrendCommand#execute()`.
 
-7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsincome[]
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 
-// tag::analyticsbalance[]
+[NOTE]
+Observe that the implementation of `income` is similar to that of `expenditure`, except that each transaction is tested
+for whether it is an income item.
+// end::incomeanalytics[]
+
+// tag::balanceanalytics[]
 ==== View Balance Trend
 
 The view balance trend feature allows the user to view monthly balance trend for a year.
@@ -845,89 +899,197 @@ When the user input the `balance` command in the Analytics tab, the following ch
 6. The `LogicManager` executes `BalanceTrendCommand#execute()`.
 
 7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
-// end::analyticsbalance[]
-
-=== [Demo] Use this as template for your section
-==== Proposed Implementation
-===== Test
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Observe that the implementation of `balance` differs slightly from that of `expenditure` and `income`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The following activity diagram shows the action sequence for one iteration of the internal for-loop for the
+execution of the `fillBalanceTrendReport` method of an `BalanceTrendCommand`.
 
-image::UndoRedoState3.png[]
+.Activity Diagram for `fillBalanceTrendReport` method
+image::FillBalanceTrendReportActivityDiagram.png[]
+// end::balanceanalytics[]
+
+// tag::breakdownanalytics[]
+==== View Expenditure Breakdown By Category
+
+The view expenditure breakdown by category feature allows the user to view breakdown of expenditure by category.
+This feature is facilitated by `AnalyticsFeatureParser`, `BreakdownCommandParser`, and `BreakdownCommand`.
+The arguments supported by this feature are:
+
+- `Month` (optional)
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `breakdown` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `BreakdownCommandParser`.
+
+*Step 3*. `BreakdownCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `BreakdownCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `BreakdownCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `BreakdownReport`.
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Observe that the implementation of `breakdown`, as well as the following command `catrank`,
+involve the creation of a `BreakdownReport` instead of a `TrendReport`.
+This is because the results of these commands are specific to a year *and* a month, as opposed to the results of the
+other commands which are only specific to a year.
+// end::breakdownanalytics[]
 
-The following sequence diagram shows how the undo operation works:
+// tag::catrankanalytics[]
+==== View Expenditure Category Ranking Chart
 
-image::UndoSequenceDiagram.png[]
+The view expenditure category ranking chart allows the user to view the ranked breakdown of expenditure by category.
+This feature is facilitated by `AnalyticsFeatureParser`, `CategoryRankingCommandParser`, and `CategoryRankingCommand`.
+The arguments supported by this feature are:
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+- `Month` (optional)
+- `Year` (optional)
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+===== Implementation
+
+When the user input the `catrank` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `CategoryRankingCommandParser`.
+
+*Step 3*. `CategoryRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `CategoryRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `CategoryRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `BreakdownReport`.
+// end::catrankanalytics[]
+
+// tag::mthrankanalytics[]
+==== View Expenditure Ranking Chart By Month
+
+The view expenditure ranking chart by month allows the user to view the ranked monthly expenditure trends.
+This feature is facilitated by `AnalyticsFeatureParser`, `MonthlyExpenditureRankingCommandParser`, and `MonthlyExpenditureRankingCommand`.
+The argument supported by this feature is:
+
+- `Year` (optional)
+
+===== Implementation
+
+When the user input the `mthrank` command in the Analytics tab, the following chain of operations occurs:
+
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
+
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `MonthlyExpenditureRankingCommandParser`.
+
+*Step 3*. `MonthlyExpenditureRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
+
+*Step 5*. If the parsing of all arguments are successful, a new `MonthlyExpenditureRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `MonthlyExpenditureRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Observe that the implementation of `mthrank` involves the creation of a `TrendReport`.
+Not only are the results of this command only specific to a year, the `mthrank` command is strikingly similar to the
+`expenditure` command, except that the sorted results are used to update the `DataList` in the `Model`.
+// end::mthrankanalytics[]
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+// tag::exprankanalytics[]
+==== View Expenditure Ranking Chart
 
-image::UndoRedoState4.png[]
+The view expenditure ranking chart allows the user to view the ranked expenditure trends.
+This feature is facilitated by `AnalyticsFeatureParser`, `ExpenditureRankingCommandParser`, and `ExpenditureRankingCommand`.
+The arguments supported by this feature are:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+- `Month` (optional)
+- `Year` (optional)
 
-image::UndoRedoState5.png[]
+[NOTE]
+This command is unique in the sense that if month is not specified, the report is only specific to a year. However, if
+month is specified, the report is specific to both a month *and* a year. This is different from the other commands that
+are only specific to a year, *or* a month and a year. Hence, there is an extra if-condition in the execution loop of the
+`ExpenditureRankingCommand` to account for this discrepancy.
+// end::exprankanalytics[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+===== Implementation
 
-image::CommitActivityDiagram.png[]
+When the user input the `exprank` command in the Analytics tab, the following chain of operations occurs:
 
-==== Design Considerations
+*Step 1*. The `IchiFundParser` will delegate the parsing of the command to `AnalyticsFeatureParser` if the current active tab is Analytics.
 
-===== Aspect: How undo & redo executes
+*Step 2*. The `AnalyticsFeatureParser` will delegate the parsing of the arguments to `ExpenditureRankingCommandParser`.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+*Step 3*. `ExpenditureRankingCommandParser#parse()` will take in a `String` input consisting of the arguments.
 
-===== Aspect: Data structure to support the undo/redo commands
+*Step 4*. This arguments will be tokenized and the respective models for each argument are created.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+*Step 5*. If the parsing of all arguments are successful, a new `ExpenditureRankingCommand` is returned back to `LogicManager`.
+
+*Step 6*. The `LogicManager` executes `ExpenditureRankingCommand#execute()`.
+
+*Step 7*. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
+// end::exprankanalytics[]
+
+//tag::loans[]
+=== Loans
+
+// tag::loanadd[]
+==== Adding Loan : `add`
+
+===== Overview
+This feature allows the user to add a loan in IchiFund. Adding a loan also creates the default values associated with the added loan.
+
+===== Implementation
+The `add` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `add` behaves at each step.
+
+*Step 1*: The user executes `add a/42.15 d/Utilities sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a loan for utilities with an amount of $42.15 taken on 1st January 2019 and to be returned on 31st December 2019.
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` determines which command is being used and creates the respective `AddLoanCommandParser` parser with the user's input as an argument.
+
+*Step 4*: `AddLoanCommandParser` does a validation check on the user's input before creating and returning an `AddLoanCommand` with desired `Loan` as an argument.
+
+*Step 5*: `LogicManager` uses `AddLoanCommand#execute()` to add the `Loan` and the associated ``Loan``s into the `Model` which is handled by `ModelManager`. In doing so, it also fetches the `LoanId` counter tracked by the `Model`, sets it as the created ``Repeater``'s unique id, and increments the counter in the `Model` by 1.
+
+*Step 6*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+// end::loanadd[]
+
+// tag::payloan[]
+==== Paying Loan : `pay`
+
+===== Overview
+This feature allows the user to pay off a marked loan in IchiFund by index.
+
+===== Implementation
+The `pay` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `pay` behaves at each step.
+
+*Step 1*: The user executes `pay 2` to pay off the loan in the 2nd index.
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` determines which command is being used and creates the respective `PayLoanCommandParser` parser with the user's input as an argument.
+
+*Step 4*: `PayLoanCommandParser` does a validation check on the user's input before creating and returning an `PayLoanCommand` with desired `Index` as an argument.
+
+*Step 5*: `LogicManager` uses `PayLoanCommand#execute()` to delete the `Loan` from the `Model` which is handled by `ModelManager`.
+
+*Step 6*: `PayLoanCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+// end::payloan[]
+// end::loans[]
 
 === Logging
 
@@ -1317,34 +1479,378 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: GUI shows set of sample transactions.
+   Filter title set to current month and year of system time.
+   Window size is fixed at 960x720px.
+.. Click on repeater tab
+   Expected: Shows the GUI
 
-. Saving window preferences
+. Launch with corrupted config.json and/or preferences.json
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Manually edit config.json and/or preferences.json by adding "aaa" to start of file.
+.. Perform same steps as above test case.
 
-_{ more test cases ... }_
+=== Tab switching
 
-=== Deleting a person
+. Tab switching by shortcut key
 
-. Deleting a person while all persons are listed
+.. Press `Ctrl+2`. +
+   Expected: GUI shows repeaters tab.
+.. Press `Ctrl+3`. +
+   Expected: GUI shows budgets tab.
+.. Press `Ctrl+4`. +
+   Expected: GUI shows loan tab.
+.. Press `Ctrl+5`. +
+   Expected: GUI shows analytics tab.
+.. Press `Ctrl+1`. +
+   Expected: GUI shows transaction tab.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Tab switching by command
+
+.. Enter command `rep`. +
+   Expected: GUI shows repeaters tab.
+.. Enter command `budget`. +
+   Expected: GUI shows budgets tab.
+.. Enter command `loan`. +
+   Expected: GUI shows loan tab.
+.. Enter command `analytics`. +
+   Expected: GUI shows analytics tab.
+.. Enter command `tx`. +
+   Expected: GUI shows transaction tab.
+
+. Tab switching by mouse click
+
+.. Click on repeater tab. +
+   Expected: GUI shows repeaters tab.
+.. Click on budget tab. +
+   Expected: GUI shows budgets tab.
+.. Click on loan tab. +
+   Expected: GUI shows loan tab.
+.. Click on analytics tab. +
+   Expected: GUI shows analytics tab.
+.. Click on transaction tab. +
+   Expected: GUI shows transaction tab.
+
+. Separate parsing for different tabs
+
+.. Enter `add` in transaction tab. +
+   Expected: Console shows error message for `AddTransactionCommand`.
+.. Go to repeaters tab and enter `add`. +
+   Expected: Console shows error message for `AddRepeaterCommand`.
+.. Go to budgets tab and enter `add`. +
+   Expected: Console shows error message for `AddBudgetCommand`.
+.. Go to loan tab and enter `add`. +
+   Expected: Console shows error message for `AddLoanCommand`.
+.. Go to analytics tab and enter `add`. +
+   Expected: Console shows error message for unrecognised command.
+
+=== Filtering transactions
+. Filter title changes correctly
+.. Enter a `filter` command with all arguments (e.g. `filter m/1 y/2008 c/food ty/exp`) +
+   Expected: Filter title contains information of all arguments (e.g. January 2008 Expenditure - Food)
+.. Enter a `filter` command with only month and year arguments (e.g. `filter m/2 y/2009`) +
+   Expected: Filter title retains information on category and transaction type, and updates to show correct month and year.
+.. Enter `filter c/!all ty/!all` +
+   Expected: Filter title now only contains information about month and year.
+
+. Filters transactions correctly
+.. Prerequisites: No transactions from January 2001 and 2002
+.. Enter `add de/a a/1 c/a d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/b a/1 c/b d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/c a/1 c/a d/1 m/1 y/2001 ty/in`
+.. Enter `filter m/1 y/2002` +
+   Expected: No transactions shown
+.. Enter `filter y/2001` +
+   Expected: All 3 transactions added shown
+.. Enter `filter ty/exp` +
+   Expected: Transactions with descriptions "a", "b" shown
+.. Enter `filter c/a` +
+   Expected: Transaction with description "a" shown
+.. Enter `filter ty/!all` +
+   Expected: Transactions with descriptions "a", "c" shown
+
+. Invalid `Month`
+.. Enter `filter m/13` +
+   Expected: Console shows error message.
+.. Enter `filter m/aaa` +
+   Expected: Console shows error message.
+
+. Invalid `Year`
+.. Enter `filter y/1999` +
+   Expected: Console shows error message.
+.. Enter `filter y/10000` +
+   Expected: Console shows error message.
+
+. Invalid `TransactionType`
+.. Enter `filter ty/xxx` +
+   Expected: Console shows error message.
+
+. Invalid `Category`
+.. Enter `filter c/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `filter c/!!!` +
+   Expected: Console shows error message.
+
+=== Adding a transaction
+. Transaction correctly created
+.. Add any valid transaction using `add` with all fields specified +
+   Expected: GUI changes context if necessary, and transaction added is shown with correct fields
+
+. Optional arguments correctly filled
+.. Enter `filter m/3 y/2005 c/food ty/in`
+.. Enter `add a/1 de/z` +
+   Expected: New transaction("z") appears in the same list, marked as income item with category as "FOOD".
+   Date of transaction is X March 2005, where X is the current day of the month.
+.. Enter `filter ty/!all`
+.. Enter `add a/1 de/y` +
+   Expected: New transaction("y") appears in the same list. Similar to "z", but marked as expenditure.
+.. Enter `filter c/!all`
+.. Enter `add a/1 de/x` +
+   Expected: New transaction("x") appears in the same list. Similar to "y", but under category "UNCATEGORISED".
+
+. Automatic sorting of transaction
+.. Prerequisite: Current list of transactions show no transactions.
+.. Enter `add de/a a/1 d/3`
+.. Enter `add de/b a/1 d/2` +
+   Expected: New transaction("b") appears at the bottom of the transaction list.
+.. Enter `add de/c a/1 d/4` +
+   Expected: New transaction("c") appears at the top of the transaction list.
+.. Enter `add de/d a/1 d/4 c/z` +
+   Expected: New transaction("d") appears at the second index.
+.. Enter `add de/e a/1 d/4 c/a` +
+   Expected: New transaction("e") appears at the top of the transaction list.
+   Resulting list: "e", "c", "d", "a", "b".
+
+. Filter switch when adding transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food"
+.. Enter `add de/a a/1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `add de/a a/1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `add de/a a/1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `add de/a a/1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Description`
+.. Enter `add a/1 de/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/!!!` +
+   Expected: Console shows error message.
+
+. Invalid `Amount`
+.. Enter `de/a a/a` +
+   Expected: Console shows error message.
+.. Enter `de/a a/999999` +
+   Expected: Console shows error message.
+.. Enter `de/a a/-1` +
+   Expected: Console shows error message.
+
+. Invalid `Day` or `Date`
+.. Enter `add a/1 de/a d/32` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/31 m/11` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/30 m/2` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/29 m/2 y/2003` +
+   Expected: Console shows error message.
+
+=== Editing a transaction
+
+. Transaction correctly edited
+.. Add any valid transaction using `edit` with any fields specified +
+   Expected: GUI changes context if necessary, and transaction edited is shown with correct fields
+
+. Filter switch when editing transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food". There is at least 1 transaction shown.
+.. Enter `edit 1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `edit 1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `edit 1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `edit 1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Index`
+.. Enter `edit 0 de/a` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `edit 20 de/a` +
+   Expected: Console shows error message.
+
+=== Deleting a transaction
+
+. Valid deletion of transaction
+.. Prerequisite: at least 2 people shown in list of transactions
+.. Enter `delete 2` +
+   Expected: Second transaction in list of items deleted.
+
+. Invalid `Index`
+.. Enter `delete 0` +
+   Expected: Console shows error message.
+.. Enter `delete x` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `delete 20` +
+   Expected: Console shows error message.
+
+=== Adding a repeater
+
+. Adding repeaters creates associated transactions
+
+.. Go to the repeaters tab.
+.. Add a repeater using any valid `add` command. +
+   Expected: Shows newly created repeater with correct fields.
+.. Go to the transaction tab and use `filter` command to find newly added transactions. +
+   Expected: Shows newly created transactions with correct fields for appropriate filters.
+
+. Boundary value arguments
+.. Add a repeater with end date later than start date by exactly 60 months. +
+   Expected: Repeater successfully added.
+
+. Invalid command arguments
+
+.. Go to the repeaters tab.
+.. Add a repeater with end date earlier than start date. +
+   Expected: Error message displayed on console.
+.. Add a repeater with end date later than start date by >60 months. +
+   Expected: Error message displayed on console.
+.. Add a repeater with both month offsets ignored. +
+   Expected: Error message displayed on console.
+
+. Duplicate repeaters
+
+.. Add any valid repeater.
+.. Add a repeater with the exact same field. +
+   Expected: Error message displayed on console.
+
+=== Editing a repeater
+
+. Editing repeaters edits associated transactions
+
+.. Go to the repeaters tab.
+.. If required, add a repeater.
+.. Edit a repeater using a valid `edit` command (e.g. `edit 1 a/0.41`). +
+   Expected: Shows newly created repeater with correct fields.
+.. Go to the transaction tab and use `filter` command to find newly edited transactions. +
+   Expected: Shows newly edited transactions with correct fields for appropriate filters.
+
+=== Deleting a repeater
+
+. Deleting repeaters delete associated transactions
+
+.. Go to the repeaters tab.
+.. If required, add a repeater.
+.. Delete a repeater using a valid `delete` command (e.g. `delete 1`). +
+   Expected: GUI no longer shows deleted repeater.
+.. Go to the transaction tab and use `filter` command to find associated transactions. +
+   Expected: Associated transactions cannot be found.
+
+//tag::LoanManual[]
+=== Adding and modifying a Loan
+
+. Adding a Loan while other loans are present
+
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. Enter `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods ` +
+   Expected: Loan is added to the list. Details of the added loan shown in the status message.
+.. Enter `add a/220` +
+   Expected: Loan is added with default values. Loan Details shown in the status message. Status bar remains the same.
+.. Enter `add n/Felix`
+    Expected: No amount given error is shown. No Loan is added to the list. The status shows correct format to enter.
+.. Other incorrect delete commands to try: `add`, `add a/24 n/123` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Editing Existing loans
+
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. Enter 'edit 2 a/220 n/NewName sd/12 ey/2012' +
+    Expected: First loan on the list is changed to new assigned values. No other loans or entries are changed.
+.. Enter 'edit 1 n/NewName sd/12 ey/2012 d/New Description for the Loan' +
+    Expected: First loan on the list is changed to new assigned values including description. No other loans or entries are changed. Other values are derived from existing entry.
+.. Enter 'edit a/220 n/NewName sd/12 ey/2012' +
+    Expected: Wrong format for edit command is shown in status. No Loan is edited.
+.. Other incorrect delete commands to try: `edit`, `edit 5` +
+   Expected: Similar to previous.
+
+. Paying off Existing loans
+
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. Enter 'pay 1' +
+    Expected: First loan on the list is removed from list. No other loans or entries are changed. Status bar indicates deletion.
+.. Enter 'pay a/220' +
+    Expected: Wrong format for pay command is shown in status. No Loan is removed. Status shows correct format of command.
+.. Other incorrect delete commands to try: `pay`, `pay a` +
+   Expected: Similar to previous.
+
+//end::LoanManual[]
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Launch with corrupted fundbook.json
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Manually edit and save data/fundbook.json, corrupting data by entering "aaaaa" at start of file.
+.. Double-click the jar file. +
+   Expected: Shows the GUI with no data items. Window size is fixed at 960x720px.
 
-_{ more test cases ... }_
+. Relaunch after changing list of transactions
+
+.. Go to the transaction tab.
+.. Add a transaction using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find newly added transaction. +
+   Expected: Shows the GUI with newly added transaction.
+.. Edit the transaction using the `edit` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find newly added transaction. +
+   Expected: Shows the GUI with newly edited transaction.
+.. Delete the transaction using the `delete` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find deleted transaction. +
+   Expected: Shows the GUI without the deleted transaction.
+
+. Relaunch after changing list of repeaters
+
+.. Go to the repeaters tab.
+.. Add a repeater using the `add` command.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab. +
+   Expected: GUI shows newly added repeater.
+.. Go to the repeaters tab.
+.. Edit a repeater using the `edit` command.
+.. Go to the transaction tab and use `filter` command to find newly edited transactions. +
+   Expected: Shows newly edited transactions for appropriate filters.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab, or search for newly edited transactions in transaction tab. +
+   Expected: In repeaters tab, shows newly edited repeater; in
+transaction tab, shows newly edited transactions for appropriate filters.
+.. Go to the repeaters tab.
+.. Add a repeater using the `delete` command.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab. +
+   Expected: In repeaters tab, deleted repeater is not shown.
+
+. Relaunch after changing list of budgets
+
+.. Go to the budget tab.
+.. Add a budget using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the budget tab. +
+   Expected: Shows the GUI with newly added budget. Budget progress is the same.
+.. Delete a budget using the `delete` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the budget tab. +
+   Expected: GUI does not show deleted budget.
+
+. Relaunch after changing list of loans
+
+.. Go to the loan tab.
+.. Add a loan using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the loan tab. +
+   Expected: Shows the GUI with newly added loan.

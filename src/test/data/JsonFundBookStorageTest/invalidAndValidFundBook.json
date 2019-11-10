@@ -1,5 +1,6 @@
 {
   "currentRepeaterUniqueId": "0",
+  "currentLoanId": "0",
   "transactions": [ {
     "description" : "Valid tx",
     "amount" : "2.10",
@@ -23,6 +24,7 @@
     "transactionType" : "exp",
     "repeaterUniqueId" : ""
   } ],
-  "repeaters" : [],,
+  "repeaters" : [],
+  "loans" :  [],
   "budgets" : []
 }
