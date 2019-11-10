@@ -153,38 +153,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Finding Free Timeslot feature
-==== Proposed Implementation
-
-The finding free timeslot feature is implemented by `ScheduleGenerator`. It generates the current `WeekSchedule` of a group and the common free timeslot among its members and updates the `ScheduleView` to be displayed to the user. Additionally, it implements the following operations:
-
-* `ScheduleGenerator#getFreeTimeslot()` -- Generates a `personSchedule` of a group and updates the `ScheduleView`.
-
-These operations are exposed in the `Model` interface as `Model#getFreeTimeslot()`
-
-Firstly, the `getFreeTimeslot()` method takes in as input an ArrayList of `Person` and updates the ScheduleView of the TimeBook. When the method is executed, it checks the schedule of each `Person` in the TimeBook and generates a new combined `WeekSchedule` of the whole list of `Person`. Also, only `TimeSlots` that are within the week are checked and put into the 'WeekSchedule'. The generated `WeekSchedule` will then contain the individual schedules of each `Person` in the list for the week.
-
-After the `WeekSchedule` has been generated, the method now generates a new schedule of the free timeslots within the `WeekSchedule`. It checks the `WeekSchedule` and generates a new `FreeTimeSchedule` with contains all the timeslots in which there are no clashes with the `personSchedule`. It also only generates `FreeTimeslots` for the week.
-
-Additionally, the generated `FreeTimeSchedule` also contains the information of the last venue the `Person` has been. This information is then used to calculate the closest location for all `Person` to meet.
-
-Finally, after generating the `WeekSchedule` and `FreeTimeSchedule`, it now updates the `ScheduleView` of `TimeBook`. This 'ScheduleView' is then displayed to the user through the UI.
-
-The following sequence diagram shows how the generateFreeTimeslot operation works:
-
-image::FindFreeTimeslotSequenceDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How the `WeekSchedule` is generated and stored
-
-* **Alternative 1 (current choice):** Generates the `WeekSchedule` only when the `ShowGroup` command is executed.
-** Pros: Saves memory space, and does not need to compute the `WeekSchedule` of every group upon startup.
-** Cons: May have performance issues in runtime as there is no preprocessing as the `WeekSchedule` is only generated when required.
-* **Alternative 2:** Upon startup, generate each Group's `WeekSchedule` and store them within the `Group` object.
-** Pros: Better runtime performance as the `WeekSchedule` is already generated.
-** Cons: Will have perfomance issues in terms of memory usage. Each Group's `WeekSchedule` will also have to be updated whenever a `Person` is added, edited or deleted.
-
 === Schedule Generator
 
 The Schedule Generator feature allows users to generate a combined schedule of any number of people. It combines these
@@ -270,6 +238,8 @@ object to get the `Person` object specified by the `Name` object.
 ** `ScheduleCommand` then adds the `Person` into the List of `Persons`
 ** `ScheduleCommand` calls the `ModelManager#updateScheduleWithPersons` method with the List of `Persons`
 
+The following sequence diagram shows how the ScheduleCommand is executed:
+
 image::ugalvin/scheduleGeneratorSequenceDiagram1.png[width=100%]
 
 * `Step 4`: Generate the Schedule
@@ -285,6 +255,8 @@ such as previous location data of each person, start time and end time.
 
 * `Step 5`: Update the ScheduleDisplay
 ** `ScheduleManager` now updates the current `ScheduleDisplay` to be shown to the user
+
+The following sequence diagram shows how the `ScheduleDisplay` is generated:
 
 image::ugalvin/scheduleGeneratorSequenceDiagram2.png[width=100%]
 
