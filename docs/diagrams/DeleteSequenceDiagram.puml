@@ -1,69 +1,75 @@
 @startuml
 !include style.puml
+title Deleting an Interviewee
 
+'Logic
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteIntervieweeCommand" as DeleteIntervieweeCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
+'Model
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+'calls and arrows. Each paragraph represents one arrow.
+[-> LogicManager: execute(delete)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> SchedulerParser: parseCommand(delete)
+activate SchedulerParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+SchedulerParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> SchedulerParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+SchedulerParser -> DeleteCommandParser: parse(delete)
 activate DeleteCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteIntervieweeCommand
+DeleteCommandParser -> DeleteIntervieweeCommand: DeleteIntervieweeCommand(name)
+activate DeleteIntervieweeCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteIntervieweeCommand --> DeleteCommandParser
+deactivate DeleteIntervieweeCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --> SchedulerParser
 deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+SchedulerParser --> LogicManager
+deactivate SchedulerParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteIntervieweeCommand: execute(model)
+activate DeleteIntervieweeCommand
 
-DeleteCommand -> Model : deletePerson(1)
-activate Model
+DeleteIntervieweeCommand -> ModelManager: deleteInterviewee(interviewee)
+activate ModelManager
 
-Model --> DeleteCommand
-deactivate Model
+ModelManager --> DeleteIntervieweeCommand
+deactivate ModelManager
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteIntervieweeCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteIntervieweeCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteIntervieweeCommand --> LogicManager: commandResult
+deactivate DeleteIntervieweeCommand
 
-[<--LogicManager
+destroy DeleteIntervieweeCommand
+
+[<-- LogicManager
 deactivate LogicManager
+
 @enduml

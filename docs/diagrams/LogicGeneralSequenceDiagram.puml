@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
+participant ":XYZCommandParser" as XYZCommandParser LOGIC_COLOR
+participant ":XYZCommand" as XYZCommand LOGIC_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute(userInput)
+activate LogicManager
+
+LogicManager -> SchedulerParser: parseCommand(userInput)
+activate SchedulerParser
+
+create XYZCommandParser
+SchedulerParser -> XYZCommandParser
+activate XYZCommandParser
+
+XYZCommandParser --> SchedulerParser
+deactivate XYZCommandParser
+
+SchedulerParser -> XYZCommandParser: parse(userInputArguments)
+activate XYZCommandParser
+
+create XYZCommand
+XYZCommandParser -> XYZCommand
+activate XYZCommand
+
+XYZCommand --> XYZCommandParser
+deactivate XYZCommand
+
+XYZCommandParser --> SchedulerParser
+deactivate XYZCommandParser
+
+destroy XYZCommandParser
+
+SchedulerParser --> LogicManager
+deactivate SchedulerParser
+
+LogicManager -> XYZCommand: execute(model)
+activate XYZCommand
+
+ref over XYZCommand: See Section 3: Implementation\nfor concrete examples of how\ndifferent commands are executed.
+
+XYZCommand --> LogicManager
+deactivate XYZCommand
+
+destroy XYZCommand
+
+LogicManager -> ModelManager: getMutableIntervieweeList()
+activate ModelManager
+
+ModelManager --> LogicManager
+deactivate ModelManager
+
+LogicManager -> StorageManager: saveIntervieweeList(intervieweeList)
+activate StorageManager
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+LogicManager -> ModelManager: getMutableInterviewerList()
+activate ModelManager
+
+ModelManager --> LogicManager
+deactivate ModelManager
+
+LogicManager -> StorageManager: saveInterviewerList(interviewerList)
+activate StorageManager
+
+StorageManager --> LogicManager
+deactivate StorageManager
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

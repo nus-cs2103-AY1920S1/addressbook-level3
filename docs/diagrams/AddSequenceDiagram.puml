@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+title Adding an Interviewee
+
+'Logic
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant ":AddIntervieweeCommand" as AddIntervieweeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+'Model
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant ":IntervieweeBuilder" as IntervieweeBuilder MODEL_COLOR
+end box
+
+[-> LogicManager: execute(add)
+activate LogicManager
+
+LogicManager -> SchedulerParser: parseCommand(add)
+activate SchedulerParser
+
+create AddCommandParser
+SchedulerParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> SchedulerParser
+deactivate AddCommandParser
+
+SchedulerParser -> AddCommandParser: parse(addArgs)
+activate AddCommandParser
+
+create IntervieweeBuilder
+AddCommandParser -> IntervieweeBuilder
+activate IntervieweeBuilder
+
+IntervieweeBuilder --> AddCommandParser: interviewee
+deactivate IntervieweeBuilder
+
+create AddIntervieweeCommand
+AddCommandParser -> AddIntervieweeCommand: AddIntervieweeCommand(interviewee)
+activate AddIntervieweeCommand
+
+AddIntervieweeCommand --> AddCommandParser
+deactivate AddIntervieweeCommand
+
+AddCommandParser --> SchedulerParser
+deactivate AddCommandParser
+destroy AddCommandParser
+
+SchedulerParser --> LogicManager
+deactivate SchedulerParser
+
+LogicManager -> AddIntervieweeCommand: execute(model)
+activate AddIntervieweeCommand
+
+AddIntervieweeCommand -> ModelManager: addInterviewee(interviewee)
+activate ModelManager
+
+ModelManager --> AddIntervieweeCommand
+deactivate ModelManager
+
+create CommandResult
+AddIntervieweeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddIntervieweeCommand
+deactivate CommandResult
+
+CommandResult --> LogicManager: commandResult
+deactivate AddIntervieweeCommand
+
+destroy AddIntervieweeCommand
+
+[<-- LogicManager
+deactivate LogicManager
+
+@enduml
