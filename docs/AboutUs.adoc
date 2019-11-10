@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Abhinav Ramnath
 image::ambhinav.png[width="150", align="left"]
-{empty}[https://github.com/ambhinav[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/ambhinav[github]] [<<ambhinav#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Calendar Feature + Integration
@@ -29,7 +29,7 @@ Responsibilities: Project DashBoard Feature + Testing
 
 === Seah Lynn
 image::seahlynn.png[width="150", align="left"]
-{empty}[http://github.com/seahlynn[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/seahlynn[github]] [<<seahlynn#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Project Dashboard feature + Documentation
