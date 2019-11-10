@@ -1454,17 +1454,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Problems
+=== Adding a problem
 
-. Adding a problem
-
+. Adding a new problem to AlgoBase.
 .. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
    Expected: A problem named 'Sequences' and tagged 'algorithm' is added to AlgoBase.
-.. Test case: `addprob n/1234 ` +
-   Expected: No problem is added. The name of the problem cannot contain numbers.
+.. Test case: `addprob n/1234` +
+   Expected: No problem is added. The name of the problem cannot contain numbers. Error details shown in the status message.
+.. Test case: `addprob n/ d/unnamed problem` +
+Expected: No problem is added. The problem's name shouldn't be blank. Error details shown in the status message.
 
-. Deleting a problem
+=== Deleting a problem
 
+. Deleting a problem from AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `deleteprob 1` +
    Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
@@ -1473,15 +1475,21 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-. Editing a problem
+=== Editing a problem
 
+. Changing fields of an existing problem in AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `editprob 1 n/Two Sequences` +
    Expected: Change the name of the first problem to 'Two Sequences'.
 .. Test case: `editprob 2 t/` +
    Expected: Removes all tags from the second problem.
 .. Test case: `editprob x` +
-   Expected: No problem is edited. Index of problem should be a valid integer.
+   Expected: No problem is edited. Index of problem should be a valid integer. Error details shown in the status message.
+
+=== Listing problems
+
+.. Test case: `listprob` +
+Expected: All problems in AlgoBase are listed in the problem panel.
 
 === Sorting problems
 
@@ -1526,7 +1534,6 @@ edittag: Edits the details of the Tag identified by the index number used in the
 Parameters: INDEX (must be a positive integer) [t/TAG] [c/COLOR]
 Example: edittag 1 t/Easy c/BLUE
 
-
 === Listing tags
 
 . Listing all tags in the existing AlgoBase
@@ -1570,40 +1577,60 @@ Example: edittag 1 t/Easy c/BLUE
    Expected: The first find rule is deleted and the find rules list is updated.
 
 // tag::plan_test[]
-=== Plans
 
-. Adding a plan to the existing AlgoBase
+=== Adding a plan
 
+. Adding an empty plan into AlgoBase.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
    Expected: A new plan with respective information is added and displayed on plan tab. Start date is now and end date is one month from now.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
-   Expected: No plan is added. Error details shown in the status message. No plans with duplicate names can be added.
+   Expected: No plan is added. No plans with duplicate names can be added. Error details shown in the status message.
+.. Test case: `addplan n/Graph start/2019-1-1 end/2019-3-3` +
+   Expected: No plan is added. The date should be in `yyyy-MM-dd` format. Error details shown in the status message.
+.. Test case: `addplan n/Graph end/1912-06-23` +
+   Expected: No plan is added. If no starting time is specified, the starting time will be `LocalDate#now()`, and the starting time should not be after end time. Error details shown in the status message.
 
-. Editing a plan
+=== Editing a plan
 
-.. Test case: `listplan` +
-`edit 1 d/give up start/2019-01-01 end/2020-02-02` +
-   Expected: All plans are displayed in chronological order. The description and the dates of the first plan is changed.
-.. Test case: `edit 1 end/2018-02-02` +
+. Changing fields of an existing plan in AlgoBase.
+.. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
+.. Test case: `editplan 1 d/give up start/2019-01-01 end/2020-02-02` +
+   Expected: The description and the dates of the first displayed plan is changed.
+.. Test case: `editplan 1 end/2018-02-02` +
    Expected: Edit command is invalid. Error details shown in the status message. Starting date should be before or equal to end date.
+.. Test case: `editplan 1 end/2019-02-02 /f` +
+Expected: The end date of the first displayed plan is changed to `2019-02-02`. Any task's due date after `2019-02-02` will be changed to `2019-02-02`.
+..Test case: `editplan 1 start/2019-01-30 /f` +
+Expected: The starting date of the first displayed plan is changed to `2019-01-30`. Any task's due date before `2019-01-30` will be changed to the plan's end date.
 
-. Finding plans
+=== Finding plans
 
+. Finding plans with matching fields in AlgoBase.
 .. Test case: `findplan n/bytedance` +
    Expected: The plan named 'ByteDance' is listed.
 .. Test case: `findplan start/2019-01-01 end/2019-12-12` +
    Expected: Plans whose time range overlaps with the given time range are listed in the plan panel.
+.. Test case: `findplan start/2019-01-01` +
+   Expected: Invalid command. Both range start and range end should be specified. Error details shown in the status message.
+.. Test case: `findplan start/2019-01-01 end/2018-01-02` +
+   Expected: Invalid command. Range start should not be after range end. Error details shown in the status message.
 
-. Deleting a plan
+=== Deleting a plan
 
+. Deleting a plan from AlgoBase.
+.. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
 .. Test case: `findplan n/bytedance` +
-`delete 1` +
+`deleteplan 1` +
    Expected: The plan with name 'ByteDance' is deleted.
 .. Test case: `listplan` +
-`delete 1` +
+`deleteplan 1` +
    Expected: The first plan among all plans is deleted.
-.. Test case: `delete all` +
-Expected: No plan is deleted. Error message is shown. Plan index must be a valid integer.
+
+=== Listing plans
+
+. Listing all existing plans in AlgoBase.
+.. Test case: `listplan` +
+Expected: All plans in Algobase are listed in the plan display tab.
 // end::plan_test[]
 
 === Saving Data
