@@ -1009,3 +1009,13 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+
+=== Testing Statistics
+
+. Display statistics between 2 dates
+
+.. Prerequisites: Ensure that archive order panel has suitable `Completed` and `scheduled` orders. Only these orders
+will show up in the calculation
+.. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
+    Expeected: Chart is displayed in popup window
