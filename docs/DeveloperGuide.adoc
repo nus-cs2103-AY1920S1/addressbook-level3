@@ -254,7 +254,6 @@ image::ModelCD.png[]
 
 
 ==== Details on the `Model` Implementation for the Home Tab
-
 The `Model` of the Home tab:
 * stores a `TransactionList` object that represents the list of all transactions data
 * stores a `Predicate<Transaction>` object to filter the list of all transactions
@@ -263,11 +262,7 @@ The `Model` of the Home tab:
 *API for transaction package* : link:{repoURL}/src/main/java/seedu/address/transaction/model/Model.java[`Model.java`]
 
 ==== Details on the `Model` Implementation for the Reimbursements Tab
-To be filled in :)
-
-*API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
-
-==== Details on the `Model` Implementation for the Reimbursements Tab
+The `Model` of the Reimbursment tab:
 * stores a `ReimbursementList` object that represents the list of all reimbursements data
 * stores another `ReimbursementList` object that represents the filtered list of reimbursements according to the command
 
