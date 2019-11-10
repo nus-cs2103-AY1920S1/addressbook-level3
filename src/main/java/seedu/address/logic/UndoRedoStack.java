@@ -14,8 +14,6 @@ import seedu.address.logic.commands.UndoableCommand;
  */
 public class UndoRedoStack {
 
-    private static UndoRedoStack undoRedoStack = new UndoRedoStack();
-
     private LinkedList<UndoableCommand> undoStack;
     private LinkedList<UndoableCommand> redoStack;
 
@@ -76,10 +74,6 @@ public class UndoRedoStack {
      */
     public boolean canRedo() {
         return redoStack.size() > 0;
-    }
-
-    public static UndoRedoStack getUndoRedoStack() {
-        return undoRedoStack;
     }
 
     @Override
