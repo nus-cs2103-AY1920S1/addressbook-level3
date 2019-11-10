@@ -133,20 +133,9 @@ public class Deck implements JsonInterface {
             cardJson.add(card.toJson());
         }
 
-        JsonArray sessionsJson = new JsonArray();
-        ArrayList<Session> testSessionArrayList = testSessionList.getSessionArrayList();
-        for (Session s : testSessionArrayList) {
-            try {
-                sessionsJson.add(s.toJson().getObject());
-            } catch (JsonWrongValueException e) {
-                System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
-            }
-        }
-
         JsonObject obj = new JsonObject();
         obj.put(Schema.DECK_NAME, deckName);
         obj.put(Schema.DECK_CARDS, cardJson);
-        obj.put(Schema.DECK_SESSIONS, sessionsJson);
         return new JsonValue(obj);
     }
 
