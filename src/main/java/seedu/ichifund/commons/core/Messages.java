@@ -21,5 +21,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_BUDGET_DATE = "The budget is missing either the month or year! \n%1$s";
     public static final String MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX = "The budget index provided is invalid";
     public static final String MESSAGE_INVALID_LOAN_SPAN = "The Loan duration provided is Invalid";
+    public static final String MESSAGE_INVALID_LOAN_INDEX = "The Loan INDEX provided is Invalid";
 
 }
