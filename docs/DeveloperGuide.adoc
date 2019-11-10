@@ -67,7 +67,6 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `delete|1` command
 
 image::ArchitectureSequenceDiagram.png[]
-
 The sections below give more details of each component.
 
 [[Design-Ui]]
@@ -225,7 +224,7 @@ This will be further explained in a <<Spelling correction with alternative recom
 ** Cons: This however would lead to unnecessary repetition of code across the code base.
 // end::replenishListCommands[]
 
-// tag::autosort[]
+// tag::autosortPartOne[]
 === Auto-sorting of items by name then date
 ==== Implementation
 Items in both lists are automatically sorted by their name then date in chronological order.
@@ -270,7 +269,9 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
 the default method of sorting is then retrieved.
+// end::autosortPartOne[]
 
+// tag::autosortPartTwo[]
 The following sequence diagram demonstrates how the sort command changes the default order of items displayed:
 
 .Sequence Diagram showing how sort command changes the order of items
@@ -301,8 +302,9 @@ and the list of items are updated accordingly.
 
 [NOTE]
 The ability to check for spelling errors of command arguments is explained in a <<Spelling correction with alternative recommendations,later section>>.
+// end::autosortPartTwo[]
 
-
+// tag::autosortPartThree[]
 ==== Design Considerations
 
 ===== Aspect: When items auto-sorted by their names are displayed
@@ -323,7 +325,7 @@ The ability to check for spelling errors of command arguments is explained in a 
 * **Alternative 2:** `TreeSet<Item>`.
 ** Pros: Disallows addition of identical items to the set.
 ** Cons: May not be as compatible with the internalList which is of type ObservableList.
-// end::autosort[]
+// end::autosortPartThree[]
 
 // tag::setreminder[]
 === Set Reminders for expiring items
@@ -571,7 +573,7 @@ Below is the UML sequence diagram of an example usage scenario.
 image::SearchCommandSequenceDiagram.png[]
 // end::search[]
 
-// tag::recommendations[]
+// tag::recommendationsIntro[]
 === Spelling correction with alternative recommendations
 ==== Implementation
 Invalid commands are checked for spelling mistakes.
@@ -581,6 +583,7 @@ Relevant functions supporting this operation are implemented in `StringUtil`.
 
 [NOTE]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
+// end::recommendationsIntro[]
 
 The diagram below is a simplified illustration of how the feature works.
 
@@ -588,6 +591,7 @@ The diagram below is a simplified illustration of how the feature works.
 
 image::RecommendationsExample1.png[]
 
+// tag::recommendationsPartOne[]
 [NOTE]
 The recommendations will be made solely based on the list of items previously displayed rather than all items currently in the list.
 
@@ -597,6 +601,9 @@ On the other hand, if `green` was misspelled as `gren`, the algorithm will be ab
 .Example illustrating that recommendations are solely based on the previous list
 
 image::RecommendationsExample2.png[]
+// end::recommendationsPartOne[]
+
+// tag::recommendationsPartTwo[]
 
 //Given below is an example usage scenario and how the mechanism behaves at each step.
 
@@ -609,8 +616,10 @@ image::RecommendUnknownCommandActivityDiagram.png[]
 For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
 It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
 as its closest match and wrapped as a recommendation in a `ParseException` object to be thrown and displayed to the user.
+// end::recommendationsPartTwo[]
 
-On the other hand, the figure below presents what happens when a user executes a command with invalid arguments.
+// tag::recommendationsPartThree[]
+The figure below presents what happens when a user executes a command with invalid arguments.
 
 .Activity diagram showing what happens when an a command is executed with misspelled arguments
 
@@ -658,7 +667,7 @@ is then thrown to the user as feedback.
 * **Alternative 2:** Store all possible recommendations in a long list.
 ** Pros: Simpler implementation.
 ** Cons: Not closely related words may also be recommended to the user.
-// end::recommendations[]
+// end::recommendationsPartThree[]
 
 === Logging
 
