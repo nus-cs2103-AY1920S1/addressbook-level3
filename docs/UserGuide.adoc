@@ -776,7 +776,7 @@ eg. `report 7` +
 eg. `overview dt/20/10/2019 dt/06/11/2019` +
 
 *Adding a revision task for note*: `rn t/TITLE_OF_NOTE dt/DATE tm/TIME` +
-eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900`+
+eg. `rn t/CS2103T UML diagram dt/01/11/2019 tm/0900` +
 
 *Adding a revision task for question*: `rq i/INDEX_OF_QUESTION dt/DATE tm/TIME` +
 eg. `rq i/1 dt/11/11/2019 tm/1500` +
