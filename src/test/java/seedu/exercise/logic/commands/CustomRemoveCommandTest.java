@@ -37,6 +37,7 @@ import seedu.exercise.model.resource.Exercise;
 import seedu.exercise.testutil.builder.ExerciseBookBuilder;
 import seedu.exercise.testutil.builder.ExerciseBuilder;
 
+//@@author weihaw08
 public class CustomRemoveCommandTest {
 
 
@@ -135,6 +136,7 @@ public class CustomRemoveCommandTest {
         CustomRemoveCommand removeEndDate = new CustomRemoveCommand(VALID_FULL_NAME_END_DATE, Optional.empty());
         CustomRemoveCommand anotherRemoveRating = new CustomRemoveCommand(VALID_FULL_NAME_RATING, Optional.empty());
 
+        // same object -> true and null -> false
         assertCommonEqualsTest(removeRating);
 
         // Same values -> true

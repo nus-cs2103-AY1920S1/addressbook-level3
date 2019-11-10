@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -59,7 +59,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -67,7 +67,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete t/exercise i/1`.
 
 .Component interactions for `delete t/exercise i/1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 The sections below give more details of each component.
 
@@ -75,7 +75,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/ui/Ui.java[`Ui.java`]
 
@@ -93,7 +93,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
@@ -107,7 +107,7 @@ link:{repoURL}/src/main/java/seedu/exercise/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+image::DeleteSequenceDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -115,7 +115,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/model/Model.java[`Model.java`]
 
@@ -135,7 +135,7 @@ The `Model`
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 *API* : link:{repoURL}/src/main/java/seedu/exercise/storage/Storage.java[`Storage.java`]
 
@@ -213,14 +213,14 @@ The first diagram describes the process of storing an `EditEvent` to `EventHisto
 subsequently used for the initialization of the `EditEvent`.
 
 .The process of storing an EditEvent to EventHistory
-image::UndoableCommandSequenceDiagram.png[]
+image::UndoableCommandSequenceDiagram.png[align="center"]
 
 The second diagram here describes the process of undoing the `EditCommand` executed above using the `UndoCommand`.
 When the `UndoCommand` is executed, the `EventHistory` calls the `undo` method of the next `Event` in the undo stack
 (i.e. the `EditEvent`).
 
 .The process of undoing the EditCommand
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[align="center"]
 
 Given below is a Class Diagram to show the associations between Event, Command and Model. It is specifically designed
 such that only objects that implement the `Event` and `Command` interface will need to handle the `model` class.
@@ -229,13 +229,13 @@ The only commands that implements the `UndoableCommand` are `AddCommand`, `Delet
 `ClearCommand`, `ScheduleCommand` and `ResolveCommand`. They each stores an `EventPayload` instance.
 
 .The associations between Event, Command and Model
-image::EventClassDiagram.png[]
+image::EventClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 The following Activity Diagram summarizes what happens when a user enters undoable commands,
 the undo command and the redo command.
 
 .The workflow when a user enters an undoable command and performs undo/redo
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 ==== Design Considerations
 ===== Aspect: How undo & redo executes
@@ -314,7 +314,7 @@ For the implementation of the resolve feature, the `ResolveCommand` will hold a 
 Shown below is the class diagram for the implementation of the `Resolve` feature.
 
 .Class diagram for Resolve Command
-image::ScheduleResolveClassDiagram.png[]
+image::ScheduleResolveClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 With regards to the flow of the program for a scheduling conflict, the steps are laid out below:
 
@@ -333,7 +333,7 @@ The `ResolveWindow` will block all inputs to `MainWindow` and only allow `resolv
 Shown below is the sequence diagram for when a scheduling conflict happens:
 
 .Sequence diagram when a scheduling conflict happens
-image::ScheduleConflict.png[]
+image::ScheduleConflict.png[align="center"]
 
 Step 5. When the user is prompted with the `ResolveWindow`, all the conflicting exercises will be shown in one page. The previously `scheduled regime` on the left and the `conflicting regime` on the right.
 
@@ -347,7 +347,7 @@ Step 7. The `ResolveWindow` then closes upon successful `resolve` and the applic
 The following activity diagram summarizes what happens when a user enters a `schedule` command:
 
 .Activity diagram for when a user enters a `schedule` command
-image::ScheduleActivityDiagram.png[]
+image::ScheduleActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 ==== Design Considerations
 ===== Aspect: Signalling Schedule Conflict
@@ -425,7 +425,7 @@ is also removed from the prefix set in `CliSyntax`.
 All of the crucial associations mentioned above are summarised in the next class diagram.
 
 .Class diagram of the associations of `PropertyBook` and `CustomProperty`
-image::CustomClassDiagram.png[]
+image::CustomClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 ===== Adding Custom Properties
 To add a new custom property for the exercises, the user can do it through the command `custom s/PREFIX_NAME f/FULL_NAME
@@ -435,7 +435,7 @@ The following sequence diagram will illustrate how the custom operation works wh
 property is *successfully added*.
 
 .Sequence diagram of a successful addition of a custom property
-image::EditedCustomAddSequenceDiagram.png[]
+image::EditedCustomAddSequenceDiagram.png[align="center"]
 
 For further clarity, one can identify the above diagram with the following sequence of steps:
 
@@ -455,7 +455,7 @@ The above steps illustrate the main success scenario. However, not all additions
 The next activity diagram shows the workflow when a new custom property is defined.
 
 .Activity diagram of the workflow when a new custom property is added
-image::CustomAddActivityDiagram.png[width="500"]
+image::CustomAddActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 Once a custom property is successfully added into `PropertyBook`, the user can use the prefix of the custom property in
 `add` or `edit` command.
@@ -465,10 +465,11 @@ Should a user wish to remove a custom property from all of the exercises, he/she
 `custom rm/FULL_NAME`. A custom property that has been removed from the ``PropertyBook`` can be re-added back if the user chooses to.
 Alternatively, if the user wishes to remove a custom property just from a single exercise, he/she can choose to enter `custom rm/FULL_NAME i/INDEX` instead.
 
-The next sequence diagram illustrates what happens when a custom property is removed from the `PropertyBook`.
+The next sequence diagram illustrates what happens when a custom property is removed from the `PropertyBook`. If a custom property
+is removed from a single exercise instead, only the selected exercise will be updated.
 
 .Sequence diagram of a successful removal of a custom property from all exercises
-image::EditedCustomRemoveSequenceDiagram.png[]
+image::EditedCustomRemoveSequenceDiagram.png[align="center"]
 ==== Design Considerations
 
 ===== Aspect: `PropertyBook` design
@@ -527,7 +528,7 @@ The `SuggestPossible` command is created by parsing the user's inputs to form a 
 The following activity diagram summarizes what happens when a user enters a `SuggestPossible` command:
 
 .Activity diagram showing the workflow of a `SuggestPossible` command
-image::SuggestActivityDiagram.png[]
+image::SuggestActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 In detail, when a `SuggestPossible` command is entered, the `Logic` component is responsible for parsing the inputs into a `Predicate`.
 The `Predicate` is then used to instantiate a `SuggestPossible` command, and later used to filter a list of `Exercise` when the command is executed.
@@ -538,7 +539,7 @@ The interactions between the multiple objects can be captured using a sequence d
 The following sequence diagram shows the sequence flow when a user enters a valid `SuggestPossible` command:
 
 .Sequence diagram of a `SuggestPossibleCommand`.
-image::SuggestSequenceDiagram.png[]
+image::SuggestSequenceDiagram.png[align="center"]
 
 From the sequence diagram:
 
@@ -565,7 +566,7 @@ In step 3, the process in which the `ExercisePredicate` object is created can be
 
 .Sequence diagram of how an `ExercisePredicate` is created
 
-image::SuggestPredicateSequenceDiagram.png[]
+image::SuggestPredicateSequenceDiagram.png[align="center"]
 
 From the sequence diagram above:
 
@@ -581,7 +582,7 @@ where each contains a `Collection` of `Muscle` or `CustomProperty`.
 
 .Class diagram of the classes behind the suggest possible feature
 
-image::SuggestCommandClassDiagram.png[]
+image::SuggestCommandClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 Creating classes such as `ExerciseCustomPropertyPredicate` and `ExerciseMusclePredicate`
 allows us to conduct better testing because we can compare the `Collection` of `Muscle`/`CustomProperty` that is being considered.
@@ -612,12 +613,12 @@ StatsFactory will create Statistic using given parameters.
 The figure below shows the class diagram of statistics:
 
 .Class diagram of the classes behind the statistics feature
-image::StatisticClassDiagram.png[]
+image::StatisticClassDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 The next figure shows the activity diagram when user enter a `stats` command:
 
 .Workflow when a user enters a `stats` command
-image::StatisticActivityDiagram.png[]
+image::StatisticActivityDiagram.png[align="center", width=85%, scaledwidth=15cm]
 
 Given below is an example usage scenario of statistics feature.
 
@@ -640,7 +641,7 @@ Step 8: `StatsCommand` creates a new `CommandResult` and return to `LogicManager
 Shown below is the sequence diagram when user enters a valid `stats` command:
 
 .Sequence diagram of a `stats` command
-image::StatisticSequenceDiagram.png[]
+image::StatisticSequenceDiagram.png[align="center"]
 
 // end::statistic[]
 
@@ -844,7 +845,7 @@ Use case ends
 Use case ends
 
 [Discrete]
-=== UC04: Configure Command
+=== UC04: Custom
 
 *System:* ExerHealth
 
@@ -861,11 +862,11 @@ Use case ends
 
 *Extensions*
 [None]
-* 1a. ExerHealth detects that the user-defined property is a duplicate
-of another property for exercises
+* 1a. ExerHealth detects that the <<prefixName, prefix name>>/full name of the user-defined property is a duplicate
+of another property/parameter for add / edit command.
 [None]
-** 1a1. ExerHealth informs the user that his/her new property is a
-duplicate of a current property.
+** 1a1. ExerHealth informs the user that the prefix name/full name of his/her new property is a
+duplicate of a current property/parameter for add / edit command.
 +
 Use case ends
 
@@ -1011,7 +1012,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The regime named `Power set` is deleted from the list.
 .. Test case: `delete t/regime n/power set` +
    Expected: `Power set` regime is not deleted as name is case-sensitive. Error details shown in the status message.
-=======
+
 === Scheduling a regime
 
 . Scheduling an exercise regime
@@ -1039,6 +1040,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `resolve n/new cardio i/1 r/2` +
    Expected: A new regime is created called `new cardio` with the exercises from scheduled regime's first index and conflicting regime's second index. Resolve window should close. The newly made regime is now scheduled on conflicting date. Details of the schedule shown on the center information panel.
+
 === Suggest
 . Suggest basic exercises
 .. Test case: `suggest s/basic`
@@ -1084,6 +1086,38 @@ exercises from database that are tagged `Chest` are also displayed.
    Expected: The chart in the right panel will be updated to a line chart. Total and average will be shown below the chart.
 .. Test case: `stats t/calories h/barchart s/01/01/2019 e/02/02/2019` +
    Expected: The chart in the right panel is not updated. Error message shown in the status message.
+
+=== Adding a custom property
+
+. Adding a custom property when app is first launched.
+
+.. Prerequisites: The custom property `Remark` with the prefix name `re` must not be created yet. The following test cases should be tried in order.
+.. Test case: `custom s/re f/Remark p/Text` +
+   Expected: The custom property `Remark` is created for all exercises. The prefix name and full name of the property
+   will be displayed in the status message.
+.. Test case: `custom s/re f/AnotherRemark p/Text` +
+   Expected: No custom property is created. An error message will be shown, informing the user that the prefix has been used
+   for an existing parameter in add/edit command.
+.. Test case: `custom s/tt f/Remark p/Text` +
+   Expected: No custom property is created. An error message will be shown, informing the user that the name has been used
+   by an existing property.
+
+=== Deleting a custom property
+
+. Deleting a custom property.
+
+.. Prerequisites: The custom property `Remark` with the prefix name `re` should have been created.
+                  There should be at least 3 exercises with the custom property `Remark`, preferably
+                  the exercises at indices 1 to 3. The following test cases should be tried in order.
+.. Test case: `custom rm/Remark i/1` +
+   Expected: `Remark` is removed from exercise 1. A message informing the user that `Remark` has been removed from
+   exercise 1 will be shown. The `Remark` property for exercises 1 and 2 will still be present.
+.. Test case: `custom rm/Remark`
+   Expected: `Remark` is removed from the app. A message informing the user that `Remark` has been removed will be shown.
+   The `Remark` property is removed from all exercises.
+.. Test case: `custom rm/Date`
+   Expected: No custom property is removed. An error message informing the user that `Date` is not used by
+   an custom property will be shown.
 
 === Saving data
 

@@ -28,6 +28,7 @@ import seedu.exercise.model.ModelManager;
 import seedu.exercise.model.UserPrefs;
 import seedu.exercise.ui.ListResourceType;
 
+//@@author weihaw08
 public class SelectCommandTest {
 
     private Model model = new ModelManager(getTypicalExerciseBook(), getTypicalRegimeBook(), getTypicalExerciseBook(),

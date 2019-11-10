@@ -15,7 +15,7 @@ Users can also define their own properties which they wish to track for their ex
 Below is a screenshot of our application:
 
 .A screenshot of ExerHealth application
-image::Ui.png[width="550"]
+image::Ui.png[align="center", width="550"]
 
 == Summary of contributions
 
@@ -51,7 +51,7 @@ which they wish to view.
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/103[#103]
-*** Reviewed and provided suggestions for individuals in the class: https://github.com/nus-cs2103-AY1920S1/duke/pull/86[#86], https://github.com/nus-cs2103-AY1920S1/duke/pull/229[#229]
+*** Reviewed and provided suggestions for individuals in the class: https://github.com/nus-cs2103-AY1920S1/duke/pull/86[#86], https://github.com/nus-cs2103-AY1920S1/duke/pull/229[#229],
 
 == Contributions to the User Guide
 

@@ -38,7 +38,8 @@ Interested? Jump to <<Quick Start>> to get started! Enjoy!
 .  Copy the file to the folder you want to use as the home folder for ExerHealth.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.The UI of ExerHealth
+image::Ui.png[align="center", width=85%, scaledwidth=15cm]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -87,12 +88,14 @@ can be used as `{nbsp}` (i.e. 0 times), `m/glutes`, `m/glutes m/chest` etc.
 === Viewing help : `help`
 Views the help dialog box which will bring you to this UserGuide. You can expect to see a window as shown below.
 
+Format: `help`
+
 .Here's how the help dialog box look like
-image::HelpDialogBox.png[]
+image::HelpDialogBox.png[align="center", width=85%, scaledwidth=15cm]
 
 Clicking on the `Copy URL` button will copy the link to your clipboard and you can open any browser of your choice to access the UserGuide for `ExerHealth`.
 
-Format: `help`
+
 
 === Adding exercise/regime information: `add`
 
@@ -108,7 +111,7 @@ You can enter the following additional information for each exercise:
 * Muscle group(s) that are being worked out
 * <<customproperty, Custom properties>> that have been added
 
-Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...`
+Format: `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
 
 ****
 * Calories entered have to be less than or equal to 50000.
@@ -127,12 +130,12 @@ Examples:
 Expected result:
 
 .The exercise `Run` is added
-image::AddRunResult.png[]
+image::AddRunResult.png[align="center", width=85%, scaledwidth=15cm]
 
 * `add t/exercise n/Sprinting d/11/11/2019 c/500 q/400 u/metres m/Thighs`
 
 .The exercise `Sprinting` is added
-image::AddExerciseWithMuscle.png[]
+image::AddExerciseWithMuscle.png[align="center", width=95%, scaledwidth=15cm]
 
 ==== Adding exercises to scheduling regime +
 
@@ -150,7 +153,7 @@ Adds the 1st, 2nd and 3rd exercise in the list to the regime named `power sets`.
 Expected result:
 
 .The `power sets` regime is created
-image::AddNewRegime.png[]
+image::AddNewRegime.png[align="center", width=85%, scaledwidth=15cm]
 
 * `add t/regime n/cardio i/4`
 
@@ -159,12 +162,12 @@ Adds the 4th exercise in the list to the regime named `cardio`.
 Figure below shows regime list with regime named `cardio`:
 
 .Before adding the 4th exercise into `cardio`
-image::RegimeCardioBefore.png[]
+image::RegimeCardioBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected result after `add t/regime n/cardio i/4` command executed:
 
 .After adding the 4th exercise into `cardio`
-image::RegimeCardioAfter.png[]
+image::RegimeCardioAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 [[list]]
 === Listing information : `list`
@@ -184,21 +187,21 @@ Example:
 Expected result:
 
 .The exercise list is displayed
-image::ListExerciseResult.png[]
+image::ListExerciseResult.png[align="center", width=85%, scaledwidth=15cm]
 
 * `list t/regime`
 
 Expected result:
 
 .The regime list is displayed
-image::ListRegimeResult.png[]
+image::ListRegimeResult.png[align="center", width=85%, scaledwidth=15cm]
 
 * `list t/schedule`
 
 Expected result:
 
 .The schedule list is displayed
-image::ListScheduleResult.png[]
+image::ListScheduleResult.png[align="center", width=85%, scaledwidth=15cm]
 
 === Selecting an item: `select`
 
@@ -209,7 +212,7 @@ Format: `select t/LIST_TYPE i/INDEX`
 Example: `select t/exercise i/3`
 
 .Exercise number 3 is selected
-image::SelectResult.png[]
+image::SelectResult.png[align="center", width=85%, scaledwidth=15cm]
 
 === Edit exercise information: `edit`
 
@@ -224,7 +227,7 @@ The index *must be a positive integer:* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 ****
 
-Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...`
+Format: `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
 
 Example:
 
@@ -232,31 +235,31 @@ Example:
 
 Edits the name and the date of the 2nd exercise to `Running` and `20/09/2019` respectively.
 
-Before +
+[.underline]#Before# +
 
 .Before editing the 2nd exercise
-image::EditExerciseBefore.png[]
+image::EditExerciseBefore.png[align="center", width=85%, scaledwidth=15cm]
 
-After +
+[.underline]#After# +
 Exercise now appears at the bottom as the list is sorted by date. +
 
 .After editing the 2nd exercise
-image::EditExerciseAfter.png[]
+image::EditExerciseAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 * `edit i/3 n/Bench press d/04/11/2019 c/240 q/10 u/sets m/Chest`
 
 Edits the name, date, calories burnt, quantity, units and muscle group trained of the 3rd exercise to `Bench press`,
 `22/09/2019`, `240`, `10`, `sets` and `Chest` respectively.
 
-Before +
+[.underline]#Before# +
 
 .Before editing the 3rd exercise
-image::EditExerciseBefore2.png[]
+image::EditExerciseBefore2.png[align="center", width=85%, scaledwidth=15cm]
 
-After +
+[.underline]#After# +
 
 .After editing the 3rd exercise
-image::EditExerciseAfter2.png[]
+image::EditExerciseAfter2.png[align="center", width=85%, scaledwidth=15cm]
 
 // tag::delete[]
 === Delete health information : `delete`
@@ -281,12 +284,12 @@ Examples:
 * `delete t/exercise i/2`
 
 .Before deleting the 2nd exercise
-image::deleteExerciseBefore.png[]
+image::deleteExerciseBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected result:
 
 .After deleting the 2nd exercise
-image::deleteExerciseAfter.png[]
+image::deleteExerciseAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 [[deleteExerciseFromRegime]]
 ==== Deleting exercise from scheduling regime
@@ -310,12 +313,12 @@ Deletes the exercise indexed 2 in the cardio regime
 Figure below shows regime list with regime named `cardio` with 4 exercises:
 
 .The `cardio` regime with 4 exercises
-image::RegimeCardioAfter.png[]
+image::RegimeCardioAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected result after `delete t/regime n/cardio i/2` command executed:
 
 .The 2nd exercise in `cardio` regime is removed
-image::DeleteExerciseFromRegime.png[]
+image::DeleteExerciseFromRegime.png[align="center", width=85%, scaledwidth=15cm]
 
 * `delete t/regime n/legs` +
 Deletes the entire regime named legs
@@ -323,12 +326,12 @@ Deletes the entire regime named legs
 Figure below shows regime list with regime named `legs`:
 
 .The `legs` regime before it is deleted
-image::DeleteEntireRegimeBefore.png[]
+image::DeleteEntireRegimeBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected result after `delete t/regime n/legs` command executed:
 
 .The `legs` regime is completely removed
-image::DeleteEntireRegimeAfter.png[]
+image::DeleteEntireRegimeAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 === Clearing all entries : `clear`
 
@@ -344,13 +347,13 @@ Example:
 Initially, the exercise tracker is populated with exercises.
 
 .The populated exercise tracker
-image::ClearBefore.png[]
+image::ClearBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 After calling the `clear` command, all exercises are removed from the
 exercise tracker list.
 
 .Poof! All of the exercises are removed
-image::ClearAfter.png[]
+image::ClearAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 // tag::statistic[]
 === Display statistics : `stats`
@@ -378,17 +381,17 @@ Example:
 * `stats t/exercise h/piechart`
 
 .Image of the pie chart generated
-image::PieChart.png[width="500"]
+image::PieChart.png[align="center", width=85%, scaledwidth=15cm]
 
 * `stats t/calories h/linechart`
 
 .Image of the line chart generated
-image::LineChart.png[width="500"]
+image::LineChart.png[align="center", width=85%, scaledwidth=15cm]
 
 * `stats t/calories h/barchart s/31/10/2019 e/06/11/2019`
 
 .Image of the bar chart generated
-image::BarChart.png[width="500"]
+image::BarChart.png[align="center", width=85%, scaledwidth=15cm]
 
 // end::statistic[]
 
@@ -424,37 +427,38 @@ Format: `undo`
 Example:
 
 * Undoing a `delete t/regime [i/INDEX]...` command that deletes exercise from an existing regime. +
+
 **Initial**: +
 
 .Selecting the 3rd regime
-image::DeleteExerciseFromRegimeBeforeUndo.png[]
+image::DeleteExerciseFromRegimeBeforeUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 1**: `delete t/regime n/Level 3 i/5` +
 Deletes the fifth exercise `Hiking` from the regime `Level 3` +
 
 .Deleting `Hiking` from our selected regime
-image::DeleteExerciseFromRegimeUndo.png[]
+image::DeleteExerciseFromRegimeUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 2**: `undo` +
 Adds the exercise `Hiking` back to the regime `Level 3` +
 
 .`undo` reverses the deletion!
-image::DeleteExerciseFromRegimeUndoOutcome.png[]
+image::DeleteExerciseFromRegimeUndoOutcome.png[align="center", width=85%, scaledwidth=15cm]
 // end::undoredoexample[]
-{sp} +
-{sp} +
+
 
 * Undoing a <<schedulecomplete, Schedule Complete>> command and a <<scheduleregime, Schedule Regime>> command +
+
 **Initial**: Schedule list only contains two scheduled regimes +
 
 .The initial appearance of the schedule list
-image::ScheduleRegimeBefore.png[]
+image::ScheduleRegimeBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 1**: `schedule n/Level 3 d/10/11/2019` +
 Schedules the regime `Level 3` on `10/11/2019` +
 
 .`Level 3` scheduled on 10/11/2019
-image::ScheduleRegimeAfter.png[]
+image::ScheduleRegimeAfter.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 2**: `schedule i/1` +
 Marks the scheduled regime at index 1, regime `Level 3`, as completed. +
@@ -464,25 +468,25 @@ Exercise list showing the newly completed exercises from the regime "Level 3"
 ```
 
 .The exercises of the completed regime are added into the tracker.
-image::ScheduleCompleteAfterExerciseView.png[]
+image::ScheduleCompleteAfterExerciseView.png[align="center", width=85%, scaledwidth=15cm]
 ```
 Schedule list showing the updated schedule without regime "Level 3"
 ```
 
 .The completed regime is removed from the schedule list
-image::ScheduleCompleteAfterScheduleView.png[]
+image::ScheduleCompleteAfterScheduleView.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 3**: `undo` +
 Undoes the completion of regime. The regime `Level 3` appears in the schedule list again. +
 
 .`undo` reverses the removal!
-image::ScheduleCompleteUndo.png[]
+image::ScheduleCompleteUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 4**: `undo` +
 Undoes the scheduling of regime. The regime `Level 3` is no longer visible in the schedule list. +
 
 .`undo` also reverses the scheduling!
-image::ScheduleRegimeUndo.png[]
+image::ScheduleRegimeUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 // tag::redo[]
 === Redo undone command: `redo`
@@ -500,38 +504,37 @@ Format: `redo`
 Example:
 
 * Redoing a `add t/exercise` command that has just been undone. +
+
 **Initial**: +
 
 .Initial appearance of the exercise list
-image::AddExerciseBeforeAdding.png[]
+image::AddExerciseBeforeAdding.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 1**: `add t/exercise n/Squats d/08/11/2019 c/200 q/150 u/reps` +
 Adds a new exercise called `Squats`. +
 
 .`Squats` is added to the exercise list
-image::AddExerciseBeforeUndo.png[]
+image::AddExerciseBeforeUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 2**: `undo` +
 Undoing the command removes the `Squats` exercise from the list. +
 
 .`undo` removes the exercise `Squats`
-image::AddExerciseBeforeRedo.png[]
+image::AddExerciseBeforeRedo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 3**: `redo` +
 Redoing the command returns the `Squats` exercise to the list again. +
 
 .`redo` adds `Squats` back!
-image::AddExerciseAfterRedo.png[]
-
-{sp} +
-{sp} +
+image::AddExerciseAfterRedo.png[align="center", width=85%, scaledwidth=15cm]
 
 * Redoing a <<resolve, resolve>> command that has just been undone. +
+
 **Initial**: +
 Attempts to schedule `Level 2` regime on the date of `Level 1` regime. +
 
 .Initial appearance of the schedule list
-image::ScheduleRegimeBeforeConflict.png[]
+image::ScheduleRegimeBeforeConflict.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 1**: `schedule n/Level 2 d/10/11/2019` +
 Resolve conflict window appears due to the conflict in date.
@@ -539,7 +542,7 @@ The conflict can be resolved by specifying the index of exercises
 to be taken from each regime. +
 
 .The conflict window opens due to conflicting schedule
-image::ScheduleRegimeBeforeResolve.png[]
+image::ScheduleRegimeBeforeResolve.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 2**: `resolve n/Level 1 and 2 i/2 r/2 r/3` +
 Resolves conflict by creating a new regime `Level 1 and 2`.
@@ -547,23 +550,22 @@ The new regime `Level 1 and 2` replaces the initial `Level 1` regime
 in the schedule. +
 
 .The new regime is added to the schedule list
-image::ScheduleRegimeBeforeResolveUndo.png[]
+image::ScheduleRegimeBeforeResolveUndo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 3**: `undo` +
 Undoing the command reverts the scheduled regime from `Level 1 and 2` to the initial
 `Level 1` regime. +
 
 .`undo` reverses the conflict resolution
-image::ScheduleRegimeBeforeResolveRedo.png[]
+image::ScheduleRegimeBeforeResolveRedo.png[align="center", width=85%, scaledwidth=15cm]
 
 **Step 3**: `redo` +
 Redoing the command updates the scheduled regime from `Level 1` to the resolved
 `Level 1 and 2` regime. +
 
 .`redo` returns the new regime that was created after the conflict resolution!
-image::ScheduleRegimeAfterResolveRedo.png[]
+image::ScheduleRegimeAfterResolveRedo.png[align="center", width=85%, scaledwidth=15cm]
 
-{sp} +
 
 // tag::scheduleresolve[]
 
@@ -590,12 +592,12 @@ Schedules the regime called `cardio` on the date `12/12/2019`. If there are no o
 Expected Result:
 
 .The `cardio` regime is scheduled on 12/12/2019
-image::ScheduleRegimeCardio.png[]
+image::ScheduleRegimeCardio.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected Result (if other schedule exist on `12/12/2019`):
 
 .The result when a scheduling conflict is detected
-image::ScheduleRegimeCardioConflict.png[]
+image::ScheduleRegimeCardioConflict.png[align="center", width=85%, scaledwidth=15cm]
 
 If the resolve window pops up for you, please refer to <<resolve>> for details on resolving a scheduling conflict.
 
@@ -621,17 +623,17 @@ Expected Result:
 Before execution of `schedule i/2`
 
 .Before the execution of the command
-image::ScheduleCompleteBefore.png[]
+image::ScheduleCompleteBefore.png[align="center", width=85%, scaledwidth=15cm]
 
 In your exercise tracker
 
 .Exercises from the schedule are added to your tracker
-image::ScheduleCompleteExerciseTracker.png[]
+image::ScheduleCompleteExerciseTracker.png[align="center", width=85%, scaledwidth=15cm]
 
 In your schedule tracker after completing execution of `schedule i/2`
 
 .The completed regime is removed from your schedule
-image::ScheduleCompleteScheduleTracker.png[]
+image::ScheduleCompleteScheduleTracker.png[align="center", width=85%, scaledwidth=15cm]
 
 // end::scheduleresolve[]
 
@@ -655,7 +657,7 @@ Format: `resolve n/SCHEDULED_OR_CONFLICTING`
 You can only enter `n/scheduled` or `n/conflicting` to tell ExerHealth which schedule you wish to take. The scheduled or conflicting regimes are stated at the top of the list of exercises as shown below.
 
 .An example of the resolve conflict window
-image::ResolveScheduledOrConflicting.png[]
+image::ResolveScheduledOrConflicting.png[align="center", width=85%, scaledwidth=15cm]
 
 *Example:*
 
@@ -668,12 +670,12 @@ Takes the already scheduled regime and schedule it at conflicting date.
 The resolve window and inputting the example command
 
 .Selecting all the exercises in the scheduled regime
-image::ResolveScheduled.png[]
+image::ResolveScheduled.png[align="center", width=85%, scaledwidth=15cm]
 
 Once resolve window closes, the scheduled regime should be taken and scheduled at the correct date.
 
 .The scheduled regime should appear in your scheduling list
-image::ResolveScheduledResult.png[]
+image::ResolveScheduledResult.png[align="center", width=85%, scaledwidth=15cm]
 
 
 ==== Taking some exercises from both regimes
@@ -700,17 +702,17 @@ Expected Result:
 Takes exercise `1` from `scheduled regime` and exercises `2` and `4` from `conflicting regime` and adds them to a new regime called `new cardio`
 
 .Selecting some exercises from each regime
-image::ResolveTakeOneOrOther.png[]
+image::ResolveTakeOneOrOther.png[align="center", width=85%, scaledwidth=15cm]
 
 The `new cardio` regime is now scheduled at the conflicting date with the new exercises that have been resolved.
 
 .A newly created regime will appear in your scheduling list
-image::ResolveTakeResolved.png[]
+image::ResolveTakeResolved.png[align="center", width=85%, scaledwidth=15cm]
 
 The `new cardio` regime is now added to your collection of regimes
 
 .The newly created regime will also appear in your regime list!
-image::ResolveRegimeTracker.png[]
+image::ResolveRegimeTracker.png[align="center", width=85%, scaledwidth=15cm]
 
 
 // tag::suggest[]
@@ -769,14 +771,14 @@ Thus the command will display only the exercise named "Bench Press".
 Expected Result:
 
 .Exercises with a `Chest` tag and a rating of `8` are shown.
-image::suggestPossibleAfter1.png[]
+image::suggestPossibleAfter1.png[align="center", width=85%, scaledwidth=15cm]
 
 The input, `suggest s/possible o/or m/Chest r/8`, however, will display a list of exercises tagged with `Chest` *or* have a rating of `8`.
 
 Expected Result:
 
 .Exercises with a `Chest` tag and exercises with a rating of `8` are shown.
-image::suggestPossibleAfter2.png[]
+image::suggestPossibleAfter2.png[align="center", width=85%, scaledwidth=15cm]
 
 As shown above, the two previously added exercises, "Bench Press and "Run", are displayed because they each have a rating of `8`.
 In addition to the tracked exercises, ExerHealth also displays suggestions in its database. Hence it will display the exercise named "Push Ups" as it has a `Chest` tag.
@@ -788,12 +790,12 @@ displays the information of the most recently tracked exercise of that name.
 As can be seen below, there are two exercises named "Bench Press".
 
 .Before entering the new suggest command
-image::suggestPossibleBefore3.png[]
+image::suggestPossibleBefore3.png[align="center", width=85%, scaledwidth=15cm]
 
 Expected Result:
 
 .Only the latest `Bench Press` exercise is displayed
-image::suggestPossibleAfter3.png[]
+image::suggestPossibleAfter3.png[align="center", width=85%, scaledwidth=15cm]
 
 As seen from the image above, the information from the "Bench Press" on "06/11/2019" is displayed instead of the one on "05/11/2019" (observe that the calories are different).
 // end::suggest[]
@@ -807,7 +809,7 @@ As seen from the image above, the information from the "Bench Press" on "06/11/2
 Adds in a custom property which you can define for the exercises.
 
 Once a new custom property is created, you can simply use the prefix name which you defined for the
-property to the `add` and `edit` command to include information for the new property.
+property in the `add` and `edit` command to include information for the new property.
 
 ****
 * The prefix name can only contain alphabets and should not contain spaces.
@@ -847,7 +849,7 @@ Creates a `Rating` property for each of your exercises.
 Expected Result:
 
 .Your rating property has been created
-image::CustomRating.png[]
+image::CustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 You can now add a new exercise with `Rating`!
 
@@ -856,7 +858,7 @@ You can now add a new exercise with `Rating`!
 Expected Result:
 
 .A new exercise with the remark property is added
-image::AddCustomRating.png[]
+image::AddCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 ==== Removing custom properties: `custom`
 
@@ -880,19 +882,19 @@ Example:
 Before the execution, the `Rating` property will be present in exercises that have them.
 
 .A rating of 4.5 for exercise 6
-image::EditCustomRating.png[]
+image::EditCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 .A rating of 3.5 for exercise 7
-image::EditAnotherCustomRating.png[]
+image::EditAnotherCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 After the execution, the `Rating` property will be removed from all of the exercises and the app
 as illustrated in the next few figures.
 
 .Rating in exercise 6 is removed
-image::RunRatingRemoved.png[]
+image::RunRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
 
 .Rating in exercise 7 is also removed
-image::BenchPressRatingRemoved.png[]
+image::BenchPressRatingRemoved.png[align="center", width=85%, scaledwidth=15cm]
 
 // end::customfeature[]
 
@@ -900,24 +902,28 @@ image::BenchPressRatingRemoved.png[]
 
 Before the execution, both exercises 6 and 7 have a rating attached to them.
 
-.A rating of 4.5 to exercise 6
-image::EditCustomRating.png[]
+.A rating of 4.5 for exercise 6
+image::EditCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
-.A rating of 3.5 to exercise 7
-image::EditAnotherCustomRating.png[]
+.A rating of 3.5 for exercise 7
+image::EditAnotherCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 After the execution, only exercise 6 has its rating property removed.
 
 .The rating for exercise 6 is removed
-image::RatingRemovedForSix.png[]
+image::RatingRemovedForSix.png[align="center", width=85%, scaledwidth=15cm]
 
 .The rating for exercise 7 remains
-image::RatingRemainedForSeven.png[]
+image::RatingRemainedForSeven.png[align="center", width=85%, scaledwidth=15cm]
 
 ==== Viewing custom properties: `viewcustom`
 
 Opens up a window for you to view the custom properties you have defined.
 The name, prefix and parameter type of all existing custom properties will be shown.
+
+Note that the window shows the custom properties that are present in the app at the time
+that it was opened. Any new addition/deletion will not be reflected unless the `viewcustom` command
+is used again.
 
 Format: `viewcustom`
 
@@ -928,7 +934,7 @@ Example:
 Expected Result:
 
 .A window showing the custom properties you have defined is opened
-image::ViewCustom.png[]
+image::ViewCustom.png[align="center", width=85%, scaledwidth=15cm]
 
 === Exiting the program : `exit`
 
@@ -969,7 +975,7 @@ Allows you to encrypt your data files for more security.
 *Q*: There are times where a `null` message appears in the result display. What should I do?
 
 .A null message appeared
-image::NullMessage.png[width="400"]
+image::NullMessage.png[align="center", width="400"]
 
 *A*: Fear not! Simply restart the app and the `null` message will go away.
 
@@ -979,12 +985,12 @@ these exercises? +
 The same thing can also be done for custom properties!
 
 .The friendly tooltip displaying the name of an exercise
-image::LongNamesTooltip.png[width="400"]
+image::LongNamesTooltip.png[align="center", width="400"]
 
 
 == Command Summary
 
-* *Add exercises* : `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...` +
+* *Add exercises* : `add t/exercise n/EXERCISE_NAME d/DATE c/CALORIES q/QUANTITY u/UNITS [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...` +
 e.g. `add t/exercise n/Bench press d/19/09/2019 c/500 q/50 u/reps m/Chest`
 * *Add regimes* : `add t/regime n/REGIME_NAME [i/INDEX_OF_EXERCISE]...`
 e.g. `add t/regime n/Cardio i/1 i/2 i/3`
@@ -992,7 +998,7 @@ e.g. `add t/regime n/Cardio i/1 i/2 i/3`
 e.g. `list t/exercise`
 * *Select* : `select t/LIST_TYPE i/INDEX`
 e.g. `select t/exercise i/1`
-* *Edit exercise* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]... `
+* *Edit exercise* : `edit i/INDEX [n/EXERCISE_NAME] [d/DATE] [c/CALORIES] [q/QUANTITY] [u/UNITS] [m/MUSCLE]...[CUSTOM_PROPERTY_PREFIX/VALUE]...`
 e.g. `edit i/3 n/Bench press d/22/09/2019 c/240 q/10 u/sets m/Chest`
 * *Delete exercise* : `delete t/exercise i/INDEX`
 e.g. `delete t/exercise i/2`
