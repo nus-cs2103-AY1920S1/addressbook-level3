@@ -37,16 +37,20 @@ This will update the number of matched words with the current list and 3 sets of
 -> If the word in the filter list does not start with the last partially typed word, it will be filtered out +
 (Eg: User typed “pat-ad”. “add” and “add-medcon” which are both in the current list will be suggested since they both starts with "ad".)
 
-The following sequence diagram illustrates the flow of how list is generated when user input is detected : +
+The following sequence and activity diagrams illustrates the general flow when user input is detected +
 
-image::AutocompleteSequenceDiagram.png[]
+image::AutocompleteSequenceDiagram1.png[Up key pressed]
+image::AutocompleteSequenceDiagram2.png[Shift key pressed]
+image::AutocompleteSequenceDiagram3.png[Any other key pressed]
+image::GeneratingListActivityDiagram.png[ref generating list]
 
-*Given below is an the sequence diagram for the guide system for suggestion word* +
+
+Shown below is the sequence diagram for the guided system when selecting suggestion word +
 
 image::GuideSystemSequenceDiagram.png[]
 
 === Design Considerations
-===== Aspect: Communication between UiParts +
+===== Aspect: Communication between `UiPart` s +
 (`CommandBox`, `AutoCompletePanel` and `ResultDisplay`) +
 
 * **Alternative 1:** Pass references of each UiParts components around

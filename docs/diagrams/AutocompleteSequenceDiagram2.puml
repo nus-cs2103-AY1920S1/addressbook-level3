@@ -7,31 +7,12 @@ participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
 participant ":AutoCompleteWord" as AutoCompleteWord UI_COLOR
 participant ":MatchWordUpdater" as MatchWordUpdater UI_COLOR
 participant ":AutoCompleteListHandler" as AutoCompleteListHandler UI_COLOR
+participant ":AutoCompleteStorage" as AutoCompleteStorage UI_COLOR
 participant "commandTextField:TextField" as CommandTextField UI_COLOR
 
-[-> CommandBox : User presses a key;
+[-> CommandBox : User presses SHIFT key;
 activate CommandBox
 
-alt UP or DOWN
-CommandBox -> CommandBox : notifyObserversKeyPressed(event.getCode());
-activate CommandBox
-
-CommandBox -> AutoCompletePanelManager : update(event.getCode());
-activate AutoCompletePanelManager
-
-AutoCompletePanelManager -> AutoCompletePanel: select(selectedIndex)
-activate AutoCompletePanel
-
-AutoCompletePanel --> AutoCompletePanelManager
-deactivate AutoCompletePanel
-
-AutoCompletePanelManager --> CommandBox
-deactivate AutoCompletePanelManager
-return
-
-
-
-else SHIFT
 
 CommandBox -> CommandBox : receiveDataFromSender()
  activate CommandBox
@@ -60,7 +41,6 @@ AutoCompletePanelManager --> CommandBox: textToDisplay
 deactivate AutoCompletePanelManager
 return textToDisplay
 
-/'notifyObserversToChange(KeyCode.SHIFT, textToDisplay);'/
 CommandBox -> CommandTextField : setText(textToDisplay)
 activate CommandTextField
 
@@ -85,38 +65,7 @@ deactivate MatchWordUpdater
 AutoCompletePanelManager ->  AutoCompleteListHandler: generateList(matchedWords, textToDisplay)
 activate AutoCompleteListHandler
 
-AutoCompleteListHandler --> AutoCompletePanelManager: generatedList
-deactivate AutoCompleteListHandler
-
-AutoCompletePanelManager -> AutoCompletePanel: setList(generatedList)
-activate AutoCompletePanel
-
-AutoCompletePanel --> AutoCompletePanelManager
-deactivate AutoCompletePanel
-return
-
-AutoCompletePanelManager --> CommandBox
-deactivate AutoCompletePanelManager
-return
-
-else Any other key
-CommandBox -> CommandBox : notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
-activate CommandBox
-
-CommandBox -> AutoCompletePanelManager : update(event.getCode(), commandTextField.getText() + event.getText());
-activate AutoCompletePanelManager
-
-AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(event.getCode(), commandTextField.getText() + event.getText())
-activate AutoCompletePanelManager
-
-AutoCompletePanelManager -> MatchWordUpdater : findMatchedWords(commandTextField.getText() + event.getText())
-activate MatchWordUpdater
-
-MatchWordUpdater -->  AutoCompletePanelManager: matchedWords
-deactivate MatchWordUpdater
-
-AutoCompletePanelManager ->  AutoCompleteListHandler: generateList(matchedWords, commandTextField.getText() + event.getText())
-activate AutoCompleteListHandler
+ref over AutoCompleteListHandler, AutoCompleteStorage : generating list
 
 AutoCompleteListHandler --> AutoCompletePanelManager: generatedList
 deactivate AutoCompleteListHandler
@@ -131,7 +80,6 @@ return
 AutoCompletePanelManager --> CommandBox
 deactivate AutoCompletePanelManager
 return
-end
 
 @enduml
 
