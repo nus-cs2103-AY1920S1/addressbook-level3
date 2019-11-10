@@ -170,7 +170,7 @@ public class BodyTableView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new FridgeIdLabel(id).getRoot());
+                setGraphic(new FridgeIdLabel(id).getPane());
                 setStyle("-fx-padding: 0 15 0 0");
             }
         }
