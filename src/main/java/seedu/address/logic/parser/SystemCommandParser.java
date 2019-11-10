@@ -68,7 +68,7 @@ import seedu.address.model.Model;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class SystemCommandParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -77,7 +77,7 @@ public class AddressBookParser {
 
     private final CommandHistory commandHistory;
 
-    public AddressBookParser(CommandHistory commandHistory) {
+    public SystemCommandParser(CommandHistory commandHistory) {
         this.commandHistory = commandHistory;
     }
 
