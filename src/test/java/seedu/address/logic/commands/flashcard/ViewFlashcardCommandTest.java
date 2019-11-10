@@ -20,6 +20,7 @@ import seedu.address.model.flashcard.Flashcard;
 
 public class ViewFlashcardCommandTest {
     private Model model = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
 
     @Test
     public void equals() {
@@ -60,9 +61,6 @@ public class ViewFlashcardCommandTest {
 
         String expectedMessage = String.format(ViewFlashcardCommand.VIEW_FLASHCARD_SUCCESS, flashcardToView);
 
-        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
-
         assertCommandSuccess(viewFlashcardCommand, model, expectedMessage, expectedModel);
     }
-
 }

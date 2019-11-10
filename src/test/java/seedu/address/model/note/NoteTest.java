@@ -1,24 +1,30 @@
 package seedu.address.model.note;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalNotes.PIPELINE;
 import static seedu.address.testutil.TypicalNotes.SAMPLE;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.NoteBuilder;
 
 public class NoteTest {
 
-    /*@Test
+    @Test
     public void toString_format_success() {
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("sampleTag"));
         Note note = new Note(new Title("this is a title"), new Content("this is a content"), tags);
-        assertEquals(note.toString(), "\nTitle: this is a title\nContent: this is a content\nTags: [sampleTag]");
-    }*/
+        assertEquals(note.toString(), "\n\tTitle: this is a title\n\tContent: this is a content"
+                + "\n\tTags: [sampletag]");
+    }
 
     @Test
     public void requireNonNull_noTitleProvided_throwsIllegalArgumentException() {
@@ -56,19 +62,19 @@ public class NoteTest {
         assertTrue(SAMPLE.equals(sampleCopy));
 
         // same object -> returns true
-        assertTrue(SAMPLE.equals(SAMPLE));
+        assertTrue(sampleCopy.equals(sampleCopy));
 
         // null -> returns false
-        assertFalse(SAMPLE.equals(null));
+        assertFalse(sampleCopy.equals(null));
 
         // different type -> returns false
-        assertFalse(SAMPLE.equals(5));
+        assertFalse(sampleCopy.equals(5));
 
         // different note -> returns false
-        assertFalse(SAMPLE.equals(PIPELINE));
+        assertFalse(sampleCopy.equals(PIPELINE));
 
         // different name -> returns false
-        Note editedAlice = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
-        assertFalse(SAMPLE.equals(editedAlice));
+        Note editedNote = new NoteBuilder(SAMPLE).withTitle("Different Sample Title").build();
+        assertFalse(sampleCopy.equals(editedNote));
     }
 }

@@ -13,7 +13,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -51,6 +53,8 @@ public class EditCheatSheetCommand extends Command {
     private final Index index;
     private final EditCheatSheetDescriptor editCheatSheetDescriptor;
 
+    private final Logger logger = LogsCenter.getLogger(AddCheatSheetCommand.class.getName());
+
     /**
      * @param index of the cheatsheet in the filtered cheatsheet list to edit
      * @param editCheatSheetDescriptor details to edit the cheatsheet with
@@ -61,6 +65,8 @@ public class EditCheatSheetCommand extends Command {
 
         this.index = index;
         this.editCheatSheetDescriptor = new EditCheatSheetDescriptor(editCheatSheetDescriptor);
+
+        logger.info("Edit cheatsheet command created.");
     }
 
     @Override
@@ -81,6 +87,8 @@ public class EditCheatSheetCommand extends Command {
 
         model.setCheatSheet(cheatSheetToEdit, editedCheatSheet);
         model.updateFilteredCheatSheetList(PREDICATE_SHOW_ALL_CHEATSHEETS);
+
+        logger.info("Cheatsheet is edited.");
         return new CheatSheetCommandResult(String.format(MESSAGE_EDIT_CHEATSHEET_SUCCESS, editedCheatSheet));
     }
 

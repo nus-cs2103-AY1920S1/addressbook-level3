@@ -5,7 +5,9 @@ import static seedu.address.commons.core.Messages.VIEW;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -31,8 +33,11 @@ public class ViewCheatSheetCommand extends Command {
 
     private final Index targetIndex;
 
+    private final Logger logger = LogsCenter.getLogger(ViewCheatSheetCommand.class.getName());
+
     public ViewCheatSheetCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        logger.info("View cheatsheet command created.");
     }
 
     @Override

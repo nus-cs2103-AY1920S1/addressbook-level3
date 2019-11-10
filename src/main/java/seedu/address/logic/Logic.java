@@ -9,7 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyStudyBuddyPro;
 import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 
 /**
  * API of the Logic component
@@ -30,9 +29,6 @@ public interface Logic {
      * @see seedu.address.model.Model#getStudyBuddyPro()
      */
     ReadOnlyStudyBuddyPro getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered list of notes */
     ObservableList<Note> getFilteredNoteList();

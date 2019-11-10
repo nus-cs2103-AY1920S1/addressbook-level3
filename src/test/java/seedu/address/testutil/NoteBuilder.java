@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteFragment;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -22,12 +23,12 @@ public class NoteBuilder {
 
 
     private Title title;
-    private Content phone;
+    private Content content;
     private Set<Tag> tags;
 
     public NoteBuilder() {
         title = new Title(DEFAULT_TITLE);
-        phone = new Content(DEFAULT_CONTENT);
+        content = new Content(DEFAULT_CONTENT);
         tags = new HashSet<>();
     }
 
@@ -36,7 +37,7 @@ public class NoteBuilder {
      */
     public NoteBuilder(Note noteToCopy) {
         title = noteToCopy.getTitle();
-        phone = noteToCopy.getContent();
+        content = noteToCopy.getContent();
         tags = new HashSet<>(noteToCopy.getTags());
     }
 
@@ -59,13 +60,17 @@ public class NoteBuilder {
     /**
      * Sets the {@code Content} of the {@code Note} that we are building.
      */
-    public NoteBuilder withContent(String phone) {
-        this.phone = new Content(phone);
+    public NoteBuilder withContent(String content) {
+        this.content = new Content(content);
         return this;
     }
 
     public Note build() {
-        return new Note(title, phone, tags);
+        return new Note(title, content, tags);
+    }
+
+    public NoteFragment buildFragment() {
+        return new NoteFragment(title, content, tags);
     }
 
 }

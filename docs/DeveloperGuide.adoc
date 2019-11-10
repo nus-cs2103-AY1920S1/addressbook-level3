@@ -96,7 +96,7 @@ The _figure_ below displays the high-level design of our StudyBuddy Pro.
 image::ArchitectureDiagram.png[]
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create some of the diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 The architecture diagram describes the relationships between the components, and here is a quick overview of each component:
@@ -388,12 +388,12 @@ The first operation is exposed in the `Model` interface as `Model#setCheatSheet(
 The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
-image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[]
+image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[pdfwidth=60%]
 
 From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
 .Detailed sequence diagram for retrieval of tagged contents
-image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[]
+image::jasmineDiagrams/AddCheatSheetDetailedSequenceDiagram.png[pdfwidth=60%]
 
 The above sequence diagram shows the complete action flow for the execution of methods.
 Here is a brief summary of the steps taken to create the cheatsheet:
