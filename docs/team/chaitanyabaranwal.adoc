@@ -25,25 +25,18 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 * *Major enhancement*: added *the ability to undo/redo previous data changes, and view previous history of commands*
 
 ** *What it does:* The features relating to this enhancement can be divided into two components:
-*** *Undo/redo previous data changes*: This allows the user to undo any data changes made to the insurance data in the
-current session. An ability to redo previously undone changes in the current session is also provided. The commands are
-very intuitive, including only the word `undo` and `redo`.
-*** *View a history of previously entered valid commands*: This allows the user to view a history of previously entered
-commands, given that the commands did not lead to an exception and were not performed during a merge. The commands are
-displayed on the right panel, and are dynamically updated on entering new commands. This command is also
-very intuitive, using only the word `history`.
+*** *Undo/redo previous data changes*: Allows the user to undo/redo any data changes made to the insurance data in the
+current session.
+*** *View a history of previously entered valid commands*: Allows the user to view a history of previously entered
+valid commands.
 
-** *Justification:* This feature improves the product significantly because a user can make mistakes in commands and the
-app should provide a convenient way to rectify them. Given the sensitivity and size of data handled by a single insurance
-agent, it is quite possible to mistakenly enter erroneous data, and although this data can always be corrected using other
-CLI commands, an `undo` and `redo` makes it all the more convenient and fast. Moreover, the `history` command is also very useful,
-since the user would often want to see the previously entered commands to note the changes he/she made, to make a more informed
-decision on how to perform an undo/redo.
+** *Justification:* A user can make mistakes in commands and the app should provide a convenient way to rectify them.
+Given the sensitivity and size of data handled by a single insurance agent, it is quite possible to mistakenly enter erroneous data.
+The `history` command is also very useful, since the user would often want to see the previously entered commands to note the changes he/she made.
 
-** *Highlights:* This enhancement affects existing commands and commands to be added in future. An alternative I considered was to maintain separate state lists for persons and policies, as seen in
-https://github.com/AY1920S1-CS2103-F09-4/main/pull/108/commits/06b9eb35fd607cff8611e3c13e8bebd08f0b686f[#108]. However,
-I realised this was not extensible, which led me to changing the final implementation. The implementation too was challenging
-as it required changes to existing commands and models. The `history` command required changing the `LogicManager` and `AddressBookParser`.
+** *Highlights:* This enhancement affects existing commands and commands to be added in future. The implementation too was challenging
+as it required changes to existing commands and key components like `ModelManager` and `LogicManager`, as well as implementation
+of completely new components.
 
 ** *Credits:* The code for `StatefulAddressBook.java` is adapted from https://github.com/se-edu/addressbook-level4[this repo],
 although I made sure that I completely understood the implementation and wrote the code for this application myself. The
@@ -61,9 +54,6 @@ can quickly navigate to that command and perform the required changes to enter t
 
 ** Model: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/StatefulAddressBook.java[StatefulAddressBook]]
  [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/CommandHistory.java[CommandHistory]]
- [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[ModelManager]]
-
-*** `saveAddressBookState()`, `undoAddressBook()`, `redoAddressBook()`
 
 ** UI: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/resources/view/HistoryListCard.fxml[HistoryListCard]]
  [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/HistoryListPanel.java[HistoryListPanel]]
@@ -71,7 +61,7 @@ can quickly navigate to that command and perform the required changes to enter t
 ** Commands: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/UndoCommand.java[UndoCommand]]
  [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/RedoCommand.java[RedoCommand]]
  [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/HistoryCommand.java[HistoryCommand]]
- and their relevant parsers
+ and their parsers
 
 * *Test Code Contributed*:
 
@@ -104,19 +94,13 @@ https://github.com/AY1920S1-CS2103-F09-4/main/pull/228[#228]
 
 include::../UserGuide.adoc[tag=edit]
 
-include::../UserGuide.adoc[tag=editpolicy]
-
 include::../UserGuide.adoc[tag=assignpolicy]
-
-include::../UserGuide.adoc[tag=unassignpolicy]
 
 include::../UserGuide.adoc[tag=undo]
 
 include::../UserGuide.adoc[tag=redo]
 
 include::../UserGuide.adoc[tag=history]
-
-include::../UserGuide.adoc[tag=navhistory]
 
 == Contributions to the Developer Guide
 
@@ -131,5 +115,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=editperson]
 
 include::../DeveloperGuide.adoc[tag=assignpolicy]
-
-include::../DeveloperGuide.adoc[tag=undo]
