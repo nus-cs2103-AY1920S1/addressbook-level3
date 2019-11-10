@@ -82,7 +82,6 @@ public class TransactionList implements Iterable<Transaction> {
     public void remove(Transaction toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            // TODO handle transactions not found
             throw new TransactionNotFoundException();
         }
     }

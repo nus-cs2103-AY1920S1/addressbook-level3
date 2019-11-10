@@ -305,9 +305,8 @@ public class AccountsManager {
         //the account list filter gets cleared.
         if (!filteredAccounts.contains(account)) {
             resetFilteredAccountList();
-            Index newActiveIndex = accounts.indexOfEquivalent(account);
-            setActiveAccountByIndex(newActiveIndex);
         }
+        Index newActiveIndex = accounts.indexOfEquivalent(account);
         if (activeTransactionList != null) {
             activeTransactionList.setAll(account.getTransactionList());
         }

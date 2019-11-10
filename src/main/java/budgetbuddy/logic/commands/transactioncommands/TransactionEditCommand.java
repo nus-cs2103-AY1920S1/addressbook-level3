@@ -94,10 +94,10 @@ public class TransactionEditCommand extends ScriptCommand {
 
             //the transaction will be deleted and re-added to allow for changing of accounts.
             //this is because transactions do not have references to their respective accounts.
-            accountsManager.getActiveAccount().deleteTransaction(targetTransaction);
+            Account oldAccount = accountsManager.getActiveAccount();
 
             //target account is set to the active account if not provided.
-            if (targetAccountName == null) {
+            if (targetAccountName == null || model.getAccountsManager().getAccount(targetAccountName) == null ) {
                 targetAccount = model.getAccountsManager().getActiveAccount();
             } else {
                 targetAccount = model.getAccountsManager().getAccount(targetAccountName);
@@ -106,10 +106,11 @@ public class TransactionEditCommand extends ScriptCommand {
             Transaction updatedTransaction = getUpdatedTransaction(targetTransaction, updatedTransactionDescriptor,
                     targetAccount, model.getAccountsManager().getActiveAccount());
 
+            oldAccount.deleteTransaction(targetTransaction);
             targetAccount.addTransaction(updatedTransaction);
             Index updatedTxnIndex = Index.fromOneBased(targetAccount.getTransactionList().getTransactionsCount());
             RuleEngine.executeRules(model, scriptEngine, updatedTxnIndex, targetAccount);
-            model.getAccountsManager().transactionListSwitchSource(targetAccount);
+            model.getAccountsManager().setActiveAccount(targetAccount);
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
