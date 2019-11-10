@@ -22,7 +22,11 @@ CaloFit is suitable for those who prefer to track their calories gained from day
 
 == Quick Start
 
-Coming in v1.4 when the first jar file will be released.
+* Ensure you have Java 11 or above installed in your Computer.
+
+* Download the latest version of CaloFit.
+
+* Open Calofit and start using it now!
 
 Refer to <<Features>> for details of each command.
 
@@ -150,9 +154,9 @@ Commands below are come other example commands:
 
 === Find meals in the meal database: `find`
 
-Searches for meals contains the words you have input.+
+Searches for meals contains the words you have input. +
 The search results will be shown under the "Suggested Meals" section of the application. +
-To toggle it back to suggest mode after use, just enter the `suggest` command.
+The find feature will replace the suggest feature, vise versa. Thus, in order to get the suggest feature back, the user would have to type "suggest" into the command box.
 
 Format: `find MEAL_WORD`
 
@@ -175,7 +179,23 @@ image::FindCommandFindApplePieSuccess.png[]
 
 Suggest possible meals based on user calorie intake budget. +
 The available meals will be shown under the "Suggested Meals" section of the application. +
-The suggest feature can be toggled back by typing the "suggest" command. +
+The suggest feature is automatically toggled when the application starts, however if you use the find feature which replaces the suggest feature, then the suggest feature can be toggled back by typing "suggest" into the command box. +
+
+Example usage:
+You're tired from work and you don't want to think about what to eat for the day, you just want to have a meal to keep yourself full and stay within the calorie budget that you want set for yourself.
+
+[NOTE]
+Type "suggest" into the command bar and press the 'enter' key, if you have previously use the find feature to look for a meal.
+
+image::SuggestCommandToggle.png[]
+
+* The budget was set to a huge budget to show that there are actually a list of food inside as shown in the image below.
+
+image::SuggestCommandBefore.png[]
+
+* The budget was then set to an average male budget of 2200, which then could be seen in the image that only those within the budget was shown.
+
+image::SuggestCommandAfter.png[]
 
 Format: `suggest`
 
