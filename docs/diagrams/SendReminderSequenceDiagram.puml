@@ -14,6 +14,10 @@ participant ":Model" as Model MODEL_COLOR
 participant ":Mailer" as Mailer LOGIC_COLOR
 end box
 
+box Project PROJECT_COLOR
+participant ":Project" as Project PROJECT_COLOR_T1
+end box
+
 [-> LogicManager : execute("SendReminder 3")
 activate LogicManager
 
@@ -34,10 +38,10 @@ create SendReminderCommand
 SendReminderCommandParser -> SendReminderCommand
 activate SendReminderCommand
 
-SendReminderCommand --> SendReminderCommandParser : c
+SendReminderCommand --> SendReminderCommandParser : 3
 deactivate SendReminderCommand
 
-SendReminderCommandParser --> AddressBookParser : c
+SendReminderCommandParser --> AddressBookParser : 3
 deactivate SendReminderCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 SendReminderCommandParser -[hidden]-> AddressBookParser
@@ -60,6 +64,12 @@ activate Model
 
 Model --> SendReminderCommand : tasks
 deactivate Model
+
+SendReminderCommand -> Project : getMemberNames()
+activate Project
+
+Project--> SendReminderCommand : List<String> MemberNames
+deactivate Project
 
 SendReminderCommand -> Model : getMembers()
 activate Model

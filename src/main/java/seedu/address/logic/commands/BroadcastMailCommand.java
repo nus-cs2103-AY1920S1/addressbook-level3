@@ -60,6 +60,10 @@ public class BroadcastMailCommand extends Command {
             throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
         }
 
+        if (!model.isSignedIn()) {
+            throw new CommandException(MESSAGE_SIGN_IN);
+        }
+
         Project project = model.getWorkingProject().get();
 
         List<Person> contactList = model.getMembers();

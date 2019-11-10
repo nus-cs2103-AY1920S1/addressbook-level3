@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MyProject V1.4 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T17-1`      Since: `Oct 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -277,8 +277,8 @@ no additional sorting needed when adding or editing new elements.
 
 Sends reminder for tasks and meetings that are due in the number of days given by the user input.
 
-The basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail 
-which is responsible for sending all kinds of email to a given recipient(s). User's email account information is 
+The basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
+which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
 stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
 Currently, only gmail server has been made available for use in sending the emails.
 
@@ -293,11 +293,12 @@ The following sequence diagram shows the process of sending reminder to the proj
 .Sequence Diagram for sendReminder
 image::SendReminderSequenceDiagram.png[]
 
-These are the stages shown in figure 10. Stages are similar for broadcastMail as well.
+These are the stages shown in figure 13.
 
 . Parses the input to obtain the duration.
 . Goes to `Model` to get the the Meetings and Tasks.
 . Obtains list of tasks and meetings which are due in the duration time.
+. Goes to `Project` to get the Members names.
 . Goes to `Model` to get the members in the project.
 . Goes to `Model` to get the OwnerAccount information.
 . Sends email to all the members about the upcoming meetings and tasks in the project.
@@ -306,7 +307,7 @@ These are the stages shown in figure 10. Stages are similar for broadcastMail as
 .Activity Diagram for sendReminder
 image::SendReminderActivityDiagram.png[]
 
-The diagram above shows how sendReminder works. There are 2 possible error messages that can occur. Firstly,
+The diagram above shows how `sendReminder` works. There are 2 possible error messages that can occur. Firstly,
 if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
 an error will be shown if the user non-numeric or negative or zero number as the duration of time.
 
@@ -316,7 +317,7 @@ an error will be shown if the user non-numeric or negative or zero number as the
 ===== Aspect: Data structure to support the sendReminder commands
 
 * **Alternative 1:** Storing List<Person> in the Project for members.
-** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of 
+** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of
 members' names in the project.
 ** Cons: Introduces coupling and may cause unwanted bugs due to cyclic dependencies as Project contains Person and
 Person contains Project.
@@ -326,6 +327,119 @@ Person contains Project.
 names one by one to get the Person object of the member. Harder to implement.
 
 // end::sendReminder[]
+
+
+// tag::broadcastMail[]
+=== Broadcast Mail feature
+==== Description of feature
+
+Broadcast an email to all members in the project.
+
+Similar to sendReminder, the basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
+which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
+stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
+Currently, only gmail server has been made available for use in sending the emails.
+
+[NOTE]
+User Email  Account Information is stored through the signIn command.
+
+==== Details
+BroadcastMail takes in a two String, an email Subject and Body.
+The subject will be the email title which are normally on the email header and the body
+will be the message body of the email.
+
+The following sequence diagram shows the process of broadcast email to the project members.
+
+.Sequence Diagram for broadcastMail
+image::BroadcastMailSequenceDiagram.png[]
+
+These are the stages shown in figure 15.
+
+. Parses the input to obtain the Subject and Body of the email.
+. Goes to `Project` to get the Members names.
+. Goes to `Model` to get the the members in the project.
+. Goes to `Model` to get the OwnerAccount information.
+. Sends email to all the members with header Subject and message Body.
+. Display the success message.
+
+.Activity Diagram for BroadcastMail
+image::BroadcastMailActivityDiagram.png[]
+
+The diagram above shows how `broadcastMail` works.
+
+==== Design considerations
+
+===== Aspect: Data structure to support the broadcastMail commands
+
+* **Alternative 1:** Storing List<Person> in the Project for members.
+** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of
+members' names in the project.
+** Cons: Introduces coupling and may cause unwanted bugs due to cyclic dependencies as Project contains Person and
+Person contains Project.
+* **Alternative 2:** Stores members as List<String> of members names.
+** Pros: Reduces coupling and and eliminates cyclic dependencies between Project and Person object.
+** Cons: Have to hash the members object in the addressBook by names and go through the List<String> of members'
+names one by one to get the Person object of the member. Harder to implement.
+// end::broadcastMail[]
+
+// tag::signIn[]
+=== Sign In feature
+==== Description of feature
+
+Signs in using a Google account for mailing purposes.
+
+The basic implementation uses javax.Mail to check for the validity of the email address and password.
+User's email account information is stored in the Model class through this command.
+
+[NOTE]
+In this version, only gmail server has been made available for use in signing in and sending emails.
+
+==== Details
+signIn takes in two inputs, first is the email address of the user (in gmail), second is the password to the email address.
+
+The following sequence diagram shows the process of signing in to the user's account.
+
+.Sequence Diagram for signIn command
+image::SignInSequenceDiagram.png[]
+
+These are the stages shown in figure 15.
+
+. Parses the input to obtain the Email address and Password.
+. Goes to `Model` to check if user has signed in.
+. Creates OwnerAccount with the address and password.
+. Goes to `Model` to store the Email address and Password as `OwnerAccount`.
+. Display the success message.
+
+.Activity Diagram for SignIn
+image::SignInActivityDiagram.png[]
+
+The diagram above shows how `signIn` works.
+
+==== Design considerations
+
+===== Aspect: Algorithm to check validity of the Account in SignIn commands
+
+* **Alternative 1 (current choice):** Sends an email to a dummy email address cs2103t17@gmail.com.
+** Pros: Easy to implement. Do not need to use external libraries which might be time-consuming and difficult to learn.
+** Cons: Takes a while for the method to be executed as it checks whether it can send an email to the address cs2103t17@gmail.com.
+* **Alternative 2:** Use external libraries and utilise more of the javax.Mail API.
+** Pros: Might make the email checking more efficient, thus need only check for the password input.
+** Cons: Would have to use external libraries which will be harder to implement. Only checks for the existence of the email address and does not
+check for the correctness of the password input.
+
+===== Aspect: Eliminating signIn command
+
+* **Alternative 1 (current choice):** Lets user Signs In using their own Gmail Account.
+** Pros: Allows users to user their own Gmail Account and lets members(recipients) know email
+sent by the team leaders.
+** Cons: Expose users' password when users are trying to sign in. Users will need to change the account
+security settings to let less secure app access the account. Compromises account security.
+* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command/
+** Pros: Do not expose users' password and Users do not need to change their Account security settings to
+send the emails.
+** Cons: Members(recipient) receiving email from the users' may not know the origin of the email.
+This may lead to confusion for the project's members.
+// end::signIn[]
 
 === Generate meeting timeslot
 ==== Description of Feature

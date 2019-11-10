@@ -1,0 +1,27 @@
+@startuml
+start
+: User sign in using his/her
+            Email address;
+
+if () then ([SignedIn])
+: Throw CommandException
+        Already signed in;
+
+
+
+else ([not Signed In])
+
+if () then ([invalid email and password])
+: Throw CommandException
+          Invalid Email and Password;
+
+else ([valid email and password])
+
+:creates OwnerAccount;
+:       Stores information
+in Model as OwnerAccount;
+:Display success message;
+endif
+endif
+stop
+@enduml

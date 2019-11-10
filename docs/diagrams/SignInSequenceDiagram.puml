@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SignInCommandParser" as SignInCommandParser LOGIC_COLOR
+participant ":SignInCommand" as SignInCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("signIn Account, Password")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("signIn Account, Password")
+activate AddressBookParser
+
+create SignInCommandParser
+AddressBookParser -> SignInCommandParser
+activate SignInCommandParser
+
+SignInCommandParser --> AddressBookParser
+deactivate SignInCommandParser
+
+AddressBookParser -> SignInCommandParser : parse(Account, Password)
+activate SignInCommandParser
+
+create SignInCommand
+SignInCommandParser -> SignInCommand
+activate SignInCommand
+
+SignInCommand --> SignInCommandParser : Account, Password
+deactivate SignInCommand
+
+SignInCommandParser --> AddressBookParser : Subject, Body
+deactivate SignInCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SignInCommandParser -[hidden]-> AddressBookParser
+destroy SignInCommandParser
+
+AddressBookParser --> LogicManager : Account, Password
+deactivate AddressBookParser
+
+LogicManager -> SignInCommand : execute()
+activate SignInCommand
+
+SignInCommand -> Model : isSignIn()
+activate Model
+
+Model --> SignInCommand : isSignIn
+deactivate Model
+
+SignInCommand -> Model : signIn()
+activate Model
+
+Model --> SignInCommand
+deactivate Model
+
+create CommandResult
+SignInCommand-> CommandResult
+activate CommandResult
+
+CommandResult --> SignInCommand : result
+deactivate CommandResult
+
+SignInCommand --> LogicManager : result
+deactivate SignInCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

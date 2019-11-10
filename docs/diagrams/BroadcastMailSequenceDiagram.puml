@@ -1,0 +1,95 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":BroadcastMailCommandParser" as BroadcastMailCommandParser LOGIC_COLOR
+participant ":BroadcastMailCommand" as BroadcastMailCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Mailer" as Mailer LOGIC_COLOR
+end box
+
+box Project PROJECT_COLOR
+participant ":Project" as Project PROJECT_COLOR_T1
+end box
+
+[-> LogicManager : execute("broadcastMail Subject, Body")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("broadcastMail Subject, Body")
+activate AddressBookParser
+
+create BroadcastMailCommandParser
+AddressBookParser -> BroadcastMailCommandParser
+activate BroadcastMailCommandParser
+
+BroadcastMailCommandParser --> AddressBookParser
+deactivate BroadcastMailCommandParser
+
+AddressBookParser -> BroadcastMailCommandParser : parse(Subject, Body)
+activate BroadcastMailCommandParser
+
+create BroadcastMailCommand
+BroadcastMailCommandParser -> BroadcastMailCommand
+activate BroadcastMailCommand
+
+BroadcastMailCommand --> BroadcastMailCommandParser : Subject, Body
+deactivate BroadcastMailCommand
+
+BroadcastMailCommandParser --> AddressBookParser : Subject, Body
+deactivate BroadcastMailCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+BroadcastMailCommandParser -[hidden]-> AddressBookParser
+destroy BroadcastMailCommandParser
+
+AddressBookParser --> LogicManager : Subject, Body
+deactivate AddressBookParser
+
+LogicManager -> BroadcastMailCommand : execute()
+activate BroadcastMailCommand
+
+BroadcastMailCommand -> Project : getMemberNames()
+activate Project
+
+Project--> BroadcastMailCommand : List<String> MemberNames
+deactivate Project
+
+BroadcastMailCommand -> Model : getMembers()
+activate Model
+
+Model --> BroadcastMailCommand : List<Person> members
+deactivate Model
+
+BroadcastMailCommand -> Model : getOwnerAccount()
+activate Model
+
+Model --> BroadcastMailCommand : OwnerAccount
+deactivate Model
+
+loop for each members in the project
+
+   BroadcastMailCommand -> Mailer : sendMail()
+   activate Mailer
+   Mailer -> BroadcastMailCommand
+   deactivate Mailer
+
+end
+
+create CommandResult
+BroadcastMailCommand-> CommandResult
+activate CommandResult
+
+CommandResult --> BroadcastMailCommand : result
+deactivate CommandResult
+
+BroadcastMailCommand --> LogicManager : result
+deactivate BroadcastMailCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

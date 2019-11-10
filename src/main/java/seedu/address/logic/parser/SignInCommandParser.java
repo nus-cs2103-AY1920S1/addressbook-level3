@@ -22,7 +22,14 @@ public class SignInCommandParser implements Parser<SignInCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SignInCommand.MESSAGE_USAGE));
         }
 
+        String emailString = argMultimap.getValue(PREFIX_ACCOUNT).get();
+
+        if (emailString.toString().equals("")) {
+            throw new ParseException("Please input a valid email address");
+        }
+
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_ACCOUNT).get());
+
         String emailName = email.value.split("@")[1];
         String emailProvider = emailName.split("\\.")[0];
         int len = emailName.split("\\.").length;

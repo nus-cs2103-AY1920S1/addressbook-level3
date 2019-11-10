@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.SendMailCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Email;
 
 import java.util.stream.Stream;
 
@@ -26,7 +27,8 @@ public class SendMailCommandParser implements Parser<SendMailCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SendMailCommand.MESSAGE_USAGE));
         }
 
-        String recipient = argMultimap.getValue(PREFIX_RECIPIENT).get();
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_RECIPIENT).get());
+        String recipient = email.toString();
         String subject = argMultimap.getValue(PREFIX_SUBJECT).get();
         String message = argMultimap.getValue(PREFIX_MESSAGE).get();
 
