@@ -55,32 +55,6 @@ public class JsonAddressBookStorageTest {
         assertThrows(DataConversionException.class, () -> readAddressBook("invalidAndValidPersonAddressBook.json"));
     }
 
-    //    @Test
-    //    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-    //        Path filePath = testFolder.resolve("TempAddressBook.json");
-    //        CalendarAddressBook original = getTypicalCalendarAddressBook();
-    //        JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
-    //
-    //        // Save in new file and read back
-    //        jsonAddressBookStorage.saveAddressBook(original, filePath);
-    //        ReadOnlyCalendarAddressBook readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-    //        assertEquals(original, new CalendarAddressBook(readBack));
-    //
-    //        // Modify data, overwrite exiting file, and read back
-    //        original.addTask(HOON);
-    //        original.removeTask(ALICE);
-    //        jsonAddressBookStorage.saveAddressBook(original, filePath);
-    //        readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
-    //        assertEquals(original, new CalendarAddressBook(readBack));
-    //
-    //        // Save and read without specifying file path
-    //        original.addTask(IDA);
-    //        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
-    //        readBack = jsonAddressBookStorage.readAddressBook().get(); // file path not specified
-    //        assertEquals(original, new CalendarAddressBook(readBack));
-    //
-    //    }
-
     @Test
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> saveAddressBook(null, "SomeFile.json"));

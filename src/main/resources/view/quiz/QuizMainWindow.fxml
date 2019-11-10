@@ -16,18 +16,17 @@
 
 <fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Modulo" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/modulo.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@../LightTheme.css" />
-        <URL value="@../Extensions.css" />
-          <URL value="@Quiz.css" />
+        <URL value="@../quiz/DarkTheme.css" />
+        <URL value="@../quiz/Extensions.css" />
       </stylesheets>
 
       <VBox>
-        <MenuBar fx:id="menuBar" style="-fx-background-color: #61AD58;" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" style="-fx-background-color: #01A453;" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -36,13 +35,13 @@
           </Menu>
         </MenuBar>
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane fx:id="commandBoxPlaceholder" styleClass="top-pane-skin" VBox.vgrow="NEVER">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border-blue" VBox.vgrow="NEVER">
           <padding>
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
