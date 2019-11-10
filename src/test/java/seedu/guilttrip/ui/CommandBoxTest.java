@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import javafx.scene.input.KeyCode;
 
@@ -53,7 +52,7 @@ public class CommandBoxTest extends GuiUnitTest {
         errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
     }
 
-    @Test
+    /*@Test
     public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
@@ -67,7 +66,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
-    }
+    }*/
 
     /*@Test
     public void commandBox_startingWithFailedCommand() {
@@ -86,7 +85,7 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForFailedCommand();
     }*/
 
-    @Test
+    /*@Test
     public void commandBox_handleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
@@ -104,7 +103,7 @@ public class CommandBoxTest extends GuiUnitTest {
         // verify style of command box does not change after keying a number
         guiRobot.push(KeyCode.DIGIT5);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
-    }
+    }*/
 
     /**
      * Runs a command that fails, then verifies that <br>
