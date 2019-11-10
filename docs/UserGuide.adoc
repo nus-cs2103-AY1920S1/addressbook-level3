@@ -525,7 +525,7 @@ AlgoBase currently supports several GUI features with an intuitive layout, inclu
 There are 3 types of tabs in AlgoBase, 2 of which (Display and Details) are shown in the figure below.
 
 .Types of tabs and their usage
-image::gui/TabsOverview1.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/TabsOverview1.png[width=70%, scaledwidth=12cm]
 
 
 * **Display tabs** give a high level overview of the contents of a list of items
@@ -548,18 +548,18 @@ The following steps show how a user can edit problems or plans from the GUI.
 
 // end::gui[]
 .Plan with name "Data Structures" is opened.
-image::gui/EditPlanUiAction0Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/EditPlanUiAction0Annotated.png[width=70%, scaledwidth=12cm]
 // tag::gui[]
 
 **Step 2:** Make changes to the problem or plan by editing the fields directly.
 
 .The name and start date of the plan are modified.
-image::gui/EditPlanUiAction1Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/EditPlanUiAction1Annotated.png[width=70%, scaledwidth=12cm]
 
 **Step 3:** Save changes to the problem or plan by clicking on the _Edit Problem_ or _Edit Plan_ button.
 
 .The plan is successfully edited.
-image::gui/EditPlanUiAction2Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/EditPlanUiAction2Annotated.png[width=70%, scaledwidth=12cm]
 
 [NOTE]
 The _Edit Plan_ Button cannot be clicked if there are no changes made to the plan.
@@ -572,7 +572,7 @@ The following steps show how a user can delete problems or plans from the GUI.
 
 // end::gui[]
 .Problem with name "Sequences" is opened.
-image::gui/DeleteProblemUiAction0Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/DeleteProblemUiAction0Annotated.png[width=70%, scaledwidth=12cm]
 // tag::gui[]
 
 **Step 2:** Click on the red _Delete Problem_ or _Delete Plan_ button at the bottom right.
@@ -580,12 +580,12 @@ To prevent accidental deletion, a warning dialog will appear to confirm if you w
 Click on the _"confirm"_ button.
 
 .Warning Dialog to confirm problem being deleted.
-image::gui/DeleteProblemUiAction1Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/DeleteProblemUiAction1Annotated.png[width=70%, scaledwidth=12cm]
 
 **Step 3:** Click on _Confirm_.
 
 .The problem is successfully deleted.
-image::gui/DeleteProblemUiAction2Annotated.png[align="center", width=70%, scaledwidth=12cm]
+image::gui/DeleteProblemUiAction2Annotated.png[width=70%, scaledwidth=12cm]
 
 // end::gui[]
 // tag::tab[]

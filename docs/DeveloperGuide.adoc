@@ -127,7 +127,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === UiLogic Component
 
 .Structure of the UiLogic Component
-image::UiLogicClassDiagram.png[align="center", width=70%, scaledwidth=15cm]
+image::UiLogicClassDiagram.png[width=70%, scaledwidth=15cm]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java`]
@@ -573,12 +573,12 @@ The following classes facilitate the handling of GUI actions:
 When the user makes a change in the GUI, the change is propagated from `Ui` to `UiLogic` to `Model` and to `Storage`, as represented in the diagram below:
 
 .An example of a high level representation of the GUI Actions.
-image::ArchitectureSequenceDiagram1.png[align="center", width=70%, scaledwidth=10cm]
+image::ArchitectureSequenceDiagram1.png[width=70%, scaledwidth=10cm]
 
 This process of how the application handles UI Actions is captured by the example in the Sequence Diagrams below:
 
 .Interaction between `UI` and `UiLogic`
-image::gui/EditProblemUiActionSequenceDiagram0.png[align="center", width=100%, scaledwidth=12cm]
+image::gui/EditProblemUiActionSequenceDiagram0.png[width=100%, scaledwidth=12cm]
 
 Step 1: The user edits the `ProblemDetails` controller class through his/her actions in the GUI.
 
@@ -592,7 +592,7 @@ Step 4: The method call returns a `UiActionResult` object, which may optionally 
 The following diagram goes into more details on how the `UiLogic` handles the `UiActionDetails`:
 
 .Interactions between classes in the `UiLogic` component.
-image::gui/EditProblemUiActionSequenceDiagram1.png[align="center", width=100%, scaledwidth=12cm]
+image::gui/EditProblemUiActionSequenceDiagram1.png[width=100%, scaledwidth=12cm]
 
 Step 1: The `UiLogicManager` passes the `UiActionDetails` object to the `AlgoBaseUiActionParser`,
 which in turn passes it to the `EditProblemUiActionParser` based on its Action type.
@@ -611,7 +611,7 @@ The state of the GUI is stored in a `GuiState` object, which is in turn stored i
 The following class diagram illustrates how the classes in the `GuiState` interact with one another:
 
 .Class Diagram for the `GuiState` class
-image::design/model/GuiPackageDiagram.png[align="center", width=60%, scaledwidth=10cm]
+image::design/model/GuiPackageDiagram.png[width=60%, scaledwidth=10cm]
 
 The following Activity diagram illustrates the series of actions that occur when the user opens a new tab:
 
@@ -622,7 +622,7 @@ In AlgoBase, the state of the GUI is also saved to Storage after every action. T
 The Sequence diagram below also shows how the GuiState is saved to Storage:
 
 .Sequence Diagram for storing new GUI state
-image::gui/SwitchTabsSequenceDiagram3.png[align="center", width=100%, scaledwidth=12cm]
+image::gui/SwitchTabsSequenceDiagram3.png[width=100%, scaledwidth=12cm]
 
 The `StorageManager` saves the modified `GuiState` as a new `JSON` file.
 This is done with the help of the `JsonSerializableGui`, `JsonSerializableTabManager` and `JsonSerializableTab` classes that are wrappers for the `GuiState`, `TabManager` and `TabData` classes.
