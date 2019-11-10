@@ -783,6 +783,8 @@ image::suggestPossibleAfter2.png[align="center", width=85%, scaledwidth=15cm]
 As shown above, the two previously added exercises, "Bench Press and "Run", are displayed because they each have a rating of `8`.
 In addition to the tracked exercises, ExerHealth also displays suggestions in its database. Hence it will display the exercise named "Push Ups" as it has a `Chest` tag.
 
+<<<
+
 ===== Duplicates
 
 Sometimes, you may want to track exercises of the same name. Instead of displaying all suggestions of the same name, `suggest`

@@ -16,6 +16,7 @@ The user interacts with it using a command line interface, and it has a GUI crea
 
 Below is a screenshot of what our desktop application looks like:
 
+.A screenshot of ExerHealth application
 image::Ui.png[]
 
 <<<
@@ -57,6 +58,8 @@ The implementation was also challenging as it required multiple new predicate an
 |===
 
 include::../UserGuide.adoc[tag=suggest]
+
+<<<
 
 == Contributions to the Developer Guide
 
