@@ -72,12 +72,18 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
 
 ** Project management
 *** Managed releases `v1.1` - `v1.2` (2 releases) on GitHub
-*** Added the team's details to the project website (
+*** Set up automatic publishing of the project's documentation (using Travis CI)
+*** Oversaw the general integration of the various team members' work into the project
+*** Created and managed the team's organization on GitHub (
+    https://github.com/AY1920S1-CS2103T-T12-4[AY1920S1-CS2103T-T12-4]
+    )
+*** Populated the project website with general information about the team (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19],
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/24[#24]
     )
+*** Created issue labels on GitHub for better issue management
 ** Documentation
-*** Created the general framework that would be used by the User Guide (
+*** Created an early framework for the User Guide (
     https://github.com/AY1920S1-CS2103T-T12-4/main/pull/19[#19]
     )
 *** Wrote the FAQ and an early version of the Command Summary section for the User Guide (
