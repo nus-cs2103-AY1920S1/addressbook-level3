@@ -317,7 +317,8 @@ the details of the `Transaction` class:
 
 image::TransactionClassDiagram.png[]
 
-Of note, we differentiate transactions into income and expenditure items using the `TransactionType` field, which accepts
+[NOTE]
+We differentiate transactions into income and expenditure items using the `TransactionType` field, which accepts
 two unique string values, `"in"` for income and `"exp"` for expenditure in the constructor.
 
 In addition, the list of transactions is subject to a filter created by an immutable `TransactionContext`.
@@ -513,9 +514,11 @@ the target user profile.
 
 However, moving forward, we recognise that the current architecture severely lacks scalability,
 especially given the constantly growing number of transactions we expect users to create. Hence, we eventually
-intend to switch to a multi-level list. Developers who choose to undertake this heavy task need to bear in mind
-that many other component (Repeaters, Budget, Analytics) depend on the model of this component, and care must
-be taken to ensure that these components still work well.
+intend to switch to a multi-level list.
+
+[WARNING]
+Developers who choose to change the underlying data structures should bear in mind that many other components (Repeaters, Budgets, Analytics)
+depend on the model of Transactions, and care must be taken to ensure that these components still work well.
 
 // end::transadd[]
 
