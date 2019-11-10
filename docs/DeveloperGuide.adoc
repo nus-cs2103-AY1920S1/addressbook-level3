@@ -96,7 +96,7 @@ The _figure_ below displays the high-level design of our StudyBuddy Pro.
 image::ArchitectureDiagram.png[]
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create some of the diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 The architecture diagram describes the relationships between the components, and here is a quick overview of each component:
@@ -360,7 +360,7 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 *** As such, we can apply an Observer pattern to update each StudyBuddyItem upon deletion of a tag.
 
 
-tag::cheatsheetAutomation[]
+//tag::cheatsheetAutomation[]
 
 === Customizable Auto-generated Cheatsheet Feature
 
@@ -388,7 +388,7 @@ The first operation is exposed in the `Model` interface as `Model#setCheatSheet(
 The following _figure_ shows a high-level view of how the auto-generation operation works.
 
 .Sequence diagram to illustrate auto-generation operation
-image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[pdfwidth=60%]
+image::jasmineDiagrams/AddCheatSheetSequenceDiagram.png[pdfwidth=70%]
 
 From the sequence diagram above, it portrays the relationships between the components to execute the creation mechanism. The _figure_ below explains the details within the sequence diagram.
 
@@ -426,7 +426,7 @@ The index provided after `c/` indicates the content to be _removed_, not to be _
 ====
 
 .Activity diagram of the `edit` command for the removal of contents
-image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[pdfwidth=50%,scaledwidth=50%]
+image::jasmineDiagrams/EditCheatSheetCommandActivityDiagram.png[pdfwidth=45%]
 
 The activity diagram above shows the general flow of customization of cheatsheet feature. The changes for _contents_ have to come first before the changes for _tags_. This is to ensure that the _contents_ are still relevant to the _tags_ specified. An example is provided below.
 
@@ -466,13 +466,14 @@ According to the above table, the system will be able to remove _tag2_ first bef
 ** Pros: Codes may be cleaner and easier to understand.
 ** Cons: Harder to implement. More abstraction and modifications have to be done.
 
-end::cheatsheetAutomation[]
+//end::cheatsheetAutomation[]
 
 ==== [Proposed] Future improvements
 
 - Alerts users of possible duplications of contents
 - Allows users to gauge the size of the contents (whether if it fits in single-sided or double-sided A4 paper)
 - Allows users to export the cheatsheets
+- Allows users to add new tags into the existing cheatsheets
 - Allows updates of cheatsheet
     -- Currently, contents are taken upon creation. Hence, any objects with specified tags will not be added into the cheatsheet after the creation of the cheatsheet.
 
