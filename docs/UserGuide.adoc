@@ -1750,3 +1750,4 @@ NUS trips: +
 
 ``selectSoc``   : select a certain society to load trips
 
+== Glossary
