@@ -21,6 +21,9 @@ import budgetbuddy.model.attributes.Category;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
 import budgetbuddy.model.attributes.Name;
+import budgetbuddy.model.loan.Loan;
+import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -80,6 +83,23 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
                 (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDirection);
         engine.setVariable("txnCategories",
                 (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnCategories);
+
+        engine.setVariable("addLoan", (ScriptBindingInterfaces.LongStringStringObjects) this::scriptAddLoan);
+        engine.setVariable("morphLoan", (ScriptBindingInterfaces.LoanObjects) this::scriptMorphLoan);
+        engine.setVariable("editShownLoan", (ScriptBindingInterfaces.IntObjects) this::scriptEditShownLoan);
+        engine.setVariable("deleteShownLoan", (ScriptBindingInterfaces.IntOnly) this::scriptDeleteShownLoan);
+        engine.setVariable("getShownLoans", (ScriptBindingInterfaces.Void) this::scriptGetShownLoans);
+        engine.setVariable("getLoans", (ScriptBindingInterfaces.Void) this::scriptGetLoans);
+
+        engine.setVariable("loanAmount", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanAmount);
+        engine.setVariable("loanDirection", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanDirection);
+        engine.setVariable("loanPerson", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanPerson);
+        engine.setVariable("loanDate", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanDate);
+        engine.setVariable("loanDescription", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanDescription);
+        engine.setVariable("loanIsPaid", (ScriptBindingInterfaces.LoanOnly) this::scriptLoanIsPaid);
+
+        engine.setVariable("parseDate", (ScriptBindingInterfaces.StringOnly) this::scriptParseDate);
+        engine.setVariable("makeDate", (ScriptBindingInterfaces.IntIntInt) this::scriptMakeDate);
     }
 
     /**
@@ -397,6 +417,164 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     private String[] scriptTxnCategories(Transaction txn) throws Exception {
         requireAllNonNull(txn);
         return txn.getCategories().stream().map(Category::getCategory).toArray(String[]::new);
+    }
+
+    /**
+     * Provides <code>addTxn(amount, direction, person, { description, date, paid })
+     * -> Loan</code>.
+     */
+    private Loan scriptAddLoan(long inAmount, String direction, String person, Object... optional) throws
+            Exception {
+        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        requireAllNonNull(direction, person, opt);
+
+        Description description =
+                CommandParserUtil.parseDescription(opt.get("description", String.class).orElse(""));
+        LocalDate date = opt.getDate("date").orElseGet(LocalDate::now);
+        Status status = opt.get("paid", Boolean.class).map(in -> in ? Status.PAID : Status.UNPAID)
+                .orElse(Status.UNPAID);
+
+        Loan loan = new Loan(new Person(CommandParserUtil.parseName(person)),
+                CommandParserUtil.parseDirection(direction), new Amount(inAmount), date, description, status);
+
+        model.getLoansManager().addLoan(loan);
+
+        return loan;
+    }
+
+    /**
+     * Provides <code>morphLoan(loan, { amount, direction, person, description, date, paid })
+     * -> Loan</code>.
+     */
+    private Loan scriptMorphLoan(Loan loan, Object... optional) throws Exception {
+        requireAllNonNull(loan);
+        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+
+        Amount amt = loan.getAmount();
+        Direction dir = loan.getDirection();
+        Person person = loan.getPerson();
+        Description desc = loan.getDescription();
+        LocalDate date = opt.getDate("date").orElseGet(loan::getDate);
+        Status status = opt.get("paid", Boolean.class).map(in -> in ? Status.PAID : Status.UNPAID)
+                .orElseGet(loan::getStatus);
+
+        OptionalLong newAmt = opt.getIntegral("amount");
+        if (newAmt.isPresent()) {
+            amt = new Amount(newAmt.getAsLong());
+        }
+
+        String newDir = opt.get("direction", String.class).orElse(null);
+        if (newDir != null) {
+            dir = CommandParserUtil.parseDirection(newDir);
+        }
+
+        String newPerson = opt.get("person", String.class).orElse(null);
+        if (newPerson != null) {
+            person = new Person(CommandParserUtil.parseName(newPerson));
+        }
+
+        String newDesc = opt.get("description", String.class).orElse(null);
+        if (newDesc != null) {
+            desc = CommandParserUtil.parseDescription(newDesc);
+        }
+
+        return new Loan(person, dir, amt, date, desc, status);
+    }
+
+    /**
+     * Provides <code>editShownLoan(index, { amount, direction, person, description, date, paid })
+     * -> Loan</code>.
+     */
+    private Loan scriptEditShownLoan(int index, Object... optional) throws Exception {
+        Index indexWrapped = Index.fromZeroBased(index);
+        Loan toEdit = model.getLoansManager().getLoan(indexWrapped);
+        Loan newLoan = scriptMorphLoan(toEdit, optional);
+        model.getLoansManager().editLoan(indexWrapped, newLoan);
+        return newLoan;
+    }
+
+    /**
+     * Provides <code>deleteShownLoan(index)</code>.
+     */
+    private Object scriptDeleteShownLoan(int index) throws Exception {
+        model.getLoansManager().deleteLoan(Index.fromZeroBased(index));
+        return null;
+    }
+
+    /**
+     * Provides <code>getShownLoans() -> List&lt;Loan&gt;</code>.
+     */
+    private List<Loan> scriptGetShownLoans() throws Exception {
+        return model.getLoansManager().getFilteredLoans();
+    }
+
+    /**
+     * Provides <code>getLoans() -> List&lt;Loan&gt;</code>.
+     */
+    private List<Loan> scriptGetLoans() throws Exception {
+        return model.getLoansManager().getLoans();
+    }
+
+    /**
+     * Provides <code>loanAmount(loan) -> number</code>
+     */
+    private long scriptLoanAmount(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getAmount().toLong();
+    }
+
+    /**
+     * Provides <code>loanDirection(loan) -> string ("IN" | "OUT")</code>.
+     */
+    private String scriptLoanDirection(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getDirection().toString();
+    }
+
+    /**
+     * Provides <code>loanPerson(loan) -> string</code>.
+     */
+    private String scriptLoanPerson(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getPerson().getName().toString();
+    }
+
+    /**
+     * Provides <code>loanDate(loan) -> LocalDate</code>.
+     */
+    private LocalDate scriptLoanDate(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getDate();
+    }
+
+    /**
+     * Provides <code>loanDescription(loan) -> string</code>.
+     */
+    private String scriptLoanDescription(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getDescription().getDescription();
+    }
+
+    /**
+     * Provides <code>loanIsPaid(loan) -> boolean</code>.
+     */
+    private boolean scriptLoanIsPaid(Loan loan) throws Exception {
+        requireAllNonNull(loan);
+        return loan.getStatus() == Status.PAID;
+    }
+
+    /**
+     * Provides <code>parseDate(date) -> LocalDate</code>.
+     */
+    private LocalDate scriptParseDate(String date) throws Exception {
+        return LocalDate.parse(date, AppUtil.getDateFormatter());
+    }
+
+    /**
+     * Provides <code>makeDate(year, month, day) -> LocalDate</code>.
+     */
+    private LocalDate scriptMakeDate(int year, int month, int day) throws Exception {
+        return LocalDate.of(year, month, day);
     }
 
     /**

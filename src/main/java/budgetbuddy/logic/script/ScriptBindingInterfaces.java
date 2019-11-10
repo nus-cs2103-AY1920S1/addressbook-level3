@@ -1,6 +1,7 @@
 package budgetbuddy.logic.script;
 
 import budgetbuddy.model.account.Account;
+import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.transaction.Transaction;
 
 /**
@@ -114,8 +115,32 @@ public class ScriptBindingInterfaces {
      * Helps to bind a Java method with the same signature into the script environment.
      */
     @FunctionalInterface
+    public interface LoanObjects {
+        Object apply(Loan a1, Object... a2) throws Exception;
+    }
+
+    /**
+     * Helps to bind a Java method with the same signature into the script environment.
+     */
+    @FunctionalInterface
+    public interface LoanOnly {
+        Object apply(Loan a1) throws Exception;
+    }
+
+    /**
+     * Helps to bind a Java method with the same signature into the script environment.
+     */
+    @FunctionalInterface
     public interface IntOnly {
         Object apply(int a1) throws Exception;
+    }
+
+    /**
+     * Helps to bind a Java method with the same signature into the script environment.
+     */
+    @FunctionalInterface
+    public interface IntIntInt {
+        Object apply(int a1, int a2, int a3) throws Exception;
     }
 
     /**
