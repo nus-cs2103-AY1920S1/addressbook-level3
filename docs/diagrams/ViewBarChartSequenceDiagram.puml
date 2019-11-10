@@ -78,9 +78,9 @@ deactivate DailyStatistics
 DailyList --> MonthList: ds
 end
 deactivate DailyList
-MonthList --> StatisticsManager: listOfDailyStatistics
+MonthList --> StatisticsManager: replaceWithNewListOfDailyStatistics
 deactivate MonthList
-StatisticsManager --> Model: replaceWithNewListOfDailyStatistics
+StatisticsManager --> Model:
 deactivate StatisticsManager
 Model --> ViewBarChartCommand
 deactivate Model

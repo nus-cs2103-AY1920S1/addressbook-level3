@@ -15,7 +15,7 @@ end box
 
 box Statistics STATS_COLOR
 participant ":StatisticsManager" as StatisticsManager STATS_COLOR_T1
-participant "c:Category" as Category STATS_COLOR
+participant "c:Category" as Category STATS_COLOR_T3
 participant "s:CategoryStatistics" as CategoryStatistics STATS_COLOR_T2
 
 end box
@@ -78,8 +78,7 @@ end
 activate StatisticsManager #DarkSalmon
 StatisticsManager -[#DarkRed]> StatisticsManager: countStats(MonthListToCalculate, listOfStatisticsByCategoryForExpense)
 activate StatisticsManager #DarkRed
-
-loop for All Categories in CategoryList
+loop for All Categories in CategoryList in Expense
 StatisticsManager -[#DarkRed]> Category: getCategoryFromCategoryList()
 activate Category
 Category --> StatisticsManager #DarkRed: c
@@ -93,9 +92,28 @@ StatisticsManager -[#DarkRed]> CategoryStatistics: createCategoryStatistics(c, t
 activate CategoryStatistics
 CategoryStatistics --> StatisticsManager #DarkRed: s
 deactivate CategoryStatistics
-
 end
 StatisticsManager -[#DarkRed]> StatisticsManager: Total Expense
+deactivate StatisticsManager #DarkRed
+
+StatisticsManager -[#DarkRed]> StatisticsManager: countStats(MonthListToCalculate, listOfStatisticsByCategoryForIncome)
+activate StatisticsManager #DarkRed
+loop for All Categories in CategoryList in Income
+StatisticsManager -[#DarkRed]> Category: getCategoryFromCategoryList()
+activate Category
+Category --> StatisticsManager #DarkRed: c
+deactivate Category
+
+StatisticsManager -[#DarkOrange]> StatisticsManager: calculateTotalAmountForCategory(MonthListToCalculate, c)
+activate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkOrange]> StatisticsManager: totalAmountCalculated
+deactivate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkRed]> CategoryStatistics: createCategoryStatistics(c, totalAmountCalculated)
+activate CategoryStatistics
+CategoryStatistics --> StatisticsManager #DarkRed: s
+deactivate CategoryStatistics
+end
+StatisticsManager -[#DarkRed]> StatisticsManager: Total Income
 deactivate StatisticsManager #DarkRed
 StatisticsManager --> Model
 deactivate StatisticsManager

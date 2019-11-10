@@ -124,7 +124,6 @@ public class StatisticsManager implements Statistics {
                 .add(new CategoryStatistics(t, 0.00)));
     }
 
-
     /**
      * Initiates the Statistics for the listsOfCategories, and adds Listeners for the relevant ObservableLists.
      */
@@ -186,6 +185,8 @@ public class StatisticsManager implements Statistics {
     @Override
     public void updateListOfStats(List<Date> listOfPeriods) {
         ArrayList<MonthList> listOfMonths;
+        //the size of the list should be at most 2, containing the start date and end date.
+        assert(listOfPeriods.size() <= 2);
         if (listOfPeriods.size() == 1) {
             listOfMonths = getMonth(listOfPeriods.get(0));
         } else {

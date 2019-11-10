@@ -33,9 +33,10 @@
 
 !define USER_COLOR #000000
 
-!define STATS_COLOR #006400
-!define STATS_COLOR_T1 #7CFC00
-!define STATS_COLOR_T2 #90EE90
+!define STATS_COLOR #FFD700
+!define STATS_COLOR_T1 #FF7F50
+!define STATS_COLOR_T2 	#B22222
+!define STATS_COLOR_T3 #A52A2A
 
 
 skinparam BackgroundColor #FFFFFFF
