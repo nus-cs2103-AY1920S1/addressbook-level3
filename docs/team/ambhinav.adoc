@@ -33,11 +33,10 @@ This section serves to summarise my major contributions to the project as well o
 display of task deadlines format of the app between 24hr and 12hr.
 ** Justification: This feature improves the current product as +Work can adapt to users viewing preferences. Furthermore, as +Work scales to `v2.0` and beyond, it would be easier for users and developers alike to
 handle the increasing complexity additional features may bring.
-** Highlights: As of the latest release, this enhancement affects any command that deals with time sensitive data. It required an in-depth analysis of design alternatives. +
+** Highlights: As of the latest release, this enhancement affects any command that deals with time sensitive data.
 The implementation was moderately difficult as I was able to adapt the integration of the
 `UserSettings` component based on existing components. The more difficult aspect was to design the component in such a way where it would be easy to extend its functionality
-in the event more user settings are to be added. I tried to incorporate as much of the OOP principles as possible so as to
-make the feature more robust.
+in the event more user settings are to be added.
 ** Credits: I adapted some code that does responsive highlighting for the settings panel in +Work from a course mate.
 
 * *Major enhancement two*: I added a *project dashboard* to +Work that helps users see important information when the application opens.

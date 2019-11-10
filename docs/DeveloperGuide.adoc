@@ -287,7 +287,7 @@ The object diagram below shows a snapshot of the various objects involved when t
 The diagram omits objects involving the `Ui` component as well as specific `Task` objects for brevity.
 
 .Snapshot of objects involved in populating the dashboard with data
-image::DashboardObjectDiagram.png[width=700]
+image::DashboardObjectDiagram.png[width=600]
 
 ==== Design Considerations
 
@@ -296,7 +296,7 @@ This section explores how the design of the dashboard can affect it's responsive
 ===== Aspect: Data structure used to store `Task` objects.
 
 * **Alternative 1 (current choice):** All tasks are stored in a single `UniqueTaskList` in `ProjectDashboard` with `TaskStatus` attribute.
-When the enters `home` to view the dashboard, the tasks are split by `TaskStatus` and deadline in `ProjectDashboard` and dispatched to the `Ui`.
+When the user enters `home` to view the dashboard, the tasks are split by `TaskStatus` and deadline in `ProjectDashboard` and dispatched to the `Ui`.
 ** Pros: Easier to implement in terms of storage and retrieval. By storing only one list and splitting the tasks in memory there is less data saved.
 ** Cons: The constant processing of task data may tax the memory of the application, as it is storing the same tasks in multiple data structures. This may affect performance
 for large number of tasks.
@@ -335,7 +335,7 @@ To allow `Ui` to be responsive to updates in the settings, two of the operations
 The activity diagram below summarises the process of executing a settings command.
 
 .Activity diagram of settings command execution.
-image::SettingsActivityDiagram.png[width=300]
+image::SettingsActivityDiagram.png[width=200]
 
 Assume that the current `theme` is `LIGHT` and `clockFormat` is `TWENTY_FOUR`.
 
@@ -356,7 +356,7 @@ Step 5. The settings have been updated and stored in `plusworksettings.json`.
 The following sequence diagram shows how the `theme dark` operation works with reference to steps 2 and 3 above.
 
 .Operational flow of `ThemeCommand`
-image::ThemeSequenceDiagram.png[width=600]
+image::ThemeSequenceDiagram.png[width=400]
 
 NOTE: The lifeline for `ThemeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
