@@ -37,36 +37,17 @@ For example, users are able to write scripts to add huge number of transactions,
 have exceeded a certain limit.
 
 == Summary of contributions
-//TODO
-* *Major enhancement*: added *the feature of account and related commands*
-** What it does: allows the user to manage their accounts to facilitate the tracking of expenses, including *add/delete/edit/list/find* the accounts.
+* *Major enhancement*: added *the feature of account* and *related commands*
+** What it does: allows the user to manage their accounts to facilitate the tracking of expenses, including *add/delete/edit/list/find/report/overview* the accounts.
 ** Justification: This feature lays the foundation for the product because a user needs accounts to carry out all other activities, e.g. manage the transactions in a particular account.
 ** Highlights: This feature affects many other existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was demanding as it required carefully design to fit the entire architecture.
 
 * *Minor enhancement*: added the help window that allows the user to navigate to the website when they are in need of help.
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ChenJiehan318[RepoSense Report]]_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ChenJiehan318[RepoSense Report]]
 
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
-
+* *User's benefit*: With the *account* feature, the user is able to record their expenses and income in different accounts.
+Moreover, the user can choose to view the report of either individual or all accounts. Details of the particular account is
+offered for the user to have an general idea about their financial status.
 
 
 == Contributions to the User Guide
