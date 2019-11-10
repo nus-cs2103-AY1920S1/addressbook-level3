@@ -194,19 +194,23 @@ _Figure 5. Overview of questions classes_
 [[Feature-Question-Add]]
 ==== Add command
 
+===== Implementation
+
 The following is a detailed explanation of the operations `QuestionAddCommand` performs. +
 
 *Step 1*. The `QuestionAddCommand#execute(Model model)` method is executed and it validates type of question defined.
 The type defined will dictate if the resulting question will be a `OpenEndedQuestion` or `McqQuestion` question type.
 
 *Step 2*. The question is then searched through the `QuestionBank#questions` list using the `Model#hasQuestion(Question question)` method
-to check if the question already exists.
+to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
 
 *Step 3*. The method `Model#addQuestion(Question question)` will then be called to add the question and the question added,
 will be appended with the `QuestionAddCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
 
 [[Feature-Question-Edit]]
 ==== Edit command
+
+===== Implementation
 
 The following is a detailed explanation of the operations `QuestionEditCommand` performs. +
 
@@ -218,7 +222,7 @@ the `Question` object.
 If the question type is changed from open ended to mcq, it is necessary for the user to define all four options i.e a/ b/ c/ d/.
 
 *Step 2*. A new `Question` with the updated values will be created and the question is then searched through the `QuestionBank#questions` list
-using the `Model#hasQuestion(Question question)` method to check if the question already exists.
+using the `Model#hasQuestion(Question question)` method to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
 
 *Step 3*. The newly created `Question` will replace the existing question object through the `Model#setQuestion(Index index, Question question)` method
 at the specified `Index` defined by the user.
@@ -228,6 +232,8 @@ and a new `CommandResult` will be returned with the message.
 
 [[Feature-Question-Delete]]
 ==== Delete command
+
+===== Implementation
 
 The following is a detailed explanation of the operations `QuestionDeleteCommand` performs. +
 
@@ -243,6 +249,8 @@ and a new `CommandResult` will be returned with the message.
 [[Feature-Question-List]]
 ==== List command
 
+===== Implementation
+
 The following is a detailed explanation of the operations `QuestionListCommand` performs. +
 
 *Step 1*. The `QuestionListCommand#execute(Model model)` method is executed. No validation is necessary here since it
@@ -251,8 +259,11 @@ does not write to the question list.
 *Step 2*. The `Model#getQuestionsSummary()` method is then called and the questions are returned as a `String` to the new `CommandResult`
 object.
 
+// tag::questions-find[]
 [[Feature-Question-Find]]
 ==== Find command
+
+===== Implementation
 
 The following is a detailed explanation of the operations `QuestionFindCommand` performs.
 [NOTE]
@@ -283,6 +294,8 @@ they will be added to the temporary `similarAl` list instead.
 
 image::QuestionsSearchActivityDiagram.png[]
 _Figure 6. Activity diagram of questions search_
+
+// end::questions-find[]
 
 ==== Design Considerations
 
@@ -318,10 +331,11 @@ using a longer search term as compared to a shorter one. Long search terms are a
 ** Using a calibration percentage above 70 percent. This is not optimal for our use case as words with similar spelling but
 different meanings e.g 'moon' and 'noon', will be more often included in the search results.
 
+// tag::questions-slideshow[]
 [[Feature-Slideshow]]
 === Slideshow feature
 
-The slideshow feature is dependent on the questions added by the `question slideshow [question no(s).]` command and
+The slideshow feature is dependent on the questions added by the `question slideshow [QUESTIONS INDEX]` command and
 interacts with the `ModelManager` to retrieve the list of questions to be displayed in the slideshow.
 The logic control for displaying the ui resides in the `SlideshowWindow` class and handles the controls and instantiation
 of the various `QuestionPanel` that contains each question. +
@@ -329,12 +343,14 @@ of the various `QuestionPanel` that contains each question. +
 Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
 questions displayed in the slideshow.
 
-image::SlideshowFeatureSequenceDiagram.png[]
+image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
 _Figure 7. Sequence diagram illustrating the interactions happening_
+
+===== Implementation
 
 The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
 
-*Step 1.* The user requests to start a slideshow with a selection of questions using the `question slideshow [question no(s).]` command.
+*Step 1.* The user requests to start a slideshow with a selection of questions using the `question slideshow [QUESTIONS INDEX]` command.
 This will add questions based on the `Index` specified and will be added to the `slideshowQuestions` list under the `SavedQuestions` class.
 The usage of `Index` here is such that it follows the same convention of when the user edits or deletes a question.
 [NOTE]
@@ -366,7 +382,7 @@ _Figure 8. Activity diagram of the actions performed_
 * ** Current Implementation: **
 ** The choice of using the arrow keys for navigation and the `Escape` key to quit the slideshow is such that it will feel
 familiar to users who uses presentation programs often as they have similar controls. The only difference will be the usage
-of the `Space` key to show answers as it will be something new to the users and is unique to Njoy.
+of the `Space` key to show answers as it will be something new to the users and is unique to *Njoy*.
 
 * ** Alternatives Considered: **
 ** Usage of the `A` key to show answers. However, this is not very feasible as it is easily forgotten and not as user-friendly
@@ -380,15 +396,17 @@ that they want the questions to be displayed.
 ** Placement of the question numbering, topic, options and answer follows the common convention where
 the question numbering will be at the top followed by the topic, options and then the answer. This is such that viewers
 will not be confused by the layout.
-** *Font sizes* are displayed in the following descending order to allow the text for easy viewing:
+** Font sizes are displayed in the following descending order to allow the text for easy viewing:
 *** [.big]##Question Number##
 *** Question Topic & Options
 *** [.small]#Answer#
 
 * ** Alternatives Considered: **
 ** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
-However, this is not feasible as it will break the standard formatting of the answers display since both *Open Ended* and *MCQ*
+However, this is not feasible as it will break the standard formatting of the answers display since both `open` and `mcq`
 questions will have 2 different answer formats and may cause confusion to the user.
+
+// end::questions-slideshow[]
 
 === Quiz feature
 
