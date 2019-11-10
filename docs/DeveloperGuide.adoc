@@ -169,7 +169,7 @@ Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssocia
 .Structure of the Bookmark Package
 image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
 
-More details regarding the implementation of Folders can be found in <<Folder feature>>.
+More details regarding the implementation of Folders can be found in <<Folders feature>>.
 
 // TODO: Mention that Tags and Folders are not very OOP (new object created for each bookmark)
 
