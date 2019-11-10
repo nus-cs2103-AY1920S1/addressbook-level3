@@ -263,7 +263,7 @@ Adds a food item to the food list. Do note of the following:
 *  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
 Providing more than one of these `FIELD` will throw an error.
 *  You are allowed to give one or more `TAGS`.
-* `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+* `PRICE` must be a number wth 0 or 2 decimal places, it cannot exceed more than 5000.00 and it should not contain leading zeros.
 * `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
 * `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
 * `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
@@ -324,7 +324,7 @@ Do take note of the following:
 *  You are only allowed to give one of `NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION`, `RESTRICTIONS`, `PRICE` and `OPENING HOURS`.
 Providing more than one of these `FIELD` will throw an error.
 *  You are allowed to give one or more `TAGS`.
-* `PRICE` must be a number wth 0 or 2 decimal places, and it cannot exceed more than 1000000.
+* `PRICE` must be a number wth 0 or 2 decimal places, it cannot exceed more than 5000.00 and it should not contain leading zeros.
 * `OPENING HOURS` must be in HHMM HHMM format. The start time must be earlier than or equal to the end time.
 * `NAME` `DESCRIPTION` `CATEGORY` `LOCATION` and `RESTRICTIONS` must all be alphanumeric.
 * `TAG` is limited to 20 characters per tag, and only limited to one word per tag.
