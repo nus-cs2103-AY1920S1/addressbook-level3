@@ -29,14 +29,20 @@ By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*.
+More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble
+tracking your items' expiry dates, Xpire can help you manage and notify you of items that are
+soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `xpire.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Xpire.
-.  Launch the jar file using the `java -jar` command to start the app. The GUI should appear in a few seconds.
+.  In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. The GUI should appear in
+a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -50,7 +56,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
 
-.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list). You can move your items from the
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list).
+The *to-buy* list is to help you keep track of the things you want to replenish. You can move your items from the
 tracking list to the replenish list once they are consumed or expired.
 * `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
 
@@ -147,7 +154,7 @@ kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 comman
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by you e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
 * Optional parameters with `…`​ after them can be used multiple times including zero times. For example, for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
 * Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
@@ -212,9 +219,6 @@ image::view-current.png[width="790"]
 // tag::search[]
 ==== Searching for item(s) by name and/or tag: `search`
 
-.Items matching #fruit or chicken shown
-image::search.png[width="790"]
-
 Having a hard time looking for an item in Xpire? Not to worry, Xpire provides a search functionality to aid you in finding your items with ease.
 
 With `search`, you can simply input any words or phrases and Xpire will display all items whose names or tag(s) contain any of the given keywords.
@@ -222,11 +226,24 @@ With `search`, you can simply input any words or phrases and Xpire will display 
 
 Format: `search|<keyword>[|<other keywords>]...`
 
+.Items matching #fruit or chicken shown
+image::search.png[width="790"]
+
 [NOTE]
-`search` is designed to work only on the current view list. In other words, `search` will only display matching items which exists in the current view list.
+`search` is designed to work only on the current view list. In other words, `search` will only
+display matching items which exists in the current view list.
 
 [TIP]
-You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name, by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g. `red fuji apple`, `red strawberry` and `green apple`, the above commands will display only `red fuji apple`.
+You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name,
+by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g.
+ `red fuji apple`, `red strawberry` and `green apple` (see Figure 6), the above commands will display only `red
+ fuji apple` (see Figure 7).
+
+.Item list before searching
+image::search-initial.png[width="790"]
+
+.Item list after keying `search|red` and then `search|apple`
+image::search-after.png[width="790"]
 
 ****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
@@ -236,15 +253,21 @@ You can do an AND search, e.g. search for items that contains BOTH `red` and `ap
 * For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
 * Items matching at least one keyword will be returned (an OR search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 * If no items are found, any closely related keywords, if any, will be displayed.
+****
 
 Examples:
 
-* `search|kebab` +
-Returns `Chicken Kebab` and `kebab`.
-* `search|Chicken Ham` +
-Returns `Chicken Ham`.
-* `search|milk|tea|#Drink` +
-Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
+* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 8).
+
+.Item list after keying `search|kebab`
+image::search-kebab.png[width="790"]
+
+* `search|Chicken Ham` will display `Chicken Ham` (see Figure 9).
+
+.Item list after keying `search|Chicken Ham`
+image::search-chicken-ham.png[width="790"]
+
+* `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 // end::search[]
 
 // tag::shift[]
