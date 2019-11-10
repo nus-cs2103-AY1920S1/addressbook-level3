@@ -40,6 +40,8 @@ public class ParserUtil {
     public static final String[] NORMAL_FORM_DAYS = new String[]{"MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY",
         "FRIDAY", "SATURDAY", "SUNDAY"};
 
+    public static final String MESSAGE_INVALID_WEEK_RANGE = "Week range must be valid eg 5-7";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -239,8 +241,10 @@ public class ParserUtil {
             String[] weekRange = m.group().split("-");
             int start = Integer.parseInt(weekRange[0]);
             int end = Integer.parseInt(weekRange[1]);
-            if (start < 1 || end > 13) {
+            if (start < 1 || end > 13 ) {
                 throw new ParseException(Week.MESSAGE_CONSTRAINTS);
+            } else if ((start > end) || (start == end)) {
+                throw new ParseException((MESSAGE_INVALID_WEEK_RANGE));
             }
             for (int i = start; i <= end; i++) {
                 listOfWeeks.add(new Week(i));

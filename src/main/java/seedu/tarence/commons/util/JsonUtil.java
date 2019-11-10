@@ -453,7 +453,7 @@ public class JsonUtil {
             singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_ASSIGNMENT_LIST, tutorialAssignmentString);
             singleTutorialMap.put(JsonAdaptedModule.TUTORIAL_EVENT_LIST, tutorialEventString);
 
-            tutorialMap.put(tutorialName, singleTutorialMap);
+            tutorialMap.put(t.toString(), singleTutorialMap);
         }
         return tutorialMap;
     }

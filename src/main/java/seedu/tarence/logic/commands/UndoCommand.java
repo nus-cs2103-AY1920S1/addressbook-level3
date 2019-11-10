@@ -62,6 +62,8 @@ public class UndoCommand extends Command {
             Integer stateToUndoTo = storage.getLatestStateIndex() - numOfStatesToUndo;
             ReadOnlyApplication retrievedState = storage.getSpecifiedState(stateToUndoTo);
             model.setModel(retrievedState);
+
+
         } catch (IOException | NoSuchElementException e) {
             throw new CommandException("Error in undo command. Possible corrupted state json file");
         }

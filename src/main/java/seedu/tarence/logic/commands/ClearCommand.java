@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.util.SampleDataUtil;
 import seedu.tarence.storage.Storage;
 
@@ -32,7 +33,7 @@ public class ClearCommand extends Command {
 
         model.setModel(emptyApplication);
 
-
+        Module.setSemStart(null);
 
 
 
