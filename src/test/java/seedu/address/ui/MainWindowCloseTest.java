@@ -75,13 +75,16 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     @Test
-    public void maximiseRestore_maximiseRestoreButton_maximisedThenRestored() throws InterruptedException {
+    public void maximise_maximiseRestoreButton_windowMaximised() {
         mainWindowHandle.clickOnMaximiseButton();
-        Thread.sleep(100);
-        Platform.runLater(() -> assertTrue(guiRobot.getStage("Address App").isMaximized()));
+        assertTrue(guiRobot.getStage("Address App").isMaximized());
+    }
+
+    @Test
+    public void restore_maximiseRestoreButton_windowRestored() {
+        mainWindowHandle.clickOnMaximiseButton();
         mainWindowHandle.clickOnRestoreButton();
-        Thread.sleep(1000);
-        Platform.runLater(() -> assertFalse(guiRobot.getStage("Address App").isMaximized()));
+        assertFalse(guiRobot.getStage("Address App").isMaximized());
     }
 
     /**
