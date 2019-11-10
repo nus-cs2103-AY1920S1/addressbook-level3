@@ -28,7 +28,7 @@
                 <children>
                <VBox alignment="TOP_CENTER" spacing="5.0" styleClass="menu-pane-with-border" HBox.hgrow="NEVER">
                   <children>
-                            <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                            <Button fx:id="helpButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                                 <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -40,7 +40,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                             </Button>
-                            <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                            <Button fx:id="quitButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                                 <graphic>
                                     <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                                         <image>
@@ -52,7 +52,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                             </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleTheme" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="themeButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleTheme" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -64,7 +64,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleRecommend" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="recommendButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleRecommend" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -76,7 +76,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleList" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="listButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleList" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -88,7 +88,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleDefault" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="defaultButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleDefault" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -100,7 +100,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHistory" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="historyButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleHistory" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -112,7 +112,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleViewSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="viewSortButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleViewSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -124,7 +124,7 @@
                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                         </padding>
                      </Button>
-                     <Button minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleCustomSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
+                     <Button fx:id="customSortButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#handleCustomSort" prefHeight="50.0" prefWidth="50.0" styleClass="menu-button">
                         <graphic>
                            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                               <image>

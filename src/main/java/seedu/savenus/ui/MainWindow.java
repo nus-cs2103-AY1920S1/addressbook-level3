@@ -7,9 +7,12 @@ import javafx.beans.binding.StringBinding;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.savenus.commons.core.GuiSettings;
 import seedu.savenus.commons.core.LogsCenter;
 import seedu.savenus.logic.Logic;
@@ -85,6 +88,33 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private Text daysToExpirePlaceholder;
 
+    @FXML
+    private Button helpButton;
+
+    @FXML
+    private Button quitButton;
+
+    @FXML
+    private Button themeButton;
+
+    @FXML
+    private Button recommendButton;
+
+    @FXML
+    private Button listButton;
+
+    @FXML
+    private Button defaultButton;
+
+    @FXML
+    private Button historyButton;
+
+    @FXML
+    private Button viewSortButton;
+
+    @FXML
+    private Button customSortButton;
+
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -98,6 +128,43 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         infoWindow = new InfoWindow();
+
+        // All the buttons tooltip configuration
+        Tooltip help = new Tooltip("Help");
+        help.setShowDelay(Duration.seconds(0));
+        helpButton.setTooltip(help);
+
+        Tooltip quit = new Tooltip("Quit");
+        quit.setShowDelay(Duration.seconds(0));
+        quitButton.setTooltip(quit);
+
+        Tooltip theme = new Tooltip("Change theme");
+        theme.setShowDelay(Duration.seconds(0));
+        themeButton.setTooltip(theme);
+
+        Tooltip recommend = new Tooltip("Recommend");
+        recommend.setShowDelay(Duration.seconds(0));
+        recommendButton.setTooltip(recommend);
+
+        Tooltip list = new Tooltip("List");
+        list.setShowDelay(Duration.seconds(0));
+        listButton.setTooltip(list);
+
+        Tooltip defaults = new Tooltip("Default");
+        defaults.setShowDelay(Duration.seconds(0));
+        defaultButton.setTooltip(defaults);
+
+        Tooltip history = new Tooltip("History");
+        history.setShowDelay(Duration.seconds(0));
+        historyButton.setTooltip(history);
+
+        Tooltip viewSort = new Tooltip("View sort");
+        viewSort.setShowDelay(Duration.seconds(0));
+        viewSortButton.setTooltip(viewSort);
+
+        Tooltip customSort = new Tooltip("Custom sort");
+        customSort.setShowDelay(Duration.seconds(0));
+        customSortButton.setTooltip(customSort);
     }
 
     public Stage getPrimaryStage() {
