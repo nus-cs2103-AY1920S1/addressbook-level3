@@ -789,8 +789,13 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
-The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
-is passed into a stream to filter out all subsets of length less than 3.
+The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
+the ArrayList `result` is passed into a stream to filter out all subsets of length less than 3.
+
+`AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
+and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
+left in the inventory. +
+There will also be checks to ensure that the item specified is available for sale.
 
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
@@ -803,10 +808,6 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 
 image::AddCommandCashierSeq.png[]
 
-`AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
-and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
-left in the inventory. +
-There will also be checks to ensure that the item specified is available for sale.
 
 [NOTE]
 After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
@@ -828,8 +829,8 @@ This feature allows an existing person in the `Address Book` to be set as a cash
 the name of an existing person.
 
 To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on Members tab.
-This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is. +
-If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
+This means that SetCommandParser requires access to the `Model` of the Person package where the `AddressBook` implementation is. +
+If the person's name cannot be found in the `Model` of the Person package, a response message will be shown by Leo,
 informing the user that there is no such person.
 
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows
@@ -1747,6 +1748,52 @@ _{ more test cases ... }_
 === Testing Inventory Tab Features
 
 === Testing Cashier Tab Features
+. Adding an item
+
+.. Prerequisites: There is an item with description "cup" and quantity of at least 3 in the inventory. +
+Test case: `add d/cup q/3` +
+Expected: 3 items of description "cup" are added into the cart on the Cashier tab.
+Response message that cup has been added successfully shown.
+
+.. Prerequisites: There is an item with description "cup" and quantity of at least 3 in the inventory. +
+Test case: `add d/cup q/-1` +
+Expected: No item is added into the cart.
+Response message prompting positive integer for quantity shown.
+
+. Deleting an item
+.. Prerequisites: There are some sales items in the Inventory tab. +
+Test case: `delete 1` +
+Expected: First item on the cart is deleted.
+Response message that cup has been deleted successfully shown.
+
+. Editing an item
+.. Prerequisites: There are some sales items in the Inventory tab. +
+Test case: `edit i/1 q/2` +
+Expected: Quantity of first item on the cart is updated to 2.
+Response message that cup has been edited successfully shown.
+
+. Setting cashier
+.. Prerequisites: There is an existing member called "Alice" on the Members tab. +
+Test case: `cashier Alice` +
+Expected: Cashier on the bottom row is updated to "Alice".
+Response message that cashier has been set successfully shown.
+
+. Clearing
+.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+Test case: `clear` +
+Expected: Cashier on the bottom row is reset and all items in the cart are cleared.
+Response message that table has been cleared successfully shown.
+
+. Checking out
+.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+Test case: `checkout 9` +
+Expected: If amount inputted is sufficient, the total amount and change is shown.
+Cashier on the bottom row is reset and all items in the cart are cleared.
+Response message that items has been checked out successfully shown.
+
 
 === Testing Overview Tab Features
+
+
+
 
