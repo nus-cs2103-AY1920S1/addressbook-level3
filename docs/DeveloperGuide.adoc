@@ -24,6 +24,10 @@ for its implementation so that you can start contributing in no time.
 
 For any queries, simply <<ContactUs#, contact us>>.
 
+NOTE: In this document, `monospaced` texts may have different meanings. If the text is in *PascalCase* i.e. first letter
+of each word is capitalised, such as `Logic`, then the text is a class or interface name. If the text has a bracket such as `execute("delete 1")`.
+Otherwise, the `monospaced` texts are meant for highlighting or user commands depending on the context.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
