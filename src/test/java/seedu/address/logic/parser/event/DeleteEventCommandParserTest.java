@@ -1,8 +1,12 @@
 package seedu.address.logic.parser.event;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseIndexSuccess;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseInvalidIndexFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseInvalidPreambleArgsFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNegativeIndexFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseNoIndexAndFieldFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseZeroIndexFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EVENT;
 
 import org.junit.jupiter.api.Test;
@@ -18,16 +22,26 @@ import seedu.address.logic.commands.event.DeleteEventCommand;
  */
 public class DeleteEventCommandParserTest {
 
+
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE);
     private DeleteEventCommandParser parser = new DeleteEventCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteEventCommand() {
-        assertParseSuccess(parser, "1", new DeleteEventCommand(INDEX_FIRST_EVENT));
+    void parse_emptyInvalidFormat_throwsParseException() {
+        assertParseNoIndexAndFieldFailure(parser, MESSAGE_INVALID_FORMAT);
+        assertParseNegativeIndexFailure(parser, MESSAGE_INVALID_FORMAT);
+        assertParseZeroIndexFailure(parser, MESSAGE_INVALID_FORMAT);
+        assertParseInvalidIndexFailure(parser, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteEventCommand.MESSAGE_USAGE));
+    void parse_validArgs_returnsDeleteEventCommand() {
+        assertParseIndexSuccess(parser, new DeleteEventCommand(INDEX_FIRST_EVENT));
+    }
+
+    @Test
+    void parse_invalidArgs_throwsParseException() {
+        assertParseInvalidPreambleArgsFailure(parser, MESSAGE_INVALID_FORMAT);
     }
 }

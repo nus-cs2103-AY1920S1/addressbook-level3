@@ -3,6 +3,8 @@ package seedu.address.logic.parser.event;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.END_DATE_DESC_MUSICAL;
 import static seedu.address.logic.commands.CommandTestUtil.EVENT_NAME_DESC_MUSICAL;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_STRING_1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_STRING_2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_END_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EVENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_MANPOWER_NEEDED_DESC;
@@ -124,13 +126,13 @@ class AddEventCommandParserTest {
         assertParseFailure(parser, EVENT_NAME_DESC_MUSICAL + VENUE_DESC_MUSICAL
                 + MANPOWER_NEEDED_DESC_MUSICAL + INVALID_START_DATE_DESC + END_DATE_DESC_MUSICAL
                 + TAG_DESC_PARTY + TAG_DESC_MUSIC,
-                String.format(EventDate.MESSAGE_CONSTRAINTS, "2019/10/29"));
+                String.format(EventDate.MESSAGE_CONSTRAINTS, INVALID_DATE_STRING_1));
 
         //invalid end date
         assertParseFailure(parser, EVENT_NAME_DESC_MUSICAL + VENUE_DESC_MUSICAL
                 + MANPOWER_NEEDED_DESC_MUSICAL + START_DATE_DESC_MUSICAL + INVALID_END_DATE_DESC
                 + TAG_DESC_PARTY + TAG_DESC_MUSIC,
-                String.format(EventDate.MESSAGE_CONSTRAINTS, "20 Aug 2019"));
+                String.format(EventDate.MESSAGE_CONSTRAINTS, INVALID_DATE_STRING_2));
 
         //invalid tag
         assertParseFailure(parser, EVENT_NAME_DESC_MUSICAL + VENUE_DESC_MUSICAL

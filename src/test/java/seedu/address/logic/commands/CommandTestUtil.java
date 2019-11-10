@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -124,8 +125,10 @@ public class CommandTestUtil {
             + "10/10/2019 " + PREFIX_EVENT_SCHEDULE_END + "12/10/2019";
 
     //invalid date fields
-    public static final String INVALID_DATE_1 = " " + PREFIX_DATE + "2019/10/29";
-    public static final String INVALID_DATE_2 = " " + PREFIX_DATE + "20 Aug 2019";
+    public static final String INVALID_DATE_STRING_1 = "2019/10/29";
+    public static final String INVALID_DATE_STRING_2 = "20 Aug 2019";
+    public static final String INVALID_DATE_1 = " " + PREFIX_DATE + INVALID_DATE_STRING_1;
+    public static final String INVALID_DATE_2 = " " + PREFIX_DATE + INVALID_DATE_STRING_2;
     public static final String INVALID_DATE_3 = " " + PREFIX_DATE + "date";
     public static final String INVALID_DATE_4 = " " + PREFIX_DATE + "10/12";
     public static final String INVALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "1/2019";
@@ -140,6 +143,14 @@ public class CommandTestUtil {
             + "10 Aug 2019 " + PREFIX_EVENT_SCHEDULE_END + "30 Aug 2019";
     public static final String INVALID_DATE_RANGE_4 = " " + PREFIX_EVENT_SCHEDULE_START
             + "30/12/2019 " + PREFIX_EVENT_SCHEDULE_END + "01/01/2019";
+
+    //valid daytime fields
+    public static final String VALID_DAYTIME_STRING_1 = "0800-1800";
+    public static final String VALID_DAYTIME_1 = " " + PREFIX_EVENT_TIME + VALID_DAYTIME_STRING_1;
+
+    //invalid daytime fields
+    public static final String INVALID_DAYTIME_STRING_1 = "0800-0500";
+    public static final String INVALID_DAYTIME_1 = " " + PREFIX_EVENT_TIME + INVALID_DAYTIME_STRING_1;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

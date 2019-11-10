@@ -63,6 +63,7 @@ public class EditEventCommand extends Command {
     private static final String MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER =
             "Free all allocated manpower before editing Event Date";
 
+
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
 
@@ -198,7 +199,7 @@ public class EditEventCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditEventDescriptor(EditEventDescriptor toCopy) {
+        EditEventDescriptor(EditEventDescriptor toCopy) {
             setName(toCopy.name);
             setVenue(toCopy.venue);
             setManpowerNeeded(toCopy.manpowerNeeded);
