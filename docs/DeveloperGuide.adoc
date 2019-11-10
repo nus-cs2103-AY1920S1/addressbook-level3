@@ -212,7 +212,7 @@ The sequence diagram is as explained below:
 . The user launches the application and executes the `toggle wishlist` command to toggle the `wishlist` panel.
 . `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
 . `MainWindow` checks if the `togglePanel` attribute in `commandResult` is true.
-. Since it is true, it retrives the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
+. Since it is true, it retrieves the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
 . This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
 .. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
 .. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is shown in the main method.
@@ -223,23 +223,24 @@ image::ToggleActivityDiagram.png[width="240"]
 
 ==== Design Considerations
 
-* *Alternative 1 (current method):* Toggle the panels from within MainWindow class.
+* *Alternative 1 (current method):* Toggle the panels from within `MainWindow`.
 
 ** Pros: Easy to implement.
 
 ** Cons: Might not be as OOP as other designs.
 
-* *Alternative 2:* MainWindow has a PanelManager class that manages all the side panels (toggling them on and off).
+* *Alternative 2:* `MainWindow` has a `PanelManager` class that manages all the side panels (toggling them on and off).
 
-** Pros: More OOP, reduces number of methods and lines of code in MainWindow.
+** Pros: More OOP, reduces number of methods and lines of code in `MainWindow`.
 
-** Cons: May introduce cyclic dependency.
+** Cons: May introduce cyclic dependency between `PanelManager` and `MainWindow`.
 
 === Change Font Command
 
 ==== Implementation
 
-The `changeFont` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the application font.
+The `changeFont` command extends from the `Command` class. `MainWindow` checks using the
+`CommandResult` obtained from `Logic` if the user wants to change the application font.
 If so, it immediately changes the font without requiring the user to exit and launch the application again.
 This change in font is also saved in `UserPrefs`.
 
@@ -261,35 +262,58 @@ image::ChangeFontActivityDiagram.png[]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice):*
+* *Alternative 1 (current choice):* Change the application font from within `MainWindow`.
 
-** Pros:
+** Pros: Easy to implement.
 
-** Cons:
+** Cons: May not be as OOP as other methods.
 
-* *Alternative 2:*
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
 
-** Pros:
+** Pros: More OOP, reduces amount of code in `MainWindow`.
 
-** Cons:
+** Cons: As the implementation is not very complicated, introducing a new class just to change the theme may not be worth the increase in dependency (introduces dependency between `Theme` and `ThemeManager` and between `ThemeManager` and `MainWindow`).
 
 === Set Light/Dark Theme Command
 
 ==== Implementation
 
+The `setLightTheme`/`setDarkTheme` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the theme of the application.
+If so, it immediately changes the theme without requiring the user to exit and launch the application again.
+This change in the application theme is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `setLightTheme` would work:
+
+image::SetLightThemeSequenceDiagram.png[]
+
+The sequence diagram is as explained:
+
+. The user launches the application and executes the `setLightTheme` command to change the current theme to _light_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeTheme` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `newTheme` from `commandResult`, `LIGHT`, and calls on its own method `switchThemeTo(LIGHT)`.
+.. (Following details were trivial and thus omitted from the diagram) This method retrieves the URLs for the light theme and corresponding extensions css files and adds it to the stylesheets for the scene.
+This is done after removing the stylesheets for the previous theme.
+. This is essentially the same for `setDarkTheme` command, with the `newTheme` as `DARK` instead.
+
+The following activity diagram summarizes what happens when a user executes a `setLightTheme` command:
+
+image::SetLightThemeActivityDiagram.png[]
+
 ==== Design Considerations
 
-* *Alternative 1 (current choice):*
+* *Alternative 1 (current choice):* Change the theme from within `MainWindow`.
 
-** Pros:
+** Pros: Easy to implement.
 
-** Cons:
+** Cons: May not be as OOP as it could be, increases number of lines of code in `MainWindow`.
 
-* *Alternative 2:*
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
 
-** Pros:
+** Pros: Abstracts out the methods regarding changing of theme to be contained in `ThemeManager` and reduces the number of lines of code in `MainWindow`.
 
-** Cons:
+** Cons: Harder to implement; may introduce cyclic dependency.
+It may also be redundant or excessive as implementing the `changeFont` command is not very complicated.
 
 === Reminders
 

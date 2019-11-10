@@ -410,21 +410,8 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the current to the {@code newTheme}.
      */
     private void switchThemeTo(Theme newTheme) {
-        Theme oldTheme = null;
-
-        switch (newTheme) {
-        case LIGHT:
-            this.theme = Theme.LIGHT;
-            oldTheme = Theme.DARK;
-            break;
-        case DARK:
-            this.theme = Theme.DARK;
-            oldTheme = Theme.LIGHT;
-            break;
-        default:
-            // Do nothing.
-            break;
-        }
+        Theme oldTheme = this.theme;
+        this.theme = newTheme;
 
         String oldThemeUrl = theme.getThemeUrl(oldTheme);
         String oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);

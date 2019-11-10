@@ -12,7 +12,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":GuiltTripParser" as GuiltTripParser LOGIC_COLOR
 participant ":ChangeFontCommandParser" as ChangeFontCommandParser LOGIC_COLOR
-participant "t:ChangeFontCommand" as ChangeFontCommand LOGIC_COLOR
+participant "c:ChangeFontCommand" as ChangeFontCommand LOGIC_COLOR
 participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
