@@ -23,7 +23,7 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export"; // or any other suggestions
     public static final String MESSAGE_SUCCESS = "Exported all data to %s"; // %s -> file name
     public static final String MESSAGE_IO_EXCEPTION =
-            "Something went wrong while accessing your file! Please try again...";
+            "Something went wrong while accessing or writing to your file/folder! Please try again...";
     public static final String MESSAGE_INVALID_PATH_EXCEPTION =
             "Invalid file path: %s - Exported all data to %s"; // %s -> this.csvFilePath
     public static final String MESSAGE_EMPTY_DATA = "No data to export. File was not created.";
@@ -34,7 +34,7 @@ public class ExportCommand extends Command {
             + "\tExample 2 (Windows): " + COMMAND_WORD + " " + PREFIX_FILE_PATH + "C:/Users/USER"
             + " (Creates Alfred_Entity_List.csv at C:/Users/USER)"; // TODO: Add other examples on different platforms
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
-    public static final Path DEFAULT_FILE_PATH = Paths.get("AlfredData", "Alfred_Data.csv");
+    public static final Path DEFAULT_FILE_PATH = FileUtil.getPath("AlfredData", "Alfred_Data.csv");
 
     protected Path csvFilePath;
     protected String messageSuccess;
@@ -46,7 +46,7 @@ public class ExportCommand extends Command {
             csvFilePath = DEFAULT_FILE_PATH.toString();
         }
         try {
-            this.csvFilePath = Path.of(csvFilePath);
+            this.csvFilePath = FileUtil.getPath(csvFilePath);
             this.messageSuccess = String.format(MESSAGE_SUCCESS, csvFilePath);
         } catch (InvalidPathException ipe) {
             this.csvFilePath = DEFAULT_FILE_PATH;
