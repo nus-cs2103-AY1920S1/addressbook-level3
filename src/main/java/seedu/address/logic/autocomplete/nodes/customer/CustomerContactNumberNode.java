@@ -1,5 +1,7 @@
 package seedu.address.logic.autocomplete.nodes.customer;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -14,6 +16,7 @@ public class CustomerContactNumberNode extends AutoCompleteNode<List<Customer>> 
 
     public CustomerContactNumberNode(List<Customer> pointer) {
         super(pointer);
+        requireNonNull(pointer);
     }
 
     @Override

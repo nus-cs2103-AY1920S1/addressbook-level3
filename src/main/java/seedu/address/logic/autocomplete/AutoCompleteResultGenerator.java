@@ -106,7 +106,7 @@ public class AutoCompleteResultGenerator {
         return Optional.ofNullable(providers.get(commandWord));
     }
 
-    private Set<String> getSupportedCommandWords() {
+    public Set<String> getSupportedCommandWords() {
         return providers.keySet();
     }
 
