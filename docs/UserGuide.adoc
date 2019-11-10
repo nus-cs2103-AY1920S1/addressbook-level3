@@ -465,26 +465,18 @@ image::clone/cloneUG/CloneStep2.png[,550]
 image::clone/cloneUG/CloneStep3.png[,550]
 // end::clone[]
 
+// tag::undo[]
 [[UndoTag]]
 === Undoing the previous undoable command: `undo`
 Do not panic if you have accidentally made a mistake in THRIFT, like deleting the wrong transaction.
 THRIFT provides an `undo` command to solve your trouble! You can revert to the previous state
 of THRIFT using `undo`.
 
-NOTE: `Undo` can only apply to undoable commands. Undoable commands refers to commands that modify the data of the THRIFT application.
+NOTE: `Undo` can only apply to undoable commands. Undoable commands refer to commands that modify the data of the THRIFT application.
+Undoable commands are[[Undoable]]: `<<ExpenseTag, add_expense>>`, `<<IncomeTag, add_income>>`, `<<DeleteTag, delete>>`,
+`<<UpdateTag, update>>`, `<<CloneTag, clone>>`, `<<TagTag, tag>>`, `<<UntagTag, untag>>`, `<<BudgetTag, budget>>`.
 
 WARNING: You cannot undo undoable commands once the application exits.
-
-List of undoable commands[[Undoable]]:
-
-* `<<ExpenseTag, add_expense>>`
-* `<<IncomeTag, add_income>>`
-* `<<DeleteTag, delete>>`
-* `<<UpdateTag, update>>`
-* `<<CloneTag, clone>>`
-* `<<TagTag, tag>>`
-* `<<UntagTag, untag>>`
-* `<<BudgetTag, budget>>`
 
 ==== Command syntax
 
@@ -501,13 +493,15 @@ To `undo` the `delete` command:
 
 . Type *undo* into the Command Box and press kbd:[Enter]:
 +
-image::UndoAndRedo/undocommand.png[, 550]
+image::UndoAndRedo/undocommand.png[, 500]
 
-. You will see a success message displays in the Result Box, and the transaction (Chicken Rice)
-adds back to its original position in the list:
+. You will see that a success message displays in the Result Box, and the transaction "Chicken Rice"
+returns to its original position in the list:
 +
-image::UndoAndRedo/undocommandresult.png[, 550]
+image::UndoAndRedo/undocommandresult.png[, 500]
+// end::undo[]
 
+// tag::redo[]
 [[RedoTag]]
 === Redoing the undone command: `redo`
 Misuse of `undo` command? No worries, THRIFT provides `redo` command to help you in this situation.
@@ -532,12 +526,12 @@ To `redo` undone `add_expense` command:
 
 . Type *redo* into the Command Box and press kbd:[Enter]:
 +
-image::UndoAndRedo/redocommand.png[, 550]
+image::UndoAndRedo/redocommand.png[, 500]
 
-. You will see a success message displays in the Result Box and the transaction "Chicken Rice" adds back to the list:
+. You will see that a success message displays in the Result Box and the transaction "Chicken Rice" adds back to the list:
 +
-image::UndoAndRedo/redocommandresult.png[, 550]
-
+image::UndoAndRedo/redocommandresult.png[, 500]
+// end::redo[]
 
 [[FindTag]]
 === Finding transactions with keywords: `find`

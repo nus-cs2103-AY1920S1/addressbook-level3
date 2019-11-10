@@ -1,0 +1,66 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "LogicManager" as LogicManager LOGIC_COLOR
+participant "ThriftParser" as ThriftParser LOGIC_COLOR
+participant "r:RedoCommand" as RedoCommand LOGIC_COLOR
+participant "a:UndoableCommand" as UndoableCommand LOGIC_COLOR
+participant "CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("redo")
+activate LogicManager
+
+LogicManager -> ThriftParser : parseCommand("redo")
+activate ThriftParser
+
+create RedoCommand
+ThriftParser -> RedoCommand
+activate RedoCommand
+
+RedoCommand --> ThriftParser
+deactivate RedoCommand
+
+ThriftParser --> LogicManager : r
+deactivate ThriftParser
+
+LogicManager -> RedoCommand : execute(model)
+activate RedoCommand
+
+RedoCommand -> Model : getUndoneCommand()
+activate Model
+
+Model --> RedoCommand : a
+deactivate Model
+
+RedoCommand -> UndoableCommand : redo(model)
+activate UndoableCommand
+
+UndoableCommand -> Model
+activate Model
+
+Model --> UndoableCommand
+deactivate Model
+
+UndoableCommand --> RedoCommand
+deactivate UndoableCommand
+
+create CommandResult
+RedoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RedoCommand
+deactivate CommandResult
+
+RedoCommand --> LogicManager
+deactivate RedoCommand
+
+[<-- LogicManager
+destroy RedoCommand
+deactivate LogicManager
+@enduml

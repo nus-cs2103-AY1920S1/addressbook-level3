@@ -12,7 +12,7 @@ public class HelpCommand extends NonScrollingCommand {
     public static final String COMMAND_WORD = "help";
 
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Valid commands are: add_expense, add_income, budget, clone, convert, delete, find, help, "
+            + "Valid commands are: add_expense, add_income, budget, clone, convert, delete, exit, find, help, "
             + "list, redo, tag, undo, untag, update.\n"
             + "Format: " + COMMAND_WORD + " [COMMAND]\n"
             + "Possible usages of " + COMMAND_WORD + ": \n"

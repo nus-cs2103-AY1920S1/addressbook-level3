@@ -1,7 +1,120 @@
 = Lee Bo Qiang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
+:sectnums:
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2103T-W12-2/main
 
-== Project: THRIFT
+== Introduction
+This portfolio aims to showcase the work that I have contributed to a team project called THRIFT. This project is an assignment under one of the core
+modules called CS2103T Software Engineering, offered by the School of Computing (SoC) at the National University of Singapore (NUS).
+I took this module during Year 2 as an undergraduate while pursuing my Bachelor of Computer in Computer Science at NUS.
+
+This project is developed by a team of five highly motivated members: Poh Jia Hao (Team Lead), Lye Jian Wen (Quality Assurance Manager), Ang Chin Guan, Melvin (Software Architect), Oen Qi Han, Kenson (Process Analyst)
+and myself (User Experience Developer).
+
+=== About the project
+THRIFT is a financial tracker desktop application that is morphed from https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address-book3].
+With THRIFT, users can keep track of their incomes and expenses and will not be worried about overspending.
+It is designed for NUS students who want to save money and prefer typing to other inputs, like a mouse click.
+
+THRIFT provides basic features to add, update, delete, and tag transactions. It also offers additional utility features to
+set budget, convert currencies, clone transactions, filter transactions, and last but not least, undo and redo commands.
+All these features will be executed using Command-Line Interface (CLI) as it is one of the requirements in this module. Below shows how THRIFT looks like:
+
+.The Graphical User Interface (GUI) for THRIFT.
+image::UGUI.png[,600]
+
+
+
+=== About this portfolio
+The following symbols and text formatting used in this portfolio:
+
+NOTE: This symbol indicates information that you may want to take note of.
+
+WARNING: This symbol indicates information that you need to be cautious of.
+
+[horizontal]
+*undo*:: Bold text indicates user input (in Developer Guide and User Guide).
+
+`UndoStack`:: Text with grey highlight (called a mark-up) indicates that it is a method/variable name (in Developer Guide), a command (in User Guide).
+
+`**THRIFT**`:: Bold text with mark-up indicates a class/package name.
+
+== Summary of contributions
+This section summarises my contributions to THRIFT.
+
+* *Main feature*: I implemented the ability to undo and redo the previous command.
+** What it does: The undo command will undo the previous command while the redo command will redo the undone command.
+** Justification: It offers users the ability to perform undo and redo multiple times in the event
+that they are unable to make a decision. For example, users cannot decide how much budget to set for this month.
+** Highlights: The implementation is challenging because I need to provide different implementations for each command
+and ensure that it works correctly.
+
+* *Minor feature 1*: I added the monthly expense and income in the GUI.
+** What it does: It calculates the total expense and income for the filtered month.
+** Justification: This saves users time from calculating it manually.
+
+* *Minor feature 2*: I added filter text in the GUI.
+** What it does: It indicates the type of filter used currently for the transaction list.
+** Justification: If users have forgotten about the filter they set for the transaction list, they can refer to this filter text.
+
+* *Code contributed*: Please click this link to view a sample of my code: link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lightz96&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[[RepoSense Code Contribution Dashboard]].
+
+* *Other contributions*
+** Project management
+*** Created the GUI prototype for THRIFT. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/59[#59])
+*** Refactored the entire code base by renaming the Person to Transaction, AddressBook to THRIFT. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/76[#76])
+*** Managed issues assigned to me from version 1.0 to version 1.4 (https://github.com/AY1920S1-CS2103T-W12-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclosed+assignee%3Alightz96+[Issues assigned])
+** Enhancement to existing features
+*** Revamped the entire user interface. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/193[#193])
+*** Added the ability to view the usage of a specific command. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/187[#187])
+** Documentation
+*** Inserted content from external files (E.g. SettingUp.adoc) into Developer Guide and changed to THRIFT context. (Pull Request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/233[#233])
+** Community
+*** Reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W12-2/main/pull/272[#272], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/211[#211], https://github.com/AY1920S1-CS2103T-W12-2/main/pull/143[#143]
+** Tools
+*** Integrated https://ci.appveyor.com/project/lightz96/main[AppVeyor] (Continuous Integration tool), https://app.netlify.com/sites/thrift/deploys[Netlify] (Deployment Preview tool), https://coveralls.io/github/AY1920S1-CS2103T-W12-2/main[Coveralls] (Code Coverage tool) to the project. (Pull request https://github.com/AY1920S1-CS2103T-W12-2/main/pull/46[#46])
+
+[[UserTag]]
+== Contribution to User Guide
+
+The following section demonstrates my documentation skills in guiding users to execute the command.
+
+(Start of extract)
+
+include::../UserGuide.adoc[tag=undo]
+
+(End of extract)
+
+Please click on these links to view other sections that I have also contributed to the User Guide: https://ay1920s1-cs2103t-w12-2.github.io/main/UserGuide.html#RedoTag[Redoing the undone command], https://ay1920s1-cs2103t-w12-2.github.io/main/UserGuide.html#HelpTag[Displaying help page]
+
+[[DeveloperTag]]
+== Contribution to Developer Guide
+
+The following section demonstrates my documentation skills in providing technical details such as the implementation of the undo and redo features.
+
+(Start of extract)
+
+include::../DeveloperGuide.adoc[tag=undo]
+
+(End of extract)
+
+Please click on this link to see a sequence diagram of how *undo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralUndoSequence[General sequence diagram for UndoCommand].
+
+(Start of extract)
+
+include::../DeveloperGuide.adoc[tag=redo]
+
+(End of extract)
+
+Please click on this link to see a sequence diagram of how *redo* works in general: https://ay1920s1-cs2103t-w12-2.github.io/main/DeveloperGuide.html#GeneralRedoSequence[General sequence diagram for RedoCommand].
+
+(Start of extract)
+
+include::../DeveloperGuide.adoc[tag=designconsideration]
+
+(End of extract)
+
+
+
