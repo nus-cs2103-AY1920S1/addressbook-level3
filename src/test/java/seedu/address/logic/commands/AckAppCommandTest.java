@@ -32,7 +32,7 @@ class AckAppCommandTest {
         Event eventAcked = new EventBuilder(eventToAcked).withStatus("ACKNOWLEDGED").build();
         CommandResult commandResult = new AckAppCommand(eventToAcked, eventAcked).execute(model);
         assertEquals(String.format(AckAppCommand.MESSAGE_SUCCESS, eventAcked.getPersonId(),
-                eventAcked.getPersonName(), eventToAcked.getEventTiming()),
+                eventAcked.getPersonName(), eventAcked),
                 commandResult.getFeedbackToUser());
         new AckAppCommand(eventAcked, eventToAcked).execute(model);
     }

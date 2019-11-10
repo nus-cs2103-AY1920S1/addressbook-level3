@@ -19,10 +19,10 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 ** Highlights: Affects interaction against existing UI components as the traversal have to be critically handled from component to component.
 ** Credits: None
 
-* *Major enhancement*: *Eager Evaluation (Proposal & UX Concept)*
+* *Major enhancement*: *Reactive Search (Proposal & UX Concept)*
 ** What it does: Prevents un-necessary waiting by the user.
 ** Justification: Enhances the UX significantly as user no longer waits to preview the number of possible results.
-** Highlights: Eager Evaluation should not block the main UI from user upon processing large data-sets.
+** Highlights: Reactive Search should not block the main UI from user upon processing large data-sets.
 ** Credits: SakuraBlossom (Threading and Commands), Chrome DevTools Console (Inspiration)
 
 * *Minor enhancement*: added history for the CLI that allows the user to navigate to previous commands using up/down keys.

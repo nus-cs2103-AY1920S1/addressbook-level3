@@ -6,7 +6,7 @@ import javafx.scene.input.KeyCode;
 /**
  * Manages AutoComplete of MainWindow.
  */
-public interface CommandBoxInterface {
+public interface CommandBoxManager {
 
     /**
      * Updates AutoComplete with commandText.

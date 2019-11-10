@@ -19,16 +19,15 @@ public class CommandBox extends UiPart<Region> {
             KeyCombination.CONTROL_DOWN);
 
     private final CommandExecutor commandExecutor;
-    private final CommandBoxInterface commandBoxInterface;
+    private final CommandBoxManager commandBoxManager;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, CommandBoxInterface commandBoxInterface,
-                      AutoCompleteOverlay aco) {
+    public CommandBox(CommandExecutor commandExecutor, CommandBoxManager commandBoxManager, AutoCompleteOverlay aco) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.commandBoxInterface = commandBoxInterface;
+        this.commandBoxManager = commandBoxManager;
 
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> handleTextChanged());
         commandTextField.focusedProperty().addListener((unused1, unused2, newValue) -> {
@@ -43,7 +42,7 @@ public class CommandBox extends UiPart<Region> {
             case UP:
             case DOWN:
             case ENTER:
-                commandBoxInterface.handleCommandBoxKeyPressed(keyEvent.getCode());
+                commandBoxManager.handleCommandBoxKeyPressed(keyEvent.getCode());
                 keyEvent.consume();
                 break;
             default:
@@ -68,7 +67,7 @@ public class CommandBox extends UiPart<Region> {
      * Handles the Text Change event.
      */
     private void handleTextChanged() {
-        commandBoxInterface.handleCommandBoxTextChanged(commandTextField.getText());
+        commandBoxManager.handleCommandBoxTextChanged(commandTextField.getText());
     }
 
     public void setCommandTextField(String suggestion) {

@@ -6,7 +6,7 @@ skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
-Interface Autocomplete <<Interface>>
+Interface CommandBoxManager <<Interface>>
 Interface OmniPanelManager <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
 Class UiManager
@@ -36,7 +36,7 @@ HiddenOutside ..> Ui
 
 UiManager .up|> Ui
 MainWindow .up.|> OmniPanelManager
-MainWindow .up.|> Autocomplete
+MainWindow .up.|> CommandBoxManager
 UiManager --=> MainWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
@@ -51,8 +51,8 @@ PersonListPanel -> PersonCard
 EventListPanel -> EventCard
 
 MainWindow --|> UiPart
-
 ResultDisplay --|> UiPart
+CommandBox -up-> CommandBoxManager
 CommandBox --|> UiPart
 PersonListPanel -down-|> OmniPanel
 PersonCard -right-|> UiPart
