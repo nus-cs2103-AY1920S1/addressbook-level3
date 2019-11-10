@@ -929,6 +929,7 @@ or contact needed
 This section describes the ways that a user can sort the various lists. An overview is also included on how these sorts
 work.
 It also provides some design considerations to give users an insight of how the current solutions are worked out.
+
 ==== Overview
 There are 2 ways that a user can sort the lists by. It gives the user flexibility in how he wants to see the lists. In
 addition, after sorting, the user can then employ the check method once again to see each individual object.
