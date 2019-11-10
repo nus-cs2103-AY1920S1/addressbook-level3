@@ -198,7 +198,7 @@ The user executes `add q>1+1 a>2 c>math` to add new flashcard.
 
 The following sequence diagram shows how the add operation works:
 
-image::AddSequenceDiagram.png[width="500"]
+image::AddSequenceDiagram.png[width="600"]
 
 
 The add feature does not allow adding of duplicate FlashCards.
@@ -209,7 +209,7 @@ Duplicate FlashCards refers to FlashCards that have the exact same question and 
 
 The following activity diagram summarizes what happens when a user executes an add command:
 
-image::AddActivityDiagram.png[width="200"]
+image::AddActivityDiagram.png[width="300"]
 
 ==== Design considerations
 ===== Aspect: How to implement add
