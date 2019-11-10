@@ -139,7 +139,7 @@ Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER 
 The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
-*SAQ*: Multiple correct answers, wrong answers omitted.
+*SAQ*: Multiple correct answers, no wrong answers.
 ****
 
 Examples:
@@ -242,16 +242,22 @@ Format: `restore`
 Test bank data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-// tag::import/export[]
-=== Importing / Exporting test banks `[coming in v2.0]`
-
-_{explain how the user can import / export test banks}_
-// end::import/export[]
-
 === Exiting the application: `exit`
 
 Exits the application. +
 Format: `exit`
+
+// tag::import/export[]
+=== Importing / Exporting test banks `[coming in v2.0]`
+
+User can export can import json files containing the test bank into the application.
+// end::import/export[]
+
+=== Hints `[coming in v2.0]`
+
+User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will eliminate two wrong answers from the
+options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
+keywords from the correct answer list.
 
 //tag::wilfred-quiz[]
 == Quiz Mode
@@ -288,7 +294,19 @@ Format: `exit`
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Test Bank folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous Test Bank folder.
+
+*Q*: Why am I not able to click on the options to select the answers for MCQs and T/F questions? +
+*A*: The options are there as a way to show the users the options available. As this is a CLI application, the main
+input will be through keyboard inputs.
+
+*Q*: Can I use this application for another module? +
+*A*: Yes you can. This application is designed to store any types of MCQs, T/F and SAQs.
+
+*Q*: I want to challenge my friends using this application, how can I do it? +
+*A*: There is no online support for the application right now. One way you can chanllenge your friend is to prepare the
+same json files and load it up to your individual computers and do the quiz together.
 
 //tag::wilfred-summary[]
 == Command Summary

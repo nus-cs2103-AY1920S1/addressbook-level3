@@ -38,6 +38,7 @@ class TimerTest {
     }
 
     /**
+     * Timer should count down to zero and not below zero.
      * @param robot - Will be injected by the test runner.
      */
     @Test
@@ -49,6 +50,7 @@ class TimerTest {
     }
 
     /**
+     * Timer should stop when the Timer#stopTimer is called.
      * @param robot - Will be injected by the test runner.
      */
     @Test
@@ -56,20 +58,19 @@ class TimerTest {
         timer.startTimer();
         timer.stopTimer();
         robot.sleep(2, TimeUnit.SECONDS);
-        //Delay has to be a bit longer for the robot
         FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText(""));
     }
 
 
     /**
+     * Timer should display the starting time when reset.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void timerResetAfterTwoSeconds_waitFourSeconds_shouldBeResetToThree(FxRobot robot) {
+    public void timerResetAfterTwoSeconds_shouldBeResetToThree(FxRobot robot) {
         timer.startTimer();
         robot.sleep(2, TimeUnit.SECONDS);
         timer.resetTimer();
-        //Delay has to be a bit longer for the robot
         FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText("3"));
     }
 }

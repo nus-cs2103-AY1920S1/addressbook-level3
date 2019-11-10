@@ -1,7 +1,7 @@
 package seedu.revision.logic.commands;
 
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
 
 import org.junit.jupiter.api.Test;
 

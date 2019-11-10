@@ -12,6 +12,7 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
@@ -191,6 +192,41 @@ public class SampleDataUtil {
                     new ArrayList<>(Arrays.asList(new Answer("false"))),
                     new Difficulty("3"), getCategorySet("Project Management", "XP", "Week 9")),
 
+            new Saq(new Question("What diagram is used to represent a software system?"),
+                    new ArrayList<>(Arrays.asList(new Answer("UML Diagram"))),
+                    new Difficulty("1"), getCategorySet("Diagrams")),
+
+            new Saq(new Question("Name one functional testing used in software engineering."),
+                    new ArrayList<>(Arrays.asList(new Answer("Unit Testing"), new Answer("Integration Testing"),
+                            new Answer("System Testing"), new Answer("Sanity Testing"),
+                            new Answer("Smoke Testing"), new Answer("Interface Testing"),
+                            new Answer("Regression Testing"), new Answer("Acceptance Testing"))),
+                    new Difficulty("2"), getCategorySet("Software Testing")),
+
+            new Saq(new Question("One of your teammates is proposing to use a recently-released “cool” UI "
+                    + "framework for your class project. Name one disadvantage of this idea."),
+                    new ArrayList<>(Arrays.asList(new Answer("Learning curve may be steep"),
+                            new Answer("May not be stable"),
+                            new Answer("Performance penalties"),
+                            new Answer("Might interfere with learning objectives of the module"),
+                            new Answer("May not allow us to do exactly what we want"))),
+                    new Difficulty("3"), getCategorySet("Framework")),
+
+            new Saq(new Question("The process of checking that the software meets the specification "
+                    + "is what type of testing?"),
+                    new ArrayList<>(Arrays.asList(new Answer("Verification Testing"))),
+                    new Difficulty("1"), getCategorySet("Software Testing")),
+
+            new Saq(new Question("What does Boundary Value Analysis suggests?"),
+                    new ArrayList<>(Arrays.asList(new Answer("When picking test inputs from an equivalence partition,"
+                            + " values near boundaries are more likely to find bugs."))),
+                    new Difficulty("2"), getCategorySet("Equivalence Partition", "Test Cases",
+                    "Boundary Value Analysis")),
+
+            new Saq(new Question("An application accepts integer values between -9999 to 9999. "
+                    + "How many equivalence partition are there?"),
+                    new ArrayList<>(Arrays.asList(new Answer("Three"))),
+                    new Difficulty("1"), getCategorySet("Equivalence Partition", "Test Cases")),
         };
     }
 

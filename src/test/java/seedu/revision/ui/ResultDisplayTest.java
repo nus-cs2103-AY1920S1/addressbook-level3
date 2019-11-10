@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class ResultDisplayTest {
 
+    private static final String MESSAGE_SUCCESS = "success!";
     private ResultDisplay resultDisplay;
 
     /**
@@ -31,20 +32,22 @@ class ResultDisplayTest {
     }
 
     /**
+     * Result display should be empty by default.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void emptyDisplay_shouldDisplayEmptyText(FxRobot robot) {
+    public void resultDisplay_defaultDisplay_shouldDisplayEmptyText(FxRobot robot) {
         FxAssert.verifyThat(resultDisplay.getResultDisplay(), TextInputControlMatchers.hasText(""));
     }
 
     /**
+     * Set Feedback to user should show success message.
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void setFeedbackToUser_helloWorld_shouldDisplayHelloWorld(FxRobot robot) {
-        resultDisplay.setFeedbackToUser("hello world");
-        FxAssert.verifyThat(resultDisplay.getResultDisplay(), TextInputControlMatchers.hasText("hello world"));
+    public void setFeedbackToUser_successMessage_shouldDisplayMessage(FxRobot robot) {
+        resultDisplay.setFeedbackToUser(MESSAGE_SUCCESS);
+        FxAssert.verifyThat(resultDisplay.getResultDisplay(), TextInputControlMatchers.hasText(MESSAGE_SUCCESS));
     }
 
 }

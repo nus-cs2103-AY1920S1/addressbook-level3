@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.parser.ArgumentMultimap;
 import seedu.revision.logic.parser.ArgumentTokenizer;
@@ -26,6 +27,7 @@ import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
 import seedu.revision.model.answerable.QuestionType;
+import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
@@ -82,6 +84,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(TrueFalse.MESSAGE_CONSTRAINTS);
             }
         }
+        if (answerableToAdd instanceof Saq) {
+            if (!Saq.isValidSaq((Saq) answerableToAdd)) {
+                throw new ParseException(Saq.MESSAGE_CONSTRAINTS);
+            }
+            areSaqAnswersValid(answerableToAdd.getCorrectAnswerList(), answerableToAdd.getQuestion());
+        }
 
         return true;
     }
@@ -91,6 +99,25 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns true if none of the answers is 'exit'
+     * @param answerList the list of correct answers
+     * @return a boolean to determine if saq answer is valid. True if valid. False otherwise.
+     * @throws ParseException exception is thrown if answer is 'exit'.
+     */
+    private boolean areSaqAnswersValid(ArrayList<Answer> answerList, Question question) throws ParseException {
+        for (Answer answer : answerList) {
+            if (answer.getAnswer().toLowerCase().trim().equals("exit")) {
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER_EXIT);
+            }
+
+            if (FuzzySearch.tokenSetRatio(answer.getAnswer(), question.question) == 100) {
+                throw new ParseException(Saq.MESSAGE_INVALID_ANSWER);
+            }
+        }
+        return true;
     }
 
 }
