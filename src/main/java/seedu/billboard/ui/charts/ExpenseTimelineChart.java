@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toList;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,6 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private final TimelineGenerator timelineGenerator;
     private final Map<String, XYChart.Series<String, BigDecimal>> seriesMap;
 
-
     /**
      * Returns a new {@code ExpenseTimelineChart} with the specified parameters.
      *
@@ -73,7 +73,10 @@ public class ExpenseTimelineChart extends ExpenseChart {
         dateIntervalFormats = new EnumMap<>(DateInterval.class);
         setupDateIntervalFormats(dateIntervalFormats);
 
-        initChart();
+        setupSeriesMapping(groupExpenses(expenses, expenseGrouping.getValue()));
+        updateTimeline(expenses, expenseGrouping.getValue(), interval.getValue());
+
+        setupListeners();
     }
 
     /**
@@ -88,43 +91,61 @@ public class ExpenseTimelineChart extends ExpenseChart {
     }
 
     /**
-     * Initializes the timeline values and adds a listener to observe for changes in the underlying list and update the
-     * timeline accordingly.
+     * Idempotent method which updates {@code seriesMap} with new series names from the keys of the input map, and
+     * creates new series based on those names to replace the current series.
      */
-    private void initChart() {
-        logger.info("init timeline");
-        Map<String, ? extends List<? extends Expense>> map = expenseGrouping.getValue()
-                .getGroupingFunction()
-                .group(expenses);
-
-        for (var entry : map.entrySet()) {
-            ExpenseTimeline expenseTimeline = timelineGenerator.generate(entry.getValue(), interval.getValue());
+    private void setupSeriesMapping(Map<String, ? extends List<? extends Expense>> expenseListMap) {
+        seriesMap.clear();
+        for (var entry : expenseListMap.entrySet()) {
             XYChart.Series<String, BigDecimal> series = new XYChart.Series<>();
             series.setName(entry.getKey());
-            series.getData().setAll(transformToData(expenseTimeline));
-
             seriesMap.put(entry.getKey(), series);
         }
 
         timelineChart.getData().setAll(seriesMap.values());
+    }
 
-        expenses.addListener((ListChangeListener<Expense>) c -> {
-            logger.info("list changed : " + c.getList());
-            Map<String, ? extends List<? extends Expense>> map2 = expenseGrouping.getValue()
-                    .getGroupingFunction()
-                    .group(c.getList());
+    /**
+     * Initializes the timeline values and adds a listener to observe for changes in the underlying list and update the
+     * timeline accordingly.
+     */
+    private void setupListeners() {
+        expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, interval.getValue()));
 
-            for (var entry : map2.entrySet()) {
-                onDataChange(timelineGenerator.generateAsync(entry.getValue(), interval.getValue()), entry.getKey());
+        expenses.addListener((ListChangeListener<Expense>) c ->
+                updateTimeline(c.getList(), expenseGrouping.getValue(), interval.getValue()));
+
+        interval.observe(newInterval -> updateTimeline(expenses, expenseGrouping.getValue(), newInterval));
+    }
+
+    /**
+     * Updates the timeline upon new expenses, groupings, or intervals. If the numbers/types of series changes,
+     * {@code setupSeriesMapping} will be called to reset the mappings.
+     */
+    private void updateTimeline(List<? extends Expense> expenses, ExpenseGrouping grouping, DateInterval interval) {
+        Map<String, ? extends List<? extends Expense>> expenseListMap = groupExpenses(expenses, grouping);
+        if (!seriesMap.keySet().equals(expenseListMap.keySet())) {
+            setupSeriesMapping(expenseListMap);
+        }
+
+        List<XYChart.Series<String, BigDecimal>> unusedSeries = new ArrayList<>();
+
+        for (var series : timelineChart.getData()) {
+            String name = series.getName();
+            if (expenseListMap.containsKey(name)) {
+                updateSeries(timelineGenerator.generateAsync(expenseListMap.get(name), interval), name);
+            } else {
+                unusedSeries.add(series);
             }
-        });
+        }
+        timelineChart.getData().removeAll(unusedSeries);
     }
 
 
     /**
-     * Helper method called when the displayed list of expenses change.
+     * Helper method called to asynchronously update each series.
      */
-    private void onDataChange(Task<ExpenseTimeline> newTimelineTask, String seriesName) {
+    private void updateSeries(Task<ExpenseTimeline> newTimelineTask, String seriesName) {
         newTimelineTask.setOnSucceeded(event -> {
             ExpenseTimeline timeline = newTimelineTask.getValue();
             List<XYChart.Data<String, BigDecimal>> data = transformToData(timeline);
@@ -162,5 +183,13 @@ public class ExpenseTimelineChart extends ExpenseChart {
      */
     private String formatDate(LocalDate date, DateInterval dateInterval) {
         return dateIntervalFormats.get(dateInterval).format(date);
+    }
+
+    /**
+     * Groups the expenses into a map of category names and list of expenses that fit that given category.
+     */
+    private Map<String, ? extends List<? extends Expense>> groupExpenses(List<? extends Expense> expenses,
+                                                                         ExpenseGrouping grouping) {
+        return grouping.getGroupingFunction().group(expenses);
     }
 }
