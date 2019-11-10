@@ -21,8 +21,8 @@ public class Caretaker extends Notebook {
     public Caretaker(Notebook notebook) {
         requireNonNull(notebook);
         statePointer = 0;
+        mementos.add(new Memento(new Notebook(notebook)));
         this.notebook = notebook;
-        mementos.add(new Memento(this.notebook));
     }
 
     /**
