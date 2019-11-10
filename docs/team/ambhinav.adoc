@@ -9,7 +9,7 @@ a desktop application, +Work, targeted at NUS students who are project leaders.
 
 === About the Project
 +Work is a project management tool with a graphical user interface (GUI) that helps project leaders to manage their projects details. +Work uses a command line interface (CLI) to operate, in other words, users mainly interact with +Work by typing specific commands and pressing the enter key. +
-The main features of +Work include; managing tasks, managing members, managing inventory, generating statistics, generating PDF reports and finding optimal meeting times among members.
+The main features of +Work include; managing tasks, managing members, managing inventory, generating statistics, generating PDF reports and finding optimal meeting times for members.
 
 === Important Symbols
 Shown below are a few symbols that will appear in this document, along with their significance.
@@ -39,9 +39,9 @@ in the event more user settings are to be added. I tried to incorporate as much 
 make the feature more robust.
 ** Credits: I adapted some code that does responsive highlighting for the settings panel in +Work from a course mate.
 
-* *Major enhancement two*: I added a dashboard to +Work that helps users see important information when the application is started.
+* *Major enhancement two*: I added a *project dashboard* to +Work that helps users see important information when the application opens.
 ** What it does: This feature allows the user to view their tasks based on their current completion status. Furthermore, users can view their upcoming deadlines as well as any upcoming project meetings.
-** Justification: This feature improves the current product as students decide which tasks demand their attention, so that they can remain on track for their project. Furthermore, they can prepare for upcoming meetings more efficiently.
+** Justification: This feature improves the current product as students decide which tasks demand their attention so that they can remain on track for their project. Furthermore, they can prepare for upcoming meetings more efficiently.
 ** Highlights: The dashboard is responsive to changes in task status, deadlines and any project meetings. The implementation was relatively simple as I was also responsible for integrating task management into the project.
 
 * *Minor enhancement*: I added cosmetic improvements to +Work's dashboard so as to make it more appealing to students.
@@ -73,7 +73,7 @@ include::../UserGuide.adoc[tag=settings]
 
 == Contributions to the Developer Guide
 
-The following is an excerpt taken form the Developer Guide of +Work, showing additions I have made to explain the technical
+The following is an excerpt taken from the Developer Guide of +Work, showing additions I have made to explain the technical
 aspects of the settings and dashboard feature.
 
 include::../DeveloperGuide.adoc[tag=settings]
