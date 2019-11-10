@@ -26,6 +26,7 @@ import seedu.revision.logic.commands.main.StartCommand;
 /**
  * This class is a TextField which implements an "autocomplete" functionality.
  * Entries based on Command_Usage.
+ * @author ShaunNgTX
  */
 public class AutoComplete extends TextField {
     /** Entries based on Command_Usage. */
