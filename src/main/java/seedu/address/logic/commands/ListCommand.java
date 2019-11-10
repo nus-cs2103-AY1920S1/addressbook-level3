@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all persons";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists the entity identified by the flag specified.\n"
-            + "Please refer to the User Guide for more details on how to add an entity";
+            + "Please refer to the User Guide for more details on how to list an entity";
 
 
     @Override
