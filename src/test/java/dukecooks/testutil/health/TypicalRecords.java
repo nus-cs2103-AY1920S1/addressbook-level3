@@ -13,6 +13,9 @@ import dukecooks.model.health.components.Record;
  */
 public class TypicalRecords {
 
+    public static final String WEIGHT_FIRST_WEIGHT = "49.0";
+    public static final String HEIGHT_FIRST_HEIGHT = "155.0";
+
     public static final Record GLUCOSE_FIRST = new RecordBuilder().withType("Glucose")
             .withRemarks("two cups of milk tea")
             .withValue("18.0").withTimestamp("01/11/2019 12:00").build();
@@ -24,10 +27,10 @@ public class TypicalRecords {
             .withValue("29.0").withTimestamp("01/11/2019 12:00").build();
     public static final Record WEIGHT_FIRST = new RecordBuilder().withType("Weight")
             .withRemarks()
-            .withValue("49.0").withTimestamp("01/11/2019 12:00").build();
+            .withValue(WEIGHT_FIRST_WEIGHT).withTimestamp("01/11/2019 12:00").build();
     public static final Record HEIGHT_FIRST = new RecordBuilder().withType("Height")
             .withRemarks()
-            .withValue("155.0").withTimestamp("01/11/2019 12:00").build();
+            .withValue(HEIGHT_FIRST_HEIGHT).withTimestamp("01/11/2019 12:00").build();
     public static final Record CARBS_FIRST = new RecordBuilder().withType("Carbs")
             .withRemarks("No carbs diet")
             .withValue("1.0").withTimestamp("01/11/2019 12:00").build();

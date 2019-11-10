@@ -19,7 +19,7 @@ public class TypicalProfiles {
             .withBloodType("A+")
             .withWeight("50")
             .withHeight("165")
-            .withMedicalHistories("friends").build();
+            .withMedicalHistories("high blood pressure").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withGender("male")
             .withDoB("03/01/1965")

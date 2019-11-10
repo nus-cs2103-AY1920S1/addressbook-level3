@@ -144,6 +144,8 @@ public class CommandTestUtil {
     /** Health Records */
     public static final String VALID_TYPE_GLUCOSE = "Glucose";
     public static final String VALID_TYPE_CALORIES = "Calories";
+    public static final String VALID_TYPE_WEIGHT = "Weight";
+    public static final String VALID_TYPE_HEIGHT = "Height";
     public static final String VALID_REMARK_GLUCOSE = "After meal";
     public static final String VALID_REMARK_CALORIES = "Dinner";
     public static final String VALID_VALUE_GLUCOSE = "18.0";

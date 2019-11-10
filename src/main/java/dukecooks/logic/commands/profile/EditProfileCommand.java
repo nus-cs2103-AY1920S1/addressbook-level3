@@ -84,7 +84,9 @@ public class EditProfileCommand extends EditCommand {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-        LinkHealth.updateHealth(model, editedPerson, isWeightEdited , isHeightEdited);
+        if (isWeightEdited || isHeightEdited) {
+            LinkHealth.updateHealth(model, editedPerson, isWeightEdited, isHeightEdited);
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
