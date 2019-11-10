@@ -280,12 +280,14 @@ It adds a separate `LoansManager` alongside the main `AccountsManager`, with `Lo
 The following class diagram demonstrates the association between the `LoansManager` and `Loan` objects.
 Miscellaneous methods (such as `LoansManager#getLoans` and `LoansManager#getLoansCount`) are omitted.
 
+[[loan-class-diagram]]
 .Class Diagram of the Loans Model
 image::LoanClassDiagram.png[]
 
 [NOTE]
 The `Debtor` class, `LoansManager#debtors`, `LoansManager#setDebtors` and `LoansManager#getDebtors` can be ignored for now.
-They are depicted here for the sake of completion, but will only be used later when discussing the `loan split` command.
+They are depicted here for the sake of completion,
+but will only be used when discussing the `loan split` command in a <<Loan Splitting,later section>>.
 
 Each `Loan` object has the following attributes:
 
@@ -403,7 +405,7 @@ Multi-loan targeting is implemented for the commands `loan paid`, `loan unpaid` 
 ===== Loan Splitting
 
 Loan splitting exists as a command that the user can execute.
-Its main purpose is to split a large, initially unbalanced group payment equally among the group's members.
+Its purpose is to split a large, initially unbalanced group payment equally among the group's members.
 The following example scenario should clarify the purpose of the command:
 
 ====
@@ -417,9 +419,9 @@ From this list, John can now see that he owes Peter *$33.33* and that Mary owes 
 ====
 
 To display the results of the calculations, `LoansManager` holds a list of `debtors` containing `Debtor` objects.
-For your convenience, the class diagram of the Loans model (Figure 9) is reproduced here:
+For your convenience, the <<loan-class-diagram,class diagram of the Loans model>> is reproduced here:
 
-.Class Diagram of the Loans Model
+.Reproduction of Class Diagram of the Loans Model
 image::LoanClassDiagram.png[]
 
 Each `Debtor` object has the following attributes:
