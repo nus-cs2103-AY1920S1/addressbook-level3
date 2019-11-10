@@ -1,4 +1,4 @@
-== Yang Shuting - Project Portfolio for KeyboardFlashCards
+= Yang Shuting - Project Portfolio for KeyboardFlashCards
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
