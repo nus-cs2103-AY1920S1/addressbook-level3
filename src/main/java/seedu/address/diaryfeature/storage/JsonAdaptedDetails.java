@@ -45,12 +45,11 @@ public class JsonAdaptedDetails {
 
     /**
      * Converts this Jackson-friendly adapted person object into the addressBookModel's {@code Person} object.
-     *
      */
     public Optional<Details> toModelType() throws ParseException {
         if (username.equalsIgnoreCase("null") || password.equalsIgnoreCase("null")) {
             return Optional.empty();
-        } else if (ParserUtil.isValidEncryptedDetail(username) && ParserUtil.isValidEncryptedDetail(password)){
+        } else if (ParserUtil.isValidEncryptedDetail(username) && ParserUtil.isValidEncryptedDetail(password)) {
             Details curr = new Details(new Username(username), new Password(password));
             return Optional.of(curr);
         } else {

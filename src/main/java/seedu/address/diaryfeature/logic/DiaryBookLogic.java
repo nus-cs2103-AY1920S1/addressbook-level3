@@ -36,7 +36,7 @@ public class DiaryBookLogic {
     private final DiaryBookParser diaryBookParser;
 
     public DiaryBookLogic() {
-        JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data","diaryBook.json"));
+        JsonDiaryBookStorage storage = new JsonDiaryBookStorage(Paths.get("data", "diaryBook.json"));
         Optional<DiaryBook> diaryBookOptional;
         DiaryBook initialData;
         try {

@@ -15,14 +15,7 @@ public class DiaryEntryListTest {
     public void test_diaryEntryList_Fill_Method() {
         tester = new DiaryEntryList();
         tester.loadSampleData();
-        assertEquals(30, tester.getSize());
+        assertEquals(2, tester.getSize());
     }
 
-    @Test
-    public void test_diaryEntryList_Delete_Method() {
-        tester = new DiaryEntryList();
-        tester.loadSampleData();
-        tester.deleteDiaryEntry(1);
-        assertEquals(29, tester.getSize());
-    }
 }

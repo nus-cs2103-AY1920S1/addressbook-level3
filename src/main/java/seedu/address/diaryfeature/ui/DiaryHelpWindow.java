@@ -13,88 +13,88 @@ import seedu.address.ui.UiPart;
 
 public class DiaryHelpWindow extends UiPart<Stage> {
 
-        public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html";
-        public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html";
+    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
-        private static final Logger logger = LogsCenter.getLogger(seedu.address.ui.HelpWindow.class);
-        private static final String FXML = "DiaryHelpWindow.fxml";
+    private static final Logger logger = LogsCenter.getLogger(seedu.address.ui.HelpWindow.class);
+    private static final String FXML = "DiaryHelpWindow.fxml";
 
-        @javafx.fxml.FXML
-        private Button copyButton;
+    @javafx.fxml.FXML
+    private Button copyButton;
 
-        @FXML
-        private Label helpMessage;
+    @FXML
+    private Label helpMessage;
 
-        /**
-         * Creates a new HelpWindow.
-         *
-         * @param root Stage to use as the root of the HelpWindow.
-         */
-        public DiaryHelpWindow(Stage root) {
-            super(FXML, root);
-            helpMessage.setText(HELP_MESSAGE);
-        }
-
-        /**
-         * Creates a new HelpWindow.
-         */
-        public DiaryHelpWindow() {
-            this(new Stage());
-        }
-
-        /**
-         * Shows the help window.
-         * @throws IllegalStateException
-         * <ul>
-         *     <li>
-         *         if this method is called on a thread other than the JavaFX Application Thread.
-         *     </li>
-         *     <li>
-         *         if this method is called during animation or layout processing.
-         *     </li>
-         *     <li>
-         *         if this method is called on the primary stage.
-         *     </li>
-         *     <li>
-         *         if {@code dialogStage} is already showing.
-         *     </li>
-         * </ul>
-         */
-        public void show() {
-            logger.fine("Showing help page about the application.");
-            getRoot().show();
-            getRoot().centerOnScreen();
-        }
-
-        /**
-         * Returns true if the help window is currently being shown.
-         */
-        public boolean isShowing() {
-            return getRoot().isShowing();
-        }
-
-        /**
-         * Hides the help window.
-         */
-        public void hide() {
-            getRoot().hide();
-        }
-
-        /**
-         * Focuses on the help window.
-         */
-        public void focus() {
-            getRoot().requestFocus();
-        }
-
-        /**
-         * Copies the URL to the user guide to the clipboard.
-         */
-        @FXML
-        private void copyUrl() {
-            final Clipboard clipboard = Clipboard.getSystemClipboard();
-            final ClipboardContent url = new ClipboardContent();
-            url.putString(USERGUIDE_URL);
-            clipboard.setContent(url);
-        }
+    /**
+     * Creates a new HelpWindow.
+     *
+     * @param root Stage to use as the root of the HelpWindow.
+     */
+    public DiaryHelpWindow(Stage root) {
+        super(FXML, root);
+        helpMessage.setText(HELP_MESSAGE);
     }
+
+    /**
+     * Creates a new HelpWindow.
+     */
+    public DiaryHelpWindow() {
+        this(new Stage());
+    }
+
+    /**
+     * Shows the help window.
+     *
+     * @throws IllegalStateException <ul>
+     *                               <li>
+     *                               if this method is called on a thread other than the JavaFX Application Thread.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called during animation or layout processing.
+     *                               </li>
+     *                               <li>
+     *                               if this method is called on the primary stage.
+     *                               </li>
+     *                               <li>
+     *                               if {@code dialogStage} is already showing.
+     *                               </li>
+     *                               </ul>
+     */
+    public void show() {
+        logger.fine("Showing help page about the application.");
+        getRoot().show();
+        getRoot().centerOnScreen();
+    }
+
+    /**
+     * Returns true if the help window is currently being shown.
+     */
+    public boolean isShowing() {
+        return getRoot().isShowing();
+    }
+
+    /**
+     * Hides the help window.
+     */
+    public void hide() {
+        getRoot().hide();
+    }
+
+    /**
+     * Focuses on the help window.
+     */
+    public void focus() {
+        getRoot().requestFocus();
+    }
+
+    /**
+     * Copies the URL to the user guide to the clipboard.
+     */
+    @FXML
+    private void copyUrl() {
+        final Clipboard clipboard = Clipboard.getSystemClipboard();
+        final ClipboardContent url = new ClipboardContent();
+        url.putString(USERGUIDE_URL);
+        clipboard.setContent(url);
+    }
+}

@@ -29,8 +29,9 @@ public class UnLockCommand extends Command<DiaryModel> {
 
     /**
      * Generates an UnLockCommand to show the memory
+     *
      * @param targetIndex is the index to be unlocked
-     * @param detail is the accompanying username and password to allow access
+     * @param detail      is the accompanying username and password to allow access
      */
     public UnLockCommand(Index targetIndex, Details detail) {
 
@@ -40,6 +41,7 @@ public class UnLockCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command, if applicable, and sets the entry to unprivate
+     *
      * @param model on which the command is executes
      * @return {@code CommandResult} a readable message to show the result
      */
@@ -52,7 +54,7 @@ public class UnLockCommand extends Command<DiaryModel> {
             throw new CommandException(OVERFLOW);
         }
         //Next, if the model has no password, just use unprivate, cant use unlock
-        if(!model.hasPassword()) {
+        if (!model.hasDetails()) {
             return new CommandResult(MESSAGE_NO_DETAILS);
             //Next, if the details match the stored ones, then you can show the memory
         } else if (model.checkDetails(detail)) {

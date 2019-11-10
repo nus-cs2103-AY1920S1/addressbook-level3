@@ -23,6 +23,7 @@ public class FindSpecificCommand extends Command<DiaryModel> {
 
     /**
      * Creates the FindSpecific command which to find entry matches
+     *
      * @param predicate Check if the specified section matches the input word
      */
     public FindSpecificCommand(FindSpecificPredicate predicate) {
@@ -31,6 +32,7 @@ public class FindSpecificCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command using the predicate
+     *
      * @param diaryModel to execute the command on
      * @return {@code CommandResult} a readable form of the matched entries
      */
@@ -40,7 +42,7 @@ public class FindSpecificCommand extends Command<DiaryModel> {
         requireNonNull(diaryModel);
         diaryModel.updateFilteredDiaryList(predicate);
         int size = diaryModel.getTotalDiaryEntries();
-        if(size == 1) {
+        if (size == 1) {
             return new CommandResult(MESSAGE_ENTRy_LISTED_OVERVIEW);
         }
         return new CommandResult(
@@ -50,6 +52,7 @@ public class FindSpecificCommand extends Command<DiaryModel> {
 
     /**
      * Checks if the 2 findSpecific commands are equal
+     *
      * @param other another object to check
      * @return true if the object is the same as this command
      */

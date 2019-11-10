@@ -21,6 +21,7 @@ import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
 import seedu.address.ui.ResultDisplay;
+import seedu.address.ui.UiPart;
 
 
 /**

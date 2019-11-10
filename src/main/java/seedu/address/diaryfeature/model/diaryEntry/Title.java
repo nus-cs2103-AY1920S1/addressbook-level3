@@ -12,13 +12,21 @@ public class Title {
     public final String value;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Title}.
      *
      * @param input is a valid title.
      */
     public Title(String input) {
         value = input;
 
+    }
+
+    /**
+     * To defend against any malfunctions
+     * @return a copy of this title
+     */
+    public Title copy () {
+        return new Title(value);
     }
 
     @Override

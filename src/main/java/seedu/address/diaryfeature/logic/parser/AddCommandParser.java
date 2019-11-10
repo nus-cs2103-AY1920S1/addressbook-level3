@@ -28,11 +28,12 @@ public class AddCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
      * @throws DiaryEntryParseException if the user input does not conform the expected format
      */
     public Command parse(String args) throws DiaryEntryParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE,PREFIX_PLACE,PREFIX_MEMORY);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new DiaryEntryParseException();
@@ -57,7 +58,7 @@ public class AddCommandParser {
         } catch (NullPointerException | NoSuchElementException err) {
             throw new DiaryEntryParseException();
         }
-        DiaryEntry entry = new DiaryEntry(title, date, place,memory);
+        DiaryEntry entry = new DiaryEntry(title, date, place, memory);
         return new AddCommand(entry);
     }
 

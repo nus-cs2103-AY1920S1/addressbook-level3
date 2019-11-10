@@ -16,7 +16,6 @@ public class DiaryEntryParseException extends ParseException {
     }
 
     /**
-     *
      * @return String representation of the Error message
      */
 
@@ -25,7 +24,6 @@ public class DiaryEntryParseException extends ParseException {
     }
 
     /**
-     *
      * @return String representation of the Error message
      */
     public String getUsage() {

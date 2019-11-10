@@ -23,6 +23,7 @@ public class PrivateCommand extends Command<DiaryModel> {
 
     /**
      * Generates a private command which hides the memory of the specified entry
+     *
      * @param targetIndex Entry to set Private
      */
     public PrivateCommand(Index targetIndex) {
@@ -31,6 +32,7 @@ public class PrivateCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command by setting the entry to private and
+     *
      * @param model on which the command is executes
      * @return {@code CommandResult} a readable form of the entries
      */

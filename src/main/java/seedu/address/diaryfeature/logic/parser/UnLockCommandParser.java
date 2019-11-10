@@ -30,17 +30,18 @@ public class UnLockCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of theUnLockCommand
      * and returns a UnLockCommand object for execution.    *
+     *
      * @param args is the user input
      * @return an UnlockCommand to execute
      * @throws EmptyArgumentException if the user input does not conform the expected format
-     * @throws DetailParseException if the Detail is invalid
+     * @throws DetailParseException   if the Detail is invalid
      */
     public Command parse(String args) throws EmptyArgumentException, DetailParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME,PREFIX_PASSWORD);
-        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME,PREFIX_PASSWORD)) {
-            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD,UNLOCK_USAGE);
+                ArgumentTokenizer.tokenize(args, PREFIX_USERNAME, PREFIX_PASSWORD);
+        if (!arePrefixesPresent(argMultimap, PREFIX_USERNAME, PREFIX_PASSWORD)) {
+            throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD, UNLOCK_USAGE);
         }
         Index index;
         Username username;
@@ -50,13 +51,13 @@ public class UnLockCommandParser {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new EmptyArgumentException(UnLockCommand.COMMAND_WORD, UNLOCK_USAGE);
-         }
-        username = new Username (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),
+        }
+        username = new Username(ParserUtil.parseDetail(argMultimap.getValue(PREFIX_USERNAME).get(),
                 UnLockCommand.COMMAND_WORD));
-        password = new Password (ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),
+        password = new Password(ParserUtil.parseDetail(argMultimap.getValue(PREFIX_PASSWORD).get(),
                 UnLockCommand.COMMAND_WORD));
 
-        return new UnLockCommand(index, new Details(username,password));
+        return new UnLockCommand(index, new Details(username, password));
     }
 
     /**

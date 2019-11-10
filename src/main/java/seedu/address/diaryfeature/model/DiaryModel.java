@@ -44,7 +44,6 @@ public class DiaryModel {
     }
 
     /**
-     *
      * @param input
      * @return
      */
@@ -65,17 +64,17 @@ public class DiaryModel {
     public void setDetails(Details attempt) {
         diaryBook.setDetails(attempt);
     }
+
     public String getEntriesAsString() {
         return diaryBook.getEntriesAsString();
     }
 
     /**
-     *
      * @param diaryEntry
      * @return
      */
 
-    public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
+    public DiaryEntry addDiaryEntry(DiaryEntry diaryEntry) {
 
         return diaryBook.addDiaryEntry(diaryEntry);
     }
@@ -91,8 +90,9 @@ public class DiaryModel {
     public boolean checkDetails(Details input) {
         return diaryBook.checkDetails(input);
     }
-    public boolean hasPassword() {
-        return diaryBook.hasPassword();
+
+    public boolean hasDetails() {
+        return diaryBook.hasDetails();
     }
 
     /**
@@ -110,11 +110,11 @@ public class DiaryModel {
     }
 
     public void setinnerDetails(Optional<Details> input) {
-       diaryBook.setinnerDetails(input);
+        diaryBook.setinnerDetails(input);
     }
 
     public DiaryBook getDiaryBook() {
-        return  this.diaryBook;
+        return this.diaryBook;
     }
 
     //=========== Statistics =================================================================================

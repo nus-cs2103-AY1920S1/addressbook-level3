@@ -23,6 +23,7 @@ public class DeleteCommand extends Command<DiaryModel> {
 
     /**
      * Generates a Delete command with index specified as {@code targetIndex}
+     *
      * @param targetIndex
      */
     public DeleteCommand(Index targetIndex) {
@@ -31,6 +32,7 @@ public class DeleteCommand extends Command<DiaryModel> {
 
     /**
      * Executes the delete command by deleted the target index
+     *
      * @param model {@code model} which the command should operate on.
      * @return
      * @throws CommandException if the index is beyond the size of the list
@@ -52,6 +54,7 @@ public class DeleteCommand extends Command<DiaryModel> {
 
     /**
      * Checks if the 2 delete commands are equal
+     *
      * @param other another object to check
      * @return true if the object is the same as this command
      */

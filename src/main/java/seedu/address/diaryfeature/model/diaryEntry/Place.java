@@ -11,12 +11,20 @@ public class Place {
     public final String place;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Place}.
      *
      * @param input is a valid place.
      */
-    public Place(String input)  {
+    public Place(String input) {
         place = input;
+    }
+
+    /**
+     * To defend against any malfunctions
+     * @return a copy of this place
+     */
+    public Place copy () {
+        return new Place(place);
     }
 
 

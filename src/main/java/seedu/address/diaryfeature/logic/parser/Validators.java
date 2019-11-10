@@ -11,7 +11,7 @@ import seedu.address.diaryfeature.model.diaryEntry.Title;
 /**
  * Checks user input
  */
-class Validators {
+public class Validators {
     private static final String ALPHANUMERIC_STRING_REGEX = "[a-zA-Z0-9]+";
     private static final String NUMBER_REGEX = "[0-9]+";
     static final int HOUR_LOWER_RANGE = 00;
@@ -30,7 +30,7 @@ class Validators {
      * Check if user input is null
      */
     public static boolean isNotNull(String input) {
-        if(Objects.isNull(input)) {
+        if (Objects.isNull(input)) {
             return false;
         } else {
             return true;
@@ -41,7 +41,7 @@ class Validators {
      * Check if user input is empty
      */
     public static boolean isNotEmpty(String input) {
-        if(input.isEmpty()) {
+        if (input.isEmpty()) {
             return false;
         } else {
             return true;
@@ -53,7 +53,7 @@ class Validators {
      */
     public static boolean isValidTitle(String input) {
         boolean answer = false;
-        if (isNotEmpty(input)  && isCorrectLength(input,Title.TITLE_MAX_LENGTH)) {
+        if (isNotEmpty(input) && isCorrectLength(input, Title.TITLE_MAX_LENGTH)) {
             answer = true;
         }
         return answer;
@@ -64,7 +64,7 @@ class Validators {
      */
     public static boolean isValidPlace(String input) {
         boolean answer = false;
-        if (isNotEmpty(input)  && isCorrectLength(input, Place.PLACE_MAX_LENGTH)) {
+        if (isNotEmpty(input) && isCorrectLength(input, Place.PLACE_MAX_LENGTH)) {
             answer = true;
         }
         return answer;
@@ -76,7 +76,7 @@ class Validators {
      */
     public static boolean isValidMemory(String input) {
         boolean answer = false;
-        if (isNotEmpty(input)  && isCorrectLength(input, Memory.MEMORY_MAX_LENGTH)) {
+        if (isNotEmpty(input) && isCorrectLength(input, Memory.MEMORY_MAX_LENGTH)) {
             answer = true;
         }
         return answer;
@@ -85,9 +85,9 @@ class Validators {
     /**
      * Check if user input is correct length(generic)
      */
-    public static boolean isCorrectLength(String input,int length) {
+    public static boolean isCorrectLength(String input, int length) {
         boolean answer = false;
-        if(input.length() <= length) {
+        if (input.length() <= length) {
             answer = true;
         }
         return answer;
@@ -97,9 +97,9 @@ class Validators {
      * Check if user input is for details is correct length
      */
 
-    public static boolean isCorrectDetailsLength(String input,int length) {
+    public static boolean isCorrectDetailsLength(String input, int length) {
         boolean answer = false;
-        if(input.length() >= length) {
+        if (input.length() >= length) {
             answer = true;
         }
         return answer;
@@ -133,21 +133,21 @@ class Validators {
      * Check if user input is a valid date
      */
     public static boolean isCorrectDateFormat(String input) {
-        if(input.length() != DATE_AND_TIME_LENGTH) {
+        if (input.length() != DATE_AND_TIME_LENGTH) {
             return false;
         }
         String[] dateAndTime = input.split(" ");
-        if(dateAndTime.length != 2) {
+        if (dateAndTime.length != 2) {
             return false;
         }
         String time = dateAndTime[1];
-        if(time.length() != 4) {
+        if (time.length() != 4) {
             return false;
         }
-        String hourAsString = time.substring(0,1);
+        String hourAsString = time.substring(0, 1);
         String minAsString = time.substring(2);
         String[] dates = dateAndTime[0].split("/");
-        if(dates.length != 3) {
+        if (dates.length != 3) {
             return false;
         }
         String dayAsString = dates[0];
@@ -171,28 +171,27 @@ class Validators {
     }
 
 
-    private static boolean isValidDayMonthYear(int day ,int month,int year) {
-        int[] oddMonth = {1,3,5,7,8,10,12}; //31 days
-        int[] evenMonth = {2,4,6,9,11}; //30 days
-        if(Arrays.stream(evenMonth)
-                 .anyMatch(x -> x == month) && day == 31) {
+    private static boolean isValidDayMonthYear(int day, int month, int year) {
+        int[] oddMonth = {1, 3, 5, 7, 8, 10, 12}; //31 days
+        int[] evenMonth = {2, 4, 6, 9, 11}; //30 days
+        if (Arrays.stream(evenMonth)
+                .anyMatch(x -> x == month) && day == 31) {
             return false;
-        } else if(month == 2) {
-            if(isLeapYear(year) && day == 29) {
+        } else if (month == 2) {
+            if (isLeapYear(year) && day == 29) {
                 return true;
-            } else if(day == 28) {
+            } else if (day == 28) {
                 return true;
             } else {
                 return false;
             }
-        }
-        else {
+        } else {
             return true;
         }
     }
 
     private static boolean isLeapYear(int year) {
-        return year%4 == 0;
+        return year % 4 == 0;
     }
 
 
@@ -207,7 +206,7 @@ class Validators {
      * Check if user input fits in the range
      */
     private static boolean isValidNumber(String input, int lower, int upper) {
-        if(!input.matches(NUMBER_REGEX)) {
+        if (!input.matches(NUMBER_REGEX)) {
             return false;
         }
         int test = getInt(input);

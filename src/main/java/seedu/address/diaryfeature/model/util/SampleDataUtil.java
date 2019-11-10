@@ -17,11 +17,11 @@ public class SampleDataUtil {
 
     public static DiaryEntry[] getSampleDiaryEntry() {
         try {
-            return new DiaryEntry[] {
-                new DiaryEntry(new Title("Temp"), DateFormatter.convertToDate("25/10/2019 1200"),
-                        new Place("Copacabana"), new Memory("Her name was Lola, she was a showgirl")),
-                new DiaryEntry(new Title("Temp 2"), DateFormatter.convertToDate("31/12/2019 1400"),
-                        new Place("Kokomo"),new Memory("Aruba, Bahama, come on pretty mama"))
+            return new DiaryEntry[]{
+                    new DiaryEntry(new Title("Temp"), DateFormatter.convertToDate("25/10/2019 1200"),
+                            new Place("Copacabana"), new Memory("Her name was Lola, she was a showgirl")),
+                    new DiaryEntry(new Title("Temp 2"), DateFormatter.convertToDate("31/12/2019 1400"),
+                            new Place("Kokomo"), new Memory("Aruba, Bahama, come on pretty mama"))
             };
         } catch (DiaryEntryParseException error) {
             return null;
@@ -29,7 +29,10 @@ public class SampleDataUtil {
 
     }
 
-
+    /**
+     * Get this sample diarybook
+     * @return DiaryBook
+     */
     public static DiaryBook getSampleDiaryBook() {
         DiaryBook sample = new DiaryBook();
         sample.loadData(getSampleDiaryEntry());

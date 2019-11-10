@@ -15,7 +15,6 @@ public class DiaryUnknownException extends ParseException {
     }
 
     /**
-     *
      * @return String representation of the Error message
      */
     public String toString() {

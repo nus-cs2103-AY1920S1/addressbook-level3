@@ -23,6 +23,7 @@ public class FindCommand extends Command<DiaryModel> {
 
     /**
      * Generate a find command with the specified predicate to find the relevant entries
+     *
      * @param predicate checks each entry for the specified word
      */
     public FindCommand(FindPredicate predicate) {
@@ -31,6 +32,7 @@ public class FindCommand extends Command<DiaryModel> {
 
     /**
      * Execute the find command and change the list view to only show the filtered entries
+     *
      * @param diaryModel model upon which to execute the command
      * @return {@code CommandResult} with the number of entries that match the predicate
      */
@@ -39,7 +41,7 @@ public class FindCommand extends Command<DiaryModel> {
         requireNonNull(diaryModel);
         diaryModel.updateFilteredDiaryList(predicate);
         int size = diaryModel.getTotalDiaryEntries();
-        if(size == 1) {
+        if (size == 1) {
             return new CommandResult(MESSAGE_ENTRy_LISTED_OVERVIEW);
         }
         return new CommandResult(
@@ -48,8 +50,9 @@ public class FindCommand extends Command<DiaryModel> {
     }
 
     /**
-     /**
+     * /**
      * Checks if the 2 Find commands are equal
+     *
      * @param other another object to check
      * @return true if the object is the same as this command
      */

@@ -21,6 +21,7 @@ public class AddCommand extends Command<DiaryModel> {
 
     /**
      * Generates the Add Command to add an diary entry to the diary book
+     *
      * @param entry
      */
     public AddCommand(DiaryEntry entry) {
@@ -30,22 +31,24 @@ public class AddCommand extends Command<DiaryModel> {
 
     /**
      * Executes the add command and gives the success command result
+     *
      * @param model {@code model} which the command should operate on.
      * @return
      */
 
     @Override
-    public CommandResult execute(DiaryModel model)  throws CommandException {
+    public CommandResult execute(DiaryModel model) throws CommandException {
         requireNonNull(model);
-        if(model.contains(toAdd)) {
+        if (model.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ERROR);
         }
         model.addDiaryEntry(toAdd);
-        return new CommandResult(MESSAGE_SUCCESS + "\n" +  toAdd);
+        return new CommandResult(MESSAGE_SUCCESS + "\n" + toAdd);
     }
 
     /**
      * Checks if the 2 add commands are equal
+     *
      * @param other another object to check
      * @return true if the object is the same as this command
      */

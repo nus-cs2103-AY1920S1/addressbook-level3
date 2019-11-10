@@ -26,7 +26,7 @@ public class JsonSerializableDiaryBook {
      */
     @JsonCreator
     public JsonSerializableDiaryBook(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> entries,
-    @JsonProperty("details") JsonAdaptedDetails detail) {
+                                     @JsonProperty("details") JsonAdaptedDetails detail) {
         this.entries.addAll(entries);
         this.detail = detail;
 
