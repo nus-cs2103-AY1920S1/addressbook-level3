@@ -22,7 +22,17 @@ University of Singapore (NUS) and we created *Athletick* as part of a requiremen
 engineering module. We were tasked with morphing a desktop address book application with the constraint that it had
 to be a command line interface application. This project was completed over six weeks.
 
-include::../DeveloperGuide.adoc[tag=symbol]
+Note the following symbols and formatting used in this document:
+
+|===
+
+| `training` | A grey highlight (mark-up) indicates that this is a command that can be input into the command line and executed by the application.
+
+| `[green]#TrainingManager#` | Green text with grey highlight indicates a component, class or object in the architecture of the application.
+
+| NOTE: | This symbol indicates important information.
+
+|===
 
 == Summary of contributions
 This section contains a summary of my contributions to the project. This includes code, documentation and other helpful
@@ -54,8 +64,7 @@ typing which will save time.
 *Enhancement added:* I added the ability to monitor an athlete’s attendance rate.
 
 * What it does:
-** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`, `view
-attendance` and `calendar` commands.
+** The `attendance`, `select`, `view attendance` and `calendar` commands allow a user to track their team’s attendance.
 
 * Justification:
 ** Coaches are concerned about their team’s overall attendance rate as it is a good indicator an
