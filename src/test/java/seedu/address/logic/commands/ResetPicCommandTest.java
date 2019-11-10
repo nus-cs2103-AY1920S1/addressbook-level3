@@ -18,7 +18,7 @@ public class ResetPicCommandTest {
 
     @Test
     public void execute_duplicateStudentUnfilteredList_failure() {
-        ResetDisplayPictureCommand resetCommand = new ResetDisplayPictureCommand(INDEX_FIRST_STUDENT);
+        ResetDisplayPictureCommand resetCommand = new ResetDisplayPictureCommand(INDEX_FIRST_OBJECT);
         assertCommandFailure(resetCommand, model, ResetDisplayPictureCommand.MESSAGE_PICTURE_ALREADY_DEFAULT);
     }
     @Test
