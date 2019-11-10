@@ -9,19 +9,14 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ezwatchlist.commons.util.JsonUtil;
 import seedu.ezwatchlist.logic.parser.SearchKey;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
-import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.show.NameContainsKeywordsPredicate;
-import seedu.ezwatchlist.storage.JsonSerializableWatchList;
-import seedu.ezwatchlist.storage.Storage;
-import seedu.ezwatchlist.storage.JsonDatabaseStorage;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
  */
 public class SearchCommandTest {
     private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
@@ -29,11 +24,6 @@ public class SearchCommandTest {
 
     @Test
     public void equals() {
-        /*NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));*/
-
         HashMap<SearchKey, List<String>> firstHash = new HashMap<>();
         HashMap<SearchKey, List<String>> secondHash = new HashMap<>();
         ArrayList<String> firstList = new ArrayList<>();
