@@ -5,7 +5,7 @@
 
 == PROJECT: Dukemon
 
-_Link to Reposense code_: https://github.com/AY1920S1-CS2103T-T11-2/main[Reposense]
+_Link to Reposense code_: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-08&tabType=authorship&tabAuthor=dragontho&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[Reposense]
 
 _Link to Github Repo_: https://github.com/AY1920S1-CS2103T-T11-2/main[Dukemon]
 
@@ -59,7 +59,7 @@ image:paulthoppp.png[width='400']
 *** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103T-T11-2/main/pull/84[#84])
 *** Wrote additional tests for existing features to increase coverage from 40% to 41% (Pull requests https://github.com/AY1920S1-CS2103T-T11-2/main/pull/124[#124], https://github.com/AY1920S1-CS2103T-T11-2/main/pull/134[#134])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added diagrams to the implementation of settings in Developer's Guide: https://github.com/AY1920S1-CS2103T-T11-2/main/pull/134[#134]
 ** Community:
 
 *** The label highlighting feature that I used for my settings page was also used by other classmates(https://github.com/AY1920S1-CS2103T-T12-1/main/pull/87[1]).
