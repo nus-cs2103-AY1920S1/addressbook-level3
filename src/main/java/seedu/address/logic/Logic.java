@@ -28,7 +28,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getStudyBuddyPro()
      */
-    ReadOnlyStudyBuddyPro getAddressBook();
+    ReadOnlyStudyBuddyPro getStudyBuddyPro();
 
     /** Returns an unmodifiable view of the filtered list of notes */
     ObservableList<Note> getFilteredNoteList();
