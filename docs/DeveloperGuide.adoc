@@ -477,11 +477,17 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 === Use Grocery Feature
 
 ==== Implementations
-The user is able to use specific item that she has. This can be done with the `glist use` command. +
+The `glist use` feature in the grocery list allows user to use their food items based on the `AMOUNT` inputted. +
 
-The sequence diagrams for interactions between the Logic and Model components when a user executes the `glist use` command is shown below.
+This implementation of this feature is highly dependent on the `Amount` class as deduction of values is done by the `Amount` class itself.
 
-image::UseGrocerySequenceDiagram.png[]
+The sequence diagrams for interactions between the Logic and Model components when a user executes the `glist use` command is shown below. Their relations to the `Amount` class is shown in the subsequent diagram.
+
+.The sequence diagram to show how use grocery command is parsed and executed.
+image::UseGrocerySequenceDiagram.png[align="center", width="900"]
+
+.The sequence diagram for the reference frame to show the process of how a grocery item is used.
+image::UseGrocerySequenceDiagramRef.png[align="center", width="800"]
 
 The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted. The rest of the fields are copied over without any other modifications.
 
@@ -489,9 +495,9 @@ The `glist use` command is also able to support unit conversion.
 
 The following activity diagram summarises how the unit conversion is done.
 
-image::UseGroceryActivityDiagram.png[]
+image::UseGroceryActivityDiagram.png[align="center", width="400"]
 
-The conversions of units are done by `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
+The conversions of units are done in the `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups across different lists in the application. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
 
 ==== Design Considerations
 

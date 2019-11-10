@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+
+skinparam maxMessageSize 250
+
+group sd create deducted grocery item
+
+box Logic LOGIC_COLOR_T1
+participant "ugc:UseGroceryCommand" as UseGroceryCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":GroceryList" as GroceryList MODEL_COLOR
+participant "UseGroceryItemDescriptor" as UseGroceryItemDescriptor MODEL_COLOR
+end box
+
+activate UseGroceryCommand
+
+create UseGroceryItemDescriptor
+UseGroceryCommand -> UseGroceryItemDescriptor
+activate UseGroceryItemDescriptor
+UseGroceryItemDescriptor -> UseGroceryCommand: desc
+deactivate UseGroceryItemDescriptor
+
+UseGroceryCommand -> Model: getGroceryList()
+activate Model
+
+Model -> GroceryList: get(index)
+activate GroceryList
+
+GroceryList -> Model: toUse
+deactivate GroceryList
+
+Model -> UseGroceryCommand: toUse
+deactivate Model
+
+UseGroceryCommand -> UseGroceryCommand: createUsedGroceryItem(toUse, desc)
+activate UseGroceryCommand
+UseGroceryCommand -> UseGroceryCommand: used
+deactivate UseGroceryCommand
+
+end
+@enduml
