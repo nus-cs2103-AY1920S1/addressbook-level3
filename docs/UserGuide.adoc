@@ -27,51 +27,49 @@ Team: *T17-2*
 image::TraveEzyLogo.png[TravEzy Logo,width=600]
 
 
-Welcome to *TravEzy*! 😊
+Welcome to _TravEzy_! 😊
 
 Firstly, thank you for downloading our application. We greatly appreciate your support and
-we *promise* to make travel easy, with TravEzy.
+we *promise* to make travel easy with _TravEzy_.
 
-So, is TravEzy for you?
+So, is _TravEzy_ for you?
 
 . Are you a busy university student with a passion for travelling?
 . Are your summers and winters swamped with internships, projects and CCA activities?
 . Do your numerous commitments get in the way of your travel plans?
 
-IF you answered yes to the questions above, then __yes__ it is. If not, it still is :)
+IF you answered yes to the questions above, then *yes* it is. If not, it still is :)
 
-What is TravEzy? TravEzy is a desktop application with a command line
-interface (CLI) and is *perfect* for NUS students who love
-travelling as much as we do. What's more, with a (CLI), you will be
-able to type in your commands much faster than similar applications which
-require you to keep using your mouse
+What is _TravEzy_? 
 
+_TravEzy_ is a desktop application with a command line interface (CLI) and is *perfect* for NUS students who love travelling as much as we do. With a CLI, you will be able to type in your commands much faster than similar applications which require you to keep using your mouse. Furthermore, since this is a desktop application, you do not need a web browser (like Chrome, Firefox, Internet Explorer, etc.) to start using _TravEzy_.
 
 TravEzy is perfect for:
 
-. Managing your busy calendar and finding the optimal period [.line-through]#during exams# after your finals to take that much needed holiday!
+. Managing your busy calendar and finding the a good time to take that much needed holiday!
 
-. Creating the ideal itinerary for your shopping trip to Bangkok :)
+. Creating the ideal itinerary for your trips :)
 
 . Tracking your expenses during your trip, so that you have enough money left for the trip home
 
-. Writing about your amazing snorkeling trip to Tioman in your travel diary
+. Journaling in your travel diary and effortlessly looking at old entries to recall your favourite moments
 
-. Looking up the details of the your new friend in your address book
+. Keep in contact with your old and new friends with the help of _TravEzy's_ address book
+
 
 What are you waiting for? Hop on to this user guide and we will
 travel to +++<u>+++Section 2, “Quick Start”+++</u>+++ to start TravEzy 😊
 
 == Quickstart
 
-. Grab a cup of coffee
+. Grab a cup of coffee.
 
 . Ensure that you have Java 11 or above installed in your Computer.
 
 . Download the latest
 https://github.com/AY1920S1-CS2103T-T17-2/main/releases[TravEzy.jar]
 
-. Copy the file to the folder you want to use as the home folder for TravEzy.
+. Copy the file to the folder you want to use as the home folder for your _TravEzy_.
 
 . Double-click the file to start the app.
 The GUI (Graphical User Interface) should appear in a few seconds.
@@ -81,12 +79,6 @@ The GUI (Graphical User Interface) should appear in a few seconds.
 
 . At the bottom of the screen, type the command in the command box and press *<Enter>* on your keyboard to execute it.
 E.g. typing *help* and pressing *<Enter>* will open the help window.
-
-. Examples commands you may try:
-.. *goto diary* : Open up the diary portion of TravEzy
-.. *list* : Shows all the entries in your diary
-.. *delete 3* : deletes the 3rd entry in the diary book
-.. *exit*: exits the app
 
 Refer to Section 3, “Features” for details of each command.
 
@@ -100,25 +92,23 @@ Excited to start using _TravEzy_? Read this section to find out how this documen
 
 There are *alot* of things that TravEzy can do. So, we have organised this document such that you can easily look for what *you* need.
 
+
 We've split up this guide into the different features of our application, namely:
 
-. Main
-. Calendar
-. Itinerary
-. Address Book
-. Diary
-. Achievements
+* Main
+* Calendar
+* Itinerary
+* Address Book
+* Diary
+* Achievements
 
-
-In each of the above sections, you will be introduced to the *interface* of the feature (how TravEzy looks), the *_parameters_* (which are just like those fields you
-fill up in a regular form📝) and the *commands* that will allow you to start *travelling easy*.
-
+In each of the above sections, you will be introduced to the *interface* of the feature and the *commands* that will do the menial tasks for you. 
 
 === Reading this Document
 
 Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's find out more about what they mean in this document!
 
-.Symbols and fonts (rows)
+.Symbols and fonts 
 [grid="rows", frame="none"]
 |===
 | Symbol/font | What does it mean?
@@ -130,7 +120,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks to make travel easier for you
 
 | ``MONTH``
-| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[Remember what this means? A parameter is merely like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
+| Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[A parameter is like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
 
 | ``m/MONTH``
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
@@ -149,56 +139,75 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 
 
 == Main
-Hi!
 
-Main is the welcome screen for TravEzy. From here, you can navigate to the other pages, such as calendar,
-financial tracker, achievements etc. You can also the exit the application from here.
+Main is the welcome screen for _TravEzy_. From here, you can easily navigate to the other _pages_ (which contains the interface of the features): _calendar_, _itinerary_, _address book_, _financial tracker_, _diary_ and _achievements_. You can also the exit the application from here.
 
-Don't worry! You can also navigate to other pages
-and exit when you are already inside in a page such as itinerary.
+=== Interface
 
-=== Navigating our application with
+This is how _TravEzy's main_ page looks like:
 
-Trying to open up the achievements page? Use the *Go To Command*:
+image::mainInterface.png[Main interface,width=800]
 
-*Go To another page: ``goto``*
+=== Going to another page: ``goto``
 
-Allows you to navigate to different pages (from any page), with the possible pages being:
+Trying to open up the another _page_? Use this command!
 
-. main
-. calendar
-. itinerary
-. address_book
-. financial_tracker
-. diary
-. achievements
+*Format:* +
+``goto PAGE TYPE`` +
+{nbsp} + 
+where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``address_book``, ``financial_tracker``, ``diary`` or ``achievements``
 
-The _Command Word_ is `goto` and the parameter can be any of the pages listed above. There is no
-need for a _Prefix_.
+*Example:* 
 
-Format: ``goto page``
-
-Example: Let's say I want to go back to the main page to see the beautiful TravEzy logo -
-
-``goto main``
+    goto itinerary
 
 
-=== Exit Command
+*Step by step:*
 
-It's time to catch your flight! Better exit TravEzy using the *Exit Command* and
-start your trip!
+Step 1. Type ``goto itinerary`` in the _command box_ and press _Enter_. +
 
-*Exit TravEzy: ``exit``*
+image::mainGoto1.png[Goto command]
 
-Allows you to exit from TravEzy
+Step 2. You will be directed to the _itinerary page_.
 
-The _Command Word_ is `exit` and there are no additonal parameters.
+image::mainGoto2.png[Goto result]
 
-Format: ``exit``
 
-Example: Let's say I have to exit the calendar page -
+=== Viewing help: ``help``
 
+If you are lost, this command will be helpful.
+
+*Format:* + 
+``help``
+
+*Step by step:*
+
+Step 1. Type ``help`` in the _command box_ and press _Enter_. + 
+
+image::mainHelp1.png[Help command]
+
+Step 2. The message in the _result box_ will be updated to indicate that the help window has been opened.
+
+Step 3. The help window will appear as a pop-up and you may click the "copy link". This link will direct you to _TravEzy's_ user guide (i.e. this document).😊 + 
+
+image::mainHelp2.png[Help result]
+
+=== Exiting the application: ``exit``
+
+It's time to catch your flight, exit  _TravEzy_ and start your trip!
+
+*Format:* +
 ``exit``
+
+*Step by step:*
+
+Step 1. Type ``exit`` in the _command box_ and press _Enter_. + 
+
+image::exit1.png[Exit command]
+
+Step 2. All _TravEzy's_ windows will close.
+
+WARNING: The above commands ``goto``, ``help`` and ``exit`` can also be executed from the other _pages_.
 
 == Calendar
 
@@ -247,7 +256,7 @@ Whew! After reading so much, it is time to find out how you can add your _event_
 
 *Step by step:*
 
-Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
+Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/add1.png[Add command,width=600]
 
@@ -294,7 +303,7 @@ But how? Well, this is the section for you. 😀
 
 *Step by step:*
 
-Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
+Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/delete1.png[Delete command,width=600]
 
@@ -321,7 +330,7 @@ How easy is it?
     
 *Step by step:*
 
-Step 1. Type ``show m/Dec`` in the _command box_ and click _Enter_. +
+Step 1. Type ``show m/Dec`` in the _command box_ and press _Enter_. +
 
 image::calendarScreenshots/show1.png[Show command,width=600]
 
@@ -354,7 +363,7 @@ If you would like to view your events as a list instead, this command would be h
 
 *Step by step:*
 
-Step 1. Type ``list`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``list`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/list1.png[List command,width=600]
 
@@ -387,7 +396,7 @@ Let's find out how!
 
 *Step by step:*
 
-Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/check1.png[Check command,width=600]
 
@@ -421,7 +430,7 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
 
 *Step by step:*
 
-Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and click _Enter_. + 
+Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and press _Enter_. + 
 
 image::calendarScreenshots/suggest1.png[Suggest command,width=600]
 
@@ -1544,4 +1553,3 @@ NUS trips: +
 
 ``selectSoc``   : select a certain society to load trips
 
-= Glossary
