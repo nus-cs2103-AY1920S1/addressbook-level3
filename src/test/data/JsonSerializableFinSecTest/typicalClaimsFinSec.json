@@ -96,6 +96,21 @@
       "phone" : "92222222",
       "tagged" : [ ]
     } ],
-  "suggestions": [ ],
-  "commands": [ ]
+  "suggestions": [
+    {
+      "word" : "add_claim n/joshua"
+    }, {
+      "word" : "add_claim n/Bob"
+    }
+  ],
+  "commands": [
+    {
+      "commandWord" : "add",
+      "commandTask" : "add_contact"
+    }, {
+      "commandWord" : "delete",
+      "commandTask" : "delete_income"
+    }
+
+  ]
 }

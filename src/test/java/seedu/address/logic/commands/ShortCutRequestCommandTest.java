@@ -1,24 +1,23 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.NoClearCommand.SHOWING_NO_CLEAR;
+import static seedu.address.logic.commands.ShortCutRequestCommand.SHOWING_SHORTCUT_MESSAGE;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
-
 import org.junit.jupiter.api.Test;
-
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
-class NoClearCommandTest {
+public class ShortCutRequestCommandTest {
 
-    private NoClearCommand noClearCommand = new NoClearCommand();
+    private ShortCutRequestCommand shortCutRequestCommand = new ShortCutRequestCommand("exit");
     private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
 
     @Test
     public void isValid() {
-        CommandResult commandResult = new NoClearCommand().execute(model);
-        assertEquals(SHOWING_NO_CLEAR, commandResult.getFeedbackToUser());
-
+        CommandResult commandResult = shortCutRequestCommand.execute(model);
+        assertEquals("exit" + SHOWING_SHORTCUT_MESSAGE, commandResult.getFeedbackToUser());
     }
+
+
 }
