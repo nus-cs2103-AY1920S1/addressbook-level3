@@ -1664,7 +1664,7 @@ All the expenses spent by the members and sales made from items sold from the in
 Inventory::
 Contains items that are stored either to be sold or to be used for functional purposes for the organisation
 
-[[cashier mode]]
+[[cashier-mode]]
 Cashier Mode::
 Automatically switches on when there are sales items in the cart on the `Cashier Tab`
 
@@ -1713,8 +1713,11 @@ Expected: The most recent window size and location is retained.
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Navigating Between Tabs
 
+=== Testing Home Tab Features
+
+=== Testing Members Tab Features
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command.
@@ -1739,4 +1742,12 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Testing Reimbursements Tab Features
+
+=== Testing Inventory Tab Features
+
+=== Testing Cashier Tab Features
+
+=== Testing Overview Tab Features
 
