@@ -171,7 +171,7 @@ public class Mark implements ReadOnlyMark {
     }
 
     /**
-     * Renames a from with name {@code from} to {@code to}.
+     * Renames a folder with name {@code from} to {@code to}.
      * {@code from} must exist.
      * {@code to} must not exist.
      */

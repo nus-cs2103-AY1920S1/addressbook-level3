@@ -133,7 +133,7 @@ public interface Model {
      * Checks if a folder can be deleted.
      * No bookmark can have {@code folder} as its folder, and it can't have any subfolders.
      * @param folder the folder to be deleted
-     * @return
+     * @return true if no bookmark is in the folder and the folder has no subfolders
      */
     boolean canDeleteFolder(Folder folder);
 
@@ -146,7 +146,7 @@ public interface Model {
     /**
      * Checks if {@code folder} exists.
      * @param folder
-     * @return
+     * @return true if the folder exists, and false otherwise
      */
     boolean hasFolder(Folder folder);
 

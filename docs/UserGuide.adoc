@@ -570,7 +570,7 @@ image::DeleteFolderCommandUi2.png[]
 // More details about command constraints
 ****
 * `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
-* `FOLDER_NAME` must exist be an existing folder.
+* `FOLDER_NAME` must be an existing folder.
 * `FOLDER_NAME` must not contain other bookmarks/subfolders (or else they would be lost).
 * `FOLDER_NAME` must not be `ROOT`, as it is the ancestor of all folders.
 ****
