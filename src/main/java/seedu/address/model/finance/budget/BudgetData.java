@@ -47,7 +47,7 @@ public class BudgetData {
                         .filter(log -> log instanceof SpendLogEntry)
                         .filter(log -> isWithinDates(log.getTransactionDate().value, startDate, endDate))
                         .collect(Collectors.toList());
-        String keyWord = budgetTypeValue == null ? "" : budgetTypeValue.toLowerCase().trim();
+        String keyWord = budgetTypeValue == null ? "" : budgetTypeValue.trim();
         Double currAmount;
         switch (budgetType) {
         case "all":

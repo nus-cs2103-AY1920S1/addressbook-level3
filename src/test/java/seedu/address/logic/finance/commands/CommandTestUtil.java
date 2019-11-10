@@ -44,7 +44,7 @@ public class CommandTestUtil {
     public static final String VALID_TDATE_LOG2 = "15-10-2019";
     public static final String VALID_DESC_LOG2 = "Dian Xiao Er";
     public static final String VALID_TMET_LOG2 = "NETS";
-    public static final String VALID_PLACE_LOG2 = "J8";
+    public static final String VALID_PLACE_LOG2 = "Bishan";
     public static final String VALID_FROM_LOG2 = "Me";
     public static final String VALID_TO_LOG2 = "Mother";
 
@@ -69,12 +69,13 @@ public class CommandTestUtil {
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "James&";
     public static final String INVALID_TDATE_DESC = " " + PREFIX_DAY + "100";
     public static final String INVALID_DESC_DESC = " " + PREFIX_DESCRIPTION + " ";
+    public static final String INVALID_TMET_DESC = " " + PREFIX_TRANSACTION_METHOD + "123";
     public static final String INVALID_CAT_DESC = " " + PREFIX_CATEGORY + "cat food";
     public static final String INVALID_PLACE_DESC = " " + PREFIX_PLACE + " ";
     public static final String INVALID_FROM_DESC = " " + PREFIX_FROM + "***";
     public static final String INVALID_TO_DESC = " " + PREFIX_TO + "-_-";
 
-    public static final String PREAMBLE_WHITESPACE = "<amt>  <met>  <item>";
+    public static final String PREAMBLE_WHITESPACE = "<amt>  <met>  <cat>";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
     public static final EditCommand.EditLogEntryDescriptor DESC_LOG1;
