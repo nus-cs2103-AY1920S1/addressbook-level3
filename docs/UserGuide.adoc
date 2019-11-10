@@ -48,10 +48,9 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Download the latest `MooLah-v1.4.0.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Make sure the window is not in fullscreen and there is some space below the textfield in order
-for the autocomplete popup to show properly.
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Press kbd:[TAB] if you want to enable the suggestion feature.
 .  Some example commands you can try:
 
 * *`listexpense`* : lists all expenses
@@ -87,6 +86,7 @@ are valid inputs.
 
 ====
 
+
 === Viewing help : `help`
 
 Format: `help`
@@ -106,10 +106,10 @@ particular command it undid to help you confirm that you undid the right thing.
 Format: `undo`
 
 Example:
-```
+----
 deleteexpense 5
 undo
-```
+----
 Result:
 The deletion of expense #5 will be undone, or in other words, re-added to MooLah.
 MooLah will then display the message `Undid "Delete expense with index 5"`.
@@ -126,11 +126,11 @@ Similar to undo, MooLah will display a short description of the command it redid
 Format: `redo`
 
 Example:
-```
+----
 deleteexpense 5
 undo
 redo
-```
+----
 Result:
 At the end, expense #5 will keep being deleted (poor thing!). MooLah will also display a message `Redid "Delete expense with index 5"`.
 
@@ -155,7 +155,7 @@ These are the panels which you may access through the `view` command: +
 - `Primary Budget` +
 - `Event List` +
 - `Budget List` +
-- `Statistics` (see Note below!)
+- `Statistics`* (see Note below!)
 ****
 
 ****
@@ -163,31 +163,33 @@ These are the panels which you may access through the `view` command: +
 
 1. Panel names are case-insensitive.
 
-2. Statistics panel is not viewable until statistics have been generated.
+2. * Attempting to `view` the Statistics panel will lead to an empty panel until you have used one of the statistic
+commands to populate it.
 ----
 view Statistics
 ----
-
+No statistics will be shown in this situation.
 ----
 stats
 listexpense
 view Statistics
 ----
+Using it after a prior statistic command will show you the previous statistics generated.
 ****
 
 
 === Generic commands
-MooLah has 5 generic commands which behave differently depending on which Panel in the UI is being shown at the moment.
+MooLah has 5 generic commands which behave differently depending on which Panel you are viewing.
+
 These commands are `add`, `list`, `clear`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
 
-For example, you are in the Expense List Panel, then the following command:
-----
-add d/chicken duck p/3 c/food
-----
-will be interpreted as:
-----
-addexpense d/chicken duck p/3 c/food
-----
+For example, if you are in the Expense List Panel, then: +
+`add` = `addexpense`
+
+However, in the Aliases panel: +
+ `add` = `addalias`
+
+
 
 // tag::natty[]
 
@@ -211,7 +213,8 @@ nanoseconds are rounded down to 0.)
 === Expense-related Commands
 ==== Adding an expense: `addexpense`
 
-This is MooLah's fundamental feature: you can add your expenses.
+The bread an butter of any expense tracker, adding an expense!
+In order to begin tracking your expenses, you are going to need to enter some expenses to track.
 
 This is the format:
 ----
@@ -227,9 +230,34 @@ These categories are case-insensitive.
 ****
 Examples:
 
-* `addexpense d/Brian birthday p/40 c/Shopping t/10-10`
+* `addexpense d/birthday p/40 c/Shopping t/10-10`
 * `addexpense d/Buffet c/Food p/250`
 * `addexpense d/Chicken rice p/2.50 c/Food t/yesterday noon`
+
+After typing in the command and entering it.
+
+.Entering an addexpense command into the command box
+image::addexpense_before.png[width=700,align="center"]
+
+Your new expense will appear in the list!
+
+.a new Food is added to the list.
+image::addexpense_after.png[width=700,align="center"]
+A new Food expense  is added
+
+
+****
+*Category Icons*
+
+image:food.png[width=70] Food +
+image:transport.png[width=70] Transport +
+image:education.png[width=70] Education +
+image:travel.png[width=70] Travel +
+image:utilities.png[width=70] Utilities +
+image:shopping.png[width=70] Shopping +
+image:entertainment.png[width=70] Entertainment +
+image:others.png[width=70] Others
+****
 
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
@@ -268,19 +296,27 @@ editexpense <INDEX> [p/<PRICE>] [d/<DESCRIPTION>] [t/<TIMESTAMP>] [c/<CATEGORY>]
 ----
 Example:
 ----
-editexpense 2 p/3.50
+editexpense 2 p/2.30
 ----
-This will update the price of the 2nd expense in the current list to 3.50.
 
+Executing this command will change the `PRICE` of the second expense in the list to 2.30.
 
+.expense #2 has a price of $123.00
+image::editexpense_before.png[align=center,width=500]
+
+.expense #2 has a price of $2.30 after executing the command
+image::editexpense_after.png[width=500,align=center]
 ****
 * Edits the expense at the specified `INDEX`. The index refers to the index number shown in the currently displayed list.
+
+image::editexpense_during.png[width=350,align=center]
+
 * The index *must be a positive integer* 1, 2, 3, ...
 * You must provide at least one of the optional fields.
 * Existing values will be updated to the input values.
 ****
 
-==== Locating expenses by name: `find`
+==== Locating expenses by name: `findexpense`
 
 You can find expenses whose description contains any of the keywords you inputted.
 
@@ -290,23 +326,21 @@ findexpense <KEYWORD> [<MORE_KEYWORDS>]
 ----
 
 ****
-* The search is case-insensitive.
-** `chicken` will match `Chicken`.
-* The order of the keywords does not matter.
-** `Puff Curry` will match `Curry Puff`.
+* The search is case insensitive. e.g "chicken" will match "Chicken"
+* The order of the keywords does not matter. e.g. "Puff Curry" will match "Curry Puff"
 * Only the description is searched.
-* Only full words will be matched.
-** `chick` will not match `chicken`.
-* Expenses matching at least one keyword will be returned (i.e. OR search).
-** An expense with description
-`Chicken rice`, and expense with description `Duck Rice` will both match `rice`.
+* Only full words will be matched. e.g. "chick" will not match "chicken"
+* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
+"Chicken rice", and expense with description "Duck Rice" will both match "rice"
 ****
 
 Examples:
 
-* `findexpense rice` will show you all expenses with rice in their description.
+* `findexpense rice` +
+will show you all expenses with rice in their description.
 
-* `findexpense chicken taxi schoolfee` will show you all expenses with either `chicken`, `taxi`, `schoolfee`, or a
+* `findexpense chicken taxi schoolfee` +
+will show you all expenses with either "chicken", "taxi", "schoolfee", or a
 combination of those in their description.
 
 ==== Deleting an expense: `deleteexpense`
@@ -616,54 +650,79 @@ That is, this expense will also disappear from the general expense list.
 
 //end::budget[]
 
-// tag::brian[]
+// tag::shortcuts[]
 
 === Making inputs quick and easy.
+Do you have trouble remembering commands and what arguments they require? MooLah provides
+several features which will help you remember them and make your life much easier!
+
 
 ==== Creating a shortcut:  `alias`
-You can save your favourite inputs by assigning them to an `alias`.
+If you find yourself entering the same thing over and over, MooLah allows you to type less by
+assigning this command to an `alias`. This will allow you to type this `alias` in place of the original long
+command.
 
-The format is:
-------
+
+To assign an `alias`, use the the `addalias` command with the following format:
+----
 addalias a/<ALIAS_NAME> i/<INPUT>
-------
-For example, you can type:
 ----
-addalias a/chicken i/ addexpense d/ Chicken Rice p/2.50 c/Food
-----
-This creates an alias `chicken` for `addexpense d/ Chicken Rice p/2.50 c/Food` which when executed creates: +
-an `Expense` with `price=2.50` and `description=“Chicken Rice”` in the `Food category`.
 
-You may also create an alias with an incomplete input which you may add arguments to when using it:
+There are two kinds of alias you can make, aliases which act as a standalone command, or an alias
+which accepts arguments.
+
+*Variation 1:* Standalone
+
+You can store an entire command using an `alias`, and then use this `alias` in place of that command. For example:
+----
+addalias a/chicken i/ addexpense d/ chicken rice p/2.30 c/food
+----
+
+This saves the command `addexpense d/ chicken Rice p/2.30 c/food` to `chicken`. Subsequently, you may use
+this alias in place of using the full command.
+
+*Variation 2:* with arguments
+
+You may also save an incomplete input to an `alias`. For example:
 ----
 addalias a/ addfood i/ addexpense c/Food
-addfood d/ chickenrice p/3.50
+----
+Subsequently, entering the following:
+----
+addfood d/chickenrice p/2.30
+----
+is equivalent to entering:
+----
+addexpense c/Food d/chickenrice p/2.30
 ----
 
-****
-*Note*
 
-* Alias names cannot contain white spaces.
-* Alias names cannot be the name of another alias.
-* You may not create an alias that creates an alias.
-* Using the same name for an alias will overwrite the existing alias if it exists.
-****
 
 ****
-*Warning*  +
-Because MooLah prioritizes later instances of a prefix, including `a/` and `i/` in your input may cause your Alias to
-not be parsed properly.
+
+* Alias names can only contain alphanumeric characters.
+* Alias names cannot be a command word used by a built-in command, e.g. you may not save a command
+to an alias named "addexpense". +
+For the list of built-in command words, see: <<Command Summary>>.
+* Only one input may be saved to each alias name. Saving an input to an alias name which already
+exists will overwrite the existing input if it exists.
+* Repeated prefixes are not allowed! 'a/' and 'i/' may only be used once.
 ****
-==== Listing the shortcuts you have saved: `listaliases`
-To view the aliases you have defined, you may use the `listaliases`.
 
-Alternatively, you may use the `view` command by typing `view Aliases`.
-
-Either of these will bring you to the `User Defined Aliases` panel where
+==== Listing the shortcuts you have saved: `listalias`
+To list all of the aliases you have saved, you can the the `listalias` command. Alternatively, you
+may use the `view` command by typing `view Aliases`. Either of these will bring you to the _User Defined Aliases_ panel where
 you can see the list of aliases you have created.
 
+
+****
+.User Defined Aliases panel
+image::aliases.png[align="center",width=600]
+The _user defined aliases_ showing some valid aliases.
+****
+
 ==== Deleting the shortcuts you no longer want to use: `deletealias`
-To delete an `Alias` you no longer wish to use, you may use the `deletealias` command.
+To delete an `alias` you no longer wish to use, you may use the `deletealias` command.
 
 This is the format:
 ----
@@ -674,72 +733,101 @@ This will delete the `Alias` with the name you specified. For example:
 addalias a/hello i/helloworld
 deletealias hello
 ----
-This will delete the `hello` from your saved shortcuts.
+This will delete the `hello` alias from your saved aliases.
 
-==== Autocomplete
-When entering a command, MooLah will show you a list of valid command words which match the text you have entered.
-****
-image:autocommand0.png[width="350px"] +
-You can press kbd:[TAB] to cycle through the available suggestions and press kbd:[ENTER] to autocomplete.
-All other keys will hide the menu.
-****
+==== Autocomplete and Suggestions
 
-When you have entered a valid command, MooLah will show you a list of prefixes you have missed while typing your input.
-Prefixes with the red `Missing` tag are required prefixes you have not entered. While orange `Optional`
-prefixes are not necessary.
+If you find yourself forgetting the syntax for some commands, enable the suggestion feature. This will enable MooLah to
+suggest valid commands, as well as prefixes when you already have a command word entered.
 
-****
-image:autoprefix0.png[width="350px"] +
-You can press kbd:[TAB] to cycle through the available suggestions and press kbd:[ENTER] to autocomplete.
-All other keys will hide the menu.
-****
+*Enable* +
+To enable the suggestion feature, press the kbd:[TAB] key. This will enable the suggestion feature!
+You will see that the command box has a green border. This indicates that the feature is enabled.
 
+*Disable* +
+To disable the suggestion feature, press the kbd:[TAB] key again. This will disable the suggestion feature!
+You will see that the command box no longer has a green border. This indicates that the feature is no longer enabled.
+
+The suggestion menu will show you the command words which match your current input.
 ****
-image:autoprefix1.png[width="350px"] +
-After including the prefix, the prefix will not be included in the menu.
+.suggestions for command words beginning with "add"
+image::suggestions3.png[align="center",width=400]
+The suggestion menu showing suggestions for built-in commands which begin with 'add' when the feature has been enabled
 ****
 
-If you choose `ALL MISSING`, all your missing required prefixes will be inserted.
+You can cycle through the choices using the kbd:[UP] and kbd:[DOWN] keys. To confirm your choice, push the kbd:[ENTER] or kbd:[SPACE] key!
+kbd:[LEFT], kbd:[RIGHT], and kbd:[ESC] can be used to close the menu without disabling suggestions.
+
+When you have entered a valid command, MooLah will show you a list of prefixes that are supported by this command and that
+you have not yet entered.
+
+****
+.suggestions for "addexpense" command
+image::suggestions2.png[align="center",width=600]
+The suggestion menu showing the missing prefixes in the current input, "addexpense d/", along with what the prefix
+represents.
+****
+
+When the suggestion menu shows you the prefixes that you are missing, you may see these 3 tags:
+[None]
+* image:missingprefixtag.png[] indicates that this prefix is mandatory and you have yet to include it.
+* image:allmissingprefixtag.png[] represents all the missing mandatory prefixes.
+* image:optionalprefixtag.png[] indicates that this prefix is missing, but is not compulsory to enter.
 
 
 ==== Syntax Highlighting
-****
-image:syntaxhighlighting0.png[width="350px"] +
-argument and prefix highlighting
-****
-MooLah highlights valid prefixes, and indicates what arguments fall under them.
 
-*note*: while an argument may be highlighted, it does mean the value is valid.
+MooLah will highlight valid command words and prefixes, as well as the arguments that will be used with that argument.
 
-****
-image:descriptionplaceholder.png[width="350px"] +
-`<placeholder>` for description field
-****
-After typing in a prefix, MooLah will put a `<placeholder>` to remind you what the argument you should
-enter is. +
-Typing over this area will write write over the placeholder.
+When you are entering a command, MooLah will highlight command words which are supported built-in commands.
 
-****
-image:amountplaceholder.png[width="350px"] +
-`<placeholder>` for amount field
-****
+.addexpense is valid and highlighted
+image::correctcommand.png[align="center", width=200]
+.addmonkey is not built-in and not highlighted
+image::wrongcommand.png[align="center", width=200]
 
-*note* +
-If you forget to type over the placeholders, do not worry. It will not affect your input as these placeholders are
-ignored during execution of your input.
+
+After entering a valid command word, MooLah will also highlight the prefixes that are supported by this command.
+However, it will not validate them for you!
+
+
+
+.Highlighting of prefixes and arguments for the add.
+image::highlight1.png[align="center", width=400]
+
+.Wrong arguments are also highlighted.
+image::highlight_wrong.png[align="center", width=400]
+
+
 
 ==== Input history
-You may cycle through successfully entered commands during the current session with the kbd:[UP] and kbd:[DOWN] keys.
+MooLah remembers what commands you have previously entered, and allows you to access them to use them again.
+
+If you need to enter the same input multiple times but do not want to save it as an `alias`
+you may cycle through the history of successfully executed inputs within the current session.
+
+Press kbd:[UP] to scroll through previously executed commands. +
+Press kbd:[DOWN] to go back the more recent commands.
+
+
 
 For example, if you entered these commands previously.
 ----
-addexpense d/chickenrice p/12.3 c/food
-addexpense d/chickenrice p/12.3 c/food
-addexpense d/duck rice p/12.3111 c/food
+> addexpense d/chickenrice p/12.3 c/food
+> addexpense d/chickenrice p/12.3 c/food
+> add d/chicken rice p/2.30 c/food
 ----
-You may cycle through these commands using the arrow keys.
+Pressing the kbd:[UP] key to quickly enter the previous input.
 
-// end::brian[]
+.the last input which was successfully executed will be entered into the command box.
+image::highlight1.png[align="center", width=400]
+
+
+[NOTE]
+When the suggestion menu is open, the kbd:[UP] and kbd:[DOWN] keys will cycle through the suggestions instead!
+
+
+// end::shortcuts[]
 
 
 // tag::statsug[]
@@ -815,7 +903,7 @@ For example, MooLah is currently at the "Outside School" budget, and shown below
 the current window of the Budget from start of 18 Oct to the end of 24 Oct. There are exactly
 4 expenses as shown in the example.
 
-image::OutsideSchoolWindow.png[width="790"]
+image::OutsideSchoolWindow.png[align=center,width="790"]
 
 To generate the pie chart for the expenses for this window.
 
@@ -825,7 +913,7 @@ To generate the pie chart for the expenses for this window.
 . The screen will be switched into the Statistics Panel where the Pie Chart will be generated
 as shown below.
 
-image::PieChart.png[width="790"]
+image::PieChart.png[align=center,width="790"]
 
 
 +
@@ -860,7 +948,7 @@ Format: `statscompare sd1/<START_DATE_1> sd2/<START_DATE_2>`
 ****
 *Note*
 
-- Date formats accepted are handled by our Natural Language Parser library which supports human jargons.
+- Date formats accepted are handled by Natty Date Parser library which supports human jargons.
 Please refer to the above documentation for more information.
 
 - For any input that consists of date and time, only, only the date information will be considered.
@@ -1043,9 +1131,9 @@ There is no need to save manually.
 === Encrypting data files `[coming in v2.0]`
 
 === Email notification `[coming in v2.0]`
-
+=== Input expenses using speech `[coming in v2.0]`
 === Input expenses by scanning a receipt `[coming in v2.0]`
-
+=== Splitting a shared bill `[coming in v2.0]`
 
 == FAQ
 
@@ -1067,18 +1155,26 @@ the data of your previous MooLah folder.
 
 *All about expenses:*
 
-* *Add an expense* (_undoable_) : `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
+* *Add an expense* (_undoable_) : +
+`addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
 e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 
-* *List all expenses* : `listexpense`
 
-* *Edit an expenses* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
+* *List all expenses* : +
+`listexpense`
+
+* *Edit an expenses* (_undoable_) : +
+`editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
 e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
-* *Delete an expense* (_undoable_) : `deleteexpense <INDEX>`
+* *Delete an expense* (_undoable_) : +
+`deleteexpense <INDEX>`
 
-* *Find an expense* (_undoable_) : `findexpense <KEYWORD> [<MORE_KEYWORD>]`
+* *Find an expense* (_undoable_) : +
+`findexpense <KEYWORD> [<MORE_KEYWORD>]`
 
+* *Clear all expenses and budgets* (_undoable_) : +
+`clearmoolah`
 ---
 
 *All about events:*
