@@ -394,7 +394,9 @@ Naturally, you may find your transaction list to be flooded with transactions. B
 filtering introduced in <<filtertx>>, we have in store several features to be released in the
 next major version of IchiFund.
 
-===== Archiving transactions
+===== Archiving transactions: `archive`
+Format: `archive [INDEX]`
+
 If you want to hide transactions from your view, but do not wish to delete it entirely, you can simply
 use the upcoming `archive` command!
 
@@ -406,7 +408,9 @@ You can switch between the main and archived transaction lists using the command
 From the archive, you can unarchive transactions with the same command. To unarchive the third transaction
 in the archive list, simply use `archive 3`, and the transaction is transferred to the main transaction list.
 
-===== Finding transactions
+===== Finding transactions: `find`
+Format: `find [KEYWORDS]...`
+
 If you want to quickly search for a transaction in your transaction list, you can further refine your search
 using the upcoming `find` command!
 
@@ -415,6 +419,14 @@ specific keywords in their respective descriptions.
 
 For example, `find dinner steak` updates the list to show transactions from the current filter that have the words
 "dinner" and "steak" in their descriptions.
+
+==== Setting wealth (coming in v2.0)
+Format: `wealth a/AMOUNT`
+
+If you want a quick simple summary of how much money you have left to spend, you can use our upcoming
+wealth setting feature, where you can set the amount of money you have. The wealth value is automatically updated
+with every change to your transactions list, so you do not have to worry about manually resetting wealth with every
+transaction made!
 
 [[repeaters]]
 === Repeaters
@@ -734,7 +746,7 @@ Displays expenditure ranking chart for July 2019.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous IchiFund folder.
 
-== Command Summary
+== Command Summary (v1.4)
 
 * *Help* : `help`
 * *Exit* : `exit`
