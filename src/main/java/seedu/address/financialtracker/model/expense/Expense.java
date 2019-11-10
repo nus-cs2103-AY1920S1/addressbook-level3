@@ -15,7 +15,7 @@ public class Expense {
     private Type type;
 
     /**
-     * Instantiate an expense object. Can only be used when the UI is working properly.
+     * Instantiates an expense object. Can only be used when the UI is working properly.
      */
     public Expense(Date date, Time time, Amount amount, Description desc, Type type) {
         this.date = date;
@@ -63,11 +63,24 @@ public class Expense {
     }
 
     /**
-     * Allow financial tracker to set this country field to non-null value.
+     * Allows financial tracker to set this country field to non-null value.
      */
     public void setCountry(Country country) {
         requireNonNull(country);
         this.country = country;
+    }
+
+    /**
+     * Returns an exact copy of this expense.
+     */
+    public Expense makeCopy() {
+        Amount amountCopy = new Amount(this.amount.value);
+        Description descriptionCopy = new Description(this.desc.value);
+        Type typeCopy = new Type(this.type.value);
+        Date dateCopy = new Date(this.date.storageDate);
+        Time timeCopy = new Time(this.time.storageTime);
+        Country countryCopy = new Country(this.country.value);
+        return new Expense(dateCopy, timeCopy, amountCopy, descriptionCopy, typeCopy, countryCopy);
     }
 
     /**
@@ -85,11 +98,12 @@ public class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.amount.value.equals(this.amount.value)
-                && otherExpense.date.value.equals(this.date.value)
-                && otherExpense.time.value.equals(this.time.value)
+        return new Double(otherExpense.amount.numericalValue).equals(this.amount.numericalValue)
+                && otherExpense.date.getDateToCompare().equals(this.date.getDateToCompare())
+                && otherExpense.time.valueToCompare == this.time.valueToCompare
                 && otherExpense.desc.value.equals(this.desc.value)
                 && otherExpense.type.value.equals(this.type.value)
-                && otherExpense.country.value.equals(this.country.value);
+                && (otherExpense.country == this.country //short circuit if null
+                || otherExpense.country.value.equals(this.country.value));
     }
 }

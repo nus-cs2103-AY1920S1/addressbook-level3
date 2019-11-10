@@ -177,8 +177,6 @@ class Validators {
      */
     private static boolean isValidNumber(String input, int lower, int upper) {
         if(!input.matches(NUMBER_REGEX)) {
-            System.out.println(input.matches(NUMBER_REGEX));
-            System.out.println(input);
             return false;
         }
         int test = getInt(input);

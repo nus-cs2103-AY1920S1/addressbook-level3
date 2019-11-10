@@ -38,13 +38,14 @@ public class EditCommand extends Command<Model> {
             + "[" + CliSyntax.PREFIX_TIME + "TIME] "
             + "[" + CliSyntax.PREFIX_LOCATION + "LOCATION] "
             + "[" + CliSyntax.PREFIX_DESCRIPTION + "DESCRIPTION] "
+            + "[" + CliSyntax.PREFIX_TAG + "] "
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_DATE + "15032015 "
             + CliSyntax.PREFIX_LOCATION + "Singapore";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided. ╚(•⌂•)╝";
     private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Updated successfully! :D\n" + "HAND, TrazEzy~";
-    private static final String MESSAGE_DUPLICATE_EVENT = "This event exists in the address book.";
+    private static final String MESSAGE_DUPLICATE_EVENT = "This event exists in the itinerary event list.";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
