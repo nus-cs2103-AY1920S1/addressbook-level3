@@ -282,7 +282,7 @@ enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 * Steps
-1. Type the any one of the above command in blue font into the command box.
+1. Type any one of the above commands in blue font into the command box.
 
 2. Hit `Enter`. The table will now be sorted in the specified order for you.
 

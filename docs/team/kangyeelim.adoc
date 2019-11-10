@@ -319,7 +319,7 @@ image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 ==== 3.1.4. Sort Command Feature
 
 This section explains the implementation of the sort command feature in Home Tab.
-The `SortCommand` allows for 3 types of sort, by name in
+The sort command allows for 3 types of sort, by name in
 alphabetical order, by amount (from least to most) and by date (from oldest to most recent).
 
 The following sequence diagram shows how the sort command works which is referenced in
