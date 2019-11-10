@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 //@@author arjavibahety-reused
 //Reused from @bjhoohaha/duke's AlertWindow.java
@@ -39,6 +40,7 @@ public class NotifWindow {
         DialogPane dialogPane = notif.getDialogPane();
         dialogPane.getStylesheets().add("view/DarkTheme.css");
         dialogPane.getStyleClass().add("dialog-pane");
+        notif.initStyle(StageStyle.TRANSPARENT);
     }
     //@@author
 }

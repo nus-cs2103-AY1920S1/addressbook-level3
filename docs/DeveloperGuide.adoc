@@ -637,7 +637,7 @@ Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mo
 ==== Surface Design and Coloring
 
 Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
-that enhances visual ergonomics via the minimization of eye strain due to the bright luminance emitted by screens.
+that enhances visual ergonomics and minimises eye strain due to the bright luminance emitted by screens.
 
 *Visual Contrast Between Surfaces and Text*
 
@@ -680,13 +680,13 @@ In spirit with producing a sleek design, the standard Windows platform title bar
 
 The following code snippet was placed in `MainApp#start()` to achieve this.
 
-----
+```
 primaryStage.initStyle(StageStyle.TRANSPARENT);
-----
+```
 
 Note that this has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
 
-However, with this removal, the default Windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebuilt into the application.
+However, with this removal, the default windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebuilt into the application.
 
 *Rebuilding Window Functions*
 
