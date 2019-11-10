@@ -62,7 +62,10 @@ public class Reminder {
         } else if (reminder.remainingDays < 0) {
             return "Overdue\n" + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         } else {
-            return "Due in \n" + reminder.remainingDays + " days " + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
+            return "Due in \n"
+                    + reminder.remainingDays
+                    + " days "
+                    + DateUtil.twoDigitYearFormatDate(reminder.deadline.value);
         }
     }
 
