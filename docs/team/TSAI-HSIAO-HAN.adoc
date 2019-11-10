@@ -76,7 +76,7 @@ include::../UserGuide.adoc[tag=sort]
 |===
 
 include::../DeveloperGuide.adoc[tag=reminder]
-
+ 
 include::../DeveloperGuide.adoc[tag=use-case-reminder]
 
 
