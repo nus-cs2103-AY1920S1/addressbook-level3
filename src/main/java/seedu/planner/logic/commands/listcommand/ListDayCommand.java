@@ -46,7 +46,7 @@ public class ListDayCommand extends ListCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException{
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         if (dayIndex.getZeroBased() >= model.getFilteredItinerary().size()) {
