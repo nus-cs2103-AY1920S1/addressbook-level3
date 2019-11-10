@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
-public class Description {
+public class NoteDescription {
 
     public static final String MESSAGE_CONSTRAINTS = "Description can take any values, and it should not be blank";
 
@@ -24,7 +24,7 @@ public class Description {
      *
      * @param description A valid description.
      */
-    public Description(String description) {
+    public NoteDescription(String description) {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         this.description = description;
@@ -45,8 +45,8 @@ public class Description {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Description // instanceof handles nulls
-                && description.equals(((Description) other).description)); // state check
+                || (other instanceof NoteDescription // instanceof handles nulls
+                && description.equals(((NoteDescription) other).description)); // state check
     }
 
     @Override

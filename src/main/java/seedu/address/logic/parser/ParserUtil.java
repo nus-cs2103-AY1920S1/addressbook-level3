@@ -20,6 +20,7 @@ import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.MultipleSortByCond;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordValue;
@@ -250,13 +251,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code description} is invalid.
      */
-    public static seedu.address.model.note.Description parseNoteDescription(String description) throws ParseException {
+    public static NoteDescription parseNoteDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!seedu.address.model.note.Description.isValidDescription(trimmedDescription)) {
+        if (!NoteDescription.isValidDescription(trimmedDescription)) {
             throw new ParseException(Title.MESSAGE_CONSTRAINTS);
         }
-        return new seedu.address.model.note.Description(trimmedDescription);
+        return new NoteDescription(trimmedDescription);
     }
     /**
      * Parses a {@code String content} into a {@code Content}.
@@ -274,7 +275,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String sortByCond} into a {@Code SortByCond}.
+     * Parses a {@code String sortByCond} into a {@Code MultipleSortByCond}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code sortByCond} is invalid.
@@ -283,7 +284,7 @@ public class ParserUtil {
         requireNonNull(sortByCond);
         String trimmedSortByCond = sortByCond.trim();
         String[] sortByConditions = trimmedSortByCond.split(" ");
-        if (!MultipleSortByCond.isValidSortByCond(sortByConditions)) {
+        if (!MultipleSortByCond.isValidSortByConditions(sortByConditions)) {
             throw new ParseException(MultipleSortByCond.MESSAGE_CONSTRAINTS);
         }
         return new MultipleSortByCond(sortByConditions);
