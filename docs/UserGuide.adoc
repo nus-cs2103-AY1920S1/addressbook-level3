@@ -281,7 +281,7 @@ application is in another tab or if attempting to go below the minimum allowable
 
 Format: `calendar c/previousmonth`
 
-.Changing to the previous month from October 2019
+.Changing to the previous month from November 2019
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
