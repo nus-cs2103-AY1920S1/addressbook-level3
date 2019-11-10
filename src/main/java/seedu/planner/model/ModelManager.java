@@ -222,7 +222,6 @@ public class ModelManager implements Model {
                     act.getCost().isPresent() ? act.getCost().get() : null, act.getTags(), act.getDuration(),
                     act.getPriority());
             this.activities.setActivity(act, newAct);
-            updateDay(act, newAct);
         }
 
         if (contactAccommodationMap.containsKey(contact)) {
@@ -260,21 +259,16 @@ public class ModelManager implements Model {
     private void updateMapping(Activity oldAct, Activity newAct) throws EndOfTimeException {
         if (oldAct.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = oldAct.getContact().get();
+            Contact newContact = newAct.getContact().get();
 
-            if (contactAccommodationMap.containsKey(oldContact)) {
-                contactActivityMap.remove(oldContact);
-            } else {
-                contactActivityMap.remove(oldContact);
+            if (!hasContact(newContact)) {
+                addContact(newContact);
                 removeContact(oldContact);
+                contactActivityMap.put(newContact, newAct);
+            } else {
+                setContact(oldContact, newContact);
             }
 
-            if (newAct.getContact().isPresent()) {
-                Contact newContact = newAct.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
-                contactActivityMap.put(newContact, newAct);
-            }
         } else if (newAct.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAct.getContact().get();
             if (!hasContact(newContact)) {
@@ -294,19 +288,14 @@ public class ModelManager implements Model {
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
         if (oldAcc.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = oldAcc.getContact().get();
+            Contact newContact = newAcc.getContact().get();
 
-            if (contactActivityMap.containsKey(oldContact)) {
-                contactAccommodationMap.remove(oldContact);
-            } else {
-                contactAccommodationMap.remove(oldContact);
+            if (!hasContact(newContact)) {
+                addContact(newContact);
                 removeContact(oldContact);
-            }
-            if (newAcc.getContact().isPresent()) {
-                Contact newContact = newAcc.getContact().get();
-                if (!hasContact(newContact)) {
-                    addContact(newContact);
-                }
                 contactAccommodationMap.put(newContact, newAcc);
+            } else {
+                setContact(oldContact, newContact);
             }
         } else if (newAcc.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAcc.getContact().get();
@@ -328,21 +317,6 @@ public class ModelManager implements Model {
                     oldAct.getCost().orElse(null), oldAct.getTags(), oldAct.getDuration(),
                     oldAct.getPriority());
             activities.setActivity(oldAct, newAct);
-            if (activityDayMap.containsKey(oldAct)) {
-                List<Day> listOfDays = activityDayMap.remove(oldAct);
-                itinerary.getItinerary().forEach(y -> {
-                    if (listOfDays.contains(y)) {
-                        List<ActivityWithTime> listOfActivityWithTime = y.getListOfActivityWithTime();
-                        int indexOfOldItem = listOfActivityWithTime.indexOf(oldAct);
-                        ActivityWithTime oldActivityWithTime = listOfActivityWithTime.get(indexOfOldItem);
-                        listOfActivityWithTime.set(indexOfOldItem,
-                                new ActivityWithTime(newAct, oldActivityWithTime.getStartDateTime())
-                        );
-                    }
-                });
-                activityDayMap.put(newAct, listOfDays);
-            }
-
             contactActivityMap.put(newContact, newAct);
         }
         if (contactAccommodationMap.containsKey(oldContact)) {
