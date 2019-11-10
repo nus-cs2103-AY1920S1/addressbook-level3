@@ -39,37 +39,37 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     public void initialise(ScriptEngine engine) {
         engine.setVariable("bb", model);
 
-        engine.setVariable("refreshAccountView", (Interfaces.Void) this::scriptRefreshAccountView);
-        engine.setVariable("refreshTxnView", (Interfaces.Void) this::scriptRefreshTxnView);
+        engine.setVariable("refreshAccountView", (ScriptBindingInterfaces.Void) this::scriptRefreshAccountView);
+        engine.setVariable("refreshTxnView", (ScriptBindingInterfaces.Void) this::scriptRefreshTxnView);
 
-        engine.setVariable("getAccounts", (Interfaces.Void) this::scriptGetAccounts);
-        engine.setVariable("getAccount", (Interfaces.ObjectOnly) this::scriptGetAccount);
-        engine.setVariable("getActiveAccount", (Interfaces.Void) this::scriptGetActiveAccount);
-        engine.setVariable("setActiveAccount", (Interfaces.ObjectOnly) this::scriptSetActiveAccount);
-        engine.setVariable("addAccount", (Interfaces.StringString) this::scriptAddAccount);
-        engine.setVariable("morphAccount", (Interfaces.AccountObjects) this::scriptMorphAccount);
-        engine.setVariable("editAccount", (Interfaces.ObjectObjects) this::scriptEditAccount);
-        engine.setVariable("deleteAccount", (Interfaces.ObjectOnly) this::scriptDeleteAccount);
+        engine.setVariable("getAccounts", (ScriptBindingInterfaces.Void) this::scriptGetAccounts);
+        engine.setVariable("getAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptGetAccount);
+        engine.setVariable("getActiveAccount", (ScriptBindingInterfaces.Void) this::scriptGetActiveAccount);
+        engine.setVariable("setActiveAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptSetActiveAccount);
+        engine.setVariable("addAccount", (ScriptBindingInterfaces.StringString) this::scriptAddAccount);
+        engine.setVariable("morphAccount", (ScriptBindingInterfaces.AccountObjects) this::scriptMorphAccount);
+        engine.setVariable("editAccount", (ScriptBindingInterfaces.ObjectObjects) this::scriptEditAccount);
+        engine.setVariable("deleteAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptDeleteAccount);
 
-        engine.setVariable("accountName", (Interfaces.AccountOnly) this::scriptAccountName);
-        engine.setVariable("accountBalance", (Interfaces.AccountOnly) this::scriptAccountBalance);
-        engine.setVariable("accountDescription", (Interfaces.AccountOnly) this::scriptAccountDescription);
-        engine.setVariable("accountTxns", (Interfaces.AccountOnly) this::scriptAccountTxns);
+        engine.setVariable("accountName", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountName);
+        engine.setVariable("accountBalance", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountBalance);
+        engine.setVariable("accountDescription", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountDescription);
+        engine.setVariable("accountTxns", (ScriptBindingInterfaces.AccountOnly) this::scriptAccountTxns);
 
-        engine.setVariable("addTxn", (Interfaces.LongStringStringObjects) this::scriptAddTxn);
-        engine.setVariable("editTxn", (Interfaces.AccountTransactionObjects) this::scriptEditTxn);
-        engine.setVariable("morphTxn", (Interfaces.TransactionObjects) this::scriptMorphTxn);
-        engine.setVariable("deleteTxn", (Interfaces.AccountTransaction) this::scriptDeleteTxn);
-        engine.setVariable("getShownTxns", (Interfaces.Void) this::scriptGetShownTxns);
-        engine.setVariable("getShownTxn", (Interfaces.Int) this::scriptGetShownTxn);
-        engine.setVariable("editShownTxn", (Interfaces.IntObjects) this::scriptEditShownTxn);
-        engine.setVariable("deleteShownTxn", (Interfaces.Int) this::scriptDeleteShownTxn);
+        engine.setVariable("addTxn", (ScriptBindingInterfaces.LongStringStringObjects) this::scriptAddTxn);
+        engine.setVariable("editTxn", (ScriptBindingInterfaces.AccountTransactionObjects) this::scriptEditTxn);
+        engine.setVariable("morphTxn", (ScriptBindingInterfaces.TransactionObjects) this::scriptMorphTxn);
+        engine.setVariable("deleteTxn", (ScriptBindingInterfaces.AccountTransaction) this::scriptDeleteTxn);
+        engine.setVariable("getShownTxns", (ScriptBindingInterfaces.Void) this::scriptGetShownTxns);
+        engine.setVariable("getShownTxn", (ScriptBindingInterfaces.Int) this::scriptGetShownTxn);
+        engine.setVariable("editShownTxn", (ScriptBindingInterfaces.IntObjects) this::scriptEditShownTxn);
+        engine.setVariable("deleteShownTxn", (ScriptBindingInterfaces.Int) this::scriptDeleteShownTxn);
 
-        engine.setVariable("txnAmount", (Interfaces.TransactionOnly) this::scriptTxnAmount);
-        engine.setVariable("txnDescription", (Interfaces.TransactionOnly) this::scriptTxnDescription);
-        engine.setVariable("txnDate", (Interfaces.TransactionOnly) this::scriptTxnDate);
-        engine.setVariable("txnDirection", (Interfaces.TransactionOnly) this::scriptTxnDirection);
-        engine.setVariable("txnCategories", (Interfaces.TransactionOnly) this::scriptTxnCategories);
+        engine.setVariable("txnAmount", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnAmount);
+        engine.setVariable("txnDescription", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDescription);
+        engine.setVariable("txnDate", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDate);
+        engine.setVariable("txnDirection", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnDirection);
+        engine.setVariable("txnCategories", (ScriptBindingInterfaces.TransactionOnly) this::scriptTxnCategories);
     }
 
     /**
@@ -435,114 +435,4 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
         return ret;
     }
 
-    /**
-     * The following are functional interfaces used to bind the methods into the Nashorn environment.
-     * Nashorn requires functional interfaces to be public in order for them to be recognised as functions
-     * but we can hide them in a private inner class to prevent them from being accessed from outside.
-     */
-    private static class Interfaces {
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface StringString {
-            Object apply(String a0, String a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface AccountTransaction {
-            Object apply(Account a0, Transaction a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface TransactionOnly {
-            Object apply(Transaction a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface AccountOnly {
-            Object apply(Account a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface ObjectOnly {
-            Object apply(Object a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface ObjectObjects {
-            Object apply(Object a1, Object... a2) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface AccountObjects {
-            Object apply(Account a0, Object... a2) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface AccountTransactionObjects {
-            Object apply(Account a0, Transaction a1, Object... a2) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface TransactionObjects {
-            Object apply(Transaction a1, Object... a2) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface LongStringStringObjects {
-            Object apply(long a1, String a2, String a3, Object... a4) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface IntObjects {
-            Object apply(int a1, Object... a2) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface Int {
-            Object apply(int a1) throws Exception;
-        }
-
-        /**
-         * Helps to bind a Java method with the same signature into the script environment.
-         */
-        @FunctionalInterface
-        public interface Void {
-            Object apply() throws Exception;
-        }
-    }
 }
