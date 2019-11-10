@@ -53,7 +53,7 @@ public class McqInputCommand extends Command {
         }
 
         requireNonNull(selectedAnswer);
-        boolean result = currentAnswerable.isCorrect(selectedAnswer);
+        boolean result = currentAnswerable.isAnswerCorrect(selectedAnswer);
 
         return new CommandResultBuilder().withCorrect(result).build();
     }

@@ -41,7 +41,7 @@ public class CommandResultBuilder {
     private Model model;
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * Constructs a {@code CommandResultBuilder} with the default values.
      * and other fields set to their default value.
      */
     public CommandResultBuilder() {
@@ -50,9 +50,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds feedback to the {@code CommandResult} to be returned to the user.
+     * Adds feedback to the {@code CommandResultBuilder} to be returned to the user.
      * @param feedbackToUser feedback that will be provided to the user.
-     * @return CommandResult with the update feedback.
+     * @return CommandResultBuilder with the updated feedback.
      */
     public CommandResultBuilder withFeedBack(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
@@ -60,9 +60,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code HelpCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code HelpCommand}.
      * @param isHelp input boolean to determine result.
-     * @return {@code CommandResult} with the withHelp boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withHelp boolean updated according to the input.
      */
     public CommandResultBuilder withHelp(boolean isHelp) {
         this.showHelp = isHelp;
@@ -70,9 +70,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code ExitCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code ExitCommand}.
      * @param isExit input boolean to determine result.
-     * @return {@code CommandResult} with the withExit boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withExit boolean updated according to the input.
      */
     public CommandResultBuilder withExit(boolean isExit) {
         this.exit = isExit;
@@ -80,9 +80,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code StartCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code StartCommand}.
      * @param isStart input boolean to determine result.
-     * @return {@code CommandResult} with the withStart boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withStart boolean updated according to the input.
      */
     public CommandResultBuilder withStart(boolean isStart) {
         this.start = isStart;
@@ -90,9 +90,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code RestoreCommand}.
      * @param isRestore input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withRestore boolean updated according to the input.
      */
     public CommandResultBuilder withRestore(boolean isRestore) {
         this.showRestore = isRestore;
@@ -100,9 +100,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code RestoreCommand}.
      * @param isHistory input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withRestore boolean updated according to the input.
      */
     public CommandResultBuilder withHistory(boolean isHistory) {
         this.showHistory = isHistory;
@@ -110,9 +110,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the command is a {@code RestoreCommand}.
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the command is a {@code RestoreCommand}.
      * @param isStats input boolean to determine result.
-     * @return {@code CommandResult} with the withRestore boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withRestore boolean updated according to the input.
      */
     public CommandResultBuilder withStats(boolean isStats) {
         this.showStats = isStats;
@@ -120,9 +120,10 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a {@code Mode} to the {@code CommandResult} to be used to determine the mode when starting the quiz session.
+     * Adds a {@code Mode} to the {@code CommandResultBuilder} to be used to determine the mode when starting the
+     * quiz session.
      * @param mode mode that is chosen by the user.
-     * @return {@code CommandResult} with the updated mode.
+     * @return {@code CommandResultBuilder} with the updated mode.
      */
     public CommandResultBuilder withMode(Mode mode) {
         this.mode = mode;
@@ -130,9 +131,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a boolean to the {@code CommandResult} to indicate whether the answer is correct
+     * Adds a boolean to the {@code CommandResultBuilder} to indicate whether the answer is correct
      * @param isCorrect input boolean to determine whether answer is correct.
-     * @return {@code CommandResult} with the withCorrect boolean updated according to the input.
+     * @return {@code CommandResultBuilder} with the withCorrect boolean updated according to the input.
      */
     public CommandResultBuilder withCorrect(boolean isCorrect) {
         this.isCorrect = isCorrect;
@@ -140,9 +141,9 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Adds a {@code Mode} to the {@code CommandResult} to be used in the restore command.
+     * Adds a {@code Mode} to the {@code CommandResultBuilder} to be used in the restore command.
      * @param model current model that is being used.
-     * @return {@code CommandResult} with the updated model.
+     * @return {@code CommandResultBuilder} with the updated model.
      */
     public CommandResultBuilder withModel(Model model) {
         this.model = model;
@@ -150,7 +151,7 @@ public class CommandResultBuilder {
     }
 
     /**
-     * Builds a new instance of the {@code CommandResult} using the builder method.
+     * Builds a new instance of the {@code CommandResult} using the builder design pattern.
      * @return {@code CommandResult}
      */
     public CommandResult build() {

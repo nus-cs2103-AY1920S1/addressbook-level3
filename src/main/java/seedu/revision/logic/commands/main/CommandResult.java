@@ -16,22 +16,22 @@ public class CommandResult {
     private final String feedbackToUser;
 
     /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private final boolean isShowHelp;
 
     /** The application should exit. */
-    private final boolean exit;
+    private final boolean isExit;
 
     /** The quiz will start. */
-    private final boolean start;
+    private final boolean isStart;
 
     /** The restore window will open. */
-    private final boolean showRestore;
+    private final boolean isRestore;
 
     /** The history window will open. */
-    private final boolean showHistory;
+    private final boolean isShowHistory;
 
     /** The stats window will open. */
-    private final boolean showStats;
+    private final boolean isShowStats;
 
     /** The answer is correct. */
     private final boolean isCorrect;
@@ -50,12 +50,12 @@ public class CommandResult {
     public CommandResult(CommandResultBuilder builder) {
         requireNonNull(builder);
         this.feedbackToUser = builder.getFeedbackToUser();
-        this.showHelp = builder.isShowHelp();
-        this.exit = builder.isExit();
-        this.start = builder.isStart();
-        this.showRestore = builder.isShowRestore();
-        this.showHistory = builder.isShowHistory();
-        this.showStats = builder.isShowStats();
+        this.isShowHelp = builder.isShowHelp();
+        this.isExit = builder.isExit();
+        this.isStart = builder.isStart();
+        this.isRestore = builder.isShowRestore();
+        this.isShowHistory = builder.isShowHistory();
+        this.isShowStats = builder.isShowStats();
         this.isCorrect = builder.isCorrect();
         this.mode = builder.getMode();
         this.model = builder.getModel();
@@ -66,30 +66,30 @@ public class CommandResult {
     }
 
     public boolean isShowHelp() {
-        return showHelp;
+        return isShowHelp;
     }
 
     public boolean isExit() {
-        return exit;
+        return isExit;
     }
 
     public boolean isStart() {
-        return start;
+        return isStart;
     }
 
     public boolean isShowRestore() {
-        return showRestore;
+        return isRestore;
     }
 
     public boolean isShowHistory() {
-        return showHistory;
+        return isShowHistory;
     }
 
     public boolean isShowStats() {
-        return showStats;
+        return isShowStats;
     }
 
-    public boolean isCorrect() {
+    public boolean getIsCorrect() {
         return this.isCorrect;
     }
 
@@ -116,13 +116,13 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && isShowHelp == otherCommandResult.isShowHelp
+                && isExit == otherCommandResult.isExit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, isShowHelp, isExit);
     }
 
 }

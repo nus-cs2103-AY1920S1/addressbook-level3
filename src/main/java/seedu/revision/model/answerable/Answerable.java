@@ -82,7 +82,7 @@ public abstract class Answerable {
     }
 
     /**
-     * Creates an answerable based on its type using a factory design method.
+     * Creates an answerable based on its type using the factory design pattern.
      * @param questionType the question type.
      * @param question the question description.
      * @param correctAnswerList the list of correct answers.
@@ -112,7 +112,7 @@ public abstract class Answerable {
      * @param selectedAnswer answer that user selected.
      * @return true if correct or false if wrong.
      */
-    public boolean isCorrect(Answer selectedAnswer) {
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
         requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
             return true;
