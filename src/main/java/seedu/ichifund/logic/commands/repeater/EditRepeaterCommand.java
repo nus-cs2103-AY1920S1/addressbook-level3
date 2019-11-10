@@ -69,7 +69,8 @@ public class EditRepeaterCommand extends Command {
             + PREFIX_END_YEAR + "2021";
 
     public static final String MESSAGE_EDIT_REPEATER_SUCCESS = "Edited repeater: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be modified.";
+    public static final String MESSAGE_DUPLICATE_REPEATER = "This repeater already exists in IchiFund";
 
     private final Index index;
     private final EditRepeaterDescriptor editRepeaterDescriptor;
@@ -129,6 +130,14 @@ public class EditRepeaterCommand extends Command {
         Repeater editedRepeater = new Repeater(updatedUniqueId, updatedDescription, updatedAmount,
                 updatedCategory, updatedTransactionType,
                 updatedMonthStartOffset, updatedMonthEndOffset, updatedStartDate, updatedEndDate);
+
+        if (editedRepeater.equals(repeaterToEdit)) {
+            throw new CommandException(MESSAGE_NOT_EDITED);
+        }
+
+        if (model.hasRepeater(editedRepeater)) {
+            throw new CommandException(MESSAGE_DUPLICATE_REPEATER);
+        }
 
         model.setRepeater(repeaterToEdit, editedRepeater);
         model.updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);

@@ -22,6 +22,7 @@ import java.util.List;
 import seedu.ichifund.model.FundBook;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.transaction.Transaction;
 
 /**
@@ -55,6 +56,32 @@ public class TypicalFundBook {
             .withDate(DATE_BUS).withCategory(VALID_CATEGORY_BUS)
             .withTransactionType(VALID_TRANSACTION_TYPE_BUS).build();
 
+    public static final String DEFAULT_UNIQUE_ID = "";
+    public static final String DEFAULT_DESCRIPTION = "Phone bills";
+    public static final String DEFAULT_AMOUNT = "42.06";
+    public static final String DEFAULT_CATEGORY = "utilities";
+    public static final String DEFAULT_TRANSACTION_TYPE = "exp";
+    public static final String DEFAULT_MONTH_START_OFFSET = "5";
+    public static final String DEFAULT_MONTH_END_OFFSET = "";
+    public static final String DEFAULT_START_MONTH = "1";
+    public static final String DEFAULT_START_YEAR = "2019";
+    public static final String DEFAULT_END_MONTH = "12";
+    public static final String DEFAULT_END_YEAR = "2019";
+
+
+    public static final Repeater REPEATER_PHONE_BILLS = new RepeaterBuilder()
+        .withUniqueId("").withDescription("Phone bills").withAmount("42.06").withCategory("utilities")
+        .withTransactionType("exp").withMonthStartOffset("5").withMonthEndOffset("-1")
+        .withStartDate(new DateBuilder().withDay("1").withMonth("1").withYear("2019").build())
+        .withEndDate(new DateBuilder().withDay("31").withMonth("12").withYear("2019").build())
+        .build();
+    public static final Repeater REPEATER_SALARY = new RepeaterBuilder()
+        .withUniqueId("").withDescription("Salary").withAmount("8129.64").withCategory("pay")
+        .withTransactionType("in").withMonthStartOffset("-1").withMonthEndOffset("1")
+        .withStartDate(new DateBuilder().withDay("1").withMonth("1").withYear("2019").build())
+        .withEndDate(new DateBuilder().withDay("31").withMonth("12").withYear("2019").build())
+        .build();
+
     public static final Budget BUDGET_OVERALL = new BudgetBuilder().withDescription("Overall budget")
             .withAmount("1337").withMonthAndYear("12", "2012").build();
     public static final Budget BUDGET_FOOD = new BudgetBuilder().withDescription("Budget for food")
@@ -82,6 +109,10 @@ public class TypicalFundBook {
 
     public static List<Transaction> getTypicalTransactions() {
         return new ArrayList<>(Arrays.asList(TRANSACTION_ALLOWANCE, TRANSACTION_BUS));
+    }
+
+    public static List<Repeater> getTypicalRepeaters() {
+        return new ArrayList<>(Arrays.asList(REPEATER_PHONE_BILLS, REPEATER_SALARY));
     }
 
     public static List<Budget> getTypicalBudgets() {
