@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ModuleListPanel`, `StatusBarFooter`, `HomeViewPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -179,7 +179,7 @@ The `BackCommand` mostly follows the same sequence as described above, except th
 
 The following activity diagram describes the process of finding a matching module to display.
 
-.Sequence Diagram of module finding process
+.Activity Diagram of module finding process
 image::ModuleViewFindModuleActivityDiagram.png[]
 
 ==== Design Considerations
@@ -257,27 +257,35 @@ of search to find modules that passes all the user defined filters. This can be 
 which can be chained with additional predicates and applied to a `FilteredList`. This requires additional predicate classes that searches their individual fields
 for the keywords.:
 
-* `ModuleCodeContainsKeywordsPredicate#test()` -- Tests that a `module` module code matches any of the keywords given.
-* `DescriptionContainsKeywordsPredicate#test()` -- Tests that a `module` description matches the keyword or sentence given.
-* `PrerequisiteContainsKeywordsPredicate()#test()` -- Tests that a `module` prerequisites matches any of the keywords given.
-* `PreclusionContainsKeywordsPredicate()#test()` -- Tests that a `module` preclusions matches any of the keywords given.
-* `SemesterContainsKeywordsPredicate()#test()` -- Tests that a `module` semester matches any of the keywords given.
+* `ModuleCodeContainsKeywordsPredicate` -- Tests that a `module` module code matches any of the keywords given.
+* `TitleContainsKeywordsPredicate` -- Tests that a `module` title contains all of the keywords given.
+* `DescriptionContainsKeywordsPredicate` -- Tests that a `module` description contains all of the keywords given.
+* `PrerequisiteContainsKeywordsPredicate` -- Tests that a `module` prerequisites matches any of the keywords given.
+* `PreclusionContainsKeywordsPredicate` -- Tests that a `module` preclusions matches any of the keywords given.
+* `SemesterContainsKeywordsPredicate` -- Tests that a `module` semester matches any of the keywords given.
+
+.Activity diagram for search predicates.
+image::SearchActivityDiagram.png[]
+
+Figure 12 above shows how each predicate checks for the keyword. Do note that `DescriptionContainsKeywordsPredicate`
+and `TitleContainsKeywordsPredicate` requires their specified field to contain *all* of the keywords, while the rest of the
+predicates returns true as long as their field contains *at least one* of the keyword.
 
 The user is able to use any combination of filters and the order of input should not matter. Examples of valid find commands:
 
 ****
-* `find module\ cs2` : Should display a list of modules with module code containing "cs2"
-* `find module\ cs2 prereq\ cs2040` : Should display a list of modules with module code containing "cs" and with prerequisite of "cs2040"
+* `find mod\ cs2` : Should display a list of modules with module code containing "cs2"
+* `find mod\ cs2 prereq\ cs2040` : Should display a list of modules with module code containing "cs" and with prerequisite of "cs2040"
 ****
 
 The following sequence diagram shows how the find operation wold work:
 
-.Proposed sequence diagram for search filtering.
+.Sequence diagram for search filtering.
 image::FindSequenceDiagram.png[]
 
 NOTE: The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-As represented in Fig 9, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
+As represented in Figure 13, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
 of `Predicate<module>` based on the parsed arguments, which is used to construct a `FindCommand`.
 
 During the execution of `FindCommand#execute()`, each predicate is chained and applied to the `FilteredList`.
@@ -290,14 +298,22 @@ Finally, a `FilteredList` of `Modules` that passes all of the filters will be di
 
 * **Module field requirements:** Information from the `archivedModules.json` would have to be abstracted out
 as individual fields in the `ArchivedModule` object.
-** pros: Added fields can be used for future developments.
-** cons: Can potentially slow down `Module` construction and operations due to increased size for each `Module` object.
+** *pros:* Added fields can be used for future developments.
+** *cons:* Can potentially slow down `Module` construction and operations due to increased size for each `Module` object.
+
+===== Aspect: Fuzzy search.
+
+* **Search with spelling mistake tolerance:** Due to the potential of spelling mistakes within fields such as the module
+and module discription which does not rely on module codes, searching these fields can accept mistakes with a degree of 2
+Levenshtein Distance from any of the original intended word.
+** *pros*: Much more robust searching potential.
+** *cons*: Will slow down the search.
 
 ===== Aspect: Incremental development.
 
 * **Adding new search filters:** Developing and integrating new filters.
-** pros: Filters can be developed independently and incrementally, filters can be integrated based on priority.
-** pros: Can be further adapted to search fields from `Deadline` and `Links`.
+** *pros:* Filters can be developed independently and incrementally, filters can be integrated based on priority.
+** *pros:* Can be further adapted to search fields from `Deadline` and `Links`.
 // end::searchfiltering[]
 
 // tag::deadline[]

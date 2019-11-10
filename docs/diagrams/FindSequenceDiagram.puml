@@ -65,8 +65,14 @@ Model --> FindCommand
 deactivate Model
 end
 
-FindCommand -> Model : displayTrackedList()
+FindCommand -> Model : showAllTrackedModules()
 activate Model
+
+Model -> Model : updateDisplayedList()
+activate Model
+
+Model --> Model
+deactivate Model
 
 Model --> FindCommand
 deactivate Model

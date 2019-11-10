@@ -25,8 +25,14 @@ activate model MODEL_COLOR
 model --[MODEL_COLOR]> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> model : displayTrackedList()
+logic -[LOGIC_COLOR]> model : showAllTrackedModules()
 activate model MODEL_COLOR
+
+model -[MODEL_COLOR]> model : updateDisplayedList()
+activate model MODEL_COLOR_T2
+
+model --[MODEL_COLOR]> model
+deactivate model MODEL_COLOR_T2
 
 model -[MODEL_COLOR]-> logic
 deactivate model

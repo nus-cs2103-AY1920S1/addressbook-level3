@@ -100,6 +100,7 @@ Format: `back`
 
 === Finding an archived module: `find`
 
+==== Method 1: Using command lines
 Find archived modules with the the given prefix and keyword. +
 Format: `find PREFIX\ KEYWORD ...`
 
@@ -110,15 +111,15 @@ It is possible to use any number or combination of filters. Prefixes not present
 * Prefixes: (case sensitive)
 ** `all\` : List all the modules. *Overrides* all other prefixes.
 *** Example: `find mod\ cs all\` `all\` will override mod\ and list all the modules.
-** `mod\` : Find all modules with *module code* that contains the given *keyword(s)*.
+** `mod\` : Find all modules with *module code* that contains *at least one* of the given *keyword(s)*.
 *** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` *or* `ma` *or* `st`.
-** `title\` : Find all modules with *title* that contains the given *keyword(s)*.
+** `title\` : Find all modules with *title* that contains *all* of the given *keyword(s)*.
 *** Example: `find title\ software engineering` will list all modules with titles containing `"software" *and* "engineering"`.
-** `desc\` : Find all modules with *description* that contains the given *keywords(s)*.
+** `desc\` : Find all modules with *description* that contains *all* of the given *keywords(s)*.
 *** Example: `find desc\ software engineering` will list all modules with description containing `"software" *and* "engineering"`.
-** `prereq\` : Find all modules with *prerequisites* that match the given *keyword(s)*.
+** `prereq\` : Find all modules with *prerequisites* that match *at least one* of the given *keyword(s)*.
 *** Example: `find prereq\ cs2030 cs2040` will list all modules with prerequisite of `cs2030` *or* `cs2040`.
-** `preclu\` : Find all modules with *preclusion* that match the given *keyword(s)*.
+** `preclu\` : Find all modules with *preclusion* that match *at least one* of the given *keyword(s)*.
 *** Example: `find preclu\ cs2030 cs2040` will list all modules with preclusion of `cs2030` *or* `cs2040`.
 ** `sem\` : Find all modules offered in a particular sem 1 - 4. (Sem 3 and 4 are special terms 1 and 2).
 *** Example: `find sem\ 1 3` will list all modules offered in semester 1 *or* special term 1.
@@ -130,12 +131,19 @@ It is possible to use any number or combination of filters. Prefixes not present
 ** Example: `find desc\ enginering` will display results similar to `find desc\ engineering`.
 * Search is performed using string matching, commonly used keywords will therefore produce many search results.
 * Invalid prefixes and keywords before a valid prefix will be ignored.
-** Eg: `find INVALID\ invalidKeyword mod\ cs` the `INVALID\ invalidKeyword` will be ignored.
+** Eg: `find INVALID\ invalidKeyword mod\ cs` the `INVALID\ invalidKeyword` will be ignored, `mod\ cs` will be searched.
 ****
 [NOTE]
 Keywords are searched using *"OR"* relation (apart from `title\` and `desc\` which uses an *"AND"* relation.) while predicates are seached using
 *"AND"* relations.
 For example, `find mod\ cs ma title\ linear algebra` will produce results of all modules with (module code containing `cs` *OR* `ma`) *AND* (title containing `linear` *AND* `algebra`)
+
+==== Method 2: Using GUI
+
+Alternatively, you can simply click on the search button on the top left hand corner (shortcut key: F2) and select search. Input your
+keywords in the fields provided within the popup.
+
+image::userguide/SearchGui.png[]
 
 [TIP]
 Modules are imported from NUSMods database.

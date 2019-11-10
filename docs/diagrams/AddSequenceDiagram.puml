@@ -60,8 +60,14 @@ activate Model
 Model --> AddCommand
 deactivate Model
 
-AddCommand -> Model : displayTrackedList()
+AddCommand -> Model : showAllTrackedModules()
 activate Model
+
+Model -> Model : updateDisplayedList()
+activate Model
+
+Model --> Model
+deactivate Model
 
 Model --> AddCommand
 deactivate Model
