@@ -41,6 +41,7 @@ image::ug_quickstart.png[]
 .  Find me, `ELISA.jar` link:{repoURL}/releases[here].
 .  Double-click me to start the app. See you in a few seconds.
 +
+.Main window of ELISA
 image::MainWindow.png[width="790"]
 +
 .  Tell me what to do in the command box!
@@ -61,7 +62,6 @@ For your viewing pleasure, we've collated it nicely into a quick starter pack be
 
 image::ug_features.png[]
 
-====
 This table shows the basic rules for the formatting the input:
 
 .Command Guidelines
@@ -69,8 +69,11 @@ This table shows the basic rules for the formatting the input:
 |Guidelines: |Description: |Correct usage:
 |Words in UPPER_CASE are the parameters to be supplied by the user | If given `task DESCRIPTION` description is to be provided. |`task shower`
 |All flags *MUST* have a _space_ after them | `task shower -d10.min.later` is *incorrect*. It should be `task shower -d 10.min.later` | `task shower -d 10.min.later`
-|Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional | `task shower` `task shower -t clean`
-|Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d | `task shower -d 1.hour.later -r 30.min.later` `task shower -r 30.min.later -d 1.hour.later`
+|Flags in square brackets are optional | If given `task DESCRIPTION [-t TAG]` tag is optional a| `task shower` +
+ `task shower -t clean`
+
+|Flags can be in any order, given that they are accepted by the command | If given `task DESCRIPTION [-d DATETIME] [-r REMINDER]` -r can come before -d a| `task shower -d 1.hour.later -r 30.min.later` +
+ `task shower -r 30.min.later -d 1.hour.later`
 |Flags must not be repeated in the same input, unless it is a tag flag | `task shower -p high -p low` is *incorrect* as -p appears twice. However, `task bathe -t fresh -t hygiene` is accepted| `task shower -p high`
 |For the parser of mm.min.later, hh.hour.later, dd.day.later, the maximum allowed is 100 | `101.min.later` is not accepted, however `100.min.later` or `99.day.later` are both accepted. | `task study -d 99.day.later`
 |===
@@ -88,6 +91,7 @@ For *more experienced* users: +
 * This can be your best buddy! We understand that sometimes it can be troublesome to look through the entire guide just to find the flag you want.
 
 .Flags Overview
+[cols="1,2,3,2,2"]
 |===
 |Flag: |Parameter: |Parameter Format: |Possible Parameters: | Example Usage:
 |-d | DATETIME | yyyy-MM-ddTHHmm or dd/MM/yyyy HHmm or mm.min.later or HH.hour.later or dd.day.later |2019-09-25T19:34 or 25/09/2019 1934 or 10.min.later| -d 25/09/2019 1934
@@ -99,6 +103,17 @@ For *more experienced* users: +
 |--tk | _none_ | _none_ | _none_ | --tk
 |--e | _none_ | _none_ | _none_ | --e
 |--r | _none_ | _none_ | _none_ | --r
+|===
+
+There are three other flags that do not take in any parameters and are only used for the edit command. They are listed below:
+
+.Additional flags
+[cols="1,9"]
+|===
+|Flag:| Meaning:
+|--tk | Used to delete a task attached to an item
+|--e | Used to delete an event attached to an item
+|--r | Used to delete a reminder attached to an item
 |===
 
 [NOTE]
@@ -115,7 +130,7 @@ All time dependent elements such as deadline, reminder and calendar time are dep
 
 If you face any issues, please check the <<Additional Notes>>. If it is not mentioned there, then feel free to bring it up to us!
 
-====
+
 Now we are ready to jump into the features itself!
 
 === CLI Features
@@ -163,7 +178,7 @@ It is not possible to set a reminder in the past.
 
 This command is used to edit any of the items that you might have. +
 
-====== *Limitations* +
+===== *Limitations* +
 
 * You are only able to edit the item currently shown in your view. For example, when you're on the task list, you can only edit the tasks shown. You will not be able to edit events or reminders.
 * The new item with the edited fields must not already exist. Don't worry if you can't remember that, ELISA will remind you!
@@ -321,6 +336,7 @@ Although, the ESC key can close too, we do not advise doing so as ELISA may be c
 
 Screen is too dark? Switch up the theme by typing `theme white`!
 
+.White theme of ELISA
 image::themewhite.PNG[]
 
 Examples:
@@ -339,6 +355,7 @@ Chat box getting too cluttered? Type `clearscreen` to clear it!
 
 Sick of looking through lists of events? Type `show c` in the command box and your events will be magically placed into a calendar!
 
+.Calendar feature of ELISA
 image::calendar.PNG[]
 
 === Entertainment Features
@@ -349,19 +366,30 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches your list of tasks into a game of Snakes!
 
+.Snake game of ELISA
 image::SnakeGame.PNG[Snake, 600, 600, float="right"]
 
 +++<u>Rules:</u>+++
 
-Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bit it's own tail or it will be GAME OVER!
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bite it's own tail or it will be GAME OVER!
 
 Hit `ENTER` to reset the game when your snake dies.
 
 Pressing `ESC` key will exit the game and return you to your list of tasks!
 
-==== Tell a joke: `joke`
+// tag::joke[]
+=== Asking ELISA for a joke : `joke`
+Need to amuse yourself for a bit? Simply use the `joke` command and ELISA will select a joke from her database for you to enjoy!
 
-Type `joke` in the command box and I will showcase my exceptional sense of humor and tell you a random joke!
+****
+* Note that each joke is randomly selected from the database and may repeat.
+****
+
+Example:
+
+* `joke` +
+
+// end::joke[]
 
 === Undo/Redo Feature
 
@@ -380,6 +408,7 @@ Examples:
 * `undo` +
 Undoes the last command
 
+// end::undo[]
 
 // tag::redo[]
 ==== Redoing the latest undone command(s) : `redo`
@@ -396,6 +425,9 @@ Examples:
 
 * `redo` +
 
+//end::redo[]
+
+=== Sort/Find/Priority Feature
 
 //tag::sort[]
 ==== Sorting ELISA out: `sort`
@@ -419,15 +451,21 @@ Format: `sort` or `sort <criteria>`
 Examples:
 
 * `sort` - a simple sort that follows the criteria mentioned above for the different panel.
-* `sort priority` - sorts the item within the panel by their priority (from high to low).
+* `sort pri` - sorts the item within the panel by their priority (from high to low).
 * `sort desc` - sorts the item within the panel by their description (lexicographic order)
 //end::sort[]
-
 
 //tag::find[]
 ==== Finding a task: `find`
 
-Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keyword that you want to search for within the command box and ELISA will find the relevant items for you.
+Is your task list getting too long and you are not able to find what you are looking for? Introducing the `find` function which will allow you to find what you want within the specific panel. Just type `find` and the keywords that you want to search for within the command box and ELISA will find the relevant items for you.
+
+.ELISA before find command
+image::BeforeFind.PNG[]
+
+.ELISA after find command
+image::AfterFind.PNG[]
+
 
 Format: `find <keyword>`
 
@@ -439,26 +477,48 @@ Examples:
 //end::find[]
 
 //tag::priority[]
-=== Entering priority mode: `priority`
-Feeling stress? Too much task on your task list? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+==== Entering priority mode: `priority`
+Feeling overwhelmed by the sheer amount of tasks to do? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+
+.ELISA before priority mode with a long list of tasks
+image::BeforePriority.PNG[600,600]
+
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
-Feeling less stress? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone task and you will be automatically brought out of priority mode.
+
+.ELISA in priority mode
+image::AfterPriority.PNG[600, 600]
+
+Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrunk from 5 tasks down to the 1 most important task.
+
+When you are done with your current task, just tell ELISA you are done by simply typing `done 1` and ELISA will generate the next task for you.
+
+.ELISA after completing the first task
+image::AfterDone.PNG[600, 600]
+
+Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
+
+
+.ELISA after all tasks are completed
+image::AllDone.PNG[600, 600]
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
-Format: `priority` or `priority dd/mm/yyyy hhmm`
+There is also an extreme focus mode for the easily distracted. Simply tell ELISA that you want to enter the extreme focus mode by attaching a `-f` flag to the back of the command. In the extreme focus mode, commands such as `show`, `sort`, `find`, `game`, `event` and `reminder` are banned.
+
+Format: `priority [DATETIME] [-f]`
 
 Examples:
 
 * `priority` - activates or deactivates the priority mode
 * `priority 30/10/2019 1200` - activates the priority mode and ask ELISA to turn it off on 30/10/2019 at noon
-* `priority 2.hours.later` - activates the priority mode and ask ELISA to turn it off 2 hours later
+* `priority 2.hour.later -f` - activates the focus mode and ask ELISA to turn it off 2 hours later
 
 ****
-* Note that this command can only be called in the task panel.
-* Note that all command such as `edit`, `undo` and `redo` still works in priority mode.
+* Note that this command can only be called in the task panel and when you have incomplete tasks to be completed.
+* Note that if priority mode is currently on, any variation of `priority` will turn it off.
+* Note that all command such as `edit`, `undo` and `redo` still works in priority mode. However, if a `done` or `delete` command takes you out of priority mode and then you `undo` it, it will only `undo` the command but will not take you back into priority mode.
 ****
 //end::priority[]
 
@@ -471,20 +531,13 @@ Format: `exit`
 ELISA saves the data in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == Additional Notes
 === Input
 * Currently, an empty input can be entered, but ELISA will show an invalid command.
 
 === Calendar
 
-* Currently, it only shows *2 events* on each date due to limited space on the calendar. If there are more events on that date, to find them all, you can go to the event list and sort through it.
+* Currently, it only shows *1 event* on each date due to limited space on the calendar. If there are more events on that date, to find them all, you can go to the event list and sort through it.
 * Currently, it only shows the *current* month. We are still working to bring the next month to you.
 * Please keep a full screen. If you resize, we are unable to guarantee the view of the calendar.
 

@@ -132,7 +132,7 @@ The `Model`,
 * exposes four observable lists that can be viewed by the Ui and will cause an update in the Ui when it is updated
 
 [NOTE]
-The reason for using four observable list as opposed to having one observable list that is filtered every time we update the list is because we believe that this will lead to faster loading time every time we switch view as it is just a change in the Visualization List pointer. This is better than the O(n) method of filtering a single VisualizeList as it will require going through all the items in the list.
+The reason for using four observable list as opposed to having one observable list that is filtered every time we update the list is because we believe that this will lead to faster loading time every time we switch view as it is just a change in the Visualization List pointer. This is better than the O(n) method of filtering a single VisualizeList as it will require going through all the items in the list to find those that are relevant.
 
 [[Design-Storage]]
 === Storage component
@@ -157,7 +157,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undobyreverse[]
-=== [Implemented] Undo Feature
+=== [Implemented] Undo/Redo Feature
 ==== Current Implementation Logic
 
 The undo function uses the revert command method without using states and history, unlike the proposed method.
@@ -182,6 +182,9 @@ will pop the `AddTaskCommand` from the stack and reverse the effects of that com
 image::UndoStackStep2.png[]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
+
+Of course, the undo feature has its counterpart, the redo command. The commands to be redone are stored in an additional stack within `ElisaCommandHistory`, and when the redo is done, it executes the command again, which reapplies the most recent change.
+// end::undobyreverse[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -272,73 +275,75 @@ image::CommitActivityDiagram.png[]
 
 The priority mode is used to aid the user in focusing on the most pressing task that they have especially when they have many tasks in their list. As priority mode is only for clearing of tasks, the priority mode can only be activated at the task pane of the application.
 
-The priority mode is mainly controlled in the ```ItemModelManager``` and the following are the methods it implements within the ```ItemModelManager```:
+The priority mode is mainly controlled in the ```ItemModelManager``` and the following are the methods it uses within the ```ItemModelManager```:
 
 * ```ItemModelManager#togglePriorityMode()``` - Toggle the priority mode depending on whether it is on or off.
 * ```ItemModelManager#toggleOnPriorityMode()``` - Helper function to toggle on the priority mode.
 * ```ItemModelManager#toggleOffPriorityMode()``` - Helper function to toggle off the priority mode.
 
-There are two variants to the priority mode, a normal priority mode and a focus mode. The focus mode is more restrictive than the normal priority mode. It prevents the user from doing any task that are not relevant to the task list, such as adding a new event or switching the pane. This is currently implemented by having a boolean to check if the application is in focus mode. (Refer to )
+There are two variants to the priority mode, a normal priority mode and a focus mode. The focus mode is more restrictive than the normal priority mode, preventing the user from doing any operations that are not relevant to the task list, such as adding a new event. This is currently implemented by having a separate `Parser` when ELISA is in focus mode. (Refer to <<Priority-Design-Consideration>> for more details)
 
-There are two way to trigger the priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. In addition to using the above three methods, the ```ScheduledPriorityMode``` also uses the following method:
+There are two ways to trigger priority mode, a normal priority mode that is controlled fully by the user and a scheduled priority mode that is triggered by the user but is scheduled to turn off after a specific amount of time. In addition to the above three methods, the scheduled priority mode also uses the following method:
 
 * ```ItemModelManager#startTimer(LocalDateTime)``` - Starts a timer to turn off the priority mode.
 
-==== Example run of code
+==== Example run of priority mode
 
-In the following section, we will be showing a run of the priority mode and a broad overview of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it has a more complicated implementation than the normal ```PriorityMode```.
+In this section, we will show a run of the priority mode and a overview of the mechanism at each step. In particular, we will be showing how the ```ScheduledPriorityMode``` works as it has a more complicated implementation than the normal ```PriorityMode```.
 
-. The user opens his ELISA software. The first screen that he observes will be the task screen which contains all the task of the user based on the time they were added into the list.
+. The user opens his Task panel and types in `priority 30.min.later`.
 
-. The user types ```priority 30.min.later``` into the command box of ELISA and hits enter. The incomplete items are added to a ```PriorityQueue<Item>``` where they are ranked by their priority and if they have the same priority, the item that is added to ELISA first will have a higher ranking.
+. The incomplete tasks are added to a ```PriorityQueue``` where they are ranked by their priority.
 
-. Once all the items are added into the ```PriorityQueue<Item>```, ELISA will peek the first task from the queue and present it to the user.
+. Once all the items are added into the ```PriorityQueue```, ELISA will peek the first task from the queue and present it to the user.
 
-. The user can type ```done 1``` when he is done with the current task to retrieve the next task. This will carry on until there is no more undone task left to do in the priority queue. This is shown in the activity diagram below.
+. The user can type ```done 1``` when he is done with the current task to retrieve the next task. This carries on until there is no more undone task left to do in the ```PriorityQueue```. This is shown in the activity diagram below.
 
 .Activity diagram for priority mode
-image::PriorityModeActivityDiagram.png[]
+image::PriorityModeActivityDiagram.png[400, 400]
 
 [start=5]
 . ELISA will automatically disable the priority mode after 30 minutes and show *all* the task that the user have in his task list currently.
 
 ==== Internal working of the command
-The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command. We will be going through step by step the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
+
+The figure below shows the sequence diagram on what happens from a simple execution of the ```priority 30.min.later``` command. We will go through the internal mechanism of the execution of the ```ScheduledPriorityCommand```.
 
 .Sequence diagram for priority mode
 image::PriorityMode.png[]
 
-Step 1. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
+. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
 
-Step 2. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```.
-
-In this case, the command is that of a ```ScheduledPriorityCommand``` and so a new ```ScheduledPriorityCommand``` is created. This ```ScheduledPriorityCommand``` is passed back to the ```LogicManager```.
+. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case,  a new ```ScheduledPriorityCommand``` is created and is passed back to the ```LogicManager```.
 
 [NOTE]
-The following steps (except those marked with a *) are also applicable to ```PriorityCommand```.
+The following steps (except step 4) are also applicable to ```PriorityCommand```.
 
-Step 3. Within the ```LogicManager```, the ```ScheduledPriorityCommand#execute()``` method is called and the command is executed.
+[start=3]
+. Within the ```LogicManager```, the ```ScheduledPriorityCommand#execute()``` method is called and the command is executed.
 
-Step 4*. The ```ScheduledPriorityCommand``` calls the ```ItemModel#scheduleOffPriorityMethod()``` which creates a new ```Timer``` object and a new ```TimerTask``` object. The ```TimerTask``` object will be scheduled to fire off at a specific time, which in this case is 30 minutes later (as defined by the user).
+. The ```ScheduledPriorityCommand``` calls the ```ItemModel#scheduleOffPriorityMethod()``` which creates a new ```Timer``` object and a new ```TimerTask``` object. The ```TimerTask``` object will be scheduled to fire off at a specific time, which in this case is 30 minutes later (as defined by the user).
 
-Step 5. The ```SchedulePriorityCommand``` then calls ```ItemModel#togglePriorityMode()``` which calls the private method ```ItemModel#toggleOnPriorityMode()``` (since the current state of the priority mode is false).
+. The ```SchedulePriorityCommand``` then calls ```ItemModel#togglePriorityMode()``` which calls the private method ```ItemModel#toggleOnPriorityMode()``` (since the current state of the priority mode is false).
 
-Step 6. This creates a new ```TaskList``` which will be the visualization list for the Task Panel throughout the entire priority mode period.
+. This creates a new ```TaskList``` which will have the task with the highest priority added to it. This ```TaskList``` will be displayed to the user.
 
-Step 7. A ```CommandResult``` is passed to the ```ScheduledPriorityCommand``` and then back to the ```LogicManager``` to be passed into the ```Ui```, informing the user that the priority mode is activate.
+. A ```CommandResult``` is passed to the ```ScheduledPriorityCommand``` and then back to the ```LogicManager``` to be passed into the ```Ui```, informing the user that the priority mode is activate.
 
 [NOTE]
-A normal ```PriorityCommand``` will end at this point and will only be deactivated by the user's input of ```priority``` again.
+A normal ```PriorityCommand``` will end at this point and will only be deactivated by the user's input of `priority` again.
 
 .Sequence diagram for the scheduled turning off of priority mode
-image::PriorityMode2.png[]
+image::PriorityMode2.png[400, 400]
 
-Step 8. As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
+[start=8]
+. As the ```Timer``` within the ```ItemModelManager``` is still running on a separate thread, it will trigger the ```TimerTask#run()``` when the user defined time is reached.
 
-Step 9. The ```TimerTask``` will call ```ItemModelManager#toggleOffPriorityMode()``` which will cancel the ```Timer``` and destroy the ```Timer```. This is to ensure that the program can be closed properly.
+. The ```TimerTask``` will call ```ItemModelManager#toggleOffPriorityMode()``` which will cancel the ```Timer``` and destroy the ```Timer```. This is to ensure proper cleanup of the thread.
 
-Step 10. The items are all added back into the ```TaskList``` and the priority mode is considered deactivated.
+. All the items are added back into the ```TaskList``` and shown to the user. The priority mode is deactivated.
 
+[[Priority-Design-Consideration]]
 ==== Design Consideration
 *Aspect: How to restrict commands for focus mode*
 
@@ -351,30 +356,31 @@ Step 10. The items are all added back into the ```TaskList``` and the priority m
 |This implementation is not scalable as each new ```Command``` that is added will need to be checked to see if they are allowed in focus mode. There is also the additional overhead of checking the state of the ```ItemModelManager``` at every call of ```Command#execute()```.
 |===
 
+
 * Alternative 2 (Current implementation): Create a new ```FocusElisaParser``` that extends from the current ```ElisaParser``` but prevent the parsing of commands that are not allowed in focus mode.
 
 |===
 |Pros |Cons
 
 |This implementation stops the creation of the ```Command``` at the ```Parser``` level which will reduce the computational cost to the application.
-|This implementation requires the manipulation of the ```LogicManager``` to change the parser and require it to observe the ```ItemModelManager``` for changes. There might also be more difficulty when maintaining the code as there is a need to maintain the ```Parser#parse()``` method of the two ```Parser```.
+
+|There might be difficulty in maintaining the ```Parser#parse()``` method of the two ```Parser```.
 |===
 
 Both methods are not scalable in the long run, but at this moment, alternative 2 is favoured as it prevents the command from even being parsed or created, which saves the computing time. At the same time, it is easier to maintain as one only needs to edit the ```Parser#parse()``` method instead of having an if-else loop in all the command that are banned.
 
 *Aspect: How to turn off the priority mode after a fixed time*
 
-* Alternative 1: Having two different classes for activating the priority mode, a normal ```PriorityCommand``` and a ```ScheduledPriorityCommand``` that extends from the ```PriorityCommand```. The timer will be activated in the ```ScheduledPriorityCommand```.
-
+* Alternative 1: Storing the timer within the ```ScheduledPriorityCommand```.
 
 |===
 |Pros |Cons
 
-|Adheres to the SLAP principle with each class having it's own implementation of the ```Command#execute(ItemModel)```. This makes it easier to maintain the code and prevents from overloading the ```ItemModelManager``` by keeping the timer there.
+|Adheres to the SLAP principle with each class having it's own implementation of the ```Command#execute(ItemModel)```. It is easier to maintain the code and prevents overloading the ```ItemModelManager```.
 |There is no way to end the schedule priority mode prematurely as the timer is kept within the command and so cannot be referenced after the execution of the command.
 |===
 
-* Alternative 2 (Current implementation): Having a timer within the ```ItemModelManager``` and having a specific method within the ```ItemModelManager``` to handle this creation of the timer.
+* Alternative 2 (Current implementation): Storing the timer within the ```ItemModelManager```.
 
 |===
 |Pros|Cons
@@ -387,7 +393,7 @@ Alternative 2 was chosen as we believe that the ability to cancel a scheduled pr
 
 ==== Possible extension
 
-At the moment, the user is not able to keep track of the amount of time that he have before the schedule priority mode is over. This could be overcome by including a countdown timer in the Ui when the user toggles on the scheduled priority mode.
+At the moment, the user is not able to keep track of the amount of time that he has before the schedule priority mode is over. This can be overcome by including a countdown timer in the Ui when the user toggles on the scheduled priority mode.
 
 // end::priority[]
 
@@ -567,6 +573,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage time and tasks more efficiently than a typical mouse/GUI driven app
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -612,7 +619,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |colour code my calendar events |easily categorise and differentiate between them
 
 |=======================================================================
-
+// end::userstories[]
 _{More to be added}_
 
 [appendix]
@@ -715,7 +722,7 @@ Use case resumes at step 2.
 2. ELISA shows the reminder list.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
-
+// tag::usecaselrchema[]
 [discrete]
 === Use Case 005: Search for a task by its description
 
@@ -768,7 +775,7 @@ Use case ends.
 ** 1a1. ELISA displays an error message
 +
 Use case ends.
-
+// end::usecaselrchema[]
 _{More to be added}_
 
 [appendix]

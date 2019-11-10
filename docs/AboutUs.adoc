@@ -22,7 +22,7 @@ Responsibilities: Commons
 
 === Hema
 image::lrchema.png[width="150", align="left"]
-{empty}[http://github.com/lrchema[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/lrchema[github]] [<<lrchema#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Functionality

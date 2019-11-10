@@ -81,7 +81,7 @@ public class EditItemDescriptorBuilder {
      * that we are building.
      */
     public EditItemDescriptorBuilder withPriority(String priority) {
-        Priority newPriority = Priority.valueOf(priority);
+        Priority newPriority = Priority.fromJson(priority);
         descriptor.setPriority(newPriority);
         return this;
     }

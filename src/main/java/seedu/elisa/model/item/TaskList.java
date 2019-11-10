@@ -1,6 +1,7 @@
 package seedu.elisa.model.item;
 
 import java.util.Comparator;
+import java.util.List;
 
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.commons.core.item.Task;
@@ -25,19 +26,18 @@ public class TaskList extends VisualizeList {
         super();
     }
 
+    public TaskList(List<Item> list) {
+        super(list);
+    }
+
     /**
      * Sort the items in the task list. The items are first sorted by whether they are
      * done or not and then by their priority.
      * @return an VisualizeList of all the items sorted
      */
     public VisualizeList sort() {
-        TaskList tl = new TaskList();
-        for (Item item: list) {
-            tl.add(item);
-        }
-
+        TaskList tl = new TaskList(list);
         tl.sort(COMPARATOR);
-
         return tl;
     }
 
@@ -47,14 +47,12 @@ public class TaskList extends VisualizeList {
      * @return a new TaskList containing only the items that have the search string in their description
      */
     public VisualizeList find(String[] searchString) {
-        TaskList tl = new TaskList();
-        return find(searchString, tl);
+        return find(searchString, new TaskList());
     }
 
     @Override
     public VisualizeList deepCopy() {
-        TaskList tl = new TaskList();
-        return super.deepCopy(tl);
+        return super.deepCopy(new TaskList());
     }
 
     public boolean belongToList(Item item) {

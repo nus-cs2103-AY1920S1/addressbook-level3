@@ -10,6 +10,7 @@ import seedu.elisa.logic.commands.ClearCommand;
 import seedu.elisa.logic.commands.ClearScreenCommand;
 import seedu.elisa.logic.commands.CloseCommand;
 import seedu.elisa.logic.commands.Command;
+import seedu.elisa.logic.commands.ContinueCommand;
 import seedu.elisa.logic.commands.DeleteCommand;
 import seedu.elisa.logic.commands.DoneCommand;
 import seedu.elisa.logic.commands.DownCommand;
@@ -38,10 +39,10 @@ public class ElisaParser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT =
+    protected static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<description>[^-]*)(?<flags>.*)");
 
-    private ElisaCommandHistory elisaCommandHistory;
+    protected ElisaCommandHistory elisaCommandHistory;
 
     public ElisaParser(ElisaCommandHistory elisaCommandHistory) {
         this.elisaCommandHistory = elisaCommandHistory;
@@ -55,15 +56,38 @@ public class ElisaParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
-        }
+        final Matcher matcher = inputToMatcher(userInput);
 
         final String commandWord = matcher.group("commandWord");
         final String description = matcher.group("description");
         final String flags = " " + matcher.group("flags");
 
+        return parseCommandHelper(commandWord, description, flags);
+    }
+
+    /**
+     * Converts the user input into the matcher to easily find the command word, description and flags.
+     * @param userInput the input from the user.
+     * @return the Matcher object of the user's input.
+     * @throws ParseException if the matcher is not of a valid format.
+     */
+    protected Matcher inputToMatcher(String userInput) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+        return matcher;
+    }
+
+    /**
+     * Helper function that does the actual creation of the command.
+     * @param commandWord the command word from the user's input.
+     * @param description the description that comes with the user's input.
+     * @param flags the flags that comes with the user's input.
+     * @return the command that is to be executed based on the user's input.
+     * @throws ParseException if the command word is not found.
+     */
+    protected Command parseCommandHelper(String commandWord, String description, String flags) throws ParseException {
         switch (commandWord.toLowerCase()) {
 
         case "task":
@@ -108,6 +132,10 @@ public class ElisaParser {
         case DoneCommand.COMMAND_WORD:
             return new DoneCommandParser().parse(description, flags);
 
+        case "continue":
+        case ContinueCommand.COMMAND_WORD:
+            return new ContinueCommandParser().parse(description, flags);
+
         case JokeCommand.COMMAND_WORD:
             return new JokeCommand();
 
@@ -133,7 +161,7 @@ public class ElisaParser {
             return new SnoozeCommandParser().parse(description, flags);
 
         case GameCommand.COMMAND_WORD:
-            return new GameCommand();
+            return new GameCommandParser().parse(description, "");
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

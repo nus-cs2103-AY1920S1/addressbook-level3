@@ -1,6 +1,7 @@
 package seedu.elisa.model.item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ModifiableObservableListBase;
 import seedu.elisa.commons.core.item.Item;
@@ -13,6 +14,11 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
 
     public VisualizeList() {
         this.list = new ArrayList<>();
+    }
+
+    public VisualizeList(List<Item> list) {
+        this();
+        this.list.addAll(list);
     }
 
     /**
@@ -54,32 +60,6 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
         list.add(index, item);
     }
 
-    /**
-     * Get the list of the item list.
-     * @return an ArrayList of all the items in the VisualizeList
-     */
-    public ArrayList<Item> getList() {
-        return this.list;
-    }
-
-    /**
-     * Removes an item from the list base on it's index.
-     * @param index the integer value of the index of the item to be removed
-     * @return the item that is removed from this operation
-     */
-    public Item removeItemFromList(int index) {
-        return super.remove(index);
-    }
-
-    /**
-     * Removes an item from the list.
-     * @param item the item to be removed from the list
-     */
-    public Item removeItemFromList(Item item) {
-        super.remove(item);
-        return item;
-    }
-
     @Override
     public Item doSet(int index, Item item) {
         return list.set(index, item);
@@ -88,6 +68,14 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
     @Override
     public Item doRemove(int index) {
         return list.remove(index);
+    }
+
+    /**
+     * Get the list of the item list.
+     * @return an ArrayList of all the items in the VisualizeList
+     */
+    public ArrayList<Item> getList() {
+        return this.list;
     }
 
     public abstract VisualizeList find(String[] searchString);
@@ -105,16 +93,19 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
                     continue;
                 }
 
-                if (i.getItemDescription().getDescription().toLowerCase().contains(searchString.toLowerCase())) {
+                if (i.getItemDescription().getDescription()
+                        .toLowerCase().contains(searchString.toLowerCase())) {
                     il.add(i);
-                    System.out.println(i);
                 }
             }
-
         }
         return il;
     }
 
+    /**
+     * Deep copy a list.
+     * @return a list with all the items within it a deep copy of their original item.
+     */
     public abstract VisualizeList deepCopy();
 
     /**
@@ -151,9 +142,10 @@ public abstract class VisualizeList extends ModifiableObservableListBase<Item> {
     }
 
     /**
-     * The size of the list
+     * The size of the list.
      * @return the integer value of the size of the list
      */
+    @Override
     public int size() {
         return list.size();
     }

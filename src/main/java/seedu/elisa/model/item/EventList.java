@@ -1,5 +1,7 @@
 package seedu.elisa.model.item;
 
+import java.util.List;
+
 import seedu.elisa.commons.core.item.Item;
 
 /**
@@ -10,17 +12,17 @@ public class EventList extends VisualizeList {
         super();
     }
 
+    public EventList(List<Item> list) {
+        super(list);
+    }
+
     /**
      * Sorts the event list based on the date of the event.
      * @return a sorted EventList of the current list
      */
     public VisualizeList sort() {
-        EventList el = new EventList();
-        for (Item item: list) {
-            el.add(item);
-        }
-
-        el.list.sort((item1, item2) -> item1.getEvent().get().getStartDateTime()
+        EventList el = new EventList(list);
+        el.sort((item1, item2) -> item1.getEvent().get().getStartDateTime()
                 .compareTo(item2.getEvent().get().getStartDateTime()));
         return el;
     }
@@ -31,14 +33,12 @@ public class EventList extends VisualizeList {
      * @return a new EventList only containing the items that have the search string in their description
      */
     public VisualizeList find(String[] searchString) {
-        EventList el = new EventList();
-        return find(searchString, el);
+        return find(searchString, new EventList());
     }
 
     @Override
     public VisualizeList deepCopy() {
-        EventList el = new EventList();
-        return super.deepCopy(el);
+        return super.deepCopy(new EventList());
     }
 
     public boolean belongToList(Item item) {

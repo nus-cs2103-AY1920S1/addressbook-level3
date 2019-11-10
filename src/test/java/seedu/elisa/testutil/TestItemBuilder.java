@@ -62,7 +62,7 @@ public class TestItemBuilder {
      * Parses the {@code priority} into a {@code Priority} and set it to the {@code Item} that we are building.
      */
     public TestItemBuilder withPriority(String priority) {
-        this.priority = Priority.valueOf(priority);
+        this.priority = Priority.fromJson(priority);
         return this;
     }
 
