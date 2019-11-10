@@ -59,10 +59,3 @@ include::../UserGuide.adoc[tag=newincidentwithoutvehicle]
 include::../DeveloperGuide.adoc[tag=incidentdraftcreation]
 
 include::../DeveloperGuide.adoc[tag=vehiclesearch]
-
-
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
