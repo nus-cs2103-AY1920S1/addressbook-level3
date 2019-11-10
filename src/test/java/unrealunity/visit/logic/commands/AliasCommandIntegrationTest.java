@@ -22,20 +22,39 @@ public class AliasCommandIntegrationTest {
 
     @Test
     public void execute_createAliasUseAliasDeleteAlias_success() {
-        String alias = "TEST ALIAS";
-        String aliasTo = "help";
+        String alias1 = "TEST ALIAS";
+        String aliasTo1 = "help";
+        String aliasUsage1 = "TEST ALIAS";
+        String aliasUsageExpected1 = "help";
+        String alias2 = "TEST ADD";
+        String aliasTo2 = "add";
+        String aliasUsage2 = "TEST ADD n/John Smith p/91234567 e/john@smith.co.uk "
+                + "a/12 Downing St Westminster, London SW1A 2AD, UK";
+        String aliasUsageExpected2 = "add n/John Smith p/91234567 e/john@smith.co.uk "
+                + "a/12 Downing St Westminster, London SW1A 2AD, UK";
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addAlias(alias.toLowerCase(), aliasTo.toLowerCase());
 
-        assertCommandSuccess(new AliasCommand(alias, aliasTo), model,
-                String.format(AliasCommand.MESSAGE_SUCCESS, alias.toLowerCase(), aliasTo.toLowerCase()), expectedModel);
+        expectedModel.addAlias(alias1.toLowerCase(), aliasTo1.toLowerCase());
+        assertCommandSuccess(new AliasCommand(alias1, aliasTo1), model,
+                String.format(AliasCommand.MESSAGE_SUCCESS, alias1.toLowerCase(),
+                aliasTo1.toLowerCase()), expectedModel);
 
-        assertTrue(model.applyAlias(alias).equals(aliasTo));
+        expectedModel.addAlias(alias2.toLowerCase(), aliasTo2.toLowerCase());
+        assertCommandSuccess(new AliasCommand(alias2, aliasTo2), model,
+                String.format(AliasCommand.MESSAGE_SUCCESS, alias2.toLowerCase(),
+                aliasTo2.toLowerCase()), expectedModel);
 
-        expectedModel.removeAlias(alias.toLowerCase());
-        assertCommandSuccess(new UnaliasCommand(alias), model,
-                String.format(UnaliasCommand.MESSAGE_SUCCESS, alias.toLowerCase()), expectedModel);
+        assertTrue(model.applyAlias(aliasUsage1).equals(aliasUsageExpected1));
+        assertTrue(model.applyAlias(aliasUsage2).equals(aliasUsageExpected2));
+
+        expectedModel.removeAlias(alias1.toLowerCase());
+        assertCommandSuccess(new UnaliasCommand(alias1), model,
+                String.format(UnaliasCommand.MESSAGE_SUCCESS, alias1.toLowerCase()), expectedModel);
+
+        expectedModel.removeAlias(alias2.toLowerCase());
+        assertCommandSuccess(new UnaliasCommand(alias2), model,
+                String.format(UnaliasCommand.MESSAGE_SUCCESS, alias2.toLowerCase()), expectedModel);
     }
 
     @Test

@@ -1,0 +1,150 @@
+= Jerrold Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :exclamation:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
+
+== PROJECT: VISIT
+
+== Overview
+
+VISIT is an open-source Customer Relationship Management (CRM) software for *House Call Doctors*. It is based on a Command-Line Interface (CLI) application called AddressBook3 by the SE-EDU Initiative. The UnrealUnity Team comprising of 4 people including myself introduced features that allow these doctors on-the-go to manage their appointments in an easy and enhanced fashion. It is written in Java with its GUI created in JavaFX, and has about 16 kLoC.
+
+.VISIT Main Window
+image::Ui.png[width="790"]
+
+I was tasked with conceptualizing and implementing the *Alias* feature. This document highlights this feature and provides excerpts of documentation for them from the User and Developer Guides.
+
+== Summary of contributions
+
+* *Major enhancement*: Added a system for handling aliases
+** What it does: Allows the user to define, use and delete aliases.
+** Justification: When doctors visit patients, they need to do multiple things repeatedly, such as scheduling followups. With the inclusion of the alias feature, it streamlines doctors' workflow during visitations.
+** Highlights: This feature requires a dictionary data structure to store all the user-defined aliases which are defined. It also matches the longest starting substring instead of wholesale matching and replacing of the aliases.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#tabOpen=true&tabType=authorship&tabAuthor=Wingedevil&tabRepo=AY1920S1-CS2103T-F12-2%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Vetted and assigned incoming Issues to team members.
+** Documentation:
+*** Worked on documentation for the project, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/96[#96]
+** Community:
+*** Reported bugs and suggestions for other projects using AddressBook3 as a base (examples: Code review of https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/12[NurseTraverse])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== *Optimization for Command-Line Interface (CLI) Users*
+
+====
+VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
+====
+
+==== Setting a shorthand command / alias : `alias`
+
+Set an alias for a command to enable faster command entry for a customized input. This command will override your previous mapping for the alias if there exists a prior mapping. Additionally, using existing commands as aliases is disallowed. +
+Format: `alias l/SHORTHAND v/COMMAND`
+
+*Examples*:
+
+* `alias l/ls v/list` +
+Typing `ls` now works equivalently as typing `list`.
+* `alias l/display all patients v/list` +
+Typing `display all patients` now works equivalently as typing `list`.
+
+image::UGAddAlias.png[width="800"]
+
+[NOTE]
+The `alias` command will override any previous alias mapping if any. +
+All your aliases are saved across multiple sessions and are persistent until removed.
+
+==== Removing a shorthand command / alias : `unalias`
+
+Delete an existing alias, if it exists. +
+Format: `unalias SHORTHAND`
+
+*Examples*:
+
+* `unalias ls` +
+Typing `ls` will no longer be equivalent to typing `list`.
+
+image::UGUnalias.png[width="800"]
+
+==== Showing all existing shorthand commands / aliases : `aliaslist`
+
+Show all existing aliases. +
+Format: `aliaslist`
+
+Examples:
+
+* `aliaslist` +
+Shows all the existing aliases.
+
+image::UGAliasList.png[width="800"]
+
+==== Using aliases
+To use a user-defined alias, you just have to type the alias you defined. Additional optional parameters can also be specified if the aliased command takes in additional arguments. +
+Format: `SHORTHAND [additional arguments]`
+
+Examples:
+
+image::UGApplyAlias.png[width="800"]
+
+[NOTE]
+Matching of aliases uses the longest substring match. (i.e. if there exists an alias _follow 7_ and _follow_, typing _follow 7_ will always match with _follow 7_ instead of _follow_.)
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Alias feature
+==== Implementation
+The alias mechanism is facilitated by `AliasTable`. At a lower level, saving of aliases is facilitated by use of a `HashMap`.
+It is contained within `UserPrefs` and can be serialized together with the rest of the members in `UserPrefs`.
+Additionally, it implements the following operations:
+
+* `AliasTable#applyAlias(commandText)` -- Applies the longest stored aliases to the supplied command.
+* `AliasTable#addAlias(alias, aliasTo)` -- Adds a new alias to the alias table.
+* `AliasTable#removeAlias(alias)` -- Removes a existing alias from the alias table.
+
+These operations are exposed in the `Model` interface as `Model#applyAlias(commandText)`, `Model#addAlias(alias, aliasTo)` and `Model#removeAlias(alias)` respectively.
+
+The following sequence diagram shows how adding an alias works:
+
+image::AddAliasSequenceDiagram.png[]
+
+[NOTE]
+The check for and illegal alias consists of creating a new `AddressBookParser` and parsing the given alias into it, which is not shown in this diagram.
+
+The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` instead which calls `Model#UserPref(alias)` and `AliasTable#removeAlias(alias)`
+
+The following sequence diagram shows how applying alias works:
+
+image::ApplyAliasSequenceDiagram.png[]
+
+[NOTE]
+This is a generalized diagram which depicts what happens between `execute(commandText)` and `LogicManager#parseCommand(alias)`. This process is not shown in other sequence diagrams.
+
+A user-defined alias is considered a match with the user input if the alias is a substring, that starts from the beginning, of the user input. Specifically, `AliasTable` uses the regex `(ALIAS)($| ).*` to check if it is a match. Following that, it picks the longest matching alias to apply to the user input.
+
+The following activity diagram shows how applying alias picks which alias to apply:
+
+image::ApplyAliasActivityDiagram.png[]
+
+[NOTE]
+An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.

@@ -36,10 +36,10 @@ public class AliasTable {
 
         // match for the longest alias
         for (String key: aliasTable.keySet()) {
-            Pattern pattern = Pattern.compile(Pattern.quote(key) + "($|\\s).*", Pattern.CASE_INSENSITIVE);
+            Pattern pattern = Pattern.compile(Pattern.quote(key) + "($|\\s)(.*)", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(commandText);
             if (key.length() > maxLength && matcher.matches()) {
-                aliasedCommand = matcher.replaceFirst(aliasTable.get(key));
+                aliasedCommand = matcher.replaceFirst(aliasTable.get(key) + "$1$2");
                 maxLength = key.length();
             }
         }
