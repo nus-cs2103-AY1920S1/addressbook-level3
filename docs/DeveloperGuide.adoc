@@ -56,7 +56,7 @@ In this section, we will explain the design and behaviour of the top-level compo
 This sub-section shows the *relationship* between the major components at the highest level, illustrated by the following diagram.
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[align=center]
 
 {nbsp} +
 
@@ -91,7 +91,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 {nbsp} +
 
 [discrete]
@@ -100,7 +100,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `add t/Animal Farm a/George`.
 
 .Component interactions for `add t/Animal Farm a/George` command
-image::AddBook.png[]
+image::AddBook.png[align=center]
 {nbsp} +
 
 In the diagram above, we can see how the components integrate together to execute a single command. +
@@ -114,7 +114,7 @@ This sub-section shows the structure of the User Interface (UI) and the relation
 The following diagram aims to illustrate how each UI sub-component is linked to one another.
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see the association between the different UI sub-components, as well as the classes that interact with the external `Logic` and `Model` components.
@@ -142,7 +142,7 @@ the UI component when the user enters an add command.
 The exact command entered is `add t/Animal Farm a/George`.
 
 .Interactions Inside the UI Component for the `add t/Animal Farm a/George` Command
-image::UiAddBookSequenceDiagram.png[]
+image::UiAddBookSequenceDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see how the UI components invoke the `execute` method of the `Logic` class in order to obtain and subsequently display the result of the execution.
@@ -151,7 +151,7 @@ The following activity diagram summarizes what happens to the `UI` component
 when a user executes a new command:
 
 .Flow of Events within `UI`
-image::UiUpdateBookListActivityDiagram.png[width=270]
+image::UiUpdateBookListActivityDiagram.png[width=270, align=center]
 {nbsp} +
 The activity diagram above aims to illustrate how `UI` only updates the `BookListPanel` when the catalog is being updated by a command. +
 We will now move on to give more details about the `Logic` component.
@@ -162,7 +162,7 @@ In this sub-section, we will explain the internal workings of the `Logic` compon
 The following class diagram aims to show how the 'Command Design Pattern' is used to achieve a high-level form of encapsulation of the `Command` object.
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[align=center]
 {nbsp} +
 In the diagram above, we can see that the `LogicManager` executes the `Command` class without knowledge of what each command does. This is achieve through polymorphism where all possible commands extend from the `Command` class.
 
@@ -178,7 +178,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add t/Animal Farm a/George")` API call.
 
 .Interactions Inside the Logic Component for the `add t/Animal Farm a/George` Command
-image::AddBookLogicSequenceDiagram.png[]
+image::AddBookLogicSequenceDiagram.png[align=center]
 {nbsp} +
 In the diagram above, we can see that the `Logic` component's `execute` is invoked by the `UI` component from before. A series of method calls would invoke the `addBook` method of the `Model`, moving the chain of calls further downstream.
 
@@ -194,7 +194,7 @@ The `Model` component is mainly composed of the `Book`, `Borrower` and `Loan` cl
 The figure below shows the relationship between smaller components. These smaller components are modelled after real world objects.
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[align=center]
 {nbsp} +
 
 The figure illustrates the composition of the `Model` component. The `Model`,
@@ -219,7 +219,7 @@ The `Storage` component is responsible for updating the memory of the system (in
 The figure below aims to show the different records storage that are implemented in LiBerry.
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram.png[align=center]
 {nbsp} +
 
 In the figure above, we can see that we are maintaining 4 different storages. These storages aim to keep the memory of:
@@ -240,7 +240,7 @@ There are certain classes (eg. Utility classes) that are used by different compo
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 These classes include (to list a few):
 
 * User Settings
@@ -253,11 +253,11 @@ We will now move on to the next section, which aims to explain the implementatio
 
 This section describes some noteworthy details on how certain features are implemented.
 
-//tag::addBook[]
 === Add book feature
 This feature allows a user to add a new book to the LiBerry system.
 
-==== Implementation
+//tag::addBook[]
+==== Details of Implementation
 
 The add book function is facilitated by `Catalog`.
 The `Catalog` stores a list of books, representing the books in the library.
@@ -268,25 +268,30 @@ Additionally, it implements the following operation:
 Given below is an activity diagram of a book being added to the catalog.
 
 .Activity Diagram for adding a book
-image::AddBookActivityDiagram.png[width=270]
-{nbsp} +
+image::AddBookActivityDiagram.png[width=400, align=center]
+NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
+they are not shown.
 
-Given below is a class diagram of a book.
+{nbsp} +
+We can clearly see how the system decides to generate a valid serial number base on whether the user input contains a valid serial number or not. +
+{nbsp} +
+After the book is added to the system, we can now represent it with a class diagram shown below.
 
 .Class Diagram for `Book`
-image::BookClassDiagram.png[width=400]
+image::BookClassDiagram.png[width=400, align=center]
 {nbsp} +
 
 Notice how the book can hold either *1 or 0 loans*, depending on whether it is currently loaned out or not. +
 {nbsp} +
-
-Given below is the object diagram of a newly added book.
+The current state of this newly-added book is further illustrated by the object diagram below.
 
 .Object Diagram for `Book`
-image::BookObjectDiagram.png[width=300]
+image::BookObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
-We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*. This makes it consistent with the class diagram of `Book` above.
+We can see that the book holds a `Optional<Loan>` in order to have either *0 or 1 `Loan` objects*.
+This makes it consistent with the class diagram of `Book` above.
+We can also observe that the `LoanHistory` object of the `Book` is empty since the book is new and is not loaned out before.
 
 ==== Design Considerations
 
@@ -298,6 +303,10 @@ We can see that the book holds a `Optional<Loan>` in order to have either *0 or 
 * **Alternative 2 (current choice):** Store them in a HashMap.
 ** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
+
+*We have decided to go with Alternative 2.* In contrast to the original AddressBook3, there is much more retrieval of
+book objects in within the Book and Loan feature. Therefore, the benefits of quick retrieval of book information from the catalog will
+outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
 Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
@@ -313,18 +322,18 @@ We need to come up with a solution to give us "B00001" in the given example.
 
 * **Alternative 1:** Use a TreeMap to store current serial numbers such that we can efficiently determine the next serial number in running order.
 ** Pros: Will be efficient in generating the next valid serial number.
-** Cons: Will incur additional memory to maintain the TreeMap.
+** Cons: Will incur additional memory to maintain the TreeMap. Might also result in unexpected behaviour in some edge cases.
 * **Alternative 2 (Current choice):** Iterate from "B00001" to obtain the first unused serial number.
 ** Pros: Will be easy to implement.
 ** Cons: Will be inefficient once the number of books grow.
 
-We have decided to go with Alternative 2 and keep it simple as there are some edge cases which will lead to the implementation in
-Alternative 1 not behaving as expected. This is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
+*We have decided to go with Alternative 2* and keep it simple. This is because there are some edge cases which will lead to the implementation in
+Alternative 1 not behaving as expected. Furthermore, Alternative 2 is also in line with the *KISS* (Keep it Simple, Stupid) principle of programming.
 //end::addBook[]
 
 // tag::undo/redo[]
 === Undo/Redo feature
-==== Implementation
+==== Details of Implementation
 
 The undo/redo mechanism is facilitated by `CommandHistory`.
 It contains a undo/redo command history, stored internally as an `commandHistoryList` and `currentCommandPointer`.
@@ -333,6 +342,9 @@ Additionally, it implements the following operations:
 * `CommandHistory#commit()` -- Saves the current reversible command in its command history.
 * `CommandHistory#undo()` -- Undoes the most recent reversible command.
 * `CommandHistory#redo()` -- Redoes the most recent previously undone command.
+* `CommandHistory#canUndo() --
+* `CommandHistory#canRedo() --
+* `CommandHistory#reset() --
 
 These operations are exposed in the `Model` interface as `Model#commitCommand()`, `Model#undoCommand()` and `Model#redoCommand()` respectively.
 
@@ -349,7 +361,7 @@ Step 1. The user launches the application for the first time.
 The `CommandHistory` will be initialized with an empty `commandHistoryList`.
 
 .Initial state of CommandHistory
-image::UndoRedoState0.png[width=300]
+image::UndoRedoState0.png[width=300, align=center]
 
 Step 2. The user executes `delete 5` command to delete the 5th
 book in the catalog. The `delete` command calls `Model#commitCommand()`,
@@ -357,14 +369,14 @@ causing the `delete 5` command to be saved in the `commandHistoryList`,
 and the `currentCommandPointer` is pointed to the newly inserted command.
 
 .State of CommandHistory after `delete 5`
-image::UndoRedoState1.png[width=300]
+image::UndoRedoState1.png[width=300, align=center]
 
 Step 3. The user executes `add t/Animal Farm ...` to add a new book.
 The `add` command also calls `Model#commitCommand()`, causing the add
 command to be saved into the `catalogHistoryList`.
 
 .State of CommandHistory after `add t/Animal Farm`
-image::UndoRedoState2.png[width=300]
+image::UndoRedoState2.png[width=300, align=center]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitCommand()`,
@@ -381,7 +393,7 @@ This will then shift the `currentCommandPointer` once to the left, pointing it
 to the previous `ReversibleCommand` in the `commandListHistory`.
 
 .State of CommandHistory after `undo`
-image::UndoRedoState3.png[width=300]
+image::UndoRedoState3.png[width=300, align=center]
 
 [NOTE]
 If the `currentCommandPointer` is at index -1, pointing to no command,
@@ -392,7 +404,7 @@ return an error to the user rather than attempting to perform the undo.
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo command
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[align=center]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X)
 but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -414,7 +426,7 @@ will usually not call `Model#commitCommand()`,`Model#undoCommand()` or
 `Model#redoCommand()`. Thus, the `commandHistoryList` remains unchanged.
 
 .State of CommandHistory after `help`
-image::UndoRedoState4.png[width=300]
+image::UndoRedoState4.png[width=300, align=center]
 
 Step 6. The user executes `clear`, which calls `Model#commitCommand()`.
 Since the `currentCommandPointer` is not pointing at the end of the `commandHistoryList`,
@@ -424,12 +436,12 @@ We designed it this way because it no longer makes sense to redo the
 desktop applications follow.
 
 .State of CommandHistory after `clear`
-image::UndoRedoState5.png[width=300]
+image::UndoRedoState5.png[width=300, align=center]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 .Activity diagram for committing Command
-image::CommitActivityDiagram.png[width=300]
+image::CommitActivityDiagram.png[width=300, align=center]
 
 ==== Design Considerations
 
@@ -460,32 +472,31 @@ of memory usage.
 We chose alternative 1 as it is easier to maintain a single data structure.
 // end::undo/redo[]
 
-// tag::printLoanSlip[]
 === Generate Loan Slip feature
-==== Proposed Implementation
+// tag::printLoanSlip[]
+==== Details of Implementation
 
 The printing of loan slip feature is facilitated by `LoanSlipUtil`.
-Essentially, it implements the following operations:
+Essentially, `LoanSlipUtil` implements the following operations:
 
 * `LoanSlipUtil#mountLoan()` -- Mounts a loan in preparation for it to be generated in a PDF loan slip.
 * `LoanSlipUtil#clearSession()` -- Clears the current loan session by unmounting all loans, usually after generating a PDF loan slip.
-* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loan slip in the loan_slips folder.
+* `LoanSlipUtil#createLoanSlipInDirectory()` -- Creates a pdf version of the mounted loans as a single loan slip, saved in the loan_slips folder.
 
 Given below is the sequence diagram of the generation of loan slip during the loan of a book.
 
 .Sequence Diagram for the generation of a loan slip
-image::LoanSlipGeneration.png[]
+image::LoanSlipGeneration.png[align=center]
 {nbsp} +
 
-The following describes the sequence of events displayed in the figure above.
+The sequence diagram above is described by the following sequence of events:
 ****
-1) The `LoanCommand` is executed +
-2) The `LoanCommand` retrieves the `Book` and the `Borrower` +
-3) The `LoanCommand` creates a new `Loan` +
-4) The `LoanCommand` mounts the new loan in `LoanSlipUtil` +
-5) The `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder +
-6) The `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately +
-7) The `Logic` component unmounts the `LoanSlipDocument` at the end of the process
+. `LoanCommand` is executed
+. `LoanCommand` retrieves the `Book` and the `Borrower` to create a new `Loan`
+. `LoanCommand` mounts the new loan in `LoanSlipUtil`
+. `Storage` component creates and save a new PDF `LoanSlipDocument` in a saved folder
+. `Logic` component opens the newly generated `LoanSlipDocument` for the librarian to print it immediately
+. `Logic` component clears the session in `LoanSlipUtil` at the end of the process
 ****
 
 ==== Design Considerations
@@ -499,7 +510,7 @@ The following describes the sequence of events displayed in the figure above.
 ** Pros: The `Logic` component and the `LoanCommand` object can now use the full functionality of `LoanSlipDocument` via the static class `LoanSlipUtil` without knowing the internal implementation of `LoanSlipDocument`.
 ** Cons: There is more code to be written and we must consider how to save state within a static class such that it can be continually reused.
 
-We have decided to go with Alternative 2. The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
+*We have decided to go with Alternative 2.* The Facade class provides the system with a *simplified view* of generating a loan slip, making it *easier to use*.
 It also *decouples* the code, making it easier to modify in the future.
 On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies between classes, thereby *increasing coupling* and *reducing maintainability*.
 
@@ -512,104 +523,44 @@ On the contrary, Alternative 1 will introduce a lot of unnecessary dependencies 
 ** Pros: Will only need to make adjustments to `Logic` component to contain an `Optional<LoanSlipDocument>` field and update accordingly whenever a new `Loan` comes in.
 ** Cons: Violates Single Responsibility Principle as the Logic class will now have to change if we change the implementation of `LoanSlipDocument`.
 
-We have decided to go with Alternative 1 as it allows us to have flexible code that is *easily extendable*. Furthermore,
+*We have decided to go with Alternative 1* as it allows us to have flexible code that is *easily extendable*. Furthermore,
 it adheres to good programming practices as compared to Alternative 2, which *violates the Single Responsibility Principle*.
 // end::printLoanSlip[]
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 // tag::bookLoaningFeatures[]
 
-=== Book Loaning Features
+=== Book loaning feature
 
-==== Functionalities
-The functionalities and commands associated with the book loaning feature are:
+==== Details of Implementation
 
-* `loan sn/BOOK_SN`
+The functionalities and commands associated with the book loaning feature are `loan`, `return`, `pay` and `renew`.
+This feature set is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`.
 
-** Loans out a book based on its serial number.
-
-* `return INDEX [-all]`
-
-** Returns a book based on the index of that book shown on the GUI.
-
-* `renew INDEX [-all]`
-
-** Renews a book based on the index of that book shown on the GUI.
-
-* `reserve sn/BOOK_SN` or `reserve INDEX`
-
-** Reserves a book based on its serial number or index of that book shown on the GUI.
-
-* `pay AMOUNT`
-
-** Pay a fine amount for overdue books.
-
-The rationale for the different types of arguments for the loan, return, renew and reserve may not be apparent at first,
-but it is actually very simple.
-
-* When borrowers come to the librarian (our user) to borrow a book, the book itself would have
-a serial number. Thus, the user just types in the serial number of the book to be loaned out, instead of using the find
-command to locate that book in LiBerry to use its index.
-
-* Whereas, when a borrower comes to return a book, the librarian only sees a limited list of book that was loaned out by
-the borrower on the GUI. Hence, the librarian need not type the longer serial number to return that book, and instead, types
-its index shown in the GUI list. Likewise, the same idea is applied to renewing books
-
-* When reserving books for borrowers, it is possible that the book is found through the GUI, and thus, index is used. Or,
-the borrower brings the physical book forward to reserve it as he/she does not want to borrow it now.
-
-==== Implementation
-
-This feature is mainly facilitated by the `Loan` association class between a `Book` and a `Borrower`. The object diagram
-just after a book is loaned out can be seen below.
+The object diagram at the state when a book is just loaned out can be seen below.
 
 .Loan object diagram after a new Loan is created
-image::LoanObjectDiagram.png[width="880"]
-{nbsp} +
+image::LoanObjectDiagram.png[width=800, align=center]
 
-In this instance, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
-The `Loan` associated to this loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
-
+At that instant shown in the diagram, the `Borrower` with `BorrowerId` K0789 currently has a `Book` with `SerialNumber` B00456 loaned out.
+The `Loan` associated with this book loan, with `LoanId` L000123, is stored in the `LoanRecords` class of the model component.
 Both the `Book` and `Borrower` objects also have access to this `Loan` object.
 
 In each `Loan` object, only the `BorrowerId` of the `Borrower` and `SerialNumber` of the `Book` is stored to reduce
-circular dependency.
+circular dependency. The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
 
-The `LoanRecords` class stores all the `Loan` objects tracked by LiBerry in a HashMap, where the key is its `LoanId`.
-
-Immutability of each object is supported to ensure correctness of undo and redo functionality.
+The immutability of each object is supported to ensure the correctness of undo and redo functionality.
 
 ===== Loaning
 
-The following activity diagram summarizes what happens when a user enters a loan command:
+The following activity diagram summarizes what happens when a user enters a loan command.
 
 .Activity diagram when a loan command is entered
-image::LoaningActivityDiagram.png[width="650"]
-{nbsp} +
+image::LoaningActivityDiagram.png[width=580, align=center]
 
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
+After `LoanCommand#execute(model)` is called, this series of checks shown in the above diagram is done to determine if
+the book can be loaned to the currently served borrower.
 
-When a book is successfully loaned out by a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
+When a book is successfully loaned out to a borrower, a new `Loan` object is created. The `LoanId` is automatically generated according
 to the number of loans in the `LoanRecords` object in the model. The `startDate` is also automatically set to today's date.
 The `endDate` is automatically set according to the loan period set in the user settings. This `Loan` object is added to
 `LoanRecords` through the call to `Model#addLoan(loan)`.
@@ -619,85 +570,92 @@ object being added into its `currentLoanList`. The new borrower object then repl
 `BorrowerRecords` object in the model. These two steps are done through the method call to `Model#servingBorrowerNewLoan(loan)`.
 The new `Book` instance is also created by copying the details of the original book object, and likewise, with this `Loan` object added into it.
 Similarly, the new book object replaces the old book object in the `Catalog` object in the model through the call to
-`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support immutability of the objects.
+`Model#setBook(bookToBeLoaned, loanedOutBook)`. These were done to support the immutability of the objects.
 
 ===== Returning
 
-The following activity diagram summarizes what happens when a user enters a return command:
-
-.Activity diagram when a book is being returned.
-image::ReturningActivityDiagram.png[width="820"]
-{nbsp} +
-
-NOTE: The else branch of each branch node should have a guard condition `[else]` but due to a limitation of PlantUML,
-they are not shown.
-
 When a loaned out book is successfully returned by a borrower, the associated `Loan` object is moved from the borrower's
 `currentLoanList` to `returnedLoanList`. Inside the book object, this `Loan` object is also removed. Inside this loan
-object, the `returnDate` is added according to today's date. The `remainingFineAmount` of this loan object is also
-calculated based on the fine amount set in the user settings.
+object, the `returnDate` is set to today's date. The `remainingFineAmount` of this loan object is also
+calculated based on the daily fine increment set in the user settings.
 
-Similarly, the creation of new objects for replacement are also done to support immutability. They are supported by the
-methods `Model#setBook(bookToBeReturned, returnedBook)` and `Model#servingBorrowerReturnLoan(returningLoan)`.
-
-===== Renewing
-
-When a book is successfully renewed by a borrower, the `renewCount` of the `Loan` object is incremented by 1
-and its `dueDate` is also increased by the renew period set in the user settings.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
-
-===== Reserving
-
-When a book is successfully reserved by a borrower, the `Book` object is marked as reserved and is added to the borrower's
-`reservedBookList`.
-
-Similarly, the creation of new objects for replacement are also done to support immutability.
+Similarly, the creation of new objects for replacement is also done to support immutability. The `return` command is supported by the
+methods `Model#setBook(bookToBeReturned, returnedBook)`, `Model#servingBorrowerReturnLoan(returningLoan)` and
+`Model#updateLoan(loanToBeReturned, returnedLoan)`, which updates the `Catalog`, `BorrowerRecords` and `LoanRecords`
+in the model respectively.
 
 ===== Paying fines
 
-When a fine amount is successfully paid by a borrower, the `remainingFineAmount` and `paidFineAmount` of the loans in
-the borrower's `returnedLoanList` is updated accordingly.
+When a fine amount is successfully paid by a borrower through the call to `Model#payFines(amountInCents)`,
+the `remainingFineAmount` and `paidFineAmount` of the loans in the borrower's `returnedLoanList` is updated accordingly.
+The fine amount is tracked individually inside each loan object instead of as a variable inside the `Borrower` instance
+that stores the total fine amount incurred by that borrower.
+This is done to support the ease of extension in the future.
+For example, the total fine each book has garnered can be easily calculated.
 
-Similarly, the creation of new objects for replacement are also done to support immutability.
+Similarly, the creation of new objects for replacement is also done to support immutability.
+
+===== Renewing
+
+The following sequence diagram illustrates the series of method calls when a `RenewCommand` is executed to renew book(s).
+
+.Sequence diagram illustrating the execution of a RenewCommand
+image::RenewSequenceDiagram.png[width=700, align=center]
+
+As seen in the diagram, firstly, a list of books that can be renewed is obtained through the `RenewCommand#getRenewingBooks(model)` method.
+For each `Loan` object associated with each book, a new instance is created with its original `renewCount` incremented by 1 and its
+`dueDate` extended by the renew period set in the user settings. This is done through the method call to `Loan#renewLoan(extendedDueDate)`.
+The call to `Book#renewBook(renewedLoan)` then returns a new instance of this book with its loan object updated.
+
+The method calls to `Model#setBook(bookToBeRenewed, renewedBook)`, `Model#servingBorrowerRenewLoan(loanToBeRenewed, renewedLoan)`
+and `Model#updateLoan(loanToBeRenewed, renewedLoan)` then updates the `Catalog`, `BorrowerRecords` and `LoanRecords` respectively.
 
 ==== Design Considerations
 
 ===== Aspect: File storage of loans
 
 Inside the model, for each current loan (loans that are not returned yet), the `Book`, the `Borrower` and the `LoanRecords`
-point to the same the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
+point to the same `Loan` object. LiBerry's storage system is such that `Catalog` stores the books,
 `BorrowerRecords` stores the borrowers and `LoanRecords` stores the loans. Thus, a decision was made to decide how these
 loans are serialized and stored in the user's file system.
 
-* **Alternative 1:** Save the whole `Loan` object in each book in the `catalog.json` and save the the whole of every `Loan`
-object in each borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
-** Pros: Easy to implement. No need to read storage files in a specific order.
-** Cons: Storage memory size issues. Same information is duplicated and stored in all 3 storage files.
+* **Alternative 1:** Save the entire `Loan` object in each book in `catalog.json` and save the entirety of every single `Loan`
+object associated with a borrower in `borrowerrecords.json`. The `Loan` object is also duplicated in `loanrecords.json`.
+** *Pros*: Easy to implement. No need to read storage files in a specific order.
+** *Cons*: Storage memory size issues. The same information is duplicated and stored in all 3 storage files. +
+{empty} +
 
-* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in the `catalog.json`
+* **Alternative 2 (selected choice):** Save only the `LoanId` of each `Loan` object in each book in `catalog.json`
 and save a list of `LoanId` in each borrower in `borrowerrecords.json`. The whole `Loan` object is only saved in
-`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` need to be read
+`loanrecords.json`. When reading the storage files at the start of the application, `loanrecords.json` needs to be read
 in first, before the borrowers and books can be read in as they would get the loan objects from the `LoanRecords` based
 on their `LoanId` s.
-** Pros: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
-Also, `LoanRecords` thus serve as a single source of truth.
-** Cons: Must ensure that the reading of stored files are in the correct order, and also correct `Loan` objects are referenced
-after reading in `borrowerrecords.json` and `catalog.json`. Method used to retrieve a `Loan` object from its `LoanId` must
+** *Pros*: Uses less memory as only `LoanId` is stored for the books and borrowers, instead of the whole serialized loan objects.
+** *Cons*: The reading of stored files have to be in a certain correct order. It must be ensured that the correct `Loan` object is referenced
+after reading in `borrowerrecords.json` and `catalog.json`, and also every time a `Loan` object is updated. The method used to retrieve a `Loan` object from its `LoanId` must
 also be fast enough as there can be hundreds of thousands of loans.
+
+*Alternative 2* was chosen as this significantly reduced the file size of the storage files.
+If alternative 1 was used, the memory needed to store each `Loan` object would be 3 times more compared to alternative 2.
+Furthermore, `LoanRecords` could then also serve as a single source of truth for loan data.
 
 ===== Aspect: Data structure to support recording of loans in LoanRecords
 
 * **Alternative 1:** Use a list data structure, such as an `ArrayList` to store the loans in the model component.
-** Pros: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
-** Cons: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
+** *Pros*: Easy to implement. Easy to obtain insertion order of the loans and sort through the list.
+** *Cons*: Slow to search for a `Loan` based on its `LoanId`, i.e., O(n) time, as the list must be traversed to find the
 correct associated `Loan` object. The additional time taken adds up when reading the storage files during the starting
-up of the application. Thus, it can make the application feel laggy and unresponsive at the start.
+up of the application. Thus, it can make the application feel laggy and unresponsive at the start. +
+{empty} +
 
 * **Alternative 2 (selected choice):** Use a `HashMap` to store the loans, where the key is its `LoanId`.
-** Pros: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
-** Cons: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
+** *Pros*: Fast to retrieve a `Loan` object based on its `LoanId`, i.e., O(1) time.
+** *Cons*: Insertion order is not preserved. Have to traverse through all the loan objects in the HashMap to check their
 `startDate` in order to obtain their insertion order.
+
+*Alternative 2* was chosen as the application frequently needs to retrieve and access a `Loan` object based on its `LoanId`.
+Thus, using a `HashMap` would greatly reduce the time needed for such operations. Moreover, the application rarely needed
+to obtain the insertion order of a `Loan` object.
 
 // end::bookLoaningFeatures[]
 
@@ -706,7 +664,7 @@ up of the application. Thus, it can make the application feel laggy and unrespon
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
-==== Implementation
+==== Details of Implementation
 ModelManager contains a `FilteredList` of `Books` (`filteredBooks`), which is used to display books on the LiBerry GUI. Book finding works by
 starting converting the command string in to a `BookPredicate` object, then updating `filteredBooks` with that predicate.
 
@@ -720,13 +678,12 @@ The diagram below shows a simplified command generation sequence of a 'find t/An
 starting from the CatalogParser
 
 .Sequence Diagram showing the execution of a Find Command input
-image::FindSequenceDiagram.png[width="840]
+image::FindSequenceDiagram.png[width=840, align=center]
 
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-image:BookPredicateEmptyObjectDiagram.png[height="300"]
-image:BookPredicateFilledObjectDiagram.png[height="300"]
+image::BookPredicateObjectDiagram.png[height=300, align=center]
 
 .Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
 
@@ -766,7 +723,7 @@ filtered books does not have an API that sets a hard limit on the number of book
 
 //tag::registerBorrower[]
 === Register borrower feature
-==== Implementation
+==== Details of Implementation
 The `register` borrower feature is facilitated by `BorrowerRecords`. The BorrowerRecords stores a list of borrowers,
 representing the borrowers registered into the library system. The command to register a borrower into the library
 system is as followed: +
@@ -776,19 +733,19 @@ system is as followed: +
 Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.
 
 .Activity Diagram for registering a borrower
-image:RegisterBorrowerActivityDiagram.png[width=270]
+image::RegisterBorrowerActivityDiagram.png[width=270, align=center]
 {nbsp} +
 
 Given below is a class diagram of a book.
 
 .Class Diagram for `Borrower`
-image::BorrowerClassDiagram.png[width=400]
+image::BorrowerClassDiagram.png[width=400, align=center]
 {nbsp} +
 
 Given below is the object diagram of a newly registered borrower.
 
 .Object Diagram for `Borrower`
-image::BorrowerObjectDiagram.png[width=300]
+image::BorrowerObjectDiagram.png[width=300, align=center]
 {nbsp} +
 
 ==== Design Considerations
@@ -809,6 +766,26 @@ However, we decided to implement a new function, which is to allow borrowers to 
 Therefore, this method does not work anymore. So we decided to change to generate the new ID based on the first-found
 available ID.
 //end::registerBorrower[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -922,39 +899,10 @@ I submit a book title query
 The use case diagram below illustrates the main use cases of LiBerry.
 
 .General Use Cases for LiBerry
-image::UseCases.png[width="330"]
+image::UseCases.png[width=330, align=center]
 {nbsp} +
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
-
-[discrete]
-==== Use case: Delete a book
-
-*MSS*
-
-1.  User searches for books by name, genre or author
-2.  LiBerry shows a list of books
-3.  User requests to delete a specific book in the list
-4.  LiBerry deletes the book
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-[none]
-Use case ends
-+
-{empty} +
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. LiBerry shows an error message.
-+
-Use case resumes at step 2.
-
 
 [discrete]
 ==== Use case: Add a book
@@ -973,55 +921,75 @@ Use case ends.
 +
 Use case ends.
 
-* 1b. Serial Number is not provided.
+*Extensions*
+[none]
+* 1b. The mandatory arguments are not provided.
 +
 [none]
-** 1b1. Serial Number is auto-generated.
+** 1b1. LiBerry shows an error message.
++
+Use case ends.
+
+* 1c. Serial Number is not provided.
++
+[none]
+** 1c1. Serial Number is auto-generated.
 +
 Use case resumes at step 2.
 
 [discrete]
-==== Use case: Loan a book
+==== Use case: Delete a book
 
 *MSS*
 
-1.  Borrower comes to user to borrow a book.
-2.  User enters the borrower's ID.
-3.  LiBerry shows that the borrower is being served.
-4.  User loans out the book to the borrower.
-5.  LiBerry shows the book as being successfully loaned out.
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to delete a specific book in the list
+4.  LiBerry deletes the book
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends
++
+[none]
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. LiBerry shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: Get information of a book
+
+*MSS*
+
+1.  User searches for books by name, genre or author
+2.  LiBerry shows a list of books
+3.  User requests to view the information of a specific book from the list
+4.  Information regarding the book is displayed
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. LiBerry cannot find the ID in its system.
-[none]
-** 2a1. LiBerry requests for a valid and registered ID.
-[none]
-** 2a2. User enters new ID.
-** Steps 2a1-2a2 are repeated until the ID entered is valid.
+* 2a. The list is empty.
 +
-Use case resumes at step 3.
+[none]
+Use case ends
 +
 {empty} +
-* 3a. The book cannot be loaned out.
+* 3a. The given index is invalid.
 +
 [none]
 ** 3a1. LiBerry shows an error message.
 +
-Use case ends.
-+
-{empty} +
-[none]
-* *a. At any time, the user makes a typo in the input.
-[none]
-** *a1. User undoes the last command entered.
-[none]
-** *a2. User re-types the input.
-+
-Use case resumes at the step preceding this.
+Use case resumes at step 2.
 
 //tag::yutingUseCase[]
 [discrete]
@@ -1056,7 +1024,7 @@ Use case ends.
 *MSS*
 
 1.  User enters unregister command for borrower by borrower ID
-3.  LiBerry unregisters the borrower
+2.  LiBerry unregisters the borrower
 +
 Use case ends.
 
@@ -1101,6 +1069,106 @@ Use case ends.
 
 //end::yutingUseCase[]
 
+[discrete]
+==== Use case: Loan a book
+
+*MSS*
+
+1.  Borrower comes to user to borrow a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User loans out the book to the borrower.
+5.  LiBerry shows the book as being successfully loaned out.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. LiBerry cannot find the ID in its system.
+[none]
+** 2a1. LiBerry requests for a valid and registered ID.
+[none]
+** 2a2. User enters new ID.
+** Steps 2a1-2a2 are repeated until the ID entered is valid.
++
+Use case resumes at step 3.
++
+{empty} +
+* 4a. The book cannot be loaned out.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
++
+{empty} +
+[none]
+* *a. At any time, the user makes a typo in the input.
+[none]
+** *a1. User undoes the last command entered.
+[none]
+** *a2. User re-types the input.
++
+Use case resumes at the step preceding this.
+
+[discrete]
+==== Use case: Return a book
+
+*MSS*
+
+1.  Borrower comes to user to return a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User returns the book for the borrower.
+5.  LiBerry shows the book as being successfully returned and shows the fine amount incurred.
++
+Use case ends.
+
+[discrete]
+==== Use case: Renew a book
+
+*MSS*
+
+1.  Borrower comes to user to renew a book.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User renews the book for the borrower.
+5.  LiBerry shows the book as being successfully renewed.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The book cannot be renewed.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Paying a fine
+
+*MSS*
+
+1.  Borrower comes to user to pay a fine.
+2.  User enters the borrower's ID.
+3.  LiBerry shows that the borrower is being served.
+4.  User deducts the given amount from the borrower's outstanding fine.
+5.  LiBerry shows the fine amount which is paid, the remaining fine amount left, and the change to be given.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The borrower has no outstanding fines.
++
+[none]
+** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
 === Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
@@ -1108,8 +1176,6 @@ Use case ends.
 sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
 able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 === Glossary
 
@@ -1119,44 +1185,78 @@ Windows, Linux, Unix, OS-X
 [[ui]] UI::
 User Interface
 
-=== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 === Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the app manually. Each of the tests are supposed to be done with sample data (The data that is preloaded when LiBerry first starts up).
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-==== Launch and Shutdown
+==== Launching and Shutting down
 
 . Initial launch
-
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
-
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+==== Toggling UI theme
+
+. Converting between light and dark mode
+.. testcase: `toggleui` +
+Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
+.. Testcase: `toggleui` (again) +
+Expected: The main GUI switches back to light mode, including those of all other sub-windows
+
+==== Finding a book
+
+. Finding books by Title
+.. Test case: `find t/harry` +
+Expected: 2 books with titles matching the word 'harry' should appear.
+.. Test case: `find t/the` +
+Expected: 3 books, all of which have the word 'the' in them, should appear.
+
+. Finding books by Author
+.. Test case: `find a/J K` +
+Expected: 2 books from 'J K Rowling' should appear.
+.. Test case: `find a/J` +
+Expected: 3 books from authors with names containing the letter 'J' should appear.
+
+. Finding books by Serial Number
+.. Test case: `find sn/B00001` +
+Expected: 1 book with serial number B00001 should appear.
+
+. Find books by Genre
+.. Test case: `find g/fiction` +
+Expected: 4 books with the genre 'FICTION' should appear.
+.. Test case: `find g/fiction g/action' +
+Expected: The book 'Harry Botter and the Full Blood Prince' should appear.
+
+. Find books by loan status
+.. Test case: `find -available` +
+Expected: All available books should appear.
+.. Test case: `find -loaned` +
+Expected: All loaned books, including overdue ones, should appear.
+.. Test case: `find -overdue` +
+Expected: All overdue books should appear.
+
+. Limiting number of books on display
+.. Test case: `find 3` +
+Expected: Only 3 books out of 9 should appear.
+
+. Resetting the display of books
+.. Test case: `clear` +
+Expected: All books should appear by serial number order.
+
+. Mixing and match different find conditions
+.. Test case: `find 4 t/a -loaned` +
+Expected: Only 4 loaned books should appear, and all should contain the letter 'a' in their title.
+.. Test case: `find -loaned -overdue` +
+Expected: An error asking for only 1 flag is shown.
 
 ==== Deleting a book
 
@@ -1170,12 +1270,128 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+==== Loaning a book
 
-==== Saving data
+. Loaning a book while in Serve mode.
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: LiBerry is in Serve mode, serial number is valid, book exists in the catalog and book is not on loan.
+.. Test case: `loan sn/VALID_SERIAL_NUMER` +
+Expected: Book with the given `VALID_SERIAL_NUMBER` is loaned to the currently served borrower. The book is added
+to the list of currently loaned books in the borrower panel. A box stating "On Loan" and relevant details also appear
+on the book in the UI, beside the label that states its serial number.
+.. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following test case: `serve id/K0001` followed
+by `loan sn/B00001` to loan the first book in the list, "Harry Botter", to the borrower "Xo Xo". +
+Expected: "Harry Botter" is loaned to "Xo Xo".
+.. Other incorrect loan commands to try: `loan`, `loan abc`,`loan sn/INVALID_SERIAL_NUMBER`,
+`loan sn/SERIAL_NUMBER_OF_A_BOOK_THAT_DOES_NOT_EXIST`, `sn/SERIAL_NUMBER_OF_BOOK_ALREADY_ON_LOAN` +
+Expected: Book is not loaned out. Error details shown in the command results display.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Loaning a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode, command format is correct and serial number is valid.
+.. Test case: `loan sn/VALID_SERIAL_NUMBER` +
+Expected: Book is not loaned out. An error stating not in Serve mode is shown.
 
-_{ more test cases ... }_
+. Loaning a book with an invalid serial number. An invalid serial number is one which does not have 5 digits following a
+capital 'B' character.
+.. Prerequisites: Command format is correct.
+.. Test Case: `loan sn/INVALID_SERIAL_NUMBER` +
+Expeected: Book is not loaned out. An error stating the correct format of a serial number is shown.
+
+==== Returning a book
+
+. Returning a book while in Serve mode.
+
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right.
+.. Test case: `return 1` +
+Expected: The first book (at index 1) in the borrower's list on the right is returned and no longer on loan, i.e., removed from that list.
+The box on the book in the main list on the left stating that is in "On Loan" also disappears.
+The fine incurred for that book is shown and the "Fines: $..." in the borrower panel is updated if the fine is greater than $0.
+.. Test case: `return -all` +
+Expected: All the books in the borrower's list on the right is returned and no longer on loan. The list in the borrower panel
+is now empty. The boxes on the books in the main list on the left stating that they are "On Loan" also disappears.
+The fine incurred for each book is shown and the "Fines: $..." in the borrower panel is updated if the any fine incurred is greater than $0.
+.. Incorrect return commands to try: `return`, `return abc`, `return 0`, `return x` (where x is larger than the borrower panel's list size). +
+Expected: No book is returned. Error details shown in the command result display.
+
+. Returning a book while not in Serve mode.
+
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `return 1` or `return -all` +
+Expected: No book is returned. An error stating not in Serve mode is shown.
+
+
+==== Renewing a book
+
+. Renewing a book while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and there are books listed in the borrower panel on the right that can be renewed.
+Only books that are not overdue, books that have not reached the maximum renew count and books that were not just loaned or renewed
+in the same Serve mode session can be renewed.
+.. Test case: `renew 1` +
+Assumption: The first book (at index 1) in the borrower's list on the right can be renewed. +
+Expected: This first book is renewed and its due date is extended. The box on that book shows the updated due date
+and the "Renewed: _x_ times" has been incremented by 1.
+.. Test case: `renew -all` +
+Assumption: There are books in the borrower's list on the right that can be renewed. +
+Expected: These renewable books are renewed and their due dates are extended. The boxes on those books show the updated
+due dates and the "Renewed: _x_ times" were incremented by 1.
+.. Incorrect renew commands to try: `renew`, `renew abc`, `renew 0`,
+ `renew x` (where x is larger than the borrower panel's list size or the book at that index cannot be renewed) +
+Expected: No book is renewed. Error details shown in the command result display.
+
+. Renewing a book while not in Serve mode.
+.. Prerequisites: LiBerry is not in Serve mode and command format is correct.
+.. Test case: `renew 1` or `renew -all` +
+Expected: No book is renewed. An error stating not in Serve mode is shown.
+
+==== Paying fines
+
+. Paying fines while in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode and the borrower has outstanding fines. The "Fines: $..." in the borrower panel
+should not be $0.
+.. Test case: `pay $2` +
+Expected: $2 is deducted from the borrower's fine amount shown in the borrower panel on the right. Command results display will also indicate the remaining outstanding fine
+the borrower still has and the change amount to be given back to the borrower.
+.. Test case: `pay $2.22` +
+Expected: Similar to previous test case (`pay $2`), except $2.22 is deducted instead of $2.
+.. Test case: `pay $0` +
+Expected: Fine amount in borrower panel remains the same. An error stating the valid dollar amount is shown.
+.. Test case: `pay $abc` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $-1` +
+Expected: Same as previous test case (`pay $2`).
+.. Test case: `pay $99999999999999999999` (or any dollar amount greater than $21474836.47) +
+Expected: Same as previous test case (`pay $2`).
+.. Other incorrect pay commands to try: `pay`, `pay xyz`, `pay 1` +
+Expected: Fine amount in borrower panel remains the same. Error details shown in the command result display.
+
+. Paying fines while not in Serve mode.
+.. Prerequisites: LiBerry is in Serve mode, command format is correct and dollar amount is valid.
+.. Test case: `pay $1` +
+Expected: No fine is paid. An error stating not in Serve mode is shown.
+
+. Using the original sample data when you first load up LiBerry without any changes made, you can enter the following positive test case
+to test the pay command: `serve id/K0004` followed by `pay $2` +
+Expected: "Fine of $1.10 +
+paid by +
+Borrower: [K0004] Hiap Seng +
+Outstanding fine: $0.00 +
+Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
+
+==== Removing or corrupting data
+
+. Removing data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modifty the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
+
+. Corrupting data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.
+.. Save the modified data files.
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
