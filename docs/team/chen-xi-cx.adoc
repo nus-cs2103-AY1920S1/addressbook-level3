@@ -44,11 +44,12 @@ which overrides JavaFX `LineChart`.
 * *Other contributions*:
 
 ** Project management:
-*** Managed release `v1.3`
+*** Managed release `v1.1` and `v1.3`
 ** Documentation:
+*** Add features coming in v2.0 to user guide (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/15[#15])
 *** Update developer guide section 2.1, 2.2 and 2.3 to suit SugarMummy (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/178[#178], https://github.com/AY1920S1-CS2103-T16-1/main/pull/222[#222])
 ** Removal of unused existing features:
-*** Refactor original addressbook to suit our app (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/119[#119])
+*** Refactor original addressbook to suit SugarMummy (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/119[#119])
 
 == Contributions to the User Guide
 
