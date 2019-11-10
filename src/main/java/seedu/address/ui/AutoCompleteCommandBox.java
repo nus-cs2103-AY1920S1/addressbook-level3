@@ -85,6 +85,9 @@ public class AutoCompleteCommandBox extends JFXTextField {
                     commandsPopup.show(AutoCompleteCommandBox.this, Side.BOTTOM, 0, 0);
                 }
 
+                // Request focus on first item
+                commandsPopup.getSkin().getNode().requestFocus();
+
             }
         });
 

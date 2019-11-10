@@ -124,7 +124,7 @@ public enum SuggestionLabels {
     SuggestionLabels(Text text) {
         if (text.getText().matches("\\[[A-Za-z{}_ ]+\\] |[A-Z_{} ]+")) {
             text.setFill(Color.GREY);
-        } else if (text.getText().matches("\\([A-Za-z_ ]+\\)")) {
+        } else if (text.getText().matches("\\([A-Za-z_. ]+\\)")) {
             text.setFill(Color.CORNFLOWERBLUE);
         }
         this.text = text;
