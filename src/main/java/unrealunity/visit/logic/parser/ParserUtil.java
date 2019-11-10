@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import unrealunity.visit.commons.core.Messages;
 import unrealunity.visit.commons.core.index.Index;
 import unrealunity.visit.commons.util.StringUtil;
 import unrealunity.visit.logic.parser.exceptions.ParseException;
@@ -22,6 +23,8 @@ import unrealunity.visit.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String EMPTY_REPORT_INDEX = "";
+    private static final int EMPTY_REPORT_INDICATOR = -1;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -133,5 +136,21 @@ public class ParserUtil {
             throw new ParseException(VisitReport.MESSAGE_CONSTRAINTS);
         }
         return trimmedDate;
+    }
+
+    /**
+     * @throws ParseException if the given {@code index} is smaller than 1.
+     */
+    public static int parseVisitReportIndex(String index) throws ParseException {
+        if (index.equals(EMPTY_REPORT_INDEX)) {
+            return EMPTY_REPORT_INDICATOR;
+        } else {
+            int reportIdx = Integer.parseInt(index);
+            if (reportIdx < 1) {
+                throw new ParseException(Messages.MESSAGE_INVALID_REPORT_INDEX);
+            } else {
+                return reportIdx;
+            }
+        }
     }
 }

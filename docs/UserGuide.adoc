@@ -289,7 +289,7 @@ Opens a pop-up panel that enables the editing of an existing visitation report o
 Format: `editvisit INDEX [i/REPORT_INDEX]`
 
 [NOTE]
-If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
+If no report index is specified, `editvisit INDEX` or `editvisit INDEX i/` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
 
 [.text-center]
 image::UGEditVisit0.png[width="790"]
@@ -328,7 +328,7 @@ Deletes the specified visitation report. +
 Format: `deletevisit INDEX [d/REPORT_INDEX]`
 
 [NOTE]
-If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
+If no report index is specified, `deletevisit INDEX` or `deletevisit INDEX d/` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
 [.text-center]
 image::UGDeleteVisit0.png[width="790"]
