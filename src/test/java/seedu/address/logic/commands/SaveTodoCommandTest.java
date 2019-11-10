@@ -56,10 +56,11 @@ public class SaveTodoCommandTest {
         for (Tag tag : eateryToSave.getTags()) {
             tags.append(PREFIX_TAG + " " + tag.getName() + " ");
         }
+
         String pendingCommand = String.format("add %s %s %s %s %s %s",
             PREFIX_NAME, name, PREFIX_ADDRESS, address, tags.toString(), PREFIX_CATEGORY);
-
         String expectedMessage = SaveTodoCommand.MESSAGE_REMINDER_TO_USER + pendingCommand;
+
         assertCommandSuccess(saveTodoCommand, model, expectedMessage, expectedModel);
     }
 
@@ -99,5 +100,4 @@ public class SaveTodoCommandTest {
         // different eatery -> returns false
         assertFalse(saveFirstCommand.equals(saveSecondCommand));
     }
-
 }

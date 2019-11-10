@@ -80,7 +80,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
 
-        eateryListPanel = new EateryListPanel(logic.getFilteredEateryList());
+        eateryListPanel = new EateryListPanel(logic.getFilteredEateryList(), true);
         eateryListPanelPlaceholder.getChildren().add(eateryListPanel.getRoot());
 
         feedPostListPanel = new FeedPostListPanel(logic.getFeedList(), logic);
@@ -102,8 +102,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillDataParts() {
-        eateryListPanel = new EateryListPanel(logic.getFilteredEateryList());
-        todoListPanel = new EateryListPanel(logic.getFilteredTodoList());
+        eateryListPanel = new EateryListPanel(logic.getFilteredEateryList(), true);
+        todoListPanel = new EateryListPanel(logic.getFilteredTodoList(), false);
 
         if (logic.isMainMode()) {
             eateryListPanelPlaceholder.getChildren().addAll(eateryListPanel.getRoot());
