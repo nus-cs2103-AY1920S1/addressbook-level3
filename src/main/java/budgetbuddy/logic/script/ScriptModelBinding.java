@@ -112,7 +112,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
 
         Account toSet = scriptGetAccount(nameOrIndex);
         int toSetIndex = model.getAccountsManager().getAccounts().indexOf(toSet);
-        model.getAccountsManager().setActiveAccount(Index.fromZeroBased(toSetIndex));
+        model.getAccountsManager().setActiveAccountByIndex(Index.fromZeroBased(toSetIndex));
 
         return toSet;
     }

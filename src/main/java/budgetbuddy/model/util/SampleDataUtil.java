@@ -14,7 +14,7 @@ import budgetbuddy.model.person.Person;
 import budgetbuddy.model.transaction.Amount;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code BudgetBuddy} with sample data.
  */
 public class SampleDataUtil {
 

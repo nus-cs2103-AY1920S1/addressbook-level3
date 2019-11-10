@@ -31,6 +31,14 @@ public class Amount implements Comparable<Amount> {
         this.amount = amount;
     }
 
+    public boolean lessThanEquals(Amount amount) {
+        return this.amount <= amount.amount;
+    }
+
+    public boolean moreThanEquals(Amount amount) {
+        return this.amount >= amount.amount;
+    }
+
     public long toLong() {
         return amount;
     }

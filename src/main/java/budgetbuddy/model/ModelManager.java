@@ -41,7 +41,7 @@ public class ModelManager implements Model {
         this.accountsManager = accountsManager;
         this.userPrefs = new UserPrefs(userPrefs);
         this.scriptLibrary = scriptLibrary;
-        this.filteredTransactions = new FilteredList<Transaction>(accountsManager.getActiveTransactionList());
+        this.filteredTransactions = accountsManager.getFilteredTransactionList();
     }
 
     public ModelManager() {

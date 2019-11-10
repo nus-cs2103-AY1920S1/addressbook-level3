@@ -1,5 +1,6 @@
 package budgetbuddy.logic.commands.transactioncommands;
 
+import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static budgetbuddy.commons.util.CollectionUtil.requireAllNonNull;
 import static budgetbuddy.logic.parser.CliSyntax.DATE_EXAMPLE;
 import static budgetbuddy.logic.parser.CliSyntax.KEYWORD_SINGLE_ID;
@@ -112,6 +113,8 @@ public class TransactionEditCommand extends ScriptCommand {
 
         } catch (TransactionNotFoundException e) {
             throw new CommandException(MESSAGE_FAILURE);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         return new CommandResult(

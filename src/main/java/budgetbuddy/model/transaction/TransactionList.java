@@ -21,6 +21,9 @@ public class TransactionList implements Iterable<Transaction> {
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+    public TransactionList() {
+    }
+
     /**
      * Returns true if the list contains an equivalent Transaction as the given argument.
      */
@@ -66,7 +69,10 @@ public class TransactionList implements Iterable<Transaction> {
      */
     public void setAll(TransactionList toCopy) {
         requireNonNull(toCopy);
-        internalList.setAll(toCopy.internalList);
+        if (toCopy.getTransactionsCount() > 0) {
+            //there are transactions to be copied over
+            internalList.setAll(toCopy.internalList);
+        }
     }
 
     /**
@@ -102,19 +108,6 @@ public class TransactionList implements Iterable<Transaction> {
         internalList.sort(c);
     }
 
-    /**
-     * Sorts the backing list by ascending date
-     */
-    public void sortByAscendingDate() {
-        internalList.sort((Transaction t1, Transaction t2) -> t1.getLocalDate().compareTo(t2.getLocalDate()));
-    }
-
-    /**
-     * Sorts the backing list by descending date
-     */
-    public void sortByDescendingDate() {
-        internalList.sort((Transaction t2, Transaction t1) -> t1.getLocalDate().compareTo(t2.getLocalDate()));
-    }
 
     @Override
     public Iterator<Transaction> iterator() {
