@@ -84,7 +84,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * tofill.
+     * Filters the entries and returns a list of matching texts.
      */
     private List<String> getFilteredEntries(String enteredText) {
         return commandTextField.getEntries().stream()
