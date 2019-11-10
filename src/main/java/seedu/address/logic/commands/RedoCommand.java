@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_REDO_COMMAND;
+import static seedu.address.commons.core.Messages.MESSAGE_UNUSED_ARGUMENT;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -13,6 +14,14 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes the most recent undone command. \n"
             + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Redone most recent undone command: \n";
+
+    private String unusedArguments = null;
+
+    public RedoCommand(String unusedArguments) {
+        if (!unusedArguments.equals("")) {
+            this.unusedArguments = unusedArguments;
+        }
+    }
 
     /**
      * Executes the command and returns the result message.
@@ -30,6 +39,10 @@ public class RedoCommand extends Command {
         CommandResult commandResult = redoCommand.execute(model);
 
         String msgSuccess = MESSAGE_SUCCESS + commandResult.getFeedbackToUser();
+
+        if (unusedArguments != null) {
+            msgSuccess += String.format(MESSAGE_UNUSED_ARGUMENT, unusedArguments, COMMAND_WORD);
+        }
 
         if (commandResult.isDone()) {
             return CommandResult.commandResultDone(msgSuccess);

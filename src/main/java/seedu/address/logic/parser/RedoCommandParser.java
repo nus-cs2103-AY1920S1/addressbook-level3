@@ -14,6 +14,6 @@ public class RedoCommandParser implements Parser<RedoCommand> {
      * @return {@code RedoCommand} object.
      */
     public RedoCommand parse(String args) {
-        return new RedoCommand();
+        return new RedoCommand(args);
     }
 }
