@@ -1,0 +1,155 @@
+== Yang Shuting - Project Portfolio for KeyboardFlashCards
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+---
+
+== Introduction
+//this documents
+This document details the various contributions that I have made to my team project, _KeyboardFlashCards_, done as part of a second-year software engineering module CS2103T.
+
+// about the team
+My team consists of two year 4 Computer engineering students three year 2 Computer Science students(including myself).
+// about the project
+For our CS2103T 6 weeks Software engineering project,
+we were tasked to either enhance or morph a basic command line interface(CLI) desktop AddressBook 3.
+We chose to morph it into a study application named _KeyboardFlashCards(KFC)_.
+It is a desktop study application which is targeting at computing students (in particular NUS computing students).
+Users can create FlashCards with question and answer; add categories to manage the cards, create schedules to plan their studies and also import and export the flashcards.
+The user interact with it using the CLI and has 17kLoC.
+
+This is what our project looks like
+
+.Figure 1. The graphical user interface of  _KeyboardFlashCards_
+image::annotatedUi.png[width="400"]
+
+Follow are my involvements to the project
+
+. I designed and wrote the code for `FlashCards` which is the fundamental component for our application.
+. I designed and wrote the code for `list` and `search` feature which allow the users to navigate between different flashcard list.
+. I designed and wrote the code for the GUI for our application, ensuring the UI is working.
+. I designed and wrote the code for `theme` features which allows the user to change the theme based on their mood.
+
+
+
+The following sections illustrate some of these enhancements with more detail, as well as the relevant documentation I have added to the user and developer guides.
+
+Please note the following symbols and format used in this document
+
+====
+
+NOTE: This symbol indicates important information
+
+TIP: A tip or suggestion
+
+WARNING: A cautionary piece of advice
+
+`add`: A highlight(called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+====
+
+== Summary of contributions
+
+* *Enhancement #1*: I added the Flashcard features.
+**  *What it does*: FlashCard is the basic building block for our application. FlashCards features allows the user to `add`, `edit`, `delete`, `clear` flashcard in the system.
+** *Justification*: In the event that the users want to add flashcards, the   `add` command allow the user to add questions and answer. They can choose to add categories to the new flashcard or they can add on to existing ones using the
+`edit` command. If the user wants to change the answer for certain question as they find better answer in a later time. They can use `edit` to update the answer.
+
+** *Highlights*: There is no fixed order for the attributes while adding FlashCards. User can choose to input question before answer or vice versa. This gives user more flexibility for the user to add FlashCards.
+While editing a particular FlashCard, user can select it using the index corresponding to that particular FlashCard that is displayed on the FlashCards list on the dashboard. In addition to `edit`, user only need to indicate the field(s) he or she wants to change.  This brings convenience to the users as they do no have to retype everything again. The implementation is easy as these were adapted from the AddressBook 3.
+//maybe can do something else
+//maybe is special
+** Credits: [https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook 3]]
+
+
+* *Enhancement #2*: I added the `list` and `search` features as part of FlashCard feature.
+** *What it does*: `list` and `search` have similar function, they allows the user to view/find FlashCards that match the keyword.
+** *Justification*: The default FlashCards list displayed all FlashCards in the system. Sometimes, user might not always want to view all the FlashCards. If they just want to review FlashCards for certain category, they can use `list` follow by the category.
+Then user can view FlashCards under the chosen category.
+When the date build up, there will be many FlashCards in the system.
+If the users just want to view a particular FlashCard but could not remember where it is, they can use the search function to search for the FlashCard they are looking for. `list` and `search` bring great ease for the users to navigate between the different FlashCard lists.
+** *Highlights*: Both `list` and `search` support multiple keywords.
+If the users want to revise for two or more categories in one glance, they can type `list` follow by the categories they want. The FlashCard list will show all FlashCards in those categories.
+Similarly, `search` support multiple keywords search. `search` is a general searching for both question and answer through all the FlashCards.
+Additionally, I also implemented search by question `searchqn` and search by answer `searchans`.The users can use these to search for particular field. These increase our product diversification and cater to different needs from the users.
+** Credits: [https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook 3]]
+
+* *Enhancement #3*: I added the `theme` feature.
+** *What it does*: It allow the users to change theme. Currently, there are six themes available for the user to choose.
+** *Justification*: The default theme is dark theme. We expected the users to spend long time with our application when they start to use KFC to study and do revision. A single theme, might appear boring and plain in the long run.
+Therefore, I implemented this feature to allow the users to change color theme. This would allow the users to change theme depends on their mode.
+** *Highlights*: The changing of the theme is spontaneous when the command is executed. There is no need for the user to restart the application.
+The implementation was challenging as I have to trace the path for the logic to work. At the same time, I need to ensure that the application stores the changes made by the users so that when the users reopen the application, the theme will be the same as the moment the app was closed.
+In addition, I need the figure out how the GUI will response to the changes. The template for the css file used to implement different themes is from the AddressBook 3.
+** Credit: [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/blob/master/src/main/resources/view/DarkTheme.css[AddressBook 3 - DarkTheme.css]]
+
+* *Enhancement #4*: I designed and coded the flashcard panel for the test mode.
+** *What it does*: It is for test mode. It will show questions first when the user enter the test mode and shows the answer when the user type `ans` in the test mode. After user `rate`/`skip` the FlashCard, the next FlashCard will be shown.
+** *Justification*: This feature is cooperated with the test mode that was designed by one of the team member <<keiteo#, Keith>>.
+In the test mode, the original FlashCard list is replaced by the test FlashCard panel that will only show the questions and answers for individual testing FlashCard. This feature makes the application more convenient and appealing to the users.
+** *Highlights*: This panel supports long questions or answer. Long question/answer will not be concatenated. Users can view long question easily using the scroll on th mouse.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shutingy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom&tabAuthor=ShuTingY&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Other contributions*
+** Project management
+*** Managed releases `v1.2` - `v1.4rc` (3 releases) on GitHub
+** Enhancements to existing features
+*** Morph from AddressBook 3 (Pull request https://github.com/AY1920S1-CS2103T-T12-4/main/pull/18[#18])
+*** Debugged and fixed the bugs (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/222[#222], https://github.com/AY1920S1-CS2103T-T12-4/main/pull/229[#229]
+, https://github.com/AY1920S1-CS2103T-T12-4/main/pull/235[#235])
+*** Updated the GUI scheme (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T12-4/main/pull/153[#153],
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/160[#160], https://github.com/AY1920S1-CS2103T-T12-4/main/pull/299[#299],https://github.com/AY1920S1-CS2103T-T12-4/main/pull/234[#234])
+** Documentation
+*** Update the diagrams in User Guide and Developer Guide
+(https://github.com/AY1920S1-CS2103T-T12-4/main/pull/138[#138]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/145[#145])
+*** Wrote User Guide contents related to the the features from me
+(https://github.com/AY1920S1-CS2103T-T12-4/main/pull/145[#145]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/138[#138]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/164[#164]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/167[#167])
+** Community
+*** PRs reviewed (with non-trivial review comments)
+(https://github.com/AY1920S1-CS2103T-T12-4/main/pull/101[#101]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/114[#114]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150[#150]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/226[#226]
+https://github.com/AY1920S1-CS2103T-T12-4/main/pull/233[#233])
+*** Reported bugs and suggestions for other teams in the class
+
+== Contributions to the User Guide
+
+|===
+|_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+_(start of extract from User Guide)_
+
+include::../UserGuide.adoc[tag=flashcardAll]
+//include::../UserGuide.adoc[tag=flashcard]
+//include::../UserGuide.adoc[tag=flashcard2]
+include::../UserGuide.adoc[tag=flashcard_2]
+include::../UserGuide.adoc[tag=theme]
+
+_(end of extract from User Guide)_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_(start of extract from Developer Guide)_
+
+include::../DeveloperGuide.adoc[tag=addflashcard]
+
+_(end of extract from Developer Guide)_
+
+
+
+
