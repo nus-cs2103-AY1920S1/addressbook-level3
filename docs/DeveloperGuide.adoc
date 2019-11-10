@@ -404,6 +404,28 @@ This feature allows the user to switch between the different tabs of the applica
 
 The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
 
+Given below is an example usage of how `view` behaves at each step.
+
+**Step 1**. The user launches the application and views the transaction tab.
+
+**Step 2**. The user now executes `view budget` to switch to the budget tab.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `ViewCommandParser` to further parse the input
+from the user.
+
+**Step 5**. `ViewCommandParser` parses the argument and checks if it is valid. If it is
+invalid, `ViewCommandParser` throws an exception and terminates. Else, it returns a `ViewCommand` that contains a `Tab`.
+
+**Step 6**. `LogicManager` uses `ViewCommand#execute()` to switch to the budget tab.
+
+**Step 7**. `ViewCommand` returns a `CommandResult` to the `LogicManager` with the `Tab`. `LogicManager` then
+returns the `CommandResult` to `MainWindow`.
+
+**Step 8**. `MainWindow` checks if there is a need to switch `Tab`. If there is, `MainWindow` uses
+`MainWindow#handleSwitchTab()` to switch tab. Else, `MainWindow` does nothing.
+
 The following activity diagram shows the flow of the `view` command.
 
 .Activity Diagram for `View`
