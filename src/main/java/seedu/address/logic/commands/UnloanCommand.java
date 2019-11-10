@@ -58,6 +58,7 @@ public class UnloanCommand extends Command {
         model.servingBorrowerRemoveLoan(loanToBeRemoved); // remove Loan object from Borrower's currentLoanList
 
         LoanSlipUtil.unmountSpecificLoan(loanToBeRemoved, updatedBookToBeUnloaned);
+        LoanSlipUtil.removeLoanFromSession(loanToBeRemoved);
 
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, unloanedBook, model.getServingBorrower()));

@@ -102,11 +102,22 @@ public class LoanSlipUtil {
 
     /**
      * Returns true if loan is in current session.
+     *
      * @param loan loan to check against
      * @return true if loan is in current session.
      */
     public static boolean loanIsInSession(Loan loan) {
         return loansInCurrentSession.contains(loan);
+    }
+
+    /**
+     * To be used only with unloan commands.
+     *
+     * @param loan loan to be removed
+     */
+    public static void removeLoanFromSession(Loan loan) {
+        assert loanIsInSession(loan);
+        loansInCurrentSession.remove(loan);
     }
 
     /**
