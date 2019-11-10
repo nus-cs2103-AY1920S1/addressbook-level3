@@ -308,16 +308,19 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches your list of tasks into a game of Snakes!
 
-.Snake game of ELISA
-image::SnakeGame.PNG[Snake, 600, 600, float="right"]
+.Snake game [EASY] of ELISA
+image::SnakeGame.PNG[Snake, 600, 600]
 
 +++<u>Rules:</u>+++
 
-Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bite it's own tail or it will be GAME OVER!
+Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Bite your own tail or hit the walls and it will be GAME OVER!
 
-Hit `ENTER` to reset the game when your snake dies.
+There are 2 modes to this game: Easy and Hard. To access hard mode, simply type `game hard` in the command box or press the `H` key after you die!
 
-Pressing `ESC` key will exit the game and return you to your list of tasks!
+.Snake game [HARD] of Elisa
+image::snakegamehard.PNG[SnakeHard, 600, 600]
+
+Hitting the `ESC` key will exit the game and return you to your list of tasks!
 
 // tag::joke[]
 === Asking ELISA for a joke : `joke`
