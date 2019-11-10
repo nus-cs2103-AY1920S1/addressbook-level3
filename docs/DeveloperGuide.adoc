@@ -396,7 +396,7 @@ Instantiation of the `Event` object when the app is started will be more complic
 === Generate Schedule Feature
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event and the
+The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event that is mapped to it and the
 specific events that are happening on those dates listed. The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a
 new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
@@ -409,7 +409,7 @@ The `DistinctDateProcessor` utilises the following operations in the `generate_s
 
 * `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDistinctDateList() operations.
 * `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
-* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that has at least one event and returns it as a list.
+* `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that have been mapped to which that has at least one event and returns it as a list.
 * `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
 The following class diagram shows the relationships between the different classes used by the `generate_schedule` command:
@@ -434,7 +434,7 @@ original list until the User requires it by calling the `generate_schedule` comm
 again using the current EventList.
 
 
-**Step 4**. The user executes `generate_schedule` to see all the dates and the respective events on those dates.
+**Step 4**. The user executes `generate_schedule` to see all the dates that have a set time mapping and the respective events on those dates.
 
 **Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
 
