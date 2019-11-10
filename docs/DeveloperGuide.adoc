@@ -292,9 +292,19 @@ if he has been saving enough into or withdrawing too much from his savings accou
 
 The Savings feature was implemented with the following set of classes introduced to the Model:
 
+TODO ADD CLASS DIAGRAM
+
 ===== CurrentSavings
 
+****
+`CurrentSavings` is a class containing the user's current savings value, i.e. how much the user has saved.
+****
+
 ===== Money
+
+****
+`Money` is
+****
 
 ===== ReadOnlySavingsHistory
 
