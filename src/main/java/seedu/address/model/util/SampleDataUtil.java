@@ -6,13 +6,11 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.IncidentManager;
 import seedu.address.model.ReadOnlyIncidentManager;
-
 import seedu.address.model.incident.CallerNumber;
 import seedu.address.model.incident.Description;
 import seedu.address.model.incident.Incident;
 import seedu.address.model.incident.IncidentDateTime;
 import seedu.address.model.incident.IncidentId;
-
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Password;

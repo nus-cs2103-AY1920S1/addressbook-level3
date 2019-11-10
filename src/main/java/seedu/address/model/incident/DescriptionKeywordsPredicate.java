@@ -17,6 +17,8 @@ public class DescriptionKeywordsPredicate implements Predicate<Incident> {
 
     @Override
     public boolean test(Incident incident) {
+        assert incident.getDesc() != null : "Incident should have Description description";
+        assert incident.getDesc().toString() != "" : "Description should not be empty.";
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getDesc().toString(), keyword));
     }

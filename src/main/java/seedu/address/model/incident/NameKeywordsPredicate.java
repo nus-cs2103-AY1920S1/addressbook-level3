@@ -19,6 +19,8 @@ public class NameKeywordsPredicate implements Predicate<Incident> {
 
     @Override
     public boolean test(Incident incident) {
+        assert incident.getOperator() != null : "Incident should have Person operator";
+        assert incident.getOperator().getName().fullName != "" : "Operator name should not be empty.";
         if (isFullMatch) {
             return keywords.stream()
                     .allMatch(keyword -> StringUtil.containsWordIgnoreCase(incident.getOperator().getName().fullName,

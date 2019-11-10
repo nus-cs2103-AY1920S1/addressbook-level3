@@ -27,12 +27,14 @@ public class StringUtil {
         requireNonNull(sentence);
         requireNonNull(word);
 
-        String preppedWord = word.trim();
+        String preppedWord = word.trim().replaceAll("\\p{Punct}", "");
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        String[] wordsInPreppedSentence = preppedSentence
+                .replaceAll("\\p{Punct}", "")
+                .split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
