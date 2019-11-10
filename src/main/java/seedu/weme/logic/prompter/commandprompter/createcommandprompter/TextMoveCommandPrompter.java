@@ -26,6 +26,11 @@ import seedu.weme.model.Model;
  */
 public class TextMoveCommandPrompter implements Prompter {
 
+    private static final String MOVE_TEXT_ARROW_KEYS_PROMPT = "You can type in the full command, but you can also use "
+            + "arrow keys to move the text now.\n"
+            + "To make the text move faster, hold Shift.\n"
+            + "To make the text move slower, hold Alt";
+
     @Override
     public CommandPrompt prompt(Model model, String userInput) throws PromptException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -48,6 +53,7 @@ public class TextMoveCommandPrompter implements Prompter {
                     Integer.parseInt(arguments.substring(0, arguments.length() - 1).trim());
                 } else {
                     Integer.parseInt(arguments.trim());
+                    return new CommandPrompt(MOVE_TEXT_ARROW_KEYS_PROMPT, userInput);
                 }
                 return new CommandPrompt(TextMoveCommand.MESSAGE_USAGE, userInput);
             } catch (NumberFormatException e) {
