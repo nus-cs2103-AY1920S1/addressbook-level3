@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+title Deleting an Interviewee
+
+'Logic
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":DeleteIntervieweeCommand" as DeleteIntervieweeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+'Model
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+'calls and arrows. Each paragraph represents one arrow.
+[-> LogicManager: execute(delete)
+activate LogicManager
+
+LogicManager -> SchedulerParser: parseCommand(delete)
+activate SchedulerParser
+
+create DeleteCommandParser
+SchedulerParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> SchedulerParser
+deactivate DeleteCommandParser
+
+SchedulerParser -> DeleteCommandParser: parse(delete)
+activate DeleteCommandParser
+
+create DeleteIntervieweeCommand
+DeleteCommandParser -> DeleteIntervieweeCommand: DeleteIntervieweeCommand(name)
+activate DeleteIntervieweeCommand
+
+DeleteIntervieweeCommand --> DeleteCommandParser
+deactivate DeleteIntervieweeCommand
+
+DeleteCommandParser --> SchedulerParser
+deactivate DeleteCommandParser
+
+destroy DeleteCommandParser
+
+SchedulerParser --> LogicManager
+deactivate SchedulerParser
+
+LogicManager -> DeleteIntervieweeCommand: execute(model)
+activate DeleteIntervieweeCommand
+
+DeleteIntervieweeCommand -> ModelManager: deleteInterviewee(interviewee)
+activate ModelManager
+
+ModelManager --> DeleteIntervieweeCommand
+deactivate ModelManager
+
+create CommandResult
+DeleteIntervieweeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteIntervieweeCommand
+deactivate CommandResult
+
+DeleteIntervieweeCommand --> LogicManager: commandResult
+deactivate DeleteIntervieweeCommand
+
+destroy DeleteIntervieweeCommand
+
+[<-- LogicManager
+deactivate LogicManager
+
+@enduml
