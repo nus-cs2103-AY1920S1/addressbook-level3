@@ -22,6 +22,7 @@ public class SpendingComparator implements Comparator<Spending> {
         fields.add(new SortField(SortAttribute.DATE, SortOrder.DESCENDING));
         fields.add(new SortField(SortAttribute.COST, SortOrder.DESCENDING));
         fields.add(new SortField(SortAttribute.NAME, SortOrder.ASCENDING));
+        fields.add(new SortField(SortAttribute.REMARK, SortOrder.ASCENDING));
     }
 
     /**
