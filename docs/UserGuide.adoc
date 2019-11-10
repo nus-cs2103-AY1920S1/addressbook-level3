@@ -421,7 +421,9 @@ which can be checked using the command `loan list` or by pressing the hotkey men
 A way for you to automate certain actions based on a certain predicate.
 Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
 
-Rules have the following structure: If "predicate" is true, then perform "action".
+Rules have the following structure: If "predicate" is true, then perform "action". By creating a
+predicate which defines the condition you set, you can perform any action you create whenever a
+transaction is added/edited, if the transaction satisfies that condition.
 
 All rules in the Rule Engine will be executed on a transaction, when:
 
@@ -441,9 +443,14 @@ Adds a new rule to the rule engine.
 Both the predicate and action have to be specified.
 A rule can be formed using either expressions or scripts, or both.
 
-Format: `rule add pred/<expression | script name> act/<expression | script name>`
+Format: `rule add p/<expression | script name> a/<expression | script name>`
 
 Refer to <<Scripting>> for script usage.
+
+NOTE: Note that scripts used in rules are not validated; make sure they are free from error.
+Predicate scripts that do not return a boolean _will be executed_, but will therefore implicitly return false.
+Action scripts will be executed if the predicate returns true, and any return value will be discarded.
+
 ****
 *Expression Formatting Guide:*
 
@@ -501,7 +508,7 @@ Format: `rule list`
 Edits the specified fields in the rule with the specified ID.
 Both the predicate and action can be modified.
 
-Format: `rule edit <rule ID> [pred/<expression | script>] [act/<expression | script>]`
+Format: `rule edit <rule ID> [p/<expression | script>] [a/<expression | script>]`
 
 Examples:
 
@@ -663,20 +670,28 @@ Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 // tag::budget[]
 === Managing budgets *(Coming in v2.0)* : `budget`
 
-Displays or sets the budget for the specified period.
-// TODO: give purpose of this command for user
+Budgets allow you to keep you on track with your spending limits!
+See how much money you still have left for the week, or month! With budgets,
+you can plan out your expenses easier than ever.
 
 ==== View budgets: `budget list`
 
 Views the list of budgets currently stored.
+All budgets within the specified period will be displayed.
+
+Format: `budget list [f/<from date> t/<to date> | p/<this month|last month|this week|last week|today|yesterday>]`
 
 ==== Add budgets: `budget add`
 
-This command sets a budget. Note that budgets cannot overlap.
+This command adds a new budget of a certain amount, with the specified date range or period.
+
+Format: `budget add x/<amount> [f/<from date> t/<to date> | p/<this month|last month|this week|last week|today|yesterday>]`
 
 ==== Remove budgets: `budget delete`
 
-This command removes a budget from the list.
+This command removes a budget from the list given the budget ID.
+
+Format: `budget delete <budget ID>`
 // end::budget[]
 
 === Goal setting *(Coming in v2.0)* : `goal`

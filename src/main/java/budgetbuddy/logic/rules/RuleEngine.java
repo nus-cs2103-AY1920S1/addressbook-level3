@@ -47,6 +47,7 @@ import budgetbuddy.model.rule.script.ActionScript;
 import budgetbuddy.model.rule.script.PredicateScript;
 import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Transaction;
+import javafx.collections.ObservableList;
 
 /**
  * Represents the Rule Engine that handles the creation and processing of rules.
@@ -94,11 +95,13 @@ public class RuleEngine {
      */
     public static void executeRules(Model model, ScriptEngine scriptEngine, Index txnIndex, Account account) {
         requireAllNonNull(model, model.getRuleManager(), model.getScriptLibrary(), scriptEngine, txnIndex, account);
+        ScriptLibrary scriptLibrary = model.getScriptLibrary();
+        ObservableList<Rule> rules = model.getRuleManager().getRules();
 
-        for (Rule rule : model.getRuleManager().getRules()) {
-            Testable testable = generateTestable(rule.getPredicate(), model.getScriptLibrary(), scriptEngine);
+        for (Rule rule : rules) {
+            Testable testable = generateTestable(rule.getPredicate(), scriptLibrary, scriptEngine);
             if (testable.test(txnIndex, account)) {
-                Performable performable = generatePerformable(rule.getAction(), model.getScriptLibrary(), scriptEngine);
+                Performable performable = generatePerformable(rule.getAction(), scriptLibrary, scriptEngine);
                 performable.perform(model, txnIndex, account);
             }
         }

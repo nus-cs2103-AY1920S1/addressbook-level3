@@ -498,17 +498,63 @@ For predicate expressions, they are formed using binary comparison operations, w
 an `*Operator*` which takes in two arguments, an `*Attribute*` to represent an attribute of a `*Transaction*`, as well as
 a `*Value*` to represent a given value to test against the attribute.
 
+****
+Here is an example of a part of what a user may type as a predicate expression: `p/outamt < 10`
+
+This is split into the *Attribute:* `outamt` , the *Operator:* `<` , as well as the *Value:* `10` .
+****
+
 Action expressions are unary operations, which means that each expression is formed with an `*Operator*` as well, but takes
 only a single argument, a `*Value*` to represent a given value to carry out the operation with.
+
+****
+Again, here is an example of a part of what a user may type as an action expression: `a/set_cat Cheap`
+
+This is split into the *Operator:* `set_cat` , as well as the *Value:* `Cheap` .
+****
 
 Predicate and actions implemented as scripts on the other hand are defined with a single `*ScriptName*`, which refers to the
 name of the script it represents.
 
+****
+Predicate and action scripts are defined the same way. An example of both: `p/CheckIsTransport a/SetTransportFare`
+
+In this case, both `CheckIsTransport` and `SetTransportFare` are `*ScriptNames*` .
+****
+
 Each and every `*Rule*` is stored within the `*RuleManager*`, which serves as an interface to manipulating the list of rules.
 For example, `*RuleManager#addRule*` is used to add new rules to the list, whereas `*RuleManager#swapRules*` is used to
-swap the order of two rules in the list.
+swap the order of two rules in the list. The `*RuleManager*` supports basic *CRUD* operations, as well as other convenience
+methods such as the `*RuleManager#swapRules*` as mentioned.
 
-image::RuleSequenceDiagram.png[]
+==== Design Considerations
+===== Aspect: Structure of expressions for rule data management
+* **Alternative 1 (current choice)**: The two expression classes `*PredicateExpression*` and `*ActionExpression*`
+are split into their individual components, the operators and the arguments.
+** Pros: More control over the expression format, and increase reusability of individual components.
+** Cons: More classes required to implement, greater overhead.
+* **Alternative 2**: Expressions are just entirely stored as strings within the two classes.
+** Pros: Easy to implement, ease of storage.
+** Cons: Parsing has to be done even after the rule is added. This means we need to parse the expression more than once,
+not only to check the validity, but again to process the rule before execution.
+
+===== Aspect: Structure of scripts for rule data management
+* **Alternative 1 (current choice)**: The two script classes `*PredicateScript*` and `*ActionScript*` contain only a
+`*ScriptName*`, which is the name of the script they are referencing.
+** Pros: No need to reference an entire script, and therefore much easier to validate. Storing names will also be much simpler.
+** Cons: Requires checking against the `*ScriptLibrary*` to retrieve a `*Script*` when processing rules.
+* **Alternative 2**: The classes will each store an entire `*Script*` within them.
+** Pros: Referencing the script code when processing rules will not require access to the `*ScriptLibrary*`, and can be
+taken directly from the `*PredicateScript*` or `*ActionScript*` directly.
+** Cons: Creating unnecessary entire references to a script that already exists in the `*ScriptLibrary*`, and makes storage
+much more complicated, as the entire script will be contained within the class.
+
+=== Rule Execution Feature
+
+==== Implementation
+
+.Sequence diagram representing Rule Execution after adding a new Transaction
+image::RuleExecutionSequenceDiagram.png[]
 
 _TODO: sequence diagram_
 
@@ -518,7 +564,6 @@ _TODO: activity diagram_
 
 ==== Design Considerations
 
-_TODO: design considerations_
 // end::rules[]
 
 // tag::importexport[]
