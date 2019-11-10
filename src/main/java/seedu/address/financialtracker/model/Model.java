@@ -124,13 +124,12 @@ public class Model {
 
     public ObservableList<PieChart.Data> getFinancialPieChartData() {
         double total = getSummaryMap().get("Total");
-        return StatisticsUtil.getFinancialPieChartData(
-                getSummaryMap(), entry -> !entry.getKey().equals("Total"),
-                entry -> new PieChart.Data(entry.getKey(), entry.getValue() / total));
+        return StatisticsUtil.getFinancialPieChartData(getSummaryMap(), entry -> !entry.getKey().equals("Total"),
+            entry -> new PieChart.Data(entry.getKey(), entry.getValue() / total));
     }
 
     public XYChart.Series<String, Number> getFinancialBarChartData() {
         return StatisticsUtil.getFinancialBarChartData(getSummaryMap(), entry -> !entry.getKey().equals("Total"),
-                entry -> new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
+            entry -> new XYChart.Data<String, Number>(entry.getKey(), entry.getValue()));
     }
 }
