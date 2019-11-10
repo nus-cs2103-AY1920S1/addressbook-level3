@@ -205,7 +205,6 @@ public abstract class Show {
         return otherShow.getName().equals(getName())
                 && otherShow.getType().equals(getType())
                 && otherShow.getDateOfRelease().equals(getDateOfRelease())
-                && (otherShow.isWatched().equals(isWatched()))
                 && otherShow.getDescription().equals(getDescription())
                 && otherShow.getRunningTime().equals(getRunningTime())
                 && otherShow.getActors().equals(getActors())

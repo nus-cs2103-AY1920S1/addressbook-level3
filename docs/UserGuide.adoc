@@ -363,6 +363,7 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
+// tag::search[]
 ==== Search for a show: `search`
 ====
 Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
@@ -396,35 +397,55 @@ e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers 
 * When searching based on genre online, only movies will be searched.
 ****
 
-*Example Usage*
+*Example Usage:* +
+You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
+As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
+
+.Current *Watched list* with a movie "Avengers: Endgame"
+image::watchedPageWithAvengerEndgame.png[width="790"]
 
 [start=1]
-1. You want to search for the movie "Avengers". +
-Navigate to the *Search page* by one of the following ways: +
-* clicking on the search tab
+1. Navigate to the *Search page* by one of the following ways: +
+* clicking on the *search* tab
 * hitting the keyboard shortcut kbd:[3]
 * typing `3` in the command box and pressing kbd:[enter]
-* typing `search` in the command box and pressing kbd:[enter]
+* typing `search` in the command box and pressing kbd:[enter] as shown in the figure below
 
-image::SearchPage.png[width="790"]
+.Entering of the `search` command
+image::searchCommand.png[width="790"]
 
-*Scenario 1: You are offline*
+After you have entered the command, you will be led to the *Search page* as shown below.
+
+.User Interface of the search page
+image::emptySearchPage.png[width="790"]
+
+[TIP]
+You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
+command, such as the one in Step 2.
 
 [start=2]
-2. User enters `watch 1` into the command box in the watchlist tab.
+2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
 
-image::SearchAvengerUserInput.png[width="790"]
+.Entering of the `search` command to search for shows
+image::searchAvengerUserInput.png[width="790"]
+
+Press kbd:[enter] after entering the information shown above and wait for the information to load.
+
+.Loading Screen of the *Search page*
+image::searchPageLoadingScreen.png[width="790"]
+
+The loading page as shown above will appear while EzWatchlist searches for your shows.
+
+*Scenario 1: You are offline*
 
 [start=3]
 3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
 
-image::SearchAvengers.png[width="790"]
 
-Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
-
-image::TheOfficeWatchCommand.png[width="790"]
 
 *Scenario 2: You are online*
+3. The shows
+image::SearchAvengers.png[width="790"]
 
 Examples:
 
@@ -439,6 +460,7 @@ Returns movies with the genre "Action"
 * By actor:
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
+// end::search[]
 
 ==== Synchronise user's show data: `sync`
 Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
