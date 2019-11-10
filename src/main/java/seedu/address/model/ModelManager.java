@@ -385,30 +385,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleState type)
+    public void updateScheduleWithPerson(Name name, LocalDateTime time, ScheduleState type)
             throws PersonNotFoundException {
-        scheduleManager.updateDisplayWithPerson(timeBook.getPersonList().findPerson(name), time, type);
+        scheduleManager.updateScheduleWithPerson(timeBook.getPersonList().findPerson(name), time, type);
     }
 
     @Override
-    public void updateDisplayWithUser(LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(), time, type);
+    public void updateScheduleWithUser(LocalDateTime time, ScheduleState type) {
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(), time, type);
     }
 
     @Override
-    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
+    public void updateScheduleWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
             throws GroupNotFoundException {
         Group group = timeBook.getGroupList().findGroup(groupName);
-        scheduleManager.updateDisplayWithGroup(group,
+        scheduleManager.updateScheduleWithGroup(group,
                 timeBook.getPersonsOfGroup(groupName),
                 timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
                 time, type);
     }
 
     @Override
-    public void updateDisplayWithPersons(ArrayList<Person> persons,
-                                         LocalDateTime time, ScheduleState type) {
-        scheduleManager.updateDisplayWithPersons(persons, time, type);
+    public void updateScheduleWithPersons(ArrayList<Person> persons,
+                                          LocalDateTime time, ScheduleState type) {
+        scheduleManager.updateScheduleWithPersons(persons, time, type);
     }
 
     @Override
@@ -424,7 +424,7 @@ public class ModelManager implements Model {
 
     @Override
     public void initialiseDefaultWindowDisplay() {
-        scheduleManager.updateDisplayWithUser(timeBook.getPersonList().getUser(),
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(),
                 LocalDateTime.now(), ScheduleState.HOME);
     }
 

@@ -24,7 +24,7 @@ class PersonScheduleDisplayTest {
     @BeforeEach
     void init() throws PersonNotFoundException {
         modelManager = TypicalModel.generateModelWithSchedules();
-        modelManager.updateDisplayWithPerson(ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
+        modelManager.updateScheduleWithPerson(ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
         personScheduleDisplay = (PersonScheduleDisplay) modelManager.getScheduleDisplay();
     }
 

@@ -54,10 +54,10 @@ public class AddEventCommand extends Command {
             try {
                 if (name == null) {
                     model.addEvent(event);
-                    model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
+                    model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
                 } else {
                     model.addEvent(name, event);
-                    model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
+                    model.updateScheduleWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
                 }
                 return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, event.getEventName())).build();
 

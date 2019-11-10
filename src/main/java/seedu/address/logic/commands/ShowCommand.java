@@ -40,7 +40,7 @@ public class ShowCommand<T> extends Command {
             ObservableList<Person> personList = model.getObservablePersonList();
 
             try {
-                model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleState.PERSON);
+                model.updateScheduleWithPerson((Name) name, LocalDateTime.now(), ScheduleState.PERSON);
             } catch (PersonNotFoundException e) {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
@@ -52,7 +52,7 @@ public class ShowCommand<T> extends Command {
             ObservableList<Group> groupList = model.getObservableGroupList();
 
             try {
-                model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleState.GROUP);
+                model.updateScheduleWithGroup((GroupName) name, LocalDateTime.now(), ScheduleState.GROUP);
             } catch (GroupNotFoundException e) {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
@@ -61,7 +61,7 @@ public class ShowCommand<T> extends Command {
                     String.format(MESSAGE_SUCCESS, name.toString())).build();
         } else {
 
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.PERSON);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, "Your schedule")).build();
         }
     }
