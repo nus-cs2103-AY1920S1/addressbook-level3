@@ -402,17 +402,24 @@ to be valid.
 
 ===== Implementation
 
+We omit the details of parsing facilitated by `IchiFundParser`, `TransactionFeatureParser` and `FilterTransactionCommandParser`. Instead,
+we immediately delve into the details of `FilterTransactionCommand#execute`.
+
 As prefaced in <<overviewtx>>, the `filter` command interacts with `TransactionContext` to filter the list of
 transactions exposed to the UI component.
 
 Following the creation of `FilterTransactionCommand`, the execution of the command results
 in the following chain of events:
 
-1. The `FilterTransactionCommand` retrieves the current `TransactionContext` from the model.
-2. The `FilterTransactionCommand` creates a new `TransactionContext`, facilitated by `TransactionContextBuilder`
-3. The `FilterTransactionCommand` sets the new context in model as the newly created `TransactionContext`.
-4. `ModelManager` retrieves a `Predicate<Transaction>` from the new `TransactionContext`.
-5. `ModelManager` filters the list of transactions using the `Predicate<Transaction>`.
+*Step 1*: `FilterTransactionCommand` retrieves the current `TransactionContext` from the model.
+
+*Step 2*: `FilterTransactionCommand` creates a new `TransactionContext`, facilitated by `TransactionContextBuilder`
+
+*Step 3*: `FilterTransactionCommand` sets the new context in model as the newly created `TransactionContext`.
+
+*Step 4*: `ModelManager` retrieves a `Predicate<Transaction>` from the new `TransactionContext`.
+
+*Step 5*: `ModelManager` filters the list of transactions using the `Predicate<Transaction>`.
 
 The above sequence of events is shown in greater detail in the following sequence diagram:
 image::FilterTransactionSequenceDiagram.png[]
@@ -437,16 +444,25 @@ The arguments supported by this feature includes:
 
 ===== Implementation
 
-As prefaced in <<overviewtx>>, the `add` command interacts with `TransactionContext` to create new `Transaction` objects.
+We omit the details of parsing facilitated by `IchiFundParser`, `TransactionFeatureParser` and `AddTransactionCommandParser`. Instead,
+we immediately delve into the details of the `AddTransactionCommand#execute`.
+
+As prefaced in <<overviewtx>>, `AddTransactionCommand` interacts with `TransactionContext` to generate
+a `Transaction` to be added to the model.
 
 The execution of an `AddTransactionCommand` results in the following sequence of events:
 
-1. The `AddTransactionCommand` retrieves the current `TransactionContext` from the model.
-2. The `AddTransactionCommand` generates a new `Transaction` based on the arguments and `TransactionContext`
-3. The `AddTransactionCommand` adds the new `Transaction` to the model.
-4. `ModelManager` automatically sorts the list of transactions.
-5. The `AddTransactionCommand` calls model to execute `updateTransactionContext`
-6. `ModelManager` updates `TransactionContext` such that the new `Transaction` is shown.
+*Step 1*: `AddTransactionCommand` retrieves the current `TransactionContext` from the model.
+
+*Step 2*: `AddTransactionCommand` generates a new `Transaction` based on the arguments and `TransactionContext`
+
+*Step 3*: `AddTransactionCommand` adds the new `Transaction` to the model.
+
+*Step 4*: `ModelManager` automatically sorts the list of transactions.
+
+*Step 5*: `AddTransactionCommand` calls model to execute `updateTransactionContext`
+
+*Step 6*: `ModelManager` updates `TransactionContext` such that the new `Transaction` is shown.
 
 When generating a new `Transaction`, `AddTransactionCommand` fills in the missing optional arguments by using
 values obtained from `TransactionContext`, or default values. This is illustrated in the following activity diagram:
@@ -522,6 +538,37 @@ The arguments supported by this feature includes:
 
 ===== Implementation
 
+The execution of the `edit` command is similar to the delete commands in other components. The following sequence of steps
+describes the behaviour of `EditTransactionCommand` at each step:
+
+*Step 1*: The user executes `edit 2 de/Lunch` to change the description of the `Transaction` in the 2nd index to "Lunch".
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` redirects the input to `TransactionFeatureParser`.
+
+*Step 4*: `TransactionFeatureParser` determines which command is being used and creates the respective `EditTransactionCommandParser` parser with the user's input as an argument.
+
+*Step 5*: `EditTransactionCommandParser` does a validation check on the user's input.
+
+*Step 6*: `EditTransactionCommandParser` creates an `EditTransactionDescriptor` which contains the updated description information provided by the user.
+
+*Step 7*: `EditTransactionCommandParser` creates and returns an `EditTransactionCommand` with the `Index` and `EditTransactionDescriptor` as arguments.
+
+*Step 8*: `LogicManager` calls `EditTransactionCommand#execute()`.
+
+*Step 9*: `EditTransactionCommand` checks if the `Index` is too large, and retrieves the appropriate `Transaction` to be deleted from the `Model`.
+
+*Step 10*: `EditTransactionCommand` checks that the `Transaction` is not created from a `Repeater`.
+
+*Step 11*: `EditTransactionCommand` creates a new `Transaction` using the original `Transaction` and the `EditTransactionDescriptor`.
+
+*Step 12*: `EditTransactionCommand` replaces the original `Transaction` in the `Model` with the newly created `Transaction`.
+
+*Step 13*: `EditTransactionCommand` calls `Model#updateTransactionContext` with the newly created `Transaction` as an argument.
+
+*Step 14*: `EditTransactionCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+
 // end::transedit[]
 
 // tag::transdel[]
@@ -529,13 +576,32 @@ The arguments supported by this feature includes:
 
 The delete transaction feature allows the user to delete a transaction into IchiFund using its index in the displayed list.
 As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `DeleteTransactionCommandParser`, and `DeleteTransactionCommand`.
-The arguments supported by this feature includes:
-
-- `Index`
+The delete command takes one argument, `Index`.
 
 ===== Implementation
 
-The execution of the `delete` command is almost identical to that of the budget deleting command.
+The execution of the `delete` command is similar to the delete commands in other components. The following sequence of steps
+describes the behaviour of `DeleteTransactionCommand` at each step:
+
+*Step 1*: The user executes `delete 2` to delete the `Transaction` in the 2nd index.
+
+*Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
+
+*Step 3*: `IchiFundParser` redirects the input to `TransactionFeatureParser`.
+
+*Step 3*: `TransactionFeatureParser` determines which command is being used and creates the respective `DeleteTransactionCommandParser` parser with the user's input as an argument.
+
+*Step 4*: `DeleteTransactionCommandParser` does a validation check on the user's input before creating and returning a `DeleteRepeaterCommand` with desired `Index` as an argument.
+
+*Step 5*: `LogicManager` calls `DeleteTransactionCommand#execute()`
+
+*Step 6*: `DeleteTransactionCommand` checks if the `Index` is too large, and retrieves the appropriate `Transaction` to be deleted from the `Model`.
+
+*Step 7*: `DeleteTransactionCommand` checks that the `Transaction` is not created from a `Repeater`.
+
+*Step 8*: `DeleteTransactionCommand` deletes the `Transaction` from the `Model`.
+
+*Step 9*: `DeleteTransactionCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 
 // end::transdel[]
 
