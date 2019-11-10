@@ -1,5 +1,7 @@
 package seedu.address.storage.cap;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -23,6 +25,9 @@ public class CapStorageManager implements Storage {
 
     public CapStorageManager(CapStorage capLogStorage, UserPrefsStorage userPrefsStorage) {
         super();
+        requireAllNonNull(capLogStorage, userPrefsStorage);
+
+        logger.fine("Initializing with cap storage: " + capLogStorage + " and user prefs " + userPrefsStorage);
         this.capStorage = capLogStorage;
         this.userPrefsStorage = userPrefsStorage;
     }

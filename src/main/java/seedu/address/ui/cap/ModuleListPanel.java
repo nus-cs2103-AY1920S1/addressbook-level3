@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.common.Module;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of modules.
  */
 public class ModuleListPanel extends UiPart<Region> {
     private static final String FXML = "ModuleListPanel.fxml";
@@ -27,7 +27,7 @@ public class ModuleListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Module} using a {@code ModuleCard}.
      */
     class ModuleListViewCell extends ListCell<Module> {
         @Override

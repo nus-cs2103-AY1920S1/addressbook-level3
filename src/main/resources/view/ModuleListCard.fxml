@@ -3,31 +3,31 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
     </columnConstraints>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="100.0" prefWidth="200.0"  >
          <children>
-          <VBox alignment="CENTER_LEFT" maxWidth="800" minHeight="105">
-            <padding>
-              <Insets bottom="5" left="15" right="5" top="5" />
-            </padding>
-            <FlowPane fx:id="tags" />
-           <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$modulecode" />
-            <Label fx:id="title" styleClass="cell_small_label" text="\$title" />
-            <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
-            <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
-            <Label fx:id="faculty" styleClass="cell_small_label" text="\$faculty" />
-          </VBox>
-         <Label fx:id="grade" styleClass="cell_extreme_label" text="\$grade">
+             <StackPane fx:id="moduleBoxPlaceholder" styleClass="pane-without-border" VBox.vgrow="NEVER">
+                 <VBox alignment="CENTER_LEFT" minHeight="105" >
+                     <Label fx:id="moduleCode" styleClass="cell_big_label" text="\$modulecode" />
+                     <Label fx:id="title" styleClass="cell_small_label" text="\$title" />
+                     <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
+                     <Label fx:id="faculty" styleClass="cell_small_label" text="\$faculty" />
+                 </VBox>
+                 <padding>
+                     <Insets bottom="5" left="10" right="200" top="5" />
+                 </padding>
+             </StackPane>
+             <Label fx:id="grade" styleClass="cell_extreme_label" text="\$grade">
                <HBox.margin>
                   <Insets bottom="40.0" top="40.0" />
                </HBox.margin>

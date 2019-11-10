@@ -4,14 +4,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
 
-<StackPane prefHeight="23.0" prefWidth="100.0" styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <HBox prefHeight="20.0" prefWidth="90.0">
-      <ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="badgeImage" fitHeight="100.0" fitWidth="100.0"
+<StackPane prefHeight="23.0" styleClass="inner-stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="20.0" HBox.hgrow="ALWAYS" >
+      <padding>
+         <Insets bottom="5" left="30" right="10" top="5" />
+      </padding>
+      <ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="badgeImage" fitHeight="80.0" fitWidth="80.0"
                  pickOnBounds="true"
                  preserveRatio="true" xmlns="http://javafx.com/javafx/8"/>
       <children>
-         <Label fx:id="achievementTitle" prefHeight="23.0" styleClass="cap-result-display" />
+         <Label fx:id="achievementTitle" prefHeight="100" styleClass="cap-result-display" wrapText="true"/>
       </children>
    </HBox>
 </StackPane>

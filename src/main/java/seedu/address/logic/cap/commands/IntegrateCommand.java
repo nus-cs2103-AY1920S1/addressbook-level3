@@ -14,12 +14,13 @@ import seedu.address.model.cap.Model;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 
+
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class IntegrateCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "integrate";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a module to the study tracker. "
@@ -40,7 +41,7 @@ public class AddCommand extends Command {
     /**
      * Creates an AddCommand to add the specified {@code Module}
      */
-    public AddCommand(Module module) {
+    public IntegrateCommand(Module module) {
         requireNonNull(module);
         toAdd = module;
         toBelong = module.getSemester();
@@ -62,7 +63,7 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof IntegrateCommand // instanceof handles nulls
+                && toAdd.equals(((IntegrateCommand) other).toAdd));
     }
 }

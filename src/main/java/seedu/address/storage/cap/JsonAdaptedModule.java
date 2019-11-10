@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.logic.cap.parser.ParserUtil;
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
@@ -16,26 +15,25 @@ import seedu.address.model.cap.person.Title;
 import seedu.address.model.common.Module;
 
 /**
- * Jackson-friendly version of {@link ModuleCode}.
+ * Jackson-friendly version of {@link Module}.
  */
 class JsonAdaptedModule {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Module's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "There should not be null as inputs!";
 
     private final String moduleCode;
     private final String title;
     private final String semester;
-    private final String description;
     private final String faculty;
     private final String credit;
     private final String grade;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedModule} with the given module details.
      */
     @JsonCreator
     public JsonAdaptedModule(@JsonProperty("moduleCode") String moduleCode, @JsonProperty("title") String title,
-                             @JsonProperty("semester") String semester, @JsonProperty("description") String description,
+                             @JsonProperty("semester") String semester,
                              @JsonProperty("credit") String credit, @JsonProperty("faculty") String faculty,
                              @JsonProperty("grade") String grade) {
         this.moduleCode = moduleCode;
@@ -43,12 +41,11 @@ class JsonAdaptedModule {
         this.semester = semester;
         this.credit = credit;
         this.faculty = faculty;
-        this.description = description;
         this.grade = grade;
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Module} into this class for Jackson use.
      */
     public JsonAdaptedModule(Module source) {
         moduleCode = source.getModuleCode().moduleCode;
@@ -56,12 +53,11 @@ class JsonAdaptedModule {
         semester = source.getSemester().toString();
         credit = String.valueOf(source.getCredit().getCredit());
         faculty = source.getFaculty().getFaculty();
-        description = source.getDescription().getDescription();
         grade = source.getGrade().getGrade();
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted module object into the model's {@code Module} object.
      *
      * @return a Module
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
@@ -76,16 +72,44 @@ class JsonAdaptedModule {
             throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
         }
 
+        if (title == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Title.class.getSimpleName()));
+        }
+        if (!Title.isValidTitle(title)) {
+            throw new IllegalValueException(Title.MESSAGE_CONSTRAINTS);
+        }
 
+        if (semester == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Semester.class.getSimpleName()));
+        }
+        if (!Semester.isValidSemester(semester)) {
+            throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
+        }
+
+        if (credit == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Credit.class.getSimpleName()));
+        }
+        if (!Credit.isValidCredit(credit)) {
+            throw new IllegalValueException(Credit.MESSAGE_CONSTRAINTS);
+        }
+        if (credit == null) {
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, Credit.class.getSimpleName()));
+        }
+        if (!Credit.isValidCredit(credit)) {
+            throw new IllegalValueException(Credit.MESSAGE_CONSTRAINTS);
+        }
         final ModuleCode modelName = new ModuleCode(moduleCode);
         final Title modelTitle = new Title(title);
         final Semester modelSemester = ParserUtil.parseSemester(semester);
-        final Description modelDescription = new Description(description);
         final Credit modelCredit = new Credit(Integer.parseInt(credit));
         final Faculty modelFaculty = new Faculty(faculty);
         final Grade modelGrade = new Grade(grade);
 
-        return new Module(modelName, modelTitle, modelSemester, modelDescription,
+        return new Module(modelName, modelTitle, modelSemester,
                 modelCredit, modelFaculty, modelGrade);
     }
 

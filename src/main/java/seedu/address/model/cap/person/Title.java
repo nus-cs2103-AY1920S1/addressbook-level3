@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a module's title in modulo.
  * Guarantees: immutable.
  */
 public class Title {
@@ -19,9 +19,9 @@ public class Title {
     public final String title;
 
     /**
-     * Constructs an {@code Address}.
+     * Constructs an {@code Title}.
      *
-     * @param title A valid address.
+     * @param title A valid title.
      */
     public Title(String title) {
         requireNonNull(title);
@@ -55,7 +55,7 @@ public class Title {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid title.
      */
     public static boolean isValidTitle(String test) {
         try {
@@ -73,7 +73,7 @@ public class Title {
     }
 
     /**
-     * This method checks if a string is in fact a number.
+     * This method checks if a string is in fact numeric.
      *
      * @param strNum the string that will be tested upon.
      * @return boolean value of whether the string is a number.

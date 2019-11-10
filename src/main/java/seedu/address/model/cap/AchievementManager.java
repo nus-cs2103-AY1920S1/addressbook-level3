@@ -1,5 +1,8 @@
 package seedu.address.model.cap;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.cap.person.rank.Fail;
 import seedu.address.model.cap.person.rank.FirstClass;
 import seedu.address.model.cap.person.rank.Freshie;
@@ -13,7 +16,7 @@ import seedu.address.model.cap.person.rank.ThirdClass;
  * Encapsulates the AchievementManager class that manages the achievement processes.
  */
 public class AchievementManager {
-
+    private static final Logger logger = LogsCenter.getLogger(ModelCapManager.class);
     private Rank currentRank = new Freshie(); // default rank for new students
     private double prevCap;
     private double currCap = 0.0; // default cap at the start
@@ -22,6 +25,7 @@ public class AchievementManager {
     private boolean hasUpGraded = false;
 
     public AchievementManager() {
+        logger.fine("Initializing with achievement.");
     }
 
     /**
@@ -32,7 +36,7 @@ public class AchievementManager {
     public void updateCap(double cap) {
         prevCap = currCap;
         currCap = cap;
-        System.out.println(SecondLower.isWithinRange(currCap));
+
         if (FirstClass.isWithinRange(currCap)) {
             currentRank = new FirstClass();
             hasRankChanged = true;

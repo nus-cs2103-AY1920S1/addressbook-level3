@@ -67,5 +67,5 @@ public interface Logic {
 
     String getRankTitle();
 
-    void updateRank();
+    void updateRank(double cap);
 }

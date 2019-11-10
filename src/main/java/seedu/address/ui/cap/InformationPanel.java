@@ -18,8 +18,12 @@ public class InformationPanel extends UiPart<Region> {
     @FXML
     private Label mcDisplay;
 
-    public InformationPanel() {
+    public InformationPanel(double cap, double mc) {
         super(FXML);
+        requireNonNull(cap);
+        requireNonNull(mc);
+        capDisplay.setText("CAP: " + String.valueOf(cap));
+        mcDisplay.setText("MC: " + String.valueOf(mc));
         capDisplay.setStyle("-fx-box-border: transparent;");
     }
 

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Description;
 import seedu.address.model.cap.person.Faculty;
 import seedu.address.model.cap.person.Grade;
 import seedu.address.model.cap.person.ModuleCode;
@@ -16,10 +15,10 @@ import seedu.address.model.cap.person.Title;
  * Represents a NUS modules in the address book.
  */
 public class Module {
+
     private ModuleCode moduleCode;
     private Title title;
     private Semester semester;
-    private Description description;
     private Credit credit;
     private Faculty faculty;
     private Grade grade;
@@ -32,7 +31,7 @@ public class Module {
      * @param credit Module credits that provides the weight
      * @param faculty The faculty the module is held at.
      */
-    public Module(ModuleCode moduleCode, Title title, Semester semester, Description description,
+    public Module(ModuleCode moduleCode, Title title, Semester semester,
                   Credit credit, Faculty faculty, Grade grade) {
         requireNonNull(moduleCode);
         requireNonNull(title);
@@ -43,7 +42,6 @@ public class Module {
         this.moduleCode = moduleCode;
         this.title = title;
         this.semester = semester;
-        this.description = description;
         this.credit = credit;
         this.faculty = faculty;
         this.grade = grade;
@@ -67,10 +65,6 @@ public class Module {
 
     public Faculty getFaculty() {
         return faculty;
-    }
-
-    public Description getDescription() {
-        return description;
     }
 
     public Grade getGrade() {
