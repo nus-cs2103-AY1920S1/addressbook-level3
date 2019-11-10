@@ -22,8 +22,8 @@ public class AllItemsPanel extends UiPart<VBox> {
 
     private ObservableList<XpireItem> xpireItems;
     private ObservableList<Item> replenishList;
-    private TreeItem<String> trackedItems = new TreeItem<String>("Tracked items");
-    private TreeItem<String> toBuyItems = new TreeItem<String>("To-buy items");
+    private TreeItem<String> trackedItems = new TreeItem<>("Tracked items");
+    private TreeItem<String> toBuyItems;
 
     @FXML
     private TreeView<String> tree;
@@ -34,16 +34,13 @@ public class AllItemsPanel extends UiPart<VBox> {
         super(FXML);
         this.xpireItems = xpireItemList;
         this.replenishList = replenishList;
-        TreeItem<String> rootItem = new TreeItem<String>("All items");
+        TreeItem<String> rootItem = new TreeItem<>("All items");
         tree.setRoot(rootItem);
         rootItem.setExpanded(true);
         ObservableList<TreeItem<String>> children = rootItem.getChildren();
-        children.add((TreeItem<String>) trackedItems);
-        children.add((TreeItem<String>) toBuyItems);
-        /*
-        addXpireItems(xpireItems);
-        update();
-         */
+        children.add(trackedItems);
+        toBuyItems = new TreeItem<String>("To-buy items");
+        children.add(toBuyItems);
         displayItems(xpireItemList, replenishList);
         setClick();
     }
@@ -87,69 +84,17 @@ public class AllItemsPanel extends UiPart<VBox> {
         xpireItemList.forEach(item -> {
             String name = item.getName().toString();
             String expiryDate = item.getExpiryDate().toString();
-            TreeItem<String> treeItem = new TreeItem<String>(name);
-            TreeItem<String> treeSubItem = new TreeItem<String>(expiryDate);
+            TreeItem<String> treeItem = new TreeItem<>(name);
+            TreeItem<String> treeSubItem = new TreeItem<>(expiryDate);
             treeItem.getChildren().add(treeSubItem);
             trackedItems.getChildren().add(treeItem);
         });
         replenishList.forEach(item -> {
             String name = item.getName().toString();
-            TreeItem<String> treeItem = new TreeItem<String>(name);
+            TreeItem<String> treeItem = new TreeItem<>(name);
             toBuyItems.getChildren().add(treeItem);
         });
 
     }
-
-    /*
-        private void update() {
-            this.xpireItems.addListener(new ListChangeListener<XpireItem>() {
-                @Override
-                public void onChanged(Change<? extends XpireItem> c) {
-                    while (c.next()) {
-                        if (c.wasRemoved()) {
-                            deleteXpireItems(c.getRemoved());
-                        }
-                        if (c.wasAdded()) {
-                            addXpireItems(c.getAddedSubList());
-                        }
-                    }
-                }
-            });
-        }
-
-        public void addXpireItems(List<? extends XpireItem> items) {
-            xpireItems.forEach(item -> {
-                String name = item.getName().toString();
-                String expiryDate = item.getExpiryDate().toString();
-                TreeItem<String> treeItem = new TreeItem<String>(name);
-                TreeItem<String> treeSubItem = new TreeItem<String>(expiryDate);
-                treeItem.getChildren().add(treeSubItem);
-                trackedItems.getChildren().add(treeItem);
-            });
-        }
-
-        public void deleteXpireItems(List<? extends XpireItem> items) {
-            List<TreeItem> treeItemsToRemove = trackedItems.getChildren().stream()
-                    .filter(treeItem -> containsByNameXpire((List<XpireItem>) items, treeItem))
-                    .collect(Collectors.toList());
-            trackedItems.getChildren().removeAll(treeItemsToRemove);
-        }
-
-        private static boolean containsByNameXpire(List<XpireItem> lst, TreeItem<String> treeItem) {
-            boolean isPresent = false;
-            Iterator i = lst.iterator();
-            while (i.hasNext()) {
-                XpireItem item = (XpireItem) i.next();
-                String itemName = item.getName().toString();
-                String itemDate = item.getExpiryDate().toString();
-                String treeName = treeItem.getValue();
-                String treeDate = treeItem.getChildren().get(0).getValue();
-                if (itemName.equals(treeName) && (itemDate.equals(treeDate))) {
-                    isPresent = true;
-                }
-            }
-            return isPresent;
-        }
-    */
 }
 

@@ -58,12 +58,19 @@ tracking list to the replenish list once they are consumed or expired.
 
 == Graphic User Interface
 
+=== GUI components
+
 image::GUI.png[width="790"]
 
-There are two lists shown on the Graphic User Interface(GUI), `View` and `All Items`. On the left is the `View` list.
-This is an active list that shows you the current view of items. As you manipulate the items using
-`search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
+The above image shows you the Graphic User Interface(GUI) of Xpire with its major components annotated. +
+You can refer to the following sections for details on what each component does.
 
+==== View List
+There are two lists shown on the GUI, `View` and `All Items`. On the left is the `View` list.
+This is an active list that shows you the current view of items. As you manipulate the items using
+`search`, `view` or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+==== Item Card
 image::ItemCard.png[width="710"]
 
 This is how your item will look like in the `View` list. The number on the right is the number of days left before the item expires.
@@ -84,11 +91,7 @@ image::ReminderCard.png[width="500]
 
 image::ItemCard.png[width="710"]
 
-If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
-
-image::ShortenedCard.png[width="500"]
-image::ExpandCard.png[width="500"]
-
+==== All Items List
 
 You can find all your items on the right, in the `All Items` list.
 
@@ -98,19 +101,45 @@ The `All Items` list provides you with a static view of all your items in the ap
 name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
 expiry date of the item if it has one.
 
+==== FeedbackBox
+
 Below the `View` list panel, you can find a rectangle box which acts like a "feedback window".
 
 image::FeedbackBox.png[width="500"]
 
-Any feedback on
+Feedback on
 the successful execution of the command will be displayed in this box. If an illegal command is entered, you will
 also be able to see a failure message and relevant suggestions in the box.
+
+==== CommandBox
 
 Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...".
 
 image::CommandBox.png[width="500"]
 
-This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your `View` list!
+This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your lists!
+
+=== Tips
+==== Expand cards
+
+When you reduce the window size, the name or other details of the item in the item card could be shortened with `...`.
+You can click on the card to expand it and view more information.
+
+image::ShortenedCard.png[width="500"]
+image::ExpandCard.png[width="500"]
+
+==== Resize Feedback Box
+
+When the feedback message is too long, you can either scroll or adjust the height of the feedback box to display more information.
+To resize, simply drag the horizontal bar above the feedback box to your desired position as shown below.
+
+image::ShortenedFeedbackBox.png[width = "500]
+image::ExpandedFeedbackBox.png[width = "500]
+
+==== Retrieve Previous Entry
+
+Just like any other Command Line App, you can easily retrieve your previous commands or go back to later commands using the
+kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 commands you entered.
 
 [[Features]]
 == Features
@@ -194,14 +223,13 @@ You can do an AND search, e.g. search for items that contains BOTH `red` and `ap
 * For tag search, only exact words will be matched e.g. `#Fruit` will match `#Fruit` but `#Fru` will not match `#Fruit`.
 * Items matching at least one keyword will be returned (an OR search). e.g. `Apple|Pear` will return `Granny Smith Apple` and `Japanese Pear`.
 * If no items are found, any closely related keywords, if any, will be displayed.
-****
 
 Examples:
 
 * `search|kebab` +
-Returns `Chicken Kebab` and `kebab`
+Returns `Chicken Kebab` and `kebab`.
 * `search|Chicken Ham` +
-Returns `Chicken Ham`
+Returns `Chicken Ham`.
 * `search|milk|tea|#Drink` +
 Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 // end::search[]
@@ -401,26 +429,22 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 [[Reminder]]
 ==== Setting reminder for an item: `set reminder`
 
-===== Setting the number of days before an item's expiry date to start reminding you
+===== Adding a reminder some days before an item's expiry date
 .Reminder set for item at index 4
 image::set-reminder.png[width="790"]
 
 Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
-Reminder threshold refers to *the number of days before the item's expiry date*. By setting the reminder threshold
-of an item to n days, the app will start reminding you of this items n days before its expiry date.
+Set reminder is designed for you to customise when you want to be alerted of an item's condition.
+In the above example, reminder threshold refers to *the number of days before the item's expiry date*.
+The reminder for an item will be activated when the number of days left before an item's expiry date is less than or equal to
+the reminder threshold. In other words, by setting the reminder threshold
+of an item to n days, you start to be reminded of this items n days before its expiry date.
 
-This allows the check command to quickly find the item once the reminder threshold is exceeded, and also
-allows the item to be marked as yellow in `View`.
-
-****
-* All items have their default reminder threshold set to 0.
-* To reset a reminder threshold, simply write over the old one.
-* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
-, it is not possible to set the reminder on 19/9/2019. In other words, if an item is expiring in 4 days, we cannot start the reminder 5 days before its expiry date. Instead, the app understands that you want the reminder to
-be activated immediately, and will start the reminder on the current date.
-****
+To reduce disturbance, the app does not pop up notifications. Instead, you will be reminded through the alerting yellow colour
+of the item whose reminder has been activated in the `View` list. You can also view all items with active reminder through the `check` command.
+(Refer to the following section.)
 
 Examples:
 
@@ -428,36 +452,48 @@ Examples:
 Sets a reminder for the second item in the list 4 days before its expiry date.
 
 ===== Removing the reminder for an item
-Removes the reminder set for your item.
+You can remove the reminder for your item by resetting it to the default value 0.
 Format: `set reminder|<index>|0`
 
 Examples:
 
 * `set reminder|1|0` +
 Removes the reminder for the first item in the list.
+
+****
+* All items have their default reminder threshold set to 0.
+* Reminder cannot be set on already expired items.
+* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
+, it is not possible to set the reminder on 19/9/2019 by entering a reminder threshold greater than the item's number of days left.
+However, the app understands that you want the reminder to be activated immediately, and will activate the reminder right away.
+* The maximum reminder threshold is 36500 days.
+****
 // end::set reminder[]
 
 // tag::check[]
 ==== Listing expiring items: `check`
 
-===== Listing all expiring items with activated reminders
+===== Listing all expiring items with activated reminders and expired items
 .Items expiring soon listed
 image::check.png[width="790"]
 
-Lists items whose reminder has been activated. +
+You can easily view all items whose reminder has been activated and who has already expired with the command `check`.
+In other words, this command will show you all items that are in red and yellow +
 Format: `check`
 
 ===== Listing items that will expire within a certain number of days
 
-Lists items that will expire within the specified number of days in your tracker. +
+Sometimes you forget to set a reminder for an item whose expiry date is drawing close. Don't worry, you can
+easily make a query for items that will expire within a specified number of days. +
 Format: `check|<days>`
 
 ****
 * Number of days *must be a non-negative integer* 0,1,2,3,..
+* Maximum number of days that can be checked is 36500 days.
 ****
 
 [TIP]
-`check|0` lists items that have already expired or expire on the day of checking.
+`check|0` lists items that have already expired.
 
 Examples:
 
