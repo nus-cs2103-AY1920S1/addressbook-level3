@@ -19,6 +19,6 @@ public class ClearCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setRevisionTool(new RevisionTool());
-        return new CommandResult().withFeedBack(MESSAGE_SUCCESS).build();
+        return new CommandResultBuilder().withFeedBack(MESSAGE_SUCCESS).build();
     }
 }

@@ -1,5 +1,7 @@
 package seedu.revision.model.answerable;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -13,6 +15,9 @@ public class Saq extends Answerable {
 
     public static final String MESSAGE_CONSTRAINTS = "SAQs should have at least one correct answer"
             + " and no wrong answers.";
+    public static final String MESSAGE_INVALID_ANSWER_EXIT = "The answer cannot be 'exit'. "
+            + "'Exit' is a special command";
+    public static final String MESSAGE_INVALID_ANSWER = "Answers should not appear in the question.";
 
     /**
      * Every field must be present and not null.
@@ -22,9 +27,23 @@ public class Saq extends Answerable {
         super(question, correctAnswerList, new ArrayList<>(), difficulty, categories);
     }
 
+    /**
+     * Checks whether the input Mcq is valid
+     * @param saq the saq to validate.
+     * @return boolean to indicate whether Mcq is valid or not.
+     */
+    public static boolean isValidSaq(Saq saq) {
+        requireNonNull(saq);
+        if (saq.getCorrectAnswerList().size() == 0
+                || saq.getWrongAnswerList().size() > 0) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public boolean isCorrect(Answer selectedAnswer) {
-        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), getCorrectAnswerList());
+        boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), this);
         return answerIsCorrect;
     }
 

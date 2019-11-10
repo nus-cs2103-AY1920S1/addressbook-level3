@@ -3,10 +3,10 @@ package seedu.revision.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalAnswerables.H_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.I_ANSWERABLE;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_STUB;
-import static seedu.revision.testutil.TypicalAnswerables.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.H_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcqs.I_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
 
 import java.io.IOException;
 import java.nio.file.Path;

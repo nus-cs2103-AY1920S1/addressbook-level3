@@ -63,7 +63,7 @@ public class DeleteCommand extends Command {
         for (Answerable answerableToDelete : toBeDeleted) {
             model.deleteAnswerable(answerableToDelete);
         }
-        return new CommandResult().withFeedBack(String.format(MESSAGE_DELETE_ANSWERABLE_SUCCESS,
+        return new CommandResultBuilder().withFeedBack(String.format(MESSAGE_DELETE_ANSWERABLE_SUCCESS,
                 toBeDeleted.toString())).build();
     }
 

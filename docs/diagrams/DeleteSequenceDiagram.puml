@@ -6,7 +6,7 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
 participant ":RevisionToolParser" as RevisionToolParser LOGIC_COLOR_T1
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR_T1
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR_T1
-participant ":CommandResult" as CommandResult LOGIC_COLOR_T1
+participant ":CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
 end box
 
 box Model MODEL_COLOR_T1
@@ -45,7 +45,7 @@ destroy DeleteCommandParser
 RevisionToolParser --> LogicManager : d
 deactivate RevisionToolParser
 
-LogicManager -> DeleteCommand : execute()
+LogicManager -> DeleteCommand : execute(model)
 activate DeleteCommand
 
 DeleteCommand -> Model : deletePerson(1)
@@ -54,21 +54,21 @@ activate Model
 Model --> DeleteCommand
 deactivate Model
 
-create CommandResult
-DeleteCommand -> CommandResult : CommandResult()
-activate CommandResult
-deactivate CommandResult
+create CommandResultBuilder
+DeleteCommand -> CommandResultBuilder : CommandResultBuilder()
+activate CommandResultBuilder
+deactivate CommandResultBuilder
 
-CommandResult -> CommandResult : withFeedback(deleteMessage)
+CommandResultBuilder -> CommandResultBuilder : withFeedback(deleteMessage)
 
-CommandResult -> CommandResult : build()
+CommandResultBuilder -> CommandResultBuilder : build()
 
-CommandResult --> DeleteCommand : c
-deactivate CommandResult
+CommandResultBuilder --> DeleteCommand : commandResult
+deactivate CommandResultBuilder
 
-DeleteCommand --> LogicManager : c
+DeleteCommand --> LogicManager : commandResult
 deactivate DeleteCommand
 
-[<--LogicManager
+[<--LogicManager : commandResult
 deactivate LogicManager
 @enduml

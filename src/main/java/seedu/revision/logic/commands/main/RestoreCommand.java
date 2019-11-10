@@ -24,7 +24,7 @@ public class RestoreCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
-        return new CommandResult().withFeedBack(SHOWING_CONFIRMATION_MESSAGE).withRestore(true)
+        return new CommandResultBuilder().withFeedBack(SHOWING_CONFIRMATION_MESSAGE).withRestore(true)
                 .withModel(model).build();
     }
 }

@@ -26,4 +26,7 @@ public class ResultDisplay extends UiPart<Region> {
         resultDisplay.setWrapText(true);
     }
 
+    public TextArea getResultDisplay() {
+        return resultDisplay;
+    }
 }

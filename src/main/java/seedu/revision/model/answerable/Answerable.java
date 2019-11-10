@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 
 /**
@@ -78,6 +79,32 @@ public abstract class Answerable {
 
     public Set<Category> getCategories() {
         return Collections.unmodifiableSet(categories);
+    }
+
+    /**
+     * Creates an answerable based on its type using a factory design method.
+     * @param questionType the question type.
+     * @param question the question description.
+     * @param correctAnswerList the list of correct answers.
+     * @param wrongAnswerList the list of wrong answers.
+     * @param difficulty the difficulty of the answerable.
+     * @param categories the categories of the answerables.
+     * @return Answerable initiated with the inputs provided.
+     * @throws ParseException
+     */
+    public static Answerable create(String questionType, Question question, ArrayList<Answer> correctAnswerList,
+            ArrayList<Answer> wrongAnswerList, Difficulty difficulty, Set<Category> categories) throws
+            ParseException {
+        switch (questionType) {
+        case "mcq":
+            return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
+        case "saq":
+            return new Saq(question, correctAnswerList, difficulty, categories);
+        case "tf":
+            return new TrueFalse(question, correctAnswerList, difficulty, categories);
+        default:
+            throw new ParseException("Invalid answerable");
+        }
     }
 
     /**

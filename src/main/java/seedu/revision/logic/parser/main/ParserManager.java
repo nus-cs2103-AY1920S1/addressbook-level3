@@ -20,11 +20,18 @@ import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
 import seedu.revision.logic.commands.main.StatsCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.logic.parser.quiz.McqInputCommandParser;
+import seedu.revision.logic.parser.quiz.SaqInputCommandParser;
+import seedu.revision.logic.parser.quiz.TfInputCommandParser;
+import seedu.revision.model.answerable.Answerable;
+import seedu.revision.model.answerable.Mcq;
+import seedu.revision.model.answerable.Saq;
+import seedu.revision.model.answerable.TrueFalse;
 
 /**
  * Parses user input.
  */
-public class MainParser {
+public class ParserManager {
 
     /**
      * Used for initial separation of command word and args.
@@ -38,7 +45,7 @@ public class MainParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public static Command parseCommand(String userInput) throws ParseException {
+    public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -88,5 +95,37 @@ public class MainParser {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
+
+    /**
+     * Checks if user input during quiz is valid.
+     * It should be either an exit command, help command, or an answer to the current question.
+     * @param userInput user response or command
+     * @param currentAnswerable the current question
+     * @return exit command or help command or MCQ input command parser
+     * @throws ParseException
+     */
+    public Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        if (!matcher.matches()) {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+
+        final String commandWord = matcher.group("commandWord");
+
+        if (commandWord.equalsIgnoreCase(ExitCommand.COMMAND_WORD)) {
+            return new ExitCommand();
+        }
+
+        if (currentAnswerable instanceof Mcq) {
+            return new McqInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof TrueFalse) {
+            return new TfInputCommandParser().parse(userInput, currentAnswerable);
+        } else if (currentAnswerable instanceof Saq) {
+            return new SaqInputCommandParser().parse(userInput, currentAnswerable);
+        } else {
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
 
 }

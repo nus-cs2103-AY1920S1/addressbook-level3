@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -81,7 +82,10 @@ public class Timer {
 
     /** Syncs the observable value with the progress. **/
     private void syncProgress() {
-        label.setText(((Integer) currentTime.get()).toString());
+        //Run of the JavaFX Application Thread.
+        Platform.runLater(() -> {
+            label.setText(((Integer) currentTime.get()).toString());
+        });
     }
 
     /** Resets the timer and starts a new timer.**/

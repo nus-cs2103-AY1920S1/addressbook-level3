@@ -28,11 +28,7 @@ public class TrueFalse extends Answerable {
     public static boolean isValidTrueFalse(TrueFalse trueFalse) {
         requireNonNull(trueFalse);
         String trueFalseRegex = "(?i)(true|false)";
-        if (trueFalse.getCorrectAnswerList().size() != 1) {
-            return false;
-        }
-
-        if (!trueFalse.getWrongAnswerList().isEmpty()) {
+        if (trueFalse.getCorrectAnswerList().size() != 1 || !trueFalse.getWrongAnswerList().isEmpty()) {
             return false;
         }
 

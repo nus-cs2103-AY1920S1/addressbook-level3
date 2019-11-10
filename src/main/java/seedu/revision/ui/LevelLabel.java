@@ -1,5 +1,7 @@
 package seedu.revision.ui;
 
+import java.util.logging.Logger;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
@@ -10,6 +12,7 @@ import javafx.scene.layout.StackPane;
  */
 public class LevelLabel extends UiPart<Region> {
 
+    private static final Logger logger = Logger.getLogger(LevelLabel.class.getName());
     private static final String FXML = "LevelLabel.fxml";
 
     @FXML
@@ -24,6 +27,7 @@ public class LevelLabel extends UiPart<Region> {
      */
     public LevelLabel(int nextLevel) {
         super(FXML);
+        assert nextLevel > 0 : "Level should be more than 0";
         updateLevelLabel(nextLevel);
     }
 
@@ -31,8 +35,12 @@ public class LevelLabel extends UiPart<Region> {
      * Updates the {@code levelLabel}'s text and color according to the next level.
      * @param nextLevel the next level in the quiz.
      */
-    private void updateLevelLabel(int nextLevel) {
+    public void updateLevelLabel(int nextLevel) {
         switch (nextLevel) {
+        case 1:
+            levelLabel.setText("Level 1");
+            innerLevelPlaceholder.setStyle("-fx-background-color: #5D5D5A;");
+            break;
         case 2:
             levelLabel.setText("Level 2");
             innerLevelPlaceholder.setStyle("-fx-background-color: #ff8264;");
@@ -42,11 +50,12 @@ public class LevelLabel extends UiPart<Region> {
             innerLevelPlaceholder.setStyle("-fx-background-color: #f73859;");
             break;
         default:
-            levelLabel.setText("Level 1");
-            innerLevelPlaceholder.setStyle("-fx-background-color: #5D5D5A;");
+            logger.warning("Invalid level selected.");
             break;
         }
-
     }
 
+    public Label getLevelLabel() {
+        return levelLabel;
+    }
 }

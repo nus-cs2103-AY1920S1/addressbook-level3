@@ -15,7 +15,6 @@ import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Difficulty;
 import seedu.revision.model.answerable.Mcq;
 import seedu.revision.model.answerable.Question;
-import seedu.revision.model.answerable.Saq;
 import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.category.Category;
 
@@ -84,9 +83,9 @@ class JsonAdaptedAnswerable {
      * @throws IllegalValueException if there were any data constraints violated in the adapted answerable.
      */
     public Answerable toModelType() throws IllegalValueException {
-        final List<Category> answerableTags = new ArrayList<>();
-        for (JsonAdaptedCategory category : categories) {
-            answerableTags.add(category.toModelType());
+        final List<Category> categories = new ArrayList<>();
+        for (JsonAdaptedCategory category : this.categories) {
+            categories.add(category.toModelType());
         }
 
         final List<Answer> correctAnswers = new ArrayList<>();
@@ -103,7 +102,6 @@ class JsonAdaptedAnswerable {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Question.class.getSimpleName()));
         }
-
         if (!Question.isValidQuestion(question)) {
             throw new IllegalValueException(Question.MESSAGE_CONSTRAINTS);
         }
@@ -111,7 +109,6 @@ class JsonAdaptedAnswerable {
         final Question modelQuestion = new Question(question);
 
         final ArrayList<Answer> modelCorrectAnswerSet = new ArrayList<>(correctAnswers);
-
         final ArrayList<Answer> modelWrongAnswerSet = new ArrayList<>(wrongAnswers);
 
         if (difficulty == null) {
@@ -123,18 +120,10 @@ class JsonAdaptedAnswerable {
         }
         final Difficulty modelDifficulty = new Difficulty(difficulty);
 
-        final Set<Category> modelCategories = new HashSet<>(answerableTags);
+        final Set<Category> modelCategories = new HashSet<>(categories);
 
-        switch (questionType) {
-        case "mcq":
-            return new Mcq(modelQuestion, modelCorrectAnswerSet, modelWrongAnswerSet,
-                    modelDifficulty, modelCategories);
-        case "saq":
-            return new Saq (modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
-        case "tf":
-            return new TrueFalse(modelQuestion, modelCorrectAnswerSet, modelDifficulty, modelCategories);
-        default:
-            throw new IllegalValueException("Invalid question type");
-        }
+
+        return Answerable.create(questionType, modelQuestion, modelCorrectAnswerSet,
+                modelWrongAnswerSet, modelDifficulty, modelCategories);
     }
 }

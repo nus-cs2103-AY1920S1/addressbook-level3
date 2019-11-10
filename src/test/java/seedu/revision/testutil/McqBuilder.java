@@ -6,7 +6,7 @@ import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
 
-/** Factory class to create {@code Mcq} objects. **/
+/** Builder class to create {@code Mcq} objects. **/
 public class McqBuilder extends AnswerableBuilder<Mcq> {
 
     public McqBuilder() {

@@ -11,9 +11,12 @@ import javafx.scene.control.ButtonType;
 /** AlertDialog class that is used to prompt users for inputs.**/
 public class AlertDialog {
 
+    public static final String NEXT_LEVEL_TITLE = "Well done!";
+    public static final String END_QUIZ_TITLE = "End of quiz!";
+
     private Alert alert;
-    private ButtonType tryAgainButton;
-    private ButtonType endButton;
+    private ButtonType yesButton;
+    private ButtonType noButton;
 
     /**
      * Private initializer to prevent external parties from accessing the constructor. Initialises with default
@@ -23,12 +26,25 @@ public class AlertDialog {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.getDialogPane().getStylesheets().add("view/OrangeTheme.css");
         alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
-        tryAgainButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
-        endButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(tryAgainButton, endButton);
+        alert.getButtonTypes().setAll(yesButton, noButton);
     }
 
+    /**
+     * Initialises an alert that will be shown when the user tries to restore the app.
+     * @return AlertDialog with warning to restore the app.
+     */
+    public static AlertDialog getRestoreAlert() {
+        AlertDialog restoreAlert = new AlertDialog();
+        restoreAlert.alert.setAlertType(Alert.AlertType.WARNING);
+        restoreAlert.alert.setTitle("Warning!");
+        restoreAlert.alert.setHeaderText(null);
+        restoreAlert.alert.setContentText("Are you sure? This cannot be undone.");
+
+        return restoreAlert;
+    }
     /**
      * Initialises an alert that will be shown when the user completes a level in the quiz.
      * @param nextLevel the next level in the quiz.
@@ -36,9 +52,10 @@ public class AlertDialog {
      * @param totalScore the total score of the user
      * @return AlertDialog with the next level details set.
      */
+
     public static AlertDialog getNextLevelAlert(int nextLevel, int score, int totalScore) {
         AlertDialog nextLevelAlert = new AlertDialog();
-        nextLevelAlert.alert.setTitle("Well done!");
+        nextLevelAlert.alert.setTitle(NEXT_LEVEL_TITLE);
         nextLevelAlert.alert.setHeaderText(null);
         nextLevelAlert.alert.setContentText("You have completed level " + (nextLevel - 1) + "\n"
                 + "Your current score is: " + score + "/" + totalScore + "\n"
@@ -57,7 +74,7 @@ public class AlertDialog {
      */
     public static AlertDialog getEndAlert(int score, int totalScore, boolean isFailure) {
         AlertDialog endAlert = new AlertDialog();
-        endAlert.alert.setTitle("End of Quiz!");
+        endAlert.alert.setTitle(END_QUIZ_TITLE);
         endAlert.alert.setHeaderText(null);
 
         if (isFailure) {
@@ -88,7 +105,15 @@ public class AlertDialog {
         return result;
     }
 
-    public ButtonType getEndButton() {
-        return endButton;
+    public ButtonType getYesButton() {
+        return yesButton;
+    }
+
+    public ButtonType getNoButton() {
+        return noButton;
+    }
+
+    public Alert getAlert() {
+        return alert;
     }
 }

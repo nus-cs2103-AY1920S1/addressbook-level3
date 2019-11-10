@@ -20,7 +20,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BET
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.revision.testutil.TypicalAnswerables.MCQ_B;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
 
 import org.junit.jupiter.api.Test;
 
@@ -45,7 +45,7 @@ public class AddCommandParserTest {
                 + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC_BROWNFIELD + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML,
                 new AddCommand(expectedAnswerable));
 
-        // multiple names - last name accepted
+        // multiple question - last question accepted
         assertParseSuccess(parser, QUESTION_TYPE_MCQ + QUESTION_DESC_ALPHA + QUESTION_DESC_BETA
                 + DIFFICULTY_DESC_BETA + CORRECT_ANSWER_DESC_BROWNFIELD + MCQ_WRONG_ANSWER_DESC + CATEGORY_DESC_UML,
                 new AddCommand(expectedAnswerable));
@@ -68,7 +68,7 @@ public class AddCommandParserTest {
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // missing name prefix
+        // missing question prefix
         assertParseFailure(parser, VALID_QUESTION_BETA + DIFFICULTY_DESC_BETA, expectedMessage);
 
         // missing difficulty prefix

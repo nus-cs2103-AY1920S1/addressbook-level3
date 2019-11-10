@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.revision.logic.commands.Command;
 
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -29,8 +30,8 @@ public class SaqInputCommand extends Command {
         Answer selectedAnswer = new Answer(saqInput);
 
         requireNonNull(selectedAnswer);
-        String result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        boolean result = currentAnswerable.isCorrect(selectedAnswer);
 
-        return new CommandResult().withFeedBack(result).build();
+        return new CommandResultBuilder().withCorrect(result).build();
     }
 }

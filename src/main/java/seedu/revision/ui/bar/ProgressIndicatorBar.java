@@ -21,20 +21,20 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     @FXML
     protected Text text = new Text();
 
-    private final ReadOnlyDoubleProperty workDone;
-    private final double totalWork;
+    private final ReadOnlyDoubleProperty currentProgress;
+    private final double totalProgress;
     private final String labelFormatSpecifier;
 
-    public ProgressIndicatorBar(final ReadOnlyDoubleProperty workDone, final double totalWork,
+    public ProgressIndicatorBar(final ReadOnlyDoubleProperty currentProgress, final double totalProgress,
                                 final String labelFormatSpecifier) {
         super(FXML);
-        this.workDone = workDone;
-        this.totalWork = totalWork;
+        this.currentProgress = currentProgress;
+        this.totalProgress = totalProgress;
         this.labelFormatSpecifier = labelFormatSpecifier;
         bar.getStyleClass().add("progress-bar");
 
         syncProgress();
-        workDone.addListener(new ChangeListener<Number>() {
+        currentProgress.addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 syncProgress();
@@ -49,15 +49,31 @@ public class ProgressIndicatorBar extends UiPart<Region> {
      * Synchronizes the progress indicated with the work done.
      */
     private void syncProgress() {
-        if (workDone == null || totalWork == 0) {
+        if (currentProgress == null || totalProgress == 0) {
             text.setText("");
             bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         } else {
-            text.setText(String.format(labelFormatSpecifier, Math.ceil(workDone.get())));
-            bar.setProgress(workDone.get() / totalWork);
+            text.setText(String.format(labelFormatSpecifier, Math.ceil(currentProgress.get())));
+            bar.setProgress(currentProgress.get() / totalProgress);
         }
 
         bar.setMinHeight(text.getBoundsInLocal().getHeight() + DEFAULT_LABEL_PADDING * 2);
-        bar.setMinWidth (text.getBoundsInLocal().getWidth() + DEFAULT_LABEL_PADDING * 2);
+        bar.setMinWidth(text.getBoundsInLocal().getWidth() + DEFAULT_LABEL_PADDING * 2);
+    }
+
+    public ProgressBar getBar() {
+        return bar;
+    }
+
+    public Text getText() {
+        return text;
+    }
+
+    public double getCurrentProgress() {
+        return currentProgress.get();
+    }
+
+    public ReadOnlyDoubleProperty currentProgressProperty() {
+        return currentProgress;
     }
 }

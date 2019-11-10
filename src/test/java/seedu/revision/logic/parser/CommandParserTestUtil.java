@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.parser.exceptions.ParseException;
-import seedu.revision.logic.parser.quiz.QuizCommandParser;
 import seedu.revision.model.answerable.Answerable;
 
 /**
@@ -26,13 +25,13 @@ public class CommandParserTestUtil {
     }
 
     /**
-     * Asserts that the parsing of {@code userInput} by {@code quizParser} is successful and the command created
+     * Asserts that the parsing of {@code userInput} by {@code parserManager} is successful and the command created
      * equals to {@code expectedCommand}.
      */
-    public static void assertQuizParseSuccess(QuizCommandParser quizParser, String userInput,
-              Answerable answerable, Command expectedCommand) {
+    public static void assertQuizParseSuccess(QuizParser parserManager, String userInput,
+                                              Answerable answerable, Command expectedCommand) {
         try {
-            Command command = quizParser.parseCommand(userInput, answerable);
+            Command command = parserManager.parse(userInput, answerable);
             assertEquals(expectedCommand, command);
         } catch (ParseException pe) {
             throw new IllegalArgumentException("Invalid userInput.", pe);
@@ -40,12 +39,12 @@ public class CommandParserTestUtil {
     }
 
     /**
-     * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
+     * Asserts that the parsing of {@code userInput} by {@code parserManager} is unsuccessful and the error message
      * equals to {@code expectedMessage}.
      */
-    public static void assertParseFailure(Parser parser, String userInput, String expectedMessage) {
+    public static void assertParseFailure(Parser parserManager, String userInput, String expectedMessage) {
         try {
-            parser.parse(userInput);
+            parserManager.parse(userInput);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
@@ -56,10 +55,10 @@ public class CommandParserTestUtil {
      * Asserts that the parsing of {@code userInput} by {@code parser} is unsuccessful and the error message
      * equals to {@code expectedMessage}.
      */
-    public static void assertQuizParseFailure(QuizCommandParser parser, String userInput,
-              Answerable answerable, String expectedMessage) {
+    public static void assertQuizParseFailure(QuizParser parser, String userInput,
+                                              Answerable answerable, String expectedMessage) {
         try {
-            parser.parseCommand(userInput, answerable);
+            parser.parse(userInput, answerable);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());

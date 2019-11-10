@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.model.Model;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
@@ -31,7 +32,6 @@ public class McqInputCommand extends Command {
         requireNonNull(model);
 
         Answer selectedAnswer;
-        String result;
 
         switch (mcqInput.toLowerCase()) {
         case "a":
@@ -47,16 +47,15 @@ public class McqInputCommand extends Command {
             selectedAnswer = currentAnswerable.getCombinedAnswerList().get(3);
             break;
         case "n":
-            result = "wrong";
-            return new CommandResult().withFeedBack(result).build();
+            return new CommandResultBuilder().withCorrect(false).build();
         default:
             selectedAnswer = null;
         }
 
         requireNonNull(selectedAnswer);
-        result = currentAnswerable.isCorrect(selectedAnswer) ? "correct" : "wrong";
+        boolean result = currentAnswerable.isCorrect(selectedAnswer);
 
-        return new CommandResult().withFeedBack(result).withHelp(false).withExit(false).build();
+        return new CommandResultBuilder().withCorrect(result).build();
     }
 
     @Override

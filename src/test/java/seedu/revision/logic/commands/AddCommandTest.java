@@ -1,30 +1,21 @@
 package seedu.revision.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.AddCommand;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.model.Model;
-import seedu.revision.model.ReadOnlyHistory;
-import seedu.revision.model.ReadOnlyRevisionTool;
-import seedu.revision.model.ReadOnlyUserPrefs;
-import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.quiz.Statistics;
+import seedu.revision.stubs.ModelStub;
+import seedu.revision.stubs.ModelStubAcceptingAnswerableAdded;
+import seedu.revision.stubs.ModelStubWithAnswerable;
 import seedu.revision.testutil.McqBuilder;
 
 public class AddCommandTest {
@@ -42,7 +33,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validAnswerable).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validAnswerable), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validAnswerable), modelStub.answerablesAdded);
+        assertEquals(Arrays.asList(validAnswerable), modelStub.getAnswerablesAdded());
     }
 
     @Test
@@ -79,155 +70,5 @@ public class AddCommandTest {
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getRevisionToolFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Path getHistoryFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRevisionToolFilePath(Path revisionToolFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setHistoryFilePath(Path historyFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addAnswerable(Answerable answerable) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addStatistics(Statistics statistics) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRevisionTool(ReadOnlyRevisionTool newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setHistory(ReadOnlyHistory newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyRevisionTool getRevisionTool() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyHistory getHistory() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasAnswerable(Answerable answerable) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteAnswerable(Answerable target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAnswerable(Answerable target, Answerable editedAnswerable) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Answerable> getFilteredAnswerableList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Statistics> getStatisticsList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        public void updateFilteredAnswerableList(Predicate<Answerable> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeFiltersFromAnswerableList() {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A Model stub that contains a single answerable.
-     */
-    private class ModelStubWithAnswerable extends ModelStub {
-        private final Answerable answerable;
-
-        ModelStubWithAnswerable(Answerable answerable) {
-            requireNonNull(answerable);
-            this.answerable = answerable;
-        }
-
-        @Override
-        public boolean hasAnswerable(Answerable answerable) {
-            requireNonNull(answerable);
-            return this.answerable.isSameAnswerable(answerable);
-        }
-    }
-
-    /**
-     * A Model stub that always accept the answerable being added.
-     */
-    private class ModelStubAcceptingAnswerableAdded extends ModelStub {
-        final ArrayList<Answerable> answerablesAdded = new ArrayList<>();
-
-        @Override
-        public boolean hasAnswerable(Answerable answerable) {
-            requireNonNull(answerable);
-            return answerablesAdded.stream().anyMatch(answerable::isSameAnswerable);
-        }
-
-        @Override
-        public void addAnswerable(Answerable answerable) {
-            requireNonNull(answerable);
-            answerablesAdded.add(answerable);
-        }
-
-        @Override
-        public ReadOnlyRevisionTool getRevisionTool() {
-            return new RevisionTool();
-        }
-    }
 
 }

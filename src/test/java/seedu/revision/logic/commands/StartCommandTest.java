@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.revision.commons.core.Messages;
 import seedu.revision.logic.commands.main.CommandResult;
+import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.StartCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
@@ -24,7 +25,7 @@ public class StartCommandTest {
 
     @Test
     public void execute_startNormal_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(
                 String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
                 model.getFilteredAnswerableList().size())).withStart(true).withMode(modeNormal).build();
 
@@ -33,7 +34,7 @@ public class StartCommandTest {
 
     @Test
     public void execute_startArcade_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(
                 String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
                         model.getFilteredAnswerableList().size())).withStart(true).withMode(modeArcade).build();
 
@@ -42,7 +43,7 @@ public class StartCommandTest {
 
     @Test
     public void execute_startCustom_success() throws ParseException {
-        CommandResult expectedCommandResult = new CommandResult().withFeedBack(
+        CommandResult expectedCommandResult = new CommandResultBuilder().withFeedBack(
                 String.format(Messages.MESSAGE_ANSWERABLES_LISTED_OVERVIEW,
                         model.getFilteredAnswerableList().size())).withStart(true).withMode(modeCustom).build();
 
