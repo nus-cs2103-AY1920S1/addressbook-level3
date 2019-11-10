@@ -374,7 +374,7 @@ Do note that premature ending of a test will still count towards your Statistics
 
 * They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
 
-* Upon running their programs, if they pass all test cases, their results will automatically be counted. 
+* Upon running their programs, if they pass all test cases, their results will automatically be counted.
 ====
 // tag::stats[]
 === Viewing user statistics : `stats`
@@ -439,9 +439,24 @@ e.g. `stats deck/science_deck`
 * *view* : `view [deck/DECK_NAME]` +
 e.g. `view deck/science_deck`
 * *create* : `create deck/DECK_NAME`
-* *test* : `test [duration/TIME_LIMIT_ALLOWED] deck/DECK_NAME` +
-e.g. `test deck/science_deck`
-* *exit* : `exit`
+* *test* : `test deck/DECK_NAME duration/TIME_LIMIT_ALLOWED` +
+e.g. `test deck/science_deck duration/0` +
+e.g. `test deck/science_deck duration/100`
+** *next card*: `next`
+** *previous card*: `prev`
+** *exit test mode*: `exit`
+** *Front Back Cards:*
+*** see back of card: `back`
+*** correct answer: `correct`
+*** wrong answer: `wrong`
+*** see question: `front`
+** *Multiple Choice Cards:*
+*** indicate choice: `<USER_INPUT>` which is any integer
+*** see question: `front`
+** *Java/Javascript Cards:*
+*** open coding playground: `code`
+
+* *quit* : `quit`
 * *edit* : `edit deck/DECK_NAME action/DESIRED_ACTION [index/CARD_INDEX] [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT]` +
 e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
 // end::summary[]
