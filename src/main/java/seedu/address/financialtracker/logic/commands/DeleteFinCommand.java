@@ -17,7 +17,9 @@ public class DeleteFinCommand extends Command<Model> {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_SUCCESS = "Your expense has been deleted";
     public static final String MESSAGE_USAGE = ": delete an expense.\n"
-            + "e.g. delete [index]";
+            + "Parameters: delete [index]\n"
+            + "Example: delete 1\n"
+            + "Note: index has to be a positive number!";
     public static final String MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX = "The expense index provided is invalid";
     private final Index index;
 
