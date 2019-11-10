@@ -40,7 +40,9 @@ class EventDayTimeTest {
         assertFalse(EventDayTime.isValidEventDayTime("1020")); //single value
         assertFalse(EventDayTime.isValidEventDayTime("10:20-12:30")); //no colons
         assertFalse(EventDayTime.isValidEventDayTime("1020, 2030")); //not seperated by commas
-        assertFalse(EventDayTime.isValidEventDayTime("1020-2530")); //invalid time
+        assertFalse(EventDayTime.isValidEventDayTime("1020-2530")); //invalid tim
+        assertFalse(EventDayTime.isValidEventDayTime("1000-1000")); //start and end cannot be same time
+        assertFalse(EventDayTime.isValidEventDayTime("1000-0900")); //start cannot be after end
 
         //valid time format
         assertTrue(EventDayTime.isValidEventDayTime("1020-2030"));
