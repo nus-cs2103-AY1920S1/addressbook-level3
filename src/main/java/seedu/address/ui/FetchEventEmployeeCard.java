@@ -1,7 +1,3 @@
-/*
-@@author shihaoyap
- */
-
 package seedu.address.ui;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEE_ID;

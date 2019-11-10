@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.ui;
 
 import java.util.Comparator;
@@ -23,7 +27,6 @@ import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.distinctdate.DistinctDate;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
-//import seedu.address.model.employee.Employee;
 
 /**
  * New Window to display the newly generated List of DistinctDate Objects
