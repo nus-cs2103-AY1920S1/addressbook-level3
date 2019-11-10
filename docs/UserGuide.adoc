@@ -105,10 +105,10 @@ image::questionindex.png[width="1000"]
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
-=== Home
-The *Home* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
+=== Dashboard
+The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
 
-image::homepage.png[width="1000"]
+image::dashboard.png[width="1000"]
 
 On the *Personal Dashboard* you can:
 
