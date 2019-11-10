@@ -617,6 +617,8 @@ Format:
 
 * `export-vr` +
 
+//tag::Closest-Common-Location[]
+[[Closest-Common-Location]]
 === Closest Common Location
 
 TimeBook will also help you to decide where to meet for your project meetings by suggesting to you which
@@ -652,10 +654,12 @@ Examples:
 
 * `popup g/CS2103T i/2`
 
-image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
-
+Below is an example of a popup.
 [#img-SuccessfulPopup]
 .An example of a popup when `popup` is executed
+image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
+
+
 
 _Description_
 
@@ -735,6 +739,7 @@ After you are done with viewing the information on the popup press `esc` button 
 and return to the main screen.
 
 Format: kbd:[esc] button on keyboard.
+// end::Closest-Common-Location[]
 
 === Upcoming schedule list.
 

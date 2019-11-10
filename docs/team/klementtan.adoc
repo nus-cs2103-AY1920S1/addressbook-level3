@@ -1,0 +1,103 @@
+= Klement Tan(A0183726X) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TimeBook
+
+---
+
+== Overview
+
+My team was tasked to worked on a basic command line interface desktop AddressBook application for our Software Engineering project. We chose to morph AddressBook to an application, *TimeBook* that makes scheduling team meetings a breeze for students.
+Students can keep track of their various on going projects and sync the schedule of their project members onto a single platform.
+They can easily find common free time slot within a project group and we will suggest the closet location for everyone to meet.
+With TimeBook, scheduling Project meetings will no longer be a hassle.
+
+This is what our project looks like
+
+[#img-guiComponent]
+.Home window of TimeBook
+image::guiComponents.png[guiComponent]
+
+My role was to be the project manager and create an algorithm to compute the best location to meet for a meeting based on the project members
+initial location. This resolves the issue of students having to pick from the vast variety of options to choose the venues
+for project team meetings.The following sections illustrates this feature in detail, as well as the relevant documentation
+I have added to the user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+
+This section shows a summary of my contribution to TimeBook. It includes the contribution to code base, documentation and other helpful contributions.
+
+* *Major Feature added*: I added a feature that helps project teams choose the closest location for everyone to meet. Below is visual representation of the feature:
+
+[#img-SuccessfulPopup]
+.Home window of TimeBook
+image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
+
+.. *What it does*: The popup command will display a popup(Figure 2 above) with information on where are the best places
+for everyone to meet during the school day. We define the best place to meet as the location that requires the least
+average travelling distance. As seen above, the users will be given the top 3 location with the least average travelling
+distance. They will know what the average travelling distance for each location and a picture of the location in Google
+Maps.
+.. *Justification*: NUS is a large campus with over five-hundred different venues to conduct the project meeting.
+Finding the best place to meet for a project can be a hassle as project teams the best location. This feature tackles
+this issue by using Google Maps to compute an unbiased closest common location that will benefit the team as a whole.
+.. *Highlights*: This feature works closely with external data sources such as NUSMods API(Application Programming
+Interface) to determine the initial location of the project members and Google Maps to compute the average traveling
+distance. Additionally I had to apply graph theory concepts to develop an algorithm to compute the closest common location.
+This feature is closely dependent on `Ui`, `Scheduling` and `NUSMods` component of TimeBook. I had to work closely
+with the other group members to ensure the seamless integration of this feature into TimeBook.
+.. *Challenges*:
+... *Google Maps*:
+.... Google Maps APIs calls cost USD$10-USD$20/1000 call. I had to minimise API calls by having a deep understanding of
+Google Maps APIs and carefully designing this feature to optimise for the our resources constraints.
+.... There were bugs in Google Maps API and I had to meticulously analyze the API to identify potential break points caused by it.
+.... Google Maps Distance Matrix Api only allows for return 100 elements per call but the complete graph I had to construct
+requires 10, 000 elements. I had to carefully split the elements to blocks less than 100 and combine them together after the
+Api was called.
+... *NUS Mods*:
+.... Not all locations on NUS Mods were identifiable on Google Maps, I had to create a systematical approach to convert the locations
+on NUS Mods to locations that are identifiable on Google Maps.
+... *Credits*: Utilized NUSMods and Google Maps API to get the necessary data for the feature.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=klementtan&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
+
+* *Other contributions*:
+
+** Project management:
+*** In charge of making sure the team meets the weekly deadline and delegated issues among the team.
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Created https://github.com/AY1920S1-CS2103T-T10-4/main/tree/master/.github/ISSUE_TEMPLATE[`Issue`] and https://github.com/AY1920S1-CS2103T-T10-4/main/blob/master/pull_request_template.md[`Pull Request`] templates for more standardization in the repository.
+*** Introduced an agile planning board https://github.com/AY1920S1-CS2103T-T10-4/main/projects/1[here]
+*** Designed TimeBook https://github.com/AY1920S1-CS2103T-T10-4/main/blob/master/src/main/resources/images/timebook_logo.png[logo] for additional branding.
+
+** Enhancements to existing features:
+*** Wrote test cases for storage component and increased coverage by 4% (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/261[#261])
+
+** Documentation:
+*** Adopted https://swagger.io/docs/specification/about/[Open Api Specification] style of documentation into the UG for
+a clearer, more standardized and easier to read user guide.
+**** Group each command into `tag` so that we can split explanation of the User logic into the tags explanation and the
+detailed command logic into the command explanation.
+** Tools:
+*** Integrated a third party API(Google Maps) to the project
+*** Introduced Lucid Chart to the team for easy design of UML diagrams.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Closest-Common-Location]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Closest-Common-Location]

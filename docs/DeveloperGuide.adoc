@@ -434,15 +434,15 @@ image::VisualRepresentationSD1.png[]
 ** Pros: All members in a group will very likely have different colours to indicate their schedule.
 ** Cons: Schedules with darker colours cannot be seen from a dark theme UI.
 
+
+// tag::Closest-Common-Location[]
 [[Implementation-ClosestLocation]]
 === Closest Common Location
 Closest common location utilises Google Maps Api to get the best center location to meet for a group project meeting.
 We define this location as Closest Common Location. Below is an example of this feature.
 [#img-Popup]
-.Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
+.Popup for the closest common location.
 image::gmaps/SuccessfulPopup.png[Popup]
-
-
 
 ==== Definition
 
@@ -536,7 +536,10 @@ closest common location.
 
 ==== Getting closest location
 
-The algorithm above will be used to compute the closest common location.
+`ClosestLocation#closestLocationData` executes algorithm above to compute the closest common location. Similar to how
+`JSON` is used to transfer data in `HTTP APIs`, `ClosestCommonLocationData` is used to transfer the relevant data to the
+`UI` to display the popup.
+// end::Closest-Common-Location[]
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
