@@ -257,24 +257,24 @@ public class AlgoBase implements ReadOnlyAlgoBase {
 
     /**
      * delete tag for problems with tag
-     * @param tag tag to delete
      */
-    public void deleteTagForProblemsWithTag(Tag tag) {
+    public void refreshTagForProblemsWithTag() {
         for (Problem problem : problems) {
-            if (problem.getTags().stream().anyMatch(x -> x.isSameTag(tag))) {
-                Problem newProblem = new
-                        Problem(problem.getId(),
-                        problem.getName(),
-                        problem.getAuthor(),
-                        problem.getWebLink(),
-                        problem.getDescription(),
-                        problem.getTags(),
-                        problem.getDifficulty(),
-                        problem.getRemark(),
-                        problem.getSource());
-                newProblem.deleteTag(tag);
-                problems.setProblem(problem, newProblem);
-            }
+            Problem newProblem = new
+                    Problem(problem.getId(),
+                    problem.getName(),
+                    problem.getAuthor(),
+                    problem.getWebLink(),
+                    problem.getDescription(),
+                    problem.getTags(),
+                    problem.getDifficulty(),
+                    problem.getRemark(),
+                    problem.getSource());
+            Tag newTag = new Tag("#forRefresh#");
+            newProblem.addTag(newTag);
+            newProblem.deleteTag(newTag);
+            problems.setProblem(problem, newProblem);
+
         }
     }
     //========== Plan ===================================================================

@@ -41,14 +41,14 @@ public class Tag {
      */
     public Tag(String tagName) {
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument((isValidTagName(tagName) || tagName.equals("#forRefresh#")), MESSAGE_NAME_CONSTRAINTS);
         this.id = Id.generateId();
         this.tagName = tagName;
         this.tagColor = DEFAULT_COLOR;
     }
     public Tag(String tagName, String tagColor) {
         requireAllNonNull(tagName, tagColor);
-        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument((isValidTagName(tagName) || tagName.equals("#forRefresh#")), MESSAGE_NAME_CONSTRAINTS);
         checkArgument(isValidTagColor(tagColor), MESSAGE_COLOR_CONSTRAINTS);
         this.id = Id.generateId();
         this.tagName = tagName;
@@ -57,14 +57,14 @@ public class Tag {
 
     public Tag(Id id, String tagName) {
         requireAllNonNull(id, tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument((isValidTagName(tagName) || tagName.equals("#forRefresh#")), MESSAGE_NAME_CONSTRAINTS);
         this.id = id;
         this.tagName = tagName;
         this.tagColor = DEFAULT_COLOR;
     }
     public Tag(Id id, String tagName, String tagColor) {
         requireAllNonNull(tagName, tagColor);
-        checkArgument(isValidTagName(tagName), MESSAGE_NAME_CONSTRAINTS);
+        checkArgument((isValidTagName(tagName) || tagName.equals("#forRefresh#")), MESSAGE_NAME_CONSTRAINTS);
         checkArgument(isValidTagColor(tagColor), MESSAGE_COLOR_CONSTRAINTS);
         this.id = id;
         this.tagName = tagName;
