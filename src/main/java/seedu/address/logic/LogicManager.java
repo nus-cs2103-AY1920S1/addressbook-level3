@@ -86,9 +86,15 @@ public class LogicManager implements Logic, UiLogicHelper {
             }
 
         } catch (DataConversionException e) {
+            logger.info("Corrupted word bank file found.");
             commandResult = new CommandResult("Word bank file is corrupted.");
-        } catch (WordBankNotFoundException | IllegalValueException | DuplicateWordBankException e) {
+        } catch (WordBankNotFoundException e) {
+            logger.info("Word bank file is not found.");
             commandResult = new CommandResult(e.getMessage());
+        } catch (IllegalValueException | DuplicateWordBankException e) {
+            logger.info("Word bank file has invalid values.");
+            commandResult = new CommandResult(e.getMessage());
+
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -127,6 +133,8 @@ public class LogicManager implements Logic, UiLogicHelper {
     public Path getWordBanksFilePath() {
         return model.getWordBankFilePath();
     }
+
+    // <------------------------------ Revision bank ---------------------------------------------------------->
 
     /**
      * Updates the revision bank, to add all wrong cards,

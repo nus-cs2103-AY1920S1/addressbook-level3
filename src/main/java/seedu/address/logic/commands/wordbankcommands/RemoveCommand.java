@@ -49,7 +49,7 @@ public class RemoveCommand extends WordBankCommand {
                 .equals(((seedu.address.logic.commands.wordbankcommands.RemoveCommand) other).wordBankName));
     }
 
-    public static String getWordBankName() {
+    public String getWordBankName() {
         return wordBankName;
     }
 }

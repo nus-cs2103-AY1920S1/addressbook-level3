@@ -15,17 +15,17 @@ public class ClearCommand extends CardCommand {
     private static final String MESSAGE_SUCCESS = "Word bank has been cleared!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " \n";
 
-    /**
-     * Creates a ClearCommand.
-     */
-    public ClearCommand() {
-    }
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.clearWordBank();
         model.clearWordBankStatistics();
         return new CardCommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ClearCommand); // instanceof handles nulls
     }
 }
