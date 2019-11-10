@@ -419,27 +419,31 @@ In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#par
 This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
 The sub-sections below will show some examples illustrating how each command works.
 
-===== Adding an annotation
+===== Adding annotations
 Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
 sequence diagram as the reference frame:
 
-.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`.
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
 image::AddAnnotationSequenceDiagram.png[]
 
-===== Deleting an annotation
+The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
+`OfflineDocument#addPhantom` is called instead, creating an annotated `:PhantomParagraph`.
+
+NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
+
+===== Deleting annotations
 Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
 sequence diagram as the reference frame:
 
-.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`.
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
 image::DeleteAnnotationSequenceDiagram.png[]
 
-//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
-For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
-If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
+The above example deletes only the highlight from a `:TrueParagraph` which has a note. A `:PhantomParagraph` is created to keep a reference to the note.
+If the user requests to remove the entire annotation instead, the `an:Annotation` is simply dereferenced.
 If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
+Alternatively, if the user requests to remove annotations from all paragraphs, the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
 
-NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
+===== Editing annotations
 
 //TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
 //TODO: <may not do> object diagram showing only paragraph and annotation for all three above?

@@ -2,33 +2,65 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant "a:AddAnnotationCommand" as AddAnnotationCommand LOGIC_COLOR
+participant "a:DeleteAnnotationHighlightCommand" as AnnotationCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant "b:Bookmark" as Bookmark MODEL_COLOR
 participant "doc:OfflineDocument" as OfflineDocument MODEL_COLOR
 participant "an:Annotation" as Annotation MODEL_COLOR
+participant "p:TrueParagraph" as Paragraph MODEL_COLOR
+participant "newP:PhantomParagraph" as PhantomParagraph MODEL_COLOR
 end box
 
+group sd respective annotation command execution
 
-AddAnnotationCommand -> Bookmark : getRequiredDocCopy(index)
+AnnotationCommand -> AnnotationCommand : getRequiredDocCopy(b)
+activate AnnotationCommand
+
+AnnotationCommand -> Bookmark : getDoc()
 activate Bookmark
 
-Bookmark --> AddAnnotationCommand : doc
+Bookmark --> AnnotationCommand : doc
 deactivate Bookmark
 
-create Annotation
-AddAnnotationCommand -> Annotation : Annotation(highlight, note)
-activate Annotation
+AnnotationCommand --> AnnotationCommand : doc
+deactivate AnnotationCommand
 
-Annotation --> AddAnnotationCommand : an
-deactivate Annotation
-
-AddAnnotationCommand -> OfflineDocument : addAnnotation(pid, an)
+AnnotationCommand -> OfflineDocument : getParagraph(pid)
 activate OfflineDocument
 
-OfflineDocument --> AddAnnotationCommand
+OfflineDocument --> AnnotationCommand : p
 deactivate OfflineDocument
+
+AnnotationCommand -> Paragraph : removeAnnotation()
+activate Paragraph
+
+Paragraph --> AnnotationCommand : an
+deactivate Paragraph
+
+AnnotationCommand -> Annotation : hasNote()
+activate Annotation
+
+Annotation --> AnnotationCommand : hasNote
+deactivate Annotation
+
+opt hasNote
+AnnotationCommand -> OfflineDocument : addPhantom(an)
+activate OfflineDocument
+
+create PhantomParagraph
+OfflineDocument -> PhantomParagraph : PhantomParagraph(phantomCount, an)
+activate PhantomParagraph
+
+PhantomParagraph --> OfflineDocument
+deactivate PhantomParagraph
+
+OfflineDocument --> AnnotationCommand
+deactivate OfflineDocument
+
+end
+
+end group
 
 @enduml
