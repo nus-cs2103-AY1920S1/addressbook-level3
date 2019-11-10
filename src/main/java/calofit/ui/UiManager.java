@@ -55,6 +55,11 @@ public class UiManager implements Ui {
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
 
+        NotificationHelper.execute(logic.getModel()).ifPresent(s -> {
+            notificationWindow = new NotificationWindow(s);
+            notificationWindow.show();
+        });
+
         timer.registerPeriodic(Duration.ofMinutes(10), () -> {
             Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
             notifMessage.ifPresent(s -> {
