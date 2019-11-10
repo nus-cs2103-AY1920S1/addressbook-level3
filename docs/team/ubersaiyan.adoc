@@ -23,7 +23,9 @@ to remember what commands are available or constantly refer to the user guide. I
 the user to determine if he is entering duplicated data in real time, instead of waiting for
 feedback after entering the command.
 ** Highlights: This enhancement supports all existing commands of varying formats and was
-designed to be easily extensible to commands added in future.
+designed to be easily extensible to commands added in future. The autocomplete system is
+contextually aware, by suggesting values catered to each command specifically. The possible
+values will also automatically update according to changes in the database.
 ** Credits: UI code for displaying a dropdown menu was inspired by this StackOverflow post:
 https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
 

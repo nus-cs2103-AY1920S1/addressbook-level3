@@ -888,77 +888,93 @@ If csv file of the input file name does not exist, the application data will be 
 
 [underline]#Format#: `export FILE_NAME` +
 
+
 === Autocomplete
-As you enter characters into the command line, suggestions will appear.
+As you type into the command line, suggestions will appear.
 
 A maximum of 8 suggestions will appear in a dropdown menu, sorted by their degree of
 similarity to the entered text.
 
 [TIP]
-The system might lag and suggest nothing if you are typing too fast.
+The system may lag and not work occasionally if you are typing too fast.
 
-Example: `add`
+==== Example: `add`
 
-*** If you enter `add-c` followed by a space, the system will suggest
+*** When you enter `add-c` followed by a space, the system will suggest
 a list of prefixes you can enter, such as `n/`.
 
-*** When you enter `add-c n/`, the system will suggest a list of names that belong to
-existing customers. This is helpful in checking if the data you are entering is duplicated.
+*** When you enter `add-c n/`, the system will suggest a list of names that
+belong to existing customers. This is helpful in checking if the data you are
+entering is duplicated.
 
 *** The list of data that is suggested depends on the prefix that is last entered.
-If the last entered prefix was `e/`, it would instead suggest a list of existing emails.
+For instance, if the last entered prefix was `e/`, it would instead suggest a
+list of existing emails.
 
 ****
 * As `add-c`, `add-p` and `add-o` commands can accept an unlimited number of tags,
-the system will continuously suggest `t/` prefixes and `Tag` arguments after all compulsory arguments
-are entered.
+the system will endlessly suggest `t/` prefixes and `Tag` arguments after all
+compulsory arguments are entered.
 
-* Autocomplete works similarly for all `add` commands, and `generate-s`.
+* Autocomplete works similarly for all `add` commands and `generate-s`.
+
+* Even though these commands do not require the prefixes and arguments to be in
+any specified order, the autocomplete system enforces an artificial order to reduce
+confusion.
+
+* When you update data in the application, the suggestions that use these
+pieces of data will be updated accordingly.
 ****
 
-Example: `edit`
+==== Example: `edit`
 
-*** If you enter `edit-c` followed by a space, the system will suggest two numbers:
-`1` and `N`, where `N` is the largest valid index that can be entered. `N` corresponds to the number of
-customers in the customer panel.
+*** When you enter `edit-c` followed by a space, the system will suggest
+two numbers: `1` and `N`, where `N` is the largest valid index that can
+be entered. In this case, `N` corresponds to the number of customers
+displayed on the customer panel.
 
-*** If you enter `edit-c 1` followed by a space, the system will suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
+*** When you enter `edit-c 1` followed by a space, the system will
+suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
 
-*** When you enter `edit-c 1 c/`, the system will suggest a list of contact numbers that belong to existing customers.
+*** When you enter `edit-c 1 c/`, the system will suggest a list of
+contact numbers that belong to existing customers.
 This is helpful in checking if the data you are editing to is duplicated.
 
-*** The list of data that is suggested depends on the prefix that is last entered.
-If the last entered prefix was `i/`, it would instead suggest a list of existing identity numbers.
+*** The list of data that is suggested depends on the prefix that is last
+entered. If the last entered prefix was `i/`, it would instead suggest a
+list of existing identity numbers.
 
 ****
-* As edit commands allow for multiple same prefixes, the system is designed to always
-suggest the entire set of possible prefixes.
+* As edit commands allow for optional arguments and multiple same arguments,
+the system is designed to always suggest the entire set of possible prefixes.
 
 * Autocomplete works similarly for all `edit` commands.
 ****
 
-Example: `find`
+==== Example: `find`
 
-*** If you enter `find-c` followed by a space, the system will suggest a list containing every
-piece of data belonging to every customer in the database.
+*** When you enter `find-c` followed by a space, the system will suggest
+values from every attribute of every customer in the database.
 
 ****
-* As `find` commands accept any unlimited number of keywords, the system will continuously suggest
-the same set of possible keywords when a space is entered.
+* As `find` commands accept any unlimited number of keywords, the system
+will endlessly suggest the same set of possible keywords when a space is
+entered.
 
 * Autocomplete works similarly for all `find` commands.
 ****
 
-Example: `delete-c`
+==== Example: `delete-c`
 
-*** For commands such as `delete-c` which take only a single index and no additional arguments,
-the system will suggest two numbers: `1` and `N`, where `N` is the largest valid index that can be entered.
+*** For commands such as `delete-c` which take only a single index and
+no additional arguments, the system will suggest two numbers: `1` and `N`,
+where `N` is the largest valid index that can be entered.
 
 ****
 * Commands of this type include `delete`, `copy`, `complete`, `cancel`.
 ****
 
-Example: `switch`
+==== Example: `switch`
 
 *** For simple commands such as `switch-c`, the system will suggest the command word
 and nothing else.
@@ -967,10 +983,11 @@ and nothing else.
 * Simple commands include `switch`, `export`, `list`, `clear`, `undo`, `redo`, `history`, `exit`, `help`.
 ****
 
-Example: `schedule`
+==== Example: `schedule`
 
-*** If you enter `schedule` followed by a space, the system will suggest a list of
-dates that already have orders scheduled on them. This is helpful in checking for duplicates.
+*** If you enter `schedule` followed by a space, the system will suggest
+dates that already have orders scheduled on them. This is helpful in
+checking for duplicates.
 
 === Other commands
 
@@ -1030,6 +1047,17 @@ The hash tag represents the length of the valid input for the primary key.
 
 
 [underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE `
+
+==== Autocomplete integrated with command history `[coming in v2.0]`
+
+This extension of the autocomplete feature is to allow users to receive
+suggestions based on past inputs.
+
+==== Alias `[coming in v2.0]`
+
+This feature is to allow users to define customized command words to
+simplify long commands. For example, `generate-s s/profit` can be
+simplified to `gp`.
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
