@@ -142,12 +142,13 @@ You have created an account with name of 'Japan trip'.
 * `account add n/Japan trip d/expense spent in Japan`
 You have created an account with name of 'Japan trip' and description of 'expense spent in Japan'.
 
-
 ==== List accounts: `account list`
 
 If you want to see the full list of accounts you currently own, you can enter command and a list of all accounts will be displayed.
 
 Format: `account list`
+
+image::accountlist.png[]
 
 ==== Edit an account: `account edit`
 
@@ -236,6 +237,14 @@ Example:
 image::accountreport2.png[]
 
 You can view the details of the second account.
+
+image::accountreport_1.png[]
+
+1a. Enter the command "account report 2".
+
+image::accountreport2.png[]
+
+1b. You can view the details of the second account.
 
 ==== Export the overview of all accounts: `account overview`
 
