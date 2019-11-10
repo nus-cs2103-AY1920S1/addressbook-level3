@@ -22,14 +22,14 @@ public class LikeManager {
     private LikeData likeData;
     private DislikeData dislikeData;
 
-    public LikeManager(LikeData likeData, DislikeData dislikeData) {
+    public LikeManager(LikeManager likeManager) {
         super();
-        requireAllNonNull(likeData);
+        requireAllNonNull(likeManager);
 
-        logger.fine("Initializing with like data: " + likeData);
+        logger.fine("Initializing with like data: " + likeManager);
 
-        this.likeData = new LikeData(likeData.getObservableLikeData());
-        this.dislikeData = new DislikeData(dislikeData.getObservableDislikeData());
+        this.likeData = new LikeData(likeManager.likeData.getObservableLikeData());
+        this.dislikeData = new DislikeData(likeManager.dislikeData.getObservableDislikeData());
     }
 
     public LikeManager() {
@@ -157,4 +157,19 @@ public class LikeManager {
         return dislikeData.getCopy();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof LikeManager)) {
+            return false;
+        }
+
+        LikeManager otherLikeManager = (LikeManager) other;
+        return likeData.equals(otherLikeManager.likeData)
+                && dislikeData.equals(otherLikeManager.dislikeData);
+
+    }
 }

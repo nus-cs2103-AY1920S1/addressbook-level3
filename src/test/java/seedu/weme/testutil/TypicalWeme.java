@@ -17,6 +17,7 @@ public class TypicalWeme {
         Weme weme = new Weme();
         weme.setMemes(TypicalMemes.getTypicalMemes());
         weme.setTemplates(TypicalTemplates.getTypicalTemplates());
+        weme.setStats(TypicalMemes.getTypicalStats());
         return weme;
     }
 

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.weme.model.meme.Meme;
+import seedu.weme.model.statistics.Stats;
+import seedu.weme.model.statistics.StatsManager;
 
 /**
  * A utility class containing a list of {@code Meme} objects to be used in tests.
@@ -39,5 +41,27 @@ public class TypicalMemes {
 
     public static List<Meme> getTypicalMemes() {
         return new ArrayList<>(Arrays.asList(CHARMANDER, DOGE, JOKER, TOY, PIKACHU));
+    }
+
+    public static Stats getTypicalStats() {
+        Stats typicalStats = new StatsManager();
+        typicalStats.addDefaultLikeData(CHARMANDER);
+        typicalStats.addDefaultLikeData(DOGE);
+        typicalStats.addDefaultLikeData(JOKER);
+        typicalStats.addDefaultLikeData(TOY);
+        typicalStats.addDefaultDislikeData(CHARMANDER);
+        typicalStats.addDefaultDislikeData(DOGE);
+        typicalStats.addDefaultDislikeData(JOKER);
+        typicalStats.addDefaultDislikeData(TOY);
+
+        typicalStats.incrementMemeLikeCount(CHARMANDER);
+        typicalStats.incrementMemeLikeCount(DOGE);
+        typicalStats.incrementMemeLikeCount(DOGE);
+
+        typicalStats.incrementMemeDislikeCount(JOKER);
+        typicalStats.incrementMemeDislikeCount(TOY);
+        typicalStats.incrementMemeDislikeCount(TOY);
+
+        return typicalStats;
     }
 }

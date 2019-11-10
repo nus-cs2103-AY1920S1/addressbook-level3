@@ -54,6 +54,10 @@ class JsonSerializableWeme {
         records = new JsonSerializableRecords(source.getRecords());
     }
 
+    public JsonSerializableStats getStats() {
+        return stats;
+    }
+
     /**
      * Converts this Weme into the model's {@code Weme} object.
      *

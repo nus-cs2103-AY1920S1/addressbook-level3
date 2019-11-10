@@ -17,6 +17,10 @@ import seedu.weme.model.statistics.StatsManager;
  */
 @JsonRootName(value = "statsData")
 class JsonSerializableStats {
+    public static final String MESSAGE_INVALID_LIKE = "Like data contains out of bound like.";
+    public static final String MESSAGE_INVALID_DISLIKE = "Like data contains out of bound dislike.";
+    public static final String MESSAGE_DUPLICATE_LIKE = "Like data contains duplicate like.";
+    public static final String MESSAGE_DUPLICATE_DISLIKE = "Like data contains duplicate dislike.";
 
     private final Map<String, Integer> likeMap = new HashMap<>();
     private final Map<String, Integer> dislikeMap = new HashMap<>();
@@ -57,9 +61,19 @@ class JsonSerializableStats {
         Map<String, SimpleIntegerProperty> likeData = new HashMap<>();
         Map<String, SimpleIntegerProperty> dislikeData = new HashMap<>();
         for (Map.Entry<String, Integer> entry : likeMap.entrySet()) {
+            if (entry.getValue() < 0) {
+                throw new IllegalValueException(MESSAGE_INVALID_LIKE);
+            } else if (likeData.containsKey(entry.getKey())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_LIKE);
+            }
             likeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
         }
         for (Map.Entry<String, Integer> entry : dislikeMap.entrySet()) {
+            if (entry.getValue() < 0) {
+                throw new IllegalValueException(MESSAGE_INVALID_DISLIKE);
+            } else if (dislikeData.containsKey(entry.getKey())) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_DISLIKE);
+            }
             dislikeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
         }
         stats.setLikeData(likeData);

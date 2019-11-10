@@ -35,6 +35,10 @@ public class StatsManager implements Stats {
         resetData(stats);
     }
 
+    public LikeManager getLikeManager() {
+        return likeManager;
+    }
+
     //============= Like Data ====================================
 
     public void addDefaultLikeData(Meme meme) {
@@ -116,7 +120,7 @@ public class StatsManager implements Stats {
     @Override
     public List<TagWithCount> getTagsWithCountList(List<Meme> memeList) {
         return tagManager.getTagsWithCountList(memeList);
-    };
+    }
 
     @Override
     public List<TagWithLike> getTagsWithLikeCountList(List<Meme> memeList) {
@@ -151,4 +155,17 @@ public class StatsManager implements Stats {
         return newStats;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof StatsManager)) {
+            return false;
+        }
+
+        StatsManager otherStats = (StatsManager) other;
+        return likeManager.equals(otherStats.likeManager);
+    }
 }

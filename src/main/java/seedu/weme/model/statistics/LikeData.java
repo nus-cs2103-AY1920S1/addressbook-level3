@@ -32,6 +32,13 @@ public class LikeData {
     }
 
     /**
+     * Constructs a LikeData filled with the provided likeMap
+     */
+    public LikeData(LikeData likeData) {
+        setLikeMap(likeData.getCopy());
+    }
+
+    /**
      * Sets the current set of {@code LikeData} with a replacement.
      */
     public void setLikeMap(Map<String, SimpleIntegerProperty> replacement) {
@@ -94,4 +101,27 @@ public class LikeData {
         return copy;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof LikeData)) {
+            return false;
+        }
+
+        LikeData otherLikeData = (LikeData) other;
+        if (!likeMap.keySet().equals(otherLikeData.getCopy().keySet())) {
+            return false;
+        } else {
+            for (Map.Entry<String, SimpleIntegerProperty> entry : otherLikeData.likeMap.entrySet()) {
+                if (likeMap.get(entry.getKey()).get() != entry.getValue().get()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
+

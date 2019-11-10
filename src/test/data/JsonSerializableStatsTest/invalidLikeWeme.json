@@ -45,7 +45,7 @@
   } ],
   "stats" : {
     "likeMap" : {
-      "src/test/data/memes/charmander_meme.jpg" : 1,
+      "src/test/data/memes/charmander_meme.jpg" : -1,
       "src/test/data/memes/doge_meme.jpg" : 2,
       "src/test/data/memes/joker_meme.jpg" : 0,
       "src/test/data/memes/toy_meme.jpg" : 0

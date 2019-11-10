@@ -18,6 +18,8 @@ public interface Stats {
 
     Stats getStats();
 
+    LikeManager getLikeManager();
+
     //============= Like Data ====================================
 
     /**
