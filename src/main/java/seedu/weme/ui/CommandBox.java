@@ -4,6 +4,7 @@ import static seedu.weme.logic.parser.contextparser.WemeParser.BASIC_COMMAND_FOR
 import static seedu.weme.logic.parser.contextparser.WemeParser.COMMAND_WORD;
 
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 import javafx.beans.value.ObservableValue;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.logic.commands.CommandResult;
 import seedu.weme.logic.commands.createcommand.TextMoveCommand;
 import seedu.weme.logic.commands.exceptions.CommandException;
@@ -33,12 +35,14 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
     private static final int BASE_INDEX = 1;
     private static final Set<KeyCode> ARROW_KEYS = Set.of(KeyCode.UP, KeyCode.DOWN, KeyCode.LEFT, KeyCode.RIGHT);
+    private static final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     private final CommandExecutor commandExecutor;
     private final CommandPrompter commandPrompter;
     private final ObservableList<Meme> memeFilteredList;
     private final ObservableValue<ModelContext> context;
     private boolean isShowingCommandSuccess = false;
+    private long memeTextLastMoved = 0;
 
     @FXML
     private TextField commandTextField;
@@ -97,11 +101,15 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
+        logger.info("Handling " + event.getCode() + " arrow key press");
         if (handleLikeByKeyPress(event)
                 || handleIndexToggleByKeyPress(event)
                 || handleMovingTextUsingKeyPress(event)) {
+            logger.info("Successfully handled " + event.getCode() + " arrow key press");
             commandTextField.positionCaret(commandTextField.getText().length());
             event.consume();
+        } else {
+            logger.info("No action dispatched for " + event.getCode() + " arrow key press");
         }
     }
 
@@ -190,6 +198,13 @@ public class CommandBox extends UiPart<Region> {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(commandTextField.getText().trim());
         if (!matcher.matches()) {
             return false;
+        }
+
+        // Limit key move rate
+        if (System.currentTimeMillis() - memeTextLastMoved < 75) {
+            return true;
+        } else {
+            memeTextLastMoved = System.currentTimeMillis();
         }
 
         final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
