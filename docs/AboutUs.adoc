@@ -58,7 +58,7 @@ Responsibilities: IntelliJ Expert, Documentation, In charge of `Visit` Component
 image::q-gabe.png[width="150", align="left"]
 {empty}[https://q-gabe.me[homepage]] [http://github.com/q-gabe[github]] [<<q-gabe#, portfolio>>]
 
-Role: Developer / Tester +
-Responsibilities: Integration, Documentation, In charge of `ProfileView` Component
+Role: Developer / Team Coordinator +
+Responsibilities: Team Scheduling, Task Master, Integration, Documentation, In charge of `Profile` Component
 
 '''
