@@ -115,12 +115,17 @@ image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* If your password is about to expire or expired, you will be reminded, as shown below.
+* Your password will expire expire in a year.
+* You will be reminded if your password is expired or about to expire.
 * You can toggle the eye icon to see your password. Be wary of surveillance by secret agents or people standing behind you
 ====
 
+This reminder will be shown 30 days before your password expires.
 
 image::PasswordExpiring.png[width="300"]
+
+This reminder will be shown if you have *not* changed your password for over a year.
+
 image::PasswordExpired.png[width="300"]
 
 ==== Copying a field in a password : `copy`
