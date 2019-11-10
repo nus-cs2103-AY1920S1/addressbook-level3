@@ -2,7 +2,7 @@
 = Ng Jun Hao - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
-:stylesDir: stylesheets
+:stylesDir: ../stylesheets
 :bl: pass:[ +]
 :experimental:
 
@@ -65,7 +65,7 @@ to understand more about *_Typee_* and its list of features in order to have a b
 * To try out *_Typee_*, go to the User Guide and find the [navy]#*Quick Start*# section for more information.
 ====
 
-==== Major enhancement: added Game feature
+=== Major enhancement: added Game feature
 ** [red]#*_What it does:_* -# The game feature is a simple typing game where users score points whenever a word, such as
  `grass`, is correctly typed.
 
@@ -77,7 +77,7 @@ advantage of keeping users incentivized and motivated to improve their skills.
 *** In-depth analysis of design alternatives was necessary to prevent users from creating multiple game instances.
 The implementation was also challenging because there were various JavaFX API like javafx.animation and javafx.scene.
 
-==== Minor enhancement: added `find` command
+=== Minor enhancement: added `find` command
 ** [red]#*_What it does:_* -# Case-insensitive search for engagements based on the given keyword.
 
 ** [red]#*_Justification:_* -# Secretaries and receptionists may want to filter or search their list of engagements depending
