@@ -523,8 +523,42 @@ Any value below the restriction would result in an error.
 ====
 
 ==== Design Considerations
+===== Aspect: Storing of the value and unit
 
-===== Aspect: Reducing the amount
+.Design considerations for storing value and unit in `Amount` class
+[cols="50,50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2 |Alternative 3
+
+a|Storing the value and unit as a combined string.
+
+* Pros:
+** Maintains consistency with other fields (name, expiry date).
+
+* Cons:
+** Difficult to parse and manipulate.
+
+a|Storing the value and unit as a float and a string
+
+* Pros:
+** Parsing would be easier.
+
+* Cons:
+** Consistency is compromised.
+
+a|Storing the value and unit as two classes of itw own (i.e. Value class and Unit class)
+
+* Pros:
+** More OOP.
+** More scalable and maintainable.
+
+* Cons:
+** Consistency is compromised.
+** Harder to implement.
+** Implementation might be overkill/redundant.
+|===
+
+===== Aspect: Deducting the `Amount`
 
 .Design considerations of the `glist use` command
 [cols="50,50"]
@@ -537,15 +571,15 @@ a|Create a new grocery item and replace it with the old one.
 ** This method is easier to implement and would be less prone to bugs.
 
 * Cons:
-** May have performance issues in terms of memory usage.
+** Less efficient in terms of runtime.
 
-a|Modify the Amount in the grocery item.
+a|Modify the `Amount` in the grocery item.
 
 * Pros:
 ** Will be more efficient and use less memory.
 
 * Cons:
-** Mutable amount field may result in unforeseen changes.
+** Mutable `Amount` field may result in unforeseen changes, hence more prone to bugs.
 |===
 
 ===== Aspect: Keeping track of unit type
@@ -561,12 +595,12 @@ a|Keeping the original unit of the item.
 ** Easy to maintain.
 
 * Cons:
-** Not very intuitive.
+** May not be very intuitive for the user.
 
 a|Changing the original unit of item to the one input by user.
 
 * Pros:
-** Will be more intuitive to the user. e.g. After using `650ml` of a `1L` milk, it is more intuitive to show `350ml` instead of `0.35L`.
+** Will be more intuitive to the user. e.g. After using `650ml` of a `1L` milk, it might be more intuitive to show `350ml` instead of `0.35L`.
 
 * Cons:
 ** Difficult to implement and maintain, due to its subjectiveness.
