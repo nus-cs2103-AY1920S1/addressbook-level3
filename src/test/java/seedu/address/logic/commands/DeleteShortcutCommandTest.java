@@ -6,7 +6,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailureN
 import static seedu.address.testutil.TypicalObjects.COMMAND_ITEM_1;
 import static seedu.address.testutil.TypicalObjects.COMMAND_ITEM_2;
 import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
