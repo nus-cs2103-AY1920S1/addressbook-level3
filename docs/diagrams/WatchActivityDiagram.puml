@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes Watch command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if (Seasons and
+Episodes specified) then ([Yes])
+    :Set to episode number
+    of season number;
+else if (Seasons
+    specified) then ([Yes])
+    :Set to last episode of
+    season number;
+else if (Episodes
+    specified) then ([Yes])
+    :Set to episode given;
+else ([No optional fields given])
+    :Toggle the watched
+    status of the show;
+endif
+stop
+@enduml
