@@ -21,6 +21,7 @@ import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 
@@ -330,6 +331,21 @@ public class ModelStub implements Model {
     @Override
     public ObservableList<Condition> getFilteredConditions() {
         throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public ObservableList<Notification> getFilteredNotifications() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public Reminder getReminderSelected() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void selectReminder(Reminder generalReminder) {
+
     }
 
     /*@Override

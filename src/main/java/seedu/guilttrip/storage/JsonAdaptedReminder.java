@@ -77,7 +77,7 @@ public class JsonAdaptedReminder {
                 conditionList.add(condition.toModelType());
             }
             if (!Description.isValidDescription(header)) {
-                throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+                throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS + "Header: " + header);
             }
             final Description modelMessage = new Description(header);
             GeneralReminder modelGeneralReminder = new GeneralReminder(modelMessage, conditionList);

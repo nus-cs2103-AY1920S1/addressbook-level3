@@ -8,11 +8,8 @@ import static seedu.guilttrip.logic.commands.CommandTestUtil.CATEGORY_TYPE_INCOM
 import static seedu.guilttrip.logic.commands.CommandTestUtil.INVALID_CATEGORY_TYPE_BUDGET;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-<<<<<<< HEAD
-=======
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_NAME_EXPENSE_FOOD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_TYPE_EXPENSE;
->>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.guilttrip.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.guilttrip.testutil.TypicalEntries.CATEGORY_BUSINESS;
@@ -41,8 +38,6 @@ public class AddCategoryCommandParserTest {
     }
 
     @Test
-<<<<<<< HEAD
-=======
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE);
 
@@ -57,7 +52,6 @@ public class AddCategoryCommandParserTest {
     }
 
     @Test
->>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_CATEGORY_TYPE_BUDGET + CATEGORY_NAME_EXPENSE,

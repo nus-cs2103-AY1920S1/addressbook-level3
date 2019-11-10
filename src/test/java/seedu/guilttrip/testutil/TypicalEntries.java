@@ -61,14 +61,10 @@ public class TypicalEntries {
             .withCatName("travel").build();
     public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
             .build();
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-=======
-    public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
-            .build();
->>>>>>> 6c8808293a4466f0a09dd6f1a452ffdb7b4e87c7
-=======
+
+    /*public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
+            .build();*/
+
     public static final Category CATEGORY_SALARY = new CategoryBuilder().withCatType("Income").withCatName("salary")
             .build();
     public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
@@ -79,7 +75,6 @@ public class TypicalEntries {
             .build();
     public static final Category CATEGORY_SPACE = new CategoryBuilder().withCatType("Expense").withCatName("space")
             .build();
->>>>>>> f659a201d941a9d7dedf6472b89947095b946820
 
     private TypicalEntries() {
     } // prevents instantiation
