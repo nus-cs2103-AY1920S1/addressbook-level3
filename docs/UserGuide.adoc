@@ -1120,7 +1120,10 @@ image::/images/FinancialTrackerSummary3.png[]
 == Diary
 
 The sweetest part of any holiday is looking back at your fond memories. TravEzy's
-Diary allows you to do just that!
+Diary allows you to do just that! Here is our Diary!
+
+image::DiaryInterface.png[]
+
 
 In TravEzy, we have broken down your memories into 4 key parts, namely _Title_, _Date and Time_, _Place_ and _Memory_.
 
@@ -1137,7 +1140,7 @@ Enjoy!
 
 === Adding diary entries to your diary ``add``
 
-Trying to journal about your trip to DisneyLand? The Diary allows you to add entries and keep them alive in your desktop forever.
+Trying to journal about your fishing trip? The Diary allows you to add entries and keep them alive in your desktop forever.
 
 Format: `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
@@ -1152,12 +1155,11 @@ Format: `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
 
 
+Example: Lets take the example of our midnight fishing trip!
 
+Step 1: Enter ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
 
-Example: Lets take the example of our midnight fishing trip! I can't really remember where it was...
-
-Enter``add t/Fishing Trip d/12/12/2019 2300 m/Caught the biggest fish ever!``
-image::DiaryAddNoPlaceBefore.png[TravEzy Logo]
+image::DiaryAddBefore.png[]
 
 
 
