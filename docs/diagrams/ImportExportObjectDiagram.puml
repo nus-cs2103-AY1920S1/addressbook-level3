@@ -28,8 +28,8 @@ ExportCommand ..> stagedList
 ImportCommand ..> importList
 ImportCommand ..> filteredList
 
-model *-- stagedList
-model *-- importList
-model *-- filteredList
+model *--> stagedList
+model *--> importList
+model *--> filteredList
 
 @enduml

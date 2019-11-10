@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+
+Class ModelManager
+
+
+ModelManager o--> VersionedWeme
+
+Class ModelContext<<enumeration>>
+
+ModelManager o--> "1" ModelContext : context
+
+VersionedWeme --> "0..1" Meme : viewableMeme
+
+
+}
+
+Package Logic <<Rectangle>>{
+
+Class LogicManager
+
+LogicManager --> ModelManager
+
+}
+
+Package Main <<Rectangle>>{
+
+Class MainWindow
+
+}
+
+Package Ui <<Rectangle>>{
+
+MainWindow --> ViewPanel
+
+MainWindow --> LogicManager
+
+Class ViewPanel
+
+ViewPanel ..> Meme : observableMeme
+
+}
+
+@enduml

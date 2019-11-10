@@ -239,6 +239,17 @@ Format: `archive INDEX`
 Unarchives a meme at the specified index. +
 Format: `unarchive INDEX`
 
+
+==== Viewing a meme: `view`
+Views the meme at the specified index. +
+Format: `view INDEX`
+
+****
+* To exit the view, simply switch to another tab using the tab command.
+For example, `tab memes` will bring the user back to the memes tab.
+****
+
+
 // tag::templates[]
 === Templates Tab
 Templates are meme prototypes.
@@ -581,6 +592,7 @@ e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
 ** *List Archived Memes* : `archives`
 ** *Archive Meme* : `archive INDEX`
 ** *Unarchive Meme* : `unarchive INDEX`
+** *View Meme* : `view INDEX`
 
 * *Commands for the Templates Tab* :
 ** *Add Template* : `add n/NAME p/PATH`

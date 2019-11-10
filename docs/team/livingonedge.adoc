@@ -29,6 +29,7 @@ For example, support commands such as edit, delete and clear commands have to be
 ** Added a preferences tab for the user to view his or her user preferences of the application, which is configurable in preferences.json.
 ** Added Edit and Load commands for memes in the import tab.
 ** Added Clear commands for both export and import tab.
+** Added a View command for the memes tab.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=livingonedge&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code and Test code]]
 
@@ -54,8 +55,6 @@ https://github.com/AY1920S1-CS2103-T16-3/main/pull/71[#71],
 https://github.com/AY1920S1-CS2103-T16-3/main/pull/76[#76]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/LivingOnEdge/ped[1])
 
-_{you can add/remove categories in the list above}_
-
 == Contributions to the User Guide
 
 |===
@@ -71,4 +70,7 @@ include::../UserGuide.adoc[tag=export/import]
 |===
 
 include::../DeveloperGuide.adoc[tag=export/import]
+
+include::../DeveloperGuide.adoc[tag=view]
+
 
