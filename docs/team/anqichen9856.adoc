@@ -89,9 +89,9 @@ if the PR contains updates to documentation.
 They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=budget]
-
 include::../UserGuide.adoc[tag=intro]
+
+include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
