@@ -1,0 +1,71 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+	participant ":LogicManager" LOGIC_COLOR
+	participant ":EatMeParser" LOGIC_COLOR
+	participant "ecp:EditCommandParser" LOGIC_COLOR
+	participant "ec:EditCommand" LOGIC_COLOR
+	participant "cr:CommandResult" LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+	participant ":Model" MODEL_COLOR
+	participant ":EateryList" MODEL_COLOR
+end box
+
+[-> ":LogicManager" : execute("add \\n..")
+activate ":LogicManager"
+
+":LogicManager" -> ":EatMeParser" : parseCommand("add \\n..")
+activate ":EatMeParser"
+
+create "ecp:EditCommandParser"
+":EatMeParser" -> "ecp:EditCommandParser"
+activate "ecp:EditCommandParser"
+"ecp:EditCommandParser" --> ":EatMeParser"
+deactivate "ecp:EditCommandParser"
+
+":EatMeParser" -> "ecp:EditCommandParser" : parse("\\n..")
+activate "ecp:EditCommandParser"
+ref over "ecp:EditCommandParser" : create EditEateryDescriptor e
+
+create "ec:EditCommand"
+"ecp:EditCommandParser" -> "ec:EditCommand"
+activate "ec:EditCommand"
+"ec:EditCommand" --> "ecp:EditCommandParser" : ec
+deactivate "ec:EditCommand"
+
+"ecp:EditCommandParser" --> ":EatMeParser" : ec
+deactivate "ecp:EditCommandParser"
+destroy "ecp:EditCommandParser"
+deactivate ":EatMeParser"
+
+":LogicManager" -> "ec:EditCommand" : execute()
+activate "ec:EditCommand"
+"ec:EditCommand" -> ":Model" : getFilteredEateryList()
+activate ":Model"
+":Model" --> "ec:EditCommand" : list
+deactivate ":Model"
+
+ref over "ec:EditCommand" : create Eatery edited
+
+opt Eatery edited is not a duplicate
+"ec:EditCommand" -> ":Model" : setEatery()
+activate ":Model"
+":Model" -> ":EateryList" : setEatery()
+activate ":EateryList"
+deactivate ":EateryList"
+"ec:EditCommand" -> ":Model" : updateFilteredEateryList()
+deactivate ":Model"
+end
+
+create "cr:CommandResult"
+"ec:EditCommand" -> "cr:CommandResult"
+activate "cr:CommandResult"
+"cr:CommandResult" --> "ec:EditCommand" : cr
+deactivate "cr:CommandResult"
+"ec:EditCommand" --> ":LogicManager" : cr
+deactivate "ec:EditCommand"
+
+[<-- ":LogicManager"
+@enduml

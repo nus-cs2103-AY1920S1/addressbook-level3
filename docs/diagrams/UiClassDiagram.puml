@@ -5,16 +5,23 @@ skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
 package UI <<Rectangle>>{
-Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
-Class UiManager
-Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class EateryListPanel
-Class EateryCard
-Class StatusBarFooter
-Class CommandBox
+    Interface Ui <<Interface>>
+    Class "{abstract}\nUiPart" as UiPart
+    Class UiManager
+	Class MainWindow
+	Class StatusBarFooter
+	Class ResultDisplay
+	Class CommandBox
+	Class HelpWindow
+	Class EateryCard
+	Class EateryListPanel
+	Class FeedPostCard
+	Class FeedPostListPanel
+	Class StatsWindow
+	Class ReviewListPanel
+	Class UiPart
+	Class CustomLayeredGraph
+	Class CustomPiechart
 }
 
 package Model <<Rectangle>> {
@@ -28,33 +35,41 @@ Class HiddenLogic #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> EateryListPanel
-MainWindow *-down-> StatusBarFooter
-
-EateryListPanel -down-> EateryCard
-
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-EateryListPanel --|> UiPart
-EateryCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
-
 EateryCard ..> Model
+StatsWindow ..> Model
+FeedPostCard ..> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-EateryListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+UiManager -up-|> Ui
+UiManager --> MainWindow
+MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> ResultDisplay
+MainWindow *-down-> CommandBox
+MainWindow *-down-> HelpWindow
+MainWindow *-down-> "2" EateryListPanel
+MainWindow *-down-> FeedPostListPanel
+MainWindow *-down-> ReviewListPanel
+MainWindow *-down-> StatsWindow
 
-MainWindow -[hidden]-|> UiPart
+EateryListPanel --|> UiPart
+FeedPostListPanel --|> UiPart
+HelpWindow --|> UiPart
+CommandBox --|> UiPart
+ResultDisplay --|> UiPart
+ResultDisplay ..> ReviewListPanel
+StatusBarFooter --|> UiPart
+ReviewListPanel --|> UiPart
+StatsWindow --|> UiPart
+EateryCard --|> UiPart
+FeedPostCard --|> UiPart
+CustomLayeredGraph --|> UiPart
+CustomPiechart --|> UiPart
+
+EateryListPanel --> EateryCard
+FeedPostListPanel --> FeedPostCard
+StatsWindow --> CustomLayeredGraph
+StatsWindow --> CustomPiechart
+
 @enduml
