@@ -424,10 +424,6 @@ public class MainWindow extends UiPart<Stage> {
      * Switches the current to the {@code newTheme}.
      */
     private void switchThemeTo(Theme newTheme) {
-        String oldThemeUrl = null;
-        String oldExtensionsUrl = null;
-        String newThemeUrl = null;
-        String newExtensionsUrl = null;
         Theme oldTheme = null;
 
         switch (newTheme) {
@@ -444,23 +440,15 @@ public class MainWindow extends UiPart<Stage> {
             break;
         }
 
-        oldThemeUrl = theme.getThemeUrl(oldTheme);
-        oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);
-        newThemeUrl = theme.getThemeUrl(newTheme);
-        newExtensionsUrl = theme.getThemeExtensionUrl(newTheme);
+        String oldThemeUrl = theme.getThemeUrl(oldTheme);
+        String oldExtensionsUrl = theme.getThemeExtensionUrl(oldTheme);
+        String newThemeUrl = theme.getThemeUrl(newTheme);
+        String newExtensionsUrl = theme.getThemeExtensionUrl(newTheme);
 
-        removeAndAddStylesheets(oldThemeUrl, newThemeUrl);
-        removeAndAddStylesheets(oldExtensionsUrl, newExtensionsUrl);
-    }
-
-    /**
-     * Removes the {@code oldThemeUrl} from the scene's stylesheets and adds the {@code newThemeUrl} to the scene's
-     * stylesheets.
-     */
-    private void removeAndAddStylesheets(String oldThemeUrl, String newThemeUrl) {
-        if (this.scene.getStylesheets().contains(oldThemeUrl)) {
-            this.scene.getStylesheets().remove(oldThemeUrl);
-            this.scene.getStylesheets().add(newThemeUrl);
+        // Replace stylesheets with new theme's stylesheets
+        if (this.scene.getStylesheets().containsAll(Arrays.asList(oldThemeUrl, oldExtensionsUrl))) {
+            this.scene.getStylesheets().removeAll(oldThemeUrl, oldExtensionsUrl);
+            this.scene.getStylesheets().addAll(newThemeUrl, newExtensionsUrl);
         }
     }
 
