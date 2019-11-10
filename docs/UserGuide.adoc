@@ -531,9 +531,6 @@ pending police report`. John Doe's ID is no longer listed in the notifs panel.
 
 image::notif-command/Notif5.png[align="center"]
 
-[TIP]
-If you delete a `Body` and add it back before the 10 second period,
-
 // end::notifs[]
 
 ==== Filter all entries: `filter`
