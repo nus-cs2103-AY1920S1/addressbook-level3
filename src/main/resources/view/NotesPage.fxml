@@ -68,7 +68,7 @@
                         <Font name="Century Gothic" size="20.0"/>
                     </font>
                 </Label>
-                <TextArea fx:id="noteTextContent" VBox.vgrow="ALWAYS" promptText="Write your ideas here">
+                <TextArea fx:id="noteTextContent" VBox.vgrow="ALWAYS" promptText="Write your ideas here" wrapText="true">
                     <font>
                         <Font name="Consolas Bold" size="16.0"/>
                     </font>

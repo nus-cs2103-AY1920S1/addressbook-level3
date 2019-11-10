@@ -31,11 +31,6 @@
             </VBox>
 
             <VBox spacing="15.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                <Label text="Results:" textFill="#63075d">
-                    <font>
-                        <Font name="Century Gothic" size="20.0" />
-                    </font>
-                </Label>
                 <StackPane fx:id="programEvaluationPanelPlaceholder" GridPane.hgrow="ALWAYS" VBox.vgrow="ALWAYS" />
                 <padding>
                     <Insets bottom="15.0" left="35.0" right="35.0" top="15.0" />
@@ -70,8 +65,8 @@
         </rowConstraints>
 
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="30" />
-            <ColumnConstraints hgrow="SOMETIMES" percentWidth="70" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="40" />
+            <ColumnConstraints hgrow="SOMETIMES" percentWidth="60" />
         </columnConstraints>
 
     </GridPane>

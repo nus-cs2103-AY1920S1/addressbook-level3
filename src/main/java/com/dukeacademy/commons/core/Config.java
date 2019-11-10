@@ -19,7 +19,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private Path testOutputPath = Paths.get("DukeAcademy/tests");
     private Path dataPath = Paths.get("DukeAcademy/data");
-
+    private Path loadPath = Paths.get("DukeAcademy/newQuestions");
     public Level getLogLevel() {
         return logLevel;
     }
@@ -30,6 +30,10 @@ public class Config {
 
     public Path getTestOutputPath() {
         return testOutputPath;
+    }
+
+    public Path getLoadPath() {
+        return loadPath;
     }
 
     public void setTestOutputPath(Path testOutputPath) {
