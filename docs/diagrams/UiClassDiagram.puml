@@ -25,6 +25,8 @@ Class CommandBox
 Class TabPanel
 Class StatisticWindow
 Class DefaultStatisticWindow
+
+Class AutoCompleteTextField
 }
 
 package Model <<Rectangle>> {
@@ -91,6 +93,11 @@ HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 StatisticWindow -[hidden]right- StatusBarFooter
+
+CommandBox *-up-> "1" AutoCompleteTextField
+CommandBox --> Logic
+
+CommandBox -left[Hidden]--> TabPanel
 
 MainWindow -[hidden]-|> UiPart
 @enduml

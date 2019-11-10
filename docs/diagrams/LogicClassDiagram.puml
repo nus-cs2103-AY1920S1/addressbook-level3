@@ -23,6 +23,10 @@ Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
 
+package AutoComplete {
+Interface AutoCompleteResultProvider <<Interface>>
+}
+
 Interface Logic <<Interface>>
 Class LogicManager
 }
@@ -34,7 +38,7 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
+LogicManager .up..|> Logic
 LogicManager -->"1" SellerManagerParser
 SellerManagerParser .left.> XYZCommandParser: creates >
 
@@ -72,4 +76,7 @@ LogicManager .up.> Statistics
 LogicManager .right.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
+
+Logic .down.> AutoCompleteResultProvider
+
 @enduml
