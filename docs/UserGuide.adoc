@@ -1090,7 +1090,7 @@ Fat should be less than 35(g) per serving.
 ====
 [small]#*Note:* +
 1. No duplicate food names are allowed. +
-2. All nutrition values should be non-negative numbers and contain no more than four decimals. The decimal point must be between numbers. For example, ".5" and "1." will not be accepted. +
+2. All nutrition values should be non-negative numbers and contain no more than four decimals. Incomplete decimals, such as ".5" and "1.", can be accepted as "0.5" and "1" respectively. However, decimal point alone will not be accepted. +
 3. Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
 ====
 
@@ -1103,8 +1103,8 @@ Fat should be less than 35(g) per serving.
 Deletes a food that matches the specified food name(s).
 
 ====
-[small]#*Note:* FOOD_NAME matching is case-insensitive, but is strict matching for every single character, including white space.
-It is also full matching, such as "Rice with Chicken" does not match with "Chicken".#
+[small]#*Note:* FOOD_NAME matching is case-insensitive, but is strict matching for every single character, including white spaces between words.
+It is also full matching. For example, "Rice with Chicken" does not match with "Chicken".#
 ====
 
 Format: `deletef fn/FOOD_NAME`

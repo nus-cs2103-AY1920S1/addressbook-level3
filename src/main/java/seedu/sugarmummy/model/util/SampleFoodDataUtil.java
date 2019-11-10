@@ -27,7 +27,7 @@ public class SampleFoodDataUtil {
                 buildNewFood("Broccoli", "45", "6", "2", "1", FoodType.NON_STARCHY_VEGETABLE),
                 buildNewFood("Carrot", "30", "47", "5", "0", FoodType.NON_STARCHY_VEGETABLE),
                 buildNewFood("Cabbage", "25", "6", "3", "0", FoodType.NON_STARCHY_VEGETABLE),
-                buildNewFood("Tomatoes", "25", "6", "3", "0", FoodType.NON_STARCHY_VEGETABLE),
+                buildNewFood("Tomato", "25", "6", "3", "0", FoodType.NON_STARCHY_VEGETABLE),
                 buildNewFood("Mushroom", "20", "10", "0", "0", FoodType.NON_STARCHY_VEGETABLE),
 
                 buildNewFood("Sweet Corn", "90", "52", "5", "4", FoodType.STARCHY_VEGETABLE),

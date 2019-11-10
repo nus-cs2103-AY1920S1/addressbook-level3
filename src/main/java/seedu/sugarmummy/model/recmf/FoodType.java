@@ -14,7 +14,7 @@ public enum FoodType {
     SNACK("Snack", "s"),
     MEAL("Meal", "m");
 
-    public static final String MESSAGE_CONSTRAINTS = "Food types should only be one of the following:\n"
+    public static final String MESSAGE_CONSTRAINTS = "Food type should only be one of the following:\n"
             + getAllTypesInfo();
 
     private String typeName;

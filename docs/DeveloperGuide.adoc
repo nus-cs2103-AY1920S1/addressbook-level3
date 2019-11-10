@@ -1638,14 +1638,104 @@ Expected: Feedback message indicates that there is nothing to change.
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
 
 === Food Recommendation Feature
-. Recommending food with flag filters
+. Recommending food with specified flags
 .. Test case: `recmf -f -p -m` +
 Expected: The display pane updates food recommendations that only contain foods of _fruit_, _protein_, and _meal_, indicated by three different colors.
-.. Test case: `recmf -f -p -f   -p -m -M` +
+.. Test case: `recmf -f -p -f -p -m -M` +
 Expected: Same as *a*
 .. Test case: `recmf -p -f -mk` +
-Expected: The main display pane remains unchanged. Error message indicating this invalid format will be shown.
-.. Test cases: `recmf `
+Expected: The main display pane remains unchanged. Message indicating this _invalid format_ is shown.
+.. Test cases: `recmf fn/Chicken -f -sv` +
+Expected: Foods that contain _Chicken_ in their names is shown. Namely, after *fn/* prefix, flags are treated as wanted food names.
+
+. Recommending food with specified food names
+.. Test case: `recmf fn/rice cherry` +
+Expected: Foods with food names that contain either _rice_ and _cherry_ are shown (case-insensitive).
+.. Test case: `recmf fn/` +
+Expected: All available foods in the database are shown.
+.. Test case: `recmf fn/chicken fn/ fn/carrot` +
+Expected: Foods with food names that contain _carrot_ are shown. (The first two occurrences of `fn/` are ignored.)
+.. Test case: `recmf fn/$#K` +
+Expected: Message indicating _no foods to recommend_ is shown.
+.. Test case: `recmf ft/` +
+Expected: Message indicating this _invalid format_ is shown.
+
+. Recommending food in specified order
+.. Prerequisite: List all foods using the `recmf` command.
+.. Test case: `recmf +sort/gi` +
+..Expected: The food recommendations are refreshed in the order of ascending GI values.
+.. Test case: `recmf -sort/su` +
+Expected: The food recommendations are refreshed in the order of descending sugar values.
+.. Test case: `recmf +sort/fa +sort/su` +
+Expected: The ascending sort order is based on the last specification, namely, sugar.
+.. Test case: `recmf +sort/gi su` +
+Expected: Message indicating _invalid sorting order_ is shown.
+.. Test case: `recmf +sort/fa -sort/ca` +
+Expected: Message indicating _wrong presentation of both +sort/ and -sort/_ is shown.
+
+. Recommending food combinations with sufficient foods in the database
+.. Prerequisite: There are several foods of each type in the database.
+.. Test case: `recmfmix` +
+Expected: One food from each type is shown. A card named _Summary_ is shown at the end with statistics from previous six foods.
+.. Test case: `recmfmix` for the second time +
+Expected: Similar to the scenario *a* but suggested foods are likely to be different.
+.. Test case: `recmfmix -p -s` +
+Expected: Similar to scenario *a*. No effect of specifying flags.
+
+. Recommending food combinations with insufficient foods in the database
+.. Prerequisite: The database has at least some foods but may lack foods of certain types.
+.. Test case: `recmfmix` +
+Expected: One food from available types is shown, in total maybe less than six. A _Summary_ card is appended at the end as usual.
+
+. Recommending food combinations with no foods in the database
+.. Test case: `recmfmix` +
+Expected: Message indicating __no enough foods to recommend_ is shown. The _Summary_ card is not shown.
+
+. Adding a new food with non-existing food name in the list
+.. Test case: `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0` +
+Expected: This new food appears at the end of non-starchy vegetables.
+.. Test case: `addfood fn/Cucumber1 ft/f ca/15 gi/15 su/1. fa/.3` +
+Expected: This new food appears at the end of fruits with sugar value of 1 and fa value of 0.3.
+
+.. Test case: `addfood fn/Cucumber2 ft/nsv f ca/15 gi/15 su/1.7 fa/0` +
+Expected: Message indicating _invalid food type_ is shown.
+.. Test case: `addfood fn/Cucumber3 ft/nsv ca/15 su/1.7 fa/0` +
+Expected: Message indicating _invalid format_ is shown. No updates on the display pane.
+.. Test case: `addfood fn/Cucumber4 ft/nsv ca/703 gi/15 su/1.7 fa/0` +
+Expected: Message indicating _too high value of Calorie_ is shown.
+.. Test case: `addfood fn/Cucumber5 ft/nsv ca/15 gi/15.99999 su/1.7 fa/0` +
+Expected: Message indicating _invalid nutrition value_ is shown.
+
+. Adding a new food with existing food name in the list
+.. Prerequisite: A food named _Cherry_ already exists in the food database.
+.. Test case: `addfood fn/Cabbage ft/nsv ca/15 gi/15 su/1.7 fa/0` +
+Expected: Message indicating _food already existing_ is shown.
+
+. Deleting an existing food
+.. Prerequisite: The given food names can be found in the food list.
+.. Test case: `deletef fn/Mushroom` +
+Expected: _Mushroom_ is removed from recommendation display.
+.. Test case: `deletef fn/ Rice with Chicken` +
+Expected: _Rice with Chicken_ is removed from recommendation display.
+.. Test case: `deletef fn/cherry fn/carrot`
+Expected: _Carrot_ is removed from recommendation display.
+.. Test case: `deletef random fn/Tomato`
+Expected: Message _invalid command format_ is shown.
+
+. Deleting a non-existing food
+.. Prerequisite: The given food names cannot be found in the food list.
+.. Test case: `deletef fn/Beer` +
+Expected: Message indicating _food not found_ is shown.
+
+. Resetting foods
+.. Test case: `resetf` after `bio` +
+Expected: The display pane switches to food recommendations. The full food list of default food data is shown.
+.. Test case: `resetf` after `recmf -p` +
+Expected: The full food list of default food data is shown.
+.. Test case: `resetf` after `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
+Expected: `Cucumber` card disappears in the food recommendations.
+.. Test case: `resetf` after `deletef fn/Tomato`
+Expected: `Tomato` appears in the food recommendations again.
 
 [appendix]
 == References

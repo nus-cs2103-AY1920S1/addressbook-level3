@@ -26,7 +26,7 @@ public class ResetFoodDataCommand extends Command {
 
     @Override
     public DisplayPaneType getDisplayPaneType() {
-        return DisplayPaneType.RECM_FOOD;
+        return DisplayPaneType.RESET_FOOD;
     }
 
     @Override

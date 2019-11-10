@@ -14,12 +14,13 @@ import seedu.sugarmummy.commons.core.LogsCenter;
  */
 public abstract class NutritionValue implements Comparable<NutritionValue> {
 
-    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
-
     public static final String MESSAGE_CONSTRAINTS =
             "Nutrition value should only contain one number (with no more than 4 decimals) and should be non-negative.";
+    private static final String VALIDATION_REGEX = "^[+]?\\d{0,}\\.?\\d{0,4}$";
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.####");
+
     public final String value;
+    private final Logger logger = LogsCenter.getLogger(UniqueFoodList.class);
 
     /**
      * Constructs a {@code NutritionValue}.
@@ -37,6 +38,9 @@ public abstract class NutritionValue implements Comparable<NutritionValue> {
      * Returns true if a given string is a valid nutrition value.
      */
     public static boolean isValidValue(String test) {
+        if (!test.matches(VALIDATION_REGEX)) {
+            return false;
+        }
         try {
             Double.parseDouble(test);
         } catch (NumberFormatException e) {
