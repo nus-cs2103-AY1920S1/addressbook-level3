@@ -165,6 +165,9 @@ image::statistics_page.png[width="790"]
 ==== Sidebar
 
 EzWatchlist gives users the ability to navigate easily through the **Watchlist, Watchedlist, Search page and Statistics pages** through the use of the graphical user interface at the left of the main page. Moreover, keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] bring you to each page respectively.
+====
+Note: If user has selected the command box, type kbd:[1], kbd:[2], kbd:[3], kbd:[4] and enter to bring you to each page respectively.
+====
 
 ==== Details Page (Coming in v2.0)
 
@@ -262,11 +265,19 @@ Adds a show from search result page after user has already search for show +
 Format: `add INDEX`
 
 [TIP]
-This add command can only be used if user has already search for show using the search online command.
+This add command can only be used if user is currently at search page, and has already search for show using the search online command.
+
 
 Examples:
 
-* `add 2`
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `add 1` +
+Add the movie - Titanic found in search list into watchlist
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
 
 ==== Clear the WatchList: `clear`
 
@@ -375,6 +386,51 @@ Returns movies with the genre "Action"
 * By actor:
 ** `search a/Tom w/no` +
 Returns shows within the watchlist with actor named "Tom"
+
+==== Synchronise user's show data: `sync`
+Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
+Format:
+
+* `sync INDEX`
+
+****
+* User may have added their show with their own information. However, user might not know some of the parameters such as actors.
+* Thus, user can use the search online command `search n/` to look up information regarding that show.
+* Then, Synchronise command `sync` can be used to update information/modify on that show.
+* Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
+* The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
+* Names of the show are not case-sensitive.
+* User must have at least input the name of the show to use sync command. (Both are same name, case-insensitive)
+* User can use `add INDEX` command if a selected show in result page is not found in watchlist.
+****
+====
+Note: `Sync` will write over all the information of show with same name found in watchlist.
+====
+
+Examples:
+
+1. User has already input Titanic show into watchlist manually.
+
+* Watchlist page:
+** Movie #1: Name: titanic
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+Synchronise Titanic show in result page of index 1 with user's Titanic show.
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+
+2. User has not input Titanic show into watchlist manually.
+* Watchlist page:
+** Empty
+* Result page (after searching online `search n/titanic`):
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+* `sync 1`  +
+returns and display error because Titanic show is not found in watchlist page.
+* User can choose to use `add 1` command to add Titanic show.
+* `add 1`
+* Result of Watchlist page:
+** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
 
 // tag::delete[]
 ==== Deleting a show : `delete`
