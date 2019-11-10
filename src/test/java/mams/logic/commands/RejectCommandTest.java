@@ -127,4 +127,5 @@ public class RejectCommandTest {
     private String generateSuccessMessage(Appeal appealToReject) {
         return "Rejected " + appealToReject.getAppealId();
     }
+
 }
