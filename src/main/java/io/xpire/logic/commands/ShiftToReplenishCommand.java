@@ -47,7 +47,6 @@ public class ShiftToReplenishCommand extends Command {
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model, stateManager);
         this.requireNonEmptyCurrentList(model);
-        stateManager.saveState(new ModifiedState(model));
         List<? extends Item> lastShownList = model.getCurrentList();
 
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -61,11 +60,13 @@ public class ShiftToReplenishCommand extends Command {
         remodelledItem.setTags(tags);
         if (model.hasItem(REPLENISH, remodelledItem)) {
             try {
+                stateManager.saveState(new ModifiedState(model));
                 model.deleteItem(XPIRE, targetItem);
             } catch (ItemNotFoundException e) {
                 throw new CommandException(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
         } else {
+            stateManager.saveState(new ModifiedState(model));
             model.addItem(REPLENISH, remodelledItem);
             model.deleteItem(XPIRE, targetItem);
         }

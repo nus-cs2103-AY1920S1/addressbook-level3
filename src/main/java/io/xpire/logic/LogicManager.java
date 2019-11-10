@@ -1,6 +1,7 @@
 package io.xpire.logic;
 
 import static io.xpire.model.ListType.XPIRE;
+import static io.xpire.model.state.StackManager.MAXIMUM_STATES;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -41,8 +42,8 @@ public class LogicManager implements Logic {
     private final XpireParser xpireParser = new XpireParser();
     private final ReplenishParser replenishParser = new ReplenishParser();
     private final StateManager stateManager = new StackManager();
-    private final UndoableHistoryManager<Command> commandHistory = new UndoableHistoryManager<>();
-    private final UndoableHistoryManager<String> inputHistory = new UndoableHistoryManager<>();
+    private final UndoableHistoryManager<Command> commandHistory = new UndoableHistoryManager<>(MAXIMUM_STATES);
+    private final UndoableHistoryManager<String> inputHistory = new UndoableHistoryManager<>(MAXIMUM_STATES);
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;

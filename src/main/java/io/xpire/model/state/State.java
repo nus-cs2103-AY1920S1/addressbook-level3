@@ -10,6 +10,7 @@ import io.xpire.model.item.sort.XpireMethodOfSorting;
 
 /**
  * An abstract class State that cannot be instantiated.
+ * @@author Kalsyc
  */
 public abstract class State {
 

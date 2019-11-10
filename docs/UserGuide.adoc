@@ -484,8 +484,14 @@ Reduces the quantity of the 4th item by 1.
 ==== Tagging an item : `tag`
 
 ===== Display all tags created
-Shows all the tags you have created.
+Shows all the tags in the current list view.
+
 Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the list you are viewing. +
+If you want to view all the tags in the main list or replenish list, simply key in `view`, followed by `tag`.
 
 ===== Add new tag(s) to an item
 
@@ -493,7 +499,7 @@ Format: `tag`
 image::tag.png[width="790"]
 
 [TIP]
-An item can have any number of tags (including 0)
+An item can have up to 5 tags.
 
 Tags an item from the list according to user input +
 Format: `tag|<index>|<tag>[<other tags>]...`
@@ -644,13 +650,13 @@ Format: `undo`
 [TIP]
 `undo` only works on commands that alter your items or the current view list. +
 Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view list. +
-Also, `undo` only works for the last 10 commands. Therefore, use the application wisely!
+Also, `undo` only works for the last 10 commands. Therefore, think before you type!
 
 ==== Redo an earlier command : `redo`
 Redo an earlier command that you have entered in. +
 Format: `redo`
 
-This command works in the opposite direction as `undo`, it will redo any command that you have undid so that you are able to see the changes.
+This command works in the opposite direction as `undo`, it will redo any command that you have undid in the past.
 
 == FAQ
 
@@ -723,7 +729,7 @@ The table below summarises the commands only available for use in the main list.
 |`delete\|<index>`
 |`delete\|3`
 
-|`delete\|<index>\|<tag>`
+|`delete\|<index>\|<tag>[<other tags>]...`
 |`delete\|3\|#fruit`
 
 |`delete\|<index>\|<quantity>`
@@ -733,7 +739,7 @@ The table below summarises the commands only available for use in the main list.
 |`tag`
 |
 
-|`tag\|<index>\|[<tag>]...`
+|`tag\|<index>\|<tag>[<other tags>]...`
 |`tag\|2\|#drink #healthy`
 
 |*Set reminder*

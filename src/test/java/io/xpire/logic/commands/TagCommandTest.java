@@ -297,6 +297,8 @@ public class TagCommandTest {
         TagCommand tagCommand = new TagCommand(REPLENISH);
         assertEquals(tagCommand.getMode(), TagCommand.TagMode.SHOW);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
+        expectedModel.setCurrentList(REPLENISH);
+        model.setCurrentList(REPLENISH);
         List<String> tagList = new ArrayList<>();
         tagList.add((new Tag(VALID_TAG_CADBURY)).toString());
         tagList.add((new Tag(VALID_TAG_SWEET)).toString());
@@ -306,7 +308,7 @@ public class TagCommandTest {
         assertCommandSuccess(tagCommand, model, expectedMessage, expectedModel);
     }
 
-    //---------------- Failed tagging tests --------------------------------------------------------------------
+    //---------------- Fail tagging tests --------------------------------------------------------------------
     @Test
     public void execute_tooManyTags_throwsCommandException() {
         TagCommand tagCommand = new TagCommand(XPIRE, INDEX_FIFTH_ITEM,

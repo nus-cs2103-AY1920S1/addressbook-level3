@@ -17,7 +17,7 @@ import io.xpire.model.state.StateManager;
 
 public class UndoableHistoryManagerManagerTest {
 
-    private UndoableHistoryManager<CommandStub> historyManager = new UndoableHistoryManager<>();
+    private UndoableHistoryManager<CommandStub> historyManager = new UndoableHistoryManager<>(100);
 
     @BeforeEach
     public void initialise() {

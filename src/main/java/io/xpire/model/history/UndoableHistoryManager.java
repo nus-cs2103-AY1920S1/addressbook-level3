@@ -1,7 +1,7 @@
 package io.xpire.model.history;
+
 import java.util.LinkedList;
 
-import io.xpire.model.state.StackManager;
 /**
  * A history that contains elements that are undoable (can be reversed or fast-forwarded with Undo/Redo Command).
  * @@author Kalsyc
@@ -11,6 +11,11 @@ public class UndoableHistoryManager<T> implements HistoryManager<T> {
     private LinkedList<T> history = new LinkedList<>();
     private int currentIndex = 0;
     private int headIndex = 0;
+    private int maximum;
+
+    public UndoableHistoryManager(int maximum) {
+        this.maximum = maximum;
+    }
 
     /**
      * Retrieves the previous Element and sets the current index back by 1.
@@ -53,7 +58,7 @@ public class UndoableHistoryManager<T> implements HistoryManager<T> {
                 history.removeLast();
             }
         }
-        if (currentIndex == StackManager.MAXIMUM_STATES) {
+        if (currentIndex == maximum) {
             history.removeFirst();
             currentIndex -= 1;
         }
