@@ -21,6 +21,7 @@ import seedu.ezwatchlist.model.ReadOnlyUserPrefs;
 import seedu.ezwatchlist.model.ReadOnlyWatchList;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.WatchList;
+import seedu.ezwatchlist.model.util.DataBaseUtil;
 import seedu.ezwatchlist.model.util.SampleDataUtil;
 import seedu.ezwatchlist.statistics.Statistics;
 import seedu.ezwatchlist.storage.*;
@@ -97,7 +98,7 @@ public class MainApp extends Application {
             if (!databaseOptional.isPresent()) {
                 logger.info("Database not found. Will be starting with a new database");
             }
-            database = databaseOptional.orElseGet(SampleDataUtil::getSampleWatchList);
+            database = databaseOptional.orElseGet(DataBaseUtil::getShowDatabaseList);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty database");
             database = new WatchList();

@@ -100,13 +100,11 @@ public class SearchCommand extends Command {
                 }
             } else if (requestedSearchFromOnline()) {
                 for (String showName : nameList) {
-                    //addShowFromDatabaseIfSameNameAs(showName, model);
                     addShowFromOnlineIfSameNameAs(showName);
                 }
             } else if (!requestedFromOnline()) {
                 for (String showName : nameList) {
                     addShowFromWatchListIfSameNameAs(showName, model);
-                    //addShowFromDatabaseIfSameNameAs(showName, model);
                     addShowFromOnlineIfSameNameAs(showName);
                 }
             } else {
@@ -115,7 +113,7 @@ public class SearchCommand extends Command {
         } catch (OnlineConnectionException oce) {
             for (String showName : nameList) {
                 addShowFromWatchListIfSameNameAs(showName, model);
-                //addShowFromDatabaseIfSameNameAs(showName, model);
+                addShowFromDatabaseIfSameNameAs(showName, model);
             }
             isOffline = true;
         }
@@ -143,11 +141,10 @@ public class SearchCommand extends Command {
         if (requestedSearchFromInternal()) {
             addShowFromWatchListIfHasActor(actorSet, model);
         } else if (requestedSearchFromOnline()) {
-            throw new CommandException(SearchMessages.MESSAGE_UNABLE_TO_SEARCH_FROM_ONLINE_WHEN_SEARCHING_BY_ACTOR);
-            //addShowFromDatabaseIfHasActor(actorSet, model);
+            addShowFromDatabaseIfHasActor(actorSet, model);
         } else if (!requestedFromOnline()) {
             addShowFromWatchListIfHasActor(actorSet, model);
-            //addShowFromDatabaseIfHasActor(actorSet, model);
+            addShowFromDatabaseIfHasActor(actorSet, model);
         } else {
             throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
         }
@@ -177,18 +174,16 @@ public class SearchCommand extends Command {
             if (requestedSearchFromInternal()) {
                 addShowFromWatchListIfIsGenre(genreSet, model);
             } else if (requestedSearchFromOnline()) {
-                //addShowFromDatabaseIfIsGenre(genreSet, model);
                 addMovieFromOnlineIfIsGenre(genreSet);
             } else if (!requestedFromOnline()) {
                 addShowFromWatchListIfIsGenre(genreSet, model);
-                //addShowFromDatabaseIfIsGenre(genreSet, model);
                 addMovieFromOnlineIfIsGenre(genreSet);
             } else {
                 throw new CommandException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
             }
         } catch (OnlineConnectionException oce) {
             addShowFromWatchListIfIsGenre(genreSet, model);
-            //addShowFromDatabaseIfIsGenre(genreSet, model);
+            addShowFromDatabaseIfIsGenre(genreSet, model);
             isOffline = true;
         }
     }

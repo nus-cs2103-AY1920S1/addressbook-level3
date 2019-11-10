@@ -54,6 +54,7 @@ public class CommandTestUtil {
     public static final int VALID_NUM_OF_SEASONS_BOB_THE_BUILDER = 1;
     public static final String VALID_TYPE_MOVIE = "movie";
     public static final String VALID_TYPE_TV = "tv";
+    public static final String VALID_GENRE_ACTION = "action";
 
     public static final String NAME_DESC_ANNABELLE = " " + PREFIX_NAME + VALID_SHOW_NAME_ANNABELLE;
     public static final String NAME_DESC_BOB_THE_BUILDER = " " + PREFIX_NAME + VALID_SHOW_NAME_BOB_THE_BUILDER;
