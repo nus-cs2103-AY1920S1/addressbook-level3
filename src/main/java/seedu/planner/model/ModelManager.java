@@ -262,13 +262,15 @@ public class ModelManager implements Model {
             Contact newContact = newAct.getContact().get();
 
             if (!hasContact(newContact)) {
+                if (!contactAccommodationMap.containsKey(oldContact)) {
+                    removeContact(oldContact);
+                }
                 addContact(newContact);
-                removeContact(oldContact);
-                contactActivityMap.put(newContact, newAct);
             } else {
                 setContact(oldContact, newContact);
             }
-
+            contactActivityMap.remove(oldContact);
+            contactActivityMap.put(newContact, newAct);
         } else if (newAct.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAct.getContact().get();
             if (!hasContact(newContact)) {
@@ -291,12 +293,15 @@ public class ModelManager implements Model {
             Contact newContact = newAcc.getContact().get();
 
             if (!hasContact(newContact)) {
+                if (!contactActivityMap.containsKey(oldContact)) {
+                    removeContact(oldContact);
+                }
                 addContact(newContact);
-                removeContact(oldContact);
-                contactAccommodationMap.put(newContact, newAcc);
             } else {
                 setContact(oldContact, newContact);
             }
+            contactAccommodationMap.remove(oldContact);
+            contactAccommodationMap.put(newContact, newAcc);
         } else if (newAcc.getContact().isPresent()) { //activity gets new contact previously not there
             Contact newContact = newAcc.getContact().get();
             if (!hasContact(newContact)) {
