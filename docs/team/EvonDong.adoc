@@ -71,14 +71,14 @@ My responsibilities include designing the layout, implementing the features for 
 The following sections present the enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the user guide and developer guide.
 
 === Main Enhancements
-The following illustrates some crucial enhancements that I have added for Cashier tab.
+The following section illustrates some crucial enhancements that I have added for Cashier tab.
 
 * Adding, Deleting and Editing of Sales Items
 ** What it does:
-It allows the user to add, delete and update the sales items added in the table shown on the tab.
+It allows the user to add, delete and update the sales items in the table shown on the tab.
 
 ** Justification:
-These features incorporate the essential elements of a cash register and are fundamental for the Cashier tab.
+These feature incorporate the essential elements of a cash register and are fundamental for the Cashier tab.
 By expediting the process of calculating and recording the quantity of sales items, it enables the cashier-in-charge to
 perform cashiering duties more efficiently.
 
