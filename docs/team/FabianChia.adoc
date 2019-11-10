@@ -1,0 +1,211 @@
+= Fabian Chia - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+{nbsp} +
+
+== Overview
+
+My team and I were tasked with enhancing AddressBook3 - a given CLI (Command Line Interface) application into a better product.
+Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant.
+We aim to improve the quality of life for teachers by assisting them with daily administrative tasks
+that have been traditionally resolved for years. In particular, the Njoy Teaching Assistant enables
+teachers to maintain student records; set questions and quizzes for revision; while keeping track of
+their schedules with an interactive timetable.
+
+This is what our project looks like:
+
+image::NjoyMainPage.png[]
+_Figure 1. The graphical user interface for Njoy._
+
+My role was to design and write code for the quiz features. The rest of the sections will cover the
+summary of my quiz specific contributions to the codebase, the user guide and the developer guide.
+
+The following are icons and symbols that I will be using for the Project Portfolio:
+
+[NOTE]
+This symbol indicates a note to the user.
+
+[TIP]
+This symbol indicates a user friendly tip.
+
+[IMPORTANT]
+This symbol indicates something important.
+
+`This indicates a component, class or object in the architecture of the application.`
+
+*This indicates important text.*
+
+== Summary of contributions
+
+This section entails a summary of my specific enhancements, code contributions and other helpful increments towards the Njoy Teaching Assistant.
+
+I implemented the quiz specific commands which include:
+
+* *Creating a quiz automatically*
+* *Creating a quiz manually*
+* *Adding a question to a quiz*
+* *Deleting a question from a quiz*
+* *Listing the questions and answers for a quiz*
+* *Showing only the questions or answers for a quiz*
+* *Exporting a quiz to a formatted HTML file*
+
+[[Grouping]]
+I'll be sectioning the functionality into the following format:
+
+. *Creation*
+. *Editing*
+. *Display*
+
+=== Enhancements
+
+==== Quiz Creation
+
+* *What it does:* Users can either create quizzes automatically or manually. Regardless of either option,
+users will also have to specify a quiz identifier for further storage and future operations.
+Automatic-wise, users have to input the number of questions they want to be added to the quiz and
+also, the type of questions to be added to the quiz. Users can choose to add mcq, open ended or
+both types of questions to their quiz. Manual-wise, users have to input the specific question
+indexes of questions in the question bank that they want to be added to the quiz.
+
+* *Justification:* Teachers have an inherent need to prepare homework, revision papers and exam papers for
+their students. As such, the NJoy Assistant provides a way for them to continuously store questions in a
+database and generate quizzes based off that. They can either automate and randomise the process by specifying
+the number of questions, or even create tailored quizzes by specifying the question number indexes.
+
+* *Highlights:* This enhancement works with existing as well as future commands. The implementation for this
+feature was relatively challenging because of the automation option when creating quizzes. Users have to specify
+the number of questions they want to be included in a quiz and if the question bank does not contain enough
+questions then the command would not go through and would prompt the user with an error stating that there are
+insufficient questions in the question bank for the number that was specified. The hardest part was to make sure
+that no repeated questions were added to the quiz which involved keeping track of what questions have already been
+added.
+
+==== Quiz Editing
+
+* *What it does:* Users can choose to edit their quizzes after creation. This includes the addition of specific questions
+in the question bank, or even the deletion of specific questions from the quiz. All the user has to do is to
+specify the correct indexes of the questions to add or remove and the application will handle the rest. For the adding
+of questions, users can also choose to specify the quiz question index that the question should be added to. For example,
+if I had a quiz with question 1, 2 and 3, and I want to add a question to question 2 - I can specify just that. Question
+1 would remain in the same index, question 2 would be the new question that was added, and the old question 2 and 3 would
+then be shifted down to the new question 3 and 4 indexes.
+
+* *Justification:* Even after creating a quiz, teachers might still want to add new questions or even delete questions
+that they later realise were incorrect or were not supposed to be in the quiz. This is because though the
+NJoy Assistant already accounts for repeated questions or wrongful answers (an mcq answer not being present in
+the options), it does not ensure the correctness of questions and answers. For example, a question could be: What is
+1 + 1? And the answer specified by the teacher could be 3. The Njoy Assistant would have no measures to
+prevent the question from being created and hence from being added to the quiz. As such, upon the detection
+of such errors, the teacher might then choose to delete the question from the quiz, then deleting it from the
+question bank itself.
+
+* *Highlights:* This enhancement works with existing as well as future commands. The implementation for this
+feature was relatively challenging because of the adding questions feature. This is because we ensure that
+no repeated questions can be present in a quiz - that makes no sense. A quiz should not have a repeated question,
+because that would attribute to more marks given or lost depending on whether the student could have answered
+the question. Before adding a question to a quiz, we make sure that it does not match any existing question in
+the quiz. This ensures that the question will not be added to the quiz if it was indeed a repeat.
+
+==== Quiz Display
+
+* *What it does:* Users can choose to display their quizzes on the user interface after creation. There are several
+display options provided: showing both questions and answers, showing only the questions and showing only
+the answers. Beyond that, there is a defining feature whereby teachers can choose to display their quizzes
+in an exported HTML file. Of course, the answers will not be shown on the quiz because this HTML file is
+meant as a quiz for students. The questions will be formatted properly for display - mcq questions will have
+radio buttons for the 4 different options, and open ended questions will have blanks for the students to fill in.
+Just by specifying the quiz identifier, the user will be able to display their quizzes appropriately.
+
+* *Justification:* The display functions serve as a confirmation of what the teacher currently has in
+their quizzes. Teachers can ensure that the correct questions and answers have been allocated to their specific
+quizzes before exporting them. As mentioned earlier, teachers are no stranger to the preparation of homework, assignments
+and revision papers. After confirming the quiz is set up correctly, the key feature of the quiz component -
+the export feature creates a HTML file in an appropriate format for their students to fill in.
+
+* *Highlights:* This enhancement works with existing as well as future commands. The implementation for this
+feature was relatively challenging because of the export quiz feature. In particular, the formatting of text
+for HTML was foreign to me which is why I spent a fair bit of time understanding how to write the correct
+syntax for HTML files.
+
+=== Code contributed
+
+Please click these links to see a sample of my code.
+
+[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/model/quiz/QuizManager.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/quiz/QuizAddQuestionCommandTest.java[Test code]] _{Links to samples of my code.}_
+
+=== Other contributions
+
+* Project management:
+** Managed releases v1.3.1 on GitHub, out of the 3 releases.
+** Resolved the issues found by others related to my feature on Github.
+
+* Enhancements to existing features:
+** Updated README aka the main page, user guide and developer with NJoy Assistant related pictures: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177]
+** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/184[#184])
+
+* Documentation:
+** Made cosmetic tweaks to the existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/179[#179]
+
+** Made relevant changes for the Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177]
+
+* Community:
+** Reviewed Pull Requests: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/18[#18], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/20[#20],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/33[#33], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/79[#79], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/91[#91],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/121[#121],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/175[#175], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/178[#178],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/182[#182], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/183[#183],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/189[#189]
+
+* Tools:
+** Set up an online continuous integration tool (`Travis`) for the team's repository on Github.
+** Integrated `coveralls.io` with the team's repository on Github for coverage updates.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+The following are specific portions of the NJoy Assistant's User Guide that I have selected. This is because some features are
+repetitive, and as mentioned <<Grouping, `above`>> I will be grouping them into Creation, Editing and Display once again. Therefore,
+I'll only show one example for each of the main features that I have written about in the user guide._
+|===
+
+[NOTE]
+The following is an example of *Quiz Editing*:
+
+include::../UserGuide.adoc[lines=691..714]
+
+[NOTE]
+The following is an example of *Quiz Display*:
+
+include::../UserGuide.adoc[lines=741..777]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+Again, I'm only going to include the most relevant portions of the guide as mentioned in the <<Grouping, `above`>> citing. Also, some of
+the command hyperlinks will obviously not work because I have omitted them for brevity._
+|===
+
+include::../DeveloperGuide.adoc[lines=410..416]
+
+{nbsp} +
+
+[NOTE]
+The following is an example of *Quiz Creation*:
+
+include::../DeveloperGuide.adoc[lines=455..487]
+
+{nbsp} +
+
+[NOTE]
+The following is an example of *Quiz Display*:
+
+include::../DeveloperGuide.adoc[lines=553..589]

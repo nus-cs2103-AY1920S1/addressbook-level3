@@ -12,7 +12,7 @@ public class EventExportCommand extends EventCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exports your events to a ICS file\n"
             + "Example: event export";
     public static final String MESSAGE_EXPORT_SUCCESS = "Events successfully export. Check the export directory"
-            + "for your schedule .ics export.";
+            + " for your schedule .ics export.";
 
     public EventExportCommand() {
 
