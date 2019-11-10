@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALD_FRIDE_ID_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
@@ -193,9 +194,13 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
         if (!argMultimap.getValue(PREFIX_FRIDGE_ID).orElse("").isEmpty()) {
             String idNum = argMultimap.getValue(PREFIX_FRIDGE_ID).orElse(null);
-            IdentificationNumber identificationNumber = IdentificationNumber
-                    .customGenerateId("F", Integer.parseInt(idNum));
-            bodyDescriptor.setFridgeId(identificationNumber);
+            try {
+                IdentificationNumber identificationNumber = IdentificationNumber
+                        .customGenerateId("F", Integer.parseInt(idNum));
+                bodyDescriptor.setFridgeId(identificationNumber);
+            } catch (NumberFormatException exp) {
+                throw new ParseException(MESSAGE_INVALD_FRIDE_ID_FORMAT);
+            }
         }
         if (!argMultimap.getValue(PREFIX_DATE_OF_BIRTH).orElse("").isEmpty()) {
             bodyDescriptor.setDateOfBirth(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE_OF_BIRTH).get()));

@@ -208,7 +208,7 @@ table.tableblock > .title,
     padding: 1rem 1rem;
 }
 
-/* Do not display site header on print mediums */
+/* Do not display site header on print mediums. Do not show link URLs when saved to PDF. */
 @media print {
     #seedu-header {
         display: none;
@@ -216,5 +216,8 @@ table.tableblock > .title,
 
     #site-header {
         display: none;
+    }
+    a[href]:after {
+        content: none !important;
     }
 }

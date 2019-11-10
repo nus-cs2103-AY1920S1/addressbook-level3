@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UNDO_SUCCESS;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 import static seedu.address.model.entity.body.BodyStatus.CLAIMED;
 import static seedu.address.model.entity.body.BodyStatus.CONTACT_POLICE;
+import static seedu.address.model.entity.body.BodyStatus.DONATED;
 import static seedu.address.model.entity.fridge.FridgeStatus.OCCUPIED;
 import static seedu.address.model.entity.fridge.FridgeStatus.UNOCCUPIED;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -244,7 +245,7 @@ public class UpdateCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void executeBody_removeBodyFromFridge_success() throws CommandException {
+    public void executeBody_removeBodyFromFridgeClaimed_success() throws CommandException {
         Fridge f1 = new Fridge();
         model.addEntity(f1);
 
@@ -257,6 +258,27 @@ public class UpdateCommandTest extends GuiUnitTest {
 
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
         descriptor.setBodyStatus(CLAIMED);
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+        updateCommand.execute(model);
+
+        assertEquals(f1.getFridgeStatus(), UNOCCUPIED);
+    }
+
+    @Test
+    public void executeBody_removeBodyFromFridgeDonated_success() throws CommandException {
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        Body body = new BodyBuilder().withStatus("pending police report").build();
+        body.setFridgeId(f1.getIdNum());
+        model.addEntity(body);
+        f1.setBody(body);
+
+        assertEquals(f1.getFridgeStatus(), OCCUPIED);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setBodyStatus(DONATED);
 
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
@@ -279,6 +301,25 @@ public class UpdateCommandTest extends GuiUnitTest {
 
         String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
         assertCommandFailure(updateCommand, model, expectedMessage);
+        assertEquals(f1.getFridgeStatus(), UNOCCUPIED);
+    }
+
+    @Test
+    public void executeBody_assignFridgeToDonatedBody_failure() throws CommandException {
+        Fridge f1 = new Fridge();
+        model.addEntity(f1);
+
+        Body body = new BodyBuilder().withStatus("donated").build();
+        model.addEntity(body);
+
+        UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor(body);
+        descriptor.setFridgeId(f1.getIdNum());
+
+        UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
+
+        String expectedMessage = MESSAGE_CANNOT_ASSIGN_FRIDGE;
+        assertCommandFailure(updateCommand, model, expectedMessage);
+        assertEquals(f1.getFridgeStatus(), UNOCCUPIED);
     }
 
     @Test
