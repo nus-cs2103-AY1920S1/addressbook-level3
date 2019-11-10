@@ -9,8 +9,10 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric and should be less than 20 "
-            + "letters!";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Tags names should be alphanumeric and should be less than 20 letters!\n"
+            + "Keep in mind that you can only have one-word tags.";
+
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;

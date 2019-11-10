@@ -234,8 +234,6 @@ Adds a food item to the food list.
 
 [IMPORTANT]
 NAME, PRICE and CATEGORY are mandatory fields.
-Price must be an integer or a double with 2 decimal places and the maximum Price for a food item is $5000.
-Opening Hours must be in HHMM format.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
