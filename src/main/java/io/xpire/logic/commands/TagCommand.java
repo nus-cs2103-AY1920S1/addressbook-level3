@@ -153,16 +153,14 @@ public class TagCommand extends Command {
         model.setItem(this.listType, itemToTag, taggedItem);
 
         if (this.tagItemDescriptor.getTags().stream().anyMatch(Tag::isTruncated)) {
-            this.containsLongTags = true;
-        }
-        if (containsLongTags) {
             this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING, taggedItem);
             setShowInHistory(true);
             return new CommandResult(this.result);
+        } else {
+            this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
+            setShowInHistory(true);
+            return new CommandResult(this.result);
         }
-        this.result = String.format(MESSAGE_TAG_ITEM_SUCCESS, taggedItem);
-        setShowInHistory(true);
-        return new CommandResult(this.result);
     }
 
     /**
