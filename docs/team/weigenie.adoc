@@ -1,0 +1,127 @@
+= Wei Gen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+image::weigenie.png[width="200", align="left", padding="50px"]
+{empty}[https://github.com/weigenie[github]]
+
+Hi! My name is Wei Gen.
+
+I am currently a second year student in NUS School of Computing, pursuing a Bachelor of Computing (Honours).
+
+This portfolio page aims to document the contributions I have made in the development of FinSec, which is a project
+that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own
+learning and self-development in becoming a more competent software engineer.
+
+== PROJECT: FinSec
+
+== Overview
+
+FinSec is a useful application that was created with the end goal of aiding Financial Secretaries of any organisation.
+It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but
+also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
+
+FinSec boasts relevant and useful features which have been carefully selected and scrutinised to fit the needs of our
+target audience. All of FinSec's features and implementations are well documented in guides for users and developers
+respectively.
+
+.A view of FinSec
+image::../images/Ui.png[width="602"]
+
+== Role
+
+My main role was to act as the Team Lead for the project, completing team tasks for the project and managing tasks
+general tasks for the team members. As I was the only one who has been in the position of our target audience, I
+understand their user requirements the best, so I was also the one to set the directions of the project.
+
+Development-wise, I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
+association between Claims and Contacts. I also created the documentation and tests that came along with the features.
+
+== Summary of contributions
+
+* *Major enhancement*: added the *Claim feature*
+** *What it does*: This feature allows users, who are mainly Financial Secretaries, to enter Claims into
+the FinSec application and track their claim entries.
+** *Justification*: The `Claim feature` is a vital feature to the FinSec application since that the majority of
+organisations and clubs have claims to keep track of. It allows Financial Secretaries to keep proper records of the
+organisation and to keep track of its financial status.
+** *Implementation*: The Person class in Address Book 3 (AB3) is remodelled to resemble a claim entry _(with additional
+attributes of ID, Description, Amount, Date and Status)_.
+** *Highlights*: The implementation of this feature is fairly manageable since that it is an adaptation of the Person
+class. However, there is much more coupling compared to the Person class, thus it is more complex.
+
+* *Minor enhancement*: added the *Approve and Reject Claim features*
+** *What it does*: This feature allows users to approve or reject pending claims.
+** *Justification*: Claims can have different statuses, and `Budget` will behave differently depending on their
+statuses.
+** *Implementation*: ApproveClaimCommand and RejectClaimCommand will check whether the claim chosen is a PendingClaim,
+and only if it is can its status be approved or rejected respectively.
+
+* *Minor enhancement*: added the *association between Claims and Contacts*
+** *What it does*: Adding a claim into the app's list of claims will add the claim into the associated contact's list
+of claim as well.
+** *Justification*: Each claim added is associated to a contact. The user will be able to view all the claims associated
+to a contact when viewing them using the CheckCommand.
+** *Implementation*: During the execution of the AddClaimCommand, it checks the FinSec if there is a contact with the
+entered name. Only if there is an existing contact for the claim will it will the command be executed. It also adds
+the Claim ID to the contact's list of claims to keep track of each contact's claim.
+** *Highlights*: I have also added a table to the IndividualContactWindow for the user to view the details of every
+claim of each contact easily.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=weigenie[All commits]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=weigenie[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed the release of version `v1.1` on GitHub
+*** Created GitHub organisation for the team
+*** Created team repository and managed the access for each individual.
+*** Set up auto-publishing of docs.
+*** Integrated various build services into the team repository.
+*** Assign tasks to corresponding team members.
+
+** Documentation
+*** I made improvements to the Developer's Guide and User Guides:
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/232[#232],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/195[#195],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/182[#182]
+
+** Community
+*** I conducted reviews on other team's PR to give suggestions and constructive comments:
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/4[#4],
+*** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo:
+https://github.com/weigenie/ped/issues/8[#8],
+https://github.com/weigenie/ped/issues/5[#5],
+https://github.com/weigenie/ped/issues/4[#4]
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage (Pull requests
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/370[#370],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/356[#356],
+https://github.com/AY1920S1-CS2103T-W12-1/main/pull/346[#346])
+
+** Tools:
+*** Integrated Travis, AppVeyor and Netlify into our project.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
