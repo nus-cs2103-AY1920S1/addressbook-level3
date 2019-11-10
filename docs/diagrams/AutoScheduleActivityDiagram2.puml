@@ -1,0 +1,20 @@
+@startuml
+skinparam activityShape rectangle
+start
+
+:check prefix type;
+if() then ([tag type])
+    :filter activities \nwith the same tag;
+else (name type])
+    :filter activities \nwith the same name;
+endif
+:check if there is any activity;
+if() then (yes)
+
+:Sort the activities from **highest to the lowest priority**;
+:Sort the activities again from the **lowest to the highest number of time being scheduled**;
+else (no)
+    :inform user of invalid tag or name;
+endif
+end
+@enduml

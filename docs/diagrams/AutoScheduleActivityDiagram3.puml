@@ -1,0 +1,35 @@
+@startuml
+start
+:Get first  activity with **highest priority** and \n**lowest number of time being scheduled**;
+
+:is it the last activity to schedule?;
+    if() then (no)
+       :check if activity end time \noverlap the next activity start time;
+              if() then ([overlap])
+            :traverse the list to find an activity that \ndoes not overlap the next activity start time;
+                      if() then ([can be found])
+                                      :schedule activity;
+                                  else ([cannot be found])
+                                  endif
+              else([no overlap])
+                  :schedule activity;
+              endif
+    else (yes)
+        :check if activity overlap to the next day;
+        if() then ([overlap])
+            :traverse the list to find an activity \nthat does not overlap to the next day;
+                if() then ([can be found])
+                                :schedule activity;
+                            else ([cannot be found])
+                            endif
+        else([no overlap])
+            :schedule activity;
+        endif
+    endif;
+    :check if any activity is scheduled;
+        if() then ([not scheduled])
+            :inform user of invalid schedule plan;
+        else([scheduled])
+        endif
+end
+@enduml
