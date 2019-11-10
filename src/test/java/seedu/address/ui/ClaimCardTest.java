@@ -4,6 +4,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author{weigenie}
 public class ClaimCardTest {
 
     @Test

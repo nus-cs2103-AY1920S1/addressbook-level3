@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.ClaimBuilder;
 
+//@@author{weigenie}
 class ApprovedClaimTest {
 
     @Test

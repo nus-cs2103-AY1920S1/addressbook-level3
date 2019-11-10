@@ -12,6 +12,7 @@ import seedu.address.model.claim.exceptions.ClaimNotFoundException;
 import seedu.address.model.claim.exceptions.DuplicateClaimException;
 import seedu.address.model.contact.exceptions.DuplicateContactException;
 
+//@@author{weigenie}
 /**
  * A list of claims that enforces uniqueness between its elements and does not allow nulls.
  * A claim is considered unique by comparing using {@code Claims#isSameClaim(Claim)}. As such, adding and updating of
