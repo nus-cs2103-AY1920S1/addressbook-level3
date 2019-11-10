@@ -360,7 +360,6 @@ image::view_attendance_after.png[width=350]
 
 // end::training[]
 
-
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
@@ -391,7 +390,8 @@ image::addevent_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully added, the result box (red box) will display the added event name as shown below.
+If successfully added, the result box will display message "_Event created:_" followed by the name
+of the event you just added, as shown in the red box in the diagram below.
 
 Additionally, the feature box (orange box) will display the list of all your events. The event you just
 added should be included in the list. In the example below, `freestyle 50m` appears at the bottom of the list.
@@ -406,7 +406,7 @@ Records stored under this event will be deleted as well.
 *What you should do*
 
 Let's say that your team is no longer participating in the `backstroke 100m` event, and you want to remove it
-from *Athletick*.
+from Athletick.
 
 Type in the command in the following format and press `Enter` to execute it.
 
@@ -414,66 +414,133 @@ Format : `delete -e NAME_OF_EVENT`
 
 Example: `delete -e backstroke 100m`
 
-image::deleteevent_wysd.png[width="250"]
+image::deleteevent_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully deleted, the result box will display the deleted event name as shown below.
-The event should no longer be in *Athletick*.
+If successfully deleted, the result box will display the message "_Deleted event:_" followed by
+the name of the event you just deleted, as shown in the red box in the diagram below.
 
-.Notice that the backstroke 100m event is no longer listed.
-image::deleteevent_wyss.png[width="150"]
+Additionally, the feature box (orange box) will show the current list of events you have in Athletick. The
+deleted event should not appear in the list.
+
+.Notice that the backstroke 100m event is not listed.
+image::deleteevent_wyss.png[width="450"]
 
 ==== Adding an athlete's record : `performance`
 
-This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
+This command records your athlete’s performance for a certain event, on a certain day, to Athletick.
 
-You will need the event name, athlete’s index, date of performance and timing of performance.
+You will need the following details to add a record.
+
+* Athlete's index
+* Event name
+* Date of record
+* Timing of record
 
 NOTE: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
 
-Let's say you took a timed trial for Irfan on 22nd October 2019 under the freestyle 50m event,
-and he took 23.47 seconds to complete it. Now you want to store this record in *Athletick*.
+Let's say that you took a timed trial for Tao Li on 2nd November 2019 under the freestyle 50m event,
+and she took 24.01 seconds to complete it. Now you want to store this record in Athletick.
 
 *What you should do*
 
-As seen in the yellow box in the diagram below, Irfan is located at index 5 in the active list.
-
-Type in the command below, like so in the red box in the same diagram, and press `Enter`.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
-Example : `performance 5 e/freestyle 50m d/02102019 t/23.47`
+Example : `performance 3 e/freestyle 50m d/02112019 t/24.01`
 
-image::addperformance_wysd.png[width=450]
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::addrecord_wysd.png[width=450]
 
 *What you should see*
 
-If successfully added, the performance details will be displayed in the result box (red mark-up).
+If successfully added, the result box will display the details of the record you just added, as shown in
+the diagram below.
 
-image::addperformance_wyss.png[width=350]
+.Details of Tao Li's new record - event, date and timing - are displayed in the result box.
+image::addrecord_wyss.png[width=450]
 
-==== Viewings events : `view performance`
+==== Deleting an athlete's record : `delete -r`
 
-This command gives you an overview of what events you have stored in *Athletick*.
+This command removes an athlete's record for a certain event, on a certain day, from Athletick.
 
-Let's say you want to know what events you have added to *Athletick*.
+You will need the following details to delete a record.
+
+* Athlete's index
+* Event name
+* Date of record
+
+Let's say that you want to delete Tao Li's record for the freestyle 50m event on 2nd November 2019.
 
 *What you should do*
 
-Type `view performance` in the command box, and press `Enter` to execute it.
+Type in the command in the following format and press `Enter` to execute it.
 
-Format: `view performance`
+Format : `delete -r INDEX e/EVENT_NAME d/DDMMYYYY`
 
-image::viewperformance_wysd.png[width=350]
+Example : `delete -r 3 e/freestyle 50m d/02112019`
+
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::deleterecord_wysd.png[width=450]
 
 *What you should see*
 
-If successfully executed, the success message will be displayed in the result box (red box).
+If successfully deleted, the result box will display the details of the record you just deleted, as shown
+in the diagram below.
 
-The feature box (green box) will display all your events saved in *Athletick*.
+.Details of Tao Li's deleted record - event and date - are displayed in the result box.
+image::deleterecord_wyss.png[width=450]
 
-image::viewperformance_wyss.png[width=450]
+==== Viewings events : `view performance`
+
+This command shows you what events you have stored in *Athletick*.
+
+Let's say that you want to know what events you have added to *Athletick*.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `view performance`
+
+image::viewevents_wysd.png[width=450]
+
+*What you should see*
+
+If successfully executed, the result box (red box) will display the message "_Here are your events stored
+in Athletick_" followed, as shown in the diagram below.
+
+Additionally, the feature box (orange box) will show the list of events you have in Athletick.
+
+image::viewevents_wyss.png[width=450]
+
+==== Viewing records : `view records`
+
+This command shows you the records stored under a particular event in Athletick.
+
+Let's say that you want to see the records under the freestyle 50m event.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `view records EVENT_NAME`
+
+Example : `view records freestyle 50m`
+
+image::viewrecords_wysd.png[width=450]
+
+*What you should see*
+
+If successfully executed, the result box will display the message "_Here are the records for_"
+followed by the event name you requested, as shown in the red box in the diagram below.
+
+Additionally, the feature box (orange box) will show the athletes who have records under this event,
+followed by a graph of their progress over time.
+
+image::viewrecords_wyss.png[width=450]
 
 === Calendar
 
@@ -932,10 +999,13 @@ Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Redo an undone command:: `redo`
 View athlete details:: `select INDEX`
 Sort athletes:: `sort`
-Take attendance (by present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
-Take attendance (by absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
-Undo a command:: `undo`
+Record a training (by athletes present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
+Record a training (by athletes absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
+Edit attendance of a training:: `training` or `training -a`
+Delete a training session:: `delete -t d/DDMMYYYY`
+View attendance of an athlete:: `attendance INDEX`
 View team's attendance:: `view attendance`
+Undo a command:: `undo`
 View calendar:: `view calendar`
 View all created events:: `view performance`
 
