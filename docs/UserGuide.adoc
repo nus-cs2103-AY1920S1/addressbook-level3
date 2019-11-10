@@ -53,14 +53,14 @@ GUI apps!
 Adds an expense to records. +
 Usage:
 
- expense add [DESCRIPTION] [AMOUNT]
+add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG]
 +
 Example:  +
-`expense add “buy a book” 10` +
-Adds an expense to record where the description is “buy a book” and the amount is 10. +
+`add n/buy a book d/math textbook a/10 t/coop` +
+Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
 {nbsp} +
 
-. _Edit an existing expense: expense edit_ +
+. _Edit an existing expense: edit_ +
 Edits an existing expense that is being displayed on the GUI. Either description or amount must be supplied. +
 {nbsp} +
 Usage:
@@ -69,13 +69,15 @@ Usage:
 +
 Options: +
 
-* `--description`, `-d`: Specify new description to update expense with. +
-* `--amount`, `-a`: Specify new amount to update expense with. +
+* `n/`: Specify new name to update expense with. +
+* `d/`: Specify new description to update expense with. +
+* `a/`: Specify new amount to update expense with. +
+* `t/`: Specify the tag and attach it to the expense. +
 {nbsp} +
 
 +
 Example: +
-`expense edit 2 -d “buy a math book”` +
+`expense edit 2 d/buy a math book` +
 Edit the expense at index 2  with new description of: “buy a math book” +
 
 [NOTE]
@@ -89,26 +91,27 @@ Deletes an existing expense that is being displayed on the GUI. +
 {nbsp} +
 Usage:
 
- expense rm [INDEX]
+ delete [INDEX]
 +
 Example: +
-`expense rm 3` +
+`delete 3` +
 Deletes the expense with index 3. +
 {nbsp} +
 
-. _List all expenses: expense list_ +
+. _List all expenses: list_ +
 Lists all the expenses in the record list. +
 {nbsp} +
 Usage:
 
- expense list
+ list
 +
 Example: +
-`expense list` +
+`list` +
 Displays below expenses (for example) in the GUI: +
 
-* buy a book / amount: $10 +
- * pay for dinner / amount: $5 +
+* 1. buy a book / amount: $10 +
+* 2. pay for dinner / amount: $5 +
+* !!!!!!!!!!!!!!!! Provide screenshot over here
 {nbsp} +
 
 // tag::tagging[]
