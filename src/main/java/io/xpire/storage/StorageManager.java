@@ -10,7 +10,7 @@ import io.xpire.commons.exceptions.DataConversionException;
 import io.xpire.model.ReadOnlyListView;
 import io.xpire.model.ReadOnlyUserPrefs;
 import io.xpire.model.UserPrefs;
-import io.xpire.model.item.Item;
+import javafx.util.Pair;
 
 /**
  * Manages storage of Xpire data in local storage.
@@ -55,24 +55,25 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyListView<? extends Item>>[] readList() throws DataConversionException, IOException {
+    public Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> readList()
+            throws DataConversionException, IOException {
         return readList(this.listStorage.getListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyListView<? extends Item>>[] readList(Path filePath) throws
+    public Pair<Optional<ReadOnlyListView>, Optional<ReadOnlyListView>> readList(Path filePath) throws
             DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return this.listStorage.readList(filePath);
     }
 
     @Override
-    public void saveList(ReadOnlyListView<? extends Item>[] lists) throws IOException {
+    public void saveList(ReadOnlyListView[] lists) throws IOException {
         saveList(lists, this.listStorage.getListFilePath());
     }
 
     @Override
-    public void saveList(ReadOnlyListView<? extends Item>[] lists, Path filePath) throws IOException {
+    public void saveList(ReadOnlyListView[] lists, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         this.listStorage.saveList(lists, filePath);
     }

@@ -15,20 +15,17 @@ import static io.xpire.testutil.TypicalIndexes.INDEX_SEVENTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_SIXTH_ITEM;
 import static io.xpire.testutil.TypicalIndexes.INDEX_THIRD_ITEM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_BANANA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_EXPIRED_MILK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BANANA;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_EGG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_BISCUIT;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_CHOCOLATE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_COOKIE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_DUCK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_EXPIRED_MILK;
-import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_JELLY;
-import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_JELLY;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_EGG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_CADBURY;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_COCOA;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_DRINK;
@@ -125,11 +122,11 @@ public class DeleteCommandTest {
     //test to delete tags for xpireItem with tags
     @Test
     public void execute_deleteTagsFromXpireItemNotAllFields_success() {
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_THIRD_ITEM.getZeroBased());
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FOURTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
         set.add(new Tag(VALID_TAG_PROTEIN));
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_THIRD_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FOURTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
         XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_DUCK)
                                              .withExpiryDate(VALID_EXPIRY_DATE_DUCK)
@@ -151,17 +148,17 @@ public class DeleteCommandTest {
     //test to delete tags for xpireItem with all fields present
     @Test
     public void execute_deleteTagsFromXpireItemAllFields_success() {
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
         set.add(new Tag(VALID_TAG_FRIDGE));
 
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SIXTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
 
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                                             .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                                             .withQuantity(VALID_QUANTITY_JELLY)
-                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_FISH)
+                                             .withQuantity(VALID_QUANTITY_FISH)
+                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
                                              .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedXpireItem);
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem); //set target xpireItem with no tags
@@ -171,15 +168,15 @@ public class DeleteCommandTest {
     //test that does not delete any tags due to empty set
     @Test
     public void execute_deleteNoTagsFromXpireItemAllFields_success() {
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
         Set<Tag> set = new TreeSet<>(new TagComparator());
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, set);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SIXTH_ITEM, set);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_JELLY)
-                                             .withExpiryDate(VALID_EXPIRY_DATE_JELLY)
-                                             .withQuantity(VALID_QUANTITY_JELLY)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
+                                             .withExpiryDate(VALID_EXPIRY_DATE_FISH)
+                                             .withQuantity(VALID_QUANTITY_FISH)
                                              .withTags(VALID_TAG_FRIDGE)
-                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_JELLY)
+                                             .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
                                              .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_TAGS_SUCCESS, expectedXpireItem);
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem); //set target xpireItem with no tags
@@ -196,29 +193,30 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_deleteQuantityLessThanXpireItemQuantityFromXpireItem_success() {
-        //All xpireItem fields present
-        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SECOND_ITEM.getZeroBased());
+        // Not all xpireItem fields present
+        XpireItem targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_FIFTH_ITEM.getZeroBased());
         Quantity quantityToDeduct = new Quantity("2");
-        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_SECOND_ITEM, quantityToDeduct);
+        DeleteCommand deleteCommand = new DeleteCommand(XPIRE, INDEX_FIFTH_ITEM, quantityToDeduct);
         ModelManager expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_BANANA)
-                .withExpiryDate(VALID_EXPIRY_DATE_BANANA)
-                .withQuantity("3")
-                .withReminderThreshold(VALID_REMINDER_THRESHOLD_BANANA)
+        XpireItem expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_EGG)
+                .withExpiryDate(VALID_EXPIRY_DATE_EGG)
+                .withQuantity("8")
                 .build();
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
                 quantityToDeduct.toString(), targetXpireItem);
         expectedModel.setItem(XPIRE, targetXpireItem, expectedXpireItem);
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
 
-        //Not all xpireItem fields present
+        // All xpireItem fields present
         targetXpireItem = (XpireItem) model.getCurrentList().get(INDEX_SIXTH_ITEM.getZeroBased());
         quantityToDeduct = new Quantity("1");
         deleteCommand = new DeleteCommand(XPIRE, INDEX_SIXTH_ITEM, quantityToDeduct);
         expectedModel = new ModelManager(model.getLists(), new UserPrefs());
-        expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_EXPIRED_MILK)
-                .withExpiryDate(VALID_EXPIRY_DATE_EXPIRED_MILK)
-                .withQuantity("1")
+        expectedXpireItem = new XpireItemBuilder().withName(VALID_NAME_FISH)
+                .withExpiryDate(VALID_EXPIRY_DATE_FISH)
+                .withReminderThreshold(VALID_REMINDER_THRESHOLD_FISH)
+                .withTags(VALID_TAG_FRIDGE)
+                .withQuantity("3")
                 .build();
         expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_QUANTITY_SUCCESS,
                 quantityToDeduct.toString(), targetXpireItem);

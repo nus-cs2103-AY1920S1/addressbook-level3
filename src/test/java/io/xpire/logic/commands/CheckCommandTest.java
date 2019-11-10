@@ -1,11 +1,10 @@
 package io.xpire.logic.commands;
 
-import static io.xpire.logic.commands.CheckCommand.MESSAGE_SUCCESS;
 import static io.xpire.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static io.xpire.testutil.TypicalItems.EXPIRED_APPLE;
-import static io.xpire.testutil.TypicalItems.EXPIRED_MILK;
-import static io.xpire.testutil.TypicalItems.EXPIRED_ORANGE;
-import static io.xpire.testutil.TypicalItems.EXPIRING_FISH;
+import static io.xpire.testutil.TypicalItems.APPLE;
+import static io.xpire.testutil.TypicalItems.GRAPE;
+import static io.xpire.testutil.TypicalItems.HONEY;
+import static io.xpire.testutil.TypicalItems.ICE_CREAM;
 import static io.xpire.testutil.TypicalItems.getTypicalLists;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,23 +32,23 @@ public class CheckCommandTest {
 
     @Test
     public void execute_checkReminder_success() {
-        String expectedMessage = MESSAGE_SUCCESS;
         ReminderThresholdExceededPredicate predicate = new ReminderThresholdExceededPredicate();
         CheckCommand command = new CheckCommand(predicate);
+        String expectedMessage = command.getMessage();
         expectedModel.filterCurrentList(ListType.XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRING_FISH, EXPIRED_MILK, EXPIRED_ORANGE),
+        assertEquals(Arrays.asList(GRAPE, HONEY, ICE_CREAM),
                 model.getCurrentList());
     }
 
     @Test
     public void execute_checkDays_success() {
-        String expectedMessage = MESSAGE_SUCCESS;
-        ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(5);
-        CheckCommand command = new CheckCommand(predicate, 5);
+        ExpiringSoonPredicate predicate = new ExpiringSoonPredicate(20);
+        CheckCommand command = new CheckCommand(predicate, 20);
+        String expectedMessage = command.getMessage();
         expectedModel.filterCurrentList(ListType.XPIRE, predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(EXPIRED_APPLE, EXPIRED_MILK, EXPIRED_ORANGE), model.getCurrentList());
+        assertEquals(Arrays.asList(APPLE, GRAPE, HONEY, ICE_CREAM), model.getCurrentList());
     }
 
     @Test

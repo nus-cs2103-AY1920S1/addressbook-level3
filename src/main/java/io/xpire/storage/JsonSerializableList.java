@@ -38,10 +38,14 @@ public class JsonSerializableList {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableXpire}.
      */
-    public JsonSerializableList(ReadOnlyListView<? extends Item>[] source) {
-        xpireItems.addAll(source[0].getItemList().stream().map(x-> (XpireItem) x).map(JsonAdaptedXpireItem::new)
+    @SuppressWarnings("unchecked")
+    public JsonSerializableList(ReadOnlyListView[] source) {
+        ReadOnlyListView<XpireItem> xpirelist = (ReadOnlyListView<XpireItem>) source[0];
+        ReadOnlyListView<Item> replenishlist = (ReadOnlyListView<Item>) source[1];
+        xpireItems.addAll(xpirelist.getItemList().stream().map(JsonAdaptedXpireItem::new)
                 .collect(Collectors.toList()));
-        replenishItems.addAll(source[1].getItemList().stream().map(JsonAdaptedItem::new).collect(Collectors.toList()));
+        replenishItems.addAll(replenishlist.getItemList()
+                .stream().map(JsonAdaptedItem::new).collect(Collectors.toList()));
     }
 
     /**

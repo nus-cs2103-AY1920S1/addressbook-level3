@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.commons.util.CollectionUtil;
+import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
@@ -48,8 +49,8 @@ public class TagCommand extends Command {
     public static final String MESSAGE_TAG_ITEM_SUCCESS = "Tagged item: %1$s";
     public static final String MESSAGE_TAG_SHOW_SUCCESS = "All item tags:";
     public static final String MESSAGE_TAG_SHOW_FAILURE = "There are no tags.";
-    private static final String MESSAGE_TOO_MANY_TAGS = "Only 5 tags are allowed per item.";
-    private static final String MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING = "Warning! "
+    public static final String MESSAGE_TOO_MANY_TAGS = "Only 5 tags are allowed per item.";
+    public static final String MESSAGE_TAG_ITEM_SUCCESS_TRUNCATION_WARNING = "Warning! "
             + "Some tag(s) have been truncated. Maximum tag length accepted is 20.\nTagged item: %1$s";
 
     private final Index index;
@@ -71,7 +72,10 @@ public class TagCommand extends Command {
     public TagCommand(ListType listType, Index index, String[] str) {
         this.index = index;
         this.tagItemDescriptor = new TagItemDescriptor();
-        this.tagItemDescriptor.setTags(Arrays.stream(str).map(Tag::new).collect(Collectors.toSet()));
+        this.tagItemDescriptor.setTags(Arrays.stream(str)
+                .map(StringUtil::convertToSentenceCase)
+                .map(Tag::new)
+                .collect(Collectors.toSet()));
         this.mode = TagMode.TAG;
         this.listType = listType;
     }
@@ -142,6 +146,7 @@ public class TagCommand extends Command {
         } else {
             taggedItem = createTaggedReplenishItem(itemToTag, this.tagItemDescriptor);
         }
+
         stateManager.saveState(new ModifiedState(model));
         model.setItem(this.listType, itemToTag, taggedItem);
 

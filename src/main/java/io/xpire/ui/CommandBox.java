@@ -130,7 +130,7 @@ public class CommandBox extends UiPart<Region> {
             }
             return c;
         };
-        this.commandTextField.setTextFormatter(new TextFormatter(modifyChange));
+        this.commandTextField.setTextFormatter(new TextFormatter<>(modifyChange));
     }
 
     /**

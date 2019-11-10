@@ -1,8 +1,8 @@
 package io.xpire.model.item;
 
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_APPLE;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_BANANA;
-import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_EXPIRING_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_EGG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_GRAPE;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,10 +23,10 @@ public class QuantityTest {
         assertFalse(VALID_QUANTITY_APPLE.equals(null));
 
         //different object, same quantity -> returns true
-        assertTrue(VALID_QUANTITY_APPLE.equals(VALID_QUANTITY_EXPIRING_FISH));
+        assertTrue(VALID_QUANTITY_APPLE.equals(VALID_QUANTITY_GRAPE));
 
         //different object, different quantity -> returns false
-        assertFalse(VALID_QUANTITY_APPLE.equals(VALID_QUANTITY_BANANA));
+        assertFalse(VALID_QUANTITY_APPLE.equals(VALID_QUANTITY_EGG));
     }
 
     @Test

@@ -27,8 +27,11 @@ import io.xpire.testutil.Assert;
  */
 public class CommandTestUtil {
 
-    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
-    private static StateManager stateManager = new StackManager();
+    private static StateManager stateManager;
+
+    private static void initialise() {
+        stateManager = new StackManager();
+    }
 
     /**
      * Executes the given {@code command}, confirms that <br>
@@ -47,11 +50,28 @@ public class CommandTestUtil {
     }
 
     /**
+     * Executes the given {@code command} while taking in a modified StateManager, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+                                            Model expectedModel, StateManager stateManager) {
+        try {
+            CommandResult result = command.execute(actualModel, stateManager);
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException | ParseException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
+        initialise();
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -65,6 +85,7 @@ public class CommandTestUtil {
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
+        initialise();
         Xpire expectedXpire = new Xpire(actualModel.getLists()[0]);
         @SuppressWarnings ("unchecked")
         List<XpireItem> expectedFilteredList = new ArrayList<>((Collection<XpireItem>) actualModel.getCurrentList());
@@ -100,6 +121,14 @@ public class CommandTestUtil {
         final String[] splitName = replenishItem.getName().toString().split("\\s+");
         model.filterCurrentList(REPLENISH, new ContainsKeywordsPredicate(Arrays.asList(splitName[0])));
         assertEquals(1, model.getCurrentList().size());
+    }
+
+    /**
+     * Executes given command and returns the updated stateManager.
+     */
+    public static void executeCommandAndUpdateStateManager(Model model, Command command, StateManager stateManager)
+            throws CommandException, ParseException {
+        command.execute(model, stateManager);
     }
 
 }

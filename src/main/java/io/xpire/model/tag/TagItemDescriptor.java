@@ -30,7 +30,7 @@ public class TagItemDescriptor {
         }
     }
 
-    public Set<Tag>getTags() {
+    public Set<Tag> getTags() {
         return (this.tags != null) ? Collections.unmodifiableSet(this.tags) : null;
     }
 

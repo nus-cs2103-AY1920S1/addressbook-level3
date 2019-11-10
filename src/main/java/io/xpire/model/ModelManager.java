@@ -36,7 +36,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given xpire and userPrefs.
      */
-    public ModelManager(ReadOnlyListView<? extends Item>[] lists,
+    public ModelManager(ReadOnlyListView[] lists,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(lists, userPrefs);

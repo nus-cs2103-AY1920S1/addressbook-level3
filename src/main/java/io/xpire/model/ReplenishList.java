@@ -3,7 +3,9 @@ package io.xpire.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import io.xpire.commons.core.LogsCenter;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.SortedUniqueReplenishItemList;
 import io.xpire.model.item.sort.MethodOfSorting;
@@ -15,6 +17,7 @@ import javafx.collections.ObservableList;
  */
 public class ReplenishList implements ReadOnlyListView<Item> {
 
+    private final Logger logger = LogsCenter.getLogger(ReplenishList.class);
     private final SortedUniqueReplenishItemList items = new SortedUniqueReplenishItemList();
 
     public ReplenishList() {
@@ -38,9 +41,14 @@ public class ReplenishList implements ReadOnlyListView<Item> {
     /**
      * Resets the existing data of this {@code ReplenishList} with {@code newData}.
      */
+    @SuppressWarnings("unchecked")
     public void resetData(ReadOnlyListView newData) {
         requireNonNull(newData);
-        this.setItems(newData.getItemList());
+        try {
+            this.setItems(newData.getItemList());
+        } catch (ClassCastException e) {
+            this.logger.warning("Wrong item type for Xpire");
+        }
     }
 
     /**
