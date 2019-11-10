@@ -132,7 +132,6 @@ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/125[#125]).
 They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=UGHelp]
 include::../UserGuide.adoc[tag=UGSet]
 
 == Contributions to the Developer Guide

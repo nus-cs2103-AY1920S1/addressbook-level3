@@ -327,7 +327,7 @@ after the `set` command has been added. The yellow box shows the change to
 the result display as now it shows the current user settings of the application.
 
 .User interface after set to used to view current user sittings
-image::ViewSettingsCommand.png[width=850]
+image::ViewSettingsCommand.png[width=700]
 
 
 
@@ -336,14 +336,14 @@ Sets the loan period to 7 days, renew period to 7 days,
 fine increment to 5 cents per day and maximum renews allowed to 2.
 
 .User interface before set command is executed.
-image::BeforeSetCommand.png[width=850]
+image::BeforeSetCommand.png[width=700]
 
 The figure above shows the user interface before the set
 command is executed. The yellow box shows the set command that
 is being entered.
 
 .User interface after set command is executed.
-image::AfterSetCommand.png[width=850]
+image::AfterSetCommand.png[width=700]
 
 After entering the set command, the user settings would be updated.
 The updated user settings will then be displayed in the result display

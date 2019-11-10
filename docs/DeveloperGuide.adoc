@@ -1572,7 +1572,7 @@ one of the commands above. This is done to ensure that the user
 do not accidentally modify books that have been loaned out and
 that payments are not refundable.
 
-=== Redoing undone command
+==== Redoing undone command
 
 . Redoing an undone commands.
 
