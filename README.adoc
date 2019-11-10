@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-T17-2/main[image:https://travis-ci.org/AY1920S1-CS2103T-T17-2/main.svg?branch=master[Build Status]]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::https://raw.githubusercontent.com/AY1920S1-CS2103T-T17-2/main/master/docs/images/Ui.png[width="600"]
 endif::[]
 
 Hey you! Yes you! Do you like travelling around the world but find it hard to manage your expenses while travelling abroad?

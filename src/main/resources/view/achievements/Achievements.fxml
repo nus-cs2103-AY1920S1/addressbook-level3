@@ -20,10 +20,13 @@
                   <HBox>
                   </HBox>
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </VBox>
          </content>
          <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
+            <Insets />
          </BorderPane.margin>
     </ScrollPane>
   </center>
