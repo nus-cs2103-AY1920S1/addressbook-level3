@@ -627,7 +627,8 @@ Marks the item at index 2 as bought and sets its expiry date as 3rd November, 20
 
 ==== Add bought items: `slist mergebought`
 
-Adds all items marked as ‘bought’ to the grocery list.
+This command represents a user moving all the bought items into the fridge.
+It adds all items marked as ‘bought’ to the grocery list.
 Format: `slist mergebought`
 
 ****
