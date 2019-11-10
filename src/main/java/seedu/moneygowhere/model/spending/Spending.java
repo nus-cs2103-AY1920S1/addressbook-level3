@@ -76,7 +76,8 @@ public class Spending {
 
         return otherSpending != null
                 && otherSpending.getName().equals(getName())
-                && (otherSpending.getDate().equals(getDate()) || otherSpending.getRemark().equals(getRemark()));
+                && otherSpending.getCost().equals(getCost())
+                && otherSpending.getDate().equals(getDate());
     }
 
     /**

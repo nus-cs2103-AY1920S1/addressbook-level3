@@ -3,7 +3,7 @@ package seedu.moneygowhere.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_COST_BOB;
+import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
 import static seedu.moneygowhere.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.APPLE;
@@ -34,85 +34,85 @@ import seedu.moneygowhere.testutil.SpendingBuilder;
 
 public class SpendingBookTest {
 
-    private final SpendingBook addressBook = new SpendingBook();
+    private final SpendingBook spendingBook = new SpendingBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getSpendingList());
-        assertEquals(Collections.emptyList(), addressBook.getReminderList());
-        assertEquals(new Budget(1000), addressBook.getBudget());
+        assertEquals(Collections.emptyList(), spendingBook.getSpendingList());
+        assertEquals(Collections.emptyList(), spendingBook.getReminderList());
+        assertEquals(new Budget(1000), spendingBook.getBudget());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
+        assertThrows(NullPointerException.class, () -> spendingBook.resetData(null));
     }
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
         SpendingBook newData = getTypicalSpendingBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        spendingBook.resetData(newData);
+        assertEquals(newData, spendingBook);
     }
 
     @Test
     public void hasSpending_nullSpending_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasSpending(null));
+        assertThrows(NullPointerException.class, () -> spendingBook.hasSpending(null));
     }
 
     @Test
     public void hasReminder_nullReminder_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> addressBook.hasReminder(null));
+        assertThrows(NullPointerException.class, () -> spendingBook.hasReminder(null));
     }
 
     @Test
     public void hasSpending_spendingNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasSpending(APPLE));
+        assertFalse(spendingBook.hasSpending(APPLE));
     }
 
     @Test
     public void hasReminder_reminderNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasReminder(BILL_REMINDER));
+        assertFalse(spendingBook.hasReminder(BILL_REMINDER));
     }
 
     @Test
     public void hasSpending_spendingInAddressBook_returnsTrue() {
-        addressBook.addSpending(APPLE);
-        assertTrue(addressBook.hasSpending(APPLE));
+        spendingBook.addSpending(APPLE);
+        assertTrue(spendingBook.hasSpending(APPLE));
 
         List<Spending> spendings = new ArrayList<>(Arrays.asList(BANANA, CATFOOD, DESSERT));
-        addressBook.addSpending(spendings);
+        spendingBook.addSpending(spendings);
 
-        assertTrue(addressBook.hasSpending(BANANA));
-        assertTrue(addressBook.hasSpending(CATFOOD));
-        assertTrue(addressBook.hasSpending(DESSERT));
+        assertTrue(spendingBook.hasSpending(BANANA));
+        assertTrue(spendingBook.hasSpending(CATFOOD));
+        assertTrue(spendingBook.hasSpending(DESSERT));
 
     }
 
     @Test
     public void hasReminder_reminderInAddressBook_returnsTrue() {
-        addressBook.addReminder(BILL_REMINDER);
-        assertTrue(addressBook.hasReminder(BILL_REMINDER));
+        spendingBook.addReminder(BILL_REMINDER);
+        assertTrue(spendingBook.hasReminder(BILL_REMINDER));
     }
 
     @Test
     public void hasSpending_spendingWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addSpending(APPLE);
-        Spending editedAlice = new SpendingBuilder(APPLE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+        spendingBook.addSpending(APPLE);
+        Spending editedAlice = new SpendingBuilder(APPLE).withRemark(VALID_REMARK_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasSpending(editedAlice));
+        assertTrue(spendingBook.hasSpending(editedAlice));
     }
 
     @Test
     public void getSpendingList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> addressBook.getSpendingList().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> spendingBook.getSpendingList().remove(0));
     }
 
     @Test
     public void setBudget_validInput_success() {
         Budget budget = new Budget(1000);
-        addressBook.setBudget(budget);
-        assertTrue(addressBook.getBudget().equals(budget));
+        spendingBook.setBudget(budget);
+        assertTrue(spendingBook.getBudget().equals(budget));
     }
 
     /**

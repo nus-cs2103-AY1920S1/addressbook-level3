@@ -66,8 +66,8 @@ public class EditSpendingDescriptorBuilder {
     /**
      * Sets the {@code Cost} of the {@code EditPersonDescriptor} that we are building.
      */
-    public EditSpendingDescriptorBuilder withCost(String address) {
-        descriptor.setCost(new Cost(address));
+    public EditSpendingDescriptorBuilder withCost(String cost) {
+        descriptor.setCost(new Cost(cost));
         return this;
     }
 
