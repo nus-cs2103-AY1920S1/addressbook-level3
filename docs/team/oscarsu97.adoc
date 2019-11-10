@@ -5,6 +5,8 @@
 
 == PROJECT: Plan²travel
 
+*_Plan²travel_* Github link: https://ay1920s1-cs2103t-t09-1.github.io/main/
+
 ---
 
 == Overview
@@ -14,6 +16,9 @@ It has a GUI created with JavaFX and user would interacts with it through a CLI 
 *_Plan²travel_* allows students to better organise their trip information by providing them with a template with these three main list: accommodation, contact and activity list.
 Also, *_Plan²travel_* is able to generate a best suited schedule based on the student's requirement and optimise their budget spending for a trip.
 
+Below is a screenshot of our application:
+
+image::../images/Plan2TravelSS.png[]
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to generate a suitable schedule based on user's requirement*
@@ -39,33 +44,15 @@ Therefore, this command is crucial in allowing user to input activity into a par
 ** Highlights:
 . This enhancement requires an understanding of how a typical activity should consist of so that it does not violate the law of demeter.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=oscarsu97[RepoSense Report]]
-
-////
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-////
-
-
 * *Other contributions*:
-
-
-////
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Enhancement to existing features:
+*** Wrote test for exisiting feature to improve coverage https://github.com/AY1920S1-CS2103T-T09-1/main/pull/106[#106]https://github.com/AY1920S1-CS2103T-T09-1/main/pull/216[#216]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-////
+*** Over 20 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aoscarsu97[Pull Requests] on Github
+*** Over 20 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
+*** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=oscarsu97[here]
 
 
 == Contributions to the User Guide
@@ -75,9 +62,6 @@ Therefore, this command is crucial in allowing user to input activity into a par
 |===
 
 include::../UserGuide.adoc[tag=schedule]
-
----
-
 include::../UserGuide.adoc[tag=autoschedule]
 
 == Contributions to the Developer Guide
@@ -87,9 +71,5 @@ include::../UserGuide.adoc[tag=autoschedule]
 |===
 
 include::../DeveloperGuide.adoc[tag=uicomponent]
-
----
-
 include::../DeveloperGuide.adoc[tag=scheduleactivity]
-
----
+include::../DeveloperGuide.adoc[tag=autoschedule]

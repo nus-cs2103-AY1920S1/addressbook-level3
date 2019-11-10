@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "**:LogicManager**" as LogicManager LOGIC_COLOR
+participant "**:PlannerParser**" as PlannerParser LOGIC_COLOR
+participant "**:AutoScheduleCommandParser**" as AutoScheduleCommandParser LOGIC_COLOR
+participant "**a:AutoScheduleCommand**" as AutoScheduleCommand LOGIC_COLOR
+end box
+
+[-> LogicManager : **execute("autoschedule t/shopping 1000 t/sightseeing t/dining a/Tokyo d/1")**
+activate LogicManager
+
+LogicManager -> PlannerParser : **parseCommand("autoschedule t/shopping 1000 t/sightseeing t/dining a/Tokyo d/1")**
+activate PlannerParser
+
+create AutoScheduleCommandParser
+PlannerParser -> AutoScheduleCommandParser
+activate AutoScheduleCommandParser
+
+AutoScheduleCommandParser --> PlannerParser
+deactivate AutoScheduleCommandParser
+
+PlannerParser -> AutoScheduleCommandParser : **parse("t/shopping 1000 t/sightseeing t/dining a/Tokyo d/1")**
+activate AutoScheduleCommandParser
+
+create AutoScheduleCommand
+AutoScheduleCommandParser -> AutoScheduleCommand
+activate AutoScheduleCommand
+
+AutoScheduleCommand --> AutoScheduleCommandParser : **a**
+deactivate AutoScheduleCommand
+
+AutoScheduleCommandParser --> PlannerParser : **a**
+deactivate AutoScheduleCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AutoScheduleCommandParser -[hidden]-> PlannerParser
+destroy AutoScheduleCommandParser
+
+PlannerParser --> LogicManager : **a**
+deactivate PlannerParser
+
+@enduml
