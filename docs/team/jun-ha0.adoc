@@ -4,10 +4,9 @@
 :imagesDir: ../images
 :stylesDir: stylesheets
 :bl: pass:[ +]
-:xrefstyle: full
 :experimental:
 
-[PROFILE]
+
 ====
 --
 image::jun-ha0.png[width="130", align="left"]
