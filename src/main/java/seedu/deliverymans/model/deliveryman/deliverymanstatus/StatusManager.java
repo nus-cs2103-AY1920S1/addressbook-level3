@@ -188,16 +188,20 @@ public class StatusManager {
      * Assigns new status tag to a deliveryman.
      */
     public Deliveryman assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
+        Deliveryman updatedDeliveryman;
         switch (strNewStatus) {
         case "AVAILABLE":
-            availableMen.add(deliveryman);
-            return deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getAvailableTag());
+            availableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         case "UNAVAILABLE":
-            unavailableMen.add(deliveryman);
-            return deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getUnavailableTag());
+            unavailableMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         case "DELIVERING":
-            deliveringMen.add(deliveryman);
-            return deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
+            updatedDeliveryman = deliveryman.setStatusTo(UniqueStatusList.getDeliveringTag());
+            deliveringMen.add(updatedDeliveryman);
+            return updatedDeliveryman;
         default:
             return deliveryman;
         }
