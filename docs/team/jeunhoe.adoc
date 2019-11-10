@@ -135,12 +135,17 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/187[#187])
 
 
 == Contributions to the user guide
-This section displays my contributions to the user guide for the training and attendance features. They showcase my
-ability to write documentation targeting end-users of our application.
+This section displays excerpts of my contributions to the user guide for the training and attendance features. They
+showcase my ability to write documentation targeting end-users of our application.
 
 {Start of extract from User Guide}
 
-include::../UserGuide.adoc[tag=training]
+include::../UserGuide.adoc[tag=training_intro]
+
+include::../UserGuide.adoc[tag=training_absent]
+
+include::../UserGuide.adoc[tag=view_attendance_command]
+
 
 {End of extract from User Guide}
 
