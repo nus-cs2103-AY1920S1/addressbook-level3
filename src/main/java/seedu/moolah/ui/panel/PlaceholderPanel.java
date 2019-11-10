@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 /**
- * Placeholder Panel for to represent null Panel instances.
+ * Placeholder Panel for to represent empty Panel instances.
  */
 public class PlaceholderPanel extends Panel {
 

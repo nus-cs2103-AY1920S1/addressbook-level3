@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
-
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <center>
         <AnchorPane fx:id="expenseCardPane">
             <children>
@@ -26,6 +25,7 @@
                     <Circle fx:id="iconBackground" fill="WHITE" radius="30.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" translateX="-20.0" translateY="-20.0" />
                     <Label fx:id="description" text="Label" textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" />
                     <Label fx:id="price" alignment="CENTER_RIGHT" minWidth="-Infinity" text="\$price" textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowSpan="2147483647" />
+                    <Label fx:id="uniqueId" visible="false" maxWidth="0.0" maxHeight="0.0"/>
                     <FlowPane fx:id="categories" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
                         <children>

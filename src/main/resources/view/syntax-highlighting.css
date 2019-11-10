@@ -1,4 +1,4 @@
-#SyntaxBox {
+#SyntaxHighlightingTextField {
     -fx-font-size: 20px;
     -fx-font-family: "Droid Sans Mono";
 }
@@ -20,6 +20,16 @@
 .placeholder {
     -fx-fill: black;
     -rtfx-background-color: lightgrey;
+}
+
+.prefix0 {
+    -fx-font-weight: bold;
+
+    -fx-fill: #c978cc;
+}
+
+.arg0 {
+    -fx-fill: #c978cc;
 }
 
 .prefix1 {
@@ -50,14 +60,4 @@
 
 .arg3 {
     -fx-fill: #a24400;
-}
-
-.prefix4 {
-    -fx-font-weight: bold;
-
-    -fx-fill: #c978cc;
-}
-
-.arg4 {
-    -fx-fill: #c978cc;
 }

@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
-
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
     <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" />
 </StackPane>

@@ -13,7 +13,7 @@ import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.alias.Alias;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 /**
  * Create an alias for common user input.
@@ -72,7 +72,7 @@ public class AddAliasCommand extends UndoableCommand {
 
         model.addUserAlias(toAdd);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, toAdd.getAliasName()), AliasPanel.PANEL_NAME);
+                String.format(MESSAGE_SUCCESS, toAdd.getAliasName()), AliasListPanel.PANEL_NAME);
     }
 
     @Override

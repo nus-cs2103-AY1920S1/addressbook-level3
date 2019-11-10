@@ -91,7 +91,7 @@ import seedu.moolah.model.statistics.PieChartStatistics;
 import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.model.statistics.TabularStatistics;
 import seedu.moolah.model.statistics.TrendStatistics;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 import seedu.moolah.ui.budget.BudgetListPanel;
 import seedu.moolah.ui.budget.BudgetPanel;
 import seedu.moolah.ui.event.EventListPanel;
@@ -100,6 +100,7 @@ import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
+import seedu.moolah.ui.textfield.CommandBox;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -227,7 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         // fill single panel view
         singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
 
-        singlePanelView.setPanel(AliasPanel.PANEL_NAME, new AliasPanel(logic.getAliasMappings()));
+        singlePanelView.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
         singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
                 new ExpenseListPanel(logic.getFilteredExpenseList(), true));
         singlePanelView.setPanel(BudgetListPanel.PANEL_NAME,
@@ -253,8 +254,6 @@ public class MainWindow extends UiPart<Stage> {
      */
 
     private void enableSyntaxHighlighting() {
-        commandBox.importSyntaxStyleSheet(getRoot().getScene());
-
         // expense commands
         commandBox.enableSuggestionAndSyntaxHighlightingFor(
                 AddExpenseCommand.COMMAND_WORD,
@@ -395,8 +394,6 @@ public class MainWindow extends UiPart<Stage> {
                 ClearCommand.COMMAND_WORD,
                 Collections.emptyList(),
                 Collections.emptyList());
-
-        commandBox.enableSyntaxHighlighting();
     }
 
     /**
@@ -418,10 +415,21 @@ public class MainWindow extends UiPart<Stage> {
      * @throws UnmappedPanelException if there is no Panel assigned to the specified Panel Name.
      */
     void changePanel(PanelName panelName) throws UnmappedPanelException {
-        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
         configureGenericCommands(panelName);
 
-        if (panelName.equals(StatsPanel.PANEL_NAME)) {
+        if (panelName.equals(AliasListPanel.PANEL_NAME)) {
+            singlePanelView.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
+        } else if (panelName.equals(BudgetPanel.PANEL_NAME)) {
+            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+        //} else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
+        //    singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, new BudgetListPanel(logic.getFilteredBudgetList()));
+        //} else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
+        //    singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
+        //            new ExpenseListPanel(logic.getFilteredExpenseList(), true));
+        //} else if (panelName.equals(EventListPanel.PANEL_NAME)) {
+        //    singlePanelView.setPanel(EventListPanel.PANEL_NAME,
+        //            new EventListPanel(logic.getFilteredEventList(), true));
+        } else if (panelName.equals(StatsPanel.PANEL_NAME)) {
             try {
                 populateStatisticsPanel();
             } catch (NullPointerException e) {
@@ -463,8 +471,6 @@ public class MainWindow extends UiPart<Stage> {
 
         }
     }
-
-
 
 
     /**
@@ -536,7 +542,7 @@ public class MainWindow extends UiPart<Stage> {
                     Collections.emptyList(),
                     Collections.emptyList());
 
-        } else if (panelName.equals(AliasPanel.PANEL_NAME)) {
+        } else if (panelName.equals(AliasListPanel.PANEL_NAME)) {
             commandBox.enableSuggestionAndSyntaxHighlightingFor(
                     GenericCommandWord.ADD,
                     AddAliasCommandParser.REQUIRED_PREFIXES,
@@ -600,8 +606,6 @@ public class MainWindow extends UiPart<Stage> {
             String commandGroup = decideCommandGroup();
             CommandResult commandResult = logic.execute(commandText, commandGroup);
 
-            singlePanelView.setPanel(AliasPanel.PANEL_NAME, new AliasPanel(logic.getAliasMappings()));
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
             changePanel(commandResult.viewRequest());
 
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -642,7 +646,7 @@ public class MainWindow extends UiPart<Stage> {
             return CommandGroup.EXPENSE;
         } else if (EventListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.EVENT;
-        } else if (AliasPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (AliasListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.ALIAS;
         } else if (StatsPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
             return CommandGroup.STATISTIC;

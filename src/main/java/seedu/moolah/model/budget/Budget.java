@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Price;

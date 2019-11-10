@@ -1,0 +1,46 @@
+@startuml
+
+
+
+interface Statistics {
+~getTitle():String
+~setTitle(title: String)
+~populateData()
+}
+
+class PieChartStatistics {
+-Timestamp: startDate
+-Timestamp: endDate
+-ObservableList<Expense>: expenses
+-String: title
+-List<String>: formattedCategories
+-List<Double>: formattedPercentages
+-List<Category>: budgetCategories
+
++List<String>: getFormattedCategories()
++List<Double>: getFormattedPercentages()
++String: toString()
++Timestamp: getStartDate()
++Timestamp: getEndDate()
+-generatePieChartData()
+-generatePercentages(ArrayList<ArrayList<Expense>>, ArrayList<Double>, ArrayList<Integer>, ArrayList<String>,String)
+-extractRelevantExpenses(Timestamp,Timestamp)
+-List<Category> collateBudgetCategories(ObservableList<Expense>)
+}
+
+class TabularStatistics {
+-WIP
+}
+class TrendStatistics {
+-WIP
+}
+
+
+
+Statistics <|-- PieChartStatistics
+Statistics <|-- TabularStatistics
+Statistics <|-- TrendStatistics
+
+
+
+@enduml

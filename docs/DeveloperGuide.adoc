@@ -597,74 +597,101 @@ the user's decision) that can then be added as expenses when their due dates are
 // tag::statsdg[]
 === Statistics Feature
 
-The statistics feature is facilitated by the `Statistics` class, which is part of the `model` package.
-Its main purpose is to allow users to have an alternative view for the entries in `MooLah`. The
-main entries that `Statistics` interacts with are `Expense` and `Budget`, and the metrics chosen to be displayed
-are handled mainly by `Statistics#calculateStatistics()`. The method recognises command words such as
-`stats`, `statscompare` and `statstrend`, where each results in a different visual representation and represents
-a different use case.
+The statistics feature allows users to have an alternative view for the entries in `MooLah`.
+It is facilitated by the `Statistics` interface, which is part of the `model` package, and is implemented by 3 classes
+`PieChartStatistics`, `TabularStatistics` and `TrendStatistics`. Each of the implementing classes will be invoked when
+their respective parsers detect its corresponding command word, which is `statsbasic`, `statscompare` and `statstrend`.
+The prefix configurations vary greatly between them as well as the visual representation they create.
 
-The final outcome of these interactions are reflected directly in `MainWindow`, as a popup whenever the command is received
-by the command line.
+Given below is a class diagram to summarise the relationship between `Statistics` and its implementing classes.
 
-NOTE: Ideally, it should result in an `Undo`-able page-transition instead of a popup to ensure better integration with the rest of the application.
 
-==== `stats`
+image::StatisticsClassDiagram.png[]
+
+
+The main entries that `Statistics` interacts with are `Expense` class and the `Budget` class. The entire statistics features only
+supports the generating of statistics from only the current budget and responds to the different methods called by
+the current `Budget` object. Every successful interaction will force a switch to the `Statistics Panel`, where each of
+their different visual representations will be generated.
+
+The following activity diagram summarizes how statistics are shown from a current budget after possible user inputs
+to modify the attributes of the budget.
+
+
+image::StatisticsClassDiagram.png[]
+
+In the following sections, the implementation details of one of the more complicated command words will be discussed,
+as well as its design considerations.
+
+
+==== `statsbasic`
 
 ===== Implementation
 
-The purpose of the `stats` command word is to request `MooLah` to visualise the total expenditure across
+The purpose of the `statsbasic` command word is to request `MooLah` to visualise the total expenditure across
 expenses of different categories as a percentage of the total expenditure of all expenses tracked under the budget
 where the command is called. The visual representation used here will be a PieChart.
 
-Given below is an example usage scenario and how the `stats` command word is handled by `MooLah`.
+Given below is an example usage scenario and how the `statsbasic` command word is handled by `MooLah`.
 
 
-Step 1. The user enters the command `stats sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
+
+Step 1. The user enters the command `statsbasic sd/01-10-2019 ed/01-11-2019` to visualise the total percentage of each category
 as a percentage of total expenditure across all categories, in the primary budget.
-The command is received by `AddressBookParser`, which then creates a `StatsCommandParser` object,
+The command is received by `MooLahParser`, which then creates a `StatsCommandParser` object,
 to subsequently help to parse the input by the user.
 
 Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019 ed/01-11-2019")`,
-which in turns calls `ArgumentTokenizer.tokenize("sd/01-10-2019 ed/01-11-2019", PREFIX_START_DATE, PREFIX_END_DATE)` to
+which in turns calls `ArgumentTokenizer#tokenize("sd/01-10-2019 ed/01-11-2019", PREFIX_START_DATE, PREFIX_END_DATE)` to
 split the arguments into its preamble(the start date and end date). This returns an `ArgumentMultimap` object, `argMultimap` containing the split input.
 
-Step 3. The `StatsCommandParser` object calls `ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())` which parses the arguments to get the start date.
+Step 3. The `StatsCommandParser` object calls `ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())` which parses the arguments to get the start date.
 The date, that is present in this example, is parsed into the correct form and the end date is obtained similarly with
-`ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get())`.
-A `StatsCommand` object containing the start date and end date is created and returned to the `LogicManager`.
+`ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_END_DATE)#get())`.
+A `StatsDescriptor` object `desc`, eventually containing the start date and end date is created, and a `StatsCommand` object `cmd` will
+be created with `desc`, which will be returned to the `LogicManager`.
 
-Step 4. The LogicManager calls `StatsCommand.execute()`, which calls `Model#getFilteredExpenseList()` to retrieve the list of expenses stored in MooLah.
-The correct `Statistics` object, `statistics`, will be created with `startStatistic` and the `calculateStats` method, will switch to the correct mode,
-to produce the correct feedback to the user, as well as update the attributes in `statistics`.
+NOTE: By right Steps 2 to 3 should be still described in this sequence, but the descriptor details should be abstracted from the main UML.
 
-Step 5. Percentages, categories and the title description of the `Statistics` will be used to create the `CommandResult` object,
-which is returned to the `LogicManager` and subsequently to the UI where a popup in the form of a pie chart will be generated.
+Step 4. The `LogicManager` calls `StatsCommand#execute()`, which calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+The `PieChartStatistics` object `statistics`, will be created with `createPieChartStatistics', after which it will called its implemented method
+`populate()` to fill in the `attributes` required by the `Statistics Panel`.
+
+NOTE: As `populate()` is a method specified by the Statistics interface, need to show it in the main UML. It may be good to wrap
+
+Step 5. `ModelManager` calls `setStatistics(statistics)` which updates the `Statistics` attribute in ModelManager.
+
+Step 6. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+to the `Statistics Panel` where a Pie Chart will be generated.
 
 
-The following sequence diagram shows how the `stats` operation works:
+
+
+
+The following sequence diagram shows how the `statsbasic` operation works:
 
 image::BasicStatisticsCommand.png[]
 
 Figure 1. Sequence Diagram for executing a `StatsCommand`
 
 
-The following reference diagram shows how `StatsCommandParser` decides on the user's start date and end date for the different cases.
-This is used mainly to illustrate the interactions in Steps 2 to 3.
+The following reference diagram shows how `StatsCommandParser` handle optional start date and end date entries
+before creating a `StatsCommand`. This is used mainly to illustrate the interactions in Steps 2 to 3.
+
 
 image::StatsCommandParser.png[]
 
 Figure 2. Reference Diagram for deciding start date and end date for a `StatsCommand`
 
 
-NOTE: As of Week 10, the design of `StatsCommand.execute()` in Step 4 is still a work in progress because of concurrent refactoring, developing command words
+NOTE: As of Week 10, the design of `StatsCommand#execute()` in Step 4 is still a work in progress because of concurrent refactoring, developing command words
 and other dependencies due to outdated methods that causes a depreciated return type to still be in use. This should be resolved ideally by v1.3.
 
 
 ==== Design Considerations
 
-When designing the interaction of `Statistics#calculateStatistics()` with `stats`, decisions have to be made on the most
-suitable visual representation for `stats` particular use case.
+When designing the interaction of `Statistics#calculateStatistics()` with `statsbasic`, decisions have to be made on the most
+suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view
 ** Pros: Sequential view, can capture number of entries
@@ -687,7 +714,7 @@ NOTE: Once again, this question will be better addressed holistically once all 3
 
 For each of the command words, users will be given the option to choose a Visual Representation method they prefer
 if the use case allows for it, instead of the default option we have prioritised.
-Currently, statistics under `stats` mode can only be displayed in a pie chart,
+Currently, statistics under `statsbasic` mode can only be displayed in a pie chart,
 and users may have different preferences for formats. The current implementation for MooLah
 is such that only expenses up to the current date will be included and any expenses after the current date
 is considered an event, which is not tracked by statistics. The inclusion of events in statistics

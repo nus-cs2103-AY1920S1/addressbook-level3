@@ -11,8 +11,8 @@ import java.util.Objects;
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 800;
-    private static final double DEFAULT_WIDTH = 740;
-    private static final Point DEFAULT_COORDINATE = new Point(0, 0);
+    private static final double DEFAULT_WIDTH = 1254;
+    private static final Point DEFAULT_COORDINATE = new Point(114, 23);
 
     private final double windowWidth;
     private final double windowHeight;

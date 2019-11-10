@@ -8,7 +8,7 @@ import seedu.moolah.logic.commands.GenericCommandWord;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 /**
  * Create an alias for common user input.
@@ -47,7 +47,7 @@ public class DeleteAliasCommand extends UndoableCommand {
     protected CommandResult execute(Model model) {
         requireNonNull(model);
         model.removeAliasWithName(aliasName);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, aliasName), AliasPanel.PANEL_NAME);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, aliasName), AliasListPanel.PANEL_NAME);
     }
 
     @Override
