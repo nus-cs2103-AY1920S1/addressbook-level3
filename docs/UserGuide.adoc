@@ -112,6 +112,7 @@ Category::
 * Implementation: 50/100
 * Project Management: 90/100
 
+//tag::shaun[]
 //tag::shaun-autocomplete[]
 === AutoComplete Function
 
@@ -236,7 +237,6 @@ Clears all questions from the question bank. +
 Format: `clear`
 
 //tag::shaun-restore[]
-
 === Restoring all entries : `restore`
 
 Clears all current questions from the question bank and restores the default questions that were in the original app. +
