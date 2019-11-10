@@ -517,18 +517,6 @@ Format: `redo`
 
 Examples: Undo/Redo optimise budget command
 
-=== Autocomplete
-
-While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
-
-* Autocomplete for commands
-
-image::CommandAutoComplete.png[]
-
-* Autocomplete for prefix
-
-image::PrefixAutoComplete.png[]
-
 * Before optimise
 
 .Day 2 has lots of overlapping activities
@@ -549,6 +537,18 @@ image::AfterUndo.png[]
 .Optimise command successfully redone, no overlaps.
 image::AfterOptimise.png[]
 // end::undoredocommand[]
+
+=== Autocomplete
+
+While typing a command, suggestions from a dropdown menu will appear. The menu can be interacted with using the arrow keys, enter button or the mouse.
+
+* Autocomplete for commands
+
+image::CommandAutoComplete.png[]
+
+* Autocomplete for prefix
+
+image::PrefixAutoComplete.png[]
 
 === Loading the data: `load`[Work in progress]
 
