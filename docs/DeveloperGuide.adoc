@@ -255,6 +255,7 @@ image::ModelCD.png[]
 
 ==== Details on the `Model` Implementation for the Home Tab
 The `Model` of the Home tab:
+
 * stores a `TransactionList` object that represents the list of all transactions data
 * stores a `Predicate<Transaction>` object to filter the list of all transactions
 * stores another `TransactionList` object that represents the filtered list of transactions according to the predicate
@@ -263,6 +264,7 @@ The `Model` of the Home tab:
 
 ==== Details on the `Model` Implementation for the Reimbursements Tab
 The `Model` of the Reimbursment tab:
+
 * stores a `ReimbursementList` object that represents the list of all reimbursements data
 * stores another `ReimbursementList` object that represents the filtered list of reimbursements according to the command
 
@@ -270,6 +272,7 @@ The `Model` of the Reimbursment tab:
 
 ==== Details on the `Model` Implementation for the Members Tab
 The `Model` of the Members tab:
+
 * stores a `UserPref` object that represents the user's preferences for `person` package.
 * stores the Address Book data for `person` package.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -285,6 +288,7 @@ To be filled in :)
 
 ==== Details on the `Model` Implementation for the Cashier Tab
 The `Model` of the Cashier tab:
+
 * stores an `InventoryList` object that represents the list of all items in the inventory
 * stores a list of sales items present on the table of the Cashier tab
 * accesses the `TransactionList` object from transaction package that represents the list of all transactions data
@@ -299,6 +303,7 @@ package access different set of methods which modifies only the quantity of the 
 
 ==== Details on the `Model` Implementation for the Overview Tab
 The `Model` of the Overview tab:
+
 * stores an array of 6 double values representing the budget goal, expense goal, sales goal, budget threshold, expense
 threshold and sales threshold respectively
 * stores three booleans indicating whether notifications for budget, expenses and sales have already been shown, valid
@@ -569,7 +574,6 @@ image::MembersDeleteSD.png[]
 
 Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked
 to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
-
 
 === Reimbursements Tab
 This tab helps to show reimbursements
