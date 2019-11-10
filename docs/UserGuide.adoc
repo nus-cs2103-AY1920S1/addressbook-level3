@@ -233,11 +233,11 @@ Say goodbye to typing errors!
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 ====
 
-==== Viewing help : `help`
+==== View help : `help`
 
 Format: `help`
 
-==== Adding a show: `add`
+==== Add a show: `add`
 
 Adds a show to the watchlist +
 
@@ -260,7 +260,7 @@ Examples:
 * `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
-==== Adding a show from search result page: `add`
+==== Add a show from search result page: `add`
 
 Adds a show from search result page after user has already search for show +
 
@@ -340,7 +340,7 @@ Marks all episodes of the first 5 seasons of the second show as watched.
 Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
 
 // end::watch[]
-==== Editing a show's details : `edit`
+==== Edit a show's details : `edit`
 
 Edits an existing show in the list +
 Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
@@ -382,26 +382,27 @@ Format:
 
 ====
 [TIP]
-To be able to search from watchlist or watched list, do specify `o/no`. +
-To search specifically from watchlist, include `o/no w/no` and to search specifically from watchlist, include `o/no w/yes`. +
+Special commands to take note of: +
+`o/no`: to search from watchlist or watched list +
+`o/no w/no`: to search from watchlist only +
+`o/no w/yes`: to search from watched list only
 
 [TIP]
 For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted. +
 ====
-
+{sp} +
 ====
-[NOTE]
-For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
+Do take note of the following expected command outputs:
+
+* When searching based on actor, only shows from the watchlist will be searched.
+* When searching based on genre online, only movies will be searched.
+* For `[o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
 e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv".
-
-[NOTE]
-Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
-Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
-
-[NOTE]
-When searching based on actor, only shows from the watchlist will be searched. +
-When searching based on genre online, only movies will be searched.
-
+* Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error.
+* Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+====
+{sp} +
+====
 [NOTE]
 The search is case insensitive. e.g "avengers" will match "Avengers". +
 The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
@@ -424,13 +425,9 @@ image::watchedPageWithAvengerEndgame.png[width="790"]
 
 .Entering of the `search` command
 image::searchCommand.png[width="790"]
-
 {sp} +
-
 After you have entered the command, you will be led to the *Search page* as shown below.
-
-{nbsp} +
-
+{sp} +
 .User Interface of the search page
 image::emptySearchPage.png[width="790"]
 
@@ -438,9 +435,7 @@ image::emptySearchPage.png[width="790"]
 [TIP]
 You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
 command, such as the one in Step 2.
-
-{nbsp} +
-
+{sp} +
 [start=2]
 2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
 
