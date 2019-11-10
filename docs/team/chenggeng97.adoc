@@ -11,7 +11,8 @@
 === Project Description
 This is a portfolio that documents my contributions towards a Calendar and Scheduling application called Horo. Horo helps the user maintain a to-do list and to schedule their activities, and is able to post reminders to their desktop.
 
-Here is a screenshot of our application in the default Calendar view. +
+Here is a screenshot of our application in the default Calendar view.
+
 .Horo Calendar view screenshot
 image::HoroPPPScreenshot.png[]
 
