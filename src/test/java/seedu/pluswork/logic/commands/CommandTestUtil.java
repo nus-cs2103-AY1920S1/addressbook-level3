@@ -24,6 +24,7 @@ import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.Task;
 import seedu.pluswork.model.task.TaskStatus;
+import seedu.pluswork.testutil.EditMemberDescriptorBuilder;
 import seedu.pluswork.testutil.EditTaskDescriptorBuilder;
 
 /**
@@ -73,6 +74,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditTaskDescriptor TASK_DESC_FINANCE;
     public static final EditCommand.EditTaskDescriptor TASK_DESC_PUBLICITY;
     public static final EditInventoryCommand.EditInventoryDescriptor INVENTORY_DESC_TOY;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_FINANCE;
+    public static final EditMemberCommand.EditMemberDescriptor MEMBER_DESC_PUBLICITY;
 
     static {
         TASK_DESC_FINANCE = new EditTaskDescriptorBuilder().withName(VALID_TASK_NAME_FINANCE)
@@ -87,6 +90,11 @@ public class CommandTestUtil {
         INVENTORY_DESC_TOY.setPrice(new Price(1));
         INVENTORY_DESC_TOY.setTaskId(new Index(1));
         INVENTORY_DESC_TOY.setMemId(new MemberId("rak"));
+
+        MEMBER_DESC_FINANCE = new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_FINANCE)
+                .withTags(VALID_TAG_FINANCE).build();
+        MEMBER_DESC_PUBLICITY = new EditMemberDescriptorBuilder().withName(VALID_MEMBER_NAME_PUBLICITY)
+                .withTags(VALID_TAG_PUBLICITY).build();
     }
 
     /**
