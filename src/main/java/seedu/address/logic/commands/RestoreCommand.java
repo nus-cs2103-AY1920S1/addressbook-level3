@@ -30,6 +30,7 @@ public class RestoreCommand extends Command {
     private final Index targetIndex;
 
     public RestoreCommand(Index targetIndex) {
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 

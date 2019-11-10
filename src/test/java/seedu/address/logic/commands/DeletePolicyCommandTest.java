@@ -68,7 +68,8 @@ public class DeletePolicyCommandTest {
      */
     @Test
     public void execute_validIndexUnfilteredListWithoutPolicyReference_success() {
-        Policy policyToDelete = modelWithUnreferencedPolicy.getFilteredPolicyList().get(indexOfUnreferencedPolicy.getZeroBased());
+        Policy policyToDelete =
+            modelWithUnreferencedPolicy.getFilteredPolicyList().get(indexOfUnreferencedPolicy.getZeroBased());
         DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(indexOfUnreferencedPolicy);
 
         String expectedMessage = String.format(DeletePolicyCommand.MESSAGE_DELETE_POLICY_SUCCESS, policyToDelete);
@@ -138,7 +139,8 @@ public class DeletePolicyCommandTest {
     public void execute_validIndexFilteredListWithoutPolicyReference_success() {
         showPolicyAtIndex(modelWithUnreferencedPolicy, indexOfUnreferencedPolicy);
 
-        Policy policyToDelete = modelWithUnreferencedPolicy.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
+        Policy policyToDelete =
+            modelWithUnreferencedPolicy.getFilteredPolicyList().get(INDEX_FIRST_POLICY.getZeroBased());
         DeletePolicyCommand deletePolicyCommand = new DeletePolicyCommand(INDEX_FIRST_POLICY);
 
         String expectedMessage = String.format(DeletePolicyCommand.MESSAGE_DELETE_POLICY_SUCCESS, policyToDelete);

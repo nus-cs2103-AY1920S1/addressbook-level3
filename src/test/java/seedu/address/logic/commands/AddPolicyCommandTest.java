@@ -79,7 +79,7 @@ public class AddPolicyCommandTest {
         // null -> returns false
         assertFalse(addHealthCommand.equals(null));
 
-        // different person -> returns false
+        // different policy -> returns false
         assertFalse(addHealthCommand.equals(addFitnessCommand));
     }
 
