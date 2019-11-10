@@ -50,7 +50,7 @@ public class MultipleSortByCond {
      *                       of the sort condition increases in the String array.
      * @return
      */
-    public MultipleCondNoteComparator buildComparator(String[] sortConditions) {
+    private MultipleCondNoteComparator buildComparator(String[] sortConditions) {
         ArrayList<Comparator<Note>> noteComparators = new ArrayList<>();
         for (String sortCond : sortConditions) {
             Comparator<Note> currentComparator = parseSortByCond(sortCond);
@@ -59,11 +59,6 @@ public class MultipleSortByCond {
         return new MultipleCondNoteComparator(noteComparators);
 
     }
-
-    public MultipleCondNoteComparator getSortComparator() {
-        return multipleSortComparator;
-    }
-
 
     /**
      * Gets the Comparator object based on the sorting condition.
@@ -105,10 +100,18 @@ public class MultipleSortByCond {
     }
 
     /**
+     * Checks if given array of string of sort conditions is empty.
+     */
+    private static boolean isEmptySortByCond(String[] sortConditions) {
+        return sortConditions.length == 0;
+    }
+
+    /**
      * Returns true if given string conditions has no duplicates and are correct conditions individually.
      */
     public static boolean isValidSortByConditions(String[] sortConditions) {
-        return !isDuplicateSortByCond(sortConditions) && isValidIndividualSortByCond(sortConditions);
+        return !isDuplicateSortByCond(sortConditions) && isValidIndividualSortByCond(sortConditions)
+                && !isEmptySortByCond(sortConditions);
     }
 
     @Override
@@ -131,7 +134,7 @@ public class MultipleSortByCond {
     /**
      * Comparator class that compares notes based on its NumOfAccess attribute.
      */
-    class MultipleCondNoteComparator implements Comparator<Note> {
+    static class MultipleCondNoteComparator implements Comparator<Note> {
         private final List<Comparator<Note>> comparators;
 
         private MultipleCondNoteComparator(List<Comparator<Note>> comparators) {
@@ -160,7 +163,7 @@ public class MultipleSortByCond {
     /**
      * Comparator class that compares notes based on its NumOfAccess attribute.
      */
-    class SortByNumOfAccess implements Comparator<Note> {
+    static class SortByNumOfAccess implements Comparator<Note> {
         @Override
         public int compare(Note a, Note b) {
             Integer numOfAccessA = Integer.valueOf(a.getNumOfAccess().numOfAccess);
@@ -172,7 +175,7 @@ public class MultipleSortByCond {
     /**
      * Comparator class that compares notes based on its DateModified attribute.
      */
-    class SortByDateModified implements Comparator<Note> {
+    static class SortByDateModified implements Comparator<Note> {
         @Override
         public int compare(Note a, Note b) {
             if (a.getDateModified().value.before(b.getDateModified().value)) {
@@ -188,7 +191,7 @@ public class MultipleSortByCond {
     /**
      * Comparator class that compares notes based on its DateAdded attribute.
      */
-    class SortByDateAdded implements Comparator<Note> {
+    static class SortByDateAdded implements Comparator<Note> {
         @Override
         public int compare(Note a, Note b) {
             if (a.getDateAdded().value.before(b.getDateAdded().value)) {

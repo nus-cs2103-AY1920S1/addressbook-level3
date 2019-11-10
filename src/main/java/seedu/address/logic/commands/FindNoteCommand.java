@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.note.NameContainsKeywordsPredicate;
+import seedu.address.model.note.NoteContainsKeywordsPredicate;
 
 
 /**
@@ -21,9 +21,9 @@ public class FindNoteCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " personal diary";
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final NoteContainsKeywordsPredicate predicate;
 
-    public FindNoteCommand(NameContainsKeywordsPredicate predicate) {
+    public FindNoteCommand(NoteContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

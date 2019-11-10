@@ -38,6 +38,7 @@ public class AddNotesCommand extends Command {
      */
     public AddNotesCommand(Note note, String commandArgs) {
         requireNonNull(note);
+        requireNonNull(commandArgs);
         toAdd = note;
         this.command = COMMAND_WORD + " " + commandArgs;
     }

@@ -100,7 +100,7 @@ public class UniqueNoteList implements Iterable<Note> {
     }
 
     public void sortNotes(MultipleSortByCond sortByConds) {
-        internalList.sort(sortByConds.getSortComparator());
+        internalList.sort(sortByConds.getMultipleSortComparator());
     }
 
     public Index getNoteIndex(Note note) {

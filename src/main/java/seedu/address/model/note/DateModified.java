@@ -26,6 +26,7 @@ public class DateModified {
     public DateModified update() {
         return new DateModified(new Date());
     }
+
     @Override
     public String toString() {
         return DateUtil.formatDate(value);

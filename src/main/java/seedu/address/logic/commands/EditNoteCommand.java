@@ -213,6 +213,8 @@ public class EditNoteCommand extends Command {
             EditNoteDescriptor e = (EditNoteDescriptor) other;
 
             return getTitle().equals(e.getTitle())
+                    && getDescription().equals(e.getDescription())
+                    && getContent().equals(e.getContent())
                     && getTags().equals(e.getTags());
         }
     }

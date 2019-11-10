@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.NameContainsKeywordsPredicate;
+import seedu.address.model.note.NoteContainsKeywordsPredicate;
 
 
 /**
@@ -29,7 +29,7 @@ public class FindNoteCommandParser implements Parser<FindNoteCommand> {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new FindNoteCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new FindNoteCommand(new NoteContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }
