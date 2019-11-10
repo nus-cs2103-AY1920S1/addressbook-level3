@@ -298,18 +298,17 @@ making it consistent with the class diagram of `Book` above.
 
 * **Alternative 1 :** Store them only in a ObservableList as per the original AddressBook implementation.
 ** Pros: Will be easy to implement.
-** Cons: May have performance issues in terms of efficiency in retrieving books.
+** Cons: Iterating through the list of books to retrieve one may be inefficient.
 * **Alternative 2 (current choice):** Store them in a HashMap.
-** Pros: Will be easier (and more readable in code) to retrieve books by serial number.
+** Pros: Will be easier (and more readable ) to retrieve books by serial number.
 ** Cons: Will incur additional memory to maintain the HashMap.
 
-*We have decided to go with Alternative 2.* There is a lot of retrieval of book objects in within the Book and Loan feature.
-Therefore, the benefits of quick retrieval of book information from the catalog will
-outweigh the additional memory costs incurred to maintain the HashMap.
+*We have decided to go with Alternative 2.* There is a lot of retrieval of book objects within the Book and Loan features.
+Therefore, the benefits of quick retrieval of book will outweigh the additional memory costs incurred to maintain the HashMap.
 
 ===== Aspect: Generating a unique serial number.
-Since we allow librarians to provide a valid serial number to new books if they wish so, we cannot generate the serial
-number using the number of books or the largest serial number.
+Since we allow librarians to provide their own valid serial number when adding a book, we cannot use the
+number of books or the largest serial number to generate the next serial number.
 
 * **Alternative 1:** Use a TreeMap to store current serial numbers.
 ** Pros: Will be efficient in generating the next valid serial number.
