@@ -496,6 +496,8 @@ In essence, there are 3 optional fields (only at most one can be used at any tim
 2. `[<cat>CATEGORY_NAME]`
 3. `[<place>PLACE_OF_SPENDING]`
 
+Note that these fields are case-sensitive (e.g. `Spend` entries with category `food` will not match if budget field is specified as `<cat> FOOD`).
+
 There are 3 ways to specify the duration (start, end) of a budget:
 
 1. <start>START_DATE <end>END_DATE
