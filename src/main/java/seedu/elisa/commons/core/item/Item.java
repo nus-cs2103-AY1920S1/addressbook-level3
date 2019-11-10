@@ -362,7 +362,7 @@ public class Item {
             //However this seems to be contrary to the answer in the following link
             //https://stackoverflow.com/questions/12930852/clearing-doubts-about-the-builder-pattern
             //However it seems safer to follow the first as the object fields could be mutated after it has been copied
-            // from the builder to the object.
+            // from the buildYer to the object.
             if (newItem.getItemDescription() == null) {
                 throw new IllegalArgumentException("Description must be provided!");
             }
