@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -163,13 +162,6 @@ public interface Model {
      * @throws NullPointerException if the {@code searchResult} if null.
      */
     void updateSearchResultList(List<Show> searchResult);
-
-    /**
-     * Retrieve a list of Movies from unwatchedlist.
-     * @throws NullPointerException if the {@code searchResult} if null.
-     */
-    ObservableList<Show> getMoviesFromUnWatchedList();
-
     /**
      * Returns a string representing the name of the page.
      */

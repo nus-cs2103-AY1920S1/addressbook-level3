@@ -10,7 +10,6 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
-import seedu.ezwatchlist.model.show.Type;
 
 /**
  * Syncs a result from the search list into the watch list.
@@ -48,13 +47,13 @@ public class SyncCommand extends Command {
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
         Name name = new Name(fromImdb.getName().toString().toLowerCase());
-        String fromIMDBtype = fromImdb.getType();
+        String fromImdbType = fromImdb.getType();
         boolean matchingShowName = false;
         int matchingIndex = -1;
         for (int i = 0; i < unWatchedList.size(); i++) {
             Name nameFromUnWatched = new Name(unWatchedList.get(i).getName().toString().toLowerCase());
             if (name.equals(nameFromUnWatched)) {
-                if (unWatchedList.get(i).getType().equals(fromIMDBtype)) {
+                if (unWatchedList.get(i).getType().equals(fromImdbType)) {
                     matchingShowName = true;
                     matchingIndex = i;
                     break;
@@ -66,7 +65,8 @@ public class SyncCommand extends Command {
             model.setShow(fromUnWatchedList, fromImdb);
             return new CommandResult(String.format(MESSAGE_SUCCESS, fromImdb), true);
         } else {
-            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2 + "\n" + MESSAGE_UNSUCCESSFUL3);
+            throw new CommandException(MESSAGE_UNSUCCESSFUL + " " + MESSAGE_UNSUCCESFUL2
+                    + "\n" + MESSAGE_UNSUCCESSFUL3);
         }
     }
 

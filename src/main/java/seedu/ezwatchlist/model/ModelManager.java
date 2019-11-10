@@ -3,7 +3,6 @@ package seedu.ezwatchlist.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -16,7 +15,6 @@ import seedu.ezwatchlist.commons.core.LogsCenter;
 import seedu.ezwatchlist.commons.util.CollectionUtil;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Genre;
-import seedu.ezwatchlist.model.show.Movie;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
@@ -214,19 +212,6 @@ public class ModelManager implements Model {
     public void updateSearchResultList(List<Show> shows) {
         searchResult.setShows(shows);
         updateFilteredShowList(PREDICATE_ALL_SHOWS);
-    }
-
-    @Override
-    public ObservableList<Show> getMoviesFromUnWatchedList() {
-        FilteredList<Show> unWatchedList = this.unWatchedList;
-        ArrayList<Show> movieList = new ArrayList<>();
-        for(int i = 0 ; i < unWatchedList.size(); i++) {
-            Show show = unWatchedList.get(i);
-            if (show.getType().equals("Movie")) {
-                movieList.add(show);
-            }
-        }
-        return (ObservableList<Show>) movieList;
     }
 
     public ObservableList<Show> getSearchResultList() {
