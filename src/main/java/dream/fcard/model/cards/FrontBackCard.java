@@ -105,6 +105,11 @@ public class FrontBackCard extends FlashCard {
         return back;
     }
 
+    /**
+     * Sets the new score of the card.
+     *
+     * @param isCorrect Boolean indicating correct answer.
+     */
     @Override
     public void updateScore(Boolean isCorrect) {
         if (isCorrect) {
@@ -114,6 +119,11 @@ public class FrontBackCard extends FlashCard {
         }
     }
 
+    /**
+     * Returns result of the card.
+     *
+     * @return Integer value of the score.
+     */
     @Override
     public int getCardResult() {
         return this.cardResult;
