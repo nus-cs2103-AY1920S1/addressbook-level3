@@ -28,12 +28,13 @@ public class DescriptionTest {
         assertFalse(Description.isValidDescription(" ")); // spaces only
         assertFalse(Description.isValidDescription("^")); // only non-alphanumeric characters
         assertFalse(Description.isValidDescription("dinner*")); // contains non-alphanumeric characters
+        assertFalse(Description.isValidDescription("Breakfast with Tiffany because Sabrina disappearedd")); // long
 
         // valid description
         assertTrue(Description.isValidDescription("dinner with myself")); // alphabets only
         assertTrue(Description.isValidDescription("000")); // numbers only
         assertTrue(Description.isValidDescription("2nd lunch")); // alphanumeric characters
         assertTrue(Description.isValidDescription("Breakfast with Tiffany")); // with capital letters
-        assertTrue(Description.isValidDescription("Breakfast with Tiffany because Sabrina disappeared"));
+        assertTrue(Description.isValidDescription("Breakfast with Tiffany because Sabrina disappeared")); // 50 char
     }
 }
