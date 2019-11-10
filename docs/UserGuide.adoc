@@ -725,6 +725,7 @@ Currently, the following commands are undoable and redoable. +
 . Edit Order
 . Complete Order
 . Cancel Order
+. Clear Order
 
 . Add Phone
 . Edit Phone
@@ -770,7 +771,7 @@ image::ug-command/ug-redo.png[width="800"]
 
 === History: `history`
 
-Views the command history of all your previous commands.
+Views the command history of all your previous commands, starting from the latest to the earliest command.
 
 [underline]#Format#: `history`
 
