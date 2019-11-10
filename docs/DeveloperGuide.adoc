@@ -67,7 +67,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram2.png[]
 
 The sections below give more details of each component.
 
@@ -160,7 +160,7 @@ Objects that call `CommandResult` can choose to customise `CommandResult` accord
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -198,7 +198,7 @@ wrong answers, it cannot have "option1" as its correct answer or another wrong a
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -210,7 +210,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.revision.commons` package.
 
 == Implementation
 
@@ -231,7 +231,7 @@ These operations are exposed in the `Model` interface as `Model#addMcqCommand()`
 
 Given below is an example usage scenario and how the add questions mechanism behaves at each step.
 
-Step 1. The user types `add mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
+Step 1. The user types `add type/mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
 
 image::UndoRedoState0.png[]
 
@@ -244,7 +244,7 @@ Step 3. The AddCommand object will call its `addMcq()` method, this method will 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not save the question into the `test bank`. It will however throw an invalid command exception.
+If a command fails its execution, it will not save the question into the `revision tool`. It will however throw an invalid command exception.
 
 The following sequence diagram shows how the add question operation works:
 

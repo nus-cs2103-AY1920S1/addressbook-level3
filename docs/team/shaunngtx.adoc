@@ -42,7 +42,6 @@ as a form of "Restart", as most of our default questions are taken from the week
 
 * *Minor enhancement*:
 ** Created the initial UI interface for the startCommand that users use to start the quiz. The different modes such as "start mode/normal", "start mode/arcade", "start mode/custom" were built upon this.
-** Made test cases for
 
 * *Code contributed*:
 
@@ -56,7 +55,8 @@ as a form of "Restart", as most of our default questions are taken from the week
 
 ** Enhancements to existing features:
 *** Name refactoring from AB3 to Revision Tool (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests for existing features. (Pull requests https://github.com[#36], https://github.com[#38])
+
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
