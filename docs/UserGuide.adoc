@@ -255,9 +255,7 @@ Format: `new dist/DISTRICT auto/N v/INDEX`
 
 image::newCommandAutoNPromptSS.png[width="500"]
 
-image::newCommandAutoNAfterPromptSS.png[width="500"]
-
-image::newCommandAutoNAfterSS.png[width="500"]
+Once user adds `v/1`, a new incident will be drafted.
 
 [NOTE]
 If multiple flags of the same prefix is provided by user, the command will take the last valid parameter of each prefix. +
@@ -553,10 +551,6 @@ Format: `list-v`
 * The listing returns all vehicles and their relevant details.
 * All keywords and parameters used are ignored.
 ****
-
-Example usage and expected outcome:
-
-image::listVSS.png[width="500"]
 // end::list-v[]
 
 // tag::find-v[]

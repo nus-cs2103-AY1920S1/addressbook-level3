@@ -316,7 +316,7 @@ In the code base, Persons represent user accounts. See person model for more inf
 ** Cons: Hard to implement.
 * **Alternative:** Having account information display alongside incidents and vehicles in a separate pane.
 ** Pros: Easy to implement.
-** Cons: User might be overloaded with information in one screen, and text might get truncate in lower resolutions, decreases user experience.
+** Cons: User might be overloaded with information in one screen, and text might get truncated in lower resolutions, decreases user experience.
 
 ===== Aspect: How Update executes
 
