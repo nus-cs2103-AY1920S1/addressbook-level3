@@ -8,6 +8,9 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Contains tests for {@code InputHistory}.
+ */
 class InputHistoryTest {
 
     private static final String INPUT_1 = "asdas 1 2312edfed1 11 ";
@@ -16,7 +19,7 @@ class InputHistoryTest {
     private static InputHistory inputHistory2;
 
     @BeforeAll
-    static void temp() {
+    static void populateHistory() {
         inputHistory1 = new InputHistory();
         inputHistory1.push(INPUT_1);
 
@@ -26,33 +29,17 @@ class InputHistoryTest {
     }
 
     @Test
-    void getPreviousInput() {
+    void getNextAndPreviousInput() {
         assertEquals(INPUT_2, inputHistory2.getPreviousInput());
         assertEquals(INPUT_1, inputHistory2.getPreviousInput());
         assertThrows(NoSuchElementException.class, () -> inputHistory2.getPreviousInput());
+        assertEquals(INPUT_1, inputHistory2.getNextInput());
+        assertEquals(INPUT_2, inputHistory2.getNextInput());
+        assertThrows(NoSuchElementException.class, () -> inputHistory2.getNextInput());
 
         assertEquals(INPUT_1, inputHistory1.getPreviousInput());
         assertThrows(NoSuchElementException.class, () -> inputHistory1.getPreviousInput());
-    }
-
-    @Test
-    void getNextInput() {
-        try {
-            inputHistory2.getPreviousInput();
-            inputHistory2.getPreviousInput();
-            inputHistory2.getPreviousInput();
-        } catch (NoSuchElementException e) {
-            assertEquals(INPUT_1, inputHistory2.getNextInput());
-            assertEquals(INPUT_2, inputHistory2.getNextInput());
-            assertThrows(NoSuchElementException.class, () -> inputHistory2.getNextInput());
-        }
-
-        try {
-            inputHistory1.getPreviousInput();
-            inputHistory1.getPreviousInput();
-        } catch (NoSuchElementException e) {
-            assertEquals(INPUT_1, inputHistory1.getNextInput());
-            assertThrows(NoSuchElementException.class, () -> inputHistory1.getNextInput());
-        }
+        assertEquals(INPUT_1, inputHistory1.getNextInput());
+        assertThrows(NoSuchElementException.class, () -> inputHistory1.getNextInput());
     }
 }

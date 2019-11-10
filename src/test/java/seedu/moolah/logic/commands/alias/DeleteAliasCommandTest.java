@@ -13,7 +13,7 @@ import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.alias.Alias;
 import seedu.moolah.model.alias.AliasMappings;
 import seedu.moolah.testutil.AliasTestUtil;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 class DeleteAliasCommandTest {
 
@@ -93,6 +93,6 @@ class DeleteAliasCommandTest {
     void execute_executed_commandResultPanelIsAliasPanel() {
         assertEquals(
                 new DeleteAliasCommand("").execute(new ModelSupportingAliasStub()).viewRequest(),
-                AliasPanel.PANEL_NAME);
+                AliasListPanel.PANEL_NAME);
     }
 }

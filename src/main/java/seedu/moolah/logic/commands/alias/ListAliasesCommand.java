@@ -8,7 +8,7 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.GenericCommandWord;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 /**
  * Create an alias for common user input.
@@ -30,7 +30,7 @@ public class ListAliasesCommand extends Command {
         requireNonNull(model);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, model.getAliasMappings().getAliases().size()),
-                AliasPanel.PANEL_NAME);
+                AliasListPanel.PANEL_NAME);
     }
 
     @Override

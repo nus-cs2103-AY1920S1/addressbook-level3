@@ -13,6 +13,9 @@ import org.junit.jupiter.api.Test;
 import javafx.scene.layout.Region;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 
+/**
+ * Contains tests for {@code SinglePanelView}.
+ */
 class SinglePanelViewTest {
 
     private PanelManager panelManager;

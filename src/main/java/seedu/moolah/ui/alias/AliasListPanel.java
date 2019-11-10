@@ -3,16 +3,10 @@ package seedu.moolah.ui.alias;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.TextFlow;
 import seedu.moolah.commons.core.LogsCenter;
 import seedu.moolah.model.alias.Alias;
 import seedu.moolah.model.alias.AliasMappings;
@@ -20,29 +14,27 @@ import seedu.moolah.ui.panel.Panel;
 import seedu.moolah.ui.panel.PanelName;
 
 /**
- * Panel containing the list of expenses.
+ * Panel containing the list of aliases.
  */
-public class AliasPanel extends Panel {
+public class AliasListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Aliases");
-    private static final String FXML = "ExpenseListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(AliasPanel.class);
+    private static final String FXML = "AliasListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(AliasListPanel.class);
 
     @FXML
     private StackPane titlePlaceHolder;
     @FXML
-    private ListView<Alias> listView;
+    private ListView<Alias> aliasListView;
 
     private int maxLength;
 
-    public AliasPanel(AliasMappings aliasMappings) {
+    public AliasListPanel(AliasMappings aliasMappings) {
         super(FXML);
         aliasMappings.getAliases();
         titlePlaceHolder.getChildren().add(new Label("User Defined Aliases"));
-        listView.getItems().addAll(aliasMappings.getAliases());
-        maxLength = aliasMappings.getAliases().stream().map(x -> {
-            return x.getAliasName().length();
-        }).reduce(0, Math::max);
-        listView.setCellFactory(aliasListView -> new AliasListCell());
+        aliasListView.getItems().addAll(aliasMappings.getAliases());
+        maxLength = aliasMappings.getAliases().stream().map(x -> x.getAliasName().length()).reduce(0, Math::max);
+        aliasListView.setCellFactory(aliasListView -> new AliasListCell());
     }
 
     @Override
@@ -69,14 +61,7 @@ public class AliasPanel extends Panel {
                 setGraphic(null);
                 setText(null);
             } else {
-                int whiteSpaceCount = maxLength - alias.getAliasName().length();
-                Label aliasLabel = new Label(" ".repeat(whiteSpaceCount) + alias.getAliasName());
-                aliasLabel.setBackground(new Background(
-                        new BackgroundFill(Color.ORANGE, new CornerRadii(3), Insets.EMPTY)));
-                aliasLabel.setTextFill(Color.WHITE);
-                Label input = new Label("  " + alias.getInput());
-                TextFlow graphic = new TextFlow(aliasLabel, input);
-                setGraphic(graphic);
+                setGraphic(new AliasCard(alias, maxLength).getRoot());
             }
         }
     }

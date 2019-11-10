@@ -43,8 +43,8 @@ public class SyntaxHighlightingSupportedInput {
         return pattern;
     }
 
-    public Prefix getPrefix(String pre) {
-        return prefixes.stream().filter(x -> x.toString().equals(pre)).findFirst().orElse(null);
+    public Prefix getPrefix(String prefix) {
+        return prefixes.stream().filter(x -> x.toString().equals(prefix)).findFirst().orElse(null);
     }
 
     public int getPrefixCount() {

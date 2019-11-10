@@ -5,7 +5,6 @@ import static seedu.moolah.ui.textfield.CommandTextField.ERROR_STYLE_CLASS;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.moolah.logic.commands.CommandResult;
@@ -38,10 +37,6 @@ public class CommandBox extends UiPart<Region> {
         commandInputAreaPlaceholder.getChildren().add(commandTextField);
     }
 
-
-    public void importSyntaxStyleSheet(Scene scene) {
-        commandTextField.importStyleSheet(scene);
-    }
 
     /**
      * Handles the Enter button pressed event.

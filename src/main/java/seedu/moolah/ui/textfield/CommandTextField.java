@@ -24,7 +24,6 @@ import org.reactfx.Subscription;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.geometry.Side;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -66,7 +65,7 @@ public class CommandTextField extends StyleClassedTextArea {
     public CommandTextField(Consumer<String> textGetter) {
         super();
 
-        setId("SyntaxBox"); // for css styling css
+        setId("SyntaxHighlightingTextField"); // for css styling css
 
         // to store patterns/syntax
         stringToSupportedCommands = new HashMap<>();
@@ -168,10 +167,6 @@ public class CommandTextField extends StyleClassedTextArea {
         super.insertText(position, text.replaceAll("[\\n\\r]", ""));
     }
 
-    StyleSpans<Collection<String>> getStyleSpan() {
-        return getStyleSpans(0);
-    }
-
     /**
      * Commits the text to history and clears the text field.
      */
@@ -237,16 +232,6 @@ public class CommandTextField extends StyleClassedTextArea {
             syntaxHighlightSubscription.unsubscribe();
         }
     }
-
-    /**
-     * Import the css stylesheet containing the different styles for the syntax highlighter.
-     */
-    public void importStyleSheet(Scene parentSceneOfNode) {
-        parentSceneOfNode.getStylesheets()
-                .add(CommandTextField.class.getResource(SYNTAX_HIGHLIGHTING_CSS_FILE_PATH).toExternalForm());
-        enableSyntaxHighlighting();
-    }
-
 
     /**
      * Add support for syntax highlighting and auto fill for the specified command.

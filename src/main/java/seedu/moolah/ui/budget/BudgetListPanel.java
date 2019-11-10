@@ -25,7 +25,7 @@ import seedu.moolah.ui.panel.PanelName;
  */
 public class BudgetListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Budget List");
-    private static final String FXML = "ExpenseListPanel.fxml";
+    private static final String FXML = "ListPanel.fxml";
     private static final Border PRIMARY_BUDGET_BORDER = new Border(new BorderStroke(Color.RED,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
 

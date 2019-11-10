@@ -73,6 +73,7 @@ dependencies {
     // test fx
     testCompile "org.testfx:testfx-core:4.0.16-alpha"
     testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
+    testCompile "org.testfx:openjfx-monocle:8u76-b04" // jdk-9+181 for Java 9, jdk-11+26 for Java 11
 }
 
 shadowJar {
@@ -116,6 +117,10 @@ test {
         if (System.env.'CI') {
             events << TestLogEvent.STARTED
         }
+        if (!project.hasProperty("noHeadless")) {
+            jvmArgs "-Dheadless=true"
+        }
+
     }
 
     jacoco {

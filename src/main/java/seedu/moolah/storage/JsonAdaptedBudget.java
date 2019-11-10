@@ -82,7 +82,7 @@ class JsonAdaptedBudget {
         for (String id : expenseIds) {
             for (JsonAdaptedExpense je : expenses) {
                 Expense e = je.toModelType();
-                if (e.isWithId(id)) {
+                if (e.uniqueIdIs(id)) {
                     expenseList.add(e);
                 }
             }

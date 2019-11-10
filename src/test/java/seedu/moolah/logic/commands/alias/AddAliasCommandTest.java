@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.Model;
 import seedu.moolah.model.alias.Alias;
-import seedu.moolah.ui.alias.AliasPanel;
+import seedu.moolah.ui.alias.AliasListPanel;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -105,6 +105,6 @@ public class AddAliasCommandTest {
     void execute_executed_commandResultPanelIsAliasPanel() {
         assertEquals(
                 new AddAliasCommand(ALIAS_A_TO_B).execute(new ModelSupportingAliasStub()).viewRequest(),
-                AliasPanel.PANEL_NAME);
+                AliasListPanel.PANEL_NAME);
     }
 }

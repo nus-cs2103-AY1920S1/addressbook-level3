@@ -11,6 +11,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.parser.Prefix;
 
+/**
+ * Contains tests for {@code SyntaxHighlightingSupportedInput}.
+ */
 class SyntaxHighlightingSupportedInputTest {
 
     private static final String COMMAND0 = "command0";
@@ -20,6 +23,7 @@ class SyntaxHighlightingSupportedInputTest {
     private static final Prefix prefixStub0 = new Prefix("a/", "aaa");
     private static final Prefix prefixStub1 = new Prefix("/b", "bbb");
     private static final Prefix prefixStub2 = new Prefix("-c", "ccc");
+
     private static final SyntaxHighlightingSupportedInput SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_0 =
             new SyntaxHighlightingSupportedInput(COMMAND0, List.of(prefixStub0, prefixStub1), List.of(prefixStub2));
     private static final SyntaxHighlightingSupportedInput SUT_WITH_2_REQUIRED_1_OPTIONAL_PREFIX_1 =

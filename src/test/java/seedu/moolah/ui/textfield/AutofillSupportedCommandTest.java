@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import javafx.util.Pair;
 import seedu.moolah.logic.parser.Prefix;
 
+/**
+ * Contains tests for {@code AutofillSupportedCommand}.
+ */
 class AutofillSupportedCommandTest {
 
     private static final String COMMAND_0 = "command0";
