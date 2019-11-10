@@ -414,7 +414,7 @@ create a pie chart. It will then show a statistics panel, hiding all notes, task
 The following sequence diagram shows how the UI handles the `GetStatisticsCommand`:
 
 .UI sequence diagram for `GetStatisticsCommand`
-image::statistics/StatisticsSequenceDiagram.png[]
+image::statistics/StatisticsSequenceDiagram.png[height = "250"]
 
 Step 4. The user now wants to stop viewing statistics and decides to view all notes, tasks and questions
 again using the `listnote` command. The statistics panel will now be hidden.
@@ -838,7 +838,7 @@ Use case ends.
 
 // tag::statsUseCase[]
 [discrete]
-=== Use case: get statistics for subjects (Irene)
+=== Use case: Get statistics for subjects (Irene)
 
 *MSS*
 
@@ -851,12 +851,13 @@ Use case ends
 [none]
 * 1a. Student provides an invalid difficulty or invalid subjects
 [none]
-** 1a1. Application will inform students that there are no statistics for that difficulty/subject
-** 1a2. Student will re-enter the command with a valid difficulty/subject
+** 1a1. Application will inform students that there are no statistics for that difficulty/subjects
+** 1a2. Student will re-enter the command
+** Repeat 1a1 and 1a2 until valid difficulty/subjects is/are provided
 * Use case resumes from step 2
 
 [discrete]
-=== Use case: get report of individual questions (Irene)
+=== Use case: Get report of individual questions (Irene)
 
 *MSS*
 
@@ -879,6 +880,7 @@ Use case ends
 [none]
 ** 1b1. Application displays a message indicating that the command format is invalid
 ** 1b2. Student re-enters the command
+** Repeat 1b1 and 1b2 until a valid index is provided
 * Use case resumes from step 2
 // end::statsUseCase[]
 

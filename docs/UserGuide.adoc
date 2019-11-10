@@ -390,9 +390,9 @@ Questions and Revision tasks features. E.g. `rlist`.
 
 NOTE: Quiz results stored in the app are not synchronised with the questions.
 If you have modified a question using the `editq` command,
-the stored quiz result will still refer to the original question to minimise inconsistencies in the statistics.
-This is because a question that has been modified to a large extent
-might cause past answers to become irrelevant and distort the statistics.
+the stored quiz result will still refer to the original question.
+This is because a question that has been modified might cause past
+answers to become irrelevant and distort the statistics.
 
 ==== Getting statistics for subjects : `stats`
 You can get a breakdown of the questions that you have done by its results.
@@ -432,7 +432,7 @@ your past answers to it as well as a breakdown of the number of questions by dif
 .The result of `question -i s/cs2103t`
 image::statistics/question.PNG[600, 600]
 
-==== Getting a report for individual questions: `report`
+==== Getting a report of individual questions: `report`
 You can get a report of how well you have answered a particular question
 and see all your past answers to the question. +
 Format: `report INDEX`

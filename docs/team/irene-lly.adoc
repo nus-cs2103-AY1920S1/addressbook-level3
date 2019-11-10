@@ -17,7 +17,7 @@ get statistics of how well they have answered these questions;
 and set tasks to plan their revision schedule.
 
 I contributed to this project by implementing the statistics feature as documented below.
-In particular, I have implemented the `stats`, `questions`, `report` and `overview` commands.
+In particular, I have implemented the `stats`, `question`, `report` and `overview` commands.
 The following sections will elaborate more on these enhancements
 and showcase some documentations that I have added to the user and developer guides in
 relation to these enhancements.
@@ -52,8 +52,8 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=irene-lly[
 
 *   Role:
 **	I was in charge of code quality.
-My job includes making sure that the code follows a consistent style,
-is easy to understand and that the code is well-documented.
+My job was to make sure that the code follows a consistent style,
+is easy to understand and is well-documented.
 *	Community:
 **	Reviewed pull requests:
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53],
@@ -69,7 +69,7 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/pull/56[#56]
 
 == User guide contributions
 We have modified the existing Addressbook User Guide to include commands for the enhancements
-that we have added as well as remove the old commands that are not relevant to our project.
+that we have added as well as remove the old commands that were not relevant to our project.
 Given below shows my additions to the NUStudy User Guide for the statistics feature.
 
 '''
@@ -77,7 +77,7 @@ Given below shows my additions to the NUStudy User Guide for the statistics feat
 include::../UserGuide.adoc[tag=statistics]
 
 == Developer guide contributions
-We have also modified the existing addressBook Developer Guide to include implementation of
+We have also modified the existing AddressBook Developer Guide to include implementation of
 our features as well as remove the old documentation of the AddressBook features.
 Given below shows my additions to the NUStudy Developer Guide for the statistics feature.
 

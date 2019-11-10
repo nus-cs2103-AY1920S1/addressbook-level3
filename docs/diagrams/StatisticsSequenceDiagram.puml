@@ -26,7 +26,7 @@ create StatsPieChart
 MainWindow -> StatsPieChart : StatsPieChart()
 activate StatsPieChart
 
-StatsPieChart --> MainWindow
+StatsPieChart --> MainWindow : statsPieChart
 deactivate StatsPieChart
 
 MainWindow -> StatsPieChart : setMouseover()
