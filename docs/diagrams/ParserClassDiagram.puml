@@ -25,6 +25,4 @@ UniversalParser ..|> Parser
 ContextParser .left.|> Parser
 note left of ContextParser: ContextParser = \nCustomerParser, \nRestaurantParser, \nDeliverymenParser or \nEditingParser
 
-
-
 @enduml
