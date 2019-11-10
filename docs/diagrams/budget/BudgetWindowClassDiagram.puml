@@ -1,0 +1,19 @@
+@startuml
+
+class BudgetWindow {
+}
+
+class Timestamp
+
+enum BudgetPeriod {
+DAY
+WEEK
+MONTH
+YEAR
+INFINITY
+}
+
+BudgetWindow -right-> "2" Timestamp : start & end dates
+BudgetWindow -up-> "1" BudgetPeriod : fixed period
+
+@enduml
