@@ -23,11 +23,6 @@ public class ViewCommandParser implements Parser<ViewCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
         }
 
-        if (trimmedArgs.split("\\s+").length > 1) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Module code should be a single word only."));
-        }
-
         return new ViewCommand(trimmedArgs);
     }
 
