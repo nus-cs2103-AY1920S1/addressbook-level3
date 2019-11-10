@@ -1,17 +1,12 @@
 package com.dukeacademy.ui;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
-
 import com.dukeacademy.observable.Observable;
 
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollBar;
@@ -19,8 +14,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 /**
  * Creates a Text Editor window for the user to input code.
