@@ -305,6 +305,7 @@ image::TaskCode.png[]
 
 === Transaction
 
+// tag::overviewtx[]
 [[overviewtx]]
 ==== Overview of Transaction Model
 
@@ -381,6 +382,7 @@ symmetry in the implementation of parsing in our current architecture, and we di
 
 Furthermore, we did not envision further use of polymorphism in future developments. Hence the benefit of using inheritance becomes
 very limited.
+// end::overviewtx[]
 
 // tag::transfilter[]
 [[filtertx]]
