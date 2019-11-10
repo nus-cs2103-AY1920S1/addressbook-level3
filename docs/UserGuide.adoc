@@ -203,15 +203,35 @@ Format: `suggest`
 === Notification that a meal is missed
 
 A notification will automatically be prompted when the application starts up or every 10 minutes if a meal is missed. +
-This feature cannot be disabled and will start once the application starts.
+This feature cannot be disabled and will start once the application starts. +
+
+[NOTE]
+The first meal will always be breakfast, hence no matter at which timing, if the first meal is not consumed, it will always notify the user as breakfast missed. +
+If lunch have not been consumed after 8pm, notification will change and notify user that they have not consumed their dinner instead of lunch, as consuming two meals at once is not healthy.
 
 [NOTE]
 Notification will be prompted: +
--After 10am for breakfast +
--After 2pm for lunch +
--After 8pm for dinner
+- After 10am for breakfast +
+- After 2pm for lunch +
+- After 8pm for dinner
 
-image:: <<Add notification image>>
+[NOTE]
+Meals that will be counted:
+- As breakfast - anytime +
+- As lunch - after 11am +
+- As dinner - after 4pm +
+
+* If breakfast is missed this will be how it looks like
+
+image::NotificaitonMissedBreakfast.png[]
+
+* If lunch is missed this will be how it looks like
+
+image::NotificaitonMissedLunch.png[]
+
+* If dinner is missed this will be how it looks like
+
+image::NotificaitonMissedDinner.png[]
 
 === Setting calorie intake budget: `set`
 
@@ -267,6 +287,8 @@ e.g. `edit 1 n/duck noodle c/250`
 e.g. `delete 3`
 * *Set* : `set CALORIES` +
 e.g. `set 2600`
+* *Find* : `find MEAL_NAME` +
+e.g. `find soup`
 * *Suggest* : `suggest` +
 e.g. `suggest`
 * *Report* : `report` +
