@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BORROWER_ID_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LOAN_ID;
-
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
@@ -28,11 +30,17 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.util.Pair;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookPredicate;
 import seedu.address.model.borrower.BorrowerId;
@@ -43,9 +51,18 @@ import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.CatalogBuilder;
 import seedu.address.testutil.LoanBuilder;
 
+
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
+
+    // Must be a unique book, so that execute does not throw CommandException
+    private Book testBook = new BookBuilder()
+            .withSerialNumber("B99999")
+            .withTitle("TestBook")
+            .withAuthor("Tester")
+            .build();
+    private ReversibleCommand testCommand = new AddCommand(testBook);
 
     @Test
     public void constructor() {
@@ -348,6 +365,137 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void canUndoCommand_newCommandHistory_returnsFalse() {
+        assertFalse(modelManager.canUndoCommand());
+    }
+
+    @Test
+    public void canUndoCommand_maxUndoneCommandHistory_returnsFalse() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertNotEquals(modelManager.getUndoCommand(), null);
+        assertFalse(modelManager.canUndoCommand());
+    }
+
+    @Test
+    public void canUndoCommand_undoableCommandHistory_returnsTrue() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertTrue(modelManager.canUndoCommand());
+    }
+
+    @Test
+    public void canRedoCommand_newCommandHistory_returnsFalse() {
+        assertFalse(modelManager.canRedoCommand());
+    }
+
+    @Test
+    public void canRedoCommand_maxRedoneCommandHistory_returnsFalse() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertNotEquals(modelManager.getUndoCommand(), null);
+        assertNotEquals(modelManager.getRedoCommand(), null);
+        assertFalse(modelManager.canRedoCommand());
+    }
+
+    @Test
+    public void canRedoCommand_redoableCommandHistory_returnsTrue() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertNotEquals(modelManager.getUndoCommand(), null);
+        assertTrue(modelManager.canRedoCommand());
+    }
+
+    @Test
+    public void commitCommand_nullReversibleCommand_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.commitCommand(null));
+    }
+
+    @Test
+    public void commitCommand_validReversibleCommand_successfulCommit() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertThrows(CommandHistoryManager.NoRedoableCommandException.class, () -> modelManager.getRedoCommand());
+
+        Pair<Command, ReversibleCommand> commands = modelManager.getUndoCommand();
+        assertEquals(testCommand, commands.getValue());
+    }
+
+    @Test
+    public void getUndoCommand_notUndoable_throwsNoUndoableCommandException() {
+        assertThrows(CommandHistoryManager.NoUndoableCommandException.class, () -> modelManager.getUndoCommand());
+    }
+
+    @Test
+    public void getUndoCommand_undoable_returnsUndoCommandPair() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertTrue(modelManager.canUndoCommand());
+
+        Pair<Command, ReversibleCommand> commands = modelManager.getUndoCommand();
+        assertNotEquals(commands.getKey(), null);
+        assertNotEquals(commands.getValue(), null);
+        assertEquals(testCommand, commands.getValue());
+        assertEquals(testCommand.getUndoCommand(), commands.getKey());
+    }
+
+    @Test
+    public void getRedoCommand_notRedoable_throwsNoRedoableCommandException() {
+        assertThrows(CommandHistoryManager.NoRedoableCommandException.class, () -> modelManager.getRedoCommand());
+    }
+
+    @Test
+    public void getRedoCommand_redoable_returnsRedoCommand() {
+        try {
+            testCommand.execute(modelManager);
+        } catch (CommandException e) {
+            fail();
+        }
+        modelManager.commitCommand(testCommand);
+        assertNotEquals(modelManager.getUndoCommand(), null);
+        assertTrue(modelManager.canRedoCommand());
+
+        Command redoCommand = modelManager.getRedoCommand();
+        assertNotEquals(redoCommand, null);
+        assertEquals(testCommand, redoCommand);
+    }
+
+    @Test
+    public void resetCommandHistory() {
+        Model testModelManager = new ModelManager();
+        testModelManager.commitCommand(testCommand);
+        assertNotEquals(testModelManager, modelManager);
+
+        testModelManager.resetCommandHistory();
+        assertEquals(testModelManager, modelManager);
+    }
+
+
+    @Test
     public void equals() {
         Catalog catalog = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
         Catalog catalogCopy = new CatalogBuilder().withPerson(BOOK_1).withPerson(BOOK_2).build();
@@ -374,7 +522,7 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different catalog -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentCatalog, loanRecords, borrowerRecords, userPrefs)));
 
         // different filteredList -> returns false
