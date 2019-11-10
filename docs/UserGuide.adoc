@@ -554,9 +554,11 @@ Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 * When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
 * You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
 
-Example: `editdetails n/New KFC l/Tuas`
+Example: `editdetails n/Dr Hogs Barbeque l/Punggol t/Barbeque t/Western`
 
 image::userguide\EditDetails.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
@@ -592,7 +594,7 @@ Example: `delete 1`
 ====
 .Note:
 * Deleting a food item from a restaurant will NOT delete the food item in the restaurant's orders as
-the order was already made when the food item still existed.
+the order was made when the food item was still available.
 ====
 
 {nbsp} +
@@ -607,9 +609,6 @@ Format: `rate RATING`
 
 Example: `rate 4`
 
-image::userguide\AddRating.png[width="790"]
-
-
 {nbsp} +
 
 ==== Exiting EditMode: `exitedit`
@@ -621,7 +620,17 @@ Format: `exitedit`
 
 ==== Auto-tagging of food item as "Popular"
 Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
-will be auto-tagged as "Popular".
+will be automatically tagged as "Popular".
+
+Example (refer to image below):
+
+* 16 food items are ordered in Order 2 (1 + 2 + 6 + 7), an average quantity ordered of 4 per food item.
+* Quantity ordered of food items Cheese Prata and Prata Bomb (6 and 7 respectively) is more than 1.5 times
+the average quantity ordered. Automatically tagged as "Popular" upon completion of Order 2.
+
+image::userguide\AutoTag.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
@@ -636,13 +645,26 @@ will be auto-tagged as "Popular".
 === Deliverymen commands
 
 These are the commands you can use after entering the deliverymen context (via the command `-deliverymen`).
+The screenshot below shows how the deliverymen context looks like.
 
+image::userguide\DeliverymanContext.png[width="790"]
+
+For each deliveryman, his information will be displayed in the following vertical order: name, tag(s), current status and
+phone number. This is shown in another screenshot below.
+
+image::userguide\DeliverymanCard.png[width="790"]
 {nbsp} +
+
+[NOTE]
+====
+.Note:
+A deliveryman can have any of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
+====
 
 ==== Adding a deliveryman: `add`
 
-This command allows you to add a new deliveryman to the deliverymen database. The name and phone number must be
-provided.
+This command allows you to add a new deliveryman to the deliverymen database. The name and phone number of the
+deliveryman must be provided.
 
 Format: `add n/NAME p/PHONE`
 
@@ -654,29 +676,39 @@ Example: `add n/John Doe p/91234567`
 * The phone number must be at least 3 digits and not exceed 10 digits.
 ====
 
+[NOTE]
+====
+.Note:
+* A newly-added deliveryman will be assigned with the default status *UNAVAILABLE*.
+* Tags cannot be added through this command. Refer to the `edit` command in _Section 3.4.4_ to add tags to a deliveryman.
+====
+
 {nbsp} +
 
 ==== Editing a deliveryman: `edit`
 
 This command allows you to edit an existing deliveryman in the deliverymen database. The index of the deliveryman to be
-edited must be provided.
+edited must be provided. You can edit only the field that you wish to change, but at least one field must be edited
+(eg. name, phone number, tag(s)). You can also add more than one tag, as illustrated in *Example 2*.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]`
+Format: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]*`
 
-Example: `edit 1 n/John Hoe p/97654321`  `edit 2 t/inactive
+Example 1: `edit 1 n/John Hoe p/97654321`
+
+Example 2: `edit 1 t/active t/buff t/bestDeliveryman2019`
 
 [NOTE]
 ====
 .Requirements
 * The index INDEX provided must be within the deliverymen list size and be at least 1.
-* At least one field must be edited (eg. name, phone number, tag(s)).
+* Tags must not contain any whitespace.
 ====
 
 {nbsp} +
 
 ==== Deleting a deliveryman: `delete`
 
-This command allows you to delete an existing deliveryman in the deliverymen database. The index of the deliveryman to
+This command allows you to delete an existing deliveryman from the deliverymen database. The index of the deliveryman to
 be deleted must be provided.
 
 Format: `delete INDEX`
@@ -694,26 +726,21 @@ Example: `delete 1`
 ==== Listing status lists of deliverymen: `lists`
 
 This command allows you to view all the deliverymen sorted according to their statuses. For easy navigation,
-you can click on any of the three buttons to show the status list that you wish to view, as shown in Fig X.Y below.
+you can click on any of the three buttons, as shown in the red box of the screenshot below, to display the status list
+that you wish to view.
 
-image::userguide\EditMode.png[width="790"]
+image::userguide\DeliverymanLists.png[width="790"]
 
 Format: `lists`
 
 Example: `lists`
-
-[NOTE]
-====
-.Note:
-A deliveryman can have one of the 3 statuses: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*.
-====
 
 {nbsp} +
 
 ==== Changing status of a deliveryman: `status`
 
 This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
-will prompt the status lists as well (that can be done through `lists` command explained in _Section 3.4.4_).
+will prompt the status lists as well (that can also be done through `lists` command explained in _Section 3.4.4_).
 
 Format: `status INDEX`
 
@@ -722,7 +749,7 @@ Example: `status 3`
 [NOTE]
 ====
 .Requirements
-* The index INDEX provided must be within the deliverymen list size and be at least 1.
+* The index provided must be within the deliverymen list size and be at least 1.
 * The status of the deliveryman must be either *AVAILABLE* or *UNAVAILABLE*.
 ====
 
@@ -732,6 +759,21 @@ Example: `status 3`
  You are not allowed to change the status of a deliveryman who has the status *DELIVERING*. It can only be changed
 through changes to orders assigned to him.
 
+.Example use case
+
+. Your deliveryman, Donald Trump, was on sick leave and his status is currently *UNAVAILABLE*. However, he just informed you
+that he has recovered and is ready to work again! You want to set his status back to *AVAILABLE*.
+
+. You search for his name and identify his index as '2', as shown in the red border. Then you type in the command `status 2`.
+
+image::userguide\BeforeStatusSwitch.png[width="790"]
+
+[start=3]
+. The result box will display that the status of Donald Trump has been changed. And indeed, it has been switched to *AVAILABLE*!
+Also, you notice that the status lists have been prompted, as shown in the blue border.
+
+image::userguide\AfterStatusSwitch.png[width="790"]
+
 {nbsp} +
 
 ==== Viewing the statistics of the deliverymen statuses: `stats`
@@ -740,15 +782,20 @@ This command allows you to view the statistics of the current statuses of delive
 utilisation level will also be computed and displayed for your reference. A brief explanation of each statistic is
 provided as well.
 
-image::userguide\EditMode.png[width="790"]
-
 Format: `stats`
 
 Example: `stats`
 
+image::userguide\DeliverymanStats.png[width="790"]
+
+====
+In the screenshot above, the information inside the blue border is the statistics. The text shown inside
+the red border is a summary of the analysis.
+====
+
 [TIP]
-If you just want a brief update on the current state of your deliverymen, the textual analysis shown on the right panel
-summarizes it for you!
+If you just want a brief update on the current state of your deliverymen, the textual analysis displayed inside the red
+border summarizes it all for you!
 
 {nbsp} +
 
@@ -792,7 +839,7 @@ summarizes it for you!
 * Deliverymen commands
 - Add a deliveryman: `add n/NAME p/PHONE`
 - Delete a deliveryman: `delete INDEX`
-- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]`
+- Edit a deliveryman: `edit INDEX [n/NAME] [p/PHONE] [t/TAG]...`
 - List deliverymen sorted by status: `lists`
 - Switch status of a deliveryman: `status INDEX`
 - View statistics for deliverymen current statuses: `stats`

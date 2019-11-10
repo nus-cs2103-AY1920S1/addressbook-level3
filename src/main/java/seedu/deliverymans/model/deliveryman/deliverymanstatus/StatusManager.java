@@ -32,10 +32,10 @@ public class StatusManager {
         for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
             case "AVAILABLE":
-                updateStatusOf(man, "AVAILABLE");
+                availableMen.add(man);
                 break;
             case "UNAVAILABLE":
-                updateStatusOf(man, "UNAVAILABLE");
+                unavailableMen.add(man);
                 break;
             case "DELIVERING":
                 deliveringMen.add(man);

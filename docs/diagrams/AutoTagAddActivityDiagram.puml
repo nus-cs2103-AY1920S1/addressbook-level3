@@ -1,0 +1,25 @@
+@startuml
+:User adds new Order;
+:Customer's noOfOrder++;
+:Add new tags from Order to
+Customer's totalTags;
+:Checks all new tags to totalTags;
+
+if () then ([totalTags contains new tag])
+    :increase value of tag
+    in totalTags by 1;
+else ([else])
+    :add new key in totalTags
+    and set value to 1;
+endif
+
+:Checks if Customer's tags
+contains new tags;
+
+if () then ([Customer's tags contains new tags])
+    :run changeMainTag();
+else ([else])
+endif
+
+stop
+@enduml

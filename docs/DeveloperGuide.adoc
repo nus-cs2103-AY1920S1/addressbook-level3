@@ -249,29 +249,37 @@ image::CommitActivityDiagram.png[]
 
 === Autocomplete commands feature
 
-This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the UG/DG of this application.
+This is a feature which allows you to view all available commands matching the input keyword or letters, eliminating the need to memorize the commands or leave a browser tab open with the User Guide of this application.
 
 ==== Implementation
 
-The autocomplete mechanism is facilitated by the ‘KeyListener’, which passes the current input text in the input command box to the trie, a tree-like abstract data type (ADT).The list of matching commands then passes back to the ‘Ui’ and displayed via a dropdown box below the user input command box.
-fafafa
+The autocomplete mechanism is facilitated by the `KeyListener` and a `Trie`, a tree-like abstract data type (ADT). (Explained below)
+The `KeyListener` passes the current input text in the input command box to the `TrieManager` via `LogicManager#getAutoCompleteResults`.
+The `TrieManager` calls `Trie#autoCompleteCommandWord` and a sorted list of matching commands is passed back to the `CommandBox` and is displayed on the `Ui` via a dropdown box below the user input command box.
+
+The underlying data structure used is a directed `Graph` with the `Trie` as a `Node` and `HashMap<Character, Trie>` to represent all outgoing edges.
+The `Keys` in the `HashMap` are `Characters` in the command words while the `Values` are the `Tries` containing the subsequent `Characters` in the command words.
+Each `Trie` contains a `List<String>` of command words, which is returned when `Trie#autoCompleteCommandWord` is called.
+
 Given below is an example usage scenario and how the autocomplete mechanism behaves at each step.
 
-Step 1: You launch the application. The current user input command box is empty.
+Step 1: You launch the application. The `TrieManager` initializes the respective `Tries` with their context-specific command words using `Trie#insertCommand`.
+The `Trie` adds each `Character` of the input `String` and new `Tries` into the `HashMap<Character, Trie>`, as well as the command word into the `List<String>`, recursively as illustrated by the activity diagram below.
 
-*insert picture of the ui at startup*
+image::AutoCompleteActivityDiagram.png[width="790"]
 
-Step 2: You want to switch to the customer context for customer-focused commands with the command ‘customer’, however is unsure how to spell the command and type in ‘cus’. The ‘KeyListener’ passes the `String` that have been typed to the trie. The trie searches for relevant commands and pass them as a list to the ‘Ui’, which displays the relevant results in a dropdown box below the user input command box.
+Step 2: You want to add an order to the database, however are uncertain how to spell the command and type in `_‘order’_`.
+The `KeyListener` passes the `String` in the `CommandBox` to the `Trie` via the `LogicManager` and `TrieManager`.
+The trie searches for relevant commands and pass them as a list back to the `CommandBox` via `Trie#getAutoCompleteCommandWord`, `Trie#search` and `Trie#getAllCommandWords`.
+The ‘Ui’ displays the relevant results in a dropdown box below the user input command box.
 
-*insert picture of 'cus' being typed in/ class diagram*
+image::AutoCompleteSequenceDiagram.png[width="790"]
+
+*insert label for seq diagram - Sequence diagram illustrating step 2*
 
 Step 3: You can now complete the command you want by entering the relevant command shown in the dropdown box.
 
-*insert picture of the ui with the dropdown box*
-
-The following activity diagram summarizes what happens when you type in letters into the user input command box:
-
-*insert picture of activity diagram*
+image::AutoCompleteUi.png[width="790"]
 
 ==== Design Considerations
 
@@ -279,25 +287,25 @@ Below are a few design considerations of the autocomplete commands feature.
 
 ===== Aspect: How autocomplete executes
 
-* **Alternative 1 (current choice):** Use a ‘KeyListener’ to record and handle user inputs in the user input command box before they are entered.
+* **Alternative 1 (current choice):** Use a `KeyListener` to record and handle user inputs in the user input command box before they are entered.
 ** Pros: Aesthetically pleasing, allows for on-the-fly display of results.
 ** Cons: Laborious to implement, especially in terms of debugging and troubleshooting. It may also break Object-Oriented Programming (OOP) principles if not implemented properly.
-* **Alternative 2:** Handle user input only when the command is entered, utilizing the ‘Parser’ to  handle user inputs and pass it to the trie to be evaluated.
+* **Alternative 2:** Handle user input only when the command is entered, utilizing the `Parser` to  handle user inputs and pass it to the `Trie` to be evaluated.
 ** Pros: Adheres to current flow of command executions, will not break any OOP principles.
 ** Cons: Tedious for the user, as the user will have to retype the whole command again. Furthermore, it does not look aesthetically pleasing.
 
 Alternative 1 was selected, as it is more user friendly, and leaves a better impression onto users compared to alternative 2.
 
 ===== Aspect: Data structure to support the autocomplete commands feature
-
-* **Alternative 1 (current choice):** Use a trie to store substrings of commands as keys.
+replace with something else
+* **Alternative 1 (current choice):** Use a `Trie` to store `Characters` of commands as keys.
 ** Pros: Efficient and rapid searching, retrieving and displaying of results due to the tree-like ADT.
-** Cons: Tedious to implement, tries are not currently implemented in Java, hence requires self-implementation of the ADT.
-* **Alternative 2:** Use a list to store all current commands .
+** Cons: Tedious to implement, as `Tries` are not currently implemented in Java.
+* **Alternative 2:** Use a list to store all current commands.
 ** Pros: Easy to implement as lists are already available in Java.
-** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands, while calling ‘.substring()’ and ‘.contains()’ methods.
+** Cons: Inefficient and slow searching, because of the need to iterate through the entire list of commands while calling ‘.substring()’ and ‘.contains()’ methods.
 
-Alternative 1 was selected, as ... compared to alternative 2.
+Alternative 1 was selected, as it allows for faster searching and listing of relevant commands compared to alternative 2.
 
 // end::autocomplete commands[]
 // tag::orders[]
@@ -320,7 +328,7 @@ Additionally it implements the following operations:
 
 These operations are exposed in the `ModelManager` class as `ModelManager#addOrder(Order order)`, `ModelManager#getOrder(Name targetOrder)`, `ModelManager#setOrder(Order target, Order editedOrder)`, `ModelManager#deleteOrder(Order order)` and `ModelManager#assignUnassignedOrder()`.
 
-Order manager follows the AB3 style and implements its own 'Model', 'Command' and 'Parser' for the 'Logic Component', `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
+Order manager implements its own 'Model', 'Command' and 'Parser' for the 'Logic Component', `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
 
 *insert object diagrams here + brief explanation of object diagrams*
 
@@ -344,14 +352,14 @@ Below are a few design considerations of the Order manager class.
 
 ===== Aspect: Data structure for modelling, storage and utilization of `Order`.
 
-* **Alternative 1 (current choice):** Make use of existing data structures present in AB3 as reference to create new data structures needed for the implementation of a Order Manager.
-** Pros: Straightforward to implement as existing references are present in 'Person' of AB3.
+* **Alternative 1 (current choice):** Make use of existing data structures as references to create new data structures needed for the implementation of an Order Manager.
+** Pros: Straightforward to implement.
 ** Cons: Tedious to implement as several regions of the codebase needs to be edited for `Order` to run, display and save successfully.
 * **Alternative 2:** Implement data structures from scratch.
-** Pros: Pride and accomplishment of implementing something from scratch.
-** Cons: Takes too much time to code the necessary classes.
+** Pros: Pride and accomplishment of implementing data structures from scratch.
+** Cons: Tedious and time wasting to code the necessary classes.
 
-Alternative 1 was selected, as ... compared to alternative 2.
+Alternative 1 was selected, as it is much faster to implement compared to alternative 2, given the short time spam of 6 weeks to complete the project.
 
 // end::orders[]
 
@@ -416,17 +424,53 @@ Tags determine the customer's favourite cuisine. It is helpful to the user as ha
 
 ==== Implementation
 
-The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple `Order` s, the `Tag` that will be shown on the `CustomerCard` will be the highest two `Tag` s. This is the main process on how the application automatically tags the customers.
+The `Tag` of the `Customer` is related to the `Tag` of the `Restaurant`. If an `Order` has been added to the database, the `Tag` of the `Restaurant` will be added to the `Tag` of the `Customer`. If the `Customer` has multiple ``Order``s, the `Tag` that will be shown on the `CustomerCard` will be the highest two ``Tag``s. This is the main process on how the application automatically tags the customers.
 
-An activity diagram below shows the automated tagging process.
+An activity diagram below shows the automated tagging process when adding an order:
 
- activity diagram
+[[fig-AutoTaggingDiagram]]
+.Activity diagram of tagging process
+image::plantuml/AutoTagAddActivityDiagram.png[]
 
+Another function called `changeMainTag()` is used to change the main ``Tag``s of the `Customer` to show on the `CustomerCard`. The activity diagram below shows how the application determines the top two ``Tag``s:
 
+[[fig-ChangingTagsDiagram]]
+.Activity diagram of changing ``Customer``'s main ``Tag``s
+image::plantuml/ChangeTagActivityDiagram.png[]
 
 ==== Design considerations
 
+*Aspect: Method of editing ``Customer``'s ``Tag``s*
 
+* *Alternative 1 (current choice):* Adding, deleting and editing of `Order` will edit the ``Tag``s in `Customer`.
+
+** Pros: Only the commands that add, delete or edit an `Order` will require editing the ``Customer``'s ``Tag``s.
+
+** Cons: Creates more dependency between `Customer` and `Command` classes.
+
+* *Alterative 2:* `Customer` storing a list of ``Order``s and iterate through that list to get the number of ``Tag``s.
+
+** Pros: Editing ``Customer``'s ``Tag``s only happen in the `Customer` object itself and doesn't need to depend on information from other objects.
+
+** Cons: Every single change to any `Order` has to be reflected on ``Customer``'s `Order` list. Including edits to ``Order``s made in `Deliverymen` and `Restaurant` context. This makes `Customer` have a lot of dependency with other classes.
+
+We chose to go with the first alternative as `Customer` class will have lesser dependency with other classes when editing tags. In addition, displaying the ``Customer``'s order history will only require `Customer` to access the `OrderDatabase` to get the list of orders. Both of these requirements together still makes the `Customer` class have lesser dependency with other classes compared to implementing the second alternative that makes the `Customer` class have dependencies with every `Order` related classes.
+
+*Aspect: Method of storing ``Tag``s*
+
+* *Alternative 1 (current choice):* Using a map to store the ``Customer``'s ``Tag``s where key is the `Tag` and value is the number of tags.
+
+** Pros: Faster access of ``Tag``s in the map and getting the number of a certain ``Tag`` only takes O(1) time.
+
+** Cons: More memory is needed to store the information. A map to store all ``Tag``s and a set to store the main ``Tag``(s) to display on `CustomerCard`.
+
+* *Alternative 2:* Using a list that stores all ``Tag``s that are in `Customer`.
+
+** Pros: The list is capable of storing all of the ``Tag``s that `Customer` has.
+
+** Cons: The list needs to be iterated through to determine the top ``Tag``(s) of `Customer`.
+
+We chose to go with alternative 1 as we believe speed is more important to the user and sacrificing memory space is the better choice.
 
 // end::auto tagging customer cuisine
 
@@ -529,6 +573,9 @@ on the current context.
 ** Cons: Every single universal command would have to be checked repeatedly in each context-specific parser.
 
 ===== Aspect: Changing of User Interface
+* **Current:** Ui changed depending on
+** Pros: Will only need 1 method signature to change the display of User Interface.
+** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.
 * **Alternative:**
 ** Pros: Will only need 1 method signature to change the display of User Interface.
 ** Cons: It will create many unnecessary contexts that the Parser will never be in apart from this situation.

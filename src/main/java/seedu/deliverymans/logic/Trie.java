@@ -8,7 +8,7 @@ import java.util.Map;
 import seedu.deliverymans.logic.parser.Prefix;
 
 /**
- * Javadoc comment
+ * Trie ADT used for log(l) time complexity searching, where l is the length of input String.
  */
 class Trie {
     private final HashMap<Character, Trie> children;
@@ -21,14 +21,14 @@ class Trie {
     }
 
     /**
-     * TO fill
+     * Inserts a {@code String} into the Trie.
      */
     void insertCommand(String key, LinkedList<Prefix> prefixes) {
         insertCommand(key, key, prefixes);
     }
 
     /**
-     * TO fill
+     * Inserts a {@code String} into the Trie.
      */
     void insertCommand(String key) {
         insertCommand(key, key, new LinkedList<>());
@@ -59,14 +59,14 @@ class Trie {
     }
 
     /**
-     * TO fill
+     * Returns the prefixesList of the current Trie.
      */
     private LinkedList<Prefix> getPrefixList() {
         return this.prefixList;
     }
 
     /**
-     * TO fill
+     * Adds a {@code String} prefix to the prefixesList of the current Trie.
      */
     private void addPrefixes(LinkedList<Prefix> prefixes) {
         this.prefixList.addAll(prefixes);
@@ -81,14 +81,14 @@ class Trie {
     }
 
     /**
-     * TO fill
+     * Adds a {@code String} commandWord to the contestList of the Trie.
      */
     private void addContent(String content) {
         this.contentList.addLast(content);
     }
 
     /**
-     * Tofill.
+     * Returns a Trie containing the {@code String} to find.
      */
     private Trie search(String toFind) {
         Trie curr = this;
@@ -101,64 +101,8 @@ class Trie {
         return curr;
     }
 
-    /*
-    LinkedList<String> autoCompletePrefix(String commandWord, String prefixes) {
-        Trie commandResult = search(commandWord);
-        if (commandResult == null) { // commandWord does not exist
-            return new LinkedList<>();
-        }
-
-        Trie prefixResult = commandResult.search(prefixes);
-        if (prefixResult == null) {
-            return new LinkedList<>();
-        }
-        return prefixResult.getAllPrefixes();
-    }
-
-    private LinkedList<String> getAllPrefixes() {
-        LinkedList<String> contentList = new LinkedList<>();
-        if (children.isEmpty()) {
-            contentList.addAll(this.contentList);
-        }
-        for (Map.Entry<Character, Trie> entry : children.entrySet()) {
-            Trie child = entry.getValue();
-            LinkedList<String> childPrefixes = child.getAllPrefixes();
-            contentList.addAll(childPrefixes);
-        }
-        contentList.sort(String::compareToIgnoreCase);
-        return contentList;
-    }
-
-    private void insertPrefixes(LinkedList<LinkedList<String>> prefixes) {
-        for (LinkedList<String> prefixList : prefixes) {
-            for (String prefix : prefixList) {
-                insertPrefix(prefix);
-            }
-        }
-    }
-
-    private void insertPrefix(String prefix) {
-        Trie curr = this;
-        char[] cArray = prefix.toCharArray();
-        for (int i = 0; i < cArray.length; ++i) {
-            char c = cArray[i];
-            if (i == cArray.length - 1) {
-                if (!curr.children.containsKey(c)) {
-                    curr.children.put(c, new Trie());
-                }
-                curr.children.get(c).addContent(prefix);
-            } else {
-                if (!curr.children.containsKey(c)) {
-                    curr.children.put(c, new Trie());
-                }
-                curr = curr.children.get(c);
-            }
-        }
-    }
-    */
-
     /**
-     * Tofill.
+     * Returns the list of commandWords containing the {@code String} to find.
      */
     LinkedList<String> autoCompleteCommandWord(String toFind) {
         Trie result = search(toFind);
@@ -169,7 +113,7 @@ class Trie {
     }
 
     /**
-     * Tofill
+     * Iterates through the Trie and returns all commandWords the Trie as well as its children contain.
      */
     private LinkedList<String> getAllCommandWords() {
         HashSet<String> uniqueList = new HashSet<>();

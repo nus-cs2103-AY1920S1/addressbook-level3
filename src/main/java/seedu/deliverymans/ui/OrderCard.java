@@ -55,11 +55,11 @@ public class OrderCard extends UiPart<Region> {
         customer.setText("Customer: \t" + order.getCustomer().fullName);
         restaurant.setText("Restaurant: \t" + order.getRestaurant().fullName);
         deliveryman.setText("Deliveryman: \t" + order.getDeliveryman().fullName);
-        deliveryStatus.setText("Delivery completed: " + order.isCompleted());
+        deliveryStatus.setText("\nDelivery completed: " + order.isCompleted());
         Map<Name, Integer> foodList = order.getFoodList();
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("\n");
         for (Map.Entry<Name, Integer> entry : foodList.entrySet()) {
-            sb.append(String.format("Food: %s\tQuantity: %d", entry.getKey().fullName, entry.getValue())).append("\n");
+            sb.append(String.format("Food: %s \tQuantity: %d", entry.getKey().fullName, entry.getValue())).append("\n");
         }
         food.setText(sb.toString());
     }
