@@ -24,7 +24,7 @@ public class CancelDutyShiftCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels shift from the duty roster. "
             + "Parameters: INDEX (positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-    public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "The duty shift for [%1$s] %2$s was cancelled: %3$s";
+    public static final String MESSAGE_CANCEL_SHIFT_SUCCESS = "The duty shift for [%1$s] %2$s was cancelled:\n%3$s";
     public static final String MESSAGE_CANCEL_SHIFTS_SUCCESS = "%1$s reoccurring duty shifts for [%2$s] %3$s "
             + "were cancelled:\n%4$s";
     public static final String MESSAGE_CANCEL_SHIFTS_CONSTRAINTS = "Must indicate at least 1 shift to delete";

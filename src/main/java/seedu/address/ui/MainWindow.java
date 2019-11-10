@@ -290,7 +290,7 @@ public class MainWindow extends UiPart<Stage> implements CommandBoxManager, Omni
     }
 
     /**
-     * Called to update AutoComplete when new commands.
+     * CommandBox TextChanged Callback.
      */
     public void handleCommandBoxTextChanged(String commandText) {
         if (!commandText.isBlank()) {
@@ -303,7 +303,7 @@ public class MainWindow extends UiPart<Stage> implements CommandBoxManager, Omni
     }
 
     /**
-     * Receives Key Press event from Command Box and executes expected behaviours.
+     * CommandBox KeyPressed Callback.
      */
     public void handleCommandBoxKeyPressed(KeyCode keyCode) {
         switch (keyCode) {

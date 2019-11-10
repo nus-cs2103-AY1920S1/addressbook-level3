@@ -25,7 +25,7 @@ public class CancelAppCommand extends ReversibleCommand {
             + "need to go to patient's appointment list first\n"
             + "Example: " + COMMAND_WORD + " 1";
     public static final String MESSAGE_CANCEL_APPOINTMENT_SUCCESS = "The appointment for [%1$s] %2$s "
-            + "was cancelled: %3$s";
+            + "was cancelled:\n%3$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_SUCCESS = "%1$s reoccurring appointments for [%2$s]"
             + " %3$s were cancelled:\n%4$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS =

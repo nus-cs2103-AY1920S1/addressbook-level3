@@ -214,7 +214,7 @@ Format: `newappt -id <PATIENT_REFERENCE_ID> -start <START_TIMING> [-end <END_TIM
 
 ==== Acknowledges a appointment: `ackappt` ====
 
-Acknowledges an existing appointment once the patient has arrived +
+Acknowledges the most upcoming appointment only if patient arrives on the same day and the arriving time is before the appointment's end time +
 Format: `ackappt <REFERENCE_ID>`
 
 ==== Cancels an appointment: `cancelappt` ====

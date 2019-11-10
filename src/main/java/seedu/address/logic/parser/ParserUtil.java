@@ -30,7 +30,7 @@ import seedu.address.model.person.parameters.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_TIMES = "Recusive times should be a positive number";
+    public static final String MESSAGE_INVALID_TIMES = "Reoccurring times should be a positive number";
     public static final String MESSAGE_NO_IDX = "Please provide a valid integer index";
 
     /**
