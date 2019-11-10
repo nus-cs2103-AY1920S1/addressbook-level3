@@ -28,6 +28,13 @@ Class LogicManager
 }
 
 package Model {
+
+package Entity {
+}
+
+package Notif {
+}
+
 Interface Model <<Interface>>
 Class AddressBook
 Class ReadOnlyAddressBook
@@ -35,12 +42,6 @@ Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-}
-
-package Entity {
-}
-
-package Notif {
 }
 
 package GuiSettings {

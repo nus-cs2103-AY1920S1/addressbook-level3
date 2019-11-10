@@ -37,10 +37,12 @@ public class AppUtil {
         }
     }
 
+    //@@author shaoyi1997
     /**
      * Checks if the OS that the application is running on is a Windows platform.
      */
     public static boolean isWindows() {
         return (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0);
     }
+    //@@author
 }

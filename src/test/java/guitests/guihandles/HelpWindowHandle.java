@@ -3,7 +3,8 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
-//@@ author
+//@@author shaoyi1997-reused
+//Reused from AB4
 /**
  * A handle to the {@code HelpWindow} of the application.
  */
@@ -22,4 +23,4 @@ public class HelpWindowHandle extends StageHandle {
         return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
     }
 }
-//@@ author
+//@@author

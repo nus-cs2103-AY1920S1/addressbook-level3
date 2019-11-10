@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 import seedu.address.ui.NotificationButton;
 
+//@@author shaoyi1997
 /**
  * Displays the notifications popover.
  */
@@ -22,3 +23,4 @@ public class ShowNotificationsCommand extends Command {
     }
 
 }
+//@@author

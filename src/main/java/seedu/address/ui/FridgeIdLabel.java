@@ -6,7 +6,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import seedu.address.model.entity.IdentificationNumber;
 
-//@@ author shaoyi1997
+//@@author shaoyi1997
 /**
  * An UI component that displays information of a {@code fridgeId}.
  */
@@ -44,4 +44,4 @@ public class FridgeIdLabel extends UiPart<Region> {
                     .equals(((FridgeIdLabel) other).fridgeIdPlaceholder.getText()))); // state check
     }
 }
-//@@ author
+//@@author
