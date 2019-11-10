@@ -527,12 +527,12 @@ Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
 * **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod s/STUDENT_INDEX m/MODULE_INDEX`
-- e.g `addmod s/A0180009 m/CS1231`
-To add module CS1231 to student A0180009
+- e.g `addmod s/A0180009 m/CS1020`
+To add module CS1020 to student A0180009
 
 * **removemod**:`removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
-- e.g `removemod s/A0180009 m/CS1020`
-To remove module CS1020 from student A0180009
+- e.g `removemod s/A0180000 m/CS1020`
+To remove module CS1020 from student A0180000
 
 * **setcredits**: `setcredits INDEX NEW_MC`
 - e.g. `setcredits 2 c/28`
