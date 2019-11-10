@@ -1,6 +1,5 @@
 package seedu.ichifund.logic.parser.loan;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.ichifund.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ichifund.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -42,15 +41,16 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddLoanCommand parse(String args) throws ParseException {
-        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_AMOUNT, PREFIX_NAME,
                         PREFIX_START_DAY, PREFIX_START_MONTH, PREFIX_START_YEAR,
                         PREFIX_END_MONTH, PREFIX_END_YEAR, PREFIX_END_DAY,
                         PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLoanCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, PREFIX_AMOUNT)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddLoanCommand.MESSAGE_USAGE));
         }
 
 
@@ -58,17 +58,27 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
         LoanId loanId = new LoanId(""); // assignment done in LoanId
         Amount amount = ParserUtil.parsePositiveAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
 
+        Name name;
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        } else {
+            name = new Name("NoName");
+        }
 
-        Name name = null;
-        Description description = null;
+        Description description;
+        if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
+            description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        } else {
+            description = new Description("No Description");
+        }
 
-        Day endday = null;
-        Month endmonth = null;
-        Year endyear = null;
+        Day endday;
+        Month endmonth;
+        Year endyear;
 
-        Day startday = null;
-        Month startmonth = null;
-        Year startyear = null;
+        Day startday;
+        Month startmonth;
+        Year startyear;
 
         if (argMultimap.getValue(PREFIX_START_MONTH).isPresent()
                 && argMultimap.getValue(PREFIX_START_YEAR).isPresent()
@@ -76,6 +86,10 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
             startday = ParserUtil.parseDay(argMultimap.getValue(PREFIX_START_DAY).get());
             startmonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_START_MONTH).get());
             startyear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_START_YEAR).get());
+        } else {
+            startday = new Day("1");
+            startmonth = new Month("1");
+            startyear = new Year("2023");
         }
 
         if (argMultimap.getValue(PREFIX_END_MONTH).isPresent()
@@ -84,18 +98,22 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
             endday = ParserUtil.parseDay(argMultimap.getValue(PREFIX_END_DAY).get());
             endmonth = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_END_MONTH).get());
             endyear = ParserUtil.parseYear(argMultimap.getValue(PREFIX_END_YEAR).get());
+        } else {
+            endday = new Day("30");
+            endmonth = new Month("12");
+            endyear = new Year("2025");
         }
 
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+        /*if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         }
 
         if (argMultimap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             description = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        }
+        }*/
 
-        Date endDate = constructDate(startday, startmonth, startyear);
-        Date startDate = constructDate(endday, endmonth, endyear);
+        Date startDate = constructDate(startday, startmonth, startyear);
+        Date endDate = constructDate(endday, endmonth, endyear);
 
         Loan loan = new Loan(loanId, amount, name, startDate, endDate, description);
 
@@ -118,72 +136,6 @@ public class AddLoanCommandParser implements Parser<AddLoanCommand> {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
     }
-    /*
-    *//**
-     * Parses the {@code Month} field in an {@code ArgumentMultimap}, if present, into
-     * a {@code Month} object, and wraps it in an object
-     * Else, an empty object is returned.
-     *
-     * @throws ParseException if the string in {@code argMultimap} is invalid.
-     *//*
-    private Day parseDay(ArgumentMultimap argMultimap) throws ParseException {
-        String dayString = argMultimap.getValue(PREFIX_END_DAY);
-        if (dayString.isEmpty()) {
-            return empty();
-        } else {
-            return ParserUtil.parseDay(dayString.get());
-        }
-    }
-
-    */
-    /**
-     * Parses the {@code Month} field in an {@code ArgumentMultimap}, if present, into
-     * a {@code Month} object, and wraps it in an object
-     * Else, an empty object is returned.
-     *
-     * @throws ParseException if the string in {@code argMultimap} is invalid.
-     *//*
-    private Month parseMonth(ArgumentMultimap argMultimap) throws ParseException {
-        String monthString = argMultimap.getValue(PREFIX_END_MONTH);
-        if (monthString.isEmpty()) {
-            return empty();
-        } else {
-            return ParserUtil.parseMonth(monthString.get());
-        }
-    }
-
-    *//**
-     * Parses the {@code Year} field in an {@code ArgumentMultimap}, if present, into
-     * a {@code Year} object, and wraps it in an object
-     * Else, an empty object is returned.
-     *
-     * @throws ParseException if the string in {@code argMultimap} is invalid.
-     *//*
-    private Year parseYear(ArgumentMultimap argMultimap) throws ParseException {
-        String yearString = argMultimap.getValue(PREFIX_END_YEAR);
-        if (yearString.isEmpty()) {
-            return empty();
-        } else {
-            return ParserUtil.parseYear(yearString.get());
-        }
-    }
-
-    *//**
-     * Parses the {@code Name} field in an {@code ArgumentMultimap}, if present, into
-     * a {@code Name} object, and wraps it into an object.
-     * Else, an empty object is returned.
-     *
-     * @throws ParseException if the string in {@code argMultimap} is invalid.
-     *//*
-    private Name parseName(ArgumentMultimap argMultimap) throws ParseException {
-        String nameString = argMultimap.getValue(PREFIX_NAME);
-        if (nameString.isEmpty()) {
-            return empty();
-        } else {
-            return ParserUtil.parseName(nameString.get());
-        }
-    }
-    */
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());

@@ -11,6 +11,10 @@ import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.DataList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
+import seedu.ichifund.model.date.Date;
+import seedu.ichifund.model.date.Day;
+import seedu.ichifund.model.date.Month;
+import seedu.ichifund.model.date.Year;
 import seedu.ichifund.model.loan.Loan;
 import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.loan.LoanList;
@@ -200,7 +204,91 @@ public class FundBook implements ReadOnlyFundBook {
         repeaters.remove(key);
     }
 
+    /**
+     * Gets the transactions with the given {@code repeaterUniqueId}.
+     */
+    public ObservableList<Transaction> getAssociatedTransactions(RepeaterUniqueId repeaterUniqueId) {
+        TransactionList list = new TransactionList();
+        for (Transaction transaction : getTransactionList()) {
+            if (transaction.getRepeaterUniqueId().equals(repeaterUniqueId)) {
+                list.add(transaction);
+            }
+        }
+        return list.asUnmodifiableObservableList();
+    }
+
+    /**
+     * Creates the transactions associated with the {@code repeater}.
+     */
+    public void createRepeaterTransactions(Repeater repeater) {
+        int currentMonth = repeater.getStartDate().getMonth().monthNumber;
+        int currentYear = repeater.getStartDate().getYear().yearNumber;
+        int endMonth = repeater.getEndDate().getMonth().monthNumber;
+        int endYear = repeater.getEndDate().getYear().yearNumber;
+
+        while ((currentYear < endYear) || (currentYear == endYear && currentMonth <= endMonth)) {
+            if (!repeater.getMonthStartOffset().isIgnored()) {
+                Transaction transaction = new Transaction(
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
+                        new Date(
+                            new Day(repeater.getMonthStartOffset().toString()),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
+                addTransaction(transaction);
+            }
+
+            if (!repeater.getMonthEndOffset().isIgnored()) {
+                int daysInMonth;
+                if ((new Month(String.valueOf(currentMonth))).has30Days()) {
+                    daysInMonth = 30;
+                } else if ((new Month(String.valueOf(currentMonth))).has31Days()) {
+                    daysInMonth = 31;
+                } else if ((new Year(String.valueOf(currentYear))).isLeapYear()) {
+                    daysInMonth = 29;
+                } else {
+                    daysInMonth = 28;
+                }
+
+                Transaction transaction = new Transaction(
+                        repeater.getDescription(),
+                        repeater.getAmount(),
+                        repeater.getCategory(),
+                        new Date(
+                            new Day(String.valueOf(daysInMonth - (repeater.getMonthEndOffset().value - 1))),
+                            new Month(String.valueOf(currentMonth)),
+                            new Year(String.valueOf(currentYear))),
+                        repeater.getTransactionType(),
+                        repeater.getUniqueId());
+                addTransaction(transaction);
+            }
+
+            currentMonth++;
+            if (currentMonth == 13) {
+                currentMonth = 1;
+                currentYear++;
+            }
+        }
+    }
+
+    /**
+     * Deletes the transactions with the given  {@code repeaterUniqueId}.
+     */
+    public void deleteRepeaterTransactions(RepeaterUniqueId repeaterUniqueId) {
+        for (Transaction transaction : getAssociatedTransactions(repeaterUniqueId)) {
+            removeTransaction(transaction);
+        }
+    }
+
     /// loan-level operations
+
+
+    public void payLoan(Loan target) {
+        loans.remove(target);
+    }
 
     /**
      * Checks boolean value for if loan exists in Loans.
