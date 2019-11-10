@@ -9,10 +9,10 @@
 
 My team and I were tasked with enhancing AddressBook3 - a given CLI (Command Line Interface) application into a better product.
 Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant.
-We aim to improve the quality of life for teachers by assisting them with daily administrative tasks.
+We aim to improve the quality of life for teachers by assisting them with mundane daily administrative tasks.
 In particular, the Njoy Teaching Assistant enables
-teachers to maintain student records to manage students better
-; set questions and quizzes to enhance students learning; and keep track of
+teachers to maintain student records to manage students better;
+ set questions and quizzes to enhance students learning; and keep track of
 their schedules with an interactive timetable.
 
 This is what our project looks like:
@@ -36,25 +36,17 @@ This section entails a summary of my specific enhancements, code contributions a
 
 I implemented the commands related to the event feature, which include:
 
-* *Adding a event to the event record*
-* *Getting the index of a event from the event record*
-* *Removing a event from the event record*
-* *Editing a event in the event record*
-* *Viewing the calendar in different modes*
-* *Taking a screenshot of the calendar*
-* *Exporting all events in the event record to a ics file*
-
-[[Grouping]]
-I'll be sectioning the functionality into the following format (where applicable for the features):
-
-. *Creation*
-. *Deletion*
-. *Editing*
-. *Display*
-
-=== Enhancements
-
-== Event
+//* *Adding a event to the event record*
+//* *Getting the index of a event from the event record*
+//* *Removing a event from the event record*
+//* *Editing a event in the event record*
+//* *Viewing the calendar in different modes*
+//* *Taking a screenshot of the calendar*
+//* *Exporting all events in the event record to a ics file*
+//
+//== Enhancements
+//
+//== Event
 
 === Event Creation and Deletion
 
@@ -123,44 +115,28 @@ represents all its information including the recurrence type.
 
 === Code contributed
 
-Please click these links to see a sample of my code.
-
-==== Add Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventAddCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventAddCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Index Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventIndexCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventIndexCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Edit Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventEditCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventEditCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Delete Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventDeleteCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventDeleteCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Screenshot Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventScreenshotCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventScreenshotCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== Export Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventExportCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventExportCommandTest.java[Test code]] _{Links to samples of my code.}_
-
-==== View Event
-[https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/main/java/seedu/address/logic/commands/event/EventViewCommand.java[Functional code]] [https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/src/test/java/seedu/address/logic/commands/event/EventViewCommandTest.java[Test code]] _{Links to samples of my code.}_
+Please click the following link to see my code contributions dashboard. https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lumwb&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lumwb&tabRepo=AY1920S1-CS2103T-W13-2%2Fmain%5Bmaster%5D[Code Report]
 
 === Other contributions
 
 * Project management:
+** Managed milestones and deadlines on Github.
 ** Resolved the issues found by others related to the user interface and storage components of the project.
 ** Resolved the issues found by others related to my feature on Github.
 ** Updated the AboutUs page in GitHub for my team's repository.
 ** Updated the ReadMe description.
-
 * Enhancements to existing features:
 ** Wrote additional tests for existing features to increase coverage from 51% to 60% : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188]
-
+** Wrote skeleton code for storage for others to reuse (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35[#35])
+* Community:
+** Team pull requests that I reviewed and merged. [https://github.com/AY1920S1-CS2103T-W13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+commenter%3Alumwb[Github]]
 * Documentation:
+** Added documentation for features added https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188]
 ** Made cosmetic tweaks and added figure number to the existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/195[#195]
-
 ** Made relevant changes for the Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188]
+
+* Tools:
+** Integrated a third party library (iCalendarAgenda) to the project (https://github.com/AY1920S1-CS2103T-W13-2/main/pull/79[#79])
 
 == Contributions to the User Guide
 
@@ -173,11 +149,11 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `Event` screenshot section the User Guide:*
 
-include::../UserGuide.adoc[lines=1011..1051]
+include::../UserGuide.adoc[lines=1025..1066]
 
 *The following is an example of `Event` view section the User Guide:*
 
-include::../UserGuide.adoc[lines=1053..1072]
+include::../UserGuide.adoc[lines=1070..1089]
 
 == Contributions to the Developer Guide
 
@@ -190,9 +166,13 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the `EventRecord` class overview section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1297..1306]
+include::../DeveloperGuide.adoc[lines=1315..1324]
 
 
 *The following is the delete `Event` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1402..1421]
+include::../DeveloperGuide.adoc[lines=1410..1429]
+
+*The following is the index `Event` section of the Developer Guide:*
+
+include::../DeveloperGuide.adoc[lines=1348..1386]
