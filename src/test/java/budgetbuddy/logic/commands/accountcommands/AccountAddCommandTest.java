@@ -19,7 +19,7 @@ public class AccountAddCommandTest {
     private Model model = new ModelManager();
 
     @Test
-    public void constructor_nullLoan_throwsNullPointerException() {
+    public void constructor_nullAccount_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AccountAddCommand(null));
     }
 
