@@ -25,7 +25,7 @@ across different stakeholders and managing different sources of data (such as pa
 Instead of managing this process across different media such as Excel spreadsheets and emails, Alfred allows
 you to coordinate everything in a single, convenient-to-use platform.
 
-Alfred is a Command Line Interface (CLI) application packaged with a Graphical User Interface (GUI). This means that users are expected
+In particular, Alfred is a Command Line Interface (CLI) application packaged with a Graphical User Interface (GUI). This means that users are expected
 to interact with Alfred mainly through the Command Line, but each command executed will invoke a visual response
 in Alfred.
 
@@ -69,7 +69,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+`LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
@@ -222,7 +222,7 @@ image::AlfredStorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/AlfredStorage.java[`AlfredStorage.java`]
 
-The `Storage` component saves and reads 4 different data types:
+The `Storage` component saves and reads 4 different *_data types_*:
 
 1. `UserPrefs`: User Preferences for Alfred (such as the last used Window Size of the application)
 2. `ParticipantList`: Information of all the Participants in Alfred
@@ -231,8 +231,8 @@ The `Storage` component saves and reads 4 different data types:
 
 All 4 data types are stored to disc in JSON files. The data is read from the JSON files when Alfred is first
 start up. It is also important to note that saving is automatic in Alfred. This means that after the execution of each
-command, the data in Alfred will automatically be saved to disk. This frees the user from constantly calling
-some form of saving functionality, and ensures that the information is storage is as up-to-date as possible.
+command, the data in Alfred will automatically be saved to disk. This frees the user from the hassle of constantly calling
+some form of saving functionality, and ensures that the information in storage is as up-to-date as possible.
 
 [NOTE]
 When reading the JSON files from memory at application start-up, any kind of data corruption in the JSON files
@@ -251,14 +251,13 @@ simple, allowing the following methods for each of the 4 data types:
     2. `save()`: saves the data to the JSON file
     3. `read()`: reads the data from the JSON file
 
-*  The Storage component handles the complexities of actually storing to and reading from disc the different data types.
-
+The Storage component handles the complexities of actually storing to and reading from disc the 4 different data types.
 As can be seen in the figure at the start of this section, underlying AlfredStorage's simple interface are several classes
 that ensure the accurate storing and retrieval of Alfred's data from disc. The following are some details of the Storage
 Component:
 
 * Each EntityList has a designated Storage class (i.e. for Participant, you have `ParticipantListStorage`, `JsonParticipantListStorage` etc.). Hence, for the rest of this explanation, Entity will be used as a generic term for Participants/Mentors/Teams.
-* The class implementing the `EntityListStorage` interface is `JsonTeamEntityStorage`. This class is responsible for providing the read/save functionality for the entire EntityList to `AlfredStorageManager`.
+* The class implementing the `EntityListStorage` interface is `JsonEntityListStorage`. This class is responsible for providing the read/save functionality for the entire EntityList to `AlfredStorageManager`.
 * In order to save the entire `EntityList` in JSON, the class `JsonSerializableEntityList` implements the logic for serialization for the collection of Entities (i.e. EntityList). This is achieved by converting the `EntityList` to a `List<JsonAdaptedEntity>`.
 * In order to save each individual Entity, the Entity is in turn converted to a `JsonAdaptedEntity` object. The `JsonAdaptedEntity` class contains the fields of each Entity that are relevant for saving to disc. Hence, this class is directly serialized into JSON, and also has methods for converting the serialized object back into an Entity object for `AlfredStorage` to return to `ModelManager`.
 * The conversion of the `JsonAdaptedEntity` object to fields in a JSON file is done by Java's Jackson library.
@@ -268,7 +267,7 @@ The following is a concrete example of the storage of a ParticipantList in JSON:
 .Structure of the JSON File for ParticipantList
 image::ParticipantListJson.png[]
 
-The Figure above shows the contents of the JSON file storing a ParticipantList containing 2 participants. The data in the red box
+The figure above shows the contents of the JSON file storing a ParticipantList containing 2 participants. The data in the red box
 corresponds to the fields in a single Participant object. These fields are generated by the Jackson library from the serializable `JsonAdaptedParticipant`
 object, and the entire list of participants in the JSON file is in turn generated because the `JsonSerializableParticipantList` class converts
 the ParticipantList to a List of `JsonAdaptedParticipant`.
@@ -284,6 +283,25 @@ upwards to ModelManager and a new EntityList is initialised in memory, effective
 inconsistencies in Alfred.
 * In future implementations, it would be best to ensure that the JSON file is encrypted and secured to minimise
 opportunities for tampering with the data.
+
+2. Single Responsibility Principle
+
+* Each class exists for a very specific purpose. A class is provided for each Entity.
+* Purpose (From Top-Down):
+** Exposing read/save functionality for EntityList: `JsonEntityListStorage`
+** Serializing EntityList: `JsonSerializableEntityList`
+** Serializing one Entity: `JsonAdaptedEntity`
+
+3. Interface Segregation
+
+* Each interface is kept as minimal as possible and targets a specific Entity type.
+* AlfredStorage is an interface that extends multiple interfaces to expose the read/save functionality
+required by Model.
+
+4. Dependency Inversion
+
+* Alfred's Model is dependent on the interface AlfredStorage, and the implementation is provided through AlfredStorageManager.
+Hence, all functionality provided are first stipulated in the AlfredStorage interface.
 
 
 [[Design-Commons]]
@@ -376,16 +394,17 @@ is an integer, allows you to undo/redo `N` commands at one go.
 To undo/redo to next immediate command, simply invoking `undo`/`redo` on Alfred would suffice, as it implicitly calls `undo 1`/`redo 1`
 in the code.
 
-This feature is a convenient feature as it allows users of Alfred to quickly correct and recover
+This feature is a convenience feature as it allows users of Alfred to quickly correct and recover
 from mistakes, greatly increasing the utility of the application.
 
 [NOTE]
-Only the 50 data states is stored in `ModelHistoryManager` at any one point in time. The addition of any more data states will
+Only a maximum of 50 data states is stored in `ModelHistoryManager` at any one point in time. The addition of any more data states will
 result in the discarding of the oldest data state.
 
 ==== Implementation
 
-The general idea is as follows: The undo/redo mechanism is mainly facilitated by `ModelHistoryManager`. Alfred's data is held in memory within the `ModelManager` object. After the execution of commands that mutate the data in Alfred, a deep copy
+The general idea is as follows: The undo/redo mechanism is mainly facilitated by the interface `ModelHistory` and its implementation `ModelHistoryManager`.
+Alfred's data is held in memory within the `ModelManager` object. After the execution of commands that mutate the data in Alfred, a deep copy
 of all 3 EntityLists is made and saved as a `ModelHistoryRecord` in `ModelHistoryManager`. A deep copy is necessary to ensure that
 any subsequent changes to data will not alter the data in the `ModelHistoryRecord`, allowing each `ModelHistoryRecord` to serve as
 a pristine record of the state of the data in Alfred at the end of the execution of each command.
@@ -408,11 +427,13 @@ image::UndoSequenceDiagramUpdateHistory.png[]
 
 The top half of the diagram covers the creation of the DeleteParticipantCommand object, and the bottom half covers
 what happens when the `execute()` method of the DeleteParticipantCommand object is called. The important thing to note is the fact
-that a deep copy of the 3 EntityLists is created and stored in ModelHistoryRecord.
+that a deep copy of the 3 EntityLists is created and stored as a `ModelHistoryRecord` in `ModelHistoryManager`.
 
 An important issue to take note of is that only commands that implement the TrackableState interface will cause a new `ModelHistoryRecord`
 to be created and stored in `ModelHistoryManager`. The TrackableState interface is a marker interface, and is used to mark
-the commands that mutate data in Alfred.
+the commands that mutate data in Alfred. All command types except the following implement the TrackableState interface (and
+will therefore have the state of the data recorded in `ModelHistoryManager` after command execution):
+`help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
 
 ==== Implementation: How `ModelManager` is Updated When the Undo Command is Executed
 The following sequence diagram shows what happens when the UndoCommand is executed.
@@ -449,21 +470,21 @@ This is what happens after each step:
 
 __ Step 1. AddParticipantCommand: `add participant n/Clark Kent p/+6598321212 e/clark.kent@supermail.com` __
 
-.Initial State of `ModelHistoryManager`
+.State of `ModelHistoryManager` after Step 1
 image::UndoRedoState1.png[]
 
 A new `ModelHistoryRecord` is created to reflect the state of the data in Alfred after the execution of the AddParticipantCommand.
 
 __ Step 2. AddMentorCommand: `add mentor n/Lex Luthor o/LexCorp p/+6598321010 e/lex.not.evil@gmail.com s/Social` __
 
-.Initial State of `ModelHistoryManager`
+.State of `ModelHistoryManager` after Step 2
 image::UndoRedoState2.png[]
 
 A new `ModelHistoryRecord` is created to reflect the state of the data in Alfred after the execution of the AddMentorCommand.
 
 __ Step 3. ListParticipantCommand: `list participants` __
 
-.Initial State of `ModelHistoryManager`
+.State of `ModelHistoryManager` after Step 3
 image::UndoRedoState3.png[]
 
 Note that no new `ModelHistoryRecord` is created because the ListParticipantCommand does not alter the state of the data in Alfred.
@@ -471,17 +492,17 @@ Hence, it does not implement the TrackableState interface.
 
 __ Step 4. UndoCommand: `undo 2` __
 
-.Initial State of `ModelHistoryManager`
+.State of `ModelHistoryManager` after Step 4
 image::UndoRedoState4.png[]
 
-After executing the `undo 2` command, the pointer in `ModelHistoryManager` shifts backwards by 2 to point tp the `ModelHistoryRecord`
+After executing the `undo 2` command, the pointer in `ModelHistoryManager` shifts backwards by 2 to point to the `ModelHistoryRecord`
 at the zero-th index.
 
 Note that this means that `undo 3` would throw an error, as you cannot move beyond the very first `ModelHistoryRecord` in `ModelHistoryManager`.
 
 __ Step 5. AddTeamCommand: `add team n/Justice League s/Social pn/BetterThanAvengers l/12` __
 
-.Initial State of `ModelHistoryManager`
+.State of `ModelHistoryManager` after Step 5
 image::UndoRedoState5.png[]
 
 Note that the execution of a new command will invalidate the `ModelHistoryRecord` after the pointer. This is because all subsequent
@@ -496,7 +517,10 @@ When designing the undo/redo feature, there were some design considerations to t
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each individual command are correct, which is not trivial for
+certain commands, such as `import`, which provides a best-effort implementation and tries to import as many valid data entries
+as possible. In order to implement an `undo` method for this, we would have to keep track of the new Entities that got created
+due to the command execution and then invoke deletion of these Entities.
 
 Given the large number of commands that are available in Alfred, it is not very scalable to implement
 an undo/redo method for each of the commands. It is also more extensible to use Alternative 1 as it allows
@@ -517,24 +541,65 @@ In order to accommodate this design for the Undo/Redo feature, we decided to lim
 `ModelHistoryManager` to 50. It is unlikely that a user would want to undo more than 50 commands at a go, as that would indicate
 a very significant error in the workflow, and recovering from that should not have a reliance on the Undo/Redo feature.
 
+=== History feature
+
+Closely related to the undo/redo feature, the `history` feature allows you to examine up to 50 previously executed commands
+in order to provide you with a visual understanding of the history of commands executed. Specifically, it provides you information
+on how many commands are undo-able/redo-able, and which commands are undo-able/redo-able. Otherwise, it can be difficult to
+know which commands you are undo/redo-ing, especially when many commands have been executed.
+
+Simply execute `history` in Alfred to navigate to the "History" section of the Graphical User Interface and examine what commands
+are undo-able/redo-able.
+
+."History" section of the Graphical User Interface after invoking the `history` command
+image::UndoRedoExplanation.png[]
+
+Note that there are 3 types of delimiters:
+
+1. Redo Delimiter: No redos are possible beyond this point
+2. Current Delimiter: This is the current state of the data relative to all the commands previously executed.
+3. Undo Delimiter: No undos are possible beyond this point
+
+==== Implementation
+Most of the functionality required for the `history` feature is similar to that of the `undo`/`redo` feature. Specifically,
+there is a similar reliance on the `ModelHistory` interface and its implementation `ModelHistoryManager` to provide the information
+on which commands are undo-able and redo-able, along with their respective command input strings. See the sequence diagram below
+for more information.
+
+.Sequence diagram for the execution of the History command
+image::HistoryCommandRendering.png[]
+
+Since `ModelHistoryManager` keeps a linear history of Alfred's data state after commands are executed, and it has a pointer
+to the current data state, the redo-able commands are simply the ones after the pointer, and the undo-able commands are the one before
+the pointer. The panels displayed in the "History" section of the Graphical User Interface is simply a visual representation of
+this sequential ordering of datas states. The call to `getCommandHistory()` in Model will return an ArrayList of CommandRecords, where each CommandRecord
+specifies the command input string as well as whether the CommandRecord is a delimiter. This ArrayList is then provided back to
+the UI for rendering in the "History" section of the Graphical User Interface.
+
+==== Design Considerations
+Given the close relationship between this feature and the `undo`/`redo` feature, the design considerations are very similar as well.
+See <<Undo/Redo feature>> for more information.
+
 === Command History Navigation
 Since Alfred is ultimately a Command-Line Interface (CLI) application, it would be good to integrate some of the more useful features
 of CLI applications into Alfred. This feature allows users to go through previously executed commands by pressing the ALT+UP/DOWN
 arrow keys. Although it would be more convenient to use the UP/DOWN arrow keys to navigate the command history, the UP/DOWN arrow
-keys have been mapped to other uses in Alfred.
+keys have been mapped to the Command Suggestions feature in Alfred.
 
 This feature allows users to quickly re-use previously exeuted commands without having to go through the hassle of re-typing
 everything. This is particularly useful when the commands are long, and only small modifications are necessary to the command.
 
 [NOTE]
 Only successfully executed commands can be navigated to using the ALT+UP/DOWN keys. Invalid comands will not be stored, and hence
-cannot be accessed using this feature.
+cannot be accessed using this feature. The only exception to this is the `import` command, as it is a 'best-effort' command that raises exceptions for certain entries
+in the csv file, but seeks to import as many valid data entries as possible. Hence, the `import` command can be navigated to using
+the ALT+UP/DOWN arrow keys even when it does not completely succeed during execution.
 
 ==== Implementation
 Every time a valid new command is executed, the string used to generate the command (i.e. the text that the user types into
 Alfred's Command Input Box) is stored in the `Command` object.
 
-The main class resposible for remembering and providing the previously used command input strings is the `CommandHistoryManager` class,
+The main class responsible for remembering and providing the previously used command input strings is the `CommandHistoryManager` class,
 which implements the `CommandHistory` interface. The `CommandHistory` interface only exposes 3 methods: `saveCommandExecutionString`,
 `getPrevCommandString` and `getNextCommandString`. The latter 2 methods directly map to the 2 situations of pressing the ALT+UP and
 pressing the ALT+DOWN keys respectively.
@@ -565,15 +630,29 @@ An analogous process is executed when the ALT+DOWN arrow keys are pressed.
 ==== Design Considerations
 The following are some design considerations for the Command History Navigation feature.
 
+===== Aspect: Use of CommandHistoryManager
+A separate class was created for managing the command history. Although this meant that Model would have a further
+dependency on another class and hence cause an increase in the coupling between objects, this implementation adheres
+to the Single Responsibility Principle and abstracts away the details of handling the command history to a purpose-built class.
+This adheres better to the OOP-style of programming and results in conceptually cleaner code.
+
 ===== Aspect: Limitation of Command History Size
 In order to ensure that `CommandHistoryManager` does not occupy an increasingly large portion of memory as more and more
 commands are executed, it is necessary to limit the number of commands that are stored. Otherwise, Alfred's performance
 will suffer as more commands are executed.
 
+Furthermore, it is very unlikely for user to want to navigate more than 50 commands into history, as it would likely be
+more convenient to re-type the command if that is the case.
+
 ==== Aspect: Usage of Arrow Keys
 Most CLI applications with such a Command History Navigation feature would use the UP/DOWN arrow keys directly, but the UP/DOWN
-arrow keys have been mapped for a different use in Alfred. Hence, we decided to use the ALT modifier key for the feature. It is
+arrow keys have been mapped for a different use (Command Suggestion Feature) in Alfred. Hence, we decided to use the ALT modifier key for the feature. It is
 an inconvenience, but likely a minor one.
+
+==== Aspect: Navigation to Successfully-Executed Commands
+As mentioned above, only successfully executed commands can be navigated to using this feature. This is because unsuccessful
+commands will still remain within the Command Input Box in Alfred, which the user can readily edit. Only upon successful command
+execution will the text in the Command input Box disappear, so this feature is necessary to retrieve the Command's input text.
 
 === `home` feature
 

@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial state
+title Initial State
 
 package States {
     class State1 as "__mhr0:ModelHistoryRecord__"

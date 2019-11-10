@@ -362,7 +362,8 @@ image::UndoRedoExplanation.png[width="790"]
 
 ****
 * This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
-commands can be undone/redone.
+commands can be undone/redone. This is especially useful when many commands have been executed and it is difficult to remember the sequence of
+execution of the commands.
 * Executing the command will bring you to the "History" section of Alfred, which displays all the previously-executed
 commands as panels. There are 3 main delimiters. Each delimiter is just a visual representation of the limits for the undo/redo commands.
 * You cannot redo any command beyond the "redo" delimiter.
@@ -376,7 +377,7 @@ On the other hand, invoking `add participant` with the suitable parameters will 
 ****
 
 [NOTE]
-The following commands are not undo/redo-able: `help`, list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
+The following commands are not undo/redo-able: `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
 All other commands are undo/redo-able.
 
 Example:
