@@ -122,6 +122,12 @@ class Validators {
                 matchesAlphaNumeric(input);
     }
 
+    public static boolean isValidEncryptedDetail(String input) {
+        return isCorrectDetailsLength(input, Username.USERNAME_MIN_LENGTH)
+                &&
+                isNotEmpty(input);
+    }
+
 
     /**
      * Check if user input is a valid date

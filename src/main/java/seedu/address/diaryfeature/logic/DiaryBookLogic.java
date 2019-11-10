@@ -41,14 +41,14 @@ public class DiaryBookLogic {
         DiaryBook initialData;
         try {
             diaryBookOptional = storage.readDiaryBook();
-            if (!diaryBookOptional.isPresent()) {
+            if (diaryBookOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample DiaryBook");
                 initialData = SampleDataUtil.getSampleDiaryBook();
             } else {
                 initialData = diaryBookOptional.get();
             }
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty DiaryBook");
             initialData = new DiaryBook();
         }
         this.diaryModel = new DiaryModel(initialData);

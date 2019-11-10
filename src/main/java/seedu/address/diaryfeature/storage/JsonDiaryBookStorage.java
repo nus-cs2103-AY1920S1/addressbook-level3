@@ -13,6 +13,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 
 public class JsonDiaryBookStorage implements DiaryBookStorage {
@@ -61,7 +62,7 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
 
         Optional<JsonSerializableDiaryBook> jsonDiaryBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableDiaryBook.class);
-        if (!jsonDiaryBook.isPresent()) {
+        if (jsonDiaryBook.isEmpty()) {
             logger.info("using empty book");
             return Optional.empty();
         }
@@ -70,7 +71,7 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
             logger.info("using written book");
             return Optional.of(jsonDiaryBook.get().toModelType());
 
-        } catch (DiaryEntryParseException error) {
+        } catch (ParseException error) {
             logger.info("Illegal values found in " + filePath + ": " + error);
             throw new DataConversionException(error);
         }

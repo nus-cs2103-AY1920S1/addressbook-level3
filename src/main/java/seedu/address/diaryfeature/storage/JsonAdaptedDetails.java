@@ -5,9 +5,11 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.diaryfeature.logic.parser.ParserUtil;
 import seedu.address.diaryfeature.model.details.Details;
 import seedu.address.diaryfeature.model.details.Password;
 import seedu.address.diaryfeature.model.details.Username;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Jackson-friendly version of {@link seedu.address.diaryfeature.model.diaryEntry.DiaryEntry}.
@@ -45,12 +47,14 @@ public class JsonAdaptedDetails {
      * Converts this Jackson-friendly adapted person object into the addressBookModel's {@code Person} object.
      *
      */
-    public Optional<Details> toModelType() {
+    public Optional<Details> toModelType() throws ParseException {
         if (username.equalsIgnoreCase("null") || password.equalsIgnoreCase("null")) {
             return Optional.empty();
-        } else {
+        } else if (ParserUtil.isValidEncryptedDetail(username) && ParserUtil.isValidEncryptedDetail(password)){
             Details curr = new Details(new Username(username), new Password(password));
             return Optional.of(curr);
+        } else {
+            throw new ParseException("Details have been corrupted");
         }
     }
 
