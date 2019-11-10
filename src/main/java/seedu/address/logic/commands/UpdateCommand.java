@@ -398,9 +398,7 @@ public class UpdateCommand extends UndoableCommand {
             }
         }
 
-        for (Notif notif : autoNotif) {
-            model.deleteNotif(notif);
-        }
+        autoNotif.forEach((notif) -> model.deleteNotif(notif));
     }
 
     public void setUpdateFromNotif(boolean isUpdatedFromNotif) {
