@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser;
+package seedu.weme.logic.parser.contextparser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,8 +13,6 @@ import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateArchivesCommand;
 import seedu.weme.logic.commands.templatecommand.TemplateUnarchiveCommand;
-import seedu.weme.logic.parser.contextparser.TemplateParser;
-import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 public class TemplateParserTest {

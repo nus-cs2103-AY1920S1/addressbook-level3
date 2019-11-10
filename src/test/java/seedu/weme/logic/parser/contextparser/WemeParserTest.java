@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser;
+package seedu.weme.logic.parser.contextparser;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -13,7 +13,6 @@ import seedu.weme.logic.commands.generalcommand.HelpCommand;
 import seedu.weme.logic.commands.generalcommand.RedoCommand;
 import seedu.weme.logic.commands.generalcommand.TabCommand;
 import seedu.weme.logic.commands.generalcommand.UndoCommand;
-import seedu.weme.logic.parser.contextparser.WemeParser;
 import seedu.weme.logic.parser.exceptions.ParseException;
 
 public class WemeParserTest {
