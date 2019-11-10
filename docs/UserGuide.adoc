@@ -1123,17 +1123,17 @@ Format: `resetf`
 
 Example: `resetf`
 
-==== Recovering food data: _recoverf_ `coming in v2.0`
+==== Recovering food data: _recoverf_ `[coming in v2.0]`
 Recovers the food data after resetting all the foods.
 The recovered data is based on the food list state just before the *latest recmf command*.
 This would be useful if the user wrongly enter `resetf` command, or another user want to temporarily use the same jar file on the same PC.
 
-==== Editing a food: _editf_ `coming in v2.0`
+==== Editing a food: _editf_ `[coming in v2.0]`
 Edits the available food fields, such as food name and GI value, of an existing food.
 The restrictions on field value are the same as the restrictions declared in `addfood` commands.
 This would provide more flexibility to the user to manipulate food data, instead of directly deleting a food.
 
-==== Recording and analyzing diets `coming in v2.0`
+==== Recording and analyzing diets `[coming in v2.0]`
 Records the user's diets on specified dates and provides daily, weekly, and monthly summaries about nutrition intakes.
 This would allow the user to have an overview of his food consumption statistics.
 Bases on such statistics, the user can get more specific and personalized suggestions to balance the his nutrition intake.
