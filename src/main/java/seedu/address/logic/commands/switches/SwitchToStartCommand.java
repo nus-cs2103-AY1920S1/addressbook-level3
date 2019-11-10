@@ -15,7 +15,7 @@ import seedu.address.model.wordbank.WordBank;
 import seedu.address.model.wordbanklist.WordBankList;
 
 /**
- * Starts the game.
+ * Starts a Game session using the WordBank already selected in Model.
  */
 public class SwitchToStartCommand extends SwitchCommand {
 
@@ -26,6 +26,7 @@ public class SwitchToStartCommand extends SwitchCommand {
             "Cannot start the game! (Needs at least 3 cards per Game)\n"
             + "Consider opening the bank to add cards.\n"
             + "Eg. open";
+
     static final String MESSAGE_WORDBANK_NOT_LOADED = "You have not loaded a wordBank!";
 
     private static final String MESSAGE_GAME_IN_PROGRESS = "A game session is still in progress!"
@@ -33,9 +34,9 @@ public class SwitchToStartCommand extends SwitchCommand {
 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Starts the word bank identified by the index number used in the displayed card list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Starts the Game with the already selected WordBank.\n"
+            + "Parameters: DIFFICULTY (optional to specify) \n"
+            + "Example: " + COMMAND_WORD + " easy";
 
     private Optional<DifficultyEnum> difficulty;
 

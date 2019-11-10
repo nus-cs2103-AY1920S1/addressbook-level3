@@ -420,23 +420,15 @@ The relevant command(s) are:
 Format: `start [EASY/MEDIUM/HARD]`
 
 - Starts a game session with the currently selected _WordBank_ and specified _Difficulty_.
-(_WorkBank_ selection is done in _Home_ mode.)
-
-- If no _Difficuty_ is specfied, the default _Difficulty_ in _Settings_
+(_WorkBank_ selection is done in _Home_ mode.) If no _Difficuty_ is specified, the default _Difficulty_ in _Settings_
 will be used.
-
-
 
 
 ==== Game Mode - [underline]#Playing# image:game_mode_icon.png[width="30"]
 
-.UI regions that show feedback during a Game session.
-image::UserGuideGameSessionDiagram2.png[width="790"][height="850"]
+.Timer and feedback for each Guess during a Game session. (Timer changes color based on time left).
+image::UserGuideGameSessionDiagram2.png[width="790"]
 
-
-
-During a _Game_, the _Timer_ will change colour according to the time left (region in green box). Feedback for each _Guess_ is shown via the _ResultDisplay_ (region in the red box). +
- +
 The relevant command(s) are:
 
 1. *Making a _Guess_ for a _Word_*: +
@@ -458,10 +450,8 @@ Format: `skip`
 image::GameFinishedGameStoppedComparison.png[width="1000"]
 
 A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
-*automatically shown* upon completion of a _Game_ (see Fig. 6 above). +
- +
-The user can choose to `stop` a _Game_ before it has finished. This will result in all current _Game_ progress being lost, and
-no _Statistics_ being collected or generated (see Fig. 7 above). +
+*automatically shown* upon completion of a _Game_ (see Fig. 6 above). The user can choose to `stop` a _Game_ before it has finished- *all current _Game_ progress is lost*, and
+*no _Statistics_ are collected* (see Fig. 7 above). +
  +
 The relevant command(s) are:
 
@@ -469,8 +459,7 @@ The relevant command(s) are:
 +
 Format: `stop`
 
-- Forcibly terminates the current active _Game_ session (*all progress will be lost, and no _Statistics_ will
-be reported.*)
+- Forcibly terminates the current active _Game_ session.
 
 // end::yida-game[]
 
@@ -576,16 +565,17 @@ image::avatar151.png[]
 // tag::chenhui-commandusage2[]
 
 === Misc. Commands
-(Help is available in Home mode) +
-(Exit is available in any mode except Game mode)
+[NOTE]
+`help` is available in _Home_ mode +
+`exit` is available in any mode *except* _Game_ mode)
 
 ==== Ask for help: `help`
-Dukemon sends help.
+Show the link to the User Guide (appears as a pop-up).
 
 Format: `help`
 
 ==== Take a break: `exit`
-Dukemon says bye!
+Exit and close _Dukemon_.
 
 Format: `exit`
 
@@ -593,11 +583,11 @@ Format: `exit`
 
 // tag::statsjason[]
 == Statistics image:statistics-icon.png[width="32"]
-This section covers the statistics shown to the user.
+This section covers the _Statistics_ shown to the user.
 
 === Game Result
-The game result is shown to the user every time they finish a game. It contains information of the finished game and
-some information of the _WordBank_.
+The game result is shown to the user every time a Game finishes. It contains information regarding the finished _Game_ session and
+_Statistics_ for the selected _WordBank_.
 
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
@@ -605,12 +595,12 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 image::annotated_game_results_ui.png[]
 
 === WordBank Statistics
-The _WordBank_ statistics is shown on open mode and contains all information of the _WordBank_.
+The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
 .Wordbank Statistics UI.
 image::annotated_wb_statistics_ui.png[]
 
-NOTE: The high score and fastest clear of a word bank will not be reset on adding/deleting cards.
+NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting cards.
 
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
@@ -649,7 +639,7 @@ image:DragAndDrop3.png[width="130", align="left"]
 //image:DragAndDrop3.png[130, 130]
 
 From `HOME` mode, you can view your _WordBanks_. +
-Simply drag and drop a _WordBank_ json file from your computer into Dukemon. +
+Simply drag and drop a _WordBank_ .json file from your computer into the _Dukemon_ GUI. +
 
 image:DragAndDropOut1.png[width="130", align="left"]
 {nbsp} {nbsp} -> {nbsp} {nbsp}
@@ -662,7 +652,8 @@ your desktop, or chat applications. +
 
 Try it!
 
-NOTE: Dukemon only reads json files.
+NOTE: _Dukemon_ only accepts .json files when importing _WordBanks_. Attempting to
+ import or export other types files will not be successful.
 
 // end::chenhui-userDragAndDrop[]
 
@@ -809,15 +800,28 @@ Create your own difficulties with customized time durations.
 
 == FAQ
 
-*Q*: How do I pronounce your app name? +
-*A*: Think Pokemon.
+*Q*: _Dukemon_ is not starting up/crashes upon load-up, how can I rectify this? +
+*A*: Move _Dukemon_ to a new, *empty* file directory. Ensure that all data and configuration files in the same directory are
+deleted (_some files may be corrupted_). _Dukemon_ will perform clean start from the new directory.
 
-*Q*: How do I transfer my _WordBank_ to my friend? +
-*A*: Export your _WordBank_ to your computer, then transfer him the file. He can then import the file into his Dukemon.
+*Q*: The _Game_ failed to start, what can I do? +
+*A*: Ensure that your selected _WordBank_ has at least three _Cards_ to be able to start. Also note that
+you will be *brought to the _Game_ mode* regardless, and will need to switch out of it.
 
+*Q*: Switching modes is not working, what can I do? +
+*A*: Ensure that *you have selected a _WordBank_* before attempting to switch modes. Check that you have *stopped the _Game_ session*
+if you want to switch to certain modes.
 
-*Q*: Do I have to save data? +
-*A*: Dukemon data are saved in the hard disk automatically after any command that changes the data.
-These commands are generally Card/_WordBank_ commands.
-There is no need to save manually.
-Statistics are also stored automatically.
+*Q*: How do I pronounce the app name? +
+*A*: Think _Pokemon_.
+
+*Q*: The GUI (Graphical User Interface) seems to be lagging, is this an issue? +
+*A*: _Dukemon_ aims to run at around 60fps, but performance varies across machines.
+
+*Q*: How can I transfer/share _WordBanks_ across machines? +
+*A*: Use the `export` and `import` functionalities to move data to specific file directories. From there you can
+share your files manually.
+
+*Q*: How can I save my data? +
+*A*: _Dukemon's_ data is saved to the hard disk automatically (eg. adding cards/words, statistics etc)
+There is no need to manually save data or Game `Statistics`.
