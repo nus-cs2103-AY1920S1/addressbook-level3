@@ -1,0 +1,33 @@
+@startuml
+
+class Question {
+getQuestionBody(): QuestionBody
+getAnswer(): Answer
+getSubject(): Subject
+getDifficulty(): Difficulty
+isSameQuestion(Question other): boolean
+}
+
+class QuestionBody {
+body: String
+isValidQuestionBody(String test): boolean
+}
+class Answer {
+answer: String
+isValidAnswer(String test): boolean
+}
+class Subject {
+subject: String
+isValidSubject(String test): boolean
+}
+class Difficulty {
+difficulty: String
+isValidDifficulty(String test): boolean
+}
+
+Question *--> "1" QuestionBody
+Question *--> "1" Answer
+Question *--> "1" Subject
+Question *--> "1" Difficulty
+
+@enduml

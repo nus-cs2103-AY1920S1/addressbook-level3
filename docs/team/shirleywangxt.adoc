@@ -10,20 +10,25 @@ and the various skills I have acquired and utilised in the process of developmen
 
 === Project Overview
 
-My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
+Our team consists of 5 software engineering students who are passionate about software development.
+We were assigned to enhance a basic command line interface desktop
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3[address book application] for our Software Engineering project.
-We chose to morph it into a revision flashcard desktop application called *NUStudy*.
+We decided to morph it into a revision flashcard desktop application called *NUStudy*.
 This enhanced application enables NUS students to store and manage lecture notes,
 practice questions under exam conditions and plan revision tasks effectively.
 
-This is what our project looks like: (todo: graphical user interface)
+This is what our project looks like:
 
-My role is to design and write the code for question management features. The following sections illustrate
-these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides
-in relation to these enhancements.
+image::full.png[width = "700"]
 
-In this portfolio `monospace` indicates command-line input (commands, parameters, etc.)
-and _italics_ mark class names.
+My job is to design and write the code for question management features. Details of the enhancements and
+relevant documentation I have completed will be further explained in sections below.
+
+Please take note of the following symbols and formatting used in this documentaion:
+
+* `monospace` indicates command-line input
+*  _italics_ indicates class names
+* # followed by a number indicates a pull request (PR) or issue (eg. #12)
 
 == Summary of contributions
 
@@ -31,9 +36,9 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 === Enhancement added:
 ==== What it does
-* I was responsible for **implementing question management features**. A question includes a question body, an answer,
+* I was responsible for **implementing question management features**.A question includes a question body, an answer,
 a subject and a difficulty level. I have modified the existing _Person_ model to _Question_ model, as well as
-some of its relevant fields in the original address book application.
+some of its relevant fields in the original address book application. (starting from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/44[#44]).
 
 * The question management commands are modified by the original person management commands as well.
 The commands include: _AddQuestionCommand_, _EditQuestionCommand_, _DeleteQuestionCommand_, _ClearQuestionCommand_,
@@ -53,19 +58,22 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ShirleyWangxt&sort=gr
 === Other contributions
 
 * Testing: As I am responsible for testing, I have added a significant number of test classes which increased
-coverage to a large extent.
+coverage to a large extent (as seen from PR https://github.com/AY1920S1-CS2103T-F11-4/main/pull/84[#84]).
 
 * Documentation: I modified the user guide from a draft version to the standardised formal version. I have also
 standardised the command format for most of the features.
 
 * Community:
 ** Reviewed Pull Requests
-** Reported bugs and offered suggestions for other teams in the class
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/43[#43],
+https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
+** Reported bugs and offered suggestions for other teams in the class. Please click this link to see a list of issues
+I have created for peer reviews.
+https://github.com/ShirleyWangxt/ped/issues[link]
 
 == User guide contributions
 
-We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
-The following is an excerpt from our NUStudy User Guide, showing additions that I have made for the
+The following is a part from my NUStudy User Guide, showing enhancements that I have made for the
 question management features.
 
 '''
@@ -82,8 +90,6 @@ The following section shows my additions to the NUStudy Developer Guide for the 
 '''
 
 include::../DeveloperGuide.adoc[tag=questiond]
-
-'''
 
 include::../DeveloperGuide.adoc[tag=usecasew]
 

@@ -139,20 +139,13 @@ Example:
 
 * `addq q/How to represent 85 in binary? a/1010101 s/CS2100 d/medium`
 
+.Add question command
 image::questionCommandsDemo/addqcommand.png[width = "600"]
 
 The new question will be added to your question bank.
 
+.Result for add question command
 image::questionCommandsDemo/addqresult.png[width = "600"]
-
-==== Listing all questions: `listq`
-
-This command allows you to view the list of all questions. +
-Format: `listq`
-
-image::questionCommandsDemo/listqcommand.png[width = "600"]
-
-image::questionCommandsDemo/listqresult.png[width = "600"]
 
 ==== Editing a question: `editq`
 
@@ -168,12 +161,14 @@ question list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
-* `editq 7 a/16 d/easy`
+* `editq 6 a/16 d/easy`
 
+.Edit question command
 image::questionCommandsDemo/editqcommand.png[width = "600"]
 
 Edits the answer and difficulty of the 2nd question to be `16` and `easy` respectively.
 
+.Result for edit question command
 image::questionCommandsDemo/editqresult.png[width = "600"]
 
 ==== Locating questions by keyword: `findq`
@@ -185,18 +180,23 @@ Format: `findq KEYWORD [MORE KEYWORDS]`
 * The search is case insensitive.
 * The order of the keywords does not matter.
 * Only full words will be matched.
+* NUStudy will return a list of questions containing any one of the keywords you provided.
+For example, if you type the command `findq word1 word2`, questions with body or answer which contains
+"word1", "word2", "word 1 word2", "word2 word1", or "word1 word2 xxxxxx yyyy".
 ****
 
 Examples:
 
-* `findq UDP`
+* `findq coupling tcp`
 
+.Find question command
 image::questionCommandsDemo/findqcommand.png[width = "600"]
 
-Finds the question whose body contains the keyword `UDP`.
+Finds the questions whose body or answer contains the keyword `coupling` or `tcp`.
 
+.Result for find question command
 image::questionCommandsDemo/findqresult.png[width = "600"]
-
+// end::question[]
 
 ==== Deleting a question: `deleteq`
 
@@ -214,16 +214,17 @@ Example:
 * `listq` +
 `deleteq 3`
 
-image::questionCommandsDemo/deleteqcommand.png[width = "600"]
-
 Deletes the 2nd question from the question list.
-
-image::questionCommandsDemo/deleteqresult.png[width = "600"]
 
 * `findq character` +
 `deleteq 1`
 
 Deletes the 1st question in the results of `findq` command.
+
+==== Listing all questions: `listq`
+
+This command allows you to view the list of all questions. +
+Format: `listq`
 
 ==== Filtering by difficulty: `difficulty`
 
@@ -239,10 +240,12 @@ Example:
 
 * `difficulty hard`
 
+.Filter by difficulty command
 image::questionCommandsDemo/difficultycommand.png[width = "600"]
 
 Returns a list of `hard` questions.
 
+.Result for filter by difficulty command
 image::questionCommandsDemo/difficultyresult.png[width = "600"]
 
 ==== Filtering by subject: `subject`
@@ -259,21 +262,18 @@ Example:
 
 * `subject CS2103T`
 
+.Filter by subject command
 image::questionCommandsDemo/subjectcommand.png[width = "600"]
 
 Returns a list of questions of `CS2103T`.
 
+.Result for filter by subject command
 image::questionCommandsDemo/subjectresult.png[width = "600"]
 
 ==== Clearing all questions: `clearq`
 
 You can delete all questions from the app. +
 Format: `clearq`
-
-image::questionCommandsDemo/clearcommand.png[width = "600"]
-
-image::questionCommandsDemo/clearresult.png[width = "600"]
-// end::question[]
 
 // tag::quiz[]
 === Quiz mode
@@ -676,6 +676,13 @@ Format: `rclear`
 ==== Auto-complete for command
 NUStudy will automatically complete the command as you type, just like how it behaves in most IDEs.
 
+==== Sharing notes and questions with other users
+You can share your notes and questions with other NUStudy users with Internet connection.
+
+==== Login using email and password
+You can create an account in the application and login with your email and password. This allows you to access to NUStudy on other platforms.
+// end::v2.0[]
+
 // tag::quizFuture[]
 ==== Setting a timer for quiz mode
 You can set a time limit before you start a quiz to train yourself under exam conditions. NUStudy will automatically end the quiz when time is up. +
@@ -698,13 +705,6 @@ Example: +
 `sort o/a f/dt` - You can sort the tasks according to date in ascending order. +
 `sort o/d f/h` - You can sort the tasks according to heading in descending alphabetical order.
 // end::task_2.0[]
-
-==== Sharing notes and questions with other users
-You can share your notes and questions with other NUStudy users with Internet connection.
-
-==== Login using email and password
-You can create an account in the application and login with your email and password. This allows you to access to NUStudy on other platforms.
-// end::v2.0[]
 
 // tag::lngroup[]
 ==== Lecture note grouping suggestions
