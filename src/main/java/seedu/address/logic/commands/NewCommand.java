@@ -26,8 +26,6 @@ public class NewCommand extends Command {
             + PREFIX_AUTO + "[y/n]";
 
     public static final String MESSAGE_SUCCESS = "New incident drafted!";
-    // public static final String MESSAGE_DUPLICATE_REPORT =
-    // "This draft already exists in the incident management system";
 
     private final District district;
     private final boolean isAuto;

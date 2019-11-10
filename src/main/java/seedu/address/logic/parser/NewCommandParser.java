@@ -30,10 +30,6 @@ public class NewCommandParser implements Parser<NewCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DISTRICT,
                 PREFIX_AUTO, PREFIX_VEHICLE);
 
-        // for test only
-        assert(arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO));
-        assert(argMultimap.getPreamble().isEmpty());
-
         // if auto/y then dont need v/
         if (!arePrefixesPresent(argMultimap, PREFIX_DISTRICT, PREFIX_AUTO)
                 || !argMultimap.getPreamble().isEmpty()) {

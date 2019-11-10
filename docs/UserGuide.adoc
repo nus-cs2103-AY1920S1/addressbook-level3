@@ -224,6 +224,7 @@ Format: `new dist/DISTRICT auto/Y`
 * An available vehicle in the given district will be automatically dispatched to the incident site.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
 * After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
+** The draft incident only has three fields filled: operator, district and vehicle dispatched.
 ****
 
 [IMPORTANT]
@@ -248,8 +249,6 @@ Format: `new dist/DISTRICT auto/N`
 ****
 
 * Example usage:
-
-image::newCommandAutoNBeforeSS.png[]
 
 image::newCommandAutoNPromptSS.png[]
 
@@ -576,7 +575,6 @@ Example usage:
 
 image::findVDsBeforeSS.png[]
 image::findVDsAfterSS.png[]
-.Fig X finding vehicle by district number.
 
 *2. Find by vehicle number*
 Format: `find-v vnum/NUMBER`
@@ -589,7 +587,6 @@ Example usage:
 
 image::findVVnumBeforeSS.png[]
 image::findVVnumAfterSS.png[]
-.Fig X finding vehicke by vehicle number.
 
 *3. Find by vehicle type*
 Format: `find-v vtype/VEHICLE TYPE`
@@ -656,7 +653,7 @@ Data files will be encrypted by default. Users can decrypt the file with the com
 User can choose to create an incident pending vehicle dispatchment.
 Format: `new dist/DISTRICT auto/Y r/pending`
 
-// end:newincidentwithoutvehicle[]
+// end::newincidentwithoutvehicle[]
 
 == FAQ
 

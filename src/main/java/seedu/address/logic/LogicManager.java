@@ -81,7 +81,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void isPersonView(boolean isPersonView) {
+    public void setPersonView(boolean isPersonView) {
         incidentManagerParser.setPersonView(isPersonView);
     }
 

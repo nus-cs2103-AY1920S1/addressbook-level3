@@ -340,14 +340,16 @@ In the code base, Persons represent user accounts. See person model for more inf
 
 // tag::incidentdraftcreation[]
 === Incident Draft Creation feature
-==== Proposed Implementation
+==== Implementation
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
+
 There are two ways to use the New Command:
 1. Auto dispatchment
 2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
 
-=== Automatic Vehicle Dispatchment:
+==== Automatic Vehicle Dispatchment:
 
 Vehicle will be automatically assigned to the incident draft if any is available in the district. If no vehicle is available, an exception will be thrown.
 
@@ -355,7 +357,7 @@ Below is a sequence diagram of a successful case:
 
 image::NewDraftSequenceDiagramAuto.png[]
 
-=== Manual Vehicle Dispatchment:
+==== Manual Vehicle Dispatchment:
 
 User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
@@ -657,7 +659,7 @@ image::deleteVehicleCommand.png[]
 === Vehicle Search feature
 ==== Implementation
 
-The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:https://ay1920s1-cs2103-t11-1.github.io/main/UserGuide.html. The types of searches are as listed:
 
 * Unfiltered - Displays all vehicles in `Model`.
 * District - Displays all vehicles with `District district` in list of specified districts.
@@ -953,8 +955,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -967,12 +967,168 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+=== Creating an incident report
+
+. Attempting to execute `new` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `new dist/1 auto/y` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `new` with valid inputs and successful auto vehicle dispatchment
+
+.. Prerequisites: User must be logged in, and there must be at least one available vehicle in the given district.
+.. Test case: `new dist/1 auto/y` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with no inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n` +
+    Expected: User prompted to fill in index of vehicle to dispatch with message "Please include the index of the vehicle you would like to assign, with the district prefix! eg new l/1 auto/n v/1 Note that the index must be a positive integer!"
+
+. Executing `new` with valid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1` +
+    Expected: Message "New incident drafted!" with the newly drafted incident appears at the top of the incident pane. All vehicles in district 1 will be listed in the vehicle pane, and the vehicle dispatched will change it availability from "AVAILABLE" to "BUSY".
+
+. Executing `new` with invalid inputs for manual vehicle dispatchment
+
+.. Prerequisites: User must be logged in.
+.. Test case: `new dist/1 auto/n v/1.2` +
+    Expected: Message "The index must be a positive integer!"
+
+. Executing `new` with no vehicle available for dispatchment.
+
+.. Prerequisites: User must be logged in, and no vehicle is available in the district.
+.. Test case: `new dist/28 auto/y` +
+    Expected: Message "No vehicle available in this district!", for both auto and manual dispatchment.
+
+=== Filling an incident report
+
+. Attempting to execute `fill` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `fill` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `fill 1 p/92034950 desc/There was an incident` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `fill` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Index, caller number, and description specified for `fill` in parameter mode must all be valid. User must have created the incident report.
+.. Test case: `fill` +
+   Expected: All drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+   Message: "Listed all draft incident reports".
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If selected draft was an incomplete draft, its status changes to 'Complete Draft' and the caller number and description fields are added according to the data specified.
+   If selected draft was a complete draft, its status remains 'Complete Draft' and the caller number and description fields are overwritten with the data specified.
+   The incident panel view lists all incidents in the system, with the just modified incident at the top of the list.
+   Message: "Incident report filled: Incident #[ID]"
+
+. Executing `fill` in parameter mode with valid parameters.
+
+.. Prerequisites: User must be logged in. There must be incomplete and/or complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index, caller number, and description specified for `fill` in parameter mode must all be valid.
+.. Test case: `fill 1 p/95860594 desc/There was an incident` +
+   Expected: If first incident in the list is a draft and the user has created the report, same expected behaviour as case 2 (iii) above.
+   If user has not created the selected incident, the message "You do not have access to fill this draft as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `fill` in parameter mode with invalid parameters (including invalid - zero or out of bounds - index).
+
+.. Prerequisites: User must be logged in.
+.. Test case: `fill 0 p/95860594 desc/There was an incident` or `fill 1 c/95860594 desc/There was an incident` or `fill 1 p/95860594 d/There was an incident`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+. Executing `fill` with no drafts present in the system.
+
+.. Prerequisites: User must be logged in. There must be no complete or incomplete drafts in the system.
+.. Test case: `fill`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+.. Test case: `fill 1 p/95860594 desc/There was an incident`
+   Expected: Message "No drafts present in the system" shown while the incident panel view remains unchanged.
+
+=== Submitting an incident report
+
+. Attempting to execute `submit` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `submit` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+.. Test case: `submit 1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `submit` in both no-parameter and parameter modes one after the other.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Index specified for `submit` in parameter mode must be valid. User must have created the incident report.
+.. Test case: `submit` +
+   Expected: All complete drafts are listed in the incident panel view, with incidents whose status was most recently changed being listed first.
+Message: "Listed all incident reports ready for submission".
+.. Test case: `submit 1` +
+   Expected: The status of the selected complete draft changes to 'Submitted'.
+   The incident panel view lists all incidents in the system, with the just submitted incident at the top of the list.
+   Message: "New incident report submitted: Incident #[ID]"
+
+. Executing `submit` in parameter mode with valid index.
+
+.. Prerequisites: User must be logged in. There must be complete draft incident reports in the system. Incident panel view must show all incidents (use `list-i` to return to this view if needed). Index specified for `submit` in parameter mode must be valid.
+.. Test case: `submit 1` +
+   Expected: If first incident in the list is a complete draft and the user has created the report, same expected behaviour as case 2 (iii) above.
+   If user has not created the selected incident, the message "You do not have access to submit this report as another operator has created it." is displayed.
+   If selected incident has already been submitted and user has created the incident, the message "This report has already been submitted" is displayed.
+
+. Executing `submit` in parameter mode with invalid - zero or out of bounds - index.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `submit 0`
+   Expected: Message "Invalid command format!" is displayed along with command usage message.
+
+=== Finding vehicles
+
+. Attempting to execute `find-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `find-v dist/1` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `find-v` with a single district keyword.
+
+.. Prerequisites: User must be logged in, and there are vehicles in the district specified.
+.. Test case: `find-v dist/1` +
+    Expected: Message "3 vehicles listed!", and vehicles in the given district will be listed in the vehicle pane.
+
+. Executing `find-v` with multiple district keywords.
+.. Prerequisites: User must be logged in, and there are vehicles in the districts specified.
+.. Test case: `find-v dist/1 2 3` +
+    Expected: Message "10 vehicles listed!", and vehicles in the given districts will be listed in the vehicle pane.
+
+. Executing `find-v` with a single vehicle type keyword.
+.. Prerequisites: User must be logged in, the vehicle type must match exactly, and must be either "Ambulance" or "Patrol car", though case insensitive.
+.. Test case: `find-v vtype/ambuLANce` +
+    Expected: Message "15 vehicles listed!", and vehicles of `Ambulance` type will be listed in the vehicle pane.
+
+. Executing `find-v` with a single character/ number of a vehicle number as keyword.
+.. Prerequisites: User must be logged in, and there must be at least one vehicle with vehicle number containing this keyword.
+.. Test case: `find-v vnum/2` +
+    Expected: Message "27 vehicles listed!", and vehicles with vehicle numbers containing "2" will be listed in the vehicle pane.
+
+=== Listing vehicles
+
+. Attempting to execute `list-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `list-v` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `list-v`.
+
+.. Prerequisites: User must be logged in.
+.. Test case: `list-v` +
+    Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.
