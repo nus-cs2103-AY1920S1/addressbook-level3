@@ -51,7 +51,7 @@ public class WorkerListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() {
-        ObservableList<Worker> backingList = createBackingList(10000);
+        ObservableList<Worker> backingList = createBackingList(1000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
