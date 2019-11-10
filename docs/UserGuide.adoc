@@ -1,4 +1,9 @@
 = Athletick - User Guide
+
+++++
+<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+++++
+
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -8,6 +13,7 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
+:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -33,13 +39,12 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-[]
-====
+
 NOTE: This symbol indicates important information
 
+[horizontal]
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
-====
 
 == Quick Start
 This section guides you on how to install Athletick on your computer.

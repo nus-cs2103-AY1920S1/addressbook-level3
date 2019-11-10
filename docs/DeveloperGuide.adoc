@@ -1,4 +1,9 @@
 = Athletick - Developer Guide
+
+++++
+<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+++++
+
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,6 +12,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -30,13 +36,17 @@ The intended audience of this document includes the developers and software test
 
 Note the following symbols and formatting used in this document
 
-[horizontal]
+
 
 NOTE: This symbol indicates important information
 
-`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
+[horizontal]
+
+`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command
+line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+//====
 
 === Design goals
 
