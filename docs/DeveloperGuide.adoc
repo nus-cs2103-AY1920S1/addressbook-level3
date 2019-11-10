@@ -731,8 +731,8 @@ the Table of the UI.
 This tab will act as a shopping cart to add and record sales items that are to be sold from the inventory.
 
 Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be
-appended to the list of transactions on the `Home tab`. In addition, the stock remaining in the inventory will be updated
-accordingly in the `Inventory tab`.
+appended to the list of transactions on the Home tab. In addition, the stock remaining in the inventory will be updated
+accordingly in the Inventory tab.
 
 ==== Add Sales Item Feature
 This feature allows the addition of sales items to the cart.
@@ -747,7 +747,7 @@ according to the specified category and suggestions would be shown by Leo, the a
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
 If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
-which will in turn call `getCombination(arr, arr.length)` to return an ArrayList containing all subsets of
+which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of
 the inputted description that are of at least length 3. These subsets are then compared
 with the actual descriptions of all items in the inventory to check if either contains the other.
 
@@ -806,7 +806,7 @@ image::AddCommandCashierActivity.png[]
 This feature allows an existing person in the `Address Book` to be set as a cashier. The only field required is
 the name of an existing person.
 
-To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on `Members Tab`.
+To set a cashier, the person's name inputted has to match an existing name in the `AddressBook` as shown on Members tab.
 This means that SetCommandParser requires access to the `Model` of the person package where the `AddressBook` implementation is. +
 If the person's name cannot be found in the `Model` of the person package, a response message will be shown by Leo,
 informing the user that there is no such person.
@@ -838,8 +838,8 @@ image::SetCashierCommandActivity.png[]
 ==== Checkout Feature
 This feature records all the sales items in the table as one sales transaction under the `Sales` category.
 
-The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
-will also be updated on the `Inventory Tab`.
+The Home tab will be updated with the new transaction labelled as `Items sold`. The remaining stock of the sales items
+will also be updated on the Inventory tab.
 
 During the execution of the command, `getCashier()` method will be called which will return a person. This person will
 be used to create a `Transaction` object. If the cashier is null, the command cannot proceed and Leo will
@@ -859,7 +859,7 @@ image::CheckoutCommandCashierSeq1.png[]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
-To update the view on the `Inventory Tab` and `Transaction Tab`, transaction will be added to the transaction model and
+To update the view on the Inventory tab and Transaction tab, transaction will be added to the transaction model and
 `readInUpdatedList()` method of inventory model will called to read in the entire inventory data file.
 
 The following sequence diagram shows how the transaction and inventory are updated:
@@ -883,7 +883,7 @@ This section explains the design considerations for some crucial implementations
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
-|An ArrayList is used to store the list of sales item shown on the `Cashier Tab`.
+|An ArrayList is used to store the list of sales item shown on the Cashier tab.
 
 *Pros*: Elements are be accessed directly more efficiently.
 

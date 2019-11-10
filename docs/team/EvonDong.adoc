@@ -12,16 +12,18 @@ ifdef::env-github[]
 endif::[]
 
 == Introduction
-This project portfolio briefly introduces the project, treasurerPro, and outlines my contributions and explanations about
-my features.
+
+This document serves as a project portfolio for treasurerPro. It outlines my contributions to the project and showcases the
+features that I have implemented.
 
 === About the team
-My team consists of five software engineering students who are all taking the module CS2103T. Four of us, including me,
-are year two Computer Science students and the other is a year four Computer Engineering student.
+
+My team of five members consists of four Year 2 Computer Science students, including me, and a Year 4 Computer Engineering
+student, all taking the module CS2103T Software Engineering.
 
 === About the project
 This project is part of the module - Software Engineering Project, CS2103T. We were tasked to develop a basic
-command line interface footnote:[command line interface (CLI) is a text-based user interface (UI) that allows the user
+command line interface footnote:[Command Line Interface (CLI) is a text-based user interface (UI) that allows the user
 to interact with the system using commands] (CLI)
 desktop application by morphing or enhancing an existing AddressBook desktop application over a period of 13 weeks.
 My team decided to morph and incorporate the AddressBook application as part of our all-in-one expense tracker.
@@ -49,12 +51,12 @@ This desktop application consists of 6 tabs, a command box for user inputs and a
 for Leo, our lion mascot. Each tab serves a different purpose, but every tab aims to facilitate seamless and effortless
 managing of the organisation's finances. The following shows the various tabs and their respective purposes:
 
-** `Home Tab`: keeps track of individual transactions
-** `Members Tab`: records contact details of all members
-** `Reimbursement Tab`: handles reimbursement records for members who fork in their money
-** `Inventory Tab`: keeps track of items in the inventory
-** `Cashier Tab`: supports cashiering duties and directly input sales into the system
-** `Overview Tab`: gives an analysis of the organisation's finances for future planning
+** Home Tab: keeps track of individual transactions
+** Members Tab: records contact details of all members
+** Reimbursement Tab: handles reimbursement records for members who fork in their money
+** Inventory Tab: keeps track of items in the inventory
+** Cashier Tab: supports cashiering duties and directly input sales into the system
+** Overview Tab: gives an analysis of the organisation's finances for future planning
 
 This is what the application looks like when it starts up:
 
@@ -62,19 +64,19 @@ This is what the application looks like when it starts up:
 image::AnnotatedUi.png[width="680"]
 
 == Summary of contributions
-My role was to design the layout and code the features for the `Cashier Tab`. The following sections present the
+My role was to design the layout and code the features for the Cashier tab. The following sections present the
 enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the
 user guide and developer guide.
 
 === Main Enhancements
-The following illustrates some crucial enhancements that I have added for `Cashier Tab`.
+The following illustrates some crucial enhancements that I have added for Cashier tab.
 
 * Adding, Deleting and Editing of Sales Items
 ** What it does:
 It allows the user to add, delete and update the sales items added in the table shown on the tab.
 
 ** Justification:
-These features incorporate the essential elements of a cash register and are fundamental for the `Cashier Tab`.
+These features incorporate the essential elements of a cash register and are fundamental for the Cashier tab.
 By expediting the process of calculating and recording the quantity of sales items, it enables the cashier-in-charge to
 perform cashiering duties more efficiently.
 
@@ -104,12 +106,12 @@ suggestions will be offered. This further augments the hassle-free aspect of thi
 This checkout feature calculates and displays the total amount and the change to be returned.
 
 ** Justification:
-This feature allows the stock to be updated accordingly automatically on the `Inventory Tab`
+This feature allows the stock to be updated accordingly automatically on the Inventory tab
 and abolish any need for manual logging of the stock.
 
 ** Highlights:
 This feature ensures accountability by prohibiting checkout if the cashier has not been set. Additionally, the sales
-made will be recorded and updated on the `Home Tab`. The sales made will also contribute towards the revenue and
+made will be recorded and updated on the Home tab. The sales made will also contribute towards the revenue and
 be used in the financial analysis.
 
 === Code contributed
@@ -134,7 +136,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[(PR #202)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[(PR #221)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/196[(PR #196)]
 
-** Integrated `Cashier Tab` with other packages, fixed and added some `Inventory` classes:
+** Integrated `Cashier` package with other packages, fixed and added some `Inventory` classes:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/96[(PR #96)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/94[(PR #94)]
 
@@ -155,7 +157,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/212[(PR #212)]
 
-** Enhanced user guide to make it more user-friendly and updated `Members` Tab:
+** Enhanced user guide to make it more user-friendly and updated Members tab:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/303[(PR #303)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/252[(PR #252)]
 
@@ -166,7 +168,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/230[(PR #230)]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/301[(PR #301)]
 
 == Contributions to the User Guide
-The following section illustrates my contribution to the User Guide for features specific to the `Cashier Tab`.
+The following section illustrates my contribution to the User Guide for features specific to the Cashier tab.
 
 {Start of First Extract from User Guide}
 
@@ -199,7 +201,8 @@ The following section illustrates my contribution to the User Guide for features
 //are advised to reduce the quantity of items or checkout separately in another cart.
 //====
 
-[big red]*5.5.1. Add a Sales Item to the Table*
+:sectnums!:
+=== 5.5.1. Add a Sales Item to the Table
 
 This command enables you to add a sales item into the table.
 
@@ -216,9 +219,9 @@ items with similar description that you might be looking for.
 
 Examples:
 
-** `add c/food` - Displays all items that are under the 'food' category in the response box
-** `add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
-** `add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
+** [blue]`add c/food` - Displays all items that are under the 'food' category in the response box
+** [blue]`add c/stationary d/pancake q/3` - Adds 3 similar items which have the description "pancake"
+** [blue]`add d/pancake q/3` - Adds 3 similar items which have the description "pancake"
 
 //[NOTE]
 //The items will only be displayed according to the category in the response box if both description and quantity fields are not specified
@@ -257,7 +260,8 @@ Leo will respond to the successful addition with a response message. The newly a
 
 {Start of Second Extract from User Guide}
 
-[big red]*5.5.5 Checkout All Sales Items*
+:sectnums!:
+=== 5.5.5 Checkout All Sales Items
 
 This command enables you to perform a checkout of all the sales items in the table.
 
@@ -275,7 +279,7 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Example:
 
-** `checkout 850` - Customer pays $850 to cashier
+** [blue]`checkout 850` - Customer pays $850 to cashier
 
 * Steps:
 
@@ -293,12 +297,12 @@ image::cashierUG/CheckoutCommand1.png[width="600"]
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.
-The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
+The Home tab will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
 
 {End of Second Extract from User Guide}
 
 ==  Contributions to the Developer Guide
-The following section shows my contribution to the Developer Guide for features specific to the `Cashier Tab`.
+The following section shows my contribution to the Developer Guide for features specific to the Cashier tab.
 
 {Start of First Extract from Developer Guide}
 
@@ -315,7 +319,8 @@ The following section shows my contribution to the Developer Guide for features 
 //image::UMLCashierTab.png[width="550"]
 //[italic small red]*Figure 9. Class Diagram of Cashier Tab (cashier package)*
 
-[big red]*3.1.1 Add Sales Item feature*
+:sectnums!:
+=== 3.1.1 Add Sales Item feature
 
 This feature allows the addition of sales items to the cart.
 
@@ -329,7 +334,7 @@ according to the specified category and suggestions would be shown by Leo. +
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list.
 
 If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
-which will in turn call `getCombination(arr, arr.length)` to return an ArrayList containing all subsets of
+which will in turn call `getCombination(arr, arr.length)` method to return an ArrayList containing all subsets of
 the inputted description that are of at least length 3. These subsets are then compared
 with the actual descriptions of all items in the inventory to check if either contains the other.
 
@@ -443,12 +448,13 @@ image::AddCommandCashierActivity.png[width="600"]
 
 {Start of Second Extract from Developer Guide}
 
-[big red]*3.1.2 Checkout Feature*
+:sectnums!:
+=== 3.1.2 Checkout Feature
 
 This feature records all the sales items in the table as one transaction under the `Sales` category.
 
-The `Home Tab` will be updated with the new transaction labelled as `Items sold`. The remaining stock
-will also be updated on the `Inventory Tab`.
+The Home tab will be updated with the new transaction labelled as `Items sold`. The remaining stock
+will also be updated on the Inventory tab.
 
 During the execution of the command, `getCashier()` method will be called which will return a person. This person will
 be used to create a `Transaction` object. If the cashier is null, the command cannot proceed and Leo will
@@ -467,7 +473,7 @@ image::CheckoutCommandCashierSeq1.png[width="280"]
 
 The `Cashier Logic` will call relevant methods to update the inventory list and newly-generated transaction
 to the respective `.txt file`. +
-To update the view on the `Inventory Tab` and `Transaction Tab`,`readInUpdatedList()` method of inventory model will
+To update the view on the Inventory tab and Transaction tab,`readInUpdatedList()` method of inventory model will
 called to read in the entire inventory data file and transaction will be added to the transaction model.
 
 The following sequence diagram shows how the transaction and inventory are updated:
@@ -488,14 +494,15 @@ image::CheckoutCommandCashierSeq2.png[width="600"]
 
 {Start of Third Extract from Developer Guide}
 
-[big red]*3.1.5 Overall Design Considerations*
+:sectnums!:
+=== 3.1.5 Overall Design Considerations
 
-This section explains the design considerations for some crucial implementations in the Cashier Tab.
+This section explains the design considerations for some crucial implementations in the Cashier tab.
 
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
 
-|An ArrayList is used to store the list of sales item shown on the `Cashier Tab`.
+|An ArrayList is used to store the list of sales item shown on the Cashier tab.
 
 *Pros*: Elements are be accessed directly more efficiently.
 

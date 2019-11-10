@@ -984,7 +984,7 @@ image::cashierUG/CheckoutCommand2.png[width="600"]
 
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset. +
-The `Home Tab` will be updated with this transaction and the remaining stock in the `Inventory Tab` will also be updated.
+The Home tab will be updated with this transaction and the remaining stock in the Inventory tab will also be updated.
 
 
 ==== Clears All the Sales Items in the Table
@@ -996,7 +996,7 @@ This command clears all the sales item in the table.
 After clearing, the cashier will be reset as well.
 
 [NOTE]
-This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the `Cashier Tab`
+This command enables you to disable the `Cashier Mode` footnote:[`Cashier Mode` automatically turns on when the table in the Cashier tab
 is not empty. While the `Cashier Mode` is turned on, any modification to the inventory is prohibited except addition of items.].
 
 [CAUTION]
