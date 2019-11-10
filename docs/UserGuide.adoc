@@ -11,10 +11,13 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-4/main
 
 By: `CS2103T-T12-4`      Since: `Aug 2019`      Licence: `-`
+
+<<<
 
 == Introduction
 
@@ -29,15 +32,19 @@ features not available with most flashcard managers that we're sure you'll love.
 == Quick Start
 
 .  Ensure you have Java 11 or above installed in your Computer.
-.  Download the latest build keyboardflashcards.jar link:https://github.com/AY1920S1-CS2103T-T12-4/main/releases[here].
+.  Download the latest build KeyboardFlashCards.jar link:https://github.com/AY1920S1-CS2103T-T12-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your KFC app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.Graphical User Interface of KeyboardFlashCards[
 image::annotatedUi.png[width="790"]
 
+<<<
+//tag::features[]
 
 == Features
-This section contains the features and their respective commands
+This section contains the features and their respective commands.
+
 ====
 *Command Format*
 
@@ -46,22 +53,30 @@ This section contains the features and their respective commands
 * Items with `…`​ after them can be inserted zero or more times e.g. `[c>CATEGORY]...` can be used as `{nbsp}` (i.e. 0 times), `c>math`, `c>math c>school` etc.
 * Parameters can be in any order e.g. if the command specifies `q>QUESTION a>ANSWER`, `a>ANSWER q>QUESTION` is also acceptable.
 * Currently, our application does not support emoji.
+====
+//end::features[]
 
 Please also note the following icons, which will indicate points of interest throughout this document.
 
 NOTE: A point of information that you may wish to note
+
 TIP: A tip or suggestion
-CAUTION: A cautionary word of advice
-====
 
-// tag::flashcard[]
-=== Add new flashcard: `add q>QUESTION a>ANSWER [c>CATEGORY]...`
+WARNING: A cautionary word of advice
 
-This command allows to you to add a new flashcard with question and answer. +
+<<<
+//tag::flashcardAll[]
+//tag::flashcard[]
+=== Add new FlashCard: `add q>QUESTION a>ANSWER [c>CATEGORY]...`
+
+This command allows to you to add a new FlashCard with question and answer. +
 `add q>What is CS2103T a>Software engineering`
 
-You may also include the category for the flashcard. +
+You may also include the category for the FlashCard. +
 `add q>What is CS2103T a>Software engineering c>CS2103T`
+
+NOTE: `a>`, `q>` and `c>` are reserved as prefixes, If you want to include these in your question/answer put them in `""` or otherwise to differentiate.
+
 
 To add:
 
@@ -69,21 +84,21 @@ To add:
 +
 image::AddStep1.png[width="600"]
 
-. The result box will display the message: _"New flashCard added: What is the use of checksum ? Answer: To detect "error""_
+. The result box will display the message: _"New FlashCard added: What is the use of checksum ? Answer: To detect "error""_
 +
 image::AddStep2.png[width="600"]
 
-. And you can check the new flashcard has been added to bottom of the flashcard list.
+. And you can check the new FlashCard has been added to bottom of the FlashCard list.
 +
 image::AddStep3.png[width="600"]
 
-=== Edit an existing flashcard: `edit INDEX {fields wanted to edit}...`
+WARNING: When multiple questions or answers prefixes in one `add` command, only input from the last appearance will be taken. For example, `add q> 1+1 a> 2 q>Hi a>bye` KFC will add a FlashCard with the question as `Hi` and the answer as `bye`.
+//end::flashcard[]
 
-This command allows you to edit the flashcard with index corresponding to the
-display list with 1 or multiple fields +
-e.g: +
+=== Edit an existing FlashCard: `edit INDEX {fields wanted to edit}...`
 
-* `edit 7 c>CS2105`
+This command allows you to edit the FlashCard with index corresponding to the
+display list with 1 or multiple fields e.g: `edit 7 c>CS2105`
 
 To edit:
 
@@ -95,15 +110,17 @@ image::EditStep1.png[width="600"]
 +
 image::EditStep2.png[width="600"]
 
-. And you can see that the 7th flashcard has been edited on the flashcard list.
+. And you can see that the 7th FlashCard has been edited on the FlashCard list.
 +
 image::EditStep3.png[width="600"]
 
-=== Delete flashcard: `delete INDEX`
+
+
+=== Delete FlashCard: `delete INDEX`
 
 This command allows you the delete a
-particular flashcard with the index
-show on the flashcard list. e.g.
+particular FlashCard with the index
+show on the FlashCard list. e.g.
 `delete 7`
 
 To delete:
@@ -116,12 +133,14 @@ image::DeleteStep1.png[width="600"]
 +
 image::DeleteStep2.png[width="600"]
 
-. And you can check the flashcard list that the flashcard has been deleted.
+. And you can check the FlashCard list that the FlashCard has been deleted.
 +
 image::DeleteStep3.png[width="600"]
 
-=== Clear all the flashcard: `clear`
-This command allows you to delete all the flashcard in the storage.
+
+
+=== Clear all the FlashCard: `clear`
+This command allows you to delete all the FlashCard in the storage.
 
 To clear:
 
@@ -134,14 +153,17 @@ And you will see that all lists turn empty.
 +
 image::ClearStep2.png[width="600"]
 
-=== Search for flashcards: `search`
+//tag::flashcard2[]
 
-The section will show you 3 methods to search for flashcards. Keywords are case-insensitive.
-Current search function does not support fuzzy search, so remove punctuations when adding the flashcards or include the punctuations for searching
+=== Search for FlashCards: `search`
+
+The section will show you 3 methods to search for FlashCards. Keywords are case-insensitive.
+
+NOTE: Current search function does not support fuzzy search, so remove punctuations when adding the FlashCards or include the punctuations for searching
 
 ==== Either the question or the answer matches the keyword(s): "search KEYWORD(S)"
 
-This command allows you to search for flashcards with the question or answer matching the keyword(s).
+This command allows you to search for FlashCards with the question or answer matching the keyword(s).
 Multiple keywords are separated by a single space.
 
 To search:
@@ -150,13 +172,13 @@ To search:
 +
 image::SearchStep1.png[width="600"]
 
-. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
+. The result box will show message: _"2  flash cards listed!"_ and the FlashCard list will show the matching FlashCards
 +
 image::SearchStep2.png[width="600"]
 
 ==== Question matching the keyword(s) only: `searchqn KEYWORD(S)`
 
-This command allows you to search for flashcards with the question matching the keyword(s).
+This command allows you to search for FlashCards with the question matching the keyword(s).
 Multiple keywords are separated by a single space.
 
 to search question:
@@ -165,13 +187,13 @@ to search question:
 +
 image::SearchqStep1.png[width="600"]
 
-. The result box will show message: _"2  flash cards listed!"_ and the flashcard list will show the matching flashcards
+. The result box will show message: _"2  flash cards listed!"_ and the FlashCard list will show the matching FlashCards
 +
 image::SearchqStep2.png[width="600"]
 
 ==== Answer matching the keyword(s) only: `searchans KEYWORD(S)`
 
-This command allows you to search for flashcards with the answer matching the keyword(s).
+This command allows you to search for FlashCards with the answer matching the keyword(s).
 Multiple keywords are separated by a single space.
 
 to search for answer:
@@ -180,13 +202,14 @@ to search for answer:
 +
 image::SearchaStep1.png[width="600"]
 
-. The result box will show message: _"1  flash cards listed!"_ and the flashcard list will show the matching flashcards
+. The result box will show message: _"1  flash cards listed!"_ and the FlashCard list will show the matching FlashCards
 +
 image::SearchaStep2.png[width="600"]
+//end::flashcard2[]
 
-=== List all flashcards: `listall`
+=== List all FlashCards: `listall`
 
-This command allows you to lists all the flashcards in the storage.
+This command allows you to lists all the FlashCards in the storage.
 
 To listall:
 
@@ -198,14 +221,16 @@ image::ListAllStep1.png[width="600"]
 +
 image::ListAllStep2.png[width="600"]
 
-.  And the flashcard list will show all the flashcards. You can move your mouse
-to the flashcard list and scroll up and down to view the flashcards.
+.  And the FlashCard list will show all the FlashCards. You can move your mouse
+to the FlashCard list and scroll up and down to view the FlashCards.
 +
 image::ListAllStep3.png[width="600"]
 
+
+
 === List of category : `list CATEGORY`
 
-This command allows you to list all flashcards under one or multiple categories.
+This command allows you to list all FlashCards under one or multiple categories.
 Multiple keywords are separated by a single space.
 
 to list category:
@@ -214,17 +239,19 @@ to list category:
 +
 image::ListCatStep1.png[width="600"]
 
-. The result box will show message: _"1 flashcard is listed!"_ .
+. The result box will show message: _"1 FlashCard is listed!"_ .
 +
 image::ListCatStep2.png[width="600"]
 
-. And the flashcard list is updated.
+. And the FlashCard list is updated.
 +
 image::ListcatStep3.png[width="600"]
 
-//end::flashcard[]
+//end::flashcardAll[]
+
 
 // tag::deadline[]
+
 === Add general deadlines reminders: `deadline t>TASK d>DUE DATE`
 
 This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
@@ -276,6 +303,8 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 ****
 * Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
+
+
 
 === Show monthly calendar with all deadlines: `calendar`
 
@@ -358,6 +387,8 @@ self-learning.
 
 // tag::flashcardimport[]
 
+
+
 === Import flashcards from a JSON file: `import p>FILE_PATH`
 
 You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
@@ -381,6 +412,8 @@ NOTE: Duplicate FlashCards will not be imported. You will be notified when we de
 
 // end::flashcardimport[]
 
+
+
 === Get the full list of commands: `help`
 
 This command allows you to view all the commands available in the application. +
@@ -401,6 +434,8 @@ image::HelpCommandBox1.png[width="600"]
 +
 image::HelpWindow1.png[width="600"]
 
+
+
 === View overall statistics: `stats`
 
 This command allows you to view three different type of statistics. +
@@ -420,27 +455,32 @@ image::StatsCommandBox1.png[width="600"]
 
 . A window will appear, displaying 3 charts:
 +
-image::StatsWindow1.png[width="850", height="250"]
+image::StatsWindow1.png[width="400", height="400"]
 +
 
 Starting from the top, the first chart displays the total number of FlashCards rated as good, hard and easy. The second chart displays the total number of FlashCards rated as good, hard and easy that are completed during test mode. The last chart displays your performance (in percentage) for all tests completed. Performance is determined by the ratio of FlashCards rated as good and easy to FlashCards rated as hard.
 +
 Note that the second and third chart will be empty if the `stats` command is executed before running at least one test, since both of these charts are dependent on the test mode. Furthermore, the statistics displayed on these two charts will reset when the application is closed.
 
+
 //tag::theme[]
+
 === Change color themes: `theme [THEMENAME]`
 
 This command allows you to change the theme of the app.
 
 Follow are the current available themes
 
-* dark
-* light
-* pink
-* blue
-* hacker
-* nus
+[cols="1,1,1"]
+|===
+| dark
+| light
+| pink
 
+| blue
+| hacker
+| nus
+|===
 To change theme:
 
 . Type "theme hacker" and press *Enter*
@@ -450,15 +490,16 @@ image::ThemeStep1.png[width="600"]
 . The result box will show the message: _"Theme changed to hackerTheme"_ and the theme will be changed.
 +
 image::ThemeStep2.png[width="600"]
-
 //end::theme[]
+
+
 
 === Saving the data
 
 Flashcard data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-//tag:: flashcard2[]
+//tag::flashcard_2[]
 === Exit: `exit`
 
 This command allows you to exit the application.
@@ -468,7 +509,9 @@ To exit:
 . Type `exit` and press *Enter*.
 
 . The application window will close by itself.
-//end::flashcard2[]
+//end::flashcard_2[]
+
+
 
 == FAQ
 
@@ -492,6 +535,8 @@ To exit:
 
 *Q*: What if I forget the format of a command’s arguments? +
 *A*: Don’t worry! Just try your best. If the format you've provided is wrong, you will be prompted with the correct format.
+
+
 
 == Command Summary
 
