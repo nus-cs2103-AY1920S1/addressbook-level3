@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
@@ -122,6 +123,16 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModuleList(Predicate<Module> predicate);
+
+    /**
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     */
+    FilteredList<Module> getFilteredListbyTime();
+
+    /**
+     * Updates the filter of the filtered module list to filter by the given {@code predicate}.
+     */
+    void setSortedList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

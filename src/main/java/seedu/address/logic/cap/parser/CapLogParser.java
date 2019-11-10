@@ -13,7 +13,10 @@ import seedu.address.logic.cap.commands.DeleteCommand;
 import seedu.address.logic.cap.commands.ExitCommand;
 import seedu.address.logic.cap.commands.FindCommand;
 import seedu.address.logic.cap.commands.HelpCommand;
+import seedu.address.logic.cap.commands.ListCommand;
+import seedu.address.logic.cap.commands.SortCommand;
 import seedu.address.logic.cap.commands.SwitchCommand;
+
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 
 /**
@@ -54,6 +57,12 @@ public class CapLogParser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
+
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -50,7 +50,7 @@ public class CapStorageManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ CapLog methods ==============================
 
     @Override
     public Path getCapLogFilePath() {

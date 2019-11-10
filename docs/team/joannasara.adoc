@@ -14,37 +14,32 @@ Modulo is a NUS student life application specially designed for busy and motivat
 As busy students in NUS, we understand that it can be daunting to keep track of various tasks and concurrently do well for exams. Modulo features a one-stop application to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
 
 The user interacts with Modulo using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 35 kLoC.
+
 == Summary of contributions
 
-* *Major enhancement*: create *weekly calendar*
-** What it does: allows the user to manage their schedule in a weekly calendar view.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: create *calendar* feature
+** What it does: allows the user to manage their tasks and classes in a weekly calendar view.
+** Justification: This feature improves the product significantly because our targeted user, which are NUS students, needed a
+fast and convenient way to manage all of their tasks.
+** Highlights: This enhancement affects existing commands and needs to be supported by change of the graphical user interface.
+The implementation too was challenging as it required changes to existing commands.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=joannasara&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed release `v1.3` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/163[#163], https://github.com/AY1920S1-CS2103-T16-2/main/pull/165[#165])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
+*** Wrote additional tests for existing features to increase coverage by 13.09% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/167[#167]
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -53,9 +48,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=calendar]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -63,13 +57,12 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=calendar]
 
 
-== PROJECT: PowerPointLabs
+=== Other class diagrams
 
----
+.Interactions Inside the Logic Component for the `sort title` Command for the feature Calendar
+image::CalendarSequenceDiagram.png[]
 
-_{Optionally, you may include other projects in your portfolio.}_
+

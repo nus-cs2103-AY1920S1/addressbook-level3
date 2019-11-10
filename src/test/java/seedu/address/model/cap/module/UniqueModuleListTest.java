@@ -3,7 +3,6 @@ package seedu.address.model.cap.module;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.cap.commands.CommandTestUtil.VALID_MODULE_FACULTY;
 import static seedu.address.logic.cap.commands.CommandTestUtil.VALID_MODULE_TITLE;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalModule.CS2100;
@@ -89,7 +88,7 @@ public class UniqueModuleListTest {
     @Test
     public void setModule_editedModuleHasSameIdentity_success() {
         uniqueModuleList.add(CS2103);
-        Module editedCS2103 = new ModuleBuilder(CS2103).withFaculty(VALID_MODULE_FACULTY)
+        Module editedCS2103 = new ModuleBuilder(CS2103).withAcademicYear("1920")
                 .build();
         uniqueModuleList.setModule(CS2103, editedCS2103);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();

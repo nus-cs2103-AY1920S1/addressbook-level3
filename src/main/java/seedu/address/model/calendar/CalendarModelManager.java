@@ -176,50 +176,37 @@ public class CalendarModelManager implements CalendarModel {
     }
 
     private FilteredList<Task> getFilteredListByDeadline() {
-        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
-            new Comparator<Task>() {
-                @Override
-                public int compare(Task x, Task y) {
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-                    try {
-                        Date dateX = formatter.parse(x.getTaskDeadline().getValue());
-                        Date dateY = formatter.parse(y.getTaskDeadline().getValue());
-                        return dateX.compareTo(dateY);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        return 0;
-                    }
-                }
-            }));
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(), (x, y) -> {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date dateX = formatter.parse(x.getTaskDeadline().getValue());
+                Date dateY = formatter.parse(y.getTaskDeadline().getValue());
+                return dateX.compareTo(dateY);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }));
+
     }
 
     private FilteredList<Task> getFilteredListByTitle() {
         return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
-            new Comparator<Task>() {
-                @Override
-                public int compare(Task x, Task y) {
-                    return x.getTaskTitle().toString().toLowerCase()
-                        .compareTo(y.getTaskTitle().toString().toLowerCase());
-                }
-            }));
+            Comparator.comparing(x -> x.getTaskTitle().toString().toLowerCase())));
     }
 
     private FilteredList<Task> getFilteredListByTime() {
-        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(),
-            new Comparator<Task>() {
-                @Override
-                public int compare(Task x, Task y) {
-                    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
-                    try {
-                        Date dateX = formatter.parse(x.getTaskTime().value);
-                        Date dateY = formatter.parse(y.getTaskTime().value);
-                        return dateX.getTime() < dateY.getTime() ? -1 : 1;
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                        return 0;
-                    }
-                }
-            }));
+        return new FilteredList<>(new SortedList<>(this.calendarAddressBook.getPersonList(), (x, y) -> {
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            try {
+                Date dateX = formatter.parse(x.getTaskTime().value);
+                Date dateY = formatter.parse(y.getTaskTime().value);
+                return dateX.getTime() < dateY.getTime() ? -1 : 1;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        }));
     }
 
     /**
