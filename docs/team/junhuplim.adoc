@@ -12,7 +12,9 @@ The purpose of this portfolio showcases my contribution to the Athletick project
 === About the team
 
 We are a team of five year 2 computing students from National University
-of Singapore with diverse backgrounds and specialisations.
+of Singapore with diverse backgrounds. Four of us are majoring in Computer
+Science with different specialisations and one of us is majoring in Information
+Security.
 
 === About the project
 
@@ -29,7 +31,7 @@ the team's performance with a visual graph.
 
 This is what users see when they first start Athletick:
 
-image::athletick.png[width="450"]
+image::athletick.png[]
 Figure 1. The graphical user interface for Athletick.
 
 My role was to design and implement the code for the `undo` and `redo` features.
@@ -38,6 +40,7 @@ well as the relevant documentation I have added to the user and developer guides
 in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
+
 [horizontal]
 
 NOTE:: This symbol indicates important information
@@ -73,35 +76,36 @@ allow the future enhancement for such features to be easily integrated into the 
 
 *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
-*Other contributions*:
+*Other contributions*
 
 * Project management
-** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-* Enhancements to existing features:
-** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-* Documentation:
-** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-* Community:
-** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-* Tools:
-** Integrated a third party library (Natty) to the project (https://github.com[#42])
-** Integrated a new Github plugin (CircleCI) to the team repo
+//** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Introduced Trello for tasks and deadlines management
+* Enhancements to existing features
+** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
+** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
+* Documentation
+** Did major tweaks to the User Guide and Developer Guide to make it more
+reader-friendly: (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
+* Community
+** Reviewed PRs with non-trivial review comments (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/210[#210],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
+** Commented and provided suggestions on other team's PR
+(example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[1])
+//** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+** Reported bugs and suggestions for other teams (examples:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
+https://github.com/junhuplim/ped/issues/9[3])
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
@@ -111,4 +115,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
