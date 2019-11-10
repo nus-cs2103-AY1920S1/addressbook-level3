@@ -39,7 +39,7 @@ Responsibilities: Income Feature and AutoCorrect Shortcut Feature
 
 === Tan Zhan Ming
 image::tanzhanming.png[width="150", align="left"]
-{empty}[http://https://github.com/TanZhanMing[github]] [<<johndoe#, portfolio>>]
+{empty}[http://https://github.com/TanZhanMing[github]] [<<tanzhanming#, portfolio>>]
 
 Role: Integration + Deliverables and deadlines + Git Expert +
 Responsibilities: Budget and Help Features
