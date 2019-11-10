@@ -29,7 +29,7 @@ public class SettleCommand extends ExpenseCommand {
             + "Parameters: "
             + PREFIX_PARTICIPANT + "NAME "
             + PREFIX_PARTICIPANT + "NAME "
-            + "[" + PREFIX_EXPENSE + "AMOUNT ]"
+            + "[" + PREFIX_EXPENSE + "AMOUNT]"
             + "\n\nExample: " + COMMAND_WORD + " "
             + PREFIX_PARTICIPANT + "John Doe "
             + PREFIX_PARTICIPANT + "Bob Lee "
