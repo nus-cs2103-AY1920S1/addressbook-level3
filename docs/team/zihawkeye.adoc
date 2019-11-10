@@ -12,7 +12,7 @@ I'm _Kai Zhe_. I'm currently pursuing a major in Computer Science at the Nationa
 == Overview
 
 T.A.rence is a class management system for teaching assistants in NUS. Designed for the 'super TA',
-it helps keep track of all classes taught by the TA and all relevant information pertaining to each class, such as upcoming events,
+it tracks all classes taught by the TA and all relevant information pertaining to each class, such as upcoming events,
 student participation, assignment scores and the number of hours taught for each module.
 
 == Summary of contributions
@@ -47,7 +47,9 @@ This is partly because extraneous elements (Lectures, Venues) have been filtered
 ** Added ability for the user to enter multiple commands separated by the "+" delimiter in a single input (eg. command1 + command2 + command3)
 
 * *Code contributed*:
-* [link:{repoURL}/commits?author=zihawkeye[Commits]] [link:{repoURL}/pulls?q=is%3Apr+author%3AZiHawkEye+is%3Aclosed[Pull Requests]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zihawkeye&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ZiHawkEye&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
+[link:{repoURL}/commits?author=zihawkeye[Commits]]
+[link:{repoURL}/pulls?q=is%3Apr+author%3AZiHawkEye+is%3Aclosed[Pull Requests]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zihawkeye&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ZiHawkEye&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
 
 * *Other contributions*:
 
@@ -82,4 +84,5 @@ include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#set-
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#24-model-component[modelComponent]
 include:: https://github.com/ZiHawkEye/main/blob/master/docs/DeveloperGuide.adoc#mark-attendance-feature[markAttendance]

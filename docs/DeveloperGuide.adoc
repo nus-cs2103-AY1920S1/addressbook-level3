@@ -125,13 +125,10 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Student>` that can be 'observed'
+* exposes an unmodifiable `ObservableList<Tutorial>` that can be 'observed'
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed'
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -322,6 +319,16 @@ If the user uses both the indexing and full input format, the command will throw
 Below is an activity diagram showing the process of invoking the `MarkAttendance` command.
 
 image::MarkAttendanceActivityDiagram.png[]
+
+The MarkAttendanceCommand has two formats, the first with a student's name specified and the other without. Specifying the student name will toggle the attendance of the student in the tutorial, while the other format will mark/toggle the attendance of the entire tutorial sequentially.
+For the second case, the application will prompt the user to mark/toggle the attendance of each student in the tutorial one by one.
+Errors will be thrown if the tutorial/module/student cannot be found, or if the week specified is invalid.
+
+The sequence diagram below shows the interaction between the Logic componenents for marking the attendance of a single student.
+
+image::MarkAttendanceSequenceDiagram.png[]
+
+Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student's attendance when executed.
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature

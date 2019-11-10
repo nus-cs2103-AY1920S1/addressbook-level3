@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ApplicationParser" as ApplicationParser LOGIC_COLOR
+participant ":MarkAttendanceCommandParser" as MarkAttendanceCommandParser LOGIC_COLOR
+participant "m:MarkAttendanceCommand" as MarkAttendanceCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Application" as Application MODEL_COLOR
+end box
+
+[-> LogicManager : execute("markAttendance i/1 n/Mark w/1")
+activate LogicManager
+
+LogicManager -> ApplicationParser : parseCommand("markAttendance i/1 n/Mark w/1")
+activate ApplicationParser
+
+create MarkAttendanceCommandParser
+ApplicationParser -> MarkAttendanceCommandParser
+activate MarkAttendanceCommandParser
+
+MarkAttendanceCommandParser --> ApplicationParser
+deactivate MarkAttendanceCommandParser
+
+ApplicationParser -> MarkAttendanceCommandParser : parse("i/1 n/Mark w/1")
+activate MarkAttendanceCommandParser
+
+create MarkAttendanceCommand
+MarkAttendanceCommandParser -> MarkAttendanceCommand
+activate MarkAttendanceCommand
+
+MarkAttendanceCommand --> MarkAttendanceCommandParser : m
+deactivate MarkAttendanceCommand
+
+MarkAttendanceCommandParser --> ApplicationParser : m
+deactivate MarkAttendanceCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+MarkAttendanceCommandParser -[hidden]-> ApplicationParser
+destroy MarkAttendanceCommandParser
+
+ApplicationParser --> LogicManager : m
+deactivate ApplicationParser
+
+LogicManager -> MarkAttendanceCommand : execute()
+activate MarkAttendanceCommand
+
+MarkAttendanceCommand -> Model : markAttendance(null, null, 1, 1, "Mark")
+activate Model
+
+Model --> MarkAttendanceCommand
+deactivate Model
+
+create CommandResult
+MarkAttendanceCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> MarkAttendanceCommand
+deactivate CommandResult
+
+MarkAttendanceCommand --> LogicManager : result
+deactivate MarkAttendanceCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

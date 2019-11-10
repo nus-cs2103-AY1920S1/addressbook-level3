@@ -1,25 +1,21 @@
 @startuml
 start
 :User enters input;
-if ( ) then ([Input is valid - includes tutorial name, module code, week, student name])
+if () then ([Input is valid - includes tutorial name, module code, week, student name])
   :Marks attendance of student;
   :Feedback to user: success;
-elseif ( ) then ([Input does not include student name])
+else ([Input does not include student name])
   :Pointer initializes at first student in specified tutorial;
   repeat
     :Prompts user to confirm attendance of student;
-    if ( ) then ([User inputs yes])
+    if () then ([User inputs yes])
       :Marks attendance of student;
-    elseif ( ) then ([User inputs no or irrelevant command])
+    else ([User inputs no or irrelevant command])
       :Does not mark attendance of student;
-    elseif ( ) then ([Input is invalid])
-      :Throw ParseException;
     endif
     :Points to next student;
   repeatWhile ([Has next student?]) is ([yes])
   ->no;
-else ([Input is invalid])
-  :Throw ParseException;
 endif
 stop
 @enduml
