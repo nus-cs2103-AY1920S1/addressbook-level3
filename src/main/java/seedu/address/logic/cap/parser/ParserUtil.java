@@ -19,8 +19,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_CONSTRAINTS =
-            "Academic year and semester should be of correct format. " +
-                    "The field should also not be left blank.";
+            "Academic year and semester should be of correct format. "
+                    + "The field should also not be left blank.";
 
 
     /**

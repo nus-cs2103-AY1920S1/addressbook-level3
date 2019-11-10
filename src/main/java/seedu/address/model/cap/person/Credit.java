@@ -3,8 +3,6 @@ package seedu.address.model.cap.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.logic.cap.parser.exceptions.*;
-
 /**
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable.
