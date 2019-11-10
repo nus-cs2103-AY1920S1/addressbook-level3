@@ -7,12 +7,13 @@ import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Collections;
 import java.util.stream.Collectors;
+
 
 import mams.commons.core.Messages;
 
@@ -329,7 +330,7 @@ public class MassApprove extends Approve {
      * gets list of invalid appeal IDs
      * * @return
      */
-    public  List<String> getInvalidIds() {
+    public List<String> getInvalidIds() {
         return invalidIds;
     }
 
