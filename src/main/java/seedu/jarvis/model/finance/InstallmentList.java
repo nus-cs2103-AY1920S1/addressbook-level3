@@ -8,7 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.jarvis.commons.core.index.Index;
-import seedu.jarvis.model.address.person.exceptions.DuplicateInstallmentException;
+import seedu.jarvis.model.finance.exceptions.DuplicateInstallmentException;
 import seedu.jarvis.model.finance.exceptions.InstallmentNotFoundException;
 import seedu.jarvis.model.finance.installment.Installment;
 

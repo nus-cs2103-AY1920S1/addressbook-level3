@@ -1,4 +1,4 @@
-package seedu.jarvis.model.address.person.exceptions;
+package seedu.jarvis.model.finance.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Installments.
