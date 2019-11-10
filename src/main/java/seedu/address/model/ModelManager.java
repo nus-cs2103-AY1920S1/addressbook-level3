@@ -234,6 +234,7 @@ public class ModelManager implements Model {
     @Override
     public void undoUserState() {
         versionedUserState.undo();
+        updateAllPredicates();
     }
 
     @Override
@@ -244,11 +245,16 @@ public class ModelManager implements Model {
     @Override
     public void redoUserState() {
         versionedUserState.redo();
+        updateAllPredicates();
     }
 
     @Override
     public void commitUserState() {
-        versionedUserState.commit();
+        Predicate<? super BankAccountOperation> transPred = this.filteredTransactions.getPredicate();
+        Predicate<? super Budget> budgetPred = this.filteredBudgets.getPredicate();
+        Predicate<? super LedgerOperation> ledgerPred = this.filteredLedgerOperations.getPredicate();
+        Predicate<? super Projection> projectionPred = this.filteredProjections.getPredicate();
+        versionedUserState.commit(transPred, budgetPred, ledgerPred, projectionPred);
     }
 
     @Override
@@ -405,6 +411,16 @@ public class ModelManager implements Model {
             && userPrefs.equals(other.userPrefs)
             && filteredTransactions.equals(other.filteredTransactions)
             && filteredBudgets.equals(other.filteredBudgets);
+    }
+
+    /**
+     * Updates all list with the current predicates stored in {@code VersionedUserState}.
+     */
+    private void updateAllPredicates() {
+        this.filteredTransactions.setPredicate(versionedUserState.getCurrentTransPred());
+        this.filteredBudgets.setPredicate(versionedUserState.getCurrentBudgetPred());
+        this.filteredLedgerOperations.setPredicate(versionedUserState.getCurrentLedgerPred());
+        this.filteredProjections.setPredicate(versionedUserState.getCurrentProjectionPred());
     }
 
 }

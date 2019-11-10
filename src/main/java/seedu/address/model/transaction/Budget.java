@@ -129,7 +129,7 @@ public class Budget implements Comparable<Budget> {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && !isRemoveTransaction) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amount);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -164,7 +164,7 @@ public class Budget implements Comparable<Budget> {
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
             return newBudget;
-        } else if (isSameCategory && isSameTransactionCategory) {
+        } else if (isSameCategory) {
             Amount newAmount = this.amount.addAmount(amountReplacement).subtractAmount(amountToReplace);
             Budget newBudget = new Budget(newAmount, this.getDeadline(), this.getCategories());
             newBudget.setInitialAmount(this.initialAmount);
@@ -172,10 +172,6 @@ public class Budget implements Comparable<Budget> {
         } else {
             return this;
         }
-    }
-
-    private void updateDeadline(Date date) {
-        this.deadline = date;
     }
 
     /**
@@ -225,7 +221,7 @@ public class Budget implements Comparable<Budget> {
     public String displayPercentage() {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
         if (percentage < 0.00) {
-            percentage = 0.0;
+            percentage = 0.0; // should not display a negative percentage
         }
         return String.format("%.2f%% remaining", percentage);
     }

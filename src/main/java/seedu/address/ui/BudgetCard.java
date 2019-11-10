@@ -52,9 +52,14 @@ public class BudgetCard extends UiPart<Region> {
      * @param budget to be displayed in this budget card
      */
     private void displayRemDays(Budget budget) {
-        budgetDetails.getChildren().add(new Label(budget.getBetween()));
-        if (budget.getBetweenRaw() <= 3) {
+        if (budget.getBetweenRaw() < 0) {
+            budgetDetails.getChildren().add(new Label("Past"));
             budgetDetails.setId("budgetMinus");
+        } else if (budget.getBetweenRaw() <= 3) {
+            budgetDetails.getChildren().add(new Label(budget.getBetween()));
+            budgetDetails.setId("budgetMinus");
+        } else {
+            budgetDetails.getChildren().add(new Label(budget.getBetween()));
         }
     }
 

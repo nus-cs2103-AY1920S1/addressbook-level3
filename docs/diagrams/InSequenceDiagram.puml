@@ -1,0 +1,96 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MainParser" as MainParser LOGIC_COLOR
+participant ":InCommandParser" as InCommandParser LOGIC_COLOR
+participant ":InCommand" as InCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "model:Model" as Model MODEL_COLOR
+participant ":VersionedUserState" as VersionedUserState MODEL_COLOR
+participant ":UserState" as UserState MODEL_COLOR
+participant ":BankAccount" as BankAccount MODEL_COLOR
+participant ":InTransaction" as InTransaction MODEL_COLOR
+participant ":Amount" as Amount MODEL_COLOR
+end box
+
+[-> LogicManager : execute("in $/200 n/coke d/10102019")
+activate LogicManager
+
+LogicManager -> MainParser : parseCommand("in $/200 n/coke d/10102019")
+activate MainParser
+
+MainParser -> InCommandParser : parse("$/200 n/coke d/10102019")
+activate InCommandParser
+
+create InTransaction
+InCommandParser -> InTransaction : amount: 200, description: coke, date: 10/10/2019
+activate InTransaction
+InTransaction -> InCommandParser : transaction
+deactivate InTransaction
+
+create InCommand
+InCommandParser -> InCommand : transaction
+activate InCommand
+InCommand -> InCommandParser
+deactivate InCommand
+
+InCommandParser -> MainParser : command
+destroy InCommandParser
+
+MainParser -> LogicManager : command
+deactivate MainParser
+LogicManager -> InCommand : command.execute()
+activate InCommand
+
+InCommand -> Model
+activate Model
+
+Model -> UserState : add(transaction)
+activate UserState
+UserState -> BankAccount : add(transaction)
+activate BankAccount
+BankAccount -> InTransaction : handleBalance(amount: 200)
+activate InTransaction
+
+Create Amount
+InTransaction -> Amount : addAmount(amount: 200)
+activate Amount
+Amount -> InTransaction : Amount
+deactivate Amount
+InTransaction -> BankAccount : newBalance
+deactivate InTransaction
+
+BankAccount -> UserState
+deactivate BankAccount
+
+UserState -> Model
+deactivate UserState
+
+
+Model -> VersionedUserState : commit()
+activate VersionedUserState
+VersionedUserState -> Model
+
+
+Model -> InCommand
+deactivate Model
+
+create CommandResult
+InCommand -> CommandResult
+activate CommandResult
+CommandResult -> InCommand
+deactivate CommandResult
+InCommand -> LogicManager : commandResult
+
+destroy InCommand
+
+[<--LogicManager : commandResult
+deactivate LogicManager
+
+@enduml
+
