@@ -26,6 +26,11 @@ public class FieldParser {
     public static final String INVALID_DIRECTION_USAGE = "Note you have entered an invalid direction:\n"
             + "Directions can only be ASC or DESC";
     public static final String INVALID_FIELD_USAGE = "Note you have entered an invalid field:\n";
+    public static final String WRONG_CASE_FIELD_USAGE = "Note that your fields must entirely be in"
+            + " upper or lower case!";
+    public static final String WRONG_CASE_DIRECTION_USAGE = "Note that your directions must entirely be in"
+            + " upper or lower case!";
+
 
     /**
      * Parses the given String and returns a List of fields for simple execution.
@@ -41,6 +46,10 @@ public class FieldParser {
 
         checkKeywords(nameKeywords);
 
+        for (int i = 0; i < nameKeywords.length; i++) {
+            nameKeywords[i] = nameKeywords[i].toUpperCase();
+        }
+
         return (Arrays.asList(nameKeywords));
     }
 
@@ -51,13 +60,21 @@ public class FieldParser {
      */
     public void checkKeywords(String[] keywords) throws ParseException {
         if (areFieldsInvalid(keywords)) {
-            throw new ParseException(INVALID_FIELD_USAGE);
+            if (hasWrongCaseFields(keywords)) {
+                throw new ParseException(WRONG_CASE_FIELD_USAGE);
+            } else {
+                throw new ParseException(INVALID_FIELD_USAGE);
+            }
         } else if (areFieldsDuplicate(keywords)) {
             throw new ParseException(DUPLICATE_FIELD_USAGE);
         } else if (areDirectionsMissing(keywords)) {
             throw new ParseException(MISSING_DIRECTION_USAGE);
         } else if (areDirectionsInaccurate(keywords)) {
-            throw new ParseException(INVALID_DIRECTION_USAGE);
+            if (hasWrongCaseDirections(keywords)) {
+                throw new ParseException(WRONG_CASE_DIRECTION_USAGE);
+            } else {
+                throw new ParseException(INVALID_DIRECTION_USAGE);
+            }
         }
     }
 
@@ -78,6 +95,21 @@ public class FieldParser {
         for (int i = 0; i < keywords.length; i = i + 2) {
             String field = keywords[i];
             if (!isValidField(field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the array of fields have some fields that are not entirely in upper or lower case.
+     * @param keywords the array of fields.
+     * @return true if some fields are not entirely in upper or lower case. False if otherwise.
+     */
+    public boolean hasWrongCaseFields(String[] keywords) {
+        for (int i = 0; i < keywords.length; i = i + 2) {
+            String field = keywords[i];
+            if (isWrongCaseField(field)) {
                 return true;
             }
         }
@@ -109,6 +141,21 @@ public class FieldParser {
     }
 
     /**
+     * Checks if the array of fields contain directions not entirely in upper or lower case.
+     * @param keywords the array of fields.
+     * @return true if some directions are not entirely in upper or lower case. False if otherwise.
+     */
+    public boolean hasWrongCaseDirections(String[] keywords) {
+        for (int i = 1; i < keywords.length; i = i + 2) {
+            String field = keywords[i];
+            if (isWrongCaseDirection(field)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Checks if the array of fields contain duplicate values.
      * @param keywords the array of fields.
      * @return true if the fields do contain duplicate fields. False if otherwise.
@@ -131,12 +178,34 @@ public class FieldParser {
      */
     public boolean isValidField(String field) {
         return field.equals(FIELD_NAME_CATEGORY)
+                || field.equals(FIELD_NAME_CATEGORY.toLowerCase())
                 || field.equals(FIELD_NAME_DESCRIPTION)
+                || field.equals(FIELD_NAME_DESCRIPTION.toLowerCase())
                 || field.equals(FIELD_NAME_LOCATION)
+                || field.equals(FIELD_NAME_LOCATION.toLowerCase())
                 || field.equals(FIELD_NAME_NAME)
+                || field.equals(FIELD_NAME_NAME.toLowerCase())
                 || field.equals(FIELD_NAME_OPENING_HOURS)
+                || field.equals(FIELD_NAME_OPENING_HOURS.toLowerCase())
                 || field.equals(FIELD_NAME_PRICE)
-                || field.equals(FIELD_NAME_RESTRICTIONS);
+                || field.equals(FIELD_NAME_PRICE.toLowerCase())
+                || field.equals(FIELD_NAME_RESTRICTIONS)
+                || field.equals(FIELD_NAME_RESTRICTIONS.toLowerCase());
+    }
+
+    /**
+     * Checks if the field is entirely in upper or lower case or not.
+     * @param field the field.
+     * @return true if the field is not entirely in upper or lower case, false if otherwise.
+     */
+    public boolean isWrongCaseField(String field) {
+        return field.toUpperCase().equals(FIELD_NAME_CATEGORY)
+                || field.toUpperCase().equals(FIELD_NAME_DESCRIPTION)
+                || field.toUpperCase().equals(FIELD_NAME_LOCATION)
+                || field.toUpperCase().equals(FIELD_NAME_NAME)
+                || field.toUpperCase().equals(FIELD_NAME_OPENING_HOURS)
+                || field.toUpperCase().equals(FIELD_NAME_PRICE)
+                || field.toUpperCase().equals(FIELD_NAME_RESTRICTIONS);
     }
 
     /**
@@ -145,6 +214,19 @@ public class FieldParser {
      * @return true if the field is ascending or descending. False if otherwise.
      */
     public boolean isAscOrDesc(String direction) {
-        return direction.equals("ASC") || direction.equals("DESC");
+        return direction.equals("ASC")
+                || direction.equals("asc")
+                || direction.equals("DESC")
+                || direction.equals("desc");
+    }
+
+    /**
+     * Checks if the direction is entirely in upper or lower case or not.
+     * @param direction the direction.
+     * @return true if the direction is not entirely in upper or lower case, false if otherwise.
+     */
+    public boolean isWrongCaseDirection(String direction) {
+        return direction.toUpperCase().equals("ASC")
+                || direction.toUpperCase().equals("DESC");
     }
 }

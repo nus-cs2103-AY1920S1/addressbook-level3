@@ -45,14 +45,15 @@ public class FieldParserTest {
     @Test
     public void parse_invalidFields_failure() {
         String invalidFieldsMessage = FieldParser.INVALID_FIELD_USAGE;
+        String wrongCaseFieldsMessage = FieldParser.WRONG_CASE_FIELD_USAGE;
 
         assertThrows(ParseException.class,
                 invalidFieldsMessage, () -> fieldParser.parse(invalidField + " " + ASCENDING_DIRECTION));
 
         assertThrows(ParseException.class,
-                invalidFieldsMessage, () -> fieldParser.parse(
+                wrongCaseFieldsMessage, () -> fieldParser.parse(
                         FIELD_NAME_OPENING_HOURS + " " + DESCENDING_DIRECTION
-                                + " " + invalidField + " " + ASCENDING_DIRECTION
+                                + " pRicE " + ASCENDING_DIRECTION
                 ));
     }
 
@@ -76,10 +77,11 @@ public class FieldParserTest {
     @Test
     public void parse_invalidDirections_failure() {
         String invalidDirectionMessage = FieldParser.INVALID_DIRECTION_USAGE;
+        String wrongCaseDirectionMessage = fieldParser.WRONG_CASE_DIRECTION_USAGE;
         assertThrows(ParseException.class,
-                invalidDirectionMessage, () -> fieldParser.parse(
+                wrongCaseDirectionMessage, () -> fieldParser.parse(
                         FIELD_NAME_NAME + " " + DESCENDING_DIRECTION
-                                + " " + FIELD_NAME_LOCATION + " " + invalidDirection
+                                + " " + FIELD_NAME_LOCATION + " " + "deSc"
                 ));
 
         assertThrows(ParseException.class,
