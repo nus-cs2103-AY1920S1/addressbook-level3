@@ -113,12 +113,8 @@ public class ContactManager implements ReadOnlyContact {
         contacts.setContact(target, editedContact);
     }
 
-    /**
-     * Returns an Optional Contact by searching the contact list for a contact with the same phone as {@code phone}.
-     */
-    public Optional<Contact> getContactWithPhone(Phone toGet) {
-        requireNonNull(toGet);
-        return contacts.getWithPhone(toGet);
+    public Optional<Contact> getContact(Contact contact) {
+        return contacts.getContact(contact);
     }
 
     /**

@@ -172,7 +172,7 @@ public class EditAccommodationCommand extends EditCommand {
         Address updatedAddress = editAccommodationDescriptor.getAddress().orElse(accommodationToEdit.getAddress());
         Contact updatedContact = editAccommodationDescriptor.getPhone().isPresent()
                 ? new Contact(updatedName, editAccommodationDescriptor.getPhone().get(),
-                accommodationToEdit.getContact().get().getEmail().orElse(null), updatedAddress, new HashSet<>())
+                null, updatedAddress, new HashSet<>())
                 : accommodationToEdit.getContact().isPresent()
                 ? new Contact(updatedName, accommodationToEdit.getContact().get().getPhone(),
                 accommodationToEdit.getContact().get().getEmail().orElse(null), updatedAddress, new HashSet<>())

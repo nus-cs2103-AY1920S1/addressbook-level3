@@ -100,8 +100,8 @@ public class AddActivityCommand extends AddCommand {
 
         // Check if new Activity's contact already exist in ContactManager's list. If true, use the existing
         // contact.
-        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
-            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+        if (toAdd.getContact().isPresent() && model.hasContact(toAdd.getContact().get())) {
+            Contact contact = toAdd.getContact().get();
             Cost cost = toAdd.getCost().isPresent() ? toAdd.getCost().get() : null;
             activityAdded = new Activity(toAdd.getName(), toAdd.getAddress(), contact, cost, toAdd.getTags(),
                     toAdd.getDuration(), toAdd.getPriority());

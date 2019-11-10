@@ -93,8 +93,8 @@ public class AddAccommodationCommand extends AddCommand {
 
         // Check if new Accommodation's contact already exist in ContactManager's list. If true, use the existing
         // contact.
-        if (toAdd.getContact().isPresent() && model.hasPhone(toAdd.getContact().get().getPhone())) {
-            Contact contact = model.getContactByPhone(toAdd.getContact().get().getPhone()).get();
+        if (toAdd.getContact().isPresent() && model.hasContact(toAdd.getContact().get())) {
+            Contact contact = model.getContact(toAdd.getContact().get()).get();
             accommodationAdded = new Accommodation(toAdd.getName(), toAdd.getAddress(), contact,
                     toAdd.getTags());
         } else {

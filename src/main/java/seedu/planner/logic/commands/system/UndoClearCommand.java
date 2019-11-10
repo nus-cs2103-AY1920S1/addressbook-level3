@@ -38,9 +38,9 @@ public class UndoClearCommand extends UndoableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        model.setContacts(contact);
         model.setAccommodations(accommodation);
         model.setActivities(activity);
-        model.setContacts(contact);
         model.setItinerary(itinerary);
         return new CommandResult(MESSAGE_SUCCESS);
     }
