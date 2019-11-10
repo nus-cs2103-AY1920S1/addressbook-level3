@@ -213,20 +213,19 @@ specified category inputted.
 
 * Steps:
 
-1.
-If you do not remember the exact description of the item to add, you can type the command "add" with a category
+1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
 specified as shown in the screenshot below.
-
++
 image::cashierUG/AddCommand1.png[width=600"]
-
++
 [start = 2]
 2. Then, you can enter the desired description and quantity according to the items suggested by Leo as shown below.
-
++
 image::cashierUG/AddCommand2.png[width="600"]
-
++
 [start = 3]
-. Now, you can hit `Enter`.
-
+3. Now, you can hit `Enter`.
++
 image::cashierUG/AddCommand3.png[width="600"]
 
 Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
@@ -259,16 +258,14 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1.
-To checkout, you can type in the command "checkout" and specify the amount that the customer is paying as
+1. To checkout, you can type in the command "checkout" and specify the amount that the customer is paying as
 shown in the screenshot below.
-
++
 image::cashierUG/CheckoutCommand1.png[width="600"]
-
++
 [start = 2]
-. Now, you can hit `Enter`.
-
-
+2. Now, you can hit `Enter`.
++
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
 If checkout is successful, Leo will respond with a response message. The table will be cleared and the cashier will be reset.

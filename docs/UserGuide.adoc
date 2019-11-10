@@ -826,23 +826,21 @@ description even if the category of the item does *not* match with the specified
 
 * Steps:
 
-1.
-If you do not remember the exact description of the item to add, you can type the command "add" with a category
+1. If you do not remember the exact description of the item to add, you can type the command "add" with a category
 specified as shown in the screenshot below.
-
++
 //.Screenshot of user input (category) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand1.png[width="620"]
-
-
++
 [start = 2]
 2. Then, you can enter the desired description and quantity according to the items suggested by Leo as shown below.
-
++
 //.Screenshot of the user input (description, quantity) into Command Box for Add Command in Cashier Tab
 image::cashierUG/AddCommand2.png[width="600"]
-
++
 [start = 3]
-. Now, you can hit `Enter`.
-
+3. Now, you can hit `Enter`.
++
 //.Screenshot of the response message for Add Command in Cashier Tab
 image::cashierUG/AddCommand3.png[width="600"]
 
@@ -861,16 +859,14 @@ The specified index should correspond to the row index of the item in the table.
 [blue]`delete 2` - Deletes an item in row 2 of the table
 
 * Steps:
-
-1.
-To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
-
+1. To delete an item, type the command "delete" with an index specified as shown in the screenshot below.
++
 //.Screenshot of the user input into Command Box for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand1.png[width="600"]
-
++
 [start = 2]
-. Now, you can hit `Enter`.
-
+2. Now, you can hit `Enter`.
++
 //.Screenshot of the response message for Delete Command in Cashier Tab
 image::cashierUG/DeleteCommand2.png[width="600"]
 
@@ -913,7 +909,7 @@ image::cashierUG/EditCommand1.png[width="600"]
 image::cashierUG/EditCommand3.png[width="600"]
 
 [start = 2]
-. Now, you can hit `Enter`.
+2. Now, you can hit `Enter`.
 
 //.Screenshot of response message for Edit Command in Cashier Tab
 image::cashierUG/EditCommand2.png[width="600"]
@@ -940,15 +936,14 @@ This step must be executed before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1.
-To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
-
+1. To set a cashier, type the command "cashier" with the cashier's name specified as shown in the screenshot below.
++
 //.Screenshot of user input into Command Box for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand1.png[width="600"]
-
++
 [start = 2]
-. Now, you can hit `Enter`.
-
+2. Now, you can hit `Enter`.
++
 //.Screenshot of response message for Set Cashier Command in Cashier Tab
 image::cashierUG/SetCashierCommand2.png[width="600"]
 
@@ -976,15 +971,14 @@ You must set the cashier before checking out. Else, checkout cannot proceed.
 
 * Steps:
 
-1.
-To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
-
+1. To checkout, you can type the command "checkout" and specify the amount that the customer is paying as shown in the screenshot below.
++
 //.Screenshot of user input into Command Box for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand1.png[width="600"]
-
++
 [start = 2]
-. Now, you can hit `Enter`.
-
+2. Now, you can hit `Enter`.
++
 //.Screenshot of response message for Checkout Command in Cashier Tab
 image::cashierUG/CheckoutCommand2.png[width="600"]
 
@@ -1014,18 +1008,16 @@ This command is irreversible. Please use at your own discretion.
 
 * Steps:
 
-1.
-To clear, you can type the "clear" command word only as shown in the screenshot below.
-
+1. To clear, you can type the "clear" command word only as shown in the screenshot below.
++
 //.Screenshot of user input into Command Box for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand1.png[width="600"]
-
++
 [start = 2]
-. Now, you can hit `Enter`.
-
+2. Now, you can hit `Enter`.
++
 //.Screenshot of response message for Clear Command in Cashier Tab
 image::cashierUG/ClearCommand2.png[width="600"]
-
 
 If cleared successful, Leo will respond with a response message. The table will also be cleared and the cashier
 will be reset.
