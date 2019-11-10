@@ -20,6 +20,24 @@ import seedu.address.model.person.Person;
  */
 public class SampleAppointmentDataUtil {
 
+    public static final DateTime ONE_MONTH_LATER_MORNING = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(9, 0)).plusDays(31));
+
+    public static final DateTime ONE_MONTH_LATER_MORNING_PLUS = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(10, 0)).plusDays(31));
+
+    public static final DateTime ONE_MONTH_LATER_MORNING_CHANGE = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(13, 0)).plusDays(31));
+
+    public static final DateTime ONE_MONTH_LATER_MORNING_PLUS_CHANGE = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(14, 0)).plusDays(31));
+
+    public static final DateTime ONE_MONTH_LATER_AFTERNOON = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(12, 0)).plusDays(31));
+
+    public static final DateTime ONE_MONTH_LATER_EVENING = new DateTime(LocalDateTime
+            .of(LocalDate.now(), LocalTime.of(21, 0)).plusDays(31));
+
     private static Event generateEvent(Person person, LocalDateTime localDateTime, Status status) {
         return new Event(person.getReferenceId(), person.getName(), new Timing(new DateTime(localDateTime)), status);
     }
