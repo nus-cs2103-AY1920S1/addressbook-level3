@@ -24,7 +24,7 @@ Team: *T17-2*
 
 == Introduction
 //tag::intro
-image::TraveEzyLogo.png[TravEzy Logo]
+image::TraveEzyLogo.png[TravEzy Logo,width=600]
 
 
 Welcome to *TravEzy*! 😊
@@ -127,10 +127,10 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | ``MONTH``
 | Uppercase letters that are highlighted in grey indicate that the word is a _parameter_.footnote:[Remember what this means? A parameter is merely like a field in your regular form. Just replace it and fill it up with anything appropriate. 😊]
 
-| ``m\MONTH``
+| ``m/MONTH``
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
-| ``[m\MONTH]``
+| ``[m/MONTH]``
 | Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
 | 💡  
@@ -236,7 +236,7 @@ Whew! After reading so much, it is time to find out how you can add your _event_
 
 Step 1. Type ``add commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
 
-image::calendarScreenshots/add1.png[Add command]
+image::calendarScreenshots/add1.png[Add command,width=600]
 
 Step 2. The _month and year panel_ will change to "December" and the relevant view will be shown.
 
@@ -244,7 +244,7 @@ Step 3. In the _month view panel_, you will be able to see the newly added _comm
 
 Step 4. The _result box_ will also display a message to indicate that your _commitment_ has been successfully added. +
 
-image::calendarScreenshots/add2.png[Add result]
+image::calendarScreenshots/add2.png[Add result,width=600]
 
 TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively.
 
@@ -283,7 +283,7 @@ But how? Well, this is the section for you. 😀
 
 Step 1. Type ``delete commitment n/volunteer to tutor children d/2 m/Dec y/2019 D/5 M/Dec Y/2019`` in the _command box_ and click _Enter_. +
 
-image::calendarScreenshots/delete1.png[Delete command]
+image::calendarScreenshots/delete1.png[Delete command,width=600]
 
 Step 2. The _month and year panel_ will change to "December" and the relevant view will be shown.
 
@@ -291,7 +291,7 @@ Step 3. In the _month view panel_, you will be able to see that the _commitment 
 
 Step 4. The _result box_ will also display a message to indicate that your _commitment_ has been successfully deleted. + 
 
-image::calendarScreenshots/delete2.png[Delete result]
+image::calendarScreenshots/delete2.png[Delete result,width=600]
 
 === Showing your schedule for the month: ``show``
 
@@ -310,13 +310,13 @@ How easy is it?
 
 Step 1. Type ``show m/Dec`` in the _command box_ and click _Enter_. +
 
-image::calendarScreenshots/show1.png[Show command]
+image::calendarScreenshots/show1.png[Show command,width=600]
 
 Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
 
 Step 3. The _result box_ will also display a message to indicate that _TravEzy_ is currently showing you your schedule for December. + 
 
-image::calendarScreenshots/show2.png[Show result]
+image::calendarScreenshots/show2.png[Show result,width=600]
 
 WARNING: Do remember that if you leave out the year (as we have done in this example), the current year will be used. This applies to the following commands as well.
 
@@ -343,11 +343,11 @@ If you would like to view your events as a list instead, this command would be h
 
 Step 1. Type ``list`` in the _command box_ and click _Enter_. + 
 
-image::calendarScreenshots/list1.png[List command]
+image::calendarScreenshots/list1.png[List command,width=600]
 
 Step 2. A pop-up will appear to show you all your _events_. 
 
-image::calendarScreenshots/list2.png[List result]
+image::calendarScreenshots/list2.png[List result,width=600]
 
 Step 3. When you click at a region outside of the pop-up, the pop-up will disappear. How neat is that? 
 
@@ -376,13 +376,13 @@ Let's find out how!
 
 Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and click _Enter_. + 
 
-image::calendarScreenshots/check1.png[Check command]
+image::calendarScreenshots/check1.png[Check command,width=600]
 
 Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
 
 Step 3. The _result box_ will display a message to indicate whether you are available to travel during the specified time. If you happen to be free (like in this case), you may start booking your trip! 😀 +
 
-image::calendarScreenshots/check2.png[Check result]
+image::calendarScreenshots/check2.png[Check result,width=600]
 
 
 === Suggesting a suitable time for a trip: ``suggest``
@@ -410,13 +410,13 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
 
 Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and click _Enter_. + 
 
-image::calendarScreenshots/suggest1.png[Suggest command]
+image::calendarScreenshots/suggest1.png[Suggest command,width=600]
 
 Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
 
 Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
 
-image::calendarScreenshots/suggest2.png[Suggest result]
+image::calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 == Itinerary
 
