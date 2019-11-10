@@ -128,7 +128,7 @@ decide the valid commands in each mode. The following are the parsers used in ea
 ** TfInputCommandParser
 ** SaqInputCommandParser
 
-=== Parsing in Configuration Mode
+==== Parsing in Configuration Mode
 In Configuration Mode, a single string is passed as an argument to the execute method.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -137,7 +137,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-=== Parsing in Quiz Mode
+==== Parsing in Quiz Mode
 In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the execute method.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
 

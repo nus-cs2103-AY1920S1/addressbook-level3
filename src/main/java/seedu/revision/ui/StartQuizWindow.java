@@ -153,13 +153,13 @@ public class StartQuizWindow extends ParentWindow {
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            timer.resetTimer();
-
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.isCorrect()) {
                 totalScore++;
                 score++;
             }
+
+            timer.resetTimer();
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -233,19 +233,21 @@ public class StartQuizWindow extends ParentWindow {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.get() == nextLevelDialog.getNoButton()) {
-                handleExit();
-            } else {
-                //Reset UI in the window
-                levelLabel.updateLevelLabel(nextLevel);
-                currentProgressIndex.set(0);
-                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                        getSizeOfCurrentLevel(nextAnswerable),
-                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-                //Start a new timer for the next level
-                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
+            if (result.isPresent()) {
+                if (result.get() == nextLevelDialog.getNoButton()) {
+                    handleExit();
+                } else {
+                    //Reset UI in the window
+                    levelLabel.updateLevelLabel(nextLevel);
+                    currentProgressIndex.set(0);
+                    progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                            getSizeOfCurrentLevel(nextAnswerable),
+                            "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                    //Start a new timer for the next level
+                    this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                    progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                    scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
+                }
             }
         });
 

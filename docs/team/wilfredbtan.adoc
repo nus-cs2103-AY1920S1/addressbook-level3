@@ -15,6 +15,8 @@ endif::[]
 :contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=wilfredbtan
 :ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
 :pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+:mainPullUrl: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull
+:issuesUrl: https://github.com/nus-cs2103-AY1920S1/forum/issues
 
 By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -64,22 +66,20 @@ of many of the other features.
 
 ** Project management:
 *** Managed releases v1.3 - v1.4 (2 releases) on GitHub
+*** Managed issues and resolved the main bulk of the post Mock PE issues.
 
 ** Enhancements to existing features:
-*** Wrote additional GUI tests to increase coverage from 50% to 72% (PR link:{pullUrl}/158[#158])
+*** Wrote additional GUI tests to increase coverage from 50% to 72% (PR link:{pullUrl}/158[#158], link:{pullUrl}/161[#161])
 *** Updated the GUI colour scheme and added aesthetic artifacts such as level label (PR link:{pullUrl}/98[#98], link:{pullUrl}/148[#148])
 *** Created skeleton class for `AnswerableBuilder` using Java Generics and the builder class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
 *** Adapted CommandResult to follow the builder design pattern .
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide link:{pullUrl}
+*** Created skeleton sequence and activity diagrams for the team to reuse so that the DG can have a more congruent look.
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
+*** PRs reviewed: (link:{mainPullUrl}/14[example])
+*** Contributed to forum discussions (link:{issuesUrl}/60[example])
 
 == Contributions to the User Guide
 

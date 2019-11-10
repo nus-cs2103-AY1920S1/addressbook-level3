@@ -8,16 +8,16 @@ public class ArcadeMode extends Mode {
      */
     public ArcadeMode() {
         super("arcade");
-        this.time = 20;
+        this.time = 30;
         this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }
 
     public int getTime(int nextLevel) {
         switch(nextLevel) {
         case 2:
-            return 15;
+            return 25;
         case 3:
-            return 10;
+            return 20;
         default:
             return this.time;
         }

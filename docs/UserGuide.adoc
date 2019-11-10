@@ -140,6 +140,7 @@ The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
 *SAQ*: Multiple correct answers, no wrong answers.
+****
 
 Examples:
 
@@ -226,6 +227,7 @@ Returns `How do you gather user requirements?` and `What is the recommended user
 * `find User, Brownfield, Greenfield` +
 Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
 
+
 === Clearing all entries : `clear`
 
 Clears all questions from the test bank. +
@@ -267,8 +269,8 @@ The user is given 30 seconds to answer each question.
 
 === Arcade Mode
 Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
-The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
-level 3 giving the user 10 seconds to answer each question.
+The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 20 seconds to answer each question.
 
 === Custom Mode
 Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
