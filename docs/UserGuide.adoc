@@ -5,6 +5,7 @@
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
+:imagesDir: images/user-guide-pictures
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -79,7 +80,12 @@ Format: `addCategory cat/<category type> n/<category name>`
 Example Usage:
 [start = 1]
 . If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
+
+image::addingCategory-1.png[]
+
 . The new category will thus be added to guiltTrip. You can verify it using listCategories.
+
+image::addingCategory-2.png[]
 
 Other Examples:
 
@@ -87,7 +93,9 @@ Other Examples:
 * `addCategory cat/Income n/Lottery`
 
 ===== Editing Category : `editCategory`
-Edits a current category's description.
+Edits a current category's description. The category to be edited must exist in the current list of Categories
+whether it be in the Expense CategoryList or the Income CategoryList. The new name for the category must not be a
+duplicate of existing categories.
 
 Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
 
@@ -97,8 +105,13 @@ Format: `editCategory cat/<category type> o/<old category name> n/<new category 
 
 Example Usage:
 [start = 1]
-. If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory o/Business n/Bursary`.
+. If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory cat/Income o/Business n/Bursary`.
+
+image::editingCategory-1.png[]
+
 . The old category will thus be edited in guiltTrip. All existing entries will also be renamed as shown below.
+
+image::editingCategory-2.png[]
 
 Other Examples:
 
@@ -123,25 +136,29 @@ Format: `deleteCategory cat/<category type> n/<category name>`
 
 Example Usage:
 [start = 1]
-. If you would like to remove an existing Category *Food* under Expense, type `deleteCategory cat/Expense n/Food`
+. If you would like to remove an existing Category *Rent* under Expense, type `deleteCategory cat/Expense n/Rent`
+
+image::deletingCategory-1.png[]
+
 . The old category will thus be deleted from guiltTrip. You can verify that it is removed using `listCategories`.
+
+image::deletingCategory-2.png[]
 
 Other Examples:
 * `deleteCategory cat/Income n/Business`
 * `deleteCategory cat/Expense n/Food`
 
-=== Expenses and Income
+=== Expenses
 Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
 
-==== Adding Expense: `add`
+==== Adding Expense: `addExpense`
 Adds a new expenditure to your total spending.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
 in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `add typ/Expense c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]`
+Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]`
 
 * `<category name>`: The `category` that the entry belongs to.
-* `typ/Expense`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
 * `<description>`: The name of this entry.
 * `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
 * `<date>`: The date of this expense.
@@ -149,22 +166,26 @@ Format: `add typ/Expense c/<category> n/<description> a/<expenditure> d/<date> [
 
 Example Usage:
 [start = 1]
-. If you would like to add a record of a recent splurging on mala, key in the command  `add cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
+. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
+
+image::addingExpense-1.png[]
+
 . You should see the new expense being added into in the list of entries as displayed below.
+
+image::addingExpense-2.png[]
 
 Other examples:
 
 * `add c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 t/sanity check`
 * `add c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
 
-==== Adding Income : `add`
+==== Adding Income : `addIncome`
 Adds a new Income to your total income.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `add c/<category name> typ/Income n/<description> a/<expenditure> d/<date> [t/<tag>]`
+Format: `addIncome/<category name> n/<description> a/<expenditure> d/<date> [t/<tag>]`
 
 * `<category name>`: The `category` that the entry belongs to.
-* `typ/Income`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
 * `<description>`: The name of this entry.
 * `<expenditure>`: The amount spent for this income. It can contain at most 2 decimal points.
 * `<date>`: The date of this income.
@@ -180,10 +201,9 @@ Other examples:
 * `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 t/food`
 * `add c/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
 
-==== Editing a expense/income: `edit`
+==== Editing a Expense: `editExpense`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
-
 
 Format: `edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]`
 
@@ -194,8 +214,13 @@ Example Usage:
 
 [start = 1]
 . If you would like to edit a recent Expense's tag, whereby the expense is located at index 2 as shown below,
-key in the command  `edit 2 tg/irreversiblecatastrophicdestructiontomykidneysandhealth`.
+key in the command  `editExpense 2 amt/999.99 tg/irreversiblecatastrophicdestructiontomykidneysandhealth`.
+
+image::editingExpense-1.png[]
+
 . You should see the new expense being edited in the list of entries as displayed below.
+
+image::editingExpense-2.png[]
 
 Other Examples:
 
@@ -203,11 +228,11 @@ Other Examples:
 * `edit 3 c/Business n/Selling Coding Services a/0.01`
 * `edit 5 t/helpmykidneys`
 
-==== Deleting a expense/income: `delete`
+==== Deleting a Expense: `deleteExpense`
 
 Deletes the recorded expenditure with the given index number.
 
-Format: `delete <index>`
+Format: `deleteExpense <index>`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
 * You can update any of the fields of the entry. But you must at least edit one field.
@@ -216,13 +241,18 @@ Example Usage:
 
 [start = 1]
 . If you would like to delete an expense, whereby the expense is located at index 2 as shown below,
-key in the command  `delete 2`.
+key in the command  `deleteExpense 2`.
+
+image::deleteExpense-1.png[]
+
 . You should see the expense being deleted in the list of entries as displayed below.
+
+image::deleteExpense-2.png[]
 
 Other Examples:
 
-* `delete 2`
-* `delete 4`
+* `deleteExpense 2`
+* `deleteExpense 4`
 
 === AutoExpense
 
@@ -349,8 +379,8 @@ Example: `payLoan 1 a/4000`
 ==== Switching to Statistics Table View : `viewTable`
 Switches to the statistics table view. By default, `viewTable` will show the current month statistics.
 Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
-Carrying out any other command in the Statistics Table screen will reset the Table to show the current month
-statistics for convenience of the user.
+Carrying out any other Adding, Editing, Or Deleting Expense or Income command in the Statistics Table
+screen will reset the Table to show the month of statistics that reflects the command carried out.
 
 Format: `viewTable [p/<RangeOfMonths>]`
 
@@ -360,7 +390,12 @@ Example Usage:
 
 [start = 1]
 . Let's say you want to view the Statistics in table form for period *2018/01* to *2019/12*. You then type in the command `viewTable p/2018-01,2019-12`.
+
+image::viewTable-1.png[]
+
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+
+image::viewTable-2.png[]
 
 Other Examples:
 
@@ -370,8 +405,9 @@ Other Examples:
 ==== Switching to Statistics Pie Chart View : `viewPie`
 Switches to the statistics table view. By default, `viewPie` will show the current month statistics.
 Typing only the month in format *[yyyy-mm]* will show the breakdown of statistics by the specified month.
-Carrying out any other command in the Statistics Pie Chart screen will reset the Pie Chart to show the current month
-statistics for convenience of the user.
+Carrying out any other Adding, Editing, Or Deleting Expense or Income command in the Statistics Table
+screen will reset the Table to show the month of statistics that reflects the command carried out.
+The statistics by percentage will be rounded to the nearest 1 decimal place so as not to clutter the UI.
 
 Format: `viewPie [p/<RangeOfMonths>]`
 
@@ -380,7 +416,12 @@ Format: `viewPie [p/<RangeOfMonths>]`
 Example Usage:
 [start = 1]
 . Let's say you want to view the Statistics in pie chart form for period *2018/01* to *2019/12*. You then type in the command `viewPie p/2018-01,2019-12`.
+
+image::ViewPie-1.png[]
+
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+
+image::viewPie-2.png[]
 
 Other Examples:
 
@@ -393,15 +434,24 @@ Typing only the month in format *[yyyy-mm]* will show the breakdown of statistic
 Carrying out any other command in the Statistics Bar Chart screen will reset the Bar Chart to show the current month
 statistics for convenience of the user.
 
-Format: `viewPie [p/<SpecifiedMonth>]`
+[NOTE]
+As the bar chart is auto scaling to reflect the accuracy of the y-axis , if there is too large an expense for one day, it will be hard to see
+the amounts for other days.
+
+Format: `viewBar [p/<SpecifiedMonth>]`
 
 * `<SpecifiedMonth>`: The month and year in which you want to display the data by. It must be in the format `[yyyy mm]` with no dates and does not allow a range of months.
 
 Example Usage:
 
 [start = 1]
-. Let's say you want to view the Statistics in bar chart form for period *2018/01*. You then type in the command `viewPie p/2018-01`.
+. Let's say you want to view the Statistics in bar chart form for period *2019/10*. You then type in the command `viewBar p/2019-10`.
+
+image::viewBar-1.png[]
+
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+
+image::viewBar-2.png[]
 
 Other Examples:
 
@@ -417,11 +467,11 @@ Example Usage:
 
 * `viewEntry`
 
-==== Sorting : `sort`
+==== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
-Format: `sort typ/<sort type> s/<sort sequence>`
+Format: `sortExpense typ/<sort type> s/<sort sequence>`
 
 * `<sort type>`: The type to sort the entries by. The default order or sorting is by `time`, followed by `amount`, `description`, `category` and finally `tags`.
 * `<sort sequence>`: The type of sequence to sort the entries by.
@@ -429,49 +479,39 @@ Format: `sort typ/<sort type> s/<sort sequence>`
 Example Usage:
 
 [start = 1]
-. Let's say you want to view the entries sorted by Category in ascending order. You then type `sort typ/Category s/ascending`
+. Let's say you want to view the entries sorted by Category in ascending order. You then type `sortExpense typ/Category s/ascending`
+
+image::Sort-1.png[]
+
 . GuiltTrip will display to you the entries sorted by Category in the proper order as shown below.
+
+image::sort-1.png[]
 
 Other Examples:
 
-* `sort typ/amount s/ascending`
-* `sort typ/category s/descending`
+* `sortExpense typ/amount s/ascending`
+* `sortExpense typ/category s/descending`
+* `sortIncome typ/category s/ascending`
 
-==== Search : `find`
+==== Search : `findExpense`, `findIncome`, `findWish`, `findBudget`
 
 Search income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
-Format: `find [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
+Format: `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
 
-Example:
+[start = 1]
+. Let's say you want to find all the expenses with Category name food. You then type `findExpense cat/Food`
 
-* `find c/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
-* `find c/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
-* `find d/2019-09-09 t/a t/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
+image::find-1.png[]
 
-==== Search Wish: `findWish`
+. GuiltTrip will display to you the expenses with the Category Name as shown below.
 
-Search Wish by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
+image::find-2.png[]
 
-Format: `findWish [c/<category>] [n/<description>] [a/<a>] [d/<date>] [/<tag>]`
-
-Example:
-
-* `findWish c/food n/mala: lists each entry in Wish with title containing keyword “mala” and category of Food.`
-* `findWish c/business d/2019-09-09: lists each entry in Wish with date of "2019-09-09" and category of business.`
-* `findWish d/2019-09-09 t/a t/b: lists each entry in Wish with date of "2019-09-09" and tags of a and b.`
-
-==== Search Budget: `findBudget`
-
-Search Budget by Category,Description,Amount,Date or Tags. There must be at least one find parameter.
-
-Format: `findBudget [c/<category>] [n/<description>] [a/<expenditure>] [d/<date>] [t/<tag>]`
-
-Example:
-
-* `findBudget c/food n/mala`: lists each entry in Budget with title containing keyword “mala” and category of Food.
-* `findBudget c/business d/2019-09-09`: lists each entry in Budget with date of "2019-09-09" and category of business.
-* `findBudget d/2019-09-09 t/a t/b`: lists each entry in Budget with date of "2019-09-09" and tags of a and b.
+Other Examples:
+* `findExpense cat/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
+* `findIncome cat/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
+* `findWish d/2019-09-09 tg/a tg/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
 
 // commenting out for mock PE.
 ////

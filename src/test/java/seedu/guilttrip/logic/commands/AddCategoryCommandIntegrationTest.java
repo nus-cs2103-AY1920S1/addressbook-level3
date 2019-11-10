@@ -9,6 +9,7 @@ import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;

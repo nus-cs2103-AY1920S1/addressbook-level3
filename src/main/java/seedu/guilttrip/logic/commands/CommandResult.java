@@ -277,7 +277,6 @@ public class CommandResult {
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
-//                && toList.equals(otherCommandResult.toList)
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme == (otherCommandResult.newTheme);
     }

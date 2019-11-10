@@ -9,11 +9,6 @@ Class CategoryStatistics
 }
 
 interface Statistics {
-getTotalExpenseForPeriod(): DoubleProperty
-getTotalIncomeForPeriod(): DoubleProperty
-getListOfStatsForBarChart(): ObservableList<DailyStatistics>
-getListOfStatsForExpense(): ObservableList<CategoryStatistics>
-getListOfStatsForIncome(): ObservableList<CategoryStatistics>
 updateListOfStats(): void
 updateListOfStats(List<Date>): void
 updateBarCharts(): void
@@ -25,39 +20,23 @@ class StatisticsManager {
     -listOfStatsForExpense: ObservableList<CategoryStatistics>
     -listOfStatsForIncome: ObservableList<CategoryStatistics>
     -listOfStatsForDaily: ObservableList<DailyStatistics>
-    -modelTotalFilteredExpenses: FilteredList<Expense>
-    -modelTotalFilteredIncomes: FilteredList<Income>
-    -listOfCategories: CategoryList
     -totalExpenseForPeriod: DoubleProperty
     -totalIncomeForPeriod: DoubleProperty
-    +StatisticsManager(FilteredList<Expense>, FilteredList<Income>, CategoryList listOfCategories): StatisticsManager
-    +getListOfStatsForBarChart(): ObservableList<DailyStatistics>
-    +getListOfStatsForExpense(): ObservableList<CategoryStatistics>
-    +getListOfStatsForIncome(): ObservableList<CategoryStatistics>
-    +getTotalExpenseForPeriod(): DoubleProperty
-    +getTotalIncomeForPeriod(): DoubleProperty
-    -initRecords(int): void
-    -updateCategory(): void
-    -initStats(): void
-    -updateListOfStats(): void
-    -updateListOfStats(List<Date>): void
+    +updateBarCharts(): void
+    +updateBarCharts(Date monthToShow): void
+    +updateListOfStats(): void
+    +updateListOfStats(List<Date>): void
     -getMonth(Date): ArrayList<MonthList>
     -getListOfMonths(List<Date>): ArrayList<MonthList>
     -retrieveSpecifiedMonths(startMonth: int, endMonth: int, year: int): ArrayList<MonthList>
     -countStats(ArrayList<MonthList>, ObservableList<CategoryStatistics>: double
-    -calculateTotalAmountForCategory(ArrayList<MonthList>, Category ): double
-    +updateBarCharts(): void
-    +updateBarCharts(Date monthToShow): void
+    -calculateTotalAmountForCategory(ArrayList<MonthList>, Category): double
+
 }
 class DailyStatistics {
 -EXACT_DAY: LocalDate
 -totalExpense: double
 -totalIncome: double
-+DailyStatistics(LocalDate,double,double): DailyStatistics
-+getDate(): int
-+getMonth(): int
-+getExactDay(): LocalDate
-+getNumberOfDays(): int
 +getTotalExpense(): double
 +getTotalIncome(): double
 }
@@ -66,9 +45,6 @@ class DailyList {
 -listOfExpenses: FilteredList<Expense>
 -listOfIncomes: FilteredList<Income>
 -date: LocalDate
-+DailyList(FilteredList<Expense>,FilteredList<Income>, day: int, Month, year: int) {
-+getFilteredListOfExpenses(): FilteredList<Expense>
-+getFilteredListOfIncome(): FilteredList<Income>
 +calculateStatisticsForBarChart(): DailyStatistics
 }
 
@@ -80,10 +56,6 @@ class MonthList {
 -listOfDailyStatistics: ObservableList<DailyStatistics>
 -mapOfDailyLists: ObservableMap<Integer, DailyList>
 -yearMonth: YearMonth
-+MonthList(CategoryList, FilteredList<Expense>, FilteredList<Income> , Month, int): MonthList
-+getYearMonth(): YearMonth
-+getFilteredListForExpense(): FilteredList<Expense>
-+getFilteredListForIncome(): FilteredList<Income>
 +calculateStatisticsForBarChart(): ObservableList<DailyStatistics>
 +updateListOfStats(Category): double
 -initRecords(): void
@@ -93,7 +65,6 @@ class MonthList {
 class CategoryStatistics {
 -nameOfCategory: Category
 -amountCalculated: double
-+CategoryStatistics(Category, double): CategoryStatistics
 +getCategoryName(): String
 +setAmountCalculated(double): void
 +getCategoryNameProperty(): StringProperty

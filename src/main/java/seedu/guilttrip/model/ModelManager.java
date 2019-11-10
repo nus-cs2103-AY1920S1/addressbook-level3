@@ -532,24 +532,28 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredExpense(sortByTime, sortByAsc);
         filteredExpenses.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredIncomes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredIncome(sortByTime, sortByAsc);
         filteredIncomes.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredWishes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredWishes(sortByTime, sortByAsc);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredBudgets(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredBudget(sortByTime, sortByAsc);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
             budget.setSpent(filteredExpenses);
@@ -564,6 +568,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredAutoExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredAutoExpense(sortByTime, sortByAsc);
         filteredAutoExpenses.setPredicate(predicate);
     }
 
