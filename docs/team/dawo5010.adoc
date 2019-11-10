@@ -33,7 +33,7 @@ clubs track their expenses, reimbursements, sales and inventory. To do so, we in
 management features of AddressBook and used it as a starting point to build treasurerPro. We also built a new User
 Interface (UI) to accommodate the new features that we had added.
 
-In total, treasurerPro took a total of 8 weeks to complete.
+In total, treasurerPro took a total of 10 weeks to complete.
 
 ===  Key to the icons and formatting used in the document
 
