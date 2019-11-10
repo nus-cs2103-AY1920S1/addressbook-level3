@@ -175,6 +175,10 @@ Examples:
 * `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
 * `reminder John's Birthday -r 3.day.later`
 
+
+
+See link:#snooze[snooze] to learn how to snooze the reminder!
+
 [NOTE]
 It is not possible to set a reminder in the past.
 
@@ -223,6 +227,7 @@ Deletes the 2nd reminder in the shown reminder list.
 
 === Reminder Feature
 
+[[snooze]]
 ==== Snoozing a reminder: `snooze`
 
 Snoozes a reminder that occurred since the application was open. +
