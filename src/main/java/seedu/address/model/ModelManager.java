@@ -470,7 +470,7 @@ public class ModelManager implements Model {
         return appointmentBook.countNumberOfEventsInConflict(toCheck);
     }
 
-
+    //@@author woon17
     //=========== Filtered Event List Accessors =============================================================
 
     /**
@@ -605,7 +605,6 @@ public class ModelManager implements Model {
      */
     private void checkValidScheduleDutyShift(Event dutyShift, Event ignoreEventCase)
             throws InvalidEventScheduleChangeException {
-        //TODO: edge case, scheduling a staff member
         if (hasPatient(dutyShift.getPersonId())) {
             throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
