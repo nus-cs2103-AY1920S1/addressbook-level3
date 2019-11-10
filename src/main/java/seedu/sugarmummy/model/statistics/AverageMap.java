@@ -96,7 +96,7 @@ public class AverageMap {
             ObservableList<Record> recordList) {
         return recordList.stream()
                 .collect(Collectors.groupingBy(record -> record.getDateTime()
-                        .getDate().with(TIMEADJUSTERS.get(averageType))));
+                .getDate().with(TIMEADJUSTERS.get(averageType))));
     }
 
     /**
@@ -104,7 +104,7 @@ public class AverageMap {
      *
      * @param recordType the record type.
      * @param recordMap  a {@code Map} object that maps a time period to the respective records found in that time
-     *                   period.
+     * period.
      * @return returns a {@code Map} object that maps a time period to the respective average values of records
      * found in that time period.
      */
@@ -113,15 +113,15 @@ public class AverageMap {
         case BLOODSUGAR:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                            .stream().map(record -> (BloodSugar) record)
-                            .map(record -> record.getConcentration().getConcentration())
-                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                    .stream().map(record -> (BloodSugar) record)
+                    .map(record -> record.getConcentration().getConcentration())
+                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
         case BMI:
             return recordMap.entrySet().stream()
                     .collect(Collectors.toMap(Map.Entry::getKey, ele -> ele.getValue()
-                            .stream().map(record -> (Bmi) record)
-                            .map(record -> record.getBmi())
-                            .mapToDouble(Double::doubleValue).average().getAsDouble()));
+                    .stream().map(record -> (Bmi) record)
+                    .map(record -> record.getBmi())
+                    .mapToDouble(Double::doubleValue).average().getAsDouble()));
         default:
             assert false : "Record type is not found and should not happen.";
             throw new IllegalArgumentException(MESSAGE_INVALID_RECORD_TYPE);
