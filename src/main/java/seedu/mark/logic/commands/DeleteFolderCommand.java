@@ -19,7 +19,7 @@ public class DeleteFolderCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes a folder with the specified name.\n"
-            + "Parameters: NAME (must be an existing folder name. It cannot contain other folders/bookmarks.) "
+            + "Parameters: NAME (must be an existing folder name. It cannot contain other folders/bookmarks.)\n"
             + "Example: " + COMMAND_WORD + " school ";
 
     public static final String MESSAGE_SUCCESS = "Folder %1$s deleted.\nYou can view the result in the dashboard tab.";

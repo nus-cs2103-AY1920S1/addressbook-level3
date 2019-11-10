@@ -527,12 +527,12 @@ Creates a new folder named `CS2103` under the parent folder `NUS`.
 // Context: When to use this command?
 If your favorite band recently changed its name, you may want to edit your folder for it to reflect its new name. You can do so with this command.
 
-Format: `*delete* FROM_FOLDER​_NAME t/TO_FOLDER_NAME`
+Format: `*folder-edit* FROM_FOLDER​_NAME t/TO_FOLDER_NAME`
 
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`.
+* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit enter.
 +
 image::EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
@@ -552,12 +552,12 @@ image::EditFolderCommandUi2.png[]
 // Context: When to use this command?
 If you have an unused folder you wish to delete, this is the command you should use.
 
-Format: `*delete* FOLDER​_NAME`
+Format: `*folder-delete* FOLDER​_NAME`
 
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You see an unused bookmark `CS2101` in the Dashboard, and input `folder-delete CS2101` into the command box.
+* You see an unused bookmark `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
 image::DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders

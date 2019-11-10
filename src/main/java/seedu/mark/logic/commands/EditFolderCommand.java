@@ -14,7 +14,7 @@ import seedu.mark.model.bookmark.Folder;
 import seedu.mark.storage.Storage;
 
 /**
- * Creates a new folder in Mark.
+ * Edits a folder in Mark.
  */
 public class EditFolderCommand extends Command {
 
@@ -22,9 +22,9 @@ public class EditFolderCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits a folder name. All bookmarks with the existing folder name will be moved to this folder too.\n"
-            + "Parameters: NAME (must be an existing folder name) "
-            + PREFIX_NEW_FOLDER + "[NEW_FOLDER_NAME]\n"
-            + "Example: " + COMMAND_WORD + " school ";
+            + "Parameters: FROM_FOLDER_NAME (must be an existing folder name) "
+            + PREFIX_NEW_FOLDER + "[TO_FOLDER_NAME]\n"
+            + "Example: " + COMMAND_WORD + " school " + PREFIX_NEW_FOLDER + "work";
 
     public static final String MESSAGE_SUCCESS =
             "Folder renamed successfully to: %1$s.\nYou can view it in the dashboard tab.";
@@ -36,7 +36,7 @@ public class EditFolderCommand extends Command {
     private final Folder newFolder;
 
     /**
-     * Creates an AddFolderCommand to add the specified {@code Folder}.
+     * Creates an EditFolderCommand to add edit the specified {@code Folder}.
      * @param folder the folder to rename
      * @param newFolder the new folder
      */
