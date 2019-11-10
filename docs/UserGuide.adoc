@@ -258,12 +258,12 @@ Examples:
 
 * `add_earnings d/19/09/2019 type/lab c/CS2103T amt/50.70`
 
-****
-* Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s` / `preparation_time` / `p`
+[NOTE]
+Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s` / `preparation_time` / `p`
 arguments are allowed for `TYPE`.
-* `DATE` format must be done in `DD/MM/YYYY` or `DD-MM-YYYY` format.
-* `AMOUNT` has a max value of 1 000 000.00 and should not contain commas.
-****
+`DATE` format must be done in `DD/MM/YYYY` or `DD-MM-YYYY` format.
+ `AMOUNT` has a max value of 1 000 000.00 and should not contain commas.
+
 
 ==== Update Earnings: `update_earnings`
 
@@ -274,10 +274,10 @@ Examples:
 
 * `update_earnings 2 d/14/04/2020 type/lab`
 
-****
-* Not allowed to update earnings claim status through `update_earnings` method. Only can use `claim_earnings`
+[NOTE]
+Not allowed to update earnings claim status through `update_earnings` method. Only can use `claim_earnings`
 method.
-****
+
 
 ==== Delete Earnings: `delete_earnings`
 
@@ -287,7 +287,6 @@ Format: `delete_earnings INDEX`
 Examples:
 
 * `delete_earnings 2`
-// tag::startEarningsTag[]
 
 ==== Find Earnings: `find_earnings`
 
@@ -298,25 +297,27 @@ Examples:
 
 * `find_earnings CS2103T`
 
-****
-* If more than one keyword is used, do not add commas between each keyword.
-* Partial matching is allowed as well for this command. `find_earnings a` will
+[NOTE]
+If more than one keyword is used, do not add commas between each keyword.
+Partial matching is allowed as well for this command. `find_earnings a` will
  match with apple, for example.
-****
 
+// tag::startEarningsTag[]
 ==== Claim Earnings: `claim_earnings`
 
 Changes the user the earnings status in the list of earnings. +
 Format: `claim_earnings INDEX c/CLASSID`
 
+.Claim Earnings Example
+image::ClaimEarnings.png[width="500", align="left"]
+
 Examples:
 
 * `claim_earnings 2 claim/rejected`
 
-****
-* Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
-* Only one status is allowed at a time.
-****
+[NOTE]
+Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
+Only one status is allowed at a time.
 
 ==== Auto Add Weekly Earnings: `weekly_earnings`
 
