@@ -1,7 +1,6 @@
 package com.typee.ui.calendar;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,8 @@ import java.util.logging.Logger;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.util.DateUtil;
 import com.typee.model.engagement.Engagement;
-import com.typee.model.engagement.TimeSlot;
 import com.typee.ui.UiPart;
-import com.typee.ui.calendar.exceptions.CalendarCloseDisplayException;
+import com.typee.ui.calendar.exceptions.CalendarInteractionException;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -33,6 +31,8 @@ public class CalendarWindow extends UiPart<Region> {
     private static final int FIRST_DATE_OF_MONTH = 1;
     private static final int MAXIMUM_NUMBER_OF_WEEKS_PER_MONTH = 5;
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
+    private static final String MAXIMUM_YEAR_MESSAGE = "The maximum allowable calendar year is 9999.";
+    private static final String MINIMUM_YEAR_MESSAGE = "The minimum allowable calendar year is 0001.";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -137,27 +137,10 @@ public class CalendarWindow extends UiPart<Region> {
     private void addAllEngagementsForDate(CalendarDateCell calendarDateCell, LocalDate calendarDate) {
         calendarDateCell.clearEngagements();
         for (Engagement engagement : engagements) {
-            if (isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
+            if (DateUtil.isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
                 calendarDateCell.addEngagement(engagement);
             }
         }
-    }
-
-    /**
-     * Returns true if the specified calendar date is within the specified time slot.
-     *
-     * @param calendarDate The specified calendar date.
-     * @param timeSlot The specified time slot.
-     * @return True if the specified calendar date is within the specified time slot.
-     */
-    private boolean isWithinTimeSlot(LocalDate calendarDate, TimeSlot timeSlot) {
-        LocalDateTime startDateTime = timeSlot.getStartTime();
-        LocalDateTime endDateTime = timeSlot.getEndTime();
-        LocalDate startDate = LocalDate.of(startDateTime.getYear(), startDateTime.getMonthValue(),
-                startDateTime.getDayOfMonth());
-        LocalDate endDate = LocalDate.of(endDateTime.getYear(), endDateTime.getMonthValue(),
-                endDateTime.getDayOfMonth());
-        return calendarDate.compareTo(startDate) >= 0 && calendarDate.compareTo(endDate) <= 0;
     }
 
     /**
@@ -181,22 +164,56 @@ public class CalendarWindow extends UiPart<Region> {
 
     /**
      * Populates the calendar with information about the next month.
+     *
+     * @throws CalendarInteractionException If the next month falls outside the maximum allowable year.
+     */
+    public void populateCalendarWithNextMonth() throws CalendarInteractionException {
+        if (DateUtil.isValidYear(currentDisplayedYearMonth.plusMonths(1).getYear())) {
+            closeAllDisplayedEngagementWindows();
+            currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
+            populateCalendar();
+        } else {
+            throw new CalendarInteractionException(MAXIMUM_YEAR_MESSAGE);
+        }
+    }
+
+    /**
+     * Changes the calendar window's display to the next month.
      */
     @FXML
-    public void populateCalendarWithNextMonth() {
-        closeAllDisplayedEngagementWindows();
-        currentDisplayedYearMonth = currentDisplayedYearMonth.plusMonths(1);
-        populateCalendar();
+    private void changeCalendarDisplayToNextMonth() {
+        try {
+            populateCalendarWithNextMonth();
+        } catch (CalendarInteractionException e) {
+            return;
+        }
     }
 
     /**
      * Populates the calendar with information about the previous month.
+     *
+     * @throws CalendarInteractionException If the previous month falls outside the minimum allowable year.
+     */
+    public void populateCalendarWithPreviousMonth() throws CalendarInteractionException {
+        if (DateUtil.isValidYear(currentDisplayedYearMonth.minusMonths(1).getYear())) {
+            closeAllDisplayedEngagementWindows();
+            currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
+            populateCalendar();
+        } else {
+            throw new CalendarInteractionException(MINIMUM_YEAR_MESSAGE);
+        }
+    }
+
+    /**
+     * Changes the calendar window's display to the previous month.
      */
     @FXML
-    public void populateCalendarWithPreviousMonth() {
-        closeAllDisplayedEngagementWindows();
-        currentDisplayedYearMonth = currentDisplayedYearMonth.minusMonths(1);
-        populateCalendar();
+    private void changeCalendarDisplayToPreviousMonth() {
+        try {
+            populateCalendarWithPreviousMonth();
+        } catch (CalendarInteractionException e) {
+            return;
+        }
     }
 
     /**
@@ -205,8 +222,7 @@ public class CalendarWindow extends UiPart<Region> {
      * @param date The specified date.
      */
     public void openSingleDayEngagementsDisplayWindow(LocalDate date) {
-        if (!(date.getYear() == currentDisplayedYearMonth.getYear()
-                && date.getMonthValue() == currentDisplayedYearMonth.getMonthValue())) {
+        if (!DateUtil.hasSameMonthAndYear(currentDisplayedYearMonth, date)) {
             closeAllDisplayedEngagementWindows();
         }
         currentDisplayedYearMonth = YearMonth.of(date.getYear(), date.getMonthValue());
@@ -222,9 +238,9 @@ public class CalendarWindow extends UiPart<Region> {
      * Closes the single day engagements window for the specified date.
      *
      * @param date The specified date.
-     * @throws CalendarCloseDisplayException If there is no open window for the specified date.
+     * @throws CalendarInteractionException If there is no open window for the specified date.
      */
-    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarCloseDisplayException {
+    public void closeSingleDayEngagementsDisplayWindow(LocalDate date) throws CalendarInteractionException {
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             if (calendarDateCell.getDate().equals(date)
                     && calendarDateCell.hasOpenEngagementsDisplay()) {
@@ -233,7 +249,7 @@ public class CalendarWindow extends UiPart<Region> {
             }
         }
         String formattedDateString = DateUtil.getFormattedDateString(date);
-        throw new CalendarCloseDisplayException("There is no open engagements display window for "
+        throw new CalendarInteractionException("There is no open engagements display window for "
                 + formattedDateString);
     }
 
