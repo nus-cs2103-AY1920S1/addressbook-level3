@@ -816,7 +816,7 @@ if you want to switch to certain modes.
 *A*: Think _Pokemon_.
 
 *Q*: The GUI (Graphical User Interface) seems to be lagging, is this an issue? +
-*A*: _Dukemon_ aims to run at around 60fps, but performance varies across machines. 
+*A*: _Dukemon_ aims to run at around 60fps, but performance varies across machines.
 
 *Q*: How can I transfer/share _WordBanks_ across machines? +
 *A*: Use the `export` and `import` functionalities to move data to specific file directories. From there you can
