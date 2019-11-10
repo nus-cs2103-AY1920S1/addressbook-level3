@@ -580,7 +580,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |Employee of a Company |able to see payslip| for documenting purposes
 
-|`* * *` |Admin Staff |be able to track the employee's paid and medical leave| ensure the workers are not abusing the leave system
+|`* * *` |Admin Staff |be able to track the employee's pay status| to ensure the workers are paid correctly
 
 |`* * *` |Admin Staff |view my company's available manpower| decide on the manpower allocation
 
@@ -691,13 +691,13 @@ Use case resumes at step 3.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: View Schedule on a specific date
+=== Use case: Displaying the Schedule on a specific date
 
 *MSS*
 
 1.  User requests to list events
 2.  EventBook shows a list of events
-3.  User requests see schedule on a specific date
+3.  User requests to display schedule on a specific date
 4.  AddMin+ display a list of events that is on that date
 
 +

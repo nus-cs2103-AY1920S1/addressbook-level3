@@ -21,10 +21,10 @@ By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 *AddMin+* is an all in one administration desktop application, that is specially designed for any other events management start-up company with limited manpower and resources.
 These companies would usually only be able to afford to hire one admin staff to handle both the management of events and employees and this can be tough.
-The Admin+ Team understands the struggles that start-ups faces on a daily basis, and we are here to help!
+The Admin+ Team understands the struggles that start-ups face daily, and we are here to help!
 
 *AddMin+* is specially designed to ease the workload of the admin and allow him/her to effectively handle the administrative tasks of the company by providing the following functions: event creation and deletion, editing of event details after creation, manual and automatic manpower allocation for events and providing an overview of all the data via statistics.
-The purpose of this user guide is show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
+The purpose of this user guide is to show the user how they can use our app to carry out their administrative tasks efficiently and also answer any questions they may have while using our app.
 
 == Getting Started
 
@@ -64,7 +64,7 @@ AddMin+ is an app that is mainly used through the Command Line Interface (CLI), 
 
 As a CLI application, most commands are executed by typing your commands on the Command Box. We will discuss the exact commands that you may execute under the <<Features>> section, but it is important to first understand the format of the command.
 
-Commands start with a single string (which may include underscores) such as `add_em` or `free`. Subsequently, you supply the prefix, for example `n/` and then the necessary parameter. It is alright if there is spacing within your parameter. The prefixes and parameters will be stated for each command.
+Commands start with a single string (which may include underscores) such as `add_em` or `free`. Subsequently, you supply the prefix, for example, `n/` and then the necessary parameter. It is alright if there is spacing within your parameter. The prefixes and parameters will be stated for each command.
 
 * Words in `UPPER_CASE` are the *compulsory* parameters to be supplied by the user e.g. in `add_em n/NAME`, `NAME` is a parameter which can be used as `add_em n/John Doe`.
 * Items in square brackets are *optional* e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
@@ -77,7 +77,7 @@ Commands start with a single string (which may include underscores) such as `add
 *Parameter Constraints*
 
 Our application requires the strict adhering of parameters to certain constraints to prevent feature flaws and functionality bugs.
-Listed below are category of parameter, the prefixes utilizing them and their constraints.
+Listed below are the category of parameters, the prefixes utilizing them and their constraints.
 
 [cols="20%,20%,60%"]
 |===
