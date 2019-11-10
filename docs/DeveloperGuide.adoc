@@ -279,10 +279,13 @@ Each of <<Add Interviewee/Interviewer feature, add>>, <<Edit Interviewee/Intervi
 
 ==== Add Interviewee/Interviewer feature
 The `add` command feature essentially allows a user to add an `Interviewee` or `Interviewer` object to the underlying `IntervieweeList`
- or `InterviewerList` of `ModelManager`. The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
+ or `InterviewerList` of `ModelManager`.
+Upon successful parsing of the `add` command arguments, an instance of `Interviewee`/`Interviewer` is created based on the `r/ROLE` prefix supplied,
+which is added to its corresponding list in `ModelManager`.
+The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
 that no duplicate entities are present at any time, checked by Interviewee#isSamePerson() and Interviewer#isSamePerson().
 
-The following *Sequence Diagram* illustrates how the `add` interviewee command works. The `add` interviewer command works in a similar manner.
+The following *Sequence Diagram* illustrates how the `add interviewee` command works. The `add interviewer` command works in a similar manner.
 
 .Add Interviewee Sequence Diagram
 image::AddSequenceDiagram.png[]
@@ -291,22 +294,75 @@ NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end
 
 ====
 * See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
-`Storage` is affected.
+`Storage` is affected as well.
 ====
+
+To better illustrate the flow of events from the moment a user inputs an add command till completion of the command,
+the continuation of the *rake* from the <<Add Edit and Delete feature, general activity diagram>> is shown below:
+
+.Activity diagram snippet of the add command
+image::AddActivityDiagram.png[300,400]
 
 // end::add[]
 
 // tag::edit[]
 
 ==== Edit Interviewee/Interviewer feature
+The `edit` command allows a user to edit an `Interviewee` or `Interviewer` in the underlying `IntervieweeList` or `InterviewerList` of
+`ModelManager`.
+This is done through an `EditIntervieweeDescriptor` or `EditInterviewerDescriptor`, which stores the details to update the
+`Interviewee`/`Interviweer` with, which is created upon successful parsing of the `edit` command.
+A *new instance* of `Interviewee`/`Interviewer` is then created from the descriptor.
+The `Interviewee`/Interviewer` to be updated is then retrieved from the list by name, and is *replaced with the new instance*.
 
+The following *Sequence Diagram* below shows how the `edit interviewee` command works. The `edit interviewer` command works in a similar manner.
 
+.Edit Interviewee Sequence Diagram
+image::EditSequenceDiagram.png[]
+
+NOTE: The lifeline for `EditCommandParser` and `EditIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+====
+* See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
+`Storage` is affected as well.
+====
+
+To better illustrate the flow of events from the moment a user inputs an edit command till completion of the command,
+the continuation of the *rake* from the <<Add Edit and Delete feature, general activity diagram>> is shown below:
+
+.Activity diagram snippet of the edit command
+image::EditActivityDiagram.png[300, 400]
 
 // end::edit[]
 
 // tag::delete[]
 
 ==== Delete Interviewee/Interviewer feature
+The `delete` command allows a user to delete an `Interviewee` or `Interviewer` from the underlying `IntervieweeList` or `InterviewerList`
+of `ModelManager`.
+Upon successful parsing of the `delete` command's arguments, the name of the person to delete is retrieved.
+Based on the `r/ROLE` prefix supplied, the `IntervieweeList` or `InterviewerList` is searched, and the `Interviewee`/`Interviewer` with
+a matching name is deleted.
+
+* Note that the underlying `UniquePersonList` ensures that there are no two same `Interviewee`/`Interviewer` with the same name in the list.
+
+The following *Sequence Diagram* below shows how the `delete interviewee` command works. The `delete interviewer` command works in a similar manner.
+
+.Delete Interviewee Sequence Diagram
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` and `DeleteIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+====
+* See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
+`Storage` is affected as well.
+====
+
+To better illustrate the flow of events from the moment a user inputs a delete command till completion of the command,
+the continuation of the *rake* from the <<Add Edit and Delete feature, general activity diagram>> is shown below:
+
+.Activity diagram snippet of the delete command
+image::DeleteActivityDiagram.png[300, 400]
 
 // end::delete[]
 
