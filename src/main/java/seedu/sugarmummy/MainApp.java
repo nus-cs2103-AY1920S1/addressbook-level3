@@ -101,7 +101,6 @@ public class MainApp extends Application {
         UniqueFoodList initialFoodList;
         UniqueRecordList initialRecordListData;
 
-
         initialUserData = (ReadOnlyUserList) getInitialData(LABEL_BIO_DATA_TYPE,
                 SampleUserDataUtil::getSampleUserList, UserList::new);
         initialFoodList = (UniqueFoodList) getInitialData(LABEL_FOOD_DATA_TYPE,

@@ -5,10 +5,7 @@
 
 == PROJECT: SugarMummy
 
----
-
 == Overview
-
 SugarMummy is a desktop application used to help type-II diabetics develop healthier lifestyle. The user interacts with it using a Command Line Interface,
 and its GUI is created with JavaFx. It is written in Java and has about 24 kLOC.
 
@@ -45,21 +42,7 @@ and its GUI is created with JavaFx. It is written in Java and has about 24 kLOC.
 ** Tools:
 
 == Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 include::../UserGuide.adoc[tag=recmf]
 
-
 == Contributions to the Developer Guide
-
-include::../DeveloperGuide.adoc[tag=recmf]
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
 include::../DeveloperGuide.adoc[tag=recmf]

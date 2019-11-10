@@ -79,10 +79,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === DATA LOG
 
 ==== Add a data entry to the diabetes tracker app: `add`
-Format: `add rt/RECORD_TYPE dt/DATETIME` followed by any parameters that the RECORD_TYPE accepts.
-Note that rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
 
-BMI must receive at least 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+There must not be any duplicate parameters.
+Ordering of parameters is flexible (other than "add").
+
+rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+dt/ value must not be in the future.
+
+BMI must receive exactly 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
 
 Height input (in meters) will be rounded to 2 decimal places.
 This rounded value must be less than 3 to be recorded successfully.
@@ -90,13 +95,9 @@ This rounded value must be less than 3 to be recorded successfully.
 Weight input (in kilograms) will be rounded to 2 decimal places.
 This rounded value must be less than 500 to be recorded successfully.
 
-BLOODSUGAR must receive at least 1 valid parameter for concentration: `con/VALUE`
+BLOODSUGAR must receive exactly 1 valid parameter for concentration: `con/VALUE`
 Concentration (mmol/L) will be rounded to 2 decimal places.
 This rounded value must be less than 33 to be recorded successfully.
-
-If there are duplicate parameters, the last parameter's value is captured and then tested for validity.
-
-Ordering of fields is flexible.
 
 `add` does not allow entries that have the same datetime and RECORD_TYPE.
 
@@ -120,27 +121,86 @@ The index refers to the index number shown in the displayed entries list
 //tag::calendar[]
 === CALENDAR AND REMINDER
 
+Command arguments for calendar and reminder:
+
+    - `d/DESCRIPTION` Description can take any values, and it should not be blank. If more than one are present, the last argument is taken.
+    - `dt/DATETIME` The format of date time is: `yyyy-mm-dd hh:mm` and the number should be valid.
+If more than one are present and the command only accepts one `dt/`, the last argument is taken. Otherwise, see below in `event` command for more details.
+    - `r/REPETITION` Repetition can only take value `once`, `daily` or `weekly`(case insensitive). If more than one are present, the last argument is taken.
+    - `td/TIMEDURATION` The format of time duration is: `hh:mm` and it should not be blank. e.g.
+    `01:30` represents 1 hour and 30 minutes. If more than one are present, the last argument is taken.
+    - `ym/YEAR_MONTH` The format of year month is: `yyyy-mm` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymd/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-dd-dd` and the number should be valid(same as year month day). If more than one are present, the last argument is taken.
+        See below in `calendar` command for more details if more than one of `ym/`, `ymd`, `ymw/` are present.
+
 ==== Add a reminder: `reminder`
 
 Format: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
 
-Add a reminder at a specific time starting from a date. There is no repetition by default, user can specify a daily or weekly or no repetition optionally.
+Add a reminder at a specific time and date. There is no repetition by default and user can specify a daily or weekly or no repetition optionally.
+If it is a repeated reminder, the date inputted is the starting date of the reminder(reminder with date time before the current date time is allowed).
+And it provides duplicate and conflicting checking as well as auto merging for reminders added.
+For example, `reminder d/insulin inject dt/2019-11-25 17:30 r/daily` adds a new reminder of insulin injection at 17:30 everyday from 2019 Nov 25.
+
+* More on duplicate and conflicting check and auto merging
+** To avoid duplicate reminders, the app will not accept reminders that already exist in the system(same description, date time and repetition). Similarly,
+reminders that are completely covered by an existing reminder will not be added again. For example, if the previous reminder command is successful,
+`reminder d/insulin inject dt/2019-12-01 17:30 r/weekly` will not add the new reminder because it is completely covered (whenever the later one shows up, the
+previous one shows up at the same time with the same description). `reminder d/insulin inject dt/2019-12-01 12:00 r/daily` is not considered covered because
+there could be two injections one day.
+** Moreover, new reminder that covers one or more existing reminders can be added and those existing ones will be removed automatically.
+For example, if `reminder d/insulin inject dt/2019-11-20 17:30 r/daily` is typed after the
+previous one, it replaces the insulin inject from 2019-11-25 because whenever the previous reminder shows up, the new reminder shows up with the same description.
+** However, if the new reminder overlaps with existing ones but they cannot be merged, it
+will not be added. To illustrate, `reminder d/insulin inject dt/2019-11-18 17:30 r/weekly` is rejected because on 2019 Nov 18 it shows up at 17:30 alone. After
+2019 Nov 20, this reminder will be a duplicate of the previous one every Monday.
+
+* Reminder list side pane
+** On the right side of the app window, there is a pane for reminder list with the date showing on the top.
+The reminder list pane is split into two parts: a real-time reminder list on top of a probably missed reminder list.
+** The real-time reminder list is empty if there is no reminder set at current time. If the app is open, the reminders will show up in the pane at the time set by the user.
+For example, if the user opens the app at 17:00 on 2019 Nov 30. A reminder of insulin injection will show up at 17:30 if the user has not closed the app.
+** The probably missed reminder list includes all reminders that should exist in at the time between the starting of day and the time when the user opens the app. For example,
+if the user opens the app at 17:00 on 2019 Nov 30, it lists all reminders from 00:00 to 16:59 on that day.
+However, if the user adds a reminder on 2019 Nov 30 17:10 at 17:20 on that day, it will neither exist in the real-time reminder list pane nor the missed reminder list pane.
+
 
 ==== Add an event: `event`
 
-Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME]  [td/TIME_DURATION]`
+Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 
-Add an event with starting time and optional ending time.
-Optionally set a reminder some time before the event.
+Add an event with a starting time and an optional ending time(starting time before the current date time is accepted). There is no reminder for an event by default.
+User can also create a reminder for this event by specifying a time duration and a one time reminder will show up at the starting time of the event minus this time duration.
+For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 15:00 td/01:30` adds an appointment event on 2019 Dec 20 15:00 to the calendar and a reminder for it at
+13:30 on that day.
+
+If only one `dt/` is present, it will be recognized as the starting date time. If there are more than one `dt/`, the first and second one are interpreted as starting and ending
+date time. Starting date time should come before ending date time. If they are equal, then ending date time is discarded.
+A duplicate event(same description and starting date time) will be rejected. However, events that overlap with existing ones are accepted with a message shown to the user.
+For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 16:00` will be rejected after the previous event commands. `event d/test dt/2019-12-20 13:00 dt/2019-12-20 14:10`
+is accepted with a message shown.
+
 
 ==== View calendar entries: `calendar`
 
 Format: `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 
-View calendar entries in a month or in a week or on a day.
-`ymw` accepts a date also but it will include all days in the same week as the given date and week starts from Monday.
-(If more than one of the arguments are present, then it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
-both typed in, then it only shows entries on the given date if the date is valid.)
+View all calendar entries or calendar entries in a month or in a week or on a day.
+
+** If none of the three arguments is present, it will show all calendar entries added by the user.
+** If one or more of the three arguments are present, it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
+both typed in, it only shows entries on the given date if the date is valid.
+*** `ymd/` shows the monthly calendar of given date and below the calendar is a list of reminders and events on that day. Particularly, if
+no date is provided, it will show calendar entries on the current date.
+***  `ymw/` shows the monthly calendar of given date and below the calendar is a list of reminders and events on each day in the week. `ymw/`
+accepts a date also and the week picked is 7 days from Monday to Friday which include the given date. Particularly, if no date is provided,
+it will show calendar entries in the current week. For example, `calendar ymw/2019-12-03` will show a monthly calendar of 2019 December and
+calendar entries from Dec 2 to Dec 8.
+*** `ym/` shows the monthly calendar of given month and below the calendar is a list of reminders and events on each day in the month. `ym/`
+accepts a month. Particularly, if no date is provided, it will show calendar entries in the current week.
+*** For the monthly calendar shown, the subscript number beside each date is the number events and reminders on that day. And the current date is
+in a different color.
 
 ==== Snooze reminder: `snooze` `[coming in v2.0]`
 
@@ -150,7 +210,7 @@ Silence the current reminder and activate it after a time period.
 
 ==== Complete a task: `complete` `[coming in v2.0]`
 
-Format: `complete [INDEX]... [t/TIME]`
+Format: `complete [INDEX] [t/TIME]`
 
 Mark all the reminders before now as completed if no argument provided.
 Otherwise, mark only those tasks with indices provided or before the specific time as completed.
@@ -161,13 +221,9 @@ Format: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
 
 Set the time zone of the application permanently or in any time interval(e.g. For travelling).
 
-==== Search for entries in calendar: `search` `[coming in v2.0]`
+==== Cancel an entry in calendar `[coming in v2.0]`
 
-Format: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
-
-Search for all entries by providing keyword, time interval, type, venue or people.
-
-==== Delete an entry in calendar `[coming in v2.0]`
+Format: `cancel [et/ENTRYTYPE] [d/DESCRIPTION] [dt/DATETIME] [dt/DATETIME]`
 
 Delete an event that you do not want to keep track anymore.
 //end::calendar[]
@@ -949,135 +1005,123 @@ you can save any graphs and plots generated in a pdf file.
 // end::average[]
 
 //tag::recmf[]
-
-
 === Food Recommendation
+
+====
+General Note::
+[small]
+. If a command requires no user-input arguments,  all the additional inputs after this command string will be ignored and the command will be executed as usual.
+. If a command requires any parameters, the input order is flexible. Duplicate parameters are also allowed, *but only the last occurrence will be considered*.
+====
 
 ==== Recommending food: `recmf`
 
-Recommends some medically suggested foods for type II diabetes patients. +
-To make searching more efficient, the user can specify two kinds of filters and one sorting order:
+Recommends medically suggested foods for type II diabetes patients. The user can specify `Flags` and `Food Names` as two kinds of filters, as well as one type of sorting order:
 
-***
+* *Flags:* specifies the wanted food types in the form of following flags:
 
-* food type: in the form of following flags:
+[frame=topbot]
+[cols=2*]
+|===
+|*-nsv: non-starchy vegetable*, such as _Broccoli_
+|*-sv: starchy vegetable*, such as _Potato_
+|*-f: fruit*, such as _Cherry_
+
+|*-p: protein*, such as _Lean Lamb_
+|*-s: snack*, such _Fig Roll_
+|*-m: meal*, such as _Spanish Omelet_
+|===
 
 ====
-*-nsv*: non-starchy vegetable, such as broccoli
-
-*-sv*: starchy vegetable, such as potato
-
-*-f*: fruit, such as cherry
-
-*-p*: protein, such as lean lamb
-
-*-s*: snack, such fig roll
-
-*-m*: meal, such as spanish omelet
+[small]#*Note:* +
+1. Flags are case-insensitive and duplicates are allowed, but they will be recognized only when placed before any prefix. +
+2. If no flag is specified, it is equivalent to specifying all flags. Namely, foods of all types will be shown.#
 ====
 
-Note::
-** Flags are case-insensitive.
-** If no flag is specifies, it is equivalent to specifying all flags. Namely, foods of all types will be shown.
-** For fast typing, white spaces are allowed before, between, or after flags. Duplicate flags are also allowed.
+* *Food Names:* matches foods that contain *one of* given food names in the form of `fn/[FOOD_NAME]...`
 
-***
+====
+[small]#*Note:* +
+1. Matching is case-insensitive but is full-word matching. For example, "chicken" does not match "ch". +
+2. If no food name specified after `fn/`, it is equivalent to matching all foods.#
+====
 
-* food name: in the form of `fn/FOOD_NAME [FOOD_NAME]...` +
+* *Sorting Order*: determines the presentation order of food cards in *one* of the two forms: `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE`
+** `+` indicates in ascending order and `-` descending
+** `SORT_ORDER_TYPE` is required and can be one of the following six: +
+`fn`: food name; `ft`: food type; `ca`: calorie; `gi`: glycemic index; `su`: sugar; `fa`: fat
 
-Note::
-** Food names are case-insensitive.
-** Food name matching is full-word matching. For example, "ch" does not match "chicken", which "chicken" matches both "Chicken" and "Rice with Chicken".
-** `fn/` is the only allowed prefix for `recmf` command. If only `fn/` presents without following food names, all foods (of specified types) will be shown.
+====
+[small]#*NOTE:* +
+1. `+sort/SOT` and `-sort/SOT` cannot be both present even though they may have different `SOT`(`SORT_ORDER_TYPE`). +
+2. Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.#
+====
 
-***
+*Format:* `recmf [-FLAG]... [fn/FOOD_NAME...][±sort/SORT_ORDER_TYPE]`
 
-* Sorting order: in the form of only one of the following two types:
-
-** `+sort/SORT_ORDER_TYPE`: sort the recommendations in ascending order based on the specified `SORT_ORDER_TYPE`
-*** Sort order type: in the form of any of the following six types:
-+
-`fn`: food name, `ft`: food type, `ca`: calorie, `gi`: glycemic index, `su`: sugar, `fa`: fat
-** `-sort/SORT_ORDER_TYPE`: sort the recommendations in descending order
-
-[]
-NOTE::
-** `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE` cannot be both present even though they may be with different
-`SORT_ORDER_TYPE`.
-** Only exactly one valid sort order type will be accepted after the sorting prefix.
-** Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.
-**
-
-***
-
-Format: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
-
-Examples:
-
-`recmf -p -f` `recmf fn/chicken` `recmf -p -m -f fn/chicken`
+*Examples:* {recmf -p -f} `{recmf fn/chicken rice}` {recmf -p -m -f fn/chicken} `{recmf -p -nsv +sort/gi}`
 
 ==== Recommending food combination: `recmfmix`
+Recommends one food from each type. A summary card of all nutrition values will be appended at the end.
+====
+[small]#*Note:* +
+1. All extra inputs after this command string will be ignored. +
+2. Food types with no corresponding food data will not be shown. If there is no food data at all, the summary card will not be shown as well. +
+3. If any of the summary data is decimals, it will be formatted into two decimal places. +
+4. Please note the GI (glycemic index) value is the average instead of sum. For more information about GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link].#
+====
+*Format:* `recmfmix`
 
-Recommends one food from each type to the user. The nutrition values of all the recommended foods will be summarized as a
-separate food card appended to the end.
-
-Note::
-** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
-** If any of the summary data is decimals, it will be formatted into two decimal places.
-** Please note the GI (glycemic index) is the average among all foods instead of total sum. This For more information about
-GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link]
-
-Format: `recmfmix`
-
-Example: `recmfmix`
+*Example:* `recmfmix`
 
 ==== Adding new food items : `addfood`
-
-Adds a new food item of certain category for future recommendations.
-The following six fields are compulsorily required:
+Adds a new food item for future recommendations. The following six fields are required:
 
 * food name: `fn/FOOD_NAME` +
-Food name should be less than 30 characters. This is mainly for display quality and readability.
-Only alphabets, numbers, and whitespace are allowed in the name.
-
+Food name should only contain alphabets, numbers, and whitespace. It should be less than 30 characters for display quality and readability.
 * food type: `ft/FOOD_TYPE` +
-Food types should be exactly one of the following: nsv(non-starchy vegetable), sv(starchy vegetable),
-f(fruit), p(protein), s(snack), m(meal).
+Food types should be exactly one of the following: nsv(non-starchy vegetable), sv(starchy vegetable), f(fruit), p(protein), s(snack), or m(meal).
 * calorie (cal): `ca/CALORIE` +
-Calorie should be less than 700(cal) to be considered as safe for type II diabetes patients.
+Calorie should be less than 700(cal) per serving.
 * gi: `gi/GI` +
-Glycemic Index should be less than 70 to be considered as safe for type II diabetes patients.
+Glycemic Index should be less than 70 per serving.
 * sugar (g): `su/SUGAR` +
-Sugar should be less than 25(g) to be considered as safe for type II diabetes patients.
+Sugar should be less than 25(g) per serving.
 * fat (g): `fa/FAT` +
-Fat should be less than 35(g) to be considered as safe for type II diabetes patients.
+Fat should be less than 35(g) per serving.
 
-Note::
-** No duplicate food names are allowed.
-** All nutrition values are numerical values. Such value should be equal or greater than zero and contain no more than four
-decimals. Besides, the values are suggested to be normalized as per serving for more useful value comparisons and calculations.
-** The order of fields is flexible.
-** Duplicate fields are allowed and only the last one will be considered. Therefore, the last occurrence must be in
-valid format for the command to be executed.
+====
+[small]#*Note:* +
+1. No duplicate food names are allowed. +
+2. All nutrition values should be non-negative numbers and contain no more than four decimals. Incomplete decimals, such as ".5" and "1.", can be accepted as "0.5" and "1" respectively. However, decimal point alone will not be accepted. +
+3. Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
+====
 
-Format: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+*Format:* `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+
+*Example:*
+`addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
+
+==== Deleting an existing food: `deletef`
+Deletes a food that matches the specified food name(s).
+
+====
+[small]#*Note:* FOOD_NAME matching is case-insensitive, but is strict matching for every single character, including white spaces between words.
+It is also full matching. For example, "Rice with Chicken" does not match with "Chicken".#
+====
+
+Format: `deletef fn/FOOD_NAME`
 
 Example:
-`addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0 `
+`deletef fn/Mushroom`
 
 ==== Resetting food data: `resetf`
-
-Cleans all the modifications on the foods done by the user, such as deleting newly added foods. Namely, the recommendations will
-be based on the originally pre-loaded food data.
-
-Note::
-** This command requires no user-input arguments. All the additional inputs after this command string will be ignored.
+Clears all modifications, adding and deleting, on the food list. The food data will be reset to sample food data.
 
 Format: `resetf`
 
 Example: `resetf`
-
-//tag::recmf[]
+//end::recmf[]
 
 === Other Common Features
 
@@ -1156,6 +1200,8 @@ E.g. `bg #FFFF00 fontcolor/#000000`
 E.g. `bg black fontcolour/yellow`
 . *Calendar* `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
 E.g. `calendar ymd/2019-12-24`
+E.g. `calendar ymw/`
+E.g. `calendar ym/2019-11`
 . *Clear Biography* : `clrbio`
 . *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
@@ -1164,6 +1210,7 @@ E.g. `delete 2`
 E.g `export d/01.09.2019`
 . *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
+E.g. `event d/appointment dt/2019-12-20 11:00 dt/2019-12-20 11:30`
 . *Edit Biography*: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
 E.g. `editbio gender/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
 E.g. `editbio dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
@@ -1180,10 +1227,7 @@ E.g. `list`
 E.g. `recmf -p -m -f fn/chicken`
 . *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
 E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
-. *Search*: `search [KEYWORD] [t/TIME] [t/END_TIME] [tp/TYPE] [v/VENUE] [p/PEOPLE]`
-E.g. `search tp/event v/NUH`
-. *Snooze*: `snooze [tp/TIME_PERIOD]`
-E.g `snooze 30min`
+E.g. `reminder d/buy bread dt/2019-12-02 19:00 r/weekly`
 
 //tag::FAQ[]
 == FAQ

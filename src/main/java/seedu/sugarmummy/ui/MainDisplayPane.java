@@ -80,6 +80,7 @@ public class MainDisplayPane {
             }
 
         case CHANGE_FOOD:
+        case RESET_FOOD:
             return getMappedPane(displayPaneType, () -> new FoodFlowPanel(logic.getFoodList()),
                 newPaneIsToBeCreated);
 
@@ -105,7 +106,7 @@ public class MainDisplayPane {
         case NONE:
             return null;
         default:
-            assert false : "DisplayPaneType is not recognised inside MainDisplayPane class.";
+            assert false : displayPaneType + " is not recognised inside MainDisplayPane class.";
             return null;
         }
     }
@@ -116,7 +117,7 @@ public class MainDisplayPane {
     public UiPart<Region> get(DisplayPaneType displayPaneType, boolean newPaneIsToBeCreated,
             YearMonth yearMonth, Optional<YearMonthDay> yearMonthDay, boolean isShowingWeek) {
         return getMappedPane(displayPaneType, () -> new CalendarMonthScrollPanel(yearMonth, yearMonthDay, isShowingWeek,
-                logic.getFilteredCalendarEntryList()), newPaneIsToBeCreated);
+                logic.getFilteredCalendarEntryList(), logic.getToday()), newPaneIsToBeCreated);
 
     }
 

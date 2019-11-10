@@ -13,6 +13,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import seedu.sugarmummy.commons.core.LogsCenter;
 import seedu.sugarmummy.model.calendar.CalendarEntry;
+import seedu.sugarmummy.model.time.Today;
 import seedu.sugarmummy.model.time.YearMonth;
 import seedu.sugarmummy.ui.UiPart;
 
@@ -29,12 +30,12 @@ public class MonthlyCalendar extends UiPart<Region> {
     @FXML
     private GridPane calendarMonthPanel;
 
-    public MonthlyCalendar(YearMonth yearMonth, ObservableList<CalendarEntry> calendarEntries) {
+    public MonthlyCalendar(YearMonth yearMonth, ObservableList<CalendarEntry> calendarEntries, Today today) {
         super(FXML);
         initializeTitle(yearMonth.getYear(), yearMonth.getMonth());
         setStyle();
         initializeHeader();
-        initializeDates(yearMonth.getYear(), yearMonth.getMonth(), calendarEntries);
+        initializeDates(yearMonth.getYear(), yearMonth.getMonth(), calendarEntries, today);
     }
 
     /**
@@ -72,7 +73,7 @@ public class MonthlyCalendar extends UiPart<Region> {
     /**
      * Initializes UI for each date in the given year and month.
      */
-    private void initializeDates(int year, int month, ObservableList<CalendarEntry> calendarEntries) {
+    private void initializeDates(int year, int month, ObservableList<CalendarEntry> calendarEntries, Today today) {
         LocalDate currentDate = LocalDate.of(year, month, 1);
         int currentDayOfWeek = currentDate.getDayOfWeek().getValue();
 
@@ -83,7 +84,7 @@ public class MonthlyCalendar extends UiPart<Region> {
             calendarMonthPanel.add(new CalendarMonthDayCard().getRoot(), colNum, rowNum, 1, 1);
         }
         for (; currentDate.getMonthValue() == month; currentDate = currentDate.plusDays(1)) {
-            calendarMonthPanel.add(new CalendarMonthDayCard(currentDate, calendarEntries).getRoot(),
+            calendarMonthPanel.add(new CalendarMonthDayCard(currentDate, calendarEntries, today).getRoot(),
                     colNum, rowNum, 1, 1);
             colNum++;
             if (colNum == numberOfColumns) {

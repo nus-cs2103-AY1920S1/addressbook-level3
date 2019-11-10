@@ -1,5 +1,7 @@
 package seedu.sugarmummy.logic.parser.records;
 
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BLOODSUGAR_CONCENTRATION;
@@ -8,6 +10,7 @@ import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_BMI_WEIGHT;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_RECORDTYPE;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.sugarmummy.logic.commands.records.AddCommand;
@@ -49,20 +52,14 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_RECORDTYPE, PREFIX_DATETIME, PREFIX_BLOODSUGAR_CONCENTRATION,
                         PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        checkUniqueAndValidPrefix(argMultimap, PREFIX_RECORDTYPE, PREFIX_DATETIME);
 
         RecordType rt = ParserUtil.parseRecordType(argMultimap.getValue(PREFIX_RECORDTYPE).get());
-        DateTime dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+        DateTime dateTime = ParserUtil.parsePastDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
 
         switch (rt) {
         case BLOODSUGAR:
-            if (!arePrefixesPresent(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
+            checkUniqueAndValidPrefix(argMultimap, PREFIX_BLOODSUGAR_CONCENTRATION);
             Concentration concentration = ParserUtil.parseConcentration(
                     argMultimap.getValue(PREFIX_BLOODSUGAR_CONCENTRATION).get()
             );
@@ -70,10 +67,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             return new AddCommand(bloodSugar);
 
         case BMI:
-            if (!arePrefixesPresent(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT)
-                    || !argMultimap.getPreamble().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-            }
+            checkUniqueAndValidPrefix(argMultimap, PREFIX_BMI_HEIGHT, PREFIX_BMI_WEIGHT);
             Height height = ParserUtil.parseHeight(argMultimap.getValue(PREFIX_BMI_HEIGHT).get());
             Weight weight = ParserUtil.parseWeight(argMultimap.getValue(PREFIX_BMI_WEIGHT).get());
             Bmi bmi = new Bmi(height, weight, dateTime);
@@ -81,6 +75,24 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    /**
+     * Throws {@code ParseException} if given list of {@code Prefixes} are not unique in given {@code ArgumentMultimap}.
+     */
+    private void checkUniqueAndValidPrefix(ArgumentMultimap argMultimap, Prefix... prefixes) throws ParseException {
+        if (!arePrefixesPresent(argMultimap, prefixes)
+            || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        List<Prefix> nonUniquePrefixes = argMultimap.getNonUniquePrefixes(prefixes);
+
+        if (!nonUniquePrefixes.isEmpty()) {
+            throw new ParseException((nonUniquePrefixes.size() == 1
+                ? MESSAGE_ENSURE_ONLY_ONE_PREFIX_SINGULAR
+                : MESSAGE_ENSURE_ONLY_ONE_PREFIX_PLURAL) + nonUniquePrefixes);
         }
     }
 

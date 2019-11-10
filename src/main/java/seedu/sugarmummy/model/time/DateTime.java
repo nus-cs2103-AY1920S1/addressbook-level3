@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a date and a time.
  */
-public class DateTime {
+public class DateTime implements Comparable<DateTime> {
 
     public static final String VALIDATION_REGEX = "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) "
             + "(2[0-3]|[01][0-9]):[0-5][0-9]$";
@@ -20,6 +20,7 @@ public class DateTime {
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VALIDATION_PATTERN_STRING);
     public static final String MESSAGE_CONSTRAINTS = "DateTime should be in the format: yyyy-mm-dd hh:mm and it "
             + "should contain valid number";
+    public static final String MESSAGE_FUTURE_CONSTRAINTS = "DateTime should not be in the future";
 
     private LocalDate date;
     private LocalTime time;
@@ -134,6 +135,13 @@ public class DateTime {
     }
 
     /**
+     * Returns true if current date time is after the given date time.
+     */
+    public boolean isAfterDateTime(DateTime dateTime) {
+        return LocalDateTime.of(date, time).isAfter(LocalDateTime.of(dateTime.date, dateTime.time));
+    }
+
+    /**
      * Returns true if current time is between the given time.
      */
     public boolean isBetweenTime(DateTime startingDateTime, DateTime endingDateTime) {
@@ -187,4 +195,8 @@ public class DateTime {
         return LocalDateTime.of(date, time).format(formatter);
     }
 
+    @Override
+    public int compareTo(DateTime dateTime) {
+        return toLocalDateTime().compareTo(dateTime.toLocalDateTime());
+    }
 }

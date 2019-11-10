@@ -75,7 +75,12 @@ public class Event extends CalendarEntry {
 
         Event otherEvent = (Event) calendarEntry;
         if (otherEvent.endingDateTime.isPresent()) {
-            return this.getDateTime().isBetweenDateTime(otherEvent.getDateTime(), otherEvent.endingDateTime.get());
+            if (this.endingDateTime.isPresent()) {
+                return this.getDateTime().isBetweenDateTime(otherEvent.getDateTime(), otherEvent.endingDateTime.get())
+                        || otherEvent.getDateTime().isBetweenDateTime(getDateTime(), getEndingDateTime().get());
+            } else {
+                return this.getDateTime().isBetweenDateTime(otherEvent.getDateTime(), otherEvent.endingDateTime.get());
+            }
         } else if (this.endingDateTime.isPresent()) {
             return otherEvent.getDateTime().isBetweenDateTime(this.getDateTime(), this.endingDateTime.get());
         } else {

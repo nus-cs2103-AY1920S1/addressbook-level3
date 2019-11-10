@@ -32,11 +32,11 @@ public class EventCommand extends Command {
             + PREFIX_DATETIME + "2020-05-04 11:00 "
             + PREFIX_TIME_DURATION + "00:30";
 
-    public static final String MESSAGE_SUCCESS = "I've added this new event successfully: %1$s";
-    public static final String MESSAGE_DUPLICATE_EVENT = "Oops! This event already exists in the calendar";
+    public static final String MESSAGE_SUCCESS = "I've added this new event successfully: %1$s.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "Oops! This event already exists in the calendar.";
     public static final String MESSAGE_SUCCESS_WITH_OVERLAP = MESSAGE_SUCCESS
-            + "\nHowever, it overlaps with the following events: %2$s";
-    public static final String MESSAGE_SUCCESS_WITH_REMINDER = "I've successfully added your auto reminder: %1$s";
+            + "\nHowever, it overlaps with the following events: %2$s.";
+    public static final String MESSAGE_SUCCESS_WITH_REMINDER = " And I've successfully added your auto reminder: %1$s.";
     public static final String MESSAGE_SUCCESS_REMINDER_EXISTED = "Oops! Reminder already exists.";
 
     private final Event toAdd;
@@ -67,7 +67,7 @@ public class EventCommand extends Command {
             try {
                 model.addCalendarEntry(toAdd.getAutoReminder().get());
                 model.schedule();
-                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd, toAdd.getAutoReminder().get());
+                feedbackToUser += String.format(MESSAGE_SUCCESS_WITH_REMINDER, toAdd.getAutoReminder().get());
             } catch (DuplicateCalendarEntryException e) {
                 feedbackToUser += MESSAGE_SUCCESS_REMINDER_EXISTED;
             }

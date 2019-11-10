@@ -24,6 +24,14 @@ public class Reminder extends CalendarEntry {
     }
 
     /**
+     * Returns a Reminder object that represents the current reminder on a given date.
+     */
+    public Reminder getOneTimeReminderOn(LocalDate date) {
+        assert isOnDate(date);
+        return new Reminder(getDescription(), new DateTime(date, getTime()), Repetition.Once);
+    }
+
+    /**
      * Returns true if both reminders have the same description, date and time; This defines a weaker notion of equality
      * between two reminders.
      */

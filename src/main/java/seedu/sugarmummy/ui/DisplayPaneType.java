@@ -11,6 +11,7 @@ public enum DisplayPaneType {
     CHANGE_FOOD,
     RECM_FOOD,
     RECM_MIXED_FOOD,
+    RESET_FOOD,
     ADD,
     AVERAGE,
     LIST,

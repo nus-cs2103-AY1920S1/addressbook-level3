@@ -1,7 +1,6 @@
 package seedu.sugarmummy.logic.commands.recmf;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.sugarmummy.logic.commands.recmf.RecmFoodCommand.MESSAGE_RESPONSE_EMPTY_FOOD_LIST;
 
 import seedu.sugarmummy.logic.commands.Command;
 import seedu.sugarmummy.logic.commands.CommandResult;
@@ -17,6 +16,8 @@ public class RecmMixedFoodCommand extends Command {
     public static final String COMMAND_WORD = "recmfmix";
     public static final String MESSAGE_SUCCESS = "Hope you like this combination~\n"
             + "If not, try retyping this command again to see other possible combinations =)";
+    private static final String MESSAGE_RESPONSE_EMPTY_FOOD_LIST = "No enough food data to get any combination. =(\n"
+            + "Try typing \"resetf\" to get some sample data!";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {

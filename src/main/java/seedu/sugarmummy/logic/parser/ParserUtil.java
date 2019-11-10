@@ -10,13 +10,14 @@ import static seedu.sugarmummy.logic.commands.statistics.AverageCommand.MESSAGE_
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
 
 import seedu.sugarmummy.commons.core.index.Index;
@@ -419,6 +420,19 @@ public class ParserUtil {
             throw new ParseException(DateTime.MESSAGE_CONSTRAINTS);
         }
         return new DateTime(dateTime);
+    }
+
+    /**
+     * Parses a {@code String dateTime} into an {@code DateTime}. Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateTime} is invalid or is in the future.
+     */
+    public static DateTime parsePastDateTime(String dateTime) throws ParseException {
+        DateTime dt = parseDateTime(dateTime);
+        if (dt.isAfterDateTime(new DateTime(LocalDate.now(), LocalTime.now()))) {
+            throw new ParseException(DateTime.MESSAGE_FUTURE_CONSTRAINTS);
+        }
+        return dt;
     }
 
     /**

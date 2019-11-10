@@ -15,11 +15,15 @@ public class Today {
         date.set(LocalDate.now());
     }
 
-    public ObjectProperty<LocalDate> dateProperty() {
+    public ObjectProperty<LocalDate> getDateProperty() {
         return date;
     }
 
     public void refresh() {
         date.set(LocalDate.now());
+    }
+
+    public LocalDate getDate() {
+        return date.get();
     }
 }

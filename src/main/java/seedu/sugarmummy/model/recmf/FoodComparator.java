@@ -1,6 +1,7 @@
 package seedu.sugarmummy.model.recmf;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.sugarmummy.commons.util.AppUtil.checkArgument;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SORT_ASC;
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_SORT_DES;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
  */
 public class FoodComparator implements Comparator<Food> {
 
-    public static final String MESSAGE_CONSTRAINTS = "The sorting order can only be one of the following types:\n"
+    public static final String MESSAGE_CONSTRAINTS = "The sorting order should be one of the following types:\n"
             + "(Sort by) fn: food name; ft: food type; ca: calorie; gi: glycemic index; su: sugar; fa: fat";
-    public static final String MESSAGE_PREFIX_CONSTRAINTS = "The sorting order can be either ascending or descending:\n"
+    public static final String MESSAGE_PREFIX_CONSTRAINTS = "The sorting order can only be "
+            + "either ascending or descending:\n"
             + "Namely, " + PREFIX_SORT_ASC + "and " + PREFIX_SORT_DES + " cannot be both present.";
+
     public static final String DEFAULT_SORT_ORDER_STRING = SortOrderType.SORT_ORDER_FOOD_TYPE.getSortOrderString();
 
     private static final Map<String, SortOrderType> sortOrderTypes = Arrays.stream(SortOrderType.values())
@@ -35,7 +38,7 @@ public class FoodComparator implements Comparator<Food> {
      */
     public FoodComparator(String sortOrderString) {
         requireNonNull(sortOrderString);
-        checkArgument(isValidSortOrderType(sortOrderString), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidSortOrderType(sortOrderString), MESSAGE_INVALID_COMMAND_FORMAT + MESSAGE_CONSTRAINTS);
 
         assert sortOrderTypes.containsKey(sortOrderString);
 

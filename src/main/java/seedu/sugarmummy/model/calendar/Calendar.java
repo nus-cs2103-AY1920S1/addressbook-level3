@@ -2,7 +2,9 @@ package seedu.sugarmummy.model.calendar;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.sugarmummy.model.time.Today;
@@ -134,7 +136,9 @@ public class Calendar implements ReadOnlyCalendar {
      * Adds a reminder to the past reminder list. The reminder must not already exist in the past reminder list.
      */
     public void addPastReminders(List<Reminder> reminders) {
-        pastReminders.addAll(reminders);
+        pastReminders.addAll(reminders.stream()
+                .map(reminder -> reminder.getOneTimeReminderOn(scheduler.getTodayDate()))
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -156,6 +160,13 @@ public class Calendar implements ReadOnlyCalendar {
      */
     public Today getToday() {
         return scheduler.getToday();
+    }
+
+    /**
+     * Returns the date time when the app starts.
+     */
+    public LocalDateTime getAppStartingDateTime() {
+        return scheduler.getAppStartingDateTime();
     }
 
     /**
