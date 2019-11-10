@@ -177,9 +177,9 @@ public class LogicManager implements Logic {
         return model.getCurrentClockFormat();
     }
 
-    @Override 
+    @Override
     public LinkedList<String> getAutoCompleteResults(String input) {
         return autoComplete.completeText(input);
     }
-    
+
 }

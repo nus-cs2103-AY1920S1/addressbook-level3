@@ -38,7 +38,7 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
-    private Logic logic; 
+    private Logic logic;
 
     /**
      * The existing autocomplete entries.
@@ -54,7 +54,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    @FXML 
+    @FXML
     private Label label;
 
     /**
@@ -66,7 +66,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.logic = logic; 
+        this.logic = logic;
         entries = new TreeSet<>();
         entriesPopup = new ContextMenu();
         // calls #setStyleToDefault() whenever there is a change to the text of the
@@ -123,13 +123,12 @@ public class CommandBox extends UiPart<Region> {
         List<CustomMenuItem> menuItems = new LinkedList<>();
         int maxEntries = 5;
         int count = Math.min(searchResult.size(), maxEntries);
-        // int replaceIndex = 
         for (int i = 0; i < count; i++) {
             String existingText = commandTextField.getText();
             final String result = searchResult.get(i);
             Label entryLabel = new Label();
             entryLabel.setGraphic(buildTextFlow(result, existingText));
-            entryLabel.setPrefHeight(10); 
+            entryLabel.setPrefHeight(10);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             item.setOnAction(actionEvent -> {
                     commandTextField.setText(Keywords.getParameters(result));

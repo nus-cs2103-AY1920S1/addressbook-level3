@@ -2,6 +2,7 @@ package seedu.pluswork.logic;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
+import java.util.LinkedList;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
@@ -118,7 +119,7 @@ public interface Logic {
      * Returns the clock format of +Work.
      */
     ClockFormat getClockFormat();
-    
+
     /**
      * returns a list of suggestions for command
      * @param input

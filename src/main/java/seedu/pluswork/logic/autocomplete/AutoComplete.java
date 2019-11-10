@@ -9,19 +9,19 @@ import seedu.pluswork.model.Model;
 
 public class AutoComplete {
     /**
-     * AutoComplete logic to return suggestions based on command/prefix that the user is typing 
+     * AutoComplete logic to return suggestions based on command/prefix that the user is typing
      * uses the model to get relevant data for existing tasks, members
      * @param input
      * @param model
      */
-    private Model model; 
+    private Model model;
 
     public AutoComplete(Model model) {
         this.model = model;
     }
     private LinkedList<String> suggestions = new LinkedList<String>();
-    
-    public LinkedList<String> completeText(String input) { 
+
+    public LinkedList<String> completeText(String input) {
         suggestions.clear();
         int firstSpace = input.indexOf(" ");
         if (firstSpace == -1) { // still entering commandWord
