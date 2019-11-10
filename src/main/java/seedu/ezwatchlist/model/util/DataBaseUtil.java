@@ -1,30 +1,13 @@
-package seedu.ezwatchlist.logic.commands;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_ANNABELLE;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
-
-import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
-import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
+package seedu.ezwatchlist.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Test;
-
-import seedu.ezwatchlist.commons.core.messages.SearchMessages;
-import seedu.ezwatchlist.logic.parser.SearchKey;
-import seedu.ezwatchlist.model.Model;
-import seedu.ezwatchlist.model.ModelManager;
-import seedu.ezwatchlist.model.UserPrefs;
+import seedu.ezwatchlist.model.ReadOnlyWatchList;
+import seedu.ezwatchlist.model.WatchList;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
@@ -36,9 +19,49 @@ import seedu.ezwatchlist.model.show.RunningTime;
 import seedu.ezwatchlist.model.show.Show;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
+ * Contains utility methods for populating {@code WatchList} with sample data.
  */
-public class SearchCommandTest {
+public class DataBaseUtil {
+    private static final Genre GENRE_ACTION = new Genre("action");
+    private static final Genre GENRE_COMEDY = new Genre("comedy");
+    private static final Genre GENRE_ADVENTURE = new Genre("adventure");
+    private static final Genre GENRE_FANTASY = new Genre("fantasy");
+    private static final Genre GENRE_FAMILY = new Genre("family");
+    private static final Genre GENRE_SCIENCE_FICTION = new Genre("science fiction");
+
+    private static final Show SHOW_JOKER = new Movie(
+            new Name("Joker"),
+            new Description("In Gotham City, mentally-troubled comedian Arthur Fleck embarks on a downward-spiral of "
+                    + "social revolution and bloody crime. This path brings him face-to-face with his infamous "
+                    + "alter-ego: \"The Joker\"."),
+            new IsWatched("false"),
+            new Date("2019-10-04"),
+            new RunningTime(122),
+            getActorSet("Joaquin Phoenix, Robert De Niro"));
+
+    private static final Show SHOW_AVENGER_INFINITY_WAR = new Movie(
+            new Name("Avengers: Infinity War"),
+            new Description("As the Avengers and their allies have continued to protect the world from threats too "
+                    + "large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A "
+                    + "despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of "
+                    + "unimaginable power, and use them to inflict his twisted will on all of reality. Everything the "
+                    + "Avengers have fought for has led up to this moment - the fate of Earth and existence itself has "
+                    + "never been more uncertain."),
+            new IsWatched("false"),
+            new Date("2018-04-25"),
+            new RunningTime(149),
+            getActorSet("Cobie Smulders", "Idris Elba", "Isabella Amara", "William Hurt", "Olaniyan Thurmon",
+                    "Kenneth Branagh", "Zoe Saldana", "Mark Ruffalo", "Matthew Zuk", "Josh Brolin", "Chris Evans",
+                    "Jacob Batalon", "Laura Miller", "Danai Gurira", "Chadwick Boseman", "Elizabeth Olsen",
+                    "Bradley Cooper", "Kerry Condon", "Sebastian Stan", "Letitia Wright", "Robert Downey Jr.",
+                    "Tom Hiddleston", "Stephen McFeely", "Terry Notary", "Ariana Greenblatt", "Anthony Mackie",
+                    "Benedict Cumberbatch", "Blair Jasin", "Paul Bettany", "Chris Hemsworth", "Michael James Shaw",
+                    "Aaron Lazar", "Stan Lee", "Winston Duke", "Don Cheadle", "Scarlett Johansson", "Ross Marquand",
+                    "Tom Holland", "Karen Gillan", "Ethan Dizon", "Ameenah Kaplan", "Benedict Wong", "Gwyneth Paltrow",
+                    "Michael Anthony Rogers", "Carrie Coon", "Florence Kasumba", "Samuel L. Jackson", "Peter Dinklage",
+                    "Sean Gunn", "Monique Ganderton", "Tom Vaughan-Lawlor", "Robert Pralgo", "Pom Klementieff",
+                    "Vin Diesel", "Tiffany Espensen", "Dave Bautista", "Benicio del Toro", "Chris Pratt"));
+
     private static final Show SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM = new Movie(
             new Name("Fantastic Beasts and Where to Find Them"),
             new Description("In 1926, Newt Scamander arrives at the Magical Congress of the United States of America "
@@ -109,110 +132,44 @@ public class SearchCommandTest {
                     "Sabine Crossen", "Alfie Mailley", "Natalie Lauren", "Deano Bugatti", "Brontis Jodorowsky",
                     "Isaac Cortinovis Johnson", "Nick Owenford", "Joshua Shea"));
 
-    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
+    public static ArrayList<Show> getShowData() {
+        ArrayList<Show> showDataList = new ArrayList<>();
 
-    @Test
-    public void equals() {
-        HashMap<SearchKey, List<String>> firstHash = new HashMap<>();
-        HashMap<SearchKey, List<String>> secondHash = new HashMap<>();
+        Set<Genre> genreSetComedy = new HashSet<>();
+        genreSetComedy.add(GENRE_COMEDY);
+        SHOW_JOKER.addGenres(genreSetComedy);
+        showDataList.add(SHOW_JOKER);
 
-        ArrayList<String> emptyList = new ArrayList<>();
-        ArrayList<String> firstNameList = new ArrayList<>();
-        firstNameList.add(VALID_SHOW_NAME_ANNABELLE);
-        ArrayList<String> secondNameList = new ArrayList<>();
-        secondNameList.add(VALID_SHOW_NAME_BOB_THE_BUILDER);
-
-        firstHash.put(SearchKey.KEY_NAME, firstNameList);
-        firstHash.put(SearchKey.KEY_GENRE, emptyList);
-        firstHash.put(SearchKey.KEY_TYPE, emptyList);
-        firstHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-        firstHash.put(SearchKey.KEY_ACTOR, emptyList);
-        firstHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-
-        secondHash.put(SearchKey.KEY_NAME, secondNameList);
-        secondHash.put(SearchKey.KEY_GENRE, emptyList);
-        secondHash.put(SearchKey.KEY_TYPE, emptyList);
-        secondHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-        secondHash.put(SearchKey.KEY_ACTOR, emptyList);
-        secondHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-
-        SearchCommand searchFirstCommand = new SearchCommand(firstHash);
-        SearchCommand searchSecondCommand = new SearchCommand(secondHash);
-
-        // same object -> returns true
-        assertTrue(searchFirstCommand.equals(searchFirstCommand));
-
-        // same values -> returns true
-        //SearchCommand findFirstCommandCopy = new SearchCommand(firstHash);
-        //assertTrue(searchFirstCommand.equals(findFirstCommandCopy));
-
-        // different types -> returns false
-        assertFalse(searchFirstCommand.equals("first"));
-        assertFalse(searchFirstCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(searchFirstCommand.equals(null));
-
-        // different show -> returns false
-        assertFalse(searchFirstCommand.equals(searchSecondCommand));
-    }
-
-    @Test
-    public void execute_zeroKeywords_noShowFound() {
-        String expectedMessage = String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW, 0);
-
-        HashMap<SearchKey, List<String>> emptyHash = new HashMap<>();
-        ArrayList<String> emptyList = new ArrayList<>();
-        emptyList.add(" ");
-        emptyHash.put(SearchKey.KEY_NAME, emptyList);
-        emptyHash.put(SearchKey.KEY_GENRE, emptyList);
-        emptyHash.put(SearchKey.KEY_TYPE, emptyList);
-        emptyHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-        emptyHash.put(SearchKey.KEY_ACTOR, emptyList);
-        emptyHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-        SearchCommand command = new SearchCommand(emptyHash);
-
-        expectedModel.updateSearchResultList(new ArrayList<Show>());
-
-        assertEquals(Collections.emptyList(), model.getSearchResultList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleShowsFound() {
-        String expectedMessage = String.format(SearchMessages.MESSAGE_SHOWS_FOUND_OVERVIEW, 2);
-
-        HashMap<SearchKey, List<String>> showHash = new HashMap<>();
-        ArrayList<String> showNameList = new ArrayList<>();
-        showNameList.add("Fantastic Beasts and Where to Find Them");
-        showHash.put(SearchKey.KEY_NAME, showNameList);
-        ArrayList<String> emptyList = new ArrayList<>();
-        showHash.put(SearchKey.KEY_GENRE, emptyList);
-        showHash.put(SearchKey.KEY_TYPE, emptyList);
-        showHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
-        showHash.put(SearchKey.KEY_ACTOR, emptyList);
-        showHash.put(SearchKey.KEY_IS_WATCHED, emptyList);
-        SearchCommand command = new SearchCommand(showHash);
-
-        List<Show> expectedList = new ArrayList<>();
+        Set<Genre> genreSetActionAdventureScienceFiction = new HashSet<>();
+        genreSetActionAdventureScienceFiction.add(GENRE_ACTION);
+        genreSetActionAdventureScienceFiction.add(GENRE_ADVENTURE);
+        genreSetActionAdventureScienceFiction.add(GENRE_SCIENCE_FICTION);
+        SHOW_AVENGER_INFINITY_WAR.addGenres(genreSetActionAdventureScienceFiction);
+        showDataList.add(SHOW_AVENGER_INFINITY_WAR);
 
         Set<Genre> genreSetAdventureFantasyFamily = new HashSet<>();
-        Genre genreAdventure = new Genre("adventure");
-        Genre genreFantasy = new Genre("fantasy");
-        Genre genreFamily = new Genre("family");
-        genreSetAdventureFantasyFamily.add(genreAdventure);
-        genreSetAdventureFantasyFamily.add(genreFantasy);
-        genreSetAdventureFantasyFamily.add(genreFamily);
+        genreSetAdventureFantasyFamily.add(GENRE_ADVENTURE);
+        genreSetAdventureFantasyFamily.add(GENRE_FANTASY);
+        genreSetAdventureFantasyFamily.add(GENRE_FAMILY);
         SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM.addGenres(genreSetAdventureFantasyFamily);
         SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD.addGenres(genreSetAdventureFantasyFamily);
+        showDataList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
+        showDataList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);
 
-        expectedList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
-        expectedList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);
-
-        model.updateSearchResultList(expectedList);
-        assertEquals(expectedList, model.getSearchResultList());
+        return showDataList;
     }
 
+    public static ReadOnlyWatchList getShowDatabaseList() {
+        WatchList database = new WatchList();
+        for (Show show : getShowData()) {
+            database.addShow(show);
+        }
+        return database;
+    }
+
+    /**
+     * Returns an Actor set containing the list of strings given.
+     */
     public static Set<Actor> getActorSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Actor::new)

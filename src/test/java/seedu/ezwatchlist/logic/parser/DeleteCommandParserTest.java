@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic.parser;
 
 import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.CURRENT_TAB_WATCHED_TAB;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ezwatchlist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -24,12 +25,13 @@ public class DeleteCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_SHOW));
+        assertParseSuccess(parser, "1", new DeleteCommand(INDEX_FIRST_SHOW), CURRENT_TAB_WATCHED_TAB);
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE),
+                CURRENT_TAB_WATCHED_TAB);
     }
 
     @Test

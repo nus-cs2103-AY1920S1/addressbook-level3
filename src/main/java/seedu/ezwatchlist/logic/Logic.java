@@ -43,6 +43,13 @@ public interface Logic {
      */
     ReadOnlyWatchList getWatchList();
 
+    /**
+     * Returns the database of shows.
+     *
+     * @see Model#getDatabase()
+     */
+    ReadOnlyWatchList getDatabase();
+
     /** Returns an unmodifiable view of the filtered shows that have not been watched */
     ObservableList<Show> getUnWatchedList();
 
@@ -62,6 +69,11 @@ public interface Logic {
      * Returns the user prefs' watchlist file path.
      */
     Path getWatchListFilePath();
+
+    /**
+     * Returns the user prefs' database file path.
+     */
+    Path getDatabaseFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
