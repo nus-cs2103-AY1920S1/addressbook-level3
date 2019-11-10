@@ -1,0 +1,97 @@
+@startuml
+
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+scale 750 width
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+Class UserViewMain
+Class UserViewUpdate
+Class UserViewNavigator
+Class UserViewController
+Class IndivTaskCard
+Class TaskListPanel
+Class IndivInventoryCard
+Class InventoryListPanel
+Class IndivMemberCard
+Class MemberListPanel
+Class TaskCard
+Class ProjectDashboardView
+Class HelpCard
+Class CommandListPanel
+Class SettingsView
+Class TaskCardForStats
+Class TaskStatisticsView
+Class MemberStatisticsView
+Class IndivMeetingCard
+Class MeetingListPanel
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+UserViewMain -right-> UserViewUpdate
+UserViewMain -down-> UserViewController
+UserViewMain -down-> UserViewNavigator
+UserViewNavigator -right-> UserViewController
+
+ProjectDashboardView -down-> TaskCard
+TaskListPanel -down-> IndivTaskCard
+MemberListPanel -down-> IndivMemberCard
+InventoryListPanel -down-> IndivInventoryCard
+CommandListPanel -down-> HelpCard
+TaskStatisticsView -down-> TaskCardForStats
+MeetingListPanel -down-> IndivMeetingCard
+
+UserViewNavigator ..down-> TaskListPanel
+UserViewNavigator ..down-> MemberListPanel
+UserViewNavigator ..down-> InventoryListPanel
+UserViewNavigator ..down-> ProjectDashboardView
+UserViewNavigator ..down-> CommandListPanel
+UserViewNavigator ..down-> TaskStatisticsView
+UserViewNavigator ..down-> MeetingListPanel
+UserViewNavigator ..down-> SettingsView
+UserViewNavigator ..down-> MemberStatisticsView
+
+UserViewController ..down-> TaskListPanel
+UserViewController ..down-> MemberListPanel
+UserViewController ..down-> InventoryListPanel
+UserViewController ..down-> ProjectDashboardView
+UserViewController ..down-> CommandListPanel
+UserViewController ..down-> TaskStatisticsView
+UserViewController ..down-> MeetingListPanel
+UserViewController ..down-> SettingsView
+UserViewController ..down-> MemberStatisticsView
+
+TaskCard --|> UiPart
+TaskListPanel --|> UiPart
+IndivMemberCard --|> UiPart
+MemberListPanel --|> UiPart
+IndivInventoryCard --|> UiPart
+InventoryListPanel --|> UiPart
+ProjectDashboardView --|> UiPart
+CommandListPanel --|> UiPart
+MeetingListPanel --|> UiPart
+TaskStatisticsView --|> UiPart
+SettingsView --|> UiPart
+MemberStatisticsView --|> UiPart
+
+UserViewMain -left-> Logic
+UserViewNavigator ..> Logic
+
+IndivMemberCard ..> Model
+TaskCard ..> Model
+IndivInventoryCard ..> Model
+SettingsView ..> Model
+MemberStatisticsView ..> Model
+IndivTaskCard ..> Model
+IndivMeetingCard ..> Model
+@enduml
