@@ -64,9 +64,7 @@ public class JsonSerializableFinanceTracker implements JsonAdapter<FinanceTracke
     @Override
     public FinanceTracker toModelType() throws IllegalValueException {
         FinanceTracker financeTracker = new FinanceTracker();
-        if (monthlyLimit != null) {
-            financeTracker.setMonthlyLimit(new MonthlyLimit(monthlyLimit));
-        }
+        financeTracker.setMonthlyLimit(monthlyLimit != null ? new MonthlyLimit(monthlyLimit) : null);
         for (JsonAdaptedInstallment jsonAdaptedInstallment : installments) {
             Installment installment = jsonAdaptedInstallment.toModelType();
             if (financeTracker.hasInstallment(installment)) {
