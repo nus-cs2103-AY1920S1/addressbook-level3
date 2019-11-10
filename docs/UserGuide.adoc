@@ -383,7 +383,7 @@ You can also drag and drop a _WordBank_ out the app into your computer.
 
 // tag::jasonstatscommand[]
 
-=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Resetting the _WordBank_ statistics: `reset`
@@ -454,11 +454,8 @@ Format: `skip`
 
 ==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
 
-.UI regions showing Statistics and results after a Game session has completed.
-image::UserGuideGameOverDiagram.png[width="790"][height="850"]
-
-.UI regions showing feedback when a Game is forcibly stopped.
-image::UserGuideGameStopDiagram.png[width="790"][height="850"]
+.Comparison of UI Regions between Game finished vs. Game forcibly stopped.
+image::GameFinishedGameStoppedComparison.png[width="1000"]
 
 A _Game_ finishes when *all _Cards_ have been attempted*. _Statistics_ are
 *automatically shown* upon completion of a _Game_ (see Fig. 6 above). +

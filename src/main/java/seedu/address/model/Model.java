@@ -200,7 +200,7 @@ public interface Model {
 
     long getTimeAllowedPerQuestion();
 
-    FormattedHint getHintFormatFromCurrentGame();
+    FormattedHint getFormattedHintFromCurrGame();
 
     int getHintFormatSizeFromCurrentGame();
 

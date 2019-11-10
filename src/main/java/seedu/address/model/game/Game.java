@@ -72,8 +72,8 @@ public class Game {
         return getCurrCard().getMeaning().toString();
     }
 
-    public FormattedHint getHintFormatForCurrCard() {
-        return getCurrCard().getHint();
+    public FormattedHint getCurrCardFormattedHint() {
+        return getCurrCard().getFormattedHint();
     }
 
     public int getHintFormatSizeOfCurrCard() {

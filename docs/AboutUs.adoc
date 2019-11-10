@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Dukemon was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+Dukemon was developed by the https://github.com/orgs/AY1920S1-CS2103T-T11-2/teams[SEREBros] team. +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == CS2103T-T11-2
@@ -22,7 +22,7 @@ image::chrischenhui.png[width="150", align="left"]
 {empty}[http://github.com/chrischenhui[github]] [<<chrischenhui#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI + Game Logic
+Responsibilities: Storage + Data
 
 '''
 
@@ -31,7 +31,7 @@ image::kohyida1997.png[width="150", align="left"]
 {empty}[http://github.com/kohyida1997[github]] [<<kohyida1997#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Game + Timer + Threading
+Responsibilities: Game Logic + Timer
 
 '''
 
@@ -40,7 +40,7 @@ image::sreesubbash.png[width="150", align="left"]
 {empty}[http://github.com/sreesubbash[github]] [<<sreesubbash#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Game Logic
+Responsibilities: Commands + Modes
 
 '''
 
@@ -49,7 +49,7 @@ image::jascxx.png[width="150", align="left"]
 {empty}[http://github.com/jascxx[github]] [<<jascxx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI + Data
+Responsibilities: Statistics + Data
 
 '''
 
@@ -58,6 +58,6 @@ image::dragontho.png[width="150", align="left"]
 {empty}[http://github.com/dragontho[github]] [<<dragontho#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI + Data
+Responsibilities: UI + Settings
 
 '''

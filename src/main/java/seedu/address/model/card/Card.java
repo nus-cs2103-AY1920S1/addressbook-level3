@@ -20,8 +20,8 @@ public class Card {
     private final Meaning meaning;
     private final Set<Tag> tags = new HashSet<>();
 
-    /** stateful objects, will create a new hintSupplier every game session. (by instantiating a new card). */
-    private HintSupplier hintSupplier;
+    /** stateful objects, will create a new formattedHintSupplier every game session. (by instantiating a new card). */
+    private FormattedHintSupplier formattedHintSupplier;
 
     /**
      * Every field must be present and not null.
@@ -32,12 +32,12 @@ public class Card {
         this.word = word;
         this.meaning = meaning;
         this.tags.addAll(tags);
-        this.hintSupplier = new HintSupplier(word.getValue());
+        this.formattedHintSupplier = new FormattedHintSupplier(word.getValue());
     }
 
     /**
      * Returns a deep copy of the current {@code Card}.
-     * This is to prevent hintSupplier carrying state to another game session due to referring to same
+     * This is to prevent formattedHintSupplier carrying state to another game session due to referring to same
      * card object.
      */
     @Override
@@ -97,8 +97,8 @@ public class Card {
     /**
      * Returns the next {@code FormattedHint}, and null if no more hints available.
      */
-    public FormattedHint getHint() {
-        return this.hintSupplier.get();
+    public FormattedHint getFormattedHint() {
+        return this.formattedHintSupplier.get();
     }
 
     /**
