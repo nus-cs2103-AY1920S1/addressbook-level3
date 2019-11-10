@@ -362,7 +362,7 @@ image::ThemeSequenceDiagram.png[]
 
 NOTE: The lifeline for `ThemeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `theme light` operation is similar to the one shown in figure 9. However, the method called is `setLightTheme`.
+The `theme light` operation is similar to the one shown in figure above. However, the method called is `UserSettings#setLightTheme()`.
 
 [IMPORTANT]
 
@@ -383,14 +383,14 @@ For example `ClockFormat` has two constants `TWENTY_FOUR` and `TWELVE` that cont
 when the user wishes to toggle between them.
 ** Pros: Better design as it is more modular. The data can be stored as attributes of the enum constants and retrieved via the default setting from `Model`. Furthermore if
 data is to be changed, it only needs to be changed in one component for the expected behaviour to be achieved.
-** Cons: User cannot customise the data directly due to the nature of `Enum`.
-* **Alternative 2:** The data is stored in the `UserSettings` interface as `static` fields.
-** Pros: This exposes the data of each option of all settings to the `Model`. If the user requests to customise that data, it would be possible in this design.
-** Cons: The `UserSettings` interface changes whenever the data related to a particular settings option is updated. `UserSettings` should only be aware of the various settings the user
+** Cons: User cannot customise the data directly due to the nature of `Enum` classes.
+* **Alternative 2:** The data is stored in the `UserSettings` component as `static` fields.
+** Pros: This exposes the data of each option fore each settings to the `Model` component. If the user requests to customise that data, it would be possible in this design.
+** Cons: `UserSettings` would change whenever the data related to a particular settings option is updated. Ideadlly, `UserSettings` should only be aware of the various settings the user
 is able to customise.
 
-We decided to opt for design option one, so as to be in line with the Single Responsibility principle. This would make it easier to extend the functionality
-of the settings feature which would allow developers to extend its functionality in a more safe and modular manner.
+We decided to opt for design option one, so as to be in line with the Single Responsibility principle. This would make it easier
+for future developers to extend the functionality of `UserSettings` in a more modular manner.
 
 // end::settings[]
 
