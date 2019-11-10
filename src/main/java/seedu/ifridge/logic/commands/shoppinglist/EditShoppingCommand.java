@@ -83,17 +83,17 @@ public class EditShoppingCommand extends Command {
         ShoppingItem shoppingItemToEdit = lastShownList.get(index.getZeroBased());
         ShoppingItem editedShoppingItem = createEditedShoppingItem(shoppingItemToEdit, editShoppingItemDescriptor);
 
+        editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
+        if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
+                && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
+            throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
+        }
+
         UnitDictionary unitDictionary = model.getUnitDictionary();
         try {
             unitDictionary.checkUnitDictionary(editedShoppingItem, model);
         } catch (InvalidUnitException e) {
             throw new CommandException(MESSAGE_INCORRECT_UNIT + "\n" + MESSAGE_GUIDELINES_FOR_WRONG_UNIT);
-        }
-
-        editedShoppingItem = editedShoppingItem.setBought(shoppingItemToEdit.isBought());
-        if (readOnlyShoppingList.hasShoppingItem(editedShoppingItem)
-                && editShoppingItemDescriptor.isNameEdited(shoppingItemToEdit)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SHOPPING_ITEM);
         }
 
         if (editShoppingItemDescriptor.getName().isPresent() && shoppingItemToEdit.isBought()) {
@@ -128,6 +128,12 @@ public class EditShoppingCommand extends Command {
         }
     }
 
+    /**
+     * Match bought item names to shopping items.
+     * @param oldShoppingItem shopping item with old name
+     * @param editedShoppingItem shopping item with edited name
+     * @param model with boughtList to compare with
+     */
     private static void editBoughtItemsAccordingToEditedShoppingItem(
             ShoppingItem oldShoppingItem, ShoppingItem editedShoppingItem, Model model) {
         List<GroceryItem> boughtList = model.getFilteredBoughtItemList();
