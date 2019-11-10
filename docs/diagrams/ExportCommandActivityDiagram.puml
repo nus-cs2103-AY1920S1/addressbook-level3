@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+start
+:User executes export command;
+if () then ([directory \nspecified])
+    : Use specified \ndirectory as output folder;
+    if () then ([directory \nis valid])
+    else ([else])
+        :Display Error \nMessage to User;
+        stop
+    endif
+else([else])
+    : Use default directory \nas output folder;
+endif
+: Create File;
+: Generate File content \nfrom Horo's saved data;
+: Write to File;
+: Return "Command Excecuted \nSuccessfully" message to user;
+stop
+@enduml

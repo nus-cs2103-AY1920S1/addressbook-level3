@@ -755,6 +755,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+// tag::ics[]
 [[Design-Ics]]
 === Ics Component
 
@@ -767,10 +768,23 @@ to `EventSource` and `TaskSource` objects in Horo.
 
 Here is an overview of how the ICS component looks like:
 
+.ICS Component Architecture
 image::IcsComponentDiagram.png[]
 
-The file exporter uses the `IcsConverter` class to convert `EventSource` and `TaskSource` objects
-stored in the `ModelManager` singleton object into their ICS String representations. Check out the
+Right now, this is how the `*IcsExporter*` class exports Horo's `*EventSource*` and `*TaskSource*` data.
+Notice that the file is created onnly when it is known that the directory provided by the user is valid.
+This is to prevent extra uncaught errors being thrown.
+
+.Activity Diagram of an Export Command
+image::ExportCommandActivityDiagram.png[]
+
+In order to generate the file content from Horo's saved data, the file exporter uses the `*IcsConverter*` class to convert `*EventSource*` and `*TaskSource*` objects
+stored in the `*ModelManager*` singleton object into their ICS String representations.
+
+They will then be concatenated together using a `*StringBuilder*` object. Boilerplate information will be added
+at the start and end of the save file to make the file valid to be imported to other Calendar applications.
+
+Check out the
 link:https://en.wikipedia.org/wiki/ICalendar[iCalendar Wiki Page] for more information on the specifications.
 
 
@@ -797,6 +811,7 @@ and keep all code relevant to converting objects to ICS Strings in the same clas
 
 This further makes it easier for future debugging,
 and makes adding new exportable objects a lot easier as there are common functions that can be used.
+// end::ics[]
 
 // tag::uiImplementation[]
 === UI Component
@@ -1148,6 +1163,39 @@ Use case resumes at step 3.
 +
 _{More to be added}_
 
+[discrete]
+=== Use case 6: Export Command
+*MSS*
+
+1.  User requests to export Horo data.
+2.  Horo creates a file in the same directory as Horo.
+3.  Horo replies that its data has been successfully exported.
++
+Use Case Ends.
+
+*Extensions*
+
+* 2a. The user specifies which directory to export the save data to.
++
+Use Case resumes at step 3.
+
+[discrete]
+=== Use case 7: Import Command
+*MSS*
+
+1.  User requests to import Horo data from a specific file.
+2.  The file is imported into Horo.
+3.  Horo replies that the data has successfully been imported into Horo.
++
+Use Case Ends.
+
+**Extensions**
+
+* 1a.  The file does not exist or is corrupted.
+** 1a1. Horo replies with an error message.
++
+Use Case Ends.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1156,7 +1204,6 @@ _{More to be added}_
 .  Should function on both `32-bit environment` and `64-bit environment`
 .  Should work without any internet required.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.
 
 
 _{More to be added}_
@@ -1220,6 +1267,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
   Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
+
+. Export
+
+.. Start Horo with no save data.
+.. Enter the `export` command. +
+Expected: A save file with the name `Horo_export_<timestamp>.ics` will be created in the
+same directory as Horo's jar file.
+.. Enter the command `export **--directory** <DIRECTORY>`,
+where <DIRECTORY> is the directory where the save file will be created. +
+Expected: The save file will be created in the specified directory.
+
+. Import from iCalendar file.
+.. Create some events and tasks in Horo.
+.. Take note of the current events and tasks by entering the `list` command,
+going into the list view.
+.. Enter the `export` command.
+.. Delete the save data from Horo and re-launch the app.
+.. Import the save data using the import command `import <FILEPATH>`. +
+Expected: The imported events and tasks should be the same as when they were exported.
 
 // tag::notifmanualtesting[]
 === Notification System
