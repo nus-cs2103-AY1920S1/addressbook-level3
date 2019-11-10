@@ -8,7 +8,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class Value {
 
-    private static final String SPECIAL_CHARACTERS = "!#$%&'*+=?`/\\[{|}\\]~^.-";
+    private static final String SPECIAL_CHARACTERS = "!#$%&'*+=?`_/\\[{|}\\]~^.-";
     private static final int MAX_LENGTH = 180;
     public static final String MESSAGE_CONSTRAINTS =
             "Values, if present, should either be numerical, "

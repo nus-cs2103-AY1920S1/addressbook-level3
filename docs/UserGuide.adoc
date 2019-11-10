@@ -445,8 +445,6 @@ A rule can be formed using either expressions or scripts, or both.
 
 Format: `rule add p/<expression | script name> a/<expression | script name>`
 
-Refer to <<Scripting>> for script usage.
-
 NOTE: Note that scripts used in rules are not validated; make sure they are free from error.
 Predicate scripts that do not return a boolean _will be executed_, but will therefore implicitly return false.
 Action scripts will be executed if the predicate returns true, and any return value will be discarded.
@@ -466,7 +464,7 @@ Action scripts will be executed if the predicate returns true, and any return va
 *** `contains` : Substring check operator (Cannot be used on dates)
 ** A value can be a number or a string of length not more than 180 characters
 It can contain the following special characters: +
-!#$%&'*+=?`/[{|}]~^.-
+!#$%&'*+=?`+_+/[{|}]~^.-
 
 * **Action**: In the order of `<action operator> [<value>]`
 ** An action operator can be one of the following:
@@ -480,6 +478,13 @@ It can contain the following special characters: +
 *** `switch_direct` : Switches the current direction of the transaction
 ** A value is as described in a predicate expression,
 and is not required for `set_in`, `set_out` and `switch_direct`
+
+*Script Usage in Rules:*
+
+* Scripts used in rules have access to two additional arguments:
+** The transaction to test/act upon is stored in "_argv[0]_"
+** The account that the transaction belongs to is stored in "_argv[1]_"
+* Refer to <<Scripting>> for general script usage.
 ****
 
 Examples:
