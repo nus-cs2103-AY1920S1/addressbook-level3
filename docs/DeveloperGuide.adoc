@@ -372,38 +372,38 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Visual Representation of individual's or group's schedule
-A separate class `ScheduleView` will be created to facilitate the creation of the schedule view belonging to individuals and groups.
-Depending on the constructor used in this class, different types of schedules will be shown. There are two types of constructors:
-* `ScheduleView(WeekSchedule personSchedule)` This constructor is used to construct a schedule view of an individual.
-* `ScheduleView(List<WeekSchedule> personSchedules, List<String> colors, WeekSchedule freeSchedule)` This constructor is used to construct a schedule view of a group
+=== Visual Representation of individual's or group's schedule feature
 
-These methods are used in the MainWindow class, where MainWindow will display instances of ScheduleView when various commands
-are performed.
+The visual representation of a schedule is created in the `ScheduleView` class.
+In order to control the schedule created, an abstract class `ScheduleViewManager` is needed to control the creation of `ScheduleView` objects.
+The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
 
-Given below is an example of how the Nodes (containers) in MainWindow changes with respect to the show command.
+The following methods are implemented in `ScheduleViewManager` to control the schedules displayed in the window.
 
-Step 1. After the user launches the application, the MainWindow will consist of 4 main Nodes: `CommandBox`, `TabsPanel`, `ResultDisplay` and `DefaultDetailWindow`.
+* `ScheduleViewManager#getInstanceOf(ScheduleDisplay)` -- Instantiates the `ScheduleViewManager` with a given `ScheduleDisplay` object. The `ScheduleDisplay` object contains
+all the information needed to generate a schedule view.
+* `ScheduleViewManager#scrollNext()` -- Scrolls the schedule shown down. Once it reaches the bottom, it will start back at the top.
+* `ScheduleViewManager#toggleNext()` -- Modifies the schedule shown to show the next week's schedule. The schedule shown can at most show up to 4 weeks in advance. Once the fourth week is reached, it will start back at the first week.
+* `ScheduleViewManager#filterPerson(List<Name>)` Filters the schedule shown to the given list of names. This method only works when the schedule shown is a group's schedule.
 
-image::VisualRepresentationCD0.png[]
+A sample usage of the ScheduleViewManager is described below.
 
-Step 2a. Suppose the user has a friend named Ben in the application. The user executes `show n/ Ben` in order to view Ben's details
-and his schedule. The state of MainWindow will now have another set of 4 Nodes: `CommandBox`, `ResultDisplay`, `ScheduleView` and `PersonDetailCard`.
+Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members in TimeBook and executes the command
+`show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week.
+//IMAGE1
 
-image::VisualRepresentationCD1.png[]
+Step 2. Suppose the user thinks that arranging a group meeting on the first week is too rushed, so he executes the `togglenext` command to view the group's schedule for the next week.
+The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule.
+//IMAGE2
 
-Step 2b. Alternatively, suppose the user has a group named CS2103T team project. The user executes `show g/ CS2103T team project` in
-order to view the group's schedule and information. The state of MainWindow will now have a different set of 4 Nodes: `CommandBox`, `ScheduleView`,
-`ResultDisplay` and `GroupInformation`
+Step 3. Suppose the user wants to organise a group meeting with some of his group members and still want to keep track of the entire group schedule's free time slots, he
+executes the `lookat` command to inspect some of his group member's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules.
+//IMAGE3
 
-image::VisualRepresentationCD2.png[]
-
-[NOTE]
-If the user keys in a name or group that is not present in the application, a CommandException will be thrown to indicate
-that such name or group is not found in the application.
-
-The following sequence diagram shows how the show command eventually lead to changes in the UI to show the visual representation
+The following sequence diagram shows how the `show` command eventually lead to changes in the UI to show the visual representation
 of an individual's or group's schedule.
+
+
 
 image::VisualRepresentationSD0.png[]
 image::VisualRepresentationSD1.png[]
