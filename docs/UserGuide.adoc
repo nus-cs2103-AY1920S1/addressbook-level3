@@ -245,8 +245,8 @@ image::deletetask2.png[width="500"]
 Finished with a task? +
 Check it off the list!
 
-Command: `done` +
-Format: `done _index number_`
+Command: `done task` +
+Format: `done task _index number_`
 
 Example usage (Figure 3.2.5a & 3.2.5b): `done 1`
 
