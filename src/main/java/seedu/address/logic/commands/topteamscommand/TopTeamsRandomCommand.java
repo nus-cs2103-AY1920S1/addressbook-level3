@@ -29,7 +29,7 @@ public class TopTeamsRandomCommand extends TopTeamsCommand {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        assert comparators != null : "The comparators list should not be null";
+        assert comparators != null : "The comparators list is null";
         checkNoTeams(model);
         model.setTopKRandom(this.numberOfTeams, comparators, subject);
         logger.info("Showing Top " + this.numberOfTeams + " Teams.");

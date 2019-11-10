@@ -4,9 +4,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.Predicates;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -34,6 +36,8 @@ public abstract class LeaderboardCommand extends Command {
     protected ArrayList<Comparator<Team>> comparators;
     protected SubjectName subjectName;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     public LeaderboardCommand(ArrayList<Comparator<Team>> comparators, SubjectName subjectName) {
         this.comparators = comparators;
         this.subjectName = subjectName;
@@ -47,12 +51,14 @@ public abstract class LeaderboardCommand extends Command {
      */
     public void checkNoTeams(Model model) throws CommandException {
         if (model.getTeamList().isEmpty()) {
+            logger.severe("No teams stored within Alfred.");
             throw new CommandException(MESSAGE_NO_TEAM);
         }
         if (subjectName != null) {
             FilteredList<Team> teamList = new FilteredList<>(model.getFilteredTeamList());
             teamList.setPredicate(Predicates.getPredicateFilterTeamBySubject(subjectName).negate());
             if (teamList.size() == 0) {
+                logger.severe("No teams within Alfred with Subject: " + subjectName.toString());
                 throw new CommandException(String.format(MESSAGE_NO_TEAM_SUBJECT, subjectName));
             }
         }

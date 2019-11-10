@@ -40,18 +40,31 @@ public class SubtractScoreCommand extends ScoreCommand {
         Team teamToScore;
 
         teamToScore = getTeamFromModel(model, id);
-
-        try {
-            model.subtractTeamScore(teamToScore, score);
-        } catch (AlfredException e) {
-            throw new CommandException(e.getMessage());
-        }
+        subtractScoreFromTeam(model, teamToScore, score);
 
         logger.info("Subtracting " + this.score + " from Score of Team " + this.id);
         model.updateHistory(this);
         model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(String.format(MESSAGE_SCORE_TEAM_SUCCESS,
                 score, teamToScore.getName(), teamToScore.getScore()), CommandType.T);
+    }
+
+    /**
+     * Fetches the {@code team} from {@code model} and subtracts {@code score} from their
+     * current score.
+     *
+     * @param model the {@code Model} object from which the team is supposed to be fetched and updated.
+     * @param team the Team from model whose score is to be updated.
+     * @param score the score to subtract from the team's current score.
+     * @throws CommandException if an exceptional case arises when subtracting the team's score.
+     */
+    private void subtractScoreFromTeam(Model model, Team team, Score score) throws CommandException {
+        try {
+            model.subtractTeamScore(team, score);
+        } catch (AlfredException ae) {
+            logger.severe("Error while subtracting score from team.");
+            throw new CommandException(ae.getMessage());
+        }
     }
 
     @Override

@@ -4,9 +4,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.Predicates;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -36,6 +38,8 @@ public abstract class TopTeamsCommand extends Command {
     protected ArrayList<Comparator<Team>> comparators;
     protected SubjectName subject;
 
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
     public TopTeamsCommand(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
         this.numberOfTeams = k;
         this.comparators = comparators;
@@ -43,19 +47,22 @@ public abstract class TopTeamsCommand extends Command {
     }
 
     /**
-     * Checks if there are no teams currently added as per {@code model}.
+     * Checks if there are no teams currently added within {@code model}, whether any at all or with respect
+     * to a specific subject.
      *
+     * @param model the {@code model} object which will be checked for presence of teams.
      * @throws CommandException if there are no teams added in Alfred.
      */
     public void checkNoTeams(Model model) throws CommandException {
         if (model.getTeamList().isEmpty()) {
+            logger.severe("No teams stored within Alfred.");
             throw new CommandException(MESSAGE_NO_TEAM);
         }
         if (subject != null) {
             FilteredList<Team> teamList = new FilteredList<>(model.getFilteredTeamList());
             teamList.setPredicate(Predicates.getPredicateFilterTeamBySubject(subject).negate());
-            System.out.println("Here is size: " + teamList.size());
             if (teamList.size() == 0) {
+                logger.severe("No teams within Alfred with Subject: " + subject.toString());
                 throw new CommandException(String.format(MESSAGE_NO_TEAM_SUBJECT, subject.toString()));
             }
         }

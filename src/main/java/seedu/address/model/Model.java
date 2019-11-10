@@ -129,12 +129,6 @@ public interface Model {
 
     void updateTeam(Id teamId, Team team) throws AlfredException;
 
-    void setTeamScore(Team team, Score score) throws AlfredException;
-
-    void addTeamScore(Team team, Score score) throws AlfredException;
-
-    void subtractTeamScore(Team team, Score score) throws AlfredException;
-
     Team deleteTeam(Id id) throws AlfredException;
 
     /* Mentor methods */
@@ -154,6 +148,16 @@ public interface Model {
     List<Team> findTeam(Predicate<Team> predicate);
 
     List<Mentor> findMentor(Predicate<Mentor> predicate);
+
+    /* Score methods */
+
+    void setTeamScore(Team team, Score score) throws AlfredException;
+
+    void addTeamScore(Team team, Score score) throws AlfredException;
+
+    void subtractTeamScore(Team team, Score score) throws AlfredException;
+
+    /* Leaderboard methods */
 
     void setSimpleLeaderboard(ArrayList<Comparator<Team>> comparators, SubjectName subject);
 
