@@ -253,6 +253,40 @@ image::CommandParserActivityDiagram.png[]
 After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
 The remaining command phrases are sent to the `CommandBuilder`, which builds the `Command` we want.
 
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Use `String.split()` to break up command input into tokens.
+| Implement a FSM to break up command input into tokens.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Split the command input by whitespaces, into words. The first word will be the *command keyword*.
+All subsequent words will have to be joined into *command phrases*.
+| Create a `State` class, and design a state diagram to tokenize the command input into a *command keyword* and *command phrases*.
+
+| Evaluation
+| I did not choose this option because:
+
+Joining words into command phrases can become quite complex, especially when introducing quotation marks.
+
+Additionally, it is difficult for future developers to maintain and extend logic like this.
+| *I chose this option because:*
+
+A state machine is easy to understand and configure.
+
+A state machine can tokenize complex command inputs, allowing future developers to parse advanced command inputs.
+|===
+
 ==== CommandKeywordParser
 
 A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
@@ -361,6 +395,39 @@ commandManager.addCommand("mycommand", MyCommandBuilder::new)
 CommandBuilder closely follows the https://en.wikipedia.org/wiki/Builder_pattern[builder design pattern].
 ====
 
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Each `Command` is created by parsing user input using it's own `Parser`.
+| Each `Command` is defined by a `CommandBuilder`, and created by a `CommandParser`.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Implement a utility class which can parse user input into arguments. Use this class in each command parser.
+| Implement `CommandBuilder` which can build a `Command` with any number of arguments. Commands provide what arguments they require.
+
+| Evaluation
+| I did not choose this option because:
+
+Each command parser will need to implement logic to use the utility class, handle argument checking and parsing errors.
+
+It is difficult for future developers to create, extend and test `Commands`.
+| *I chose this option because:*
+
+Each `Command` does not require any logic, only arguments are required to be defined.
+
+Since all logic is in `CommandBuilder`, it is simple for developers to test.
+|===
+
 ==== Argument
 
 A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
@@ -380,10 +447,6 @@ For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be pars
 A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
 
 Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
-
-==== Design Considerations
-
-
 
 [[Design-ModelManager]]
 === ModelManager Component
