@@ -992,6 +992,41 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Suggest
+. Suggest basic exercises
+.. Test case: `suggest s/basic`
+   Expected: A list of basic exercises displayed on the
+. Suggest possible exercises
+.. Prerequisites: There is at least an exercise being tracked or in the database tagged with a `muscle`. +
+For example, `add t/exercise n/Run d/03/11/2019 c/200 q/10 u/km m/Legs`.
+
+... Test case: `suggest s/possible m/Legs` +
+   Expected: This exercise, along with database's exercises tagged with `Legs` are displayed.
+... Test case: `suggest s/possible o/and m/Legs` +
+   Expected: Similar to previous.
+... Test case: `suggest s/possible o/or m/Legs` +
+   Expected: Similar to previous.
+
+.. Prerequisites: A `CustomProperty` is created and there are exercises being tracked with `CustomProperty`. +
+For example,
+1. `custom s/r f/Rating p/Number`
+
+2. `add t/exercise n/Run d/03/11/2019 c/200 q/10 u/km m/Legs r/8`
+
+3. `add t/exercise n/Bench Press d/05/11/2019 c/150 q/40 u/kg m/Chest r/8`
+
+... Test case: `suggest s/possible o/and m/Chest r/8` +
+   Expected: The previously added exercise `Bench Press` is displayed.
+... Test case: `suggest s/possible o/or m/Chest r/8` +
+   Expected: The previously added exercises `Bench Press` and `Run` are displayed. In addition,
+exercises from database that are tagged `Chest` are also displayed.
+
+.. Test case: `suggest s/possible m/Chest m/Legs` +
+   Expected: Error details shown in the status message.
+.. Test case: `suggest s/possible o/or` +
+   Expected: Similar to previous.
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files
