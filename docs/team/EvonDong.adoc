@@ -342,7 +342,7 @@ The following sequence diagram shows how the `AddCommand` works which is referen
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 image::AddCommandCashierSeq.png[width="270"]
 
-`AddCommandParser` will carry out multiple checks to check the validity of the inputs. `hasItemInInventory(description)`
+As seen below, multiple checks will be carried out by `AddCommandParser` to check the validity of the inputs. `hasItemInInventory(description)`
 and `hasSufficientQuantityToAdd(description, quantity)` methods will be called to ensure the item has sufficient stock
 left in the inventory. There will also be checks to ensure that the item specified is available for sale.
 
