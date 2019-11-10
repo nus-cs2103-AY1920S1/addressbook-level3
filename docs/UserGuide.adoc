@@ -836,7 +836,9 @@ image::FinancialTrackerInterface.png[]
 === Adding an expense: ``add``
 Adding the expense of milk you've bought at the grocery shop you stopped by?
 
-*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
+*Format:*
+
+``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 *Example:*
 
@@ -857,7 +859,9 @@ image::FinancialTrackerAdd2.png[]
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-*Format:* ``delete INDEX``
+*Format:*
+
+``delete INDEX``
 
 *Example:* Delete the first expense you saw on your expense list.
 
@@ -876,7 +880,9 @@ image::FinancialTrackerDelete2.png[]
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-*Format:* ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+*Format:*
+
+``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 *Example:* Edit the 1st expense you saw on your expense list.
 
@@ -899,7 +905,9 @@ image::FinancialTrackerEdit2.png[]
 === Clears an expense list: ``clear``
 Messed up your expense list? Don't worry, just clear it!
 
-*Format:* ``clear``
+*Format:*
+
+``clear``
 
 *Example:* Clears your current country's expense list.
 
@@ -922,7 +930,9 @@ Did something wrong? We heard you! Simply undo your previous action :)
 
 WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
 
-*Format:* ``undo``
+*Format:*
+
+``undo``
 
 *Example:* Undo your previous `clear` command.
 
@@ -944,7 +954,9 @@ image::FinancialTrackerUndo2.png[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-*Format:* `switch COUNTRY`
+*Format:*
+
+`switch COUNTRY`
 
 TIP: Do realise that you can always use the drop down menu instead!
 
@@ -969,7 +981,9 @@ image::FinancialTrackerSwitch2.png[]
 === Requesting help: ``help``
 At anytime, not sure what to do? Simply ask for help!
 
-*Format:* `help`
+*Format:*
+
+``help``
 
 *Example:*
 
@@ -992,7 +1006,9 @@ The default sorting way of the expense list is not your thing? Just sort your ex
 
 TIP: All of the sorting is done in reversed order :)
 
-*Format:* ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
+*Format:*
+
+``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
 
 *Example:* to sort by amount
 
@@ -1015,7 +1031,9 @@ image::FinancialTrackerSort2.png[]
 === Generate an overview of your spending: ``summary``
 Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-*Format:* `summary`
+*Format:*
+
+`summary`
 
 *Example:*
 
@@ -1366,19 +1384,35 @@ Here is a summary for the list of features available:
 
 |``add``
 |Adds an expense to the Financial Tracker
-|``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+|``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 |``edit``
 | Edits an existing expense in the Financial Tracker
-|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 |``delete``
 |Deletes the specified expense from the Financial Tracker
 |``delete INDEX``
 
+|``clear``
+|Clears all your expenses in your current country's expense list
+|``clear``
+
+|``undo``
+|Undo your previous action
+|``undo``
+
+|``switch``
+|Switch to another country's expense list
+|``switch COUNTRY``
+
 |``help``
 |View Help
 |``help``
+
+|``summary``
+|Generate an overview of your expenses statistics
+|``summary``
 
 |===
 
