@@ -72,7 +72,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
 * Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MEDICAL CONDITION]...` can be used as `{nbsp}` (i.e. 0 times), `m/Type II Diabetes`, `m/Type II Diabetes m/High Blood Pressure` etc.
 * Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
 //tag::datalog[]
