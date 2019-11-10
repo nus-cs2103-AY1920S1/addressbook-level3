@@ -2,8 +2,6 @@ package com.dukeacademy.ui;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.Key;
-import java.util.stream.Stream;
 
 import com.dukeacademy.model.question.Question;
 import com.dukeacademy.model.question.UserProgram;
@@ -62,35 +60,31 @@ public class Editor extends UiPart<Region> {
     @FXML
     public void initialize() {
         textOutput.addEventHandler(KeyEvent.KEY_PRESSED, e1 -> {
+            int currentCaretPosition = textOutput.getCaretPosition();
+
             if (e1.getCode() == KeyCode.TAB) {
-                textOutput.insertText(textOutput.getCaretPosition(), " ".repeat(2));
+                textOutput.insertText(currentCaretPosition, " ".repeat(2));
                 e1.consume();
             } else if (e1.isShiftDown() && e1.getCode() == KeyCode.CLOSE_BRACKET) {
-                int currentCaretPos = textOutput.getCaretPosition();
-                boolean isEmptyLineAtCaretPosition = true; // need further changes
+                if (isEmptyLine(textOutput.getText(), textOutput.getCaretPosition())) {
+                    int previousNewlineCharPosition = getClosestNewlineCharPosition(currentCaretPosition);
+                    int diff = currentCaretPosition - previousNewlineCharPosition;
 
-                if (isEmptyLineAtCaretPosition) {
-                    textOutput.deleteText(currentCaretPos - 2, currentCaretPos - 1);
+                    if (diff < 4) {
+                        textOutput.deleteText(previousNewlineCharPosition + 1, currentCaretPosition - 1);
+                    } else {
+                        textOutput.deleteText(currentCaretPosition - 2, currentCaretPosition - 1);
+                    }
                 }
             }
         });
 
         textOutput.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                long leftBraceCount = textOutput.textProperty().getValue().chars()
-                        .filter(ch -> ch == '{')
-                        .count();
+                int indentationCount = countUnclosedBraces(textOutput.getText(), textOutput.getCaretPosition());
 
-                long rightBraceCount = textOutput.textProperty().getValue().chars()
-                        .filter(ch -> ch == '}')
-                        .count();
-
-                long indentationCount = leftBraceCount - rightBraceCount;
-
-                if (indentationCount > 0) {
-                    String tab = " ".repeat(2);
-                    textOutput.insertText(textOutput.getCaretPosition(), tab.repeat((int) indentationCount));
-                }
+                String tab = " ".repeat(2);
+                textOutput.insertText(textOutput.getCaretPosition(), tab.repeat((int) indentationCount));
             }
         });
 
@@ -110,6 +104,49 @@ public class Editor extends UiPart<Region> {
         });
     }
 
+    private boolean isEmptyLine(String string, int caret) {
+        char[] chars = string.toCharArray();
+        for (int i = caret - 1; i >= 0; i--)
+        {
+            if (chars[i] == '\n') {
+                return true;
+            }
+
+            if (!Character.isWhitespace(chars[i])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private int countUnclosedBraces(String string, int caret) {
+        char[] chars = string.toCharArray();
+        int count = 0;
+
+        for (int i = caret - 1; i >= 0; i--)
+        {
+            if (chars[i] == '{') {
+                count++;
+            } else if (chars[i] == '}') {
+                count--;
+            }
+        }
+
+        return count < 0 ? 0 : count;
+    }
+
+    private int getClosestNewlineCharPosition(int caret) {
+        char[] s = textOutput.getText().toCharArray();
+
+        for (int i = caret - 1; i >= 0; i--) {
+            if (s[i] == '\n') {
+                return i;
+            }
+        }
+
+        return 0;
+    }
     /**
      * Saves file into user's computer upon clicking the "Save" button.
      *
