@@ -247,7 +247,7 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
-
+// end::earnings[]
 ==== Delete Earnings
 This command allows the user to delete an earnings from the existing earnings list through
 its index.
@@ -333,7 +333,7 @@ the prior `Earnings` object, to ensure that there is no duplicate `Earnings` obj
 
 * Step 6: `UpdateEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully updated.
-
+// tag::otherEarnings[]
 ==== Weekly Earnings
 The `weekly_earnings` command allows users to add earnings into a list that adds earnings weekly automatically by invoking the `auto` command.
 This helps to lessen the workload on the user as the user does not need to add a new earnings every week.
@@ -405,7 +405,7 @@ The auto command is facilitated by `AutoCommand`.
 * `AutoCommand#execute` - This operation checks the current day of the week and checks against the `HashMap` of the earnings list.
 If there are `Earnings` object associated with the current day of the week and the `Earnings` object has a `Count` object associated
 with it that is more than 1. The earnings inside the `ArrayList` inside the `HashMap` would be added into the earnings list.
-// end::earnings[]
+// end::otherEarnings[]
 
 // tag::Calendar[]
 === Calendar Feature
