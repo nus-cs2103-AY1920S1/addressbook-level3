@@ -1,0 +1,328 @@
+= Project Portfolio Page
+:imagesdir: ../images
+:docinfodir: ../docs
+
+Author: Denis Tjia <denis@u.nus.edu>
+
+==== Preface
+
+The purpose of this portfolio is to document the contributions that I have made to a software engineering project, during my second year of study at the National University of Singapore.
+
+==== About the Project
+
+The project was structured to resemble an intermediate stage of a real life software project.
+We were tasked to implement enhancements to the software, and also ensure that the finished product can be easily taken over by other developers.
+
+My team of five decided to remix the application to keep track of events and tasks, very much like a calendar application.
+Our application, named *Horo*, aims to allow efficient management and organization of daily events and tasks, for any busy student.
+
+{empty} +
+
+.Graphical user interface (GUI) of Horo
+image::Ui.png[GUI]
+
+{empty} +
+
+For this project, I was given a few critical roles:
+
+. Designing the overall code architecture.
+. Implementation of the `Logic` and `Model` in Horo.
+
+<<<
+
+==== Major Contribution
+
+[cols="1h, 5a"]
+|===
+| What
+| Design of `CommandManager`, under `Logic`.
+The `CommandManager` class manages the addition and invoking of `Commands` in *Horo*.
+
+| Why
+| This feature serves to make it very simple for future developers to add new commands.
+It was also designed to be very extensible for developers to build upon it.
+
+| Highlights
+|
+- `CommandBuilder` is an application programming interface (API) for adding new commands.
+- `CommandParser` parses user input using a finite state machine (FSM).
+
+| Functional Code
+|
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/CommandManager.java[CommandManager],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/CommandBuilder.java[CommandBuilder],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/parser/CommandParser.java[CommandParser]
+
+| Test Code
+|
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/CommandManagerTest.java[CommandManagerTest],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/parser/CommandParserTest.java[CommandParserTest]
+
+| Credits
+| Design Patterns: Elements of Reusable Object-Oriented Software (1994) by The "Gang of Four".
+|===
+
+==== Minor Contribution
+
+[cols="1h, 5a"]
+|===
+| What
+| Implementation of `AddEventCommand`, `DeleteEventCommand` and `EditEventCommand`.
+
+| Why
+| These commands allow the user to create, modify and delete events in Horo!
+
+| Functional Code
+|
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/AddEventCommand.java[AddEventCommand],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/DeleteEventCommand.java[DeleteEventCommand],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/EditEventCommand.java[EditEventCommand]
+
+| Test Code
+|
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/AddEventCommandTest.java[AddEventCommandTest],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteEventCommandTest.java[DeleteEventCommandTest],
+https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/EditEventCommandTest.java[EditEventCommandTest]
+
+|===
+
+==== Other Contributions
+
+[cols="1h, 5a"]
+|===
+| Project Management
+|
+- Managed all https://github.com/AY1920S1-CS2103T-F12-1/main/releases[releases] (v1.1 - v1.4)
+- Integration of my team’s code:
+https://github.com/AY1920S1-CS2103T-F12-1/main/pull/49#pullrequestreview-299621979[#49]
+https://github.com/AY1920S1-CS2103T-F12-1/main/pull/86#discussion_r338410745[#86]
+https://github.com/AY1920S1-CS2103T-F12-1/main/pull/132[#132]
+
+| Community
+|
+- Give suggestions to a team member: https://github.com/AY1920S1-CS2103T-F12-1/main/pull/52#issuecomment-539463845[#52]
+- Report bugs to a team member:
+https://github.com/AY1920S1-CS2103T-F12-1/main/pull/72#issuecomment-542713626[#72]
+
+| Tools
+| Integrated a third party library https://github.com/skyscreamer/JSONassert[JSONAssert], to help with JSON unit testing.
+https://github.com/AY1920S1-CS2103T-F12-1/main/pull/223/commits/4b1e2808bdc1477d9ae4e934415b5ff46333352f[#223]
+
+| Code Contribution
+| https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weomucat&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WeomuCat&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[RepoSense]
+|===
+
+<<<
+
+==== User Guide Contributions
+****
+Below are excerpts taken from the User Guide, written by me.
+****
+
+=== 3. Features
+====
+*Command Format for Horo*
+
+* You can enter a command by typing the command name first followed by arguments of the command.
+- E.g. `*command_name* <argument1> <argument2>...`
+
+* If you want to type an argument containing blank spaces, surround your sentence within quotation marks.
+- E.g. `"Buy Groceries"`
+- E.g. `*add_task* "Buy Groceries"`
+
+* Command parameters are prefixed by `--`, and they are optional.
+- E.g. `*--date* 09/2019`
+- E.g. `*calendar* *--date* 09/2019`
+====
+
+====
+*Command Format for this User Guide*
+
+* Arguments are fully capitalized which are to be supplied by you.
+- E.g. `*add_task* TASK`
+
+* Arguments suffixed with ellipsis (`...`) indicate that the argument can be entered zero or more times.
+- E.g. `*delete_task* INDEX...`
+
+* Parameters separated by a vertical bar `|` can be used interchangeably.
+- e.g. given the command format `-d|--description DESCRIPTION`, the following inputs accomplish the same thing:
+- `*--description* "Buy Groceries"`
+- `*-d* "Buy Groceries"`
+====
+
+<<<
+
+=== 3.2.1. Adding Events
+
+.Add Event Command
+image::AddEventCommandScreenShot.png[]
+
+You may use the `add_event` command to add an event to the calendar.
+
+Command Format: +
+`*add_event* DESCRIPTION START_DATE`
+
+Command Parameters: +
+`*--end* END_DATE` +
+`*--remind* REMIND_DATE` +
+`*--tag* TAG...`
+
+Argument Format: +
+`START_DATE` : `"DD/MM/YYYY HH:MM"` +
+`END_DATE` : `"DD/MM/YYYY HH:MM"` +
+`REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
+
+Examples: +
+`*add_event* "Roris Birthday" "18/08/2019 16:00"` +
+`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00"` +
+`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00" *--remind* "18/08/2019 12:00" *--tag* Birthday Rori`
+
+<<<
+
+=== 3.2.2. Deleting Events
+
+.Delete Event Command
+image::DeleteEventCommandScreenShot.png[]
+
+You may use the `delete_event` command to delete one or more events from the calendar. +
+
+Command Format: +
+`*delete_event* INDEX...`
+
+Command Parameters: +
+`*--tag* TAG...` +
+
+Remarks: +
+Events which match both `INDEX` and `TAG` will be deleted. +
+`INDEX` can be found on the event's top right corner.
+
+Examples: +
+`*delete_event* 1` +
+`*delete_event* 1 2 3` : Deletes events 1, 2 and 3. +
+`*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`. +
+`*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`. +
+`*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
+
+<<<
+
+==== Developer Guide Contributions
+****
+Below are excerpts taken from the Developer Guide, written by me.
+****
+
+[[Design-CommandManager]]
+=== 3.3 CommandManager Component
+
+The `CommandManager` class manages the addition and invoking of `Commands` in Horo.
+
+.Class diagram of CommandManager
+image::CommandManagerClassDiagram.png[CommandManager, 550]
+
+Referring to the diagram above, it performs the following operations:
+
+. Listen for user input in `onCommandInput()`.
+. Pass the user input to `commandParser`, to obtain a `Command`.
+. Execute the `Command` and obtain a `UserOutput`.
+. Notify all `userOutputListeners` about the `UserOutput`.
+
+<<<
+
+To give a more concrete example of how `CommandManager` functions, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::CommandManagerAddTaskSequenceDiagram.png[]
+
+=== 3.3.2 CommandParser
+
+`CommandParser` is trying to tokenize any command input into one command keyword, and zero or more command phrases.
+(i.e. `[keyword] [phrase] [phrase] [phrase] ...`).
+To understand how the FSM works, study the activity diagram below:
+
+.Activity diagram of CommandParser
+image::CommandParserActivityDiagram.png[CommandParser, 300]
+
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Use `String.split()` to break up command input into tokens.
+| Implement a FSM to break up command input into tokens.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Split the command input by whitespaces, into words. The first word will be the *command keyword*.
+All subsequent words will have to be joined into *command phrases*.
+| Create a `State` class, and design a state diagram to tokenize the command input into a *command keyword* and *command phrases*.
+
+| Evaluation
+| I did not choose this option because:
+
+Joining words into command phrases can become quite complex, especially when introducing quotation marks.
+
+Additionally, it is difficult for future developers to maintain and extend logic like this.
+| *I chose this option because:*
+
+A state machine is easy to understand and configure.
+
+A state machine can tokenize complex command inputs, allowing future developers to parse advanced command inputs.
+|===
+
+=== 3.3.4 CommandBuilder
+
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command phrases, and eventually create a `Command` using those phrases.
+
+.Class diagram of CommandBuilder
+image::CommandBuilderClassDiagram.png[]
+
+Referring to the diagram above, the definition the command is implemented in two methods:
+
+. `defineCommandArguments()`
+. `defineCommandOptions()`
+
+...
+
+To understand how `CommandBuilder` works, study the activity diagram below:
+
+.Activity diagram of CommandBuilder
+image::CommandBuilderActivityDiagram.png[CommandBuilder, 300]
+
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Each `Command` is created by parsing user input using it's own `Parser`.
+| Each `Command` is defined by a `CommandBuilder`, and created by a `CommandParser`.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Implement a utility class which can parse user input into arguments. Use this class in each command parser.
+| Implement `CommandBuilder` which can build a `Command` with any number of arguments. Commands provide what arguments they require.
+
+| Evaluation
+| I did not choose this option because:
+
+Each command parser will need to implement logic to use the utility class, handle argument checking and parsing errors.
+
+It is difficult for future developers to create, extend and test `Commands`.
+| *I chose this option because:*
+
+Each `Command` does not require any logic, only arguments are required to be defined.
+
+Since all logic is in `CommandBuilder`, it is simple for developers to test.
+|===

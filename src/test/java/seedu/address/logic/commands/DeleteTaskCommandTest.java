@@ -22,13 +22,13 @@ public class DeleteTaskCommandTest {
         String[] tags = new String[]{"a", "b", "c"};
 
         assertDoesNotThrow(() -> DeleteTaskCommand.newBuilder(null)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
-            .acceptSentence(tags[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
+            .acceptPhrase(tags[2])
             .build());
     }
 
@@ -71,9 +71,9 @@ public class DeleteTaskCommandTest {
         assertEquals(5, model.getTasks().size());
 
         assertDoesNotThrow(() -> DeleteTaskCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
             .build()
             .execute());
 
@@ -95,9 +95,9 @@ public class DeleteTaskCommandTest {
         assertEquals(2, model.getTasks().size());
 
         assertThrows(CommandException.class, () -> DeleteTaskCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(indexes[2])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(indexes[2])
             .build()
             .execute());
 
@@ -122,9 +122,9 @@ public class DeleteTaskCommandTest {
         assertEquals(5, model.getTasks().size());
 
         assertDoesNotThrow(() -> DeleteTaskCommand.newBuilder(model)
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 
@@ -155,11 +155,11 @@ public class DeleteTaskCommandTest {
         assertEquals(5, model.getTasks().size());
 
         assertDoesNotThrow(() -> DeleteTaskCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 
@@ -190,11 +190,11 @@ public class DeleteTaskCommandTest {
         assertEquals(5, model.getTasks().size());
 
         assertThrows(CommandException.class, () -> DeleteTaskCommand.newBuilder(model)
-            .acceptSentence(indexes[0])
-            .acceptSentence(indexes[1])
-            .acceptSentence(OPTION_TAGS)
-            .acceptSentence(tags[0])
-            .acceptSentence(tags[1])
+            .acceptPhrase(indexes[0])
+            .acceptPhrase(indexes[1])
+            .acceptPhrase(OPTION_TAGS)
+            .acceptPhrase(tags[0])
+            .acceptPhrase(tags[1])
             .build()
             .execute());
 
