@@ -1,9 +1,8 @@
 package mams.logic.commands;
 
+import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
 import static mams.logic.commands.CommandTestUtil.assertCommandFailure;
 import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
-
-import static mams.logic.commands.AddModCommand.MESSAGE_STUDENT_ADD_MOD;
 import static mams.logic.commands.RemoveModCommand.MESSAGE_STUDENT_REMOVE_MOD;
 import static mams.logic.commands.SetCredits.MESSAGE_STUDENT_CREDIT_CHANGE;
 
@@ -16,17 +15,17 @@ import static mams.testutil.TypicalMams.getTypicalMams;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import mams.model.appeal.Appeal;
-import mams.model.module.Module;
-import mams.model.student.Credits;
-import mams.model.student.Student;
-import mams.model.tag.Tag;
-
 import org.junit.jupiter.api.Test;
 
 import mams.model.Model;
 import mams.model.ModelManager;
 import mams.model.UserPrefs;
+
+import mams.model.appeal.Appeal;
+import mams.model.module.Module;
+import mams.model.student.Credits;
+import mams.model.student.Student;
+import mams.model.tag.Tag;
 
 import java.util.ArrayList;
 import java.util.HashSet;
