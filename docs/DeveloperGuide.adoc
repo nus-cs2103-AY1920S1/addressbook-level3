@@ -237,7 +237,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/[[Package\]]
 [[Design-Model]]
 === Model component
 
-The `Model` API is responsible for interacting with the data in JARVIS including
+The `Model` API is responsible for interacting with the data in `Jarvis` including
 the various aspects such as user's preferences, command history,
 finance management, cca information, courses and schedule information.
 
@@ -290,7 +290,7 @@ Below is a class diagram of `StorageManager`.
 .`StorageManager` class
 image::storage/UpdatedStorageClassDiagram.png[]
 
-Each feature of JARVIS is able to save its information to local storage
+Each feature of `Jarvis` is able to save its information to local storage
 in `JSON` format, by adapting each feature component into
 `JsonSerializable{Component Name}` class.
 
@@ -346,7 +346,7 @@ implemented.
 
 === Undo / Redo Feature
 
-This section covers in detail the undo/redo feature of JARVIS.
+This section covers in detail the undo/redo feature of `Jarvis`.
 
 We will cover these main points:
 
@@ -1301,7 +1301,7 @@ Does not require predicates to be passed in.
 Might be more complicated when rendering in Javafx.
 
 We ultimately went with alternative #1 as it provided better support for
-rendering when implementing the Ui of JARVIS.
+rendering when implementing the Ui of `Jarvis`.
 
 === Planner Feature
 
@@ -1622,18 +1622,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `JARVIS` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the ``Jarvis`` and the *Actor* is the `user`, unless specified otherwise)
 [discrete]
 === Use case: Set tabs in finance tracker
 
 *MSS*
 
 1. User inputs amount paid and the names of people who he paid for
-2. JARVIS calculates equal tab for all names including user
-3. JARVIS stores individual tabs for names input
-4. JARVIS prompts user that tabs have been added
+2. `Jarvis` calculates equal tab for all names including user
+3. `Jarvis` stores individual tabs for names input
+4. `Jarvis` prompts user that tabs have been added
 5. User requests to see list of debts owed to him
-6. JARVIS shows list of debts
+6. `Jarvis` shows list of debts
 +
 Use case ends.
 
@@ -1643,9 +1643,9 @@ Use case ends.
 *MSS*
 
 1. User requests to list tasks in planner
-2. JARVIS shows lists of tasks in planner
+2. `Jarvis` shows lists of tasks in planner
 3. User requests to mark a certain task as done
-4. JARVIS finds task and marks it as done
+4. `Jarvis` finds task and marks it as done
 +
 Use case ends.
 
@@ -1664,9 +1664,9 @@ Use case resumes at step 2.
 *MSS*
 
 1. User adds a project meeting into planner
-2. JARVIS adds meeting into planner
+2. `Jarvis` adds meeting into planner
 3. User requests to undo project meeting
-4. JARVIS rolls backs back the command
+4. `Jarvis` rolls backs back the command
 +
 Use case ends.
 
@@ -1676,7 +1676,7 @@ Use case ends.
 *MSS*
 
 1. User requests to for the prerequisite tree of a certain module
-2. JARVIS shows the prerequisite tree
+2. `Jarvis` shows the prerequisite tree
 +
 Use case ends.
 
@@ -1692,19 +1692,19 @@ Use case resumes at step 1.
 [appendix]
 == Non Functional Requirements
 
-. JARVIS should work on any mainstream OS as long as it has Java 11 or
+. `Jarvis` should work on any mainstream OS as long as it has Java 11 or
   above installed.
 
 . A user with above average typing speed for regular English text (i.e. not
   code, not system admin commands) should be able to accomplish most of the
   tasks faster using commands than using the mouse.
 
-. JARVIS should respond within two seconds.
+. `Jarvis` should respond within two seconds.
 
-. JARVIS should be usable by a novice who has never used a command line
+. `Jarvis` should be usable by a novice who has never used a command line
   interface.
 
-. JARVIS should be able to work without any internet connection.
+. `Jarvis` should be able to work without any internet connection.
 
 [appendix]
 == Glossary
