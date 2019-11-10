@@ -1,5 +1,7 @@
 package io.xpire.logic.commands;
 
+import static io.xpire.commons.core.Messages.MESSAGE_EMPTY_LIST;
+
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.Model;
@@ -39,5 +41,11 @@ public abstract class Command {
      */
     public void setShowInHistory(boolean showInHistory) {
         this.showInHistory = showInHistory;
+    }
+
+    protected void requireNonEmptyCurrentList(Model model) throws CommandException {
+        if (model.getCurrentList().isEmpty()) {
+            throw new CommandException(MESSAGE_EMPTY_LIST);
+        }
     }
 }

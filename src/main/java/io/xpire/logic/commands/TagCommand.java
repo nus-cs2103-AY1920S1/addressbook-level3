@@ -93,7 +93,9 @@ public class TagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        requireAllNonNull(model);
+        requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
+
         switch (this.mode) {
         case TAG:
             return executeAddTags(model, stateManager);
