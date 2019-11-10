@@ -1752,6 +1752,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort d/DESC n/ASC` +
    Expected: Spending entries are sorted in Date
 
+=== Changing the displayed currency
+
+. Changing the displayed currency in the application
+
+.. Prerequisites: The currency should be in SGD and the spending list should have some items to display the full capability of this function as well.
+.. Test case: `currency USD` +
+   Expected: The application currency is changed to USD.
+.. Test case: `currency SGD` +
+   Expected: If the application was in SGD, an error message is shown saying that SGD is the currency in use.
+
+=== Viewing exchange rate or conversion rate
+
+. Views the exchange rate of all currencies, or converts a particular currency to SGD
+
+.. Test case: `exchangerate 5 USD` +
+   Expected: 5 USD is converted to SGD based on stored exchange rates and its equivalent amount is displayed.
+.. Test case: `exchangerate` +
+   Expected: All exchange rates stored by the application are displayed.
+
 _{ more test cases ... }_
 
 === Importing Spending Data
