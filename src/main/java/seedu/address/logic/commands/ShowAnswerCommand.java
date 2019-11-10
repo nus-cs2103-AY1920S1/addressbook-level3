@@ -12,10 +12,10 @@ import seedu.address.model.Model;
 public class ShowAnswerCommand extends Command {
 
     public static final String COMMAND_WORD = "ans";
-    public static final String MESSAGE_SHOW_ANSWER_SUCCESS = "Answer displayed! "
-        + "Please rate the FlashCard easy/good/hard.";
     public static final String ERROR_MESSAGE = "Answer has already been displayed!\n"
             + "Next available command: rate, end";
+    private static final String MESSAGE_SHOW_ANSWER_SUCCESS = "Answer displayed! "
+            + "Please rate the FlashCard easy/good/hard.";
 
     private final KeyboardFlashCardsParser keyboardFlashCardsParser;
 

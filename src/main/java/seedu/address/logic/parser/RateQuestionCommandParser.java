@@ -25,14 +25,12 @@ public class RateQuestionCommandParser implements Parser<RateQuestionCommand> {
      * and returns a RateQuestionCommand object for execution.
      */
     public RateQuestionCommand parse(String args) throws ParseException {
-        String getFirstWord = args.trim().split("\\s+")[0];
-        switch (getFirstWord) {
-        case Rating.EASY:
-        case Rating.GOOD:
-        case Rating.HARD:
-            return new RateQuestionCommand(keyboardFlashCardsParser, new Rating(getFirstWord));
-        default:
+        String rating = args.trim().split("\\s+")[0];
+        if (!rating.equals(Rating.EASY)
+                && !rating.equals(Rating.GOOD)
+                && !rating.equals(Rating.HARD)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RateQuestionCommand.MESSAGE_USAGE));
         }
+        return new RateQuestionCommand(keyboardFlashCardsParser, new Rating(rating));
     }
 }
