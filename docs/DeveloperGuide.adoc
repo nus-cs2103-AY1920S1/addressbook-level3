@@ -252,45 +252,54 @@ The undo/redo feature allows you to undo a command that you have made or redo a 
 
 ==== Implementation
 
-You can find the core of undo/redo in the undo/redo history of `ModelManager`.
-The history stores `UndoableCommands`, and an `UndoCommand` or `RedoCommand` will `undo()` or `redo()` commands in the history.
-The design of `UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
+You can find the core of undo/redo in the undo/redo history of [purple]`ModelManager`.
+The history stores [purple]`UndoableCommands`, and an [purple]`UndoCommand` or [purple]`RedoCommand` will [purple]`undo()` or [purple]`redo()` commands in the history.
+The design of [purple]`UndoableCommand` uses the Command pattern, a common design pattern often used in software engineering.
 It allows each individual command to be undone/redone at a high-level without needing the specific command type to be known.
 Classes related to undo/redo and their relationships are shown in Figure 11.
 
 .Class Diagram Showing the Architecture of Undo/Redo
 image::UndoClassDiagram.png[]
 
-===== Storing executed and undone commands
+===== Architecture
 
-To start off, you will find two instances of `CommandHistory` in `ModelManager`. They are  stored internally as `commandHistory` and `undoHistory`.
-`commandHistory` stores previously executed commands while `undoHistory` stores previously undone commands.
-`CommandHistory` wraps a `Deque<UndoableCommand>`. Its methods imposes a `MAX_SIZE` which determines how many commands can be stored in the command history.
+To start off, you will find two instances of [purple]`CommandHistory` in [purple]`ModelManager`. They are  stored internally as [purple]`commandHistory` and [purple]`undoHistory`.
+[purple]`commandHistory` stores previously executed commands while [purple]`undoHistory` stores previously undone commands.
+[purple]`CommandHistory` wraps a [purple]`Deque<UndoableCommand>`. Its methods imposes a [purple]`MAX_SIZE` which determines how many commands can be stored in the command history.
 
-In `ModelManager`, four key operations to access and modify `CommandHistory` are implemented:
+In [purple]`ModelManager`, four key operations to access and modify [purple]`CommandHistory` are implemented:
 
-* `ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of `commandHistory`.
-* `ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to `commandHistory` and returns it.
-* `ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of `undoHistory`.
-* `ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to `undoHistory` and returns it.
+* [purple]`ModelManager#addExecutedCommand(UndoableCommand command)` -- Adds a command that was executed to the start of [purple]`commandHistory`.
+* [purple]`ModelManager#getExecutedCommand()` -- Removes the last command that was executed and added to [purple]`commandHistory` and returns it.
+* [purple]`ModelManager#addUndoneCommand(UndoableCommand command)` -- Adds a command that was undone to the start of [purple]`undoHistory`.
+* [purple]`ModelManager#getUndoneCommand()` -- Removes the last command that was undone and added to [purple]`undoHistory` and returns it.
 
-In the `Model` interface implemented by `ModelManager`, these four operations are respectively exposed as
-`Model#addExecutedCommand(UndoableCommand command)`, `Model#getExecutedCommand()`, `Model#addUndoneCommand(UndoableCommand command)`, and `Model#getUndoneCommand()`.
+In the [purple]`Model` interface implemented by [purple]`ModelManager`, these four operations are respectively exposed as
+[purple]`Model#addExecutedCommand(UndoableCommand command)`, [purple]`Model#getExecutedCommand()`, [purple]`Model#addUndoneCommand(UndoableCommand command)`, and [purple]`Model#getUndoneCommand()`.
 
-===== Command pattern
-Next, the `UndoableCommand` stored in the `Model` is actually a normal `Command` that changes program state.
-The `UndoableCommand` class is an abstract class that extends the abstract `Command` class, as shown in Figure 11. Commands like `AddCommand` or `UpdateCommand` extends `UndoableCommand` instead of `Command`.
-Commands that don't change the user-visible program state, like `find`, can still inherit directly from `Command`.
+Next, the [purple]`UndoableCommand` stored in the [purple]`Model` is actually a normal [purple]`Command` that changes program state.
+The [purple]`UndoableCommand` class is an abstract class that extends the abstract [purple]`Command` class, as shown in Figure 11. Commands like [purple]`AddCommand` or [purple]`UpdateCommand` extends [purple]`UndoableCommand` instead of [purple]`Command`.
+Commands that don't change the user-visible program state, like [purple]`FindCommand`, can still inherit directly from [purple]`Command`.
 
-Here is where the Command pattern comes in. A class extending `UndoableCommand` must implement an additional method, `UndoableCommand#undo(Model model)`. This means that every child class of `UndoableCommand` has a custom `undo` implementation.
+Here is where the Command pattern comes in. A class extending [purple]`UndoableCommand` must implement an additional method, [purple]`UndoableCommand#undo(Model model)`. This means that every child class of [purple]`UndoableCommand` has a custom `undo` implementation.
 
-``UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+[purple]`UndoableCommand#redo(Model model)` is a concrete implementation of the `redo` mechanism and is inherited by all child classes.
+
+Lastly, undo/redo is initiated when user input creates an [purple]`UndoCommand` or [purple]`RedoCommand`. When either of them are executed, they respectively get the last
+executed or undone command from the [purple]`CommandHistory` in [purple]`ModelManager`. As the retrieved command is an instance of [purple]`UndoableCommand`, an attempt will be made to execute [purple]`UndoableCommand#undo(Model model)` or [purple]`UndoableCommand#redo(Model model)`.
+If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
+
+This is the mechanism of undo/redo, from start to end.
+Below is an example of a usage scenario to help you visualise how undo/redo works.
+
+The sequence diagram below shows how an undo command works to undo a [purple]`ClearCommand`:
+
+.Sequence Diagram Showing a ClearCommand Being Undone
+image::UndoClearSequenceDiagram.png[]
 
 ===== Defensive programming
-When an `UndoableCommand` is executed or undone, it is added to the `commandHistory` or `undoHistory` of `ModelManager` respectively.
-Therefore, an `UndoableCommand` should not be undone before it was executed or redone before it was undone.
-To defend against improper undoing or redoing, an `UndoableCommand` will not be added to a CommandHistory list unless it has been executed or undone before.
-Additionally, `UndoableCommand` contains a small inner class, the enumeration `UndoableCommandState` which allows an `UndoableCommand` to have its state set to any value in the enumeration.
+To defend against improper undoing or redoing, an [purple]`UndoableCommand` can only be added to the [purple]`commandHistory` or [purple]`undoHistory` of [purple]`ModelManager` through its [purple]`execute()` or [purple]`undo()` method.
+Additionally, [purple]`UndoableCommand` contains a small inner class, the enumeration [purple]`UndoableCommandState` which allows an [purple]`UndoableCommand` to have its state set to any value in the enumeration.
 The values are as shown below.
 ----
     /**
@@ -301,7 +310,7 @@ The values are as shown below.
     }
 ----
 
-Before a command is undone or redone, the command's state is checked for validity. An example is shown below in the `redo()` method.
+Before a command is undone or redone, the command's state is checked for validity. An example is shown below in the [purple]`redo()` method.
 ----
     /**
      * Re-executes an UndoableCommand if it had been previously undone.
@@ -313,25 +322,13 @@ Before a command is undone or redone, the command's state is checked for validit
         return execute(model);
     }
 ----
-As shown in the code snippet, when an `UndoableCommand` is redone, the method first checks that its state was set to `UNDOABLE`.
-These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
-Therefore, it is unlikely that an `UndoableCommand` will be unwittingly undone or redone in error.
+As shown in the code snippet, when an [purple]`UndoableCommand` is redone, the method first checks that its state was set to [purple]`UNDOABLE`.
+These states are only changed when a [purple]`Command#execute(Model model)` or [purple]`UndoableCommand#undo(Model model)` has successfully executed.
+Therefore, it is unlikely that an [purple]`UndoableCommand` will be unwittingly undone or redone in error.
 
-Lastly, undo/redo is initiated when user input creates an `UndoCommand` or `RedoCommand`. When either of them are executed, they respectively get the last
-executed or undone command from the `CommandHistory` in `ModelManager`. As the retrieved command is an instance of `UndoableCommand`, an attempt will be made to execute `UndoableCommand#undo(Model model)` or `UndoableComman#redo(Model model)`.
-If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
+If a `redo` command was executed afterwards, the [purple]`ClearCommand` would simply be executed again.
 
-This is the mechanism of undo/redo, from start to end.
-Below is an example of a usage scenario to help you visualise how undo/redo works.
-
-The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
-
-.Sequence Diagram Showing a ClearCommand Being Undone
-image::UndoClearSequenceDiagram.png[]
-
-If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
-
-The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the execution of `undo()`.
+The following activity diagram shows what happens when a user executes a new [purple]`UndoableCommand`. In this case, it is the [purple]`ClearCommand` being undone. The control flow is similar for other [purple]`UndoableCommands`; they only differ in the execution of [purple]`undo()`.
 
 .Activity Diagram Showing the Execution Control Flow of a Command
 image::CommandProcessActivityDiagram.png[]
@@ -387,93 +384,70 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 ===== Aspect: Storing executed/undone commands
 
-* **Alternative 1 (current choice):** Store `UndoableCommand`(s) only.
+* **Alternative 1 (current choice):** Store [purple]`UndoableCommand`(s) only.
 ** Pros:
     *** Logic can be reused for both executed and undone commands.
     *** Easy to implement.
     *** Uses less space.
 ** Cons:
-    *** Loses some information about `Commands` that were previously executed.
-* **Alternative 2:** Store all `Commands`.
+    *** Loses some information about [purple]`Commands` that were previously executed.
+* **Alternative 2:** Store all [purple]`Commands`.
 ** Pros:
     *** No loss of information.
 ** Cons:
     *** Harder to implement. Requires differentiating between commands that have been undone and executed commands.
-    *** Needs extra space to store non-`UndoableCommand`(s) even though they are useless for undo/redo.
+    *** Needs extra space to store non-[purple]`UndoableCommand`(s) even though they are useless for undo/redo.
 
 // end::undoredo[]
 
 === Notification Feature
-This feature in Mortago acts as a reminder to a mortuary manager to contact the police when the next-of-kin of a body
-has been uncontactable for a given period of time. He / She then needs to contact the police to proceed with a
+This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
+has been not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
+to
+contact
+the police
+to
+proceed with a
 more thorough investigation. In Singapore, this period is 24 hours. For testing purposes, it has been set to
 10 seconds in Mortago.
 
-If the status of a `Body` is `ARRIVED` after the 10 second window, it is updated to `CONTACT_POLICE` and a
-pop-up alert is displayed to remind regarding the same.
+If the status of a `Body` is `ARRIVED` after 10 seconds, it is updated to `CONTACT_POLICE` and a
+pop-up alert is displayed to remind the user.
+
+[TIP]
+If you want to change the time period, you can do so by modifying `NOTIF_PERIOD` and `NOTIF_TIME_UNIT` variables in
+AddCommand.java.
+
+==== Implementation
 
 This command is supported by the model component `Notif` and logic component `NotifCommand`.
 
 In `Notif` command, the following are the key private variables:
 
-* `body`: Refers to the `Body` for which the `Notif` is associated with. This is passed in as a parameter when a new
-object of the class is instantiated.
+* `body`: Refers to the `Body` for which the `Notif` is created. This is passed in as a parameter when a new
+instance of the class is instantiated.
 
 * `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
 changes it to `CONTACT_POLICE`.
 
-* `notifCreationTime`: Refers to a `Date` object which store the date and time at the point of addition of the body.
+* `notifCreationTime`: Refers to a `Date` object which stores the date and time at the point of addition of the body.
 
 The constructor of a `NotifCommand` must be provided with the following parameters:
 
-* `notif`: Refers to the the instance of the `Notif` which needs to be handled.
+* `notif`: Refers to the instance of the `Notif` which is handled by the `NotifCommand`.
 
 * `period`: Refers to a `long` value for which the NotifCommand needs to wait before executing the `alert` function
 of the `notif`. `long` is used because `notifCreationTime.getTime()` returns a `long` which is useful in storage.
- It will be explained in futher detail later.
+It will be explained in further detail later. Currently, this value is set to `10`.
 
-* `timeUnit`: Refers to a `TimeUnit` associated with the `period`.
+* `timeUnit`: Refers to a `TimeUnit` associated with the `period`. Currently, this value is set to `TimeUnit.SECONDS`.
 
-==== Current Implementation
-Given below is the typical execution process of this command:
+The following class diagram (Figure 14) models the relationships and dependencies among classes in this feature:
 
-1. The user executes `add -b /name John ...` to add a new `Body` to Mortago.
-2. The `AddCommand` creates a new `Notif` using this `Body` as the parameter.
-3. The `AddCommand` instantiates a new `NotifCommand` with `Notif`, `period`, `unit` as parameters.
-`period` is as a `static final long` equal to 10 and `unit` is `static final TimeUnit` set to `TimeUnit.SECONDS` in `AddCommand`.
-4. `NotifCommand` has a static instance of the `ScheduledExecutorService` which schedules updating the status of the
-bodies to `CONTACT_POLICE` if there is no change in their status for the specified `period` using the `UpdateCommand`.
-5. After the `BodyStatus` is updated, a `NotifWindow` will be shown to alert the user of the automatic update in
-`BodyStatus`.
+.Notification Class Diagram
+image::NotifCommandClassDiagram.png[]
 
-Here is the code snippet of the `NotifCommand`:
-```
-Body body = notif.getBody();
-String notifContent = "Body Id: " + body.getIdNum()
-+ "\nName: " + body.getName()
-+ "\nNext of Kin has been uncontactable. Please contact the police";
-
-Runnable changeUi = () -> Platform.runLater(() -> {
-    if (body.getBodyStatus().equals(Optional.of(CONTACT_POLICE))) {
-        UpdateCommand up = new UpdateCommand(body.getIdNum(), new UpdateBodyDescriptor(body));
-        up.setUpdateFromNotif(true);
-        try {
-            up.execute(model);
-            NotifWindow notifWindow = new NotifWindow();
-            notifWindow.setTitle("Contact Police!");
-            notifWindow.setContent(notifContent);
-            notifWindow.display();
-            storageManager.saveAddressBook(model.getAddressBook());
-        } catch (CommandException | IOException e) {
-            logger.info("Error updating the body and fridge ");
-        }
-    }
-    NotificationButton.getInstanceOfNotifButton().setIconNumber(model.getNumberOfNotifs());
-});
-ses.schedule(changeUi, period, timeUnit);
-```
-
-The following sequence diagrams illustrate the execution of the notification feature:
+The following sequence diagrams (Figure 15 and 16) illustrate the execution of the notification feature:
 
 .Notification Command Sequence Diagram
 image::NotifCommandSequenceDiagram.png[]
@@ -481,10 +455,12 @@ image::NotifCommandSequenceDiagram.png[]
 .ChangeUI function Sequence Diagram
 image::ChangeUiFnSequenceDiagram.png[]
 
-The following activity diagram shows what happens when a user adds a new body and the `NotifCommand` is instantiated:
+The following activity diagram summarizes what happens when a user adds a new body and a `NotifCommand` is
+instantiated:
 
 .Notification Command Activity Diagram
 image::NotifCommandActivityDiagram.png[]
+
 
 |===
 a|[TIP]
@@ -494,11 +470,16 @@ executed. The `Notif` is scheduled to be executed after the specified `period` f
 status of the body was updated.
 |===
 
-This command supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
-`notifCreationTime` are stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, all
-the `Notif` stored will be added in the `model`. During this process, for each `Notif`, the difference of the current system
-time and `notifCreationTime` is calculated. If it is more than the `period`, then the status of the associated `Body` is
+===== Storing executed and pending `Notifs`
+`NotifCommand` supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
+`notifCreationTime` is stored in a JSON file along with the other `Entities`. When the `MainApp` is initialized, the
+following happens:
+
+1. All the `Notif` (s) are fetched from the storage.
+2. For each `Notif`, the difference of the  current system time and `notifCreationTime` is calculated.
+3. If the difference is more than the `period`, then the status of the associated `Body` is
 changed to `CONTACT_POLICE`. Otherwise, the `NotifCommand` is scheduled to be executed after the calculated time difference.
+4. The `Notif` is added to the model.
 
 |===
 
@@ -506,9 +487,53 @@ a|[TIP]
 *When is the `NotifCommand` not executed?*
 a|* If the status of the `Body` is changed before the 10 second window.
 * If the `Body` is deleted before the time period.
+* If the difference between `notifCreationTime` and system time is more than `period` when the app is initialized.
 
 |===
 
+===== Defensive programming
+
+The `NotifCommand` heavily makes use of the `ScheduledExecutorService` and `Platform.runLater(Runnable runnable)` to
+make changes to the `Body` status and `Notif`. They use threading to allow tasks to be handled concurrently. For instance,
+even after scheduling a `Runnable` function, the user is still able to carry on with other commands of Mortago such
+as updating the status of the `Body`, adding a new `Fridge` etc.
+
+As per the official Java Documentation, `Platform.runLater(Runnable runnable)` runs the specified runnable function
+on a thread dedicated to JavaFX application at some unspecified time in the future. So,
+if some updates to the model are wrapped inside it as a `Runnable` while others are not, it can result in a
+mismatch of model. For instance, you may want to delete a `Notif` which already exists in the model. The usual
+process will be to first check whether it exists and if it does, then proceed with deletion. However, due to
+threading, you may end up in a situation when the app finds the `Notif` at the point of checking but throws a
+`NullPointerException` when proceeding with the deletion.
+
+To prevent this, in Mortago, any addition or deletion of `Notif` in the model during the execution of the
+`NotifCommand` and parts of `UpdateCommand` are wrapped inside `Platform.runLater(Runnable runnable)`. This ensures
+that updates to the model happen sequentially and not concurrently and the relevant changes can be reflected on the
+UI.
+
+Moreover, all these operations are wrapped inside a try-catch block. Either the `NullPointerException` or
+`DuplicateNotifException` are directly thrown in the form of `CommandException` or they are logged in `Logger`. A
+code snippet of `NotifCommand` to illustrate this is show below:
+
+```
+ if (model.hasNotif(notif)) {
+    try {
+        model.deleteNotif(notif);
+    } catch (NullPointerException exp) {
+        logger.info(MESSSAGE_NOTIF_DOES_NOT_EXIST);
+    }
+}
+
+Platform.runLater(() -> {
+    if (!model.hasNotif(notif)) {
+        try {
+            model.addNotif(notif);
+        } catch (DuplicateNotifException exp) {
+            logger.info(MESSAGE_DUPLICATE_NOTIF);
+        }
+    }
+});
+```
 
 ==== Design Considerations
 ===== Aspect: How to delay change in BodyStatus
@@ -520,14 +545,22 @@ a|* If the status of the `Body` is changed before the 10 second window.
 ** Pros: Straightforward way to delay a thread.
 ** Cons: May quickly run into OutOfMemory error.
 
-==== Aspect: How to reflect change in BodyStatus on UI
-* **Alternative 1 (current choice):** Use `UpdateCommand`.
-** Pros: Easy to implement.
-** Cons: Increases `NotifCommand`'s dependency.
+Alternative 1 is the current choice because of its simplicity and robustness as it abstracts away the need
+to manually deal with threads.
 
-* **Alternative 2:** Directly make changes to the model.
-** Pros: Does not increase dependency .
-** Cons: Cause a lot of repetition of code.
+==== Aspect: How the behaviour of `NotifCommand` differs when the app is initialized
+* **Alternative 1 (current choice):** Do not show a pop-up if the difference between system time and
+`notifCreationTime` exceeds `period` .
+** Pros: Prevents the situation of multiple pop-ups on app initialization.
+** Cons: Does not prompt the user who may in turn forget to contact the police.
+
+* **Alternative 2:** Show pop-up on app initialization for `Notif` s in storage for which the difference between system
+time and `notifCreationTime` exceeds `period`.
+** Pros: Ensures that the user does not forget about contacting the police.
+** Cons: May slow down the computer and lag the app if there are too many pop-up notifications at the same time.
+
+Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
+notification bell is placed beside the command box to prevent instances of user forgetting to contact the police.
 
 // tag::genpdf[]
 === Generate PDF Feature
@@ -535,29 +568,29 @@ This feature allows manager to automatically generate different kinds of reports
 
 ==== Implementation
 
-The generate PDF feature is facilitated by `[subheader]#ReportGenerator#` class.
+The generate PDF feature is facilitated by `[purple]#ReportGenerator#` class.
 It extends Mortago with the ability to create a report, supported by https://github.com/itext/itext7[iText external library].
 Additionally, it implements the following operations:
 
-* `[red]#ReportGenerator#generate(body, sign)#` -- Creates report containing sign name of manager in a PDF file for the specific body.
-* `[red]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registered in Mortago.
-* `[red]#ReportGenerator#generateSummary(sign)#` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
+* `[purple]#ReportGenerator#generate(body, sign)#` -- Creates report containing sign name of manager in a PDF file for the specific body.
+* `[purple]#ReportGenerator#generateAll(sign)#` -- Creates reports containing sign name of manager in a PDF file for all bodies registepurple in Mortago.
+* `[purple]#ReportGenerator#generateSummary(sign)#` -- Creates a tabular summary report containing sign name of manager  in a PDF file for all bodies registered in Mortago.
 
 The following sequence diagram (Figure 17) shows how the generate operation works:
 
 .Sequence diagram when `genReport 1 John Doe` is executed by manager.
 image::GenReportSequenceDiagram.png[]
 
-NOTE: The lifeline for `[red]#GenReportCommandParser#` and `[red]#ReportGenerator#` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `[purple]#GenReportCommandParser#` and `[purple]#ReportGenerator#` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `genReport <BODY_ID> (sign)` command calls `[red]#ReportGenerator#generate(body, sign)#`, which creates the document.
+The `genReport <BODY_ID> (sign)` command calls `[purple]#ReportGenerator#generate(body, sign)#`, which creates the document.
 
 The following activity diagram (Figure 18) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
 
 .Activity diagram when `genReport 1 John Doe` is executed by manager.
 image::GenReportActivityDiagram.png[]
 
-The following code snippet from `[red]#GenReportCommand.java#` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
+The following code snippet from `[purple]#GenReportCommand.java#` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
 
         if (bodyToGenReport == null) {
             throw new CommandException(MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
@@ -1109,6 +1142,8 @@ An employee in the mortuary
 
 [[fridge]] Fridge::
 A fridge used to store a body in the mortuary
+
+[[notif]]
 
 [[command-line-interface]] Command-Line-Interface (CLI)::
 A text-based user interface (UI) used to view and manage computer files

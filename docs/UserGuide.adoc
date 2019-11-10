@@ -100,10 +100,19 @@ Here are some information that you will need in order to interpret the various c
 
 * You must enter `ATTRIBUTES` successively in a single-line command. Mortago will not prompt you to key in any mandatory `ATTRIBUTES` that you may have missed out.
 
-* You may provide `ATTRIBUTES` specified in a command in any order.
-** For example, the following 2 commands are valid for the add command, with the abridged format: `add -b (/religion religion /status status)`.
+* `ATTRIBUTES` are provided successively in commands and Mortago will not prompt you, step by step, the `ATTRIBUTES` you need to provide.
+* `ATTRIBUTES` in parentheses are optional.
+** e.g. The following 2 commands are valid for the add command, with the abridged format: `add -b /name name (/religion religion /status status)`.
+*** `add -b /religion Buddhism`
+*** `add -b /religion Buddhism /status arrived`
+* `ATTRIBUTES` specified in a command can be given in any order.
+** e.g. The following 2 commands are valid for the add command, with the abridged format: `add -b (/religion religion /status status)`.
 *** `add -b /religion Buddhism /status arrived`
 *** `add -b /status arrived /religion Buddhism`
+* `ATTRIBUTES` that are tagged with `...` and in square parentheses must be supplied with at least one `ATTRIBUTE`.
+** For the filter command: `filter [/attributeName attributeValue ...]`::
+*** `filter /name John` and `filter /sex female` are valid commands.
+*** `filter` is an invalid command.
 
 * You are not required to provide `ATTRIBUTES` contained in parentheses.
 ** For example, the following 3 commands are valid for the add command, with the abridged format: `add -b /name name /sex sex /doa dateOfAdmission (/religion religion) (/status status)`.
@@ -152,7 +161,7 @@ This table details how you can craft your add command to add an entity in Mortag
 [cols="2,2,1"]
 |===
 
-| Adding a Worker |  Adding a Body | Adding a Fridge
+| Adding a Worker |  Adding a Fridge | Adding a Body
 
 a|
 ====
@@ -166,6 +175,20 @@ add -w +
 (/dob dateOfBirth) +
 (/photo pathToPhoto)
 ====
+
+---
+
+a|
+====
+add -f
+====
+
+[TIP]
+Default status: `UNOCCUPIED`
+
+---
+
+=======
 
 a|
 ====
@@ -186,21 +209,10 @@ add -b +
 (/fridgeId fridgeId)
 
 
-====
-
-a|
-====
-add -f
-====
-
-
-[TIP]
-Default status: `UNOCCUPIED`
-
-|===
-
 [TIP]
 Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
+|===
+
 
 Example:
 
@@ -220,13 +232,21 @@ a|
 | Worker added
 
 a|
+`add -f`
+{nbsp} +
+
+
+
+| Fridge added
+
+a|
 `add -b
 /name John Doe
 /sex male
 /dob 12/12/1984
 /dod 12/08/2019 2358
 /doa 13/08/2019 0200
-/status claimed
+/status arrived
 /nric S8456372C
 /religion Catholic
 /NOKname Jack Smith
@@ -238,14 +258,6 @@ a|
 
 
 | Body added
-
-a|
-`add -f`
-{nbsp} +
-
-
-
-| Fridge added
 
 |===
 // end::add[]
@@ -281,11 +293,13 @@ When you update `bodyStatus` to `ARRIVED`, a `Notif` pop-up will be shown after 
 There are some attributes that you can update once the entity is created. For this command,
 the list of valid attributes and their command prefixes can be found below:
 
+[cols="2,2"]
 |===
-| Entity | Attribute
 
-| Body
+| Body | Worker
+
 a|
+====
 Name `/name` +
 Sex `/sex` +
 NRIC `/nric` +
@@ -301,9 +315,10 @@ Cause of Death `/cod` +
 Details `/details` +
 Organs For Donation `/organsForDonation` +
 Fridge ID `/fridgeId` +
+====
 
-| Worker
 a|
+====
 Phone Number `/phone` +
 Sex `/sex` +
 Date of Birth `/dob` +
@@ -311,8 +326,9 @@ Date Joined `/dateJoined` +
 Designation `/designation` +
 Employment Status `/status` +
 Photo `/photo`
-
+====
 |===
+
 [TIP]
 Make sure you key in dates in the format DD/MM/YYYY.
 
@@ -364,23 +380,42 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 // tag::delete[]
 
-==== Deleting a person : `delete`
-
+==== Deleting an entry : `delete` +
 You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the given format below.. +
 
 Format: `delete -FLAG  id`
 
+You only need to enter the numeric value of the Identification Number while ignoring the prefixed 0s. For example, if
+you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1`.
 
-[TIP]
-When you delete a body, its associated notifications will also be deleted. If a fridge is occupied by a body, you cannot delete it.
+When you delete a `Body`:
 
-* Deletes the body, worker or fridge entry with the specified identification number.
+* Mortago will automatically delete its associated `Notifs`. You can learn more
+about `Notifs` in <<add, Section 3.2.1>>.
+* If you had assigned a `Fridge` to this `Body`, Mortago will automatically set the status of the `Fridge` to
+`UNOCCUPIED`.
 
-Examples:
+You cannot delete a `Fridge` with status `OCCUPIED`. To still proceed with deletion, you need to either delete the
+`Body` or assign it to another `Fridge`.
 
-* `delete -w 1` +
+Example:
 
-The worker with the identification number `W00001` will be deleted.
+Imagine that you added someone (Jim Kerr) by mistake and you want to remove his details from Mortago. You see that his
+ID number is W00003.
+
+To delete his record:
+
+1) Type `delete -w 3` and press `ENTER` to execute it.
+
+image::delete-command/DeleteStep1.png[align="center"]
+
+2) The result box will display the message as shown below.
+
+image::delete-command/DeleteStep2.png[align="center"]
+
+3) And you can check that Jim Kerr is no longer in the list of workers.
+
+image::delete-command/DeleteStep3.png[align="center"]
 
 // end::delete
 
@@ -446,47 +481,64 @@ View a body with the ID B00000001.
 
 // tag::notifs[]
 
-==== View notifs panel: `showNotifs`
-You can view all notifications by entering a showNotifs command with the given format below.
+==== View notifs panel: `showNotifs` +
+This command allows you to view all `Notif`.
 
-A `notif` is automatically created when you could not contact the next of kin within 24 hours from the time
-of arrival of the body. For the purpose of testing, this period is set to 10 seconds instead of 24 hours.
-The `bodyStatus` will be automatically changed to `CONTACT_POLICE` if it is `ARRVIED` after the 10 second period.
-A pop-up window to remind you to contact the police will be shown so that they can search for the body's next of kin.
+A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
+than 24 hours from the time of admission of a `Body`,
+police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
+testing, instead of 24 hours, Mortago currently
+uses 10 seconds.
 
-Once you change the `bodyStatus` to any of the possible bodyStatus instead of `ARRIVED`, the `notif` will be be deleted.
-If you change the `bodyStatus` to `ARRIVED`, the associated `notif` for the body will be added and the timer will start from the point in time it is changed.
+When you add a `Body` or manually set its status to `ARRIVED`, Mortago
+automatically
+changes its status to `CONTACT_POLICE` if its status is still `ARRIVED` after 10 seconds. It then shows a pop-up
+to
+remind you to
+contact the police. It creates a `Notif` for this `Body` and you can view all `Notif` by either clicking on the
+notification bell or typing the `showNotif` command.
 
 Format: `showNotifs`
 
-// end::notifs[]
+Once you change the status of the `Body` from `CONTACT_POLICE` to any other possible status (!!!add in the section!!!),
+its associated `Notif` is deleted.
 
-// tag::sort[]
-
-==== Sort all entries: `sort` `[coming in v2.0]`
-You can sort all displayed entries according to a given order by entering a sort command with the given format below.
-
-Only body and worker entries can be sorted.
-
-The following describes the types of ordering that can be executed:
-
-* `name`: entries are sorted by alphabetical order of their names
-* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
-    ** `id asc`: entries are sorted in ascending order of id number
-    ** `id desc`: entries are sorted in descending order of id number
-         *** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
-* `status`: entries are sorted by their statuses in this order:
-
-Format: `sort /order order`
+If you change the status of the `Body` before 10 seconds, no pop-up and `Notif` are created.
 
 Example:
 
-* `sort /order status` +
-All entries will be sorted and grouped according to their statuses.
-* `sort /order id asc` +
-All entries will be sorted according to their id number in ascending order.
-// end::sort[]
-// tag::filter[]
+Imagine that a new `Body` (John Doe) has just arrived at your mortuary.
+
+1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of this `Body`
+is `ARRIVED`
+
+image::notif-command/Notif1.png[align="center"]
+
+2) Wait for 10 seconds. Mortago automatically changes the status of the `Body` to `CONTACT_POLICE` and shows
+you a
+pop-up
+notification.
+
+image::notif-command/Notif2.png[align="center"]
+
+3) Type `showNotif` and press `ENTER` to execute it.
+
+image::notif-command/Notif3.png[align="center"]
+
+4) The notification bell opens up a panel and lists all the bodies for which you need to contact the police. You
+can see John Doe's ID number B00000011 is in the list.
+
+image::notif-command/Notif4.png[align="center"]
+
+5) Suppose you have contacted the police, change the status of John Doe using the command `update -b /id 11 /status
+pending police report`. John Doe's ID is no longer listed in the notifs panel.
+
+image::notif-command/Notif5.png[align="center"]
+
+[TIP]
+If you delete a `Body` and add it back before the 10 second period,
+
+// end::notifs[]
 
 ==== Filter all entries: `filter`
 You can filter all entries according to the given keywords in any of an entry’s attributes by entering a filter command with the given format below.
@@ -525,17 +577,18 @@ undoing the deletion will not restore the `NotifCommand`.
 Though you can `undo` a `clear` command, note that you cannot redo any past undone commands after that.
 
 Example: +
-Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `10` instead
-of `20`!
+Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `20` instead
+of `10`!
 
 image::Undo2.png[]
 
-You don't realise and execute the command. <add what you see in command box>
+You don't realise and execute the command. When you look at the dashboard, you realise you have deleted body 20.
+Even worse, you have no recollection of body 20's name or information.
 
 image::UndoBodyDeleted.png[]
 
 
-You can easily reverse that mistake with the `undo` command instead of adding John Doe all over again!
+You can easily reverse that mistake with the `undo` command instead of adding body 20 all over again!
 
 To undo:
 
@@ -547,7 +600,7 @@ image::Undo4.png[]
 
 image::Undo5.png[]
 
-3) Notice that the result box displays "Undid deleting this entity: <long descriptor of the body>" and John Doe is now back in the list of bodies.
+3) Notice that the result box shows text telling you what was undone, and body 20 is back in the list of bodies.
 
 
 ==== Redoing a command: `redo`
@@ -561,15 +614,18 @@ Format: `redo` or `r`
 A command can only be redone if it has been undone before.
 
 Example: +
-Imagine that you've previously executed `undo` to undo deleting John Doe. You look at the data again and realise you've deleted the right thing after all!
+Imagine that you've previously executed `undo` to undo deleting body 20. You look at the data again and realise you've deleted the right thing after all!
 
-Instead of manually deleting John Doe again, simply `redo` the command.
+Instead of deleting body 20 again, simply `redo` the command.
 
 To redo:
 
-1. Type `redo` or `r` into the command box.
-2. Press `Enter` to execute the command.
-3. Notice that the result box displays "Deleted this entity: <long descriptor of the body>" and John Doe is now absent from the list of bodies.
+1) Type `redo` or `r` into the command box.
+
+2) Press `Enter` to execute the command.
+
+3) Notice that the result box shows text telling you what was executed when redoing, and body 20 is now absent
+from the list of bodies.
 
 // end::undoredo[]
 
@@ -581,6 +637,29 @@ You can exit the program by entering an exit command given below. +
 Format: `exit`
 
 // end::exit[]
+
+// tag::sortfilter[]
+
+==== Sort all entries: `sort` `[coming in v2.0]`
+Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
+Types of ordering can be found below:
+
+* `name`: entries are sorted by alphabetical order of their names
+* `id`: entries are sorted by their id number, in descending order (newest entry appear first)
+** `id asc`: entries are sorted in ascending order of id number
+** `id desc`: entries are sorted in descending order of id number
+*** If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.
+* `status`: entries are sorted by their statuses in this order:
+
+Format: `sort /order order`
+
+Example:
+
+* `sort /order status` +
+All entries will be sorted and grouped according to their statuses.
+* `sort /order id asc` +
+All entries will be sorted according to their id number in ascending order.
 
 // tag::documentGeneration[]
 === Document Generation
@@ -631,7 +710,6 @@ Outputs the PDF containing reports for all bodies in the folder containing the j
 // end::genReports[]
 
 // tag::genReportSummary[]
-
 ==== Generate summary report for all bodies: `genReportSummary`
 You can generate a tabular report overview containing key information for all bodies in a PDF filename `[red]#Report Summary.pdf#` located in the folder containing the jar file.
 
@@ -781,61 +859,61 @@ Lists emergency help hotlines.
 
 == Command Summary
 * *Add* an entry: `add`
-    ** Add a new worker, body, or fridge with the
+** Add a new worker, body, or fridge with the
 `add -FLAG [/attributeName attributeValue...]`
 * *Update* an entry: `update`
-    ** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
+** Update the status of each worker, body, or fridge with the `update -FLAG (/attributeName attributeValue)`
 * *Find* : `find [keyword...]` +
     ** Find entries using a keyword. +
     Format: `find keyword`
 * *Delete* an entry: `delete`
-    ** Delete a body, worker or fridge entry, indicated by its id number. +
+** Delete a body, worker or fridge entry, indicated by its id number. +
     Format: `delete -FLAG id`
 * *Clear* : `clear`
 * *Select* : `select id`
 * *List* : `list -FLAG`
 
 * *View notifs* : `showNotifs`
-    ** View all notifications brought up by the app.
-* *Sort* : `sort`
-    ** Sort all displayed entries according to a given order. +
-    Format: `sort /order order (/idOrder idOrder)`
+** View all notifications brought up by the app.
 * *Filter* : `filter`
-    ** Filter all entries according to the given keyword in any of an entry’s field. +
+** Filter all entries according to the given keyword in any of an entry’s field. +
     Format: `filter -FLAG [/attribute attributeValue...]`
 * *Undo* : `undo`
-    ** Undo the last executed command. +
+** Undo the last executed command. +
     Format: `undo`
 * *Redo* : `redo`
-    ** Redo the last undone command. +
+** Redo the last undone command. +
     Format: `redo`
 * *Exit*: `exit`
+* *Sort* : `sort` [coming in v2.0]
+** Sort all displayed entries according to a given order. +
+    Format: `sort /order order (/idOrder idOrder)`
 
 * *Generate report* : `genReport`
-    ** Generate an individual report in a PDF. +
+** Generate an individual report in a PDF. +
     Format: `genReport bodyId`
 * *Generate all reports* : `genReports`
-    ** Generate all individual reports in a PDF. +
+** Generate all individual reports in a PDF. +
     Format: `genReports`
 * *Generate summary report* : `genReportSummary`
-    ** Generate an overview for all reports in a PDF. +
+** Generate an overview for all reports in a PDF. +
     Format: `genReportSummary`
 
 * *Archive entries* : `archive` `[coming in v2.0]`
-    ** Archive old or irrelevant entries.
-    Format: `archive -FLAG /id id`, `archive -FLAG /status status`
+** Archive old or irrelevant entries.
+Format: `archive -FLAG /id id`, `archive -FLAG /status status`
 * *View archived entries* : `archives` `[coming in v2.0]`
-    ** Display all archived entries.
-    Format: `archives -FLAG`
+** Display all archived entries.
+Format: `archives -FLAG`
 * *Give and view feedback* : `feedback` `[coming in v2.0]`
-    * Give workers feedback and displays a history of all feedback entered.
-    Format: `feedback /workerId workerId /notes notes`, feedback`
+* Give workers feedback and displays a history of all feedback entered.
+Format: `feedback /workerId workerId /notes notes`, feedback`
 * *Assign tasks* : `assign` `[coming in v2.0]`
-    ** Assign a body and task to a worker.
-    Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
+** Assign a body and task to a worker.
+Format: `assign /bodyId bodyId /workerId workerId /task taskDescription`
 * *Help summary*: `help`
-    ** Get information about the commands
-    Format: `help`
+** Get information about the commands
+Format: `help`
 * *Help hotlines* : `hotlines` `[coming in v2.0]`
 
 == Glossary
@@ -848,6 +926,8 @@ Lists emergency help hotlines.
 *Worker* : an employee working in the mortuary +
 
 *Fridge* : a refrigerator used to store a body in the mortuary +
+
+*Notif* : a reminder to notify the mortuary manager about the `Body` for which police needs to be contacted +
 
 *Command Line Interface (CLI)* : a text-based user interface (UI) used to view and manage computer files +
 

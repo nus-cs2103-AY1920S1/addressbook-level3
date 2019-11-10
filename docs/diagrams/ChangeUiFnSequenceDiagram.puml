@@ -6,7 +6,10 @@ box Logic #b0d5f7
 participant "notifCommand:NotifCommand" as NotifCommand #1f69ad
 participant "updateBodyDescriptor:UpdateBodyDescriptor" as UpdateBodyDescriptor #1f69ad
 participant "up:UpdateCommand" as UpdateCommand #1f69ad
-participant "notifWindow:NotifWindow" as NotifWindow #1f69ad
+end box
+
+box UI UI_COLOR_T1
+participant "notifWindow:NotifWindow" as NotifWindow UI_COLOR
 end box
 
 box Storage #f5c8a2
@@ -24,7 +27,6 @@ NotifCommand -> Body :getIdNum()
 activate Body
 NotifCommand <-- Body :bodyId
 deactivate Body
-
 create UpdateBodyDescriptor
 NotifCommand -> UpdateBodyDescriptor :UpdateBodyDescriptor(body)
 activate UpdateBodyDescriptor
