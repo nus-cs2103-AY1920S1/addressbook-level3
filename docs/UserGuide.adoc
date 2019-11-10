@@ -224,6 +224,7 @@ Format: `new dist/DISTRICT auto/Y`
 * An available vehicle in the given district will be automatically dispatched to the incident site.
 ** If no vehicle is available, the vehicle pane will be blank, and a relevant message is displayed.
 * After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
+** The draft incident only has three fields filled: operator, district and vehicle dispatched.
 ****
 
 [IMPORTANT]

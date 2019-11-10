@@ -343,6 +343,8 @@ In the code base, Persons represent user accounts. See person model for more inf
 ==== Implementation
 
 The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
+
 There are two ways to use the New Command:
 1. Auto dispatchment
 2. Manual dispatchment, which requires user to provide a valid index that selects a vehicle
