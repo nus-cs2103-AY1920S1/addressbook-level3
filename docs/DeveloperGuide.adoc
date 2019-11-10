@@ -196,7 +196,7 @@ image::ActivityClassDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: Storage of participant
+===== Aspect: Storage of participants
 
 * **Alternative 1 (current choice):** Only storing the primary key of participants
 ** *Pros*: Minimizes dependency and potential bugs.
@@ -204,8 +204,9 @@ image::ActivityClassDiagram.png[]
 ** *Reason for choice*: Storing entire object can potentially cause bugs, as there are no mechanisms to ensure the consistency of data between `Person` object in `Activity` and `AddressBook`.
 
 * **Alternative 2:** Storing the entire `Person` object inside the `Activity`.
-** Pros: Easier to implement. Object can be easily retrieved when necessary.
-** Cons: Creates extra dependency between classes. More prone to error.
+** *Pros*: Easier to implement. Object can be easily retrieved when necessary.
+** *Cons*: Creates extra dependency between classes. More prone to error.
+// end::activityclass[]
 
 // tag::createactivity[]
 === Create activity feature
@@ -216,7 +217,7 @@ It extends `AddressBook` with an `ActivityBook`, stored internally as an `activi
 
 All `Activity` models are stored inside `ActivityBook`.
 
-When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately using the invite command. Refer to <<Invite/Disinvite feature>> for more information. 
+When creating an activity, the title must be specified. It is optional to include participants, as they can be invited separately using the invite command. Refer to <<Invite/Disinvite feature>> for more information.
 
 Adding of participant uses both exact-match and keyword-based search. First, the search term passed in is used to find an contact with an exact matching name. If no exact match is found, the search term is split into keywords via whitespace. Obtained keywords are then used to search the AddressBook for a matching person. The person is added in as a participant only if there is one exact match. Otherwise, a warning message will be displayed and no participant will be added for this set of keywords.
 
@@ -234,10 +235,20 @@ Here is a sample use case in creating an expense:
 
 The following sequence diagram demonstrates how creating activity works:
 
+.Sequence diagram for creating an activity
 image::CreateActivitySequenceDiagram.png[]
 
 NOTE: The lifeline for `ActivityCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+The following activity diagram encapsulates the high level logic of the create activity operation.
+
+.Activity diagram for creating an activity
+image::CreateActivityActivityDiagram.png[]
+
+The following activity diagram encapsulates the high level logic of finding the correct contact to add as participant, for each keyword supplied.
+
+.Activity diagram for searching contacts to add as participants
+image::AddParticipantActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -246,11 +257,12 @@ NOTE: The lifeline for `ActivityCommand` should end at the destroy marker (X) bu
 * **Alternative 1 (current choice):** Users can use keywords to specify the contact to be added.
 ** *Pros*: Improves usability.
 ** *Cons*: Difficult to implement. Necessary to handle multiple edge cases.
-** *Reason for choice*: Forcing users to specify exact full name was deemed to be too tedious.
+** *Reason for choice*: Forcing users to specify exact full name was deemed to be too tedious, especially when adding multiple participants.
 
 * **Alternative 2:** Users must type in the exact full name of the contact to be added.
-** Pros: Easy to implement. Low possibility of bugs.
-** Cons: Significantly decreases usability of the application.
+** *Pros*: Easy to implement. Low possibility of bugs.
+** *Cons*: Significantly decreases usability of the application.
+// end::createactivity[]
 
 // tag::expense[]
 === Expense class
@@ -398,8 +410,8 @@ Updating of the balance sheet and matrices by the expense command is performed i
 ** *Reason for choice*: For everyday purposes it is highly unlikely currencies (normally at most 2 decimal points) require any higher precision. This is for normal friends, not stockbrokers.
 
 * **Alternative 2:** Implement a `Rational` class for rational numbers.
-** Pros: Guranteed precision.
-** Cons: Seems overkill and needlessly over-engineered.
+** *Pros*: Guranteed precision.
+** *Cons*: Seems overkill and needlessly over-engineered.
 // end::algorithm[]
 
 === List feature
@@ -438,6 +450,45 @@ image::ListSequenceDiagram.png[]
 * **Alternative 2:** Storing the `Context` state in a designated central component, e.g. the `ModelManager`, and exposing relevant methods to other components.
 ** Pros: Trivial to implement.
 ** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
+
+
+// tag::findfeature[]
+=== Find feature
+
+The find mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
+
+`Context` is an immutable utility class that describes the nature of the current view of the app. Refer to <<List feature>> for more information about `Context`.
+
+During execution, the Find command checks the current `Context` from `Model`. If the current context is `LIST_ACTIVITY`, the command will search for `Activity` using the supplied search terms. If the current context is `LIST_CONTACT`, the command will search for `Contacts` using the supplied search terms. Otherwise, the command is used on invalid context and will throw an error. If the command is executed in a valid context, it will update the `FilteredList` to contain only the matching results. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
+
+The Find command uses keyword-based matching to search for the correct results. If any of the keywords in the search term matches the title/name of the activity/contact, it will be included in the search results. 
+
+Given below is an example usage scenario of a user intending to find a specific activity.
+
+Step 1. The user launches the `SplitWiser` application for the first time, which defaults to displaying the list of contacts.
+
+Step 2. The user executes the command string `list a/` to prompt the app to display the full list of activities.
+
+Step 3. The user executes the command string `find keven` to prompt the app to search for all activities that contains the word "keven" in the title.
+
+The following activity diagram encapsulates the high level logic of the find operation.
+
+.Activity diagram for find command
+image::FindCommandActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to specify search type (Activity/Contact)
+
+* **Alternative 1 (current choice):** Rely on current context to decide which type of object to search for. Only works when in either of the list context.
+** *Pros*: More intuitive for user, since the find command searches for the current type of object being viewed. Less typing is needed if user wants to continuously search in the same context.
+** *Cons*: Harder to implement, extra dependencies with `Context` class.
+** *Reason for choice*: Users are more likely to carry out multiple searches, especially when creating an Activity and searching for correct contacts to add.
+
+* **Alternative 2:** Pass in an extra argument to specify what type of object one is looking for.
+** *Pros*: Easier to implement, reduced dependency.
+** *Cons*: Command gets less user-friendly and longer. Successive find command gets tedious to implement.
+// end::findfeature[]
 
 // tag::invitedisinvite[]
 === Invite/Disinvite feature
@@ -487,8 +538,8 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 ** Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.
 
 * **Alternative 2:** Invite/disinvite based on user specifying the activity number.
-** Pros: Easy to implement.
-** Cons: Have to keep retyping activity number if multiple invites/disinvites are needed.
+** *Pros*: Easy to implement.
+** *Cons*: Have to keep retyping activity number if multiple invites/disinvites are needed.
 
 ===== Aspect: Data structure to support the invite/disinvite commands
 
@@ -497,8 +548,8 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 ** Cons: Have to find particular participant that matches the ID specified.
 
 * **Alternative 2:** Use list to store participants instead of ID
-** Pros: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
-** Cons: Might create duplicate person object when reading from multiple json files if not implemented properly.
+** *Pros*: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
+** *Cons*: Might create duplicate person object when reading from multiple json files if not implemented properly.
 // end::invitedisinvite[]
 
 //tag::delete[]
@@ -535,12 +586,12 @@ NOTE: The activity diagram for deletion of expense and contact are omitted as th
 ===== Aspect: How delete executes
 
 * **Alternative 1 (current choice):** Contextual based delete of contact/activity/expense based on current displayed screen.
-** Pros: More user-friendly. Users do not have to keep specifying what to delete.
-** Cons: Harder to implement.
+** *Pros*: More user-friendly. Users do not have to keep specifying what to delete.
+** *Cons*: Harder to implement.
 
 * **Alternative 2:** Delete based on user specifying which field to delete.
-** Pros: Easy to implement.
-** Cons: Have to keep retyping the field for deletion which is inconvenient.
+** *Pros*: Easy to implement.
+** *Cons*: Have to keep retyping the field for deletion which is inconvenient.
 // end::delete[]
 
 // tag::undoredo[]

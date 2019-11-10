@@ -124,12 +124,12 @@ Creates a new contact with name John Doe and mobile number 98765432.
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* Additional contacts to add to the activity can be specified by using `p/` prefix.
+* Additional contacts can be added to the activity by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
 ** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
 * Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-* Each activity will be assigned an activity ID automatically. +
+* Each activity will be automatically assigned an activity ID. +
 ****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
