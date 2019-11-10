@@ -1,6 +1,7 @@
 package seedu.address.model.event;
 
 import static java.time.temporal.ChronoUnit.DAYS;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_INVALID;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -17,7 +18,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Valid with Constraints.
  */
 public class EventDate implements Comparable<EventDate> {
-    public static final String MESSAGE_CONSTRAINTS = "Date should be in the following format dd/MM/yyyy";
+    public static final String MESSAGE_CONSTRAINTS = MESSAGE_DATE_INVALID;
     public static final String MESSAGE_CONSTRAINTS_MONTH = "Input Year Month should be MM/yyyy";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public static final DateTimeFormatter FORMATTER_YEAR_MONTH = DateTimeFormatter.ofPattern("MM/yyyy");

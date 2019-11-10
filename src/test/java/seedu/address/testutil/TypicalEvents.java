@@ -8,10 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1_MUSICAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1_PARTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2_MUSICAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2_PARTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_MUSICAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EVENT_NAME_PARTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MANPOWER_COUNT_MUSICAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MANPOWER_COUNT_PARTY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_MUSICAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_PARTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MUSICAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PARTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_MUSICAL;
@@ -59,19 +59,20 @@ public class TypicalEvents {
             .withTags("celebration").build();
 
     // Manually added - Event's details found in {@code CommandTestUtil}
-    public static final Event PARTY = new EventBuilder().withName(VALID_NAME_PARTY)
+    public static final Event PARTY = new EventBuilder().withName(VALID_EVENT_NAME_PARTY)
             .withVenue(VALID_VENUE_PARTY).withManpowerNeeded(VALID_MANPOWER_COUNT_PARTY)
             .withStartDate(LocalDate.parse(VALID_DATE_1_PARTY, FORMATTER))
             .withEndDate(LocalDate.parse(VALID_DATE_2_PARTY, FORMATTER))
             .withTags(VALID_TAG_PARTY).build();
 
-    public static final Event MUSICAL = new EventBuilder().withName(VALID_NAME_MUSICAL)
+    public static final Event MUSICAL = new EventBuilder().withName(VALID_EVENT_NAME_MUSICAL)
             .withVenue(VALID_VENUE_MUSICAL).withManpowerNeeded(VALID_MANPOWER_COUNT_MUSICAL)
             .withStartDate(LocalDate.parse(VALID_DATE_1_MUSICAL, FORMATTER))
             .withEndDate(LocalDate.parse(VALID_DATE_2_MUSICAL, FORMATTER))
             .withTags(VALID_TAG_MUSICAL).build();
 
-    private TypicalEvents() {} // prevents instantiation
+    private TypicalEvents() {
+    } // prevents instantiation
 
     /**
      * Returns an {@code EventBook} with all the typical events.

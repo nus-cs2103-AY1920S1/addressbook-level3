@@ -5,8 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_END_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_MANPOWER_NEEDED;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_SCHEDULE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MANPOWER_TO_ADD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -34,7 +39,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
  */
 public class CommandTestUtil {
 
-    //valid employee fields
+    //Valid Employee Fields
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
@@ -46,9 +51,71 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    //Valid Employee Fields with Prefixes
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
+    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
+    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
+    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
+    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+
+    //Invalid Employee Fields with Prefixes
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+
+    //Valid Event Fields
+    public static final String VALID_EVENT_NAME_PARTY = "Party";
+    public static final String VALID_EVENT_NAME_MUSICAL = "Musical";
+    public static final String VALID_VENUE_PARTY = "Orchard";
+    public static final String VALID_VENUE_MUSICAL = "NUS";
+    public static final String VALID_MANPOWER_COUNT_PARTY = "2";
+    public static final String VALID_MANPOWER_COUNT_MUSICAL = "10";
+    public static final String VALID_MANPOWER_COUNT_TO_ADD = "10";
+    public static final String VALID_DATE_1_PARTY = "20/10/2019";
+    public static final String VALID_DATE_1_MUSICAL = "10/10/2021";
+    public static final String VALID_DATE_2_PARTY = "22/10/2019";
+    public static final String VALID_DATE_2_MUSICAL = "15/10/2021";
+    public static final String VALID_TAG_PARTY = "fun";
+    public static final String VALID_TAG_MUSICAL = "free";
+    public static final String MANPOWER_COUNT_DESC = " " + PREFIX_MANPOWER_TO_ADD + VALID_MANPOWER_COUNT_MUSICAL;
+    public static final String INVALID_MANPOWER_DESC = " " + PREFIX_MANPOWER_TO_ADD + "James&";
+
+    //Valid Event Fields with Prefixes
+    public static final String EVENT_NAME_DESC_MUSICAL = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_MUSICAL;
+    public static final String EVENT_NAME_DESC_PARTY = " " + PREFIX_EVENT_NAME + VALID_EVENT_NAME_PARTY;
+    public static final String VENUE_DESC_MUSICAL = " " + PREFIX_EVENT_VENUE + VALID_VENUE_MUSICAL;
+    public static final String VENUE_DESC_PARTY = " " + PREFIX_EVENT_VENUE + VALID_VENUE_PARTY;
+    public static final String MANPOWER_NEEDED_DESC_MUSICAL = " " + PREFIX_EVENT_MANPOWER_NEEDED
+            + VALID_MANPOWER_COUNT_MUSICAL;
+    public static final String MANPOWER_NEEDED_DESC_PARTY = " " + PREFIX_EVENT_MANPOWER_NEEDED
+            + VALID_MANPOWER_COUNT_PARTY;
+    public static final String START_DATE_DESC_MUSICAL = " " + PREFIX_EVENT_START_DATE + VALID_DATE_1_MUSICAL;
+    public static final String END_DATE_DESC_MUSICAL = " " + PREFIX_EVENT_END_DATE + VALID_DATE_2_MUSICAL;
+    public static final String START_DATE_DESC_PARTY = " " + PREFIX_EVENT_START_DATE + VALID_DATE_1_PARTY;
+    public static final String END_DATE_DESC_PARTY = " " + PREFIX_EVENT_END_DATE + VALID_DATE_2_PARTY;
+    public static final String TAG_DESC_PARTY = " " + PREFIX_TAG + VALID_TAG_PARTY;
+    public static final String TAG_DESC_MUSIC = " " + PREFIX_TAG + VALID_TAG_MUSICAL;
+
+    //Event Invalid Fields
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_NAME + "Music@l";
+    public static final String INVALID_VENUE_DESC = " " + PREFIX_EVENT_VENUE + "   ";
+    public static final String INVALID_MANPOWER_NEEDED_DESC = " "
+            + PREFIX_EVENT_MANPOWER_NEEDED + "3000";
+    public static final String INVALID_START_DATE_DESC = " "
+            + PREFIX_EVENT_START_DATE + "2019/10/29"; // '&' not allowed in names
+    public static final String INVALID_END_DATE_DESC = " "
+            + PREFIX_EVENT_END_DATE + "20 Aug 2019"; // '&' not allowed in names
+
     //valid date fields
     public static final String VALID_DATE_1 = " " + PREFIX_DATE + "20/10/2019";
-    public static final String VALID_DATE_2 = " " + PREFIX_DATE + "10/10/2021";
+    public static final String VALID_DATE_2 = " " + PREFIX_DATE + "22/10/2019";
     public static final String VALID_YEAR_MONTH_1 = " " + PREFIX_YEAR_MONTH + "10/2019";
     public static final String VALID_YEAR_MONTH_2 = " " + PREFIX_YEAR_MONTH + "01/2019";
     public static final String VALID_DATE_RANGE_1 = " " + PREFIX_EVENT_SCHEDULE_START
@@ -74,41 +141,6 @@ public class CommandTestUtil {
     public static final String INVALID_DATE_RANGE_4 = " " + PREFIX_EVENT_SCHEDULE_START
             + "30/12/2019 " + PREFIX_EVENT_SCHEDULE_END + "01/01/2019";
 
-    //valid event fields
-    public static final String VALID_NAME_PARTY = "Party";
-    public static final String VALID_NAME_MUSICAL = "musical";
-    public static final String VALID_VENUE_PARTY = "Orchard";
-    public static final String VALID_VENUE_MUSICAL = "NUS";
-    public static final String VALID_MANPOWER_COUNT_PARTY = "2";
-    public static final String VALID_MANPOWER_COUNT_MUSICAL = "10";
-    public static final String VALID_MANPOWER_COUNT_TO_ADD = "10";
-    public static final String VALID_DATE_1_PARTY = "20/10/2019";
-    public static final String VALID_DATE_1_MUSICAL = "10/10/2021";
-    public static final String VALID_DATE_2_PARTY = "22/10/2019";
-    public static final String VALID_DATE_2_MUSICAL = "15/10/2021";
-    public static final String VALID_TAG_PARTY = "fun";
-    public static final String VALID_TAG_MUSICAL = "free";
-    public static final String NAME_DESC_PARTY = " " + PREFIX_NAME + VALID_NAME_PARTY;
-    public static final String MANPOWER_COUNT_DESC = " " + PREFIX_MANPOWER_TO_ADD + VALID_MANPOWER_COUNT_MUSICAL;
-    public static final String INVALID_MANPOWER_DESC = " " + PREFIX_MANPOWER_TO_ADD + "James&";
-
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
@@ -130,7 +162,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
@@ -145,7 +177,7 @@ public class CommandTestUtil {
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
     }
@@ -166,6 +198,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredEmployeeList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the employee at the given {@code targetIndex} in the
      * {@code model}'s address book.

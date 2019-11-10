@@ -54,7 +54,7 @@ public class DisplayScheduleForDateParserTest {
 
     @Test
     public void parse_validDateSpecified2_success() throws ParseException {
-        EventDate expectedStart = ParserUtil.parseEventDate("10/10/2021");
+        EventDate expectedStart = ParserUtil.parseEventDate("22/10/2019");
         DisplayScheduleForDateCommand expectedCommand =
                 new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(expectedStart));
         assertParseSuccess(parser, CommandTestUtil.VALID_DATE_2, expectedCommand);
