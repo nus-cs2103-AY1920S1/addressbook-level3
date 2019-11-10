@@ -190,8 +190,13 @@ public class ParserUtil {
      * @throws ParseException if the given {@code EmployeeId} is invalid.
      */
     public static EmployeeId parseEmployeeId(String employeeId) throws ParseException {
-        //EmployeeId employeeId = new EmployeeId();
-        if (Integer.parseInt(employeeId) >= 1000) {
+        if (employeeId == null) {
+            return null;
+        }
+
+        requireNonNull(employeeId);
+        String trimmedEmployeeId = employeeId.trim();
+        if (!EmployeeId.isValidId(trimmedEmployeeId)) {
             throw new ParseException(EmployeeId.MESSAGE_CONSTRAINTS);
         }
         return new EmployeeId(employeeId);
@@ -394,7 +399,7 @@ public class ParserUtil {
         if (manpowerToAllocate == null) {
             return null;
         }
-
+        requireNonNull(manpowerToAllocate);
         String trimmed = manpowerToAllocate.trim();
         Integer manpowerToAdd;
         try {

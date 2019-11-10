@@ -218,11 +218,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return a boolean value of whether user is in the MainTab
      */
     public static boolean isMainTab() {
-        if (MainWindow.getCurrentTabIndex() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return MainWindow.getCurrentTabIndex() == 0;
     }
 
     /**
@@ -231,11 +227,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return a boolean value of whether user is in the MainTab
      */
     public static boolean isScheduleTab() {
-        if (MainWindow.getCurrentTabIndex() == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return MainWindow.getCurrentTabIndex() == 1;
     }
 
     /**
@@ -244,11 +236,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return a boolean value of whether user is in the MainTab
      */
     public static boolean isFinanceTab() {
-        if (MainWindow.getCurrentTabIndex() == 2) {
-            return true;
-        } else {
-            return false;
-        }
+        return MainWindow.getCurrentTabIndex() == 2;
     }
 
     /**
@@ -257,11 +245,7 @@ public class MainWindow extends UiPart<Stage> {
      * @return a boolean value of whether user is in the MainTab
      */
     public static boolean isStatsTab() {
-        if (MainWindow.getCurrentTabIndex() == 3) {
-            return true;
-        } else {
-            return false;
-        }
+        return MainWindow.getCurrentTabIndex() == 3;
     }
 
     /**

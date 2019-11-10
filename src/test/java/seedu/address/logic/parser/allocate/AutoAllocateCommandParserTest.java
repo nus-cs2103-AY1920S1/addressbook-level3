@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.allocate;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.allocate.AutoAllocateCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.allocate.AutoAllocateCommandParser;
 import seedu.address.model.tag.Tag;
 
 
@@ -60,11 +59,11 @@ public class AutoAllocateCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC, MESSAGE_INVALID_FORMAT); // invalid name
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, MESSAGE_INVALID_FORMAT); // invalid tag
         assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC + INVALID_TAG_DESC,
                 MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1" + CommandTestUtil.VALID_MANPOWER_COUNT_TO_ADD + INVALID_TAG_DESC,
-                Tag.MESSAGE_CONSTRAINTS);
+                MESSAGE_INVALID_FORMAT);
 
     }
 
