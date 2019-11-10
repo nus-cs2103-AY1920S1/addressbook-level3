@@ -152,6 +152,11 @@ Example:
 [NOTE]
 The index provided must be valid.
 
+==== Listing: liststudents
+
+Lists all the students in the current classroom.
+Format: `liststudents`
+
 ==== Finding: findstudent
 
 Find students whose name matches a given keyword in the current classroom. +
@@ -234,16 +239,28 @@ Usage:
 
 `Arrow UP and DOWN` Key to toggle through previous commands +
 
+// tag::undoredo[]
 ==== Undo/Redo: Undo/Redo
 
-The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone. +
+The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone.
 After the undo/redo command the application will be in the state before/after the action was made. +
+
+States will only be made if there is a modification to the notebook. Hence, commands like `help` and `liststudents` that does not change the internal structure of the notebook will not lead to a saved state. +
+
+Undo will only be executable if there is a previous state saved. Redo will only be executable if there is a previously undone method. +
+
+If a command that changes the state of the notebook is called after an `undo` command, the other states after the current pointer will be erased.
+This means that users will not be able to redo any of the previous states, until the user calls another `undo` command again.
+This mechanism is similar to how undo/redo works for modern desktop applications.
+
 Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
 This is to say, once the application is closed, all actions done cannot be undone. +
 
 Usage:
 
 Enter `undo` or `redo` +
+
+// end::undoredo[]
 
 ==== Help
 

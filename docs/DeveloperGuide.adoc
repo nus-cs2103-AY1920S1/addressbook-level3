@@ -112,6 +112,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteStudentCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -132,7 +133,9 @@ The `Model`,
 As a more OOP model, we can store a `Tag` list in `Classroom`, which `Student` can reference. This would allow `Classroom` to only require one `Tag` object per unique `Tag`, instead of each `Student` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
+// end::model[]
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -145,6 +148,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Notebook data in json format and read it back.
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -336,12 +340,37 @@ Additionally, it implements the following operations through Commands:
 * `Assignment#setGrades()` -- Updates the AssignmentGrade class of the Assignment with user input.
 // end::Assignment[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::getgrades[]
+=== Get grades feature
+==== Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The current GetStudentGradesCommand will retrieve all the grades of a particular student.
+This is done through iterating through the FilteredAssignmentList, and pulling all the grades of a specified student.
+Additionally, it implements the following operations through Commands:
 
-// end::dataencryption[]
+* `Assignment#getGrades()` -- Retrieves the Map that contains students' names as the key and students' grades as the value.
+
+The following sequence diagram shows how the get grades operation works:
+
+image::GetGradesSequenceDiagram.png[]
+
+After getting the Map from the `getGrades()` method, if the key of the current key-value pair is equals to the name of the student,
+the value, which is the grades of the student, will be added to the output that will be shown in the CommandResult.
+
+// end::getgrades[]
+
+// tag::getunsubmitted[]
+=== Get unsubmitted assignments feature
+==== Implementation
+
+The implementation for getting unsubmitted assignments is similar to the get submitted feature, except that it will search for values of "Not submitted." instead.
+
+The following activity diagram shows how the get unsubmitted operation works:
+
+image::GetUnsubmittedActivityDiagram.png[]
+
+// end::getunsubmitted[]
+
 
 === Logging
 
@@ -433,8 +462,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |teacher |know their number of demerit points |put them in the first row in class
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -446,9 +473,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list students
-2.  Classroom shows a list of students
+2.  Notebook shows a list of students
 3.  User requests to delete a specific student in the list
-4.  Classroom deletes the student
+4.  Notebook deletes the student
 +
 Use case ends.
 
@@ -462,18 +489,19 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. Classroom shows an error message.
+** 3a1. Notebook shows an error message.
 +
 Use case resumes at step 2.
 
+[discrete]
 === Use case: Edit assignment
 
 *MSS*
 
 1.  User requests to list assignments
-2.  Classroom shows a list of assignments
+2.  Notebook shows a list of assignments
 3.  User requests to edit a specified assignment in the list
-4.  Classroom edits the student
+4.  Notebook edits the student
 +
 Use case ends.
 
@@ -487,16 +515,47 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. Classroom shows an error message.
+** 3a1. Notebook shows an error message.
 +
 * 3b. There is a similar assignment in the list as the one that user wants to edit to.
 +
 [none]
-** 3b1. Classroom shows an error message.
+** 3b1. Notebook shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+// tag::undoUseCase[]
+[discrete]
+=== Use case: Undo
+
+*MSS*
+
+1.  User requests to do a command.
+2.  Notebook does the action.
+3.  User requests to undo.
+4.  Notebook undoes action 2, action from step 2 is undone.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given command is invalid.
++
+[none]
+** 1a1. Notebook shows an error message.
++
+Use case resumes at step 1.
++
+* 3a. The action cannot be undone as it does not change the state of the notebook.
++
+[none]
+** 3a1. Notebook shows an error message.
++
+Use case resumes at step 1.
+
+// end::undoUseCase[]
+
 
 [appendix]
 == Non Functional Requirements
@@ -504,12 +563,13 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to store and retrieve 5 classes of 30+ students without sluggishness.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should be able to display student's photos in 4KKKKKK resolutionnnnn
-.  Application should respond within 5 seconds
-.  User should enjoy looking at the application
-.  User should be able to view and undo changes
+.  Should be able to display student's photos in 4k resolution.
+.  Application should respond within 3 seconds.
+.  User should enjoy looking at the application.
+.  User should be able to view and undo changes.
+.  Application should run without needing an Internet connection.
+.  Application should be easy to use and understand for first time users.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -518,7 +578,14 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+A contact detail that is not meant to be shared with others.
+
+Assignment::
+Any task that is assigned to students that will eventually be submitted and graded by the user.
+
+Lesson::
+Any activity in which the user has to physically attend.
+
 
 [appendix]
 == Product Survey
@@ -557,16 +624,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
+.. Run the jar file on the command line by typing `java -jar teachersnotebook.jar`. +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by typing `java -jar teachersnotebook.jar` in the command line. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a student
 
@@ -580,12 +645,12 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `deletestudent`, `deletestudent x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. If the data file is missing, the application will simply start from a new notebook that is populated with several data size. User can use the command `clear` to get an empty notebook. +
+   Expected: New notebook with populated data.
+.. If the data file is corrupted, users should delete the notebook.json file and restart from a new notebook. It may be tough to rectify the json file without knowing the internal structure of the application. +
+   Expected: New notebook with populated data.
