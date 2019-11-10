@@ -11,6 +11,9 @@ import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.analytics.DataList;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.UniqueBudgetList;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
+import seedu.ichifund.model.loan.LoanList;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.repeater.UniqueRepeaterList;
@@ -24,9 +27,11 @@ import seedu.ichifund.model.transaction.TransactionList;
 public class FundBook implements ReadOnlyFundBook {
 
     private RepeaterUniqueId currentRepeaterUniqueId;
+    private LoanId currentLoanId;
     private final UniqueRepeaterList repeaters;
     private final UniqueBudgetList budgets;
     private final TransactionList transactions;
+    private final LoanList loans;
     private final DataList datas;
 
     /*
@@ -38,13 +43,15 @@ public class FundBook implements ReadOnlyFundBook {
      */
     {
         currentRepeaterUniqueId = new RepeaterUniqueId("0");
+        currentLoanId = new LoanId("0");
         repeaters = new UniqueRepeaterList();
         budgets = new UniqueBudgetList();
         transactions = new TransactionList();
         datas = new DataList();
+        loans = new LoanList();
     }
 
-    public FundBook() {}
+    public FundBook(){}
 
     /**
      * Creates an FundBook using the items in the {@code toBeCopied}
@@ -61,6 +68,15 @@ public class FundBook implements ReadOnlyFundBook {
         requireNonNull(uniqueId);
 
         this.currentRepeaterUniqueId = uniqueId;
+    }
+
+    /**
+     * Replaces the current unique id with {@code loanId}.
+     */
+    public void setCurrentLoanId(LoanId loanid) {
+        requireNonNull(loanid);
+
+        this.currentLoanId = loanid;
     }
 
     //// list overwrite operations
@@ -96,6 +112,13 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     /**
+     * Replaces the contents of the loan list with {@code loan}.
+     */
+    public void setLoans(List<Loan> loans) {
+        this.loans.setLoans(loans);
+    }
+
+    /**
      * Resets the existing data of this {@code FundBook} with {@code newData}.
      */
     public void resetData(ReadOnlyFundBook newData) {
@@ -104,6 +127,7 @@ public class FundBook implements ReadOnlyFundBook {
         setRepeaters(newData.getRepeaterList());
         setBudgets(newData.getBudgetList());
         setTransactions(newData.getTransactionList());
+        setLoans(newData.getLoanList());
         setData(newData.getDataList());
     }
 
@@ -176,6 +200,27 @@ public class FundBook implements ReadOnlyFundBook {
         repeaters.remove(key);
     }
 
+    /// loan-level operations
+
+    /**
+     * Checks boolean value for if loan exists in Loans.
+     * @param loan
+     * @return
+     */
+    public boolean hasLoan(Loan loan) {
+        requireNonNull(loan);
+        return loans.contains(loan);
+    }
+
+    /**
+     * Adds new loan with loan parameters to loans list.
+     * @param loan
+     */
+    public void addLoan(Loan loan) {
+        requireNonNull(loan);
+        loans.add(loan);
+    }
+
     //// budget-level operations
 
     /**
@@ -220,12 +265,18 @@ public class FundBook implements ReadOnlyFundBook {
         return transactions.asUnmodifiableObservableList().size() + " transactions, "
                 + repeaters.asUnmodifiableObservableList().size() + " repeaters, "
                 + budgets.asUnmodifiableObservableList().size() + " budgets, "
+                + loans.asUnmodifiableObservableList().size() + " loans, "
                 + datas.asUnmodifiableObservableList() + " datas";
     }
 
     @Override
     public RepeaterUniqueId getCurrentRepeaterUniqueId() {
         return currentRepeaterUniqueId;
+    }
+
+    @Override
+    public LoanId getCurrentLoanId() {
+        return currentLoanId;
     }
 
     @Override
@@ -244,6 +295,11 @@ public class FundBook implements ReadOnlyFundBook {
     }
 
     @Override
+    public ObservableList<Loan> getLoanList() {
+        return loans.asUnmodifiableObservableList();
+    }
+
+    @Override
     public ObservableList<Data> getDataList() {
         return datas.asUnmodifiableObservableList();
     }
@@ -253,14 +309,16 @@ public class FundBook implements ReadOnlyFundBook {
         return other == this // short circuit if same object
                 || (other instanceof FundBook // instanceof handles nulls
                 && currentRepeaterUniqueId.equals(((FundBook) other).currentRepeaterUniqueId)
+                && currentLoanId.equals(((FundBook) other).currentLoanId)
                 && transactions.equals(((FundBook) other).transactions)
                 && repeaters.equals(((FundBook) other).repeaters)
                 && budgets.equals(((FundBook) other).budgets)
+                && loans.equals(((FundBook) other).loans)
                 && datas.equals(((FundBook) other).datas));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(currentRepeaterUniqueId, transactions, repeaters, budgets, datas);
+        return Objects.hash(currentRepeaterUniqueId, currentLoanId, transactions, repeaters, loans, budgets, datas);
     }
 }

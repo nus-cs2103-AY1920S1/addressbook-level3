@@ -21,10 +21,13 @@ import javafx.collections.ObservableList;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.budget.exceptions.DuplicateBudgetException;
+import seedu.ichifund.model.loan.Loan;
+import seedu.ichifund.model.loan.LoanId;
 import seedu.ichifund.model.repeater.Repeater;
 import seedu.ichifund.model.repeater.RepeaterUniqueId;
 import seedu.ichifund.model.transaction.Transaction;
 import seedu.ichifund.testutil.BudgetBuilder;
+import seedu.ichifund.testutil.LoanBuilder;
 import seedu.ichifund.testutil.RepeaterBuilder;
 import seedu.ichifund.testutil.TransactionBuilder;
 
@@ -57,12 +60,15 @@ public class FundBookTest {
                 .build();
         Repeater repeater = new RepeaterBuilder().build();
         Transaction transaction = new TransactionBuilder().build();
+        Loan loan = new LoanBuilder().build();
         RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
+        LoanId loanId = new LoanId("0");
         List<Budget> newBudgets = Arrays.asList(BUDGET_ANIME, editedAnime);
         List<Repeater> repeaters = Collections.singletonList(repeater);
         List<Transaction> transactions = Collections.singletonList(transaction);
-        FundBookStub newData = new FundBookStub(currentRepeaterUniqueId, repeaters, newBudgets, transactions);
-
+        List<Loan> loans = Collections.singletonList(loan);
+        FundBookStub newData = new FundBookStub(currentRepeaterUniqueId, loanId,
+                repeaters, newBudgets, transactions, loans);
         assertThrows(DuplicateBudgetException.class, () -> fundBook.resetData(newData));
     }
 
@@ -102,22 +108,32 @@ public class FundBookTest {
      */
     private static class FundBookStub implements ReadOnlyFundBook {
         private RepeaterUniqueId currentRepeaterUniqueId = new RepeaterUniqueId("0");
+        private LoanId currentLoanId = new LoanId("0");
         private final ObservableList<Repeater> repeaters = FXCollections.observableArrayList();
         private final ObservableList<Budget> budgets = FXCollections.observableArrayList();
         private final ObservableList<Transaction> transactions = FXCollections.observableArrayList();
         private final ObservableList<Data> datas = FXCollections.observableArrayList();
+        private final ObservableList<Loan> loans = FXCollections.observableArrayList();
 
-        FundBookStub(RepeaterUniqueId currentRepeaterUniqueId,
-                Collection<Repeater> repeaters, Collection<Budget> budgets, Collection<Transaction> transactions) {
+        FundBookStub(RepeaterUniqueId currentRepeaterUniqueId, LoanId currentLoanId,
+                     Collection<Repeater> repeaters, Collection<Budget> budgets,
+                     Collection<Transaction> transactions, Collection<Loan> loans) {
             this.currentRepeaterUniqueId = currentRepeaterUniqueId;
+            this.currentLoanId = currentLoanId;
             this.repeaters.setAll(repeaters);
             this.budgets.setAll(budgets);
             this.transactions.setAll(transactions);
+            this.loans.setAll(loans);
         }
 
         @Override
         public RepeaterUniqueId getCurrentRepeaterUniqueId() {
             return currentRepeaterUniqueId;
+        }
+
+        @Override
+        public LoanId getCurrentLoanId() {
+            return currentLoanId;
         }
 
         @Override
@@ -139,6 +155,10 @@ public class FundBookTest {
         public ObservableList<Data> getDataList() {
             return datas;
         }
-    }
 
+        @Override
+        public ObservableList<Loan> getLoanList() {
+            return loans;
+        }
+    }
 }
