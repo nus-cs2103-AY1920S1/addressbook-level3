@@ -310,7 +310,7 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
                             pass = false;
                             break;
                         }
-                    } if ((entry.getKey().equals(PREFIX_STATUS))) {
+                    } else if ((entry.getKey().equals(PREFIX_STATUS))) {
                         String status = entry.getValue().get(0).replaceAll("\\s+", "_");
                         pass = bodyMap.getValue(entry.getKey()).get().equalsIgnoreCase(status);
                         break;

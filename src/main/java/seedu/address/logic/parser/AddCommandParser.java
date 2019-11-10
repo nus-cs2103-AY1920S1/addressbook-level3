@@ -1,11 +1,11 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_DATEJOINED_BEFORE_DOB;
 import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOB;
 import static seedu.address.commons.core.Messages.MESSAGE_DOA_BEFORE_DOD;
 import static seedu.address.commons.core.Messages.MESSAGE_DOD_BEFORE_DOB;
-import static seedu.address.commons.core.Messages.MESSAGE_DATEJOINED_BEFORE_DOB;
+import static seedu.address.commons.core.Messages.MESSAGE_INEXISTENT_FRIDGE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BODY_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CAUSE_OF_DEATH;
