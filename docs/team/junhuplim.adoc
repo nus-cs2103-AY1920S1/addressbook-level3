@@ -89,7 +89,7 @@ allow the future enhancement for such features to be easily integrated into the 
 * Project management
 ** Introduced Trello for tasks and deadlines management
 ** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed. 
-* Enhancements to existing features
+* Existing features enhancement
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation

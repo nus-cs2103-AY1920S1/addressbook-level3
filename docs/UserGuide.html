@@ -1,0 +1,2262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Athletick - User Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Athletick - User Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>CS2103T-T12-3</code>      Since: <code>Sep 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_about">2. About</a></li>
+<li><a href="#_quick_start">3. Quick Start</a></li>
+<li><a href="#Features">4. Features</a>
+<ul class="sectlevel2">
+<li><a href="#_team_data_entry">4.1. Team Data Entry</a></li>
+<li><a href="#_training">4.2. Training</a></li>
+<li><a href="#_attendance">4.3. Attendance</a></li>
+<li><a href="#_performance">4.4. Performance</a></li>
+<li><a href="#_calendar">4.5. Calendar</a></li>
+<li><a href="#_athlete_management">4.6. Athlete Management</a></li>
+<li><a href="#_miscellaneous">4.7. Miscellaneous</a></li>
+<li><a href="#_upcoming_features">4.8. Upcoming features</a></li>
+<li><a href="#_saving_the_data">4.9. Saving the data</a></li>
+</ul>
+</li>
+<li><a href="#_faq">5. FAQ</a></li>
+<li><a href="#_command_summary">6. Command Summary</a></li>
+<li><a href="#_glossary">7. Glossary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Athletick is a team management desktop application for captains and coaches of timing-based sports teams. Athletick helps you to handle your administrative tasks so that you can focus on what you love doing: leading and motivating your team.</p>
+</div>
+<div class="paragraph">
+<p>Athletick supports <strong>storing of your team members' personal details, attendance tracking and performance recording</strong>. If you are a fast typist, you&#8217;ll love Athletick&#8217;s <strong>Command Line Interface</strong> (CLI) which will get your team management tasks done faster than ever before!</p>
+</div>
+<div class="paragraph">
+<p>Ready to let us help you to manage your team? Continue reading to find out more!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_about">2. About</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document serves to assist you in the navigation and utilisation of Athletick.</p>
+</div>
+<div class="paragraph">
+<p>Note the following symbols and formatting used in this document</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+NOTE
+</td>
+<td class="hdlist2">
+<p>This symbol indicates important information</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>command</code>
+</td>
+<td class="hdlist2">
+<p>A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
+command line and executed by the application.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quick_start">3. Quick Start</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section guides you on how to install Athletick on your computer.</p>
+</div>
+<div class="paragraph">
+<p>These are the steps you should take:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that you have Java <code>11</code> or above installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>athletick.jar</code> <a href="https://github.com/AY1920S1-CS2103T-T12-3/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the downloaded file to the folder you want to use as the home folder for your Athletick.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/Gui.png" alt="Gui" width="450">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Some example commands you can try:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>list</code></strong> : lists all athletes</p>
+</li>
+<li>
+<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com g/Male a/311, Clementi Ave 2, #02-25</code> : adds an athlete named <code>John Doe</code> to Athletick.</p>
+</li>
+<li>
+<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd athlete shown in the current list</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You may refer to <a href="#Features">Section 4, &#8220;Features&#8221;</a> for a full list of commands and their details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features">4. Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section explains how you can use the features in <strong>Athletick</strong>.
+The features are segregated by their main functions.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Command Format</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
+</li>
+<li>
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
+</li>
+<li>
+<p><code>INDEX</code> refers to the athlete&#8217;s position in the active list.
+As the index can change depending on what filters are applied, refer to the current index on the sidebar.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_team_data_entry">4.1. Team Data Entry</h3>
+<div class="sect3">
+<h4 id="_adding_an_athlete_add">4.1.1. Adding an athlete : <code>add</code></h4>
+<div class="paragraph">
+<p>This command adds an athlete to Athletick.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say John Doe just joined the team and you want to add him to Athletick so that you are able to track his
+attendance and performance.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the athlete&#8217;s particulars in the format given below.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>add n/NAME p/PHONE e/EMAIL g/GENDER a/ADDRESS [t/TAG]&#8230;&#8203; [i/IMAGE]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Take note that if you want to add an image of John when you are adding him to Athletick, make sure that
+the image is in <code>.png</code> format and that it is included in the <code>images</code> folder. Refer to the <strong>"FAQ"</strong> section on how to
+add your images
+to the folder.</p>
+</div>
+<div class="paragraph">
+<p>You can include any number of tags (zero tags are also allowed) to an athlete and the addition of an image
+is optional.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example: <code>add n/John Doe p/98765432 e/johnd@example.com g/male a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beforeAdd.png" alt="beforeAdd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterAdd.png" alt="afterAdd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>If successfully added, the details of the added athlete will be displayed in the result box.</p>
+</div>
+<div class="paragraph">
+<p>The added athlete will be shown at the bottom of the team list.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deleting_an_athlete_delete_p">4.1.2. Deleting an athlete : <code>delete -p</code></h4>
+<div class="paragraph">
+<p>This command deletes an athlete from the list by their index.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to remove Sun Yang from Athletick as he is no longer in the team. Type the delete command,
+followed by the index of the athlete you wish to delete in the following format and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete -p INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>delete -p 5</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The index refers to the index number shown in the displayed person list.</p>
+</div>
+<div class="paragraph">
+<p>The index must be a positive integer 1, 2, 3, …​</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteperson_wsyd.png" alt="deleteperson wsyd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteperson_wsys.png" alt="deleteperson wsys" width="450">
+</div>
+<div class="title">Figure 1. Notice that Sun Yang is no longer in the athlete list on the left sidebar.</div>
+</div>
+<div class="paragraph">
+<p>If successfully removed, the details of the removed athlete will be displayed in the result box.</p>
+</div>
+<div class="paragraph">
+<p>The athlete should no longer be shown in the team list.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_editing_an_athlete_edit">4.1.3. Editing an athlete : <code>edit</code></h4>
+<div class="paragraph">
+<p>This command edits the details of an existing athlete in Athletick.</p>
+</div>
+<div class="paragraph">
+<p>All the details of an athlete (name, phone number, email, address, tags, image) can be edited.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] g/[GENDER] a/[ADDRESS] t/[TAGS] i/[IMAGE]</code></p>
+</div>
+<div class="paragraph">
+<p>In order to edit Roy Balakrishnan&#8217;s name to Shawn, type in the following.</p>
+</div>
+<div class="paragraph">
+<p>Example: <code>edit 6 n/Shawn</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beforeEdit.png" alt="beforeEdit" width="450">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The index refers to the index number shown in the displayed person list.</p>
+</div>
+<div class="paragraph">
+<p>The index must be a positive integer 1, 2, 3, …​</p>
+</div>
+<div class="paragraph">
+<p>At least one of the optional field must be provided.</p>
+</div>
+<div class="paragraph">
+<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
+</div>
+<div class="paragraph">
+<p>You can remove all the person’s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</div>
+<div class="paragraph">
+<p>When editing the image, make sure that the image you are replacing with is in the <code>images</code> folder and the format is
+in <code>.png</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterEdit.png" alt="afterEdit" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.</p>
+</div>
+<div class="paragraph">
+<p>The team list should also reflect Roy&#8217;s new details.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_training">4.2. Training</h3>
+<div class="paragraph">
+<p><strong>Athletick</strong> allows you to record your team&#8217;s training sessions, so that you can store important information like
+date of training and training attendance. After adding a training session, you can look at past trainings to check
+attendance on that particular date. You can also edit training attendance or delete a training from <strong>Athletick</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<strong>Athletick</strong> does not support recording of multiple trainings on the same date. Recording a training on the same
+date will replace the previous training. (see <a href="#_edit_attendance_of_an_existing_training_session_training_or_training_a">Section 4.2.3, &#8220;Edit attendance of an existing training session: <code>training</code> or <code>training -a</code>&#8221;</a>)
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_record_training_session_by_indicating_athletes_present_training">4.2.1. Record training session by indicating athletes present : <code>training</code></h4>
+<div class="paragraph">
+<p>This command saves a training session to <strong>Athletick</strong>, and marks the athletes indicated as present. You will need
+the date of training and indexes of athletes who were present.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to record a training session that took place on the 28th of November 2019 and only Michael and Joseph
+were present.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the <code>training</code> command, date of training and the indexes of athletes who were present in the following format
+and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …</code></p>
+</div>
+<div class="paragraph">
+<p>Examples : <code>training d/28112019 #/2 4</code> or <code>training #/1 3 4 7</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If no date is entered, the training will be recorded under today&#8217;s date.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_without_flag_before.png" alt="training without flag before" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully added, the result box will display the following result as shown in the diagram below. A green dot will
+also appear at the date on the calendar, indicating that the training has been recorded.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_without_flag_after.png" alt="training without flag after" width="350">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_record_training_session_by_indicating_athletes_absent_training_a">4.2.2. Record training session by indicating athletes absent : <code>training -a</code></h4>
+<div class="paragraph">
+<p>This command saves a training session to <strong>Athletick</strong>, and marks the athletes indicated as absent. You will need
+the date of training and indexes of athletes who were absent.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to record a training session that took place today and everyone was present except Tao Li.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the <code>training</code> command, the absent flag <code>-a</code>, date of training and the indexes of athletes who were absent in
+the following
+format and
+press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>training -a [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …</code></p>
+</div>
+<div class="paragraph">
+<p>Examples : <code>training -a d/29112019 #/3 6</code> or <code>training -a #/3</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If no date is entered, the training will be recorded under today&#8217;s date.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_with_flag_before.png" alt="training with flag before" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully added, the result box will display the following result as shown in the diagram below. A green dot
+will appear also at the date on the calendar, indicating that the training has been recorded.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_with_flag_after.png" alt="training with flag after" width="350">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_edit_attendance_of_an_existing_training_session_training_or_training_a">4.2.3. Edit attendance of an existing training session: <code>training</code> or <code>training -a</code></h4>
+<div class="paragraph">
+<p>This command allows you to edit the attendance of a training session. You will need the date of training and indexes
+of athletes.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you recorded a training session on the 23rd of November and indicated that Amanda and Joseph were absent.
+However, you later realised that Joseph was actually present that day and want to change the attendance for that
+training.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the <code>training</code> command, date and the correct indexes of athletes in the following format and press <code>Enter</code> to
+execute it. This will edit the training on the date by replacing it with the newly entered training session.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+In this case, you can type either <code>training</code> or <code>training -a</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format : <code>training [-a] d/DDMMYYYY #/INDEX [INDEX] [INDEX ] …</code></p>
+</div>
+<div class="paragraph">
+<p>Examples : <code>training d/23112019 #/2 3 4 5</code> or <code>training -a d/23112019 #/1</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/edit_training_before.png" alt="edit training before" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully edited, the result box will display the following result as shown in the diagram below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/edit_training_after.png" alt="edit training after" width="350">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_delete_a_training_session_delete_t">4.2.4. Delete a training session: <code>delete -t</code></h4>
+<div class="paragraph">
+<p>This command allows you to delete a training session. You will need the date of the training session you wish to delete.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you previously recorded a training session on the 29th of November and you wish to delete that training
+session.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the <code>delete</code> command with the training flag <code>-t</code> and the date of training in the following format and press
+<code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>delete -t d/DDMMYYYY</code></p>
+</div>
+<div class="paragraph">
+<p>Examples : <code>delete -t d/29112019</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/delete_training_before.png" alt="delete training before" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully deleted, the result box will display the following result as shown in the diagram below. The green dot
+at the date will also disappear, indicating that it has been removed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/delete_training_after.png" alt="delete training after" width="350">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_attendance">4.3. Attendance</h3>
+<div class="paragraph">
+<p>To save you the trouble of manually calculating your team&#8217;s attendance, Athletick has an attendance tracker that
+checks your team&#8217;s overall attendance for you as you record trainings.</p>
+</div>
+<div class="paragraph">
+<p>After recording a training, you can check the attendance of an athlete
+(see <a href="#_check_attendance_of_an_athlete_attendance">Section 4.3.1, &#8220;Check attendance of an athlete : <code>attendance</code>&#8221;</a>) or check your team&#8217;s attendance (see: <a href="#_check_overall_attendance_of_your_team_view_attendance">Section 4.3.2, &#8220;Check overall attendance of your team : <code>view attendance</code>&#8221;</a>)</p>
+</div>
+<div class="sect3">
+<h4 id="_check_attendance_of_an_athlete_attendance">4.3.1. Check attendance of an athlete : <code>attendance</code></h4>
+<div class="paragraph">
+<p>This command allows you to check the attendance of an athlete.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you notice that Michael hasn&#8217;t been attending recent trainings and would like to check on his overall
+attendance rate.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the <code>attendance</code> command and the athlete&#8217;s index. Press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>attendance INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>Examples: <code>attendance 2</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/attendance_command_before.png" alt="attendance command before" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If the command is successful, the athlete&#8217;s name and attendance rate will be displayed in the result box as shown in
+the diagram below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/attendance_command_after.png" alt="attendance command after" width="350">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_check_overall_attendance_of_your_team_view_attendance">4.3.2. Check overall attendance of your team : <code>view attendance</code></h4>
+<div class="paragraph">
+<p>This command allows you to check the overall attendance of your team.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you would like to track your team&#8217;s overall attendance but don&#8217;t want to manually type the attendance
+command multiple times.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the <code>view attendance</code> command and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/view_attendance_before.png" alt="view attendance before" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If the command is successful, the result box will display the following result as shown in the diagram below. The
+feature box will show you your team&#8217;s overall attendance rate.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/view_attendance_after.png" alt="view attendance after" width="350">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance">4.4. Performance</h3>
+<div class="paragraph">
+<p>To help you keep track of your team&#8217;s performance,
+Athletick has a built-in performance tracker for you record and analyse your team&#8217;s performance.</p>
+</div>
+<div class="paragraph">
+<p>First, you will have to add an event.
+After that, you can add records from timed trials under the event to start tracking their performance.</p>
+</div>
+<div class="sect3">
+<h4 id="_adding_an_event_event">4.4.1. Adding an event : <code>event</code></h4>
+<div class="paragraph">
+<p>This command adds an event to <strong>Athletick</strong>, and will be used for storing your athletes’ performances.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that you want to start recording performances for the <code>freestyle 50m</code> event. You will need to add
+the <code>freestyle 50m</code> event to <strong>Athletick</strong> first.</p>
+</div>
+<div class="paragraph">
+<p>Type the command in the following format and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>event NAME_OF_EVENT</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Event names are case-insensitive (eg. <code>50<strong>m</strong> freestyle</code> and <code>50<strong>M</strong> freestyle</code> are considered
+the same event)
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example: <code>event freestyle 50m</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addevent_wysd.png" alt="addevent wysd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully added, the result box (red box) will display the added event name as shown below.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the feature box (orange box) will display the list of all your events. The event you just
+added should be included in the list. In the example below, <code>freestyle 50m</code> appears at the bottom of the list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addevent_wyss.png" alt="addevent wyss" width="450">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deleting_an_event_delete_e">4.4.2. Deleting an event : <code>delete -e</code></h4>
+<div class="paragraph">
+<p>This command removes an event from <strong>Athletick</strong>.
+Records stored under this event will be deleted as well.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that your team is no longer participating in the <code>backstroke 100m</code> event, and you want to remove it
+from <strong>Athletick</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Type in the command in the following format and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>delete -e NAME_OF_EVENT</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>delete -e backstroke 100m</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteevent_wysd.png" alt="deleteevent wysd" width="250">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully deleted, the result box will display the deleted event name as shown below.
+The event should no longer be in <strong>Athletick</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/deleteevent_wyss.png" alt="deleteevent wyss" width="150">
+</div>
+<div class="title">Figure 2. Notice that the backstroke 100m event is no longer listed.</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_adding_an_athletes_record_performance">4.4.3. Adding an athlete&#8217;s record : <code>performance</code></h4>
+<div class="paragraph">
+<p>This command records your athlete’s performance for a certain event, on a certain day, to <strong>Athletick</strong>.</p>
+</div>
+<div class="paragraph">
+<p>You will need the event name, athlete’s index, date of performance and timing of performance.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The event has to be created first. Otherwise, Athletick will prompt you to create that event.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you took a timed trial for Irfan on 22nd October 2019 under the freestyle 50m event,
+and he took 23.47 seconds to complete it. Now you want to store this record in <strong>Athletick</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>As seen in the yellow box in the diagram below, Irfan is located at index 5 in the active list.</p>
+</div>
+<div class="paragraph">
+<p>Type in the command below, like so in the red box in the same diagram, and press <code>Enter</code>.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING</code></p>
+</div>
+<div class="paragraph">
+<p>Example : <code>performance 5 e/freestyle 50m d/02102019 t/23.47</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addperformance_wysd.png" alt="addperformance wysd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully added, the performance details will be displayed in the result box (red mark-up).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addperformance_wyss.png" alt="addperformance wyss" width="350">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_viewings_events_view_performance">4.4.4. Viewings events : <code>view performance</code></h4>
+<div class="paragraph">
+<p>This command gives you an overview of what events you have stored in <strong>Athletick</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to know what events you have added to <strong>Athletick</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type <code>view performance</code> in the command box, and press <code>Enter</code> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>view performance</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewperformance_wysd.png" alt="viewperformance wysd" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, the success message will be displayed in the result box (red box).</p>
+</div>
+<div class="paragraph">
+<p>The feature box (green box) will display all your events saved in <strong>Athletick</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewperformance_wyss.png" alt="viewperformance wyss" width="450">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_calendar">4.5. Calendar</h3>
+<div class="paragraph">
+<p>To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Displays an overview of training and performance records in a selected month (see <a href="#_viewing_the_calendar_view_calendar">Section 4.5.1, &#8220;Viewing the calendar : <code>view calendar</code>&#8221;</a> and <a href="#_navigating_the_calendar_to_a_specific_month_calendar_mmyyyy">Section 4.5.2, &#8220;Navigating the calendar to a specific month : <code>calendar MMYYYY</code>&#8221;</a>).</p>
+</li>
+<li>
+<p>Displays training and performance records entered on a specific date (see <a href="#_viewing_training_performance_details_for_a_specific_date_calendar_ddmmyyyy">Section 4.5.3, &#8220;Viewing training / performance details for a specific date : <code>calendar DDMMYYYY</code>&#8221;</a>).</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_viewing_the_calendar_view_calendar">4.5.1. Viewing the calendar : <code>view calendar</code></h4>
+<div class="paragraph">
+<p>This command displays the calendar for the current month.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that you have been entering training and performance records into <strong>Athletick</strong> over the past few weeks in the current month (e.g October 2019), and you would like to find out which days of the month contain training or performance records.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type <code>view calendar</code> into the command box, and press <kbd>Enter</kbd> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar1.png" alt="calendar1" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, the message "Viewing your calendar" will be displayed in the result box (red box).</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the feature box (yellow box) will display the calendar for the current month (e.g. October 2019).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar3.png" alt="calendar3" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>With reference to the diagram below, <strong>Header 1</strong> displays today’s day and date. <strong>Header 2</strong> displays the month and year you are currently viewing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendarview_calendar.png" alt="calendarview calendar" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.</p>
+</div>
+<div class="paragraph">
+<p>Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators. Today&#8217;s date (e.g. 31 October 2019) is marked with a blue circle.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_navigating_the_calendar_to_a_specific_month_calendar_mmyyyy">4.5.2. Navigating the calendar to a specific month : <code>calendar MMYYYY</code></h4>
+<div class="paragraph">
+<p>This command allows you to display the calendar for a specific month of your choice.</p>
+</div>
+<div class="paragraph">
+<p>You will need to specify the month and the year you would like to view.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that you would like to view the calendar containing training and performance records from 2 years ago (e.g. October 2017).</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the command <code>calendar</code> followed by the desired month and year in the format <code>MMYYYY</code>.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>calendar MMYYYY</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>MM</code> provided has to be within the range <code>01</code> to <code>12</code> (<code>0</code> must be included in front of single-digit numbers) and <code>YYYY</code> provided has to be within the range 0001 to 9999 for the command to execute successfully.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example: <code>calendar 102017</code></p>
+</div>
+<div class="paragraph">
+<p>Type <code>calendar 102017</code> into the command box, and press <kbd>enter</kbd> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar5.png" alt="calendar5" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, the message "Viewing calendar for: October 2017" will be displayed in the result box (red box).</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the feature box (yellow box) will display the calendar for the selected month and year (e.g. October 2017).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar7.png" alt="calendar7" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>With reference to the diagram below, <strong>Header 1</strong> displays today’s day and date. <strong>Header 2</strong> displays the month and year you are currently viewing.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/monthview_calendar.png" alt="monthview calendar" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.</p>
+</div>
+<div class="paragraph">
+<p>Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_viewing_training_performance_details_for_a_specific_date_calendar_ddmmyyyy">4.5.3. Viewing training / performance details for a specific date : <code>calendar DDMMYYYY</code></h4>
+<div class="paragraph">
+<p>This command displays the training and performance details entered on a specific date.</p>
+</div>
+<div class="paragraph">
+<p>You will need to specify the day, month and the year you would like to view.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that you have entered both training and performance records into <strong>Athletick</strong> on 31 October 2019, and you would like to view these records.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the command <code>calendar</code> followed by the desired date in the format <code>DDMMYYYY</code>.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>calendar DDMMYYYY</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>MM</code> provided has to be within the range <code>01</code> to <code>12</code> (<code>0</code> must be included in front of single-digit numbers) and <code>YYYY</code> provided has to be within the range 0001 to 9999 for the command to execute successfully.</p>
+</div>
+<div class="paragraph">
+<p>You should have either training or attendance records on the specified date entered into <strong>Athletick</strong>, otherwise no records will be displayed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example: <code>calendar 31102019</code></p>
+</div>
+<div class="paragraph">
+<p>Type <code>calendar 31102019</code> into the command box, and press <kbd>enter</kbd> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar8.png" alt="calendar8" width="350">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, the message "Viewing details for: 31st October 2019" will be displayed in the result box (red box).</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the feature box (yellow box) will display the training and performance details recorded on 31 October 2019.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar10.png" alt="calendar10" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>In the event your list of attendance and performance records exceeds the size of the window, you may use the blue vertical scrollbar on the right of the feature box to scroll down.</p>
+</div>
+<div class="paragraph">
+<p>With reference to the diagram below, <strong>Attendance Pie Chart</strong> indicates the overall team attendance percentage and the number of present and absent team members. <strong>Attendance Table</strong> displays your team members and whether they were present or absent. <strong>Performance Statistic</strong> indicates the total number of performance records and <strong>Performance Table</strong> displays the records for each event.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar11.png" alt="calendar11" width="450">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_athlete_management">4.6. Athlete Management</h3>
+<div class="sect3">
+<h4 id="_viewing_more_details_of_a_team_member_select">4.6.1. Viewing more details of a team member : <code>select</code></h4>
+<div class="paragraph">
+<p>This command shows the profile of the athlete that you have selected.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to view Michael&#8217;s personal information.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the command in the following format.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>select INDEX</code></p>
+</div>
+<div class="paragraph">
+<p>Example : <code>select 2</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beforeSelect.png" alt="beforeSelect" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>The message “Person selected!” will be displayed in the result box to indicate that you have selected the
+athlete.</p>
+</div>
+<div class="paragraph">
+<p>In the feature box, the personal information of the athlete will be displayed as shown.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterSelect.png" alt="afterSelect" width="450">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If the image of the selected athlete is not appearing as shown below, take note that the image file is not in the
+<code>images</code> folder. You may refer to <a href="#_faq">Section 5, &#8220;FAQ&#8221;</a> section to know more on where to include the image files
+which are going to be used and <a href="#_editing_an_athlete_edit">Section 4.1.3, &#8220;Editing an athlete : <code>edit</code>&#8221;</a> to understand further how to edit the image of
+an athlete.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/noImage.png" alt="noImage" width="450">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sorting_athletes_alphabetically_sort">4.6.2. Sorting athletes alphabetically : <code>sort</code></h4>
+<div class="paragraph">
+<p>This command sorts your <strong>Athletick</strong> list alphabetically by the athletes' name.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you have just added 2 new athletes named Aaron and Bala. These new athletes are added to the bottom of the list.
+Now you want to sort the list to put these players in their correct positions alphabetically.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>sort</code> command is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p>This command will change your athletes’ index numbers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type <code>sort</code> into the command box and press <kbd>Enter</kbd> to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>sort</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/sort1.png" alt="sort1" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, the message "Sorted your team list in alphabetical order." will be displayed in the result box (red box).</p>
+</div>
+<div class="paragraph">
+<p>Additionally, your newly added athletes (Aaron and Bala) are now in their correct positions and the index numbers of all your athletes in the list have been updated.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/sort2.png" alt="sort2" width="450">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_filtering_athletes_by_their_tags_filter">4.6.3. Filtering athletes by their tags : <code>filter</code></h4>
+<div class="paragraph">
+<p>This command filters your athletes based on their tags.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This command will change your athletes’ <code>INDEX</code>.</p>
+</div>
+<div class="paragraph">
+<p>This command is case-insensitive, so filtering by <code>captain</code> and <code>Captain</code> will give the same result.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say you want to see which athletes are butterfly swimmers
+(ie. you want to filter by the <code>butterfly</code> tag).</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the following command and press <code>Enter</code>.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>filter TAG [TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>filter butterfly</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/filter_wysd.png" alt="filter wysd" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed,
+the message "x persons listed!" will be displayed in the result box (red box), where x is the number of
+athletes that match the tag you filtered by.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, the athlete list (orange box) will contain only the athletes that have the tag you filtered
+by.</p>
+</div>
+<div class="paragraph">
+<p>In the example given below, 3 athletes have the <code>butterfly</code> tag.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/filter_wyss.png" alt="filter wyss" width="450">
+</div>
+<div class="title">Figure 3. Note that the index numbers of the athletes in the filtered list may differ from that of the unfiltered list (refer to the diagram below for an explanation).</div>
+</div>
+<div class="paragraph">
+<p>The diagram below shows the change in the active list (from unfiltered to filtered) when the filter is
+applied.
+Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 3 to 2).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/filter_change.png" alt="filter change" width="395">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_finding_athletes_by_their_name_find">4.6.4. Finding athletes by their name : <code>find</code></h4>
+<div class="paragraph">
+<p>This command find athletes whose name contains any of the given keywords.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>find</code> command is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p>This command will change your athletes’ index numbers.</p>
+</div>
+<div class="paragraph">
+<p>Only full keyword matches are accepted (eg. to find <code>Joseph Schooling</code>, you need to search
+for <code>Joseph</code> or <code>Schooling</code>, but <strong>not <code>Jo</code></strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s say that you want to find Joseph Schooling from your long list of athletes.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type in the find command, followed by the keywords you want to find.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="paragraph">
+<p>Example : <code>find joseph</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/find_wysd.png" alt="find wysd" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>If successfully executed, he athlete list in the left sidebar should only display athletes whose name
+contains the given keywords.</p>
+</div>
+<div class="paragraph">
+<p>The result box should should also show the number of athletes in the results.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/find_wyss.png" alt="find wyss" width="400">
+</div>
+<div class="title">Figure 4. Notice that Joseph Tan is also in the result as his name has 'Joseph'.</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_miscellaneous">4.7. Miscellaneous</h3>
+<div class="sect3">
+<h4 id="_clear_all_data_clear">4.7.1. Clear all data : <code>clear</code></h4>
+<div class="paragraph">
+<p>This command clears all the existing data in Athletick.</p>
+</div>
+<div class="paragraph">
+<p>It deletes all players, trainings, attendance, events and performances.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the clear command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/clear.png" alt="clear" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>Format : <code>clear</code></p>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterclear.png" alt="afterclear" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>The following prompt will show if data was successfully cleared.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_get_help_on_how_to_use_athletick_help">4.7.2. Get help on how to use Athletick: <code>help</code></h4>
+<div class="paragraph">
+<p>This command provides a user guide for Athletick.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>Type the help command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/beforehelp.png" alt="beforehelp" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterhelp.png" alt="afterhelp" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>A pop up box will appear, with a link to the user guide on Athletick.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_undoing_a_previous_command_undo">4.7.3. Undoing a previous command : <code>undo</code></h4>
+<div class="paragraph">
+<p>This command restores Athletick to the state before the previous command was executed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Take note that the <code>undo</code> feature only applies to undoable commands.
+Undoable commands include: <code>add</code>, <code>delete</code>, <code>edit</code>, <code>clear</code>, <code>training</code>, <code>event</code> and <code>performance</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>undo</code> command will not be able to undo non-undoable commands.
+Let’s say you have executed a <code>list</code> command to list out all the athletes information in Athletick.
+If you were to execute the <code>undo</code> command now, the <code>undo</code> command will fail because <code>list</code> is not an undoable command,
+and that no undoable commands were executed before this.</p>
+</div>
+<div class="paragraph">
+<p>The <code>undo</code> command will reverse the latest command that can be undone.
+Let’s say you have executed the <code>delete</code> command, followed by the <code>list</code> command.
+Since <code>list</code> command is not an undoable command, if you were to execute <code>undo</code>
+command now, you will thus reverse the <code>delete</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The <code>undo</code> command reverses previous commands in reverse chronological order.
+Let’s say you have executed the <code>edit</code> command, followed by the <code>delete</code> command. If you were
+to execute <code>undo</code> command now, you will reverse the <code>delete</code> command. Executing <code>undo</code> again
+will then reverse the <code>edit</code> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let’s say you have accidentally deleted an athlete’s contact (Mohamad Ali) from your list.
+Instead of having to re-enter Mohamad Ali’s contact information all over again,
+you can easily restore all of Mohamad Ali’s details by executing the command <code>undo</code> to
+undo the <code>delete</code> command that you have just entered.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>With Mohamad Ali&#8217;s contact information deleted, the current list has 7 people. Type <code>undo</code> into the command box, and
+press Enter to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>undo</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Undo0.png" alt="Undo0" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>The result box will display a success message and you can check that
+Mohamad Ali’s contact information is visible in the list again!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AfterUndo0.png" alt="AfterUndo0" width="450">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_redoing_an_undo_command_redo">4.7.4. Redoing an <code>undo</code> command : <code>redo</code></h4>
+<div class="paragraph">
+<p>This command reverses the most recent <code>undo</code> command.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>redo</code> command can only be executed immediately after an <code>undo</code> command.
+Let’s say that you have executed the <code>undo</code> command to undo a previous command that you have previously executed.
+You then execute the <code>list</code> command to view your list.
+Executing the <code>redo</code> command now will fail because your previous command was not an <code>undo</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The <code>redo</code> command reverses previous <code>undo</code> commands in reverse chronological order.
+Let’s say that you have executed the <code>clear</code> command, followed by the <code>add</code> command.
+Executing the <code>undo</code> command now will reverse the <code>add</code> command.
+Executing the <code>undo</code> command again will reverse the <code>clear</code> command as well.
+Following this, executing the <code>redo</code> command will reverse the most recent <code>undo</code> command and re-execute the <code>clear</code>
+command.
+Executing the <code>redo</code> command again will reverse the second most recent <code>undo</code> command and re-execute the <code>add</code> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let’s say you have executed the <code>delete</code> command to delete Mohamad Ali from your list.
+You may undo this action and restore Mohamad Ali’s information by executing the <code>undo</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Then, if you decide that you want the contact to remain deleted after all,
+you may very quickly do so by executing the <code>redo</code> command to reverse the <code>undo</code> command that you had just executed.</p>
+</div>
+<div class="paragraph">
+<p><strong>What you should do</strong></p>
+</div>
+<div class="paragraph">
+<p>With Mohamad Ali&#8217;s contact information, the current list has 8 people. Type <code>redo</code> into the command box, and press
+Enter to execute it.</p>
+</div>
+<div class="paragraph">
+<p>Format : <code>redo</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Redo0.png" alt="Redo0" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>What you should see</strong></p>
+</div>
+<div class="paragraph">
+<p>The result box will display a success message.
+Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AfterRedo0.png" alt="AfterRedo0" width="450">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upcoming_features">4.8. Upcoming features</h3>
+<div class="sect3">
+<h4 id="_change_app_theme_coming_in_v2_0">4.8.1. Change app theme [coming in v2.0]</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_generate_team_roster_coming_in_v2_0">4.8.2. Generate Team roster [coming in v2.0]</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_performance_tracker_coming_in_v2_0">4.8.3. Performance tracker [coming in v2.0]</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_importing_data_import_coming_in_v2_0">4.8.4. Importing data : <code>import</code> [coming in v2.0]</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_exporting_data_export_coming_in_v2_0">4.8.5. Exporting data : <code>export</code> [coming in v2.0]</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_saving_the_data">4.9. Saving the data</h3>
+<div class="paragraph">
+<p>Athletick data are saved in the hard disk automatically after any command that changes the data.</p>
+</div>
+<div class="paragraph">
+<p>There is no need to save manually.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">5. FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Athletick folder.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: How do I add my image files to the <code>images</code> folder?<br>
+<strong>A</strong>: Make sure that the <code>images</code> folder is in the same directory as the Athletick executable jar file. If the
+<code>images</code> folder is not created, the following steps will guide you through the creating of the <code>images</code> folder and
+how to add images into the folder:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a folder named <code>images</code> in the same directory as your executable jar file.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/creatingFile.png" alt="creatingFile" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ensure that the file name is correct.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/imageFile.png" alt="imageFile" width="790">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add the image files that you want to use into the folder.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addingPhotos.png" alt="addingPhotos" width="790">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_command_summary">6. Command Summary</h2>
+<div class="sectionbody">
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Add athlete
+</td>
+<td class="hdlist2">
+<p><code>add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203; i/IMAGE</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Check attendance of an athlete
+</td>
+<td class="hdlist2">
+<p><code>attendance INDEX</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Jump to a specific month and year on calendar
+</td>
+<td class="hdlist2">
+<p><code>calendar MMYYYY</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+View details for specific date on calendar
+</td>
+<td class="hdlist2">
+<p><code>calendar DDMMYYYY</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Clear data
+</td>
+<td class="hdlist2">
+<p><code>clear</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Edit athlete
+</td>
+<td class="hdlist2">
+<p><code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203; i/IMAGE</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Add event
+</td>
+<td class="hdlist2">
+<p><code>event EVENT_NAME</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Delete athlete
+</td>
+<td class="hdlist2">
+<p><code>delete INDEX</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Filter athletes
+</td>
+<td class="hdlist2">
+<p><code>filter TAG</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Find athletes
+</td>
+<td class="hdlist2">
+<p><code>find KEYWORD [MORE_KEYWORDS]</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Get help
+</td>
+<td class="hdlist2">
+<p><code>help</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Record performance
+</td>
+<td class="hdlist2">
+<p><code>performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Redo an undone command
+</td>
+<td class="hdlist2">
+<p><code>redo</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+View athlete details
+</td>
+<td class="hdlist2">
+<p><code>select INDEX</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Sort athletes
+</td>
+<td class="hdlist2">
+<p><code>sort</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Take attendance (by present)
+</td>
+<td class="hdlist2">
+<p><code>training d/DDMMYYYY #/INDEX [INDEX]&#8230;&#8203;</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Take attendance (by absent)
+</td>
+<td class="hdlist2">
+<p><code>training -a d/DDMMYYYY #/INDEX [INDEX]&#8230;&#8203;</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Undo a command
+</td>
+<td class="hdlist2">
+<p><code>undo</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+View team&#8217;s attendance
+</td>
+<td class="hdlist2">
+<p><code>view attendance</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+View calendar
+</td>
+<td class="hdlist2">
+<p><code>view calendar</code></p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+View all created events
+</td>
+<td class="hdlist2">
+<p><code>view performance</code></p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary">7. Glossary</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-11-10 20:25:46 +0800
+</div>
+</div>
+</body>
+</html>

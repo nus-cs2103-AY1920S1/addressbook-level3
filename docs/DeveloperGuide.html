@@ -1,0 +1,3068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Athletick - Developer Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Athletick - Developer Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>AY1920S1-CS2103T-T12-3</code>      Since: <code>Sep 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a>
+<ul class="sectlevel2">
+<li><a href="#_purpose">1.1. Purpose</a></li>
+<li><a href="#_design_goals">1.2. Design goals</a></li>
+</ul>
+</li>
+<li><a href="#_setting_up">2. Setting up</a></li>
+<li><a href="#_system_design">3. System design</a>
+<ul class="sectlevel2">
+<li><a href="#Design-Architecture">3.1. Architecture</a></li>
+<li><a href="#Design-Ui">3.2. UI component</a></li>
+<li><a href="#Design-Logic">3.3. Logic component</a></li>
+<li><a href="#Design-Model">3.4. Model component</a></li>
+<li><a href="#Design-Storage">3.5. Storage component</a></li>
+<li><a href="#Design-Commons">3.6. Common classes</a></li>
+</ul>
+</li>
+<li><a href="#_implementation">4. Implementation</a>
+<ul class="sectlevel2">
+<li><a href="#_training_feature">4.1. Training feature</a></li>
+<li><a href="#_performance_feature">4.2. Performance feature</a></li>
+<li><a href="#_calendar_feature">4.3. Calendar feature</a></li>
+<li><a href="#_select_feature">4.4. Select feature</a></li>
+<li><a href="#_undo_redo_feature">4.5. Undo / Redo feature</a></li>
+<li><a href="#_addingediting_photo_feature">4.6. Adding/editing photo feature</a></li>
+<li><a href="#_filter_feature">4.7. Filter feature</a></li>
+<li><a href="#_sort_command">4.8. Sort Command</a></li>
+<li><a href="#_logging">4.9. Logging</a></li>
+<li><a href="#Implementation-Configuration">4.10. Configuration</a></li>
+</ul>
+</li>
+<li><a href="#_documentation">5. Documentation</a></li>
+<li><a href="#_testing">6. Testing</a></li>
+<li><a href="#_dev_ops">7. Dev Ops</a></li>
+<li><a href="#_product_scope">Appendix A: Product Scope</a></li>
+<li><a href="#_user_stories">Appendix B: User Stories</a></li>
+<li><a href="#_use_cases">Appendix C: Use Cases</a></li>
+<li><a href="#_non_functional_requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#_glossary">Appendix E: Glossary</a></li>
+<li><a href="#_product_survey">Appendix F: Product Survey</a></li>
+<li><a href="#_instructions_for_manual_testing">Appendix G: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_launch_and_shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#_deleting_a_person">G.2. Deleting a person</a></li>
+<li><a href="#_saving_data">G.3. Saving data</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section specifies the purpose of this document and design goals of Athletick.</p>
+</div>
+<div class="sect2">
+<h3 id="_purpose">1.1. Purpose</h3>
+<div class="paragraph">
+<p>This document describes the software architecture and system design of Athletick, a team management desktop
+application for coaches and team captains of timing-based performance sports. It also includes some of the design
+considerations for the implementation of Athletick&#8217;s features.</p>
+</div>
+<div class="paragraph">
+<p>The intended audience of this document includes the developers and software testers of Athletick.</p>
+</div>
+<div class="paragraph">
+<p>Note the following symbols and formatting used in this document</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+NOTE
+</td>
+<td class="hdlist2">
+<p>This symbol indicates important information</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code>command</code>
+</td>
+<td class="hdlist2">
+<p>A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+<code><span class="green">component</span></code>
+</td>
+<td class="hdlist2">
+<p>Green text with grey highlight indicates a component, class, object or method in the architecture of the application.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_design_goals">1.2. Design goals</h3>
+<div class="paragraph">
+<p>Athletick was developed as part of <a href="https://nusmods.com/modules/CS2103T/software-engineering">CS2103T</a>, a software engineering module taken in the National University of Singapore. We were tasked to morph a generic <a href="https://se-education.org/addressbook-level3/">address book application</a> that manages contacts into an application that manages something else. At the end of the project, it should be ready to be continued by future developers.</p>
+</div>
+<div class="paragraph">
+<p>As part of the project constraints, the input to Athletick needs to be primarily Command-Line Interface (CLI).
+Non-CLI inputs will reduce the suitability of the product to our target users. Taking this into consideration,
+the following principles guide the design of Athletick:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Detailed Command Syntax Instructions</strong></p>
+<div class="paragraph">
+<p>In order to make Athletick more user-friendly, we have provided detailed command syntax instructions whenever users enter an erroneous command, allowing them to correct their errors on the fly. This helps users to maintain their workflow without having to switch back and forth between the application and the user guide, enabling them to complete their tasks more efficiently.</p>
+</div>
+</li>
+<li>
+<p><strong>Optimised Performance</strong></p>
+<div class="paragraph">
+<p>Athletick should be able to hold up to 1000 athletes, attendance and performance records without a noticeable
+sluggishness in performance for typical usage. To achieve this, we have used optimal data structures for storing
+and retrieval of data.</p>
+</div>
+</li>
+<li>
+<p><strong>Designer Friendly</strong></p>
+<div class="paragraph">
+<p>As Athletick is intended for future student developers like us to make modifications and extensions to its behaviour,
+adhering to the high-level design architecture strictly was a necessity. This translates to extensive use of
+abstractions for code clarity. Additionally, we provided Javadoc comments for our classes and methods for developers to
+understand how they work.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setting_up">2. Setting up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refer to the guide <a href="SettingUp.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_system_design">3. System design</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section introduces the high-level design of Athletick and gives you a basic understanding of how each component
+operates and interacts with one another.</p>
+</div>
+<div class="sect2">
+<h3 id="Design-Architecture">3.1. Architecture</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ArchitectureDiagram.png" alt="ArchitectureDiagram" width="400">
+</div>
+<div class="title">Figure 1. Architecture Diagram</div>
+</div>
+<div class="paragraph">
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of Athletick. Given below is a quick overview of each component.</p>
+</div>
+<div class="paragraph">
+<p><code><span class="green">Main</span></code> has two classes called <a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/Main.java"><code><span class="green">Main</span></code></a> and
+<a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/MainApp.java"><code><span class="green">MainApp</span></code></a>. It is responsible for,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At app launch: Initializes the components in the correct sequence, and connects them up with each other.</p>
+</li>
+<li>
+<p>At shut down: Shuts down the components and invokes cleanup method where necessary.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#Design-Commons"><strong><code><span class="green">Commons</span></code></strong></a> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">LogsCenter</span></code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The rest of the App consists of four components.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#Design-Ui"><strong><code><span class="green">UI</span></code></strong></a>: Displays the UI of Athletick.</p>
+</li>
+<li>
+<p><a href="#Design-Logic"><strong><code><span class="green">Logic</span></code></strong></a>: Executes commands from the user.</p>
+</li>
+<li>
+<p><a href="#Design-Model"><strong><code><span class="green">Model</span></code></strong></a>: Holds the data of Athletick in-memory.</p>
+</li>
+<li>
+<p><a href="#Design-Storage"><strong><code><span class="green">Storage</span></code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of the four components</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Defines its <em>API</em> in an interface with the same name as the Component.</p>
+</li>
+<li>
+<p>Exposes its functionality using a <code><span class="green">{Component Name}Manager</span></code> class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, the <code><span class="green">Logic</span></code> component (refer to the class diagram given below) defines it&#8217;s API in the
+<code><span class="green">Logic.java</span></code> interface and exposes its functionality using the <code><span class="green">LogicManager.java</span></code> class.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LogicComponent.png" alt="LogicComponent">
+</div>
+<div class="title">Figure 2. Class Diagram of the Logic Component</div>
+</div>
+<h4 id="_how_the_architecture_components_interact_with_each_other" class="discrete">How the architecture components interact with each other</h4>
+<div class="paragraph">
+<p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code>delete 1</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ArchitectureSequenceDiagram.png" alt="ArchitectureSequenceDiagram" width="500">
+</div>
+<div class="title">Figure 3. Component Interactions for <code>delete 1</code> Command</div>
+</div>
+<div class="paragraph">
+<p>The sections below give more details of each component.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Ui">3.2. UI component</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiClassDiagram.png" alt="UiClassDiagram">
+</div>
+<div class="title">Figure 4. Structure of the UI Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/ui/Ui.java"><code><span class="green">Ui.java</span></code></a></p>
+</div>
+<div class="paragraph">
+<p>The UI consists of a <code><span class="green">MainWindow</span></code> that is made up of parts e.g.<code><span class="green">CommandBox</span></code>,
+<code><span class="green">ResultDisplay</span></code>, <code><span class="green">PersonListPanel</span></code>, <code><span class="green">StatusBarFooter</span></code> etc. All these, including the
+<code><span class="green">MainWindow</span></code>, inherit from the abstract
+<code><span class="green">UiPart</span></code> class.</p>
+</div>
+<div class="paragraph">
+<p>The <code><span class="green">UI</span></code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code>
+files that
+are in the <code>src/main/resources/view</code> folder. For example, the layout of the
+<a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code><span class="green">MainWindow</span></code></a> is specified in
+<a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/resources/view/MainWindow.fxml"><code><span class="green">MainWindow.fxml</span></code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code><span class="green">UI</span></code> component,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Executes user commands using the <code><span class="green">Logic</span></code> component.</p>
+</li>
+<li>
+<p>Listens for changes to <code><span class="green">Model</span></code> data so that the UI can be updated with the modified data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Logic">3.3. Logic component</h3>
+<div id="fig-LogicClassDiagram" class="imageblock">
+<div class="content">
+<img src="images/LogicComponent.png" alt="LogicComponent">
+</div>
+<div class="title">Figure 5. Structure of the Logic Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> :
+<a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/logic/Logic.java"><code><span class="green">Logic.java</span></code></a></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code><span class="green">Logic</span></code> uses the <code><span class="green">AthletickParser</span></code> class to parse the user command.</p>
+</li>
+<li>
+<p>This results in a <code><span class="green">Command</span></code> object which is executed by the <code><span class="green">LogicManager</span></code>.</p>
+</li>
+<li>
+<p>The command execution can affect the <code><span class="green">Model</span></code> (e.g. adding a person).</p>
+</li>
+<li>
+<p>The result of the command execution is encapsulated as a <code><span class="green">CommandResult</span></code> object which is passed back to the
+<code><span class="green">Ui</span></code>.</p>
+</li>
+<li>
+<p>In addition, the <code><span class="green">CommandResult</span></code> object can also instruct the <code><span class="green">Ui</span></code> to perform certain actions, such
+as displaying help to the user.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is the Sequence Diagram for interactions within the <code><span class="green">Logic</span></code> component for the <code><span class="green">execute
+("delete 1")</span></code> API call.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
+</div>
+<div class="title">Figure 6. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The lifeline for <code><span class="green">DeleteCommandParser</span></code> should end at the destroy marker (X) but due to a limitation of
+PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Model">3.4. Model component</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ModelComponent.png" alt="ModelComponent">
+</div>
+<div class="title">Figure 7. Structure of the Model Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/model/Model.java"><code><span class="green">Model.java</span></code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code><span class="green">Model</span></code>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>stores a <code><span class="green">UserPref</span></code> object that represents the user&#8217;s preferences.</p>
+</li>
+<li>
+<p>stores the Address Book data.</p>
+</li>
+<li>
+<p>exposes an unmodifiable <code><span class="green"><strong>ObservableList&lt;Person&gt;</strong></span></code> that can be 'observed' e.g. the UI can be bound to this
+list so that the UI automatically updates when the data in the list change.</p>
+</li>
+<li>
+<p>does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+As a more OOP model, we can store a Tag list in <code><span class="green">Athletick</span></code>, which <code><span class="green">Person</span></code> can reference. This would
+allow <code><span class="green">Athletick</span></code> to only require one <code><span class="green">Tag</span></code> object per unique <code><span class="green">Tag</span></code>, instead of each
+<code><span class="green">Person</span></code> needing their own <code><span class="green">Tag</span></code>
+object. An example of how such a model may look like is given below.<br>
+<br>
+<span class="image"><img src="images/BetterModelClassDiagram.png" alt="BetterModelClassDiagram"></span>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Storage">3.5. Storage component</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/storage_classdiagram.png" alt="storage classdiagram">
+</div>
+<div class="title">Figure 8. Structure of the Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code><span class="green">Storage.java</span></code></a></p>
+</div>
+<div class="paragraph">
+<p>The <code><span class="green">Storage</span></code> component saves the following data in json format and reads it back as objects when
+a new session of Athletick is started.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">UserPref</span></code> data</p>
+</li>
+<li>
+<p><code><span class="green">Athletick</span></code> data (athlete list)</p>
+</li>
+<li>
+<p><code><span class="green">Performance</span></code> data (<code><span class="green">Event</span></code> and <code><span class="green">Record</span></code>)</p>
+</li>
+<li>
+<p><code><span class="green">TrainingManager</span></code> data (<code><span class="green">Training</span></code>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code><span class="green">Performance</span></code> and <code><span class="green">TrainingManager</span></code> rely on <code><span class="green">JsonAdaptedPerson</span></code> as well, since a
+performance and training record also stores the athlete it is referring to.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Design-Commons">3.6. Common classes</h3>
+<div class="paragraph">
+<p>Classes used by multiple components are in the <code><span class="green">seedu.addressbook.commons</span></code> package.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementation">4. Implementation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.</p>
+</div>
+<div class="sect2">
+<h3 id="_training_feature">4.1. Training feature</h3>
+<div class="paragraph">
+<p><strong>Athletick</strong> allows users to record training information like the date of training and an athlete&#8217;s attendance. This
+is done using a <code>training</code> command. With this information recorded, <strong>Athletick</strong> allows users to get the team&#8217;s
+overall attendance rate, and get an overview of all training sessions in a month.</p>
+</div>
+<div class="sect3">
+<h4 id="_implementation_2">4.1.1. Implementation</h4>
+<div class="paragraph">
+<p>A <code><span class="green">Training</span></code> class stores the training information. To facilitate management of trainings, a
+<code><span class="green">TrainingManager</span></code> class stores all the <code><span class="green">Training</span></code> sessions. The class diagram below shows the
+interaction of different components to produce the training feature.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_class_diagram.png" alt="training class diagram">
+</div>
+<div class="title">Figure 9. Class diagram of the training feature components</div>
+</div>
+<div class="paragraph">
+<p>A training session is represented by a <code><span class="green">Training</span></code> class and it contains information like the date of
+training and training attendance. The <code><span class="green">AthletickDate</span></code> class represents the date of a training session in
+<code><span class="green">Training</span></code>. This class is shared across both the frontend and backend of the application, allowing training
+information to be used in other features, such as the <code>view calendar</code> command. A <code><span class="green">HashMap&lt;Person, Boolean&gt;</span></code>
+represents attendance in <code><span class="green">Training</span></code> and indicates whether a <code><span class="green">Person</span></code> has attended that training
+session. If a <code><span class="green">Person</span></code> attended, the value associated with him in the <code><span class="green">HashMap&lt;Person, Boolean&gt;</span></code>
+will be true, and false if he did not attend.</p>
+</div>
+<div class="paragraph">
+<p>The <code><span class="green">TrainingCommand</span></code> is an abstract class that extends the <code><span class="green">Command</span></code> class and allows users to
+record training sessions. Users have the ability to add training sessions by indicating members present or members
+absent using the <code>training</code> or <code>training -a</code> commands. The <code><span class="green">TrainingCommandPresent</span></code> and
+<code><span class="green">TrainingCommandAbsent</span></code> are classes that extend <code><span class="green">TrainingCommand</span></code> which allows for this
+polymorphism. They are created by the <code><span class="green">TrainingCommandParser</span></code> class.</p>
+</div>
+<div class="paragraph">
+<p>A <code><span class="green">TrainingManager</span></code> stores and manages all <code><span class="green">Training</span></code> sessions in <strong>Athletick</strong>. It contains a
+list which is used to maintain information of multiple trainings. A <code><span class="green">Training</span></code> is added to this list
+whenever a user executes a <code>training</code> command. The activity diagram below shows how training information is
+stored after a user executes the <code>training</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/training_command_activity_diagram.png" alt="training command activity diagram">
+</div>
+<div class="title">Figure 10. Activity diagram showing execution of <code>training</code> command</div>
+</div>
+<div class="paragraph">
+<p><code><span class="green">TrainingManager</span></code> also provides the functionality for users to calculate the attendance rate of one
+individual, or the entire team. The following operations are used for this feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>TrainingManager#getPersonAttendanceRateString</code>&#8201;&#8212;&#8201;Returns the person&#8217;s overall attendance rate in String format.</p>
+</li>
+<li>
+<p><code>TrainingManager#getAttendanceRateOfAll</code> - Returns a list of everyone&#8217;s attendance rate.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are used by the <code>select</code>, <code>attendance</code> and <code>view attendance</code> commands. The following sequence diagram
+shows how the <code>TrainingManager</code> provides other components with attendance rates.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/view_attendance_sequence_diagram.png" alt="view attendance sequence diagram">
+</div>
+<div class="title">Figure 11. Sequence diagram showing how <code>view attendance</code> command gets attendance rate</div>
+</div>
+<div class="paragraph">
+<p><code><span class="green">TrainingManager</span></code> also allows users to get the attendance of one particular training using the following
+operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>TrainingManager#getTrainingAttendanceListOnDate</code>&#8201;&#8212;&#8201;Returns training attendance on the specified date.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows a use case of how training attendance is obtained from <code><span class="green">TrainingManager</span></code>
+when a <code>calendar</code> command is executed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/calendar_sequence_diagram.png" alt="calendar sequence diagram">
+</div>
+<div class="title">Figure 12. Sequence diagram showing how <code>calendar</code> command gets training attendance</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations">4.1.2. Design Considerations</h4>
+<div class="paragraph">
+<p>This section contains some of our considerations for the training feature.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_to_store_attendance_information_of_an_individual">Aspect: How to store attendance information of an individual.</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 1:</strong> Make extensions to the <code><span class="green">AddressBook</span></code> by storing and tagging each <code><span class="green">Person</span></code> with
+number of trainings attended and total number of trainings.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 2 (Current Choice):</strong> Create separate classes to manage training information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">It is easy to implement.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allows storing of specific training information without depending on the <code><span class="green">AddressBook</span></code>. This also allows new
+features to be easily introduced to training in the future.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Violates software engineering principles (single responsibility principle) and is not useful when we want more
+detailed information (attendance on specific date) about a training session.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More time needed to design system architecture.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Reason for choosing alternative 2: <code><span class="green">Training</span></code> and <code><span class="green">TrainingManager</span></code> are created as standalone
+classes to contain training information. We intend to introduce new features (e.g. training category) in the future and this
+implementation allows us to easily do so.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_which_data_structure_to_store_training_attendance">Aspect: Which data structure to store training attendance.</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 1:</strong> Use a linked list to store training attendance.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 2 (Current Choice):</strong> Use a hash table to store training attendance.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Most intuitive way to maintain training attendance. Also provides us with functions to easily access and edit data.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Makes obtaining information much quicker.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accessing accessing attendance and attendance rate of one person takes more time.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Requires more effort to maintain and coding of new functions to edit data.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Reason for choosing alternative 2: A hash table is used as the <code>select</code> and <code>attendance</code> commands require the
+attendance rate of only one person. A hash table provides us with the fastest access time to access attendance
+information of one person.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_to_edit_training_information">Aspect: How to edit training information.</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 1 (Current Choice)</strong>: Edit by replacing an existing training with a new training on the same date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 2:</strong> Create a command to support editing of training.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users no need to type lengthy edit commands.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">More intuitive to a user who wants to edit.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unable to support multiple trainings on same date.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lengthy commands. Users have the option to edit date, attendance and even add a person.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Reason for choosing alternative 1: Editing training information would require typing long time-consuming commands
+which defeats the purpose of having a command line interface. Editing training by replacing an old one with the
+<code>training</code> command makes it quicker.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_performance_feature">4.2. Performance feature</h3>
+<div class="paragraph">
+<p>Athletick allows users to record athlete&#8217;s performance details from timed trials.
+With this information recorded, Athletick allows users to get an overview of the team&#8217;s capability and
+progress in specific events.</p>
+</div>
+<div class="sect3">
+<h4 id="_implementation_3">4.2.1. Implementation</h4>
+<div class="paragraph">
+<p>This section explains how <code><span class="green">Performance</span></code> is implemented in Athletick. It is split into x sections:
+x, y, z.</p>
+</div>
+<div class="sect4">
+<h5 id="_overview">Overview</h5>
+<div class="paragraph">
+<p>To facilitate this, <code><span class="green">ModelManager</span></code> has a <code><span class="green">Performance</span></code>, which has a <code><span class="green">UniqueEventList</span></code>.
+Every <code><span class="green">Event</span></code> in Athletick is stored in this <code><span class="green">UniqueEventList</span></code>.
+The class diagram below shows how the different components mentioned interact with one another.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/performance_classdiagram.png" alt="performance classdiagram" width="250">
+</div>
+<div class="title">Figure 13. Class diagram for showing how Performance is implemented.</div>
+</div>
+<div class="paragraph">
+<p>As the name suggests, all <code><span class="green">Event</span></code> names are unique in <code><span class="green">UniqueEventList</span></code>.
+This is ensured by <code><span class="green">UniqueEventList#contains()</span></code> that checks whether there is an <code><span class="green">Event</span></code>
+with the same name before the <code><span class="green">Event</span></code> is added.</p>
+</div>
+<div class="paragraph">
+<p>Every event has its own <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html">HashMap</a>
+where performances under this event are stored. The key and value of the HashMap are explained below.</p>
+</div>
+<div class="hdlist">
+<table>
+<tr>
+<td class="hdlist1">
+Key
+</td>
+<td class="hdlist2">
+<p><code><span class="green">Person</span></code> that the performance records will be under.</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Value
+</td>
+<td class="hdlist2">
+<p>List of <code><span class="green">Record</span></code> s under the <code><span class="green">Person</span></code>.</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/event_classdiagram.png" alt="event classdiagram" width=""250'">
+</div>
+<div class="title">Figure 14. Class diagram showing how Records are stored in Event.</div>
+</div>
+<div class="paragraph">
+<p>This structure allows each <code><span class="green">Person</span></code> to have multiple <code><span class="green">Record</span></code> s stored in Athletick so
+their progress over time can be analysed using the <code><span class="green">AthletickDate</span></code> and <code><span class="green">Timing</span></code>
+attributes in <code><span class="green">Record</span></code>. Additionally, athlete&#8217;s records can be easily retrieved by calling the
+<code><span class="green">HashMap#get()</span></code> method.</p>
+</div>
+<div class="paragraph">
+<p><code><span class="green">Event</span></code> s are added using the <code><span class="green">EventCommand</span></code>, and <code><span class="green">Record</span></code> s are added using the
+ <code><span class="green">PerformanceCommand</span></code>. In these commands, changes to <code><span class="green">UniqueEventList</span></code> are called through
+  <code><span class="green">Model</span></code> in <code><span class="green">EventCommand#execute()</span></code> and <code><span class="green">PerformanceCommand#execute()</span></code> since
+  <code><span class="green">Model</span></code> carries a common copy of all the data stored in Athletick.</p>
+</div>
+<div class="paragraph">
+<p>The <em>Observer Pattern</em> is adopted when displaying <code><span class="green">Performance</span></code> data through the <code><span class="green">UI</span></code>.
+<code><span class="green">Model</span></code> exposes an unmodifiable <code><span class="green">ObservableList&lt;Event&gt;</span></code> through
+<code><span class="green">Model#getPerformance</span></code> that returns a <code><span class="green">ReadOnlyPerformance</span></code>. It can be 'observed'
+and is updated accordingly when data in`<span class="green">Performance</span>` changes.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_1_adding_and_deleting_of_event">Function 1: Adding and Deleting of Event</h5>
+<div class="paragraph">
+<p>The following sequence diagram illustrates what happens in <code><span class="green">Logic</span></code> and <code><span class="green">Model</span></code> when in an
+example scenario when <code>event freestyle 50m</code> is given as a user input.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addevent_sequencediagram.png" alt="addevent sequencediagram" width="700">
+</div>
+<div class="title">Figure 15. Sequence diagram showing the operations in Logic and Model when an event is added.</div>
+</div>
+<div class="paragraph">
+<p>Deleting an event (with <code><span class="green">DeleteEventCommand</span></code>) does the opposite. The input <code>delete -e freestyle
+50m</code> will call <code><span class="green">Model#deleteEvent()</span></code>, after making sure the event exists in Athletick by getting a
+boolean from <code><span class="green">Model#hasEvent()</span></code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_2_adding_and_deleting_of_record">Function 2: Adding and Deleting of Record</h5>
+<div class="paragraph">
+<p>Operations for <code><span class="green">Record</span></code> - adding and deleting - work similarly as well, though there are more
+methods involved as there is a greater degree of nesting.</p>
+</div>
+<div class="paragraph">
+<p>The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
+<code>performance 1 e/freestyle 50m d/31102019 t/31.20</code> (ie. adding a performance record for the player at index
+1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/addrecord_activitydiagram.png" alt="addrecord activitydiagram" width="700">
+</div>
+<div class="title">Figure 16. Activity diagram showing how a Record is added to an Event.</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_3_viewing_of_event_and_record">Function 3: Viewing of Event and Record</h5>
+<div class="paragraph">
+<p>Users can also view all <code><span class="green">Record</span></code> s under an <code><span class="green">Event</span></code> using <code>view records e/EVENT_NAME</code>.
+The sequence diagram below illustrates how the Ui is involved when <code><span class="green">Record</span></code> viewing is executed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/viewrecords_sequencediagram.png" alt="viewrecords sequencediagram" width="700">
+</div>
+<div class="title">Figure 17. Sequence diagram showing how Records are viewed.</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_2">4.2.2. Design Considerations</h4>
+<div class="paragraph">
+<p>This section explains the factors that we took into consideration when making decision on how different
+aspects in <code><span class="green">Performance</span></code> should be implemented.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_method_of_storing_performance_records_for_athletes">Aspect: Method of storing performance records for athletes.</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 1 (Current Choice): Use a HashMap of Persons as keys and a list of Records as values.</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 2: Create a class that has Persons and list of Records as attributes and store instances of
+this class in a list.</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Retrieving athlete&#8217;s individual records is fast - it can be done in O(1) time</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Checking of records can be done with a simple for-loop</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Checking requires using an iterator or a lambda operation (requires variables to be declared as final,
+making retrieval of data troublesome)</p>
+</li>
+<li>
+<p>Retrieving by values (eg. date of record) is difficult as it requires traversing through the HashMap and
+checking the individual records' dates</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Adding of records is susceptible to errors as duplicate persons can be added</p>
+</li>
+<li>
+<p>Creating our own data structure results in overheads in testing and creating our own helper methods</p>
+</li>
+<li>
+<p>Retrieving an athlete&#8217;s individual records in O(1) time requires the athlete&#8217;s index in the list, which
+is not always known</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of Alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes</p>
+</li>
+<li>
+<p>Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
+methods that are in the HashMap API are relevant</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_method_of_displaying_events_and_records_to_users">Aspect: Method of displaying events and records to users.</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 1 (Current Choice): Display events and records separately.</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Alternative 2: Display all records under all events.</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Viewing events, followed by "zooming" in to a particular event&#8217;s records gives users a more immersive
+experience</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Navigating is simple as viewing events and its records requires only one command</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Getting an overview of all events and its respective records is not possible</p>
+</li>
+<li>
+<p>Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
+feature box</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
+can be difficult when the event of interest is located at the end</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of Alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Allowing users to look at the records under their event of interest gives them more control over what they want to see</p>
+</li>
+<li>
+<p>Navigating from event overview to a particular event mimics how people navigate in apps - tapping on a
+chat title (in this case, viewing records for a particular event), to see the whole conversation (record
+details for a particular event)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_calendar_feature">4.3. Calendar feature</h3>
+<div class="paragraph">
+<p>To allow users to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Displays an overview of training and performance records in a selected month</p>
+</li>
+<li>
+<p>Displays training and performance records entered on a specific date</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_implementation_4">4.3.1. Implementation</h4>
+<div class="paragraph">
+<p>The implementation of the above functions will be described separately in this section.</p>
+</div>
+<div class="sect4">
+<h5 id="_function_1_displays_an_overview_of_training_and_performance_records_in_a_selected_month">Function 1: Displays an overview of training and performance records in a selected month</h5>
+<div class="paragraph">
+<p>Function 1 is facilitated by <code><span class="green">CalendarPanel</span></code>. It extends <code><span class="green">UiPart&lt;Region&gt;</span></code> and represents the calendar using a <code><span class="green">GridPane</span></code> with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">CalendarPanel#retrieveCurrentDate()</span></code>&#8201;&#8212;&#8201;Retrieves the details of today&#8217;s date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.</p>
+</li>
+<li>
+<p><code><span class="green">CalendarPanel#retrieveProvidedDate()</span></code>&#8201;&#8212;&#8201;Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.</p>
+</li>
+<li>
+<p><code><span class="green">CalendarPanel#initialiseSelectedDate()</span></code>&#8201;&#8212;&#8201;Fills up all 42 cells of the <code>GridPane</code> with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.</p>
+<div class="paragraph">
+<p>In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.</p>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are performed when an instance of <code><span class="green">CalendarPanel</span></code> is created in the <code><span class="green">MainWindow</span></code> class. An instance of <code><span class="green">CalendarPanel</span></code> is created when the <code><span class="green">CommandResult</span></code> obtained after executing the user&#8217;s command contains a <code><span class="green">Feature</span></code> corresponding to a calendar and an optional <code><span class="green">AthletickDate</span></code>.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario for the first function and how the operation behaves at each step:</p>
+</div>
+<div class="paragraph">
+<p>Step 1:. The user either issues the <code>view calendar</code> or <code>calendar [MMYYYY]</code> (e.g. <code>calendar 012019</code>) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The issued command</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>calendar [MMYYYY]</code> operation works:</p>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarises what happens when a user executes the <code>view calendar</code> or <code>calendar [MMYYYY]</code> command:</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_function_2_displays_training_and_performance_records_entered_on_a_specific_date">Function 2: Displays training and performance records entered on a specific date</h5>
+<div class="paragraph">
+<p>Function 2 is facilitated by <code><span class="green">CalendarDetailPanel</span></code>. It extends <code>UiPart&lt;Region&gt;</code> and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">CalendarDetailPanel#initialiseAttendanceData</span></code>&#8201;&#8212;&#8201;Retrieves and displays the attendance of each person on the specified date.</p>
+</li>
+<li>
+<p><code><span class="green">CalendarDetailPanel#initialisePerformanceData</span></code>&#8201;&#8212;&#8201;Retrieves and displays the performance records on the specified date.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are performed when an instance of <code><span class="green">CalendarDetailPanel</span></code> is created in the <code><span class="green">MainWindow</span></code> class. An instance of <code>CalendarDetailPanel</code> is created when the <code><span class="green">CommandResult</span></code> obtained after executing the user&#8217;s command contains an <code><span class="green">AthletickDate</span></code>.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario for the second function and how the operation behaves at each step:</p>
+</div>
+<div class="paragraph">
+<p>Step 1: The user either issues the <code>calendar [DDMMYYYY]</code> (e.g. <code>calendar 01012019</code>) command.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The issued command</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>calendar [DDMMYYYY]</code> operation works:</p>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarises what happens when a user executes the <code>calendar [DDMMYYYY]</code> command:</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_3">4.3.2. Design considerations</h4>
+<div class="paragraph">
+<p>This section contains some of our design considerations for the calendar feature.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_whether_to_display_information_using_a_monthly_calendar_or_a_list_only_containing_dates_in_a_month_with_training_or_performance_records">Aspect: Whether to display information using a monthly calendar or a list only containing dates in a month with training or performance records</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Alternative 1 (Current Choice): Use a monthly calendar</th>
+<th class="tableblock halign-left valign-top">Alternative 2: Use a monthly list</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displays information more clearly especially when users have a large number of training and performance records in a month</p>
+</li>
+<li>
+<p>Allows for future expansion of calendar feature with more date-related functionalities (e.g. planning of training programme in advance)</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displays information more concisely if users have a small amount of training and performance records in a month</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Increases difficulty of implementation</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displays information in rows and columns which is no better than using Excel</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 displays information more clearly when users have a large amount of training and performance information, which is a probable scenario in the case of sports teams. In contrast, alternative 2 uses a list similar to Excel which we are trying to improve upon.</p>
+</li>
+<li>
+<p>Alternative 1 abides by our design principle to keep <strong>Athletick</strong> designer friendly since future developers can expand upon it and implement more date-related functionalities.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_to_display_calendar_for_a_month">Aspect: How to display calendar for a month</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Alternative 1 (Current Choice): Display using a fixed 7 by 6 <code><span class="green">GridPane</span></code>, fill up left over days with days from previous and next month</th>
+<th class="tableblock halign-left valign-top">Alternative 2: Display using a variable sized <code><span class="green">GridPane</span></code> that is populated with days from selected month only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Makes implementation easier</p>
+</li>
+<li>
+<p>Emulates implementation by other calendar applications (e.g. Google Calendar)</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Maximises usage of space in the application window</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displays information of previous and next month which users may not be interested in</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Increases difficulty of implementation</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 is easier to implement since the dimensions of the calendar are fixed so we do not have to recalculate it constantly. The ease of implementation is important given the tight deadlines we have to contend with in our software engineering module.</p>
+</li>
+<li>
+<p>Alternative 1 emulates the implementation of other successful calendar applications (e.g. Google Calendar) so we do not have to reinvent the wheel.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_the_user_can_display_the_attendance_and_performance_data_on_a_specific_date">Aspect: How the user can display the attendance and performance data on a specific date</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Alternative 1 (Current Choice): Use one <code>calendar [DDMMYYYY]</code> command to view <em>both</em> attendance and performance records on the specified date</th>
+<th class="tableblock halign-left valign-top">Alternative 2: Use two separate commands to view attendance and performance records <em>separately</em> on the specified date</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Makes access of data more efficient</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Allows users to have more control over what data is displayed</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Displays both attendance and performance records on the specified date all the time</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Requires more flags to be added to the command syntax which makes it more complex</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_select_feature">4.4. Select feature</h3>
+<div class="paragraph">
+<p>The <code>select</code> feature allows user to view the profile of a selected athlete.</p>
+</div>
+<div class="sect3">
+<h4 id="_implementation_5">4.4.1. Implementation</h4>
+<div class="paragraph">
+<p>The implementation of the <code>select</code> feature consists of two parts, mainly the implementation of the command and the
+implementation of the UI.</p>
+</div>
+<div class="paragraph">
+<p>The implementation of the command is facilitated by <code><span class="green">SelectCommand</span></code> class. It extends
+<code><span class="green">Command</span></code> and parses the arguments using <code><span class="green">SelectCommandParser</span></code>. It implements one operation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">CommandResult#execute()</span></code>&#8201;&#8212;&#8201;Executes the selectCommand which returns the athlete selected to be displayed in
+the
+UI.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The implementation of the UI portion for the <code>select</code> feature  is facilitated by <code><span class="green">InformationDisplay</span></code>. It
+extends
+<code><span class="green">UiPart&lt;Region&gt;</span></code> and displays the personal information of the selected athlete. Additionally, it implements the
+following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><span class="green">InformationDisplay#displayPersonalInfo()</span></code>&#8201;&#8212;&#8201;Displays the personal information of the selected athlete
+such as the name, email, address, phone number and other personal details.</p>
+</li>
+<li>
+<p><code><span class="green">InformationDisplay#performanceDisplay()</span></code>&#8201;&#8212;&#8201;Displays the performance of the selected athlete, which includes
+the event, best performance and most recent performance.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An example usage scenario is given below which elaborates how the <code>select</code> feature behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user executes the <code>select 3</code> command. The command is then parsed by <code><span class="green">SelectCommandParser</span></code> which
+creates
+an instance of <code><span class="green">SelectCommand</span></code>. <code><span class="green">SelectCommand</span></code> retrieves the athlete based on the index of the list
+panel on the left.
+When the command is executed, the athlete selected at the specified index will be stored in <code><span class="green">ModelManager</span></code> as
+<code><span class="green">selectedPerson</span></code> using the operation <code><span class="green">Model#storePerson(Person)</span></code>.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. After the command has been executed, the selected athlete is retrieved in the MainWindow class. It checks
+whether an athlete has been selected and displays the selected athlete&#8217;s personal information.</p>
+</div>
+<div class="paragraph">
+<p>The diagram below summarises the steps of the example scenario when a user executes the <code>select</code> command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SelectActivityDiagram.png" alt="SelectActivityDiagram" width="400">
+</div>
+<div class="title">Figure 18. Activity diagram of <code>select</code> command execution</div>
+</div>
+<div class="paragraph">
+<p>The implementation was done this way because the Ui component interacts with both the Logic and Model component.
+Firstly, the Ui component takes in the input from the user and allows <code><span class="green">SelectCommandParser</span></code> in Logic component
+to parse the argument.
+After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
+app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the <code>select</code> feature works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SelectCommandSequenceDiagram.png" alt="SelectCommandSequenceDiagram">
+</div>
+<div class="title">Figure 19. Sequence Diagram of <code>select</code> Command</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_4">4.4.2. Design considerations</h4>
+<div class="paragraph">
+<p>There were some decisions that I had to make as I was designing the <code>select</code> feature and had to compare which methods
+would better suit the application. The following consists of the design considerations for the <code>select</code> feature.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_the_personal_information_of_the_selected_athlete_will_be_displayed">Aspect: How the personal information of the selected athlete will be displayed</h5>
+<div class="paragraph">
+<p>There were a few ways how the personal information of the selected athlete could be displayed and the following
+alternatives are some of the considerations I had when implementing.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Displaying it in a feature box.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.</p>
+</li>
+<li>
+<p>Cons: Aesthetic is not as good compared to the other alternatives.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Displaying it in a tab form.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Looks more organised compared to the other alternatives</p>
+</li>
+<li>
+<p>Cons: Not as intuitive to use as mouse has to be used to switch around tabs.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3</strong>: Displaying via a pop-up.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Looks neater and organised.</p>
+</li>
+<li>
+<p>Cons: Increase the use of mouse to close the window and may be distracting to user.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Reason: Alternative 1 was chosen because it utilises more of the command line interface and we wanted to steer away
+from the use of the mouse. Even those the aesthetic might not be as good as alternative 2 and 3, I felt that it was a
+better choice as it was in line with the other features that my group mates were going to implement.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_to_select_an_athlete">Aspect: How to select an athlete</h5>
+<div class="paragraph">
+<p>There were two ways on how an athlete could be selected and it was between choosing by index or by name which I had
+to consider.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 (current choice): Choosing by the index number.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Intuitive to use and can be used with other commands such as <code><span class="green">FindCommand</span></code> and
+<code><span class="green">FilterCommand</span></code> to narrow down the list of people.</p>
+</li>
+<li>
+<p>Cons: Additional step of filtering the list to make it shorter before selecting an athlete.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Alternative 2: Choosing by name.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Can omit the filtering step and select the athlete directly.</p>
+</li>
+<li>
+<p>Cons: There may be 2 people with the same name and thus result in an error.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
+other functions such as <code><span class="green">DeleteCommand</span></code> or <code><span class="green">FindCommand</span></code> which also uses index. It also reduces the
+need to type out the full name of the selected athlete.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_undo_redo_feature">4.5. Undo / Redo feature</h3>
+<div class="paragraph">
+<p>The <code>undo</code> command enables users to undo their previous commands while the <code>redo</code> command enables users to redo their
+undone commands.</p>
+</div>
+<div class="sect3">
+<h4 id="_undo_implementation">4.5.1. Undo Implementation</h4>
+<div class="paragraph">
+<p>The <code>undo</code> command is facilitated by the <code><span class="green">HistoryManager</span></code>. <code><span class="green">HistoryManager</span></code> holds the
+states of <code><span class="green">Athletick</span></code>, <code><span class="green">Attendance</span></code> and <code><span class="green">Performance</span></code>, which are kept in
+their respective stacks governed by <code><span class="green">HistoryManager</span></code>. Furthermore, <code><span class="green">HistoryManager</span></code> also
+holds the <code><span class="green">Command</span></code> stack that keeps track of the commands executed by the user.</p>
+</div>
+<div class="paragraph">
+<p>Each time after the user executes a command, the command will be pushed to the
+<code><span class="green">Command</span></code> stack. Also, following the execution of the command,
+changes to either <code><span class="green">Athletick</span></code>,<code><span class="green">Attendance</span></code> or <code><span class="green">Performance</span></code>
+will result in the new state being pushed into their respective stacks.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario on how the undo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. The <code><span class="green">HistoryManager</span></code> will be
+initialised with the initial <code><span class="green">Athletick</span></code>, <code><span class="green">Attendance</span></code> and
+<code><span class="green">Performance</span></code> state pushed to the respective stacks.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/initialStack.png" alt="initialStack" width="450">
+</div>
+<div class="title">Figure 20. Initial stacks of states</div>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes the <code>delete -p 3</code> command to delete the 3rd person in the <code><span class="green">Athletick</span></code> list. The
+delete command will be pushed into the <code><span class="green">Command</span></code> stack. After that,
+since the <code>delete -p 3</code> command only alters the <code><span class="green">Athletick</span></code> state, the new <code><span class="green">Athletick</span></code>
+state will then be pushed to the <code><span class="green">Athletick</span></code> stack while the <code><span class="green">Attendance</span></code> and
+<code><span class="green">Performance</span></code> stacks are left untouched as their states remain the same.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/afterUndoStack.png" alt="afterUndoStack" width="450">
+</div>
+<div class="title">Figure 21. Stacks of states after <code>delete -p 3</code> command</div>
+</div>
+<div class="paragraph">
+<p>Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
+by executing the <code>undo</code> command. The <code>undo</code> command then executes the <code>undo</code> method in the
+<code><span class="green">ModelManager</span></code>. This pops the latest command from the <code><span class="green">Command</span></code>
+stack and the latest <code><span class="green">Athletick</span></code> state from the <code><span class="green">Athletick</span></code> stack.
+It then peeks at the <code><span class="green">Athletick</span></code> stack to retrieve the <code><span class="green">Athletick</span></code> state
+before <code>delete -p 3</code> command was executed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/initialStack.png" alt="initialStack" width="450">
+</div>
+<div class="title">Figure 22. Stacks of states after <code>undo</code> command</div>
+</div>
+<div class="paragraph">
+<p>Step 4. After retrieving the <code><span class="green">Athletick</span></code> state before <code>delete -p 3</code> command
+was executed, we then resets the <code><span class="green">Athletick</span></code> state to this retrieved
+<code><span class="green">Athletick</span></code> state. As such, the previous command will then be undone.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the undo operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/undoSQ.png" alt="undoSQ" width="450">
+</div>
+<div class="title">Figure 23. Sequence diagram for undo implementation</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_redo_implementation">4.5.2. Redo Implementation</h4>
+<div class="paragraph">
+<p>The <code>redo</code> command is similarly facilitated by the <code><span class="green">HistoryManager</span></code>. <code><span class="green">HistoryManager</span></code>
+also holds the undone states of <code><span class="green">Athletick</span></code>, <code><span class="green">Attendance</span></code> and <code><span class="green">Performance</span></code>,
+which are kept in their respective undone stacks governed by <code><span class="green">HistoryManager</span></code>. Furthermore,
+<code><span class="green">HistoryManager</span></code> also holds the undone <code><span class="green">Command</span></code> stack that keeps track of the commands
+undone by the user.</p>
+</div>
+<div class="paragraph">
+<p>Each time an <code>undo</code> command is executed succesfully, the undone <code><span class="green">Command</span></code> will be pushed
+to the undone <code><span class="green">Command</span></code> stack and the respective undone states of <code><span class="green">Athletick</span></code>, <code><span class="green">Attendance</span></code>
+or <code><span class="green">Performance</span></code>, if affected, will be pushed to their respective undone states.</p>
+</div>
+<div class="paragraph">
+<p>Following that, how the <code>redo</code> command works is very similar to how the <code>undo</code> command works.
+As such, you can also refer to the diagrams in the
+<a href="https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-feature">Undo
+Implementation.</a></p>
+</div>
+<div class="paragraph">
+<p>The activity diagram for <code>redo</code> command is as follows:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/redoactivity.png" alt="redoactivity" width="450">
+</div>
+<div class="title">Figure 24. Activity diagram for <code>redo</code> command</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_5">4.5.3. Design Considerations</h4>
+<div class="paragraph">
+<p>This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_undo_redo_executes">Aspect: How undo &amp; redo executes</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 1 (Current Choice): Keep states of <code><span class="green">Athletick</span></code>, <code><span class="green">Attendance</span></code> and
+<code><span class="green">Performance</span></code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alternative 2: Individual command knows how to undo/redo by itself</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pros</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Easy to implement, and easy for developers to understand.</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Will use less memory (e.g. for <code>delete -p 1</code>, just save the person being deleted).</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cons</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>May have performance issues in terms of memory usage.</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>We must ensure that the implementation of each individual command is correct.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect5">
+<h6 id="_reason_why_we_chose_alternative_1">Reason why we chose alternative 1:</h6>
+<div class="paragraph">
+<p>Even though the memory usage of Alternative 2 is lesser, we do not feel that this benefit of lesser memory usage
+outweighs the tedious cost of implementing the alternative.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore, as we realise that each time the application starts, the memories of the states
+are cleared.
+This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
+accumulate. As such, we decided to go with the first alternative.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_addingediting_photo_feature">4.6. Adding/editing photo feature</h3>
+<div class="sect3">
+<h4 id="_implementation_6">4.6.1. Implementation</h4>
+<div class="paragraph">
+<p>The sub feature of <code><span class="green">AddCommand</span></code> and <code><span class="green">EditCommand</span></code> allows the inclusion of photo for an athlete. The
+sub feature is
+facilitated by <code><span class="green">Photo</span></code>.</p>
+</div>
+<div class="paragraph">
+<p>This sub feature is similar to the other features such as <code><span class="green">Name</span></code> and <code><span class="green">Phone</span></code> which uses a prefix <code>i/</code>
+followed by the file name (e.g. <code>i/default.png</code>). Prior to adding the photo of an athlete, the image file that is going to be used
+has to be in the <code>images</code> folder which will be generated when the jar file is executed. <code><span class="green">Photo</span></code> takes in the
+file name as a <code><span class="green">String</span></code> and retrieves the photo to be added or edited from the <code>images</code> folder.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The file name of the images is restricted to alphanumerics only and the file format that will be used is <code>.png</code>.
+This is done to keep the file name simple.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_consideration">4.6.2. Design Consideration</h4>
+<div class="paragraph">
+<p>The following consists of some of the design consideration when I was designing this sub-feature.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_regular_expression_for_the_file_name">Aspect: Regular expression for the file name</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> To use alphanumerics only.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Keeps it simple without the confusion of special characters.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Alphanumerics and special characters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cons: These special characters are reserved used by operation systems such as Windows.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
+have if special characters were included.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_filter_feature">4.7. Filter feature</h3>
+<div class="paragraph">
+<p>The filter command enables filtering of athletes based on their tags.
+Currently, only filtering by one tag is supported.
+Filtering by multiple tags will be available by <code>v1.2</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_implementation_7">4.7.1. Implementation</h4>
+<div class="paragraph">
+<p>Filter makes use of a <code><span class="green">TagMatchesPredicate</span></code> class to determine if the athlete has tags matching the user input.
+Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/filter_sequence_diagram.png" alt="filter sequence diagram">
+</div>
+</div>
+<div class="paragraph">
+<p>Once filtering by multiple tags is implemented, the parsing of tag from <code><span class="green">AddressBookParser</span></code> to
+<code><span class="green">FilterCommandParser</span></code>
+will involve splitting them by spaces and storing the tag queries in a list.
+Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.</p>
+</div>
+<div class="paragraph">
+<p>However, since currently only filtering by one tag is supported,
+the parsing of tag simply involves trimming the tag of white spaces.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the list shown to the user is updated through <code><span class="green">Model#updateFilteredPersonsList()</span></code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_6">4.7.2. Design considerations</h4>
+<div class="sect4">
+<h5 id="_aspect_how_a_tag_match_is_determined">Aspect: How a tag match is determined</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Case-insensitive.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More user-friendly.</p>
+</li>
+<li>
+<p>Cons: Requires converting tags to lower-case on the back-end.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Case-sensitive.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for more accurate filtering.</p>
+</li>
+<li>
+<p>Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_aspect_how_matches_for_multiple_tags_are_determined">Aspect: How matches for multiple tags are determined</h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Exclusive matching.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for more accurate filtering.</p>
+</li>
+<li>
+<p>Cons: Users get fewer filter results.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Optional matching.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for more flexible searching.</p>
+</li>
+<li>
+<p>Cons: Users may get results that they are not interested in.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sort_command">4.8. Sort Command</h3>
+<div class="paragraph">
+<p>The <code>sort</code> command sorts the displayed list of athletes in alphabetical order. As new athletes are added to the bottom of the list, the <code>sort</code> command is used after to reorder the athlete list.</p>
+</div>
+<div class="sect3">
+<h4 id="_implementation_8">4.8.1. Implementation</h4>
+<div class="paragraph">
+<p>The <code>sort</code> command makes use of a <code><span class="green">PersonNameComparator</span></code> that orders athletes in alphabetical order by comparing their names. The comparison is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the <code>sort</code> operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SortCommandSequenceDiagram.png" alt="SortCommandSequenceDiagram">
+</div>
+<div class="title">Figure 25. Interactions Inside the Logic and Model Components for the <code>sort</code> Command</div>
+</div>
+<div class="paragraph">
+<p>Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.</p>
+</div>
+<div class="paragraph">
+<p>To support sorting by more attributes (e.g. attendance rate/performance) in the future, you can simply create a new class that implements the <code><span class="green">Comparator</span></code> interface which compares athletes by that attribute instead. After which, you have to edit the <code>sort</code> command syntax to allow users to indicate how they want their list to be sorted.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_design_considerations_7">4.8.2. Design considerations</h4>
+<div class="paragraph">
+<p>This section contains some of our design considerations for the sort command.</p>
+</div>
+<div class="sect4">
+<h5 id="_aspect_when_should_the_athlete_list_should_be_sorted">Aspect: When should the athlete list should be sorted</h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 45.4545%;">
+<col style="width: 45.4546%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"></th>
+<th class="tableblock halign-left valign-top">Alternative 1 (Current Choice): Sort address book after user issues the <code>sort</code> command</th>
+<th class="tableblock halign-left valign-top">Alternative 2: Sort address book persistently in alphabetical order</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Pros</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Allows users to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long</p>
+</li>
+<li>
+<p>Allows for future expansion of sorting by other attributes (e.g. performance scores) easily as we only have to create new comparators to order the athletes</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Automates sorting so users do not have to issue any commands</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Cons</strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Requires additional overhead in terms of having to create an additional command for users to issue</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Restricts users from sorting their list by other methods</p>
+</li>
+<li>
+<p>Limits feature&#8217;s further expansion by future developers</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Reason for choice of alternative 1:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Alternative 1 allows users to view their newly added athletes to ensure their details are correct before they are sorted into their correct positions alphabetically. This is important especially when the athlete list is very long.</p>
+</li>
+<li>
+<p>Alternative 1 abides by our design principle to keep <strong>Athletick</strong> designer friendly since future developers can expand upon it to allow sorting by other attributes. On the other hand, alternative 2 does not provide much room for future expansion.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logging">4.9. Logging</h3>
+<div class="paragraph">
+<p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.10, &#8220;Configuration&#8221;</a>)</p>
+</li>
+<li>
+<p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
+</li>
+<li>
+<p>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Logging Levels</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</p>
+</li>
+<li>
+<p><code>WARNING</code> : Can continue, but with caution</p>
+</li>
+<li>
+<p><code>INFO</code> : Information showing the noteworthy actions by the App</p>
+</li>
+<li>
+<p><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Implementation-Configuration">4.10. Configuration</h3>
+<div class="paragraph">
+<p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code><span class="green">config.json</span></code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_documentation">5. Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refer to the guide <a href="Documentation.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing">6. Testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refer to the guide <a href="Testing.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dev_ops">7. Dev Ops</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Refer to the guide <a href="DevOps.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_product_scope">Appendix A: Product Scope</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Target user profile</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Team coaches for time-based, competitive sports</p>
+</li>
+<li>
+<p>Has a need to manage a significant number of team members</p>
+</li>
+<li>
+<p>Prefer desktop apps over other types</p>
+</li>
+<li>
+<p>Can type fast</p>
+</li>
+<li>
+<p>Prefers typing over mouse input</p>
+</li>
+<li>
+<p>Is reasonably comfortable using CLI apps</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Value proposition</strong>: Manage team details faster and more accurately than a typical mouse/GUI driven app</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_user_stories">Appendix B: User Stories</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 90%;">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 23%;">
+<col style="width: 25%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team coach</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Input attendance of my team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keep track of their attendance rate and commitment level</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team coach</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Track performance of my team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Know how to help them improve</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Careless user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Undo my previous commands</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Redo any mistakes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team coach</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Assign tags to my team members</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Differentiate roles of team members</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Team coach</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">See all past and scheduled training sessions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plan better to prepare for competitions</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Coach who wants fit players</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Filter players by overweight BMIs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single them out and get them to lose weight</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><em>{More to be added}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_use_cases">Appendix C: Use Cases</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>(For all use cases below, the <strong>System</strong> is  <code>Athletick</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+</div>
+<h3 id="_system_athletick" class="discrete">System: Athletick</h3>
+<h3 id="_uc1_marking_attendance_of_players" class="discrete">UC1 - Marking attendance of players</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>Athletick shows a list of persons</p>
+</li>
+<li>
+<p>User keys in players who attended training</p>
+</li>
+<li>
+<p>Athletick saves the training session</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given index is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc2_delete_person" class="discrete">UC2 - Delete person</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>Athletick shows a list of persons</p>
+</li>
+<li>
+<p>User requests to delete a specific person in the list</p>
+</li>
+<li>
+<p>Athletick deletes the person</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given index is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc3_key_in_performance_of_a_player" class="discrete">UC3 - Key in Performance of a Player</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>Athletick shows a list of persons</p>
+</li>
+<li>
+<p>User requests to tag a performance to a specific person in the list</p>
+</li>
+<li>
+<p>Athletick updates the player’s performances</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given index is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Athletick shows an error message.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>3b. Input event does not exist</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3b1. Athletick shows an error message</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>3c. Timing is invalid</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3c1. Athletick shows an error message</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc4_view_a_players_profile" class="discrete">UC4 - View a player’s profile</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User requests to list persons</p>
+</li>
+<li>
+<p>Athletic shows a list of persons</p>
+</li>
+<li>
+<p>User request to select a specific person in the list</p>
+</li>
+<li>
+<p>Athletick shows the profile of the person</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. The list is empty.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+<li>
+<p>3a. The given index is invalid.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>3a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case resumes at step 2.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc5_add_a_person" class="discrete">UC5 - Add a person</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in details of person to be added</p>
+</li>
+<li>
+<p>Person is added to the list</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. Details are invalid (eg. not all fields are filled up)</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b. Person has already been added</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1b1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc6_undo_a_command" class="discrete">UC6 - Undo a command</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User calls for undo</p>
+</li>
+<li>
+<p>Most recent command is undone</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. There are no tasks to be undone.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b. The most recent command cannot be undone.</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1b1. Athletick shows the most recent command that can be undone and undo</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_uc7_redo_a_command" class="discrete">UC7 - Redo a command</h3>
+<div class="paragraph">
+<p>Actor: User</p>
+</div>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User calls for redo</p>
+</li>
+<li>
+<p>Undo command is redone</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a. No Redo Command to be redone</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>1a1. Athletick shows an error message.</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_non_functional_requirements">Appendix D: Non Functional Requirements</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>11</code> or above installed.</p>
+</li>
+<li>
+<p>Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.</p>
+</li>
+<li>
+<p>A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary">Appendix E: Glossary</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
+<dd>
+<p>Windows, Linux, Unix, OS-X</p>
+</dd>
+<dt class="hdlist1"><a id="cli"></a> CLI</dt>
+<dd>
+<p>Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.</p>
+</dd>
+<dt class="hdlist1"><a id="time-base-sports"></a> Time-base Sports</dt>
+<dd>
+<p>Examples of time-based sports are swimming and track &amp; field, where performance can be measured in terms of time or distance.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_product_survey">Appendix F: Product Survey</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Product Name</strong></p>
+</div>
+<div class="paragraph">
+<p>Author: &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>Pros:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instructions_for_manual_testing">Appendix G: Instructions for Manual Testing</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Given below are instructions to test the app manually.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_launch_and_shutdown">G.1. Launch and Shutdown</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Initial launch</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Download the jar file and copy into an empty folder</p>
+</li>
+<li>
+<p>Double-click the jar file<br>
+Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Saving window preferences</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Resize the window to an optimum size. Move the window to a different location. Close the window.</p>
+</li>
+<li>
+<p>Re-launch the app by double-clicking the jar file.<br>
+Expected: The most recent window size and location is retained.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deleting_a_person">G.2. Deleting a person</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deleting a person while all persons are listed</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: List all persons using the <code>list</code> command. Multiple persons in the list.</p>
+</li>
+<li>
+<p>Test case: <code>delete 1</code><br>
+Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+</li>
+<li>
+<p>Test case: <code>delete 0</code><br>
+Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size) <em>{give more}</em><br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_saving_data">G.3. Saving data</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dealing with missing/corrupted data files</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-11-10 20:32:09 +0800
+</div>
+</div>
+</body>
+</html>
