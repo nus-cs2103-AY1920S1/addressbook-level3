@@ -23,11 +23,13 @@ public class EditAutotagCommand extends Command {
             + "At least one parameter should be specified.\n"
             + "Parameters: TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEYWORD]... "
             + "[f/FOLDER]... [nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...\n"
-            + "Example: " + COMMAND_WORD + " Quiz u/luminus.nus.edu.sg u/quiz nu/attempt f/AY1920";
+            + "Example: " + COMMAND_WORD + " Quiz t/Quizzes u/luminus.nus.edu.sg/quiz f/AY1920";
 
     public static final String MESSAGE_AUTOTAG_EDITED = "Autotag successfully edited: %1$s";
     public static final String MESSAGE_MULTIPLE_TAG_NAMES = "Only one new tag name can be specified";
     public static final String MESSAGE_AUTOTAG_DOES_NOT_EXIST = "No autotag with this tag name was found: %1$s";
+    public static final String MESSAGE_CONDITION_EMPTY = "Conditions cannot be blank. E.g. the empty condition "
+            + "u/ is invalid";
 
     private final String oldTaggerName;
     private final SelectiveBookmarkTagger newTagger;

@@ -12,7 +12,6 @@ import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
 
 import java.util.List;
 
-import seedu.mark.logic.commands.AutotagCommand;
 import seedu.mark.logic.commands.EditAutotagCommand;
 import seedu.mark.logic.parser.exceptions.ParseException;
 import seedu.mark.model.autotag.SelectiveBookmarkTagger;
@@ -99,7 +98,7 @@ public class EditAutotagCommandParser implements Parser<EditAutotagCommand> {
      */
     private static void checkValuesNonEmpty(List<String> values) throws ParseException {
         if (values.stream().anyMatch(String::isBlank)) {
-            throw new ParseException(AutotagCommand.MESSAGE_CONDITION_EMPTY);
+            throw new ParseException(EditAutotagCommand.MESSAGE_CONDITION_EMPTY);
         }
     }
 
