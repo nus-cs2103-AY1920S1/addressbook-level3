@@ -34,6 +34,10 @@ public class Task {
         return taskTimeSet;
     }
 
+    public TaskTime getStartingTime() {
+        return taskTimeSet.first();
+    }
+
     public Marking getMarking() {
         return marking;
     }
@@ -86,6 +90,14 @@ public class Task {
                 .append(getTime() + "\n")
                 .append(" Status: ")
                 .append(getMarking());
+        return builder.toString();
+    }
+
+    public String toWindowString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getClassId())
+                .append(" \n")
+                .append(getStartingTime().toStartingString() + "\n");
         return builder.toString();
     }
 }
