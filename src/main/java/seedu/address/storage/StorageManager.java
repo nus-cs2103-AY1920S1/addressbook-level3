@@ -108,6 +108,11 @@ public class StorageManager implements Storage {
     }
 
     @Override
+    public Path getBudgetsExcelFilePath() {
+        return projectListStorage.getBudgetsExcelFilePath();
+    }
+
+    @Override
     public Optional<ReadOnlyProjectList> readProjectList() throws DataConversionException, IOException {
         return readProjectList(projectListStorage.getProjectListFilePath());
     }
@@ -127,6 +132,17 @@ public class StorageManager implements Storage {
     public void saveProjectList(ReadOnlyProjectList projectList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         projectListStorage.saveProjectList(projectList, filePath);
+    }
+
+    @Override
+    public void saveBudgetsToExcel(ReadOnlyProjectList projectList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        projectListStorage.saveBudgetsToExcel(projectList, filePath);
+    }
+
+    @Override
+    public void saveBudgetsToExcel(ReadOnlyProjectList projectList) throws IOException {
+        saveBudgetsToExcel(projectList, projectListStorage.getBudgetsExcelFilePath());
     }
 
 }

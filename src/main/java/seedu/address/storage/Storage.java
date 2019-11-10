@@ -36,10 +36,17 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, ProjectLi
     Path getProjectListFilePath();
 
     @Override
+    Path getBudgetsExcelFilePath();
+
+    @Override
     Optional<ReadOnlyProjectList> readProjectList() throws DataConversionException, IOException;
 
     @Override
     void saveProjectList(ReadOnlyProjectList projectList) throws IOException;
 
+    @Override
+    void saveBudgetsToExcel(ReadOnlyProjectList projectList) throws IOException;
 
+    @Override
+    void saveBudgetsToExcel(ReadOnlyProjectList projectList, Path filePath) throws IOException;
 }

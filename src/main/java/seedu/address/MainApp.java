@@ -48,7 +48,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        ProjectListStorage projectListStorage = new JsonProjectListStorage(userPrefs.getProjectListFilePath());
+        ProjectListStorage projectListStorage = new JsonProjectListStorage(userPrefs.getProjectListFilePath(), userPrefs.getBudgetsExcelFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, projectListStorage);
 
         initLogging(config);

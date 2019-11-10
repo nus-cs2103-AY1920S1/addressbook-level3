@@ -30,9 +30,11 @@ public class Finance {
         ObservableList<Budget> internalList = FXCollections.observableArrayList(budgets);
         return internalList;
     }
+
     public void addBudget(Budget budget) {
         budgets.add(budget);
     }
+
 
     @Override
     public boolean equals(Object other) {

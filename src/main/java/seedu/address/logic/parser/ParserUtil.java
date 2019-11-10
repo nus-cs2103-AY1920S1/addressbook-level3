@@ -248,6 +248,9 @@ public class ParserUtil {
     public static Budget parseBudget(String name, String number) throws ParseException {
         requireNonNull(name, number);
         String trimmedName = name.trim();
+        if (!Description.isValidDescription(trimmedName)) {
+            throw new ParseException("Budget name should only contain alphanumeric characters and spaces, and it should not be blank");
+        }
         Money money = parseMoney(number);
         List<Spending> spendings = new ArrayList<>();
         return new Budget(trimmedName, money, spendings);
@@ -281,7 +284,7 @@ public class ParserUtil {
     public static Money parseMoney(String spending) throws ParseException {
         String trimmedSpending = spending.trim();
         if (!Money.isValidAmount(trimmedSpending)) {
-            throw new ParseException(Spending.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Money.MESSAGE_CONSTRAINTS);
         }
         return new Money(new BigDecimal(spending));
     }

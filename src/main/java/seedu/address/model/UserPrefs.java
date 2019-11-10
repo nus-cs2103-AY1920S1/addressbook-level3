@@ -16,7 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path projectListFilePath = Paths.get("data", "projectlist.json");
-
+    private Path budgetExcelFilePath = Paths.get("budgets", "budgets.xls");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -56,6 +56,10 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public Path getBudgetsExcelFilePath() {
+        return budgetExcelFilePath;
     }
 
     public Path getProjectListFilePath() {

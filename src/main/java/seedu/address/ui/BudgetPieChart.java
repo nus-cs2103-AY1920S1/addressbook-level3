@@ -48,7 +48,11 @@ public class BudgetPieChart extends UiPart<Region> {
             pieChartData.add(new PieChart.Data("Remaining: $" + remaining, remaining));
         }
         for (Spending spending : budget.getSpendings()) {
-            pieChartData.add(new PieChart.Data(spending.getDescription() + ": $" + spending.getMoney().getAmount().doubleValue(), spending.getMoney().getAmount().doubleValue()));
+            String s = spending.getDescription();
+            if (s.length() > 40) {
+                s = s.substring(0, 40) + "...";
+            }
+            pieChartData.add(new PieChart.Data(s + ": $" + spending.getMoney().getAmount().doubleValue(), spending.getMoney().getAmount().doubleValue()));
         }
         wrapper.setAlignment(Pos.CENTER);
         cardPane.setAlignment(Pos.CENTER);

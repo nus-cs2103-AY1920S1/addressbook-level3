@@ -68,7 +68,8 @@ dependencies {
 
     compile fileTree(include: ['*.jar'], dir: 'lib')
     compile files('lib/javax.activation.jar')
-    
+    compile group: 'org.apache.poi', name: 'poi', version: '3.9'
+
 }
 
 shadowJar {

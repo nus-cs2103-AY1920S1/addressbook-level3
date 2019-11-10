@@ -18,6 +18,11 @@ public interface ProjectListStorage {
     Path getProjectListFilePath();
 
     /**
+     * Returns the file path of the excel sheet
+     */
+    Path getBudgetsExcelFilePath();
+
+    /**
      * Returns ProjectList data as a {@link ReadOnlyProjectList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
@@ -42,4 +47,14 @@ public interface ProjectListStorage {
      */
     void saveProjectList(ReadOnlyProjectList projectList, Path filePath) throws IOException;
 
+    /**
+     * Save the projects; budgets into excel sheet
+     */
+    void saveBudgetsToExcel(ReadOnlyProjectList projectList, Path filePath) throws IOException;
+
+    /**
+     * @see #saveBudgetsToExcel(ReadOnlyProjectList)
+     */
+    void saveBudgetsToExcel(ReadOnlyProjectList projectList) throws IOException;
+    
 }
