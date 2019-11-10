@@ -121,10 +121,10 @@ This command has no parameters
 Format: `listCompetition`
 
 === Commands related to person (athlete)
-Commands related to managing persons (athletes) outside of a competition setting shall be introduced now.
+Commands related to managing persons (athletes) outside of a competition session shall are described below.
 
 ==== Adding a new person: `addPerson`
-Format: `addPerson n/NAME dob/DATE OF BIRTH g/GENDER`
+Format: `addPerson n/NAME dob/BIRTH DATE g/GENDER`
 
 Example:
 
@@ -140,9 +140,9 @@ Examples:
 * `deletePerson 1`
 
 ==== Editing information of an existing person: `editPerson`
-Edits the details of the person identified by the index number, used in the Person list (shown in the GUI).
-Existing values will be overwritten by the input values.
-In addition to INDEX, you must supply a value for at least one of the following fields:
+Edits the details of the person identified by the index number, used in the Person list. Existing
+values will be overwritten by the input values. In addition to INDEX, you must supply a value for
+at least one of the following fields:
 
 1. NAME
 2. DATEOFBIRTH
@@ -152,11 +152,11 @@ Format: `editPerson INDEX (must be a positive integer) [n/NAME] [dob/DATEOFBIRTH
 
 Examples:
 
-1.When all fields are supplied:
+1. When all fields are supplied:
 
-* `editPerson 1 n/John Doe dob/12/02/1995 g/MALE`
+* `editPerson 1 n/John Doe dob/12/02/1995 g/male`
 
-2.When only 1 field is supplied:
+2. When only 1 field is supplied:
 
 * `editPerson 1 n/John Doe`
 
@@ -182,7 +182,11 @@ Examples:
   `findPerson yeoh yu`
 
 ==== Listing all existing persons: `listPerson`
+Lists all persons recorded in the system and displays them as a numerically ordered list.
+
 Format: `listPerson`
+
+Example: `listPerson`
 
 === Commands related to participation (linking persons and competitions together)
 Commands related to managing persons participating in competitions will be introduced now.
@@ -249,13 +253,15 @@ Sorts and displays ranking of athletes according to the amount of times they are
 Format: `overallRank`
 
 ==== Starting a competition event along with its competing athletes (person): `startSession`
-Only display athletes who are participating for a specified competition.
+Enters into a competition session. Switches the context to being in a competition session.
+Only In-session commands can be used after this command is executed until the user
+terminates the competition session with the `endSession` command (See below).
 
-Format: `startSession COMPETITION NAME`
+Format: `startSession c/COMPETITION NAME`
 
 Example:
 
-* `startSession NUS 2022`
+* `startSession c/NUS 2022`
 
 == Context: During Competition (In-session)
 
@@ -297,15 +303,17 @@ Example:
 * `rank n/Ho`
 
 ==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
-Retrieves the rank of a person relative other competitors in the competition using a condition.
-Available conditions are:
+Retrieves a sorted order of all the participants of a the competition in-session based on the ranking method
+stipulated in the command. This ranking methods can be broadly categorized as being either the overall score or
+the maximum weight lifted for a particular exercise.
+Available ranking methods are by:
 
 1. Squat
 2. Deadlift
 3. Bench Press
 4. Overall (overall score)
 
-Format: `ranklist by/CRITERION`
+Format: `ranklist by/RANKING METHOD`
 
 Example:
 
@@ -313,9 +321,14 @@ Example:
 
 * `ranklist by/squat`
 
+* `ranklist by/deadlift`
+
+* `ranklist by/bench`
+
 ==== Ending and exiting the session `endSession`
-Ends the session, and shifts the user back to the out-of-session state.
-This command is also automatically triggered when a competition has ended,
-which means there are no more attempts for any lifters.
+Ends the session, and shifts the user back to the out-of-session state. The user now has access
+to the out-of-session commands once again.
 
 Format: `endSession`
+
+Example: `endSession`

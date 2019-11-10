@@ -87,12 +87,13 @@ for additional entities to be added should a developer require
 *** Wrote tests for new features to increase coverage (Pull requests https://github.com[#127])
 
 ** Documentation:
-*** Updated the User Guide: https://github.com[#14]
+*** Updated the User Guide: (Pull request https://github.com[#129])
+*** Updated the Developer Guide: (Pull request https://github.com[#3], https://github.com[#129])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
- https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+ https://github.com[#43], https://github.com[#49] https://github.com[#113], https://github.com[#114]
+*** Reported bugs and suggestions for other teams in the class (example: https://github.com/ooimingsheng/ped/issues)
 
 ** Tools:
 *** Integrated Travis and Netlify to the team repo for Continuous integration purposes
@@ -103,6 +104,102 @@ for additional entities to be added should a developer require
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+
+[[Features]]
+== Features
+
+=== Commands related to person (athlete)
+Commands related to managing persons (athletes) outside of a competition session shall are described below.
+
+==== Adding a new person: `addPerson`
+Format: `addPerson n/NAME dob/BIRTH DATE g/GENDER`
+
+Example:
+
+* `addPerson n/John Doe dob/12/02/1995 g/male`
+
+==== Deleting an existing person: `deletePerson`
+Deletes the person identified by the index number, used in Person list (shown in the GUI).
+
+Format: `deletePerson INDEX`
+
+Examples:
+
+* `deletePerson 1`
+
+==== Editing information of an existing person: `editPerson`
+Edits the details of the person identified by the index number, used in the Person list. Existing
+values will be overwritten by the input values. In addition to INDEX, you must supply a value for
+at least one of the following fields:
+
+1. NAME
+2. DATEOFBIRTH
+3. GENDER
+
+Format: `editPerson INDEX (must be a positive integer) [n/NAME] [dob/DATEOFBIRTH] [g/GENDER]`
+
+Examples:
+
+1. When all fields are supplied:
+
+* `editPerson 1 n/John Doe dob/12/02/1995 g/male`
+
+2. When only 1 field is supplied:
+
+* `editPerson 1 n/John Doe`
+
+* `editPerson 1 dob/12/02/1995`
+
+==== Finding person(s): `findPerson`
+Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
+
+Format: `findPerson [KEYWORD 1] [KEYWORD 2] ... [KEYWORD N]`
+
+Examples:
+
+* Find Alex Yeoh only:
+  `findPerson Alex`
+
+* Find Alex Yeoh only:
+  `findPerson alex`
+
+* Find Alex Yeoh only:
+  `findPerson yeoh`
+
+* Find Alex Yeoh and Bernice Yu:
+  `findPerson yeoh yu`
+
+==== Listing all existing persons: `listPerson`
+Lists all persons recorded in the system and displays them as a numerically ordered list.
+
+Format: `listPerson`
+
+Example: `listPerson`
+
+==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
+Retrieves a sorted order of all the participants of a the competition in-session based on the ranking method
+stipulated in the command. This ranking methods can be broadly categorized as being either the overall score or
+the maximum weight lifted for a particular exercise.
+Available ranking methods are by:
+
+1. Squat
+2. Deadlift
+3. Bench Press
+4. Overall (overall score)
+
+Format: `ranklist by/RANKING METHOD`
+
+Example:
+
+* `ranklist by/overall`
+
+* `ranklist by/squat`
+
+* `ranklist by/deadlift`
+
+* `ranklist by/bench`
+
+
 |===
 
 include::../UserGuide.adoc[tag=delete]
@@ -114,6 +211,393 @@ include::../UserGuide.adoc[tag=dataencryption]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+
+== Introduction
+
+=== What is Powerlifting Competition Coordinator?
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer track the participants'
+standings at all times throughout the duration of the competition.
+
+=== Core team
+
+Powerlifting Competition Coordinator  was developed and is maintained by
+https://github.com/AY1920S1-CS2103-T11-3[Team T11-3].
+Feel free to https://github.com/AY1920S1-CS2103-T11-3/main/issues[contact us] for any enquries.
+
+=== Contributing
+
+Powerlifting Competition Coordinator is an open source project and we would love to involve any contributor
+who has a passion for powerlifting. To get involved, start by reading <<SettingUp#, Section 2, “Setting up”>>.
+
+== Setting up
+
+This section includes the instructions to set up your development environment.
+
+=== Prerequisites
+
+Prior to setting up the project proper, make sure you have the following.
+
+. *JDK `1.8.0_60`* or later
++
+[NOTE]
+Having any Java 11 version is not enough. +
+This app will not work with earlier versions of Java 11. +
+You can get the latest Java 1 JDK at http://www.oracle.com/technetwork/java/javase/downloads[this link].
++
+
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+
+=== Setting up the project in your computer
+
+To setup the project in IntelliJ, follow the steps below.
+
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+To verify that the setup is completed successfully, you should:
+
+. Run the `seedu.system.MainApp` and try a few commands.
+. <<Testing, Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+This subsection includes configurations that you may find necessary or useful as you work on this project.
+We recommend that you make these configuration changes and additions before you start writing code.
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. Follow the instructions below to rectify this.
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level3` repo.
+If you plan to develop this as a separate product (i.e. instead of contributing to the
+`se-edu/addressbook-level3`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
+
+==== Getting started with coding
+
+When you are ready to start coding:
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[appendix]
+== Use Cases
+
+[discrete]
+==== Use case: UC7 - View list of people
+
+*MSS*
+
+1.  User requests to list all people in the system.
+2.  Powerlifting Competition Coordinator shows a list of all people in the system.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC8 - Find people
+
+*MSS*
+
+1.  User performs a search with some keywords.
+2.  System lists people that have fields containing those keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any people containing fields with those keywords.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC9 - Add a person to the system
+
+*MSS*
+
+1. User requests for a person to be added to the system.
+2. User inputs person data.
+3. System adds the new person to the system's list of people.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person data is invalid.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. The person is already in the system's list of people.
++
+[none]
+** 2b1. System tells user that the person is already in the system's list of people.
++
+Use case ends.
+
+
+[discrete]
+==== Use case: UC10 - Edit a specific person
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC7 - View list of people, *UC7*>>)
+or by (<<Use case: UC8 - Find people, *UC8*>>)
+2. User requests certain data about the athlete to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC11 - Delete a specific person
+
+*MSS*
+
+1. User views a list of people (<<Use case: UC7 - View list of people, *UC7*>>) or
+(<<Use case: UC8 - Find people, *UC8*>>)
+2. User requests for a person to be deleted from the list of people.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+
+[discrete]
+==== Use case: UC12 - View my participation list
+
+*MSS*
+
+1.  User requests to list all participants.
+2.  System shows a list of all participants.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC12 - Find participations
+
+*MSS*
+
+1.  User performs a search with some keywords.
+2.  System lists participations that have with certain fields containing those keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any participations containing fields with those keywords.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC13 - Edit a specific participation (Available in v2.0)
+
+*MSS*
+
+1. User views a list of participations (<<Use case: UC12 - View my participation list, *UC12*>>) or
+(<<Use case: UC13 - Find participations, *UC13*>>)
+2. User requests certain data about the participation to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC14 - Add a new participation
+
+*MSS*
+
+1. User requests for a new participation to be added.
+2. User inputs the initial participation data (e.g. person and competition name) to be inputted.
+3. System adds the new participation to the user's participation list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Participation data is invalid (e.g. Competition or person with inputted name does not exist in system).
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. A participation with the same person and competition has already been used in user's participation list.
++
+[none]
+** 2b1. System tells user that the participation is already in his participation list.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC15 - Delete a specific participation
+
+*MSS*
+
+1. User views a list of participation (<<Use case: UC12 - View my participation list, *UC12*>>) or
+(<<Use case: UC13 - Find participations, *UC13*>>)
+2. User requests for a participation to be deleted from the list of participations.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+[discrete]
+==== Use case: UC18 - Get a list of participations based on their score by some ranking method
+
+*MSS*
+
+1. User requests for participations in the current competition in-session to be ranked based on
+their score given by some ranking method.
+2. System shows the participations sorted by the ranking method with their scores.
+3. System shows success message.
++
+Use case ends.
+
+
+
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should come with automated unit tests and open source code.
+.  Should come with a user guide and a developer guide.
+.  Should favor <<dos-style-commands,DOS style commands>> over Unix-style commands.
+.  Should be intuitive such that a new user can learn to search and organize a powerlifting competition within 10 minutes.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+_{More to be added}_
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 

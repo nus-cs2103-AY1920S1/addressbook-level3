@@ -22,16 +22,22 @@ import seedu.system.model.person.Person;
  * Lists the position of an athlete for a specific competition.
  */
 public class RankCommand extends Command {
+
     public static final String COMMAND_WORD = "rank";
+
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": lists an athlete's position for a competition. "
             + "Parameters: "
             + PREFIX_NAME + "ATHLETE NAME "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John ";
+
     public static final String MESSAGE_COMPETITION_NOT_FOUND = "The competition with the given name does not exist : ";
+
     public static final String MESSAGE_PARTICIPATION_NOT_FOUND =
         "The competition in session does not have a participation of an athlete with the given name: ";
+
     public static final String MESSAGE_SUCCESS = " Athlete: %1$s \n Competition: %2$s \n Rank: %3$d \n Total Score: "
             + "%4$d " + "\n Max Squat: %5$s \n Max Bench Press: %6$s \n Max Deadlift: %7$s ";
 
