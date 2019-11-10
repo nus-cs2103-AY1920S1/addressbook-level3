@@ -11,8 +11,10 @@ import com.typee.ui.UiPart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 /**
  * Represents a calendar date cell in the calendar window.
@@ -36,6 +38,7 @@ public class CalendarDateCell extends UiPart<Region> {
         super(FXML);
         engagements = FXCollections.observableList(new ArrayList<>());
         engagementsDisplayWindow = new SingleDayEngagementsDisplayWindow(engagements);
+        logger.info("Initializing new CalendarDateCell.");
     }
 
     /**
@@ -61,15 +64,6 @@ public class CalendarDateCell extends UiPart<Region> {
      */
     public void clearEngagements() {
         engagements.clear();
-    }
-
-    /**
-     * Returns the number of engagements in this {@code CalendarDateCell}.
-     *
-     * @return The number of engagements in this {@code CalendarDateCell}.
-     */
-    public int getNumberOfEngagements() {
-        return engagements.size();
     }
 
     /**
@@ -117,6 +111,23 @@ public class CalendarDateCell extends UiPart<Region> {
      */
     public boolean hasOpenEngagementsDisplay() {
         return engagementsDisplayWindow.isShowing();
+    }
+
+    /**
+     * Updates the number of engagements being displayed in this {@code CalendarDateCell}.
+     */
+    public void updateEngagementCountDisplay() {
+        int numberOfEngagements = engagements.size();
+        if (numberOfEngagements > 0) {
+            Text engagementCountDisplay;
+            if (numberOfEngagements == 1) {
+                engagementCountDisplay = new Text("1 engagement");
+            } else {
+                engagementCountDisplay = new Text(numberOfEngagements + " engagements");
+            }
+            StackPane.setAlignment(engagementCountDisplay, Pos.CENTER);
+            calendarDateStackPane.getChildren().add(engagementCountDisplay);
+        }
     }
 
 }

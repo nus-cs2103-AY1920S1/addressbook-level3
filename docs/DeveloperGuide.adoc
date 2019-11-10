@@ -357,6 +357,13 @@ image::CalendarWindowClassDiagram.png[]
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
 
+The following sequence diagram shows the creation of a `CalendarWindow` instance when the user switches to the
+calendar window tab.
+
+.CalendarWindow Initialization Sequence Diagram
+image::CalendarWindowSequenceDiagram.png[]
+{empty} +
+
 ==== UI Design
 The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
 list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
@@ -436,12 +443,6 @@ image::CalendarNextMonthActivityDiagram.png[]
 .Previous Month Activity Diagram
 image::CalendarPreviousMonthActivityDiagram.png[]
 {empty} +
-
-.CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[]
-
-The controller is set after constructing the `CalendarWindow` because there were some issues with
-using constructors containing at least one argument.
 
 === Game Window
 
