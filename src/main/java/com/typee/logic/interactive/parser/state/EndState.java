@@ -13,12 +13,12 @@ import com.typee.logic.interactive.parser.Prefix;
  */
 public abstract class EndState extends State {
 
-    protected static final Logger LOGGER = LogsCenter.getLogger(EndState.class);
-
     protected static final String LOG_BUILD_FAILURE = "Failed to build %s - %s";
 
     protected static final String MESSAGE_END_STATE = "Cannot transition from an end state!";
     protected static final Prefix DUMMY_PREFIX = new Prefix("");
+
+    protected final Logger logger = LogsCenter.getLogger(EndState.class);
 
     protected EndState(ArgumentMultimap soFar) {
         super(soFar);

@@ -64,7 +64,7 @@ public class SortEndState extends EndState {
             EngagementComparator comparator = InteractiveParserUtil.parseComparator(normalizedSortOrder);
             return comparator;
         } catch (ParseException pe) {
-            LOGGER.severe(String.format(LOG_BUILD_FAILURE, SortCommand.class, MESSAGE_INVALID_INPUT));
+            logger.severe(String.format(LOG_BUILD_FAILURE, SortCommand.class, MESSAGE_INVALID_INPUT));
             throw new CommandException(MESSAGE_INVALID_INPUT);
         }
     }

@@ -47,7 +47,7 @@ public class OpenDisplayEndState extends EndState {
             LocalDate date = InteractiveParserUtil.parseLocalDate(dateString, DATE_PATTERN);
             return date;
         } catch (DateTimeException e) {
-            LOGGER.severe(String.format(LOG_BUILD_FAILURE, CalendarOpenDisplayCommand.class, MESSAGE_INVALID_INPUT));
+            logger.severe(String.format(LOG_BUILD_FAILURE, CalendarOpenDisplayCommand.class, MESSAGE_INVALID_INPUT));
             throw new CommandException(MESSAGE_INVALID_INPUT);
         }
     }

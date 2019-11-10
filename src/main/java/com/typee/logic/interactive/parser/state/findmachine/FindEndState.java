@@ -72,7 +72,7 @@ public class FindEndState extends EndState {
         if (!engagementPredicate.hasEditedFields()) {
             String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
 
-            LOGGER.severe(String.format(LOG_BUILD_FAILURE, FindCommand.class, errorMessage));
+            logger.severe(String.format(LOG_BUILD_FAILURE, FindCommand.class, errorMessage));
             throw new CommandException(errorMessage);
         }
     }

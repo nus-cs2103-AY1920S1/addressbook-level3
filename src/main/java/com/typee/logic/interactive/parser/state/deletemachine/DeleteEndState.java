@@ -52,7 +52,7 @@ public class DeleteEndState extends EndState {
             Index index = InteractiveParserUtil.parseIndex(oneBasedIndex);
             return new DeleteCommand(index);
         } catch (ParseException e) {
-            LOGGER.severe(String.format(LOG_BUILD_FAILURE, DeleteCommand.class, e.getMessage()));
+            logger.severe(String.format(LOG_BUILD_FAILURE, DeleteCommand.class, e.getMessage()));
             throw new CommandException(e.getMessage());
         }
     }
