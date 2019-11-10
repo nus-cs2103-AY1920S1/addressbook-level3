@@ -11,6 +11,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
 :jarName: budgetbuddy.jar
@@ -427,11 +428,8 @@ transaction is added/edited, if the transaction satisfies that condition.
 
 All rules in the Rule Engine will be executed on a transaction, when:
 
-* it is a new transaction and has been successfully added into an account.
-
-OR
-
-* it is an existing transaction and has been successfully edited.
+* It is a new transaction and has been successfully added into an account. *OR*
+* It is an existing transaction and has been successfully edited.
 
 WARNING: All rules will be executed from the top of the list downwards.
 Typically, this is the order in which the rules were added.
@@ -489,15 +487,15 @@ and is not required for `set_in`, `set_out` and `switch_direct`
 
 Examples:
 
-* `rule add pred/outamt >= 100 act/prep_desc [Large Spending]` +
+* `rule add p/outamt >= 100 a/prep_desc [Large Spending]` +
 Adds a new rule that specifies that if an outward transaction has an amount more
-or equal to $100, prepend the transaction's description with "[Large Spending]".
+than or equal to $100, prepend the transaction's description with "[Large Spending]".
 
-* `rule add pred/desc contains food act/set_cat Food` +
+* `rule add p/desc contains food a/set_cat Food` +
 Adds a new rule that specifies that if a transaction description contains "food",
 add the category "Food" to that transaction.
 
-* `rule add pred/IsMonthlyAllowance act/set_desc Monthly Allowance` +
+* `rule add p/IsMonthlyAllowance a/set_desc Monthly Allowance` +
 Adds a new rule that specifies that if the script named "IsMonthlyAllowance"
 returns true, change the transaction's description to "Monthly Allowance".
 
@@ -507,6 +505,7 @@ Displays the list of all existing rules in the Rule Engine.
 Rules are sorted by the order in which they were added.
 
 Format: `rule list`
+// end::rules[]
 
 ==== Edit a rule: `rule edit`
 
@@ -517,11 +516,11 @@ Format: `rule edit <rule ID> [p/<expression | script>] [a/<expression | script>]
 
 Examples:
 
-* `rule edit 1 pred/inamt \<= 10` +
+* `rule edit 1 p/inamt \<= 10` +
 Edits the predicate of the first rule in the list to check if an
 inward transaction has an amount less than or equal to 10.
 
-* `rule edit 4 act/set_in` +
+* `rule edit 4 a/set_in` +
 Edits the action of the 4th rule in the list to set the direction of
 a transaction to be inwards.
 
@@ -549,7 +548,6 @@ Examples:
 
 * `rule swap 2 4` +
 Swaps the ordering of the 2nd rule and the 4th rule.
-// end::rules[]
 
 // tag::scripting[]
 [[Scripting]]
@@ -676,7 +674,7 @@ Format: `view sort s/<a|c|d|x> [o/<a|d>]`
 === Managing budgets *(Coming in v2.0)* : `budget`
 
 Budgets allow you to keep you on track with your spending limits!
-See how much money you still have left for the week, or month! With budgets,
+See how much money you still have left for the week, month, or year! With budgets,
 you can plan out your expenses easier than ever.
 
 ==== View budgets: `budget list`

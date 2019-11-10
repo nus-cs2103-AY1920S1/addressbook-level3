@@ -26,12 +26,7 @@ to create mass changes to data in their own way by themselves.
 == Project Role
 
 My task in this project is the Rule Engine feature, which allows for the automation in the application, executing certain tasks
-automatically upon the addition of a new transaction. This consists of allowing the user to add, list, edit, and delete rules
-from the Rule Engine. The main part of my implementation however, comes from the parsing and processing of expressions that the
-user has created, whenever a transaction is added or edited in Budget Buddy. This requires the extraction of relevant components
-from the target transaction which will be used to carry out specific operations.
-
-The following sections will elaborate on this feature, which includes the additions I have made to both the user and developer guides.
+automatically upon the addition of a new transaction. The following sections will elaborate on this feature, which includes the additions I have made to both the user and developer guides.
 
 '''
 
@@ -56,42 +51,42 @@ Take note of the following formatting used in the rest of this portfolio.
 |This section provides an overview of my contribution to this application.
 |===
 
-(Clear description of purpose, enhancement added: what does it do + justification)
+=== Major enhancement:
+Added the ability to add/list/edit/remove rules, as well as executing them.
 
-* *Major enhancement*: added *the ability to add/remove/edit rules*
-** What it does: Allows the user to define a set of rules in the rule engine which will be executed by the rule engine upon
-adding/editing a transaction. A rule may carry out an action depending on whether the transaction satisfies the rule's requirement,
+* *What it does*: Allows the user to define a set of rules in the rule engine which will be executed by the rule engine upon
+adding/editing a transaction. A rule may carry out an action depending on whether the transaction satisfies the rule's condition,
 or "predicate".
-** Justification: This feature improves the application significantly because for day-to-day transactions, there may be many
+* *Justification*: This feature improves the application significantly because for day-to-day transactions, there may be many
 repetitions in what the user types. The app can therefore help users save time by automating such repetitive processes, or even
 more, depending on how the user uses it.
-// TODO: Everything else below
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Highlights*: Setting up rules was a challenge, as it created an additional source of "logic" besides commands, which required a new structure
+from the bottom up. A method to process rules had to be made, and considering that both expressions and scripts can be used for rules, a unified
+way to process them was required.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+=== Minor enhancement:
+Set up panel management within the GUI.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tcgj[RepoSense Contribution]]
+* *What it does*: Allow easy switching between panels within the same frame.
+* *Highlights*: Different panels were required based on the currently active tab, hence managing panels properly allowed
+for switching between them to be much easier.
 
-* *Other contributions*:
+=== Code contributed:
+I have contributed over 30 pull requests to the repository as of 11 November 2019.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+All of my contributions can be found here: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=tcgj[RepoSense Analysis]]
 
-_{you can add/remove categories in the list above}_
+=== Other contributions:
+
+* GUI Enhancements:
+** Updated the GUI layout and colour scheme: Pull requests https://github.com/AY1920S1-CS2103T-W13-4/main/pull/60[#60], https://github.com/AY1920S1-CS2103T-W13-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-W13-4/main/pull/185[#185]
+* Bug fixes:
+** Fix bugs noted during PE dry run: Pull request https://github.com/AY1920S1-CS2103T-W13-4/main/pull/153[#153]
+* Documentation:
+** Contributed to the User Guide and Developer Guide. See Section 5 and 6 below for detailed breakdown.
+* Community:
+** Project-wide refactoring on package naming to remove existing references to AB3: Pull request https://github.com/AY1920S1-CS2103T-W13-4/main/pull/52[#52]
+** Reviewed https://github.com/AY1920S1-CS2103T-W13-4/main/issues?q=reviewed-by%3Atcgj[50+] pull requests by the team
 
 == Contributions to the User Guide
 
@@ -113,11 +108,9 @@ that provide clarification and support in usage for the users who are using the 
 ==== Add main content into the User Guide
 
 I wrote detailed sections about the usage of commands that are in the Budget Buddy application, to guide users in the format and
-specifications required for those commands. A couple of extracts from the User Guide that were written by me are shown in sections 4.2 and 4.3 below.
+specifications required for those commands. An extract from the User Guide that were written by me is shown in section 5.2 below.
 
 include::../UserGuide.adoc[tag=rules]
-
-include::../UserGuide.adoc[tag=budget]
 
 == Contributions to the Developer Guide
 
@@ -134,6 +127,8 @@ Below is an overview of my contributions to the Developer Guide.
 ==== Add main content into the Developer Guide
 
 I wrote detailed sections about the implementations of functionality in the Budget Buddy application, drawn UML diagrams, and documented some use cases
-for the Developer Guide. The parts of the Developer Guide that were written by me are shown in section 5.2 below.
+for the Developer Guide. A few extracts of the Developer Guide that were written by me are shown in section 6.2 and 6.3 below.
 
-include::../DeveloperGuide.adoc[tag=rules]
+include::../DeveloperGuide.adoc[tag=ruleMgmt]
+
+include::../DeveloperGuide.adoc[tag=ruleExec]
