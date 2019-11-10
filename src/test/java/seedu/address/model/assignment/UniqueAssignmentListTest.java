@@ -29,18 +29,18 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void contains_assignmentNotInList_returnsFalse() {
-        assertFalse(uniqueAssignmentList.contains(ASSIGNMENT_ONE));
+        assertFalse(uniqueAssignmentList.contains(ASSIGNMENT_MATH));
     }
 
     @Test
     public void contains_assignmentInList_returnsTrue() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
-        assertTrue(uniqueAssignmentList.contains(ASSIGNMENT_ONE));
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
+        assertTrue(uniqueAssignmentList.contains(ASSIGNMENT_MATH));
     }
 
     @Test
     public void contains_assignmentWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
         Assignment editedAss = new AssignmentBuilder(ASSIGNMENT_MATH)
                 .withAssignmentDeadline(EDITED_ASSIGNMENT_DEADLINE).build();
         assertTrue(uniqueAssignmentList.contains(editedAss));
@@ -97,7 +97,7 @@ public class UniqueAssignmentListTest {
 
     @Test
     public void setAssignment_editedAssignmentHasDifferentIdentity_success() {
-        uniqueAssignmentList.add(ASSIGNMENT_ONE);
+        uniqueAssignmentList.add(ASSIGNMENT_MATH);
         uniqueAssignmentList.setAssignment(ASSIGNMENT_MATH, ASSIGNMENT_SCIENCE);
         UniqueAssignmentList expectedUniqueAssignmentList = new UniqueAssignmentList();
         expectedUniqueAssignmentList.add(ASSIGNMENT_SCIENCE);
