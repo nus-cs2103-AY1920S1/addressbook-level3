@@ -93,7 +93,7 @@ These points are absolute, unless stated otherwise in the specific section(s).
 * Words in `UPPER_CASE` are parameters to be supplied by the user.
 E.g. `add t/TITLE` -> `TITLE` is a parameter which can be used as `add t/Midterm notes`.
 
-* Items indicated in square brackets are optional.
+* Items indicated in square brackets are optional, unless specified.
 E.g `t/TITLE [tag/TAG]` can be used as `t/Midterm note tag/exam` or as `t/Midterm`.
 
 * Items with `...`​ after them can be used multiple times including zero times.
@@ -113,8 +113,11 @@ blank.
 * Only exact matches of any searches will be returned.
 E.g. "noted" will return "noted" but not "note" or "notes"
 
-* All searches are case insensitive.
-E.g. 'cs2103t' will match 'CS2103T'
+* All searches, like `filter`, are case insensitive.
+E.g. 'tag/cs2103t' will match 'tag/CS2103T' and `filter important` will match `filter IMPORTANT`
+
+* If multiple inputs are given for a particular field, only the last valid input for the field is taken, unless the field allows multiple inputs.
+E.g. `add q/this is a question a/this is an answer q/another question` -> the application will only take in `q/another question` as the input field for `question`.
 
 == Global Commands
 
@@ -759,7 +762,7 @@ All the operations in this section assume that the user is in the _cheatsheet_ m
 
 === Creating a Cheatsheet: `add`
 
-Adds a cheatsheet from user input title <TITLE> and content <CONTENT>. Flashcards and notes in StudyBuddyPro that have the specified tag will be used as contents in the cheatsheet.
+Adds a cheatsheet from user input title <TITLE> and content <CONTENT>. Flashcards and notes in StudyBuddyPro that have the specified tag upon creation of the cheatsheet will be used as contents.
 
     Format: add t/TITLE [tag/TAG]...
 
@@ -792,7 +795,7 @@ Edits cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At lea
 [IMPORTANT]
 ====
 ** Only `t/TITLE` optional field will overwrite its field.
-** All other optional fields will remove itsn existing content(s).
+** All other optional fields will remove its existing content(s).
 ** Any invalid `c/CONTENT_INDEX` or `tag/TAG` will be *ignored*.
 ====
 
@@ -829,21 +832,25 @@ The user will be prompted once to confirm their deletion.
 
     Format: delete (index)
 
-    Example usage: delete 8
+Example usage:
+    delete 8
 
-    Expected output:
-        Are you sure you would like to delete the following cheatsheet?
-        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-            [ 2. 110 in Binary is 6 is Decimal ]
-        Please use `delete 8` again to confirm your deletion.
+Expected output:
+
+    Are you sure you would like to delete the following cheatsheet?
+    Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+        [ 2. 110 in Binary is 6 is Decimal ]
+    Please use `delete 8` again to confirm your deletion.
 
 Upon hitting enter, the specified cheatsheet will be deleted.
 
-    Expected output: Deleted Cheatsheet:
-        Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-        Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-            [ 2. 110 in Binary is 6 is Decimal ]
+Expected output:
+
+    Deleted Cheatsheet:
+    Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
+    Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
+        [ 2. 110 in Binary is 6 is Decimal ]
 
 //tag::cheatsheetView[]
 
@@ -1007,6 +1014,9 @@ should I do? +
 *A*: Trying running the application from the command line using the following command:
 `java -jar StudyBuddyPro.jar`. Windows users can use the Command Prompt application to
 do this while Mac users can use the Terminal application.
+
+*Q*: When I minimise the application, the entire application has shrunk and now it is gone! Help! +
+*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download our StudyBuddyPro again!
 
 == Command Summary
 
