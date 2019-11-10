@@ -70,9 +70,18 @@ public abstract class Expense {
         }
 
         Expense otherExpense = (Expense) other;
-        return otherExpense.getName().equals(getName())
-                && otherExpense.getDayNumber().equals(getDayNumber())
-                && otherExpense.getBudget().equals(getBudget());
+        if (otherExpense instanceof MiscExpense && this instanceof MiscExpense) {
+            return otherExpense.getName().equals(getName())
+                    && otherExpense.getDayNumber().equals(getDayNumber())
+                    && otherExpense.getBudget().equals(getBudget());
+        } else if (otherExpense instanceof PlannedExpense && this instanceof PlannedExpense) {
+            return otherExpense.getName().equals(getName())
+                    && otherExpense.getDayNumber().equals(getDayNumber())
+                    && otherExpense.getBudget().equals(getBudget());
+        } else {
+            return false;
+        }
+
     }
 
     @Override

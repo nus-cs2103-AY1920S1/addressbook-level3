@@ -6,6 +6,11 @@ import static seedu.address.logic.parser.ParserDateUtil.DATE_TIME_FORMATTER;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import seedu.address.model.currency.CustomisedCurrency;
+import seedu.address.model.currency.Rate;
+import seedu.address.model.currency.Symbol;
+import seedu.address.model.expense.DayNumber;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
@@ -13,8 +18,10 @@ import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.Event;
 import seedu.address.model.itinerary.event.EventList;
+import seedu.address.testutil.CustomisedCurrencyBuilder;
 import seedu.address.testutil.DayBuilder;
 import seedu.address.testutil.EventBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 
 /**
  * Utility class for {@link Model}.
@@ -92,6 +99,24 @@ public class ModelTestUtil {
     public static final String VALID_TOTAL_BUDGET_EVENT_2 = "3100.00";
     public static final String VALID_DESCRIPTION_EVENT_1 = "This is the EVENT of arrival";
     public static final String VALID_DESCRIPTION_EVENT_2 = "This is the second EVENT of my trip";
+
+    // Expense fields
+    public static final String VALID_NAME_EXPENSE_1 = "Taxi";
+    public static final String VALID_NAME_EXPENSE_2 = "Laundry";
+    public static final String VALID_AMOUNT_EXPENSE_1 = "20.50";
+    public static final String VALID_AMOUNT_EXPENSE_2 = "1.75";
+    public static final String VALID_DAY_NUMBER_EXPENSE_1 = "2";
+    public static final String VALID_DAY_NUMBER_EXPENSE_2 = "20";
+    public static final String VALID_TYPE_EXPENSE_1 = "misc";
+    public static final String VALID_TYPE_EXPENSE_2 = "planned";
+
+    // Currency fields
+    public static final String VALID_NAME_CURRENCY_1 = "JPY";
+    public static final String VALID_NAME_CURRENCY_2 = "Turkish Lira";
+    public static final String VALID_SYMBOL_CURRENCY_1 = "¥";
+    public static final String VALID_SYMBOL_CURRENCY_2 = "TL";
+    public static final String VALID_RATE_CURRENCY_1 = "80";
+    public static final String VALID_RATE_CURRENCY_2 = "4.25";
 
 
     //Valid days
@@ -208,6 +233,30 @@ public class ModelTestUtil {
             .setStartDate(LocalDateTime.parse(CLASHING_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER))
             .setEndDate(LocalDateTime.parse(CLASHING_ENDDATE_EVENT_1_2, DATE_TIME_FORMATTER))
             .setLocation(new Location(VALID_DESTINATION_EVENT_1))
+            .build();
+
+    // Valid Expenses
+    public static final Expense VALID_EXPENSE_1 = ExpenseBuilder.newInstance().setName(new Name(VALID_NAME_EXPENSE_1))
+            .setBudget(new Budget(VALID_AMOUNT_EXPENSE_1))
+            .setDayNumber(new DayNumber(VALID_DAY_NUMBER_EXPENSE_1))
+            .setType(VALID_TYPE_EXPENSE_1)
+            .build();
+    public static final Expense VALID_EXPENSE_2 = ExpenseBuilder.newInstance().setName(new Name(VALID_NAME_EXPENSE_2))
+            .setBudget(new Budget(VALID_AMOUNT_EXPENSE_2))
+            .setDayNumber(new DayNumber(VALID_DAY_NUMBER_EXPENSE_2))
+            .setType(VALID_TYPE_EXPENSE_2)
+            .build();
+
+    // Valid Currency
+    public static final CustomisedCurrency VALID_CURRENCY_1 = CustomisedCurrencyBuilder.newInstance()
+            .setName(new Name(VALID_NAME_CURRENCY_1))
+            .setSymbol(new Symbol(VALID_SYMBOL_CURRENCY_1))
+            .setRate(new Rate(VALID_RATE_CURRENCY_1))
+            .build();
+    public static final CustomisedCurrency VALID_CURRENCY_2 = CustomisedCurrencyBuilder.newInstance()
+            .setName(new Name(VALID_NAME_CURRENCY_2))
+            .setSymbol(new Symbol(VALID_SYMBOL_CURRENCY_2))
+            .setRate(new Rate(VALID_RATE_CURRENCY_2))
             .build();
 
 }

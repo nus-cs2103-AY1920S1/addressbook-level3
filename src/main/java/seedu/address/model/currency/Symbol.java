@@ -12,7 +12,7 @@ public class Symbol {
 
     public static final String VALIDATION_REGEX = "^[1-7]";
 
-    public static final String VALIDATION_REGEX_STRING = "([^\\w0-9]|[A-Za-z]){1,3}";
+    public static final String VALIDATION_REGEX_STRING = "([^\\w0-9 +-]|[A-Za-z]){1,3}";
 
     public final String sign;
 

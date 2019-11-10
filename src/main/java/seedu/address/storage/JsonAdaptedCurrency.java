@@ -17,7 +17,7 @@ public class JsonAdaptedCurrency {
 
     private final String name;
     private final String symbol;
-    private final double rate;
+    private final Double rate;
 
     /**
      * Constructs a {@code JsonAdaptedCustomisedCurrency} with the given CustomisedCurrency details.
@@ -47,6 +47,33 @@ public class JsonAdaptedCurrency {
      * @throws IllegalValueException if there were any data constraints violated in the adapted day.
      */
     public CustomisedCurrency toModelType() throws IllegalValueException {
+
+        if (name == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+
+        if (symbol == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Symbol.class.getSimpleName()));
+        }
+
+        if (!Symbol.isValidSymbol(symbol)) {
+            throw new IllegalValueException(Symbol.MESSAGE_CONSTRAINTS);
+        }
+
+        if (rate == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Rate.class.getSimpleName()));
+        }
+
+        if (!Rate.isValidRate(rate.toString())) {
+            throw new IllegalValueException(Rate.MESSAGE_CONSTRAINTS);
+        }
 
         final String modelName = name;
         final String modelSymbol = symbol;
