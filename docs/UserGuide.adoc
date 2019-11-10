@@ -277,12 +277,10 @@ Category, Difficulty and Timer (must be above 1 second) can be customised by the
 difficulty.
 
 === Answering Questions
-* MCQ
-** Answers can only be A, B, C, or D (Case insensitive)
-* True and False
-** Answers can only be True (T) / False (F) (Case insensitive)
-* SAQ
-** Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
+|MCQ |TFQ |SAQ
+|Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
 //end::wilfred-quiz[]
 
 === Exiting the quiz

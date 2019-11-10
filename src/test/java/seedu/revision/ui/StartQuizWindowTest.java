@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -58,6 +59,14 @@ public class StartQuizWindowTest {
     private static final Mode normalMode = new NormalMode();
 
     private StartQuizWindow startQuizWindow;
+
+    @BeforeAll
+    public static void runHeadless() {
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+    }
 
     /**
      * Will be called with {@code @Before} semantics, i.e. before each test method.
