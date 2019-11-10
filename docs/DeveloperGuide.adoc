@@ -166,7 +166,7 @@ when the list data are changed.
 Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
 `AutotagController`, and a `FolderStructure`.
 
-.Structure of the Bookmark package
+.Structure of the Bookmark Package
 image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
 
 More details regarding the implementation of Folders can be found in <<Folder feature>>.

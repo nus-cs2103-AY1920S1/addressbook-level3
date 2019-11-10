@@ -641,7 +641,7 @@ Format: `*autotag-delete* TAG_NAME`
 
 For example:
 
-* If you want to delete the tag `NUS`, input `*autotag-delete* NUS` into the command box.
+* If you want to delete the autotag `NUS`, input `*autotag-delete* NUS` into the command box.
 +
 image::ui-screenshots/AutotagDeleteCommandUi1.png[]
 
