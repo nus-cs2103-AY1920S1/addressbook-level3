@@ -50,7 +50,7 @@ public class NotifCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void execute_notifChangesBodyStatus_changeSuccessful() throws CommandException, InterruptedException {
+    public void execute_notifChangesBodyStatus_successful() throws CommandException, InterruptedException {
         model.addEntity(BOB_NOTIF.getBody());
         NotifCommand notifCommand = new NotifCommand(BOB_NOTIF, 500, TimeUnit.MILLISECONDS);
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(testFolder.resolve("ab"));
@@ -63,7 +63,7 @@ public class NotifCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void execute_notifNotChangesBodyStatus_notChangeSuccessful() throws CommandException, InterruptedException {
+    public void execute_notifNotChangesBodyStatus_successful() throws CommandException, InterruptedException {
         NotifCommand notifCommand = new NotifCommand(ALICE_NOTIF, 500, TimeUnit.MILLISECONDS);
         notifCommand.execute(model);
 

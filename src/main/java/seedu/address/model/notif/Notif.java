@@ -1,5 +1,6 @@
 package seedu.address.model.notif;
 
+import static seedu.address.commons.core.Messages.MESSAGE_BODY_COULD_NOT_BE_UPDATED;
 import static seedu.address.model.entity.body.BodyStatus.ARRIVED;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public class Notif {
                         body.setBodyStatus(BodyStatus.parseBodyStatus(
                                 "contact police"));
                     } catch (ParseException exp) {
-                        logger.info("Error updating the body and fridge ");
+                        logger.info(MESSAGE_BODY_COULD_NOT_BE_UPDATED);
                     }
                 }
             }

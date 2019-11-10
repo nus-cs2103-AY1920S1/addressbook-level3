@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SIGNATURE_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.GenReportCommand.MESSAGE_GENREPORT_SUCCESS;
@@ -52,6 +53,34 @@ public class GenReportCommandTest {
                 new GenReportCommand(Index.fromZeroBased(outOfBoundBodyIndex.getIdNum()), "Manager A");
 
         assertCommandFailure(genReportCommand, model, MESSAGE_INVALID_ENTITY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_signatureContainsSpecialChars_throwsCommandException() {
+        List<Body> bodyList = model.getFilteredBodyList();
+        for (Body body : bodyList) {
+            if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
+                GenReportCommand genReportCommand =
+                        new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "AB%");
+
+                assertCommandFailure(genReportCommand, model, MESSAGE_INVALID_SIGNATURE_FORMAT);
+                break;
+            }
+        }
+    }
+
+    @Test
+    public void execute_signatureContainsNumbers_throwsCommandException() {
+        List<Body> bodyList = model.getFilteredBodyList();
+        for (Body body : bodyList) {
+            if (body.getIdNum().equals(FIRST_BODY_ID_NUM)) {
+                GenReportCommand genReportCommand =
+                        new GenReportCommand(Index.fromZeroBased(FIRST_BODY_ID_NUM.getIdNum()), "AB3");
+
+                assertCommandFailure(genReportCommand, model, MESSAGE_INVALID_SIGNATURE_FORMAT);
+                break;
+            }
+        }
     }
 
     @Test

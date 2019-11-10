@@ -448,10 +448,12 @@
 
 .fridgeIdCircleEmpty {
     -fx-fill: #4285F4;
+    -fx-stroke-width: 0;
 }
 
 .fridgeIdCircleFilled {
     -fx-fill: #FF7597;
+    -fx-stroke-width: 0;
 }
 
 .chart {

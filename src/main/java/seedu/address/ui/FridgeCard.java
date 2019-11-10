@@ -38,7 +38,7 @@ public class FridgeCard extends UiPart<Region> {
     public FridgeCard(Fridge fridge) {
         super(FXML);
         this.fridge = fridge;
-        fridgeIdPlaceholder.getChildren().add(new FridgeIdLabel(fridge.getIdNum()).getRoot());
+        fridgeIdPlaceholder.getChildren().add(new FridgeIdLabel(fridge.getIdNum()).getPane());
         status.setText(fridge.getFridgeStatus().toString());
         if (fridge.getBody().isPresent()) {
             bodyIdInFridge.setText(fridge.getBody().get().getIdNum().toString());
