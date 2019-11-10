@@ -1,12 +1,12 @@
 package seedu.guilttrip.ui;
 
-import static java.time.Duration.ofMillis;
-import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+//import static java.time.Duration.ofMillis;
+//import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalIncomes;
 
 import java.util.Collections;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
