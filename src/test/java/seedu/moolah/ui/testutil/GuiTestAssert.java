@@ -11,9 +11,11 @@ import java.util.List;
 
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.alias.AliasCardHandle;
+import guitests.guihandles.event.EventCardHandle;
 import guitests.guihandles.expense.ExpenseCardHandle;
 import guitests.guihandles.expense.ExpenseListPanelHandle;
 import seedu.moolah.model.alias.Alias;
+import seedu.moolah.model.expense.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**
@@ -37,6 +39,17 @@ public class GuiTestAssert {
     }
 
     /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard} for an {@code Expense Card}.
+     */
+    public static void assertCardEqualsEvent(EventCardHandle expectedCard, EventCardHandle actualCard) {
+        assertEquals(expectedCard.getIndex(), actualCard.getIndex());
+        assertEquals(expectedCard.getCategory(), actualCard.getCategory());
+        assertEquals(expectedCard.getDate(), actualCard.getDate());
+        assertEquals(expectedCard.getTime(), actualCard.getTime());
+        assertEquals(expectedCard.getPrice(), actualCard.getPrice());
+    }
+
+    /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard} for an {@code Alias Card}.
      */
     public static void assertCardEqualsAlias(AliasCardHandle expectedCard, AliasCardHandle actualCard) {
@@ -54,6 +67,20 @@ public class GuiTestAssert {
                 expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(DATE_PATTERN)));
         assertEquals(actualCard.getTime(),
                 expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(TIME_PATTERN)));
+        assertEquals(actualCard.getPrice(),
+                String.format(PRICE_TEMPLATE, CURRENCY_SYMBOL, expectedExpense.getPrice().getAsDouble()));
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedExpense}.
+     */
+    public static void assertCardDisplaysEvent(Event expectedExpense, EventCardHandle actualCard) {
+        assertEquals(actualCard.getDescription(), expectedExpense.getDescription().fullDescription);
+        assertEquals(actualCard.getCategory(), expectedExpense.getCategory().getCategoryName());
+//        assertEquals(actualCard.getDate(),
+//                expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(DATE_PATTERN)));
+//        assertEquals(actualCard.getTime(),
+//                expectedExpense.getTimestamp().getFullTimestamp().format(ofPattern(TIME_PATTERN)));
         assertEquals(actualCard.getPrice(),
                 String.format(PRICE_TEMPLATE, CURRENCY_SYMBOL, expectedExpense.getPrice().getAsDouble()));
     }
