@@ -60,6 +60,39 @@ public class Task {
         this.deadline = dateTime;
     }
 
+    /* Used by {@code EditTaskCommand}, and various tests */
+    public Task(Name name, TaskStatus taskStatus, Set<Tag> tags, LocalDateTime dateTime, Instant timeStart) {
+        requireAllNonNull(name, tags, taskStatus); // deadline may be null if task does not have one
+        this.name = name;
+        this.taskStatus = taskStatus;
+        this.tags.addAll(tags);
+        this.deadline = dateTime;
+
+        if (taskStatus.equals(TaskStatus.DOING)) {
+            this.timeStart = timeStart;
+        }
+
+        if (taskStatus.equals(TaskStatus.DONE)) {
+            this.timeEnd = timeStart;
+        }
+    }
+
+    /* Used by {@code EditTaskCommand}, and various tests */
+    public Task(Name name, TaskStatus taskStatus, Set<Tag> tags, Instant timeStart) {
+        requireAllNonNull(name, tags, taskStatus); // deadline may be null if task does not have one
+        this.name = name;
+        this.taskStatus = taskStatus;
+        this.tags.addAll(tags);
+
+        if (taskStatus.equals(TaskStatus.DOING)) {
+            this.timeStart = timeStart;
+        }
+
+        if (taskStatus.equals(TaskStatus.DONE)) {
+            this.timeEnd = timeStart;
+        }
+    }
+
     public Task() {
         name = null;
         taskStatus = null;
