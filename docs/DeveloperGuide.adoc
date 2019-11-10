@@ -310,10 +310,10 @@ The window will include dynamic tree-view that is directly linked to the externa
 Table below explains the components that are included in the `ReportWindow` with its purpose and features.
 
 .Report Window UI Components
-[%header, cols=4*]
+[%header, cols="10%, 10%, 40%, 40%"]
 |===
 |
-|UI Component Type
+|UI Component
 |Feature
 |Purpose
 

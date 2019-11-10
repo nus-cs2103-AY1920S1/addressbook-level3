@@ -373,7 +373,9 @@ User can also double click the list item in the documents explorer tree view to 
 image::pdf_sample.png[width="480", align="center"]
 
 If the user does not want to keep the document, instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
-button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
+button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. +
+
+Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message
