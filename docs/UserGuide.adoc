@@ -72,7 +72,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
 * Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MEDICAL CONDITION]...` can be used as `{nbsp}` (i.e. 0 times), `m/Type II Diabetes`, `m/Type II Diabetes m/High Blood Pressure` etc.
 * Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
 ====
 //tag::datalog[]
@@ -974,7 +974,9 @@ If COUNT is given, SugarMummy shows **up to** COUNT most recent number of averag
 Else, COUNT is set to 5 by default and shows 5 most recent average values.
 
 NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
-that means you do not have enough records in the database.
+that means you do not have enough records in the database. Also, if you enter a field
+more than once e.g `average a/daily rt/bloodsugar a/weekly`, only the last field will be
+taken. In the example, weekly average will be calculated instead of daily average.
 
 Example usage 1: `average a/weekly rt/bloodsugar`:
 Shows the 5 latest weekly average of blood sugar records.
@@ -1010,13 +1012,13 @@ you can save any graphs and plots generated in a pdf file.
 ====
 General Note::
 [small]
-. If a command requires no user-input arguments,  all the additional inputs after this command string will be ignored and the command will be executed as usual.
+. If a command requires no user-input arguments,  all the additional inputs after this command string will be ignored, and the command will be executed as usual.
 . If a command requires any parameters, the input order is flexible. Duplicate parameters are also allowed, *but only the last occurrence will be considered*.
 ====
 
 ==== Recommending food: `recmf`
 
-Recommends medically suggested foods for type II diabetes patients. The user can specify `Flags` and `Food Names` as two kinds of filters, as well as one type of sorting order:
+Recommends medically suggested foods for type II diabetes patients. The user can specify flags and food names` as two kinds of filters, as well as one type of sorting order:
 
 * *Flags:* specifies the wanted food types in the form of following flags:
 
@@ -1057,18 +1059,17 @@ Recommends medically suggested foods for type II diabetes patients. The user can
 2. Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.#
 ====
 
-*Format:* `recmf [-FLAG]... [fn/FOOD_NAME...][±sort/SORT_ORDER_TYPE]`
+*Format:* `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME...][±sort/SORT_ORDER_TYPE]`
 
-*Examples:* {recmf -p -f} `{recmf fn/chicken rice}` {recmf -p -m -f fn/chicken} `{recmf -p -nsv +sort/gi}`
+*Examples:* `recmf -p -f`, `recmf fn/chicken rice`, `recmf -p -m -f fn/chicken`, `recmf -p -nsv +sort/gi`
 
 ==== Recommending food combination: `recmfmix`
-Recommends one food from each type. A summary card of all nutrition values will be appended at the end.
+Recommends one food from each type. A summary card will be appended at the end.
 ====
 [small]#*Note:* +
-1. All extra inputs after this command string will be ignored. +
-2. Food types with no corresponding food data will not be shown. If there is no food data at all, the summary card will not be shown as well. +
-3. If any of the summary data is decimals, it will be formatted into two decimal places. +
-4. Please note the GI (glycemic index) value is the average instead of sum. For more information about GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link].#
+1. Food types with no available food data will not be shown. If there is no food data at all, the summary card will not be shown as well. +
+2. The summary data is formatted as integers. For Calorie, Sugar, and Fat, the sums of recommended foods are calculated. For GI (glycemic index) value, the average is calculated. +
+3. For more information about GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link].#
 ====
 *Format:* `recmfmix`
 
@@ -1093,7 +1094,7 @@ Fat should be less than 35(g) per serving.
 ====
 [small]#*Note:* +
 1. No duplicate food names are allowed. +
-2. All nutrition values should be non-negative numbers and contain no more than four decimals. Incomplete decimals, such as ".5" and "1.", can be accepted as "0.5" and "1" respectively. However, decimal point alone will not be accepted. +
+2. All nutrition values should be non-negative numbers and contain no more than four decimals. Incomplete decimals, such as ".5" and "1.", can be accepted as "0.5" and "1" respectively. However, decimal point by it alone will not be accepted. +
 3. Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
 ====
 
@@ -1103,7 +1104,7 @@ Fat should be less than 35(g) per serving.
 `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
 
 ==== Deleting an existing food: `deletef`
-Deletes a food that matches the specified food name(s).
+Deletes a food that matches the specified food name.
 
 ====
 [small]#*Note:* FOOD_NAME matching is case-insensitive, but is strict matching for every single character, including white spaces between words.
@@ -1121,6 +1122,21 @@ Clears all modifications, adding and deleting, on the food list. The food data w
 Format: `resetf`
 
 Example: `resetf`
+
+==== Recovering food data: _recoverf_ `[coming in v2.0]`
+Recovers the food data after resetting all the foods.
+The recovered data is based on the food list state just before the *latest recmf command*.
+This would be useful if the user wrongly enter `resetf` command, or another user want to temporarily use the same jar file on the same PC.
+
+==== Editing a food: _editf_ `[coming in v2.0]`
+Edits the available food fields, such as food name and GI value, of an existing food.
+The restrictions on field value are the same as the restrictions declared in `addfood` commands.
+This would provide more flexibility to the user to manipulate food data, instead of directly deleting a food.
+
+==== Recording and analyzing diets `[coming in v2.0]`
+Records the user's diets on specified dates and provides daily, weekly, and monthly summaries about nutrition intakes.
+This would allow the user to have an overview of his food consumption statistics.
+Bases on such statistics, the user can get more specific and personalized suggestions to balance the his nutrition intake.
 //end::recmf[]
 
 === Other Common Features
@@ -1143,7 +1159,7 @@ Format: `help`
 
 SugarMummy will recommend list of possible commands that can be add on to user current input.
 
-=== Clearing all entries: `clear all`
+=== Clearing all entries: `clearall`
 
 Clears all recorded data in SugarMummy.
 
@@ -1178,12 +1194,12 @@ The user is able to interact with others who is using SugarMummy. A community pl
 [start=1]
 . *Achievement*: `achvm`
 . *Add*: `add rt/RECORD_TYPE dt/DATETIME` and parameters a record requires
-E.g. `add rt/BLOODSUGAR dt/2019-12-12 12:12 con/10`
-E.g. `add rt/BMI dt/2019-12-12 12:12 h/1 w/1`
+E.g. `add rt/BLOODSUGAR dt/2019-10-10 12:12 con/10`
+E.g. `add rt/BMI dt/2019-10-10 12:12 h/1.8 w/70`
 . *Add Biography* : `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
 E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
 . *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
-E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 fa/0 su/1.7`
+E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
 . *Average*: `average a/AVERAGE_TYPE rt/Record_TYPE [n/COUNT]`
 E.g. `average a/weekly rt/bloodsugar n/3`
 . *Bio*: `bio`
@@ -1203,11 +1219,10 @@ E.g. `calendar ymd/2019-12-24`
 E.g. `calendar ymw/`
 E.g. `calendar ym/2019-11`
 . *Clear Biography* : `clrbio`
-. *Dailymsg*: `dailymsg`
 . *Delete*: `delete INDEX`
 E.g. `delete 2`
-. *Export*: `export [d/START_DATE]`
-E.g `export d/01.09.2019`
+. *Delete Food*: `deletef fn/FOOD_NAME`
+E.g. `deletef fn/Mushroom`
 . *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
 E.g. `event d/appointment dt/2019-12-20 11:00 dt/2019-12-20 11:30`
@@ -1215,27 +1230,29 @@ E.g. `event d/appointment dt/2019-12-20 11:00 dt/2019-12-20 11:30`
 E.g. `editbio gender/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
 E.g. `editbio dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
 E.g. `editbio p/1/234567 p/2/3456789`
+. *Exit the Application*: `exit`
 . *Font Color*:
 * `fontcolour COLOUR [bg/BACKGROUND ARGUMENTS]` or `fontcolor COLOUR [bg/BACKGROUND ARGUMENTS]`; or
 * `fontcolour` or `fontcolor`
 E.g. `fontcolour yellow`
 E.g. `fontcolor #FFFF00`
 E.g. `fontcolour #FFFFFF bg/black`
+. *Get User Guide URL*: `help`
 . *List*: `list`
 E.g. `list`
-. *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME FOOD_NAME...]`
-E.g. `recmf -p -m -f fn/chicken`
+. *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME...] [±sort/SORT_ORDER_TYPE]`
+E.g. `recmf -p -nsv +sort/gi`
+E.g. `recmf fn/chicken rice`
+. *Recommend Mixed Food*: `recmfmix`
 . *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
 E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
 E.g. `reminder d/buy bread dt/2019-12-02 19:00 r/weekly`
+. *Reset Food Data*: `resetf`
 
 //tag::FAQ[]
 == FAQ
-
 . *How should I save my data?*
 SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-
 . *How should I reset all the data?*
-You can simply delete the data file within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.
+You can simply delete the data folder within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.
 //tag::FAQ[]

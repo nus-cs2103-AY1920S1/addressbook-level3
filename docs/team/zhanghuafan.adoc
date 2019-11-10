@@ -7,39 +7,43 @@
 
 == Overview
 SugarMummy is a desktop application used to help type-II diabetics develop healthier lifestyle. The user interacts with it using a Command Line Interface,
-and its GUI is created with JavaFx. It is written in Java and has about 24 kLOC.
+and its GUI is created with JavaFx. It is written in Java and has about 30 kLOC.
 
 == Summary of contributions
 
 * *Major Feature*: added *recmf command*
 ** What it does: Recommends a list of medically suggested foods to type II diabetics.
-** Justification: This feature is crucial to diabetic patients since their health states are closely related to food consumption.
+** Justification: This feature is crucial to diabetic patients since their health states are closely related to food consumptions.
 ** Highlights: This feature benefits the extension of more accurate and personalized food recommendations since the food model with nutrition values that can be calculated and analyzed. Besides, it is also useful for future commands that relate to diet records and analysis.
 
 * *Minor enhancement*:
-** added a recmfmix command as a concise version of recmf command
-** added addfood command that allows the user to expand the database
-** added resetf command that allows the user to clear newly added foods
+** added a `recmfmix` command as a concise version of `recmf` command
+** added `addfood` and `deletef` commands that allows the user to change the food database
+** added `resetf` command that allows the user to clear any modifications on the food database
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhanghuafan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View RepoSense]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up the organization and repo
+*** Transferred user cases to GitHub project
+*** Categorized issue tags
+*** Managed releases `v1.2.1`, `v1.3.2`, `v1.3.3`, `1.3.6` (4 releases) on GitHub
+
 ** Enhancements to existing features:
+*** Helped construct the display pane switch between commands: https://github.com/AY1920S1-CS2103-T16-1/main/pull/64[#64]
 *** Constructed a generic Storage class for storage reading and writing: https://github.com/AY1920S1-CS2103-T16-1/main/pull/65[#65]
 
 ** Documentation:
-*** Designed the background for the application. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22])
-*** Updated application logo. (https://github.com/AY1920S1-CS2103-T16-1/main/pull/105[#105])
-*** Updated `Readme` and application screenshots. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22])
+*** Designed the background for the application: https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22]
+*** Added application logo: https://github.com/AY1920S1-CS2103-T16-1/main/pull/105[#105]
+*** Updated the initial User Guide, and detailed the food recommendation feature: https://github.com/AY1920S1-CS2103-T16-1/main/pull/20[#20], https://github.com/AY1920S1-CS2103-T16-1/main/pull/110[#110], https://github.com/AY1920S1-CS2103-T16-1/main/pull/214[#214]
+*** Updated `Readme` and application background: https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22]
+*** Helped finalize the Developer Guide, and detailed the food recommendation feature: https://github.com/AY1920S1-CS2103-T16-1/main/pull/85[#85], https://github.com/AY1920S1-CS2103-T16-1/main/pull/185[#185], https://github.com/AY1920S1-CS2103-T16-1/main/pull/214[#214], https://github.com/AY1920S1-CS2103-T16-1/main/pull/218[#218]
+
 ** Community:
-*** PRs reviewed (with non-trivial review comments):
-*** Contributed to forum discussions
-*** Reported bugs and suggestions for other teams in the class
-*** Some parts of the history feature I added was adopted by several other class mates
-** Tools:
+*** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S1-CS2103T-W11-1/main/issues/225[1], https://github.com/AY1920S1-CS2103T-W11-1/main/issues/228[2], https://github.com/AY1920S1-CS2103T-W11-1/main/issues/227[3]
 
 == Contributions to the User Guide
 include::../UserGuide.adoc[tag=recmf]

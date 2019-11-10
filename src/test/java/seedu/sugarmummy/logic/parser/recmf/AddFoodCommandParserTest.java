@@ -4,22 +4,22 @@ import static seedu.sugarmummy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FOR
 import static seedu.sugarmummy.logic.parser.CliSyntax.PREFIX_FOOD_NAME;
 import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.sugarmummy.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.CALORIE_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.FAT_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.GI_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.NAME_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.NAME_DESC_CORN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.SUGAR_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.SUGAR_DESC_CORN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.TYPE_DESC_CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.TYPE_DESC_CORN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.WHITESPACE;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.CALORIE_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.FAT_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.GI_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.NAME_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.NAME_DESC_CORN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.SUGAR_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.SUGAR_DESC_CORN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.TYPE_DESC_CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.TYPE_DESC_CORN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.WHITESPACE;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.sugarmummy.logic.commands.recmf.AddFoodCommand;
 import seedu.sugarmummy.model.recmf.Food;
-import seedu.sugarmummy.testutil.foodrecommendations.FoodBuilder;
+import seedu.sugarmummy.testutil.recmf.FoodBuilder;
 
 class AddFoodCommandParserTest {
 

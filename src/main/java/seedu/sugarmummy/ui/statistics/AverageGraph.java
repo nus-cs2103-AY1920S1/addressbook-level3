@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 import seedu.sugarmummy.model.records.RecordType;
 import seedu.sugarmummy.model.statistics.AverageType;
 
-//author chen-xi-cx
+//@@author chen-xi-cx
 
 /**
  * Represents ui of an average line graph with no legend.

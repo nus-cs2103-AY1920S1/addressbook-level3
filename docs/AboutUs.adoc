@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Stephen Chua Rong Zhi
 image::scwaterbear.png[width="150", align="left"]
-{empty}[https://github.com/scwaterbear[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/scwaterbear[github]] [<<scwaterbear#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data logging
@@ -21,7 +21,7 @@ Responsibilities: Data logging
 
 === Jiang Yuxin
 image::jyx11011.png[width="150", align="left"]
-{empty}[https://github.com/jyx11011[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jyx11011[github]] [<<jyx11011#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Calendar and reminder
@@ -30,7 +30,7 @@ Responsibilities: Calendar and reminder
 
 === Neo Weihong
 image::whneo97.png[width="150", align="left"]
-{empty}[https://github.com/whneo97[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/whneo97[github]] [<<whneo97#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Personalised user experience
@@ -39,10 +39,10 @@ Responsibilities: Personalised user experience
 
 === Chen Xi
 image::chen-xi-cx.png[width="150", align="left"]
-{empty}[https://github.com/chen-xi-cx[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/chen-xi-cx[github]] [<<chen-xi-cx#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Weekly summary and data analysis
+Responsibilities: Data summary/analysis
 
 
 '''
@@ -51,7 +51,7 @@ Responsibilities: Weekly summary and data analysis
 image::zhanghuafan.png[width="150", align="left"]
 {empty}[https://github.com/ZhangHuafan[github]] [<<zhanghuafan#, portfolio>>]
 
-Role: Developer +;'[p\\]
-Responsibilities: Education and quiz
+Role: Developer +
+Responsibilities: Food recommendation
 
 '''
