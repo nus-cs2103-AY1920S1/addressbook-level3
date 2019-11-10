@@ -172,8 +172,9 @@ image::AnnotationPackageClassDiagram.png[]
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
 contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
-`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
-whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `Highlight` is an optional field
+whenever it is used, i.e. in `PhantomParagraph` and/or `TrueParagraph`. However, `PhantomParagraph` must have an `AnnotationNote`.
+You may find that `AnnotationNote` and `Highlight` are collected in `Annotation` and `Paragraph` stores `Annotation` instead.
 
 [[Design-Storage]]
 === Storage component
