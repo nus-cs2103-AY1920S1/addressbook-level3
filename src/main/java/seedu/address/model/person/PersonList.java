@@ -40,7 +40,7 @@ public class PersonList {
         try {
             findPerson(personDescriptor.getName());
         } catch (PersonNotFoundException e) {
-            if(personDescriptor.getName().equals(user.getName())) {
+            if (personDescriptor.getName().equals(user.getName())) {
                 throw new DuplicatePersonException(personDescriptor.getName());
             }
             Person person = new Person(personDescriptor);
@@ -132,7 +132,7 @@ public class PersonList {
                 findPerson(otherName);
                 throw new DuplicatePersonException();
             } catch (PersonNotFoundException e) {
-                if(personDescriptor.getName().equals(user.getName())) {
+                if (personDescriptor.getName().equals(user.getName())) {
                     throw new DuplicatePersonException();
                 }
                 toEdit.setName(personDescriptor.getName());
