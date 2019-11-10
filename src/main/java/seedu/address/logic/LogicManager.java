@@ -90,7 +90,6 @@ public class LogicManager implements Logic {
         return model.getLoanHistoryOfBookAsString(target);
     }
 
-
     @Override
     public boolean isServeMode() {
         return model.isServeMode();
@@ -119,5 +118,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public String getLoadStatus() {
+        return model.getLoadStatus();
     }
 }

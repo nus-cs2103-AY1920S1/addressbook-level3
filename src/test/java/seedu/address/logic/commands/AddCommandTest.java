@@ -388,6 +388,11 @@ public class AddCommandTest {
         public void resetCommandHistory() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String getLoadStatus() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

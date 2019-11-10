@@ -79,6 +79,10 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    public void displayInitMessage() {
+        resultDisplay.setFeedbackToUser(logic.getLoadStatus());
+    }
+
     private void setTheme(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         assert infoWindow != null : "infoWindow not initialized!";
