@@ -24,7 +24,7 @@ It is written in Java, and has about 20kLoC.
 *** the bought item is just added to the grocery list otherwise.
 2. The feature is able to account for the fact that users do not have to buy exactly as much as they stated in the shopping list.
 *** If the user buys more than or equal to the amount stated in the shopping list, the shopping item is removed.
-*** If the user buys less than the amount stated in the shopping list, the shopping item's amount is just reduced by the amount bought.
+*** If the user buys less than the amount stated in the shopping list, the shopping item's amount is just reduced by the amount bought and the bought tag of the shopping item is removed (as there are no bought items left to move to fridge).
 3. The feature is able to account for different units when adding the quantity of the bought item to the quantity of the grocery item.
 *** Grocery item's amount is given preference, i.e., the bought item's amount's unit is converted to match the unit of the grocery item's amount.
 
@@ -50,6 +50,18 @@ It is written in Java, and has about 20kLoC.
 *** The UI element `ShoppingItemCard` receives the bought list as an attribute. This is so that for each shopping item the bought list can be checked to deduce and display the bought status of the shopping item.
 *** If an urgent item is completely bought, it loses its urgent tag, gets a `Fully Bought` tag and is moved to the bottom of the shopping list. This is intuitive to the user; when a required amount of the shopping item is bought already, it should no longer be prioritised.
 *** If a fully bought shopping item's amount is edited to a higher amount than the amount bought, the shopping item will be marked as partially bought and moved up the list (it should not be at the bottom anymore since it is not fully bought).
+
+* *Major Enhancement*: edit shopping items
+
+** *What it does*: This feature allows the user to edit a shopping item's name and amount. This feature is able to deal with several special cases involving units, bought status and urgent status.
+
+** *Justification*: This feature significantly improves the user experience by dealing with editing wrongly entered items in the ideal way.
+
+** *Highlights*
+*** If the name of a shopping item that is partially/fully bought is changed, the names of all the corresponding bought items are changed in order to maintain consistency for the user.
+*** If a fully bought shopping item's amount is edited to an amount greater than the bought amount, the item's tag changes to 'Partially Bought.' and is accordingly moved up the shopping list. +
+Similarly, if a partially bought shopping item's amount is edited to an amount smaller than or equal to bought amount, the item will be marked as 'Fully Bought!' and lose 'Urgent!' tag if it has one. +
+This ensures that the user is not afraid of minor mistakes or changing requirements causing inconsistencies in iFridge.
 
 * *Code contributed*: The samples of my functional and test code can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=manasvegi&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here]
 
