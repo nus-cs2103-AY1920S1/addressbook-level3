@@ -2,6 +2,7 @@ package seedu.planner.ui.panels;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.planner.logic.commands.ClearCommand;
@@ -31,6 +32,7 @@ import seedu.planner.logic.commands.viewcommand.ViewCommand;
 import seedu.planner.logic.commands.viewcommand.ViewContactCommand;
 import seedu.planner.ui.UiPart;
 import seedu.planner.ui.cards.HelpCard;
+import seedu.planner.ui.cards.UserGuideHelpCard;
 
 /**
  * Panel containing all the help for commands.
@@ -51,6 +53,7 @@ public class HelpListPanel extends UiPart<Region> {
     public void generateCommandHelpSummary() {
         if (helpListView.getItems().size() == 0) {
             helpListView.getItems().addAll(
+                    new UserGuideHelpCard().getRoot(),
                     new HelpCard(AddAccommodationCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(AddActivityCommand.MESSAGE_USAGE).getRoot(),
                     new HelpCard(AddContactCommand.MESSAGE_USAGE).getRoot(),
