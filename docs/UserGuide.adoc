@@ -78,6 +78,9 @@ This can prove to be rather tedious and cumbersome as users must remember every 
 Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
 to type the relevant command word to get prompted about subsequent inputs.
 
+.The interactive component of Typee is highlighted above.
+image::interactive_parsing_0.png[width='520']
+
 With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
 ```
 add
@@ -90,6 +93,9 @@ a/John | Smith
 p/High
 ```
 
+.Typee's prompt in response to the user entering `add`
+image::interactive_parsing_1.png[width="520"]
+
 Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
 set of rules detailed in a later subsection.
@@ -101,6 +107,12 @@ s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
 d/Team Meeting
 a/John | Smith p/High
 ```
+
+.A user about to pass 3 arguments to Typee in one input, following `add`.
+image::interactive_parsing_2.png[width='520']
+
+.Typee's response to the above input.
+image::interactive_parsing_3.png[width='520']
 
 Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
@@ -158,7 +170,7 @@ specified ordering.
 When the arguments aren't in order, then the input is *parsed as far as possible, in the expected order of the arguments*.
 
 For example, `add t/meeting l/Meeting Room 2` is parsed till the argument for `t/`. The parameter location is deemed
-invalid and the user is promped to enter a start date-time.
+invalid and the user is prompted to enter a start date-time.
 
 This happens because the parser expects an argument for `s/`, but there is no such argument.
 As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
@@ -184,6 +196,12 @@ Erroneous inputs occur in three mutually exclusive categories.
 An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
 and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
 the subsequent input must begin with `t/...`
+
+.A user about to enter an invalid input.
+image::interactive_parsing_4.png[width='520']
+
+.Typee's response to the invalid input.
+image::interactive_parsing_5.png[width='520']
 
 Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
 the user input.
