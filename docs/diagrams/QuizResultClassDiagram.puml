@@ -1,24 +1,28 @@
 @startuml
-!include ClassDiagramStyle.puml
+!include ClassDiagramstyle.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-class Question {
-getQuestionBody(): QuestionBody
+Class QuizResult {
+quizTime: String
+result: Boolean
 getAnswer(): Answer
+getQuestionBody(): QuestionBody
 getSubject(): Subject
 getDifficulty(): Difficulty
-isSameQuestion(Question other): boolean
+getQuizTime(): String
+getResult(): Boolean
+isWithinDate(LocalDate start, LocalDate end): boolean
 }
 
-class QuestionBody {
-body: String
-isValidQuestionBody(String test): boolean
-}
 class Answer {
 answer: String
 isValidAnswer(String test): boolean
+}
+class QuestionBody {
+body: String
+isValidQuestionBody(String test): boolean
 }
 class Subject {
 subject: String
@@ -29,9 +33,9 @@ difficulty: String
 isValidDifficulty(String test): boolean
 }
 
-Question *--> "1" QuestionBody
-Question *--> "1" Answer
-Question *--> "1" Subject
-Question *--> "1" Difficulty
+QuizResult *--> "1" Answer
+QuizResult *--> "1" QuestionBody
+QuizResult *--> "1" Subject
+QuizResult *--> "1" Difficulty
 
 @enduml

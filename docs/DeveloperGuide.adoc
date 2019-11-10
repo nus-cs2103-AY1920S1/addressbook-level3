@@ -281,7 +281,7 @@ Question is implemented as a concrete class with its relevant fields consist of 
 The following class diagram illustrates how `Question` class is designed:
 
 .Class diagram for `Question`
-image::QuestionClassDiagram.png[width = "600"]
+image::QuestionClassDiagram.png[width = "500"]
 
 ===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
 * _Alternative 1 (current choice):_ Update the internal storage `UniqueQuestionList` in `AppData` first, then save the updated appData
@@ -336,10 +336,18 @@ a list of specific question selected by user for quiz.
 Step 3. The user types answer to answer the question. It calls `Model#checkQuizAnswer(Answer answer)` and
 `Model#addQuizResult(QuizResult quizResult)`, causing the `AppData` to be updated with the result of the answer.
 
+The following graph explains how `QuizResult` class is designed:
+
+.QuizResultClassDiagram
+image::QuizResultClassDiagram.png[]
+
 Step 4. The user executes `show` command to show the answer of current quiz question in the app. The `show` command calls
 `Model#showQuizAnswer()`, causing the `AppData` to display the answer on the Ui.
 
-Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
+Step 5. The user executes `skip` command to skip the current quiz question in the app. The `skip` command calls
+`Model#removeOneQuizQuestion()`, causing the `AppData` to display the next quiz question on the Ui.
+
+Step 6. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
 `Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
 
 The following sequence diagram shows how the `quiz` operation works:
@@ -961,27 +969,6 @@ Use case ends
 ** Repeat 1c1 and 1c2 until a valid index is provided
 * Use case resumes at step 1
 
-
-[discrete]
-=== Use case: Delete an existing question (Dongjun)
-
-*MSS*
-
-1. Student gives the command to delete an existing question `delete INDEX`
-2. Application shows the question being deleted
-3. Application deletes the question indicated by the student from the database
-
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. The index given by student is out of the range
-[none]
-** 1a1. Application shows the error and displays the number of questions stored
-** 1a2. Student enters the valid index
-* Use case resumes from step 1
-
 // tag::quizUseCase[]
 [discrete]
 === Use case: Take a quiz (Dongjun)
@@ -1075,17 +1062,97 @@ in its data folder.
 .. Relaunch the application. _The app should not throw an exception, merely not display any images._
 .. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
 
+=== Question management
+. Adding a question with all necessary fields
+.. Type `addq q/MVC design pattern refers to (  ). a/Model View Controller s/CS2103T d/Medium` in the command line.
+.. The application will show the success of adding the question if all fields are present and valid.
+. Editing a question
+.. Type `editq 1 d/Hard` to change the difficulty of the question at index 1 to hard.
+.. The application will show the success of updating the question's difficulty and display all the fields.
+The question at index 1 will have a new difficulty of Hard.
+. Finding a question
+.. Type `findq java python` in the command line.
+.. The application will return a list of questions which contain the keyword "java" or "python" in either its
+question body or answer. If no question contains these keywords, the application will return an empty list.
+. Deleting a question
+.. Type `listq` in the command line to view a list of all questions.
+.. Type `deleteq 2` in the command line to delete the second question from the list.
+.. The application will display the success of deletion of this question and its relevant fields.
+The question will be removed from the list.
+
+=== Quiz mode
+NOTE: Ensure the application has at least one question to do the quiz.
+
+. Entering the quiz mode
+.. Type `quiz n/1 d/easy s/cs2040` in the command line.
+.. If the application has the questions which fit the requirement, it will enter the quiz mode and display the quiz questions.
+. Answering the question
+.. Type your answer in the command line after entering the quiz mode.
+.. The result of your answer will be displayed under the command box.
+. Showing the answer of the question
+.. Type `show` in the command line when the application is in the quiz mode.
+.. The correct answer of the current quiz question will be displayed under the command box.
+. Skipping current question
+.. Type `skip` in the command line when the application is in the quiz mode.
+.. The current question will be skipped and the next question will be displayed if there are still available questions.
+. Quiting from the quiz mode
+.. Type `quit` in the command line when the application is in the quiz mode.
+.. The application will exit from the quiz mode and return to the original mode.
+
 === Getting statistics
+NOTE: Ensure that there are some questions in the app and some of them have been answered in quiz mode.
+
 . Getting statistics
-.. Prerequisites: Some questions with difficulty level easy and subject CS2040 have been answered
-using the Quiz mode feature. There are no questions with difficulty level hard done.
-.. Test case: `stats` +
-Expected: The command result bar will show "Here are the statistics:"
+.. Type `stats`.
+.. The application will display "Here are the statistics:".
 All notes, tasks and questions will be hidden, a panel containing a pie chart will appear.
-.. Test case: `stats d/easy s/cs2040` +
-Expected: The command result bar will show "Here are the statistics: [easy] [cs2040]"
-All notes, tasks and questions will be hidden, a panel containing a pie chart will appear.
-.. Test case: `stats d/hard` +
-Expected: Error details will be showm in the command result bar. The main window stays the same.
-.. Test case: `stats d/easy d/hard` (more than one difficulty is provided) +
-Expected: Same as previous.
+. Getting questions
+.. Type `question -c`.
+.. The application will display "Here are the correct questions:".
+All notes, tasks and questions will be hidden, a panel containing a pie chart and a
+list of all correct quiz results will appear.
+. Getting report
+.. Type `report 1`.
+.. The application will display "Here is a report of question 1:".
+All notes, tasks and questions will be hidden, a panel containing a pie chart and
+all quiz results for question 1 will appear.
+. Getting overview
+.. Type `overview`.
+.. The application will display "Here is an overview of the questions:".
+All notes, tasks and questions will be hidden, a panel containing a stack bar chart will appear.
+
+=== Revision task management
+. Before adding task
+.. Add some notes to the app to be used for tasks.
+.. Add notes by typing `addnote t/a c/a`, followed by `addnote t/b c/b`.
+. Adding a task for revising a note to the revision list
+.. Type `rn t/a dt/01/11/2019 tm/0900`.
+.. The app will display message for successful addition of the task if there is a note with title "a" in the note list.
+. Adding a task for revising a question to the revision list
+.. Type `rq i/1 dt/12/09/2019 tm/1200`.
+.. The app will display message for successful addition of the task if there is a question with index 1 in the question list.
+If the question list is empty, an error message will be shown.
+. Editing a task
+.. Type `redit 1 h/b`.
+.. The heading of the first task will be changed to b if both the first task and a note with title "b" exist in the note list.
+. Marking a task as done
+.. Type `rdone 1`
+.. The first task will be marked as done.
+. Searching for a task
+.. Type `rfind tm/0900`.
+.. All task at 9am will be shown (if existing).
+. Listing all tasks
+.. Type `rlist`.
+.. All tasks will be shown.
+. Showing finished tasks
+.. Type `finished`.
+.. All finished (done) tasks will be shown.
+.. Similar operations can be done for unfinished tasks and overdue tasks with command `unfinished`, `overdue` respectively.
+. Deleting a task
+.. Type `rlist` to display all tasks for better demo effect. (If there are more than one tasks in the current list view, you can skip this step)
+.. Type `rdelete 2`
+.. The second task in the current list view will be successfully deleted (if existing).
+. Clearing all tasks
+.. Type `rclear`.
+.. All tasks will be cleared.
+.. Type `rlist` and you can see no task is left in the list.
