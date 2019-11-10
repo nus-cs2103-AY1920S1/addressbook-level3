@@ -16,7 +16,7 @@ class NoClearCommandTest {
     private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
 
     @Test
-    public void isValid() {
+    public void execute_command_success() {
         CommandResult commandResult = new NoClearCommand().execute(model);
         assertEquals(SHOWING_NO_CLEAR, commandResult.getFeedbackToUser());
     }

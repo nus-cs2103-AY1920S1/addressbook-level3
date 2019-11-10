@@ -108,6 +108,11 @@ public class SortCommand extends Command {
         }
     }
 
+    /**
+     * Check equality of 2 sortcommands
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
