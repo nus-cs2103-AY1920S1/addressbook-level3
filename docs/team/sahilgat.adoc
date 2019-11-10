@@ -99,6 +99,8 @@ first starts up.
 *** Added more specific exceptions such as `DuplicateFlashcardQuestionException` and `DuplicateFlashcardTitleException`
 rather than generic exceptions such as `DuplicateFlashcardException`. This provided better logging for developers.
 
+[In line with SRP?]
+
 * *Other contributions*
 
 ** Project Management

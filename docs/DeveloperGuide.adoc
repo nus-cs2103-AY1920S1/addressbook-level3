@@ -542,65 +542,114 @@ refers to a flashcard whose view date for optimum revision was _before_ the curr
 details on how the optimum revision date is calculated is provided in this section!
 ====
 
+[NOTE]
+For this section the `remind` command refers specifically to the command itself,
+while the remind feature encompasses the entire feature and all the
+relevant classes modified.
+
+==== Overview
+
 This feature aims to help the user stay on track with the user's revision schedule through two
 other sub-features. The first sub-feature is the `remind` command which helps the user
-keep track of which flashcards are due (or overdue) for revision. The second sub-feature is
-integrated with the `exit` command, and automatically asks the user for confirmation if they
-wish to exit StudyBuddyPro if the user still has due or overdue flashcards left for revision.
-An activity diagram summarizing how the remind feature works can be found below.
+keep track of which flashcards are due or overdue for revision. The second sub-feature is
+integrated with the `exit` command and is illustrated in the activity diagram below. For example,
+a typical user may use the `exit` command to exit the application without realizing they still had
+due or overdue flashcards left to revise. StudyBuddyPro will automatically warn the user about these
+unrevised flashcards after which the user can decide if they wish to revise these flashcards or proceed
+to exit StudyBuddyPro anyway.
 
-{To be completed soon}
-
-image:: to be added + caption
+image::remindDiagrams/ExitCommandActivityDiagram.png[]
 
 ==== Implementation of `remind` command
 
 [IMPORTANT]
 The following commands assume that the user is in the _flashcard_ mode.
 
-The  remind feature is facilitated by ``
+The `remind` command is facilitated by the `RemindFeatureUtil` class and extends
+the abstract `Command` class as summarized in the class diagram below. This diagram
+also provides a summary of the `Logic` components of the `remind` command.
 
-image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
+image::remindDiagrams/RemindCommandLogicClassDiagram.png[]
+
+The `remind` command also interacts with the `Model` component, specifically through indirect
+interactions with each `Flashcard` object currently in `StudyBuddyPro`. The class
+diagram below summarizes the relevant `Model` components that facilitate the `remind`
+command.
+
+image::remindDiagrams/RemindCommandModelsClassDiagram.png[]
+
+The interactions of all relevant components will be explained by walking through
+Use Case 9[TOADD LINK AND USECASE].
+
+*Step 1*. The user types "remind" and executes the command to check what flashcards
+the user has due.
+
+*Step 2*. `MainWindow` would call `LogicManager#execute()` to hand over control flow to the
+`Logic` component.
+
+*Step 3*.
+
+*Step 1*. `RemindCommand`
+
+image::remindDiagrams/RemindFeatureSequenceDiagramMain.png[]
+image::remindDiagrams/RemindCommandReferenceSequenceDiagram.png[]
+
+==== Implementation of the `exit` command
+
+[TIP]
+The `exit` command is a global command and can be used in any mode,
+not just in the _flashcard_ mode.
+
+An activity diagram describing the
+
+
+
+
+
 
 ==== Design Considerations
-===== Aspect: Implementation of utility attributes or classes to keep track of number of times a `Flashcard` object was
+
+When implementing the remind
+
+===== Aspect: How to keep track of when a `Flashcard` object was last viewed?
+
+* **Alternative 1 (current choice):** Design a new `Statistics` class and make a `Flashcard` object store a `Statistics`
+object. The `Statistics` object then keeps track of the flashcard's last viewed date.
+** Pros: Using a separate `Statistics` class is more in line with Object-Oriented Programming (OOP) practices and means
+the same class can be adapted and used to track statistics of other objects in StudyBuddyPro
+in the future.
+** Cons: Additional class adds additional maintenance and issues such as difficulty
+converting this class into a format that can be saved and read.
+* **Alternative 2:** Use an integer attribute field in each `Flashcard` object to keep track of how many times it was
 viewed.
-
-* **Alternative 1 (current choice):** Design a new `ViewCount` class and make a `Flashcard` object store a `ViewCount`
-object.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons:
-* **Alternative 2:** Use an integer attribute field in `Flashcard` object
 ** Pros: Easier to maintain: The addition of a new class increases overall coupling compared to adding a single new
-attribute.
-** Cons: Bad OOP practice and makes it difficult to implement future changes
+attribute field.
+** Cons: Bad OOP practice and makes it difficult to implement future changes. It may be unclear what the
+integer value represents and makes debugging more difficult.
 
-===== Aspect:
+===== Aspect: Should the user be given the option to toogle the `exit` command reminder or should it be a set feature?
 
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
-* **Alternative 2:**
-** Pros:
-** Cons:
+* **Alternative 1 (current choice):** User is not given the toogle option.
+** Pros: More in-line with target market. Since StudyBuddyPro is a revision tool the target
+market is likely to always want this feature and probably will not need to toogle it off.
+** Cons: Some users may face additional inconvenience when trying to exit StudyBuddyPro
+if they use StudyBuddyPro for other than its intended purpose. For example, a user that
+only wants to use the cheatsheet auto-generation feature may not care for the automatic reminder.
+* **Alternative 2:** User is provided with the toogle option.
+** Pros: More flexibility and customizability of StudyBuddyPro to suit each individual user's needs.
+** Cons: Extra work required to implement the toogle feature. A user may toogle the reminder off when first using the
+application, and forget about the feature since it is rarely used. When the user later wants
+
 
 ==== [Proposed] Future improvements
-** Improved formula for reminding
-*** Take into account other factors such as user confidence level or number of times flashcard was answered correctly
-or incorrectly to create a more dynamic reminding schedule.
+** Improve the formula used for determining when flashcards should be revised.
+*** We could take into account other factors such as user confidence level or number of times flashcard was answered
+correctly or incorrectly to create a more dynamic reminding schedule.
 
-** Link to `exit` command
-*** Checks if the user viewed all flashcards to be revised on the day.
-*** If some of the relevant flashcards were not viewed, reminds user about remaining flashcards and stalls
-application exit.
-*** User can either go back into StudyBuddyPro and view the relevant flashcards or supply an `exit` command again to
-close the application.
+** Introduce desktop notifications for the user.
+*** As a user may not open StudyBuddyPro everyday, StudyBuddyPro can be integrated with the
+desktop system calender to provide notifications when flashcards are due for revision.
 
-** More statistics for motivation
-*** Tracks how often user viewed flashcards on time and how many flashcards users missed viewing on the relevant
-deadline.
-
-==== Implementation of `exit` command
 // end::remind[]
 
 === Add Tags Within Notes feature
@@ -1233,23 +1282,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-    {To be edited}
+   Expected: Shows the GUI with a set of sample flashcards and notes. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 === Remind feature
 
