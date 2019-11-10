@@ -80,13 +80,13 @@ image::Ui.PNG[width="790"]
 === Commands related to competition
 Commands related to managing competitions outside of a competition setting shall be introduced first.
 
-==== Adding a new competition: addCompetition
+==== Adding a new competition: `addCompetition`
 Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION endDate/END DATE OF COMPETITION`
 
 Example:
 `addCompetition n/IPF World Championships startDate/12/02/1995 endDate/15/02/1995`
 
-==== Deleting an existing competition: deleteCompetition
+==== Deleting an existing competition: `deleteCompetition`
 Deletes the competition identified by the index number, used in Competition list (shown in the GUI)
 
 Format: `deleteCompetition INDEX`
