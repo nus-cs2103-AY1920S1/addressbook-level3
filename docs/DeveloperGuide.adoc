@@ -703,7 +703,7 @@ Refer to the guide <<DevOps#, here>>.
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="100%",cols="<3%,<10%,<30%,<40%",options="header",]
+[width="100%",cols="<10%,<10%,<30%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 
