@@ -1,30 +1,40 @@
 = Benedict Pak - Project Portfolio for MoneyGoWhere
 :site-section: AboutUs
+:icons: font
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
 
 == About the Project
 
 MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project. It was morphed from a basic command line Address Book. Some notable features include: setting budget goals, viewing statistics, customised searching and sorting, setting reminders for bills, viewing exchange rates, changing the application currency and importing and exporting data from and to a csv file.
 
-My role was to complete find and sort features, and minor features such as natural language date parsing, exchange rate and currency. The sections that follow in this document will elaborate these features in detail. I have also made notable contributions to the User Guide and Developer Guide.
+=== My Role
 
-Listed below are some notations that are used throughout the document.
+My role was to complete find and sort features, and minor features such as natural language date parsing, exchange rate and changing the application currency. The sections that follow in this document will elaborate these features in detail. I have also made notable contributions to the User Guide and Developer Guide.
+
+Listed in the table below are some notations that are used throughout the document.
 
 .Legend table
-[width="100%",cols="^15%,85%"]
+[#Legend]
+[width="100%",cols="^15%,85%",options="header"]
 |===
 a| *Icon* | *Description*
-a| `command` | Command that can be executed
-ifndef::env-github[]
+a| `command` | Command that can be executed, or a component, class or object in the architecture of the application
 a| icon:lightbulb-o[role="icon-tip", size="2x"] | Tips that might be helpful in navigating the application
-a| icon:info-circle[role="icon-note", size="2x"] | Important information that should be noted
+a| icon:info-circle[role="icon-note blue", size="2x"] | Important information that should be noted
 a| ====
 ==== | Useful information for a deeper understanding of the command
-endif::[]
 |===
 
-These icons and their following descriptions enable greater clarity in understanding the document.
+As shown in <<Legend>>, these icons associated to their following descriptions, such as commands, tips, important information and useful information, enable greater clarity in understanding the document. Note that useful information will have text enclosed in its box.
 
 == Summary of contributions
 
@@ -40,16 +50,7 @@ This section shows a summary of my contributions to the team project.
 ** Justification: It enables users to customise the order of the information being presented of greater priority, for instance, showing their most expensive purchases first, followed by date of purchase, to allow them to be mindful of their spending.
 ** Highlights: This enhancement had a challenging design approach. It also required some restructuring of the code base implementation and an in-depth analysis of design alternatives.
 
-* *Minor enhancement #1*: Implemented *natural language date parsing* feature
-** What it does: It allows users to enter date formats that are closer to how they are naturally expressed in daily language.
-** Justification: It gives users the freedom of choice to enter a variety of dates they want to enter without being restricted to a standard date format.
-** Highlights: This enhancement is fundamental to features such as `stats`, `budget` and `reminder`. Implementing this was an extremely arduous task and middleware had to be written to ensure compatibility with the library.
-** Credits: *natty* library was used to aid in natural language parsing. However, many modifications were applied in order to allow support for _DD/MM/YYYY_ dates, as it was not implemented by the author.
-
-* *Minor enhancement #2*: Implemented the *exchange rate* and *currency* feature.
-** What it does: It allows users to view foreign currency exchange rates, and change their viewing currency.
-** Justification: Users can use this feature when they do online shopping and convert currencies as they wish, or use the application overseas.
-** Highlights: This enhancement required interaction with the storage and careful handling of existing software architecture.
+* *Other enhancements*: Implemented *natural language date parsing*, *exchange rate* and *currency* features.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=nanosync[Collated code]]
 
@@ -76,7 +77,8 @@ This section shows a summary of my contributions to the team project.
 
 == Contributions to the User Guide
 
-Listed below are sections I contributed to the User Guide, which includes Find and Sort section. It showcases my ability to write documentation targeting end-users. For brevity, *flexible date formats* has been omitted and can be found https://ay1920s1-cs2103t-f13-3.github.io/main/UserGuide.html#flexible-date-formats[here].
+Listed below are sections I contributed to the User Guide, which includes the find and sort features and the flexible date formats section. It showcases my ability to write documentation targeting end-users. _For brevity, detailed information for *flexible date formats* can be found in the https://ay1920s1-cs2103t-f13-3.github.io/main/UserGuide.html#flexible-date-formats[User Guide]._
+
 
 include::../UserGuide.adoc[tag=find]
 
