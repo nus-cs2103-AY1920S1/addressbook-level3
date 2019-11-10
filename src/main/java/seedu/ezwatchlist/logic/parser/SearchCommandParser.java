@@ -30,15 +30,12 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchCommand parse(String args, String currentPanel) throws ParseException {
-        //checkSyntaxError(args);
+        checkNoOtherPrefixPresent(args); // this requires content to be right after / without any spaces
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED, PREFIX_FROM_ONLINE);
 
-        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENRE, PREFIX_ACTOR)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE));
-        }
+        checkPrefixPresent(argMultimap);
 
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
@@ -57,23 +54,32 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         return new SearchCommand(searchShowsHashMap);
     }
 
+    private void checkPrefixPresent(ArgumentMultimap argMultimap) throws ParseException {
+        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENRE, PREFIX_ACTOR)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, SearchMessages.MESSAGE_USAGE));
+        }
+    }
+
     /**
      * Checks if the user input the command correctly with the correct syntax.
      * @param args User input to be checked for the correct syntax
      * @throws ParseException if the user input does not conform the expected format
      */
-    /*private void checkSyntaxError(String args) throws ParseException {
-        String[] keywordsArray = args.split(" ");
-        int length = keywordsArray.length;
-        for (int i = 1; i < length; i++) {
-            String s = keywordsArray[i].trim();
-            if (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
-                    && !s.substring(0, 2).equals("g/") && !s.substring(0, 2).equals("t/")
-                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/"))) {
+    private void checkNoOtherPrefixPresent(String args) throws ParseException {
+        String[] keywordsArray = args.split("/");
+        int arrayLength = keywordsArray.length;
+        for (int i = 0; i < arrayLength - 1; i++) {
+            String s = keywordsArray[i];
+            String[] sArray = args.split(" ");
+            int sLength = sArray.length;
+            String last = sArray[sLength - 1];
+            if (!last.equals("n") && !last.equals("a") && !last.equals("g") && !last.equals("t")
+                    && !last.equals("o") && !last.equals("w")) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
-    }*/
+    }
 
     /**
      * Parses the names to be searched.
