@@ -8,7 +8,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.EditDiaryEntryDescriptor;
 
 /**
  * {@link Command} that creates a new diary entry with the provided {@code dayIndex}.
@@ -48,11 +47,9 @@ public class CreateDiaryEntryCommand extends Command {
                     model.getPageStatus().getCurrentTripDiary().getDiaryEntry(dayIndex).get()));
         }
 
-        EditDiaryEntryDescriptor editDescriptor = new EditDiaryEntryDescriptor(diaryEntry);
-
         model.setPageStatus(model.getPageStatus()
-                .withNewEditDiaryEntryDescriptor(editDescriptor)
-                .withNewDiaryEntry(diaryEntry));
+                .withNewDiaryEntry(diaryEntry)
+                .withNewEditDiaryEntryDescriptor(null));
 
         return new CommandResult(MESSAGE_CREATE_SUCCESS);
     }
