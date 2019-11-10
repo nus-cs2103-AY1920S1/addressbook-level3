@@ -10,13 +10,13 @@ import static seedu.ichifund.commons.util.AppUtil.checkArgument;
 public class Category implements Comparable<Category> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Categories should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Categories should only up to 50 alphanumeric characters and spaces, and it should not be blank";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,49}";
     public static final Category CATEGORY_ALL = new Category();
     public static final Category CATEGORY_DEFAULT = new Category("Uncategorised");
 

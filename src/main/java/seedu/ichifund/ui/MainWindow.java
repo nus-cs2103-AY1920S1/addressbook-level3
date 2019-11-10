@@ -306,6 +306,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            logger.info("Error message displayed: " + e.getMessage());
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
@@ -324,6 +325,7 @@ public class MainWindow extends UiPart<Stage> {
         @Override
         public void invalidated(Observable observable) {
             // Change tabs in TabPane
+            logger.info("----------Switching to tab: " + currentFeatureParserIndex + "----------");
             this.tabPane.getSelectionModel().select(currentFeatureParserIndex.getValue());
         }
     }
