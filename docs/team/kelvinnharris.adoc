@@ -66,6 +66,8 @@ include::../UserGuide.adoc[tag=grocerylistfeatures]
 
 include::../DeveloperGuide.adoc[tag=usegroceryfeature]
 
+include::../DeveloperGuide.adoc[tag=grocerylistmanualtesting]
+
 == PROJECT: PowerPointLabs
 
 ---

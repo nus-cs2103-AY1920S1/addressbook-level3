@@ -993,6 +993,61 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+//tag::grocerylistmanualtesting[]
+=== Grocery List Manual Testing
+
+. Adding a grocery item while all items are listed
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. The grocery list can be empty or contain some items.
+.. Test case: `glist add n/Coffee a/200ml e/19/11/2019 t/caffeine` +
+Expected: If the grocery list is empty, a grocery item would be added to the grocery list. Details of the added grocery item would also be shown in the status message.
+
+. Deleting a grocery item while all items are listed
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+.. Test case: `glist delete 1` +
+Expected: First grocery item is deleted from the grocery list. Details of the deleted grocery item is shown in the status message.
+.. Test case: `glist delete 0` +
+Expected: No grocery item is deleted. Error details is shown in the status message.
+.. Other incorrect delete commands to try: `glist delete`, `glist delete x` (where x is larger than the list size).
+Expected: Similar to previous.
+
+. Editing a grocery item in the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list. Item to be edited must not same name and expiry date as any other item in the list.
+.. Test case: `glist edit 1 n/Papaya` +
+Expected: If the first grocery item has unique name and expiry date in the grocery list, the grocery item's name is edited to Papaya. Other fields remain the same. Details of the edited grocery item is shown in the status message. +
+If the first grocery item does not have unique name and expiry date in the grocery list, the grocery item's name is not edited. Error details is shown in the status message.
+.. Test case: `glist edit 2 a/500ml` +
+Expected: Error details is shown in the status message as amount field cannot be edited.
+
+. Using a grocery item in the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+Item to be used has the same unit type and is not used up completely. Amount left exceeds amount to be used.
+.. Test case: `glist use 1 a/50ml` +
+Expected: The amount of the first grocery item is deducted by 50ml. Other fields remain the same. Details of the used grocery item is shown in the status message.
+.. Other invalid use commands to try: `glist use 2 a/400g` (where the item has unit of L), `glist use 2 a/30lbs` (where the amount of the item is less than 30lbs).
+
+
+. Sorting the grocery list
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+.. Test case: `glist sort by/expiry` +
+Expected: The displayed grocery list would be sorted based on the grocery items' expiry date in ascending order (from earliest to most recent).
+.. Test case: `glist sort by/alphabetical` +
+Expected: The displayed grocery list would be sorted based on alphabetical order of the grocery items' name in ascending order.
+
+. Finding items based on name or tag
+
+.. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
+Name or tag to be found may exist or not exist in any of the grocery items.
+.. Test case: `glist find apple snack` +
+Expected: The displayed grocery list would now contain items that has `apple` and `snack` as either their name or tag. If no items match, the displayed list would be empty.
+.. Other invalid find commands to try: `glist find b@nana` (would result in error as name and tag cannot contain any non-alphanumeric character).
+
+//end::grocerylistmanualtesting[]
+
 //tag::wastelistmanualtesting[]
 === Waste List Manual Testing
 
