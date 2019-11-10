@@ -48,6 +48,12 @@ public class SortGroceryCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SORT_SUCCESS, sortBy));
     }
 
+    /**
+     * Creates a comparator that would compare based on the {@code String} inputted.
+     * @param sortBy the String that would determine the type of comparator to be returned.
+     * @return Returns a comparator to be used for sorting.
+     * @throws CommandException If sorting type is unknown.
+     */
     public Comparator<GroceryItem> getComparator(String sortBy) throws CommandException {
         switch (sortBy) {
         case "expiry":
@@ -59,6 +65,10 @@ public class SortGroceryCommand extends Command {
         }
     }
 
+    /**
+     * Returns a comparator that compares grocery items based on expiry date.
+     * @return Returns a comparator that compares grocery items based on expiry date.
+     */
     public Comparator<GroceryItem> getComparatorByExpiry() {
         return Comparator.comparing(groceryItem -> {
             try {
@@ -70,6 +80,10 @@ public class SortGroceryCommand extends Command {
         });
     }
 
+    /**
+     * Returns a comparator that compares grocery items based on name's alphabetical order.
+     * @return Returns a comparator that compares grocery items based on name's alphabetical order.
+     */
     public Comparator<GroceryItem> getComparatorByAlphabetical() {
         return Comparator.comparing(groceryItem -> groceryItem.getName().toString().toLowerCase());
     }

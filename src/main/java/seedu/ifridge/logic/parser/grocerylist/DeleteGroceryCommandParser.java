@@ -9,13 +9,13 @@ import seedu.ifridge.logic.parser.ParserUtil;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteGroceryCommand object
  */
 public class DeleteGroceryCommandParser implements Parser<DeleteGroceryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteGroceryCommand
+     * and returns a DeleteGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteGroceryCommand parse(String args) throws ParseException {

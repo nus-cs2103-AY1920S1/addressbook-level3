@@ -25,7 +25,7 @@ import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Deducts the amount of the grocery item in the grocery list.
  */
 public class UseGroceryCommand extends Command {
 
@@ -44,8 +44,8 @@ public class UseGroceryCommand extends Command {
     private final UseGroceryItemDescriptor useGroceryItemDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param useGroceryItemDescriptor details to edit the person with
+     * @param index of the grocery item in the filtered grocery list to use.
+     * @param useGroceryItemDescriptor Descriptor to describe the amount to be used.
      */
     public UseGroceryCommand(Index index, UseGroceryItemDescriptor useGroceryItemDescriptor) {
         requireNonNull(index);
@@ -80,8 +80,8 @@ public class UseGroceryCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code GroceryItem} with the details of {@code groceryItemToUse}
+     * edited with {@code useGroceryItemDescriptor}.
      */
     private static GroceryItem createdUsedGroceryItem(GroceryItem groceryItemToUse,
                                                       UseGroceryItemDescriptor useGroceryItemDescriptor) throws
@@ -97,8 +97,7 @@ public class UseGroceryCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the person with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details of the grocery item with the amount to be deducted.
      */
     public static class UseGroceryItemDescriptor {
         private Name name;
@@ -120,7 +119,7 @@ public class UseGroceryCommand extends Command {
         }
 
         /**
-         * Returns true if at least one field is edited.
+         * Returns true if the amount to be used is not empty.
          */
         public boolean isAmountUsed() {
             return !Amount.isEmptyAmount(amount);
