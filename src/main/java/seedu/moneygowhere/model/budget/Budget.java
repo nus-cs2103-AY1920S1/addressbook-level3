@@ -11,11 +11,14 @@ import seedu.moneygowhere.model.spending.Spending;
 
 /**
  * Represents the budget in the MoneyGoWhere list.
- * A budget cannot have a negative value.
+ * A budget cannot must be non negative number, no grater than 1000000000.
+ * A budget should have at most 2 digits after the decimal point.
  */
 public class Budget {
 
-    public static final String MESSAGE_CONSTRAINTS = "Budget values should be positive number";
+    public static final String MESSAGE_CONSTRAINTS = "The budget amount provided is invalid.\n"
+        + "Budget values must be a non negative number "
+        + "no greater than 100000000 and have at most 2 digits after the decimal point.";
     private static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
     private static final int MAX_BUDGET_LIMIT = 1000000000;
 
@@ -79,7 +82,6 @@ public class Budget {
 
     /**
      * Counts the number of digits in a double in string format.
-     * If the numbers after the decimal point are only zeroes, returns 0.
      *
      * @param str The input string to count the number of characters after the decimal point.
      * @return The number of characters after the first decimal point.
@@ -87,29 +89,10 @@ public class Budget {
     private static int digitsAfterPoint(String str) {
         int output = 0;
         if (str.contains(".")) {
-            String splitPoint[] = str.split("[.]");
-            String afterPoint = splitPoint[1];
-            if (!isZeroOnly(afterPoint)) {
-                output = afterPoint.length();
-            }
+            String[] splitPoint = str.split("\\.");
+            output = splitPoint[1].length();
         }
         return output;
-    }
-
-    /**
-     * Checks whether the given string of numbers contain only zeroes.
-     * Assumes the input contains only numbers.
-     *
-     * @param str The string to be checked
-     * @return whether or not the string consists of only zeros
-     */
-    private static boolean isZeroOnly(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) != '0') {
-                return false;
-            }
-        }
-        return true;
     }
 
     /**

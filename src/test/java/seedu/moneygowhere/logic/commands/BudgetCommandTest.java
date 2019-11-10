@@ -1,12 +1,11 @@
 package seedu.moneygowhere.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.moneygowhere.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.moneygowhere.testutil.Assert.assertThrows;
 import static seedu.moneygowhere.testutil.TypicalSpendings.getTypicalSpendingBook;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.ModelManager;
@@ -17,6 +16,10 @@ class BudgetCommandTest {
 
     private Model model = new ModelManager(getTypicalSpendingBook(), new UserPrefs());
 
+    @Test
+    public void constructor_nullReminder_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new BudgetCommand(null));
+    }
     @Test
     public void execute_setNewBudget_success() {
         Budget budget = new Budget(10000);
@@ -37,23 +40,4 @@ class BudgetCommandTest {
         }
     }
 
-    @Test
-    public void execute_veryLargeBudgetAmount_fail() {
-        Budget budget = new Budget(1000000001);
-        BudgetCommand budgetCommand = new BudgetCommand(budget);
-
-        String expectedMessage = Messages.MESSAGE_INVALID_BUDGET_AMOUNT;
-
-        assertCommandFailure(budgetCommand, model , expectedMessage);
-    }
-
-    @Test
-    public void execute_invalidBudgetAmount_fail() {
-        Budget budget = new Budget(0.0000000000000000001);
-        BudgetCommand budgetCommand = new BudgetCommand(budget);
-
-        String expectedMessage = Messages.MESSAGE_INVALID_BUDGET_AMOUNT;
-
-        assertCommandFailure(budgetCommand, model , expectedMessage);
-    }
 }

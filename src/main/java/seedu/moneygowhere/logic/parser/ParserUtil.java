@@ -209,6 +209,7 @@ public class ParserUtil {
      * @throws ParseException if the specified budget is invalid (negative integer).
      */
     public static Budget parseBudget(String budget) throws ParseException {
+        requireNonNull(budget);
         String trimmedBudget = budget.trim();
         if (!Budget.isValidBudget(trimmedBudget)) {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
