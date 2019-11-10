@@ -41,7 +41,7 @@ public class JsonAdaptedDay {
                           @JsonProperty("destination") String destination,
                           @JsonProperty("description") Optional<String> description,
                           @JsonProperty("totalBudget") Optional<Double> totalBudget,
-                          @JsonProperty("dayList") List<JsonAdaptedEvent> eventList,
+                          @JsonProperty("eventList") List<JsonAdaptedEvent> eventList,
                           @JsonProperty("photo") Optional<JsonAdaptedDayPhoto> photo
     ) {
         this.startTime = from;

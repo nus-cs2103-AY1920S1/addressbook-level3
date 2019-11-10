@@ -173,6 +173,15 @@ public class ModelTestUtil {
             .setLocation(new Location(VALID_DESTINATION_EVENT_2))
             .build();
 
+    public static final Event VALID_EVENT_3 = EventBuilder.newInstance()
+            .setName(new Name(VALID_NAME_DAY_2 + "1234"))
+            .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_1_1 + " 2100", DATE_TIME_FORMATTER))
+            .setEndDate(LocalDateTime.parse(VALID_ENDDATE_EVENT_1_1 + " 2200", DATE_TIME_FORMATTER))
+            .setLocation(new Location(VALID_DESTINATION_EVENT_1))
+            .setDescription(new Description(VALID_DESCRIPTION_DAY_2))
+            .build();
+
+
     public static final Event CLASHING_EVENT_1 = EventBuilder.newInstance()
             .setName(new Name(VALID_NAME_DAY_1))
             .setStartDate(LocalDateTime.parse(VALID_STARTDATE_EVENT_1_2, DATE_TIME_FORMATTER))
