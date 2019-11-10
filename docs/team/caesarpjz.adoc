@@ -54,16 +54,15 @@ determined by the name of the days in a week. Inside the HashMap, there are Arra
 get the value of the HashMap that is associated with the key value (that is the day of the week). If there exists an ArrayList, the parser will check through the entire list and
 check if the Earnings in the ArrayList has more than a `Count` of 0. If the `Count` is more than zero, then the parser adds the `Earnings` object into the current list. If the `Count` is zero, the `Earnings object would be removed from the ArrayList.
 
-* *Major Enhancement 2*: Register and Login feature.
+* *Minor Enhancement*: Register and Login feature.
 ** What it does: It allows the user to register and login into the application.
 ** Justification: This feature improves the product significantly because as a Tutor, you would enter in critical and
 sensitive information of your students and of your earnings. By adding a register and login feature, it makes the
 app a lot more secure and tutors can confidently enter data into their application worry-free.
 ** Implementation: This enhancement alters the way TutorAid is used. Normally, users could enter into the application once they launched it.
- But with the register and login feature, it only allows users to login when they have the correct credentials. In addition, for future implementations, data
-encryption and file encryption will be added as well. If more modifications are allowed, the account creation would linked to a backend server such that more security can be provided.
- The register and login feature is aided by a password encryption method. When users register, the passwords of the accounts created will be hashed with a salt so that there will be more security and less
-invasion of data. I created a Login Window as well so that the users can have a visual cue when they login into their account.
+ But with the register and login feature, it only allows users to login when they have the correct credentials. The register and login feature is aided by a password encryption method.
+When users register, the passwords of the accounts created will be hashed with a salt so that there will be more security.
+I created a Login Window as well so that the users can have a visual cue when they login into their account.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=caesarpjz[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=caesarpjz[Project Code Dashboard]]
 
