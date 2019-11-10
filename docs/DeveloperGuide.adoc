@@ -240,7 +240,7 @@ There are certain classes (eg. Utility classes) that are used by different compo
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 These classes include (to list a few):
 
 * User Settings
@@ -649,7 +649,7 @@ to obtain the insertion order of a `Loan` object.
 // end::bookLoaningFeatures[]
 
 // tag::bookFinding[]
-=== Book Finding
+=== Book finding feature
 The command for finding a book in the catalog is as follows: +
 `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }`
 
@@ -672,10 +672,8 @@ image::FindSequenceDiagram.png[width=840, align=center]
 The `BookPredicate` class stores in its fields the specific values to match. Default values are mostly null, which will indicate that
 there is no need to filter for that field. Below is an example.
 
-image::BookPredicateEmptyObjectDiagram.png[height=300, align=center]
-image::BookPredicateFilledObjectDiagram.png[height=300, align=center]
-
 .Object Diagram showing the fields present in an empty (left) and partially filled (right) BookPredicate object
+image::BookPredicateObjectDiagram.png[height=300, align=center]
 
 The figure above shows what happens when we are trying to filter for books with title 'harry' and 'Potter' that are loaned out,
 showing up to 5 books only. Notice that the rest of the fields in the object are null.
@@ -689,27 +687,52 @@ this statement. The user could be looking for both types of books (which will sh
 loaned and available (which will show none). To prevent such meaningless confusion, there is a need for only 1 such
 flag to be accepted in the `BookPredicate`.
 
-* **Alternative 1: Hard code a priority for loan status flags and accept the highest one**
-** Pros: Easy to implement
-** Cons: Does not make it clear for the user why an unintended display is shown
+* *Alternative 1: Hard code a priority for loan status flags and accept the highest one when generating `BookPredicate`**
+** *Pros*: Easy to implement, since Flags are implemented as `Enums`.
+** *Cons*: Can be confusing to the reader as it is not clear why an unintended display is shown / why a certain priority exists.
 
-* **Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags**
-** Pros: Helps user clarify misconception of using more than 1 loan status flag
-** Cons: Slightly more complicated code where the output `ArgumentMultimap`
+* *Alternative 2 (Currently Used): Raise an exception whenever there are more than 1 loan status flags*
+** *Pros*: Helps user clarify misconception of using more than 1 loan status flag
+** *Cons*: Slightly more complicated code where the flags obtained from `ArgumentMultimap` has to be counted, checked and selected.
+
+*Alternative 2* was chosen in the end as it conformed with the norms of directly informing the user of his
+mistake through the use of exceptions and error messages.
 
 ===== Aspect: Limiting the Number of Books to Display
 As users generally do not want to be flooded with information when using the find command, a display limit `[NUMBER]` is used. Users
 can ask for a limited number of books to display. However, the `FilteredList` JavaFx class that is used to implement the list of
 filtered books does not have an API that sets a hard limit on the number of books to show. A work-around has to be made.
 
-* **Alternative 1: Create an new class that extends the JavaFx `FilteredList` class**
-** Pros: Does not require a change in other parts of the code
-** Cons: Hard to implement. Need to know the ins and outs of FilteredList
+* *Alternative 1: Create an new class that extends the JavaFx `FilteredList` class* that has a function that caps the
+number of items in the inner `ObservableList`.
+** *Pros*: Does not require a change in other parts of the code. Interface is simple and elegant.
+** *Cons*: Hard to implement. Need to know the ins and outs of `FilteredList` and `ObservableList`.
 
-* **Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test**
-** Pros: Easy to implement.
-** Cons: Not the most cleanest way of implementation
+* *Alternative 2 (Currently Used): Create a counter variable in `BookPredicate` that decrements after every passed test*
+** *Pros*: Easy to implement.
+** *Cons*: Not the cleanest and most developer friendly way of implementation.
+
+*Alternative 2* was chosen instead as the extension of `FilteredList` would take too much time for the implementation of such a simple feature.
+The cons of this choice will be compensated for in source code documentation to explain to developers how it works.
 // end::bookFinding[]
+//tag::toggleUi[]
+=== Toggle GUI theme feature
+==== Details of implementation
+The `toggleui` command will cause switching of the LiBerry GUI between 'light' and 'dark' modes. The basic underlying mechanism
+is to access the stylesheets of the `MainWindow` node, delete the previous stylesheet giving the current GUI theme, and adding
+the stylesheet for the new GUI theme.
+
+However, since some parts of the GUI are dynamically styled (such as the 'serve/normal mode' label on the top right, and
+the 'loan box' detailing loan details to the right of each book card, as shown below), such a simple css file switch is unable to fully change all GUI elements effectively.
+These dynamically styled elements will remain in 'light' mode colors while the rest of the app changes to 'dark' mode, causing an ugly
+contrast.
+
+.Dynamically styled GUI elements boxed in blue.
+image::dynamicGuiElements.png[height=400, align=center]
+
+The way that this was managed was through re-populating the panels every time the `toggleui` command is called. This forced the recreation of the
+book cards with the correct stylesheet right from their instantiation, which will cause them to display the correct loan box.
+//end::toggleUi[]
 
 //tag::registerBorrower[]
 === Register borrower feature
@@ -723,7 +746,7 @@ system is as followed: +
 Given below is an activity diagram of a borrower being registered into the Borrower Records of the library.
 
 .Activity Diagram for registering a borrower
-image:RegisterBorrowerActivityDiagram.png[width=270, align=center]
+image::RegisterBorrowerActivityDiagram.png[width=270, align=center]
 {nbsp} +
 
 Given below is a class diagram of a book.
@@ -894,6 +917,53 @@ image::UseCases.png[width=330, align=center]
 
 (For all use cases below, the *System* is `LiBerry` and the *Actor* is the `user`, who is a librarian, unless specified otherwise)
 
+
+[discrete]
+==== Use case: Help borrower find books of a particular title/author
+
+*MSS*
+
+1. Borrower comes to user requesting for a book of a particular title/from a particular author.
+2. User enters that book's title/author name.
+3. LiBerry searches through all books with an author matching what is entered.
+4. LiBerry displays books found.
+5. User informs borrower whether book exists, including how many copies
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Borrower forgets the exact spelling of the title/author he is looking for.
++
+[none]
+** 2a1. User enters partial spelling of the title/author.
+** Use case returns to step 3.
+
+* 2b. User wishes to display only the first N number of books.
++
+[none]
+** 2b1. User specifies the maximum number of books to display on top of his search conditions.
+** Use case returns to step 3. However, LiBerry displays only the first N number of books in step 4.
+
+[discrete]
+==== Use case: Generate the list of available/loaned out/overdue books
+
+*MSS*
+
+1. User enters command to show all available/loaned out/overdue books.
+2. LiBerry searches through catalog to create a list of available/loaned out/overdue books.
+3. LiBerry displays the list of all available/loaned out/overdue books.
+
+*Extensions*
+
+[none]
+* 1a. User wishes to display only the first N number of books.
++
+[none]
+** 1a1. User specifies the maximum number of books to display on top of his search conditions.
+** Use case returns to step 2. However, LiBerry displays only the first N number of books in step 4.
+
 [discrete]
 ==== Use case: Add a book
 
@@ -901,9 +971,11 @@ image::UseCases.png[width=330, align=center]
 
 1.  User adds a book by specifying its details
 2.  LiBerry shows a success message
-
++
 Use case ends.
 
+*Extensions*
+[none]
 * 1a. The arguments provided are invalid.
 +
 [none]
@@ -911,7 +983,6 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
 [none]
 * 1b. The mandatory arguments are not provided.
 +
@@ -936,6 +1007,7 @@ Use case resumes at step 2.
 2.  LiBerry shows a list of books
 3.  User requests to delete a specific book in the list
 4.  LiBerry deletes the book
++
 Use case ends.
 
 *Extensions*
@@ -945,6 +1017,7 @@ Use case ends.
 +
 Use case ends
 +
+{empty} +
 [none]
 * 3a. The given index is invalid.
 +
@@ -994,6 +1067,7 @@ Use case ends.
 
 *Extension*
 
+[none]
 * 1a. The arguments provided are invalid.
 +
 [none]
@@ -1020,6 +1094,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 1a. App is in serve mode
 +
 [none]
@@ -1031,6 +1106,7 @@ Use case ends.
 +
 [none]
 ** 1b1. LiBerry shows an error message.
++
 Use case ends.
 
 [discrete]
@@ -1044,6 +1120,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 2a. App is in serve mode
 +
 [none]
@@ -1130,6 +1207,7 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 4a. The book cannot be renewed.
 +
 [none]
@@ -1152,10 +1230,22 @@ Use case ends.
 
 *Extensions*
 
+[none]
 * 4a. The borrower has no outstanding fines.
 +
 [none]
 ** 4a1. LiBerry shows an error message.
++
+Use case ends.
+
+[discrete]
+==== Use case: Changing GUI to dark mode
+
+*MSS*
+
+1.  Sun sets and room gets dark
+2.  User enters command to change GUi
+3.  LiBerry changes GUI to dark mode
 +
 Use case ends.
 
@@ -1177,26 +1267,80 @@ User Interface
 
 === Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the app manually. Each of the tests are supposed to be done with sample data (The data that is preloaded when LiBerry first starts up).
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-==== Launch and Shutdown
+==== Launching and Shutting down
 
 . Initial launch
-
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
-
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+==== Finding a book
+
+. Finding books by Title
+.. Test case: `find t/harry` +
+Expected: 2 books with titles matching the word 'harry' should appear.
+.. Test case: `find t/the` +
+Expected: 3 books, all of which have the word 'the' in them, should appear.
+
+. Finding books by Author
+.. Test case: `find a/J K` +
+Expected: 2 books from 'J K Rowling' should appear.
+.. Test case: `find a/J` +
+Expected: 3 books from authors with names containing the letter 'J' should appear.
+
+. Finding books by Serial Number
+.. Test case: `find sn/B00001` +
+Expected: 1 book with serial number B00001 should appear.
+
+. Find books by Genre
+.. Test case: `find g/fiction` +
+Expected: 4 books with the genre 'FICTION' should appear.
+.. Test case: `find g/fiction g/action' +
+Expected: The book 'Harry Botter and the Full Blood Prince' should appear.
+
+. Find books by loan status
+.. Test case: `find -available` +
+Expected: All available books should appear.
+.. Test case: `find -loaned` +
+Expected: All loaned books, including overdue ones, should appear.
+.. Test case: `find -overdue` +
+Expected: All overdue books should appear.
+
+. Limiting number of books on display
+.. Test case: `find 3` +
+Expected: Only 3 books out of 9 should appear.
+
+. Resetting the display of books
+.. Test case: `clear` +
+Expected: All books should appear by serial number order.
+
+. Mixing and match different find conditions
+.. Test case: `find 4 t/a -loaned` +
+Expected: Only 4 loaned books should appear, and all should contain the letter 'a' in their title.
+.. Test case: `find -loaned -overdue` +
+Expected: An error asking for only 1 flag is shown.
+
+==== Add a book
+
+. Add a new book to the catalog.
+
+.. Prerequisites: Arguments are valid and mandatory parameters are provided.
+.. Test case: `add t/Harry Botter a/Raylei Jolking sn/B02010 g/children` +
+    Expected: Adds a children book titled "Harry Botter" by "Raylei Jolking", with the serial number "B02010", to LiBerry.
+.. Test case: `add t/Harry Botter` +
+   Expected: No book is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect add commands to try: `add`, `add a/Harry` +
+   Expected: Similar to previous.
 
 ==== Deleting a book
 
@@ -1207,10 +1351,20 @@ _{ more test cases ... }_
    Expected: First book is deleted from the list. Details of the deleted book shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No book is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+==== Retrieving information about a book
+
+. Retrieving a book's information while there are books are listed
+
+.. Prerequisites: Books are displayed in the list on the UI.
+.. Test case: `info 1` +
+   Expected: Information about first book is displayed in a new window.
+.. Test case: `info 0` +
+   Expected: No information is displayed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect info commands to try: `info`, `info x` (where x is larger than the list size) +
+   Expected: Similar to previous.
 
 ==== Saving data
 
@@ -1219,6 +1373,7 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
 
 ==== Loaning a book
 
@@ -1312,7 +1467,7 @@ Expected: Same as previous test case (`pay $2`).
 .. Test case: `pay $99999999999999999999` (or any dollar amount greater than $21474836.47) +
 Expected: Same as previous test case (`pay $2`).
 .. Other incorrect pay commands to try: `pay`, `pay xyz`, `pay 1` +
-Expected: Fin amount in borrower panel remains the same. Error details shown in the command result display.
+Expected: Fine amount in borrower panel remains the same. Error details shown in the command result display.
 
 . Paying fines while not in Serve mode.
 .. Prerequisites: LiBerry is in Serve mode, command format is correct and dollar amount is valid.
@@ -1326,6 +1481,33 @@ paid by +
 Borrower: [K0004] Hiap Seng +
 Outstanding fine: $0.00 +
 Change given: $0.90" appears on the command results display. The borrower panel now shows "Fines $0.00".
+
+==== Toggling UI theme
+
+. Converting between light and dark mode
+.. testcase: `toggleui` +
+Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
+.. Testcase: `toggleui` (again) +
+Expected: The main GUI switches back to light mode, including those of all other sub-windows
+
+==== Removing or corrupting data
+
+. Removing data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modifty the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
+
+. Corrupting data
+
+.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
+.. Enter the '/data' directory, which is in the same directory as the Jar file.
+.. Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.
+.. Save the modified data files.
+.. Launch the LiBerry App.
+.. Expected: The app should start with sample data once again.
 
 //tag::borrowerTest[]
 

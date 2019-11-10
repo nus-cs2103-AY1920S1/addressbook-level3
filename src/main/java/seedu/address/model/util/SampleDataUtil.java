@@ -34,7 +34,7 @@ import seedu.address.model.loan.LoanIdGenerator;
 import seedu.address.model.loan.LoanList;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code Liberry} with sample data.
  */
 public class SampleDataUtil {
 

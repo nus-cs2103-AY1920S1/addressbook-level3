@@ -33,54 +33,47 @@ image::Ui.png[]
 My role was to:
 
 . configure the basic AddressBook software to accommodate Json-type storage for a catalog, a record of borrowers,
-and a record of loans.
-. design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc.
+and a record of loans
+. design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc
+. design the GUI in terms of color schemes
+. create the *Toggle UI Command* to allow users to switch the GUI between 'light mode' and 'dark mode' themes
+. Create sample data for testing
 
 == Summary of Contributions
 
-*Major enhancement*: +
-added `find` command - giving the ability to *filter the catalog by various parameters*
+=== *Major enhancement - Finding by various parameters* +
+Allows the user to *filter the catalog by various parameters*
 
-* *What it does:*
-... Searches books in catalog through filtering by:
+==== What it does
+... Searches books in catalog and displays them on the screen through filtering by:
 .... title
 .... author
 .... serial number
 .... genres
 .... loan status (available / loaned / overdue)
-... sets the number of books to display in the search results
+... sets the number of books to display on the screen
 
-* *Justification:* +
-This feature is very powerful as it helps the user search through the entire catalog quickly according to the query's requirements.
-For example, a user may want to find if a certain book of a certain title is in the catalog, but only remembers the word 'Harry' from the title.
-This command will show all books in the catalog with the word 'Harry' in it. Another possible use case would be if a borrower, say, a parent,
-wanted to check if there were available 'children'
-books. A `find 10 g/children -available` command will suffice in bringing out the first 10 books that were available for borrowing belonging
-to the genre 'children'.
+==== Justification +
+As a librarian who is keeping charge of book and loan records, the ability to find books and their loan statuses fast is necessary.
 
-* *Highlights:* +
+==== Highlights +
 This enhancement was decently demanding as it required a way to test every book on whether it met the query requirements.
 It showcases my ability to play with functional programming and Streams in Java.
 As the predicate used has multiple possible combinations, extensive tests were written to ensure that it worked the way it should.
 
-*Minor enhancement*: +
-Made all search parameters (with the exception of book serial number) case insensitive
+=== *Minor enhancement - Switching GUI themes* +
+Allows the user to toggle the GUI between 'light mode' and 'dark mode'.
 
-* *Justification:* +
-This feature allows users to be
+==== Justification +
+This command allows users to switch into a more eye-friendly mode when using the software at night.
 
-*Code contributed*: +
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/FindCommandParser.java[FindCommandParser Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/model/book/BookPredicate.java[BookPredicate Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/main/java/seedu/address/logic/parser/Flag.java[Flag Class]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/test/java/seedu/address/model/book/BookPredicateTest.java[BookPredicate Tests]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/test/java/seedu/address/storage/StorageManagerTest.java[Storage Manager Tests]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/test/java/seedu/address/logic/commands/FindCommandTest.java[FindCommand Tests]] +
-[https://github.com/AY1920S1-CS2103T-F13-1/main/blob/master/src/test/java/seedu/address/logic/parser/FindCommandParserTest.java[FindCommandParser Tests]] +
-and other minor contributions
+==== Highlights +
+This feature was rather challenging as it required a decent amount of CSS knowledge and the ability to manipulate JavaFx elements.
 
-*Other contributions*:
+=== *Code contributed* +
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-10[Code changes made by me (Tracked by RepoSense)]]
+
+=== *Other contributions*:
 // TODO update this
 * Project management:
 ** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
@@ -94,6 +87,14 @@ and other minor contributions
 ** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 ** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 ** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+==== Project management:
+* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.4[`v1.4`] on GitHub. This is the final version of our software. The improvements made to `v1.3` are:
+** Feature: Undo and Redo
+** Bug fixes
+** GUI theme update
+** Feature: the `toggle UI` command
+** Additional sample data on startup
 
 == Contributions to the User Guide
 |===

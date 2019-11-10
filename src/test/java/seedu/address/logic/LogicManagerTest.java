@@ -22,6 +22,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -91,8 +92,10 @@ public class LogicManagerTest {
         String addCommand = AddCommand.COMMAND_WORD + TITLE_DESC_BOOK_1 + SERIAL_NUMBER_DESC_BOOK_1
                 + AUTHOR_DESC_BOOK_1;
         Book expectedBook = new BookBuilder(BOOK_1).withGenres().build();
+        ReversibleCommand expectedAddCommand = new AddCommand(expectedBook);
         ModelManager expectedModel = new ModelManager();
         expectedModel.addBook(expectedBook);
+        expectedModel.commitCommand(expectedAddCommand);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
