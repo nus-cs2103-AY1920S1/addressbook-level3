@@ -32,13 +32,13 @@ public class ReminderCommand extends Command {
             + PREFIX_DATETIME + "2020-05-31 16:00 "
             + PREFIX_CALENDAR_REPETITION + "daily";
 
-    public static final String MESSAGE_SUCCESS = "I've successfully added this new reminder: %1$s";
-    public static final String MESSAGE_DUPLICATE_REMINDER = "Oops! This reminder already exists in the calendar";
-    public static final String MESSAGE_SUBSET_REMINDER = "This reminder is covered by %1$s ";
+    public static final String MESSAGE_SUCCESS = "I've successfully added this new reminder: %1$s.";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Oops! This reminder already exists in the calendar.";
+    public static final String MESSAGE_SUBSET_REMINDER = "This reminder is covered by %1$s.";
     public static final String MESSAGE_CONFLICTED_REMINDER = "Oops! This reminder and the following reminder(s) "
             + "conflict: ";
     public static final String MESSAGE_SUPERSET_REMINDER = MESSAGE_SUCCESS
-            + ". The following reminder(s) were removed because they are covered by the new reminder:\n%2$s.";
+            + " The following reminder(s) were removed because they are covered by the new reminder:\n%2$s.";
     private final Reminder toAdd;
 
     /**
