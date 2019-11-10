@@ -35,7 +35,6 @@ public class EditStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalNotebook(), new UserPrefs());
 
-
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Student editedStudent = new StudentBuilder().build();
