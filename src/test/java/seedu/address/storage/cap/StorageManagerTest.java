@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.cap.*;
+import seedu.address.model.cap.CapLog;
+import seedu.address.model.cap.CapUserPrefs;
+import seedu.address.model.cap.ReadOnlyCapLog;
 
 public class StorageManagerTest {
 

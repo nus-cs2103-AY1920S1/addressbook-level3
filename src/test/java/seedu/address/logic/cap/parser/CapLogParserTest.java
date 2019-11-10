@@ -13,22 +13,22 @@
 //
 //import org.junit.jupiter.api.Test;
 //
-//import seedu.address.logic.commands.AddCommand;
-//import seedu.address.logic.commands.ClearCommand;
-//import seedu.address.logic.commands.DeleteCommand;
-//import seedu.address.logic.commands.EditCommand;
-//import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-//import seedu.address.logic.commands.ExitCommand;
-//import seedu.address.logic.commands.FindCommand;
-//import seedu.address.logic.commands.HelpCommand;
-//import seedu.address.logic.commands.ListCommand;
-//import seedu.address.logic.parser.AddressBookParser;
-//import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.person.NameContainsKeywordsPredicate;
-//import seedu.address.model.person.Person;
-//import seedu.address.testutil.EditPersonDescriptorBuilder;
-//import seedu.address.testutil.PersonBuilder;
-//import seedu.address.testutil.PersonUtil;
+//import seedu.address.logic.cap.commands.AddCommand;
+//import seedu.address.logic.cap.commands.ClearCommand;
+//import seedu.address.logic.cap.commands.DeleteCommand;
+//import seedu.address.logic.cap.commands.EditCommand;
+//import seedu.address.logic.cap.commands.EditCommand.EditPersonDescriptor;
+//import seedu.address.logic.cap.commands.ExitCommand;
+//import seedu.address.logic.cap.commands.FindCommand;
+//import seedu.address.logic.cap.commands.HelpCommand;
+//import seedu.address.logic.cap.commands.ListCommand;
+//import seedu.address.logic.cap.parser.AddressBookParser;
+//import seedu.address.logic.cap.parser.exceptions.ParseException;
+//import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
+//import seedu.address.model.cap.person.Person;
+//import seedu.address.testutil.EditModuleDescriptorBuilder;
+//import seedu.address.testutil.ModuleBuilder;
+//import seedu.address.testutil.ModuleUtil;
 //
 //
 //

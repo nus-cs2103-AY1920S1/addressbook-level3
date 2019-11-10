@@ -14,7 +14,7 @@ import seedu.address.model.common.Module;
 public class TypicalModule {
 
     public static final Module CS2103 = new ModuleBuilder().withModuleCode("CS2103")
-            .withModuleTitle("Software Programming")
+            .withModuleTitle("Software Engineering")
             .withSemester("1920", 1)
             .withCredit(4)
             .withGrade("A").build();

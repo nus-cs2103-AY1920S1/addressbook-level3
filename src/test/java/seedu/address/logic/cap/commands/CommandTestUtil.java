@@ -1,6 +1,11 @@
 package seedu.address.logic.cap.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -18,9 +23,38 @@ import seedu.address.model.common.Module;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_MODULE_CODE_CS2103 = "CS2103";
+    public static final String VALID_MODULE_CODE_CS2100 = "CS2100";
+    public static final String VALID_TITLE_CS2103 = "Software Engineering";
+    public static final String VALID_TITLE_CS2100 = "Computer Organisation";
+    public static final String VALID_SEMESTER_CS2103 = "1920S1";
+    public static final String VALID_SEMESTER_CS2100 = "1920S1";
+    public static final int VALID_CREDIT_CS2103 = 4;
+    public static final int VALID_CREDIT_CS2100 = 4;
+    public static final String VALID_GRADE_CS2103 = "A";
+    public static final String VALID_GRADE_CS2100 = "A";
+
+    public static final String MODULE_CODE_DESC_CS2103 = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS2103;
+    public static final String MODULE_CODE_DESC_CS2100 = " " + PREFIX_MODULE_CODE + VALID_MODULE_CODE_CS2100;
+    public static final String TITLE_DESC_CS2103 = " " + PREFIX_TITLE + VALID_TITLE_CS2103;
+    public static final String TITLE_DESC_CS2100 = " " + PREFIX_TITLE + VALID_TITLE_CS2100;
+    public static final String SEMESTER_DESC_CS2103 = " " + PREFIX_SEMESTER + VALID_SEMESTER_CS2103;
+    public static final String SEMESTER_DESC_CS2100 = " " + PREFIX_SEMESTER + VALID_SEMESTER_CS2100;
+    public static final String GRADE_DESC_CS2103 = " " + PREFIX_GRADE + VALID_GRADE_CS2103;
+    public static final String GRADE_DESC_CS2100 = " " + PREFIX_GRADE + VALID_GRADE_CS2100;
+    public static final String CREDIT_DESC_CS2103 = " " + PREFIX_CREDIT + VALID_CREDIT_CS2103;
+    public static final String CREDIT_DESC_CS2100 = " " + PREFIX_CREDIT + VALID_CREDIT_CS2100;
+
+    public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_MODULE_CODE + "James&";
+    public static final String INVALID_TITLE_DESC = " " + PREFIX_TITLE + "911a";
+    public static final String INVALID_SEMESTER_DESC = " " + PREFIX_SEMESTER + "bob!yahoo";
+    public static final String INVALID_CREDIT_DESC = " " + PREFIX_CREDIT;
+
+    public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
+    public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
     //Student names
     public static final String VALID_MODULE_TITLE = "Software Engineering";
-    public static final String VALID_MODULE_FACULTY = "Computing";
 
     /**
      * Executes the given {@code command}, confirms that <br>
