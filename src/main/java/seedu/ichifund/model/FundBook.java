@@ -281,6 +281,7 @@ public class FundBook implements ReadOnlyFundBook {
         for (Transaction transaction : getAssociatedTransactions(repeaterUniqueId)) {
             removeTransaction(transaction);
         }
+    }
 
     /// loan-level operations
 
