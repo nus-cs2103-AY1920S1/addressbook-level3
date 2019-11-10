@@ -406,7 +406,7 @@ This feature provides the user an interface to make their own changes to the sta
 The activity diagram below summarizes what happens in the execution of a settings command:
 
 .Activity diagram of the execution of a settings command.
-image::SettingsActivityDiagram.png[]
+image::SettingsActivityDiagram.png[width='200']
 
 [NOTE]
 Take note that "mode" as defined in our project is the state in which the application is able to take commands specific to that mode.
@@ -414,12 +414,12 @@ Take note that "mode" as defined in our project is the state in which the applic
 Given below is a step by step walk-through of what happens when a user executes a difficulty command while in settings mode:
 
 .Before state of application.
-image::StateDiagramBefore.png[]
+image::StateDiagramBefore.png[width='250']
 *Step 1:* +
 Let us assume that the current difficulty of the application is "EASY". The object diagram above shows the current state of `AppSettings`.
 
 .Sequence diagram of Step 2.
-image::DifficultySequenceDiagram1.png[]
+image::DifficultySequenceDiagram1.png[width='400']
 *Step 2:* +
 When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
 
@@ -439,15 +439,15 @@ image::DifficultySequenceDiagram4.png[]
 Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
 
 .Sequence diagram of Step 6.
-image::DifficultySequenceDiagram5.png[]
+image::DifficultySequenceDiagram5.png[width='250']
 *Step 6:* +
 Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
 
 The state of appSettings is then as follows:
 
 .After state of application
-image::StateDiagramAfter.png[]
-
+image::StateDiagramAfter.png[width='250']
+<<<
 ==== Design Considerations
 
 There were a few considerations for implementing an interface that essentially allows users to touch a lot of parts of the application through settings and some of these methods break software design principles. These are the considerations we came across:

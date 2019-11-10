@@ -483,13 +483,13 @@ Examples:
 Changes the UI theme to dark.
 
 .Dark Theme
-image::darktheme.png[]
+image::darktheme.png[width='350']
 
 * `theme light` +
 Changes the UI theme to light.
 
 .Light Theme
-image::lighttheme.png[]
+image::lighttheme.png[width='350']
 
 ==== Turning hints on/off: `hints`
 
@@ -546,20 +546,17 @@ Examples:
 * `avatar 0` +
 Changes the avatar to a random one everytime a new command is called.
 
-.Random avatar, in this case, Porygon.
-image::avatarrandom.png[]
-
 * `avatar 1` +
 Changes the avatar to 001 in the original Pokedex, which is Bulbasaur.
 
 .Avatar number 1, in this case, Bulbasaur.
-image::avatar1.png[]
+image::avatar1.png[width='250']
 
 * `avatar 151` +
 Changes the avatar to 151 in the original Pokedex, which is Mew.
 
 .Avatar number 151, in this case, Mew.
-image::avatar151.png[]
+image::avatar151.png[width='250']
 // end::paulsettings[]
 
 // tag::chenhui-commandusage2[]
