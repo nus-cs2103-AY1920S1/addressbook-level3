@@ -28,6 +28,7 @@ public class InstallmentDescription {
      */
     public InstallmentDescription(String description) {
         requireNonNull(description);
+
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         installmentDescription = description;
     }

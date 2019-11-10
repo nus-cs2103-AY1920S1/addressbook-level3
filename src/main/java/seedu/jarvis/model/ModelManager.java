@@ -303,6 +303,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Purchase deletePurchase(Purchase purchase) {
+        assert financeTracker.hasPurchase(purchase) : String.format("%s should exist", purchase);
         return financeTracker.deleteSinglePurchase(purchase);
     }
 
@@ -376,6 +377,7 @@ public class ModelManager implements Model {
      */
     @Override
     public Installment deleteInstallment(Installment installment) {
+        assert financeTracker.hasInstallment(installment) : String.format("%s should exist", installment);
         return financeTracker.deleteInstallment(installment);
     }
 
@@ -411,6 +413,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void setInstallment(Installment target, Installment editedInstallment) {
+        assert financeTracker.hasInstallment(target) : String.format("%s should exist", target);
         financeTracker.setInstallment(target, editedInstallment);
     }
 
@@ -421,6 +424,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void setMonthlyLimit(MonthlyLimit limit) {
+        requireNonNull(limit);
         financeTracker.setMonthlyLimit(limit);
     }
 

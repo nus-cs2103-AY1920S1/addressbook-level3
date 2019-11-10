@@ -26,6 +26,7 @@ import seedu.jarvis.model.finance.purchase.PurchaseMoneySpent;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.userprefs.UserPrefs;
+import seedu.jarvis.testutil.finance.PurchaseBuilder;
 
 public class RemovePaidCommandTest {
 
@@ -36,6 +37,7 @@ public class RemovePaidCommandTest {
         model = new ModelManager(new CcaTracker(), new HistoryManager(), new FinanceTracker(), new UserPrefs(),
                 new Planner(), new CoursePlanner());
         model.addPurchase(new PurchaseStub());
+        model.addPurchase(new PurchaseBuilder().build());
     }
 
     /**
@@ -90,7 +92,7 @@ public class RemovePaidCommandTest {
 
         String inverseExpectedMessage = String.format(
                 RemovePaidCommand.MESSAGE_INVERSE_SUCCESS_ADD, purchaseToDelete);
-        model.deletePurchase(purchaseToDelete);
+        model.deletePurchase(INDEX_FIRST_PURCHASE.getOneBased());
 
         expectedModel.addPurchase(INDEX_FIRST_PURCHASE.getZeroBased(), purchaseToDelete);
         expectedModel.updateFilteredPurchaseList(PREDICATE_SHOW_ALL_PURCHASES);

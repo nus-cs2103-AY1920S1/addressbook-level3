@@ -120,7 +120,7 @@ public class RemoveInstallmentCommandTest {
 
         String inverseExpectedMessage = String.format(
                 RemoveInstallmentCommand.MESSAGE_INVERSE_SUCCESS_ADD, installmentToDelete);
-        model.deleteInstallment(installmentToDelete);
+        model.deleteInstallment(INDEX_FIRST_INSTALLMENT.getOneBased());
 
         expectedModel.addInstallment(INDEX_FIRST_INSTALLMENT.getZeroBased(), installmentToDelete);
         expectedModel.updateFilteredInstallmentList(PREDICATE_SHOW_ALL_INSTALLMENTS);
