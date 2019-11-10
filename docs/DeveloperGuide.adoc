@@ -605,6 +605,11 @@ These are the commands available to the user related to vehicle management:
 [NOTE]
 Only vehicles with the status `Avaliable` are valid for editing or deleting. This is to prevent removing or changing the details of a vehicle that is currently being dispatched.
 
+***
+* Only accounts with admin access are eligible to delete vehicles
+
+***
+
 //tag::vehicleedit[]
 
 ==== Editing Vehicles: `edit-v`

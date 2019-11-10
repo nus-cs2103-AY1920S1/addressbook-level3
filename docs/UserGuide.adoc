@@ -453,7 +453,7 @@ Returns any incidents whereby the operator's name matches the logged-in operator
 === Editing an Incident: `edit-i`
 
 Edits an existing incident in the Incident Manager as identified by the index in the display.
-Format: `edit-i [INDEX] [dist/DISTRICT] [C/CALLER NUMBER] [d/DESCRIPTION]`
+Format: `edit-i [INDEX] [dist/DISTRICT] [p/CALLER NUMBER] [desc/DESCRIPTION]`
 
 ****
 ** If an index is not provided, system will prompt for index. Does not make any edits.
@@ -476,7 +476,7 @@ Incidents with all the same fields (`DateTime`, `District`, `IncidentId`, `Calle
 
 Example of input:
 
-** `edit-i 1 dist/2 d/This is an incident description.`
+** `edit-i 1 dist/2 desc/This is an incident description.`
 *** result: only district and description is changed.
 
 ** `edit-i 1`
@@ -490,7 +490,7 @@ image::editIncident2.png[]
 //tag::add-v[]
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
-Format: `add-v [dist/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
+Format: `add-v [dist/DISTRICT] & [vnum/VEHICLE NUMBER] & [vtype/VEHICLE TYPE] & [a/AVAILABILITY]`
 
 [NOTE]
 All fields must be provided in order to make a valid addition to the Incident Management System. If any of the fields are missing,
@@ -503,20 +503,20 @@ vehicle will not be added.
 
 Examples:
 
-** `add-v dist/2 vn/12345 vt/Ambulance a/available`
+** `add-v dist/2 vnum/SFD1234A vtype/Ambulance a/available`
 *** result: `New vehicle added: Ambulance Vehicle Number: 12345 District: 2 Availability: AVAILABLE`
 
-** `add-v dist/12 vn/23456 vt/Patrol Car a/busy`
+** `add-v dist/12 vnum/SFD1234A vtype/Patrol Car a/busy`
 *** result: `New vehicle added: Patrol Car Vehicle Number: 23456 District: 12 Availability: BUSY`
 
-image::addVehicle1.png[]
-image::addVehicle2.png[]
+image::addVehicle1.png[width=400]
+image::addVehicle2.png[width=400]
 
 //end::add-v[]
 //tag::edit-v[]
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
-Format: `edit-v [INDEX] [dist/DISTRICT] [vn/VEHICLE NUMBER] [vt/VEHICLE TYPE] [a/AVAILABILITY]`
+Format: `edit-v [INDEX] [dist/DISTRICT] [vtype/VEHICLE TYPE] [a/AVAILABILITY]`
 
 [NOTE]
 Number of fields provided for edit may vary. If no fields are provided, the vehicle will not be edited.
@@ -525,11 +525,12 @@ Number of fields provided for edit may vary. If no fields are provided, the vehi
 ** Edit inputs that result in duplicate vehicles in the list will not be allowed.
 ** Only vehicles displayed on the interface are valid of edit.
 ** Existing values will be updated to the input values given.
+** Any vehicle can be edited regardless of state.
 ****
 
 Example:
 
-** `edit-v 1 dist/13 vt/Ambulance`
+** `edit-v 1 dist/13 vtype/Ambulance`
 *** result: district will be changed to 13 and vehicle type will be changed to Ambulance
 
 Edit vehicle:
@@ -539,9 +540,10 @@ image::editVehicle2.png[]
 
 Edit Vehicle that results in duplicates:
 
-image::editDuplicateVeh1.png[]
-image::editDuplicateVeh2.png[]
+image::editDuplicateVeh1.png[width=400]
+image::editDuplicateVeh2.png[width=400]
 //end::edit-v[]
+
 // tag::list-v[]
 === Listing vehicles
 Shows a list of all vehicles registered in the incident Manager.
@@ -618,9 +620,8 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 ** Vehicles that are currently dispatched or indicated as `BUSY` will not be able to be deleted.
 ****
 
-image::deleteVehicle1.png[]
-image::deleteVehicle2.png[]
-image::deleteVehicleNonAdmin.png[]
+image::deleteVehicle1.png[width=400]
+image::deleteVehicle2.png[width=400]
 //end::delete-v[]
 
 // tag::common[]

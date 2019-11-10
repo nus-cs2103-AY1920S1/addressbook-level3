@@ -44,11 +44,9 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=edit-i]
 
-include::../UserGuide.adoc[tag=edit-v]
+include::../UserGuide.adoc[tag=add-v]
 
-include::../UserGuide.adoc[tag==add-v]
-
-include::../UserGuide.adoc[tag==delete-v]
+include::../UserGuide.adoc[tag=delete-v]
 
 == Contributions to the Developer Guide
 
