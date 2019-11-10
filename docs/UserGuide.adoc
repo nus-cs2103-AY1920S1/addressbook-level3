@@ -268,7 +268,7 @@ Levels are separated by difficulty. At the end of each level, user has the choic
 The user is given 30 seconds to answer each question.
 
 === Arcade Mode
-Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
+Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
 The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
 level 3 giving the user 20 seconds to answer each question.
 
