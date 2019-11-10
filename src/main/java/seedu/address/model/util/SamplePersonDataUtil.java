@@ -350,6 +350,11 @@ public class SamplePersonDataUtil {
                 "Antonio",
                 "Willy"
         };
+        /*
+            @@author ajbrown
+            Reused names from <a href="https://github.com/ajbrown/name-machine/tree/master/src/main/resources/org/
+            ajbrown/namemachine"/> with several modifications.
+        */
         int count = 100;
         Person[] listOfPersons = new Person[count];
         Random random = new Random();
