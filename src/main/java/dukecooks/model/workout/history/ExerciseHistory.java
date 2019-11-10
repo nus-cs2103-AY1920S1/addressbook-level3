@@ -33,10 +33,6 @@ public class ExerciseHistory {
         newPreviousRuns.add(runToAdd);
         return new ExerciseHistory(newPreviousRuns);
     }
-
-    /**
-     * Calculates average run timr based off of the previous runs list.
-     */
     
     private Duration getAverageRunTime() {
         if (previousRuns.isEmpty()) {
