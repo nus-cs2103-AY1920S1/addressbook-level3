@@ -351,7 +351,7 @@ maintainability of objects)
 Cons: Major changes to current code base; steep increase in code due to greater
 abstraction
 
-====== Alternative
+===== Alternative
 
 The alternative would have been to leave the corresponding fields as
 primitive data types. This would have been the easier alternative at the time
@@ -359,7 +359,7 @@ as it was the original implementation. Furthermore, since the `Installment`
 and `Purchase` objects were not extremely complex, further encapsulation was
 unnecessary.
 
-====== Our Thoughts
+===== Our Thoughts
 
 Taking the long-term vision of the application to be continuously developed
 into consideration, I decided to increase OOP as much as possible. The decision
