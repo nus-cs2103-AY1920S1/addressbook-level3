@@ -224,7 +224,7 @@ public class WatchCommand extends Command {
     }
 
     /**
-     * Calculates the total number of episodes watched given the season
+     * Calculates the total number of episodes watched given and the season
      * number and number of episodes watched in that particular season.
      * @param show The show to be edited.
      * @param numOfSeasons the number of seasons provided by the user.
