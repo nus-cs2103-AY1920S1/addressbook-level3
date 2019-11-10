@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+
+package Model <<Rectangle>>{
+Class AddInfo
+Class AliasInfo
+Class AutoSortInfo
+Class BudgetInfo
+Class BuyInfo
+Class ClearInfo
+Class CustomSortInfo
+Class DefaultInfo
+Class DeleteInfo
+Class DislikeInfo
+Class EditInfo
+Class ExitInfo
+Class FilterInfo
+Class FindInfo
+Class HelpInfo
+Class HistoryInfo
+Class InfoInfo
+Class LikeInfo
+Class ListInfo
+Class MakeSortInfo
+Class RecommendInfo
+Class RemoveDislikeInfo
+Class RemoveLikeInfo
+Class SaveInfo
+Class ShowInfo
+Class SortInfo
+Class ThemeInfo
+Class TopUpInfo
+Class ViewSortInfo
+Class WithdrawInfo
+}
+
+@enduml

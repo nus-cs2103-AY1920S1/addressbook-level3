@@ -121,6 +121,7 @@ The `UI` component,
 * Responds to the user's keyboard and mouse input.
 * Pop-up windows respond to the buttons on the menu tab.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
 === Logic component
@@ -144,7 +145,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-//end::UI[]
 
 [[Design-Model]]
 === Model component
@@ -904,6 +904,26 @@ access to internet connection, but would still like to know about the command.
 
 The class diagram below illustrates the relationship between the classes.
 
+.Info class diagram in Model component
+image::InfoClassDiagram.png[]
+
+==== Opening info card about a command
+
+Command word to open up a new `InfoWindow` is `info`. Users are able to view the `InfoWindow` for each and every command
+as long as the command exist within the app (There exist the class for such info card in the model).
+
+For example, `info add` will open up a new `InfoWindow` about the command `add`.
+
+The sequence window below shows how a sample `info` command is executed:
+
+.Sequence diagram for sample `info` command
+image::InfoSequenceDiagram.png[]
+
+The following activity diagram shows how the `info` command works.
+
+.Activity diagram for sample `info` command
+image::InfoActivityDiagram.png[]
+//end::info[]
 
 == Documentation
 

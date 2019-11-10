@@ -180,6 +180,10 @@ include::../UserGuide.adoc[tag=roby2]
 
 == Contributions to the Developer Guide
 
-This section shows the additions that I have made to the sorting feature of the Developer Guide.
+This section shows the additions that I have made to the various features of the Developer Guide.
 
+=== This section includes my contribution on the UI component.
 include::../DeveloperGuide.adoc[tag=UI]
+
+=== This section includes my contribution on the Info feature of the Developer Guide.
+include::../DeveloperGuide.adoc[tag=info]

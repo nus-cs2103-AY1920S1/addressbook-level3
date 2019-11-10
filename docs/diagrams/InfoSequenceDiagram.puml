@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":InfoCommandParser" as InfoCommandParser LOGIC_COLOR
+participant "a:InfoCommand" as InfoCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("info add")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("info add")
+activate SaveNusParser
+
+create InfoCommandParser
+SaveNusParser -> InfoCommandParser
+activate InfoCommandParser
+
+InfoCommandParser --> SaveNusParser
+deactivate InfoCommandParser
+
+SaveNusParser -> InfoCommandParser : parse("add")
+activate InfoCommandParser
+
+create InfoCommand
+InfoCommandParser -> InfoCommand
+activate InfoCommand
+
+InfoCommand --> InfoCommandParser : a
+deactivate InfoCommand
+
+InfoCommandParser --> SaveNusParser : a
+deactivate InfoCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+InfoCommandParser -[hidden]-> SaveNusParser
+destroy InfoCommandParser
+
+SaveNusParser --> LogicManager : a
+deactivate SaveNusParser
+
+LogicManager -> InfoCommand : execute()
+activate InfoCommand
+
+create CommandResult
+
+InfoCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> InfoCommand
+deactivate CommandResult
+
+InfoCommand --> LogicManager : result
+deactivate InfoCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
