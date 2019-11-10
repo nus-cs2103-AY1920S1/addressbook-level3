@@ -1,0 +1,43 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([In activity context])
+    :Set search scope to activity participants;
+else ([Not in activity context])
+    :Set search scope to entire address book;
+    :Create new activity;
+endif
+
+if () then ([only paying person specified])
+    if () then ([Non-unique search result
+for paying person])
+        stop
+    endif
+    if () then ([In activity context])
+        :Add all existing
+        participants to expense;
+    endif
+else ([multiple people specified])
+    :For each person, search for contacts
+    in the search scope using the search terms;
+    if () then ([Non-unique search result
+for any search term])
+        stop
+    else ([Unique search result for all search terms])
+        if () then ([contact is not duplicated in expense])
+            :Add contact to expense;
+            if () then ([In activity context])
+                :Invite contact to activity;
+            endif
+        endif
+    endif
+
+endif
+
+:Add expense to activity;
+stop
+@enduml
