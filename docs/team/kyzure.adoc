@@ -20,7 +20,7 @@ Tasked to enhance or morph a simple command line interface (CLI) desktop address
 Here is a screenshot of **Horo**:
 
 .Screenshot of Horo's Graphical User Interface
-image::HoroMainViewDescription.png[]
+image::UiView.png[]
 
 I played the role of designing the User Interface (UI) and the logic of how my teammates' code will interact with the UI. The following sections below will display the following morphing I did in detail, including certain documentation added to the User and Developer Guide.
 
