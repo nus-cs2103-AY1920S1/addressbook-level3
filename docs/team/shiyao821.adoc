@@ -76,6 +76,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupT
 
 === *Other contributions*
 ==== Project management
+[none]
 * Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.4-alpha[`v1.4-alpha`] on GitHub.
 This is the final version of our software at Alpha release for final pre-release testing. The improvements made to `v1.3` are:
 ** Feature: Undo and Redo
@@ -87,22 +88,25 @@ This is the final version of our software at Alpha release for final pre-release
 ==== Enhancements to existing features
 Done through the following pull requests: +
 
+[none]
 * https://github.com/AY1920S1-CS2103T-F13-1/main/pull/292[#292]: Updated sample data for users to test on
-* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/255[#255]: Updated the GUI color scheme
-* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/84[#84]: Created the relevant Storage classes for others to build on
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/255[#255]: Updated the GUI color scheme
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/84[#84]: Created the relevant Storage classes for others to build on
 
 ==== Documentation
 Done through the following pull requests: +
 
-* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/277[#277]: Styled the aesthetics of the LiBerry Netlify main page and sub-pages (including User Guide (UG) and Developer Guide (DG))
-* [https://github.com/AY1920S1-CS2103T-F13-1/main/pull/94[#94]: Create the broad User Guide structure for others to build on
+[none]
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/277[#277]: Styled the aesthetics of the LiBerry Netlify main page and sub-pages (including User Guide (UG) and Developer Guide (DG))
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/94[#94]: Create the broad User Guide structure for others to build on
 
 ==== Community
 
+[none]
 * Left a https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/58[DG review] on another group's PR as a group
-* Posted a [https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the module forum (as a group) on making a code coverage check shortcut
+* Posted a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the module forum (as a group) on making a code coverage check shortcut
 * Left a https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49[User Stories review] on another group's PR as a group
-* Tested another team's [https://github.com/AY1920S1-CS2103T-F12-3/main/releases[PR] and submitted bugs during Practical Exam Dry Run.
+* Tested another team's https://github.com/AY1920S1-CS2103T-F12-3/main/releases[PR] and submitted bugs during Practical Exam Dry Run.
 
 == Contributions to the User Guide
 |===
