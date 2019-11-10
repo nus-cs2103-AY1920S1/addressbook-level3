@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
+import seedu.elisa.model.item.ReminderList;
 
 /**
  * Adds a Reminder to the item model.
@@ -32,7 +33,9 @@ public class AddReminderCommand extends AddCommand {
 
         // Notify Ui to change the view the that of the newly added item.
         try {
-            model.setVisualList(SHOW_REMINDER_VIEW);
+            if(!(model.getVisualList() instanceof ReminderList)) {
+                model.setVisualList(SHOW_REMINDER_VIEW);
+            }
         } catch (Exception e) {
             // should not enter here as itemType is definitely valid.
         }

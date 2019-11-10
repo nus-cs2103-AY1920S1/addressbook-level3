@@ -7,6 +7,7 @@ import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.commands.exceptions.CommandException;
 import seedu.elisa.model.ItemModel;
 import seedu.elisa.model.RescheduleTask;
+import seedu.elisa.model.item.EventList;
 
 /**
  * Adds an Event to the item model.
@@ -39,7 +40,9 @@ public class AddEventCommand extends AddCommand {
 
         // Notify Ui to change the view the that of the newly added item.
         try {
-            model.setVisualList(SHOW_EVENT_VIEW);
+            if(!(model.getVisualList() instanceof EventList)){
+                model.setVisualList(SHOW_EVENT_VIEW);
+            }
         } catch (Exception e) {
             // should not enter here as itemType is definitely valid.
         }
