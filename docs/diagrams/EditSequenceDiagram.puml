@@ -1,0 +1,89 @@
+@startuml
+!include style.puml
+title Editing an Interviewee
+
+'Logic
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SchedulerParser" as SchedulerParser LOGIC_COLOR
+participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
+participant ":EditIntervieweeDescriptor" as EditIntervieweeDescriptor LOGIC_COLOR
+participant ":EditIntervieweeCommand" as EditIntervieweeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+'Model
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+'calls and arrows. Each paragraph represents one arrow.
+[-> LogicManager: execute(edit)
+activate LogicManager
+
+LogicManager -> SchedulerParser: parseCommand(edit)
+activate SchedulerParser
+
+create EditCommandParser
+SchedulerParser -> EditCommandParser
+activate EditCommandParser
+
+EditCommandParser --> SchedulerParser
+deactivate EditCommandParser
+
+SchedulerParser -> EditCommandParser: parse(editArgs)
+activate EditCommandParser
+
+create EditIntervieweeDescriptor
+EditCommandParser -> EditIntervieweeDescriptor
+activate EditIntervieweeDescriptor
+
+EditIntervieweeDescriptor --> EditCommandParser: descriptor
+deactivate EditIntervieweeDescriptor
+
+create EditIntervieweeCommand
+EditCommandParser -> EditIntervieweeCommand: EditIntervieweeCommand(name, descriptor)
+activate EditIntervieweeCommand
+
+EditIntervieweeCommand --> EditCommandParser
+deactivate EditIntervieweeCommand
+
+EditCommandParser --> SchedulerParser
+deactivate EditCommandParser
+
+destroy EditCommandParser
+
+SchedulerParser --> LogicManager
+deactivate SchedulerParser
+
+LogicManager -> EditIntervieweeCommand: execute(model)
+activate EditIntervieweeCommand
+
+EditIntervieweeCommand -> ModelManager: getInterviewee(name)
+activate ModelManager
+
+ModelManager --> EditIntervieweeCommand: intervieweeToEdit
+deactivate ModelManager
+
+EditIntervieweeCommand -> ModelManager: setInterviewee(intervieweeToEdit, editedInterviewee)
+activate ModelManager
+
+ModelManager --> EditIntervieweeCommand
+deactivate ModelManager
+
+create CommandResult
+EditIntervieweeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> EditIntervieweeCommand
+deactivate CommandResult
+
+EditIntervieweeCommand --> LogicManager: commandResult
+deactivate EditIntervieweeCommand
+
+destroy EditIntervieweeCommand
+
+[<-- LogicManager
+deactivate LogicManager
+
+@enduml
