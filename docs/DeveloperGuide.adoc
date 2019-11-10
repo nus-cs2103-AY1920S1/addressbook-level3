@@ -34,10 +34,6 @@ image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above depicts the high-level design of treasurerPro.
 
-[TIP]
-The `.xml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-You may use link:draw.io[draw.io] to edit the diagrams.
-
 treasurerPro is divided primarily into 6 packages which contain implementation for each tab in the UI:
 
 . Transaction package: Home tab
@@ -153,7 +149,7 @@ image::LogicForR&T.png[]
 The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for the Reimbursements
 tab.
 
-The parsers represented by the `ABCParser` and `DEFParser`:
+The parsers represented by the `ABCParser` and `DEFParser` are:
 
 `ABCParser`:
 
@@ -183,6 +179,15 @@ for Home and Reimbursements Tab contains the `GetPersonByNameOnlyModel` since `L
 the `ModelManager#getPersonByName` method
 in the person package.
 
+==== Details on `Logic` Implementation for Members Tab
+[[PLogic]]
+This section will show further details of the `Logic` Component of the Members Tab.
+This is integrated from the existing `AddressBook`.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
+
+.Structure of `Parser` for Members Tab.
+image::LogicForAB.png[]
+
 [[ICLogic]]
 ==== Details on `Logic` Implementation for the Inventory and Cashier Tab
 This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
@@ -191,11 +196,10 @@ Given below is a Class Diagram showing the structure of `Parser` within the `Log
 .Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>.
 image::ParserForInventoryCashier.png[]
 
-[NOTE]
 The `XYZTabParser` represents the `InventoryTabParser` for the Inventory tab and `CashierTabParser`
 for the Cashier tab.
 
-The parsers represented by the `ABCParser`:
+The parsers represented by the `ABCParser` are:
 
 `ABCParser`:
 
@@ -213,6 +217,7 @@ The parsers represented by the `ABCParser`:
 ** `CheckoutCommandParser`
 ** `ClearCommandParser`
 
+
 ==== Details on `Logic` Implementation for the Members Tab
 [[PLogic]]
 This section will show further details of the `Logic` Component of the Members tab.
@@ -221,6 +226,19 @@ Given below is a Class Diagram showing the structure of `Parser` within the `Log
 
 .Structure of `Parser` for the Members tab.
 image::LogicForAB.png[]
+
+==== Details on `Logic` Implementation for the Overview Tab
+[[OverviewLogic]]
+This section will show further details of the `Logic` Component of the Overview Tab.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
+
+.Structure of `Parser` for Overview Tab.
+image::OverviewLogicDiagram.png[]
+
+The parsers represented by the `ABCParser` are:
+
+* `SetCommandParser`
+* `NotifyCommandParser`
 
 [[Design-Model]]
 === Model component
@@ -234,7 +252,10 @@ image::ModelCD.png[]
 `XYZObjects` are only present in the `transaction`, `reimbursement`, `person`, `cashier` and `inventory` packages.
 
 
+
 ==== Details on the `Model` Implementation for the Home Tab
+
+The `Model` of the Home tab:
 * stores a `TransactionList` object that represents the list of all transactions data
 * stores a `Predicate<Transaction>` object to filter the list of all transactions
 * stores another `TransactionList` object that represents the filtered list of transactions according to the predicate
@@ -246,7 +267,14 @@ To be filled in :)
 
 *API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
 
+==== Details on the `Model` Implementation for the Reimbursements Tab
+* stores a `ReimbursementList` object that represents the list of all reimbursements data
+* stores another `ReimbursementList` object that represents the filtered list of reimbursements according to the command
+
+*API for reimbursements package* : link:{repoURL}/src/main/java/seedu/address/reimbursement/model/Model.java[`Model.java`]
+
 ==== Details on the `Model` Implementation for the Members Tab
+The `Model` of the Members tab:
 * stores a `UserPref` object that represents the user's preferences for `person` package.
 * stores the Address Book data for `person` package.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
@@ -259,7 +287,9 @@ To be filled in :)
 
 *API for inventory package* : link:{repoURL}/src/main/java/seedu/address/inventory/model/Model.java[`Model.java`]
 
+
 ==== Details on the `Model` Implementation for the Cashier Tab
+The `Model` of the Cashier tab:
 * stores an `InventoryList` object that represents the list of all items in the inventory
 * stores a list of sales items present on the table of the Cashier tab
 * accesses the `TransactionList` object from transaction package that represents the list of all transactions data
@@ -271,17 +301,17 @@ package access different set of methods which modifies only the quantity of the 
 
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/model/Model.java[`Model.java`]
 
+
 ==== Details on the `Model` Implementation for the Overview Tab
-To be filled in :)
+The `Model` of the Overview tab:
+* stores an array of 6 double values representing the budget goal, expense goal, sales goal, budget threshold, expense
+threshold and sales threshold respectively
+* stores three booleans indicating whether notifications for budget, expenses and sales have already been shown, valid
+for the current session only
+* exposes getter and setter method to read and write the goals and thresholds
+* does not depend on any of the other components
 
 *API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/model/Model.java[`Model.java`]
-
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-//An example of how such a model may look like is given below. +
-
-//image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -326,7 +356,7 @@ To be filled in :)
 *API for cashier package* : link:{repoURL}/src/main/java/seedu/address/cashier/storage/Storage.java[`Storage.java`]
 
 ==== Details on the `Storage` Implementation for the Overview Tab
-To be filled in :)
+* can save Overview tab goals and threshold in txt format and read it back
 
 *API for overview package* : link:{repoURL}/src/main/java/seedu/address/overview/storage/Storage.java[`Storage.java`]
 
@@ -733,39 +763,41 @@ description and quantity fields, `Model` will search all the sales items in the 
 according to the specified category and suggestions would be shown by Leo, the assistant. +
 If description and quantity field are both valid, the `ModelManager` will add the item into the sales list.
 
-If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
-to show a list of suggestions.
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
+which will in turn call `getCombination(arr, arr.length)` to return an ArrayList containing all subsets of
+the inputted description that are of at least length 3. These subsets are then compared
+with the actual descriptions of all items in the inventory to check if either contains the other.
 
-The following are two code snippets from `getRecommendedItems(description)`:
+The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
-            if (description.length() >= 3) {
-                char[] arr = description.toCharArray();
-                ArrayList<String> combinations = getCombination(arr, arr.length);
-                for (int j = 0; j < combinations.size(); j++) {
-                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
-                            || itemDescription.contains(combinations.get(j))) {
-                        recommendedItems.add(item.getDescription());
-                        continue;
-                    }
+    public ArrayList<String> getCombination(char[] arr, int n) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int start = 1; start <= n; start++) {
+            String word = "";
+            for (int i = 0; i <= n - start; i++) {
+                //  Adds characters from current starting character to current ending character
+                int j = i + start - 1;
+                for (int k = i; k <= j; k++) {
+                    word += String.valueOf(arr[k]);
                 }
+                result.add(word);
             }
+        }
+        return result.stream()
+                .filter(str -> str.length() >= 3)
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+    }
 
-            ArrayList<String> newList = recommendedItems.stream()
-            .distinct()
-            .collect(Collectors
-            .toCollection(ArrayList::new));
-            return newList;
-
-The `getCombination(arr, arr.length)` method in line 3 of the first snippet returns an ArrayList of all subsets of
-descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared with the actual descriptions of all items in the inventory to check if either contains the other.
-
-As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
-is passed into a stream to remove duplicates.
+The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
+starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
+The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
+is passed into a stream to filter out all subsets of length less than 3.
 
 [NOTE]
 If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works and is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
 

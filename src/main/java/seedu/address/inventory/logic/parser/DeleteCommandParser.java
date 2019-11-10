@@ -15,17 +15,16 @@ public class DeleteCommandParser {
      * and returns a DeleteCommand object for execution.
      * @throws NotANumberException if the user input does not conform the expected format
      */
-    public static DeleteCommand parse(String userInput) throws NotANumberException {
+    public static DeleteCommand parse(String userInput) throws NotANumberException, InvalidNumberException {
         int index;
         try {
             index = Integer.parseInt(userInput.substring(1));
-            if (index < 1) {
-                throw new InvalidNumberException(InventoryMessages.NO_SUCH_INDEX_INVENTORY);
-            }
         } catch (Exception e) {
             throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
         }
-
+        if (index < 1) {
+            throw new InvalidNumberException(InventoryMessages.NO_SUCH_INDEX_INVENTORY);
+        }
         DeleteCommand deleteCommand = new DeleteCommand(index);
         return deleteCommand;
     }

@@ -773,6 +773,8 @@ update of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
 under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
+* Once there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
+make any modification to existing items in the inventory except for the adding of new items.
 
 [NOTE]
 Items with zero price are not available for sale. Such items cannot be added into the table.
@@ -780,6 +782,9 @@ Items with zero price are not available for sale. Such items cannot be added int
 [WARNING]
 Due to size limitation, you will not be allowed to add any items into the table if the total amount exceeds $999999.99. You
 are advised to reduce the quantity of items or checkout separately in another cart.
+
+[NOTE]
+The description is case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
 
 ====
 
@@ -817,8 +822,6 @@ according to the mistyped description.
 [NOTE]
 If both category and description are specified and valid, the system will allow the item to be added according the
 description even if the category of the item does *not* match with the specified category inputted.
-
-
 
 Steps:
 
@@ -1091,12 +1094,12 @@ goal set for that particular financial goal.
 ** To set sales goal notification: `notify s/PERCENTAGE`
 
 * Examples:
-** To set budget goal notification: [blue]`notify b/PERCENTAGE`
-** To set expense goal notification: [blue]`notify e/PERCENTAGE`
-** To set sales goal notification: [blue]`notify s/PERCENTAGE`
+** To set budget goal notification: [blue]`notify b/80`
+** To set expense goal notification: [blue]`notify e/80`
+** To set sales goal notification: [blue]`notify s/80`
 
 [NOTE]
-The percentage value should be a value from 0 - 100. +
+The percentage value should be a whole number from 0 - 100. +
 This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
 set to 0. +
 To disable notifications for a particular financial goal, simply set its notifications threshold to 0.
@@ -1144,7 +1147,7 @@ Data in treasurerPro is saved automatically after executing any command. There i
 *Q*: What is `Cashier Mode`? How can I switch it off? +
 *A*: `Cashier Mode` is a feature implemented for security reasons. It is considered turned on when there are sales items
 in the cart on the `Cashier Tab`. While on `Cashier Mode`, any modification to the inventory is prohibited except adding of
-items. +
+new items. +
 To switch it off, please enter `clear` on the Command Line Interface (CLI) of the `Cashier Tab`.
 
 == Command Summary

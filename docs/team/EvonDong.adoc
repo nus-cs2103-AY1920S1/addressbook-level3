@@ -12,12 +12,12 @@ ifdef::env-github[]
 endif::[]
 
 == Introduction
-This project portfolio briefly introduces the project, treasurerPro and outlines my contributions and explanations about
+This project portfolio briefly introduces the project, treasurerPro, and outlines my contributions and explanations about
 my features.
 
 === About the team
 My team consists of five software engineering students who are all taking the module CS2103T. Four of us, including me,
-are year 2 Computer Science students and the other is a year 4 Computer Engineering student.
+are year two Computer Science students and the other is a year four Computer Engineering student.
 
 === About the project
 This project is part of the module - Software Engineering Project, CS2103T. We were tasked to develop a basic
@@ -62,7 +62,7 @@ This is what the application looks like when it starts up:
 image::AnnotatedUi.png[width="680"]
 
 == Summary of contributions
-My role was to design the layout and code the features for the `Cashier Tab`. The following sections presents the
+My role was to design the layout and code the features for the `Cashier Tab`. The following sections present the
 enhancements that I have implemented in greater detail, as well as the relevant documentation I have done in the
 user guide and developer guide.
 
@@ -74,7 +74,7 @@ The following illustrates some crucial enhancements that I have added for `Cashi
 It allows the user to add, delete and update the sales items added in the table shown on the tab.
 
 ** Justification:
-These features incorporates the essential elements of a cash register and are fundamental for the `Cashier Tab`.
+These features incorporate the essential elements of a cash register and are fundamental for the `Cashier Tab`.
 By expediting the process of calculating and recording the quantity of sales items, it enables the cashier-in-charge to
 perform cashiering duties more efficiently.
 
@@ -146,7 +146,7 @@ https://github.com/AY1920S1-CS2103T-T13-3/main/pull/297[(PR #297)]
 ** Updated the developer guide with diagrams and information about `Inventory` and `Cashier` parsers:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)]
 
-** Added implementation details for the `Cashier Tab`:
+** Added implementation details for the `Cashier Tab` in Developer Guide:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/209[(PR #209)],
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/164[(PR #164)],
 ,https://github.com/AY1920S1-CS2103T-T13-3/main/pull/162[(PR #162)]
@@ -328,22 +328,44 @@ description and quantity fields, `Model` will search all the sales items in the 
 according to the specified category and suggestions would be shown by Leo. +
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list.
 
-If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method
-to show a list of suggestions as shown below in the code snippet.
+If the description inputted does not match any valid item, the `Model` will call the `getRecommendedItems(description)` method,
+which will in turn call `getCombination(arr, arr.length)` to return an ArrayList containing all subsets of
+the inputted description that are of at least length 3. These subsets are then compared
+with the actual descriptions of all items in the inventory to check if either contains the other.
 
-The following is a code snippet from `getRecommendedItems(description)`:
+The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
-            if (description.length() >= 3) {
-                char[] arr = description.toCharArray();
-                ArrayList<String> combinations = getCombination(arr, arr.length);
-                for (int j = 0; j < combinations.size(); j++) {
-                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
-                            || itemDescription.contains(combinations.get(j))) {
-                        recommendedItems.add(item.getDescription());
-                        continue;
-                    }
+    public ArrayList<String> getCombination(char[] arr, int n) {
+        ArrayList<String> result = new ArrayList<>();
+        for (int start = 1; start <= n; start++) {
+            String word = "";
+            for (int i = 0; i <= n - start; i++) {
+                //  Adds characters from current starting character to current ending character
+                int j = i + start - 1;
+                for (int k = i; k <= j; k++) {
+                    word += String.valueOf(arr[k]);
                 }
+                result.add(word);
             }
+        }
+        return result.stream()
+                .filter(str -> str.length() >= 3)
+                .collect(Collectors
+                        .toCollection(ArrayList::new));
+    }
+
+//
+//            if (description.length() >= 3) {
+//                char[] arr = description.toCharArray();
+//                ArrayList<String> combinations = getCombination(arr, arr.length);
+//                for (int j = 0; j < combinations.size(); j++) {
+//                    if (combinations.get(j).contains(itemDescription) // itemDescription refers to the actual description of an item in the inventory
+//                            || itemDescription.contains(combinations.get(j))) {
+//                        recommendedItems.add(item.getDescription());
+//                        continue;
+//                    }
+//                }
+//            }
 
 //            ArrayList<String> newList = recommendedItems.stream()
 //            .distinct()
@@ -351,9 +373,10 @@ The following is a code snippet from `getRecommendedItems(description)`:
 //            .toCollection(ArrayList::new));
 //            return newList;
 
-The `getCombination(arr, arr.length)` method in line 3 of the above snippet returns an ArrayList containing all subsets of
-descriptions that are of at least length 3. While iterating through the `InventoryList`, these subsets are compared
-with the actual descriptions of all items in the inventory to check if either contains the other.
+The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
+starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
+The last loop appends characters from the starting character to the ending character. After the nested loops, the ArrayList
+is passed into a stream to filter out all subsets of length less than 3.
 
 //
 //As shown in the second code snippet, after adding all the suggested words into the `recommendedItems` list, the list
@@ -496,7 +519,7 @@ to call relevant methods to update the inventory and transactions.
 |Interfaces that only contains required methods are created. The methods are called via these interfaces
 to update the data.
 
-*Pros*: Prevents any unwanted changes through other methods. This follows the Facade Pattern.
+*Pros*: Prevents any unwanted changes through other methods. This adheres to the Facade Pattern.
 
 *Cons*: If more methods are needed, they need to be added to these interfaces.
 

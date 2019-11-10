@@ -49,7 +49,7 @@ public interface Model {
 
     void resetCashier();
 
-    Item editItem(int index, int qty) throws NoSuchIndexException;
+    Item editItem(int index, int qty) throws NoSuchIndexException, NoSuchItemException;
 
     double getSubtotal(Item i);
 

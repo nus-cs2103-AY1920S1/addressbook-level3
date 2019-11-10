@@ -64,4 +64,6 @@ public class InventoryMessages {
 
     public static final String MESSAGE_TOTAL_TOO_LARGE = "Sorry, the total cost/price is too large."
             + " It must be less than 10,000.";
+
+    public static final String MESSAGE_QUANTITY_CANNOT_BE_ZERO = "Sorry! Quantity cannot be zero.";
 }
