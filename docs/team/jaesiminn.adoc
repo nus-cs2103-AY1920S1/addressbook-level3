@@ -9,12 +9,11 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-==== Done By: Jasmine Yeo Jia Min
----
+=== Done By: Jasmine Yeo Jia Min
 
+'''
 This portfolio is meant to be a well-documented data point of my Software Engineering experience on the project. It showcases my contributions to the project and my documentation skills.
-
----
+'''
 
 === Overview
 
