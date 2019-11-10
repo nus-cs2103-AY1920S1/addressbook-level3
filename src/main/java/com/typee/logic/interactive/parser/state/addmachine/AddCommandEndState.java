@@ -54,6 +54,7 @@ public class AddCommandEndState extends EndState {
             Engagement engagement = Engagement.of(engagementType, timeSlot, attendees, location, description, priority);
             return new AddCommand(engagement);
         } catch (InvalidTimeException e) {
+            logger.severe(String.format(LOG_BUILD_FAILURE, AddCommand.class, e.getMessage()));
             throw new CommandException(e.getMessage());
         }
     }
