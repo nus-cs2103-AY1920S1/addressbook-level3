@@ -513,7 +513,7 @@ The above activity shows how `edits` command works.
 ==== Architecture
 
 .Architecture Diagram for Diary Feature
-image::DiaryArchitecture.png[]
+image::DiaryArchitectureDiagram.png[]
 
 The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
 
