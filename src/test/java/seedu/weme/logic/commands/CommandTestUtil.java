@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.weme.logic.commands.memecommand.MemeDeleteCommand.MESSAGE_DELETE_MEME_SUCCESS;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
+import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_NAME_STRING;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_TAG;
 import static seedu.weme.testutil.Assert.assertThrows;
 import static seedu.weme.testutil.MemeUtil.isSameMemeImage;
@@ -37,12 +38,18 @@ public class CommandTestUtil {
     public static final String VALID_TAG_CHARMANDER = "charmander";
     public static final String VALID_TAG_JOKER = "joker";
 
+    public static final String VALID_NAME_DRAKE = "Drake";
+    public static final String VALID_NAME_DOGE = "Doge";
+
     public static final String DESCRIPTION_DESC_CHARMANDER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_CHARMANDER;
     public static final String DESCRIPTION_DESC_JOKER = " " + PREFIX_DESCRIPTION + VALID_DESCRIPTION_JOKER;
     public static final String FILEPATH_DESC_CHARMANDER = " " + PREFIX_FILEPATH + VALID_FILEPATH_CHARMANDER;
     public static final String FILEPATH_DESC_JOKER = " " + PREFIX_FILEPATH + VALID_FILEPATH_JOKER;
     public static final String TAG_DESC_CHARMANDER = " " + PREFIX_TAG + VALID_TAG_CHARMANDER;
     public static final String TAG_DESC_JOKER = " " + PREFIX_TAG + VALID_TAG_JOKER;
+
+    public static final String NAME_DESC_DRAKE = " " + PREFIX_NAME_STRING + VALID_NAME_DRAKE;
+    public static final String NAME_DESC_DOGE = " " + PREFIX_NAME_STRING + VALID_NAME_DOGE;
 
     public static final String INVALID_FILEPATH_DESC = " " + PREFIX_FILEPATH; // empty string not allowed for file path
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
@@ -127,11 +134,13 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         Weme expectedWeme = new Weme(actualModel.getWeme());
-        List<Meme> expectedFilteredList = new ArrayList<>(actualModel.getFilteredMemeList());
+        List<Meme> expectedFilteredMemeList = new ArrayList<>(actualModel.getFilteredMemeList());
+        List<Template> expectedFilteredTemplateList = new ArrayList<>(actualModel.getFilteredTemplateList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedWeme, actualModel.getWeme());
-        assertEquals(expectedFilteredList, actualModel.getFilteredMemeList());
+        assertEquals(expectedFilteredMemeList, actualModel.getFilteredMemeList());
+        assertEquals(expectedFilteredTemplateList, actualModel.getFilteredTemplateList());
     }
 
     /**
