@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -9,57 +7,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="cardPane" prefHeight="120.0" prefWidth="195.0" xmlns="http://javafx.com/javafx/11.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="cardPane" prefHeight="93.0" prefWidth="197.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
 
-    <VBox layoutX="5.0" layoutY="4.0" spacing="2.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-          AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-
-        <padding>
-            <Insets top="20.0" bottom="20.0" left="20.0" right="20.0"/>
-        </padding>
+    <VBox layoutX="5.0" layoutY="18.0" prefHeight="76.0" prefWidth="187.0" spacing="5.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
 
         <HBox spacing="5.0">
             <Label fx:id="id" text="[1]">
                 <font>
-                    <Font name="Arial Rounded MT Bold" size="14.0"/>
+                    <Font name="Arial Rounded MT Bold" size="14.0" />
                 </font>
             </Label>
             <Label fx:id="title" text="Two Sum">
                 <font>
-                    <Font name="Arial Rounded MT Bold" size="14.0"/>
+                    <Font name="Arial Rounded MT Bold" size="14.0" />
                 </font>
             </Label>
 
         </HBox>
-        <FlowPane fx:id="tags" hgap="5.0" prefHeight="15.0" prefWidth="203.0"/>
+        <FlowPane fx:id="tags" hgap="5.0" prefHeight="15.0" prefWidth="203.0" />
         <VBox prefWidth="203.0" spacing="2.0">
-
-            <HBox spacing="3.0">
-
-                <Label text="Topic:">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
-                    </font>
-                </Label>
-                <Label fx:id="topic" text="Some Topic">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
-                    </font>
-                </Label>
-
-            </HBox>
             <HBox spacing="3.0">
 
                 <Label text="Difficulty:">
                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
                     </font>
                 </Label>
                 <Label fx:id="difficulty" text="Test Difficulty">
                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
                     </font>
                 </Label>
 
@@ -68,12 +44,12 @@
 
                 <Label text="Status:">
                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
                     </font>
                 </Label>
                 <Label fx:id="status" text="Some Status">
                     <font>
-                        <Font name="Arial Rounded MT Bold" size="12.0"/>
+                        <Font name="Arial Rounded MT Bold" size="12.0" />
                     </font>
                 </Label>
 
