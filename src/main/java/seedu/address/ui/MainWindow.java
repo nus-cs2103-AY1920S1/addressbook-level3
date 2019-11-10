@@ -259,10 +259,15 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @return boolean
      */
-    private boolean changesList(CommandResult commandResult) {
+    private boolean changesList(CommandResult commandResult, String commandText) {
         return commandResult.isListPeople()
                 || commandResult.isListPeople()
-                || commandResult.isListPolicy();
+                || commandResult.isListPolicy()
+                || commandText.startsWith("delete ")
+                || commandText.startsWith("deletepolicy ")
+                || commandText.startsWith("restore")
+                || commandText.startsWith("undo")
+                || commandText.startsWith("redo");
     }
 
     /**
@@ -321,23 +326,41 @@ public class MainWindow extends UiPart<Stage> {
      * Expands the last expanded person or policy, regardless of list changes
      */
     private void expandPersonOrPolicy() {
+        boolean personOrPolicyFound = false;
         if (lastExpandedIsPerson) {
             for (Person person : logic.getAddressBook().getPersonList()) {
                 if (person.getNric().toString().equals(lastExpandedPersonNric)) {
                     lastExpandedPerson = person;
+                    personOrPolicyFound = true;
                     break;
                 }
             }
-            showExpandPerson(new CommandResult("", lastExpandedPerson));
+            if (personOrPolicyFound) {
+                showExpandPerson(new CommandResult("", lastExpandedPerson));
+            }
         } else if (lastExpandedIsPolicy) {
             for (Policy policy : logic.getAddressBook().getPolicyList()) {
                 if (policy.getName().toString().equals(lastExpandedPolicyName)) {
                     lastExpandedPolicy = policy;
+                    personOrPolicyFound = true;
                     break;
                 }
             }
-            showExpandPolicy(new CommandResult("", lastExpandedPolicy));
+            if (personOrPolicyFound) {
+                showExpandPolicy(new CommandResult("", lastExpandedPolicy));
+            }
         }
+    }
+
+    /**
+     * Clears the display panel, showing only the logo
+     */
+    private void clearDisplayPanel() {
+        displayPanel = new DisplayPanel();
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+        setLogo();
     }
 
     /**
@@ -380,7 +403,7 @@ public class MainWindow extends UiPart<Stage> {
                 lastExpandedPolicyName = commandResult.getPolicyToExpand().getName().toString();
             }
 
-            if (changesList(commandResult)) {
+            if (changesList(commandResult, commandText)) {
                 listChangedSinceLastExpand = true;
             }
 
@@ -393,7 +416,15 @@ public class MainWindow extends UiPart<Stage> {
                     if (!rightPanelCommandText.startsWith("expand")) {
                         renderHistoryOrDisplay(rightPanelCommandText);
                     } else {
-                        expandPersonOrPolicy();
+                        if (!(commandText.startsWith("delete ")
+                                || commandText.startsWith("deletepolicy ")
+                                || commandText.startsWith("restore")
+                                || commandText.startsWith("undo")
+                                || commandText.startsWith("redo"))) {
+                            expandPersonOrPolicy();
+                        } else {
+                            clearDisplayPanel();
+                        }
                     }
                 }
             }
