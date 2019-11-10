@@ -255,7 +255,7 @@ stored after a user executes the `training` command.
 image::training_command_activity_diagram.png[]
 
 `[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
-individual, or the entire team. The following operations provides this feature:
+individual, or the entire team. The following operations are used for this feature:
 
 * `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
 * `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
@@ -279,8 +279,9 @@ when a `calendar` command is executed.
 image::calendar_sequence_diagram.png[]
 
 ==== Design Considerations
+This section contains some of our considerations for the training feature.
 
-Aspect: How to store attendance information of an individual.
+===== Aspect: How to store attendance information of an individual.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -299,11 +300,11 @@ detailed information (attendance on specific date) about a training session.
 |More time needed to design system architecture.
 |===
 
-Reason of choice: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone classes to
-contain training information. We intend to introduce new features (e.g. training category) in the future and this
+Reason for choosing alternative 2: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone
+classes to contain training information. We intend to introduce new features (e.g. training category) in the future and this
 implementation allows us to easily do so.
 
-Aspect: Which data structure to store training attendance.
+===== Aspect: Which data structure to store training attendance.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -319,10 +320,11 @@ Aspect: Which data structure to store training attendance.
 |Requires more effort to maintain and coding of new functions to edit data.
 |===
 
-Reason of choice: A hash table is used as the `select` and `attendance` commands require the attendance rate of only
-one person. A hash table provides us with the fastest access time to access attendance information of one person.
+Reason for choosing alternative 2: A hash table is used as the `select` and `attendance` commands require the
+attendance rate of only one person. A hash table provides us with the fastest access time to access attendance
+information of one person.
 
-Aspect: How to edit training information.
+===== Aspect: How to edit training information.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -338,8 +340,9 @@ Aspect: How to edit training information.
 |Lengthy commands. Users have the option to edit date, attendance and even add a person.
 |===
 
-Reason of choice: Editing training information would require long commands which defeats the purpose of having a command
-line interface. Editing training by replacing an old one with the `training` command makes it quicker.
+Reason for choosing alternative 1: Editing training information would require typing long time-consuming commands
+which defeats the purpose of having a command line interface. Editing training by replacing an old one with the
+`training` command makes it quicker.
 
 // end::training[]
 === Performance feature
