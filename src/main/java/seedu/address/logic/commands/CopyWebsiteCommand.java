@@ -21,6 +21,7 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD1 = "w";
 
     public static final String MESSAGE_SUCCESS = "Copied website to clipboard!";
+    public static final String MESSAGE_FAILURE = "There is no website to be copied.";
 
     private final Index targetIndex;
 
@@ -39,6 +40,9 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
         passwordToRead.updateExpiry();
+        if (passwordToRead.getWebsite().isNilWebsite()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
         ClipboardUtil.copyToClipboard(passwordToRead.getWebsite().value, null);
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)
