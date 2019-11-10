@@ -416,6 +416,8 @@ The workflow for adding a record can be illustrated by the Activity Diagram belo
 .Activity diagram showing how a Record is added to an Event.
 image::addrecord_activitydiagram.png[width="700"]
 
+===== Function 3: Viewing of Event and Record
+
 Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
 The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
 
@@ -423,6 +425,9 @@ The sequence diagram below illustrates how the Ui is involved when `[green]#Reco
 image::viewrecords_sequencediagram.png[width="700"]
 
 ==== Design Considerations
+
+This section explains the factors that we took into consideration when making decision on how different
+aspects in `[green]#Performance#` should be implemented.
 
 ===== Aspect: Method of storing performance records for athletes.
 
@@ -433,21 +438,53 @@ image::viewrecords_sequencediagram.png[width="700"]
 this class in a list.*
 
 |**Pros**
-a|* Retrieving athlete's individual records is fast - O(1) time
+a|* Retrieving athlete's individual records is fast - it can be done in O(1) time
 a|* Checking of records can be done with a simple for-loop
 
 |**Cons**
-a|* Checking requires using an iterator or a lambda operation that requires only final variables
-a|* Adding of records is susceptible to errors duplicate persons can be added
+a|* Checking requires using an iterator or a lambda operation (requires variables to be declared as final,
+making retrieval of data troublesome)
+* Retrieving by values (eg. date of record) is difficult as it requires traversing through the HashMap and
+checking the individual records' dates
+a|* Adding of records is susceptible to errors as duplicate persons can be added
 * Creating our own data structure results in overheads in testing and creating our own helper methods
+* Retrieving an athlete's individual records in O(1) time requires the athlete's index in the list, which
+is not always known
+
 |===
 
 **Reason for choice of Alternative 1:**
 
-* HashMap supports fast retrieval, which fulfils one of our non-functional requirements of being able
-to support a database of 1000 athletes
-* Concept of key-value is very similar to our athlete-records relationship so the existing methods
-that are in the HashMap API are very useful
+* Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes
+* Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
+methods that are in the HashMap API are relevant
+
+===== Aspect: Method of displaying events and records to users.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Display events and records separately.*
+| *Alternative 2: Display all records under all events.*
+
+|**Pros**
+a|* Viewing events, followed by "zooming" in to a particular event's records gives users a more immersive
+experience
+a|* Navigating is simple as viewing events and its records requires only one command
+
+|**Cons**
+a|* Getting an overview of all events and its respective records is not possible
+* Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
+feature box
+a|* Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
+can be difficult when the event of interest is located at the end
+|===
+
+**Reason for choice of Alternative 1:**
+
+* Allowing users to look at the records under their event of interest gives them more control over what they want to see
+* Navigating from event overview to a particular event mimics how people navigate in apps - tapping on a
+chat title (in this case, viewing records for a particular event), to see the whole conversation (record
+details for a particular event)
 
 === Calendar feature
 
