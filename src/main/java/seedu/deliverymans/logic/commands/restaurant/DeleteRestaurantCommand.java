@@ -43,16 +43,16 @@ public class DeleteRestaurantCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
         }
         Restaurant restaurantToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteRestaurant(restaurantToDelete);
 
         List<Order> allOrders = new ArrayList<>(model.getFilteredOrderList());
         for (Order order : allOrders) {
             if (order.getRestaurant().equals(restaurantToDelete.getName())) {
                 model.deleteOrder(order);
+                model.deleteOrderInCustomer(order);
                 model.updateDeliverymanStatusAfterChangesToOrder(order.getDeliveryman());
             }
         }
-
+        model.deleteRestaurant(restaurantToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_RESTAURANT_SUCCESS, restaurantToDelete));
     }
 
