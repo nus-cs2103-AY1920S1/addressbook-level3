@@ -835,6 +835,8 @@ image::FinancialTrackerInterface.png[Financial Tracker interface,width=800]
 === Adding an expense: ``add``
 Adding the expense of milk you've bought at the grocery shop you stopped by?
 
+WARNING: You can only add a total maximum amount of one trillion!
+
 *Format:*
 
 ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
