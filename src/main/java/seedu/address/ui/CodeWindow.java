@@ -16,10 +16,10 @@ import seedu.address.commons.core.LogsCenter;
 public class CodeWindow extends UiPart<Stage> {
 
     public static final String GITHUB_URL = "https://github.com/AY1920S1-CS2103T-T17-2/main";
-    public static final String SOURCECODE_MESSAGE = "Refer to the user guide: " + GITHUB_URL;
+    public static final String SOURCECODE_MESSAGE = "Refer to our Github repository: " + GITHUB_URL;
 
     private static final Logger logger = LogsCenter.getLogger(CodeWindow.class);
-    private static final String FXML = "HelpWindow.fxml";
+    private static final String FXML = "CodeWindow.fxml";
 
     @FXML
     private Button copyButton;

@@ -12,7 +12,8 @@ public class GoToCommand<T> extends Command<T> {
     public static final String MESSAGE_CHANGE_SUCCESS = "";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Goes to the page specified.\n"
-            + "Parameters: 'address_book', 'calendar', 'diary', 'financial_tracker', 'itinerary', 'main'\n"
+            + "Parameters: 'address_book', 'calendar', 'diary', 'financial_tracker', 'itinerary', 'main', "
+            + "'achievements'\n"
             + "Example: " + COMMAND_WORD + " address_book";
 
     private PageType pageType;
