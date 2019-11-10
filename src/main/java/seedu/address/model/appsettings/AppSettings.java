@@ -37,12 +37,17 @@ public class AppSettings implements ReadOnlyAppSettings {
      * Resets the existing data of this {@code AppSettings} with {@code newAppSettings}.
      */
     private void resetData(ReadOnlyAppSettings newAppSettings) {
-        requireNonNull(newAppSettings);
-        setAppSettingsFilePath(newAppSettings.getAppSettingsFilePath());
-        setDefaultDifficulty(newAppSettings.getDefaultDifficulty());
-        setDefaultTheme(newAppSettings.getDefaultTheme());
-        setHintsEnabled(newAppSettings.getHintsEnabled());
-        setAvatarId(newAppSettings.getAvatarId());
+        try {
+            requireNonNull(newAppSettings);
+            setAppSettingsFilePath(newAppSettings.getAppSettingsFilePath());
+            setDefaultDifficulty(newAppSettings.getDefaultDifficulty());
+            setDefaultTheme(newAppSettings.getDefaultTheme());
+            setHintsEnabled(newAppSettings.getHintsEnabled());
+            setAvatarId(newAppSettings.getAvatarId());
+        } catch (NullPointerException ex) {
+            System.out.println("Please do not try to break the files directly. It still works but it will throw "
+                    + "all kinds of warnings.");
+        }
     }
 
     @Override
