@@ -1,80 +1,68 @@
 package seedu.address.logic.commands;
 
+import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.*;
+import seedu.address.model.finance.Budget;
+import seedu.address.model.finance.Finance;
+import seedu.address.model.performanceoverview.PerformanceOverview;
+import seedu.address.model.person.Person;
+import seedu.address.model.project.*;
+import seedu.address.model.timetable.TimeRange;
+import seedu.address.model.timetable.Timetable;
+import seedu.address.testutil.MeetingBuilder;
+
+import java.nio.file.Path;
+import java.text.ParseException;
+import java.util.*;
+import java.util.function.Predicate;
+
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
-import org.junit.jupiter.api.Test;
-
-import javafx.collections.ObservableList;
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.*;
-import seedu.address.model.performanceoverview.PerformanceOverview;
-import seedu.address.model.person.Person;
-import seedu.address.model.project.Meeting;
-import seedu.address.model.project.Project;
-import seedu.address.model.project.Task;
-import seedu.address.testutil.PersonBuilder;
-
-public class AddCommandTest {
+public class AddProjectMeetingCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddProjectMeetingCommand(null));
+    }
+
+    //@Test
+    public void execute_duplicateMeeting_throwsCommandException() throws ParseException {
+        Meeting validMeeting = new MeetingBuilder().build();
+        AddProjectMeetingCommand addProjectMeetingCommand = new AddProjectMeetingCommand(validMeeting);
+        ModelStub modelStub = new ModelStubWithOneProjectStubWithOneMeeting(validMeeting);
+
+        assertThrows(CommandException.class, AddProjectMeetingCommand.MESSAGE_DUPLICATE_MEETING, () -> addProjectMeetingCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
-
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub);
-
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
-    }
-
-    @Test
-    public void execute_duplicatePerson_throwsCommandException() {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
-
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+    public void equals() throws ParseException {
+        Meeting meetingMilestone = new MeetingBuilder().withDescription("Milestone discussion").build();
+        Meeting meetingDocumentation = new MeetingBuilder().withDescription("Finalising documentation").build();
+        AddProjectMeetingCommand addDocumentationCommand = new AddProjectMeetingCommand(meetingDocumentation);
+        AddProjectMeetingCommand addMilestoneCommand = new AddProjectMeetingCommand(meetingMilestone);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addDocumentationCommand.equals(addDocumentationCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddProjectMeetingCommand addDocumentationCommandCopy = new AddProjectMeetingCommand(meetingDocumentation);
+        assertTrue(addDocumentationCommand.equals(addDocumentationCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addDocumentationCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addDocumentationCommand.equals(null));
 
         // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addDocumentationCommand.equals(addMilestoneCommand));
     }
 
     /**
@@ -288,20 +276,189 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * a default Project stub that has all the methods failing
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ProjectStub extends Project {
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        public ProjectStub(Title name, Description description, List<String> members, List<Task> tasks, Finance finance, Timetable generatedTimetable) {
+            super(name, description, members, tasks, finance, generatedTimetable);
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public Title getTitle() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Description getDescription() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Meeting> getListOfMeeting() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setListOfMeeting(List<Meeting> meetings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addNewMeeting(Meeting meeting) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Task> getTasks() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasTask(Task task) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Finance getFinance() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isSameProject(Project project) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<String> getMemberNames() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMember(String member) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasMember(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String toString() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Timetable getGeneratedTimetable() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+    }
+
+    /**
+     * A Model stub that contains one Project with a single meeting.
+     */
+    private class ModelStubWithOneProjectStubWithOneMeeting extends ModelStub {
+        private final Title title = new Title("CS2103T");
+        private final Description description = new Description("Software Engineering");
+        private final List<String> members = new ArrayList<>();
+        private final List<Task> tasks = new ArrayList<Task>();
+        private final Finance finance = new Finance(new ArrayList<Budget>());
+        private final Timetable timetable = new Timetable(new ArrayList<TimeRange>());
+
+        private ProjectStubWithOneMeeting projectStubWithOneMeeting = new ProjectStubWithOneMeeting(title, description, members, tasks, finance, timetable);
+
+        private final Meeting meeting;
+
+        ModelStubWithOneProjectStubWithOneMeeting(Meeting meeting) throws ParseException {
+            this.meeting = meeting;
+            List<Meeting> meetingList = new ArrayList<>();
+            meetingList.add(meeting);
+            projectStubWithOneMeeting.setListOfMeeting(meetingList);
+        }
+
+        @Override
+        public Optional<Project> getWorkingProject() {
+            return Optional.of(this.projectStubWithOneMeeting);
+        }
+
+        @Override
+        public void setProject(Project projectToEdit, Project editedProject) {
+            projectToEdit = editedProject;
+        }
+
+        @Override
+        public void setWorkingProject(Project editedProject) {
+            requireNonNull(editedProject);
+        }
+
+        @Override
+        public void updateFilteredProjectList(Predicate<Project> project) {
+            requireNonNull(project);
+        }
+
+        public ProjectStubWithOneMeeting getProjectStubWithOneMeeting() {
+            return this.projectStubWithOneMeeting;
+        }
+    }
+
+    /**
+     * Project Stub with one Meeting
+     */
+
+    public class ProjectStubWithOneMeeting extends ProjectStub {
+        private Title title;
+        private Description description;
+        private List<String> members;
+        private List<Task> tasks;
+        private Finance finance;
+        private Timetable timetable;
+        private List<Meeting> meetingList;
+
+        public ProjectStubWithOneMeeting(Title title, Description description, List<String> members, List<Task> tasks, Finance finance, Timetable timetable) {
+            super(title, description, members, tasks, finance, timetable);
+        }
+
+
+        @Override
+        public List<Task> getTasks() {
+            return this.tasks;
+        }
+
+        @Override
+        public List<String> getMemberNames() {
+            return this.members;
+        }
+
+        @Override
+        public Finance getFinance() {
+            return this.finance;
+        }
+
+        @Override
+        public Timetable getGeneratedTimetable() {
+            return this.timetable;
+        }
+
+        @Override
+        public Description getDescription() {
+            return this.description;
+        }
+
+        @Override
+        public Title getTitle() {
+            return this.title;
+        }
+
+        @Override
+        public List<Meeting> getListOfMeeting() {
+            return this.meetingList;
+        }
+
+        @Override
+        public void setListOfMeeting(List<Meeting> meetingList) {
+            this.meetingList = meetingList;
         }
     }
 
@@ -328,5 +485,5 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }
+

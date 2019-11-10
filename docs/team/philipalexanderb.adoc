@@ -1,10 +1,21 @@
-:imagesDir: ../images
-
 = Philip Alexander Boediman - Project Portfolio for MyProject
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesdir: ../stylesheets
 
-== Introduction to the project
+== PROJECT: MyProject
 
-My team of 4 NUS SoC students and I were tasked to enhance a command line addressbook application. We decided to convert it into a all-in-one project management app called *_MyProject_*.
+== Background
+
+Our experiences as Computer Science (CS) students who are involved in a lot of projects have motivated us, a team of
+5 nUS SoC students, to develop *_MyProject_* - an all-in-one project management application that helps the user manage
+his/her projects' administrative stuff in a single application. For students, by students, *_MyProject_* mainly targets team leaders w\
+who are responsible for directing and keeping track of the projects as well as students who are involved in a lot of projects in general.
+
+== Overview
+
+As a start, we were given the source code for a fully functional Addressbook application. The task of our project was to enhance
+this Addressbook into something useful that can help a particular group of people.
 
 *MyProject* has various features to aid team leaders in project management. Some of the more prominent features include:
 
@@ -16,16 +27,20 @@ My team of 4 NUS SoC students and I were tasked to enhance a command line addres
 * Send out reminders for upcoming meetings and tasks
 * Broadcast email for important announcements (My Contributions)
 
-These are what our MyProject pages look like:
+My main role was to design email related features. The following sections illustrate the enhancements that I have made as well as the relevant documentation
+that I have added to the user and developer guides in relation to these enhancements.
+
+These are what MyProject looks like:
+
+1 This is what the page looks like when the application first runs.
 
 .Graphical User Interface for MyProject home page
 image::UIMainPage.png[]
 
+2 This is what the page looks like after you have checked out into a project.
+
 .Graphical User Interface for MyProject project page
 image::Ui.png[]
-
-My role was to design email related features. The following sections illustrate these enhancements in more detail, as well as the relevant documentation
-that I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
@@ -92,7 +107,7 @@ added by the user will automatically be sorted based on the meeting time (earlie
 *** Tested team members' features and reported bugs for amendment.
 *** Implemented Time class which are widely used in the project.
 ** Documentation
-*** Proof-reading the project's User Guide and Developer Guide
+*** Proof-reading the project's User Guide and Developer Guide and made changes to it that suit our Project.
 
 == Contributions to the User Guide
 
@@ -104,8 +119,14 @@ in our application and a summary of commands available in our application.
 |_Below is the section of user guide that I contributed for my feature._
 |===
 
+=== Project Meeting
+
 include::../UserGuide.adoc[tag=addProjectMeeting]
+
 include::../UserGuide.adoc[tag=deleteMeeting]
+
+=== Email Features
+
 include::../UserGuide.adoc[tag=email]
 
 
@@ -115,6 +136,9 @@ include::../UserGuide.adoc[tag=email]
 |_Below is the section of developer guide that I contributed for my features._
 |===
 include::../DeveloperGuide.adoc[tag=addProjectMeeting]
+
 include::../DeveloperGuide.adoc[tag=broadcastMail]
+
 include::../DeveloperGuide.adoc[tag=sendReminder]
+
 include::../DeveloperGuide.adoc[tag=signIn]

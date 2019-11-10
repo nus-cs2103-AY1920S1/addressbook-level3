@@ -68,4 +68,11 @@ public class AddProjectMeetingCommand extends Command {
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), COMMAND_WORD);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddProjectMeetingCommand // instanceof handles nulls
+                && toAdd.equals(((AddProjectMeetingCommand) other).toAdd));
+    }
 }

@@ -27,6 +27,13 @@ public class Meeting {
         return this.description;
     }
 
+    public static boolean isValidMeeting(Meeting meeting) {
+        boolean timeValidity = Time.isValidTimeAndDate(meeting.getTime().toString());
+        boolean descriptionValidity = Description.isValidDescription(meeting.getDescription().toString());
+        boolean validityRes = timeValidity && descriptionValidity;
+        return validityRes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -29,25 +29,25 @@ public class SampleDataUtil {
 
         ProfilePicture profilePicture = new ProfilePicture("docs/empty_profile_picture.png");
 
-        return new Person[] {
+        return new Person[]{
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"), profilePicture,
-                    new Address("Blk 30 Geylang Street 29, #06-40"),
-                    getTagSet("friends")),
+                        new Address("Blk 30 Geylang Street 29, #06-40"),
+                        getTagSet("friends")),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"), profilePicture,
-                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                    getTagSet("colleagues", "friends")),
+                        new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
+                        getTagSet("colleagues", "friends")),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"), profilePicture,
-                    new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                    getTagSet("neighbours")),
+                        new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
+                        getTagSet("neighbours")),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"), profilePicture,
-                    new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                    getTagSet("family")),
+                        new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
+                        getTagSet("family")),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"), profilePicture,
-                    new Address("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("classmates")),
+                        new Address("Blk 47 Tampines Street 20, #17-35"),
+                        getTagSet("classmates")),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"), profilePicture,
-                    new Address("Blk 45 Aljunied Street 85, #11-31"),
-                    getTagSet("colleagues"))
+                        new Address("Blk 45 Aljunied Street 85, #11-31"),
+                        getTagSet("colleagues"))
         };
     }
 
@@ -86,20 +86,28 @@ public class SampleDataUtil {
                 .collect(Collectors.toList());
     }
 
+    public static List<Meeting> getSampleMeetings(Meeting... meetings) {
+        return Arrays.stream(meetings)
+                .collect(Collectors.toList());
+    }
+
     public static Project[] getSampleProjects() {
         try {
-            return new Project[]{
-                new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
-                                new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)),
-                        new Finance(getBudgetList(new Budget("Team building", new Money("500.00"),
-                                        getSpendingList(new Spending(new Money("50.50"), new Time("10/10/2019 1800"), "order in pizza"),
-                                                new Spending(new Money("200.50"), new Time("12/10/2019 1800"), "Went for Zoukout"))),
-                                new Budget("Venue", new Money("200.00"),
-                                        getSpendingList(new Spending(new Money("20.00"), new Time("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable()),
-                new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
-                        getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance(), new Timetable()),
-            };
+            Project project1 = new Project(new Title("CS2103T"), new Description("The mod that takes most time"), new ArrayList<String>(),
+                    getTaskList(new Task(new Description("Finish GUI"), new Time("04/04/1997 1600"), false),
+                            new Task(new Description("Finish Parser"), new Time("04/04/1997 1600"), true)),
+                    new Finance(getBudgetList(new Budget("Team building", new Money("500.00"),
+                                    getSpendingList(new Spending(new Money("50.50"), new Time("10/10/2019 1800"), "order in pizza"),
+                                            new Spending(new Money("200.50"), new Time("12/10/2019 1800"), "Went for Zoukout"))),
+                            new Budget("Venue", new Money("200.00"),
+                                    getSpendingList(new Spending(new Money("20.00"), new Time("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable());
+            project1.setListOfMeeting(getSampleMeetings(new Meeting(new Time("12/09/2019 15300"), new Description("Set Milestones")), new Meeting(new Time("05/09/2019 1600"), new Description("Project Roadmap discussion"))));
+
+            Project project2 = new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
+                    getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance(), new Timetable());
+            project2.setListOfMeeting(getSampleMeetings(new Meeting(new Time("19/09/2019 1400"), new Description("Finalise version 1b")), new Meeting(new Time("29/11/2019 1300"), new Description("Finalise UG and DG and discussion for project demo"))));
+
+            return new Project[]{ project1, project2};
         } catch (ParseException e) {
             return new Project[]{
                 new Project(new Title("CS2103T"),
@@ -117,3 +125,4 @@ public class SampleDataUtil {
         return samplePl;
     }
 }
+

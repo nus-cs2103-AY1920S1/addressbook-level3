@@ -36,6 +36,7 @@ public class Project {
         this.generatedTimetable = generatedTimetable;
     }
 
+
     public Title getTitle() {
         return title;
     }

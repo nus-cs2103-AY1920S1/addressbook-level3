@@ -371,15 +371,8 @@ The diagram above shows how `broadcastMail` works.
 
 ===== Aspect: Data structure to support the broadcastMail commands
 
-* **Alternative 1:** Storing List<Person> in the Project for members.
-** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of
-members' names in the project.
-** Cons: Introduces coupling and may cause unwanted bugs due to cyclic dependencies as Project contains Person and
-Person contains Project.
-* **Alternative 2:** Stores members as List<String> of members names.
-** Pros: Reduces coupling and and eliminates cyclic dependencies between Project and Person object.
-** Cons: Have to hash the members object in the addressBook by names and go through the List<String> of members'
-names one by one to get the Person object of the member. Harder to implement.
+The alternatives are similar to sendReminder as the underlying problem lies in sending email
+to all the members in the project group.
 // end::broadcastMail[]
 
 // tag::signIn[]
