@@ -396,7 +396,7 @@ Format:
 ****
 * User may have added their show with their own information. However, user might not know some of the parameters such as actors.
 * Thus, user can use the search online command `search n/` to look up information regarding that show.
-* Synchronise command `sync` can be used to update information/modify on that show.
+* Then, Synchronise command `sync` can be used to update information/modify on that show.
 * Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
 * The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
 * Names of the show are not case-sensitive.
