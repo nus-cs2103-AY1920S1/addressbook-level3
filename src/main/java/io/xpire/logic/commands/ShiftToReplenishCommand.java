@@ -49,22 +49,15 @@ public class ShiftToReplenishCommand extends Command {
         this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new ModifiedState(model));
         List<? extends Item> lastShownList = model.getCurrentList();
-
         if (this.targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
         }
-
         XpireItem targetItem = (XpireItem) lastShownList.get(this.targetIndex.getZeroBased());
         Item remodelledItem = targetItem.remodel();
         Set<Tag> tags = new HashSet<>(remodelledItem.getTags());
-        tags.remove(EXPIRED_TAG);
         remodelledItem.setTags(tags);
         if (model.hasItem(REPLENISH, remodelledItem)) {
-            try {
-                model.deleteItem(XPIRE, targetItem);
-            } catch (ItemNotFoundException e) {
-                throw new CommandException(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
-            }
+            model.deleteItem(XPIRE, targetItem);
         } else {
             model.addItem(REPLENISH, remodelledItem);
             model.deleteItem(XPIRE, targetItem);

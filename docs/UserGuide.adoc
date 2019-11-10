@@ -286,18 +286,26 @@ From this list of expired items, you can use the `shift` command to move any ite
 Format: `shift|<index>`
 
 Let's say you have this list of expired items and you want to remind yourself to replenish the first item in the list--the banana.
-To do so, you can transfer the banana to the replenish list by typing `shift|1`, where `1` refers to item number displayed.
+To do so, you can transfer the ice cream to the replenish list by typing `shift|1`, where `1` refers to item number displayed.
 
 .Current list view of items that have expired.
-image::shift_command_example.png[]
+image::shift_to_replenish_command_example.png[]
 
 With this, your item will be shifted to the replenish list as seen from the figure below.
+When you go for grocery shopping in future, you can refer to this handy replenish list to stock up on your ice cream, or any items that have run out.
 
 .List view of items in the replenish list.
-image::shift_replenish_example.png[]
+image::shift_to_replenish_success.png[]
 
 ===== Shifting an item from the replenish list to the main list
+Let's say you have stocked up on the items that are in the replenish list.
+Now, you want to add these items back to your tracking list to keep track of their new expiry date.
+To do so, you can simply use the `shift` command again.
+
 Format: `shift|<index>|<expiry date>[|quantity]`
+
+For example, you have just replenished the ice cream and you wish to keep track of its expiry date again.
+
 
 Examples:
 
