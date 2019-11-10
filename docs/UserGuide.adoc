@@ -487,8 +487,8 @@ e.g. `view deck/science_deck`
 ** *add MCQ:* `add deck/DECK_NAME front/CARD_FRONT back/INDEX_OF_CORRECT_OPTION choice/CHOICE_A choice/CHOICE_B [priority/HIGH_OR_LOW]`
 ====
 * *edit* - only applicable for Front-Back Cards and Multiple Choice Cards
-* *edit*: `edit deck/DECK_NAME index/CARD_INDEX [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]` +
-e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
+* `edit deck/DECK_NAME index/CARD_INDEX [front/NEW_FRONT_TEXT] [back/NEW_BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]` +
+* e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
 * *undo* : `undo`
 * *redo* : `redo`
 * *test* : `test deck/DECK_NAME duration/TIME_LIMIT_ALLOWED` +
