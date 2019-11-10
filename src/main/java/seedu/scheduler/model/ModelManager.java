@@ -64,8 +64,9 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given intervieweeList, interviewerList, userPrefs and schedulesList.
      */
     public ModelManager(ReadOnlyList<Interviewee> intervieweeList, ReadOnlyList<Interviewer> interviewerList,
-                        ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
+            ReadOnlyUserPrefs userPrefs, List<Schedule> schedulesList) {
         super();
+        this.schedulesList = cloneSchedulesList(schedulesList);
         requireAllNonNull(intervieweeList, interviewerList, userPrefs, schedulesList);
 
         logger.fine("Initialising with list of interviewees: " + intervieweeList
@@ -79,9 +80,9 @@ public class ModelManager implements Model {
         filteredInterviewees = new FilteredList<>(this.intervieweeList.getEntityList());
         filteredInterviewers = new FilteredList<>(this.interviewerList.getEntityList());
 
-        this.schedulesList = cloneSchedulesList(schedulesList);
         this.userPrefs = new UserPrefs(userPrefs);
         this.appStatus = AppStatus.getInstance();
+        this.updateScheduleList();
     }
 
     public ModelManager() {
@@ -548,6 +549,8 @@ public class ModelManager implements Model {
     public void updateSchedulesAfterScheduling() throws ScheduleException {
         List<Interviewer> interviewers = interviewerList.getEntityList();
         for (Interviewer interviewer : interviewers) {
+            logger.info(interviewers.toString());
+            logger.info(schedulesList.toString());
             for (Schedule schedule : schedulesList) {
                 schedule.addAllocatedInterviewees(interviewer, interviewer.getAllocatedSlots());
             }

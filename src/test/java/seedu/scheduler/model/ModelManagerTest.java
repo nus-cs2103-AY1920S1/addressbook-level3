@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,19 +31,6 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new IntervieweeList(), new IntervieweeList(modelManager.getIntervieweeList()));
         assertEquals(new InterviewerList(), new InterviewerList(modelManager.getInterviewerList()));
-    }
-
-    @Test
-    public void constructorWithEmptyParametersExceptSchedule() {
-        List<Schedule> schedules = new LinkedList<>();
-        schedules.add(SampleSchedules.getSampleFilledSchedule());
-        schedules.add(SampleSchedules.getSampleAvailabilityTable());
-
-        ModelManager modelManagerWithData = new ModelManager(new IntervieweeList(), new InterviewerList(),
-                new UserPrefs(), schedules);
-        List<Schedule> schedulesOfModelManager = modelManagerWithData.getSchedulesList();
-
-        assertEquals(schedules, schedulesOfModelManager);
     }
 
     @Test

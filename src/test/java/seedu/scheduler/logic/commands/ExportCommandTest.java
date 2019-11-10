@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import seedu.scheduler.model.FilePath;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.ModelManager;
+import seedu.scheduler.model.SampleDataUtil;
 import seedu.scheduler.model.Schedule;
-import seedu.scheduler.model.util.SampleDataUtil;
 
 
 public class ExportCommandTest {
