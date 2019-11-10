@@ -13,7 +13,7 @@ public class CashierMessages {
 
     public static final String CLEARED_SUCCESSFULLY = "Cleared successfully!\n";
 
-    public static final String NO_CASHIER = "Sorry! Please enter the cashier's name before proceeding:\n "
+    public static final String NO_CASHIER = "Sorry! Please enter the cashier's name before proceeding:\n"
             + "cashier NAME\n\n";
 
     public static final String NO_ITEM_TO_CHECKOUT = "Sorry! There is no item to checkout! "
