@@ -59,7 +59,7 @@
                               </padding>
                            </VBox>
                            <VBox maxHeight="33.0" maxWidth="1.7976931348623157E308" minHeight="33.0" minWidth="0.0" prefHeight="33.0" HBox.hgrow="ALWAYS" />
-                           <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveReport" text="Save">
+                           <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveReport" text="Save(F2)">
                               <HBox.margin>
                                  <Insets />
                               </HBox.margin>

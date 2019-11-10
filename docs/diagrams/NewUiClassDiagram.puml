@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+skinparam linetype polyline
+skinparam linetype ortho
+
+package UI <<Rectangle>>{
+Interface Ui <<Interface>>
+Class "\n\n{abstract}\nUiPart\n\n" as UiPart
+Class UiManager
+Class "\n\nMainWindow\n\n" as MainWindow
+Class HelpWindow
+Class MotdWindow
+Class VisitRecordWindow
+Class ProfileWindow
+Class ResultDisplay
+Class PersonListPanel
+Class ReminderPanel
+Class VisitListPanel
+Class PersonCard
+Class VisitCard
+Class ReminderCard
+Class CommandBox
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .up.|> Ui
+UiManager -down-> MainWindow
+MainWindow -down> HelpWindow
+MainWindow -down> MotdWindow
+MainWindow -down> ProfileWindow
+MainWindow -down> VisitRecordWindow
+MainWindow *-down> CommandBox
+MainWindow *-down> ResultDisplay
+MainWindow *-down-> PersonListPanel
+MainWindow *-down-> VisitListPanel
+MainWindow *-down-> ReminderPanel
+
+PersonListPanel -down-> PersonCard
+ReminderPanel -down-> ReminderCard
+VisitListPanel -down-> VisitCard
+
+MainWindow -left-|> UiPart
+VisitRecordWindow -left-|> UiPart
+ProfileWindow -left-|> UiPart
+
+ResultDisplay -down-|> UiPart
+CommandBox -down-|> UiPart
+PersonListPanel -down-|> UiPart
+PersonCard -down-|> UiPart
+HelpWindow -down-|> UiPart
+ReminderPanel -down-|> UiPart
+ReminderCard -down-|> UiPart
+VisitListPanel -down-|> UiPart
+VisitCard -down-|> UiPart
+MotdWindow -down-|> UiPart
+
+PersonCard ...> Model
+VisitCard ...> Model
+ReminderCard ...> Model
+UiManager -right-> Logic
+MainWindow -right-> Logic
+
+PersonListPanel -[hidden]left- VisitListPanel
+VisitListPanel -[hidden]left- ReminderPanel
+ReminderPanel -[hidden]left- VisitRecordWindow
+VisitRecordWindow -[hidden]left- HelpWindow
+CommandBox -[hidden]left- ReminderPanel
+HelpWindow -[hidden]left- ProfileWindow
+ProfileWindow -[hidden]left- MotdWindow
+
+
+MainWindow -[hidden]-|> UiPart
+@enduml

@@ -6,10 +6,10 @@ skinparam classBackgroundColor UI_COLOR
 
 show members
 
-  namespace seedu.address {
+  namespace unrealunity.visit {
     namespace model {
       namespace appointment {
-        class seedu.address.model.appointment.AppointmentTable {
+        class unrealunity.visit.model.appointment.AppointmentTable {
             - followup : HashMap<String, Integer>
             - reminders : HashMap<String, Integer>
             + AppointmentTable()

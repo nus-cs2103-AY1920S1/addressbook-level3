@@ -18,9 +18,14 @@ endif::[]
 
 By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
 
+
 == Introduction
 
-*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the VISIT User Guide! +
+ +
+*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. +
+
+This user guide provides in-depth documentation on how to use quickly get up to speed on using VISIT. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -29,6 +34,7 @@ By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
 .  Copy the file to the folder you want to use as the home folder for VISIT.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+[.text-center]
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -46,7 +52,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Using Commands in this Guide*
 
 * All commands listed are *case-insensitive*.
 * Words in `UPPER_CASE` represent the parameters to be specified.
@@ -77,17 +83,17 @@ Format: `exit`
 === *Viewing and Managing Patients*
 
 ====
-VISIT can store all the patient information for doctors to have them easily accessible. The following commands enable doctors to be able to add patients and their relevant particulars to be tracked by VISIT, and also view a list of patients that have been entered.
+VISIT can store all the patient information for doctors for easy access. The following commands enable doctors to be able to add patients and their relevant particulars to be tracked by VISIT, and also view a list of patients that have been entered.
 ====
 
 ==== Listing all patients : `list`
 
-Shows a list of all patients in the address book. +
+Shows a list of all patients in the Patients dashboard. Used after a search function to return back to the full list. +
 Format: `list`
 
 ==== Adding a patient : `add`
 
-Adds a patient to VISIT's address book. +
+Adds a patient to the Patients list. +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -100,7 +106,7 @@ A patient can have any number of tags (including 0). Tags will be appear in lowe
 
 ==== Editing a patient's particulars : `edit`
 
-Edits an existing patient in the address book. +
+Edits an existing patient in the Patients list. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
@@ -137,32 +143,10 @@ Returns `john` and `John Doe`
 * `find ans` +
 Returns `Hans` and `Aziz Ansari`
 
-==== Viewing a Patient's Full Profile : `profile`
-
-Opens up a new pop-out panel showing the specified patient’s details (Name, Phone, Email, Address, Tags, Visitation reports). The panel can then be closed by pressing kbd:[q] or kbd:[esc] to quit, or kbd:[p] to generate a text file of the profile. +
-Format: `profile INDEX`
-
-[NOTE]
-Generated text version of profiles are saved under the `generated_profiles` folder of the application.
-
-****
-* Shows full profile for the patient at the specified INDEX.
-* The index refers to the index number shown in the displayed patient list.
-* The index must be a positive integer 1, 2, 3, …
-* The generated text file will be the following format:
-- `NAME_PHONE_dd-MM-yyyy hh-mm-ss`
-- e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58`
-****
-
-*Examples*:
-
-* `profile 2` +
-Opens up a pop-up panel detailing the profile of the patient with the index of 2.
-
 // tag::delete[]
 ==== Deleting a patient : `delete`
 
-Deletes the specified patient from the address book. +
+Deletes the specified patient from the Patients list. +
 Format: `delete INDEX`
 
 ****
@@ -175,7 +159,7 @@ Format: `delete INDEX`
 
 * `list` +
 `delete 2` +
-Deletes the 2nd patient in the address book.
+Deletes the 2nd patient in the list.
 * `find Betsy` +
 `delete 1` +
 Deletes the 1st patient in the results of the `find` command.
@@ -183,13 +167,77 @@ Deletes the 1st patient in the results of the `find` command.
 // end::delete[]
 ==== Clearing all patient data : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from the Patients list. +
 Format: `clear`
 
 [WARNING]
 Be careful when entering this, as this will erase all patient data from VISIT!
 
+// tag::profile[]
+=== *Viewing and Generating a Patient's Profile* : `profile`
 
+VISIT allows you to visualize a specified patient’s full details on an easy to access panel. The command can be initiated as follows:  +
+Format: `profile INDEX`
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+****
+
+*Example:*
+[.text-center]
+image::UGProfile0.png[width="790"]
+
+Entering this command generates a pop out panel (seen below) detailing the various attributes of the specified Patient. This includes all attributes and visitation records.
+
+[.text-center]
+image::UGProfile1.png[width="790"]
+
+[WARNING]
+You must close this window before doing anything else with VISIT (Adding Visits, Deleting Patients, etc.).
+
+*Generating and Exporting a Profile as a .txt file*
+
+You can generate a text file containing the contents of the Patient's Profile, for your own archiving purposes and exporting.
+****
+To export a Profile in a text file: *press kbd:[p]  on your keyboard or click the kbd:[Generate Profile File] button.*
+****
+
+[.text-center]
+image::UGProfile2.png[width="500"]
+
+[NOTE]
+You will see a message saying "_Profile .txt created in /generated_profiles/_." once the Profile has been successfully generated.
+
+Generated text version of Profiles are saved under the `generated_profiles` folder located in the parent folder of _VISITapp.jar_. +
+
+[.text-center]
+image::UGProfile3.png[width="790"]
+
+[.text-center]
+image::UGProfile4.png[width="790"]
+
+[NOTE]
+The generated text file will be the following format: +
+`NAME_PHONE_dd-MM-yyyy hh-mm-ss.txt` +
+e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58.txt`
+
+
+Below is an example of a generated profile .txt file:
+[.text-center]
+image::UGProfile5.png[width="500"]
+
+[WARNING]
+While files are write-protected, you can still create duplicate copies for editing. Data encryption and safer data handling is planned for VISIT v2.0 (See <<Upcoming-Features>>).
+
+*Closing the panel* +
+Clicking on the cross on the top-right of the panel or pressing kbd:[esc] button on your keyboard will close the panel.
+
+
+// end::profile[]
+
+// tag::visitreports[]
 === *Viewing and Managing Visits*
 
 ====
@@ -203,20 +251,22 @@ Format: `addvisit INDEX [v/DATE]`
 
 *Example*:
 
-Let's say that you have just got a patient's folder of past visits and you want to record a house call made on 3rd January 2019.
+Let's say that you have just gotten a patient's folder of past visits and you want to record a house call made on 3rd January 2019.
 The patient is 1st in the list.
 
 To enter the details of the report into VISIT:
 
 1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGAddVisit0.png[width="790"]
 +
-* Date must be in the "dd/MM/2yyy" format (i.e. `v/19/10/2019`)
+* Date must be in the "dd/MM/yyyy" format (e.g. `v/19/10/2019`). The valid range of dates starts from the year 1900 and ends at year 2999 (inclusive).
 [TIP]
 If no date is specified and the command is used without the prefix 'v/' (for example `addvisit 1`), the report will default to the current local date of the computer.
 2. Key in the details in the respective fields of the pop-up form that appears.
 +
+[.text-center]
 image::UGAddVisit1.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
@@ -224,12 +274,14 @@ image::UGAddVisit1.png[width="790"]
 3. Click the kbd:[Save] button or press kbd:[F2] to save your entry.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 +
+[.text-center]
 image::UGAddVisit2.png[width="790"]
 +
 
 [NOTE]
 While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
 
+[.text-center]
 image::UGAddVisit3.png[width="790"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
@@ -237,8 +289,9 @@ Opens a pop-up panel that enables the editing of an existing visitation report o
 Format: `editvisit INDEX [i/REPORT_INDEX]`
 
 [NOTE]
-If no report index is specified, `editvisit INDEX` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
+If no report index is specified, `editvisit INDEX` or `editvisit INDEX i/` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
 
+[.text-center]
 image::UGEditVisit0.png[width="790"]
 
 *Example*:
@@ -247,10 +300,12 @@ Let's say you want to edit the 2nd visit report of a patient and the patient is 
 
 1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGEditVisit1.png[width="790"]
 +
 2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
 +
+[.text-center]
 image::UGEditVisit2.png[width="790"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
@@ -258,11 +313,13 @@ image::UGEditVisit2.png[width="790"]
 3. Click the kbd:[Save] button or press kbd:[F2] to save your edits.
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 
+[.text-center]
 image::UGEditVisit3.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
+[.text-center]
 image::UGEditVisit4.png[width="790"]
 
 ==== Deleting a visitation report : `deletevisit`
@@ -271,8 +328,9 @@ Deletes the specified visitation report. +
 Format: `deletevisit INDEX [d/REPORT_INDEX]`
 
 [NOTE]
-If no report index is specified, `deletevisit INDEX` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
+If no report index is specified, `deletevisit INDEX` or `deletevisit INDEX d/` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
+[.text-center]
 image::UGDeleteVisit0.png[width="790"]
 
 *Example*:
@@ -281,21 +339,25 @@ Let's say you want to delete the 1st visit report of a patient and the patient i
 
 1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
 +
+[.text-center]
 image::UGDeleteVisit1.png[width="790"]
 +
 2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
 
+[.text-center]
 image::UGDeleteVisit2.png[width="790"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
+[.text-center]
 image::UGDeleteVisit3.png[width="790"]
 
 For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
 
+[.text-center]
 image::UGNoRecords.png[width="790"]
-
+// end::visitreports[]
 [[appointmentsImplementation]]
 // tag::appointments[]
 === *Appointment System*
@@ -325,6 +387,7 @@ Creates a follow-up entry on patient with index 9 for 10 days later.
 * `followup 1` +
 Creates a follow-up entry on patient with index 1 for 7 days later.
 
+[.text-center]
 image::UGApptFollowUps.png[width="790"]
 
 ==== Creating a generic reminder : `reminder`
@@ -342,6 +405,7 @@ Creates a reminder "Two Point Hospital closed" that will display for the next 10
 * `reminder Losartan recall` +
 Creates a reminder "Losartan recall" that will display for the next 7 days.
 
+[.text-center]
 image::UGApptReminders.png[width="790"]
 
 ==== Removing an Appointment : `removeappt`
@@ -359,6 +423,7 @@ Removes any appointment which description is "Two Point Hospital closed".
 * `removeappt Satya Nadella` +
 Removes any appointments with the patient whose name is Satya Nadella.
 
+[.text-center]
 image::UGApptRemoveAppt.png[width="790"]
 
 ==== Show Appointments "Message of the Day" box : `show`
@@ -366,6 +431,7 @@ image::UGApptRemoveAppt.png[width="790"]
 Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
 Format: `show`
 
+[.text-center]
 image::UGApptShow.png[width="790"]
 
 ==== Sort Appointments : `sort`
@@ -438,6 +504,7 @@ Matching of aliases uses the longest substring match. (i.e. if there exists an a
 VISIT's address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+[[Upcoming-Features]]
 === *Upcoming Features*
 The following features are intended for a later release of VISIT that will further expand on the managing power doctors will be able to execute using the application.
 
@@ -448,16 +515,27 @@ Doctors will be able to generate the list of medication in their stock and assig
 , which automatically deducts from that list. +
 Warnings of low stocks are also an intended feature.
 
-==== Printing of Medical Certificates `[Coming in v2.0]`
+==== Profile Data Encryption and .pdf exporting `[Coming in v2.0]`
 
-In v2.0, VISIT will allow doctors to easily print an official Medical Certificate with a single command.
+In v2.0, VISIT will allow you to export Patient data from VISIT with greater assurances on confidentiality with .pdf exporting, enabling password encryption for exported Profiles.
+
+==== Generating of Medical Certificates `[Coming in v2.0]`
+
+In v2.0, VISIT will allow you to easily generate an official Medical Certificate with a single command.
 
 ==== Microsoft Azure Integration `[Coming in v2.0]`
 
 Microsoft Azure is a popular Cloud Computing platform that allows for data analysis, remote deployment and user
-authentication resources. We plan to leverage this power in VISIT v2.0 so that doctors may securely access
+authentication resources. We plan to leverage this power in VISIT v2.0 so that you may securely access
 VISIT from any location, truly bringing VISIT on-the-go.
 
+==== Improved UI `[Coming in v2.0]`
+
+With more features being added in v2.0, the UI will be reworked to allow new and old features to have
+great accessibility and usability. The new UI will utilise a dashboard system so that Doctors
+are able to view more information as we scale up VISIT's functionality. Each tab in the dashboard
+will represent a feature, i.e. The Appointment list will be a tab containing a Calendar view that
+tracks reminders and followups by the date and time, with a pop up notification on launch and near deadlines.
 
 == FAQ
 
@@ -483,19 +561,21 @@ e.g. `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234
 e.g. `edit 2 n/Betsy Crower t/`
 * *Locating patient by name* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find Betsy Tim John`
-* *Viewing Full Profile* : `profile INDEX` +
-e.g. `profile 1`
 * *Deleting a patient* : `delete INDEX` +
 e.g. `delete 2`
 * *Clearing all patient data* : `clear`
+
+=== *Viewing and Generating a Patient's Profile*
+* *Viewing and generating a Full Profile* : `profile INDEX` +
+e.g. `profile 1`
 
 === *Viewing and Managing Visits*
 
 * *Adding a new visitation report for a patient* : `addvisit INDEX [v/DATE]` +
 e.g. `addvisit 1 v/19/10/2019`
-* *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT INDEX]` +
+* *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT_INDEX]` +
 e.g. `editvisit 1 i/1`
-* *Deleting a visitation report* : `deletevisit INDEX [d/REPORT INDEX]` +
+* *Deleting a visitation report* : `deletevisit INDEX [d/REPORT_INDEX]` +
 e.g. `deletevisit 1 d/1`
 
 === *Appointment System*

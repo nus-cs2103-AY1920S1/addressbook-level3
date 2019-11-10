@@ -25,6 +25,7 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
+[.text-center]
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
@@ -34,7 +35,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/tree/master/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/tree/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/tree/master/src/main/java/unrealunity/visit/Main.java[`Main`] and link:{repoURL}/tree/master/src/main/java/unrealunity/visit/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -58,6 +59,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+[.text-center]
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -66,6 +68,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[.text-center]
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
@@ -74,14 +77,17 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+[.text-center]
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::NewUiClassDiagram.png[]
 
-*API* : link:{repoURL}/tree/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `ReminderPanel`, etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+Other UI parts such as HelpWindow, VisitRecordWindow, are not displayed as UI elements in the MainWindow but opens up through a command entered.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/tree/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/tree/master/src/main/java/unrealunity/visit/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -91,12 +97,13 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+[.text-center]
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/tree/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/tree/master/src/main/java/unrealunity/visit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -114,14 +121,15 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+[.text-center]
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::NewModelClassDiagram.png[]
 
-*API* : link:{repoURL}/tree/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a `UserPref` object that represents the user's preferences, alias and appointments.
 * stores the Address Book data.
 * exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Appointment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
@@ -129,15 +137,17 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
+[.text-center]
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
+[.text-center]
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::NewStorageClassDiagram.png[]
 
-*API* : link:{repoURL}/tree/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -147,7 +157,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `unrealunity.visit.commons` package.
 
 == Implementation
 
@@ -169,6 +179,7 @@ These operations are exposed in the `Model` interface as `Model#applyAlias(comma
 
 The following sequence diagram shows how adding an alias works:
 
+[.text-center]
 image::AddAliasSequenceDiagram.png[]
 
 [NOTE]
@@ -178,6 +189,7 @@ The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` i
 
 The following sequence diagram shows how applying alias works:
 
+[.text-center]
 image::ApplyAliasSequenceDiagram.png[]
 
 [NOTE]
@@ -187,6 +199,7 @@ A user-defined alias is considered a match with the user input if the alias is a
 
 The following activity diagram shows how applying alias picks which alias to apply:
 
+[.text-center]
 image::ApplyAliasActivityDiagram.png[]
 
 [NOTE]
@@ -200,12 +213,15 @@ An unfortunate side effect to matching the longest matching macro increases the 
 ==== Implementation
 The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
 
+[.text-center]
 .Appointment Class Diagram
 image::DGApptAppointmentClassDiagram.png[]
 
+[.text-center]
 .AppointmentList Class Diagram
 image::DGApptAppointmentListClassDiagram.png[]
 
+[.text-center]
 .AppointmentTable Class Diagram
 image::DGApptAppointmentTableClassDiagram.png[]
 
@@ -226,11 +242,13 @@ These operations are exposed in the `Model` interface.
 
 The following sequence diagram shows how adding an appointment works, using reminders as an example:
 
+[.text-center]
 .Adding an Appointment Sequence Diagram
 image::DGApptAddAppointmentSequenceDiagram.png[]
 
 The following activity diagram shows how adding an appointment works, using follow-ups as an example:
 
+[.text-center]
 .Adding an Appointment Activity Diagram
 image::DGApptFollowUpActivityDiagram.png[]
 // end::appointments[]
@@ -246,10 +264,12 @@ Given below is a simple example usage scenario demonstrate how Profile feature b
 
 Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
 
+[.text-center]
 image::Profile0.png[]
 
 Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
 
+[.text-center]
 image::Profile1.png[]
 
 [NOTE]
@@ -257,6 +277,7 @@ The user is able to close the `ProfileWindow` form by clicking the 'x' on the to
 
 This sequence diagram fully shows what happens when a user executes the Profile Command:
 
+[.text-center]
 image::ProfileSequenceDiagram1.png[]
 
 ==== Design Considerations
@@ -291,14 +312,17 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
+[.text-center]
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
+[.text-center]
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
+[.text-center]
 image::UndoRedoState2.png[]
 
 [NOTE]
@@ -306,6 +330,7 @@ If a command fails its execution, it will not call `Model#commitAddressBook()`, 
 
 Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
+[.text-center]
 image::UndoRedoState3.png[]
 
 [NOTE]
@@ -313,6 +338,7 @@ If the `currentStatePointer` is at index 0, pointing to the initial address book
 
 The following sequence diagram shows how the undo operation works:
 
+[.text-center]
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -324,14 +350,17 @@ If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, poin
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
+[.text-center]
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
+[.text-center]
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
+[.text-center]
 image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
@@ -376,12 +405,15 @@ The Visitation Report feature allows the user to `add`, `delete` and `edit` a `V
 
 The class diagram below shows the new additions to the Person class.
 
+[.text-center]
 image::VisitClass0.png[]
 
 Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
 
 Step 1. The user executes `addvisit 5 v/12/12/2019` command to add a visit report to the visitlist of the 5th person in the address book. This returns a  `CommandResult` which has the attribute `date` set as String `12/12/2019`. `MainWindow#executeCommand()` is called and the check for `CommandResult#isAddVisit()` passes, calling  `VisitRecordWindow#setReportInfo()` to pass the `index` of the person, the `date`, and a `Logic` object to initialize the respective attributes in the `VisitRecordWindow` class. `MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 1
 image::AddVisit0.png[]
 
 [NOTE]
@@ -391,19 +423,25 @@ Step 2. The user fills in the form and presses `f2` on the keyboard or clicks th
 
 Step 3. The user decides to edit the report and executes the `editvisit 1 i/1` command.`MainWindow#executeCommand()` is called and the check for `CommandResult#isEditVisit()` passes, calling  `VisitRecordWindow#setOldReportInfo()` which initializes the respective attributes of `VisitRecordWindow` and populate the form with the content of the `VisitReport` from  `CommandResult#getOldReport()` .`MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
 
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 3
 image::EditVisit0.png[]
 
-[NOTE]
-If the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` runs and the check for `CommandResult#isEditVisit()` fails while the check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`.`MainWindow#handleShowVisitList()` is then called to display a pop up list showing an indexed list of all visitation records of the person.
 
-Step 4. The user edits the form and presses `f2` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+As shown in the figure above, if the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` 's check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`. Instead of displaying the pop-up form, `MainWindow#handleShowVisitList()` is called to display a pop up list showing an indexed list of all visitation records of the person.
+
+Step 4. The user edits the form and presses `F3` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
 
 The sequence diagram below shows how Step 3 and Step 4 works.
 
+[.text-center]
+.`EditVisitCommand` and `SaveVisitCommand` sequence diagram
 image::EditVisit1.png[]
 
 Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
 
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 5
 image::DeleteVisit0.png[]
 
 [NOTE]
@@ -412,23 +450,28 @@ If the user executes `deletevisit 1` instead, the index value will be set to `-1
 
 ==== Design Considerations
 
-===== Aspect: How SaveVisitCommand/DeleteVisitCommand executes
+===== Aspect: Range of acceptable dates for `addvisit`
 
-* Creates a new `Person` object each time and using `Model#setPerson()` to replace the original person for every change in `VisitList `
-** Pros: Easy to implement and reuses existing code.
-** Cons: May have performance issues in terms of memory usage.
+* **Alternative 1 (current choice):** Only allow dates with years 19xx or 2xxx
+** Pros: Prevents user from keying in rubbish dates like year 9999 or 0000
+** Cons: Must conduct 2 checks for date in parser, one for the format dd/MM/19yy and one for the format dd/MM/2yyy.
+* **Alternative 2:** Place no restriction on valid years
+** Pros: Only one check for dd/MM/yyyy format is required.
+** Cons: User can key in rubbish values like dd/MM/9102 or dd/MM/0192
 
+===== Aspect: Keyboard binding to save report
 
-===== Aspect: Data structure to support the addvisit/deletevisit/editvisit commands
-
-*  Use a arraylist to store the `VisitReport` objects in `VisitList` object
-** Pros: Fast retrieval by index.
-** Cons: Need to handle index out of bound errors.
+* **Alternative 1 (current choice):** `F2` key
+** Pros: No conflict with any other functions.
+** Cons: Not the most intuitive choice for users.
+* **Alternative 2:** `Enter` key
+** Pros: Very intuitive choice for saving.
+** Cons: It's also used to get to the next line, thus using it as the save button means users can no longer press `Enter` for next line
 // end::visitationreport[]
 
 [[uiImplementation]]
 //tag::guiredesign[]
-=== [Proposed] GUI Redesign
+=== GUI Redesign
 The GUI Redesign is done to include the new features made for the VISIT application, as well as improve the overall
 user experience with a easily readable interface that displays every important information in a glance.
 
@@ -436,22 +479,29 @@ user experience with a easily readable interface that displays every important i
 The current redesign of the GUI includes the addition of:
 
 * the `ReminderPanel` to display upcoming appointments
-* the `VisitRecordWindow` form for the user to enter the required information (as mentioned in Visitation Report feature)
+* the `VisitListPanel` to display the visit reports stored in a patient's profile. (as mentioned in Visitation Report feature)
+* the `VisitRecordWindow` form for the user to enter the required information. (as mentioned in Visitation Report feature)
 * the `ProfileWindow` to display the full profile information of a patient.
+* the `MotdWindow` to display the appointments in a new window. Motd stands for Message of the Day.
 
 In addition to these, VISIT's CSS theme is updated to fit current standards of GUI design,
 with a more pronounced color palette and a clearer font.
 
-The following is the updated class diagram of the Ui Component from these changes:
+The following is the snippet of the class diagram of the Ui Component with the new Classes:
 
+[.text-center]
 image::UiRedesignClassDiagram.png[]
 
-1. The MainWindow has been updated to include the ReminderPanel
-2. Two new Windows, VisitRecordWindow and ProfileWindow, are in use in addition to the MainWindow
+1. The `MainWindow` has been new panel which is the ReminderPanel.
+2. Three new Windows, `VisitRecordWindow`, `ProfileWindow` and `MotdWindow`, are in use in addition to the MainWindow.
+These windows are opened through their respective commands.
+3. `ReminderCard` and `VisitCard` gets its data from Model, similar to PersonCard.
 
-==== Future Implementation
+==== Future implementation `[Coming in v2.0]`
 
-<to be added>
+For future GUI design considerations in v2.0 and above, the panels of each feature such as `PersonListPanel` and `ReminderPanel` can be
+separated by tabs, through a dashboard interface. This allows more information to be displayed within each tab, allowing
+users to work with more data.
 
 //end::guiredesign[]
 
@@ -889,8 +939,6 @@ Use case ends.
 +
 Use case ends.
 
-{*TODO* : Please add use cases if your component is not featured here yet. If unsure, just put to be safe. *DELETE WHEN DONE*}
-
 [appendix]
 == Non Functional Requirements
 
@@ -913,8 +961,6 @@ User-defined shortcuts for large chunks of commonly used text for diagnosis
 
 [[visitation]] Visitation::
 A housecall or appointment with the patient
-
-{*TODO* : Please add terms if any that your commands use here. If unsure, just put to be safe. *DELETE WHEN DONE*}
 
 [appendix]
 == Instructions for Manual Testing
@@ -947,15 +993,5 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-
-{*TODO* : You can be generic about it because it is probably unrealistic to list out all your tests here. Just follow suit with these examples. *DELETE WHEN DONE*}

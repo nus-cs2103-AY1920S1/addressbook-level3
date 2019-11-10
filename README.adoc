@@ -44,8 +44,8 @@
 ** Can't remember when your next appointment is? VISIT reminds you when your next consultation is.
 * *Alias / Macro command support* 🔤
 ** No need to type the same commands over and over, simply add an alias from within the CLI!
-* *Save patient information as a .pdf file* 📄
-** VISIT allows you to export and store a patient's profile as a .pdf in your own file system!
+* *Save patient information as a text file* 📄
+** VISIT allows you to export and store a patient's profile in your own file system!
 * *Sleek and modern UI* 💼
 * *Tagging and Search functionality* 🔎
 * *Cross platform* 🖥️
@@ -61,8 +61,8 @@ Run the program then, try typing the following commands:
 # Adds a Patient with details
 $ add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01
 
-# Adds a visitation report
-$ addVisit n/Betsy Crowe t/12/12/12 e/Betsy@example.com
+# Adds a visitation report for patient at position 1 on 12th December 2019
+$ addvisit 1 v/12/12/2019
 
 # Find all patients matched to the query 'Betsy'
 $ find Betsy

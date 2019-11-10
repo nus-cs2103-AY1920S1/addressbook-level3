@@ -41,6 +41,15 @@
     -fx-border-width: 0 0 2 0;
 }
 
+.label-header-title {
+	-fx-font-size: 18pt;
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-style: italic;
+    -fx-text-fill: #53aaf1;
+    -fx-opacity: 1;
+    -fx-background-color: derive(#121924, 20%);
+}
+
 .text-area-profile {
     -fx-font-family: "Gill Sans MT";
     -fx-text-inner-colour: #ffffff;
@@ -151,6 +160,25 @@
     -fx-border-insets: 10px;
 }
 
+.profile-visit-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: derive(#121924, 20%);
+    -fx-border-width: 1px;
+    -fx-border-color: white;
+    -fx-border-radius: 4px;
+}
+
+.profile-list-cell:even #profileVisitViewCell{
+    -fx-control-inner-background-color: #121924;
+}
+
+.profile-list-cell:odd #profileVisitViewCell{
+    -fx-control-inner-background-color: #2e3f64;
+}
+
+
+
 /*
  * Disabled change of color upon mouse click
 .list-cell:filled:selected {
@@ -180,6 +208,26 @@
 
 .cell_small_label {
     -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
+.cell_med_label {
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 15px;
+    -fx-text-fill: #010504;
+}
+
+.cell_med_label_ul {
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-size: 15px;
+    -fx-underline: true;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label_bold {
+    -fx-font-family: "Gill Sans MT";
+    -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
@@ -228,6 +276,13 @@
 
 .grid-pane {
     -fx-background-color: derive(#121924, 20%);
+}
+
+.grid-pane-with-border {
+    -fx-background-color: derive(#121924, 20%);
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 2;
 }
 
 .grid-pane .stack-pane {
