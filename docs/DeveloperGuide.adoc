@@ -202,7 +202,7 @@ The segment below provides more details of the `logic` components and its API's 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `StudyBuddyParser` class to parse the user command.
+.  `Logic` uses the `StudyBuddyProParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a cheatsheet).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -235,7 +235,7 @@ The above sequence diagram clearly portrays the execution of the `delete 1` comm
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the StudyBuddyBook data.
+* stores the StudyBuddyPro data.
 
 [[Design-Storage]]
 === Storage component
@@ -254,7 +254,7 @@ The segment below provides more details of the `storage` components and its API'
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the StudyBuddyBook data in json format and read it back.
+* can save the StudyBuddyPro data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -292,6 +292,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 ** The current implementation of StudyBuddyItems in StudyBuddyPro is such that it contains a Set of Tags.
 ** The following objects of each individual feature shares similar Tagging behaviour, as shown in the class diagram below.
 
+.Overview of StudyBuddyItems and its sub-classes
 image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
 
 ==== Design Considerations
@@ -302,8 +303,8 @@ image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
 
 ===== Aspect: How tag predicates are implemented
 
+.Class Diagram of how StudyBuddyItemContainsTagPredicate is implemented
 image::kaibindiagrams/tagPredicateClassDiagram.png[]
-_Diagram 6: Class Diagram of how StudyBuddyItemContainsTagPredicate is implemented_
 
 * The above class diagram shows how tag predicates are being implemented.
 
@@ -329,9 +330,8 @@ that might have tags containing [difficult].
 ** If multiple tags are specified, only items that match all the specified tags will be listed.
 ** The sequence diagram below shows how listing all items across StudyBuddyPro by a specified tag works.
 
+.Sequence diagram of filtering all StudyBuddyItems by a tag.
 image::kaibindiagrams/ListAllByTagSequenceDiagram.png[]
-
-Diagram 8 : Sequence diagram of filtering all StudyBuddyItems by a tag.
 
 ===== b. For Auto-generation of CheatSheets
 
@@ -488,10 +488,13 @@ The following _figure_ shows a class diagram of the relevant classes of the time
 
 image::jrImages/TimeTrialClassDiagram.png[]
 
-b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
-c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
-d.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
-e.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns construct a `Timeline` with the following added for 3 flashcards:
+a.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
+b. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyProParser`’s function
+enum will be set to parse `Flashcard` commands.
+c.	The user executes (timetrial cs2100), and the `StartTimeTrialCommand` retrieves a List of flashcards with the
+associated `Tag` through the `Model#getTaggedFlashcards`, which is then passed into the `FlashcardTabWindowController`.
+d.	The `FlashcardTabWindowController` then calls the `FlashcardTabWindowController#startTimeTrial`, which in turns
+construct a `Timeline` with the following added for 3 flashcards:
 1.	A `KeyFrame` to call the `FlashcardTabWindowController#loadTimeTrial` method, which displays the question of the flashcard on the window, with a `KeyValue` that starts the timer on the screen.
 2.	A `KeyFrame` to call the `FlashcardTabWindowController#showFlashcardAns` method, which hides the Timer and flashes the answer of the flashcard for a set period of time.
 3.	A `KeyFrame` is then added to the timeline to call the `FlashcardTabWindowController#resetViews` method, which in turn empties the qnsTextArea and ansTextArea. [TO BE REFORMATTED]
@@ -507,7 +510,7 @@ image::jrImages/TimeTrialActivityDiagram.png[]
 ==== Design Considerations
 ===== Aspect: How the timetrial is implemented
 
-* **Alternative 1 (current choice):** 1.	Using the `TimeLine` class to set the timer
+* **Alternative 1 (current choice):** Using the `TimeLine` class to set the timer
 object.
 ** Pros: Tidier and easier to understand.
 ** Cons: Have to read up on the API and learn about the relevant classes such as `KeyFrame` and `KeyValue`
@@ -562,8 +565,7 @@ The  remind feature is facilitated by ``
 image::remindDiagrams/RemindFeatureRelevantClassDiagram.png[]
 
 ==== Design Considerations
-===== Aspect: Implementation of utility attributes or classes to keep track of number of times a `Flashcard` object was
-viewed.
+===== Aspect: Implementation of utility attributes or classes to keep track of number of times a `Flashcard` object was viewed.
 
 * **Alternative 1 (current choice):** Design a new `ViewCount` class and make a `Flashcard` object store a `ViewCount`
 object.
@@ -613,26 +615,20 @@ All the operations assume that the user is in the _notes_ mode.
 
 ==== Design Implementation of Notes
 
-`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the diagram below:
+`Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the class diagram
+below:
 
+.An overview of the Note class and its associated classes
 image::samDiagrams/NoteModelClassDiagram.png[]
 
-`Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`. `NoteFragment` objects are used to
-represent the specific areas within a `Note` that have been tagged. Each tag within a `Note` is referred to as a *note
-fragment tag* (which is represented by a `NoteFragment` object).
+NOTE: As is standard in this Developer Guide, red classes are part of the `Model` package, and blue classes are part of
+the `Logic` package.
+
+As the diagram above shows, `Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`.
+`NoteFragment` objects are used to represent the specific areas within a `Note` that have been tagged. Each tag
+within a `Note` is referred to as a *note fragment tag* (which is represented by a `NoteFragment` object).
 
 NOTE: Note fragment tags should not be confused with `Tags`.
-
-`NoteFragments` contain:
-
-** A `Title` that is the same as their parent `Note`
-** A `Content` that is a substring of their parent `Note`
-** Any indicated `Tags` that are independent of their parent `Note`
-
-`NoteFragments` are viewed or used in the following situations:
-
-** Viewable through the `filter` and `filterall` commands
-** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
 
 ==== Usages of Notes
 
@@ -644,10 +640,10 @@ NOTE: Note fragment tags should not be confused with `Tags`.
 
 `Notes` can currently be:
 
-** Added to `StudyBuddyBook`
-** Deleted from `StudyBuddyBook`
-** Viewed raw or cleaned from `StudyBuddyBook`
-** Viewed using `filter` from `StudyBuddyBook`
+** Added to `StudyBuddyPro`
+** Deleted from `StudyBuddyPro`
+** Viewed raw or cleaned from `StudyBuddyPro`
+** Viewed using `filter` from `StudyBuddyPro`
 
 ==== Design Implementation of the Add Tags Within Notes feature
 
@@ -658,6 +654,23 @@ The Add Tags Within Notes feature was implemented in the following way:
 ** Upon addition of a `Note`, parse its `Content` to check for any note fragment tags within it
 ** Create any required `NoteFragment` objects and add them to the list in their parent `Note`
 ** Since `NoteFragments` are contained within `Notes`, when a `Note` is deleted, its `NoteFragments` will be deleted as well.
+
+The following class diagram shows a more specific view of the relationships between the `Note`, `NoteFragment`, and
+`NoteFeatureUtil` classes.
+
+.A detailed view of the Note, NoteFragment, and NoteFeatureUtil classes
+image::samDiagrams/NoteModelDetailedClassDiagram.png[]
+
+As shown in the diagram above, `NoteFragments` contain:
+
+** A `Title` that is the same as their parent `Note`
+** A `Content` that is a substring of their parent `Note`
+** Any indicated `Tags` that are independent of their parent `Note`
+
+`NoteFragments` are viewed or used in the following situations:
+
+** Viewable through the `filter` and `filterall` commands
+** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
 
 There are four main methods that involve `NoteFragments`. They are listed below:
 
@@ -674,8 +687,8 @@ The implementation of these four methods is shown below:
 ===== Implementation of `NoteFeatureUtil#parseNoteFragmentsFromNote()`:
 
 The method of parsing `Content` in `NoteFeatureUtil#parseNoteFragmentsFromNote()` relies on the use of `Prefixes`
-around each note fragment tag. Each note fragment tag is specified with a start ("/\*") and end ("*/") marker, and
-its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
+around each note fragment tag. Each note fragment tag is specified with a start and end marker (represented by the
+`Prefixes` '/\*' and '*/'), and its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
 
 Example usage:
 
@@ -684,8 +697,8 @@ add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */
 ```
 
 [NOTE]
-'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the note fragment tag would
-raise an error (since only one 'c/' tag is allowed per command).
+'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the `Note` would not be
+parsed correctly (since only the most recent 'c/' tag is used for each command).
 
 Expected output:
 
@@ -701,33 +714,37 @@ Note fragment tags detected:
     Tags: [important][highlight]
 ```
 
-A `Note` has been added with the `Content` of "Notes can be highlighted if needed.", and a note fragment tag with
-`Content` "highlighted" and two `Tags` "cs2100" and "important". Despite this, the `Note` itself is instead tagged
-with the `Tag` "about".
+A `Note` has been added with the `Content` of 'Notes can be /* C/highlighted TAG/highlight TAG/important */ if 
+needed.', and a note fragment tag with `Content` 'highlighted' and two `Tags` 'cs2100' and 'important'. The `Note` 
+itself is instead tagged with the `Tag` 'about'.
 
-When an `add` command is made:
+The sequence diagram below describes the process of adding a new `Note` that contains a note fragment tag:
 
+.Overview of how a Note is added to StudyBuddyPro
+image::samDiagrams/AddNoteSequenceDiagram.png[]
+
+As seen in the diagram above, when an `add` command is entered by the user:
+
+** The `StudyBuddyProParser` identifies the user's input as an add-type command.
+** An `AddNoteCommandParser` is created to parse the user's input.
 ** Only the `Prefixes` 't/', 'c/', and 'tag/' are identified and parsed.
-** A `Note` is then created with the desired `Title`, `Content`, and `Tags`.
-** After creation, the `Content` of the `Note` is parsed immediately for the `Prefixes` '/\*', '*/', 'C/', and 'TAG/'
-.
-** All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
+** `Notes` and `NoteFragments` are created (see next diagram for more details).
+** The new state of StudyBuddyPro is saved via the `StorageManager`.
+
+The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`.
+
+.Illustration of how Notes and NoteFragments are created
+image::samDiagrams/AddNoteSequenceDiagramZoomedIn.png[]
+
+As can be seen from the zoomed-in diagram above, when an `AddNoteCommand` is created:
+
+** A `Note` is created with the desired `Title`, `Content`, and `Tags`.
+** The `Content` of the `Note` is parsed for the `Prefixes` '/\*', '*/', 'C/', and 'TAG/', using `NoteFeatureUtil`.
+** A `List<NoteFragment>` is returned to the `Note`.
+** A `CommandResult` is returned to describe the AddNoteCommand's result.
+
+NOTE: All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
 thrown.
-
-The sequence diagram below describes the process of adding a new note that contains a note fragment tag:
-
-<INSERT SEQUENCE DIAGRAM HERE, and refer to it below>
-
-===== Implementation of `NoteFragments` in `list` command:
-
-When `Notes` are listed, `NoteFragments` do not appear in the list of resulting `Notes`. This is because the
-`ListCommand#execute()` method uses `ModelManager#updatedFilteredNoteList()`, which does not check for any
-`NoteFragments` within `Notes`. This is illustrated in the <WHAT KIND OF> diagram below:
-
-<SOME DIAGRAM SHOWING CALLING OF LISTCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the text>
-
-This decision is made because the `list` command already lists all `Notes`, and therefore it would be unnecessary to
-also list all `NoteFragments`, as `NoteFragments` form a subset of `Notes`.
 
 ===== Implementation of `NoteFragments` in `filter` command:
 
@@ -735,13 +752,7 @@ When `Notes` are filtered, the method `ModelManager#collectTaggedNotes()` is use
 `NoteFragments` within the `Note` as it checks each `Note`.
 
 However, `ModelManager` uses the method `Note#getFilteredNoteFragments()` to achieve this, and therefore is not
-aware of the existence of `NoteFragments`. This is illustrated in the <WHAT KIND OF> diagram below:
-
-<SOME DIAGRAM SHOWING CALLING OF FILTERCOMMAND FOR NOTE - but is this necessary? Would need to refer to it after the
-text>
-
-This diagram can be contrasted with the <WHICH NUMBER?> diagram above, which uses a different method <DESCRIBE> that
-does not account for `NoteFragments`.
+aware of the existence of `NoteFragments`.
 
 The separation between `Notes` and `NoteFragments` in the `filter` command allows for more finely-tuned viewing of
 specific tagged details. For instance:
@@ -750,16 +761,28 @@ specific tagged details. For instance:
 ** Different parts of the same `Note` can be given different `Tags` like 'CS2103T' or 'CS2100', even as the entire
 `Note` is tagged under a larger category like 'CS'.
 
+This behaviour of the `filter` command is distinct from that of the `list` command. In the `list` command,
+`NoteFragments` are not listed. This decision is made because the `list` command already lists all `Notes`, and
+therefore it would be unnecessary to also list all `NoteFragments`, as `NoteFragments` form a subset of `Notes`.
+
+The differences between the two implementations can be summarized in the activity diagram below:
+
+.Differences between filter and list command executions
+image::samDiagrams/FilterVersusListActivityDiagram.png[]
+
+Whilst `filter` uses `ModelManager#collectTaggedNotes()` (as shown in the notes on the diagram above), `list` uses
+`ModelManager#formatOutputListString()`, which does not check for any `NoteFragments` within `Notes`.
+
 ===== Implementation of `NoteFragments` in `filterall` command:
 
-When all `StudyBuddyItems` are filtered, the method `ModeManager#collectTaggedItems()` is used, which performs a
+When all `StudyBuddyItems` are filtered, the method `ModelManager#collectTaggedItems()` is used, which performs a
 similar task to `ModelManager#collectTaggedNotes()`, but also collects `Flashcard` and `CheatSheet` objects as well.
 The reasoning for this decision is similar to that in the `filter` command.
 
 ===== Implementation of `NoteFragments` in `add` command in `CheatSheets`:
 
 When a `CheatSheet` is created, the method `AddCheatSheetCommand#getRelevantContent()` is used to filter out all
-`Notes` and `NoteFragments` that contain the specified `Tags`. Again, `AddCheatSheetCommand` uses the method
+`Notes` and `NoteFragments` that contain the specified `Tags`. `AddCheatSheetCommand` uses the method
 `Note#getFilteredNoteFragments()` to obtain the filtered list of `NoteFragments`, and is therefore unaware of the
 existence of `NoteFragment`.
 
@@ -767,7 +790,33 @@ Since the `Tags` stored in `Notes` and `NoteFragments` are independent of each o
 way as in the `filter` command. As a result, it is possible for a `NoteFragment` to be included in a `CheatSheet`
 even when its parent `Note` is not.
 
-==== Design Considerations of the Add Tags Within Notes feature
+==== Design Implementation of ViewNoteCommand
+
+There are two Commands available if the user intends to view a particular `Note`: `ViewNoteCommand` and
+`ViewRawNoteCommand`. `ViewNoteCommand` displays the `Note` to the user while hiding any note fragment tag syntax
+from the content of the `Note`, while `ViewRawNoteCommand` displays the `Note` to the user exactly as it was inputted.
+
+The main difference in the process of the two commands is shown in the activity diagram below:
+
+.Difference between ViewNoteCommand and ViewRawNoteCommand
+image::samDiagrams/ViewVersusViewRawActivityDiagram.png[]
+
+As can be seen in the diagram above, the method `Note#getContentCleanedFromTags()` is used to obtain a copy of the
+`Content` of the `Note`, and reformat it by replacing its note fragment tags with blank spaces.
+
+The object diagram below elaborates on the process of `Note#getContentCleanedFromTags()`:
+
+.A possible instance of a use of ViewNoteCommand
+image::samDiagrams/NoteCleanedContentObjectDiagram.png[]
+
+As can be seen from the diagram above, the `Note` object named 'note' makes use of the `NoteFeatureUtil` object and
+its own `Content` object to return the cleaned content String to the `ViewNoteCommand` object. The `ViewNoteCommand`
+object then creates a separate `Note` object named 'cleanedNote' to obtain the information to display.
+
+This indicates that calling a `ViewNoteCommand` does not affect the original `Note`, as a separate `Note` object is
+created instead.
+
+==== Design Considerations of the Add Tags Within Notes feature and ViewNoteCommand
 
 ===== Aspect: Container location for `NoteFragment`
 
@@ -783,11 +832,30 @@ must be searched through to filter them out.
 *** Cons: Difficult to maintain; deletion of a parent Note requires searching the `UniqueNoteFragmentList` for any
 child `NoteFragments` to delete as well.
 
+===== Aspect: Implementation of `ViewNoteCommand`
+
+** Alternative 1 (current choice): Create a method `Note#getContentCleanedFromTags()` that also returns a Content:
+*** Pros: Allows `Note` to remain as the sole point of interaction between the other `Note` classes (specifically
+`Content` and `Tags`).
+*** Cons: Is more complicated as `Content` must be converted to String before manipulation.
+
+** Alternative 2: Create a method `Content#getContentCleanedFromTags()` that returns a cleaned copy of itself.
+*** Pros: Can manipulate the String of the `Content` directly without having to convert it to and from `Content`.
+*** Cons: Breaks the Single Responsibility Principle, as `Content` will now be dependent on `Tags`, even though it
+does not use `Tags`.
+
 ==== Usages of the Add Tags Within Notes feature
 
-** Use in `filter` and `filterall` to make the GUI less cluttered
-** Use in `filter` to highlight specific sections of `Notes`
-** Use in `add` for `CheatSheets` for more parsimonious usage of space
+Generally, the Add Tags Within Notes feature allows for more precise filtering of `Notes` and their contents. Since
+`Notes` may be very long, this feature allows the user to highlight certain portions of the `Notes` in order to take
+out only the more important parts for `CheatSheet` creation. The user can still use the full `Content` of the `Note`
+for general revision.
+
+As such, the main usages of this feature can be summarized as follows:
+
+** Saves space when using `add` for `CheatSheets`
+** Highlights specific sections of `Notes` when using `filter`
+** Makes the GUI less cluttered when using `filter` and `filterall`
 
 ==== (Proposed) Future Improvements for v2.0
 
@@ -1168,7 +1236,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. StudyBuddyBook shows an error message.
+** 3a1. StudyBuddyPro shows an error message.
 +
 Use case resumes at step 2.
 
