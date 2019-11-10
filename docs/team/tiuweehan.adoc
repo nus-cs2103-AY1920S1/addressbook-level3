@@ -75,6 +75,9 @@ https://github.com/AY1920S1-CS2103T-W11-1/main/pull/90[#90]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/116[#116]
 https://github.com/AY1920S1-CS2103T-W11-1/main/pull/117[#117]
 
+*** Contributed to forum discussions:
+**** Guide on image and caption formatting in asciidoc: https://github.com/nus-cs2103-AY1920S1/forum/issues/168[#168]
+
 *** Reported bugs and suggestions for other teams in the class:
 https://github.com/tiuweehan/ped[Reported 18 bugs in PED]
 
