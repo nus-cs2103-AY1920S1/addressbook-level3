@@ -486,7 +486,7 @@ The `update` feature has different implementations for different entry types. Th
 
 Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
 
-Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
 
 Format (Ledger): Cannot be updated +
 
@@ -517,28 +517,32 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 ===== Example 1:
 Updating a *Transaction* entry.
 
-. Identify the index number of the entry you want to edit
+. Identify the index number of the entry you want to edit. In this case, we will be using entry 3.
 +
-
+image::update_ug_1.png[]
 +
 .  Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
 +
-
+image::update_ug_2.png[]
 +
-. Success message will be displayed upon successful update.
+. Success message will be displayed upon successful update. Fields will now be updated accordingly.
++
+image::update_ug_3.png[]
 
 ===== Example 2:
 Updating a *Budget* entry.
 
 . Identify the index number of the entry you want to edit
 +
-
+image::update_ug_4.png[]
 +
-.  Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing the date and description of this Budget.
+.  Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
 +
-
+image::update_ug_5.png[]
 +
-. Success message will be displayed upon successful update.
+. Success message will be displayed upon successful update. Fields will now be updated accordingly.
++
+image::update_ug_6.png[]
 
 ===== Example Commands:
 
