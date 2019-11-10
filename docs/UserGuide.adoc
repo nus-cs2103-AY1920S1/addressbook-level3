@@ -526,10 +526,9 @@ image::autosortsuccess.png[]
 ==== Views the fields for the custom comparator: `viewsort`
 Views the current Custom Sorter.
 
-====
+****
 *Format*: `viewsort`
-====
-
+****
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| A message will inform you of the fields of your custom comparator.]
@@ -1044,10 +1043,10 @@ Unfortunately, you are unable to change the app’s language.
 | ```clear```
 | <<Sort based on your custom comparator: `customsort`, `customsort`>>
 | Sorts items based on a created custom comparator.
-| `customsort`
+| ```customsort```
 | <<Sorts food items based on natural order: `default`, `default`>>
 | Sorts the food items based on their natural ordering.
-| `default`
+| ```default```
 | <<Deletes a food item: `delete`, `delete`>>
 | Deletes a food items based on the given index.
 | ```delete 2```
@@ -1056,13 +1055,13 @@ Unfortunately, you are unable to change the app’s language.
 | ```dislike c/International t/Spicy l/The Deck l/The Terrace```
 | <<Edit a food item: `edit`, `edit`>>
 | Edits a food item at a index based on a specific field or fields.
-| `edit 2 n/Fried Rice`
+| ```edit 2 n/Fried Rice```
 | <<Exiting the application: `exit`, `exit`>>
 | Exits the app.
 | ```exit```
 | <<Filters food items based on criteria: `filter`, `filter`>>
 | Filters the food items based on the criteria specified.
-| `filter PRICE LESS_THAN 4.00 CATEGORY EQUALS_TO Halal`
+| ```filter PRICE LESS_THAN 4.00```
 | <<Finds food items based on keywords: `find`, `find`>>
 | Finds food items based on specified keywords.
 | ```find Chicken Rice```
@@ -1077,7 +1076,7 @@ Unfortunately, you are unable to change the app’s language.
 | ```info edit```
 | <<Adding likes and dislikes to the recommendation system: `like` or `dislike`, `like`>>
 | Specifies the user's liked categories, tags and locations.
-| `like c/Chinese c/Western t/Healthy l/Univeristy Town`
+| ```like c/Chinese c/Western t/Healthy l/Univeristy Town```
 | <<List all food items: `list`, `list`>>
 | List all saved food items.
 | ```list```
