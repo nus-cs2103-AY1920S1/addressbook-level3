@@ -2,8 +2,6 @@ package seedu.address.model.vehicle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.testutil.TypicalVehicles.V1;
 import static seedu.address.testutil.TypicalVehicles.V6;
 
 import org.junit.jupiter.api.Test;
