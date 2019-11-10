@@ -132,7 +132,7 @@ public class MainAppTest extends ApplicationTest {
         var commandBox = robot.lookup("#commandTextField").queryTextInputControl();
 
         robot.clickOn(commandBox).write("onduty 1").type(KeyCode.ENTER);
-        Assertions.assertThat(resultDisplay.getText()).endsWith("is now on-duty.");
+        Assertions.assertThat(resultDisplay.getText()).endsWith("is now on duty.");
 
         robot.write("newpatient -id E0000001A -name John Doe -phone 98765432"
                         + " -email johnd@example.com -address 311, Clementi Ave 2, #02-25")
