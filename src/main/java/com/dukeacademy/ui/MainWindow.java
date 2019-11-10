@@ -9,6 +9,7 @@ import com.dukeacademy.logic.commands.exceptions.CommandException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsException;
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 import com.dukeacademy.logic.commands.tab.TabCommand;
+import com.dukeacademy.logic.notes.NotesLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.Activity;
@@ -35,6 +36,7 @@ class MainWindow extends UiPart<Stage> {
     private final CommandLogic commandLogic;
     private final QuestionsLogic questionsLogic;
     private final ProgramSubmissionLogic programSubmissionLogic;
+    private final NotesLogic notesLogic;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -58,7 +60,7 @@ class MainWindow extends UiPart<Stage> {
     private AnchorPane workspacePlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private AnchorPane notesPagePlaceholder;
 
     @FXML
     private AnchorPane helpPagePlaceholder;
@@ -73,7 +75,8 @@ class MainWindow extends UiPart<Stage> {
      * @param programSubmissionLogic the program submission logic
      */
     public MainWindow(Stage primaryStage, CommandLogic commandLogic, QuestionsLogic questionsLogic,
-                      ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
+                      ProgramSubmissionLogic programSubmissionLogic, NotesLogic notesLogic,
+                      ApplicationState applicationState) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -81,6 +84,7 @@ class MainWindow extends UiPart<Stage> {
         this.commandLogic = commandLogic;
         this.questionsLogic = questionsLogic;
         this.programSubmissionLogic = programSubmissionLogic;
+        this.notesLogic = notesLogic;
 
         applicationState.getCurrentActivityObservable().addListener(this::selectTabFromActivity);
         tabPane.getSelectionModel().selectedIndexProperty().addListener(new TabChangeListener());
@@ -118,6 +122,9 @@ class MainWindow extends UiPart<Stage> {
         Workspace workspace = new Workspace(programSubmissionLogic.getCurrentQuestionObservable(),
                 programSubmissionLogic.getTestResultObservable());
         workspacePlaceholder.getChildren().add(workspace.getRoot());
+
+        NotesPage notesPage = new NotesPage(notesLogic);
+        notesPagePlaceholder.getChildren().add(notesPage.getRoot());
 
         HelpPage helpPage = new HelpPage();
         helpPagePlaceholder.getChildren().add(helpPage.getRoot());
@@ -186,8 +193,12 @@ class MainWindow extends UiPart<Stage> {
             this.tabPane.getSelectionModel().select(2);
         }
 
-        if (activity == Activity.HELP) {
+        if (activity == Activity.NOTE) {
             this.tabPane.getSelectionModel().select(3);
+        }
+
+        if (activity == Activity.HELP) {
+            this.tabPane.getSelectionModel().select(4);
         }
     }
 
@@ -210,6 +221,10 @@ class MainWindow extends UiPart<Stage> {
             }
 
             if (newValue.intValue() == 3) {
+                resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.NOTE.toString());
+            }
+
+            if (newValue.intValue() == 4) {
                 resultDisplay.setFeedbackToUser(TabCommand.FEEDBACK + Activity.HELP.toString());
             }
         }

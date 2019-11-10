@@ -7,5 +7,6 @@ public enum Activity {
     HOME,
     QUESTION,
     WORKSPACE,
+    NOTE,
     HELP
 }

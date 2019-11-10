@@ -14,9 +14,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="518.0" minWidth="792.0" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="580" minWidth="700" onCloseRequest="#handleExit" title="DukeAcademy" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/dukeacademy-icon.png" />
+        <Image url="@/images/dukeacademy-icon.png"/>
     </icons>
     <scene>
         <Scene stylesheets="@DukeAcademyStyle.css">
@@ -24,41 +25,48 @@
                 <!-- Menu bar -->
                 <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
                     <Menu mnemonicParsing="false" text="File">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
                     </Menu>
                 </MenuBar>
 
                 <!-- Command box and command results display -->
                 <HBox spacing="15.0" VBox.vgrow="NEVER">
-                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0" style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
+                    <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" maxWidth="-Infinity"
+                               minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="258.0"
+                               style="-fx-border-color: #000000;" HBox.hgrow="NEVER">
                         <HBox.margin>
-                            <Insets bottom="15.0" left="15.0" top="15.0" />
+                            <Insets bottom="15.0" left="15.0" top="15.0"/>
                         </HBox.margin>
                     </StackPane>
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.6" prefWidth="550.0" style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity"
+                               minWidth="-Infinity" prefHeight="25.6" prefWidth="550.0"
+                               style="-fx-border-color: #000000;" HBox.hgrow="ALWAYS">
                         <HBox.margin>
-                            <Insets bottom="15.0" right="15.0" top="15.0" />
+                            <Insets bottom="15.0" right="15.0" top="15.0"/>
                         </HBox.margin>
                     </StackPane>
                 </HBox>
 
                 <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <Tab text="Home">
-                        <AnchorPane fx:id="homePagePlaceholder" />
+                        <AnchorPane fx:id="homePagePlaceholder"/>
                     </Tab>
 
                     <Tab text="Questions">
-                        <AnchorPane fx:id="questionsPagePlaceholder" />
+                        <AnchorPane fx:id="questionsPagePlaceholder"/>
                     </Tab>
 
                     <Tab text="Workspace">
-                        <AnchorPane fx:id="workspacePlaceholder" />
+                        <AnchorPane fx:id="workspacePlaceholder"/>
                     </Tab>
-               <Tab text="Help">
-                  <content>
-                     <AnchorPane fx:id="helpPagePlaceholder" />
-                  </content>
-               </Tab>
+
+                    <Tab text="Notes">
+                        <AnchorPane fx:id="notesPagePlaceholder"/>
+                    </Tab>
+
+                    <Tab text="Help">
+                        <AnchorPane fx:id="helpPagePlaceholder"/>
+                    </Tab>
                 </TabPane>
             </VBox>
         </Scene>

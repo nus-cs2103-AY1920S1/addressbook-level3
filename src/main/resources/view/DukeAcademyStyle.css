@@ -74,3 +74,52 @@
     -fx-text-fill: gray;
     -fx-highlight-fill: #7ecfff;
 }
+
+
+#noteTextContent {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#noteTextContent .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#noteTextContent:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#noteTextContent:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#noteTextContent .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+#currentNoteTitle {
+    -fx-border-color: #7d2277;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#currentNoteTitle .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#currentNoteTitle:focused .content {
+    -fx-background-color: transparent, white, transparent, white;
+}
+
+#currentNoteTitle:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+#currentNoteTitle .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}

@@ -52,7 +52,7 @@ public class JsonQuestionBankStorage implements QuestionBankStorage {
 
         Optional<JsonSerializableStandardQuestionBank> jsonQuestionBank = JsonUtil.readJsonFile(
                 filePath, JsonSerializableStandardQuestionBank.class);
-        if (!jsonQuestionBank.isPresent()) {
+        if (jsonQuestionBank.isEmpty()) {
             return Optional.empty();
         }
 

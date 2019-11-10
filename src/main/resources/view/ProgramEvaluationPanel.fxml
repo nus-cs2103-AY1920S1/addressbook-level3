@@ -6,15 +6,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<VBox minHeight="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextFlow prefHeight="23.0" prefWidth="200.0">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+      <TextFlow prefWidth="200.0">
             <Label fx:id="feedback" textFill="RED">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
       </TextFlow>
-      <ListView fx:id="evaluationListView" />
-   </children>
+      <ListView fx:id="evaluationListView" VBox.vgrow="ALWAYS"/>
 </VBox>

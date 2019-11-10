@@ -1,15 +1,14 @@
 package com.dukeacademy.observable;
 
 /**
- * Interface to represent an observer in an observer pattern.
+ * Interface to represent a listener in this native implementation of the observer pattern.
  *
- * @param <T> the type parameter
+ * @param <T> the type parameter of the object to be observed
  */
 public interface Listener<T> {
     /**
-     * On update.
-     *
-     * @param value the value
+     * The method called by this listener's observables when there is a new value updated.
+     * @param value the new value
      */
     void onUpdate(T value);
 }

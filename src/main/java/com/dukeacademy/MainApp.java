@@ -27,15 +27,23 @@ import com.dukeacademy.logic.commands.help.HelpCommandFactory;
 import com.dukeacademy.logic.commands.home.HomeCommandFactory;
 import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
+import com.dukeacademy.logic.commands.notes.DeleteNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.NewNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.OpenNoteCommandFactory;
+import com.dukeacademy.logic.commands.notes.SaveNoteCommandFactory;
 import com.dukeacademy.logic.commands.submit.SubmitCommandFactory;
 import com.dukeacademy.logic.commands.tab.TabCommandFactory;
 import com.dukeacademy.logic.commands.view.ViewCommandFactory;
+import com.dukeacademy.logic.notes.NotesLogic;
+import com.dukeacademy.logic.notes.NotesLogicManager;
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.logic.question.QuestionsLogicManager;
 import com.dukeacademy.model.state.ApplicationState;
+import com.dukeacademy.storage.notes.JsonNoteBankStorage;
+import com.dukeacademy.storage.notes.NoteBankStorage;
 import com.dukeacademy.storage.question.JsonQuestionBankStorage;
 import com.dukeacademy.storage.question.QuestionBankStorage;
 import com.dukeacademy.ui.Ui;
@@ -61,6 +69,7 @@ public class MainApp extends Application {
     private Ui ui;
     private QuestionsLogic questionsLogic;
     private ProgramSubmissionLogic programSubmissionLogic;
+    private NotesLogic notesLogic;
     private ApplicationState applicationState;
 
     @Override
@@ -81,6 +90,7 @@ public class MainApp extends Application {
         applicationState = this.initApplicationState();
         questionsLogic = this.initQuestionsLogic(config);
         programSubmissionLogic = this.initProgramSubmissionLogic(config);
+        notesLogic = this.initNotesLogic(config);
 
         CommandLogicManager commandLogic = this.initCommandLogic();
 
@@ -159,6 +169,7 @@ public class MainApp extends Application {
             logger.info("Creating data folder at : " + testOutputPath);
 
             createQuestionBankFile(dataOutputPath.resolve("QuestionBank.json"));
+            createNoteBankFile(dataOutputPath.resolve("NoteBank.json"));
         }
     }
 
@@ -169,6 +180,7 @@ public class MainApp extends Application {
     private void createQuestionBankFile(Path questionBankFilePath) {
         try {
             logger.info("Creating new question bank.");
+
             // Copy default questions
             FileUtil.createIfMissing(questionBankFilePath);
             InputStream defaultQuestionsInputStream = this.getClass().getClassLoader()
@@ -181,8 +193,29 @@ public class MainApp extends Application {
                 logger.warning("Fatal: default questions not found.");
                 this.stop();
             }
+
         } catch (IOException | NullPointerException e) {
             logger.warning("Unable to create default question bank data file.");
+        }
+    }
+
+    /**
+     * Helper method to create a note bank json file at the specified location. Default note bank will be empty.
+     * @param noteBankFilePath the path at which to create the file.
+     */
+    private void createNoteBankFile(Path noteBankFilePath) {
+        try {
+            logger.info("Creating new note bank.");
+            FileUtil.createIfMissing(noteBankFilePath);
+            InputStream emptyNoteBankInputStream = this.getClass().getClassLoader()
+                    .getResourceAsStream("noteBank.json");
+            if (emptyNoteBankInputStream != null) {
+                logger.info("Copying note bank template into new note bank");
+                Files.copy(emptyNoteBankInputStream, noteBankFilePath, StandardCopyOption.REPLACE_EXISTING);
+                emptyNoteBankInputStream.close();
+            }
+        } catch (IOException | NullPointerException e) {
+            logger.warning("Unable to create new note bank data file.");
         }
     }
 
@@ -191,7 +224,7 @@ public class MainApp extends Application {
      * in the CommandLogicManager is done in this method.
      *
      * @return a CommandLogicManger instance.
-     */
+     * */
     private CommandLogicManager initCommandLogic() {
         logger.info("============================ [ Initializing command logic ] =============================");
 
@@ -204,7 +237,7 @@ public class MainApp extends Application {
 
         // Registering exit command
         ExitCommandFactory exitCommandFactory = new ExitCommandFactory(this.questionsLogic,
-                this.programSubmissionLogic);
+                this.programSubmissionLogic, this.notesLogic);
         commandLogicManager.registerCommand(exitCommandFactory);
         // Registering attempt command
         AttemptCommandFactory attemptCommandFactory = new AttemptCommandFactory(this.questionsLogic,
@@ -252,6 +285,22 @@ public class MainApp extends Application {
         HelpCommandFactory helpCommandFactory = new HelpCommandFactory(this.questionsLogic,
                 this.programSubmissionLogic, this.applicationState);
         commandLogicManager.registerCommand(helpCommandFactory);
+        // Registering new note command
+        NewNoteCommandFactory newNoteCommandFactory = new NewNoteCommandFactory(this.notesLogic, this.applicationState
+        );
+        commandLogicManager.registerCommand(newNoteCommandFactory);
+        // Registering open note command
+        OpenNoteCommandFactory openNoteCommandFactory = new OpenNoteCommandFactory(this.notesLogic,
+                this.applicationState);
+        commandLogicManager.registerCommand(openNoteCommandFactory);
+        // Registering save note command
+        SaveNoteCommandFactory saveNoteCommandFactory = new SaveNoteCommandFactory(this.applicationState,
+                this.notesLogic);
+        commandLogicManager.registerCommand(saveNoteCommandFactory);
+        // Registering delete note command
+        DeleteNoteCommandFactory deleteNoteCommandFactory = new DeleteNoteCommandFactory(this.notesLogic,
+                this.applicationState);
+        commandLogicManager.registerCommand(deleteNoteCommandFactory);
 
         return commandLogicManager;
     }
@@ -267,12 +316,24 @@ public class MainApp extends Application {
      *
      * @param config a Config instance.
      * @return a QuestionsLogicManager instance.
-     */
+     * */
     private QuestionsLogicManager initQuestionsLogic(Config config) {
         logger.info("============================ [ Initializing question logic ] =============================");
         QuestionBankStorage storage = new JsonQuestionBankStorage(config.getDataPath().resolve("QuestionBank.json"));
 
         return new QuestionsLogicManager(storage);
+    }
+
+    /**
+     * Returns a new NotesLogicManager based on the given config preferences.
+     * @param config a Config instance
+     * @return a NotesLogicManager instance
+     */
+    private NotesLogicManager initNotesLogic(Config config) {
+        logger.info("============================ [ Initializing notes logic ] =============================");
+        NoteBankStorage storage = new JsonNoteBankStorage(config.getDataPath().resolve("NoteBank.json"));
+
+        return new NotesLogicManager(storage);
     }
 
     /**
@@ -295,7 +356,7 @@ public class MainApp extends Application {
                       ProgramSubmissionLogic programSubmissionLogic, ApplicationState applicationState) {
         logger.info("============================ [ Initializing UI ] =============================");
         return new UiManager(commandLogic, questionsLogic,
-            programSubmissionLogic, applicationState);
+            programSubmissionLogic, notesLogic, applicationState);
     }
 
     @Override

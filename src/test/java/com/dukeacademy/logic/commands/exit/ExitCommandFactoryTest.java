@@ -15,6 +15,7 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.program.ProgramSubmissionLogicManager;
 import com.dukeacademy.logic.program.exceptions.LogicCreationException;
+import com.dukeacademy.testutil.MockNotesLogic;
 import com.dukeacademy.testutil.MockQuestionsLogic;
 
 class ExitCommandFactoryTest {
@@ -22,6 +23,7 @@ class ExitCommandFactoryTest {
 
     private MockQuestionsLogic questionsLogic;
     private ProgramSubmissionLogic submissionLogic;
+    private MockNotesLogic notesLogic;
 
     @BeforeEach void initializeTest() throws LogicCreationException {
         this.questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
@@ -30,13 +32,13 @@ class ExitCommandFactoryTest {
 
     @Test
     void getCommandWord() {
-        ExitCommandFactory factory = new ExitCommandFactory(questionsLogic, submissionLogic);
+        ExitCommandFactory factory = new ExitCommandFactory(questionsLogic, submissionLogic, notesLogic);
         assertEquals("exit", factory.getCommandWord());
     }
 
     @Test
     void getCommand() throws InvalidCommandArgumentsException {
-        ExitCommandFactory factory = new ExitCommandFactory(questionsLogic, submissionLogic);
+        ExitCommandFactory factory = new ExitCommandFactory(questionsLogic, submissionLogic, notesLogic);
         Command command = factory.getCommand("    ");
         assertTrue(command instanceof ExitCommand);
 
