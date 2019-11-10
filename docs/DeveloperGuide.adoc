@@ -775,7 +775,7 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo implementation
-image::undoSQ.png[width="550"]
+image::undoSQ.png[width="450"]
 
 
 ==== Redo Implementation
@@ -798,7 +798,7 @@ Implementation.]
 The activity diagram for `redo` command is as follows:
 
 .Activity diagram for `redo` command
-image::redoactivity.png[width="550"]
+image::redoactivity.png[width="450"]
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
