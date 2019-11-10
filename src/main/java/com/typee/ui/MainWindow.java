@@ -275,8 +275,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles the MainWindow after executing PdfCommand, where checking if the current tab is in report window,
+     * ReportWindow will call method to refresh display in ReportWindow.
+     * @param docPath {@code Path} of the document file generated.
+     * @throws IOException if document file cannot be accessed.
+     */
     private void handlePdf(Path docPath) throws IOException {
         PdfUtil.openDocument(docPath);
+        if (this.currentTab.getController() instanceof ReportWindow) {
+            ReportWindow reportWindow = ((ReportWindow) this.currentTab.getController());
+            reportWindow.handleStatusLblAfterDocGen(docPath);
+        }
     }
 
     /**
