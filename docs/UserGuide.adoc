@@ -554,9 +554,11 @@ Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 * When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
 * You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
 
-Example: `editdetails n/New KFC l/Tuas`
+Example: `editdetails n/Dr Hogs Barbeque l/Punggol t/Barbeque t/Western`
 
 image::userguide\EditDetails.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
@@ -592,7 +594,7 @@ Example: `delete 1`
 ====
 .Note:
 * Deleting a food item from a restaurant will NOT delete the food item in the restaurant's orders as
-the order was already made when the food item still existed.
+the order was made when the food item was still available.
 ====
 
 {nbsp} +
@@ -607,9 +609,6 @@ Format: `rate RATING`
 
 Example: `rate 4`
 
-image::userguide\AddRating.png[width="790"]
-
-
 {nbsp} +
 
 ==== Exiting EditMode: `exitedit`
@@ -621,7 +620,17 @@ Format: `exitedit`
 
 ==== Auto-tagging of food item as "Popular"
 Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
-will be auto-tagged as "Popular".
+will be automatically tagged as "Popular".
+
+Example (refer to image below):
+
+* 16 food items are ordered in Order 2 (1 + 2 + 6 + 7), an average quantity ordered of 4 per food item.
+* Quantity ordered of food items Cheese Prata and Prata Bomb (6 and 7 respectively) is more than 1.5 times
+the average quantity ordered. Automatically tagged as "Popular" upon completion of Order 2.
+
+image::userguide\AutoTag.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
