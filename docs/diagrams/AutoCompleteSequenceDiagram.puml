@@ -23,7 +23,7 @@ trie -[LOGIC_COLOR]> trie : search(user_input)
 activate trie LOGIC_COLOR
 deactivate trie
 
-trie -[LOGIC_COLOR]> trie : getAllCommandWords
+trie -[LOGIC_COLOR]> trie : getAllCommandWords()
 activate trie LOGIC_COLOR
 deactivate trie
 
@@ -43,7 +43,7 @@ trie -[LOGIC_COLOR]> trie : search(user_input)
 activate trie LOGIC_COLOR
 deactivate trie
 
-trie -[LOGIC_COLOR]> trie : getPrefixList
+trie -[LOGIC_COLOR]> trie : getPrefixList()
 activate trie LOGIC_COLOR
 deactivate trie
 
