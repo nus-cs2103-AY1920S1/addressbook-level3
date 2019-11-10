@@ -5,12 +5,14 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.financialtracker.logic.commands.AddFinCommand;
+import seedu.address.financialtracker.logic.commands.ClearCommand;
 import seedu.address.financialtracker.logic.commands.DeleteFinCommand;
 import seedu.address.financialtracker.logic.commands.EditFinCommand;
 import seedu.address.financialtracker.logic.commands.HelpCommand;
 import seedu.address.financialtracker.logic.commands.SortFinCommand;
 import seedu.address.financialtracker.logic.commands.SummaryCommand;
 import seedu.address.financialtracker.logic.commands.SwitchCommand;
+import seedu.address.financialtracker.logic.commands.UndoCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GoToCommand;
@@ -40,7 +42,7 @@ public class FinancialTrackerParser {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         case AddFinCommand.COMMAND_WORD:
@@ -63,6 +65,12 @@ public class FinancialTrackerParser {
 
         case SwitchCommand.COMMAND_WORD:
             return new SwitchCommandParser().parse(arguments);
+
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
         case GoToCommand.COMMAND_WORD:
             return new GoToParser().parse(arguments);

@@ -869,8 +869,7 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == Financial Tracker
-Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your
-expenses seamlessly!
+Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your expenses seamlessly!
 
 Each entry in your expense has 6 key sections:
 
@@ -881,7 +880,7 @@ Each entry in your expense has 6 key sections:
 . Type of expenditure
 . Country
 
-The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, healthcare, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
+The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
 
 === Interface
 This is what you will see when navigated to the financial tracker:
@@ -889,79 +888,37 @@ This is what you will see when navigated to the financial tracker:
 .Financial Tracker Interface
 image::/images/FinancialTrackerInterface.png[]
 
-=== Parameters
-Let's understand how to use your parameters first!
-
-In an expense, every fields are *compulsory*. However, the *date* and *time* fields need not be specified, it'll be recorded down automatically based on the date and time you recorded the expense. Convenient enough, right?
-
-Below are the _PREFIX_ convention that TravEzy's Financial Tracker will be using.
-
-. Date. The _PREFIX_ is ``date/``. Note that the format TravEzy's Financial Tracker using is "ddMMyyyy". For example:
-
-    date/30102019
-
-. Time. The _PREFIX_ is ``time/``. Note that the format TravEzy's Financial Tracker using is 24-Hour format. For example:
-
-    time/1359
-
-. Amount. The _PREFIX_ is ``a/``. Let's say you've spent 3.50 dollars. You would enter:
-
-    a/3.5
-
-. Description. The _PREFIX_ is ``d/``. You can type in a sentence or a phrase.
-
-    d/Breakfast     or     d/Mala at the Deck
-
-. Type of expenditure. The _PREFIX_ is ``t/``. Specify which type of expenditure you are spending.
-
-    t/food
-
-. Country. You can switch between countries by using the ``switch`` command or select from the dropdown menu to select which countries you're currently in. The default country every time you launch the application is *Singapore*. There is no prefix for country field and you're not allowed to edit it :(
-
- Look out for switch command below!
-
 === Adding an expense: ``add``
-Adding what you've spent at the nice coffee shop you stopped by?
+Adding the milk you've spent at the grocery shop you stopped by?
 
-The _Command Word_ is ``add`` and the prefixes are ``a/`` for amount, ``d/``
-for description, ``t/`` for type of expenditure. Date ``date/`` and time ``time/`` are optional. +
-This command adds an expense to your Financial Tracker, with the parameters: amount, description, type, date and time.
+*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
 
-Format: ``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+*Example:*
 
-Example:
+ add a/2.89 d/Meiji Milk t/grocery
 
- add a/4 t/dinner at Vivocity t/food
+*Step by step:*
 
-Illustration:
-
-. type ``add a/2.89 d/Meiji Milk t/grocery`` in the command box and press _Enter_.
+Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the command box and press _Enter_.
 
 image::/images/FinancialTrackerAdd1.png[]
 
-[start = 2]
-. The result box will display the message "Expense added".
+Step 2. The result box will display the message "Expense added".
+
+Step 3. Now you can find your added expense in the expense list.
 
 image::/images/FinancialTrackerAdd2.png[]
-
-[start = 3]
-. Now you can find your added expense in the expense list.
-
-image::/images/FinancialTrackerAdd3.png[]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-The _Command Word_ is ``delete`` with an parameter index. +
-This command deletes an expense from your Financial Tracker with the only parameter being the index of the expense you want to delete. The index must be an integer which is greater than 1 and corresponds to ID of the expense you want to delete.
+*Format:* ``delete INDEX``
 
-Format: ``delete INDEX``
-
-Example: Delete the first expense you saw on your expense list.
+*Example:* Delete the first expense you saw on your expense list.
 
  delete 1
 
-Illustration:
+*Step by step:*
 
 . type ``delete 3`` in the command box and press _Enter_.
 
@@ -1005,6 +962,69 @@ image::/images/FinancialTrackerEdit2.png[]
 . Now the first expense's time and amount fields have been changed to `22.90` and `10:00 p.m.` respectively.
 
 image::/images/FinancialTrackerEdit3.png[]
+
+=== Clears an expense list: ``clear``
+Messed up your expense list? Don't worry, just clear it! (But be careful :o)
+
+The _Command Word_ is ``clear`` without any parameter +
+This command clears the current expense list that you are looking at.
+
+Format: ``clear``
+
+Example: Clears your current expense list.
+
+ clear
+
+Illustration:
+
+. type ``clear`` in the command box and press _Enter_.
+
+image::/images/FinancialTrackerClear1.png[]
+
+[start = 2]
+. The result box will display the message "Expense list cleared!".
+
+image::/images/FinancialTrackerClear2.png[]
+
+[start = 3]
+. Now your expense list has been cleared.
+
+image::/images/FinancialTrackerClear3.png[]
+
+=== Undo your previous action: ``undo``
+Did something wrong? We heard you! Simply undo your previous action :)
+
+The _Command Word_ is ``undo`` without any parameter +
+This command undo your previous action that has been done *on this expense list*.
+
+TIP: You can only undo your previous `add`, `edit`, `delete` and `clear` action.
+
+Format: ``undo``
+
+Example: Undo your previous action
+
+ clear
+
+Illustration:
+
+. Add any expense you want using add command.
+
+image::/images/FinancialTrackerUndo1.png[]
+
+[start = 2]
+. type ``undo`` in the command box and press _Enter_.
+
+image::/images/FinancialTrackerUndo2.png[]
+
+[start = 3]
+. The result box will display the message "Done!".
+
+image::/images/FinancialTrackerUndo3.png[]
+
+[start = 4]
+. Previous action has been undone.
+
+image::/images/FinancialTrackerUndo4.png[]
 
 // tag::financialtracker[]
 === Switching between countries: ``switch``
