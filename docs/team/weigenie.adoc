@@ -112,9 +112,7 @@ https://github.com/AY1920S1-CS2103T-W12-1/main/pull/346[#346])
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=claimfeature]
 
 == Contributions to the Developer Guide
 
