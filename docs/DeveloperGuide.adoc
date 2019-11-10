@@ -446,6 +446,9 @@ aspects in `[green]#Performance#` should be implemented.
 
 ===== Aspect: Method of storing performance records for athletes.
 
+Performance records are currently stored in a list for each athlete. Each list is saved as a value for the
+athlete key in a Performance HashMap.
+
 [width="100%", cols="1, 5, 5"]
 |===
 || *Alternative 1 (Current Choice): Use a HashMap of Persons as keys and a list of Records as values.*
@@ -475,6 +478,14 @@ is not always known
 methods that are in the HashMap API are relevant
 
 ===== Aspect: Method of displaying events and records to users.
+
+Viewing events and records are separate commands in Athletick.
+
+To view events, the command is `view performance`. Users will be shown a list of all the events they have
+in Athletick.
+
+To view records under a certain event, the command is `view records EVENT_NAME`. Users will be shown a
+graph on each athlete's records under this event.
 
 [width="100%", cols="1, 5, 5"]
 |===
