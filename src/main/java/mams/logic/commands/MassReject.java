@@ -114,7 +114,10 @@ public class MassReject extends Reject {
     }
 
 
-
+    /**
+     * generates feedback message
+     * @return
+     */
     private String resultGenerator() {
         String result = "";
         if (rejectedSuccessfully.isEmpty()) {
