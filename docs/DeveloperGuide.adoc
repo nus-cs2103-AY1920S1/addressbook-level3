@@ -520,6 +520,15 @@ The design considerations for the classes are shown below:
 
 ==== Internal workings of the Game
 
+==== Game considerations
+The considerations for the choice of game is shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Minesweeper | It is a well-known popular desktop game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete. 
+|2. Sudoku | It is a well-known popular pen-and-paper game. | It is difficult to understand the implied rules to this game and this game requires a long time to complete.
+|3. *(Current)* Snake | The rules are simple to understand. The duration for each game is short. | It is addictive when users try to break their high score.
+|===
+
 ==== Design considerations
 The design considerations for the placement of the game is shown below:
 |===
