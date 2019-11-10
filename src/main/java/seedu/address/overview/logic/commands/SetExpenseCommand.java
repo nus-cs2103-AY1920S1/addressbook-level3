@@ -7,6 +7,7 @@ import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_EXPENSE_SUC
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
 
+
 /**
  * Command representing setting of expense target.
  */
@@ -24,11 +25,14 @@ public class SetExpenseCommand extends SetCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0) {
+            logger.warning("Negative amount set, throwing error.");
             throw new InvalidValueException(MESSAGE_INVALID_SET_AMOUNT);
         } else if (outOfRange(amount)) {
+            logger.warning("Too large an amount, throwing error.");
             throw new InvalidValueException(MESSAGE_AMOUNT_TOO_LARGE);
         }
 
+        logger.info("Setting expense target as " + amount);
         model.setExpenseTarget(amount);
         return new CommandResult(String.format(MESSAGE_SET_EXPENSE_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }

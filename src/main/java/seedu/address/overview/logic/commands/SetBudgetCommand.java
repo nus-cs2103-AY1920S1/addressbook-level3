@@ -24,11 +24,14 @@ public class SetBudgetCommand extends SetCommand {
     public CommandResult execute(Model model) throws InvalidValueException {
 
         if (amount < 0) {
+            logger.warning("Negative amount set, throwing error.");
             throw new InvalidValueException(MESSAGE_INVALID_SET_AMOUNT);
         } else if (outOfRange(amount)) {
+            logger.warning("Too large an amount, throwing error.");
             throw new InvalidValueException(MESSAGE_AMOUNT_TOO_LARGE);
         }
 
+        logger.info("Setting budget target as " + amount);
         model.setBudgetTarget(amount);
         return new CommandResult(String.format(MESSAGE_SET_BUDGET_SUCCESS, DECIMAL_FORMAT.format(amount)));
     }
