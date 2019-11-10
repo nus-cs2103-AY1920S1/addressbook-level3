@@ -1307,7 +1307,7 @@ The feature comprises of the following features:
 * <<Feature-Event-Delete, `EventDeleteCommand`>> - Deletes an existing event, identified by their index.
 * <<Feature-Event-View, `EventViewCommand`>> -View and set the preferences of the event schedule.
 * <<Feature-Event-Screenshot, `EventScreenshotCommand`>> -Takes a screenshot of the current event schedule.
-* <<Feature-Event-Expport, `EventExportCommand`>> -Exports events to a .ics file type.
+* <<Feature-Event-Export, `EventExportCommand`>> -Exports events to a .ics file type.
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
