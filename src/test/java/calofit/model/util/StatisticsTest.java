@@ -1,6 +1,7 @@
 package calofit.model.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
@@ -8,10 +9,13 @@ import java.time.LocalDateTime;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javafx.collections.ObservableList;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import calofit.model.CalorieBudget;
+import calofit.model.meal.Meal;
 import calofit.model.meal.MealLog;
 import calofit.testutil.TypicalMeals;
 
@@ -71,4 +75,10 @@ public class StatisticsTest {
         }
     }
 
+    @Test
+    public void testNullBudget() {
+        ObservableList<Meal> meals = TypicalMeals.getTypicalMealsObservableList();
+        assertThrows(NullPointerException.class, () ->
+            Statistics.generateStatistics(meals, null));
+    }
 }

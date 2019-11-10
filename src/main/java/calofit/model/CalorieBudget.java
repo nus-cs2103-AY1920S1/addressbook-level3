@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
 import java.util.NavigableMap;
+import java.util.Objects;
 import java.util.OptionalInt;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -105,5 +106,22 @@ public class CalorieBudget {
 
     public NavigableMap<LocalDate, Integer> getBudgets() {
         return Collections.unmodifiableNavigableMap(this.budgetHistory);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CalorieBudget that = (CalorieBudget) o;
+        return Objects.equals(budgetHistory, that.budgetHistory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(budgetHistory);
     }
 }
