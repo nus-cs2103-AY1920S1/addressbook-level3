@@ -14,7 +14,10 @@ Responsibilities: Code Quality + Scheduling and Tracking
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Given the task to augment an address book desktop application for our software engineering project, my team and I
+decided to transform it into Xpire, an expiry date tracker. Xpire targets students living on campus, allowing them to track,
+identify and replenish any items, including but not limited to, perishable items like food, makeup and medicine, that have either already expired, are
+fully depleted, or are expiring soon.
 
 == Summary of contributions
 
@@ -22,7 +25,7 @@ Xpire is a desktop application used for tracking expiry dates of items.  The use
 |_This section shows a summary of my coding, documentation and other helpful contributions to the team project._
 |===
 
-* *Major enhancement*: added *the ability to view different lists and execute only commands permissible for the list specified*
+* *Major enhancement: the ability to view different lists and execute only commands permissible for the list specified*
 ** What it does: allows the user to view the list of items to be replenished from the main tracking list of items and vice versa. In the replenish list, certain commands are intentionally prohibited.
 ** Justification: This feature improves the product significantly as a user can view and search for his or her items that have run out and replenish them as soon as possible. Items in the replenish list
 are also differentiated from the items in the main tracking list, by limiting the commands available. This is founded on the basis that certain commands such as sorting by date would be rendered irrelevant as
@@ -31,7 +34,7 @@ items to be replenished do not have an expiry date or quantity unlike those in t
 chunks. The implementation was also challenging because it requires a good command of generics to ensure that existing commands would work well with both items in the main tracking list and items to be
 replenished, without making drastic changes to the code base.
 
-* *Major enhancement*: added *the ability to recommend similar words for correction if any when a user makes mistakes in his or her input*
+* *Major enhancement: the ability to recommend similar words for correction if any when a user makes mistakes in his or her input*
 ** What it does: recommends closely-related words detected in comparison to the user input
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them. With spelling corrections, they can now easily identify
 their input mistakes and correct them with ease.
