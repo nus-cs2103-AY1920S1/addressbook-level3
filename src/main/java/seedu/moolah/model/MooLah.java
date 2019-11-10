@@ -173,7 +173,7 @@ public class MooLah implements ReadOnlyMooLah {
     //=========== Budget-level operations ================================================================
     /**
      * Returns true if a budget with the same identity as {@code budget}
-     * exists in Moolah.
+     * exists in MooLah.
      */
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
@@ -181,8 +181,8 @@ public class MooLah implements ReadOnlyMooLah {
     }
 
     /**
-     * Adds a budget to Moolah.
-     * The budget must not already exist in Moolah.
+     * Adds a budget to MooLah.
+     * The budget must not already exist in MooLah.
      */
     public void addBudget(Budget budget) {
         requireNonNull(budget);

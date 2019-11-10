@@ -157,13 +157,6 @@ public class Budget {
      * @param toRemove The expense to remove.
      */
     public void removeExpense(Expense toRemove) {
-        //        Expense toRemove = null;
-        //        for (Expense expense : expenses) {
-        //            if (expense.isSameExpense(otherExpense)) {
-        //                toRemove = expense;
-        //                break;
-        //            }
-        //        }
         requireNonNull(toRemove);
         this.expenses.remove(toRemove);
     }
