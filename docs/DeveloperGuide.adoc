@@ -616,22 +616,22 @@ A TreeMap is now being used in the process of parsing commands. New command clas
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
-commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands`.
+commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands()`.
 
-Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
-the TreeMap does not contain the keyword "plus".
+Step 2. The user enters `plus` instead of `add`. `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
+the TreeMap does not contain the keyword `plus`.
 
-Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
+Step 3. The `UnknownCommand` is executed by `Logic` and `plus` is saved on the `savedCommand` Stack in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` stack.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters `ad` instead of `add`. Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` Stack.
 
 [NOTE]
 Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
 
-Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
-Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and `ad` is also saved.
+Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in `cancel`.
 
-Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
+Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the Stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
 
 Step 7. `NewCommand` has a `CommandResult` with an `isUnknown` value of `false`. This will trigger TutorAid back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
@@ -655,10 +655,10 @@ image::LearnCustomCommandsActivityDiagram.png[width="500"]
 
 ===== Aspect: Data structure to support the learning of custom commands
 
-* **Alternative 1 (current choice):** Add all CommandObject objects in the ObservableList<CommandObject> into a TreeMap.
+* **Alternative 1 (current choice):** Add all `CommandObject` objects in the `ObservableList<CommandObject>` into a TreeMap.
 ** Pros: Future queries to determine if a command exists or not only requires O(1) time.
 ** Cons: The first iteration to populate the TreeMap still takes O(n) time.
-* **Alternative 2:** Iterate through the ObservableList<CommandObject> to check if the command exists.
+* **Alternative 2:** Iterate through the `ObservableList<CommandObject>` to check if the command exists.
 ** Pros: We do not need to maintain a separate data structure, and just reuse what is already in the codebase. We also
 do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
