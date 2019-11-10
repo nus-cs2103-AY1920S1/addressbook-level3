@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX;
 import static seedu.ezwatchlist.commons.core.messages.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
@@ -12,6 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import javafx.collections.ObservableList;
+
+import seedu.ezwatchlist.commons.core.GuiSettings;
 import seedu.ezwatchlist.logic.commands.ListCommand;
 import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
@@ -152,6 +156,56 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
+    @Test
+    void execute() {
+    }
+
+    @Test
+    void getModel() {
+        assertTrue(logic.getModel() instanceof Model);
+    }
+
+    @Test
+    void getWatchList() {
+        assertTrue(logic.getWatchList() instanceof ReadOnlyWatchList);
+    }
+
+    @Test
+    void getUnWatchedList() {
+        assertTrue(logic.getUnWatchedList() instanceof ObservableList);
+    }
+
+    @Test
+    void getWatchedList() {
+        assertTrue(logic.getWatchedList() instanceof ObservableList);
+    }
+
+    @Test
+    void getFilteredShowList() {
+        assertTrue(logic.getFilteredShowList() instanceof ObservableList);
+    }
+
+    @Test
+    void updateFilteredShowList() {
+        assertTrue(logic.getSearchResultList() instanceof ObservableList);
+    }
+
+    @Test
+    void getSearchResultList() {
+        //assertTrue(logic.updateFilteredShowList() instanceof ObservableList);
+    }
+    @Test
+    void getWatchListFilePath() {
+        assertTrue(logic.getWatchListFilePath() instanceof Path);
+    }
+    @Test
+    void getGuiSettings() {
+        assertTrue(logic.getGuiSettings() instanceof GuiSettings);
+    }
+    @Test
+    void setGuiSettings() {
+        //assertTrue(logic.setGuiSettings() instanceof GuiSettings);
+    }
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */

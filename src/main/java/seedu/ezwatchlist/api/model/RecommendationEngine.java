@@ -18,6 +18,7 @@ import info.movito.themoviedbapi.model.core.MovieResultsPage;
 import info.movito.themoviedbapi.model.core.ResultsPage;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 import info.movito.themoviedbapi.tools.MovieDbException;
+
 import seedu.ezwatchlist.api.exceptions.NoRecommendationsException;
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
 import seedu.ezwatchlist.api.util.ApiUtil;

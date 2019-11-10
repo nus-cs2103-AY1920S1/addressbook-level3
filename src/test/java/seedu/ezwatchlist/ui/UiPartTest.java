@@ -2,6 +2,7 @@ package seedu.ezwatchlist.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.testutil.Assert.assertThrows;
 
 import java.net.URL;
@@ -75,6 +76,16 @@ public class UiPartTest {
         assertThrows(AssertionError.class, () -> new TestUiPart<Object>(INVALID_FILE_PATH, new Object()));
     }
 
+    @Test
+    public void test() {
+        assertTrue(new TestUiPart<>(VALID_FILE_PATH).testGetFxmlFileUrl(VALID_FILE_PATH) instanceof URL);
+    }
+
+    @Test
+    public void test2() {
+
+    }
+
     private URL getTestFileUrl(String testFilePath) {
         String testFilePathInView = "/view/" + testFilePath;
         URL testFileUrl = MainApp.class.getResource(testFilePathInView);
@@ -84,7 +95,7 @@ public class UiPartTest {
 
     /**
      * UiPart used for testing.
-     * It should only be used with invalid FXML files or the valid file located at {@link VALID_FILE_PATH}.
+     * It should only be used with invalid FXML files or the valid file located at validfileroot.
      */
     private static class TestUiPart<T> extends UiPart<T> {
 
@@ -108,7 +119,12 @@ public class UiPartTest {
             super(fxmlFileName);
             assertEquals(VALID_FILE_ROOT, validFileRoot);
         }
+        URL testGetFxmlFileUrl(String fxml) {
+            return getFxmlFileUrl(fxml);
+        }
 
     }
+
+
 
 }
