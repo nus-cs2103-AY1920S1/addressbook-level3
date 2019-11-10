@@ -141,6 +141,17 @@ public class FindMeetingTimeCommandTest {
                 commandFail2.getFeedbackToUser());
     }
 
+    @Test
+    public void execute_nullMeetingQueryGenerated_throwsAssertionError() {
+        FindMeetingTimeCommand validCommand1 =
+                new FindMeetingTimeCommand(SAMPLE_START_DATE3, SAMPLE_END_DATE3, SAMPLE_DURATION1);
+        FindMeetingTimeCommand validCommand2 =
+                new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE1, SAMPLE_DURATION2);
+        ModelStub modelStubNull = new ModelStubWithMeetingQuery(null);
+        assertThrows(AssertionError.class, () -> validCommand1.execute(modelStubNull));
+        assertThrows(AssertionError.class, () -> validCommand2.execute(modelStubNull));
+    }
+
 //    @Test
 //    public void execute_duplicateMeeting_throwsCommandException() {
 //        Index validIndex = new Index(1);

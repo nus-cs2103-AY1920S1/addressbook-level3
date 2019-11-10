@@ -3,7 +3,11 @@ package seedu.pluswork.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PRICE;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_INDEX;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
@@ -64,6 +68,10 @@ public class CommandTestUtil {
     public static final String VALID_INVENTORY_NAME_MUSIC = "Drums";
     public static final double VALID_INVENTORY_PRICE_SPORTS = 79.50;
     public static final double VALID_INVENTORY_PRICE_MUSIC = 999;
+    public static final String INVENTORY_NAME_DESC_SPORTS = " " + PREFIX_INVENTORY_NAME + VALID_INVENTORY_NAME_SPORTS;
+    public static final String INVENTORY_PRICE_DESC_SPORTS = " " + PREFIX_INVENTORY_PRICE + VALID_INVENTORY_PRICE_SPORTS;
+    public static final String INVENTORY_TASKID_DESC_SPORTS = " " + PREFIX_TASK_INDEX + 1;
+    public static final String INVENTORY_MEMBERID_DESC_SPORTS = " " + PREFIX_MEMBER_ID + "AR";
 
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
             + "Project Review&"; // '&' not allowed in names
