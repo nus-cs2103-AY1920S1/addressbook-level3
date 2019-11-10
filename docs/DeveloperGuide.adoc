@@ -576,10 +576,23 @@ to `EventSource` and `TaskSource` objects in Horo.
 
 Here is an overview of how the ICS component looks like:
 
+.ICS Component Architecture
 image::IcsComponentDiagram.png[]
 
-The file exporter uses the `*IcsConverter*` class to convert `*EventSource*` and `*TaskSource*` objects
-stored in the `*ModelManager*` singleton object into their ICS String representations. Check out the
+Right now, this is how the `*IcsExporter*` class exports Horo's `*EventSource*` and `*TaskSource*` data.
+Notice that the file is created onnly when it is known that the directory provided by the user is valid.
+This is to prevent extra uncaught errors being thrown.
+
+.Activity Diagram of an Export Command
+image::ExportCommandActivityDiagram.png[]
+
+In order to generate the file content from Horo's saved data, the file exporter uses the `*IcsConverter*` class to convert `*EventSource*` and `*TaskSource*` objects
+stored in the `*ModelManager*` singleton object into their ICS String representations.
+
+They will then be concatenated together using a `*StringBuilder*` object. Boilerplate information will be added
+at the start and end of the save file to make the file valid to be imported to other Calendar applications.
+
+Check out the
 link:https://en.wikipedia.org/wiki/ICalendar[iCalendar Wiki Page] for more information on the specifications.
 
 
