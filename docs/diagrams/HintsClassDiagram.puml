@@ -30,6 +30,11 @@ skinparam arrowThickness 1.2
 skinparam arrowColor #0E4100
 skinparam classBackgroundColor #654321
 
+package Timer <<Rectangle>> {
+Class GameTimer
+
+}
+
 package AppManager <<Rectangle>> {
 
 Class AppManager #00008b {
@@ -89,10 +94,12 @@ Class FormattedHint #8403fc {
 AppManager -right-> Logic
 Logic -right-> Model
 Model -down-> Game : gets FormattedHints from >
+AppManager *-down-> GameTimer : triggers Hint requests <
 
-Game -down-->"0..*" Card : getCurrCardFormattedHint() >
-Card *-down-> FormattedHintSupplier : getFormattedHint() >
-Card *-right-> Word
+Game -down->"0..*" Card : getCurrCardFormattedHint() >
+Card *-right-> FormattedHintSupplier : getFormattedHint() >
 Card *-left-> Meaning
+Card *-down-> Word
+
 FormattedHintSupplier *-down-> FormattedHint
 @enduml
