@@ -6,7 +6,6 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.program.ProgramSubmissionLogic;
 import com.dukeacademy.logic.question.QuestionsLogic;
 import com.dukeacademy.model.state.ApplicationState;
-import com.dukeacademy.ui.Dashboard;
 
 /**
  * Factory class encapsulating the necessary components for the creation of a Dashboard command instance.
