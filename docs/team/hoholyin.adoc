@@ -29,6 +29,9 @@ TIP: Denotes useful tips.
 
 NOTE: Denotes additional information.
 
+{nbsp} +
+{nbsp} +
+
 == Summary of contributions
 This section shows a summary of my contributions to the team project and will include the main enhancement (Generating Loan Slip),
 code contribution and other contributions.
@@ -60,8 +63,7 @@ I have provided a breakdown below as to how this feature achieves the required *
 * *Completeness*: This feature is complete with the intended style has been rigorously tested in many test cases.
 
 * *Effort*: This feature required an in-depth understanding of handling external libraries as well as file input and output.
-These information are not taught in the course and therefore required extensive research on my part. +
-{nbsp}
+These information are not taught in the course and therefore required extensive research on my part.
 
 ==== Credits
 This feature is made possible with the 'iText 7' library. However, it was still required of me to understand both the
