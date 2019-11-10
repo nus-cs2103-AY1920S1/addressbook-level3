@@ -47,7 +47,7 @@ public class FullCalendarView extends UiPart<Region> {
         currentYearMonth = yearMonth;
         // Create the calendar grid pane
         GridPane calendar = new GridPane();
-        calendar.setPrefSize(600, 400);
+        calendar.setPrefSize(600, 500);
         calendar.setGridLinesVisible(true);
         calendar.autosize();
         // Create rows and columns with anchor panes for the calendar
