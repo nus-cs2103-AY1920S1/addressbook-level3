@@ -287,7 +287,7 @@ The object diagram below shows a snapshot of the various objects involved when t
 The diagram omits objects involving the `Ui` component as well as specific `Task` objects for brevity.
 
 .Snapshot of objects involved in populating the dashboard with data
-image::DashboardObjectDiagram.png[width=600]
+image::DashboardObjectDiagram.png[]
 
 ==== Design Considerations
 
@@ -335,7 +335,7 @@ To allow `Ui` to be responsive to updates in the settings, two of the operations
 The activity diagram below summarises the process of executing a settings command.
 
 .Activity diagram of settings command execution.
-image::SettingsActivityDiagram.png[width=200]
+image::SettingsActivityDiagram.png[]
 
 Assume that the current `theme` is `LIGHT` and `clockFormat` is `TWENTY_FOUR`.
 
@@ -356,7 +356,7 @@ Step 5. The settings have been updated and stored in `plusworksettings.json`.
 The following sequence diagram shows how the `theme dark` operation works with reference to steps 2 and 3 above.
 
 .Operational flow of `ThemeCommand`
-image::ThemeSequenceDiagram.png[width=400]
+image::ThemeSequenceDiagram.png[]
 
 NOTE: The lifeline for `ThemeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
