@@ -261,7 +261,7 @@ public class GameTest {
                 DifficultyEnum.EASY);
 
         int underscoreCount = 0;
-        String formattedHintString = testGame.getHintFormatForCurrCard().toString();
+        String formattedHintString = testGame.getCurrCardFormattedHint().toString();
         for (int i = 0; i < 5; i++) {
             if (formattedHintString.charAt(i) == '_') {
                 underscoreCount++;

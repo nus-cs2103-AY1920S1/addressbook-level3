@@ -255,7 +255,7 @@ public class LogicManager implements Logic, UiLogicHelper {
 
     @Override
     public FormattedHint getHintFormatFromCurrentGame() {
-        return this.model.getHintFormatFromCurrentGame();
+        return this.model.getFormattedHintFromCurrGame();
     }
 
     @Override

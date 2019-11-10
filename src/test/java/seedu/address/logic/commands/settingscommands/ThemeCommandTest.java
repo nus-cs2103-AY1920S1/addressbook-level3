@@ -121,7 +121,7 @@ public class ThemeCommandTest {
         }
 
         @Override
-        public FormattedHint getHintFormatFromCurrentGame() {
+        public FormattedHint getFormattedHintFromCurrGame() {
             return null;
         }
 

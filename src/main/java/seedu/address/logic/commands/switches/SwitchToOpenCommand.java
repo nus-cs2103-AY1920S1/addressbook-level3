@@ -7,7 +7,7 @@ import seedu.address.logic.util.ModeEnum;
 import seedu.address.model.Model;
 
 /**
- * Terminates the program.
+ * Switches application to open mode.
  */
 public class SwitchToOpenCommand extends SwitchCommand {
 

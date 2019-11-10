@@ -154,7 +154,7 @@ _This section breakdown the logic package into its internal components_
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[width="600"]
 
 Logic is primarily built by two segments: Command and Parser.
 
@@ -162,27 +162,47 @@ Logic is primarily built by two segments: Command and Parser.
 
     Command is an abstract class.
 
-    Four other abstract classes (HomeCommand, OpenCommand, GameCommand and SettingsCommand) extend Command.
+    Four other abstract classes (WordBankCommand, CardCommand, GameCommand and SettingsCommand) extend Command.
 
     Concrete Command classes with an execute method implementation extend one of the above four abstract classes.
 
 ===== Parser
 
-    ParserManager holds reference to a SpecificModeParser and a SwitchModeParser.
+    ParserManager holds reference to two SpecificModeParsers
 
-    The SpecificModeParser changes based on current application mode.
+    The SpecificModeParsers change based on current application mode.
 
-    Both of them hold references to all concrete Parser and Command Classes with the help of ClassUtil
+    They hold references to all concrete Parser and Command Classes with the help of ClassUtil
 
 Logic fulfils its contracts with other packages through two interfaces: Logic and UiLogicHelper
 
+==== Interaction through Logic Interface
+
 Examples of transactions promised by Logic API include command execution, command result and update statistics.
+
+
+* Command Execution through `Logic Interface`
+
+.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+
+==== Interaction through UiLogicHelper Interface
 
 UiLogicHelper APIs is a subset of Logic APIs and only contains transactions for AutoComplete. It exposes the functionalities through the following getter methods:
 
-* `List<AutoFillAction>#getMenuItems(String text)` -- Gets an List of AutoFillActions to fill up AutoComplete display based on current user input given in text
+* `List<AutoFillAction>#getMenuItems(String text)` -- Gets a List of AutoFillActions to fill up AutoComplete display based on current user input given in text
 * `ModeEnum#getMode()` -- Retrieves the application mode to display visually to the user (represented by enumeration object ModeEnum)
 * `List<ModeEnum>#getModes()` -- Retrieves the possible modes the user can transition to from current mode
+
+
+The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
+
+.Sequence Diagram of AutoComplete
+image::AutoCompleteSequenceDiagram.png[width="600"]
+
 
 *API* :
 link:https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -280,46 +300,48 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== [underline]#AutoComplete and Command Execution#
+=== AutoComplete and Dynamic Parsers
 _This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
-ParserManager dynamically changes parser depending on current mode the game is at. When updating the User Interface for every keystroke, it ensures only the right commands get parsed and autocompleted at each moment.
+ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern.
 
-==== Implementation details
+Instead of choosing a  single parser to use at compile time, they are chosen at runtime depending on runtime state. This supports a variety of benefits which are explained under design considerations.
+
+The above implementation empowers the application with the following features :
+
+.   Every user keystroke only auto completes the right commands
+.   Only the right commands get parsed and executed. What are the right commands? They are the commands that belong to the current mode and switch commands when preconditions are met.
 
 
-.  `ParserManager` instance has reference to a `SwitchModeParser` and `SpecificModeParser`
-.   When user enters a keystroke, the `SwitchModeParser` and/or `SpecificModeParser` are accessed based on internal state.
-.  It updates the AutoComplete suggestions for every keystroke.
+==== Implementation details of ParserManager
+
+
+.  `ParserManager` instance has reference to two `SpecificModeParser` objects
+.  When user enters a keystroke, the `SpecificModeParser` which holds switch commands or `SpecificModeParser` which holds current mode commands are accessed based on internal state.
 .   Internal State consists of booleans: gameIsOver, bankLoaded and enumeration ModeEnum: HOME, OPEN, GAME, SETTINGS
-.   The above process is aided by `ClassUtil` to handle instantiation of Parser and Command objects.
+.   Boolean algebra is used to derive the four overall states.
+
+   The below activity diagram demonstrates four possible states and a typical user flow.
+
+.Activity diagram of a typical application flow
+image::StateActivityDiagram.PNG[width="400"]
+
+*   Definitions of Switch and Mode in table above
+**   SwitchCommands = (commands that change mode)
+**   ModeCommands = (commands that belong to a specific mode ie Home, Open, Game and Settings)
+
+==== Implementation details of SpecificModeParser
+
+*   SpecificModeParsers use  ClassUtil to handle instantiation of Parser and Command objects.
+*   ClassUtil holds a list of references to Command and Parsers classes. In Java class references are passed using .class attribute. Example: AddCommand.class
+*   Internally, ClassUtil employs java reflections to find attributes of classes without instantiating them. Code for it is succinct and shown in the snippet https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/docs/images/reflectionsSnippet.PNG[linked here].
 
 
-    The state management is complex. The below sequence diagram demonstrates all possible workflows.
+*   Also, when a command needs to be executed, it instantiates the Parser object (if any) and Command object at runtime.
 
-.Activity diagram of Application flow
-image::ParserManagerActivityDiagram.PNG[]
+*   https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/docs/images/reflectionsSnippet2.PNG[Here] is a snippet is from ParserManager. Just one line of code is necessary to include a new command with its parser. Example:
 
-NOTE: Home (No Switch) means HomeModeParser is used and SwitchModeParser is not used
-
-
-==== Walkthrough of Command Execution
-
-* Command Execution through `Logic Interface`
-
-.  A String from Ui package gets to `ParserManager` and gets converted into a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a word meaning pair into wordbank).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` and `AppManager`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-==== Walkthrough of AutoComplete
-
-* AutoComplete through `UiLogicHelper Interface`
-
-The following sequence diagram shows how the AutoComplete operation runs when user keys in "st" into command box.
-
-.Sequence Diagram of AutoComplete
-image::AutoCompleteSequenceDiagram.png[]
+    temp.add(NewCommand.class, NewCommandParser.class);
 
 
 ==== Design Considerations
@@ -329,14 +351,14 @@ image::AutoCompleteSequenceDiagram.png[]
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
 How parser and command objects are instantiated in SpecificModeParser
-| **Use java reflections to hold a List of Classes and iterate through them to pick the matching Classes** +
+| **Use java reflections to hold a list of classes and iterate through them to pick the matching classes** +
  +
 [underline]_Pros:_ +
-Open Close Principle strictly followed. Adding a command with a parser takes only one line of code. +
+Open Close Principle strictly followed. Adding a command and a parser takes only one line of code. +
  +
 [underline]_Cons:_ +
-It is developer responsibility to ensure classes subclass Command object as compile time errors would not be thrown.
-|**Use switches in Parser to match Command Word to create Parser objects if necessary else directly create Command object.** +
+It is developer's responsibility to ensure classes subclass the abstract Command class as compile time errors would not be thrown.
+|**Use switches to match the command word with the right parsers** +
  +
 [underline]_Pros:_ +
 Compile time error would be thrown if new command or parser does not subclass correctly. +
@@ -345,7 +367,7 @@ Compile time error would be thrown if new command or parser does not subclass co
 Adding a new command with parser would require the developer to insert it into multiple locations as the autocomplete feature needs an iterable command list.
 
 3+|**Why did we choose Alternative 1:** +
-d
+Given that ClassUtil gracefully handles wrongly passed class references, the lack of compile time check does not impair the functionality of the application. Furthermore, alternative 1 prevents code duplication for autocomplete and executing.
 
 |**Aspect 2:** +
 Single Parser vs Parser Manager
@@ -355,7 +377,7 @@ Single Parser vs Parser Manager
 Commands not belonging to specific mode would not be parsed +
  +
 [underline]_Cons:_ +
-More code to write for initial developer. However it is easily extnensible for new modes and parsers by the Open Close Principle
+More code to write for initial developer.
 | **Use a single parser** +
  +
 [underline]_Pros_ +
@@ -364,16 +386,9 @@ We do not need to restructure the logic package. +
 [underline]_Cons_ +
 Bad user experience as it autocompletes and parses commands that do not belong to a particular mode.
 3+| **Why did we choose Alternative 1:** +
-d
+As commands are stateful, it would be easy to overlook the edge cases when so many combinations and permutations are likely. Segregating them by modes allows a better user experience and minimises the possibilities of bugs. Also, future extensibility  is improved for new modes and parsers as the Open Close Principle is abided.
 |===
 
-
-
-==== Technical details
-
-<Insert class util code demonstrating java reflections>
-
-<Insert where one line of code can be inserted for adding new commands and parsers>
 
 // end::autocompleteimplementation[]
 
@@ -488,7 +503,7 @@ in this one, we do not think the added functionality of allowing the user to ext
 .Screenshot of the `Timer` component in action.
 image::TimerDGScreenshot.png[]
 
-==== Implementation Overview
+==== Implementation Overview - Timer
 
 The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch that runs for each `Card` in a `Game`. It also relies on
 using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
@@ -496,7 +511,7 @@ allows the `Timer` to enact changes in other components of the system without di
 components.
 
 Internally, the `Timer`
-works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 1ms_).
+works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 50ms_).
 
 An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
 _Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
@@ -508,7 +523,6 @@ To avoid
 synchronization issues with the `UI` component, all
 `TimerTasks` (such as requesting to refresh a component of the `UI`) are forced to run on the *JavaFX Application Thread* using
 `Platform.runLater()`.
-
 
 .Class diagram reflecting how the callback-functions are organized in the Timer component.
 image::TimerClassDiagramCallbacks.png[]
@@ -522,6 +536,21 @@ and display* accordingly on the `UI`.
 
 The _callbacks_ for each of these events are implemented as nested _Functional Interfaces_
 within the  `GameTimer` interface, which is implemented by the `GameTimerManager`.
+
+==== Implementation Overview - Hints
+
+.Class Diagram showing structure of `Hints` and its relationships to other components. (Some details omitted)
+image::HintsClassDiagram.png[]
+
+In order to display the `Hints` component to the user in a _Hangman-esque_ style, *string formatting* has to be performed.
+
+* Each `Card` contains a `FormattedHintSupplier` that supplies `FormattedHints` ready to be shown to the user.
+* Each `FormattedHintSupplier` contains a `FormattedHint` that is periodically updated.
+* Each `FormattedHintSupplier` contains a `java.util.List` of `Hint` to update  the `FormattedHint` with.
+* Each `Hint` encapsulates a `Character` and an `Index` which the `Character` is to be shown in the `FormattedHint`.
+
+The `Timer` component *triggers a request* to the `AppManager`, who then updates and retrieves the `FormattedHint` from
+the current `Game` via the `Logic` component.
 
 ==== Flow of Events - `Hints` Disabled
 
@@ -567,8 +596,8 @@ these polled _timestamps_ to update the `Hints` provided periodically. +
  +
 The described activity is visualized via the activity diagram as *shown above*. The internal `Timer` is started when
 `GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
-every millisecond until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
-to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 1ms.
+every 50 milliseconds until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
+to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 50ms.
 
 ==== Design Considerations
 
