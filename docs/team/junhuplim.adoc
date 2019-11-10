@@ -36,7 +36,7 @@ Some of the main features of Athletick include:
 * Viewing of an athlete's profile.
 * Undoing and redoing of commands.
 
-This is what users see when they first start Athletick
+This is what users see when they first start Athletick:
 
 .The graphical user interface for Athletick.
 image::athletick.png[]
