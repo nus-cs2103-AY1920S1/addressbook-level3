@@ -2,6 +2,8 @@ package com.typee.logic.commands;
 
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -83,5 +85,15 @@ public class SortCommandTest {
         expectedModel.updateSortedEngagementList();
         assertCommandSuccess(new SortCommand(EngagementComparator.getComparator("PRIORITY_REVERSE")),
                 model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        SortCommand typicalSortCommand = new SortCommand(EngagementComparator.END_TIME);
+        SortCommand otherSortCommand = new SortCommand(EngagementComparator.END_TIME);
+
+        assertTrue(typicalSortCommand.equals(typicalSortCommand));
+        assertFalse(typicalSortCommand.equals(new UndoCommand()));
+        assertTrue(typicalSortCommand.equals(otherSortCommand));
     }
 }
