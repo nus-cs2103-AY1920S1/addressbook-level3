@@ -44,7 +44,7 @@ public class ExpenseListTest {
     @Test
     public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
         // Two expenses with the same identity fields
-        Expense editedFood = new ExpenseBuilder(FOOD).withTags("RUM").build();
+        Expense editedFood = new ExpenseBuilder(FOOD).withTag("RUM").build();
         List<Expense> newExpenses = Arrays.asList(FOOD, editedFood);
         ExpenseListStub newData = new ExpenseListStub(newExpenses);
 

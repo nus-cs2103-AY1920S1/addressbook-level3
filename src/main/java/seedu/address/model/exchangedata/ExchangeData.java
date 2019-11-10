@@ -58,7 +58,7 @@ public class ExchangeData {
     }
 
     public boolean isValidCurrency(String currency) {
-        return rates.getSupportedCurrencies().contains(new Currency(currency));
+        return rates.getSupportedCurrencies().contains(currency);
     }
 
     /**

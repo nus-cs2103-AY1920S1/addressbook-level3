@@ -11,7 +11,7 @@ import seedu.address.model.budget.Budget;
 import seedu.address.model.budget.BudgetList;
 
 /**
- * Clears the address book.
+ * Clears all Expenses/Budgets.
  */
 public class ClearCommand extends Command {
 

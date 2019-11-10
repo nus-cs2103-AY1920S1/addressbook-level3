@@ -64,10 +64,10 @@ public class EditExpenseCommandTest {
 
         ExpenseBuilder expenseInList = new ExpenseBuilder(lastExpense);
         Expense editedExpense = expenseInList.withName(VALID_NAME_RUM).withAmount(VALID_AMOUNT_RUM)
-            .withTags(VALID_TAG_ALCOHOL).build();
+                .withTag(VALID_TAG_ALCOHOL).build();
 
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
-            .withAmount(VALID_AMOUNT_RUM).withTags(VALID_TAG_ALCOHOL).build();
+                .withAmount(VALID_AMOUNT_RUM).withTag(VALID_TAG_ALCOHOL).build();
         EditExpenseCommand editExpenseCommand = new EditExpenseCommand(indexLastExpense, descriptor);
 
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);

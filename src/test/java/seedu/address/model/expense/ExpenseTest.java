@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CURRENCY_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_RUM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_ALCOHOL;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalExpenses.FOOD;
 import static seedu.address.testutil.TypicalExpenses.RUM;
 
@@ -16,12 +15,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.testutil.ExpenseBuilder;
 
 public class ExpenseTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Expense expense = new ExpenseBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> expense.getTags().remove(0));
-    }
 
     @Test
     public void isSameExpense() {
@@ -46,16 +39,16 @@ public class ExpenseTest {
 
         // same name, same amount, different attributes -> returns false
         editedFood = new ExpenseBuilder(FOOD).withDate(VALID_DATE_RUM)
-            .withTags(VALID_TAG_ALCOHOL).build();
+            .withTag(VALID_TAG_ALCOHOL).build();
         assertFalse(FOOD.isSameExpense(editedFood));
 
         // same name, same date, different attributes -> returns false
         editedFood = new ExpenseBuilder(FOOD).withAmount(VALID_AMOUNT_RUM)
-            .withTags(VALID_TAG_ALCOHOL).build();
+            .withTag(VALID_TAG_ALCOHOL).build();
         assertFalse(FOOD.isSameExpense(editedFood));
 
         // same name, same amount, same date, different attributes -> returns true
-        editedFood = new ExpenseBuilder(FOOD).withTags(VALID_TAG_ALCOHOL).build();
+        editedFood = new ExpenseBuilder(FOOD).withTag(VALID_TAG_ALCOHOL).build();
         assertTrue(FOOD.isSameExpense(editedFood));
     }
 
@@ -90,7 +83,7 @@ public class ExpenseTest {
         assertFalse(FOOD.equals(editedFood));
 
         // different tags -> returns false
-        editedFood = new ExpenseBuilder(FOOD).withTags(VALID_TAG_ALCOHOL).build();
+        editedFood = new ExpenseBuilder(FOOD).withTag(VALID_TAG_ALCOHOL).build();
         assertFalse(FOOD.equals(editedFood));
     }
 }

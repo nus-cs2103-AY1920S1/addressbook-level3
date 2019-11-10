@@ -48,7 +48,7 @@ public class EditExpenseDescriptorTest {
         assertFalse(DESC_VODKA.equals(editedVodka));
 
         // different tags -> returns false
-        editedVodka = new EditExpenseDescriptorBuilder(DESC_VODKA).withTags(VALID_TAG_ALCOHOL).build();
+        editedVodka = new EditExpenseDescriptorBuilder(DESC_VODKA).withTag(VALID_TAG_ALCOHOL).build();
         assertFalse(DESC_VODKA.equals(editedVodka));
     }
 }

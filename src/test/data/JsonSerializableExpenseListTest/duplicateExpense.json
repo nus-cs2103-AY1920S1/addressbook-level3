@@ -7,7 +7,7 @@
       "rate" : 1.0
     },
     "date": "13/10/2019",
-    "tagged": [ "snack" ]
+    "tag": "snack"
   }, {
     "name": "coffee",
     "amount": "2.50",
@@ -16,6 +16,6 @@
       "rate" : 1.0
     },
     "date": "13/10/2019",
-    "tagged": [ "teabreak" ]
+    "tag": "teabreak"
   } ]
 }

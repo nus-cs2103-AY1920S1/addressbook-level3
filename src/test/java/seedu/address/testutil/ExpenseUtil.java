@@ -6,12 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.AddExpenseCommand;
 import seedu.address.logic.commands.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Expense.
@@ -33,9 +30,7 @@ public class ExpenseUtil {
         sb.append(PREFIX_NAME + expense.getName().fullName + " ");
         sb.append(PREFIX_AMOUNT + expense.getAmount().value + " ");
         sb.append(PREFIX_DATE + expense.getDate().value + " ");
-        expense.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+        sb.append(PREFIX_TAG + expense.getTag().tagName);
         return sb.toString();
     }
 
@@ -48,14 +43,8 @@ public class ExpenseUtil {
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
         descriptor.getCurrency().ifPresent(amount -> sb.append(PREFIX_CURRENCY).append(amount.name).append(" "));
         descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
+        descriptor.getTag().ifPresent(tag -> sb.append(PREFIX_TAG).append(tag.tagName));
+
         return sb.toString();
     }
 }

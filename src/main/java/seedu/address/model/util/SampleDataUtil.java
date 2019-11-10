@@ -2,9 +2,6 @@ package seedu.address.model.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.model.ExpenseList;
 import seedu.address.model.ReadOnlyExpenseList;
@@ -29,21 +26,21 @@ public class SampleDataUtil {
         return new Expense[] {
             new Expense(new Name("Coffee"), new Amount("1.8"), new Currency("SGD"),
                 new Date("1245"),
-                getTagSet("food")),
+                new Tag("food")),
             new Expense(new Name("Textbook"), new Amount("23.50"), new Currency("SGD"),
                 new Date("930"),
-                getTagSet("education", "school")),
+                new Tag("education")),
             new Expense(new Name("Earphone"), new Amount("45"), new Currency("SGD"),
-                new Date("10/12/2019 1800"), getTagSet("utility")),
+                new Date("10/12/2019 1800"), new Tag("utility")),
             new Expense(new Name("Hang out"), new Amount("50"), new Currency("SGD"),
                 new Date("15/12/2019 2100"),
-                getTagSet("entertainment")),
+                new Tag("entertainment")),
             new Expense(new Name("Travel to Paris"), new Amount("850"), new Currency("SGD"),
                 new Date("25/12/2019 800"),
-                getTagSet("travel")),
+                new Tag("travel")),
             new Expense(new Name("Gift for duke"), new Amount("30"), new Currency("SGD"),
                 new Date("1/11/2019"),
-                getTagSet("relationship"))
+                new Tag("relationship"))
         };
     }
 
@@ -104,12 +101,4 @@ public class SampleDataUtil {
         return sampleB1;
     }
 
-    /**
-     * Returns a tag set containing the list of strings given.
-     */
-    public static Set<Tag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-            .map(Tag::new)
-            .collect(Collectors.toSet());
-    }
 }

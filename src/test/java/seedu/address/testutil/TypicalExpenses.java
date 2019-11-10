@@ -27,25 +27,25 @@ public class TypicalExpenses {
 
     public static final Expense TRANSPORT = new ExpenseBuilder().withName("Bus")
         .withCurrency("SGD").withAmount("3.20").withDate("13/10/2019")
-        .withTags("school").build();
+        .withTag("school").build();
     public static final Expense FOOD = new ExpenseBuilder().withName("Lunch")
         .withCurrency("SGD").withAmount("4.50")
-        .withDate("14/12/2019").withTags("lunch", "school").build();
+        .withDate("14/12/2019").withTag("school").build();
     public static final Expense SHOPPING = new ExpenseBuilder().withName("Adidas shoe")
         .withCurrency("SGD").withAmount("120.00")
-        .withDate("24/12/2019").build();
+        .withDate("24/12/2019").withTag("").build();
     public static final Expense GROCERIES = new ExpenseBuilder().withName("Groceries")
         .withCurrency("SGD").withAmount("17.80")
-        .withDate("1/2/2019").withTags("groceries").build();
+        .withDate("1/2/2019").withTag("groceries").build();
     public static final Expense VALENTINES = new ExpenseBuilder().withName("Chocolates")
         .withCurrency("SGD").withAmount("12.30")
-        .withDate("13/2/2019").build();
+        .withDate("13/2/2019").withTag("").build();
     public static final Expense CHRISTMAS = new ExpenseBuilder().withName("Socks")
         .withCurrency("SGD").withAmount("5.00")
-        .withDate("24/12/2019").build();
+        .withDate("24/12/2019").withTag("").build();
     public static final Expense NEWYEAR = new ExpenseBuilder().withName("Cheese")
         .withCurrency("SGD").withAmount("10.00")
-        .withDate("31/12/2019").build();
+        .withDate("31/12/2019").withTag("").build();
 
     // Manually added
     public static final Expense FURNITURE = new ExpenseBuilder().withName("Sofa")
@@ -58,10 +58,10 @@ public class TypicalExpenses {
     // Manually added - Expense's details found in {@code CommandTestUtil}
     public static final Expense VODKA = new ExpenseBuilder().withName(VALID_NAME_VODKA)
         .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA)
-        .withDate(VALID_DATE_VODKA).withTags(VALID_TAG_ALCOHOL).build();
+        .withDate(VALID_DATE_VODKA).withTag(VALID_TAG_ALCOHOL).build();
     public static final Expense RUM = new ExpenseBuilder().withName(VALID_NAME_RUM)
         .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM)
-        .withDate(VALID_DATE_RUM).withTags(VALID_TAG_DRINKS, VALID_TAG_ALCOHOL)
+        .withDate(VALID_DATE_RUM).withTag(VALID_TAG_DRINKS)
         .build();
 
     public static final String KEYWORD_MATCHING_SOFA = "Sofa"; // A keyword that matches SOFA

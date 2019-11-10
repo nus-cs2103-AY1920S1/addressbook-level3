@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import seedu.address.model.expense.Currency;
-
 
 /**
  * Represents the Map of Currencies to their rates based on FOREX.
@@ -45,10 +43,10 @@ public class Rates {
         return rates.get(key);
     }
 
-    public List<Currency> getSupportedCurrencies() {
+    public List<String> getSupportedCurrencies() {
         return rates.keySet()
             .stream()
-            .map(Currency::new)
+            .map(String::new)
             .collect(Collectors.toList());
     }
 

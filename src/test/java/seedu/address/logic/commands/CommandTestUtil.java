@@ -69,11 +69,11 @@ public class CommandTestUtil {
 
     static {
         DESC_VODKA = new EditExpenseDescriptorBuilder().withName(VALID_NAME_VODKA)
-            .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
-            .withTags(VALID_TAG_DRINKS).build();
+                .withCurrency(VALID_CURRENCY_VODKA).withAmount(VALID_AMOUNT_VODKA).withDate(VALID_DATE_VODKA)
+                .withTag(VALID_TAG_DRINKS).build();
         DESC_RUM = new EditExpenseDescriptorBuilder().withName(VALID_NAME_RUM)
-            .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
-            .withTags(VALID_TAG_ALCOHOL, VALID_TAG_DRINKS).build();
+                .withCurrency(VALID_CURRENCY_RUM).withAmount(VALID_AMOUNT_RUM).withDate(VALID_DATE_RUM)
+                .withTag(VALID_TAG_ALCOHOL).build();
     }
 
     /**

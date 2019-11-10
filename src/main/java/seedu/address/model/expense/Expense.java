@@ -3,11 +3,8 @@ package seedu.address.model.expense;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.tag.Tag;
@@ -25,18 +22,18 @@ public class Expense implements Comparable<Expense> {
 
     // Data Fields
     private final Date date;
-    private final Set<Tag> tags = new HashSet<>();
+    private final Tag tag;
 
     /**
      * Every field must be present and not null.
      */
-    public Expense(Name name, Amount amount, Currency currency, Date date, Set<Tag> tags) {
-        requireAllNonNull(name, amount, currency, date, tags);
+    public Expense(Name name, Amount amount, Currency currency, Date date, Tag tag) {
+        requireAllNonNull(name, amount, currency, date, tag);
         this.name = name;
         this.amount = amount;
         this.currency = currency;
         this.date = date;
-        this.tags.addAll(tags);
+        this.tag = tag;
     }
 
     public Name getName() {
@@ -72,12 +69,8 @@ public class Expense implements Comparable<Expense> {
         return date;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
+    public Tag getTag() {
+        return tag;
     }
 
     /**
@@ -115,7 +108,7 @@ public class Expense implements Comparable<Expense> {
             && otherExpense.getAmount().equals(getAmount())
             && otherExpense.getCurrency().equals(getCurrency())
             && otherExpense.getDate().equals(getDate())
-            && otherExpense.getTags().equals(getTags());
+            && otherExpense.getTag().equals(getTag());
     }
 
     @Override
@@ -132,7 +125,7 @@ public class Expense implements Comparable<Expense> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, currency, date, tags);
+        return Objects.hash(name, amount, currency, date, tag);
     }
 
     @Override
@@ -145,8 +138,8 @@ public class Expense implements Comparable<Expense> {
             .append(" " + getCurrency())
             .append("\n")
             .append("Date: " + getDate())
-            .append("\n");
-        getTags().forEach(builder::append);
+            .append("\n")
+            .append("Tag: " + getTag());
         return builder.toString();
     }
 

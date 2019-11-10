@@ -1,11 +1,5 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -28,7 +22,7 @@ class JsonAdaptedExpense {
     private final String amount;
     private final JsonAdaptedCurrency currency;
     private final String date;
-    private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final String tag;
 
     /**
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
@@ -36,14 +30,12 @@ class JsonAdaptedExpense {
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
                               @JsonProperty("currency") JsonAdaptedCurrency currency, @JsonProperty("date") String date,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+                              @JsonProperty("tag") String tag) {
         this.name = name;
         this.amount = amount;
         this.currency = currency;
         this.date = date;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.tag = tag;
     }
 
     /**
@@ -54,9 +46,7 @@ class JsonAdaptedExpense {
         amount = source.getAmount().value;
         currency = new JsonAdaptedCurrency(source.getCurrency());
         date = source.getDate().rawValue;
-        tagged.addAll(source.getTags().stream()
-            .map(JsonAdaptedTag::new)
-            .collect(Collectors.toList()));
+        tag = source.getTag().tagName;
     }
 
     /**
@@ -65,10 +55,6 @@ class JsonAdaptedExpense {
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            expenseTags.add(tag.toModelType());
-        }
 
         if (currency == null) {
             throw new IllegalValueException(String.format(
@@ -98,12 +84,6 @@ class JsonAdaptedExpense {
         }
         final Amount modelAmount = new Amount(amount);
 
-        if (currency == null) {
-            throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName())
-            );
-        }
-
         if (date == null) {
             throw new IllegalValueException(String.format(
                 MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
@@ -113,7 +93,15 @@ class JsonAdaptedExpense {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
-        return new Expense(modelName, modelAmount, modelCurrency, modelDate, modelTags);
+        if (tag == null) {
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Tag.class.getSimpleName()));
+        }
+        if (!Tag.isValidTagName(tag)) {
+            throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        final Tag modelTag = new Tag(tag);
+
+        return new Expense(modelName, modelAmount, modelCurrency, modelDate, modelTag);
     }
 }
