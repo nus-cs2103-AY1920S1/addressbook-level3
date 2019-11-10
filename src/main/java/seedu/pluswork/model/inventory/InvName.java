@@ -52,8 +52,8 @@ public class InvName {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                || (other instanceof InvName // instanceof handles nulls
+                && fullName.equals(((InvName) other).fullName)); // state check
     }
 
     @Override
