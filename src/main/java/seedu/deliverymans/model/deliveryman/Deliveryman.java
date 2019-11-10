@@ -99,13 +99,14 @@ public class Deliveryman {
         Deliveryman otherPerson = (Deliveryman) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getTags().equals(getTags())
+                && otherPerson.getStatus().equals(getStatus());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, phone, tags);
+        return Objects.hash(name, phone, tags, status);
     }
 
     @Override

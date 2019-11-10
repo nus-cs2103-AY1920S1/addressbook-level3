@@ -161,8 +161,10 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     /**
      * Switches the deliveryman status from AVAILABLE to UNAVAILABLE, or vice versa.
      */
-    public void switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
-        deliverymen.setDeliveryman(target, statusManager.switchDeliverymanStatus(target));
+    public Deliveryman switchDeliverymanStatus(Deliveryman target) throws InvalidStatusChangeException {
+        Deliveryman editedDeliveryman = statusManager.switchDeliverymanStatus(target);
+        deliverymen.setDeliveryman(target, editedDeliveryman);
+        return editedDeliveryman;
     }
 
     // ========== Methods related to Statistics ================================================================
