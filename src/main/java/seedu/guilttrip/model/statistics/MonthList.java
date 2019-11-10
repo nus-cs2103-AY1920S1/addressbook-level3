@@ -15,7 +15,7 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Contains the entries for the current Month in the idea.
+ * Contains the expenses and incomes for the specific month specified by yearMonth.
  */
 public class MonthList {
 
@@ -61,7 +61,8 @@ public class MonthList {
     }
 
     /**
-     * Initiates the MonthList Record in guilttrip.
+     * Initiates the MonthList Record in guilttrip. Creates a list of DailyLists corresponding to the days in the month.
+     * Also creates initiates a list of DailyStatistics for that month.
      */
     private void initRecords() {
         //Initiates the list of categories for expense
@@ -99,7 +100,8 @@ public class MonthList {
     }
 
     /**
-     * Calculates the stats for the particular category for the particular month.
+     * Calculates the stats for the particular category for the particular month to be used for the table and for the
+     * pie chart.
      *
      * @param cat is the category to calculate the statistics for.
      * @return calculatedTotal, the total amount spent for that particular category in the month.
@@ -125,7 +127,8 @@ public class MonthList {
     }
 
     /**
-     *  If the category doesn't exist in the categoryList, update the categoryList to reflect the newly added Category.
+     *  Checks if the category exists in the categoryList, and updates the categoryList to reflect the
+     *  newly added Category.
      *
      * @param cat Category to update.
      */
@@ -147,7 +150,7 @@ public class MonthList {
 
 
     /**
-     * Calculates the statistics everyday to be used in the bar chart.
+     * Calculates the daily statistics to be used in the bar chart.
      *
      * @return listOfDailyStatistics a ObservableList of the statistics of income and expense per day in the month to
      * be used in the bar chart.

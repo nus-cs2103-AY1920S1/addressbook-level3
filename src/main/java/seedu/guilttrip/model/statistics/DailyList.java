@@ -8,8 +8,8 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 
 /**
- * Represents a SortType in the finance manager.
- * Guarantees: dateOfList cannot be changed.
+ * Represents a DailyList in the finance manager.
+ * Guarantees: date cannot be changed.
  */
 public class DailyList {
     private FilteredList<Expense> listOfExpenses;

@@ -54,7 +54,9 @@ list of expenses
 
 * Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is
 a parameter which can be used as `n/mala at deck`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/mala at deck t/mala` or as `n/mala at deck`.
+* Items in square brackets are optional e.g `n/NAME [tg/TAG]` can be used as `n/mala at deck tg/mala` or as `n/mala at deck`.
+* If multiple Prefixes of the same type were specified, guiltTrip usually accepts only the latest prefix, for example `n/mala tg/drinks n/llama meat`
+, guiltTrip will only accept llama meat as the description.
 ====
 
 === Categories
@@ -496,6 +498,17 @@ Other Examples:
 ==== Search : `findExpense`, `findIncome`, `findWish`, `findBudget`
 
 Search income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
+
+[NOTE]
+Finding by `Amount` will show the entries that are above a certain amount.
+
+[NOTE]
+Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
+finding `mala food` will show entries with either mala or food or both in their Description.
+
+[NOTE]
+Finding by `Tag` will show all entries with all the tags in them. For example, finding by `tg/eat tg/entertainment` will show entries with only
+both tags. The reason for this is that tags should be more specific that entry Description.
 
 Format: `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
 

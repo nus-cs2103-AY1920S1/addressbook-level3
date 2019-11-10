@@ -24,7 +24,7 @@ import seedu.guilttrip.model.entry.Category;
 public class EditCategoryCommandParser implements Parser<EditCategoryCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditExpenseCommand
-     * and returns an EditExpenseCommand object for execution.
+     * and returns an EditCategoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCategoryCommand parse(String args) throws ParseException {

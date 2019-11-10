@@ -6,7 +6,7 @@ import seedu.guilttrip.model.entry.Entry;
 
 
 /**
- * Filters the entrylist predicates based on the int month.
+ * Filters the entrylist predicates based on the int month and int year. Identifies the entries by the month.
  */
 public class EntryContainsMonthYearPredicate implements Predicate<Entry> {
     private int monthFromUser;

@@ -13,7 +13,7 @@ import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Displays the user's statistics in graphics for the more visual User.
+ * Displays the user's statistics in graphics for the more visual User. PlaceHolder for PieChart.
  */
 public class StatisticsPieChartPanel extends UiPart<Region> {
 

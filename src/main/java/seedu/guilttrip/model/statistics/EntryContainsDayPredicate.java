@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
- * Filters the entrylist predicates based on the int month.
+ * Filters the entrylist predicates based on the specific date.
  */
 public class EntryContainsDayPredicate implements Predicate<Entry> {
     private int monthFromUser;
@@ -13,7 +13,8 @@ public class EntryContainsDayPredicate implements Predicate<Entry> {
     private int dailyFromUser;
 
     /**
-     * Filters the entrylist based on the int monthFromUser and int yearFromUser.
+     * Filters the entrylist based on the LocalDate which comprises of dailyFromUser
+     * and monthFromUser and int yearFromUser.
      */
     public EntryContainsDayPredicate(int dailyFromUser, int monthFromUser, int yearFromUser) {
         this.dailyFromUser = dailyFromUser;

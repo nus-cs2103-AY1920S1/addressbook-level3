@@ -23,8 +23,8 @@ import seedu.guilttrip.model.entry.SortType;
 public class SortWishCommandParser implements Parser<SortWishCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SortExpenseCommand
-     * and returns a SortExpenseCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SortWishCommand
+     * and returns a SortWishCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortWishCommand parse(String args) throws ParseException, IllegalArgumentException {
@@ -34,7 +34,7 @@ public class SortWishCommandParser implements Parser<SortWishCommand> {
         if (!arePrefixesPresent(argMultimap, PREFIX_TYPE, PREFIX_SEQUENCE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    SortIncomeCommand.MESSAGE_USAGE));
+                    SortWishCommand.MESSAGE_USAGE));
         }
         SortType type = ParserUtil.parseSortType(argMultimap.getValue(PREFIX_TYPE).get().toLowerCase());
         SortSequence seq = ParserUtil.parseSortSequence(argMultimap.getValue(PREFIX_SEQUENCE).get().toLowerCase());

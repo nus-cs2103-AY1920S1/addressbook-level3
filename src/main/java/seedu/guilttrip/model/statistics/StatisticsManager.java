@@ -66,35 +66,6 @@ public class StatisticsManager implements Statistics {
         initStats();
     }
 
-
-    /**
-     * Obtains the properties of this class .
-     */
-    @Override
-    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
-        return listOfStatsForDaily;
-    }
-
-    @Override
-    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
-        return listOfStatsForExpense;
-    }
-
-    @Override
-    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
-        return listOfStatsForIncome;
-    }
-
-    @Override
-    public DoubleProperty getTotalExpenseForPeriod() {
-        return totalExpenseForPeriod;
-    }
-
-    @Override
-    public DoubleProperty getTotalIncomeForPeriod() {
-        return totalIncomeForPeriod;
-    }
-
     /**
      * Loads the Records from scratch. Only creates records for the currentYear to increase speed for startup.
      */
@@ -108,19 +79,6 @@ public class StatisticsManager implements Statistics {
             monthlyRecord.put(i, monthToCompare);
         }
         yearlyRecord.put(currentYear, monthlyRecord);
-    }
-
-    /**
-     * Updates the list of Category to be displayed in Statistics Table and Statistics Pie Chart
-     * if the original list of Categories change.
-     */
-    private void updateCategory() {
-        listOfStatsForExpense.clear();
-        listOfStatsForIncome.clear();
-        listOfCategories.getInternalListForOtherEntries().stream().forEach(t -> listOfStatsForExpense
-                .add(new CategoryStatistics(t, 0.00)));
-        listOfCategories.getInternalListForIncome().stream().forEach(t -> listOfStatsForIncome
-                .add(new CategoryStatistics(t, 0.00)));
     }
 
     /**
@@ -162,6 +120,50 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
+     * Obtains a list of DailyStatistics to be used for the Bar Chart.
+     */
+    @Override
+    public ObservableList<DailyStatistics> getListOfStatsForBarChart() {
+        return listOfStatsForDaily;
+    }
+
+    /**
+     * Obtains a list of CategoryStatistics to be used for the Pie Chart/Table.
+     */
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForExpense() {
+        return listOfStatsForExpense;
+    }
+
+    @Override
+    public ObservableList<CategoryStatistics> getListOfStatsForIncome() {
+        return listOfStatsForIncome;
+    }
+
+    @Override
+    public DoubleProperty getTotalExpenseForPeriod() {
+        return totalExpenseForPeriod;
+    }
+
+    @Override
+    public DoubleProperty getTotalIncomeForPeriod() {
+        return totalIncomeForPeriod;
+    }
+
+    /**
+     * Updates the list of Category to be displayed in Statistics Table and Statistics Pie Chart
+     * if the original list of Categories change.
+     */
+    private void updateCategory() {
+        listOfStatsForExpense.clear();
+        listOfStatsForIncome.clear();
+        listOfCategories.getInternalListForOtherEntries().stream().forEach(t -> listOfStatsForExpense
+                .add(new CategoryStatistics(t, 0.00)));
+        listOfCategories.getInternalListForIncome().stream().forEach(t -> listOfStatsForIncome
+                .add(new CategoryStatistics(t, 0.00)));
+    }
+
+    /**
      * Calculates the statistics for the current month to be used later in table or Pie Chart.
      */
     @Override
@@ -198,9 +200,10 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
-     * Recalculates statistics for one month only. Helper method for Pie Charts.
+     * Retrieves the MonthList to be calculated from yearlyRecord.
      *
-     * @param monthToCalculate the date which contains the format of what is needed to calculate.
+     * @param monthToCalculate the date containing details of the monthToCalculate.
+     * @return listOfMonths the list of MonthList of size 1 which calculations need to be carried out on.
      */
     private ArrayList<MonthList> getMonth(Date monthToCalculate) {
         int yearToCheck = monthToCalculate.getDate().getYear();
@@ -215,10 +218,11 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
-     * Recalculates statistics for a range of periods if the user specified a huge range of periods.
-     * Helper method for Pie Charts.
+     * Retrieves the list of months needed across years for calculation from yearlyRecord if the user
+     * specified a range of periods.
      *
      * @param rangeOfDates a list of size 2 that contains the range of dates that needs to be calculated.
+     * @return listOfMonths the list of MonthLists which calculations need to be carried out on.
      */
     private ArrayList<MonthList> getListOfMonths(List<Date> rangeOfDates) {
         Date startDate = rangeOfDates.get(0);
@@ -245,8 +249,7 @@ public class StatisticsManager implements Statistics {
     }
 
     /**
-     * Retrieves the relevant MonthLists that need to be calculated from the ObservableMap of MonthLists, yearlyRecord.
-     * Helper method for Pie Charts.
+     * Retrieves the relevant MonthLists that need to be calculated from the year.
      *
      * @param startMonth the Month which needs to start calculating from.
      * @param endMonth the Month which needs to end calculating from.
@@ -264,11 +267,13 @@ public class StatisticsManager implements Statistics {
 
 
     /**
-     * Recalculates statistics for a specific period of time. Loops through all the categories and totals up the amount
-     * across the Months. Helper method for Pie Charts.
+     * Recalculates statistics for a specific period of time and creates a CategoryStatistic object to be put into the
+     * observableList so that Ui is updated. Loops through all the categories and totals up the amount
+     * across the Months to return the totalAmountOfAllMonths.
      *
      * @param currentMonthList the lists of months that needs to be recalculated.
      * @param typeOfCategory the list of categories that need to be recalculated whether it be income or expense.
+     * @return totalAmountCalculated the total of the sum of spending across all Categories in the list of months.
      */
     private double countStats(ArrayList<MonthList> currentMonthList,
                               ObservableList<CategoryStatistics> typeOfCategory) {
@@ -287,10 +292,11 @@ public class StatisticsManager implements Statistics {
 
     /**
      * Recalculates statistics for a Category for all the months in the period. Obtains the total
-     * amount spent for the particular Category across the list of months. Helper method for Pie Charts.
+     * amount spent for the particular Category across the list of months.
      *
      * @param currentMonthList the lists of months that needs to be recalculated.
      * @param category the category that need to be recalculated whether it be income or expense.
+     * @return totalAmountForTotalMonths the tota amount spent for the particular Category across the list of months.
      */
     private double calculateTotalAmountForCategory(ArrayList<MonthList> currentMonthList, Category category) {
         double totalAmountForTotalMonths = 0.00;

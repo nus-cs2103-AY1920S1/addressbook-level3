@@ -61,7 +61,9 @@ public class ModelManager implements Model {
     private final VersionedGuiltTrip versionedGuiltTrip;
 
     /**
-     * Initializes a ModelManager with the given GuiltTrip and userPrefs.
+     * Initializes a ModelManager with the given GuiltTrip and userPrefs. The original ObservableList for all entries
+     * is first wrapped in a SortedList so sort operations can be done on them, and finally wrapped in a FilteredList
+     * so that find operations can be done on them.
      */
     public ModelManager(ReadOnlyGuiltTrip guiltTrip, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -519,6 +521,12 @@ public class ModelManager implements Model {
     }
 
     // =================== Filtering =============================================================
+
+    /**
+     * By Default, the list of entries is sorted first before filtering to standardize that entries are always sorted
+     * by date.
+     * @param predicate the predicate to update the FilteredList by.
+     */
     /*Override
     public void updateAllLists(Predicate<Entry> predicate) {
         requireNonNull(predicate);

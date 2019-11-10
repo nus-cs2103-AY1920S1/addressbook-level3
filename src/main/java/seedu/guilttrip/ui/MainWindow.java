@@ -350,7 +350,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
+     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder in preparation for switching panels.
      */
     private void togglePlaceHolderForStats(boolean isStatsWindow) {
         if (isStatsWindow) {

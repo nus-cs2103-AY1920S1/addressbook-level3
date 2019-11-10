@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.ui.UiPart;
 
@@ -73,10 +74,35 @@ public class StatisticsBarChart extends UiPart<Region> {
     }
 
     /**
-     * Updates the PieChart displayed by running a calculation on every notified change from the original statsMaplist.
+     * Updates the BarChart displayed by running a calculation on every notified change from the original statsMaplist.
      * @param statsForDaily contains a listener that calls for this method.
      */
     public void updateBarChart(ObservableList<DailyStatistics> statsForDaily) {
+        fillInStatistics(statsForDaily);
+        if (dataForIncome.isEmpty() && dataForExpense.isEmpty()) {
+            barChart.setVisible(false);
+            noEntryLabel.setVisible(true);
+        } else {
+            int numberOfDays = statsForDaily.get(0).getNumberOfDays();
+            for (int i = 1; i <= numberOfDays; i++) {
+                listOfDays.add(Integer.toString(i));
+            }
+
+            ObservableList<XYChart.Series<String, Number>> seriesList = FXCollections.observableArrayList(expenseChart,
+                    incomeChart);
+            this.expenseChart.setData(dataForExpense);
+            this.incomeChart.setData(dataForIncome);
+            barChart.getData().addAll(seriesList);
+            barChart.setVisible(true);
+            noEntryLabel.setVisible(false);
+        }
+    }
+
+    /**
+     * Clear the existing data and repopulate it with the updated DailyStatistics.
+     * @param statsForDaily contains the list of DailyStatistics.
+     */
+    private void fillInStatistics(ObservableList<DailyStatistics> statsForDaily) {
         this.expenseChart.getData().clear();
         this.incomeChart.getData().clear();
         barChart.getData().clear();
@@ -97,24 +123,6 @@ public class StatisticsBarChart extends UiPart<Region> {
                         t.getTotalIncome());
                 this.dataForIncome.add(data);
             }
-        }
-
-        if (dataForIncome.isEmpty() && dataForExpense.isEmpty()) {
-            barChart.setVisible(false);
-            noEntryLabel.setVisible(true);
-        } else {
-            int numberOfDays = statsForDaily.get(0).getNumberOfDays();
-            for (int i = 1; i <= numberOfDays; i++) {
-                listOfDays.add(Integer.toString(i));
-            }
-
-            ObservableList<XYChart.Series<String, Number>> seriesList = FXCollections.observableArrayList(expenseChart,
-                    incomeChart);
-            this.expenseChart.setData(dataForExpense);
-            this.incomeChart.setData(dataForIncome);
-            barChart.getData().addAll(seriesList);
-            barChart.setVisible(true);
-            noEntryLabel.setVisible(false);
         }
     }
 }

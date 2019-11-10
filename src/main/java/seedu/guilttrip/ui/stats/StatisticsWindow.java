@@ -16,7 +16,7 @@ import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Displays the Statistics of the user's activities in Table form.
+ * Displays the Statistics of the user's activities in either Table or Pie Form.
  */
 public class StatisticsWindow extends UiPart<Region> {
 

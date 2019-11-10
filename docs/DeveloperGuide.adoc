@@ -332,6 +332,13 @@ There isn’t a need to use YearList as most users will usually want to see thei
 ** Pros: Intuitive for the user.
 ** Cons: Takes a toll on the time complexity if large bulks of data was added through AutoExpense.
 
+==== Proposed Extension
+* Currently Statistics Breakdown doesn't show details like trends across months. A future implementation could involve
+showing the user what category of spending increases across the months. For example, it could reflect that spending for
+category Entertainment increased the most in the past months.
+* Bar Chart can be further improved to show analysis of breakdown of category by day and observe trends for the user.
+For example, it could notice that the user has been spending a lot every Tuesday and alert the user about it.
+
 === Toggle Panel Command
 
 ==== Implementation
@@ -508,6 +515,7 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Medium|As a user  |I would like to see my expenses and transactions separated according to different time periods (e.g. week, month, year)|so that I can have a clearer overview of my expenditure.
 |Medium|As a user|I want to be able to customise how the UI looks (color, font, font size, set background feature etc.)|so that it looks more customised towards the user.
 |Medium|As an expert user|I want to be able to set the time(s) that I would receive reminders to record my spending|so that I can do so at convenient times.
+|Medium|As a student trying to improve my spending habits|I want to be able to be able to see the daily break down of my spending|so that I can see the trend of my spending across the months.
 |Medium|As a college student with monthly spending on entertainment sites such as Netflix and Spotify|I want to have these expenses recorded automatically|so that I do not have to record a recurring expense every month.
 |Medium|As a user|I want to differentiate my spendings and wish list items based on whether they are a need or a want|so that I can better plan my finances around what I should buy.
 |Medium|As a forgetful user|I want to have a tooltip to pop up to remind me what inputs I should type in|so that in the event that I forget the commands, I can still use them when the application reminds me.
@@ -516,7 +524,7 @@ A convenient financial tracker targeted at users who prefer typing over other in
 |Medium|As a lazy and expert user|I want to be able to define my own shortcuts to certain functionality myself (eg. spend mala ytd lunch 10.50), and extend/customize them from time to time|so that I can complete commands with convenience and ease.
 |Medium|As a student with limited income|I need a visualizer to show my urgent wishlist|so I can see how much I have saved to each goal.
 |Medium|As a student with limited income|I need a visualizer|so I can see my expenses in proportion to my income at a glance.
-|Medium|As a student who has difficulty planning his finances |I want the app to help me calculate what to prioritize and how heavily I should prioritize to best meet my needs|so I can prioritise what I should be spending my money on.
+|Medium|As a student who has difficulty planning his finances |I want the app to show me the break down of my spending for me |so I can know which areas that I have overspent.
 |Medium|As a user who do not have the habit of tracking my expenses|I want to receive some incentive/motivation when I track my expenses|so that I would continue tracking it in the long run.
 |Medium|As a forgetful user|I need to have the ability to add notes to my wishlist detailing where I want to buy the product, link to buy the product etc|so that I can easily refer to the wishlist whenever I forget about the details.
 |Medium|As a student facing problems with student debt|I need an app to help me plan my spending with respect to my loan|so that I can work on paying off my loan eventually.
@@ -562,20 +570,50 @@ Use Case: user adds an expense
 . GuiltTrip creates an expense entry.
 . GuiltTrip informs user that the expense have been created.
 
-=== Use Case 03: Change the details of an existing Expense Entry
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+=== Use Case 03: Change the details of an existing Expense
 
 ==== MSS
 
 . Guilt Trip displays list of expenses.
-. User decides to edit the description/ tag/ amount of an expense.
+. User decides to edit the category/date/description/ tag/ amount of an expense.
 . GuiltTrip makes the requested modifications to expenditure entry.
 . GuiltTrip informs user that changes have been made.
 
-=== Use Case 04: Deletes an expenditure
+==== Extensions
+2a. GuiltTrip detects errors in the entered details.
+
+2a1. GuiltTrip informs the user about the error.
+
+2a2. User keys in new data.
+
+Steps 2a1-2a2 are repeated until the data entered are correct.
+Use case resumes from step 3.
+
+=== Use Case 04: Deletes an Expense
 
 . User keys in command deleteExpense, followed by the index of the expense in the list
 . GuiltTrip deletes the specified expense from the list.
 . GuiltTrip informs user that the expense has been deleted.
+
+==== Extensions
+1a. GuiltTrip detects errors in the entered details.
+
+1a1. GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
 
 === Use Case 05: Adds a Wish
 
@@ -624,11 +662,187 @@ Reminder tracks all entries.
 
 Use case ends.
 
+
 ==== Extensions
 
 . 1a. index out of bounds.
 Use case ends
 
+=== Use Case 11: Add Category
+
+==== MSS
+
+Use Case: user adds an category
+
+. User adds an category.
+. GuiltTrip creates an category entry.
+. GuiltTrip informs user that the expense have been created.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the new category is a duplicate.
+
+1b1 GuiltTrip informs user that the category is a duplicate.
+
+1b2. User keys in new data.
+Steps 1b1-1b2 are repeated until the data entered are correct.
+Use case resumes from step 2
+
+=== Use Case 12: Change the details of an existing Category
+
+==== MSS
+
+. User decides to edit the category Name of a category.
+. GuiltTrip makes the requested modifications to category entry.
+. GuiltTrip informs user that changes have been made.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the new edited category is a duplicate.
+
+1b1 GuiltTrip informs user that the edited category is a duplicate.
+
+1b2. User keys in new data.
+
+Steps 1b1-1b2 are repeated until the data entered are correct.
+Use case resumes from step 2.
+
+=== Use Case 13: Deleting an existing Category
+
+==== MSS
+
+. User decides to delete an existing category.
+. GuiltTrip deletes the specified category from the list.
+. GuiltTrip informs user that the category has been deleted.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+1b GuiltTrip detects that the to be deleted category has existing entries with the category.
+
+1b1 GuiltTrip informs the user about the error.
+
+Use case ends.
+
+=== Use Case 14: View Bar Chart
+
+. The user types in the command to view bar chart.
+. GuiltTrip shows the user the relevant bar chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 14: View Pie Chart
+
+. The user types in the command to view pie chart.
+. GuiltTrip shows the user the relevant pie chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 14: View Pie Chart
+
+. The user types in the command to view pie chart.
+. GuiltTrip shows the user the relevant pie chart.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 15: View Table
+
+. The user types in the command to view table.
+. GuiltTrip shows the user the relevant table.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 16: Find Expense/Budget/Wish/Income
+
+. The user types in the command to find the relevant entry.
+. GuiltTrip shows the user the relevant entries after filtering according to the users's input.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
+
+=== Use Case 16: Sort Expense/Budget/Wish/Income
+
+. The user types in the command to sort the list according to his liking.
+. GuiltTrip shows the user the relevant entries after sorting according to the users's input.
+
+==== Extensions
+1a GuiltTrip detects errors in the entered details.
+
+1a1.GuiltTrip informs the user about the error.
+
+1a2. User keys in new data.
+
+Steps 1a1-1a2 are repeated until the data entered are correct.
+
+Use case resumes from step 2.
 [appendix]
 == Non Functional Requirements
 

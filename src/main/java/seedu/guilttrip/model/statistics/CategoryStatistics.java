@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 import seedu.guilttrip.model.entry.Category;
 
 /**
- * Contains the list of statistics by category in the categorylist.
+ * Contains the list of statistics by category in the CategoryList.
  */
 public class CategoryStatistics {
 

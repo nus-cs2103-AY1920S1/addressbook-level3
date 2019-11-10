@@ -54,6 +54,16 @@ public class EditCategoryCommand extends Command {
         this.editCategoryDescriptor = new EditCategoryDescriptor(editCategoryDescriptor);
     }
 
+    /**
+     *  Edits Category toEditCategory in the list of existing categories. Model will handle the check if the category is
+     *  present in the list and if the newly edited category is a duplicate of another existing category.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category is
+     * present in the list and if the newly edited category is a duplicate of another existing category.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -63,12 +73,9 @@ public class EditCategoryCommand extends Command {
         }
         ObservableList<Category> typeOfCategoryList = model.getCategoryList()
                 .determineWhichList(editCategoryDescriptor.getCategoryType());
-        //TODO
         int indexOfEdit = typeOfCategoryList.indexOf(toEditCategory);
         Category categoryToEdit = typeOfCategoryList.get(indexOfEdit);
-        //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
-        //TODO possible if doesn't work properly
         //ensures that the new category specified does not exist in guilttrip
         if (categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
@@ -80,8 +87,8 @@ public class EditCategoryCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Category} with the details of {@code categoryToEdit}
+     * edited with {@code editCategoryDescriptor}.
      */
     private static Category createEditedCategory(Category categoryToEdit,
                                                  EditCategoryDescriptor editCategoryDescriptor) {

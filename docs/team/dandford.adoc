@@ -1,0 +1,78 @@
+= Dandford(Ong Ming Chung) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GuiltTrip
+
+---
+
+== Overview
+
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally! More importantly, guiltTrip() is optimized for those who prefer to
+work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can
+type fast, guiltTrip() can get your finance tracker tasks done faster than traditional GUI apps.
+
+== Summary of contributions
+Data Presentation:
+
+* *Major enhancement*: added *Statistics Breakdown along with Categories*
+** What it does: allows the user to view the statistics of his spending, whether it be by daily through a bar chart or by category
+through a table or pie chart. To facilitate the User's experience, categories are also introduce to allow breakdown by categories.
+** Justification: This feature improves the product significantly because it helps the user to identify and notice his/her spending across categories
+, thus finding out his spending trends and identify how to improve from there.
+** Highlights: This feature involves calculation of statistics across a period of time, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
+
+* *Minor enhancement*: added *Quality Of Life Features:Sort and Find Command*
+** What it does: Allows the user to sort the list according to the fields of the entry. Also allows the user to find specific entries. Enhanced the find command of original AddressBook
+to include allowing it to find for all fields of the entry.
+** Justification: This feature improves the product as there is more Data Organization and the user can choose what data to see through find.
+** Highlights: This feature involves sorting the exiting list of entries and filtering them, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4rc` (3 releases) on GitHub
+*** Assign tasks and issues to team members.
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 8% to 25%
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide
+*** Designed the layout for User Guide(Pictures)
+** Community:
+*** Set up the basic structure for the project. (Creation of expenses classes):https://github.com/AY1920S1-CS2103-T16-4/main/pull/67
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Tools:
+
+
+== Contributions to the User Guide
+https://github.com/AY1920S1-CS2103-T16-4/main
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc
+
+include::../UserGuide.adoc
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
