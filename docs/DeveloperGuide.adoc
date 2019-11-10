@@ -167,9 +167,26 @@ The game screen appears after the user enters the command `game` into the comman
 image::GameActivityDiagram.png[]
 
 ==== Internal workings of the Game
-The figure below shows the sequence diagram on what happens from a simple execution of the ```game``` command. We will go through the internal mechanism of the execution of the ```GameCommand```.
 
-<INSERT SEQUENCE DIAGRAM HERE>
+Given below is an example usage scenario of how add behaves at each step:
+
+<LOGIC>
+Step 1. The user enters the command "game".
+Step 2. The LogicManager creates an ElisaParser to parse the user input.
+Step 3. ElisaParser creates a GameCommandParser to parse the user input.
+Step 4. LogicManager will execute the GameCommand. GameCommand will create a GameCommandResult
+Step 5. MainWindow will call its own method startgame()
+
+<GAME>
+Step 6. startgame() calls the method resetgame(), which creates a Grid and GameLoop.
+Step 7. startgame() calls the method gameCheck on the canvas to check the keys that are pressed during the game.
+Step 8. startgame() creates a new scene and sets primaryStage's scene to this new scene.
+Step 9. startgame() creates a new thread to run the game.
+
+The figures below shows the sequence diagram on what happens after the startgame() method is called.
+
+.Sequence Diagram for game creation
+image::CreatingGameSequenceDiagram.png[400, 400]
 
 ==== Game considerations
 The considerations for the choice of game is shown below:
