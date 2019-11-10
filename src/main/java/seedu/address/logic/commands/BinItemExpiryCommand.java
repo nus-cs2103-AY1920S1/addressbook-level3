@@ -70,4 +70,12 @@ public class BinItemExpiryCommand extends Command {
             timeToLiveAmount, timeToLiveUnit.toString().toLowerCase()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof BinItemExpiryCommand // instanceof handles nulls
+            && timeToLiveAmount == (((BinItemExpiryCommand) other).timeToLiveAmount) // state check
+            && timeToLiveUnit.equals(((BinItemExpiryCommand) other).timeToLiveUnit)); // state check
+    }
+
 }

@@ -69,6 +69,8 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "smoker";
     private static final String VALID_TAG_2 = "diabetic";
     private static final String VALID_DISPLAY_INDICATOR = DisplayIndicator.AGE_GROUP_BREAKDOWN;
+    private static final String VALID_POSITIVE_INT = "1";
+
     private static final String INVALID_DISPLAY_INDICATOR = "A+ for CS2103";
 
     private static final String WHITESPACE = " \t\r\n";
@@ -95,7 +97,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseName(null));
     }
 
     @Test
@@ -118,7 +120,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseNric_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseNric((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseNric(null));
     }
 
     @Test
@@ -141,7 +143,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone(null));
     }
 
     @Test
@@ -164,7 +166,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress(null));
     }
 
     @Test
@@ -187,7 +189,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail(null));
     }
 
     @Test
@@ -210,7 +212,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDateOfBirth_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDateOfBirth(null));
     }
 
     @Test
@@ -233,7 +235,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseDescription_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseDescription(null));
     }
 
     @Test
@@ -256,7 +258,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseCoverage_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseCoverage((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCoverage(null));
     }
 
     @Test
@@ -279,7 +281,7 @@ public class ParserUtilTest {
 
     @Test
     public void parsePrice_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePrice(null));
     }
 
     @Test
@@ -302,7 +304,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseStartAge_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseStartAge((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseStartAge(null));
     }
 
     @Test
@@ -325,7 +327,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseEndAge_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndAge((String) null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEndAge(null));
     }
 
     @Test
@@ -349,14 +351,14 @@ public class ParserUtilTest {
     @Test
     public void parseCommand_nullCommand_throwsNullPointerException() {
         Policy policy = new PolicyBuilder().withCriteria().withTags().build();
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseCommand((String) null,
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCommand(null,
                 PolicyUtil.getAddPolicyCommand(policy)));
     }
 
     @Test
     public void parseCommand_nullArgument_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseCommand(AddPolicyCommand.COMMAND_WORD,
-                (String) null));
+                null));
     }
 
     @Test
@@ -452,5 +454,29 @@ public class ParserUtilTest {
     @Test
     public void parseDisplayIndicator_invalidDisplayIndicator_throwsParseException() throws Exception {
         assertThrows(ParseException.class, () -> ParserUtil.parseDisplayIndicator(INVALID_DISPLAY_INDICATOR));
+    }
+
+    @Test
+    public void parsePositiveInt_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parsePositiveInt(null));
+    }
+
+    @Test
+    public void parsePositiveInt_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveInt("0"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveInt("-1"));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveInt(VALID_NAME));
+        assertThrows(ParseException.class, () -> ParserUtil.parsePositiveInt(""));
+    }
+
+    @Test
+    public void parsePositiveInt_validValueWithoutWhitespace_returnsPositiveInt() throws Exception {
+        assertEquals(Integer.parseInt(VALID_POSITIVE_INT), ParserUtil.parsePositiveInt(VALID_POSITIVE_INT));
+    }
+
+    @Test
+    public void parsePositiveInt_validValueWithWhitespace_returnsTrimmedPositiveInt() throws Exception {
+        assertEquals(Integer.parseInt(VALID_POSITIVE_INT),
+            ParserUtil.parsePositiveInt(VALID_POSITIVE_INT + WHITESPACE));
     }
 }

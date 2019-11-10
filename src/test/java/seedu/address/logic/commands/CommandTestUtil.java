@@ -6,19 +6,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COVERAGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CRITERIA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_OF_BIRTH;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAYS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_END_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDICATOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MINUTES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MONTHS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POLICY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START_AGE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEARS;
 import static seedu.address.model.visual.DisplayFormat.BARCHART;
 import static seedu.address.model.visual.DisplayFormat.LINECHART;
 import static seedu.address.model.visual.DisplayFormat.PIECHART;
@@ -241,6 +247,15 @@ public class CommandTestUtil {
     public static final String DISPLAY_FORMAT_DESC_LINECHART = " " + PREFIX_FORMAT + LINECHART;
     public static final String INVALID_DISPLAY_FORMAT_DESC =
         " " + PREFIX_FORMAT + "scatterplot";
+
+    // binitemexpiry
+    public static final String BINITEMEXPIRY_SECONDS_THIRTY = " " + PREFIX_SECONDS + "30";
+    public static final String BINITEMEXPIRY_MINUTES_THIRTY = " " + PREFIX_MINUTES + "30";
+    public static final String BINITEMEXPIRY_HOURS_THIRTY = " " + PREFIX_HOURS + "30";
+    public static final String BINITEMEXPIRY_DAYS_THIRTY = " " + PREFIX_DAYS + "30";
+    public static final String BINITEMEXPIRY_MONTHS_THIRTY = " " + PREFIX_MONTHS + "30";
+    public static final String BINITEMEXPIRY_YEARS_THIRTY = " " + PREFIX_YEARS + "30";
+    public static final String BINITEMEXPIRY_INVALID_AMOUNT = " " + PREFIX_DAYS + "Thirty";
 
 
     static {

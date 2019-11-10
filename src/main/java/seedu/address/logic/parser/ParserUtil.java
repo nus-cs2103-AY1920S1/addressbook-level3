@@ -349,7 +349,7 @@ public class ParserUtil {
      */
     public static int parsePositiveInt(String positiveInt) throws ParseException {
         String trimmedPositiveInt = positiveInt.trim();
-        if (!StringUtil.isNonZeroUnsignedInteger(positiveInt)) {
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedPositiveInt)) {
             throw new ParseException(MESSAGE_INVALID_POSITIVE_INT);
         }
         return Integer.parseInt(trimmedPositiveInt);
