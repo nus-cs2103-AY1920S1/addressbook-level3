@@ -78,7 +78,7 @@ As the application is targeting to solve a financial problem, I figure it would 
 
 When the application window is resized, all components in the application is resized as well according to the window size. This allows the application to still be usable even after the window size is resized.
 
-==== Code contributed*:
+==== Code contributed:
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonathantjendana&tabRepo=AY1920S1-CS2103T-F13-3%2Fmain%5Bmaster%5D[Collated code]
 
 == Other contributions
