@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Budget;
+import seedu.guilttrip.model.entry.BudgetAmount;
 import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
@@ -97,7 +98,7 @@ class JsonAdaptedBudget {
 
         final Amount modelAmt = new Amount(amt);
 
-        final Amount modelSpent = new Amount(spent);
+        final BudgetAmount modelSpent = new BudgetAmount(spent);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         Budget budget = new Budget(modelCategory, modelDesc, modelDate, modelPeriod, modelAmt, modelTags);

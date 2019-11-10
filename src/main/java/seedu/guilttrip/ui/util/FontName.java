@@ -1,33 +1,73 @@
 package seedu.guilttrip.ui.util;
 
-import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import seedu.guilttrip.logic.parser.exceptions.ParseException;
 
 /**
  * Represents a FontName.
  */
-public class FontName {
+public enum FontName {
 
-    public final String fontName;
+    ARIAL, CALIBRI, CAMBRIA, CANDARA, GARAMOND, GEORGIA, ROCKWELL, SEGOE_UI, SERIF, VERDANA;
 
-    public FontName(String fontName) {
-        requireAllNonNull(fontName);
-        this.fontName = fontName;
+    /**
+     * Parses the specified {@code fontNameString} and returns a {@code FontName}.
+     * @throws ParseException if input string is not a recognised FontName
+     */
+    public static FontName parse(String fontNameString) throws ParseException {
+        switch (fontNameString.trim()) {
+        case "arial":
+            return ARIAL;
+        case "calibri":
+            return CALIBRI;
+        case "cambria":
+            return CAMBRIA;
+        case "candara":
+            return CANDARA;
+        case "garamond":
+            return GARAMOND;
+        case "georgia":
+            return GEORGIA;
+        case "rockwell":
+            return ROCKWELL;
+        case "segoe UI":
+            return SEGOE_UI;
+        case "serif":
+            return SERIF;
+        case "verdana":
+            return VERDANA;
+        default:
+            throw new ParseException("Invalid font name");
+        }
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FontName // instanceof handles nulls
-                && fontName.equals(((FontName) other).fontName)); // state check
+    public static ArrayList<FontName> getAllFontNames() {
+        return new ArrayList<>(Arrays.asList(ARIAL, CALIBRI, CANDARA, GARAMOND, GEORGIA, ROCKWELL, SEGOE_UI, SERIF,
+                VERDANA));
     }
 
-    @Override
-    public int hashCode() {
-        return fontName.hashCode();
+    public static ArrayList<String> getAllFontNameStrings() {
+        ArrayList<String> fontNameStrings = new ArrayList<>();
+        ArrayList<FontName> fontNames = getAllFontNames();
+        for (FontName fontName : fontNames) {
+            fontNameStrings.add(FontName.toLowerCaseString(fontName));
+        }
+        return fontNameStrings;
     }
 
-    @Override
-    public String toString() {
-        return fontName;
+    /**
+     * Returns given {@code fontName} as a String in lower case, except for {@code SEGOE_UI} which is case sensitive.
+     */
+    public static String toLowerCaseString(FontName fontName) {
+        if (fontName == SEGOE_UI) {
+            return "segoe UI";
+        } else {
+            String fontNameString = fontName + "";
+            return fontNameString.toLowerCase();
+        }
     }
+
+
 }

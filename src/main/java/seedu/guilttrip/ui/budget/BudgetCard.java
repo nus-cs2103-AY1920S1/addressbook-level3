@@ -54,15 +54,17 @@ public class BudgetCard extends UiPart<Region> {
 
         String fullDesc = budget.getDesc().fullDesc;
         desc.setText(fullDesc);
-        date.setText(budget.getDate().toString() + " - " + budget.getEndDate().toString());
+        date.setText(budget.getDate().toString() + " to " + budget.getEndDate().toString());
         double spentAmount = budget.getSpent().value;
         double totalAmount = budget.getAmount().value;
         spent.setText("$" + spentAmount);
         total.setText("$" + totalAmount);
 
         progressBar.setProgress(spentAmount / totalAmount);
+
         if (spentAmount / totalAmount >= 1) {
             progressBar.setStyle("-fx-accent: IndianRed;");
+            spent.setStyle("-fx-text-fill: IndianRed");
         } else {
             progressBar.setStyle("-fx-accent: SteelBlue;");
         }

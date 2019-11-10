@@ -44,9 +44,17 @@ public class StatisticsPieChart extends UiPart<Region> {
             }
         });
         toAdd = FXCollections.observableArrayList();
+
         statsPieChart.setTitle(type);
+        if (type.equals("Income")) {
+            statsPieChart.setStyle("-fx-text-fill: MediumSeaGreen");
+        }
+        if (type.equals("Expense")) {
+            statsPieChart.setStyle("-fx-text-fill: LightSalmon");
+        }
         statsPieChart.setLabelLineLength(15);
         statsPieChart.setLegendSide(Side.BOTTOM);
+
         updatePieChart(statsMap);
     }
 

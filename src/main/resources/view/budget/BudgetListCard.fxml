@@ -2,13 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-
-<?import javafx.scene.control.ProgressBar?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" >
   <GridPane HBox.hgrow="ALWAYS" styleClass="budget_card">
     <columnConstraints>
@@ -17,7 +16,11 @@
     <padding>
       <Insets bottom="10" left="15" right="15" top="10" />
     </padding>
+
     <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
       <Label fx:id="id" styleClass="cell_big_label">
         <minWidth>
           <!-- Ensures that the label text is never truncated -->
@@ -25,11 +28,13 @@
         </minWidth>
       </Label>
       <Label fx:id="desc" styleClass="cell_big_label" text="\$desc" />
-
-      </HBox>
+    </HBox>
 
     <!-- category and tags -->
       <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="5">
+        <padding>
+          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </padding>
         <Label fx:id="category" styleClass="labelCategoryExpense" style="-fx-background-color: SteelBlue" text="/$cat">
           <minWidth>
             <!-- Ensures that the label text is never truncated -->
@@ -39,12 +44,20 @@
         <FlowPane fx:id="tags"  />
       </HBox>
 
+    <!-- spent amount, total amount and progress bar -->
     <HBox GridPane.columnIndex="1" spacing="5">
+      <padding>
+        <Insets left="5.0" right="5.0" />
+      </padding>
       <Label fx:id="spent" styleClass="cell_big_label_amt" text="\$spent" />
       <ProgressBar fx:id="progressBar" />
       <Label fx:id="total" styleClass="cell_big_label_amt" text="\$total"/>
     </HBox>
 
-    <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="date" styleClass="cell_small_label" text="\$date" />
+    <Label GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="date" styleClass="cell_small_label" text="\$date" >
+      <padding>
+        <Insets left="5.0" right="5.0" />
+      </padding>
+    </Label>
   </GridPane>
 </HBox>

@@ -16,16 +16,16 @@ import seedu.guilttrip.ui.UiPart;
  * Side panel for reminders.
  */
 public class NotificationPanel extends UiPart<Region> {
-    private static final String FXML = "/reminder/ReminderListPanel.fxml";
+    private static final String FXML = "/reminder/NotificationListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(NotificationPanel.class);
 
     @FXML
-    private ListView<Notification> reminderListView;
+    private ListView<Notification> notificationListView;
 
     public NotificationPanel(ObservableList<Notification> notifications) {
         super(FXML);
-        reminderListView.setItems(notifications);
-        reminderListView.setCellFactory(listView -> new ReminderListViewCell());
+        notificationListView.setItems(notifications);
+        notificationListView.setCellFactory(listView -> new ReminderListViewCell());
     }
 
     /**

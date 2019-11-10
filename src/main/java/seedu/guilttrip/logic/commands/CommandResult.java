@@ -43,8 +43,8 @@ public class CommandResult {
     private boolean toShowConditionPanel = false;
 
     /** For listing any entry list. */
-    private final String entryToList;
-    private final boolean isListEntry;
+    private final String toList;
+    private final boolean isList;
 
     /** For displaying generalReminder popup */
     private final boolean displayPopUp;
@@ -66,8 +66,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.isListEntry = false;
-        this.entryToList = null;
+        this.isList = false;
+        this.toList = null;
         this.changeTheme = false;
         this.newTheme = null;
         this.displayPopUp = false;
@@ -95,8 +95,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.entryToList = null;
-        this.isListEntry = false;
+        this.toList = null;
+        this.isList = false;
         this.changeTheme = false;
         this.newTheme = null;
         this.displayPopUp = false;
@@ -107,7 +107,7 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean isListEntry, String entryToList) {
+    public CommandResult(String feedbackToUser, boolean isList, String toList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = false;
         this.exit = false;
@@ -124,8 +124,8 @@ public class CommandResult {
         this.newTheme = null;
         this.displayPopUp = false;
         this.message = null;
-        this.isListEntry = isListEntry;
-        this.entryToList = entryToList;
+        this.isList = isList;
+        this.toList = toList;
     }
 
     /**
@@ -144,8 +144,8 @@ public class CommandResult {
         this.fontName = null;
         this.listFonts = false;
         this.changeFont = false;
-        this.entryToList = null;
-        this.isListEntry = false;
+        this.toList = null;
+        this.isList = false;
         this.changeTheme = false;
         this.newTheme = null;
         this.displayPopUp = false;
@@ -172,8 +172,8 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.displayPopUp = false;
         this.message = null;
-        this.entryToList = null;
-        this.isListEntry = false;
+        this.toList = null;
+        this.isList = false;
     }
 
     /**
@@ -196,8 +196,8 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.displayPopUp = false;
         this.message = null;
-        this.entryToList = null;
-        this.isListEntry = false;
+        this.toList = null;
+        this.isList = false;
     }
 
     public CommandResult(String feedbackToUser, Message message) {
@@ -217,8 +217,8 @@ public class CommandResult {
         this.toggleEntryPanel = false;
         this.displayPopUp = true;
         this.message = message;
-        this.entryToList = null;
-        this.isListEntry = false;
+        this.toList = null;
+        this.isList = false;
     }
 
     public void showConditionPanel() {
@@ -245,8 +245,8 @@ public class CommandResult {
         return newTheme;
     }
 
-    public String getEntryToList() {
-        return entryToList;
+    public String getToList() {
+        return toList;
     }
 
     public boolean isShowHelp() {
@@ -289,8 +289,8 @@ public class CommandResult {
         return changeTheme;
     }
 
-    public boolean isListEntry() {
-        return isListEntry;
+    public boolean isList() {
+        return isList;
     }
 
     public boolean toDisplayPopUp() {
@@ -321,7 +321,7 @@ public class CommandResult {
                 && fontName == otherCommandResult.fontName
                 && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
-                && entryToList == otherCommandResult.entryToList
+                && toList.equals(otherCommandResult.toList)
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme == (otherCommandResult.newTheme);
     }
@@ -329,7 +329,7 @@ public class CommandResult {
     @Override
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
-                newTheme, changeTheme, entryToList);
+                newTheme, changeTheme, toList);
     }
 
 }

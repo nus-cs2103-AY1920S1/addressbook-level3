@@ -1,9 +1,0 @@
-.chart-pie {
-    -fx-background-insets: 0;
-    -fx-border-width: 0;
-}
-
-.chart-pie-label { /*this is what you need for labels*/
-    -fx-fill: #8b4513;
-    -fx-font-size: 1em;
-}

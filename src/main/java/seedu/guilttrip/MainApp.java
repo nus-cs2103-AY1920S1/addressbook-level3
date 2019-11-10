@@ -69,20 +69,21 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s guilttrip book and {@code userPrefs}. <br>
-     * The data from the sample guilttrip book will be used instead if {@code storage}'s guilttrip book is not found,
-     * or an empty guilttrip book will be used instead if errors occur when reading {@code storage}'s guilttrip book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s GuiltTip and {@code userPrefs}. <br>
+     * The data from the sample GuiltTrip will be used instead if {@code storage}'s GuiltTrip is not found,
+     * or an empty GuiltTrip will be used instead if errors occur when reading {@code storage}'s GuiltTrip.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         TimeUtil.startTimer();
-        Optional<ReadOnlyGuiltTrip> addressBookOptional;
+        Optional<ReadOnlyGuiltTrip> guiltTripOptional;
         ReadOnlyGuiltTrip initialData;
         try {
-            addressBookOptional = storage.readGuiltTrip();
-            if (!addressBookOptional.isPresent()) {
+            guiltTripOptional = storage.readGuiltTrip();
+
+            if (guiltTripOptional.isEmpty()) {
                 logger.info("Data file not found. Will be starting with a sample GuiltTrip");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = guiltTripOptional.orElseGet(SampleDataUtil::getSampleGuiltTrip);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GuiltTrip");
             initialData = new GuiltTrip(true);

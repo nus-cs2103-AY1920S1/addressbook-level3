@@ -97,6 +97,7 @@ public class Entry {
         }
     }
 
+    // todo: javadocs for this method FOR MINGCHUNG
     /**
      * Returns true if both entries of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two entries.
@@ -108,7 +109,6 @@ public class Entry {
 
     /**
      * Returns true if both entries of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two entries.
      */
     public boolean isSameEntry(Entry otherEntry) {
         if (otherEntry == this) {
@@ -124,9 +124,9 @@ public class Entry {
                 && otherEntry.getDate().equals(getDate());
     }
 
+    // todo: this method should be the weaker notion of equality
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both entries have the same identity and data fields.
      */
     @Override
     public boolean equals(Object other) {
@@ -170,7 +170,7 @@ public class Entry {
 
     @Override
     public int hashCode() {
-        // use this method ford custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(desc, date, amt, category, tags);
     }
 

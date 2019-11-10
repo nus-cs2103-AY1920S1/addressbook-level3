@@ -1,4 +1,4 @@
-@startuml
+    @startuml
 !include style.puml
 
 box UI UI_COLOR_T1

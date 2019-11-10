@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<HBox fx:id="popupWindowPlaceHolder" xmlns="http://javafx.com/javafx" prefHeight="400.0" prefWidth="400"
+      xmlns:fx="http://javafx.com/fxml">
+    <!--     left side placeholder -->
+    <VBox HBox.hgrow="ALWAYS" fx:id="leftPlaceHolder" prefHeight="200.0" prefWidth="200"
+          style="-fx-background-color: SteelBlue">
+
+
+    </VBox>
+
+    <!--     right side placeholder -->
+    <VBox HBox.hgrow="ALWAYS" fx:id="rightPlaceHolder" prefHeight="200.0" prefWidth="200"
+          style="-fx-background-color: MediumSeaGreen">
+        <HBox>
+
+        </HBox>
+        <Label fx:id="text" text="some text">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE"/>
+            </minWidth>
+        </Label>
+    </VBox>
+</HBox>
