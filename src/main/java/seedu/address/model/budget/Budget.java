@@ -96,7 +96,6 @@ public class Budget {
         recalculateAmountLeft();
     }
 
-
     /**
      * @param expense target expense in the budget
      */
@@ -153,20 +152,11 @@ public class Budget {
     }
 
     /**
-     * Returns true if both budgets have the same name.
-     * This defines a weaker notion of equality between two budgets.
+     * Returns true if both budgets are equal.
+     * This uses a stronger notion of equality between two budgets.
      */
     public boolean isSameBudget(Budget otherBudget) {
-        if (otherBudget == this) {
-            return true;
-        }
-
-        return otherBudget != null
-            && otherBudget.getName().equals(getName())
-            && otherBudget.getAmount().equals(getAmount())
-            && otherBudget.getCurrency().equals(getCurrency())
-            && otherBudget.getStartDate().equals(getStartDate())
-            && otherBudget.getEndDate().equals(getEndDate());
+        return this.equals(otherBudget);
     }
 
     public void setExpenseInBudget(Expense target, Expense editedExpense) {
@@ -190,6 +180,7 @@ public class Budget {
         Budget otherBudget = (Budget) other;
         return otherBudget.getName().equals(getName())
             && otherBudget.getAmount().equals(getAmount())
+            && otherBudget.getCurrency().equals(getCurrency())
             && otherBudget.getStartDate().equals(getStartDate())
             && otherBudget.getEndDate().equals(getEndDate());
     }

@@ -7,18 +7,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ViewState;
+import seedu.address.model.budget.Budget;
 import seedu.address.model.expense.Expense;
 
 
 /**
  * Adds an expense to the expense list.
  */
-public class AddCommand extends Command {
+public class AddExpenseCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "expense";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the expense list. "
             + "Parameters: "
@@ -37,34 +39,48 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense list";
+    public static final String MESSAGE_ADD_ERROR = "An error occurred while trying to add the expense";
 
     private final Expense toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Expense}
+     * Creates an AddExpenseCommand to add the specified {@code Expense}
      */
-    public AddCommand(Expense expense) {
+    public AddExpenseCommand(Expense expense) {
         requireNonNull(expense);
         toAdd = expense;
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        ViewState viewState = model.getViewState();
 
         if (model.hasExpense(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
         model.addExpense(toAdd);
-        model.setViewState(ViewState.DEFAULT_EXPENSELIST);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+
+        if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
+            return new CommandResult(model.getFilteredExpenseList(), null, null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else if (viewState.equals(ViewState.BUDGETLIST)) {
+            return new CommandResult(null, model.getFilteredBudgetList(), null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
+            Budget viewingBudget = model.getLastViewedBudget();
+            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, null,
+                String.format(MESSAGE_SUCCESS, toAdd));
+        } else {
+            throw new CommandException(MESSAGE_ADD_ERROR);
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+                || (other instanceof AddExpenseCommand // instanceof handles nulls
+                && toAdd.equals(((AddExpenseCommand) other).toAdd));
     }
 }

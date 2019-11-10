@@ -59,7 +59,7 @@ Note how the `Command::execute()` method shows polymorphic behavior.
 === Exercise: Add a polymorphic `isMutating` method
 
 * Add a method `boolean isMutating()` to the `Command` class. This method will return `true` for
-command types that mutate the data. e.g. `AddCommand`
+command types that mutate the data. e.g. `AddExpenseCommand`
 * Currently, AddressBook data are saved to the file after every command.
 Take advantage of the the new method you added to limit file saving to only for command types that mutate data.
 i.e. `add` command should always save the data while `list` command should never save data to the file.
@@ -125,7 +125,7 @@ return getPrintableString(p.getPhone(), p.getEmail(), p.getAddress());
 
 === Exercise: Add an exception to an overridden method
 
-* Add a `throws Exception` clause to the `AddCommand::execute` method. Notice how Java compiler will not allow it,
+* Add a `throws Exception` clause to the `AddExpenseCommand::execute` method. Notice how Java compiler will not allow it,
 unless you add the same `throws` clause to the parent class method. This is because if a child class throws
 an exception that is not specified by the Parent's contract, the child class is no longer substitutable in place of
 the parent class.

@@ -27,16 +27,19 @@ public class AmountTest {
         // invalid amounts
         assertFalse(Amount.isValidAmount("")); // empty string
         assertFalse(Amount.isValidAmount(" ")); // spaces only
-        assertFalse(Amount.isValidAmount("912462724523523")); // more than 12 digits
+        assertFalse(Amount.isValidAmount("912462724523523")); // more than 14 digits
         assertFalse(Amount.isValidAmount("amount")); // non-numeric
         assertFalse(Amount.isValidAmount("9011p041")); // alphabets within digits
         assertFalse(Amount.isValidAmount("9312 1534")); // spaces within digits
+        assertFalse(Amount.isValidAmount("0.00")); // amount is 0
+        assertFalse(Amount.isValidAmount("-1")); // amount is negative
+
 
         // valid amounts
         assertTrue(Amount.isValidAmount("1")); // exactly 1 digit
         assertTrue(Amount.isValidAmount("1.1")); // exactly 1 decimal
         assertTrue(Amount.isValidAmount("1.15")); // exactly 2 decimals
-        assertTrue(Amount.isValidAmount("1472745.15")); // less than 12 digits and exactly 2 decimals
-        assertTrue(Amount.isValidAmount("93121534")); // less than 12 digits
+        assertTrue(Amount.isValidAmount("1472745.15")); // less than 14 digits and exactly 2 decimals
+        assertTrue(Amount.isValidAmount("93121534")); // less than 14 digits
     }
 }

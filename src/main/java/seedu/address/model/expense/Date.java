@@ -55,7 +55,7 @@ public class Date {
         rawValue = date;
         value = convertDate(date);
         localDate = value.length() > 11
-            ? LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy, H:mma"))
+            ? LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mma"))
             : LocalDate.parse(value, DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
 
@@ -96,7 +96,7 @@ public class Date {
         LocalDate newDate;
         LocalDateTime newDateTime;
         String datePattern = "dd MMM yyyy";
-        String dateTimePattern = "dd MMM yyyy, H:mma";
+        String dateTimePattern = "dd MMM yyyy, hh:mma";
         if (date.matches(HMM_REGEX)) {
             formatter = DateTimeFormatter.ofPattern("Hmm");
             newTime = LocalTime.parse(date, formatter);
