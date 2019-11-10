@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor #32a89d
 
-Interface Comparable <<Interfaace>>
+Interface Comparable <<Interface>>
 package Sort <<Rectangle>> {
     Class CustomSorter
     Class DefaultComparator

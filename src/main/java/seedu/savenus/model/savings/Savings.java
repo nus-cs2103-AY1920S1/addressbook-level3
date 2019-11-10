@@ -17,8 +17,6 @@ public class Savings {
             + "For example: 1.50 or 200\n"
             + "Note that you also CANNOT save 0 or a negative amount of money!";
 
-    public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
-
     // Identity fields of a saving.
     private final Money savingsAmount; // the amount to be saved.
     private final TimeStamp timeStamp;

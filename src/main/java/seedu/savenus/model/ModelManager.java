@@ -397,9 +397,9 @@ public class ModelManager implements Model {
         if (savings.isWithdraw()) {
             // change it back to positive number first
             savings.getSavingsAmount().negate();
-        } else {
-            savingsHistory.addToHistory(savings);
         }
+        savingsHistory.addToHistory(savings);
+
     }
 
     /**
@@ -434,9 +434,8 @@ public class ModelManager implements Model {
     @Override
     public void depositInSavings(Savings savings) throws SavingsOutOfBoundException, InsufficientFundsException {
         requireNonNull(savings);
-        // if savings amount > the remaining budget in the wallet.
+        // User cannot add to their savings account an amount that is greater than the wallet's amount.
         if (savings.getSavingsAmount().getAmount().compareTo(this.wallet.getRemainingBudgetAmount()) == 1) {
-
             throw new InsufficientFundsException();
         } else {
             if (SavingsAccount.testOutOfBound(savings, this.savingsAccount.retrieveCurrentSavings())) {
@@ -471,7 +470,6 @@ public class ModelManager implements Model {
                     .toString());
             this.getWallet().setRemainingBudget(newRemaining);
             savingsAccount.deductFromSavings(savings);
-            savingsHistory.addToHistory(savings);
         }
     }
 

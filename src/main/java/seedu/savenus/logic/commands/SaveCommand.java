@@ -42,9 +42,7 @@ public class SaveCommand extends Command {
 
         // deduct from wallet in model
         try {
-            // Deposit into savings only possible if
-            // Wallet has sufficient funds,
-            // Adding this saving does not increase the current account value > 1000000
+            // Deposit into savings only possible if the wallet has sufficient funds
             model.depositInSavings(this.savingsAmount);
             model.addToHistory(this.savingsAmount);
         } catch (InsufficientFundsException e) {
