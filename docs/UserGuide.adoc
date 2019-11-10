@@ -442,23 +442,41 @@ image::calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 == Itinerary
 
-Now that you have book your flight, it's time to start planning your schedule with _TravEzy's_ itinerary. Here is our
-Itinerary!
+Now that you have booked your flight, it's time to start planning your trip using _TravEzy's_ Itinerary.
 
-image::ItineraryInterface.png[]
-
-In _TravEzy_, we have broken down your events into 4 key parts, namely _Title_, _Date_, _Time_, and _Tag_.
+In _TravEzy_, we have broken down your events into 6 key parts, namely _Title_, _Date_, _Time_, _Location_,
+_Description_ and _Tag_.
 
 For example, here is an Itinerary entry about our trip to Japan
 
 . _Title_ -> Visit Tokyo DisneySea
 . _Date_ -> 12122019
 . _Time_ -> 1000
+. _Location_ -> DisneySea
+. _Description_ -> Remember to take pictures with the Disney Mascots!
 . _Tag_ -> Priority: Critical
 
 In the Itinerary, you will be able to add, delete, edit, list and show your entries. There are also a few more special
-tasks that you can do with your itinerary. Read on to find out more! 😊
+tasks that you can do with your Itinerary. Read on to find out more! 😊
 
+=== Interface
+
+This is how _TravEzy's_ Itinerary looks like:
+
+image::ItineraryInterface.png[width=800]
+
+=== Auto-completion feature
+
+Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
+Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
+
+This is how _TravEzy's_ itinerary auto-complete looks like:
+
+image::ItineraryAuo.png[width=600]
+
+[WARNING]
+The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
+it to read the input before hitting _Enter_
 
 === Adding an event: ``add``
 
@@ -486,7 +504,7 @@ Step 2. Remember to prioritize your events using the Priority dropdown box, to o
 
 After selecting the priority for the event, press _Enter_.
 
-image::ItineraryAdd1.png[]
+image::ItineraryAdd1.png[width=600]
 
 Step 3. The result box will display the message "Processing...
 Done!
@@ -494,7 +512,7 @@ Your event has been successfully added! HAND, TravEzy! :D"
 
 Step 4. Now you can find your added event in the the event list.
 
-image::ItineraryAdd2.png[]
+image::ItineraryAdd2.png[width=600]
 
 === Deleting an event: ``delete``
 
@@ -515,7 +533,7 @@ Read on to find out more!
 
 Step 1. Type ``delete 4`` in the command box and press _Enter_.
 
-image::ItineraryDelete1.png[]
+image::ItineraryDelete1.png[width=600]
 
 Step 2. The result box will display the message "Processing...
 Done!
@@ -523,7 +541,7 @@ Your event has been deleted successfully. Yay! :^)"
 
 Step 3. Now _TravEzy's_ itinerary view panel will show the new event list with the specified event removed.
 
-image::ItineraryDelete2.png[]
+image::ItineraryDelete2.png[width=600]
 
 === Editing an event: ``edit``
 
@@ -548,14 +566,14 @@ Step 1. Type ``edit 4 title/Explore DisneySea's Aquatopia d/Take photos of the f
 Step 2. If you indicate a change of the priority in the edit command using ``tag/``, do remember to select the new priority using
 the Priority Dropdown Box.
 
-image::ItineraryEdit1.png[]
+image::ItineraryEdit1.png[width=600]
 
 Step 3. The result box will display the message "Updated successfully! :D
 HAND, TrazEzy~"
 
 Step 4. Now _TravEzy's_ itinerary view panel will show the new event list with the edited event.
 
-image::ItineraryEdit2.png[]
+image::ItineraryEdit2.png[width=600]
 
 === Checking a command as done: ``done``
 
@@ -574,7 +592,7 @@ event as done. ✅
 
 Step 1. Type ``done 4`` in the command box and press _Enter_.
 
-image::ItineraryDone1.png[]
+image::ItineraryDone1.png[width=600]
 
 Step 2. The result box will display the message "Processing...
 Done!
@@ -582,7 +600,7 @@ Your event has been marked done successfully. Yay! :^)"
 
 Step 3. Now _TravEzy_ itinerary view panel will mark that event as done. Good Job! 👍
 
-image::ItineraryDone2.png[]
+image::ItineraryDone2.png[width=600]
 
 === Listing all events: ``list``
 
@@ -601,7 +619,7 @@ convenient list!
 
 Step 1. Type ``list`` in the command box and press _Enter_.
 
-image::ItineraryList1.png[]
+image::ItineraryList1.png[width=600]
 
 Step 2. The result box will display the message "Processing...
 Done!
@@ -609,7 +627,7 @@ Your event has been marked done successfully. Yay! :^)"
 
 Step 3. Now _TravEzy_ itinerary view panel will showcase all the events in your itinerary.
 
-image::ItineraryList2.png[]
+image::ItineraryList2.png[width=600]
 
 === Clearing all entries: ``clear``
 
@@ -635,14 +653,14 @@ undone. Hence, only click on the *Proceed* button if you are sure that you want 
 
 Step 1. Type ``clear`` in the command box and press _Enter_.
 
-image::ItineraryClear1.png[]
+image::ItineraryClear1.png[width=600]
 
 Step 2. A popup window will appear prompting whether you would like to _Proceed_ in clearing all your events from the
 itinerary list.
 
 Step 3. The result box will display the message "Currently viewing clear window warning.".
 
-image::ItineraryClear2.png[]
+image::ItineraryClear2.png[width=600]
 
 Step 3. Upon selecting _Proceed_, a notification will be shown on the screen with the message, "Done! We have wiped off
 all your events from the face of this Earth! ( ﾟヮﾟ)".
@@ -650,7 +668,7 @@ all your events from the face of this Earth! ( ﾟヮﾟ)".
 Step 4. The result box will proceeed to display the message ""
 
 
-image::ItineraryClear3.png[]
+image::ItineraryClear3.png[width=600]
 
 ===  Greet TravEzy itinerary: ``greet``
 
@@ -669,14 +687,14 @@ _TravEzy_ will also filter the event list to showcase events that are due today.
 
 Step 1. Type ``greet`` in the command box and press _Enter_.
 
-image::ItineraryGreet1.png[]
+image::ItineraryGreet1.png[width=600]
 
 Step 2. The result box will display the message "Hello! Welcome to the itinerary page!" this will be followed by the
 current _date_ and _time_.
 
 Step 3. _TravEzy_ itinerary view panel will showcase all the events that are due today.
 
-image::ItineraryGreet2.png[]
+image::ItineraryGreet2.png[width=600]
 
 === Showing past commands: ``history``
 
@@ -697,12 +715,12 @@ Let's find out how!
 
 Step 1. Type ``history`` in the command box and press _Enter_.
 
-image::ItineraryHistory1.png[]
+image::ItineraryHistory1.png[width=600]
 
 Step 2. The result box will display the message "Commands called for this session (Most recent → Earliest):"
 followed by the list of past commands that are being called in _TravEzy's_ itinerary for that session.
 
-image::ItineraryHistory2.png[]
+image::ItineraryHistory2.png[width=600]
 
 === Searching for an event: ``search``
 
@@ -729,7 +747,7 @@ where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/
 
 Step 1. Type ``search`` in the command box and press _Enter_.
 
-image::ItinerarySearch1.png[]
+image::ItinerarySearch1.png[width=600]
 
 Step 2. The result box will display the message "Processing...
 Done!
@@ -737,7 +755,7 @@ Here are the events that matches the details. ( ͡° ͜ʖ ͡°)"
 
 Step 3. _TravEzy_ itinerary view panel will showcase the events which matches the specified keyword.
 
-image::ItinerarySearch2.png[]
+image::ItinerarySearch2.png[width=600]
 
 === Sorting the events: ``sort``
 
@@ -758,7 +776,7 @@ where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, `
 
 Step 1. Type ``sort by/priority`` in the command box and press _Enter_.
 
-image::ItinerarySort1.png[]
+image::ItinerarySort1.png[width=600]
 
 Step 2. The result box will display the message "Processing...
 Done!
@@ -766,7 +784,7 @@ TravEzy has helped sorted out your life!"
 
 Step 3. _TravEzy_ itinerary view panel will sort all the events in the event list based on the sort condition given.
 
-image::ItinerarySort2.png[]
+image::ItinerarySort2.png[width=600]
 
 == Address Book
 

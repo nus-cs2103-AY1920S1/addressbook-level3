@@ -16,7 +16,8 @@ public class AddEventCommand extends Command<Model> {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event to the itinerary, "
             + "based on the following format:\nadd title/[title] date/ [date] time/[time] l/[location] d/[desc]\n"
-            + "NOTE: Title, date and time are compulsory the rest can be left as empty fields.";
+            + "NOTE: Title, date and time are compulsory the rest can be left as empty fields. \n"
+            + "Please remember to also change the priority of your event using the dropdown box";
 
     public static final String MESSAGE_DUPLICATE_EVENT = "There is another event which is happening at the same "
             + "date and time.\n"
