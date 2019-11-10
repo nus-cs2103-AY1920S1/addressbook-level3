@@ -18,6 +18,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VIEW_MODE;
 import static seedu.address.logic.parser.ParserUtil.parseColorNumber;
+import static seedu.address.logic.parser.ParserUtil.parseEventName;
 import static seedu.address.logic.parser.ParserUtil.parseEventScheduleViewMode;
 import static seedu.address.logic.parser.ParserUtil.parseLocalDate;
 import static seedu.address.logic.parser.ParserUtil.parseLocalDateTime;
@@ -174,7 +175,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         }
         if (argMultimap.getValue(PREFIX_EVENT_NAME).isPresent()
                 && !argMultimap.getValue(PREFIX_EVENT_NAME).get().isBlank()) {
-            editVEventDescriptor.setEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
+            editVEventDescriptor.setEventName(parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()
                 && !argMultimap.getValue(PREFIX_START_DATETIME).get().isBlank()) {
@@ -250,6 +251,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         }
 
         // parse inputs into necessary types
+        eventName = parseEventName(eventName);
         List<Categories> colorCategory = parseColorNumber(colorNumber);
         LocalDateTime startDateTime = parseLocalDateTime(startDateTimeString);
         LocalDateTime endDateTime = parseLocalDateTime(endDateTimeString);

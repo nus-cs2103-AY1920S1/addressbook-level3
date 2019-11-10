@@ -57,15 +57,15 @@ Simply define a type, a topic and an answer and you are all set.
 Manage your questions using a single interface. Saving questions is easy, simply enter a topic, a question
 and an answer and you are all set!
 
+.Questions management interface
 image::questions/ListQuestionResult.png[]
-_Questions management interface_
 
 === Slideshow
 Engage your students in the classroom with our slideshow feature. Easily display existing questions
 without the need to recreate them.
 
+.Slideshow feature
 image::questions/SlideshowExample.png[]
-_Slideshow feature_
 
 ==== Control
 Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
@@ -83,7 +83,8 @@ responses before revealing the answer to test your students' understanding.
 .  Copy the file to the folder you want to use as the home folder for your NjoyAssistant.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.GUI of Njoy Teaching Assistant
+image::NjoyMainPage.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing `help` and pressing kbd:[Enter] will open the help window. +
@@ -111,6 +112,7 @@ be applied to clear the storage for students, events and notes albeit slight <<D
 *Step 1.* To see the list of questions, type in the following command: `question list`. The sample question is
 circled in purple. +
 
+.Question List
 image::QuestionListSample.jpg[]
 
 {nbsp} +
@@ -119,12 +121,14 @@ first question in the question list, which in this case is the sample question! 
 {nbsp} +
 After which, you should see the message circled in red indicating the success of the deletion. +
 
+.Question Delete
 image::QuestionDeleteSample.jpg[]
 
 {nbsp} +
 *Step 3.* You're already done! To confirm that the question has been deleted, once again type in the following
 command: `question list`. You should see that there are no more sample questions! +
 
+.Blank Question List
 image::QuestionListBlank.jpg[]
 
 {nbsp} +
@@ -198,15 +202,14 @@ Examples:
 * `student 1 name/John Doe` +
 Changes the name of the student with index number 1 in the student list to John Doe
 
+.Original list of students.
 image::EditStudent1.png[]
-_Original list of students._
 
+.Type in the command to change name of student in index 1 to John Doe.
 image::EditStudent2.png[]
-_Type in the command to change name of student in index 1 to John Doe._
 
+.Successfully change the name of student in index 1 to John Doe.
 image::EditStudent3.png[]
-_Successfully change the name of student in index 1 to John Doe._
-
 
 
 ==== Deleting a student
@@ -272,6 +275,7 @@ Adds tag Chemistry and tag Physics to student with index number 1
 
 The screenshot below shows a representation of a student with tags
 
+.Example of tagged student
 image::tagged-student-example.png[]
 
 === Mark ​-​ `mark`
@@ -317,6 +321,7 @@ Examples:
 * `mark unmark index/1` +
 Unmarks the student with index number 1
 
+.Example of marked student
 image::marked-student-example.png[]
 
 === Groups ​-​ `group`
@@ -432,14 +437,14 @@ Examples:
 * `group groupID/G01` +
 Shows all the students that belong to group with groupID `G01`
 
+.Create a group G02 with students John Doe, Jane Doe and Ben Tan.
 image::GroupView1.png[]
-_Create a group G02 with students John Doe, Jane Doe and Ben Tan._
 
+.Type in the command to display group G02.
 image::GroupView2.png[]
-_Type in the command to display group G02._
 
+.View of G02.
 image::GroupView3.png[]
-_View of G02._
 
 === Questions ​-​ `question`
 
@@ -484,8 +489,8 @@ Creates an open ended question with topic _'Which year did Singapore gain indepe
 Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
 choices _'1965', '1963', '1968', '1970'_.
 
+.Creating an open ended question.
 image::questions/AddQuestion.png[]
-_Creating an open ended question._
 
 '''
 
@@ -525,8 +530,8 @@ Edits the first question in the list changing existing question topic to _'What 
 * `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
 Edits the type of the first question in the list from open ended question to mcq and state choices _'1965', '1963', '1968', '1970'_.
 
+.Editing the first question.
 image::questions/EditQuestion.png[]
-_Editing the first question._
 
 '''
 
@@ -550,8 +555,8 @@ Example:
 * `question delete 1` +
 Deletes the first question in the list.
 
+.Deleting the first question.
 image::questions/DeleteQuestion.png[]
-_Deleting the first question._
 
 '''
 
@@ -572,8 +577,8 @@ Example:
 * `question list` +
 Lists the question list.
 
+.Listing saved questions.
 image::questions/ListQuestionResult.png[]
-_Listing saved questions._
 
 '''
 
@@ -602,8 +607,8 @@ Example:
 * `question find/What is 1+1?` +
 Searches through the question list to find questions close to the search term _'What is 1+1?'_.
 
+.Finding questions that matches search term.
 image::questions/FindQuestion.png[]
-_Finding questions that matches search term._
 
 '''
 
@@ -653,29 +658,29 @@ Example:
 * `question slideshow 1 2 3` +
 Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
 
+.Starting a slideshow.
 image::questions/StartSlideshow.png[]
-_Starting a slideshow._
 
 {empty} +
 Below is an example of how to navigate through the slideshow and utilise the <<Features-Slideshow-Polling, polling>> feature:
 
 *Step 1.* When the slideshow window appears, scroll between the questions using the `Left arrow(←)` and `Right arrow(→)` keys.
 
+.Slideshow window appears.
 image::questions/StartSlideshowResult.png[]
-_Slideshow window appears._
 
 *Step 2.* Use the `Space` key to show or hide the answer. For mcq type questions, you may use the `1-4` keys to add to the poll results for options A to D respectively.
 
+.Answer shown with polling results.
 image::questions/SlideshowAllShown.png[]
-_Answer shown with polling results._
 
 *Step 3.* When you want to end the slideshow, use the `Esc` key to exit or navigate beyond the last question of the slideshow and it will automatically exit.
 
 {empty} +
 Here is a summary of the various components of the slideshow feature:
 
+.Description of the various components.
 image::questions/SlideshowFeatureDescription.png[]
-_Description of the various components._
 
 '''
 
@@ -695,6 +700,7 @@ You may refer to <<Feature-Question-Add, creating a question>> for examples on h
 For the following examples, we will be operating under the assumption that these sample
 questions are in the question bank.
 
+.Question list
 image::QuizQuestionList.PNG[]
 
 {nbsp} +
@@ -719,8 +725,8 @@ Examples:
 * `quiz manual quizID/CS2103T questionNumber/1 2 3` +
 Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 
+.Results of the create quiz manual command.
 image::QuizManual1.PNG[]
-_Results of the create quiz manual command._
 
 ==== Creating a Quiz automatically: `auto`
 
@@ -750,14 +756,14 @@ Adds 1 question of type open-ended to the quiz labelled CS2103T.
 * `quiz auto quizID/CS2103T numQuestions/3 type/all` +
 Adds 3 questions of any type to the quiz labelled CS2103T.
 
+.Results of the first create quiz automatically command.
 image::QuizAuto1.PNG[]
-_Results of the first create quiz automatically command._
 
+.Results of the second create quiz automatically command.
 image::QuizAuto2.PNG[]
-_Results of the second create quiz automatically command._
 
+.Results of the third create quiz automatically command.
 image::QuizAuto3.PNG[]
-_Results of the third create quiz automatically command._
 
 ==== Adding a Question to a Quiz: `add`
 
@@ -780,8 +786,8 @@ Examples:
 * `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
 Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
 
+.Results of the add question to quiz command.
 image::QuizAdd1.PNG[]
-_Results of the add question to quiz command._
 
 ==== Deleting a Question from a Quiz: `delete`
 
@@ -806,8 +812,8 @@ Examples:
 * `quiz delete quizID/CS2103T quizQuestionNumber/3` +
 Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
+.Results of the delete question from quiz command.
 image::QuizDelete.PNG[]
-_Results of the delete question from quiz command._
 
 ==== Exporting a Quiz to HTML: `export`
 
@@ -833,17 +839,20 @@ The following example demonstrates how to find the export file:
 *Step 1.* After executing the quiz export command on the quiz labelled CS2103T, the user should
 navigate to their current directory. An exports folder as shown in the image below should be created!
 
+.Quiz Export Folder
 image::QuizExportsFolder.jpg[]
 
 {nbsp} +
 *Step 2.* Open the folder and double click the html file labelled with the file name CS2103T.
 
+.Quiz Export File
 image::QuizHtml.PNG[]
 
 {nbsp} +
 *Step 3.* Now you can send the custom quiz file to your students!
 The quiz should be in a similar format as displayed below.
 
+.Sample quiz HTML
 image::QuizExported.PNG[]
 
 {nbsp} +
@@ -867,8 +876,8 @@ Examples:
 * `quiz list quizID/CS2103T` +
 Lists the questions and answers for the quiz labelled CS2103T.
 
+.Results of the list quiz command.
 image::QuizList.PNG[]
-_Results of the list quiz command._
 
 ==== Showing only a Quiz's Questions: `showQuestions`
 
@@ -889,8 +898,8 @@ Examples:
 * `quiz showQuestions quizID/CS2103T` +
 Shows only the questions for the quiz labelled CS2103T.
 
+.Results of the show questions of quiz command.
 image::QuizShowQuestions.PNG[]
-_Results of the show questions of quiz command._
 
 ==== Showing only a Quiz's Answers: `showAnswers`
 
@@ -911,10 +920,17 @@ Examples:
 * `quiz showAnswers quizID/CS2103T` +
 Shows only the answers for the quiz labelled CS2103T.
 
+.Results of the show answers of quiz command.
 image::QuizShowAnswers.PNG[]
-_Results of the show answers of quiz command._
 
 === Events ​-​ `event`
+
+This feature aims to provide event management into nJoy assistance through a visually-pleasing scheduler / calendar.
+
+image::EventScheduleMain.png[]
+_Event Calendar / Schedule in weekly view mode_
+
+Note that the red line in the calendar marks the current date and time.s
 
 ==== Creating a event
 
@@ -923,6 +939,10 @@ Format: `event eventName/... startDateTime/... endDateTime/... recur/... color/.
 [NOTE]
 Note that for start and end date-time, it is necessary to input it in the following manner:
 YYYY-MM-DDThh:mm. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
+[NOTE]
+Note that the event name should not contain backslash characters.
+[NOTE]
+Events in the future have a slightly darker color than those in the past and present.
 
 The options supported by this feature includes:
 
@@ -934,16 +954,23 @@ The options supported by this feature includes:
 
 Examples:
 
-* *Weekly Event*: `event eventName/CS2101 Lecture startDateTime/2019-10-21T14:00 endDateTime/2019-10-21T16:00
-recur/weekly color/1` +
-Creates a weekly event with event name _'CS2101 Lecture'_ with start date and time _'21st Oct 2019, 1400'_ with end
-date and time _'21st Oct 2019, 1600'_ and a color grouping of _'1'_.
+* *Weekly Event*: `event eventName/Teachers Meeting startDateTime/2019-11-07T15:00 endDateTime/2019-11-07T17:00
+recur/none color/17` +
+Creates a event with event name _'Teachers Meeting'_ with start date and time _'7th Nov 2019, 1500'_ with end
+date and time _'7th Nov 2019, 1700'_ and a color grouping of _'17'_.
+
+.Adding a teachers meeting event to the schedule
+image::EventScheduleAdd.png[]
 
 [[Feature-Event-Index]]
 ==== Indexing a event
 
 Gets the index a event based on its event name. If more than one event has the same name, the command will return all of them.
 Else if the event name is not found, it shows the event which has the most similar event name.
+
+[NOTE]
+Should always run this command before edit or delete event commands. As the index of a event CAN change while the application is running.
+For example, deleting another event will affect the index of other events.
 
 Format: `event indexOf/...`
 
@@ -1010,8 +1037,30 @@ The screenshot will be saved based on the current settings of your event schedul
 For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
 
 
-* `event screenshot` +
+* Example: `event screenshot` +
 Takes a screenshot of the current calendar and saves it into Printable folder.
+
+The following example demonstrates how to find the screenshot:
+
+*Step 1.* After executing the event screenshot command, the user should
+navigate to their current directory. An printable folder as shown in the image below should be created!
+
+.Event screenshot Location
+image::EventPrintableLocation.png[]
+
+{nbsp} +
+*Step 2.* The png file should be named according to your schedule settings in the format VIEWMODE_TARGETDATE.png
+
+.Event screenshot file
+image::EventScreenshotFile.PNG[]
+
+{nbsp} +
+*Step 3.* Now you can share your calendar screenshot with others (or yourself)!
+
+.Sample event screenshot
+image::EventScreenshotSample.PNG[]
+
+{nbsp} +
 
 ==== Viewing all events
 
@@ -1028,8 +1077,12 @@ The target date option must be specified in the following format: yyyy-mm-dd. E.
 
 Example:
 
-* `event view scheduleMode/weekly targetDate/2019-11-23` +
-Opens the calendar view in weekly mode with the target date 23 November 2019.
+* `event view scheduleMode/daily targetDate/2019-11-07` +
+Opens the calendar view in daily mode with the target date 7 November 2019.
+
+.Viewing the calendar in daily mode with target date 7 November 2019
+image::EventViewDailyMode.PNG[]
+
 
 ==== Export all events
 
@@ -1050,6 +1103,25 @@ Example:
 
 * `event export` +
 Exports your events into the exports directory with file name nJoy_Schedule.ics
+
+The following example demonstrates how to find the export file:
+
+*Step 1.* After executing the event export command, the user should
+navigate to their current directory. An exports folder as shown in the image below should be created!
+
+.Event export location
+image::EventExportLocation.png[]
+
+{nbsp} +
+*Step 2.* The file should be named nJoy_Schedule.ics inside the exports directory.
+
+.Event export file
+image::EventExportFile.PNG[]
+
+{nbsp} +
+*Step 3.* Now you can import your events into other calendar applications with this ics file!
+
+{nbsp} +
 
 === Notes - `notes`
 
@@ -1222,6 +1294,7 @@ allow you to see some of the common descriptive statistics and their relative di
 
 The figure below illustrates a sample data set that fulfills all of the above specifications.
 
+.Excel format
 image::ExcelFormat.png[]
 
 === Help ​-​ `help`

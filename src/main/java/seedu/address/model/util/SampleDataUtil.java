@@ -55,7 +55,7 @@ public class SampleDataUtil {
         String eventName = "Sample Event";
         String colorCategory = "group01";
         String uniqueIdentifier = "njoyassistant";
-        Event event = new Event(eventName, startTime, endTime, uniqueIdentifier, colorCategory, RecurrenceType.NONE);
+        Event event = new Event(eventName, startTime, endTime, colorCategory, uniqueIdentifier, RecurrenceType.NONE);
         ArrayList<Event> eventList = new ArrayList<>();
         eventList.add(event);
         EventRecord sampleEventRecord = new EventRecord(eventList);

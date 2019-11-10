@@ -16,7 +16,7 @@ their schedules with an interactive timetable.
 
 This is what our project looks like:
 
-image::Ui.png[]
+image::NjoyMainPage.png[]
 _Figure 1. The graphical user interface for Njoy._
 
 My role was to design and write code for the quiz features. The rest of the sections will cover the
