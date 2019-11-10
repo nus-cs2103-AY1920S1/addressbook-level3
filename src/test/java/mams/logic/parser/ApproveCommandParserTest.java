@@ -92,12 +92,12 @@ public class ApproveCommandParserTest {
     public void parse_allFields_success() {
 
         Index index = INDEX_FIRST;
-        assertParseSuccess(parser, " a/1", new ApproveCommand(index,""));
-        assertParseSuccess(parser, " a/1 r/ok ", new ApproveCommand(index, "ok"));
+        assertParseSuccess(parser,  " a/1", new ApproveCommand(index,  ""));
+        assertParseSuccess(parser,  " a/1 r/ok ", new ApproveCommand(index,  "ok"));
 
         index = INDEX_SECOND;
-        assertParseSuccess(parser, " a/2", new ApproveCommand(index,""));
-        assertParseSuccess(parser, " a/2 r/ok ", new ApproveCommand(index, "ok"));
+        assertParseSuccess(parser, " a/2", new ApproveCommand(index,  ""));
+        assertParseSuccess(parser, " a/2 r/ok ", new ApproveCommand(index,  "ok"));
 
 //
 //        List<String> validIDs = new ArrayList<>();
