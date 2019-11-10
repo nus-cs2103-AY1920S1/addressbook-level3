@@ -38,20 +38,17 @@ one long list and having to search for them.
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Overhauled the UI along with Dorcas and K
 *** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Converted our user guide from Google Docs to AsciiDoc https://github.com/AY1920S1-CS2103T-T13-4/main/pull/6[#6]
+*** Added user guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/61[#61] and developer guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128] for folders
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/70[#70] https://github.com/AY1920S1-CS2103T-T13-4/main/pull/75[#75]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[1] https://github.com/openorclose/ped/issues[2])
 ** Tools:
-*** Integrated a third party library (Readability4J) to the project ()
+*** Integrated a third party library (Readability4J) to the project https://github.com/AY1920S1-CS2103T-T13-4/main/pull/121[#121]
 
 == Contributions to the User Guide
 
