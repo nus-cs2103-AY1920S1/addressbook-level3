@@ -398,6 +398,7 @@ public class ParserUtil {
         if (manpowerToAllocate == null) {
             return null;
         }
+        requireNonNull(manpowerToAllocate);
 
         String trimmed = manpowerToAllocate.trim();
         Integer manpowerToAdd;
