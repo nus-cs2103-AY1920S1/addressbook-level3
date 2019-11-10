@@ -38,8 +38,9 @@ import seedu.address.model.loan.LoanList;
  * Represents the in-memory model of the Library data.
  */
 public class ModelManager implements Model {
+
+    private static final String MESSAGE_LOAD_SUCCESS = "Data successfully loaded";
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    public static final String MESSAGE_LOAD_SUCCESS = "Data successfully loaded";
 
     private final UserPrefs userPrefs;
     private final LoanRecords loanRecords;
