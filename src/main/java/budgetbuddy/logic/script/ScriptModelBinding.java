@@ -23,7 +23,7 @@ import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
 /**
- * Provides convenience classes to the script environment.
+ * Provides model-related convenience functions to the script environment.
  * <p>
  * This class breaks a lot of abstraction barriers in order for the scripting experience to be ergonomic.
  * The abstraction-breaking is contained within this class.

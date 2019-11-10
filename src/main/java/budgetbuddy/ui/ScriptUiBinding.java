@@ -11,7 +11,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 
 /**
- * Provides convenience classes to the script environment.
+ * Provides generic JavaFX convenience functions to the script environment.
  * <p>
  * This class breaks a lot of abstraction barriers in order for the scripting experience to be ergonomic.
  * The abstraction-breaking is contained within this class.

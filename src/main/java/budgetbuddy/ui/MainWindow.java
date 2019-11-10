@@ -315,7 +315,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Provides convenience classes to the script environment.
+     * Provides convenience functions that involve the MainWindow to the script environment.
      * <p>
      * This class breaks a lot of abstraction barriers in order for the scripting experience to be ergonomic.
      * The abstraction-breaking is contained within this class.
