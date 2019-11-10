@@ -95,8 +95,12 @@ public class ModelManager implements Model {
      */
     private void populateActivityMap(List<Activity> list) {
         for (Activity act : list) {
-            if (act.getContact().isPresent()) {
+            if (act.getContact().isPresent() && hasContact(act.getContact().get())) {
                 Contact contact = getContact(act.getContact().get()).get();
+                contactActivityMap.put(contact, act);
+            } else if (act.getContact().isPresent() && !hasContact(act.getContact().get())) {
+                Contact contact = act.getContact().get();
+                addContact(contact);
                 contactActivityMap.put(contact, act);
             }
         }
@@ -108,8 +112,12 @@ public class ModelManager implements Model {
      */
     private void populateAccommodationMap(List<Accommodation> list) {
         for (Accommodation acc : list) {
-            if (acc.getContact().isPresent()) {
+            if (acc.getContact().isPresent() && hasContact(acc.getContact().get())) {
                 Contact contact = getContact(acc.getContact().get()).get();
+                contactAccommodationMap.put(contact, acc);
+            } else if (acc.getContact().isPresent() && !hasContact(acc.getContact().get())) {
+                Contact contact = acc.getContact().get();
+                addContact(contact);
                 contactAccommodationMap.put(contact, acc);
             }
         }
@@ -162,7 +170,13 @@ public class ModelManager implements Model {
     private void removeActivityMapping(Activity act) {
         if (act.getContact().isPresent()) {
             Contact contact = getContact(act.getContact().get()).get();
-            contactActivityMap.remove(contact);
+            if (contactAccommodationMap.containsKey(contact) && contactActivityMap.containsKey(contact)) {
+                //if contact linked to both
+                contactActivityMap.remove(contact);
+            } else if (contactActivityMap.containsKey(contact) && !contactAccommodationMap.containsKey(contact)) {
+                //if linked only to activity
+                removeContact(contact);
+            }
         }
     }
 
@@ -172,7 +186,13 @@ public class ModelManager implements Model {
     private void removeAccommodationMapping(Accommodation acc) {
         if (acc.getContact().isPresent()) {
             Contact contact = getContact(acc.getContact().get()).get();
-            contactAccommodationMap.remove(contact);
+            if (contactActivityMap.containsKey(contact) && contactAccommodationMap.containsKey(contact)) {
+                //if contact linked to both
+                contactAccommodationMap.remove(contact);
+            } else if (contactAccommodationMap.containsKey(contact) && !contactActivityMap.containsKey(contact)) {
+                //if only linked to accommodation
+                removeContact(contact);
+            }
         }
     }
 
@@ -261,11 +281,11 @@ public class ModelManager implements Model {
         if (oldAct.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = oldAct.getContact().get();
 
-            if (contactAccommodationMap.containsKey(oldContact)) {
+            if (contactAccommodationMap.containsKey(oldContact) && contactActivityMap.containsKey(oldContact)) {
+                //if it is linked to both
                 contactActivityMap.remove(oldContact);
-
-            } else {
-                contactActivityMap.remove(oldContact);
+            } else if (contactActivityMap.containsKey(oldContact) && !contactAccommodationMap.containsKey(oldContact)) {
+                //if linked to just activity
                 removeContact(oldContact);
             }
 
@@ -295,10 +315,10 @@ public class ModelManager implements Model {
     private void updateMapping(Accommodation oldAcc, Accommodation newAcc) {
         if (oldAcc.getContact().isPresent()) { //checks for existing mapping
             Contact oldContact = oldAcc.getContact().get();
-            if (contactActivityMap.containsKey(oldContact)) {
+            if (contactActivityMap.containsKey(oldContact) && contactAccommodationMap.containsKey(oldContact)) {
+                //if linked to both
                 contactAccommodationMap.remove(oldContact);
-            } else {
-                contactAccommodationMap.remove(oldContact);
+            } else if (contactAccommodationMap.containsKey(oldContact) && !contactActivityMap.containsKey(oldContact)) {
                 removeContact(oldContact);
             }
             if (newAcc.getContact().isPresent()) {
@@ -388,12 +408,14 @@ public class ModelManager implements Model {
                 Activity newActivity = new Activity(activityToMap.getName(), activityToMap.getAddress(), contact,
                         activityToMap.getCost().orElse(null), activityToMap.getTags(), activityToMap.getDuration(),
                         activityToMap.getPriority());
-                setActivity(activityToMap, newActivity);
+                this.activities.setActivity(activityToMap, newActivity);
+                contactActivityMap.put(contact, newActivity);
             }
             if (accommodationToMap != null) {
                 Accommodation newAccommodation = new Accommodation(accommodationToMap.getName(),
                         accommodationToMap.getAddress(), contact, activityToMap.getTags());
-                setAccommodation(accommodationToMap, newAccommodation);
+                this.accommodations.setAccommodation(accommodationToMap, newAccommodation);
+                contactAccommodationMap.put(contact, newAccommodation);
             }
         }
     }
@@ -525,6 +547,7 @@ public class ModelManager implements Model {
     @Override
     public void addAccommodationAtIndex(Index index, Accommodation accommodation) {
         accommodations.addAccommodationAtIndex(index, accommodation);
+        addAccommodationMapping(accommodation);
         updateFilteredAccommodationList(PREDICATE_SHOW_ALL_ACCOMMODATIONS);
     }
 
@@ -576,6 +599,7 @@ public class ModelManager implements Model {
     @Override
     public void addActivityAtIndex(Index index, Activity activity) {
         activities.addActivityAtIndex(index, activity);
+        addActivityMapping(activity);
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
@@ -628,14 +652,13 @@ public class ModelManager implements Model {
     @Override
     public void addContact(Contact contact) {
         contacts.addContact(contact);
-        redoContactMapping(contact);
         updateFilteredContactList(PREDICATE_SHOW_ALL_CONTACTS);
     }
 
     @Override
     public void addContactAtIndex(Index index, Contact contact) {
-        contacts.addContactAtIndex(index, contact);
         redoContactMapping(contact);
+        contacts.addContactAtIndex(index, contact);
         updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
     }
 
