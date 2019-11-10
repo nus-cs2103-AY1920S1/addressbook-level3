@@ -374,11 +374,24 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 === Visual Representation of individual's or group's schedule feature
 
-The visual representation of a schedule is created in the `ScheduleView` class. The model below illustrates the purpose of the `ScheduleView` class.
+The visual representation refers to the beautiful graphics you see when you view a group or an individual's schedule in TimeBook.
+All of these graphics are created in the `ScheduleView` class. The model below illustrates the purpose of the `ScheduleView` class in TimeBook.
 
 image::./yijie/ScheduleViewDomainModel.png[]
 
-In order to control the schedule created, an abstract class `ScheduleViewManager` is needed to control the creation of `ScheduleView` objects.
+The `ScheduleView` class in TimeBook follows the above model closely. Let's walk you through how the graphics are created:
+
+. Each `PersonTimeslot` object must first have a date, a start time and an end time.
+. Obtain a list of `PersonTimeslot` that has no clashes. This means that there should not be any overlapping time slots in the list.
+. Sort the list of according to their date first, followed by start times.
+. For each date, create a *container* to stack `Block` objects. Eventually, this *container* represents the graphic for one date in the `ScheduleView` object.
+.. If the first `PersonTimeslot` in the list starts after 8am (TimeBook's schedule start time), stack an empty `Block` in the *container* with the height the same
+as the duration between 8am and the start time of the first `PersonTimeslot` object in the list.
+. For each `PersonTimeslot` object in the list, stack a coloured `Block` in the same *container*. This `Block` should have the same height as the duration between the start and end time of the `PersonTimeslot` object.
+. Stack in empty `Block` to fill the gaps between the end time of the current `PersonTimeslot` and the start time of the next `PersonTimeslot` in the list.
+
+After having the `ScheduleView` class that creates the graphics for TimeBook, we needed to control what graphics to show. As such,
+ we made use of an abstract class `ScheduleViewManager` to control the creation of `ScheduleView` objects.
 The two classes that extend from `ScheduleViewManager` are `IndividualScheduleViewManager` and `GroupScheduleViewManager`.
 
 The following methods are implemented in `ScheduleViewManager` to control the schedules displayed in the window.
@@ -391,17 +404,20 @@ all the information needed to generate a schedule view.
 
 A sample usage of the ScheduleViewManager is described below.
 
-Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members in TimeBook and executes the command
+Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members, Alice, Ben and Carl in TimeBook and executes the command
 `show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week.
-//IMAGE1
+
+image::./yijie/gsvm_state1.png[]
 
 Step 2. Suppose the user thinks that arranging a group meeting on the first week is too rushed, so he executes the `togglenext` command to view the group's schedule for the next week.
 The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule.
-//IMAGE2
+
+image::./yijie/gsvm_state2.png[]
 
 Step 3. Suppose the user wants to organise a group meeting with some of his group members and still want to keep track of the entire group schedule's free time slots, he
-executes the `lookat` command to inspect some of his group member's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules.
-//IMAGE3
+executes the `lookat` command to inspect Alice's and Carl's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules.
+
+image::./yijie/gsvm_state3.png[]
 
 The following sequence diagram shows how the `show` command eventually lead to changes in the UI to show the visual representation
 of an individual's or group's schedule.
@@ -412,31 +428,69 @@ In order to make the diagram look less messy, a reference diagram shown below is
 
 image::./yijie/showCommandSdFrame.png[]
 
+Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
+
 ==== Design Considerations
 
-===== Aspect: User experience of the schedule view.
-* **Alternative 1 (current choice):** Use a separate container for headers and schedule contents (table cells & blocks).
-** Pros: User can read the schedule in our application a lot more easier.
-** Cons: Duplicated codes in the ScheduleView class to generate the separate containers.
-* **Alternative 2:** A single container to contain the schedule view.
-** Pros: Easier to implement, lesser lines of codes.
-** Cons: UX will decrease due to increase difficulty to read schedules in the application.
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| User experience of the schedule view.
+| 1. Use a separate container for headers and schedule contents (table cells & blocks). **(Current choice)**
+| 1. User can read the schedule in our application a lot more easier.
+| 1. Duplicated codes in the ScheduleView class to generate the separate containers.
 
-===== Aspect: Amount of detail present in schedule view.
-* **Alternative 1:** Enable users to see schedules up to 1 week in advance.
-** Pros: Easy to implement.
-** Cons: Users may experience difficulty to plan meetings 2 or more weeks in advance.
-* **Alternative 2 (current choice):** Enable users to see schedules up to 4 weeks in advance.
-** Pros: Most users will be able to plan most of their meetings. (Up to 1 month in advance).
-** Cons: Slightly more challenging to implement in order to make sure that the schedule view is not cluttered.
+| 2. A single container to contain the schedule view.
+| 1. Easier to implement, lesser lines of codes.
+| 1. UX will decrease due to increase difficulty to read schedules in the application.
 
-===== Aspect: Color schemes for time slot blocks in schedule view.
-* **Alternative 1 (current choice):** Select 10 good contrast colours to dark theme for schedules.
-** Pros: More aesthetically pleasing to the user.
-** Cons: Groups that have more than 10 members will have the same colours for their schedule.
-* **Alternative 2:** Randomly generate colours depending on group size.
-** Pros: All members in a group will very likely have different colours to indicate their schedule.
-** Cons: Schedules with darker colours cannot be seen from a dark theme UI.
+4+| We understand many users want to look at date headers as they use our application to plan their group meetings.
+Therefore, we chose to implement separate headers and contents so that the user can still look at the date headers as they scroll the schedule view.
+|===
+
+|===
+| Aspect: | Choice | Pros | Cons
+.3+| Amount of detail present in schedule view.
+| 1. Enable users to see schedules up to 1 week in advance.
+| 1. Easy to implement.
+
+2. Less likely for bugs when invoking other commands such as select and popup.
+| 1. Users may experience difficulty to plan meetings 2 or more weeks in advance.
+
+| 2. Enable users to see schedules up to 4 weeks in advance. **(Current choice)**
+| 1. Most users should be able to plan most of their meetings. (Up to 1 month in advance).
+| 1. Slightly more challenging to implement in order to make sure that the schedule view is not cluttered.
+
+2. Slower as each request will take 4 times as long.
+
+| 2. Enable users to see schedules up to an indefinite weeks in advance.
+| 1. Every users should be able to plan their meetings.
+| 1. Difficult to implement.
+
+2. Slow requests as every query will regenerate a new set of graphics.
+
+4+| We chose to allow users to see schedules up to 4 weeks in advance mainly due to usability. We recognise that most group meetings do not happen
+within a short period of 1 week as it may seem rushed for everyone in a group. We also found that it is unnecessary to enable users to see their schedules
+after the 1 month mark since it is most likely to not have been updated yet.
+|===
+
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| Color schemes for time slot blocks in schedule view.
+| 1. Select about 15 good contrast colours to dark theme for schedules. **(Current choice)**
+| 1. More aesthetically pleasing to the user.
+| 1. Groups that have more than 15 members will have the same colours for their blocks in the schedule.
+
+| 2. Randomly generate colours depending on group size.
+| 1. All members in a group will very likely have different colours to indicate their schedule.
+| 1. Schedules with darker colours cannot be seen from a dark theme UI.
+
+2. The graphics of the schedule generated will always have different colour for every request.
+
+4+| It is unlikely for users of TimeBook to have a large number of group members in a group. Most projects have a limit to 5 persons
+per team and thus, it is unnecessary to randomly generate color for each group member. And even if a TimeBook user really has a group of
+more than 15 group members, the order of where the blocks are placed corresponds to the order of group members list.
+Hence, the user should still be able to figure out who's block it belongs to even if it is the same colour.
+|===
 
 [[Implementation-ClosestLocation]]
 === Closest Common Location(Micro Service)
