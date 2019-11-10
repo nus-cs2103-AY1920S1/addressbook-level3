@@ -15,13 +15,6 @@ import static mams.testutil.TypicalMams.getTypicalMams;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import mams.model.appeal.Appeal;
 import mams.model.Model;
 import mams.model.ModelManager;
@@ -33,6 +26,14 @@ import mams.model.UserPrefs;
 
 import mams.commons.core.Messages;
 import mams.commons.core.index.Index;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ApproveCommandTest {
 
