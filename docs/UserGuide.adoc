@@ -205,6 +205,9 @@ Edits a spending at a specified index in the list. +
 * If you are using a different currency, the cost entered may have precision errors as it will be converted to SGD.
 ****
 
+[NOTE]
+In v1.4, this command does not support adding or removing a particular tag from a specific spending. Removing and adding of tags will be available from v2.0 onwards.
+
 *Examples:*
 
 * `edit 1 c/100` +
@@ -515,12 +518,12 @@ A graph is shown.
 
 === Adding a reminder: `reminder add`
 
-Adds a reminder to the reminder list. Key information such as deadline and message are recorded.
+Adds a reminder to the reminder list when the user enters a new reminder. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
 [NOTE]
-The date of a deadline must be within 1 year from the current date. MoneyGoWhere will check if the given reminder message and deadline are valid. If it encounters invalid information such as an empty message, the application will display an error.
+The date of the deadline in a reminder must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
 
 *Examples:*
 
