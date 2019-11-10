@@ -414,7 +414,7 @@ Not only full words will be matched. e.g. "Joke" will also match with "Joker".
 You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
 As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
 
-.Current *Watched list* with a movie "Avengers: Endgame"
+.Current *Watched Page* with a movie watched "Avengers: Endgame"
 image::watchedPageWithAvengerEndgame.png[width="790"]
 {sp} +
 [start=1]
@@ -429,18 +429,20 @@ image::searchCommand.png[width="790"]
 {sp} +
 After you have entered the command, you will be led to the *Search page* as shown below.
 
-.User Interface of the search page
+.User Interface of the *Search Page*
 image::emptySearchPage.png[width="790"]
 
 [TIP]
-You may skip Step 1 as you will be automatically be navigated to the *Search page* when you key in any valid `search`
+You may skip Step 1 as you will be automatically be navigated to the *Search Page* when you key in any valid `search`
 command, such as the one in Step 2 below.
+
 {sp} +
 [start=2]
-2. Enters `search n/Avengers a/Tom t/movie` into the command box in the search tab as shown below.
+2. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
 
 .Entering of the `search` command to search for shows
 image::searchAvengerUserInput.png[width="790"]
+
 {sp} +
 Press kbd:[enter] after entering the information shown above and wait for the information to load.
 
@@ -451,9 +453,11 @@ The loading page as shown above will appear while EzWatchlist searches for your 
 
 [TIP]
 You can go to the other pages in the mean time. Do allow some time for the search to load.
+
 {sp} +
 [start=3]
 3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
+
 {sp} +
 *Scenario A: You are offline* +
 Only movies from the watchlist or offline database with the movie name "Avengers" or actor name "Tom" will be shown,
@@ -461,6 +465,7 @@ as seen in the figure below.
 
 .*Search Page* showing the search results when offline
 image::searchPageSearchedForAvengersWhenOffline.png[width="790"]
+
 {sp} +
 *Scenario B: You are online* +
 Only movies from the online database with the movie name "Avengers" or actor name "Tom" will be shown, as seen in the
