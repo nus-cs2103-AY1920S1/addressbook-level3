@@ -1,16 +1,17 @@
 package com.typee.logic.commands;
 
-import static com.typee.logic.parser.CliSyntax.PREFIX_ATTENDEES;
-import static com.typee.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_END_TIME;
-import static com.typee.logic.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
-import static com.typee.logic.parser.CliSyntax.PREFIX_LOCATION;
-import static com.typee.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static com.typee.logic.parser.CliSyntax.PREFIX_START_TIME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ATTENDEES;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DESCRIPTION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_END_TIME;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ENGAGEMENT_TYPE;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LOCATION;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PRIORITY;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_START_TIME;
 import static java.util.Objects.requireNonNull;
 
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.model.Model;
+import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;
 
 /**
@@ -60,8 +61,13 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
         }
 
+        if (isConflicting(model)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ENGAGEMENT);
+        }
+
         model.addEngagement(toAdd);
         model.saveEngagementList();
+        model.updateSortedEngagementList();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -70,5 +76,10 @@ public class AddCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof AddCommand // instanceof handles nulls
                 && toAdd.equals(((AddCommand) other).toAdd));
+    }
+
+    private boolean isConflicting(Model model) {
+        ReadOnlyEngagementList readOnlyEngagementList = model.getEngagementList();
+        return readOnlyEngagementList.isConflictingEngagement(toAdd);
     }
 }

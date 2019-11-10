@@ -13,7 +13,6 @@ public class ClearCommand extends Command {
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Engagement list has been cleared!";
 
-
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
@@ -21,4 +20,14 @@ public class ClearCommand extends Command {
         model.saveEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else {
+            return other instanceof ClearCommand;
+        }
+    }
+
 }

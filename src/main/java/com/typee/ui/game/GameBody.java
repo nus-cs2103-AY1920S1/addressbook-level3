@@ -32,6 +32,7 @@ public class GameBody extends UiPart<Pane> {
             public void handle(long now) {
                 if (now - lastUpdate >= Integer.MAX_VALUE) {
                     new MovingWord(fallingRate, getRoot(), player);
+                    fallingRate += 0.1;
                     lastUpdate = now;
                 }
             }

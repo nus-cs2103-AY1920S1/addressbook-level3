@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "sort start_ascending"
+title After command "sort start ascending"
 
 package States <<rectangle>> {
     class State1 as "__el0:EngagementList__"

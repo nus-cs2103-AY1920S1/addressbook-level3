@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::Typee_highlevel_architecture_diagram.png[]
+image::Typee_UML-Architecture.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -178,7 +178,7 @@ Step 2. The user executes `delete 5` command to delete the 5th person in the eng
 
 image::UndoRedoState1.png[width="450", align="center"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
+Step 3. The user executes `add d/meeting ...` to add a new engagement. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
 
 image::UndoRedoState2.png[width="450", align="center"]
 
@@ -203,7 +203,7 @@ The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, w
 [NOTE]
 If the `versionPointer` is at index `historyList.size() - 1`, pointing to the latest engagement list state, then there are no undone engagement list states to restore. The `redo` command uses `Model#hasNoRedoableCommand()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `sort start_ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
+Step 5. The user then decides to execute the command `sort start ascending`. Commands that do not modify the engagement list, such as `sort`, will usually not call `Model#saveEngagementList()`, `Model#undoEngagementList()` or `Model#redoEngagementList()`. Thus, the `historyList` remains unchanged.
 
 image::UndoRedoState4.png[width="450", align="center"]
 
@@ -364,11 +364,87 @@ using constructors containing at least one argument.
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
 
-The game window provides a simple typing game where there are moving words that users can type in order to score points.
-Once users correctly type the specified word, the word disappears and the increase in points is reflected in the player
-information panel in the game window. When the user fails to type the word before the moving word reaches the bottom of
-screen, the decrease in health points is reflected in the player information panel in the game window. After the health
-points reaches zero, `GAME OVER` is displayed.
+.Game Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `PlayerInformation`
+| Scrollable Stack Pane
+| Displays the user's score and health points.
+| To inform user about the in-game progress.
+
+| `GameBody`
+| AnchorPane
+| Displays the animation of the game.
+| To allow the user to view the animation of the moving words in a continuous manner.
+
+| `MovingWords`
+| Scrollable Stack Pane
+| Displays the individual word.
+| To allow user to know the next word to type.
+|===
+
+=== Sort feature
+==== Implementation
+
+The sort mechanism is facilitated by `EngagementComparator`.
+The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
+Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
+
+Additionaly, the `Model` interface is modified to support the following methods:
+
+* `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
+* `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
+* `Model#getSortedEngagementList()` -- Returns the current internal engagement list as an unmodifiable `ObservableList`.
+
+These operations are implemented in the `ModelManager` class as `ModelManager#setComparator(Comparator<Engagement>)`, `ModelManager#updateSortedEngagementList()` and `ModelManager#getSortedEngagementList()` respectively.
+
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `currentComparator` will be initialized as `null`.
+
+image::SortListState0.png[width="450", align="center"]
+
+Step 2. The user executes `sort priority ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+
+image::SortListState1.png[width="450", align="center"]
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortSequenceDiagram.png[width="750", align="center"]
+
+NOTE: The lifeline for `SortCommand` and `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 3. The user executes `add d/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
+
+image::SortListState2.png[width="450", align="center"]
+
+[NOTE]
+If the `currentComparator` assumes the initial value `null` when `Model#updateSortedEngagementList` is called, the method will simply catch the `NullPointerException` thrown by `java.object.requireNonNull` which will essentially abort the attempt to sort with an empty catch block. The initial chronological order is preserved in this case.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the engagement list or alter the order of the list, such as `list`, will usually not call `Model#setComparator(Comparator<Engagement>)`, or `Model#updateSortedEngagementList()`. Thus, the internal `ObservableList` remains unchanged.
+
+image::SortListState3.png[width="450", align="center"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::SortUpdateActivityDiagram.png[width="190", align="center"]
+
+==== Design Considerations
+
+===== Aspect: How sort executes
+
+* **Alternative 1 (current choice):** Use the `List.sort(Comparator<T>)` function to sort the list.
+** Pros: Has trivial support for features that updates the predicate of `FilteredList`, like `Find`.
+** Cons: There is a need to sort the list each time a command that modifies the elements of the list is executed, which may result in performance issues in case the list size is large.
+* **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
+** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
+** Cons: Features like `find` command may lose functionality and needs extra modification.
+
 
 == Documentation
 
@@ -394,7 +470,8 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 * requires submitting large amount of structured reports or documents
 
-*Value proposition*: manage appointments and contacts faster than a typical mouse/ GUI driven app
+*Value proposition*: increase productivity by managing appointments faster than a typical mouse/ GUI driven app and by
+increasing typing speed.
 
 [appendix]
 == User Stories
@@ -429,9 +506,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |advanced user |be able to execute compound statements |improve efficiency
 
-|`*` |bored secretary |have a built-in game feature |keep myself entertained
+|`*` |highly motivated secretary |have a typing warm-up |prepare myself for an important events like important meetings.
 
-|`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work
+|`*` |highly driven secretary |have a way to practice typing |improve my efficiency during work by increasing my typing
+speed
 
 |`*` |fast-typer |have a way to amend trivial spelling errors |improve typing efficiency
 
@@ -451,7 +529,7 @@ unless specified otherwise)
 *MSS*
 
 1. User requests to add an appointment.
-2. System adds the appointment to the existing appointment list.
+2. System adds the corresponding appointment to the existing appointment list.
 3. System displays the updated appointment list
 and notifies the user.
 +
@@ -477,16 +555,13 @@ Use case ends
 *MSS*
 
 1.  User requests to list appointments
-2.  System displays the list of appointments in chronological order
+2.  System displays the list of appointments
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 1a. User specifies ordering method
-+
-[none]
-** 1a1. System displays the list of appointments in specified order
+* 1a. The list of appointments is empty
 +
 Use case ends.
 
@@ -687,7 +762,7 @@ Use case resumes at step 1.
 3.  User plays the game by typing the word(s).
 4.  Typing game updates the User's score and health points accordingly.
 Steps 2-4 are repeated for as many rounds as required until User runs out of health points.
-5.  Typing game shows the final score of the User
+5.  Typing game shows the final score of the User when the game ends.
 +
 Use case ends.
 
@@ -723,6 +798,30 @@ Use case resumes at step 2.
 ** 3b1. System shows error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: (UC16) Sort appointments
+*MSS*
+
+1.  User requests to Sort appointments and specifies ordering method
+2.  System sorts the list of appointments by the specified order
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. User does not specify order
+[none]
+** 1a1. System shows error message
++
+Use case ends.
+[none]
+* 1b. User specifies an invalid order
+[none]
+** 1b1. System shows error message
++
+Use case ends.
+
 
 [appendix]
 == Non Functional Requirements

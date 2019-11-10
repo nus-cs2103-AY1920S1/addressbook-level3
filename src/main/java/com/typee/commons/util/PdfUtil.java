@@ -1,13 +1,20 @@
 package com.typee.commons.util;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+
+import org.apache.commons.io.FilenameUtils;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -23,6 +30,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.typee.commons.core.LogsCenter;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
 import com.typee.model.engagement.Appointment;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
@@ -35,10 +43,11 @@ import com.typee.model.report.Report;
 
 /**
  * Generates report of engagement with a specified template.
+ * @@author nordic96
  */
 public class PdfUtil {
 
-    private static final String FOLDER_PATH = "reports/";
+    public static final String FOLDER_PATH = "reports/";
     private static Properties docProp;
     private static final Logger logger = LogsCenter.getLogger(PdfUtil.class);
     private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-YY_HH-mm");
@@ -46,10 +55,17 @@ public class PdfUtil {
     /**
      * Generates a {@code Report} in .pdf format and opens the file.
      */
-    public static void generateReport(Report report) throws DocumentException, IOException {
+    public static Path generateReport(Path fileDir, Report report) throws DocumentException, IOException {
         docProp = FileUtil.loadProperties();
         Engagement engagement = report.getEngagement();
-        Document document = initDoc(engagement, report.getTo());
+
+        String fileName = fileDir.toString() + "/" + generateFileName(report.getTo().getName().fullName,
+                report.getFrom().getName().fullName,
+                engagement.getTimeSlot().getStartTime(),
+                engagement.getDescription());
+        report.setFilePath(Paths.get(fileName));
+
+        Document document = initDoc(fileName, engagement, report.getTo());
         TimeSlot timeSlot = engagement.getTimeSlot();
 
         document = addIntroductionPar(document, engagement);
@@ -57,14 +73,72 @@ public class PdfUtil {
                 engagement.getAttendees(), timeSlot.getStartTime(), timeSlot.getEndTime()));
         addConclusion(document, report.getFrom());
         document.close();
+        logger.info("Document: " + fileName + " generated");
+        return Paths.get(fileName);
+    }
+
+    /**
+     * Checks if document is already being generated (not implemented yet).
+     */
+    public static boolean checkIfDocumentExists(Path dirPath, String to,
+                                                String from, LocalDateTime start, String desc) {
+        String fileName = generateFileName(to, from, start, desc);
+        if (Files.notExists(dirPath)) {
+            dirPath.toFile().mkdir();
+        }
+        File[] files = dirPath.toFile().listFiles();
+
+        boolean isExisting = Stream.of(files)
+                .map(file -> file.getName())
+                .filter(f -> FilenameUtils.getExtension(f).equals("pdf")
+                        && f.equals(fileName))
+                .count() == 1;
+        logger.info("Check if document exists: " + fileName + ": " + isExisting);
+        return isExisting;
+    }
+
+    /**
+     * Opens a document that only accepts pdf format.
+     */
+    public static boolean openDocument(Path documentPath) throws IOException {
+        if (FilenameUtils.getExtension(documentPath.toFile().getName()).equals("pdf")) {
+            Desktop.getDesktop().open(documentPath.toFile());
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Deletes the document of a give file name in the directory.
+     */
+    public static boolean deleteDocument(Path dirPath, String to, String from, LocalDateTime start, String desc)
+            throws DeleteDocumentException {
+        String fileName = generateFileName(to, from, start, desc);
+        logger.info(fileName);
+
+        if (Files.notExists(dirPath)) {
+            dirPath.toFile().mkdir();
+        }
+
+        File[] files = dirPath.toFile().listFiles();
+        Optional<File> fileToDelete = Optional.empty();
+        for (File f: files) {
+            if (f.getName().equals(fileName)) {
+                fileToDelete = Optional.of(f);
+            }
+        }
+
+        if (!fileToDelete.isEmpty()) {
+            return fileToDelete.get().delete();
+        }
+        throw new DeleteDocumentException();
     }
 
     /**
      * Initialise and instantiates the {@code PdfWriter}.
      */
-    private static Document initDoc(Engagement engagement, Person to) throws IOException, DocumentException {
-        String fileName = FOLDER_PATH + generateFileName(engagement.getTimeSlot().getStartTime(),
-                engagement.getDescription());
+    private static Document initDoc(String fileName, Engagement engagement, Person to) throws IOException,
+            DocumentException {
         logger.info(fileName);
         Document doc = new Document();
 
@@ -181,15 +255,8 @@ public class PdfUtil {
     /**
      * Returns a {@code String} of report file name with date followed by description.
      */
-    private static String generateFileName(LocalDateTime start, String desc) {
+    private static String generateFileName(String to, String from, LocalDateTime start, String desc) {
         String startTime = start.format(dateFormat);
-        return startTime + "_" + desc.split(" ")[0] + ".pdf";
-    }
-
-    /**
-     * Checks if document is already being generated (not implemented yet).
-     */
-    private boolean checkIfDocumentExists(String fileName) {
-        return false;
+        return to + "_" + from + "_" + startTime + "_" + desc.split(" ")[0] + ".pdf";
     }
 }

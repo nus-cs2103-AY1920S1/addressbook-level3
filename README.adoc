@@ -4,6 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-F14-3/main[image:https://travis-ci.org/AY1920S1-CS2103T-F14-3/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-F14-3/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-F14-3/main/badge.svg?branch=master[Coverage Status]]
 https://ci.appveyor.com/project/lyskevin/main/branch/master[image:https://ci.appveyor.com/api/projects/status/jnpgt16m0c8ob36q/branch/master?svg=true[Build status]]
+image:https://api.codacy.com/project/badge/Grade/1794c6da3e6e420792a875b41068a7db["Codacy code quality", link="https://www.codacy.com/manual/brebeek/main?utm_source=github.com&utm_medium=referral&utm_content=brebeek/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -15,7 +16,7 @@ endif::[]
 
 * This is a desktop engagement management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is an appointment manager for secretaries and receptionists to better schedule and manage appointments.
-* Ever wanted a comprehensive appointment manager? Well, look no further! Typee includes a built-in spell checker, calendar view, typing game, and much more!
+* Ever wanted a comprehensive appointment manager? Well, look no further! Typee includes a built-in calendar view, typing game, and pdf report generator!
 
 == Site Map
 
@@ -28,7 +29,7 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://https://commons.apache.org/proper/commons-io/[Commons-IO], https://itextpdf.com/en[iTextPdf]
 * Based on the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]

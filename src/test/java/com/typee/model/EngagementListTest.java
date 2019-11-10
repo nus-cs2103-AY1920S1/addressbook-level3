@@ -4,7 +4,6 @@ import static com.typee.testutil.TypicalEngagements.TYPICAL_APPOINTMENT;
 import static com.typee.testutil.TypicalEngagements.TYPICAL_INTERVIEW;
 import static com.typee.testutil.TypicalEngagements.TYPICAL_MEETING;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -131,6 +130,11 @@ public class EngagementListTest {
         @Override
         public ObservableList<Engagement> getEngagementList() {
             return engagements;
+        }
+
+        @Override
+        public boolean isConflictingEngagement(Engagement engagement) {
+            return false;
         }
     }
 

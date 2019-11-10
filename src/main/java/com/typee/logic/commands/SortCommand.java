@@ -19,8 +19,8 @@ public class SortCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Sorts the engagement list displayed in customised order.\n"
-            + "Parameters: [property] + [_ascending] or [_descending]\n"
-            + "Example: " + COMMAND_WORD + " start_ascending";
+            + "Parameters: [property] + [ ascending] or [ descending]\n"
+            + "Example: " + COMMAND_WORD + " start ascending";
 
     private Comparator<Engagement> comparator;
 
@@ -31,7 +31,8 @@ public class SortCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateSortedEngagementList(comparator);
+        model.setComparator(comparator);
+        model.updateSortedEngagementList();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

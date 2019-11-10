@@ -24,7 +24,6 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.SimpleType;
 import com.typee.commons.core.LogsCenter;
 import com.typee.commons.exceptions.DataConversionException;
-import com.typee.ui.Tab;
 
 /**
  * Converts a Java object instance to JSON and vice versa
@@ -90,7 +89,7 @@ public class JsonUtil {
 
         try {
             jsonFile = objectMapper.readValue(FileUtil.readFromFile(filePath),
-                    CollectionType.construct(List.class, SimpleType.construct(Tab.class)));
+                    CollectionType.construct(List.class, SimpleType.construct(listClassReference)));
         } catch (IOException e) {
             logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);

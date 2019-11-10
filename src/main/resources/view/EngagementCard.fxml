@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<HBox id="cardPane" fx:id="cardPane" prefHeight="105.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+    </columnConstraints>
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefHeight="105.0" prefWidth="161.0" GridPane.columnIndex="0">
+      <padding>
+        <Insets bottom="5" left="15" right="5" top="5" />
+      </padding>
+         <HBox prefHeight="15.0" prefWidth="129.0">
+            <children>
+           <Label fx:id="id" styleClass="cell_big_label" text="\$id" textOverrun="CLIP">
+             <minWidth>
+               <!-- Ensures that the label text is never truncated -->
+               <Region fx:constant="USE_PREF_SIZE" />
+             </minWidth>
+           </Label>
+               <Label fx:id="type" maxWidth="1.7976931348623157E308" styleClass="cell_big_label" text="\$type" textOverrun="CLIP" />
+               <Label styleClass="cell_big_label" text=" at " />
+               <Label fx:id="locationOfEngagement" styleClass="cell_big_label" text="\$locationOfEngagement" textOverrun="CLIP" />
+            </children>
+         </HBox>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+           <Label fx:id="startTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$start" textOverrun="CLIP" wrapText="true" />
+               <Label prefHeight="17.0" prefWidth="20.0" styleClass="cell_small_label" text="to " textOverrun="CLIP" />
+               <Label fx:id="endTime" prefHeight="17.0" prefWidth="120.0" styleClass="cell_small_label" text="\$end" textOverrun="CLIP" wrapText="true" />
+            </children>
+         </HBox>
+      <FlowPane fx:id="tags" />
+         <HBox prefHeight="18.0" prefWidth="400.0">
+            <children>
+               <Label styleClass="cell_small_label" text="Attendees: " />
+            <Label fx:id="attendees" prefHeight="17.0" styleClass="cell_small_label" text="\$attendees" wrapText="true"/>
+            </children>
+         </HBox>
+         <Label fx:id="description" styleClass="cell_small_label" text="\$description" textOverrun="CLIP" wrapText="true"/>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Label styleClass="cell_small_label" text="Priority: " textOverrun="CLIP" />
+               <Label fx:id="priority" prefHeight="17.0" prefWidth="100.0" styleClass="cell_small_label" text="\$priority" textOverrun="CLIP" />
+            </children>
+         </HBox>
+    </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+  </GridPane>
+</HBox>

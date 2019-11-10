@@ -51,4 +51,18 @@ public class Tab {
     public String toString() {
         return name + ":(" + url + ") controller: " + controller;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof Tab)) {
+            return false;
+        } else {
+            Tab otherTab = (Tab) other;
+            return name.equals(otherTab.name)
+                    && url.equals(otherTab.url)
+                    && controller.equals(otherTab.controller);
+        }
+    }
 }

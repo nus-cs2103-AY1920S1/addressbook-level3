@@ -1,0 +1,106 @@
+:profile-caption: :computer:
+= Ng Jun Hao - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:bl: pass:[ +]
+
+[PROFILE]
+====
+--
+image::jun-ha0.png[width="130", align="left"]
+--
+[blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following technologies
+and software were used in the development of *_Typee_* application:
+--
+image::java-logo.png[width="80", height="80", float="left"]
+image::javafx-logo.png[width="80", height="80", float="left"]
+image::junit5-logo.png[width="80", height="80", 66,70, float="left"]
+image::json-logo.png[width="80", height="80", 67,70, float="left"]
+image::travis-logo.png[width="80", height="80", 68,70,float="left"]
+//image::appveyor-logo.png[width="80", height="80", float="left"]
+//image::coveralls-logo.png[width="80", height="80", float="left"]
+image::github-logo.png[width="80", height="80"]
+
+====
+
+== PROJECT: Typee
+
+
+== Overview
+
+We are a group of 5 NUS Computer Science students involved in enhancing a basic command line interface (CLI) desktop
+application that manages addresses for our Software Engineering project. We chose to morph it into an appointment
+management application called *_Typee_*.
+
+
+*_Typee_* is a CLI application that allows secretaries and receptionists to better schedule and
+manage appointments. Receptionists and secretaries possess one of the fastest typing speeds and would get increased
+productivity using the CLI-based *_Typee_*. The CLI application boosts productivity by having a comprehensive
+appointment management system with calendar view, pdf report generation, as well as a typing game.
+
+image::Ui.png[width="900", height="900"]
+
+The sections below will cover the following:
+
+1. Summary of contributions
+
+2. Major and minor enhancements
+
+3. Contributions to User Guide and Developer Guide
+
+== Summary of Contributions
+|===
+|[blue]#This section will give you a brief overview of my contributions to the project.# +
+
+This section will be split into *Major Enhancement*, *Other Contributions* and *Code contributed* sub-sections.
+|===
+
+[TIP]
+====
+* It would be helpful to read the
+link:https://github.com/AY1920S1-CS2103T-F14-3/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide]
+and link:https://github.com/AY1920S1-CS2103T-F14-3/main/blob/master/docs/UserGuide.adoc[User Guide]
+to understand more about *_Typee_* and its list of features in order to have a better idea of my contributions to the project.
+
+* To try out *_Typee_* , go to the User Guide and find the [navy]#*Quick Start*# section for more information.
+====
+
+=== Features Contributed to Project
+
+==== Major enhancement: added `tab game`
+** [red]#*_What_* -# The game feature is a simple typing game where users score points whenever a word, such as
+ `fire`, `something`, is correctly typed.
+
+** [red]#*_Why_* -# The game feature is a utility feature that allows the user to practice and exercise their typing skill,
+which is an essential skill for secretaries and receptionists. The game-like environment uses a points system and has the
+advantage of keeping users incentivized, entertained and motivated to improve their skills.
+
+** [red]#*_Highlights_* -#
+*** This enhancement can be triggered using the `Start` button following `tab game` command.
+This enhancement works with existing as well as future commands.
+In-depth analysis of design alternatives was necessary to...
+The implementation was also challenging because…
+
+=== Other Contributions
+
+** [teal]#*Project Management*#
+*** [red]#*Managing Issue Tracker*#
+**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Ajun-ha0+is%3Aclosed+[issues link]
+displays the issue trackers I managed.
+
+*** [red]#*Managing milestones*#
+**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/milestones?state=closed[milestone link] displays the milestones I managed.
+
+==== Community
+*** [teal]#*PR Reviews:*#
+**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ajun-ha0+is%3Aclosed+[PR link]
+displays the Pull Requests I reviewed.
+
+=== Code contributed
+
+**** The following https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jun-ha0&tabRepo=AY1920S1-CS2103T-F14-3%2Fmain%5Bmaster%5D[reposense link]
+displays my code contribution.
+
+
+{ to be continued }

@@ -18,6 +18,13 @@ It is an appointment manager for secretaries and receptionists to better schedul
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
+
+* *Major enhancement*: added the ability to *sort engagements by custom order*
+** What it does: allows the user to sort.
+** Justification: This feature improves the product significantly because it sorts.
+** Highlights:
+** Credits: _
+
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_

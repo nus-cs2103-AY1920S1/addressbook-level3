@@ -6,7 +6,7 @@ import com.typee.commons.core.GuiSettings;
 import com.typee.commons.exceptions.DataConversionException;
 import com.typee.logic.commands.CommandResult;
 import com.typee.logic.commands.exceptions.CommandException;
-import com.typee.logic.parser.exceptions.ParseException;
+import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.model.Model;
 import com.typee.model.ReadOnlyEngagementList;
 import com.typee.model.engagement.Engagement;

@@ -37,7 +37,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all appointments.
+* **`tab` ** `game`: switches main window to start window of the game.
 * **`add`** `d/Meeting on Monday` : adds an appointment with the description `Meeting on Monday` to the appointment manager.
+* **`pdf` ** `i/1 to/Jason from/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `3` : deletes the 3rd appointment shown in the current list.
 * *`exit`* : exits the app.
 
@@ -50,7 +52,7 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
-=== Switch to different windows (GUI): `tab MENU`
+=== Switch to different windows: `tab`
 
 Switches to a different menu in the application window. +
 Format: `tab [menu_name]`
@@ -60,31 +62,50 @@ Format: `tab [menu_name]`
 ** TypingGame
 ** Calendar
 ** Report
+
+[NOTE]
+`tab game` is used instead of `tab typinggame` to simplify typing.
+
 * `Engagement` window will be the default window upon start up of the application.
 
 .Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[]
+image::tab_1_default.png[width="800"]
 
 Now, if the user wants to switch to different windows, simply enter the tab command
 with refer to the menu name listed on the left end of the application window. For example, user enters `tab calendar`
 switch to calendar view window.
 
 .input section with tab command entered `tab calendar`
-image::tab_2.png[]
+image::tab_2.png[width="800"]
 
 Below is the screenshot after entering the command.
 
-image::tab_3.png[]
+image::tab_3.png[width="800"]
 
 === Adding an appointment: `add`
 
-Adds an appointment to the appointment manager. +
-Format: `add d/DESCRIPTION`
+Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+
+.Enters Add Engagement Command in Command Input Text field.
+image::add_1.png[width="800"]
 
 Examples:
 
-* `add d/Meeting on Monday`
-Adds an appointment with the description `Meeting on Monday` to the appointment manager.
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+Adds an engagement with following information;
+** Engagement Type: Meeting
+** Start Time: 18/10/2019/1500
+** End Time: 18/10/2019/1800
+** Location: COM-2-B1-03
+** Attendees: John, Elijah, Sam
+** Engagement Description: CS2103T Discussion
+** Priority: High
+
+After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+
+.Engagement successfully saved in system storage.
+image::add_2.png[width="800"]
 
 === Listing all appointments : `list`
 
@@ -94,15 +115,14 @@ Format: `list`
 === Sorting all appointments : `sort`
 
 Sorts the list of all appointments in the appointment list by the order specified by user. +
+Format: `sort ORDER`
 
 [TIP]
-Orders supported: `description_ascending`, `description_descending`, `start_ascending`, `start_descending`, `end_ascending`, `end_descending`, `priority_ascending`, `priority_descending`.
-
-Format: `sort ORDER`
+Orders supported: `description ascending`, `description descending`, `start ascending`, `start descending`, `end ascending`, `end descending`, `priority ascending`, `priority descending`.
 
 Examples:
 
-* `sort start_ascending` +
+* `sort start ascending` +
 Sorts the list displayed in ascending order of start time.
 
 [.clearfix]
@@ -114,42 +134,8 @@ image::before-sort.png[width="450", float="left"]
 image::after-sort.png[width="450"]
 --
 
-=== Editing an appointment : `edit`
-
-Edits an existing appointment in the appointment manager. +
-Format: `edit INDEX [d/DESCRIPTION]`
-
-****
-* Edits the appointment at the specified `INDEX`. The index refers to the index number shown in the displayed appointment list. The index *must be a positive integer* 1, 2, 3, ...
-
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
-
-Examples:
-
-* `edit 1 d/Meeting on Tuesday` +
-Edits the description of the 1st person to be `Meeting on Tuesday`.
-
-=== Locating appointments by name: `find`
-
-Finds appointments whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The order of the keywords does not matter. e.g. `noon time` will match `time noon`
-* Appointments matching at least one keyword will be returned (i.e. `OR` search). e.g. `team time` will return `team meeting`, `meeting time`
-****
-
 [TIP]
-The complete list can be displayed again using `list`.
-
-Examples:
-
-* `find presentation` +
-Returns `team presentation` and `investor presentation`
-* `find meeting presentation conference` +
-Returns any appointment containing the keywords `meeting`, `presentation`, or `conference` in its description
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
 
 === Deleting an appointment : `delete`
 
@@ -179,6 +165,9 @@ Format: `clear`
 === Undoing the previous command : `undo`
 Undoes the previous command, provided that it exists. +
 Format: `undo`
+
+[TIP]
+Undo supports the following commands that modify the engagement list: `add`, `edit`, `delete` and `clear`.
 
 Examples:
 
@@ -210,8 +199,9 @@ Format: `redo`
 Examples:
 
 * `delete 1` +
-`undo` +
-`redo` +
+`undo` (reverts the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
 Redoes the previous undo command, i.e. the appointment deleted before `undo` will be removed again from the appointment manager.
 
 [.clearfix]
@@ -224,45 +214,136 @@ image::redo-result.png[width="450"]
 --
 
 === Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays appointments inside a calendar.
+Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
+engagements per day. More commands are provided for interaction with the calendar window.
 
-=== Typing game : `tab typinggame`
-Opens a simple typing game which helps you to improve your typing speed. There are moving words that users can type in
-order to score points. Once users correctly type the specified word, the word disappears and the increase in points is
-reflected in the player information panel in the game window. When the user fails to type the word before the moving
-word reaches the bottom of screen, the decrease in health points is reflected in the player information panel in the game
-window. After the health points reaches zero, `GAME OVER` is displayed.
+Format: `tab calendar`
 
-=== Generating a PDF file of engagement : `pdf i/[index] to/[Receiver] from/[Sender]`
+.Calendar view for October 2019
+image::calendar-view.png[width="450"]
+
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
+Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
+This means that nothing will happen if this command is used with a date which already has an open engagements list window.
+
+Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
+
+If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
+
+All engagement list windows will be closed if something is done to change the displayed calendar month
+(e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.
+
+Example: The calendar is currently displaying information for October 2019 and there are engagement list windows open for three dates
+in the display. If `calendar opendisplay 11/11/2019` is entered into the input box, then all three engagement list windows will be closed.
+The calendar's display then switches to November 2019 and the engagement list window for 11 November 2019 is opened up.
+
+This command does not work if the application is in another tab (view) or the specified date is invalid.
+
+.Engagement list for 01/11/2019
+image::calendar-open-display.png[width="450"]
+{empty} +
+After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
+above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
+2019, albeit at the end of the grid.
+
+Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+for that date.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
+Changes the calendar view to the month following the currently displayed one. This command does not work if the
+application is in another tab.
+
+Format: `calendar nextmonth`
+
+.Changing to the next month from October 2019
+image::calendar-next-month.png[width="450"]
+{empty} +
+Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
+to change the display to the next month.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
+
+=== Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
+Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
+application is in another tab.
+
+Format: `calendar previousmonth`
+
+.Changing to the previous month from October 2019
+image::calendar-previous-month.png[width="450"]
+{empty} +
+Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
+to change the display to the previous month.
+
+This command closes any open engagement windows from the current month before updating the display to the previous month.
+
+=== Typing game : `tab game`
+Changes the current window to the start window with a kbd:[Start] button.
+
+.Start window of the game
+image::StartWindow.png[width="450"]
+Click the kbd:[Start] button to open the game in a new window.
+
+.Game window
+image::GameWindow.png[width="450"]
+
+There are moving words that you can type in order to score points. Once you correctly type the specified word,
+the word disappears and the increase in points is reflected in the player information panel in the game window.
+[NOTE]
+After typing a word, remember to press kbd:[Enter] to clear the text area which is located at the bottom of the screen.
+
+
+When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
+is reflected in the player information panel in the game window.
+After the health points reaches zero, `GAME OVER` is displayed as shown below.
+
+.Sample game play when game is over
+image::GameOver.png[width="450"]
+
+Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
+If you want to play the game again, click the kbd:[Start] button shown in the Start window.
+
+=== Generating a PDF file of engagement : `pdf`
 Pdf Command allows user to create a document of selected engagement in a given format of document template.
 Document template can be customised based on the customers's requirements, however, default document format will be in an eamil format,
 where the user can set who the user is going to send this document to inform an engagement. +
+
+Format: `pdf i/[index] to/[receiver] from/[sender]` +
+
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
 User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 to/Harry from/John` to generate the document.
 
-image::pdf_1.png[]
+
+image::pdf_1.png[width="800"]
 
 Once user enters the command, system will display the command result in the output panel, showing "Engagement Report successfully generated."
 Now, if the user clicks the green refresh button on top right of the documents explorer, explorer will display the generated pdf as a list item.
 
+.refresh button and delete button in documents explorer.
+image::pdf_function_btns.png[width="800"]
+
 .System after clicking refresh button
-image::pdf_2.png[]
+image::pdf_2.png[width="800"]
 
 User can double click the list item to open the document file on their local computer file system. Below is the sample of generated document from our system.
 
 .pdf document sample
-image::pdf_sample.png[]
+image::pdf_sample.png[width="800"]
 
 If the user does not want to keep the document, instead of directing the actual directory in the local stystem, user can simply click the red `x` button, next to the refresh
 button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message
-image::pdf_delete.png[]
+image::pdf_delete.png[width="800"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
-image::pdf_delete_after.png[]
+image::pdf_delete_after.png[width="800"]
+
+NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
 
 === Exiting the program : `exit`
 
@@ -284,21 +365,20 @@ Relevant data will be loaded from the external file when the application starts.
 
 == Command Summary
 
-* *Add* `add d/DESCRIPTION` +
-e.g. `add d/Team lunch outing on Friday`
-* *Calendar* : `tab calendar`
+* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High`
+* *Tab*: `tab MENU_NAME`
+** *Add Engagement* : `tab engagement`
+** *Calendar* : `tab calendar`
+** *Game* : `tab game`
+** *Report* : `tab report`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [d/DESCRIPTION]` +
-e.g. `edit 2 d/Team lunch outing on Thursday`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find team outing`
-* *Game* : `tab typinggame`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
-* *List* : `list`
-* *Help* : `help`
 * *Redo* : `redo`
 * *Sort* : `sort ORDER`
 * *Undo* : `undo`
+* *List* : `list`
+* *Help* : `help`
 

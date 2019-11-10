@@ -49,7 +49,7 @@ Responsibilities: In charge of functionality
 
 === Ng Jun Hao
 image::jun-ha0.png[width="150", align="left"]
-{empty}[https://github.com/jun-ha0[github]] [<<junhao#, portfolio>>]
+{empty}[https://github.com/jun-ha0[github]][https://AY1920S1-CS2103T-F14-3.github.io/main/team/jun-ha0.html[portfolio]]
 
 Role: Developer +
 Responsibilities: Typing game

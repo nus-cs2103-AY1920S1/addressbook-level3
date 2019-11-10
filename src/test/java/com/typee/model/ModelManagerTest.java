@@ -1,23 +1,77 @@
 package com.typee.model;
 
-//import static com.typee.testutil.TypicalPersons.ALICE;
-//import static com.typee.testutil.TypicalPersons.BENSON;
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT;
+import static com.typee.testutil.TypicalReports.TYPICAL_REPORT_DIFF;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import com.itextpdf.text.DocumentException;
+import com.typee.commons.core.GuiSettings;
+import com.typee.logic.commands.exceptions.DeleteDocumentException;
+import com.typee.logic.commands.exceptions.GenerateExistingReportException;
+import com.typee.testutil.TypicalEngagements;
 
 public class ModelManagerTest {
 
-    /*
+    @TempDir
+    public File tempDir;
+
     private ModelManager modelManager = new ModelManager();
+
+    @BeforeEach
+    public void setUp() throws DocumentException, GenerateExistingReportException, IOException {
+        modelManager.saveReport(tempDir.toPath(), TYPICAL_REPORT);
+    }
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new EngagementList(), new EngagementList(modelManager.getHistoryManager()));
+        assertEquals(new EngagementList(), new EngagementList(modelManager.getEngagementList()));
     }
 
     @Test
     public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
+    }
+
+    @Test
+    public void saveReport_repeating() {
+        assertThrows(GenerateExistingReportException.class, () -> modelManager.saveReport(tempDir.toPath(),
+                TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport() throws DeleteDocumentException {
+        assertEquals(true, modelManager.deleteReport(tempDir.toPath(), TYPICAL_REPORT));
+    }
+
+    @Test
+    public void deleteReport_invalid() {
+        assertThrows(DeleteDocumentException.class, () -> modelManager.deleteReport(tempDir.toPath(),
+                TYPICAL_REPORT_DIFF));
+    }
+
+    @Test
+    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
+        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
+        modelManager.setGuiSettings(guiSettings);
+        assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
     }
 
     @Test
@@ -33,18 +87,36 @@ public class ModelManagerTest {
         userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
-
     @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
+    public void equals() {
+        EngagementList engagementList = TypicalEngagements.getTypicalEngagementList();
+        EngagementList differentAddressBook = new EngagementList();
+        UserPrefs userPrefs = new UserPrefs();
+
+        // same values -> returns true
+        modelManager = new ModelManager(engagementList, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(engagementList, userPrefs);
+        assertTrue(modelManager.equals(modelManagerCopy));
+
+        // same object -> returns true
+        assertTrue(modelManager.equals(modelManager));
+
+        // null -> returns false
+        assertFalse(modelManager.equals(null));
+
+        // different types -> returns false
+        assertFalse(modelManager.equals(5));
+
+        // different engagementList -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
+
+        // different userPrefs -> returns false
+        UserPrefs differentUserPrefs = new UserPrefs();
+        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(engagementList, differentUserPrefs)));
     }
 
-    @Test
-    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
-    }
+    /*
 
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
@@ -77,43 +149,6 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredEngagementList().remove(0));
-    }
-
-    @Test
-    public void equals() {
-        EngagementList addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        EngagementList differentAddressBook = new EngagementList();
-        UserPrefs userPrefs = new UserPrefs();
-
-        // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
-
-        // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
-        assertFalse(modelManager.equals(null));
-
-        // different types -> returns false
-        assertFalse(modelManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredEngagementList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredEngagementList(PREDICATE_SHOW_ALL_ENGAGEMENTS);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
      */
 }

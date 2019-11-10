@@ -4,6 +4,8 @@ import static com.typee.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.typee.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagementList;
 import static com.typee.testutil.TypicalEngagements.getTypicalEngagements;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,4 +42,9 @@ public class UndoCommandTest {
         assertCommandFailure(new UndoCommand(), model, UndoCommand.MESSAGE_FAILURE);
     }
 
+    @Test
+    public void equals() {
+        assertFalse(new UndoCommand().equals(new RedoCommand()));
+        assertTrue(new UndoCommand().equals(new UndoCommand()));
+    }
 }

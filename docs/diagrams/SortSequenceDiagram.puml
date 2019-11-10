@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TypeeParser" as TypeeParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "s:SortCommand" as SortCommand LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":EngagementComparator" as EngagementComparator MODEL_COLOR
+participant ":HistoryManager" as HistoryManager MODEL_COLOR
+end box
+[-> LogicManager : execute("sort priority ascending")
+activate LogicManager
+
+LogicManager -> TypeeParser : parseCommand(sort)
+activate TypeeParser
+
+create SortCommandParser
+TypeeParser -> SortCommandParser : parse()
+activate SortCommandParser
+
+SortCommandParser -> SortCommandParser : parseOrder()
+
+SortCommandParser -> ParserUtil : parseComparator()
+activate ParserUtil
+
+ParserUtil -> EngagementComparator : getComparator()
+activate EngagementComparator
+EngagementComparator -> ParserUtil : PRIORITY_ASCENDING
+deactivate EngagementComparator
+
+ParserUtil -> SortCommandParser : PRIORITY_ASCENDING
+deactivate ParserUtil
+
+create SortCommand
+SortCommandParser -> SortCommand
+activate SortCommand
+
+SortCommand --> SortCommandParser
+deactivate SortCommand
+
+SortCommandParser --> TypeeParser : s
+deactivate SortCommandParser
+SortCommandParser -[hidden]-> TypeeParser : s
+destroy SortCommandParser
+
+TypeeParser --> LogicManager : s
+deactivate TypeeParser
+
+LogicManager -> SortCommand : execute()
+activate SortCommand
+
+SortCommand -> Model : setComparator()
+activate Model
+Model --> SortCommand
+deactivate Model
+
+SortCommand -> Model : updateSortedEngagementList()
+activate Model
+
+Model -> HistoryManager : sort()
+activate HistoryManager
+HistoryManager --> Model :
+deactivate HistoryManager
+
+Model --> SortCommand
+deactivate Model
+
+SortCommand --> LogicManager : result
+deactivate SortCommand
+SortCommand -[hidden]-> LogicManager : result
+destroy SortCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
