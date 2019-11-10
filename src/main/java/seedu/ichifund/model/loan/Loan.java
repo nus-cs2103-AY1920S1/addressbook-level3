@@ -79,8 +79,6 @@ public class Loan implements Comparable<Loan> {
         this.description = description;
     }
 
-
-
     /**
      * ONly returns true if 2 loan objects have exact same paramenters,
      */
