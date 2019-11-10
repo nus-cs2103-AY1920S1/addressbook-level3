@@ -368,13 +368,13 @@ NOTE: Due to a limitation of PlantUML, object lifelines in the diagram extend be
 
 The following activity diagram provides a general overview of the events that occur when a user executes an `export` command:
 
-image::ExportActivityDiagram.png[width="300"]
+image::ExportActivityDiagram.png[width=517,height=546]
 
 _Figure 3: Activity diagram of when the user executes an `export` command_
 
 The following activity diagram provides a general overview of the events that occur when a user executes an `import` command:
 
-image::ImportActivityDiagram.png[width=475,height=550]
+image::ImportActivityDiagram.png[width=450,height=540]
 
 _Figure 4: Activity diagram of when the user executes an `import` command_
 

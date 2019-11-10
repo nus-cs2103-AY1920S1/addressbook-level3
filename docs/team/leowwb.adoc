@@ -5,9 +5,9 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-This document details the various contributions that I have made to my team project, _KeyboardFlashCards_. Done as part of a second-year software engineering module,
+This document details the various contributions that I have made to my team project, _KeyboardFlashCards_ (KFC). Done as part of a second-year software engineering module,
 the project requires that students work in teams to morph a desktop addressbook application into another product. The
-project is required to conform to a number of constraints, the most significant being that the product must have primarily utilize a CLI (command-line interface); this
+project is required to conform to a number of constraints, the most significant being that the product must primarily utilize a CLI (command-line interface); this
 means that the primary means of user input to the product must be through the typing of commands.
 
 This project was the result of six weeks of hard work by my team, which comprises two final-year Computer Engineering students and three sophomore Computer Science
@@ -31,7 +31,7 @@ NOTE: A point of information to take note of
 
 TIP: A tip or suggestion
 
-CAUTION: A cautionary piece of advice
+CAUTION: A cautionary warning
 
 == Summary of contributions
 
@@ -54,7 +54,7 @@ CAUTION: A cautionary piece of advice
 ** Credits: All writing of flashcards to the '.docx' and '.json' formats is done with the use of two external libraries;
     these are Apache POI and Jackson, respectively.
 
-* *Major enhancement #2: I added the ability to *import flashcards from an external file*.
+* *Major enhancement #2*: I added the ability to *import flashcards from an external file*.
 ** What it does: It allows the user to import flashcards from a JSON file (a file that ends in '.json').
     The imported flashcards are added to the application, and the user will be able to use them as if they were their own.
 ** Justification: This feature, when used in combination with the Export feature, allows users to share their flashcards with
@@ -115,7 +115,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=LeowWB&sort=totalComm
 == Contributions to the User Guide
 
 |===
-|_My team's complete overhaul of the addressbook application meant that we also had to rewrite much of the User Guide. The following are excerpts of my contributions to this effort. They showcase my ability to write documentation that targets end-users._
+|_My team's complete overhaul of the addressbook application meant that we also had to rewrite much of the User Guide. The following are excerpts of my contributions to this effort. They showcase my ability to write jargon-free documentation that is suitable to be read by end-users._
 |===
 
 _(start of extract from User Guide)_

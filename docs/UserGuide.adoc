@@ -387,7 +387,7 @@ It must also end in one of the supported file extensions - either `.json` or `.d
 
 CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
 
-CAUTION: Please take care not to modify exported `.json` files - your friends might have trouble importing them otherwise.
+CAUTION: Please take care not to modify exported JSON files - your friends might have trouble importing them otherwise.
 
 
 // end::flashcardexport[]
@@ -402,7 +402,7 @@ You can use this command to import FlashCards from a file that you or someone el
 We currently only support importing from JSON ('.json') files. +
 Example: `import p>C:\Downloads\cs2105.json`
 
-Suppose your friend has kindly exported some of his FlashCards for you to use. You have download the JSON file that he sent you,
+Suppose that your friend has kindly exported some of his FlashCards for you to use. You have download the JSON file that he sent you,
 and it's currently located at the following path: `C:\Downloads\cs2105.json`.
 Your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
 
@@ -415,7 +415,7 @@ Furthermore, the category list on the left will now display the category of the 
 +
 image::ImportDemo2.png[width="600"]
 
-NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
+NOTE: Duplicate FlashCards will not be imported. _KFC_ will notify you if it detects duplicate FlashCards in the provided file.
 
 // end::flashcardimport[]
 
