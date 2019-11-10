@@ -69,12 +69,11 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/pull/43[#43],
 https://github.com/AY1920S1-CS2103T-F11-4/main/pull/53[#53]
 ** Reported bugs and offered suggestions for other teams in the class. Please click this link to see a list of issues
 I have created for peer reviews.
-https://github.com/ShirleyWangxt/ped/issues
+https://github.com/ShirleyWangxt/ped/issues[link]
 
 == User guide contributions
 
-I updated the original addressbook User Guide with instructions for the enhancements that I had added.
-The following is an excerpt from my NUStudy User Guide, showing additions that I have made for the
+The following is a part from my NUStudy User Guide, showing enhancements that I have made for the
 question management features.
 
 '''
@@ -91,8 +90,6 @@ The following section shows my additions to the NUStudy Developer Guide for the 
 '''
 
 include::../DeveloperGuide.adoc[tag=questiond]
-
-'''
 
 include::../DeveloperGuide.adoc[tag=usecasew]
 

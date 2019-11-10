@@ -267,17 +267,20 @@ question being replaced by the edited question.
 
 The following sequence diagram shows the interaction between classes when `EditQuestionCommand#execute(model)` is called:
 
+.Sequence diagram for `execute(Model)` of `EditQuestionCommand`
 image::EditQuestionCommandExecuteSequenceDiagram.png[width = "600"]
 
 The following activity diagram summarizes what happens when a user executes a new `addq` command:
 
-image::AddQuestionActivityDiagram.png[]
+.Activity diagram for `addq` command
+image::AddQuestionActivityDiagram.png[width = "300"]
 
 Question is implemented as a concrete class with its relevant fields consist of `QuestionBody`, `Answer`,
 `Subject`, and `Difficulty`.
 
 The following class diagram illustrates how `Question` class is designed:
 
+.Class diagram for `Question`
 image::QuestionClassDiagram.png[width = "600"]
 
 ===== Design considerations: How `addq`/`deleteq`/`editq` commands execute
@@ -894,6 +897,36 @@ Use case ends
 * Use case resumes from step 2
 
 [discrete]
+=== Use case: Delete a question (Xueting)
+
+*MSS*
+
+1. User requests to view a list of questions from another command (eg. `findq`, `difficulty`, `subject`).
+2. Application shows the list of questions retrieved from this command.
+3. User enters the delete command with the index of the question to be deleted.
+4. Application removes the question from the question bank.
+5. Application informs the user about the success of deletion.
+
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. There is no question listed from the previous command.
+[none]
+** 1a1. Application informs the user that the index is invalid since the question list is empty.
+* Use case ends
+
+[none]
+* 1b. Student inputs invalid index for a question (either negative or out of range).
+[none]
+** 1b1. Application shows an error message to inform the user that the index is invalid.
+** 1b2. Student re-enter the command by providing a valid index.
+** Repeat 1b1 and 1b2 until valid index is provided
+* Use case resumes at step 2
+// end::usecasew[]
+
+[discrete]
 === Use case: Edit difficulty level of a specific question (Xueting)
 
 *MSS*
@@ -928,35 +961,6 @@ Use case ends
 ** Repeat 1c1 and 1c2 until a valid index is provided
 * Use case resumes at step 1
 
-[discrete]
-=== Use case: Delete a question (Xueting)
-
-*MSS*
-
-1. User requests to view a list of questions from another command (eg. `findq`, `difficulty`, `subject`).
-2. Application shows the list of questions retrieved from this command.
-3. User enters the delete command with the index of the question to be deleted.
-4. Application removes the question from the question bank.
-5. Application informs the user about the success of deletion.
-
-Use case ends
-
-*Extensions*
-
-[none]
-* 1a. There is no question listed from the previous command.
-[none]
-** 1a1. Application informs the user that the index is invalid since the question list is empty.
-* Use case ends
-
-[none]
-* 1b. Student inputs invalid index for a question (either negative or out of range).
-[none]
-** 1b1. Application shows an error message to inform the user that the index is invalid.
-** 1b2. Student re-enter the command by providing a valid index.
-** Repeat 1b1 and 1b2 until valid index is provided
-* Use case resumes at step 2
-// end::usecasew[]
 
 [discrete]
 === Use case: Delete an existing question (Dongjun)
