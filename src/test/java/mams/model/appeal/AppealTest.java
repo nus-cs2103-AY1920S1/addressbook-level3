@@ -72,7 +72,7 @@ public class AppealTest {
         assertFalse(appealToTest.equals(anotherAppeal));
 
         // different appealID -> return false
-        Appeal AppealwithDifferentId = new Appeal(TypicalAppeals.APPEAL3.getAppealId(),
+        Appeal appealwithDifferentId = new Appeal(TypicalAppeals.APPEAL3.getAppealId(),
                 appealToTest.getAppealType(),
                 appealToTest.getStudentId(),
                 appealToTest.getAcademicYear(),
@@ -85,7 +85,7 @@ public class AppealTest {
                 false,
                 "",
                 "");
-        assertFalse(appealToTest.equals(AppealwithDifferentId));
+        assertFalse(appealToTest.equals(appealwithDifferentId));
 
         // different appeal type -> returns false
         Appeal appealOfAnotherType = new Appeal(appealToTest.getAppealId(),
