@@ -52,11 +52,11 @@ activate HistoryManager
 HistoryManager --> Model : poppedRecords
 deactivate HistoryManager
 
-Model -> Model : changeBaseTo(copyOfPatientBook)
+Model -> Model : changeBaseTo(copyOfPatientBook, \ncopyOfAppointmentBook)
 activate Model
 deactivate Model
 
-Model --> UndoCommand
+Model --> UndoCommand : poppedRecords
 deactivate Model
 
 UndoCommand --> LogicManager : result

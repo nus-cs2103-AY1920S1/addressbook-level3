@@ -66,6 +66,22 @@ making them permanent and updating the UI data. The committing `MutatorCommand` 
 
 ==== Model Design Considerations
 
+===== Aspect: How to undo and redo between states
+
+* **Alternative 1 (current choice)**: Save the entire `PatientBook` and `AppointmentBook` objects to
+record each model state.
+** Pros:
+*** Easier to implement.
+** Cons:
+*** Consumes more memory.
+
+* Alternative 2: Only save the `MutatorCommand` objects but implement an `undo()`
+method for each `MutatorCommand` which does exactly the reverse of its `execute()` method.
+** Pros:
+*** Consumes much less memory.
+** Cons:
+*** Difficult to implement - doubles the amount of work needed for each command.
+
 ===== Aspect: How to record the PatientBook and AppointmentBook states in the history
 
 * Alternative 1: Simply store references to `PatientBook` and `AppointmentBook`.
