@@ -2,6 +2,7 @@ package seedu.pluswork.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_NAME;
 import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
@@ -50,11 +51,14 @@ public class CommandTestUtil {
     public static final String TASK_NAME_DESC_FINANCE = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_FINANCE;
     public static final String MEMBER_NAME_DESC_FINANCE = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_FINANCE;
     public static final String TASK_NAME_DESC_PUBLICITY = " " + PREFIX_TASK_NAME + VALID_TASK_NAME_PUBLICITY;
+    public static final String MEMBER_NAME_DESC_PUBLICITY = " " + PREFIX_MEMBER_NAME + VALID_MEMBER_NAME_PUBLICITY;
     public static final String TASK_STATUS_DESC_FINANCE = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_FINANCE;
     public static final String TASK_STATUS_DESC_PUBLICITY = " " + PREFIX_TASK_STATUS + VALID_TASK_STATUS_PUBLICITY;
     public static final String TAG_DESC_PUBLICITY = " " + PREFIX_TASK_TAG + VALID_TAG_PUBLICITY;
     public static final String TAG_DESC_URGENCY = " " + PREFIX_TASK_TAG + VALID_TAG_URGENCY;
     public static final String TAG_DESC_FINANCE = " " + PREFIX_TASK_TAG + VALID_TAG_FINANCE;
+    public static final String MEMBER_NAME_JOHN_DOE = " " + PREFIX_MEMBER_NAME + "John Doe";
+    public static final String MEMBER_ID_JOHN_DOE = " " + PREFIX_MEMBER_ID + "JD";
 
     public static final String VALID_INVENTORY_NAME_SPORTS = "Sports equipments";
     public static final String VALID_INVENTORY_NAME_MUSIC = "Drums";
@@ -63,6 +67,9 @@ public class CommandTestUtil {
 
     public static final String INVALID_TASK_NAME_DESC = " " + PREFIX_TASK_NAME
             + "Project Review&"; // '&' not allowed in names
+    public static final String INVALID_MEMBER_NAME_DESC = " " + PREFIX_MEMBER_NAME
+            + "Project Review&"; // '&' not allowed in names
+
     public static final String INVALID_TASK_STATUS_DESC = " " + PREFIX_TASK_STATUS
             + "reviewing"; // invalid status - statuses are determined in {@code TaskStatus}
     public static final String INVALID_TAG_DESC = " " + PREFIX_TASK_TAG
