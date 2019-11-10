@@ -14,9 +14,11 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class PropertyStateTest {
-    private static final PropertyState TYPICAL_PROPERTY_STATE = new PropertyState(new ArgumentMultimap());
+
     public static final String EXPECTED_CONSTRAINTS = "Which property would you like to sort by? Please enter the "
             + "property prefixed by " + PREFIX_PROPERTY.getPrefix() + ". Example - [p/start]";
+
+    private static final PropertyState TYPICAL_PROPERTY_STATE = new PropertyState(new ArgumentMultimap());
 
     @Test
     public void transition_validArgumentMultimap_returnsPostTransitionState() {

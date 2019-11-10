@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.deletemachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_LIST_INDEX;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,6 +16,9 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 class IndexStateTest {
 
+    public static final String EXPECTED_CONSTRAINTS = "Which engagement would you like to delete? Please enter the"
+            + " index of the engagement you would like to delete. The index should be prefixed by "
+            + PREFIX_LIST_INDEX.getPrefix() + ". Example - [i/5]";
     private IndexState indexState;
 
     @BeforeEach
@@ -73,9 +77,7 @@ class IndexStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(indexState.getStateConstraints(),
-                "Delete command initiated. Please enter the index of the"
-                + " engagement you would like to delete. The index should be prefixed by \"i/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, indexState.getStateConstraints());
     }
 
     @Test
