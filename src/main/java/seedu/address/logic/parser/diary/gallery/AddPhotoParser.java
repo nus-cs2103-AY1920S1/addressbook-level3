@@ -24,6 +24,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.logic.parser.common.PhotoUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.diary.photo.Photo;
 
@@ -75,6 +76,8 @@ public class AddPhotoParser implements Parser<AddPhotoCommand> {
      * Parses the file path to be used for the photo from the {@code argMultimap}.
      * If not specified, it uses the path of the {@code imageFile}.
      * Assumes the alternative {@code imageFile} exists and is of a valid extension if non-null.
+     * {@link PhotoUtil}'s {@code parseFilePath} is not used here as an instance of
+     * {@link seedu.address.model.diary.photo.Photo} is needed instead of {@link seedu.address.model.common.Photo}.
      *
      * @param argMultimap The {@link ArgumentMultimap} to use.
      * @param imageFile The {@link File} image file.

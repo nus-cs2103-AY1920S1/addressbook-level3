@@ -15,7 +15,7 @@ import seedu.address.model.diary.photo.Photo;
 /**
  * Jackson-friendly version of {@link Photo}.
  */
-public class JsonAdaptedPhoto {
+public class JsonAdaptedDiaryPhoto {
     private static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
             + "Cause: %1$s";
 
@@ -27,7 +27,7 @@ public class JsonAdaptedPhoto {
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
      */
     @JsonCreator
-    public JsonAdaptedPhoto(
+    public JsonAdaptedDiaryPhoto(
             @JsonProperty("imagePath") String imagePath,
             @JsonProperty("description") String description,
             @JsonProperty("dateTaken") LocalDateTime dateTaken) {
@@ -40,7 +40,7 @@ public class JsonAdaptedPhoto {
     /**
      * Converts a given {@code Diary} into this class for Jackson use.
      */
-    public JsonAdaptedPhoto(Photo source) {
+    public JsonAdaptedDiaryPhoto(Photo source) {
         requireNonNull(source);
         this.imagePath = source.getImageFilePath();
         this.description = source.getDescription();

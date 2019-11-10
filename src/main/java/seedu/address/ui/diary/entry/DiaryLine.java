@@ -35,6 +35,8 @@ class DiaryLine extends UiPart<GridPane> {
     private static final double LINE_INDEX_NODE_WIDTH_PERCENTAGE = 2.0;
     /** The padding between the text and the graphic. */
     private static final double GRAPHIC_TEXT_PADDING = 30.0;
+    /** The top vertical padding for {@link DiaryLine} that displays both a text and graphic. */
+    private static final double VERTICAL_GRAPHIC_TEXT_PADDING = 15.0;
 
     /** The default grid pane index indicating the grid cell on the left. */
     private static final int DEFAULT_LEFT_GRID_INDEX = 0;
@@ -107,7 +109,11 @@ class DiaryLine extends UiPart<GridPane> {
 
         getRoot().getChildren().add(diaryEntryPhotoCard.getRoot());
         getRoot().getChildren().remove(photoCardsScroller);
-        getRoot().setPadding(new Insets(15, 0, 0, 0));
+        getRoot().setPadding(new Insets(
+                VERTICAL_GRAPHIC_TEXT_PADDING,
+                0,
+                0,
+                placeOnLeft ? GRAPHIC_TEXT_PADDING : 0));
         setTextGraphicConstraints(lineTextLabelIndex, photoCardIndex, diaryEntryPhotoCard);
     }
 
