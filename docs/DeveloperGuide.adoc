@@ -512,7 +512,7 @@ Step 5. The user executes `delete 1` again, but this time the activity at the fi
 
 Step 6. The user views an activity at the second index using `view a/2`
 
-Step 7. The user executes `delete 1` again, but this time the expense at the first index will be deleted instead.
+Step 7. The user executes `delete 1` again, but this time the expense at the first index will be *soft* deleted instead.
 
 The following activity diagram summarizes what happens when a user executes a delete command for deletion of activity:
 
