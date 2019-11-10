@@ -487,6 +487,7 @@ image::editIncident2.png[]
 
 // end::edit-i[]
 
+//tag::add-v[]
 === Adding a Vehicle: `add-v`
 Adds a vehicle into the Incident Management System.
 Format: `add-v [dist/DISTRICT] & [vn/VEHICLE NUMBER] & [vt/VEHICLE TYPE] & [a/AVAILABILITY]`
@@ -511,6 +512,7 @@ Examples:
 image::addVehicle1.png[]
 image::addVehicle2.png[]
 
+//end::add-v[]
 //tag::edit-v[]
 === Editing a Vehicle: `edit-v`
 Edits a vehicle identified by the index displayed in the Incident Management System.
@@ -601,6 +603,7 @@ image::findVVtypeAfterSS.png[]
 
 // end::find-v[]
 
+//tag::delete-v[]
 === Deleting a Vehicle: `delete-v`
 Deletes a vehicle in the list as identified by the index.
 
@@ -618,6 +621,7 @@ A valid index is a positive integer and points to a vehicle displayed in the veh
 image::deleteVehicle1.png[]
 image::deleteVehicle2.png[]
 image::deleteVehicleNonAdmin.png[]
+//end::delete-v[]
 
 // tag::common[]
 //=== Clearing all entries : `clear`
@@ -661,12 +665,12 @@ Format: `new dist/DISTRICT auto/Y r/pending`
 == Command Summary
 
 * *Help* : `help`
-* *Login* : `login u/USERNAME p/PASSWORD`
+* *Login* : `login u/USERNAME w/PASSWORD`
 * *Logout* : `logout`
 * *Swap* : `swap`
-* *Register* : `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME p/PASSWORD [t/TAG]...` +
+* *Register* : `register n/NAME p/PHONE_NUMBER e/EMAIL u/USERNAME w/PASSWORD [t/TAG]...` +
 e.g. `register n/James Ho p/22224444 e/jamesho@example.com u/Agent-3 w/password t/Admin t/Team-01`
-* *Update* : `update [INDEX] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [u/USERNAME] [p/PASSWORD] [t/TAG]...` +
+* *Update* : `update [INDEX] [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [u/USERNAME] [w/PASSWORD] [t/TAG]...` +
 e.g. `update 2 n/James Lee e/jameslee@example.com`
 * *List Accounts* : `list-a [KEYWORD] [MORE_KEYWORDS]` +
 e.g. `list-a Admin`
