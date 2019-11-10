@@ -189,6 +189,10 @@ This section describes some noteworthy details on how certain features are imple
 The `Transaction` abstract class allows user to input income and expense statements. Both `in` and `out` transactions requires the mandatory `Amount`, `Description` and `Date` fields to be appended. There is an optional `Category` field which can accept one or more input depending on the user specifications.
 The `in` transactions will increase the `BankAccount` balance amount whilst the `out` transactions will reduce the `BankAccount` balance amount.
 
+`In` Transactions represent the income statements inputted into Palpay.
+
+`Out` Transactions represent the expenditure statements inputted into Palpay.
+
 ==== Current Implementation
 
 The sequence diagram below illustrates how PalPay handles the command input `in $/200 n/coke d/10102019`. The arguments are parsed into the logic component where the subsequent model objects are created.
@@ -196,9 +200,17 @@ The sequence diagram below illustrates how PalPay handles the command input `in 
 .Sequence diagram for executing an `InCommand`
 image::InSequenceDiagram.png[]
 
-The `in` and `out` transaction follows the same logic flow after they are parsed. The only difference is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation in the `inTransaction` and a `subtractAmount` operation in the `OutTransaction` class.
+The `in` and `out` transaction follows the same logic flow after they are parsed. The only difference is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation for the `inTransaction` and a `subtractAmount` operation for the `OutTransaction` class.
 
-`Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
+===== Example
+Given that the `BankAccount` balance initially starts with 0 dollars.
+
+* `in` Transaction of `$1000` will increase the `BankAccount` balance from $0 to $1000
+* `out` Transaction of `$250` will subsequently decrease the `BankAccount` balance from $1000 to $250.
+
+==== Design Considerations
+
+* `Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
 A code snippet of the `Transaction` abstract class is shown below.
 
 ```
@@ -216,13 +228,11 @@ public abstract class Transaction {
     }
 ```
 
-
-==== Design Considerations
-
-The balance in `BankAccount` and the balance in `Ledger` are considered two separate identities, both being encompassed under the `UserState` class.
+* The balance in `BankAccount` and the balance in `Ledger` are considered two separate identities, both being encompassed under the `UserState` class.
 Therefore user operations that deal with `BankAccount` implements the `BankAccountOperation` interface, while operations
 that deal with `Ledger` implements the `LedgerOperation` interface. +
-This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
+** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
+** This reduces code coupling as there are different models to handle different balance amounts.
 
 // end::transaction[]
 
@@ -478,18 +488,14 @@ image::ViewActivityDiagram.png[]
 // tag::delete[]
 === Delete Transaction Feature: `delete`
 
-This feature allows the user to delete an existing transaction or budget from the list. +
+This feature allows the user to delete an existing transaction, budget, ledger or projection entry from their respective lists. +
+
+==== Current Implementation
+
 The following activity diagram summarizes what happens when a user executes Delete command:
 
 .Activity Diagram of Delete Command
 image::DeleteActivityDiagram.png[]
-
-==== Current Implementation
-
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
-`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implement `BankAccountOperation`.
 
 ==== Design Consideration
 
