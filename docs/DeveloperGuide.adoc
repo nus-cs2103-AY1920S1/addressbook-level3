@@ -1,5 +1,6 @@
 = MoneyGoWhere - Developer Guide
 :site-section: DeveloperGuide
+:icons: font
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -7,6 +8,8 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
+
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -359,9 +362,10 @@ Find is supported by having a `Predicate` implemented for every field in Spendin
 The sequence diagram below demonstrates how the `find` command is executed:
 
 .Sequence diagram for an example `find` command
-image::FindSequenceDiagram.png[Find Sequence Diagram,width=75%]
+[#FindSequenceDiagram,align="center"]
+image::FindSequenceDiagram.png[pdfwidth="75%",width="75%"]
 
-The following steps explain the sequence diagram:
+The following steps explain <<FindSequenceDiagram>>:
 
 1. The user enters `find n/apple`.
 2. `LogicManager` calls `SpendingBookParser#parseCommand()`.
@@ -374,9 +378,10 @@ NOTE: The lifeline for `FindCommandParser` should end at the destroy marker (X) 
 To summarise what happens when the user uses the `find` command, the following activity diagram is shown below:
 
 .Activity diagram for an example `find` command
-image::FindActivityDiagram.png[Find Activity Diagram,width=75%]
+[#FindActivityDiagram,align="center"]
+image::FindActivityDiagram.png[pdfwidth="75%",width="75%"]
 
-The following steps explain the activity diagram:
+The following steps explain <<FindActivityDiagram>>:
 
 1. The user executes the `find` command.
 2. If there are valid inputs, each field from the input is saved as predicates into a predicate list.
@@ -432,12 +437,16 @@ This operation is exposed in the `Model` interface as `Model#updateSortedSpendin
 At a high level view, `SpendingComparator` and `SortField` interacts in the manner shown below.
 
 .High-level view of package interaction
-image::SortPackageDiagram.png[Sort Package Diagram,width=20%]
+[#SortPackageDiagram,align="center"]
+image::SortPackageDiagram.png[pdfwidth="20%",width="20%"]
+
+As shown in <<SortPackageDiagram>>, `SortCommand` has an association to `SortField` and a dependency to `SpendingComparator`.
 
 The sequence diagram below demonstrates how the `sort` command is executed:
 
 .Sequence diagram for an example `sort` command
-image::SortSequenceDiagram.png[Sort Sequence Diagram,width=75%]
+[#SortSequenceDiagram,align="center"]
+image::SortSequenceDiagram.png[pdfwidth="75%",width="75%"]
 
 The following steps explain the sequence diagram:
 
@@ -452,9 +461,10 @@ NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) 
 The following activity diagram summarises what happens when the user uses the `sort` command:
 
 .Activity diagram for an example `sort` command
-image::SortActivityDiagram.png[Sort Activity Diagram,width=75%]
+[#SortActivityDiagram,align="center"]
+image::SortActivityDiagram.png[pdfwidth="75%",width="75%"]
 
-The following steps explain the activity diagram:
+The following steps explain <<SortActivityDiagram>>:
 
 1. The user executes the `sort` command.
 2. If there are valid fields from the input, each field is saved into a list and determines sort order for `Model`.
@@ -465,7 +475,7 @@ The following steps explain the activity diagram:
 ==== Design Considerations
 
 .Design considerations for `sort` command
-[width="90%", cols="1,2,2", options="header",]
+[#SortDesignConsiderations,width="90%", cols="1,2,2", options="header"]
 |===
 |Aspect |Alternative 1 (current choice) |Alternative 2
 
@@ -486,7 +496,9 @@ The following steps explain the activity diagram:
 *Cons:* Large code structure changes
 |===
 
-Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes may require modifying `SpendingComparator`. In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
+Based on <<SortDesignConsiderations>>, Alternative 1 was chosen as it was the easiest to implement and it does not violate Single Responsibility Principle (SRP) of the SOLID framework. The only downside of this approach is that changing any field classes may require modifying `SpendingComparator`.
+
+In contrast, for Alternative 2, manipulating the internal elements of the list directly is dangerous and can cause unintended side effects. There was also a huge difference for the method design for sort, and Alternative 1 was the easier approach to avoid side effects in Alternative 2.
 // end::sort[]
 
 // tag::reminder[]
@@ -1342,7 +1354,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list all spending.
-2.  MoneyGoWhere shows list of spending in the default order of date in descending order, followed by cost in descending order and name in ascending order.
+2.  MoneyGoWhere shows list of spending in the default order of date in descending order, cost in descending order, name in ascending order and remark in ascending order.
 +
 Use case ends.
 
@@ -1719,6 +1731,26 @@ These instructions only provide a starting point for testers to work on; testers
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+=== Finding a Spending
+
+. Finding a spending from the list
+
+.. Prerequisites: The spending list should not be empty.
+.. Test case: `find n/Apple Bubble Tea` +
+   Expected: Spending entries that have names matching `Apple`, `Bubble` or `Tea` are listed.
+.. Test case: `find d/yesterday d/today` +
+   Expected: Spending entries dated yesterday and today are listed.
+
+=== Sorting displayed spending
+
+. Sorting displayed spending in the list
+
+.. Prerequisites: The spending list should not be empty. It is preferred to use the `list` command first.
+.. Test case: `sort n/ASC` +
+   Expected: Spending entries are sorted by Name in Ascending order.
+.. Test case: `sort d/DESC n/ASC` +
+   Expected: Spending entries are sorted in Date
 
 _{ more test cases ... }_
 

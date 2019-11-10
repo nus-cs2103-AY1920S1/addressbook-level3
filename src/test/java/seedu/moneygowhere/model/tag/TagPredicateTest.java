@@ -32,7 +32,7 @@ public class TagPredicateTest {
     }
 
     @Test
-    public void predicate_matchingTags_returnsTrue() {
+    public void tagPredicate_matchingTags_returnsTrue() {
         // Only one tag matches
         TagPredicate predicate2 = new TagPredicate(Set.of("three"));
         assertTrue(predicate2.test(new SpendingBuilder().withTags("one", "two", "three").build()));
@@ -43,7 +43,7 @@ public class TagPredicateTest {
     }
 
     @Test
-    public void predicate_missingTags_returnsFalse() {
+    public void tagPredicate_missingTags_returnsFalse() {
         // Tag does not exist
         TagPredicate predicate = new TagPredicate(Set.of("one"));
         assertFalse(predicate.test(new SpendingBuilder().withTags("two").build()));

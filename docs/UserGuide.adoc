@@ -1,5 +1,6 @@
 = MoneyGoWhere - User Guide
 :site-section: UserGuide
+:icons: font
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -8,6 +9,7 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
+
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -245,7 +247,7 @@ Displays a list of all spending and their information such as name, date, cost, 
 *Format:* `list`
 
 [NOTE]
-By default, list of all spending is sorted by descending order of date, followed by descending order of cost and lastly, by ascending order of name. +
+By default, list of all spending is sorted by descending order of date, descending order of cost, ascending order of name and finally ascending order of remark. +
 
 [TIP]
 This command is implicitly invoked upon application start up, and can be used to reset the view after find or sort.
@@ -253,38 +255,6 @@ This command is implicitly invoked upon application start up, and can be used to
 *Expected Output:*
 
 All spending entries are listed.
-
-// tag::sort[]
-=== Sorting spending entries : `sort`
-Sorts all spending based on a given order. +
-
-*Format:* `sort [PREFIX/SORT_ORDER]...`
-
-****
-* At least one of the optional fields *must be provided*.
-* Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
-* Valid sort orders are: `ASC`, `DESC`.
-* If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
-* Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
-****
-
-*Examples:*
-
-* `sort d/ASC c/DESC` +
-Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
-* `sort n/DESC` +
-Sorts current spending displayed by Name in descending order.
-
-*Expected Output:*
-
-An example is shown below.
-
-.Output of `sort n/ASC d/DESC`
-image::SortPreviewUG.png[width="350"]
-
-Spending entries are sorted based on the example above.
-
-// end::sort[]
 
 // tag::find[]
 === Finding a spending : `find`
@@ -328,6 +298,90 @@ Spending entries which match the search criteria are listed.
 
 // end::find[]
 
+// tag::sort[]
+=== Sorting spending entries : `sort`
+Sorts all spending based on a given order to view information more clearly. +
+
+*Format:* `sort [PREFIX/SORT_ORDER]...`
+
+****
+* At least one of the optional fields *must be provided*.
+* Valid prefixes are: Cost (`c`), Date (`d`), Name (`n`), Remarks (`r`).
+* Valid sort orders are: `ASC`, `DESC`.
+* If the given sort order is `c/ASC n/DESC`, Cost will be sorted in ascending order, followed by name in descending order.
+* Sorting names or remarks in Ascending order will sort uppercase letters first, followed by lowercase letters.
+****
+
+*Examples:*
+
+* `sort d/ASC c/DESC` +
+Sorts current spending displayed by Date in ascending order. If they are the same, sort by Cost in descending order.
+* `sort n/DESC` +
+Sorts current spending displayed by Name in descending order.
+
+*Expected Output:*
+
+An example is shown below.
+
+.Output of `sort n/ASC d/DESC`
+[#SortOutput, align="center"]
+image::SortPreviewUG.png[width="350", pdfwidth="50%"]
+
+Spending entries are sorted based on the example <<SortOutput>>.
+
+// end::sort[]
+
+// tag::currency[]
+=== Setting the currency : `currency`
+Sets the currency used to display spending entries. +
+*Format:* `currency [CURRENCYCODE]`
+
+****
+* If CURRENCYCODE is not specified, the currency in use is displayed.
+* CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+****
+
+*Example:*
+
+* `currency USD` +
+Sets the currency displayed for spending entries to `USD`.
+
+*Expected Output:*
+
+The currency displayed is changed and spending entries are updated.
+
+// end::currency[]
+
+// tag::exchangerate[]
+=== Viewing exchange rates : `exchangerate`
+Displays currently stored exchange rates. +
+*Format:* `exchangerate [AMOUNT] [CURRENCYCODE]`
+
+****
+* If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
+* CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
+* Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
+****
+
+[TIP]
+Due to network limitations, exchange rates are fixed and locally stored. Exchange rates may also vary across different websites.
+
+[NOTE]
+v1.4 does not have networking support for exchange rates. This will be available from v2.0 onwards.
+
+*Example:*
+
+* `exchangerate` +
+Shows all exchange rates.
+* `exchangerate 5 USD` +
+Converts 5 USD to SGD based on current exchange rates.
+
+*Expected Output:*
+
+All available exchange rates are shown, or a conversion of an input currency is provided if it was specified.
+
+// end::exchangerate[]
+
 // tag::budget[]
 === Setting monthly budget : `budget`
 Sets a budget for the current month in the currency set . +
@@ -357,57 +411,6 @@ Returns the current monthly budget, total spending and remaining budget in Singa
 
 The budget for the current month along with the total spending in the month as well as remaining budget is shown.
 // end::showbudget[]
-
-// tag::currency[]
-=== Setting the currency : `currency`
-Sets the currency used to display spending entries. +
-*Format:* `currency [CURRENCYCODE]`
-
-****
-* If CURRENCYCODE is not specified, the currency in use is displayed.
-* CURRENCYCODE can be `SGD`, `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
-****
-
-*Example:*
-
-* `currency USD` +
-Sets the currency displayed for spending entries to `USD`.
-
-*Expected Output:*
-
-The currency displayed is changed and spending entries are updated.
-
-// end::currency[]
-
-// tag::exchangerates[]
-=== Viewing exchange rates : `exchangerate`
-Displays current stored exchange rates. +
-*Format:* `exchangerate [AMOUNT] [CURRENCYCODE]`
-
-****
-* If AMOUNT and CURRENCYCODE are specified, the indicated values are converted to SGD.
-* CURRENCYCODE can be `USD`, `EUR`, `IDR`, `MYR`, `INR`, `MMK`.
-* Entering `SGD` as CURRENCYCODE will display an error since the entered value is already in SGD.
-****
-
-[TIP]
-Due to network limitations, exchange rates are fixed and locally stored. Exchange rates may also vary across different websites.
-
-[NOTE]
-v1.4 does not have networking support for exchange rates. This will be available from v2.0 onwards.
-
-*Example:*
-
-* `exchangerate` +
-Shows all exchange rates.
-* `exchangerate 5 USD` +
-Converts 5 USD to SGD based on current exchange rates.
-
-*Expected Output:*
-
-All available exchange rates are shown, or a conversion of an input currency is provided if it was specified.
-
-// end::exchangerates[]
 
 // tag::statistics[]
 === Generating statistics : `stats`
@@ -755,8 +758,6 @@ e.g. `edit 1 n/apple c/2.50 d/yesterday t/fruits r/expensive apple` +
 | *Delete* | `delete INDEX` +
 e.g. `delete 123`
 | *List* | `list` +
-| *Sort*| `sort [PREFIX/SORT_ORDER]...` +
-e.g. `sort d/DESC c/ASC` +
 | *Find* | `find [n/NAME] [c/COST_RANGE] [d/DATE_RANGE] [r/REMARK] [t/TAG]` +
 e.g. `find n/apple orange c/1.00-200.00 d/19/09/2019 - 20/09/2019 r/healthy food t/fruit food`
 | *Sort* | `sort [PREFIX/SORT_ORDER]...` +
