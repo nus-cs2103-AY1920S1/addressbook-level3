@@ -1054,7 +1054,7 @@ image::FinancialTrackerSummary2.png[]
 The sweetest part of any holiday is looking back at your fond memories. TravEzy's
 Diary allows you to do just that! Here is our Diary!
 
-image::DiaryInterface.png[width=600]
+image::DiaryInterface.png[width=800]
 
 
 In TravEzy, we have broken down your memories into 4 key parts, namely _Title_, _Date and Time_, _Place_ and _Memory_.
@@ -1175,7 +1175,7 @@ Step 1: Enter ``findSpecific d/12/12/2019``
 
 
 
-image::DiaryFindSpecificBefore.png[]
+image::DiaryFindSpecificBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_
 
@@ -1288,7 +1288,7 @@ image::DiaryUnLockAfter.png[width=600]
 
 Step 1: Lets say someone tries to hack you
 
-image::DiaryUnLockHackBefore.png[]
+image::DiaryUnLockHackBefore.png[width=600]
 
 Step 1: TravEzy will protect you if someone else tries to change your details
 
