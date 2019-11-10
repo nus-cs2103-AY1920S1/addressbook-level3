@@ -15,20 +15,20 @@ endif::[]
 
 == Overview
 
-Tasked to enhance or morph a simple command line interface (CLI) desktop address book application, our team of 5 Computer Science Students decided to morph the program into calendar scheduling application for students. From the word "Horology", we came up with the name **Horo** for our program. It is capable of maintaining a calendar and to-do list, posting timely reminders for the users.
+Tasked to enhance or morph a simple command line interface (CLI) desktop address book application, our team of 5 Computer Science Students decided to morph the program into a calendar scheduling application for students. From the word "Horology", we came up with the name **Horo** for our program. It is capable of maintaining a calendar and to-do list, posting timely reminders for the users.
 
-Here is a screenshot of **Horo**
+Here is a screenshot of **Horo**:
 
 .Screenshot of Horo
 image::Ui.png[]
 
-I played the role for designing the User Interface (UI), and the logic of how my teammates' code will interact with the UI. The following sections below will display the following morphing I did in details, including certain documentation added to the User and Developer Guide.
+I played the role of designing the User Interface (UI) and the logic of how my teammates' code will interact with the UI. The following sections below will display the following morphing I did in detail, including certain documentation added to the User and Developer Guide.
 
 __Note: The following symbols and format are explained as:__
 
 .Symbol and Formats
 |===
-|`*list*`| A bold text with highlight as well as change to monospaced indicates a command input by you which is to be executed by the Horo.
+|`*list*`| A bold text with highlight as well as the change to monospaced indicates a command input by you which is to be executed by the Horo.
 |`TimelineView`| A text with highlight as well as monospaced font indicates a component, class or object in the structure of **Horo**
 |===
 
@@ -48,7 +48,7 @@ It provides you a Graphical User Interface (GUI) so you can easily view their Ev
 === Code Contributed
 
 ==== Sample Code Contributed:
-Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kyzure&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[`Repo Sense Link`] that indicates the amount of code I have written for the project. For more details, the most of the following code are also written by me, and authorship - `//@@author Kyzure`, or `<!-- @@author Kyzure -$$->$$` - can be found on the top of the code.
+Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kyzure&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[`Repo Sense Link`] that indicates the amount of code I have written for the project. Additionally, our code has an authorship signature, with mine being - `//@@author Kyzure`, or `<!-- @@author Kyzure -$$->$$`. This authorship can be found at the top of any of the class, or method.
 
 * link:{repoURL}/blob/master/src/main/java/seedu/address/ui[`Ui Controller Code`] - The packages `systemTray` and `listeners` are not written by me, as well as code without my authorship.
 * link:{repoURL}/blob/master/src/main/resources/view[`JavaFX Code for .fxml files`]
@@ -58,7 +58,7 @@ Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure
 === Other Contribution
 
 ==== Documentation:
-* Provided baseline for both User and Developer Guide at the beginning, and improve the design to make it more readable for the user. (Pull requests link:{repoURL}/pull/11[#11], link:{repoURL}/pull/94[#94], link:{repoURL}/pull/95[#95], link:{repoURL}/pull/119[#119], link:{repoURL}/pull/128[#128], link:{repoURL}/pull/226[#226])
+* Provided a baseline for both User and Developer Guide at the beginning, and improve the design to make it more readable for the user. (Pull requests link:{repoURL}/pull/11[#11], link:{repoURL}/pull/94[#94], link:{repoURL}/pull/95[#95], link:{repoURL}/pull/119[#119], link:{repoURL}/pull/128[#128], link:{repoURL}/pull/226[#226])
 
 ==== Community:
 * Reviewed Pull Requests: link:{repoURL}/pull/41[#41]
@@ -67,7 +67,7 @@ Here is a link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Kyzure
 == Contributions to the User Guide
 
 |===
-|_The following sections are an excerpt of my contribution to the User Guide._
+|_The following sections are an excerpt of my contribution to the User Guide to indicate my ability for writing readable help sections to the user._
 |===
 
 include::../UserGuide.adoc[tag=uiCalendarView]
@@ -77,7 +77,7 @@ include::../UserGuide.adoc[tag=uiTimelineDay]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections are an excerpt of my contribution to the Developer Guide._
+|_The following sections are an excerpt of my contribution to the Developer Guide to showcase my prowess in the technical aspect of the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=uiImplementation]
