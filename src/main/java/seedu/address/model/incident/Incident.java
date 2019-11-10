@@ -84,8 +84,8 @@ public class Incident {
         this.status = Status.INCOMPLETE_DRAFT; // newly created report
 
         // set to null as they will be filled in later
-        this.description = null;
-        this.callerNumber = null;
+        this.description = new Description("[TO BE FILLED]");
+        this.callerNumber = new CallerNumber("00000000");
     }
 
     /**
