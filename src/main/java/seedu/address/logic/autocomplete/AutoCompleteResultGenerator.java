@@ -91,6 +91,7 @@ public class AutoCompleteResultGenerator {
 
         // Archived order commands
         providers.put("switch-a", EmptyProvider.getInstance());
+        providers.put("clear-a", EmptyProvider.getInstance());
 
         // General commands
         providers.put("undo", EmptyProvider.getInstance());
