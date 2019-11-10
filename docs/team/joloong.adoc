@@ -13,8 +13,7 @@ This portfolio documents my contributions to PalPay, a software engineering proj
 CS2103T Software Engineering. For this module, we were provided with a working software application which we
 could enhance or morph to suit our target audience.
 
-For the project, my main role was the System Tester where I ensured the application was free from bugs and good code
-quality.
+For the project, my main role was
 
 == Summary of contributions
 
@@ -36,7 +35,9 @@ quality.
 * *Other contributions*:
 
 ** Project management:
-*** PlaceHolder
+*** Managed the biweekly project releases on GitHub.
+*** Managed the issue tracker of the group repository.
+*** Reviewed and merged pull requests.
 
 ** Enhancements to existing features:
 *** Wrote comprehensive unit and integration test cases for the application's logic and model.
@@ -46,21 +47,34 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
 
 ** Documentation:
-*** User Guide
-**** Placeholder
-*** Developer Guide
-**** Placeholder
+*** Reformatted the User Guide for a more sequential flow.
+*** Wrote the details for the following commands in the User Guide.
+**** View
+**** Sort
+**** Filter
+**** Undo
+**** Redo
+**** Clear
+**** List
+**** Help
+**** Exit
+*** Wrote user stories in the Developer Guide.
+*** Created UML diagrams to help in the explanation of view, sort and filter commands in the Developer Guide.
 
 ** Community:
-*** Reported bugs and suggestions for other teams in the module. (
-Examples: https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
+*** Reported bugs and suggestions for other teams in the module. (Examples:
+https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/220[#220],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/222[#222],
 https://github.com/AY1920S1-CS2103T-T10-3/main/issues/229[#229])
+*** Provided tips and help to other students in the module. (Examples:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/70[#70],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/79[#79],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
 
 ** Tools:
-*** Managed the initial set up of group repository on GitHub.
-*** Integrated Travis CI, Coveralls, Netlify and RepoSense into our repository.
+*** Managed the initial set up of the group repository on GitHub.
+*** Integrated Travis CI, Coveralls, Netlify and RepoSense into the group repository.
 
 == Contributions to the User Guide
 
