@@ -460,15 +460,12 @@ After filtering specific bodies, you may now want to view the full list of bodie
 
 1) Mortago shows filtered list of bodies.
 
-image::List1.png[]
 
 2) Type `list -b` in the Command Line Interface (CLI).
 
-image::List2.png[]
 
 3) Mortago shows unfiltered list of bodies.
 
-image::List3.png[]
 
 // end::list[]
 
