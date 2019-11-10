@@ -20,7 +20,8 @@ import org.junit.jupiter.api.Test;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.model.AddressBook;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 4
 public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
@@ -74,4 +75,4 @@ public class StatusBarFooterTest extends GuiUnitTest {
     }
 
 }
-//@@ author
+//@@author

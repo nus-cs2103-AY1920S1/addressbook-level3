@@ -52,6 +52,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
+    //@@author shaoyi1997
     public static final String VALID_WORKER_FLAG = " -w"; // whitespace in front is necessary for parser
     public static final String VALID_NAME_ZACH = "Zach Tan";
     public static final String VALID_NAME_XENIA = "Xenia Lee";
@@ -105,7 +106,7 @@ public class CommandTestUtil {
         + VALID_DATE_OF_ADMISSION_JANE;
     public static final String DATE_OF_DEATH_DESC_JOHN = " " + PREFIX_DATE_OF_DEATH + " " + VALID_DATE_OF_DEATH_JOHN;
     public static final String DATE_OF_DEATH_DESC_JANE = " " + PREFIX_DATE_OF_DEATH + " " + VALID_DATE_OF_DEATH_JANE;
-
+    //@@author
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

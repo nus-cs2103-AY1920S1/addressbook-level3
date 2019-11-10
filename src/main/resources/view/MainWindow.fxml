@@ -37,10 +37,10 @@
                                 <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                             </Menu>
                         </MenuBar>
-                  <HBox layoutX="150.0">
+                  <HBox layoutX="150.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="268.0">
                      <children>
-                              <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" />
-                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" maxHeight="22.0" maxWidth="22.0" prefHeight="22.0" prefWidth="22.0">
+                              <StackPane fx:id="commandBoxPlaceholder" prefWidth="800.0" HBox.hgrow="ALWAYS" />
+                              <StackPane fx:id="notificationButtonPlaceholder" alignment="TOP_CENTER" maxWidth="22.0" prefHeight="22.0" prefWidth="22.0" HBox.hgrow="SOMETIMES">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin></StackPane>

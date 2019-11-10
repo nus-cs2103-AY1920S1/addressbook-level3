@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
@@ -16,7 +17,7 @@ import seedu.address.model.entity.worker.Worker;
 import seedu.address.model.person.Name;
 import seedu.address.model.tag.Tag;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
@@ -26,7 +27,8 @@ public class SampleDataUtil {
         try {
             dateNow = ParserUtil.parseDate("12/12/2019");
         } catch (ParseException e) {
-            System.out.println("Date incorrect in SampleDataUtil"); // should not get here
+            // should not get here
+            LogsCenter.getLogger(SampleDataUtil.class).warning("Date incorrect in SampleDataUtil.java");
         }
         return new Worker[] {
             new Worker(new Name("Alex Yeoh"), new PhoneNumber("87438807"), Sex.MALE, "Working",

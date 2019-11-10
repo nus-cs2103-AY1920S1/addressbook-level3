@@ -97,6 +97,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
+        //@@author shaoyi1997
         // Worker: multiple names - last name accepted
         assertParseSuccess(parser, VALID_WORKER_FLAG + NAME_DESC_ZACH + NAME_DESC_XENIA + DATE_JOINED_DESC_XENIA
                 + SEX_DESC_XENIA, new AddCommand(expectedWorker));
@@ -112,6 +113,7 @@ public class AddCommandParserTest {
         // Body: multiple names - last name accepted
         assertParseSuccess(parser, VALID_BODY_FLAG + NAME_DESC_JANE + NAME_DESC_JOHN
             + DATE_OF_ADMISSION_DESC_JOHN + SEX_DESC_JOHN + DATE_OF_DEATH_DESC_JOHN, new AddCommand(expectedBody));
+        //@@author
     }
 
     @Test
@@ -121,6 +123,7 @@ public class AddCommandParserTest {
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new AddCommand(expectedPerson));
 
+        //@@author shaoyi1997
         //Worker: no phone
         Worker expectedWorker = new WorkerBuilder(XENIA).withEmploymentStatus("").withDateOfBirth("").withPhone("")
             .withDesignation("").build();
@@ -133,6 +136,7 @@ public class AddCommandParserTest {
             .withStatus("").withDateOfBirth("").withDetails("").build();
         assertParseSuccess(parser, VALID_BODY_FLAG + NAME_DESC_JOHN + SEX_DESC_JOHN
                 + DATE_OF_ADMISSION_DESC_JOHN + DATE_OF_DEATH_DESC_JOHN, new AddCommand(expectedBody));
+        //@@author
     }
 
     @Test
@@ -159,6 +163,7 @@ public class AddCommandParserTest {
         assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
                 expectedMessage);
 
+        //@@author shaoyi1997
         // Worker: missing name prefix
         assertParseFailure(parser, VALID_WORKER_FLAG + VALID_NAME_XENIA + DATE_JOINED_DESC_XENIA + SEX_DESC_XENIA,
                 expectedMessage);
@@ -174,6 +179,7 @@ public class AddCommandParserTest {
         // Worker: all prefixes missing
         assertParseFailure(parser, VALID_BODY_FLAG + VALID_NAME_JOHN + VALID_SEX_JOHN
             + VALID_DATE_OF_ADMISSION_JOHN + VALID_DATE_OF_DEATH_JOHN, expectedMessage);
+        //@@author
     }
 
     @Test

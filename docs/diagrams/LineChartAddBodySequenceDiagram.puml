@@ -14,7 +14,7 @@ end box
 MainWindow -> AddressBook : getBodyList()
 activate MainWindow
 
-
+sdf
 AddressBook --> MainWindow : bodyList
 deactivate MainWindow
 

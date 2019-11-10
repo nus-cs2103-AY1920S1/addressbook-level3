@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.control.TextArea;
 
-//@@ author shaoyi1997-reused
+//@@author shaoyi1997-reused
 /**
  * A handler for the {@code ResultDisplay} of the UI
  */
@@ -21,4 +21,4 @@ public class ResultDisplayHandle extends NodeHandle<TextArea> {
         return getRootNode().getText();
     }
 }
-//@@ author
+//@@author

@@ -1,6 +1,8 @@
 package seedu.address.ui;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 //@@author arjavibahety-reused
 //Reused from @bjhoohaha/duke's AlertWindow.java
@@ -13,10 +15,12 @@ public class NotifWindow {
 
     public NotifWindow() {
         this.notif = new Alert(Alert.AlertType.INFORMATION);
+        setStyling();
     }
 
     public NotifWindow(Alert.AlertType notifType) {
         this.notif = new Alert(notifType);
+        setStyling();
     }
 
     public void setTitle(String title) {
@@ -30,5 +34,14 @@ public class NotifWindow {
     public void display() {
         notif.showAndWait();
     }
+
+    //@@author shaoyi1997
+    private void setStyling() {
+        DialogPane dialogPane = notif.getDialogPane();
+        dialogPane.getStylesheets().add("view/DarkTheme.css");
+        dialogPane.getStyleClass().add("dialog-pane");
+        notif.initStyle(StageStyle.TRANSPARENT);
+    }
+    //@@author
 }
 //@@author

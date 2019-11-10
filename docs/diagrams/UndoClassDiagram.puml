@@ -28,19 +28,20 @@ Class LogicManager
 }
 
 package Model {
-Interface Model <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
-Class ModelManager
-Class UserPrefs
-Class ReadOnlyUserPrefs
-
-}
 
 package Entity {
 }
 
 package Notif {
+}
+
+Interface Model <<Interface>> MODEL_COLOR
+Class AddressBook MODEL_COLOR
+Class ReadOnlyAddressBook MODEL_COLOR
+Class ModelManager MODEL_COLOR
+Class UserPrefs MODEL_COLOR
+Class ReadOnlyUserPrefs MODEL_COLOR
+
 }
 
 package GuiSettings {

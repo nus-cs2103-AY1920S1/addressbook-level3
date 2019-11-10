@@ -65,7 +65,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
@@ -89,7 +89,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
@@ -119,7 +119,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
@@ -145,7 +145,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_UPDATE_ENTITY_SUCCESS, body.getIdNum());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setEntity(model.getFilteredBodyList().get(0), body);
@@ -283,7 +283,7 @@ public class UpdateCommandTest extends GuiUnitTest {
     }
 
     @Test
-    public void executeBody_setBodyStatusToCop_success() throws CommandException {
+    public void executeBody_setBodyStatusToCop_success() throws CommandException, InterruptedException {
         Body body = new BodyBuilder().build();
         model.addEntity(body);
 
@@ -293,6 +293,7 @@ public class UpdateCommandTest extends GuiUnitTest {
         UpdateCommand updateCommand = new UpdateCommand(body.getIdNum(), descriptor);
         updateCommand.execute(model);
 
+        Thread.sleep(100);
         assertEquals(model.getNumberOfNotifs(), 1);
     }
     //@@author
@@ -370,7 +371,7 @@ public class UpdateCommandTest extends GuiUnitTest {
 
         UndoCommand undoCommand = new UndoCommand();
 
-        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY);
+        String expectedMessage = String.format(MESSAGE_UNDO_SUCCESS, TYPICAL_BODY.getIdNum());
         assertCommandSuccess(undoCommand, model, expectedMessage, expectedModel);
     }
 
