@@ -95,8 +95,8 @@ public class StatefulAddressBook extends AddressBook {
             return false;
         }
 
-
         StatefulAddressBook other = (StatefulAddressBook) obj;
+
         return super.equals(other)
                 && statefulAddressBookList.equals(other.statefulAddressBookList)
                 && currentStatePointer == other.currentStatePointer;
@@ -105,7 +105,7 @@ public class StatefulAddressBook extends AddressBook {
     /**
      * Exception when {@code undo()} is not possible but is still called.
      */
-    private static class CannotUndoException extends RuntimeException {
+    public static class CannotUndoException extends RuntimeException {
         private CannotUndoException() {
             super("Undo is not possible in stateful address book yet undo() function called.");
         }
@@ -114,7 +114,7 @@ public class StatefulAddressBook extends AddressBook {
     /**
      * Exception when {@code redo()} is not possible but is still called.
      */
-    private static class CannotRedoException extends RuntimeException {
+    public static class CannotRedoException extends RuntimeException {
         private CannotRedoException() {
             super("Redo is not possible in stateful address book yet redo() function called.");
         }
