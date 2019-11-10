@@ -122,7 +122,7 @@
                                        </ToolBar>
                                        <ToolBar prefHeight="33.0" prefWidth="582.0">
                                           <items>
-                                             <Label prefHeight="22.0" prefWidth="383.0" text="Sort expense: sort amount | sort date | sort time | sort type | sort default" wrapText="true" />
+                                             <Label prefHeight="22.0" prefWidth="383.0" text="Sort expense list: sort CRITERIA" wrapText="true" />
                                              <Region prefHeight="29.0" prefWidth="93.0" />
                                              <Button fx:id="sortCommand" mnemonicParsing="false" onAction="#copySort" text="Copy" />
                                           </items>
