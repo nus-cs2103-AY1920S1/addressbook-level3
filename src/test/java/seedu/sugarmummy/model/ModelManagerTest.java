@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.sugarmummy.testutil.Assert.assertThrows;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.FOODS;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.FOODS;
 
 import java.nio.file.Paths;
 

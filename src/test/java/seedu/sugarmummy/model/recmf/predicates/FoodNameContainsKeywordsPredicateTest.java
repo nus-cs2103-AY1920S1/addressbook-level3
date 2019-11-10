@@ -2,11 +2,11 @@ package seedu.sugarmummy.model.recmf.predicates;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.BANANA;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.BROCCOLI;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.CHICKEN;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.FOODS;
-import static seedu.sugarmummy.testutil.foodrecommendations.TypicalFoods.POTATO;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.BANANA;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.BROCCOLI;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.CHICKEN;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.FOODS;
+import static seedu.sugarmummy.testutil.recmf.TypicalFoods.POTATO;
 
 import java.util.ArrayList;
 import java.util.Arrays;

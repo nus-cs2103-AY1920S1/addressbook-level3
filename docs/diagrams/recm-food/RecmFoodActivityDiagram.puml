@@ -1,18 +1,19 @@
 @startuml
 start
-:User executes recmf command;
+:User executes "recmf" command;
 
-if () then ([command is used for the first time])
+if () then ([app is used for the first time])
     :Create food storage file with sample data;
 else ([else])
     :Initialize UniqueFoodList from storage;
 endif
-:User executes `recmf -f -m +sort/gi` command;
-:Predicates and FoodComparator are supplied to update the display;
+:User executes "recmf -f -m +sort/gi" command;
+:Predicates and FoodComparator are supplied to update the display pane;
+:User executes "recmfmix" command;
+:Logic supplies a new list for FoodFlowPane to update GUI;
 :User executes addfood command;
 if () then ([food info is correct])
-    :Create a new food, add to food list, and update storage;
-    :Switch the display to show full food list;
+    :Create a new food, show the full food list, and update the storage;
 else ([else])
 endif
 stop
