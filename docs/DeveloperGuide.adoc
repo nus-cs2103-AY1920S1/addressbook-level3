@@ -719,6 +719,8 @@ Reason: In the end, I went with alternative 1 because it was more intuitive to u
 other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
 need to type out the full name of the selected athlete.
 //end::select[]
+
+//tag::undoredo[]
 === Undo / Redo feature
 The `undo` command enables users to undo their previous commands while the `redo` command enables users to redo their
 undone commands.
@@ -741,6 +743,7 @@ Step 1. The user launches the application for the first time. The `[green]#Histo
 initialised with the initial `[green]#Athletick#`, `[green]#Attendance#` and
 `[green]#Performance#` state pushed to the respective stacks.
 
+.Initial stacks of states
 image::initialStack.png[width=450]
 
 Step 2. The user executes the `delete -p 3` command to delete the 3rd person in the `[green]#Athletick#` list. The
@@ -749,6 +752,7 @@ since the `delete -p 3` command only alters the `[green]#Athletick#` state, the 
 state will then be pushed to the `[green]#Athletick#` stack while the `[green]#Attendance#` and
 `[green]#Performance#` stacks are left untouched as their states remain the same.
 
+.Stacks of states after `delete -p 3` command
 image::afterUndoStack.png[width=450]
 
 Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
@@ -758,6 +762,7 @@ stack and the latest `[green]#Athletick#` state from the `[green]#Athletick#` st
 It then peeks at the `[green]#Athletick#` stack to retrieve the `[green]#Athletick#` state
 before `delete -p 3` command was executed.
 
+.Stacks of states after `undo` command
 image::initialStack.png[width=450]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
@@ -766,8 +771,9 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 
 The following sequence diagram shows how the undo operation works:
 
+.Sequence diagram for undo implementation
 image::undoSQ.png[width=450]
-Sequence diagram for undo implementation
+
 
 ==== Redo Implementation
 
@@ -788,10 +794,8 @@ Implementation.]
 
 The activity diagram for `redo` command is as follows:
 
+.Activity diagram for `redo` command
 image::redoactivity.png[width=450]
-Activity diagram for `redo` command
-
-
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
@@ -820,10 +824,9 @@ outweighs the tedious cost of implementing the alternative.
 Furthermore, as we realise that each time the application starts, the memories of the states
 are cleared.
 This means that the cost of having alternative 1 is significantly lesser, as the memories of the states do not
-accumulate. As such, we
-decided to
-go with the first alternative.
+accumulate. As such, we decided to go with the first alternative.
 
+//end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
 ==== Implementation

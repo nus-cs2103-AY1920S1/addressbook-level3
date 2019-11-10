@@ -161,7 +161,7 @@ All the details of an athlete (name, phone number, email, address, tags, image) 
 
 Type the edit command in the following format, using the relevant prefixes to edit the appropriate details.
 
-Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
+Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] g/[GENDER] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
 In order to edit Roy Balakrishnan's name to Shawn, type in the following.
 
@@ -779,6 +779,8 @@ image::afterhelp.png[width="450"]
 
 A pop up box will appear, with a link to the user guide on Athletick.
 
+//tag::undoredo[]
+
 ==== Undoing a previous command : `undo`
 
 This command restores Athletick to the state before the previous command was executed.
@@ -816,15 +818,14 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::Undo.png[width="450"]
-
+image::Undo0.png[width="450"]
 
 *What you should see*
 
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::AfterUndo.png[width="450"]
+image::AfterUndo0.png[width="450"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -861,13 +862,15 @@ Enter to execute it.
 
 Format : `redo`
 
-image::Redo.png[width="450"]
+image::Redo0.png[width="450"]
 *What you should see*
 
 The result box will display a success message.
 Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
 
-image::AfterRedo.png[width="450"]
+image::AfterRedo0.png[width="450"]
+
+//end::undoredo[]
 
 === Upcoming features
 
