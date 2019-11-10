@@ -820,8 +820,12 @@ if you want to switch to certain modes.
 
 *Q*: How can I transfer/share _WordBanks_ across machines? +
 *A*: Use the `export` and `import` functionalities to move data to specific file directories. From there you can
-share your files manually.
+share your files manually. You can make use of the drag and drop feature to accelerate the process.
 
 *Q*: How can I save my data? +
 *A*: _Dukemon's_ data is saved to the hard disk automatically (eg. adding cards/words, statistics etc)
 There is no need to manually save data or Game `Statistics`.
+
+*Q*: I edited some files and _Dukemon_ doesn't work properly now. How do I resolve this? +
+*A*: Please edit only if you know what you are doing, for non-advanced players, interact through _Dukemon_. +
+To resolve, refer to the FAQ: "_Dukemon_ is not starting up/crashes upon load-up, how can I rectify this?".
