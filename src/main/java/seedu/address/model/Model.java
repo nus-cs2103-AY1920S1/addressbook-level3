@@ -166,7 +166,7 @@ public interface Model {
     /**
      * Edits the user with the given PersonDescriptor.
      */
-    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException;
+    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException, DuplicatePersonException;
 
     /**
      * Deletes a person with given PersonId.
