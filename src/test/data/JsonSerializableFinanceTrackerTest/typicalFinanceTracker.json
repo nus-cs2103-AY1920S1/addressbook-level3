@@ -1,5 +1,6 @@
 {
   "_comment" : "FinanceTracker save file which contains the same Installments and Purchases values as in TypicalFinances#getTypicalFinanceTracker()",
+  "monthlyLimit" : null,
   "installments" : [ {
     "description" : "Phone bill",
     "amount" : "40.0"
