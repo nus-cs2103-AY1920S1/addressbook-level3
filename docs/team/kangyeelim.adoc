@@ -23,7 +23,7 @@ year 4 Computer Engineering Undergraduate student.
 
 === About the Project
 
-This project is part of the module 'Software Engineering Project CS2103T' where we were tasked to develop a basic
+This project is part of the module 'Software Engineering CS2103T' where we were tasked to develop a basic
 command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application as part of our all-in-one application which
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
@@ -181,7 +181,8 @@ to write documentation to guide end-users on how to use treasurerPro.
 === Current Enhancement
 {Start of First Extract from User Guide}
 
-[big red]*5.1.2. To Delete Transactions in the Home Tab*
+:sectnums!:
+==== 5.1.2. To Delete Transactions in the Home Tab
 
 This command allows you to delete either all transactions of a person or a single transaction of a specific ID from the table.
 
@@ -225,7 +226,7 @@ Leo will respond with a message to inform you. If the person does not have any t
 
 {Start of Second Extract from User Guide}
 
-[big red]*5.1.4. To Sort Transactions in the Home Tab*
+==== 5.1.4. To Sort Transactions in the Home Tab
 
 This command sorts the table of transactions into the specified order for viewing and carrying out of subsequent commands.
 
@@ -239,12 +240,13 @@ This command sorts the table of transactions into the specified order for viewin
 The undo sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
 
 * Steps
-1. Type the any one of the above command in blue font into the command box.
+1. Type any one of the above commands in blue font into the command box.
 
 2. Hit `Enter`. The table will now be sorted in the specified order for you.
 
 {End of Second Extract}
 
+:sectnums:
 ==  Contributions to the Developer Guide
 The following section shows my contribution to the treasurerPro Developer Guide for the `Home Tab` features which showcases
 my ability to write documentation of technical concepts and the technical-depth of my contributions to the project.
@@ -252,8 +254,9 @@ my ability to write documentation of technical concepts and the technical-depth 
 === Current enhancement
 {Start of Extract from Developer Guide}
 
+:sectnums!:
 [[DeleteCommandHome]]
-[big red]*3.1.2. Delete Feature*
+==== 3.1.2. Delete Feature
 
 This section explains the implementation of the delete command in Home Tab. This feature allows for 2 types of deletion, by
 the index shown in the table or by the person's name. Inputting the person's name will cause all transactions linked to
@@ -289,7 +292,7 @@ find command and the list at the start of the activity diagram shows
 a filtered list, the table in the UI will continue to show the filtered list after the current delete command.
 To view the full transaction list, the user would be required to enter the
 back command where `BackCommand` calls `Model#resetPredicate()`. The sequence diagram for the `BackCommand` is shown in the
-following section <<BackCommandSD, 3.1.3. Back Command Feature>>
+following section <<BackCommandSD, 3.1.3. Back Command Feature>>.
 
 After this, the list of transactions and Reimbursement Tab is updated as shown in https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#updateTL[3.1.1. Add Command feature: Figure 14]
 and https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#update-reimbursement[3.1.1. Add Command feature: Figure 15]
@@ -300,7 +303,7 @@ The implementation of the command to delete transactions according to the specif
 `Model#findTransactionInFilteredListByIndex(index)` and `Model#deleteTransaction(index)` instead which deletes the `Transaction` object according
 to its position in the filtered transaction list.
 
-[big red]*3.1.3. Back Command Feature*
+==== 3.1.3. Back Command Feature
 
 [[BackCommandSD]]
 This section explains the implementation of the back command feature in Home Tab.
@@ -313,7 +316,7 @@ The following detailed sequence diagram shows how the back command works:
 .Sequence diagram of the back command being executed in Home Tab (transaction package)
 image::HomeTabBackCommandSequenceDiagram.png[width = "500"]
 
-[big red]*3.1.4. Sort Command Feature*
+==== 3.1.4. Sort Command Feature
 
 This section explains the implementation of the sort command feature in Home Tab.
 The `SortCommand` allows for 3 types of sort, by name in
@@ -333,7 +336,7 @@ the incorrect user input. When it is successfully sorted, there will also be a r
 Similar to the delete command in <<DeleteCommandHome, 3.1.2. Delete Command Feature>>, the `Model#resetPredicate()` method is not called. If the UI table is showing a filtered
 list of transactions, the back command has to be entered to call that method from `BackCommand` to reset the predicate.
 
-[big red]*3.1.5. Overall Design Considerations*
+==== 3.1.5. Overall Design Considerations
 
 This section's table explains the design considerations for some implementations in the Home Tab.
 
