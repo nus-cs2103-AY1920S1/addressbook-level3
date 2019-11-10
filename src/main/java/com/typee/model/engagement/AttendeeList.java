@@ -81,17 +81,21 @@ public class AttendeeList {
     }
 
     public List<Person> getAttendees() {
-        return attendees;
+        return makeCopyOfAttendees();
     }
     /**
      * Returns a copy of the {@code AttendeeList}.
      * @return {@code AttendeeList} with the same content.
      */
     public AttendeeList copy() {
-        List<Person> copyOfAttendees = attendees.stream()
-                .map(person -> new Person(person.getName()))
-                .collect(Collectors.toList());
+        List<Person> copyOfAttendees = makeCopyOfAttendees();
         return new AttendeeList(copyOfAttendees);
+    }
+
+    private List<Person> makeCopyOfAttendees() {
+        return attendees.stream()
+                    .map(person -> new Person(person.getName()))
+                    .collect(Collectors.toList());
     }
 
     @Override
