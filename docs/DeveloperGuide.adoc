@@ -282,29 +282,62 @@ CustomSorter is overridden by a new CustomSorter with no fields.
 
 //tag::savings[]
 === Savings feature
-The Savings feature allows users to save a specified amount of money from their wallet into their savings account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's savings account.
-The Savings feature also allows the user to withdraw from his savings account into his $aveNUS wallet using the `withdraw AMOUNT` command.
-On top of this, a `show TO_DISPLAY` command is implemented so that users can view their savings and withdrawals exclusively, so that the user can decide for himself/herself
-if he has been saving enough into or withdrawing too much from his savings account. `TO_DISPLAY` will either be `savings`/
-`withdrawals`/`both`, whereby to the `TO_DISPLAY` input is case-insensitive.
+The Savings feature encompasses a Savings Account feature and a Savings History feature, both of which work together to allow the user
+to track his/her savings effectively.
 
-==== Classes for savings feature in Model
+The Savings Account feature allows users to save a specified amount of money from their wallet into their savings account using the `save AMOUNT` command, where `AMOUNT` is a user defined amount of money to deposit into the user's savings account.
+The feature also allows the user to withdraw money from his/her savings account, direcly into his/her $aveNUS wallet. This is accomplished using the `withdraw AMOUNT` command.
 
-The Savings feature was implemented with the following set of classes introduced to the Model:
+Meanwhile, the Savings History feature is also introduced to allow $aveNUS users to keep track of all their savings and withdrawals.
+This is available by clicking the "Savings" tab located below the Savings Account and Wallet display.
+
+Also, users can choose to view their savings or withdrawals only, by calling the `show TO_DISPLAY` command. This allows the user to have a quick overview of his savings/withdrawals history to decide
+if he/she has been saving enough or not. `TO_DISPLAY` must either be `savings`/
+`withdrawals`/`both`, whereby the `TO_DISPLAY` input is case-insensitive, i.e. `show SaVinGs` and `show savings` are valid inputs.
+
+==== Classes for Savings Account feature in Model
+
+The Savings Account feature was implemented with the introduction of a new set of classes into the Model. A new `SavingsAccount` class encapsulates all the methods and classes
+related to this feature. The `SavingsAccount` object is stored in $aveNUS and it exposes only a read-only interface, `ReadOnlySavingsAccount`, to allow other components to retrieve
+the retrieve information within the user's `SavingsAccount`, while maintaining data integrity.
+
+`SavingsAccount` contains a single instance of the `CurrentSavings` class, a class we implemented to allow greater abstraction of the user's current savings value.
+
+`CurrentSavings` is only called once throughout the application and is modified with package-protected methods within the class itself.
+This allows the `CurrentSavings` itself to be unmodifiable in other components in the application except within the `SavingsAccount` itself.
+
+Within `CurrentSavings`, there is an unmodifiable `Money` class. Once a `CurrentSavings` object is created with a fixed value, it cannot be changed.
+
+The `SavingsAccount` Class Diagram below shows the relationship between the classes mentioned above.
 
 TODO ADD CLASS DIAGRAM
 
+==== Classes for Savings History feature in Model
+
+Also, the Savings History feature was implemented with another set of classes introduced to the Model. It includes a new `SavingsHistory` class, which contains all the methods
+related to this feature. The `SavingHistory` object exposes only a read-only interface, `ReadOnlySavingsHistory`, to allow other components within the application to retrieve the savings
+history of the user.
+
+Within the `SavingsHistory` object, it contains all the methods to interact with the `SavingsHistoryList` object. Hence,
+Each `SavingsHistory` object only has ONE unmodifiable `SavingsHistoryList` object.
+
+The `SavingsHistoryList` class acts as an abstraction of a list, which sole purpose is to store all `Savings` made by the user.
+
+Withdrawals and savings made by the user are both objects of the class `Savings`. Within the `Savings` class, there are 3 unmodifiable attributes:
+
+- `Money` which is a class that contains the value of the `Savings` made. It is a negative value if a withdrawal is made, and a positive
+value if a saving was made.
+- `TimeStamp` which is a class that contains the time in which the `Savings` object was created, i.e. what time the saving/withdrawal was
+made by the user.
+- `isWithdraw` which is a boolean that is `true` if the `Savings` object is a withdrawal, and false if the object is a saving.
+
+The `SavingsHistory` Class Diagram is shown below to reflect the interactions above.
+
+TODO ADD CLASS DIAGRAM.
+
 ===== CurrentSavings
 
-****
-`CurrentSavings` is a class containing the user's current savings value, i.e. how much the user has saved.
-****
-
 ===== Money
-
-****
-`Money` is
-****
 
 ===== ReadOnlySavingsHistory
 
@@ -320,54 +353,23 @@ TODO ADD CLASS DIAGRAM
 
 ===== TimeStamp
 
-On top of the implemented classes above, to support the Savings feature, we have introduced new exceptions to handle cases when
-the user enters erroneous inputs which could result in inaccurate tracking of the user's savings behaviour. Therefore,
-reducing the effectiveness of $aveNUS as a savings tracking application.
-The exception classes include the following:
-
 ===== InsufficientSavingsException
 
 ===== SavingsOutOfBoundException
 
-The `SavingsAccount` object is stored in the $aveNUS application persistently.
-It exposes a read-only interface `ReadOnlySavingsAccount` to allow only an unmodifiable version of the `SavingsAccount`
-to be exposed to the users, maintaining data integrity. Within the `SavingsAccount`, the class `CurrentSavings` is instantiated,
-which is a sum of the total of savings added to and withdrawals taken from the saving's account.
+==== Making a saving in $aveNUS
 
-On top of this, the class of `SavingsHistory` is also implemented into the Model. It contains a list of the past savings and withdrawals made by the user,
-Like the `SavingsAccount`, it implements a read-only interface, named `ReadOnlySavingsHistory`, to expose an unmodifiable version
-of the `SavingsHistory` to the user, so as to maintain data integrity.
+When a user requests for a saving to be made in the application by calling the `save AMOUNT` command, the following processes
+will occur internally within the application:
 
-Within the `SavingsHistory` class, the class `SavingsHistoryList` is implemented,
-to introduce better abstraction of the list which stores the savings and withdrawal history data. The collection
-of savings and withdrawals data is returned as an unmodifiable list with methods within the class `SavingsHistoryList`.
+- The `AMOUNT` specified by the user is deducted from the user's wallet.
+- The `AMOUNT` specified by the user is added into the user's saving account.
+- The saving is reflected in the savings history.
 
+===== Deduction of savings amount from user's wallet
 
-.Savings class diagram in Model component.
-image::SavingsAccountClassDiagram.png[align=center, alt=SavingsAccount, width=180]
+A `Savings` object is instantiated in the `SaveCommand` with the user's input.
 
-==== Adding to the Savings Account
-
-The user may want to add a new saving to his savings account. This can be done with the `save` command.
-
-The savings/withdrawals are stored in the SavingsAccount in the SavingsHistory object, which stores the savings/withdrawal
-as a list.
-
-The current implementation for adding a new saving/withdrawal is done by overwriting the existing SavingsHistory, with a new
-SavingsHistory that includes past and new savings/withdrawals.
-
-The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
-which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
-
-The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `save` command is shown below.
-
-.Sequence diagram for sample save command
-image::SaveSequenceDiagram.png[align="center"]
-
-The following activity diagram below summarizes how the save command works
-
-.Activity diagram for a sample save command
-image::SaveActivityDiagram.png[align="center", width="400"]
 //end::savings[]
 
 //tag::budgeting[]
