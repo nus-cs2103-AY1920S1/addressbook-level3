@@ -2421,7 +2421,7 @@ and "Unmarked Student" at index 2, who is not marked.
 
 === Event
 
-. Adding a event to the event record.
+. Adding a event to the event list.
 .. Prerequisites: The event list already already contains one event with event name "Test Event",
 startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
 as it is valid.
@@ -2430,7 +2430,7 @@ as it is valid.
    Expected: Adds Event with event name cs2103 Practical to the event list
 .. Test case: `event eventName/Test Event startDateTime/2019-11-01T03:00 endDateTime/2019-11-01T04:00 recur/none color/1` +
    Expected: Shows error message that will result in duplicate event being created
-.. Test case: `student name/\n` +
+.. Test case: `event eventName/\n` +
    Expected: Shows error message that event name cannot contain backslash.
 .. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T06:00 recur/none color/1` +
    Expected: Shows error message for invalid date range
@@ -2457,7 +2457,7 @@ its details.
 
 . Editing an existing event in the event list.
 
-.. Prerequisites: The student list contains two events. The first event with event name "First Event",
+.. Prerequisites: The event list contains two events. The first event with event name "First Event",
 startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00" at index one. The second event with event name "Second Event",
 startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00"
 
@@ -2478,7 +2478,7 @@ startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00"
    Expected: First event is deleted from the list.
 .. Test case: `event delete 0` +
    Expected: Error message stating that index is invalid is shown
-.. Test case: `student delete 5` +
+.. Test case: `event delete 5` +
    Expected: Error message stating that index is out of bounds is shown.
 
 . Exporting event to .ics file type.
