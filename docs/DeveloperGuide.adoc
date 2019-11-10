@@ -906,14 +906,28 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `listpeople` command. Multiple persons in the list.
 .. Test case: `delete 1` +
    Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
-Timestamp
-in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+_{ more test cases ... }_
+
+=== Deleting a policy
+
+. Deleting a policy while all policies are listed
+
+.. Prerequisites: List all policies using the `listpolicy` command. Multiple policies in the list.
+.. Test case: `deletepolicy 1` +
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message. If
+policy is referenced by any person, the reference will be removed as well.
+.. Test case: `deletepolicy 0` +
+   Expected: No policy is deleted. Error details shown in the status message.
+.. Other incorrect `deletepolicy` commands to try: `deletepolicy`, `deletepolicy x` (where x is larger than the list
+size) +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
@@ -943,3 +957,29 @@ Format of indicator should be linechart.
     `display i/gender-breakdown f/barchart` +
     `add n/Sally ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Female` +
    Expected: Number of females should increase by 1. Format of indicator should be barchart.
+
+=== Restore deleted items
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: +
+    `restore 1` +
+   Expected: First item is restored to the appropriate list. If the item is a person, it'll show up on the person
+page. If it is a policy, it'll show up on the policy page.
+.. Test case: +
+    `restore 0` +
+   Expected: No person is restored. Error details shown in the status message.
+.. Other incorrect `restore` commands to try: `restore`, `restore x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Set Bin item expiry
+
+.. Test case: +
+    `binitemexpiry days/10` +
+   Expected: Status message will show that the user setting bin item expiry has changed to 10 days. If there are
+items in the bin currently, their expiry dates will be 10 days after their deletion dates.
+.. Test case: +
+    `binitemexpiry days/0` +
+   Expected: User setting is not changed. Error details shown in the status message.
+.. Other incorrect `binitemexpiry` commands to try: `binitemexpiry`, `binitemexpiry days/x` (where x is a non
+positive integer), `binitemexpiry day/30`, `binitemexpiry yrs/30` +
+   Expected: Similar to previous.

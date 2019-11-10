@@ -49,8 +49,7 @@ endif::[]
 
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ybchen97[tp Code
-Dashboard]]
-[https://github.com[Test code]]
+Dashboard]] [https://github.com/AY1920S1-CS2103-F09-4/main/pull/232[Test code]]
 
 * *Other contributions*:
 
