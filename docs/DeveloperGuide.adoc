@@ -212,119 +212,117 @@ components with the same variants of commands (i.e Add, Delete, Edit etc), this 
 reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
 
 // tag::dashboard[]
-=== Dashboard features
-==== What makes up a Dashboard?
+=== What makes up a Dashboard?
 
 In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
 a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
 
 .Dashboard Class Diagram
-[caption="Figure 9: "]
-image::DashboardClassDiagram.png[width="790"]
+[caption="Figure 10: "]
+image::DashboardClassDiagram.png[width="500"]
 
 ==== Implementation
-The functions add/delete/edit/find/list task, are found under the Dashboard. +
+The functions add/delete/edit/find/list/done task, are found under the Dashboard. +
 The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
-by the user. The tasks are sorted accordingly by earliest date.
+by the user. The tasks are sorted accordingly by earliest date; using a custom sorting algorithm.
 Here, a task is represented by a Dashboard object.
-
-The add/delete/edit/find/list mechanism is implemented in `DukeCooks v1.3`. It extends
-`DukeCooks` with a function to add/delete/edit/find tasks.
 
 The operations are as followed:
 
-* `DukeCooks#add()` -- Adds and saves the task into `DukeCooks`.
-* `DukeCooks#delete()` -- Removes the specified task from `DukeCooks`.
-* `DukeCooks#edit()` -- Edits the specified with a new task name and/or date.
-* `DukeCooks#find()` -- Finds a list of task with a given keyword.
-* `DukeCooks#list()` -- Lists all the tasks in DukeCooks.
+* `DukeCooks#add_task()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks#delete_task()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks#edit_task()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks#done()` -- Marks a task as complete.
+* `DukeCooks#find_task()` -- Finds a list of task with a given keyword.
+* `DukeCooks#list_taskincomlete()` -- Lists all the incomplete tasks.
+* `DukeCooks#list_taskcomlete()` -- Lists all the completed tasks.
+* `DukeCooks#dashboard()` -- Directs user to the dashboard window.
 
 These operations are exposed in the Model interface as `Model#addDashboard()`,
-`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` and
-`Model#getDashboardRecords()` respectively.
+`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` , `Model#doneDashboard` and
+`Model#getDashboardRecords()`.
 
-Given below is an example usage scenario and how the add/delete/edit/find/list
+Given below is an example usage scenario and how the add/delete/edit/find/done/dashboard
 mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. `DukeCooks v1.3` will
-be initialized with the dashboard state, and the `currentStatePointer` pointing to
-that single dashboard state.
+Step 1. The user is currently at a another part of DukeCooks and wants to go to the Dashboard. The
+user executes the `dashboard` command. The `dashboard` command calls `Model#getDashboardRecords()`,
+which returns the `ReadOnlyDashboard` that returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage.
 
 Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
-task into Duke Cooks. The `add` command calls `Model#addDashboard()`, causing the task to
+task into DukeCooks. The `add` command calls `Model#addDashboard()`, causing the task to
 be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 `UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
 stage, the list of task is sorted by date. After which, the `add` command also calls
-`Model#saveDashboard()`, causing another modified dashboard state to be saved into the
-`UniqueDashboardList`.
+`Model#saveDashboard()` to be saved the `dashboard` into the `UniqueDashboardList`.
 
 Step 3. The user executes `delete task 3` command to delete the 3rd task in the
-dashboard. The delete command calls `Model#deleteDashboard()` causing the specified task
+dashboard. The `delete` command calls `Model#deleteDashboard()` causing the specified task
 to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
 `UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
 stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
-causing the modified state of the dashboard after the `delete task 3` command executes
-to be saved in the `UniqueDashboardList`, and the `currentStatePointer` is shifted to the
-newly inserted dashboard state.
+after the `delete task 3` command executes
+to be saved in the `UniqueDashboardList`.
 
-Step 4. The user executes `edit task...` command to edit a field in a task. The edit
+Step 4. The user executes `edit task...` command to edit a field in a task. The `edit`
 command calls `Model#setDashboard()` causing the edited task to be updated in
 `UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
 which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
-sorted by date. Also, it calls `Model#saveDashboard()`, causing the modified state of the
-dashboard after the `edit task...` command executes to `UniqueDashboardList`, and the
-`currentStatePointer` is shifted to the newly inserted dashboard state.
+sorted by date. Also, it calls `Model#saveDashboard()`, after the `edit task...` command executes to be saved into the `UniqueDashboardList`
 
 Step 5. The user executes `find task...` command to find a list of task given a keyword.
-The find command calls `Model#hasDashboard()`, which searches through the
-`UniqueDashboardList` for tasks containing the particular keyword. The `currentStatePointer`
-remains at the same location after the step.
+The `find` command calls `Model#hasDashboard()`, which searches through the
+`UniqueDashboardList` for tasks containing the particular keyword.
 
-Step 6. The user executes `list task` command to view all the tasks found in `UniqueDashboardList`.
-The list command calls `Model#getDashboardRecords()`, which returns the `ReadOnlyDashboard` that
-returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
-homepage. The `currentStatePointer` remains at the same location after the step.
+Step 6. The user executes `done 1` command to mark the first task in the list as complete. The `done`
+command calls `Model#doneDashboard()`, which will cause the task to be marked as complete in the
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#done()`, which adds
+the newly created `Dashboard` object and adds it into the list. After which, `UniqueDashboardList#sortDashboard()`
+is called to sort the list by date and reflect the newly made changes.
 
-The following sequence diagram shows how the add operation works:
+The following sequence diagram (Figure 10) shows how the add operation works:
 
-image::AddTaskSequenceDiagram.png[]
+.Done task Sequence Diagram
+[caption="Figure 12: "]
+image::DoneTaskSequenceDiagram.png[width="550"]
 
-*Aspect: How add/delete/edit/find/list executes*
+==== Making Decisions
 
-*Alternative 1 (current choice)*
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-Sort the list whenever add/delete/edit is called.
+|Storing a task's status
+|A custom class, `TaskStatus`, is created to keep track of the task's status.
 
-* Pros: Easy to implement.
-* Cons: May have performance issues in terms of time.
+- Pros: Additional statuses can be introduced in easily in the future. +
+- Cons: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
 
-*Alternative 2*
+This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
+Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added with ease.
 
-Keep an instance of the earliest and latest date. If dates fall
-out of range from the two dates, sorting does not happen.
+|Use a boolean to check if a task is complete.
 
-* Pros: Faster runtime.
-* Cons: We must ensure that the implementation of each individual command are correct.
+- Pros: Easy to implement.
+- Cons: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
 
-*Aspect: Data structure to support the add/delete/edit/find/list commands*
+|Sorting tasks by date
 
-*Alternative 1 (current choice)*
+|Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
 
-Use `Collections.sort` to sort by date.
+- Pros: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+there is lesser chance for errors.
+- Cons: Because `sort` is executed every time, this might slow down the performance.
 
-* Pros: Easy to implement.
-* Cons: Current implementations require a `LocalDate` object to be create for every
-`TaskDate` object.
+This choice was chosen as it reduces the chance of errors and is a safer option.
 
-*Alternative 2*
+|Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
 
-Use `LocalDate` to store dates instead of creating a custom class,
-`TaskDate`.
-
-* Pros: Since this is found in the Java API, we do not have to worry about invalid dates
-being keyed.
-* Cons: As the current `TaskDate` works fine, refactoring the code to `LocalDate` might
-take some time.
+- Pros: Faster runtime. +
+- Cons: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+|===
 // end::dashboard[]
 
 === RecipeBook feature
@@ -614,7 +612,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |Home Cook |store all my recipes |easily list out all the ingredients I have to buy for a weekly meal plan
 
-|`* * *` |Indecisive person |get food suggestions |save time when deciding what to eat
+|`* * *` |Unorganised student|sort my task list by date |see which task to prioritise
+
+|`* * *` |Unmotivated student |receive motivational messages upon completing tasks| gain motivation
 
 |`* * *` |Health conscious person |track my health progress |manage my diet
 
@@ -660,25 +660,42 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Suggest Food
+The following is a Use Case diagram for the Dashboard.
 
-*MSS*
+.Dashboard Use Case Diagram
+[caption="Figure 11: "]
+image::DashboardUseCase.png[width="200"]
 
-1.  User requests for a food suggestion
-2.  DukeCooks gives a food recommendation
-3.  User is satisfied with the recommendation
-+
-Use case ends.
+A use case for marking a task as complete.
+....
+Software System: DukeCooks
+UseCase: UC01 - Mark as complete
+Actors: User
+MSS:
+    1. User completes a task and wants to marked it as complete.
+    2. User selects a task according to it's index number to mark as
+complete.
+    3. User enters the command `done task` followed by the index
+number in the command box.
+    4. DukeCooks finds the inputted index number and corresponding
+task and marks it as complete.
+    5. DukeCooks updates the Dashboard to reflect the changes made.
+    6. DukeCooks returns a message: Task is marked as complete, for
+the user.
 
-*Extensions*
+Extensions:
+1a. User is not currently at the Dashboard.
+    1a1. User enters `goto dashboard`.
+    1a2. DukeCooks displays the Dashboard to the user.
+Use case resumes from step 2.
 
-[none]
-* 3a. User is unsatisfied with the food recommendations.
-+
-[none]
-** 3a1. User asks for another suggestion.
-+
-Use case resumes at step 2.
+3a. DukeCooks detects an error in the entered data.
+    3a1. DukeCooks displays an error message.
+    3a2. User enters new data.
+
+Steps 3a1. and 3a2. are repeated until the data entered are correct.
+Use case resumes from step 4.
+....
 
 [discrete]
 === Use case: Add Calorie Intake

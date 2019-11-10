@@ -410,6 +410,11 @@
     -fx-font-weight: bold;
 }
 
+#dashboardCardPane {
+    -fx-border-color: transparent;
+    -fx-background-color: rgba(255, 193, 178, 0.25);
+}
+
 #pageCardPane {
     -fx-border-radius: 5;
     -fx-border-color: black;
