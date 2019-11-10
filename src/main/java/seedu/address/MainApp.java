@@ -66,7 +66,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing T09-4 project  ]===========================");
+        logger.info("=============================[Initializing Seller Manager Lite]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());

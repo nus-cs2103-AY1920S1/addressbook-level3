@@ -586,6 +586,7 @@ The following sequence diagram shows how the undo operation works:
 image::dg-diagram/UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: XYZBook here refers to CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
 
 The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
