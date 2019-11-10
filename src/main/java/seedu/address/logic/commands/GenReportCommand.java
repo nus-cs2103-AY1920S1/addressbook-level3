@@ -25,7 +25,7 @@ public class GenReportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Generates a PDF report for the specific body ID.\n"
             + "Parameters: BODY_ID NAME\n"
-            + "Example: " + COMMAND_WORD + "1 John Doe";
+            + "Example: " + COMMAND_WORD + " 1 John Doe";
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 

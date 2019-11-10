@@ -23,7 +23,7 @@ public class GenReportSummaryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Generates a PDF report with an overview for all bodies.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + " John Doe";
 
     private static final String MESSAGE_REPORT_NOT_GENERATED = "Report not generated";
 
