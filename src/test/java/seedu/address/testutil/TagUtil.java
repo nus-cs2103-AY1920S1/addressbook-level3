@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import seedu.address.model.tag.Tag;
@@ -15,12 +16,12 @@ public class TagUtil {
      * @param args strings of tags
      * @return list of tag strings
      */
-    public static ArrayList<String> generateKeywordList(String... args) {
+    public static String[] generateKeywordList(String... args) {
         ArrayList<String> keywords = new ArrayList<>();
         for (String s: args) {
             keywords.add(s);
         }
-        return keywords;
+        return keywords.toArray(new String[keywords.size()]);
     }
 
     /**
