@@ -322,6 +322,8 @@ Starts a untimed test with the deck of cards, `science_deck`
 * `test deck/science_deck duration/100` +
 
 Starts a timed test of 100 seconds with the deck of cards, `science_deck`
+
+Do note that only the results of the *first attempt* of each question will be counted in each test. Repeat attempts are allowed for a better learning experience, but will not contribute towards score.
 ****
 
 ==== Get next card: `next`
@@ -337,17 +339,43 @@ Gets the previous card in the test deck.
 // tag::stop[]
 ==== Quit test: `exit`
 
-Exits the test process when the user is in test mode. +
+Exits the test process when the user is in test mode.
 
 Exams will also terminate automatically upon running out of cards in the test deck.
 
 Triggers a popup with the results of the test.
 
-==== Front-Back Cards
+Do note that premature ending of a test will still count towards your Statistics.
 
-* Flipping the cards: `front` and `back`
+==== Front-Back Cards: `front`, `back`, `correct`, `wrong`
 
+====
+* Users should look at the question on the front of the card and think of their answer.
 
+* Once they have their answer, they can type `back` to view the answer on the back on the card.
+
+* They will then be able to type `correct` or `wrong` to count their results.
+
+* They can type `front` when they are on the card back to relook at the question.
+====
+
+==== Multiple Choice Cards: `<USER_INPUT>`, `front`
+====
+* Upon loading the card, users will be presented with the question and several choices.
+
+* Users will be able to key in their choice into the command bar, with the top most option as 1 and increasing downwards. Do note only numbers are accepted.
+
+* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question.
+====
+
+==== Java/Javascript Cards: `code`
+====
+* Upon loading the card, users will be presented with a coding question.
+
+* They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
+
+* Upon running their programs, if they pass all test cases, their results will automatically be counted. 
+====
 // tag::stats[]
 === Viewing user statistics : `stats`
 
