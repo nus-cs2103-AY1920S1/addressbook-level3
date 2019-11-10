@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
+
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalBooks.BOOK_1;
 import static seedu.address.testutil.TypicalBooks.getTypicalCatalog;
 import static seedu.address.testutil.TypicalBorrowers.HOON;
@@ -94,6 +98,136 @@ public class DeleteByIndexCommandTest {
         DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteByIndexCommand, model, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void getUndoCommand_beforeExecute_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        try {
+            deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getUndoCommand);
+    }
+
+    @Test
+    public void getUndoCommand_afterExecuteValidCommand_returnsUndoCommand() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        Book validBook = new BookBuilder().build();
+        model.addBook(validBook);
+
+        try {
+            deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteByIndexCommand.getUndoCommand(), new AddCommand(validBook));
+    }
+
+
+    @Test
+    public void getRedoCommand_beforeExecute_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        try {
+            deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getRedoCommand);
+    }
+
+    @Test
+    public void getRedoCommand_afterExecuteValidCommand_returnsRedoCommand() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        Book validBook = new BookBuilder().build();
+        model.addBook(validBook);
+
+        try {
+            deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteByIndexCommand.getRedoCommand(),
+                new DeleteBySerialNumberCommand(validBook.getSerialNumber()));
+    }
+
+    @Test
+    public void getCommandResult_beforeExecute_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteInvalidCommand_throwsNullPointerException() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        try {
+            deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            System.out.println(e);
+        }
+
+        assertThrows(NullPointerException.class, deleteByIndexCommand::getCommandResult);
+    }
+
+    @Test
+    public void getCommandResult_afterExecuteValidCommand_returnsCommandResult() {
+        Index validIndex = Index.fromOneBased(1);
+        DeleteByIndexCommand deleteByIndexCommand = new DeleteByIndexCommand(validIndex);
+        Model model = new ModelManager();
+
+        // Adds a book to the catalog
+        Book validBook = new BookBuilder().build();
+        model.addBook(validBook);
+
+        CommandResult expectedCommandResult = new CommandResult("Test");
+
+        try {
+            expectedCommandResult = deleteByIndexCommand.execute(model);
+        } catch (CommandException e) {
+            fail();
+        }
+
+        assertEquals(deleteByIndexCommand.getCommandResult(), expectedCommandResult);
     }
 
     @Test

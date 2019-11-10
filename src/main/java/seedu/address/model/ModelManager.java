@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
@@ -20,9 +21,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UserSettings;
 import seedu.address.commons.util.DateUtil;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ReversibleCommand;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.SerialNumber;
 import seedu.address.model.book.SerialNumberGenerator;
@@ -72,7 +72,7 @@ public class ModelManager implements Model {
         this.borrowerRecords = new BorrowerRecords(borrowerRecords);
         filteredBooks = new FilteredList<>(this.catalog.getBookList());
 
-        this.commandHistory = new CommandHistory();
+        this.commandHistory = new CommandHistoryManager();
 
         this.servingBorrower = Optional.empty();
     }
@@ -418,7 +418,8 @@ public class ModelManager implements Model {
         return userPrefs.equals(other.userPrefs)
                 && loanRecords.equals(other.loanRecords)
                 && catalog.equals(other.catalog)
-                && borrowerRecords.equals(other.borrowerRecords);
+                && borrowerRecords.equals(other.borrowerRecords)
+                && commandHistory.equals(other.commandHistory);
     }
 
     @Override
@@ -655,18 +656,22 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Pair<CommandResult, CommandResult> undoCommand() throws CommandException {
-        return commandHistory.undo(this);
+    public Pair<Command, ReversibleCommand> getUndoCommand() {
+        logger.info("Retrieving undo command from CommandHistory.");
+        return commandHistory.getUndoCommand();
     }
 
     @Override
-    public CommandResult redoCommand() throws CommandException {
-        return commandHistory.redo(this);
+    public Command getRedoCommand() {
+        logger.info("Retrieving redo command from CommandHistory.");
+        return commandHistory.getRedoCommand();
     }
 
     @Override
     public void resetCommandHistory() {
+        logger.info("Resetting CommandHistory.");
         commandHistory.reset();
+        logger.info("Resetting of commandHistory is completed.");
     }
 
 }

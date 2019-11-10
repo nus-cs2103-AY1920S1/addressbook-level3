@@ -29,9 +29,9 @@ public class UndoCommand extends Command {
         if (!model.canUndoCommand()) {
             throw new CommandException(MESSAGE_CANNOT_UNDO_COMMAND);
         }
-        Pair<CommandResult, CommandResult> commandResults = model.undoCommand();
-        CommandResult actualResult = commandResults.getKey();
-        CommandResult resultOfUndoneCommand = commandResults.getValue();
+        Pair<Command, ReversibleCommand> commands = model.getUndoCommand();
+        CommandResult actualResult = commands.getKey().execute(model);
+        CommandResult resultOfUndoneCommand = commands.getValue().getCommandResult();
 
         String msgSuccess = MESSAGE_SUCCESS + resultOfUndoneCommand.getFeedbackToUser();
 

@@ -30,7 +30,7 @@ I implemented the commands and functionality related to the loaning and returnin
 
 ==== What it does
 
-This set of feature allows our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
+This feature set allows our users, librarians, to `loan` books to borrowers, `return` loaned out books, `renew` loaned
 out books such that their due dates are extended, and to `pay` fines incurred for overdue books. +
 
 ==== Justification
@@ -111,6 +111,9 @@ according to feedback received from tutor and peers.
 
 * Reviewed other team's https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pulls?q=is%3Apr+is%3Aopen+reviewed-by%3Aseeziyang[documentation],
 including their user stories, non-functional requirements and use of UML diagrams.
+
+* Contributed a helpful https://github.com/nus-cs2103-AY1920S1/forum/issues/169[tip] on the forum regarding the hiding
+of URL links when printing to PDF.
 
 ==== Tools
 

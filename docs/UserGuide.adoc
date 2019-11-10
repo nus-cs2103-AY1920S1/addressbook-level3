@@ -466,7 +466,7 @@ The index *must be a positive integer* such as 1, 2 or 3, and must appear in the
 * `-all` indicates all the books currently loaned out by the borrower. +
 {nbsp}
 
-.Screenshot to illustrate return commands that can be entered.
+.Screenshot to illustrate the return commands that can be entered.
 image::ug-return.png[width=850, align=center]
 * Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
 However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
