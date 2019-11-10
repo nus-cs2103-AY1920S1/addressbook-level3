@@ -12,6 +12,7 @@ import seedu.savenus.model.alias.AliasChecker;
 import seedu.savenus.model.alias.AliasList;
 import seedu.savenus.model.alias.AliasPair;
 
+//@@author seanlowjk
 /**
  * An Immutable AliasList that is serializable to JSON format.
  */

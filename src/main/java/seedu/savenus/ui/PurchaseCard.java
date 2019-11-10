@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.savenus.model.purchase.Purchase;
 
+//@@author raikonen
 /**
  * An UI component that displays information of a {@code Purchase}.
  */

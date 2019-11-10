@@ -13,7 +13,7 @@ import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.InsufficientFundsException;
 
-
+//@@author raikonen
 /**
  * Represents a user's Wallet in the application.
  * Guarantees: mutable;
@@ -105,7 +105,7 @@ public class Wallet {
      * @param newDaysToExpire New {@code DaysToExpire} created from user's input
      */
     public final void setDaysToExpire(DaysToExpire newDaysToExpire) throws BudgetDurationOutOfBoundsException {
-        if (newDaysToExpire.getDaysToExpire() > 365) {
+        if (newDaysToExpire.isOutOfBounds()) {
             throw new BudgetDurationOutOfBoundsException();
         }
         daysToExpire.setDaysToExpire(newDaysToExpire);

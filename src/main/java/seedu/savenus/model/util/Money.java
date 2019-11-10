@@ -5,6 +5,7 @@ import static seedu.savenus.commons.util.AppUtil.checkArgument;
 
 import java.math.BigDecimal;
 
+//@@author raikonen
 /**
  * Model for representing monetary amounts
  */

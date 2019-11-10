@@ -13,6 +13,7 @@ import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.testutil.TypicalPurchaseHistory;
 
+//@@author raikonen
 public class JsonSerializablePurchaseHistoryTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

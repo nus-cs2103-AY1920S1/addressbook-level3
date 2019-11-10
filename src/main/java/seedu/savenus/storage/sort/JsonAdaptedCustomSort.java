@@ -10,6 +10,7 @@ import seedu.savenus.logic.parser.FieldParser;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 /**
  *  Jackson-friendly version of {@link CustomSorter}.
  */

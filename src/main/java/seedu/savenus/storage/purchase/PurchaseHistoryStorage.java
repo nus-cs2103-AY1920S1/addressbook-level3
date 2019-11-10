@@ -8,6 +8,7 @@ import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 
+//@@author raikonen
 /**
  * Represents a storage for {@link PurchaseHistory}.
  */

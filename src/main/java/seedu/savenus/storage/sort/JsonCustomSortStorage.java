@@ -14,6 +14,7 @@ import seedu.savenus.commons.util.FileUtil;
 import seedu.savenus.commons.util.JsonUtil;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 /**
  * A class to access CustomSorter data stored as a json file on the hard disk.
  */

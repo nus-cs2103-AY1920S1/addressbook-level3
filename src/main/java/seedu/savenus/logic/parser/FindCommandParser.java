@@ -8,6 +8,7 @@ import seedu.savenus.logic.commands.FindCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 
+//@@author seanlowjk
 /**
  * Parses input arguments and creates a new FindCommand object
  */

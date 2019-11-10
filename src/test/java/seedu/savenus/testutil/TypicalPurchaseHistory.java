@@ -7,6 +7,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 
+//@@author raikonen
 /**
  * A utility class containing a list of {@code Purchase} objects to be used in tests.
  */

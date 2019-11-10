@@ -20,6 +20,7 @@ import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 import seedu.savenus.model.purchase.TimeOfPurchase;
 
+//@@author raikonen
 public class JsonPurchaseHistoryStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonPurchaseHistoryStorageTest");

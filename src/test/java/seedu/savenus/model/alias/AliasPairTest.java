@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.SortCommand;
 
+//@@author seanlowjk
 public class AliasPairTest {
 
     private AliasPair aliasPair;

@@ -5,6 +5,7 @@ import static seedu.savenus.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.savenus.logic.commands.AliasCommand;
 import seedu.savenus.logic.parser.exceptions.ParseException;
 
+//@@author seanlowjk
 /**
  * Parses input arguments and creates a new AliasCommand object
  */

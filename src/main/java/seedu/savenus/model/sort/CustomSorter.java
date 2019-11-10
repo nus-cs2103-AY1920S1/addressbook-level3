@@ -3,6 +3,7 @@ package seedu.savenus.model.sort;
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author seanlowjk
 /**
  * Creates a simple CustomSorter to sore the menu items every time a command is executed.
  */

@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import seedu.savenus.model.food.Food;
 
+//@@author seanlowjk
 /**
  * A Simple Comparator that compares by category, name and then price.
  */

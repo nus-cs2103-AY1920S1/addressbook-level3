@@ -9,16 +9,17 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.savenus.model.util.Money;
 
+//@@author raikonen
 /**
  * Represents a {@code Wallet}'s {@code RemainingBudget} amount in the application.
  */
 public class RemainingBudget {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Budget Amount should only contain numbers and have either 0 or 2 decimal places";
-    public static final String FLOATING_POINT_CONSTRAINTS =
-            "Due to Floating Point limitations, "
-            + "this application will not accept Budget Amounts higher than 1 million dollars";
+            "Budget Amount should be a non-negative integer or non-negative double with 2 decimal places.";
+
+    public static final String BUDGET_AMOUNT_CONSTRAINTS =
+            "This application will not accept Budget Amounts higher than 1 million dollars";
     public static final String VALIDATION_REGEX = "(0|(0(\\.\\d{2,2}))|[1-9]+(\\d*(\\.\\d{2,2})?))";
 
     private final ObjectProperty<Money> remainingBudgetProperty;

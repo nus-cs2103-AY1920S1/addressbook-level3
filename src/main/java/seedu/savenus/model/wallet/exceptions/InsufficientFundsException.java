@@ -1,7 +1,8 @@
 package seedu.savenus.model.wallet.exceptions;
 
+//@@author raikonen
 /**
- * Signals that the budget input is out of bounds;
+ * Signals that the budget amount is insufficient;
  */
 public class InsufficientFundsException extends RuntimeException {
     public InsufficientFundsException() {

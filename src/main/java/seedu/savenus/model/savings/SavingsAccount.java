@@ -12,7 +12,7 @@ import seedu.savenus.model.util.Money;
  */
 public class SavingsAccount implements ReadOnlySavingsAccount {
 
-    private final CurrentSavings currentSavings;
+    private CurrentSavings currentSavings;
 
     /**
      * Default constructor when app initialises without an existing readable SavingsAccount file.

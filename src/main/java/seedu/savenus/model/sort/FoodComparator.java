@@ -6,6 +6,7 @@ import java.util.List;
 import seedu.savenus.model.food.Field;
 import seedu.savenus.model.food.Food;
 
+//@@author seanlowjk
 /**
  * A simple Comparator to arrange Food based on their fields.
  */
