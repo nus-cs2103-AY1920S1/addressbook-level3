@@ -11,22 +11,23 @@ import seedu.address.model.ModelData;
 import seedu.address.model.ModelManager;
 import seedu.address.model.listeners.ModelDataListener;
 
+//@@author bruceskellator
+
 /**
- * UndoRedoManager contains all EventList states
- * at different points of time in its eventListStateList
- * as well as a currentStateIndex that stores the index of the
- * current EventList state in the list.
- * It also contains a mainEventList that represents the current EventList
- * state. Duplicates of this mainEventList are stored in the eventListStateList.
- * Whenever an undo or redo command is executed, mainEventList restores itself to a
- * past/future state by copying the data in its duplicate over to itself.
+ * UndoRedoManager keeps track of the different versions of ModelData, which are duplicated
+ * and stored to its undoStateList every time event or task data is manipulated by a command.
+ * It contains the ModelManager, as well as an undoIndex which marks the current version of the
+ * ModelData in undoStateList in use.
+ * Whenever an undo or redo command is executed, undoIndex is decremented or incremented respectively.
+ * The current version of ModelData in undoStateList will then be deep-copied to replace ModelManager's
+ * ModelData.
  */
 public class UndoRedoManager implements ModelDataListener {
 
     /**
-     * Deep-copies of Model are stored to this list
+     * Deep-copies of ModelData are stored to this list
      * every time a state-changing command is executed.
-     * This allows mainEventList to retrieve its data
+     * This allows ModelManager's ModelData to retrieve its data
      * from any of these past or future states when an
      * undo or redo command is called.
      */
@@ -44,7 +45,7 @@ public class UndoRedoManager implements ModelDataListener {
     /**
      * This method should be called first.
      * Initializes the UndoRedoManager with the Model's initial data.
-     * Allows UndoRedoManager to start listening to ModelList changes.
+     * Allows UndoRedoManager to start listening to ModelData changes.
      */
     public void start() {
         undoStateList.add(this.model.getModelData());
@@ -53,7 +54,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Restores the previous ModelList from UndoRedoManager.
+     * Restores the previous ModelData from UndoRedoManager.
      */
     public void undo() throws CommandException {
         if (!canUndo()) {
@@ -64,7 +65,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Restores the previously undone ModelList from UndoRedoManager.
+     * Restores the previously undone ModelData from UndoRedoManager.
      */
     public void redo() throws CommandException {
         if (!canRedo()) {
@@ -75,7 +76,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Clears all future event list states in eventListStateList beyond the index given by currentStateIndex
+     * Clears all future model data states in undoStateList beyond the index given by undoIndex.
      */
     private void clearFutureHistory() {
         List<ModelData> subList = new ArrayList<>(undoStateList.subList(0, undoIndex + 1));
@@ -84,7 +85,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Returns true if there are previous event list states to restore, and false otherwise.
+     * Returns true if there are previous model data states to restore, and false otherwise.
      *
      * @return boolean
      */
@@ -93,7 +94,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Returns true if there are future event list states to reset to, and false otherwise.
+     * Returns true if there are future model data states to reset to, and false otherwise.
      *
      * @return boolean
      */
@@ -102,7 +103,7 @@ public class UndoRedoManager implements ModelDataListener {
     }
 
     /**
-     * Notify all UndoRedoListeners that undo/redo was called, and provide them with the current UndoState.
+     * Reset ModelManager's ModelData to the current version of ModelData.
      */
     private void notifyModelResetListeners() {
         if (listening) {
@@ -153,4 +154,13 @@ public class UndoRedoManager implements ModelDataListener {
             return true;
         }
     }
+
+    public List<ModelData> getUndoStateList() {
+        return undoStateList;
+    }
+
+    public int getUndoIndex() {
+        return undoIndex;
+    }
+
 }

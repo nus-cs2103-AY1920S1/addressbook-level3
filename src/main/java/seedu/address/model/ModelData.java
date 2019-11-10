@@ -9,6 +9,8 @@ import seedu.address.model.tasks.TaskSource;
 /**
  * Represents a snapshot of Horo's events and tasks.
  * It is immutable. All events and tasks are unique.
+ *
+ * @@author bruceskellator
  */
 public class ModelData {
     private final UniqueOrderedSet<EventSource> events;

@@ -5,6 +5,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * An UI component that displays information of a {@code Event}.
  */

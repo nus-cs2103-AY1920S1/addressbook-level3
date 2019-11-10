@@ -16,6 +16,7 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
+//@@author Kyzure
 /**
  * An Ui that represents a Panel that contains all the components to make a calendar view. This includes
  * a Timeline, Calendar, and the Details of an event.

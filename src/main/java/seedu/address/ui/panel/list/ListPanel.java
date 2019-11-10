@@ -12,7 +12,7 @@ import seedu.address.model.events.EventSource;
 import seedu.address.model.tasks.TaskSource;
 import seedu.address.ui.UiPart;
 
-
+//@@author Kyzure
 /**
  * An Ui that stores the logged feedback from the program to the user.
  */
