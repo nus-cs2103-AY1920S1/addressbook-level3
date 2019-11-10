@@ -1034,6 +1034,7 @@ Use case ends
 rather than merely linking to somewhere on the filesystem
 . Export format of lecture notes and flash cards must be human-readable text
 . Images must be referenced by pathnames with respect to the image folder
+. Charts returned by statistics feature must be simple enough that it is universally understood
 
 [appendix]
 == Glossary
@@ -1073,3 +1074,18 @@ _This image should appear in place of the old image, if any, even if the filenam
 in its data folder.
 .. Relaunch the application. _The app should not throw an exception, merely not display any images._
 .. Add back the images to the lecture notes using `editnote`. _This operation should succeed._
+
+=== Getting statistics
+. Getting statistics
+.. Prerequisites: Some questions with difficulty level easy and subject CS2040 have been answered
+using the Quiz mode feature. There are no questions with difficulty level hard done.
+.. Test case: `stats` +
+Expected: The command result bar will show "Here are the statistics:"
+All notes, tasks and questions will be hidden, a panel containing a pie chart will appear.
+.. Test case: `stats d/easy s/cs2040` +
+Expected: The command result bar will show "Here are the statistics: [easy] [cs2040]"
+All notes, tasks and questions will be hidden, a panel containing a pie chart will appear.
+.. Test case: `stats d/hard` +
+Expected: Error details will be showm in the command result bar. The main window stays the same.
+.. Test case: `stats d/easy d/hard` (more than one difficulty is provided) +
+Expected: Same as previous.
