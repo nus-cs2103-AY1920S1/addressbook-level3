@@ -79,6 +79,9 @@ public class ApiLinks {
         case "reverse":
             return base + "SortReverseCommand.html";
 
+        case "delete_shortcut":
+            return base + "DeleteShortcutCommand.html";
+
         default: return base + "Command.html";
         }
     }
