@@ -448,7 +448,7 @@ Step 1. The user launches the application for the first time. The `SplitWiser` w
 
 Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast with `David` as the sole participant which is stored in the `activityList`.
 
-Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()` which then modify the `activityList` with the new participants and is stored in the `ActivityBook`.
+Step 3. The user executes `invite p/Louis p/Mary...` to invite more participants into the current viewed activity. The `invite` command calls `Activity#invite()` which then modifies the `activityList` with the new participants and is stored in the `ActivityBook`.
 
 The following sequence diagram shows how the invite operation works:
 
@@ -458,7 +458,7 @@ NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but 
 
 Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Hence the user decides to remove that person by executing the `disinvite` command.
 
-Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()` which then modify the `activityList` and is stored in the `ActivityBook`.
+Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()` which then modifies the `activityList` and is stored in the `ActivityBook`.
 
 NOTE: The sequence diagram for the disinvite operation is omitted as it is similar to the invite operation.
 

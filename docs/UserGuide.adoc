@@ -205,7 +205,7 @@ If the specified contact does not exist in the activity, then a warning message 
  +
 *Multiple contacts can be disinvited at once.* +
  +
-*Contacts that involves in expenses cannot be disinvited.* +
+*Contacts that involve in expenses cannot be disinvited.* +
 If a contact is involved in any expense, he cannot be disinvited.
 // end::disinvite[]
 
