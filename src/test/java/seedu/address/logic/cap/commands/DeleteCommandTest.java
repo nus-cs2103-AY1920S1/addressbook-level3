@@ -3,15 +3,12 @@ package seedu.address.logic.cap.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.testutil.TypicalModule.CS2103;
 import static seedu.address.testutil.TypicalModule.CS2100;
-import static seedu.address.testutil.TypicalModule.CS2101;
+import static seedu.address.testutil.TypicalModule.CS2103;
 import static seedu.address.testutil.TypicalModule.getTypicalCapLog;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.*;
 import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ModelCapManager;

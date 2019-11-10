@@ -4,13 +4,17 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.*;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
@@ -188,7 +192,7 @@ public class ModelCapManager implements Model {
 
                         if (Integer.parseInt(academicYearTarget) > Integer.parseInt(academicYearOther)) {
                             return 1;
-                        } else if (Integer.parseInt(academicYearTarget) < Integer.parseInt(academicYearOther)){
+                        } else if (Integer.parseInt(academicYearTarget) < Integer.parseInt(academicYearOther)) {
                             return -1;
                         }
 

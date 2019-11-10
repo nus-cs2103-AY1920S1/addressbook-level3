@@ -3,9 +3,9 @@ package seedu.address.logic.cap.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_CREDIT;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_MODULE_CODE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.Model;
 import seedu.address.model.common.Module;
-
 
 
 /**

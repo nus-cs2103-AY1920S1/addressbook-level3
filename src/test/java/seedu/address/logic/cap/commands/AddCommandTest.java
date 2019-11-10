@@ -11,13 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.collections.transformation.*;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.CapLog;
@@ -27,8 +26,6 @@ import seedu.address.model.cap.ReadOnlyUserPrefs;
 import seedu.address.model.cap.person.Semester;
 import seedu.address.model.common.Module;
 import seedu.address.testutil.ModuleBuilder;
-
-
 
 public class AddCommandTest {
 

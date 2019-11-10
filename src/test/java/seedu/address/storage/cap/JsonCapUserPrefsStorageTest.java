@@ -18,7 +18,8 @@ import seedu.address.model.cap.CapUserPrefs;
 
 public class JsonCapUserPrefsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCapUserPrefsStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test",
+        "data", "JsonCapUserPrefsStorageTest");
 
     @TempDir
     public Path testFolder;
@@ -28,7 +29,8 @@ public class JsonCapUserPrefsStorageTest {
         assertThrows(NullPointerException.class, () -> readCapUserPrefs(null));
     }
 
-    private Optional<CapUserPrefs> readCapUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
+    private Optional<CapUserPrefs> readCapUserPrefs(String userPrefsFileInTestDataFolder)
+            throws DataConversionException {
         Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
         return new JsonCapUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }

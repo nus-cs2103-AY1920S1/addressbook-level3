@@ -1,19 +1,13 @@
 package seedu.address.logic.cap.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.cap.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalModule.getTypicalCapLog;
 
-import java.util.*;
-
 import org.junit.jupiter.api.Test;
-import seedu.address.logic.cap.commands.exceptions.*;
-import seedu.address.model.cap.*;
-import seedu.address.model.common.Module;
-import seedu.address.testutil.*;
+
+import seedu.address.model.cap.CapUserPrefs;
+import seedu.address.model.cap.Model;
+import seedu.address.model.cap.ModelCapManager;
 
 /**
  * Encapsulates a test for sort command.

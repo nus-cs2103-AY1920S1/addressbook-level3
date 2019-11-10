@@ -6,7 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.cap.commands.*;
+import seedu.address.logic.cap.commands.AddCommand;
+import seedu.address.logic.cap.commands.ClearCommand;
+import seedu.address.logic.cap.commands.Command;
+import seedu.address.logic.cap.commands.DeleteCommand;
+import seedu.address.logic.cap.commands.ExitCommand;
+import seedu.address.logic.cap.commands.FindCommand;
+import seedu.address.logic.cap.commands.HelpCommand;
+import seedu.address.logic.cap.commands.ListCommand;
+import seedu.address.logic.cap.commands.SortCommand;
+import seedu.address.logic.cap.commands.SwitchCommand;
+
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 
 /**

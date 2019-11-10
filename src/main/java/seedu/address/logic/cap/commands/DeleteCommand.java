@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(ModuleCode moduleCode) {
         requireNonNull(moduleCode);
-        this.moduleCode= moduleCode;
+        this.moduleCode = moduleCode;
     }
 
     @Override

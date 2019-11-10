@@ -12,7 +12,8 @@ import seedu.address.model.common.Module;
  */
 public class Semester {
 
-    public static final String MESSAGE_CONSTRAINTS = "Incorrect academic year or semester period.";
+    public static final String MESSAGE_CONSTRAINTS = "Incorrect academic year or semester period. "
+            + "Otherwise, it might mean that you have left Semester blank.";
 
     private final SemesterPeriod semesterPeriod;
     private final AcademicYear academicYear;

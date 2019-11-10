@@ -19,7 +19,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_CONSTRAINTS =
-            "Semester has to be an integer value. Or check if there is an addition prefix.";
+            "Academic year and semester should be of correct format. " +
+                    "The field should also not be left blank.";
 
 
     /**
@@ -75,14 +76,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
-    public static Semester parseSemester(String input) throws ParseException {
+    public static Semester parseSemester(String input) throws ParseException, ArrayIndexOutOfBoundsException {
         requireNonNull(input);
         String trimmedSemester = input.trim().toLowerCase();
         String[] yearSem = trimmedSemester.split("s");
 
         try {
             return new Semester(new SemesterPeriod(Integer.parseInt(yearSem[1])), new AcademicYear(yearSem[0]));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new ParseException(MESSAGE_CONSTRAINTS);
         }
     }

@@ -1,9 +1,8 @@
-package seedu.address.logic.cap.parser;;
+package seedu.address.logic.cap.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import seedu.address.logic.cap.commands.Command;
-import seedu.address.logic.cap.parser.Parser;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
 
 

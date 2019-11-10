@@ -14,8 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.CapLog;
+import seedu.address.model.cap.ReadOnlyCapLog;
 
 public class JsonCapLogStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonCapLogStorageTest");

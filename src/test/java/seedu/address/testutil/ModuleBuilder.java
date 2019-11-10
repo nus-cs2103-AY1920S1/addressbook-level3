@@ -18,10 +18,7 @@ public class ModuleBuilder {
     private static final String DEFAULT_TITLE = "Software Engineering";
     private static final String DEFAULT_ACADEMIC_YEAR = "1920";
     private static final int DEFAULT_SEMESTER_PERIOD = 1;
-    private static final String DEFAULT_DESCRIPTION = "This module introduces the necessary conceptual and analytical "
-            + "tools for systematic and rigorous development of software systems. ";
     private static final int DEFAULT_CREDIT = 4;
-    private static final String DEFAULT_FACULTY = "Computing";
     private static final String DEFAULT_GRADE = "A";
 
     private ModuleCode moduleCode;
