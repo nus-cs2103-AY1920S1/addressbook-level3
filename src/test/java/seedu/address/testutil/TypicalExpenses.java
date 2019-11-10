@@ -17,10 +17,8 @@ import java.util.List;
 
 import seedu.address.model.ExpenseList;
 import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.rates.Rates;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -83,20 +81,11 @@ public class TypicalExpenses {
     }
 
     public static ExchangeData getTypicalExchangeData() {
-        ExchangeData ab = getTypicalExchangeRates();
-        return ab;
+        return SampleDataUtil.getSampleExchangeData();
     }
 
 
     public static List<Expense> getTypicalExpenses() {
         return new ArrayList<>(Arrays.asList(TRANSPORT, FOOD, SHOPPING, GROCERIES, VALENTINES, CHRISTMAS, NEWYEAR));
-    }
-
-    private static ExchangeData getTypicalExchangeRates() {
-        Rates rates = new Rates();
-        rates.getRates().put("SGD", 1.0);
-        rates.getRates().put("MYR", 3.0);
-        rates.getRates().put("USD", 1.3);
-        return new ExchangeData(new Date("21/10/2019"), new Currency("SGD"), rates);
     }
 }

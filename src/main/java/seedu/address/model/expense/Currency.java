@@ -3,8 +3,6 @@ package seedu.address.model.expense;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.exchangedata.ExchangeDataSingleton;
-
 /**
  * Represents the currency of an expense in the MyMorise.
  * Guarantees: immutable; is valid as declared in {@link #isValidCurrency(String)}
@@ -16,11 +14,11 @@ public class Currency {
         + "and it should not be blank";
     public static final String VALIDATION_REGEX = "([a-zA-Z]){3}";
 
-    public final String value;
+    public final String name;
     private Double rate;
 
     public Currency() {
-        value = DEFAULT_BASE_CURRENCY;
+        name = DEFAULT_BASE_CURRENCY;
         rate = 1.0;
     }
 
@@ -32,7 +30,7 @@ public class Currency {
     public Currency(String currency) {
         requireNonNull(currency);
         checkArgument(isValidCurrency(currency), MESSAGE_CONSTRAINTS);
-        this.value = currency.toUpperCase();
+        this.name = currency.toUpperCase();
         this.rate = 1.0;
     }
 
@@ -45,7 +43,7 @@ public class Currency {
     public Currency(String currency, Double rate) {
         requireNonNull(currency);
         checkArgument(isValidCurrency(currency), MESSAGE_CONSTRAINTS);
-        this.value = currency.toUpperCase();
+        this.name = currency.toUpperCase();
         this.rate = rate;
     }
 
@@ -57,24 +55,23 @@ public class Currency {
     }
 
     public Double getRate() {
-        rate = ExchangeDataSingleton.getInstance().getRates().getRate(value);
         return rate;
     }
 
     @Override
     public String toString() {
-        return value + " @ " + String.format("%.3f", rate);
+        return name + " @ " + String.format("%.3f", rate);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Currency // instanceof handles nulls
-            && value.equals(((Currency) other).value)); // state check
+            && name.equals(((Currency) other).name)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return name.hashCode();
     }
 }

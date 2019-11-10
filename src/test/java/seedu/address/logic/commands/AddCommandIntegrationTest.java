@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.BudgetBuilder;
 import seedu.address.testutil.ExpenseBuilder;
@@ -28,6 +29,7 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
+        ExchangeDataSingleton.updateInstance(getTypicalExchangeData());
         model = new ModelManager(getTypicalExpenseList(), getTypicalBudgetList(),
             getTypicalExchangeData(), new UserPrefs());
     }

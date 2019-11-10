@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -47,12 +48,20 @@ public class Expense implements Comparable<Expense> {
         return new Amount(String.format("%.2f", convertedAmount));
     }
 
+    public Amount getConvertedAmount(Currency targetCurrency) {
+        // Convert back to base
+        double amountAsBase = amount.getValue() / currency.getRate();
+        double amountAsTarget = amountAsBase * ExchangeDataSingleton.getInstance()
+            .getRates().getRate(targetCurrency.name);
+        return new Amount(String.format("%.2f", amountAsTarget));
+    }
+
     public Amount getAmount() {
         return amount;
     }
 
     public boolean isForeign() {
-        return !currency.value.equals(DEFAULT_BASE_CURRENCY);
+        return !currency.name.equals(DEFAULT_BASE_CURRENCY);
     }
 
     public Currency getCurrency() {

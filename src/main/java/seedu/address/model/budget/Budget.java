@@ -124,6 +124,7 @@ public class Budget {
 
     /**
      * Checks if a budget overlaps with the current instance of the budget.
+     *
      * @param otherBudget Budget to compare with
      * @return a boolean value.
      */
@@ -139,7 +140,7 @@ public class Budget {
     public void recalculateAmountLeft() {
         double amountLeft = this.amount.getValue();
         for (Expense expense : expenseList.getExpenseList()) {
-            amountLeft -= expense.getAmount().getValue();
+            amountLeft -= expense.getConvertedAmount(currency).getValue();
         }
         if (amountLeft <= 0.0) {
             this.amountLeft = new Amount(String.format("%.2f", 0 - amountLeft));

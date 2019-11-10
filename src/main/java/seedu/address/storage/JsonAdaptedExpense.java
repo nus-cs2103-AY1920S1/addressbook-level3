@@ -26,7 +26,7 @@ class JsonAdaptedExpense {
 
     private final String name;
     private final String amount;
-    private final String currency;
+    private final JsonAdaptedCurrency currency;
     private final String date;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
@@ -35,7 +35,7 @@ class JsonAdaptedExpense {
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("name") String name, @JsonProperty("amount") String amount,
-                              @JsonProperty("currency") String currency, @JsonProperty("date") String date,
+                              @JsonProperty("currency") JsonAdaptedCurrency currency, @JsonProperty("date") String date,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.amount = amount;
@@ -52,7 +52,7 @@ class JsonAdaptedExpense {
     public JsonAdaptedExpense(Expense source) {
         name = source.getName().fullName;
         amount = source.getAmount().value;
-        currency = source.getCurrency().value;
+        currency = new JsonAdaptedCurrency(source.getCurrency());
         date = source.getDate().rawValue;
         tagged.addAll(source.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -70,8 +70,19 @@ class JsonAdaptedExpense {
             expenseTags.add(tag.toModelType());
         }
 
+        if (currency == null) {
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName()));
+        }
+        if (currency.toModelType() == null) {
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName()));
+        }
+        final Currency modelCurrency = currency.toModelType();
+
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -79,7 +90,8 @@ class JsonAdaptedExpense {
         final Name modelName = new Name(name);
 
         if (amount == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
         if (!Amount.isValidAmount(amount)) {
             throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
@@ -91,13 +103,10 @@ class JsonAdaptedExpense {
                 MISSING_FIELD_MESSAGE_FORMAT, Currency.class.getSimpleName())
             );
         }
-        if (!Currency.isValidCurrency(currency)) {
-            throw new IllegalValueException(Currency.MESSAGE_CONSTRAINTS);
-        }
-        final Currency modelCurrency = new Currency(currency);
 
         if (date == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
         if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);

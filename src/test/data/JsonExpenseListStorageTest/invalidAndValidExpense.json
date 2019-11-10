@@ -2,7 +2,10 @@
   "expenses": [ {
     "name": "Valid Expense",
     "amount": "$23.50",
-    "currency": "SGD",
+    "currency" : {
+      "name" : "SGD",
+      "rate" : 1.0
+    },
     "date": "13/10/2019",
     "tagged": [ "education" ]
   }, {

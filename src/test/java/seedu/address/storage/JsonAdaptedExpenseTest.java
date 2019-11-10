@@ -20,14 +20,16 @@ import seedu.address.model.expense.Name;
 public class JsonAdaptedExpenseTest {
     private static final String INVALID_NAME = "  ";
     private static final String INVALID_AMOUNT = "+$@654";
-    private static final String INVALID_CURRENCY = "X12";
+    private static final JsonAdaptedCurrency INVALID_CURRENCY = new JsonAdaptedCurrency("X12", 1);
     private static final String INVALID_DATE = "Sat";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = FOOD.getName().toString();
     private static final String VALID_AMOUNT = FOOD.getAmount().toString();
-    private static final String VALID_CURRENCY = FOOD.getCurrency().value;
-    private static final String VALID_DATE = FOOD.getDate().rawValue;
+
+    private static final JsonAdaptedCurrency VALID_CURRENCY = new JsonAdaptedCurrency(FOOD.getCurrency().name, 1);
+    private static final String VALID_DATE = FOOD.getDate().toString();
+
     private static final List<JsonAdaptedTag> VALID_TAGS = FOOD.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
