@@ -344,7 +344,10 @@ image::QuizResultClassDiagram.png[]
 Step 4. The user executes `show` command to show the answer of current quiz question in the app. The `show` command calls
 `Model#showQuizAnswer()`, causing the `AppData` to display the answer on the Ui.
 
-Step 5. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
+Step 5. The user executes `skip` command to skip the current quiz question in the app. The `skip` command calls
+`Model#removeOneQuizQuestion()`, causing the `AppData` to display the next quiz question on the Ui.
+
+Step 6. The user executes `quit` command to exit from the quiz mode. The `quit` command calls
 `Model#clearQuizQuestionList()`, causing the `AppData` to clear all quiz question list and return to normal mode.
 
 The following sequence diagram shows how the `quiz` operation works:
@@ -972,9 +975,9 @@ Use case ends
 
 *MSS*
 
-1. Student gives the command to delete an existing question `delete INDEX`
+1. Student gives the command to delete an existing question `deleteq INDEX`
 2. Application shows the question being deleted
-3. Application deletes the question indicated by the student from the database
+3. Application deletes the question indicated by the student from the application
 
 Use case ends
 
@@ -983,7 +986,7 @@ Use case ends
 [none]
 * 1a. The index given by student is out of the range
 [none]
-** 1a1. Application shows the error and displays the number of questions stored
+** 1a1. Application shows the error of invalid index
 ** 1a2. Student enters the valid index
 * Use case resumes from step 1
 
