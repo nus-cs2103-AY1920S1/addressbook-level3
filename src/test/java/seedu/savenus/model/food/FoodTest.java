@@ -51,15 +51,6 @@ public class FoodTest {
         editedAlice = new FoodBuilder(CARBONARA).withDescription(VALID_DESCRIPTION_NASI_LEMAK)
                 .build();
         assertFalse(CARBONARA.isSameFood(editedAlice));
-
-        // same name, same description, different price -> returns false
-        editedAlice = new FoodBuilder(CARBONARA).withPrice(VALID_PRICE_NASI_LEMAK)
-                .build();
-        assertFalse(CARBONARA.isSameFood(editedAlice));
-
-        // same name, same price, same description, different tags -> returns true
-        editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
-        assertTrue(CARBONARA.isSameFood(editedAlice));
     }
 
     @Test
@@ -93,21 +84,21 @@ public class FoodTest {
         // different food -> returns false
         assertFalse(CARBONARA.equals(NASI_LEMAK));
 
-        // different name -> returns false
+        // different name but same category -> returns false
         Food editedAlice = new FoodBuilder(CARBONARA).withName(VALID_NAME_NASI_LEMAK).build();
         assertFalse(CARBONARA.equals(editedAlice));
 
-        // different price -> returns false
+        // different price -> returns true
         editedAlice = new FoodBuilder(CARBONARA).withPrice(VALID_PRICE_NASI_LEMAK).build();
-        assertFalse(CARBONARA.equals(editedAlice));
+        assertTrue(CARBONARA.equals(editedAlice));
 
         // different description -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withDescription(VALID_DESCRIPTION_NASI_LEMAK).build();
         assertFalse(CARBONARA.equals(editedAlice));
 
-        // different tags -> returns false
+        // different tags -> returns true
         editedAlice = new FoodBuilder(CARBONARA).withTags(VALID_TAG_CHICKEN).build();
-        assertFalse(CARBONARA.equals(editedAlice));
+        assertTrue(CARBONARA.equals(editedAlice));
 
         // different location -> returns false
         editedAlice = new FoodBuilder(CARBONARA).withLocation(VALID_LOCATION_NASI_LEMAK).build();

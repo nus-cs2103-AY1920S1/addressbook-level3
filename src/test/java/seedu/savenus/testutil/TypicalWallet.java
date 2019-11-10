@@ -2,6 +2,7 @@ package seedu.savenus.testutil;
 
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 /**
  * A utility class containing a typical {@code Wallet} objects to be used in tests.
  */

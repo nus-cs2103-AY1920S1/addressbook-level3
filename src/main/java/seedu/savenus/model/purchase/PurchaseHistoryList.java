@@ -3,6 +3,7 @@ package seedu.savenus.model.purchase;
 import static java.util.Objects.requireNonNull;
 import static seedu.savenus.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import javafx.collections.ObservableList;
 
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
+//@@author raikonen
 /**
  *  A list of purchases made.
  *
@@ -62,6 +64,7 @@ public class PurchaseHistoryList implements Iterable<Purchase> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Purchase> asUnmodifiableObservableList() {
+        FXCollections.sort(internalList, Comparator.comparing(Purchase::getTimeOfPurchase).reversed());
         return internalUnmodifiableList;
     }
 

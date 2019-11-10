@@ -2,6 +2,7 @@ package seedu.savenus.model.alias;
 
 import java.util.List;
 
+//@@author seanlowjk
 /**
  * Represents a Simple Checker to check the validity of the command and alias words.
  */

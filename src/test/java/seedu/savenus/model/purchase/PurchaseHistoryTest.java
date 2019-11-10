@@ -17,6 +17,7 @@ import seedu.savenus.model.food.Food;
 import seedu.savenus.model.menu.ReadOnlyMenu;
 import seedu.savenus.model.wallet.Wallet;
 
+//@@author raikonen
 public class PurchaseHistoryTest {
 
     private final PurchaseHistory purchaseHistory = new PurchaseHistory();

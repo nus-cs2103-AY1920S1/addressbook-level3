@@ -6,6 +6,7 @@ import static seedu.savenus.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+//@@author raikonen
 public class RemainingBudgetTest {
     @Test
     public void constructor_null_throwsNullPointerException() {

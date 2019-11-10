@@ -8,6 +8,7 @@ import seedu.savenus.commons.exceptions.DataConversionException;
 import seedu.savenus.model.recommend.UserRecommendations;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 /**
  * Creates a storage to store fields for the CustomSort.
  */

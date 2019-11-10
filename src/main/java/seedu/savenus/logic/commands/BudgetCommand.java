@@ -10,7 +10,7 @@ import seedu.savenus.model.wallet.Wallet;
 import seedu.savenus.model.wallet.exceptions.BudgetAmountOutOfBoundsException;
 import seedu.savenus.model.wallet.exceptions.BudgetDurationOutOfBoundsException;
 
-
+//@@author raikonen
 /**
  * Command to add a {@code Wallet} for the user.
  */

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.savenus.commons.exceptions.IllegalValueException;
 import seedu.savenus.model.sort.CustomSorter;
 
+//@@author seanlowjk
 /**
  * An Immutable CustomSorter that is serializable to JSON format.
  */

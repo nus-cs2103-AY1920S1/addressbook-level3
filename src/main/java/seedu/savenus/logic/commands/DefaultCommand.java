@@ -9,6 +9,7 @@ import seedu.savenus.model.Model;
 import seedu.savenus.model.food.Food;
 import seedu.savenus.model.sort.DefaultComparator;
 
+//@@author seanlowjk
 /**
  * Sorts all the foods in the $aveNUS menu based on their default ordering, which is:
  * category, followed by name, then by price.
@@ -26,6 +27,10 @@ public class DefaultCommand extends Command {
         if (model.getAutoSortFlag() == true) {
             return new CommandResult(AUTO_SORT_WARNING);
         }
+
+        // Clear the recommendation system (if it was used)
+        model.setRecommendationSystemInUse(false);
+
         ObservableList<Food> foodList = model.getFilteredFoodList();
         SortedList<Food> sortedList = foodList.sorted(new DefaultComparator());
         model.setFoods(sortedList);

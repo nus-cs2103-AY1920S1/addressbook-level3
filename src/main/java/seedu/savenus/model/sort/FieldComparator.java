@@ -4,6 +4,7 @@ import java.util.Comparator;
 
 import seedu.savenus.model.food.Field;
 
+//@@author seanlowjk
 /**
  * A Simple Comparator which compares two fields.
  */

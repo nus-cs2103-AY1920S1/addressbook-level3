@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import seedu.savenus.model.purchase.exceptions.PurchaseNotFoundException;
 
+//@@author raikonen
 public class PurchaseHistoryListTest {
     private final Purchase testPurchase = new Purchase(CARBONARA);
     private final PurchaseHistoryList testPurchaseHistoryList = new PurchaseHistoryList();

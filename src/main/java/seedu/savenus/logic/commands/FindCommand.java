@@ -6,6 +6,7 @@ import seedu.savenus.commons.core.Messages;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.food.NameContainsKeywordsPredicate;
 
+//@@author seanlowjk
 /**
  * Finds and lists all foods in menu whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.

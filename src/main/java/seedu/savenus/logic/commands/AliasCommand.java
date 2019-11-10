@@ -6,6 +6,7 @@ import seedu.savenus.logic.commands.exceptions.CommandException;
 import seedu.savenus.model.Model;
 import seedu.savenus.model.alias.AliasList;
 
+//@@author seanlowjk
 /**
  * Allows the user to put aliases for the commands of $aveNUS.
  */

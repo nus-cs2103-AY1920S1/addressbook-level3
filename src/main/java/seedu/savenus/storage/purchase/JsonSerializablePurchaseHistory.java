@@ -13,6 +13,7 @@ import seedu.savenus.model.purchase.Purchase;
 import seedu.savenus.model.purchase.PurchaseHistory;
 import seedu.savenus.model.purchase.ReadOnlyPurchaseHistory;
 
+//@@author raikonen
 /**
  * An Immutable Purchase History that is serializable to JSON format.
  */

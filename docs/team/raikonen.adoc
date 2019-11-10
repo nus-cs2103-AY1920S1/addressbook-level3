@@ -122,7 +122,7 @@ It has a maximum length of 10 and when commands that are added when the list is 
 === Code contributions
 
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Raikonen&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-05[Project Code Dashboard]
-| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Ajon-chua+is%3Aclosed[Pull Requests]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Araikonen+is%3Aclosed[Pull Requests]
 
 === Other contributions
 

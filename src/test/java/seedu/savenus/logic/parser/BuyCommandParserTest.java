@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.savenus.logic.commands.BuyCommand;
 
+//@@author raikonen
 public class BuyCommandParserTest {
     private BuyCommandParser parser = new BuyCommandParser();
 
