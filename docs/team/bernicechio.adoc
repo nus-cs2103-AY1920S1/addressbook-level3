@@ -11,8 +11,7 @@
 
 This document serves to note down my contributions to Mortago, our team’s product for our Software Engineering project.
 
-Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
-
+=== 1.1 About the project
 Mortago is a desktop application used for managing mortuaries efficiently. It is primarily used for keeping records of entries into the mortuary.
 
 Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
@@ -21,6 +20,10 @@ management to be more accurate in managing tasks, calculating the availability o
 
 The user keys in commands using a CLI, and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
 
+=== 1.2 About the team
+Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
+
+=== 1.3 About my role
 My role was to design and write the codes for the generate PDF reports feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
