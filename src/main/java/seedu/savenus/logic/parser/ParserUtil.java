@@ -361,7 +361,7 @@ public class ParserUtil {
             return new OpeningHours(trimmedOpeningHours);
         }
         if (!OpeningHours.isValidOpeningHours(trimmedOpeningHours)) {
-            throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+            throw new ParseException(OpeningHours.FORMAT_CONSTRAINTS);
         }
         return new OpeningHours(trimmedOpeningHours);
     }
@@ -386,7 +386,10 @@ public class ParserUtil {
 
         for (String actualOpeningHours : openingHours) {
             if (!OpeningHours.isValidOpeningHours(actualOpeningHours)) {
-                throw new ParseException(OpeningHours.MESSAGE_CONSTRAINTS);
+                throw new ParseException(OpeningHours.FORMAT_CONSTRAINTS);
+            }
+            if (!OpeningHours.isValidComparison(actualOpeningHours)) {
+                throw new ParseException(OpeningHours.COMPARISON_CONSTRAINTS);
             }
 
             theOpeningHours = actualOpeningHours;

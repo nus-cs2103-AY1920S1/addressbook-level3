@@ -136,7 +136,7 @@ public class JsonAdaptedFood {
                     OpeningHours.class.getSimpleName()));
         }
         if (!OpeningHours.isValidOpeningHours(openingHours)) {
-            throw new IllegalValueException(OpeningHours.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(OpeningHours.FORMAT_CONSTRAINTS);
         }
         final OpeningHours modelOpeningHours = new OpeningHours(openingHours);
 
