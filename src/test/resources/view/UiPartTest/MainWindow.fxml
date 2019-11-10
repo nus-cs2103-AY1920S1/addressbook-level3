@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root minHeight="600" minWidth="1000.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+
+            <VBox>
+            <HBox>
+               <children>
+                      <MenuBar fx:id="menuBar" minWidth="-Infinity">
+                          <Menu mnemonicParsing="false" text="File">
+                              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                          </Menu>
+                          <Menu mnemonicParsing="false" text="Help">
+                              <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                          </Menu>
+                      </MenuBar>
+                  <ImageView fitHeight="35.2" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                     <image>
+                        <Image url="@../images/clapper.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+                <HBox styleClass="h-box" VBox.vgrow="ALWAYS">
+                    <children>
+                        <StackPane minWidth="-Infinity" prefWidth="108.0" styleClass="stack-pane">
+                            <children>
+                                <VBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" styleClass="v-box" StackPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <VBox layoutX="10.0" layoutY="144.0" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="watchlistButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToWatchlist" text="Watchlist." textAlignment="RIGHT" VBox.vgrow="ALWAYS" />
+                                        <VBox VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="watchedButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToWatched" text="Watched." textAlignment="RIGHT" VBox.vgrow="ALWAYS" />
+                                        <VBox layoutX="10.0" layoutY="111.0" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="searchButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToSearch" text="Search." textAlignment="RIGHT" VBox.vgrow="ALWAYS" />
+                                        <VBox layoutX="10.0" layoutY="10.0" VBox.vgrow="ALWAYS" />
+                                        <Button fx:id="statisticsButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#goToStatistics" text="Statistics." textAlignment="RIGHT" VBox.vgrow="ALWAYS" />
+                                        <VBox layoutX="10.0" layoutY="44.0" VBox.vgrow="ALWAYS" />
+                                    </children>
+                                    <StackPane.margin>
+                                        <Insets />
+                                    </StackPane.margin>
+                                </VBox>
+                            </children>
+                            <stylesheets>
+                                <URL value="@DarkTheme.css" />
+                                <URL value="@Extensions.css" />
+                            </stylesheets>
+                        </StackPane>
+                        <VBox HBox.hgrow="ALWAYS">
+                            <children>
+                                <VBox fx:id="showList" minWidth="340" styleClass="v-box" VBox.vgrow="ALWAYS">
+                                    <StackPane fx:id="contentPanelPlaceholder" styleClass="stack-pane" VBox.vgrow="ALWAYS" />
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                                <StackPane fx:id="commandBoxPlaceholder" styleClass="stack-pane">
+                                    <padding>
+                                        <Insets left="10.0" right="10.0" />
+                                    </padding>
+                                </StackPane>
+                                <StackPane fx:id="resultDisplayPlaceHolder" styleClass="stack-pane" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

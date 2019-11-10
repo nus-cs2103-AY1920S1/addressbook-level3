@@ -62,7 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (argMultimap.getValue(PREFIX_DATE_OF_RELEASE).isPresent()) {
             String getDateFromUserInput = argMultimap.getValue(PREFIX_DATE_OF_RELEASE).get();
-            System.err.println(getDateFromUserInput);
             dateOfRelease = ParserUtil.parseDateAddEditCommand(getDateFromUserInput);
         } else {
             dateOfRelease = new Date();

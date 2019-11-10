@@ -32,6 +32,14 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
+    public CommandExecutor getCommandExecutor() {
+        return commandExecutor;
+    }
+
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
     /**
      * Sets the main window of the command box.
      * @param mainWindow

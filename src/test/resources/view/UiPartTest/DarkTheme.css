@@ -1,0 +1,383 @@
+.background {
+    -fx-background-color: derive(black, 20%);
+    background-color: #383838; /* Used in the default.html file */
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.label-bright {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #eeeeee;
+    -fx-opacity: 1;
+    -fx-font-style: italic;
+}
+
+.label-header {
+    -fx-font-size: 32pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-view {
+    -fx-base: black;
+    -fx-control-inner-background: black;
+    -fx-background-color: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        derive(-fx-base, 80%)
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: black;
+    -fx-border-color: transparent transparent transparent #4d4d4d;
+}
+
+.split-pane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: black;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: black;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+    -fx-background-color: black;
+}
+
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+.v-box {
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+}
+
+h-box {
+    -fx-border-color: transparent;
+}
+.stack-pane {
+     -fx-background-color: black;
+     -fx-border-color: transparent;
+}
+.scroll-pane {
+     -fx-background-color: black;
+     -fx-border-color: transparent;
+}
+.pane-with-border {
+     -fx-background-color: black;
+     -fx-border-color: black;
+     -fx-border-top-width: 1px;
+}
+
+.status-bar {
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+
+.result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.status-bar .label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-padding: 4px;
+    -fx-pref-height: 30px;
+}
+
+.status-bar-with-border {
+    -fx-background-color: derive(black, 20%);
+    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-border-width: 1px;
+}
+
+.status-bar-with-border .label {
+    -fx-text-fill: white;
+}
+
+.grid-pane {
+    -fx-background-color: black;
+    -fx-border-width: 1px;
+}
+
+.grid-pane .stack-pane {
+    -fx-background-color: black;
+}
+
+.context-menu {
+    -fx-background-color: black;
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: black;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+/*
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-cursor: hand;
+    -fx-alignment: center-right;
+    -fx-font-style: italic
+}
+
+.button:hover {
+    -fx-cursor: hand
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color, 30%);
+}
+
+.button-current {
+    -fx-padding: 5 22 5 22;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 13pt;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-text-fill: grey;
+    -fx-cursor: DEFAULT;
+    -fx-alignment: center-right;
+    -fx-font-style: italic
+}
+.dialog-pane {
+    -fx-background-color: black;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: black;
+}
+
+.dialog-pane > *.label.content {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: black;
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: white;
+    -fx-text-fill: white;
+}
+
+.scroll-bar {
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(white, 20%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#commandTypeLabel {
+    -fx-font-size: 11px;
+    -fx-text-fill: #F70D1A;
+}
+
+#commandTextField {
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-insets: 0;
+    -fx-border-color: black black #ffffff black;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+#filterField, #showListPanel, #showWebpage {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#resultDisplay .content {
+    -fx-background-color: black, black, black, black;
+    -fx-background-radius: 0;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+.check-box {
+    /*-fx-selected-box-color: white;
+    -fx-box-color: white;*/
+    -fx-mark-color: black;
+}
+
+.check-box:selected > .box {
+    /* background color for selected checkbox */
+    -fx-background-color: white;
+}
+
+.check-box > .box {
+    /* background color of unselected checkbox */
+    -fx-background-color: white;
+}
+
+.genre-tag .label {
+    -fx-text-fill: white;
+    -fx-background-color: #bc0d3e;
+    -fx-padding: 1 4 1 4;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+.favourite-genre-tag .label {
+    -fx-text-fill: white;
+    -fx-background-color: #bc0d3e;
+    -fx-padding: 1 4 3 4;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 14;
+}

@@ -109,4 +109,8 @@ public class LogsCenter {
         consoleHandler.setLevel(currentLogLevel);
         return consoleHandler;
     }
+
+    public static Level getCurrentLogLevel() {
+        return currentLogLevel;
+    }
 }

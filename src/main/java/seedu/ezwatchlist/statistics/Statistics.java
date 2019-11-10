@@ -25,6 +25,7 @@ import seedu.ezwatchlist.model.show.UniqueShowList;
  */
 public class Statistics {
     private final Model model;
+
     private ApiInterface apiManager;
 
     public Statistics (Model model) throws OnlineConnectionException {
@@ -118,4 +119,12 @@ public class Statistics {
             return null;
         }
     }
+    public Model getModel() {
+        return model;
+    }
+
+    public ApiInterface getApiManager() {
+        return apiManager;
+    }
+
 }

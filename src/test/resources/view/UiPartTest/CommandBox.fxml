@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox>
+      <children>
+        <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..." styleClass="text-field" HBox.hgrow="ALWAYS" />
+         <StackPane styleClass="stack-pane">
+            <children>
+               <Button alignment="BASELINE_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#handleCommandEntered" text="Go!">
+                  <StackPane.margin>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </StackPane.margin>
+               </Button>
+            </children>
+         </StackPane>
+      </children>
+   </HBox>
+</StackPane>
