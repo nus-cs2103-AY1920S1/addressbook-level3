@@ -2,26 +2,20 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-{nbsp} +
-
 == Overview
 
-My team and I were tasked with enhancing AddressBook3 - a given CLI (Command Line Interface) application into a better product.
-Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant.
-We aim to improve the quality of life for teachers by assisting them with mundane daily administrative tasks.
-In particular, the Njoy Teaching Assistant enables
-teachers to maintain student records to manage students better;
+My team and I were tasked with enhancing AddressBook3 - a CLI (Command Line Interface) application into a better product.
+We decided to morph the application into the Njoy Teaching Assistant,to improve the quality of life for teachers by simplifying mundane administrative tasks.
+In particular, the application enables teachers to maintain student records to manage students better;
  set questions and quizzes to enhance students learning; and keep track of
 their schedules with an interactive timetable.
 
 This is what our project looks like:
 
+.The graphical user interface for Njoy.
 image::NjoyMainPage.png[]
-_Figure 1. The graphical user interface for Njoy._
 
-My role was to design and write code for the event feature. This includes commands for manipulating and viewing events such as
-`screenshot`, `export`, `view`, etc.
+My role was to design and write code for teachers to better plan and manage events in their schedule.
 The rest of the sections will cover the summary of my contributions to the codebase, the user guide and the developer guide.
 
 The following are icons and symbols that I will be using for the Project Portfolio:
@@ -30,40 +24,27 @@ The following are icons and symbols that I will be using for the Project Portfol
 
 *This indicates important text.*
 
-== Summary of contributions
+=== Summary of contributions
 
-This section entails a summary of my specific enhancements, code contributions and other helpful increments towards the Njoy Teaching Assistant.
+This section summarizes my specific enhancements, code contributions and other helpful increments towards the Njoy Teaching Assistant.
 
 I implemented the commands related to the event feature, which include:
 
-//* *Adding a event to the event record*
-//* *Getting the index of a event from the event record*
-//* *Removing a event from the event record*
-//* *Editing a event in the event record*
-//* *Viewing the calendar in different modes*
-//* *Taking a screenshot of the calendar*
-//* *Exporting all events in the event record to a ics file*
-//
-//== Enhancements
-//
-//== Event
+==== Event Creation and Deletion
 
-=== Event Creation and Deletion
+* *What it does:* Users can create and delete events to keep track of their schedule. These events are created by specifying
+the event name, start and end date time. These events also can be set to recur weekly or daily, reducing the hassle
+for repeated events. Events can also have their own colors to allow users to easily identify and categorize their events.
+Users can also delete any events which they have mistakenly created, using the delete event command.
 
-* *What it does:* Users can create events and delete events to keep track of their schedule. These events are created by specifying
-the event name, start date time and end date time. These events also can be set to recur weekly or daily, reducing the hassle
-for repeated events. They can also have their own unique colors to allow users to easily identify and categorize their events.
-Users can also delete any events which they have mistakenly created, using the
-delete event command.
+* *Justification:* Teachers usually have numerous activities and events to attend. These include delivering lectures,
+ meeting with parents, consultations, etc. I wanted to create a feature which allows teachers to easily manage their time,
+not just during the office hours, but also to schedule errands and other preparation work.
 
-* *Justification:* Teachers usually have activities and events to attend to. These include delivering lectures,
- meeting with parents, having consultations, etc. I wanted to create a feature which allows teachers to easily manage their time,
-not just during the office hours, but also to schedule errands or other preparation work to be done outside working hours.
-
-* *Highlights:* This enhancement works with existing as well as future commands. Some challenging portions include,
+* *Highlights:* Challenging portions of this feature include:
 ensuring there were no duplicate events created as well as implementing the recurring feature.
 
-=== Event Editing
+==== Event Editing
 
 * *What it does:* Users can edit events that are currently in their calendar.
 
@@ -71,22 +52,21 @@ ensuring there were no duplicate events created as well as implementing the recu
 teachers to do exactly that. In fact, teachers are allowed to edit any of the fields in an event including its color and
 recurrence type.
 
-=== Event Viewing
+==== Event Viewing
 
 * *What it does:* Users can view their events in calendar form and set the target date of interest as well as the viewing mode
 of the calendar (weekly or daily).
 
 * *Justification:* Teachers may want to view the calendar in different forms, for different purposes. They might want
 to have a over-arching view of the upcoming events of the week, thus they may wish to view their events in a weekly form.
-They may also wish to go into the details of a specific day to see exactly what they have planned for that day. Additionally,
-when making appointments with other people, they may need to go to that target date of interest to check their availability.
+They may also wish to go into the details of a specific day when making appointments with students and other teachers.
 
-* *Highlights:* This enhancement works with existing as well as future commands. Notably, this feature also remembers the
-preferences of the user in the same instance of the application. For example, after switching to the student list and then
+* *Highlights:* This feature remembers the
+preferences of the user in the same instance of the application. For example, after switching to the student list and
 switching back to the calendar, it remembers the target date of interest as well as the viewing mode (weekly or daily),
 and renders it accordingly.
 
-=== Event Screenshot
+==== Event Screenshot
 
 * *What it does:* Users can take a screenshot of the calendar and save it to a png file.
 
@@ -94,24 +74,21 @@ and renders it accordingly.
 their mobile devices. This feature allows them to do exactly that by taking a screenshot of whichever date and time the user is
 currently viewing and saving it into a png file.
 
-* *Highlights:* This enhancement works with existing as well as future commands. The implementation of this feature
+* *Highlights:* The implementation of this feature
 was rather challenging, as different users have different screen sizes, and taking a screenshot may not capture all the
 information desired by the user. As such, the screenshot feature, actually opens the calendar into full-screen mode before
 taking the screenshot. This is a "best-effort" approach to capture as much detail as possible within the confines of the user's display.
 
-=== Event Export
+==== Event Export
 
 * *What it does:* Users can export all their events into a ics file.
 
-* *Justification:* Teachers may want to view and manager their events in alternative applications such as Google Calendar or
-iCalendar. The ics file type is one of the most common and well recognised calendar file types, and thus allows users to easily import their
-NJoy events into other calendar applications.
+* *Justification:* Teachers may want manage their events simultaneously in other calendar applications such as Google Calendar.
+Note that most calendar applications accept ics file types as imports.
 
-* *Highlights:* This enhancement works with existing as well as future commands. The implementation of this feature
-was rather challenging, as every event in NJoy teaching assistant had to be converted into a ics-compliant format, which
+* *Highlights:* The implementation of this feature was rather challenging, as every event in NJoy teaching assistant had to be converted into a ics-compliant format, which
 represents all its information including the recurrence type.
 
-{nbsp} +
 
 === Code contributed
 
@@ -123,8 +100,6 @@ Please click the following link to see my code contributions dashboard. https://
 ** Managed milestones and deadlines on Github.
 ** Resolved the issues found by others related to the user interface and storage components of the project.
 ** Resolved the issues found by others related to my feature on Github.
-** Updated the AboutUs page in GitHub for my team's repository.
-** Updated the ReadMe description.
 * Enhancements to existing features:
 ** Wrote additional tests for existing features to increase coverage from 51% to 60% : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188[#188]
 ** Wrote skeleton code for storage for others to reuse (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35[#35])
@@ -139,7 +114,6 @@ Please click the following link to see my code contributions dashboard. https://
 ** Integrated a third party library (iCalendarAgenda) to the project (https://github.com/AY1920S1-CS2103T-W13-2/main/pull/79[#79])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.

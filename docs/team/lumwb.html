@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
+<meta name="author" content="== Overview">
 <title>Wei Boon - Project Portfolio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -439,24 +440,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <body class="article">
 <div id="header">
 <h1>Wei Boon - Project Portfolio</h1>
+<div class="details">
+<span id="author" class="author">== Overview</span><br>
+</div>
 </div>
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>&#160;<br></p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_overview">Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>My team and I were tasked with enhancing AddressBook3 - a given CLI (Command Line Interface) application into a better product.
-Through the ideation phase, we decided to morph the application into the Njoy Teaching Assistant.
-We aim to improve the quality of life for teachers by assisting them with mundane daily administrative tasks.
-In particular, the Njoy Teaching Assistant enables
-teachers to maintain student records to manage students better;
+<p>My team and I were tasked with enhancing AddressBook3 - a CLI (Command Line Interface) application into a better product.
+We decided to morph the application into the Njoy Teaching Assistant,to improve the quality of life for teachers by simplifying mundane administrative tasks.
+In particular, the application enables teachers to maintain student records to manage students better;
  set questions and quizzes to enhance students learning; and keep track of
 their schedules with an interactive timetable.</p>
 </div>
@@ -467,13 +461,10 @@ their schedules with an interactive timetable.</p>
 <div class="content">
 <img src="../images/NjoyMainPage.png" alt="NjoyMainPage">
 </div>
+<div class="title">Figure 1. The graphical user interface for Njoy.</div>
 </div>
 <div class="paragraph">
-<p><em>Figure 1. The graphical user interface for Njoy.</em></p>
-</div>
-<div class="paragraph">
-<p>My role was to design and write code for the event feature. This includes commands for manipulating and viewing events such as
-<code>screenshot</code>, <code>export</code>, <code>view</code>, etc.
+<p>My role was to design and write code for teachers to better plan and manage events in their schedule.
 The rest of the sections will cover the summary of my contributions to the codebase, the user guide and the developer guide.</p>
 </div>
 <div class="paragraph">
@@ -487,95 +478,38 @@ The rest of the sections will cover the summary of my contributions to the codeb
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="_summary_of_contributions">Summary of contributions</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_summary_of_contributions">Summary of contributions</h3>
 <div class="paragraph">
-<p>This section entails a summary of my specific enhancements, code contributions and other helpful increments towards the Njoy Teaching Assistant.</p>
+<p>This section summarizes my specific enhancements, code contributions and other helpful increments towards the Njoy Teaching Assistant.</p>
 </div>
 <div class="paragraph">
 <p>I implemented the commands related to the event feature, which include:</p>
 </div>
+<div class="sect3">
+<h4 id="_event_creation_and_deletion">Event Creation and Deletion</h4>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Adding a event to the event record</strong></p>
+<p><strong>What it does:</strong> Users can create and delete events to keep track of their schedule. These events are created by specifying
+the event name, start and end date time. These events also can be set to recur weekly or daily, reducing the hassle
+for repeated events. Events can also have their own colors to allow users to easily identify and categorize their events.
+Users can also delete any events which they have mistakenly created, using the delete event command.</p>
 </li>
 <li>
-<p><strong>Getting the index of a event from the event record</strong></p>
+<p><strong>Justification:</strong> Teachers usually have numerous activities and events to attend. These include delivering lectures,
+ meeting with parents, consultations, etc. I wanted to create a feature which allows teachers to easily manage their time,
+not just during the office hours, but also to schedule errands and other preparation work.</p>
 </li>
 <li>
-<p><strong>Removing a event from the event record</strong></p>
-</li>
-<li>
-<p><strong>Editing a event in the event record</strong></p>
-</li>
-<li>
-<p><strong>Viewing the calendar in different modes</strong></p>
-</li>
-<li>
-<p><strong>Taking a screenshot of the calendar</strong></p>
-</li>
-<li>
-<p><strong>Exporting all events in the event record to a ics file</strong></p>
-</li>
-</ul>
-</div>
-<div id="Grouping" class="paragraph">
-<p>I&#8217;ll be sectioning the functionality into the following format (where applicable for the features):</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Creation</strong></p>
-</li>
-<li>
-<p><strong>Deletion</strong></p>
-</li>
-<li>
-<p><strong>Editing</strong></p>
-</li>
-<li>
-<p><strong>Display</strong></p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enhancements">Enhancements</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_event">Event</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_event_creation_and_deletion">Event Creation and Deletion</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>What it does:</strong> Users can create events and delete events to keep track of their schedule. These events are created by specifying
-the event name, start date time and end date time. These events also can be set to recur weekly or daily, reducing the hassle
-for repeated events. They can also have their own unique colors to allow users to easily identify and categorize their events.
-Users can also delete any events which they have mistakenly created, using the
-delete event command.</p>
-</li>
-<li>
-<p><strong>Justification:</strong> Teachers usually have activities and events to attend to. These include delivering lectures,
- meeting with parents, having consultations, etc. I wanted to create a feature which allows teachers to easily manage their time,
-not just during the office hours, but also to schedule errands or other preparation work to be done outside working hours.</p>
-</li>
-<li>
-<p><strong>Highlights:</strong> This enhancement works with existing as well as future commands. Some challenging portions include,
+<p><strong>Highlights:</strong> Challenging portions of this feature include:
 ensuring there were no duplicate events created as well as implementing the recurring feature.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_event_editing">Event Editing</h3>
+<div class="sect3">
+<h4 id="_event_editing">Event Editing</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -589,8 +523,8 @@ recurrence type.</p>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_event_viewing">Event Viewing</h3>
+<div class="sect3">
+<h4 id="_event_viewing">Event Viewing</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -600,20 +534,19 @@ of the calendar (weekly or daily).</p>
 <li>
 <p><strong>Justification:</strong> Teachers may want to view the calendar in different forms, for different purposes. They might want
 to have a over-arching view of the upcoming events of the week, thus they may wish to view their events in a weekly form.
-They may also wish to go into the details of a specific day to see exactly what they have planned for that day. Additionally,
-when making appointments with other people, they may need to go to that target date of interest to check their availability.</p>
+They may also wish to go into the details of a specific day when making appointments with students and other teachers.</p>
 </li>
 <li>
-<p><strong>Highlights:</strong> This enhancement works with existing as well as future commands. Notably, this feature also remembers the
-preferences of the user in the same instance of the application. For example, after switching to the student list and then
+<p><strong>Highlights:</strong> This feature remembers the
+preferences of the user in the same instance of the application. For example, after switching to the student list and
 switching back to the calendar, it remembers the target date of interest as well as the viewing mode (weekly or daily),
 and renders it accordingly.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_event_screenshot">Event Screenshot</h3>
+<div class="sect3">
+<h4 id="_event_screenshot">Event Screenshot</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -625,7 +558,7 @@ their mobile devices. This feature allows them to do exactly that by taking a sc
 currently viewing and saving it into a png file.</p>
 </li>
 <li>
-<p><strong>Highlights:</strong> This enhancement works with existing as well as future commands. The implementation of this feature
+<p><strong>Highlights:</strong> The implementation of this feature
 was rather challenging, as different users have different screen sizes, and taking a screenshot may not capture all the
 information desired by the user. As such, the screenshot feature, actually opens the calendar into full-screen mode before
 taking the screenshot. This is a "best-effort" approach to capture as much detail as possible within the confines of the user&#8217;s display.</p>
@@ -633,35 +566,27 @@ taking the screenshot. This is a "best-effort" approach to capture as much detai
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_event_export">Event Export</h3>
+<div class="sect3">
+<h4 id="_event_export">Event Export</h4>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>What it does:</strong> Users can export all their events into a ics file.</p>
 </li>
 <li>
-<p><strong>Justification:</strong> Teachers may want to view and manager their events in alternative applications such as Google Calendar or
-iCalendar. The ics file type is one of the most common and well recognised calendar file types, and thus allows users to easily import their
-NJoy events into other calendar applications.</p>
+<p><strong>Justification:</strong> Teachers may want manage their events simultaneously in other calendar applications such as Google Calendar.
+Note that most calendar applications accept ics file types as imports.</p>
 </li>
 <li>
-<p><strong>Highlights:</strong> This enhancement works with existing as well as future commands. The implementation of this feature
-was rather challenging, as every event in NJoy teaching assistant had to be converted into a ics-compliant format, which
+<p><strong>Highlights:</strong> The implementation of this feature was rather challenging, as every event in NJoy teaching assistant had to be converted into a ics-compliant format, which
 represents all its information including the recurrence type.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>&#160;<br></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_code_contributed">Code contributed</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_code_contributed_2">Code contributed</h3>
 <div class="paragraph">
 <p>Please click the following link to see my code contributions dashboard. <a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lumwb&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=lumwb&amp;tabRepo=AY1920S1-CS2103T-W13-2%2Fmain%5Bmaster%5D">Code Report</a></p>
 </div>
@@ -675,16 +600,13 @@ represents all its information including the recurrence type.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Managed milestones and deadlines on Github.</p>
+</li>
+<li>
 <p>Resolved the issues found by others related to the user interface and storage components of the project.</p>
 </li>
 <li>
 <p>Resolved the issues found by others related to my feature on Github.</p>
-</li>
-<li>
-<p>Updated the AboutUs page in GitHub for my team&#8217;s repository.</p>
-</li>
-<li>
-<p>Updated the ReadMe description.</p>
 </li>
 </ul>
 </div>
@@ -695,6 +617,9 @@ represents all its information including the recurrence type.</p>
 <ul>
 <li>
 <p>Wrote additional tests for existing features to increase coverage from 51% to 60% : <a href="https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188">#188</a></p>
+</li>
+<li>
+<p>Wrote skeleton code for storage for others to reuse (Pull requests <a href="https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35">#35</a>)</p>
 </li>
 </ul>
 </div>
@@ -714,6 +639,9 @@ represents all its information including the recurrence type.</p>
 <div class="ulist">
 <ul>
 <li>
+<p>Added documentation for features added <a href="https://github.com/AY1920S1-CS2103T-W13-2/main/pull/188">#188</a></p>
+</li>
+<li>
 <p>Made cosmetic tweaks and added figure number to the existing contents of the User Guide: <a href="https://github.com/AY1920S1-CS2103T-W13-2/main/pull/195">#195</a></p>
 </li>
 <li>
@@ -722,9 +650,17 @@ represents all its information including the recurrence type.</p>
 </ul>
 </div>
 </li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (iCalendarAgenda) to the project (<a href="https://github.com/AY1920S1-CS2103T-W13-2/main/pull/79">#79</a>)</p>
+</li>
 </ul>
 </div>
-</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect1">
@@ -744,40 +680,6 @@ of creation, editing and display for the features that I have created, as they a
 </table>
 <div class="paragraph">
 <p><strong>The following is an example of <code>Event</code> screenshot section the User Guide:</strong></p>
-</div>
-<div class="paragraph">
-<p>Delete a event from the calendar.<br>
-Format: <code>event delete [INDEX]</code></p>
-</div>
-<div class="paragraph">
-<p>The options supported by this feature includes:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>[INDEX]</code> - The event index as defined by the <a href="#Feature-Event-Index">index</a> command.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
-</td>
-</tr>
-</table>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>event delete 1</code><br>
-Deletes the event with index 1</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
 </div>
 <div class="sect3">
 <h4 id="_taking_screenshot_of_schedule">Taking screenshot of schedule</h4>
@@ -841,14 +743,11 @@ Takes a screenshot of the current calendar and saves it into Printable folder.</
 <p><strong>Step 1.</strong> After executing the event screenshot command, the user should
 navigate to their current directory. An printable folder as shown in the image below should be created!</p>
 </div>
-<div class="paragraph">
-<p><strong>The following is an example of <code>Event</code> view section the User Guide:</strong></p>
-</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/EventPrintableLocation.png" alt="EventPrintableLocation">
 </div>
-<div class="title">Figure 1. Event screenshot Location</div>
+<div class="title">Figure 2. Event screenshot Location</div>
 </div>
 <div class="paragraph">
 <p>&#160;<br>
@@ -858,7 +757,7 @@ navigate to their current directory. An printable folder as shown in the image b
 <div class="content">
 <img src="../images/EventScreenshotFile.PNG" alt="EventScreenshotFile">
 </div>
-<div class="title">Figure 2. Event screenshot file</div>
+<div class="title">Figure 3. Event screenshot file</div>
 </div>
 <div class="paragraph">
 <p>&#160;<br>
@@ -868,16 +767,60 @@ navigate to their current directory. An printable folder as shown in the image b
 <div class="content">
 <img src="../images/EventScreenshotSample.PNG" alt="EventScreenshotSample">
 </div>
-<div class="title">Figure 3. Sample event screenshot</div>
+<div class="title">Figure 4. Sample event screenshot</div>
 </div>
 <div class="paragraph">
-<p>&#160;<br></p>
+<p><strong>The following is an example of <code>Event</code> view section the User Guide:</strong></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_viewing_all_events">Viewing all events</h4>
 <div class="paragraph">
-<p>Show all your events in the calendar. All fields are optional</p>
+<p>Show all your events in the calendar. All fields are optional
+Format: <code>event view scheduleMode/&#8230;&#8203; targetDate/&#8230;&#8203;</code></p>
+</div>
+<div class="paragraph">
+<p>The options supported by this feature includes:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>scheduleMode</code> - Schedule viewing mode of the calendar. Either weekly or daily.</p>
+</li>
+<li>
+<p><code>targetDate</code> - The target date to show for the week. If in daily mode, simply show the events in the date.
+If in weekly mode, show the week which includes the specified date</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The target date option must be specified in the following format: yyyy-mm-dd. E.g. 2019-11-23
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>event view scheduleMode/daily targetDate/2019-11-07</code><br>
+Opens the calendar view in daily mode with the target date 7 November 2019.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/EventViewDailyMode.PNG" alt="EventViewDailyMode">
+</div>
+<div class="title">Figure 5. Viewing the calendar in daily mode with target date 7 November 2019</div>
 </div>
 </div>
 </div>
@@ -914,7 +857,7 @@ interactions with the <code>Logic</code> and <code>UI</code> layers will mostly 
 <div class="content">
 <img src="../images/DeveloperGuideResources/EventClassDiagram.png" alt="EventClassDiagram">
 </div>
-<div class="title">Figure 4. Class Diagram for EventRecord</div>
+<div class="title">Figure 6. Class Diagram for EventRecord</div>
 </div>
 <div class="paragraph">
 <p><strong>The following is the delete <code>Event</code> section of the Developer Guide:</strong></p>
@@ -950,7 +893,7 @@ interactions with the <code>Logic</code> and <code>UI</code> layers will mostly 
 <div class="content">
 <img src="../images/DeveloperGuideResources/EventDeleteSequenceDiagram.png" alt="EventDeleteSequenceDiagram">
 </div>
-<div class="title">Figure 5. Sequence Diagram for Deleting Events</div>
+<div class="title">Figure 7. Sequence Diagram for Deleting Events</div>
 </div>
 <div class="paragraph">
 <p><strong>The following is the index <code>Event</code> section of the Developer Guide:</strong></p>
@@ -973,7 +916,7 @@ in the diagram refers to the VEvent object itself and its corresponding index.</
 <div class="content">
 <img src="../images/DeveloperGuideResources/EventIndexActivityDiagram.png" alt="EventIndexActivityDiagram">
 </div>
-<div class="title">Figure 6. Activity Diagram for finding index of Event</div>
+<div class="title">Figure 8. Activity Diagram for finding index of Event</div>
 </div>
 <div class="sect4">
 <h5 id="_implementation_2">Implementation</h5>
@@ -1029,7 +972,7 @@ VEvent objects use a <code>summary</code> object to represent the name of an eve
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-10 21:21:37 +0800
+Last updated 2019-11-11 00:25:09 +0800
 </div>
 </div>
 </body>
