@@ -5,52 +5,89 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyData <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class DataPerson
+Class DataParticipation
+Class DataCompetition
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class CustomDate
+Class Name
+Class Exercise
+Class Lift
 
 Package Person {
+Class UniqueElementListPerson
+Class FilteredListPerson
 Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Class Gender
 }
 
-Package Tag {
-Class Tag
+Package Competition {
+Class UniqueElementListCompetition
+Class FilteredListCompetition
+Class Competition
+Class CustomDate
+Class Name
 }
+
+Package Participation {
+Class UniqueElementListParticipation
+Class FilteredListParticipation
+Class Participation
+}
+
+Package Session {
+Class Session
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+DataPerson .up.|> ReadOnlyData
+DataCompetition .up.|> ReadOnlyData
+DataParticipation .up.|> ReadOnlyData
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
+ModelManager *--> "1" Session
+ModelManager *--> "1" DataPerson
+ModelManager *--> "1" DataParticipation
+ModelManager *--> "1" DataCompetition
+ModelManager *-->"1" FilteredListPerson
+ModelManager *-->"1" FilteredListCompetition
+ModelManager *-->"1" FilteredListParticipation
+ModelManager *-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+DataPerson *--> "1" UniqueElementListPerson
+UniqueElementListPerson o--> "*" Person
+FilteredListPerson o--> "*" Person
+Person *--> "1" Name
+Person *--> "1" Gender
+Person *--> "1" CustomDate
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+DataCompetition *--> "1" UniqueElementListCompetition
+UniqueElementListCompetition o--> "*" Competition
+FilteredListCompetition o--> "*" Competition
+Competition *--> "1" Name
+Competition *--> "2" CustomDate
+Competition o--> "*" Exercise
+Exercise *--> "1" Lift
 
-ModelManager -->"1" Person : filtered list
+DataParticipation *--> "1" UniqueElementListParticipation
+UniqueElementListParticipation o--> "*" Participation
+FilteredListParticipation o--> "*" Participation
+Participation *--> "1" Competition
+Participation *--> "1" Person
+Participation o--> "*" Attempt
+Attempt *--> "1" Lift
+
+Name -[hidden]right-> Name
+Gender -[hidden]right-> Gender
+CustomDate -[hidden]right-> CustomDate
 @enduml

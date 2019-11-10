@@ -13,6 +13,10 @@ Class HelpWindow
 Class ResultDisplay
 Class PersonListPanel
 Class PersonCard
+Class CompetitionListPanel
+Class CompetitionCard
+Class ParticipationListPanel
+Class ParticipationCard
 Class StatusBarFooter
 Class CommandBox
 }
@@ -34,9 +38,13 @@ MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> PersonListPanel
+MainWindow *-down-> CompetitionListPanel
+MainWindow *-down-> ParticipationListPanel
 MainWindow *-down-> StatusBarFooter
 
 PersonListPanel -down-> PersonCard
+CompetitionListPanel -down-> CompetitionCard
+ParticipationListPanel -down-> ParticipationCard
 
 MainWindow -left-|> UiPart
 
@@ -44,10 +52,16 @@ ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 PersonListPanel --|> UiPart
 PersonCard --|> UiPart
+ParticipationListPanel --|> UiPart
+ParticipationCard --|> UiPart
+CompetitionListPanel --|> UiPart
+CompetitionCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 PersonCard ..> Model
+ParticipationCard ..> Model
+CompetitionCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
