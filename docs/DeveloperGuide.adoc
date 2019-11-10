@@ -36,8 +36,6 @@ The intended audience of this document includes the developers and software test
 
 Note the following symbols and formatting used in this document
 
-
-
 NOTE:  This symbol indicates important information
 
 [horizontal]
