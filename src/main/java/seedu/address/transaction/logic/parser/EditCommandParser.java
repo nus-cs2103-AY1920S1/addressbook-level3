@@ -11,8 +11,10 @@ import static seedu.address.util.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.util.CliSyntax.PREFIX_PERSON;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.logic.commands.EditCommand;
@@ -30,6 +32,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
     private static final double MAX_AMOUNT_ACCEPTED = 999999.99;
     private static final double MIN_AMOUNT_ACCEPTED = -999999.99;
     private static final double ZERO = 0.0;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -47,6 +50,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
         try {
             index = Integer.parseInt(argMultimap.getPreamble());
         } catch (Exception e) {
+            logger.info("Wrong edit format for index.");
             throw new ParseException(MESSAGE_INVALID_EDIT_COMMAND_FORMAT);
         }
 
@@ -84,6 +88,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             try {
                 LocalDate.parse(argMultimap.getValue(PREFIX_DATETIME).get(), DATE_TIME_FORMATTER);
             } catch (Exception e) {
+                logger.info("Wrong date format: " + argMultimap.getValue(PREFIX_DATETIME).get());
                 throw new ParseException(TransactionMessages.MESSAGE_WRONG_DATE_FORMAT);
             }
         }
@@ -105,6 +110,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
                 }
                 editTransactionDescriptor.setAmount(amount);
             } catch (NumberFormatException e) {
+                logger.info("Wrong amount format: " + argMultimap.getValue(PREFIX_AMOUNT).get());
                 throw new ParseException(TransactionMessages.MESSAGE_WRONG_AMOUNT_FORMAT);
             }
         }
@@ -112,6 +118,7 @@ public class EditCommandParser implements CommandParserWithPersonModel {
             try {
                 personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             } catch (PersonNotFoundException e) {
+                logger.info("Person not found in AddressBook: " + argMultimap.getValue(PREFIX_PERSON).get());
                 throw new NoSuchPersonException(TransactionMessages.MESSAGE_NO_SUCH_PERSON);
             }
             editTransactionDescriptor.setName(argMultimap.getValue(PREFIX_PERSON).get());

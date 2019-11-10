@@ -8,9 +8,9 @@ import seedu.address.transaction.model.transaction.Transaction;
  * Comparator to compare by the name in transaction.
  */
 public class SortByName implements Comparator<Transaction> {
-    // Used for sorting in ascending order
+    // Used for sorting in alphabetical order, case-insensitive
     @Override
     public int compare(Transaction a, Transaction b) {
-        return a.getName().compareTo(b.getName());
+        return a.getName().toUpperCase().compareTo(b.getName().toUpperCase());
     }
 }
