@@ -52,24 +52,21 @@ This section shows a summary of my coding, documentation, and other contribution
 ** Implementation: An additional class AutocorrectTextField is created to cater for the add-ons to the Text Field class. By loading the updated Set of Strings in that class, the new dictionary of suggestions is available to be displayed to the user when he types.
 ** Highlights: The implementation of this feature is slightly difficult since that it deals with majority of UI which I am not very familiar with. However, tutorials online help me to learn more about the different components such as Listeners. I also made minor enhancements to this feature by adding attributes (such as Name) into the claim suggestions for better usability for the user.
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=joshuaseetss[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[Project Code Dashboard]]
+* *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=joshuaseetss[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=joshuaseetss[Project Code Dashboard]]
 
 * *Other contributions*
 
 ** Project management
-*** I ensured that testability of the code was not neglected and assigned team members to issues.
 *** I managed the release of version 1.4 of FinSec on GitHub.
-
 ** Enhancements to existing features
-*** I refactored and optimised some reusable code in AB3 to increase code quality and make the program more Object Oriented.
-
+*** I refactored and optimised some reusable code in AB3 to increase code quality and make the program more Object Oriented : https://github.com/AY1920S1-CS2103T-W12-1/main/pull/150[#150], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/345[#345], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/340[#340]
 ** Documentation
-*** I helped with the refactoring of class names in AB3 to suit the context of FinSec.
+*** I made improvements to the Developer's Guide and did the Use Cases section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/350[#350], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/142[#142]
 ** Community
-*** I conducted reviews on other team's PR to give suggestions and constructive comments.
-*** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo.
+*** I conducted reviews on other team's PR to give suggestions and constructive comments: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/31[#31],
+*** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo: https://github.com/joshuaseetss/ped/issues/1[#1], https://github.com/joshuaseetss/ped/issues/10[#10], https://github.com/joshuaseetss/ped/issues/8[#8]
 ** Tools
-
+** Created Google Docs for team planning
 
 == Contributions to the User Guide
 
