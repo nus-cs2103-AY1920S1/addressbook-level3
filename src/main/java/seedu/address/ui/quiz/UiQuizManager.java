@@ -21,7 +21,7 @@ public class UiQuizManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiQuizManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/modulo.png";
 
     private Logic logic;
     private MainWindow mainWindow;
@@ -64,7 +64,7 @@ public class UiQuizManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/LightTheme.css");
         alert.getDialogPane().getStylesheets().add("view/quiz/Quiz.css");
         alert.initOwner(owner);
         alert.setTitle(title);

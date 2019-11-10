@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@LightTheme.css">
  <HBox VBox.vgrow="ALWAYS">
       <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
          <children>

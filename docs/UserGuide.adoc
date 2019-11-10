@@ -66,6 +66,7 @@ Example: `switch quiz`
 Exits the program.
 Format: `exit`
 
+//tag::calendar[]
 === Calendar
 
 Calendar displays a weekly list of tasks and modules which the user has added. To enter the Calendar section
@@ -123,10 +124,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Only the title is searched.
 * Only full words will be matched e.g. `CS210` will not match `CS2100`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `CS2100 Lab` will return `CS2100 Tutorial`, `CS2105 Lab`
+* If the user switch to another feature or enter another command, the calendar would be reset to list all tasks.
 ****
 
 Examples:
-
 * `find CS2100` +
 Returns `cs2100` and `CS2100 Lab`
 * `find lab ger tutorial` +
@@ -151,7 +152,8 @@ Format: `sort  SORT_TYPE` +
 e.g. `sort deadline`
 
 ==== Change week: `go`
-Go to the specified week `WEEK_NUMBER`. The `WEEK_NUMBER` must between 0 to 14 inclusive.
+Go to the specified week `WEEK_NUMBER`. The `WEEK_NUMBER` must between 0 to 14 inclusive. The default week is week 0 and
+would be shown every time the application is launched.
 
 Format: `go WEEK_NUMBER`
 e.g. `go 2`
@@ -166,8 +168,12 @@ Delete all all `ToDoTask` and `ModuleTask` from all weeks.
 
 Format: `clear`
 
+
+//end::calendar[]
+
 === Grades Tracker
 
+To enter the Module section please enter the command: `switch cap`
 
 .Quick Reference sheet
 [width="80%" cols="^3,^2, 10" options="header"]
@@ -181,8 +187,6 @@ Format: `clear`
 | clear | | clear all existing modules.
 |=======
 
-To enter the Module section please enter the command: `switch cap`
-
 ==== Manually add module to record : `add`
 The user can add new modules into the grade tracker.
 
@@ -194,7 +198,7 @@ The fields of a module consist of: +
 - `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. SU is currently not supported. Prefix: `<g>`.
 
 .Semester Period Classifications
-[width="80%" options="header"]
+[width="80%" options="header" cols="^1,^3"]
 |=======
 |Input| Semester Period
 | 1 | Semester 1
@@ -206,8 +210,7 @@ The fields of a module consist of: +
 Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULAR_CREDIT GRADE`
 e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
 
-
-.List of sample data
+.List of sample commands
 [width="80%" cols="^3, 10" options="header"]
 |=======
 | Module | Command
@@ -433,7 +436,7 @@ To enter the Finances section, please enter the command: `switch finance`
 
 All amounts are taken to be in SGD and recorded as if with dollar signs and numerals. For example, 110 cents should be written as `1.10` or `1.1`.
 
-If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised. If dates are not specified, the default day will be set to the current day when the entry was entered.
+If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised. If dates are not specified, the default day will be set to the current day when the entry was entered. Dates should not be in the future.
 
 Note that category names should be without whitespaces (e.g. `catFood`, *not* `cat food`).
 
@@ -465,23 +468,23 @@ e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classm
 Record down an entry of money lent to someone but not yet repaid.
 
 Format: `*lend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO [<day>DATE_LENT] [<cat>CATEGORY]...` +
-e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother `
+e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother`
 
 ==== Mark a Borrow or Lend entry as repaid: `repaid`
 
 Indicate that borrowed money or money lent has been returned. Note that index of log entry in list has to be of type 'borrow' or 'lend' to be successfully marked as repaid, all other log entries (i.e. 'spend', 'income') will be considered invalid. +
 Once the log entry has been marked as repaid, it cannot be undone and it is no longer editable.
 
-If no day is specified, date repaid will be recorded as the day the entry was entered into the system.
+The recorded day of when the entry was repaid is the day the entry was marked as so.
 
-Format: `*repaid* INDEX [<day> DAY_REPAID]` +
-e.g. `repaid 3`
+Format: `*repaid* INDEX` +
+e.g. `repaid 4`
 
 ==== Clone a log entry: `clone`
 
-Duplicate a log entry, with the same information except for the date of transaction. If date is not specified, it will be recorded as the day the entry was entered into the system.
+Duplicate a log entry, with the same information except for the date of transaction. The date of transaction will be the day the entry was cloned.
 
-Format: `*clone* INDEX [<day> TRANSACTION_DATE]` +
+Format: `*clone* INDEX` +
 e.g. `clone 3`
 
 ==== List out finances: `list`
@@ -523,7 +526,7 @@ At least one field has to be specified.
 To return to the default full list of log entries, use the `list` command.
 
 Format: `*find* [<type> spend/income/borrow/lend] [<keyword> KEYWORD [MORE_KEYWORDS]...] [<cat> CATEGORY_NAME [MORE_CATEGORY_NAMES]...]` +
-E.g. `find <type>lend`
+E.g. `find <type>spend`
 
 ==== Show statistical summaries of finances: `stats`
 
@@ -534,7 +537,7 @@ Both `<gb>` and `<sum>` have to be present, with combination of `ATTRIBUTE` and 
 Format: `*stats* <gb>ATTRIBUTE <sum>STAT` +
 * Possible `ATTRIBUTE` values for `<gb>` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
 * Possible `STAT` values for `<sum>` are: `freq` and `amt` +
-E.g. `stats <gb> entrytype <sum> freq`
+E.g. `stats <gb> met <sum> freq`
 
 ==== Add a budget: `budget`
 
@@ -547,6 +550,8 @@ In essence, there are 3 optional fields (only at most one can be used at any tim
 1. `[<met>TRANSACTION_METHOD]`
 2. `[<cat>CATEGORY_NAME]`
 3. `[<place>PLACE_OF_SPENDING]`
+
+Note that these fields are case-sensitive (e.g. `Spend` entries with category `food` will not match if budget field is specified as `<cat> FOOD`).
 
 There are 3 ways to specify the duration (start, end) of a budget:
 
@@ -562,7 +567,7 @@ e.g. `budget <amt> 300 <month>11-2019 <met>cash`
 
 ==== List out all budgets: `listb`
 
-List out all budgets in recorded down.
+List out all budgets which have been recorded down.
 
 Format: `*listb*`
 

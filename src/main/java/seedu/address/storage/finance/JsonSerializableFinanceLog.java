@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.finance.commands.BudgetCommand;
 import seedu.address.model.finance.FinanceLog;
 import seedu.address.model.finance.ReadOnlyFinanceLog;
 import seedu.address.model.finance.budget.Budget;
@@ -118,6 +119,9 @@ class JsonSerializableFinanceLog {
         }
         for (JsonAdaptedBudget jsonAdaptedBudget : budgets) {
             Budget budget = jsonAdaptedBudget.toModelType();
+            if (financeLog.hasBudget(budget)) {
+                throw new IllegalValueException(BudgetCommand.MESSAGE_DUPLICATE_BUDGET);
+            }
             financeLog.addBudget(budget);
         }
         return financeLog;

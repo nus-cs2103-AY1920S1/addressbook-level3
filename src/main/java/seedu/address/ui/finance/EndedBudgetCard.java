@@ -46,23 +46,23 @@ public class EndedBudgetCard extends BudgetCard {
         progressBar.setStyle("-fx-background-color: rgba(235,227,212,0.74) !important;");
         // Different colour based on proportion
         if (proportion >= 1) {
-            progressBar.setStyle("-fx-accent: rgba(115,110,101,0.74);");
+            progressBar.setStyle("-fx-accent: rgba(85,80,73,0.74)");
         } else if (proportion >= 0.8) {
-            progressBar.setStyle("-fx-accent: rgba(170,164,152,0.74);");
+            progressBar.setStyle("-fx-accent: rgba(131,125,115,0.74)");
         } else {
-            progressBar.setStyle("-fx-accent: rgba(205,197,183,0.74);");
+            progressBar.setStyle("-fx-accent: rgba(165,159,146,0.74)");
         }
     }
 
     protected void setAmounts() {
         currAmt.setText(budgetData.getCurrAmt().toString());
         limitAmt.setText("/ " + budgetData.getLimitAmt().toString());
-        currAmt.setStyle("-fx-text-fill: rgba(190,184,171,0.74);");
-        limitAmt.setStyle("-fx-text-fill: rgba(190,184,171,0.74);");
+        currAmt.setStyle("-fx-text-fill: rgba(125,119,107,0.74);");
+        limitAmt.setStyle("-fx-text-fill: rgba(125,119,107,0.74);");
     }
 
     protected void setBalance() {
-        balance.setStyle("-fx-text-fill: rgba(190,184,171,0.74);");
+        balance.setStyle("-fx-text-fill: rgba(125,119,107,0.74);");
     }
 
     /**

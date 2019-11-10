@@ -37,7 +37,7 @@ public class BudgetCommand extends Command {
             + PREFIX_AMOUNT + "AMOUNT "
             + PREFIX_MONTH + "MM-YYYY "
             + "[" + PREFIX_PLACE + "PLACE]\n"
-            + "Example:"
+            + "Example: budget"
             + PREFIX_AMOUNT + "300 "
             + PREFIX_START + "03-11-2019 "
             + PREFIX_END + "11-11-2019 "

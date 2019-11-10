@@ -181,6 +181,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::calendar[]
 === Calendar
 
 ==== Calendar week change
@@ -235,6 +236,7 @@ comparator implemented in a method that would return a sorted `FilteredList<Task
 * **Alternative 2: **Set the `Task` class to implement the `Comparable` interface.
 ** Pros: Need to switch the `compareTo()` method of each `Task` each time `sort` is called.
 ** Cons: New/edited task would be automatically placed at the correct order.
+// end::calendar[]
 
 // tag::createquestion1[]
 === Quiz feature
