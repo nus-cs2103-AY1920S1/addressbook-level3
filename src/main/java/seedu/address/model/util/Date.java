@@ -24,6 +24,8 @@ public class Date implements Comparable<Date> {
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("ddMMyyyy");
     public static final Date TODAY = now();
 
+
+
     public final LocalDate date;
 
     public Date(String value) {
@@ -40,7 +42,7 @@ public class Date implements Comparable<Date> {
         return isValidFormat(test) && isValidDate(test);
     }
 
-    public static boolean isValidFormat(String test) {
+    private static boolean isValidFormat(String test) {
         return test.matches(DATE_FORMAT);
     }
 
@@ -79,13 +81,9 @@ public class Date implements Comparable<Date> {
         return this.date.format(DATE_FORMATTER);
     }
 
-    /**
-     * TODO: remove and refactor
-     */
-    public LocalDate toLocalDate() {
+    private LocalDate toLocalDate() {
         return this.date;
     }
-
 
     @Override
     public int compareTo(Date date) {
@@ -115,11 +113,7 @@ public class Date implements Comparable<Date> {
      */
     public static boolean isValidMonth(String month) {
         int monthInt = Integer.parseInt(month);
-        if (monthInt >= 1 && monthInt <= 12) {
-            return true;
-        }
-
-        return false;
+        return monthInt >= 1 && monthInt <= 12;
     }
 
     /**
@@ -127,11 +121,7 @@ public class Date implements Comparable<Date> {
      */
     public static boolean isValidYear(String year) {
         int yearInt = Integer.parseInt(year);
-        if (yearInt >= 1900 && yearInt <= 9999) {
-            return true;
-        }
-
-        return false;
+        return yearInt >= 1900 && yearInt <= 9999;
     }
 
     /**
