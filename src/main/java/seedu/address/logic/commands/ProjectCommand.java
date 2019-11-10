@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.List;
@@ -31,9 +32,10 @@ public class ProjectCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Projected balance: $%s\n%s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Project future balance based on past income/outflow.\n"
             + "Parameters: "
-            + PREFIX_DATE + "DATE\n"
+            + PREFIX_DATE + "DATE [" + PREFIX_CATEGORY + "CATEGORY]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "12122103 09:00";
+            + PREFIX_DATE + "12122103 "
+            + PREFIX_CATEGORY + "Food";
     public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
 
     private static final String MESSAGE_VOID_TRANSACTION_HISTORY =
