@@ -46,8 +46,8 @@ public class RemoveModCommandParser implements Parser<RemoveModCommand> {
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    ModCommand.MESSAGE_NO_PREAMBLE +
-                            ModCommand.MESSAGE_USAGE_REMOVE_MOD));
+                    ModCommand.MESSAGE_NO_PREAMBLE
+                            + ModCommand.MESSAGE_USAGE_REMOVE_MOD));
         }
 
         studentIdentifier = argMultimap.getAllValues(PREFIX_STUDENT).get(0);
