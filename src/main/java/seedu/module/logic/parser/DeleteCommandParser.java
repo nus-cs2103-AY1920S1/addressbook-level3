@@ -24,6 +24,11 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
+        if (trimmedArgs.split("\\s+").length > 1) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Module code should be a single word only."));
+        }
+
         return new DeleteCommand(new SameModuleCodePredicate(trimmedArgs));
     }
 
