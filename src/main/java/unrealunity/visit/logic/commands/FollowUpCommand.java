@@ -9,6 +9,7 @@ import unrealunity.visit.commons.core.Messages;
 import unrealunity.visit.commons.core.index.Index;
 import unrealunity.visit.logic.commands.exceptions.CommandException;
 import unrealunity.visit.model.Model;
+import unrealunity.visit.model.appointment.Appointment;
 import unrealunity.visit.model.person.Person;
 
 /**
@@ -69,7 +70,7 @@ public class FollowUpCommand extends Command {
         }
 
         Person person = lastShownList.get(index.getZeroBased());
-        model.addAppointment(1, person.getName().toString(), days);
+        model.addAppointment(Appointment.Type.FOLLOWUP, person.getName().toString(), days);
 
         return new CommandResult(String.format(MESSAGE_ADD_FOLLOWUP_SUCCESS, person.getName().toString(), days));
     }

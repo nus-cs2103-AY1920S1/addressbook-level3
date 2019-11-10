@@ -5,6 +5,7 @@ import static unrealunity.visit.logic.parser.CliSyntax.PREFIX_DAYS;
 
 import unrealunity.visit.logic.commands.exceptions.CommandException;
 import unrealunity.visit.model.Model;
+import unrealunity.visit.model.appointment.Appointment;
 
 /**
  * Adds a reminder appointment to VISIT.
@@ -59,7 +60,7 @@ public class ReminderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        model.addAppointment(0, description, days);
+        model.addAppointment(Appointment.Type.REMINDER, description, days);
         return new CommandResult(String.format(MESSAGE_SUCCESS, description, days));
     }
 

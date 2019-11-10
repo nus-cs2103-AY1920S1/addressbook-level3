@@ -20,6 +20,7 @@ import unrealunity.visit.logic.commands.exceptions.CommandException;
  * and performs operations dealing with Appointments.
  *
  * Runs in parallel with AppointmentList, which handles UI.
+ * This is BY DESIGN and an intentional break of OOP.
  */
 public class AppointmentTable {
 
@@ -83,7 +84,7 @@ public class AppointmentTable {
         requireNonNull(type);
         requireNonNull(description);
         requireNonNull(days);
-        if (type == 0) {
+        if (type == Appointment.Type.REMINDER) {
             if (antiDuplicate(reminders, description, days)) {
                 reminders.put(description, days);
             } else {
