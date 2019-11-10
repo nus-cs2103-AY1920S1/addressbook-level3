@@ -74,8 +74,82 @@ public class ExpenseTimelineChart extends ExpenseChart {
         xAxis.setTickLabelFormatter(formattedDateConverter);
 
         updateTimeline(expenses, expenseGrouping.getValue(), dateInterval.getValue());
-
         setupListeners();
+    }
+
+    /**
+     * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
+     */
+    private void setupListeners() {
+        expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, dateInterval.getValue()));
+
+        expenses.addListener((ListChangeListener<Expense>) c ->
+                updateTimeline(c.getList(), expenseGrouping.getValue(), dateInterval.getValue()));
+
+        dateInterval.observe(newInterval -> {
+            formattedDateConverter.setFormatter(getDateIntervalFormats(newInterval));
+            updateTimeline(expenses, expenseGrouping.getValue(), newInterval);
+        });
+    }
+
+    /**
+     * Updates the timeline upon new expenses, groupings, or intervals. If the numbers/types of series changes,
+     * {@code setupSeriesMapping} will be called to reset the mappings.
+     */
+    private void updateTimeline(List<? extends Expense> expenses, ExpenseGrouping grouping, DateInterval interval) {
+        LongSummaryStatistics statistics = expenses.stream()
+                .collect(summarizingLong(expense -> expense.getCreated().dateTime.toLocalDate().toEpochDay()));
+
+        int tickUnit = getDateIntervalTickUnit(interval);
+        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit);
+
+        Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
+        seriesManager.updateSeriesSet(expenseListMap.keySet());
+        seriesManager.updateSeries(series ->
+                updateSeries(timelineGenerator.generateAsync(expenseListMap.get(series.getName()), interval), series));
+    }
+
+    /**
+     * Helper method called to asynchronously update a series.
+     */
+    private void updateSeries(Task<ExpenseTimeline> newTimelineTask, XYChart.Series<Long, BigDecimal> series) {
+        newTimelineTask.setOnSucceeded(event -> {
+            ExpenseTimeline timeline = newTimelineTask.getValue();
+            List<XYChart.Data<Long, BigDecimal>> data = transformToData(timeline);
+            Platform.runLater(() -> series.getData().setAll(data));
+        });
+    }
+
+    /**
+     * Updates the xAxis' range with the given values, where min and max should be the min and max of the current range
+     * shown on the xAxis, and tick unit is dependent on the selected interval.
+     */
+    private void updateXAxisRange(long min, long max, double tickUnit) {
+        double maxTicks = 20.0;
+        long range = max - min;
+        double adjustedTickUnit = range / tickUnit > maxTicks ? range / maxTicks : tickUnit;
+        xAxis.setLowerBound(min - adjustedTickUnit);
+        xAxis.setUpperBound(max + adjustedTickUnit);
+        xAxis.setTickUnit(adjustedTickUnit);
+    }
+
+    /**
+     * Maps a list of pairs of date range and amount into a list of formatted data ready to be displayed.
+     */
+    private List<XYChart.Data<Long, BigDecimal>> transformToData(ExpenseTimeline timeline) {
+        return timeline.getTimelineValues()
+                .stream()
+                .map(this::dataFromPair)
+                .collect(toList());
+    }
+
+    /**
+     * Transforms a single pair of {@code DateRange} and {@code Amount} to a data object. The date range is
+     * formatted as a string according to the given date dateInterval.
+     */
+    private XYChart.Data<Long, BigDecimal> dataFromPair(Pair<DateRange, Amount> entry) {
+
+        return new XYChart.Data<>(entry.getKey().getStartDate().toEpochDay(), entry.getValue().amount);
     }
 
     /**
@@ -116,75 +190,4 @@ public class ExpenseTimelineChart extends ExpenseChart {
         }
     }
 
-    /**
-     * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
-     */
-    private void setupListeners() {
-        expenseGrouping.observe(grouping -> updateTimeline(expenses, grouping, dateInterval.getValue()));
-
-        expenses.addListener((ListChangeListener<Expense>) c ->
-                updateTimeline(c.getList(), expenseGrouping.getValue(), dateInterval.getValue()));
-
-        dateInterval.observe(newInterval -> {
-            formattedDateConverter.setFormatter(getDateIntervalFormats(newInterval));
-            updateTimeline(expenses, expenseGrouping.getValue(), newInterval);
-        });
-    }
-
-    /**
-     * Updates the timeline upon new expenses, groupings, or intervals. If the numbers/types of series changes,
-     * {@code setupSeriesMapping} will be called to reset the mappings.
-     */
-    private void updateTimeline(List<? extends Expense> expenses, ExpenseGrouping grouping, DateInterval interval) {
-        LongSummaryStatistics statistics = expenses.stream()
-                .collect(summarizingLong(expense -> expense.getCreated().dateTime.toLocalDate().toEpochDay()));
-
-        int tickUnit = getDateIntervalTickUnit(interval);
-        updateXAxisRange(statistics.getMin(), statistics.getMax(), tickUnit);
-
-        Map<String, ? extends List<? extends Expense>> expenseListMap = grouping.getGroupingFunction().group(expenses);
-        seriesManager.updateSeriesSet(expenseListMap.keySet());
-        seriesManager.updateSeries(series ->
-                updateSeries(timelineGenerator.generateAsync(expenseListMap.get(series.getName()), interval), series));
-    }
-
-    private void updateXAxisRange(long min, long max, double tickUnit) {
-        double maxTicks = 20.0;
-        long range = max - min;
-        double adjustedTickUnit = range / tickUnit > maxTicks ? range / maxTicks : tickUnit;
-        xAxis.setLowerBound(min - adjustedTickUnit);
-        xAxis.setUpperBound(max + adjustedTickUnit);
-        xAxis.setTickUnit(adjustedTickUnit);
-    }
-
-
-    /**
-     * Helper method called to asynchronously update a series.
-     */
-    private void updateSeries(Task<ExpenseTimeline> newTimelineTask, XYChart.Series<Long, BigDecimal> series) {
-        newTimelineTask.setOnSucceeded(event -> {
-            ExpenseTimeline timeline = newTimelineTask.getValue();
-            List<XYChart.Data<Long, BigDecimal>> data = transformToData(timeline);
-            Platform.runLater(() -> series.getData().setAll(data));
-        });
-    }
-
-    /**
-     * Maps a list of pairs of date range and amount into a list of formatted data ready to be displayed.
-     */
-    private List<XYChart.Data<Long, BigDecimal>> transformToData(ExpenseTimeline timeline) {
-        return timeline.getTimelineValues()
-                .stream()
-                .map(this::dataFromPair)
-                .collect(toList());
-    }
-
-    /**
-     * Transforms a single pair of {@code DateRange} and {@code Amount} to a data object. The date range is
-     * formatted as a string according to the given date dateInterval.
-     */
-    private XYChart.Data<Long, BigDecimal> dataFromPair(Pair<DateRange, Amount> entry) {
-
-        return new XYChart.Data<>(entry.getKey().getStartDate().toEpochDay(), entry.getValue().amount);
-    }
 }

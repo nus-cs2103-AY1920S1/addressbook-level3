@@ -48,7 +48,7 @@ public class ExpenseHeatMapChart extends ExpenseChart {
 
     private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final HeatMapGenerator heatMapGenerator;
-    private final XYChart.Series<Integer, Integer> seriesMap;
+    private final SeriesManager<Integer, Integer> seriesManager;
     private final DateRange currentYearRange = getCurrentYearRange();
 
     public ExpenseHeatMapChart(ObservableList<? extends Expense> expenses,
@@ -57,41 +57,33 @@ public class ExpenseHeatMapChart extends ExpenseChart {
         super(FXML, expenses);
         this.expenseGrouping = expenseGrouping;
         this.heatMapGenerator = heatMapGenerator;
+        this.seriesManager = new SeriesManager<>(
+                expenseGrouping.getValue().getGroupingFunction().group(expenses).keySet(),
+                heatMapChart);
 
         xAxis.setTickLabelFormatter(new MonthConverter(currentYearRange.getStartDate(), TextStyle.SHORT));
         yAxis.setTickLabelFormatter(new DayOfWeekConverter(TextStyle.SHORT));
 
-        seriesMap = new XYChart.Series<>();
-        seriesMap.setName("All expenses");
-        ExpenseHeatMap expenseHeatMap = heatMapGenerator.generate(expenses, currentYearRange);
-
-        seriesMap.getData().setAll(mapToData(expenseHeatMap.getHeatMapValues()));
-        heatMapChart.getData().add(seriesMap);
-
+        updateHeatMap(expenses, expenseGrouping.getValue());
         setupListeners();
-    }
-
-    /**
-     * Idempotent method which updates {@code seriesMap} with new series names from the keys of the input map, and
-     * creates new series based on those names to replace the current series.
-     */
-    private void setupSeriesMapping(Map<String, ? extends List<? extends Expense>> expenseListMap) {
-//        seriesMap.clear();
-//        for (var entry : expenseListMap.entrySet()) {
-//            XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
-//            series.setName(entry.getKey());
-//            seriesMap.put(entry.getKey(), series);
-//        }
-//
-//        heatMapChart.getData().setAll(seriesMap.values());
     }
 
     /**
      * Sets up listeners to observe for changes in the relevant observables and update the timeline accordingly.
      */
     private void setupListeners() {
+        expenseGrouping.observe(grouping -> updateHeatMap(expenses, grouping));
+
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(heatMapGenerator.generateAsync(c.getList(), currentYearRange)));
+                updateHeatMap(c.getList(), expenseGrouping.getValue()));
+    }
+
+    private void updateHeatMap(List<? extends Expense> expenses, ExpenseGrouping grouping) {
+        var expenseListMap = grouping.getGroupingFunction().group(expenses);
+        seriesManager.updateSeriesSet(expenseListMap.keySet());
+        seriesManager.updateSeries(series ->
+                updateSeries(heatMapGenerator
+                        .generateAsync(expenseListMap.get(series.getName()), currentYearRange), series));
     }
 
     /**
@@ -105,11 +97,11 @@ public class ExpenseHeatMapChart extends ExpenseChart {
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(Task<ExpenseHeatMap> newDataTask) {
+    private void updateSeries(Task<ExpenseHeatMap> newDataTask, XYChart.Series<Integer, Integer> series) {
         newDataTask.setOnSucceeded(event -> {
             ExpenseHeatMap heatMap = newDataTask.getValue();
             List<XYChart.Data<Integer, Integer>> data = mapToData(heatMap.getHeatMapValues());
-            Platform.runLater(() -> seriesMap.getData().setAll(data));
+            Platform.runLater(() -> series.getData().setAll(data));
         });
     }
 

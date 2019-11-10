@@ -1,5 +1,7 @@
 package seedu.billboard.ui.charts;
 
+import javafx.scene.chart.XYChart;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,13 +9,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
-import javafx.scene.chart.XYChart;
 
 /**
  * Manager for the series that an {@code XYChart} displays. Includes operations to update the series set and update
  * each series individually.
- * @param <X>
- * @param <Y>
+ * @param <X> Type for the x axis values of the series.
+ * @param <Y> Type for the y axis values of the series.
  */
 class SeriesManager<X, Y> {
     private final XYChart<X, Y> chart;
