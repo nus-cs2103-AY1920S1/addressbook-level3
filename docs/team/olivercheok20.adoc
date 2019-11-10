@@ -74,8 +74,6 @@ include::../UserGuide.adoc[tag=addcriteria]
 
 include::../UserGuide.adoc[tag=deletecriteria]
 
-include::../UserGuide.adoc[tag=assignpolicy]
-
 
 == Contributions to the Developer Guide
 
