@@ -23,7 +23,6 @@ Package Model <<Rectangle>> {
         FINDRULE
     }
 
-    Class GuiState
     Class Plan
     Class Problem
     Class Tag
@@ -46,13 +45,14 @@ ModelManager -->"*" Tag: filtered list
 ModelManager -->"*" Plan: filtered list
 ModelManager -->"*" Task: filtered list
 ModelManager -->"*" ProblemSearchRule: filtered list
-ModelManager --->"1" GuiState
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 'AlgoBase
 AlgoBase *--> "1" UniqueProblemList
 AlgoBase *--> "1" UniqueTagList
 AlgoBase *--> "1" PlanList
+AlgoBase *--> "1" UniqueFindRuleList
+AlgoBase *--> "1" GuiState
 
 
 @enduml

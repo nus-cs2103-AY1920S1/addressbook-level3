@@ -12,7 +12,6 @@ interface Predicate {
 
 package ProblemSearchRule {
 
-    class Keyword
     class Name
 
     class ProblemSearchRule
@@ -27,6 +26,7 @@ package ProblemSearchRule {
     class DifficultyIsInRangePredicate
     class TagIncludesKeywordsPredicate
 
+    class Keyword
     note left of Keyword
     An abstraction used
     in xxxPredicate to make sure
@@ -43,14 +43,14 @@ Predicate <|.. SourceMatchesKeywordPredicate
 Predicate <|.. DifficultyIsInRangePredicate
 Predicate <|.. TagIncludesKeywordsPredicate
 
-NameContainsKeywordsPredicate <--* FindProblemDescriptor
-AuthorMatchesKeywordPredicate <--* FindProblemDescriptor
-DescriptionContainsKeywordsPredicate <--* FindProblemDescriptor
-SourceMatchesKeywordPredicate <--* FindProblemDescriptor
-DifficultyIsInRangePredicate <--* FindProblemDescriptor
-TagIncludesKeywordsPredicate <--* FindProblemDescriptor
+NameContainsKeywordsPredicate "1" <--* FindProblemDescriptor
+AuthorMatchesKeywordPredicate "1" <--* FindProblemDescriptor
+DescriptionContainsKeywordsPredicate "1" <--* FindProblemDescriptor
+SourceMatchesKeywordPredicate "1" <--* FindProblemDescriptor
+DifficultyIsInRangePredicate "1" <--* FindProblemDescriptor
+TagIncludesKeywordsPredicate "1" <--* FindProblemDescriptor
 
 ProblemSearchRule -u|> FindProblemDescriptor
-ProblemSearchRule *--u> Name
+ProblemSearchRule *--u> "1" Name
 
 @enduml

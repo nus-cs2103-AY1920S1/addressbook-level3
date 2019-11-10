@@ -825,18 +825,6 @@ Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList
 // end::plan[]
 //@@author
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
-
 [appendix]
 == Product Scope
 
@@ -1086,7 +1074,7 @@ Use case ends.
 1.  User requests to delete a tag.
 2.  AlgoBase deletes the tag in tag list.
 3.  AlgoBase deletes the tag in every problems.
-3.  AlgoBase displays the tag list.
+4.  AlgoBase displays the tag list.
 +
 Use case ends.
 
