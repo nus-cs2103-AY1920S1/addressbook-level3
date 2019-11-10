@@ -60,7 +60,7 @@ public class MergeShoppingCommand extends Command {
             try {
                 Amount updatedShoppingAmount = shoppingAmount.reduceBy(boughtAmount);
                 ShoppingItem editedShoppingItem = new ShoppingItem(shoppingItem.getName(), updatedShoppingAmount,
-                        shoppingItem.isBought(), shoppingItem.isUrgent());
+                        false, shoppingItem.isUrgent()); //once amount reduced, it is not bought anymore
                 model.setShoppingItem(shoppingItem, editedShoppingItem);
             } catch (InvalidAmountException e) {
                 if (e.getMessage().equals(MESSAGE_INVALID_RESULTANT_AMOUNT)) {
