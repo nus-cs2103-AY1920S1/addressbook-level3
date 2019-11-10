@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showFlashcardAtIndex;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalStudyBuddyPro;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_FLASHCARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
@@ -54,7 +53,7 @@ public class ViewFlashcardCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() {
         Model expectedModel = new ModelManager(getTypicalStudyBuddyPro(), new UserPrefs());
-//        showFlashcardAtIndex(expectedModel, INDEX_FIRST_FLASHCARD);
+        //        showFlashcardAtIndex(expectedModel, INDEX_FIRST_FLASHCARD);
         Flashcard flashcardToView = expectedModel.getFilteredFlashcardList().get(INDEX_FIRST_FLASHCARD.getZeroBased());
         ViewFlashcardCommand viewFlashcardCommand = new ViewFlashcardCommand(INDEX_FIRST_FLASHCARD);
 

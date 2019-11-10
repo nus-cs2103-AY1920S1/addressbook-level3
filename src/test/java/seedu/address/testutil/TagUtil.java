@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 import seedu.address.model.tag.Tag;
