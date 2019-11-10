@@ -253,7 +253,7 @@ This is a feature which allows you to view all available commands matching the i
 
 ==== Implementation
 
-The autocomplete mechanism is facilitated by the `KeyListener` and a `Trie`, a tree-like abstract data type (ADT). (Explained below)
+The autocomplete mechanism is facilitated by the `KeyListener` and a `Trie`, a tree-like abstract data type (ADT).
 The `KeyListener` passes the current input text in the input command box to the `TrieManager` via `LogicManager#getAutoCompleteResults()`.
 The `TrieManager` calls `Trie#autoCompleteCommandWord()` and a sorted list of matching commands is passed back to the `CommandBox` and is displayed on the `Ui` via a dropdown box below the user input command box.
 
@@ -297,7 +297,7 @@ Below are a few design considerations of the autocomplete commands feature.
 Alternative 1 was selected, as it is more user friendly, and leaves a better impression onto users compared to alternative 2.
 
 ===== Aspect: Data structure to support the autocomplete commands feature
-replace with something else
+
 * **Alternative 1 (current choice):** Use a `Trie` to store `Characters` of commands as keys.
 ** Pros: Efficient and rapid searching, retrieving and displaying of results due to the tree-like ADT.
 ** Cons: Tedious to implement, as `Tries` are not currently implemented in Java.
