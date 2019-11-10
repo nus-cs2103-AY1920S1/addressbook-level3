@@ -87,6 +87,7 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+// tag::logic[]
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
@@ -105,6 +106,8 @@ link:{repoURL}/src/main/java/mams/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a module to a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+// end::logic[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call.
 

@@ -1,0 +1,72 @@
+= Chen Su - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Module Appeal Management System (MAMS)
+
+---
+
+== Overview
+
+The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
+with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
+aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
+leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
+a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+[NOTE]
+This portfolio was adapted from the AddressBook project. All information written herein (28th Septemeber 2019) is not yet revised for the new application.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to clash clashes*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: modified the find command that allows the user to ...
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=clash]
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=clash]
+
+include::../DeveloperGuide.adoc[tag=find]
+

@@ -18,7 +18,12 @@ By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands with a dual-pane GUI for easy navigation of module appeals, module information, and student particulars. This app is particularly aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. Once reviewing of the information is complete, the MAMS system also provides a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
+The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
+with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
+aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
+leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
+a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
 
 == Quick Start
 
@@ -191,6 +196,7 @@ image:HistoryWindowCopyDemo.png[width="790"]
 Command history is automatically saved to disk whenever it is updated with new inputs.
 Upon the next MAMS startup, previous command history will be loaded from disk as well.
 
+//tag::find[]
 === Find keywords: `find`
 
 Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
@@ -243,6 +249,9 @@ All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, 
 CS2030 is also displayed since it contains "cs10" in its module description.
 
 image::FindDemoModuleSearch.png[width="790"]
+// end::find[]
+
+//tag::clash[]
 
 === Show clashes: `clash`
 
@@ -307,6 +316,7 @@ Sample output:
 
 image::ModuleClashDetected.png[width="790"]
 
+// end::clash[]
 
 === Add or remove modules `addmod` & `removemod`
 
