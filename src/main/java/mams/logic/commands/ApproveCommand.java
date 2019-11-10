@@ -55,6 +55,7 @@ public class ApproveCommand extends Approve {
     public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();
 
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
         }
@@ -63,7 +64,7 @@ public class ApproveCommand extends Approve {
 
         Appeal appealToApprove = lastShownList.get(index.getZeroBased());
 
-        if (appealToApprove.isResolved() == false) {
+        if (!appealToApprove.isResolved()) {
             Student studentToEdit;
             Student editedStudent;
             Module moduleToEdit;
@@ -416,5 +417,16 @@ public class ApproveCommand extends Approve {
         }
         return s.toString();
     }
+//    /**
+//     * Checks whether {@code Index} is within the size of the list.
+//     * @param index index input
+//     * @param size size of the list
+//     * @throws CommandException when index is larger than the size of the list
+//     */
+//    private void verifyIndex(int index, int size) throws CommandException {
+//        if (index >= size) {
+//            throw new CommandException(MESSAGE_INVALID_INDEX);
+//        }
+//    }
 
 }

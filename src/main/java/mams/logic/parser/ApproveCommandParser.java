@@ -2,8 +2,9 @@ package mams.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static mams.logic.parser.CliSyntax.*;
-import static mams.logic.parser.CliSyntax.PREFIX_STUDENT;
+import static mams.logic.parser.CliSyntax.PREFIX_APPEAL;
+import static mams.logic.parser.CliSyntax.PREFIX_MASS_RESOLVE;
+import static mams.logic.parser.CliSyntax.PREFIX_REASON;
 
 import java.util.ArrayList;
 import java.util.List;

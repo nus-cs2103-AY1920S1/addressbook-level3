@@ -1,66 +1,152 @@
 package mams.logic.commands;
 
-import static mams.logic.commands.AddModCommand.MESSAGE_DUPLICATE_MODULE;
-import static mams.logic.commands.Approve.MESAGE_NO_APPEALS_APPROVED;
-import static mams.logic.commands.ClashCommand.ClashCase;
-import static mams.logic.commands.ModCommand.MESSAGE_INVALID_MODULE;
-import static mams.logic.commands.RemoveModCommand.MESSAGE_MISSING_MODULE;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import mams.commons.core.Messages;
-
 import mams.logic.commands.exceptions.CommandException;
-
-import mams.logic.history.FilterOnlyCommandHistory;
 import mams.model.Model;
+import mams.model.ModelManager;
+import mams.model.UserPrefs;
+
 import mams.model.appeal.Appeal;
 import mams.model.module.Module;
 import mams.model.student.Credits;
 import mams.model.student.Student;
 import mams.model.tag.Tag;
+import org.junit.jupiter.api.Test;
 
-/**
- * Mass approves appeals in Mams
- */
-public class MassApprove extends Approve {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-    private final List<String> validIds;
-    private final List<String> invalidIds;
-    private final List<String> appealsWithClash;
-    private final List<String> cannotFindIDList;
-    private final List<String> alreadyApproved = new ArrayList<>();
-    private final List<String> alreadyRejected = new ArrayList<>();
-    private final List<String> approvedSuccessfully = new ArrayList<>();
+import static mams.logic.commands.Approve.MESAGE_NO_APPEALS_APPROVED;
+import static mams.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-    public MassApprove(List<String> validIds, List<String> invalidIds) {
-        this.validIds = validIds;
-        this.invalidIds = invalidIds;
-        this.appealsWithClash = new ArrayList<>();
-        this.cannotFindIDList = new ArrayList<>();
+import static mams.logic.commands.ModCommand.*;
+import static mams.testutil.TypicalMams.getTypicalMams;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class MassApproveTest {
+
+    private Model model = new ModelManager(getTypicalMams(), new UserPrefs());
+    private Model expectedModel = new ModelManager(model.getMams(), new UserPrefs());
+
+
+
+    @Test
+    public void equal() {
+
+        ArrayList<String> validIDs = new ArrayList<>();
+        ArrayList<String> invalidIDs = new ArrayList<>();
+
+
+        // same object -> returns true
+        MassApprove firstEmptyCommand = new MassApprove(validIDs, invalidIDs);
+        assertTrue(firstEmptyCommand.equals(firstEmptyCommand));
+
+        validIDs.add("C000000");
+        validIDs.add("C000023");
+        validIDs.add("C000007");
+
+        MassApprove validCommand = new MassApprove(validIDs, invalidIDs);
+        MassApprove validCommandCopy = new MassApprove(validIDs, invalidIDs);
+        // same values -> returns true
+        assertTrue(validCommand.equals(validCommandCopy));
+
+        ArrayList<String> secondValidIDs = new ArrayList<>();
+        secondValidIDs.add("C000001");
+        secondValidIDs.add("C000123");
+        // different values -> returns false
+        assertFalse(validCommand.equals(secondValidIDs));
+
+        invalidIDs.add("C0123");
+        invalidIDs.add("C0132");
+
+        ArrayList<String> validListWithRightOrder = new ArrayList<>();
+        validIDs.add("C000000");
+        validIDs.add("C000007");
+        validIDs.add("C000023");
+
+        MassApprove validCommandCopyWithRightOrder = new MassApprove(validIDs, invalidIDs);
+        // same values different order and different invalid list -> returns true
+        assertTrue(validCommand.equals(validCommandCopyWithRightOrder));
+
+        // different type -> returns false
+        assertFalse(validCommand.equals(1));
+
+        // different type -> returns false
+        assertFalse(validCommand.equals("1"));
+
+        // null -> returns false
+        assertFalse(validCommand.equals(null));
     }
 
-    @Override
-    public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
-        List<Appeal> fullAppealList = model.getFullAppealList();
+    @Test
+    public void execute_validInput_invalidIDs_nothingApproved_Success() {
+        ArrayList<String> validIDs = new ArrayList<>();
+        ArrayList<String> invalidIDs = new ArrayList<>();
+        String expectedMessage = "";
+        invalidIDs.add("C0123");
+        invalidIDs.add("C0132");
+        MassApprove nothingApprovedCommand = new MassApprove(validIDs, invalidIDs);
+        expectedMessage += MESAGE_NO_APPEALS_APPROVED + "\nInvalid appeal IDs: " + invalidIDs.toString();
+        assertCommandSuccess(nothingApprovedCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validInput_noSuchAppealID_Success() {
+        ArrayList<String> validIDs = new ArrayList<>();
+        ArrayList<String> invalidIDs = new ArrayList<>();
+        String expectedMessage = "";
+        validIDs.add("C120000");
+        validIDs.add("C999999");
+        MassApprove command = new MassApprove(validIDs, invalidIDs);
+        expectedMessage += MESAGE_NO_APPEALS_APPROVED + "\nThese appeal IDs do not exist: " + validIDs.toString();
+
+    }
+
+    @Test
+    public void execute_validInput_Success() {
+
+        ArrayList<String> inputValidIDs = new ArrayList<>();
+        ArrayList<String> inputInvalidIDs = new ArrayList<>();
+        String expectedMessage = "";
+
+        inputValidIDs.add("C000001");
+//        inputValidIDs.add("C000002");
+//        inputValidIDs.add("C000003");
+        inputInvalidIDs.add("C0123");
+        inputInvalidIDs.add("C0132");
+
+        MassApprove command = new MassApprove(inputValidIDs, inputInvalidIDs);
+
+        List<String> appealsWithClash = new ArrayList<>();
+        List<String> cannotFindIDList = new ArrayList<>();
+        List<String> alreadyApproved = new ArrayList<>();
+        List<String> alreadyRejected = new ArrayList<>();
+        List<String> approvedSuccessfully = new ArrayList<>();
+
+
+        List<Student> fullStudentList = expectedModel.getFullStudentList();
+        List<Module> fullModuleList = expectedModel.getFullModuleList();
+        List<Appeal> fullAppealList = expectedModel.getFullAppealList();
         boolean foundID;
-        for (String appealId : validIds) {
+        for (String appealId : inputValidIDs) {
             foundID = false;
             for (Appeal appeal : fullAppealList) {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal approvedAppeal;
                     Appeal appealToApprove = appeal;
-                    if (appealToApprove.isResolved() == false) {
+                    if (!appealToApprove.isResolved()) {
 
                         Student studentToEdit;
                         Student editedStudent;
                         Module moduleToEdit;
                         Module editedModule;
                         String moduleCode;
-
-                        List<Student> fullStudentList = model.getFullStudentList();
-                        List<Module> fullModuleList = model.getFullModuleList();
 
                         String appealType = appealToApprove.getAppealType();
                         String studentToEditId = appealToApprove.getStudentId();
@@ -71,9 +157,6 @@ public class MassApprove extends Approve {
                                     .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                     .collect(Collectors.toList());
 
-                            if (studentToCheckList.isEmpty()) {
-                                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-                            }
                             studentToEdit = studentToCheckList.get(0);
 
                             editedStudent = new Student(studentToEdit.getName(),
@@ -81,8 +164,8 @@ public class MassApprove extends Approve {
                                     studentToEdit.getPrevMods(),
                                     studentToEdit.getMatricId(),
                                     studentToEdit.getTags());
-                            model.setStudent(studentToEdit, editedStudent);
-                            model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                            expectedModel.setStudent(studentToEdit, editedStudent);
+                            expectedModel.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
 
 
                         } else if (appealType.equalsIgnoreCase("Drop module")) {
@@ -92,30 +175,18 @@ public class MassApprove extends Approve {
                             List<Student> studentToCheckList = fullStudentList.stream()
                                     .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                     .collect(Collectors.toList());
-                            if (studentToCheckList.isEmpty()) {
-                                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-                            }
+
                             studentToEdit = studentToCheckList.get(0);
 
                             //check if student has the module (ready for deletion).
                             Set<Tag> studentModules = studentToEdit.getCurrentModules();
-                            boolean hasModule = false;
-                            for (Tag tag : studentModules) {
-                                if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                                    hasModule = true;
-                                }
-                            }
-                            if (!hasModule) {
-                                throw new CommandException(MESSAGE_MISSING_MODULE);
-                            }
+
 
                             //check if module exist
                             List<Module> moduleToCheckList = fullModuleList.stream()
                                     .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                     .collect(Collectors.toList());
-                            if (moduleToCheckList.isEmpty()) {
-                                throw new CommandException(MESSAGE_INVALID_MODULE);
-                            }
+
                             moduleToEdit = moduleToCheckList.get(0);
 
 
@@ -141,9 +212,9 @@ public class MassApprove extends Approve {
                                     studentToEdit.getPrevMods(),
                                     studentToEdit.getMatricId(),
                                     ret);
-                            model.setStudent(studentToEdit, editedStudent);
-                            model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-                            model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                            expectedModel.setStudent(studentToEdit, editedStudent);
+                            expectedModel.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
+                            expectedModel.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
 
                             editedModule = new Module(moduleToEdit.getModuleCode(),
                                     moduleToEdit.getModuleName(),
@@ -153,45 +224,37 @@ public class MassApprove extends Approve {
                                     moduleToEdit.getQuota(),
                                     ret2);
 
-                            model.setModule(moduleToEdit, editedModule);
-                            model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-                            model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+                            expectedModel.setModule(moduleToEdit, editedModule);
+                            expectedModel.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                            expectedModel.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
 
                         } else {
-                            ArrayList<ClashCase> clashCases = new ArrayList<>();
+                            ArrayList<ClashCommand.ClashCase> clashCases = new ArrayList<>();
                             moduleCode = appealToApprove.getModuleToAdd();
 
                             List<Student> studentToCheckList = fullStudentList.stream()
                                     .filter(p -> p.getMatricId().toString().equals(studentToEditId))
                                     .collect(Collectors.toList());
-                            if (studentToCheckList.isEmpty()) {
-                                throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_MATRIC_ID);
-                            }
+
                             studentToEdit = studentToCheckList.get(0);
 
                             //check if module exist
                             List<Module> moduleToCheckList = fullModuleList.stream()
                                     .filter(m -> m.getModuleCode().equalsIgnoreCase(moduleCode))
                                     .collect(Collectors.toList());
-                            if (moduleToCheckList.isEmpty()) {
-                                throw new CommandException(MESSAGE_INVALID_MODULE);
-                            }
+
                             moduleToEdit = moduleToCheckList.get(0);
 
 
                             //check if student already has module.
                             Set<Tag> studentModules = studentToEdit.getCurrentModules();
-                            for (Tag tag : studentModules) {
-                                if (tag.getTagName().equalsIgnoreCase(moduleCode)) {
-                                    throw new CommandException(MESSAGE_DUPLICATE_MODULE);
-                                }
-                            }
+
 
                             //Get all the modules student has and add them into an arraylist of modules for checking
                             ArrayList<Module> currentModules = new ArrayList<>();
                             for (Tag currentModule : studentModules) {
                                 String modCode = currentModule.getTagName();
-                                List<Module> filteredModulesList = model.getFullModuleList()
+                                List<Module> filteredModulesList = expectedModel.getFullModuleList()
                                         .stream()
                                         .filter(m -> m.getModuleCode().equalsIgnoreCase(modCode))
                                         .collect(Collectors.toList());
@@ -200,16 +263,16 @@ public class MassApprove extends Approve {
                             }
 
                             //Checks if current modules clashes with requested module
-                            for (Module currentModule : currentModules) {
-                                if (getClashCase(currentModule, moduleToEdit).isPresent()) {
-                                    clashCases.add(getClashCase(currentModule, moduleToEdit).get());
-                                }
-                            }
-
-                            if (!clashCases.isEmpty()) {
-                                appealsWithClash.add(appealId);
-                                break;
-                            }
+//                            for (Module currentModule : currentModules) {
+//                                if (getClashCase(currentModule, moduleToEdit).isPresent()) {
+//                                    clashCases.add(getClashCase(currentModule, moduleToEdit).get());
+//                                }
+//                            }
+//
+//                            if (!clashCases.isEmpty()) {
+//                                appealsWithClash.add(appealId);
+//                                break;
+//                            }
 
                             //add module to student.
                             Set<Tag> ret = new HashSet<>();
@@ -240,10 +303,10 @@ public class MassApprove extends Approve {
                                     moduleToEdit.getQuota(),
                                     ret2);
 
-                            model.setStudent(studentToEdit, editedStudent);
-                            model.setModule(moduleToEdit, editedModule);
-                            model.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
-                            model.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
+                            expectedModel.setStudent(studentToEdit, editedStudent);
+                            expectedModel.setModule(moduleToEdit, editedModule);
+                            expectedModel.updateFilteredStudentList(Model.PREDICATE_SHOW_ALL_STUDENTS);
+                            expectedModel.updateFilteredModuleList(Model.PREDICATE_SHOW_ALL_MODULES);
                         }
 
 
@@ -260,9 +323,9 @@ public class MassApprove extends Approve {
                                 true,
                                 "APPROVED",
                                 "");
-                        model.setAppeal(appealToApprove, approvedAppeal);
-                        model.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
-                        model.setAppeal(appealToApprove, approvedAppeal);
+                        expectedModel.setAppeal(appealToApprove, approvedAppeal);
+                        expectedModel.updateFilteredAppealList(Model.PREDICATE_SHOW_ALL_APPEALS);
+                        expectedModel.setAppeal(appealToApprove, approvedAppeal);
                         approvedSuccessfully.add(appealId);
 
                     } else if (appealToApprove.isResolved() == true
@@ -281,14 +344,18 @@ public class MassApprove extends Approve {
             }
         }
 
-        return new CommandResult(resultGenerator());
+        expectedMessage += resultGenerator(approvedSuccessfully, alreadyApproved, alreadyRejected, inputInvalidIDs, appealsWithClash, cannotFindIDList);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+
     }
 
-    /**
-     * Generates response for user
-     * @return
-     */
-    private String resultGenerator() {
+    private String resultGenerator(List<String> approvedSuccessfully,
+                                   List<String> alreadyApproved,
+                                   List<String> alreadyRejected,
+                                   List<String> invalidIds,
+                                   List<String> appealsWithClash,
+                                   List<String> cannotFindIDList) {
         String result = "";
         if (approvedSuccessfully.isEmpty()) {
             result += MESAGE_NO_APPEALS_APPROVED;
@@ -313,70 +380,5 @@ public class MassApprove extends Approve {
         return result;
     }
 
-    /**
-     * gets list of valid appeal IDs
-     * @return
-     */
-    public List<String> getValidList() {
-        return validIds;
-    }
-
-    /**
-     * gets list of invalid appeal IDs
-     * * @return
-     */
-    public  List<String> getInvalidIds() {
-        return invalidIds;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof MassApprove)) {
-            return false;
-        }
-
-        // state check
-        MassApprove e = (MassApprove) other;
-        List<String> compareValid = e.getValidList();
-        List<String> compareInvalid = e.getInvalidIds();
-
-        Collections.sort(compareValid);
-        Collections.sort(compareInvalid);
-        Collections.sort(this.validIds);
-        Collections.sort(this.invalidIds);
-
-        if (this.validIds.equals(compareValid)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
-        int[] timeTableA = moduleA.getTimeSlotToIntArray();
-        int[] timeTableB = moduleB.getTimeSlotToIntArray();
-        ArrayList<Integer> slots = new ArrayList<>();
-        for (int i : timeTableA) {
-            for (int j : timeTableB) {
-                if (i == j) {
-                    slots.add(i);
-                }
-            }
-        }
-        if (!slots.isEmpty()) {
-            ClashCase c = new ClashCase();
-            c.setModuleA(moduleA);
-            c.setModuleB(moduleB);
-            c.setClashingSlots(slots);
-            return Optional.of(c);
-        }
-        return Optional.empty();
-    }
 
 }

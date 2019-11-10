@@ -10,7 +10,7 @@
     "credits" : "23",
     "prevMods" : "CS1010, CS2101",
     "matricId" : "A0180001",
-    "tagged" : [ "C000001", "CS1231", "CS2040", "CS2106", "CS2101" ]
+    "tagged" : [ "C000001", "CS1231", "CS2040", "CS2101" ]
   }, {
     "name" : "Ronna Rousey  ",
     "credits" : "24",
@@ -22,10 +22,10 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS2105",
     "matricId" : "A0180003",
-    "tagged" : [ "CS1231", "CS2220", "C000003", "CS1010", "CS2030" ]
+    "tagged" : [ "CS1020", "CS1231", "CS2220", "C000003", "CS1010", "CS2030" ]
   }, {
     "name" : "Tamala Touchette  ",
-    "credits" : "22",
+    "credits" : "28",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180004",
     "tagged" : [ "C000004", "CS2220", "CS2030" ]
@@ -76,10 +76,10 @@
     "credits" : "23",
     "prevMods" : "CS1010, CS2309",
     "matricId" : "A0180012",
-    "tagged" : [ "CS1020", "CS1231", "CS2040" ]
+    "tagged" : [ "CS1020", "CS2040" ]
   }, {
     "name" : "Colleen Choe  ",
-    "credits" : "21",
+    "credits" : "30",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180013",
     "tagged" : [ "CS2030", "CS2040" ]
@@ -88,7 +88,7 @@
     "credits" : "24",
     "prevMods" : "CS1010, CS1231, CS2030",
     "matricId" : "A0180014",
-    "tagged" : [ "CS2220", "CS2101" ]
+    "tagged" : [ "CS2220", "CS2040", "CS2101" ]
   }, {
     "name" : "Isobel Ickes  ",
     "credits" : "23",
@@ -310,7 +310,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "30",
-    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180000", "A0180012", "A0180024", "A0180035", "A0180046", "A0180026", "A0180006", "A0180008" ],
+    "tagged" : [ "A0180020", "A0180010", "A0180032", "A0180043", "A0180000", "A0180012", "A0180024", "A0180035", "A0180046", "A0180003", "A0180026", "A0180006", "A0180008" ],
     "moduleCode" : "CS1020",
     "moduleName" : "Data Structures and Algorithms Is",
     "moduleDescription" : "This module is the second part of a three-part series on introductory programming and problem solving by computing. It continues the introduction that begins in CS1010, and emphasises objectoriented programming with application to simple data structures. Topics include object-oriented problem modeling with objects, classes and methods, object-oriented problem formulation and solving, data structure implementation strageties, abstraction and encapsulation of data structures, object-oriented programming constructs, APIs and class libraries, exception handling, lists, linked lists, stacks, queues, hash tables and their algorithmic design, sorting and searching methods, recursive algorithms, and Big-O notation. This module is appropriate for SoC and FoS students.",
@@ -318,7 +318,7 @@
     "timeSlot" : "21,20,57,58,59"
   }, {
     "quota" : "40",
-    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180011", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180012", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
+    "tagged" : [ "A0180040", "A0180041", "A0180020", "A0180042", "A0180000", "A0180011", "A0180022", "A0180023", "A0180034", "A0180045", "A0180001", "A0180002", "A0180003", "A0180037", "A0180018", "A0180019" ],
     "moduleCode" : "CS1231",
     "moduleName" : "Discrete Structures",
     "moduleDescription" : "This module introduces mathematical tools required in the study of computer science. Topics include: (1) Logic and proof techniques: propositions, conditionals, quantifications. (2) Relations and Functions: Equivalence relations and partitions. Partially ordered sets. Well-Ordering Principle. Function equality. Boolean/identity/inverse functions. Bijection. (3) Mathematical formulation of data models (linear model, trees, graphs). (4) Counting and Combinatoric: Pigeonhole Principle. Inclusion-Exclusion Principle. Number of relations on a set, number of injections from one finite set to another, Diagonalisation proof: An infinite countable set has an uncountable power set; Algorithmic proof: An infinite set has a countably infinite subset. Subsets of countable sets are countable.",
@@ -334,7 +334,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "20",
-    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180020", "A0180043", "A0180000", "A0180011", "A0180012", "A0180001", "A0180013", "A0180024", "A0180035", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
+    "tagged" : [ "A0180030", "A0180041", "A0180031", "A0180020", "A0180043", "A0180000", "A0180011", "A0180012", "A0180001", "A0180013", "A0180024", "A0180035", "A0180014", "A0180015", "A0180005", "A0180017", "A0180018", "A0180029", "A0180019", "A0180009" ],
     "moduleCode" : "CS2040",
     "moduleName" : "Data Structures and Algorithms",
     "moduleDescription" : "This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, and basic analysis of algorithms.",
@@ -366,7 +366,7 @@
     "timeSlot" : "1,2,45,46,47"
   }, {
     "quota" : "40",
-    "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180001", "A0180037", "A0180005", "A0180049", "A0180029" ],
+    "tagged" : [ "A0180040", "A0180030", "A0180042", "A0180010", "A0180043", "A0180022", "A0180037", "A0180005", "A0180049", "A0180029" ],
     "moduleCode" : "CS2106",
     "moduleName" : "Introduction to Operating Systems",
     "moduleDescription" : "This module introduces the basic concepts in operating systems and links it with contemporary operating systems (eg. Unix/Linux and Windows). It focuses on OS structuring and architecture, processes, memory management, concurrency and file systems. Topics include kernel architecture, system calls, interrupts, models of processes, process abstraction and services, scheduling, review of physical memory and memory management hardware, kernel memory management, virtual memory and paging, caches, working set, deadlock, mutual exclusion, synchronisation mechanisms, data and metadata in file systems, directories and structure, file system abstraction and operations, OS protection mechanisms, and user authentication.",
@@ -414,8 +414,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2106",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000002",
@@ -442,8 +442,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1020",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -456,8 +456,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000005",
@@ -484,8 +484,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS2040",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000007",
@@ -568,8 +568,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS1231",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000013",
@@ -582,8 +582,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000014",
@@ -596,8 +596,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS2040",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "APPROVED",
     "remark" : ""
   }, {
     "appealId" : "C000015",

@@ -69,5 +69,240 @@
     "output" : "No appeals were approved\nInvalid appeal IDs: [MASS.]",
     "isSuccessfulExecution" : true,
     "timeStamp" : 1573285893454
+  }, {
+    "input" : "approve a/-1",
+    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD a/INDEX [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD mass/[APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1573306782945
+  }, {
+    "input" : "approve a/0",
+    "output" : "Invalid command format! \napprove: approves individual or multiple appeals\nTo approve individually:\nParameters: KEYWORD a/INDEX [r/REASON]\nExample: approve a/1 r/module quota exceeded.\nTo approve multiple:\nParameters: KEYWORD mass/[APPEALID] [APPEALID] ...\nExample: approve mass/C000001 C000012 C000007 C000020",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1573306785545
+  }, {
+    "input" : "approve a/1",
+    "output" : "The appeal was already resolved",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573306790025
+  }, {
+    "input" : "undp",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1573306792111
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573306793040
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nA0180000 max credits updated to: 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573308076701
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573308165650
+  }, {
+    "input" : "history",
+    "output" : "Opened command history window.",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573308624019
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2106 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357277469
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357279903
+  }, {
+    "input" : "approve a/3",
+    "output" : "Approved C000002\nRemoved CS2040 from A0180002",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357285021
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357288352
+  }, {
+    "input" : "approve a/20",
+    "output" : "Approved C000019\nRemoved CS2040 from A0180019",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357296851
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573357299821
+  }, {
+    "input" : "approve a/1",
+    "output" : "Approved C000000\nA0180000 max credits updated to: 24",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573367032274
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573367036611
+  }, {
+    "input" : "approve mass/ C",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573369206541
+  }, {
+    "input" : "approve mass/",
+    "output" : "No appeals were approved",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573369266505
+  }, {
+    "input" : "approve mass/ C0",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C0]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573369269250
+  }, {
+    "input" : "approve a/2",
+    "output" : "Approved C000001\nRemoved CS2106 from A0180001",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370363482
+  }, {
+    "input" : "approve mass/C000000  C000012 C000002",
+    "output" : "Successfully approved: [C000000, C000012, C000002]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370377942
+  }, {
+    "input" : "approve mass/ C000000",
+    "output" : "No appeals were approved",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370388807
+  }, {
+    "input" : "approve mass/C000000   C000001",
+    "output" : "No appeals were approved\nAlready approved: [C000000]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370766987
+  }, {
+    "input" : "approve mass/C000000   C000001",
+    "output" : "No appeals were approved\nAlready approved: [C000000]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370772558
+  }, {
+    "input" : "approve mass/C000000   C000001",
+    "output" : "No appeals were approved\nAlready approved: [C000000, C000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370807543
+  }, {
+    "input" : "approve mass/ C000003  C000002  C000004",
+    "output" : "Successfully approved: [C000003, C000004]\nAlready approved: [C000002]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370821961
+  }, {
+    "input" : "reject a/7",
+    "output" : "Rejected C000006",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370829713
+  }, {
+    "input" : "approve mass/ C000006",
+    "output" : "No appeals were approved\nAlready rejected: [C000006]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573370838643
+  }, {
+    "input" : "approve mass/ C001000",
+    "output" : "No appeals were approved",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371100971
+  }, {
+    "input" : "approve mass/ C000000 C000002  C000005",
+    "output" : "No appeals were approved\nAlready approved: [C000000, C000002]\nAppeals with module clash: [C000005]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371209443
+  }, {
+    "input" : "approve mass/ C000000 C000002  C000007",
+    "output" : "Successfully approved: [C000007]\nAlready approved: [C000000, C000002]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371219066
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371222334
+  }, {
+    "input" : "approve mass/ C001222",
+    "output" : "No appeals were approved\nThese appeal IDs do not exist: [C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222, C001222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371431163
+  }, {
+    "input" : "approve mass/ C012222",
+    "output" : "No appeals were approved\nThese appeal IDs do not exist: [C012222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371554282
+  }, {
+    "input" : "approve mass/ C012222  C000000  C000008",
+    "output" : "Successfully approved: [C000008]\nAlready approved: [C000000]\nThese appeal IDs do not exist: [C012222, C000000, C000008]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371570298
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371583783
+  }, {
+    "input" : "approve mass/ C012222  C000000  C000008",
+    "output" : "No appeals were approved\nAlready approved: [C000000]\nThese appeal IDs do not exist: [C012222, C000000, C000008]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371613624
+  }, {
+    "input" : "approve mass/ C012222  C000000  C000008",
+    "output" : "Successfully approved: [C000008]\nAlready approved: [C000000]\nThese appeal IDs do not exist: [C012222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371868605
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573371876872
+  }, {
+    "input" : "approve mass/ C000013  C0122222222",
+    "output" : "Successfully approved: [C000013]\nInvalid appeal IDs: [C0122222222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372489041
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372493461
+  }, {
+    "input" : "approve mass/ C000013  C0122222222  C012222",
+    "output" : "Successfully approved: [C000013]\nInvalid appeal IDs: [C0122222222]\nThese appeal IDs do not exist: [C012222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372500163
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372514505
+  }, {
+    "input" : "approve mass/ C000013  C0122222222  C012222  C000014",
+    "output" : "Successfully approved: [C000013, C000014]\nInvalid appeal IDs: [C0122222222]\nThese appeal IDs do not exist: [C012222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372520685
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372523693
+  }, {
+    "input" : "approve mass/ C000013  C0122222222  C012222  C000014  C000006 C000001",
+    "output" : "Successfully approved: [C000013, C000014]\nAlready approved: [C000001]\nAlready rejected: [C000006]\nInvalid appeal IDs: [C0122222222]\nThese appeal IDs do not exist: [C012222]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372541901
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573372555585
   } ]
 }

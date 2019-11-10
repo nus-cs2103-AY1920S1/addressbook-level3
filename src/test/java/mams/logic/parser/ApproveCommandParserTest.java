@@ -1,21 +1,23 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static mams.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
-import static mams.testutil.TypicalAppeals.APPEAL1;
-import static mams.testutil.TypicalAppeals.APPEAL2;
 
 import mams.commons.core.index.Index;
+
 import mams.logic.commands.Approve;
-import mams.model.appeal.Appeal;
-import mams.testutil.TypicalAppeals;
+import mams.logic.commands.ApproveCommand;
+
+import mams.logic.commands.MassApprove;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ApproveCommandParserTest {
@@ -86,13 +88,24 @@ public class ApproveCommandParserTest {
     }
 
 
-//    @Test
-//    public void parse_allFields_success() {
-//        ArrayList<String> validIDs = new ArrayList<>();
-//        ArrayList<String> invalidIDs = new ArrayList<>();
-//        validIDs.add("C000000");
-//        assertParseSuccess(parser, " mass/", new MassApprove(validIDs, invalidIDs));
+    @Test
+    public void parse_allFields_success() {
+
+        Index index = INDEX_FIRST;
+        assertParseSuccess(parser, " a/1", new ApproveCommand(index,""));
+        assertParseSuccess(parser, " a/1 r/ok ", new ApproveCommand(index, "ok"));
+
+        index = INDEX_SECOND;
+        assertParseSuccess(parser, " a/2", new ApproveCommand(index,""));
+        assertParseSuccess(parser, " a/2 r/ok ", new ApproveCommand(index, "ok"));
+
 //
-//    }
+//        List<String> validIDs = new ArrayList<>();
+//        List<String> invalidIDs = new ArrayList<>();
+//        validIDs.add("C000000");
+//        invalidIDs.add("C021");
+//        assertParseSuccess(parser, "mass/ C000000 C021", new MassApprove(validIDs, invalidIDs));
+
+    }
 
 }

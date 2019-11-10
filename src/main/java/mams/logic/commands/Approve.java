@@ -24,4 +24,5 @@ public abstract class Approve extends ResolveCommand {
     public static final String MESSAGE_APPROVE_FAIL = "Not able to approve appeal %s.";
     public static final String MESSAGE_ONLY_ONE_ITEM_ALLOWED = "Please approve only one index at a time.";
     public static final String MESSAGE_ONLY_ARGUMENT_ALLOWED = "Please enter only one 'mass/' prefix at a time.";
+    public static final String MESAGE_NO_APPEALS_APPROVED = "No appeals were approved";
 }
