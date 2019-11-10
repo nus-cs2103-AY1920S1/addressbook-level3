@@ -13,9 +13,9 @@ import seedu.planner.logic.commands.util.HelpExplanation;
 import seedu.planner.model.Model;
 import seedu.planner.model.day.ActivityWithTime;
 
+//@@author 1nefootstep
 /**
  * Lists all activities in the planner.
- * @author 1nefootstep
  */
 public class ListDayCommand extends ListCommand {
 

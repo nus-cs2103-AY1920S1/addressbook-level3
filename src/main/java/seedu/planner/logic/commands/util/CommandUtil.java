@@ -52,9 +52,9 @@ public class CommandUtil {
         return indexOfContact.get();
     }
 
+    //@@author 1nefootstep
     /**
      * Throws an AssertionError if there is no one and only one non-null object.
-     * @author 1nefootstep
      */
     public static void onlyOneNonNull(Object ...obj) throws AssertionError {
         int nonNullCounter = 0;
@@ -70,9 +70,9 @@ public class CommandUtil {
         }
     }
 
+    //@@author 1nefootstep
     /**
      * Calculates and returns the endDateTime of an activity.
-     * @author 1nefootstep
      */
     public static LocalDateTime calculateEndDateTime(LocalDate startDate,
                                                      Index dayIndex, LocalTime startTime, Duration duration) {

@@ -4,9 +4,9 @@ import static seedu.planner.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+//@@author 1nefootstep
 /**
  * Explains how to use a command.
- * @author 1nefootstep
  */
 public class HelpExplanation {
     private final String name;

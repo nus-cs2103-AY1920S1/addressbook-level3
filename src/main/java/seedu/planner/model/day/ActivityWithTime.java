@@ -6,9 +6,9 @@ import java.time.LocalDateTime;
 
 import seedu.planner.model.activity.Activity;
 
+//@@author 1nefootstep
 /**
  * Wraps the Activity in an object with time and duration fields.
- * @author 1nefootstep
  */
 public class ActivityWithTime implements Comparable<ActivityWithTime> {
     private final Activity activity;

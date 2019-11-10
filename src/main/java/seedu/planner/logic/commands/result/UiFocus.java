@@ -1,8 +1,8 @@
 package seedu.planner.logic.commands.result;
 
+//@@author 1nefootstep
 /**
  * UiFocus tells the Ui which tabs to expand.
- * @author 1nefootstep
  */
 public enum UiFocus {
     AGENDA,

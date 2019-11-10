@@ -22,7 +22,6 @@ import seedu.planner.logic.parser.Prefix;
 /**
  * This class is a TextField which implements an "autocomplete" functionality, based on AutoCompleteSuggester.
  *
- * @author 1nefootstep
  * Started from a code example written by Caleb Brinkman
  * at https://gist.github.com/floralvikings/10290131
  */
@@ -72,6 +71,34 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
+     * Populate the entry set with the given search results.  Display is limited to 5 entries, for performance.
+     *
+     * @param searchResult The set of matching strings.
+     */
+    private void populatePopup(List<String> searchResult) {
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+        // If you'd like more entries, modify this line.
+        int maxEntries = 7;
+        int count = Math.min(searchResult.size(), maxEntries);
+        for (int i = 0; i < count; i++) {
+            final String result = searchResult.get(i);
+            Label entryLabel = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            item.setOnAction(actionEvent -> {
+                String input = getText();
+                boolean suggestionIsPrefix = result.contains("/");
+                setText(replaceFromBack(input, result, suggestionIsPrefix));
+                positionCaret(getText().length());
+                entriesPopup.hide();
+            });
+            menuItems.add(item);
+        }
+        entriesPopup.getItems().clear();
+        entriesPopup.getItems().addAll(menuItems);
+    }
+
+    //@@author 1nefootstep
+    /**
      * Get the existing set of autocomplete entries.
      *
      * @return The existing autocomplete entries.
@@ -104,33 +131,7 @@ public class AutoCompleteTextField extends TextField {
         return autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent);
     }
 
-    /**
-     * Populate the entry set with the given search results.  Display is limited to 5 entries, for performance.
-     *
-     * @param searchResult The set of matching strings.
-     */
-    private void populatePopup(List<String> searchResult) {
-        List<CustomMenuItem> menuItems = new LinkedList<>();
-        // If you'd like more entries, modify this line.
-        int maxEntries = 7;
-        int count = Math.min(searchResult.size(), maxEntries);
-        for (int i = 0; i < count; i++) {
-            final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-            item.setOnAction(actionEvent -> {
-                String input = getText();
-                boolean suggestionIsPrefix = result.contains("/");
-                setText(replaceFromBack(input, result, suggestionIsPrefix));
-                positionCaret(getText().length());
-                entriesPopup.hide();
-            });
-            menuItems.add(item);
-        }
-        entriesPopup.getItems().clear();
-        entriesPopup.getItems().addAll(menuItems);
-    }
-
+    //@@author 1nefootstep
     /**
      * Replaces the input with the given replacement.
      * Ensures that any half written part of replacement is removed before adding replacement.

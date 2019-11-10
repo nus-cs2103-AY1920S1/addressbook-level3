@@ -43,9 +43,9 @@ import seedu.planner.logic.commands.viewcommand.ViewInfoCommand;
 import seedu.planner.logic.commands.viewcommand.ViewItineraryCommand;
 import seedu.planner.logic.parser.Prefix;
 
+//@@author 1nefootstep
 /**
  * Makes suggestions based on the text in the command box.
- * @author 1nefootstep
  */
 public class AutoCompleteSuggester {
     private CommandInformation[] allCommandInformation = new CommandInformation[] {

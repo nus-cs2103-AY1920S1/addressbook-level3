@@ -625,31 +625,37 @@ public class ModelManager implements Model {
     }
 
     //=========== Itinerary ================================================================================
+    //@@author 1nefootstep
     @Override
     public Name getName() {
         return this.itinerary.getName();
     }
 
+    //@@author 1nefootstep
     @Override
     public void setItineraryName(Name name) {
         this.itinerary.setName(name);
     }
 
+    //@@author 1nefootstep
     @Override
     public LocalDate getStartDate() {
         return this.itinerary.getStartDate();
     }
 
+    //@@author 1nefootstep
     @Override
     public LocalDateTime getLastDateTime() {
         return this.itinerary.getLastDateTime();
     }
 
+    //@@author 1nefootstep
     @Override
     public void setItineraryStartDate(LocalDate date) {
         this.itinerary.setStartDate(date);
     }
 
+    //@@author 1nefootstep
     @Override
     public void shiftDatesInItineraryByDay(long days) {
         shiftDatesInItineraryByDayBetweenRange(
@@ -659,6 +665,7 @@ public class ModelManager implements Model {
         );
     }
 
+    //@@author 1nefootstep
     @Override
     public void shiftDatesInItineraryByDayBetweenRange(long days, Index startIndex, Index endIndex) {
         this.itinerary.shiftDatesInItinerary(days, startIndex, endIndex);
@@ -722,7 +729,7 @@ public class ModelManager implements Model {
     public void unscheduleActivity(Day day, Index toRemove) {
         Activity activity = day.getListOfActivityWithTime().get(toRemove.getZeroBased()).getActivity();
         removeDayMapping(activity, day);
-        day.removeActivityWithTime(toRemove);
+        day.removeActivityWithIndex(toRemove);
     }
 
     public List<Day> getDays(Activity activity) {

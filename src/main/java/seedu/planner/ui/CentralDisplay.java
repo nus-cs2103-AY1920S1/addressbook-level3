@@ -24,9 +24,9 @@ import seedu.planner.ui.panels.ContactListPanel;
 import seedu.planner.ui.panels.HelpListPanel;
 import seedu.planner.ui.panels.InfoListPanel;
 
+//@@author 1nefootstep
 /**
  * A ui for the split window that is displayed at the center of the application.
- * @author 1nefootstep
  */
 public class CentralDisplay extends UiPart<Region> {
 

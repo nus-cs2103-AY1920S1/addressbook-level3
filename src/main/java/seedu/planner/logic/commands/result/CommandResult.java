@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
+//@@author 1nefootstep
 /**
  * Represents the result of a command execution.
- * @author 1nefootstep
  */
 public class CommandResult {
 

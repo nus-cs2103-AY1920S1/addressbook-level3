@@ -15,9 +15,9 @@ import seedu.planner.model.accommodation.Accommodation;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.ui.UiPart;
 
+//@@author 1nefootstep
 /**
  * An UI component that displays information of a {@code Accommodation}.
- * @author 1nefootstep
  */
 public class AccommodationCardFull extends UiPart<Region> {
 

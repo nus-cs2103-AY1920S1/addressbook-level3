@@ -12,9 +12,9 @@ import javafx.scene.layout.VBox;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.ui.UiPart;
 
+//@@author 1nefootstep
 /**
  * An UI component that displays information of a {@code Contact}.
- * @author 1nefootstep
  */
 public class ContactCardFull extends UiPart<Region> {
 

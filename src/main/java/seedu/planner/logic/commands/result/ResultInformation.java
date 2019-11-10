@@ -11,9 +11,9 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.day.ActivityWithTime;
 
+//@@author 1nefootstep
 /**
  * Represents the information to display to user after command execution.
- * @author 1nefootstep
  */
 public class ResultInformation {
     private final Contact contact;

@@ -10,12 +10,11 @@ import seedu.planner.model.activity.Activity;
 
 /**
  * Represents the timetable of a {@code Day}.
- * Guarantees: {@code Timetable} is filled with {@code HalfHour}.
- * @author 1nefootstep
  */
 public class Timetable {
     private List<ActivityWithTime> timetable;
 
+    //@@author 1nefootstep
     public Timetable() {
         timetable = new ArrayList<>();
     }
@@ -25,6 +24,7 @@ public class Timetable {
         timetable.sort(ActivityWithTime::compareTo);
     }
 
+    //@@author 1nefootstep
     public List<ActivityWithTime> getActivitiesWithTime() {
         return new ArrayList<>(this.timetable);
     }
@@ -37,10 +37,12 @@ public class Timetable {
         timetable.sort(ActivityWithTime::compareTo);
     }
 
-    public void removeActivityWithTime(Index toRemove) {
+    //@@author 1nefootstep
+    public void removeActivityWithIndex(Index toRemove) {
         this.timetable.remove(toRemove.getZeroBased());
     }
 
+    //@@author 1nefootstep
     /**
      * Removes an {@code Activity} from a timetable.
      */
@@ -50,10 +52,12 @@ public class Timetable {
         }
     }
 
+    //@@author 1nefootstep
     public Index getIndex(ActivityWithTime activity) {
         return Index.fromZeroBased(timetable.indexOf(activity));
     }
 
+    //@@author 1nefootstep
     public ActivityWithTime getActivityWithTime(Index index) {
         return timetable.get(index.getZeroBased());
     }
@@ -80,6 +84,7 @@ public class Timetable {
                 && activity.getStartDateTime().compareTo(x.getStartDateTime()) <= 0).collect(Collectors.toList());
     }
 
+    //@@author 1nefootstep
     @Override
     public boolean equals(Object other) {
         if (other == this) {

@@ -8,9 +8,9 @@ import seedu.planner.model.activity.Activity;
 
 /**
  * Represents a Day in the travel planner's planner.
- * @author 1nefootstep
  */
 public class Day {
+    //@@author 1nefootstep
     public static final String MESSAGE_CONSTRAINTS = "Number of days should be a non-negative integer less "
             + "than or equal to 31.";
     public static final String VALIDATION_REGEX = "^(3[01]|[12][0-9]|[1-9])$";
@@ -35,6 +35,7 @@ public class Day {
         return this.timetable.equals(otherDay.timetable);
     }
 
+    //@@author 1nefootstep
     /**
      * Gets all the activities present in {@code Day} and wraps them in ActivityWithTime.
      * @return list of {@code ActivityWithTime} present in {@code Day}
@@ -47,8 +48,8 @@ public class Day {
         this.timetable.addActivityWithTime(toAdd);
     }
 
-    public void removeActivityWithTime(Index toRemove) {
-        this.timetable.removeActivityWithTime(toRemove);
+    public void removeActivityWithIndex(Index toRemove) {
+        this.timetable.removeActivityWithIndex(toRemove);
     }
 
     public void removeActivity(Activity activity) {
@@ -59,7 +60,7 @@ public class Day {
         return timetable.getIndex(activity);
     }
 
-    public ActivityWithTime getActivityWithTime(Index index) {
+    public ActivityWithTime getActivityWithIndex(Index index) {
         return timetable.getActivityWithTime(index);
     }
 
@@ -85,6 +86,7 @@ public class Day {
                 .anyMatch(x -> x.getActivity().equals(activity));
     }
 
+    //@@author 1nefootstep
     /**
      * Returns true if a given string is a valid integer.
      */

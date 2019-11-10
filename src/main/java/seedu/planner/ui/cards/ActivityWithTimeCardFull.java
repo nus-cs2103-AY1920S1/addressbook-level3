@@ -13,9 +13,9 @@ import javafx.scene.layout.Region;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.ui.UiPart;
 
+//@@author 1nefootstep
 /**
  * An UI component that displays information of a {@code ActivityWithTime}.
- * @author 1nefootstep
  */
 public class ActivityWithTimeCardFull extends UiPart<Region> {
 
