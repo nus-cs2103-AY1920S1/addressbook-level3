@@ -1,10 +1,10 @@
 package seedu.guilttrip.logic.parser.remindercommandparsers;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_START_DATE;
@@ -15,11 +15,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditGeneralReminderDescriptor;
+import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditIEWReminderDescriptor;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -37,6 +40,7 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
      * and returns an EditExpenseCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    private final Logger logger = LogsCenter.getLogger(getClass());
     public EditReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
@@ -46,19 +50,12 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
 
         Index index;
 
-        boolean isGeneralReminder = isPrefixPresent(argMultimap, PREFIX_DESC, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
+        boolean isGeneralReminder = isPrefixPresent(argMultimap, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
                 PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TAG);
-        boolean isEntryReminder = isPrefixPresent(argMultimap, PREFIX_AMOUNT, PREFIX_PERIOD);
+        boolean isEntryReminder = isPrefixPresent(argMultimap, PREFIX_PERIOD, PREFIX_FREQ);
 
-        if (isEntryReminder && isEntryReminder) {
+        if (isEntryReminder && isGeneralReminder) {
             throw new ParseException(EditReminderCommand.MISMATCHING_REMINDER_TYPES);
-        }
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format
-                    (MESSAGE_INVALID_COMMAND_FORMAT, EditReminderCommand.MESSAGE_USAGE), pe);
         }
 
         EditReminderCommand.EditReminderDescriptor editReminderDescriptor;
@@ -83,8 +80,24 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
                         ParserUtil.parseDate(argMultimap.getValue(PREFIX_END_DATE).get()));
             }
             parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editGeneralReminderDescriptor::setTags);
-            return new EditReminderCommand(editReminderDescriptor);
-        } else {
+            logger.info("Params match GeneralReminder.");
+            return new EditReminderCommand(editGeneralReminderDescriptor);
+        } else if (isEntryReminder) {
+            editReminderDescriptor = new EditReminderCommand.EditIEWReminderDescriptor();
+            EditIEWReminderDescriptor editIEWReminderDescriptor =
+                    (EditIEWReminderDescriptor) editReminderDescriptor;
+            if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
+                editIEWReminderDescriptor.setPeriod(
+                        ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get()));
+            }
+            if (argMultimap.getValue(PREFIX_FREQ).isPresent()) {
+                editIEWReminderDescriptor.setFrequency(
+                        ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get()));
+            }
+            logger.info("Params match IEWReminder.");
+            return new EditReminderCommand(editIEWReminderDescriptor);
+        }
+        else {
             throw new ParseException(EditReminderCommand.MISMATCHING_REMINDER_TYPES);
         }
     }

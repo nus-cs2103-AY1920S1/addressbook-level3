@@ -9,22 +9,16 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_UPPER_BOUND;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.guilttrip.commons.core.index.Index;
-import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
-import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.tag.Tag;
 

@@ -23,6 +23,7 @@ import seedu.guilttrip.model.tag.Tag;
 class JsonAdaptedIncome {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+    private final String uniqueID;
     private final String category;
     private final String desc;
     private final String time;
@@ -33,9 +34,10 @@ class JsonAdaptedIncome {
      * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
-    public JsonAdaptedIncome(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+    public JsonAdaptedIncome(@JsonProperty("uniqueID") String uniqueID, @JsonProperty("category") String category, @JsonProperty("desc") String desc,
                              @JsonProperty("amt") String amt, @JsonProperty("time") String time,
                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.uniqueID = uniqueID;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -50,6 +52,7 @@ class JsonAdaptedIncome {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedIncome(Income source) {
+        uniqueID = source.getUniqueID();
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -86,7 +89,12 @@ class JsonAdaptedIncome {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Income(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        Income modelIncome = new Income(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        if (uniqueID != null) {
+            modelIncome.setHasReminder(true);
+            modelIncome.setUniqueID(uniqueID);
+        }
+        return modelIncome;
     }
 
 }

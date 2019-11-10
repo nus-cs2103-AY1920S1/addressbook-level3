@@ -14,12 +14,12 @@ public class DateCondition extends Condition {
     private Predicate<Entry> datePredicate = new Predicate<>() {
         @Override
         public boolean test(Entry entry) {
-            boolean isAtBoundary = entry.getDate().getDate().isEqual(date.getDate());
+            boolean isAtBoundary = entry.getDate().isEqual(date);
             boolean isWithinBoundary;
             if (isStart) {
-                isWithinBoundary = entry.getDate().getDate().isAfter(date.getDate());
+                isWithinBoundary = entry.getDate().isAfter(date);
             } else {
-                isWithinBoundary = entry.getDate().getDate().isBefore(date.getDate());
+                isWithinBoundary = entry.getDate().isBefore(date);
             }
             return isAtBoundary || isWithinBoundary;
         }
@@ -46,7 +46,8 @@ public class DateCondition extends Condition {
         } else if (!(other instanceof DateCondition)) {
             return false;
         } else {
-            return this.date.equals(((DateCondition) other).date);
+            return this.date.equals(((DateCondition) other).date)
+                    && this.isStart == ((DateCondition) other).isStart;
         }
     }
 }

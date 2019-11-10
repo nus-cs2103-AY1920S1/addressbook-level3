@@ -1,7 +1,6 @@
 package seedu.guilttrip.commons.util;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+
 import java.time.LocalDate;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,6 +9,7 @@ import java.util.logging.Logger;
 
 import seedu.guilttrip.MainApp;
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.model.entry.Date;
 
 /**
  * Class that constantly calls method to update current date.
@@ -19,7 +19,7 @@ public class TimeUtil {
     private static TimeUtil tracker;
     private static LocalDate currDate;
     private static final ScheduledExecutorService ses = Executors.newScheduledThreadPool(0);
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ObservableSupport support = new ObservableSupport();
     private Runnable getCurrDate = () -> {
         LocalDate newCurrDate = LocalDate.now();
         support.firePropertyChange("currDate", null, newCurrDate);
@@ -27,8 +27,7 @@ public class TimeUtil {
     };
 
 
-    public static LocalDate getCurrDate() {
-        return currDate;
+    public static LocalDate getLastRecordedDate() { return currDate;
     }
 
     /**
@@ -47,7 +46,7 @@ public class TimeUtil {
      * Manually updates currDate;
      */
     public static void manualUpdate() {
-        tracker.getCurrDate.run();
+        tracker.support.firePropertyChange("currDate", null, currDate);
     }
 
     /**
@@ -57,7 +56,7 @@ public class TimeUtil {
         ses.shutdownNow();
         logger.info("Timer ends");
     }
-    public PropertyChangeSupport getSupport() {
+    public ObservableSupport getSupport() {
         return support;
     }
 
@@ -65,11 +64,18 @@ public class TimeUtil {
      * Updates local time to new listener.
      * @param pcl
      */
-    public static void addPropertyChangeListener(PropertyChangeListener pcl) {
+    public static void addPropertyChangeListener(ListenerSupport pcl) {
         tracker.support.addPropertyChangeListener(pcl);
-        manualUpdate();
     }
-    public static void removePropertyChangeListener(PropertyChangeListener pcl) {
+    public static void removePropertyChangeListener(ListenerSupport pcl) {
         tracker.support.removePropertyChangeListener(pcl);
+    }
+
+    /**
+     * For testing reminders
+     */
+    public static void forceSetDate(Date date) {
+        currDate = date.getDate();
+        tracker.support.firePropertyChange("currDate", null, currDate);
     }
 }

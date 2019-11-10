@@ -1,26 +1,20 @@
 package seedu.guilttrip.logic.commands.remindercommands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_START_DATE;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_UPPER_BOUND;
-import static seedu.guilttrip.model.Model.PREDICATE_SHOW_GENERAL_REMINDERS;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
-import seedu.guilttrip.commons.core.Messages;
-import seedu.guilttrip.commons.core.index.Index;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.util.CollectionUtil;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.Command;
@@ -29,15 +23,18 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.reminders.GeneralReminder;
+import seedu.guilttrip.model.reminders.IEWReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.DateCondition;
-import seedu.guilttrip.model.reminders.conditions.KeyWordsCondition;
 import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
 import seedu.guilttrip.model.reminders.conditions.TagsCondition;
 import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.Frequency;
 
 /**
  * Edits the details of an existing entry in the guilttrip book.
@@ -62,9 +59,12 @@ public class EditReminderCommand extends Command {
     public static final String CONDITION_NOT_REMOVABLE = "Reminder must have at least one condition \n";
     public static final String MISMATCHING_REMINDER_TYPES = "Currently selected reminder does not support" +
             "the modified parameters.\n";
+    public static final String REMINDER_TYPE_NOT_SUPPORTED = "This reminder cannot be edited. \n";
 
 
     private EditReminderDescriptor editReminderDescriptor;
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
 
     /**
      * @param editReminderDescriptor details to edit the entry with
@@ -74,6 +74,9 @@ public class EditReminderCommand extends Command {
             EditGeneralReminderDescriptor editGeneralReminderDescriptor =
                     (EditGeneralReminderDescriptor) editReminderDescriptor;
             this.editReminderDescriptor = new EditGeneralReminderDescriptor(editGeneralReminderDescriptor);
+        } else if (editReminderDescriptor instanceof EditIEWReminderDescriptor) {
+            EditIEWReminderDescriptor editIEWReminderDescriptor = (EditIEWReminderDescriptor) editReminderDescriptor;
+            this.editReminderDescriptor = new EditIEWReminderDescriptor(editIEWReminderDescriptor);
         }
     }
 
@@ -81,19 +84,28 @@ public class EditReminderCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         Reminder reminderToEdit = model.getReminderSelected();
+        Reminder editedReminder;
         if (editReminderDescriptor instanceof EditGeneralReminderDescriptor) {
-            Reminder editedReminder = createGeneralEditedReminder(model, reminderToEdit, editReminderDescriptor);
+            logger.info("Editing GeneralReminder");
+            editedReminder = createGeneralEditedReminder(model,
+                    (GeneralReminder) reminderToEdit, (EditGeneralReminderDescriptor) editReminderDescriptor);
+        } else if (editReminderDescriptor instanceof EditIEWReminderDescriptor) {
+            logger.info("Editing IEWReminder");
+            editedReminder = createIEWEditedReminder(model,
+                    (IEWReminder) reminderToEdit, (EditIEWReminderDescriptor) editReminderDescriptor);
             if (!reminderToEdit.equals(editedReminder) && model.hasReminder(editedReminder)) {
                 throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
             }
-            model.setReminder(reminderToEdit, editedReminder);
-            model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
-            model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
+        } else {
+            throw new CommandException(REMINDER_TYPE_NOT_SUPPORTED);
         }
-        else {
-            throw new CommandException("");
+        if (!reminderToEdit.equals(editedReminder) && model.hasReminder(editedReminder)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ENTRY);
         }
+        model.setReminder(reminderToEdit, editedReminder);
+        model.updateFilteredReminders(model.PREDICATE_SHOW_ALL_REMINDERS);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_EDIT_ENTRY_SUCCESS, editedReminder));
     }
 
     /**
@@ -101,16 +113,13 @@ public class EditReminderCommand extends Command {
      * edited with {@code editPersonDescriptor}.
      */
     private static Reminder createGeneralEditedReminder(Model model,
-        Reminder reminderToEdit, EditReminderDescriptor editReminderDescriptor) throws CommandException {
+        GeneralReminder reminderToEdit, EditGeneralReminderDescriptor editGeneralReminderDescriptor) throws CommandException {
     assert reminderToEdit != null;
         if (! (model.getReminderSelected() instanceof GeneralReminder)) {
             throw new CommandException(MISMATCHING_REMINDER_TYPES);
         }
-        EditGeneralReminderDescriptor editGeneralReminderDescriptor
-                = (EditGeneralReminderDescriptor) editReminderDescriptor;
-        GeneralReminder generalReminderToEdit = (GeneralReminder) reminderToEdit;
         HashMap<String, Condition> oldConditions = new HashMap<>();
-        for (Condition condition : generalReminderToEdit.getConditions()) {
+        for (Condition condition : reminderToEdit.getConditions()) {
             if (condition instanceof TypeCondition) {
                 oldConditions.put("TypeCondition", condition);
             } else if (condition instanceof QuotaCondition) {
@@ -170,11 +179,46 @@ public class EditReminderCommand extends Command {
         } else if (oldConditions.containsKey("TagsCondition")){
             conditionsToEdit.add(oldConditions.get("TagsCondition"));
         }
-        Description header = ((GeneralReminder)reminderToEdit).getHeader();
+        Description header = reminderToEdit.getHeader();
         Reminder editedReminder = new GeneralReminder(header, conditionsToEdit);
         editedReminder.setMessage(reminderToEdit.getMessage());
         editedReminder.togglePopUpDisplay(reminderToEdit.willDisplayPopUp());
+        for (Condition condition: oldConditions.values()) {
+            model.deleteCondition(condition);
+        }
+        for (Condition condition: conditionsToEdit) {
+            model.addCondition(condition);
+        }
         return editedReminder;
+    }
+
+    /**
+     * Creates and returns a {@code Reinder} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
+     */
+    private static Reminder createIEWEditedReminder(
+            Model model, IEWReminder reminderToEdit, EditIEWReminderDescriptor editIEWReminderDescriptor)
+        throws CommandException {
+        assert reminderToEdit != null;
+        if (! (model.getReminderSelected() instanceof IEWReminder)) {
+            throw new CommandException(MISMATCHING_REMINDER_TYPES);
+        }
+        final Period period;
+        final Frequency freq;
+        if (editIEWReminderDescriptor.getPeriod().isPresent()) {
+            period = editIEWReminderDescriptor.getPeriod().get();
+        } else {
+            period = reminderToEdit.getPeriod();
+        }
+        if (editIEWReminderDescriptor.getFrequency().isPresent()) {
+            freq = editIEWReminderDescriptor.getFrequency().get();
+        } else {
+            freq = reminderToEdit.getFrequency();
+        }
+        Description header = reminderToEdit.getHeader();
+        Entry targetEntry = reminderToEdit.getEntry();
+        IEWReminder newReminder = new IEWReminder(header, targetEntry, period, freq);
+        return newReminder;
     }
 
     @Override
@@ -202,8 +246,8 @@ public class EditReminderCommand extends Command {
      * corresponding field value of the entry.
      */
     public static class EditGeneralReminderDescriptor implements EditReminderDescriptor{
-        private double lowerBound;
-        private double upperBound;
+        private Double lowerBound;
+        private Double upperBound;
         private Date start;
         private Date end;
         private Set<Tag> tags;
@@ -229,7 +273,6 @@ public class EditReminderCommand extends Command {
             return CollectionUtil.isAnyNonNull(lowerBound, upperBound,
             start, end, tags);
         }
-
 
         public void setLowerBound(Double amt) {
             this.lowerBound = amt;
@@ -291,6 +334,38 @@ public class EditReminderCommand extends Command {
                     && getStart().equals(e.getStart())
                     && getEnd().equals(e.getEnd())
                     && getTags().equals(e.getTags());
+        }
+    }
+
+    public static class EditIEWReminderDescriptor implements EditReminderDescriptor{
+        Period period;
+        Frequency frequency;
+
+        public EditIEWReminderDescriptor() {}
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditIEWReminderDescriptor(EditIEWReminderDescriptor toCopy) {
+            setPeriod(toCopy.period);
+            setFrequency(toCopy.frequency);
+        }
+
+        public Optional<Period> getPeriod() {
+            return Optional.ofNullable(period);
+        }
+
+        public void setPeriod(final Period period) {
+            this.period = period;
+        }
+
+        public Optional<Frequency> getFrequency() {
+            return Optional.ofNullable(frequency);
+        }
+
+        public void setFrequency(final Frequency frequency) {
+            this.frequency = frequency;
         }
     }
 }

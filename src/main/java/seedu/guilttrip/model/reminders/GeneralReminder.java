@@ -1,6 +1,7 @@
 package seedu.guilttrip.model.reminders;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
@@ -16,6 +17,8 @@ import seedu.guilttrip.model.reminders.messages.Notification;
  * Basic generalReminder class with minimal functionality.
  */
 public class GeneralReminder implements ListenerSupport, Reminder{
+
+    private String uniqueID = UUID.randomUUID().toString();
 
     private Description header;
 
@@ -44,6 +47,12 @@ public class GeneralReminder implements ListenerSupport, Reminder{
 
     //===== getters and setters =====//
 
+
+    @Override
+    public String getUniqueID() {
+        return this.uniqueID;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -52,8 +61,14 @@ public class GeneralReminder implements ListenerSupport, Reminder{
         this.status = Status.parse(status);
     }
 
+    @Override
     public Description getHeader() {
         return header;
+    }
+
+    @Override
+    public void setHeader(final Description header) {
+        this.header = header;
     }
 
     public List<Condition> getConditions() {
@@ -115,9 +130,9 @@ public class GeneralReminder implements ListenerSupport, Reminder{
                         message.update(entryExamined);
                     }
                     logger.info("Notifying ReminderList: " + support.getPropertyChangeListeners().size());
-                    support.firePropertyChange("statusChange", null, this);
                     status = Status.met;
                     logger.info("All Reminder condition met. Setting GeneralReminder status to " + status.toString());
+                    support.firePropertyChange("statusChange", null, this);
                 }
                 logger.info("IMPT:" + numberOfConditionsMet + " / " + numberOfConditions);
             }

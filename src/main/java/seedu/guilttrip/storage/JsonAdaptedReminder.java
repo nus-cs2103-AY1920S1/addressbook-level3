@@ -9,43 +9,60 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.reminders.GeneralReminder;
+import seedu.guilttrip.model.reminders.IEWReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 
 /**
  * Constructs a {@code JsonAdaptedReminder} with the given generalReminder details.
  */
 public class JsonAdaptedReminder {
-    private String header;
-    private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
-    private String status;
     private String reminderType;
+    private String header;
+    private String uniqueID;
+
+    private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
+
+    private String period;
+    private String freq;
 
     @JsonCreator
     public JsonAdaptedReminder(@JsonProperty("reminderType") String reminderType,
-                               @JsonProperty("message") String header,
+                               @JsonProperty("header") String header,
+                               @JsonProperty("status") String status,
+                               @JsonProperty("uniqueID") String uniqueID,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
-                               @JsonProperty("status") String status) {
+                               @JsonProperty("period") String period,
+                               @JsonProperty("freq") String freq) {
         this.reminderType = reminderType;
         this.header = header;
+        this.uniqueID = uniqueID;
         this.conditions.addAll(conditions);
-        this.status = status;
+        this.period = period;
+        this.freq = freq;
     }
 
     /**
      * Converts a given {@code GeneralReminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
+        uniqueID = source.getUniqueID();
+        header = source.getHeader().toString();
         if (source instanceof GeneralReminder) {
             GeneralReminder generalReminder = (GeneralReminder) source;
-            this.reminderType = "GeneralReminder";
-            this.header = generalReminder.getHeader().toString();
+            reminderType = "GeneralReminder";
             conditions.addAll(generalReminder.getConditions().stream()
                     .map(JsonAdaptedCondition::new)
                     .collect(Collectors.toList()));
-            this.status = source.getStatus().toString();
+        } else if (source instanceof IEWReminder) {
+            IEWReminder iewReminder = (IEWReminder) source;
+            reminderType = "IEWReminder";
+            period = iewReminder.getPeriod().toString();
+            freq = iewReminder.getFrequency().toString();
         }
     }
 
@@ -54,7 +71,7 @@ public class JsonAdaptedReminder {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted generalReminder.
      */
-    public GeneralReminder toModelType() throws IllegalValueException {
+    public Reminder toModelType() throws IllegalValueException {
         if (reminderType.equalsIgnoreCase("GeneralReminder")) {
             final List<Condition> conditionList = new ArrayList<>();
             for (JsonAdaptedCondition condition : conditions) {
@@ -65,8 +82,16 @@ public class JsonAdaptedReminder {
             }
             final Description modelMessage = new Description(header);
             GeneralReminder modelGeneralReminder = new GeneralReminder(modelMessage, conditionList);
-            modelGeneralReminder.setStatus(this.status);
             return modelGeneralReminder;
+        } else if (reminderType.equalsIgnoreCase("IEWReminder")) {
+            if (!Description.isValidDescription(header)) {
+                throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+            }
+            final Description modelHeader = new Description(header);
+            final Period modelPeriod = new Period(period);
+            final Frequency modelFreq = Frequency.parse(freq);
+            IEWReminder iewReminder = new IEWReminder(modelHeader, uniqueID, modelPeriod, modelFreq);
+            return iewReminder;
         } else {
             throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
         }

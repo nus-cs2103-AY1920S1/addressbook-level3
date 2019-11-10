@@ -179,7 +179,7 @@ public interface Model {
 
     void addAutoExpense(AutoExpense autoExpense);
 
-    void addReminder(GeneralReminder generalReminder);
+    void addReminder(Reminder generalReminder);
 
     void addCondition(Condition condition);
 

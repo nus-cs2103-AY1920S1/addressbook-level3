@@ -26,7 +26,6 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.IncomeList;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.entry.WishList;
-import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.ReminderList;
 import seedu.guilttrip.model.reminders.conditions.Condition;
@@ -345,10 +344,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
 
     /**
      * Adds the specified ExpenseTrackerReminder to the app.
-     * @param generalReminder the specified GeneralReminder to be added.
+     * @param reminder the specified GeneralReminder to be added.
      */
-    public void addReminder(GeneralReminder generalReminder) {
-        reminders.add(generalReminder);
+    public void addReminder(Reminder reminder) {
+        reminders.add(reminder);
         indicateModified();
     }
 
@@ -359,7 +358,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void addAutoExpense(AutoExpense autoExpense) {
         checkArgument(hasCategory(autoExpense.getCategory()), MESSAGE_INVALID_CATEGORY);
-        autoExpenses.add(autoExpense);
         conditions.addEntryUpdate(autoExpense);
         indicateModified();
     }
@@ -429,6 +427,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         expenses.setExpense(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -443,6 +442,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         incomes.setIncome(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -457,6 +457,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         wishes.setWish(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -489,6 +490,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         budgets.setBudget(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -514,6 +516,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         requireNonNull(editedEntry);
         checkArgument(hasCategory(editedEntry.getCategory()), MESSAGE_INVALID_CATEGORY);
         autoExpenses.setAutoExpense(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -567,6 +570,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -576,6 +580,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -586,6 +591,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void removeWish(Wish key) {
         checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
         wishes.remove(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -595,6 +601,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeBudget(Budget key) {
         budgets.remove(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 

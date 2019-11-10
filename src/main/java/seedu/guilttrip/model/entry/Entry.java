@@ -16,7 +16,8 @@ import seedu.guilttrip.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Entry {
-
+    private boolean hasReminder;
+    private String uniqueID;
     // Identity fields
     private final Category category;
     private final Description desc;
@@ -39,7 +40,23 @@ public class Entry {
         this.date = date;
         this.tags.addAll(tags);
     }
+    // For reminders to recognise the entry they are keeping track of.
 
+    public boolean hasReminder() {
+        return this.hasReminder;
+    }
+
+    public void setHasReminder(final boolean hasReminder) {
+        this.hasReminder = hasReminder;
+    }
+
+    public String getUniqueID() {
+        return this.uniqueID;
+    }
+
+    public void setUniqueID(final String uniqueID) {
+        this.uniqueID = uniqueID;
+    }
     public Category getCategory() {
         return category;
     }

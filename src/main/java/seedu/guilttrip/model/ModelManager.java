@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.lang.reflect.Array;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +19,8 @@ import javafx.collections.transformation.SortedList;
 import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.step.Step;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
@@ -45,7 +45,7 @@ import seedu.guilttrip.model.util.EntryComparator;
 /**
  * Represents the in-memory model of the guilttrip book data.
  */
-public class ModelManager implements Model, PropertyChangeListener {
+public class ModelManager implements Model, ListenerSupport {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private StatisticsManager stats;
     private final SortType sortByTime = new SortType("time");
@@ -311,8 +311,8 @@ public class ModelManager implements Model, PropertyChangeListener {
     }
 
     @Override
-    public void addReminder(GeneralReminder generalReminder) {
-        versionedAddressBook.addReminder(generalReminder);
+    public void addReminder(Reminder reminder) {
+        versionedAddressBook.addReminder(reminder);
     }
 
     @Override
@@ -628,7 +628,7 @@ public class ModelManager implements Model, PropertyChangeListener {
     // =========== TrackTime =============================================================
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(ObservableSupport.Evt evt) {
         if (evt.getPropertyName().equalsIgnoreCase("currDate")) {
             if ((currDate == null) || !currDate.equals(evt.getNewValue())) {
                 createExpensesfromAutoExpenses();

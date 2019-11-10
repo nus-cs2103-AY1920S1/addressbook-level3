@@ -5,6 +5,8 @@ import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
@@ -12,9 +14,15 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.commons.util.ObservableSupport;
+import seedu.guilttrip.commons.util.TimeUtil;
+import seedu.guilttrip.model.entry.Date;
+import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
+import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.UiManager;
 import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 
@@ -45,6 +53,8 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         this.reminderSelected = reminderSelected;
     }
 
+    private Predicate<Reminder> isEntryReminder = reminder -> ! (reminder instanceof GeneralReminder);
+
     public void linkToUi(UiManager uiManager) {
         support.addPropertyChangeListener(uiManager);
     }
@@ -63,8 +73,13 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      */
     public void add(Reminder toAdd) {
         requireNonNull(toAdd);
+        logger.info("adding to ReminderList");
         internalList.add(toAdd);
         toAdd.addPropertyChangeListener(this);
+        if (!toAdd.getStatus().equals(Reminder.Status.unmet)) {
+            logger.info("handling reminder");
+            handleTriggeredReminders(toAdd);
+        }
         //internalList.sort(new sortByPriority());
     }
 
@@ -82,6 +97,9 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         target.removePropertyChangeListener(this);
         editedReminder.addPropertyChangeListener(this);
         internalList.set(index, editedReminder);
+        if (!editedReminder.getStatus().equals(Reminder.Status.unmet)) {
+            handleTriggeredReminders(editedReminder);
+        }
     }
 
     /**
@@ -107,7 +125,9 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      */
     public void setEntries(List<Reminder> entries) {
         requireAllNonNull(entries);
-        internalList.setAll(entries);
+        for (Reminder reminder : entries) {
+            add(reminder);
+        }
     }
 
     /**
@@ -122,6 +142,73 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      */
     public ObservableList<Notification> asUnmodifiableNotificationList() {
         return internalNotificationList;
+    }
+
+    public void setEntryUpdate(Entry beingRemove, Entry beingAdded) {
+        if (beingAdded.getDate().isAfter(new Date(TimeUtil.getLastRecordedDate())) && beingRemove.hasReminder()) {
+            Optional<Reminder> optReminder = findReminderFOrEntry(beingRemove);
+            if (optReminder.isPresent()) {
+                Reminder reminder = optReminder.get();
+                logger.info("transferring reminder to new entry");
+                transferReminder(reminder, beingAdded);
+            }
+        }
+    }
+
+    public void deleteEntryUpdate(Entry beingRemoved) {
+        if (beingRemoved.hasReminder()) {
+            for (Reminder reminder : internalList.filtered(isEntryReminder)) {
+                if (reminder.getUniqueID().equals(beingRemoved.getUniqueID())) {
+                    internalList.remove(reminder);
+                }
+            }
+        }
+    }
+
+    /**
+     * Finds the entry reminder in the list.
+     * @param beingAdded entry being added.
+     * @return
+     */
+    private Optional<Reminder> findReminderFOrEntry(Entry beingAdded) {
+        for (Reminder reminder : internalList.filtered(isEntryReminder)) {
+            if (reminder.getUniqueID().equals(beingAdded.getUniqueID())) {
+                return Optional.of(reminder);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * transferReminder from beingRemoved to beingAdded
+     */
+    private void transferReminder(Reminder reminder, Entry beingAdded) {
+        if (reminder instanceof IEWReminder) {
+            transferIEWReminder((IEWReminder) reminder, beingAdded);
+        }
+    }
+
+
+    /**
+     * transferIEWReminder from beingRemoved to beingAdded.
+     */
+    private void transferIEWReminder(IEWReminder reminder, Entry beingAdded) {
+        Description header = reminder.getHeader();
+        Period period = reminder.getPeriod();
+        Frequency freq = reminder.getFrequency();
+        internalList.remove(reminder);
+        IEWReminder newReminder = new IEWReminder(header, beingAdded, period, freq);
+        newReminder.setMessage(reminder.getMessage());
+        newReminder.togglePopUpDisplay(reminder.willDisplayPopUp());
+        add(newReminder);
+        newReminder.update();
+        if (!newReminder.getStatus().equals(Reminder.Status.unmet)) {
+            notificationList.add(reminder.genNotification());
+            if (newReminder.getStatus().equals(Reminder.Status.met)) {
+                reminder.reset();
+                reminder.setNextActive();
+            }
+        }
     }
 
 
@@ -147,15 +234,28 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         if (evt.getPropertyName().equals("statusChange")) {
             logger.info("ReminderList notified of change of state.");
             Reminder reminder = (Reminder) evt.getNewValue();
-            if (reminder.willDisplayPopUp()) {
-                Message message = reminder.getMessage();
-                support.firePropertyChange("NewReminderMessage", null, message);
-            }
-            if (reminder instanceof GeneralReminder) {
-                reminder.reset();
-            }
-            notificationList.add(reminder.genNotification());
-            logger.info("Noticiation added");
+            handleTriggeredReminders(reminder);
         }
+    }
+
+    private void handleTriggeredReminders(Reminder reminder) {
+        if (reminder.willDisplayPopUp()) {
+            Message message = reminder.getMessage();
+            support.firePropertyChange("NewReminderMessage", null, message);
+        }
+        if (reminder instanceof GeneralReminder) {
+            ((GeneralReminder) reminder).reset();
+        }
+        if (reminder instanceof IEWReminder) {
+            if (reminder.getStatus().equals(Reminder.Status.met)) {
+                ((IEWReminder) reminder).reset();
+                ((IEWReminder) reminder).setNextActive();
+            } else if (reminder.getStatus().equals(Reminder.Status.exceeded)) {
+                //remove(reminder);
+                //logger.info("Reminder deleted");
+            }
+        }
+        notificationList.add(reminder.genNotification());
+        logger.info("Notification added");
     }
 }

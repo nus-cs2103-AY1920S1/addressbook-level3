@@ -21,11 +21,11 @@ public class SelectReminderCommand extends Command {
     public static final String COMMAND_WORD = "selectReminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Select the generalReminder identified by the index number used in the displayed generalReminder list for editing.\n"
+            + ": Select the reminder identified by the index number used in the displayed generalReminder list for editing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_REMINDER_SELECTED_SUCCESS = "Selected GeneralReminder: %1$s";
+    public static final String MESSAGE_REMINDER_SELECTED_SUCCESS = "Selected reminder: %1$s";
     public final Index targetIndex;
 
     public SelectReminderCommand(Index targetIndex) {

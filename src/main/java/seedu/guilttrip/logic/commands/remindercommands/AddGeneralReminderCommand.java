@@ -1,10 +1,8 @@
 package seedu.guilttrip.logic.commands.remindercommands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_LOWER_BOUND;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_START_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
@@ -13,15 +11,12 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_UPPER_BOUND;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
-import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.reminders.GeneralReminder;

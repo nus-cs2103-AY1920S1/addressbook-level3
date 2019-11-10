@@ -15,6 +15,7 @@ import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
+import seedu.guilttrip.logic.commands.SetCurrDateCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.commands.WishListCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
@@ -50,6 +51,7 @@ import seedu.guilttrip.logic.commands.remindercommands.ListActiveRemindersComman
 import seedu.guilttrip.logic.commands.remindercommands.ListAllRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.SetReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.TogglePopUpCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortBudgetCommand;
@@ -96,6 +98,7 @@ import seedu.guilttrip.logic.parser.remindercommandparsers.DeleteReminderCommand
 import seedu.guilttrip.logic.parser.remindercommandparsers.EditReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.RemoveConditionFromReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.SelectReminderCommandParser;
+import seedu.guilttrip.logic.parser.remindercommandparsers.SetReminderCommandParser;
 import seedu.guilttrip.logic.parser.remindercommandparsers.TogglePopUpCommandParser;
 import seedu.guilttrip.logic.parser.sortcommandparsers.SortAutoExpenseCommandParser;
 import seedu.guilttrip.logic.parser.sortcommandparsers.SortBudgetCommandParser;
@@ -138,7 +141,8 @@ public class GuiltTripParser {
             // Fallthrough
         case AddExpenseCommand.COMMAND_WORD_SHORT:
             return new AddExpenseCommandParser().parse(arguments);
-
+        case SetCurrDateCommand.COMMAND_WORD:
+            return new SetCurrDateCommandParser().parse(arguments);
         case AddIncomeCommand.COMMAND_WORD:
             return new AddIncomeCommandParser().parse(arguments);
 
@@ -253,6 +257,9 @@ public class GuiltTripParser {
 
         case AddGeneralReminderCommand.COMMAND_WORD:
             return new AddGeneralReminderCommandParser().parse(arguments);
+
+        case SetReminderCommand.COMMAND_WORD:
+            return new SetReminderCommandParser().parse(arguments);
 
         case EditReminderCommand.COMMAND_WORD:
             return new EditReminderCommandParser().parse(arguments);

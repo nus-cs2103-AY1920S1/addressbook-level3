@@ -23,6 +23,7 @@ import seedu.guilttrip.model.tag.Tag;
 class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+    private final String uniqueID;
     private final String category;
     private final String desc;
     private final String date;
@@ -33,9 +34,10 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
+    public JsonAdaptedExpense(@JsonProperty("uniqueID") String uniqueID, @JsonProperty("category") String category, @JsonProperty("desc") String desc,
                               @JsonProperty("amt") String amt, @JsonProperty("time") String time,
                               @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.uniqueID = uniqueID;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -50,6 +52,7 @@ class JsonAdaptedExpense {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
+        uniqueID = source.getUniqueID();
         category = source.getCategory().categoryName;
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -106,7 +109,12 @@ class JsonAdaptedExpense {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        Expense modelExpense = new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        if (uniqueID != null) {
+            modelExpense.setUniqueID(uniqueID);
+            modelExpense.setHasReminder(true);
+        }
+        return modelExpense;
     }
 
 }

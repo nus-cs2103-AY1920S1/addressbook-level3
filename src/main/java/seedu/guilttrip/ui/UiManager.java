@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import seedu.guilttrip.MainApp;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.util.ListenerSupport;
-import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.Logic;

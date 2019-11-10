@@ -9,7 +9,6 @@ import seedu.guilttrip.model.tag.Tag;
  * Represents a Budget.
  */
 public class Budget extends Entry {
-
     private static final String ENTRY_TYPE = "Budget";
 
     private BudgetAmount spent;

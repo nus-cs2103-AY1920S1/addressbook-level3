@@ -39,7 +39,8 @@ public class QuotaCondition extends Condition {
         } else if (!(other instanceof QuotaCondition)) {
             return false;
         } else {
-            return this.quota == (((QuotaCondition) other).quota);
+            return this.quota == (((QuotaCondition) other).quota)
+                    && this.isLowerBound == ((QuotaCondition) other).isLowerBound;
         }
     }
 }

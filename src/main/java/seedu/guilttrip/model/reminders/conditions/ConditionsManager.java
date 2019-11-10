@@ -3,7 +3,6 @@ package seedu.guilttrip.model.reminders.conditions;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.beans.PropertyChangeListener;
 import java.util.Iterator;
 import java.util.List;
 

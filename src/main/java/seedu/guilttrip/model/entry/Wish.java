@@ -8,7 +8,6 @@ import seedu.guilttrip.model.tag.Tag;
  * Represents an Expense.
  */
 public class Wish extends Entry {
-
     private static final String ENTRY_TYPE = "Wish";
 
     public Wish(Category cat, Description desc, Date date, Amount amount, Set<Tag> tags) {
@@ -28,6 +27,7 @@ public class Wish extends Entry {
         Category newCategory = new Category(newName, super.getCategory().categoryType);
         return new Wish(newCategory, super.getDesc(), super.getDate(), this.getAmount(), super.getTags());
     }
+
     /**
      * Returns true if both expenses have the same data fields.
      * This defines a stronger notion of equality between two entries.
