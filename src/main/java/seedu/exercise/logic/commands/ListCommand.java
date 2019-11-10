@@ -16,7 +16,7 @@ public class ListCommand extends Command {
             + ": List items.\n"
             + "Parameters: "
             + PREFIX_CATEGORY + "LIST_TYPE" + "\t"
-            + "\t\tExample: "
+            + "Example: "
             + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "schedule";
     public static final String MESSAGE_SUCCESS = "Listed all %1$s items";
