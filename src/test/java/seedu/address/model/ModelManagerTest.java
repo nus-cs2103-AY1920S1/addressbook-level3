@@ -724,7 +724,7 @@ public class ModelManagerTest {
         m.addParticipantToTeam(TypicalTeams.EMPTY.getId(), TypicalParticipants.A);
         m.addParticipantToTeam(TypicalTeams.EMPTY.getId(), TypicalParticipants.B);
         assertEquals(TypicalTeams.EMPTY, m.deleteTeam(TypicalTeams.EMPTY.getId()));
-        assertEquals(m.getParticipantList().list().size(), 0);
+        assertEquals(m.getParticipantList().list().size(), 2);
     }
 
     @Test
@@ -737,6 +737,49 @@ public class ModelManagerTest {
         m.addTeam(TypicalTeams.EMPTY);
         assertThrows(MissingEntityException.class, () -> m.deleteTeam(
                 TypicalTeams.D.getId()));
+    }
+
+    @Test
+    public void getTeamByParticipantId_validId_success() throws AlfredException {
+        ModelManager m = new ModelManager(this.storage, this.userPrefs);
+        TypicalTeams.clearTeamEmpty();
+        m.addParticipant(TypicalParticipants.A);
+        m.addMentor(TypicalMentors.A);
+        m.addParticipant(TypicalParticipants.B);
+        m.addTeam(TypicalTeams.EMPTY);
+        m.addTeam(TypicalTeams.A);
+        m.addParticipantToTeam(TypicalTeams.EMPTY.getId(), TypicalParticipants.A);
+        assertEquals(m.getTeamByParticipantId(TypicalParticipants.A.getId()).size(), 2);
+    }
+
+    @Test
+    public void getTeamByParticipantId_noTeam_error() throws AlfredException {
+        ModelManager m = new ModelManager(this.storage, this.userPrefs);
+        TypicalTeams.clearTeamEmpty();
+        m.addTeam(TypicalTeams.EMPTY);
+        assertThrows(MissingEntityException.class, () -> m.getTeamByParticipantId(
+                TypicalParticipants.B.getId()));
+    }
+
+    @Test
+    public void getTeamByMentorId_validId_success() throws AlfredException {
+        ModelManager m = new ModelManager(this.storage, this.userPrefs);
+        TypicalTeams.clearTeamEmpty();
+        m.addParticipant(TypicalParticipants.A);
+        m.addMentor(TypicalMentors.A);
+        m.addTeam(TypicalTeams.EMPTY);
+        m.addTeam(TypicalTeams.A);
+        m.addMentorToTeam(TypicalTeams.EMPTY.getId(), TypicalMentors.A);
+        assertEquals(m.getTeamByMentorId(TypicalMentors.A.getId()).size(), 2);
+    }
+
+    @Test
+    public void getTeamByMentorId_noTeam_error() throws AlfredException {
+        ModelManager m = new ModelManager(this.storage, this.userPrefs);
+        TypicalTeams.clearTeamEmpty();
+        m.addTeam(TypicalTeams.EMPTY);
+        assertThrows(MissingEntityException.class, () -> m.getTeamByMentorId(
+                TypicalMentors.B.getId()));
     }
 
     @Test

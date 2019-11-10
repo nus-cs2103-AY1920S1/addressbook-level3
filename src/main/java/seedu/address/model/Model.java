@@ -113,9 +113,9 @@ public interface Model {
 
     Team getTeam(Id teamId) throws AlfredException;
 
-    Team getTeamByParticipantId(Id participantId) throws AlfredException;
+    List<Team> getTeamByParticipantId(Id participantId) throws AlfredException;
 
-    Team getTeamByMentorId(Id mentorId) throws AlfredException;
+    List<Team> getTeamByMentorId(Id mentorId) throws AlfredException;
 
     void addTeam(Team team) throws AlfredException;
 
