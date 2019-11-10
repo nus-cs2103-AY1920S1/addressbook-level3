@@ -1459,8 +1459,6 @@ These instructions only provide a starting point for testers to work on; testers
 . Adding a new problem to AlgoBase.
 .. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
    Expected: A problem named 'Sequences' and tagged 'algorithm' is added to AlgoBase.
-.. Test case: `addprob n/1234` +
-   Expected: No problem is added. The name of the problem cannot contain numbers. Error details shown in the status message.
 .. Test case: `addprob n/ d/unnamed problem` +
 Expected: No problem is added. The problem's name shouldn't be blank. Error details shown in the status message.
 
