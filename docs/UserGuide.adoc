@@ -83,6 +83,14 @@ Examples:
 
 Each command will display the tab specified.
 
+=== Set name/start date : `set`
+
+Sets the trip's name or start date +
+Format: `set [n/NAME] [sd/START_DATE]`
+
+* The name provided cannot exceed 30 characters long.
+* The start date provided needs to be in dd-mm-yyyy format.
+
 // tag::addaccommodation[]
 === Adding an accommodation: `add accommodation`
 
@@ -618,6 +626,7 @@ Format: `exit`
 |===
 | *Command*
 | optimise DAY_INDEX
+| set
 | undo
 | redo
 | clear
