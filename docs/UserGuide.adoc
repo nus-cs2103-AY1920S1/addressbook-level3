@@ -111,18 +111,24 @@ automatically based on the internal algorithms.
 
 Format: `-add_order c/CUSTOMER r/RESTAURANT f/FOOD... q/QUANTITY...`
 
-Example:  `-add_order c/Donald Trump r/KFC f/Chicken Bucket q/100`
+Example:  `-add_order c/AlexYeoh r/KFC f/Chicken Nuggets q/100`
 
 [start]
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
+
 image::userguide\AddOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"New order added:  Order Name: Order 7 Customer: AlexYeoh Restaurant: KFC Deliveryman: Donald Trump Food: Chicken Nuggets x100  Completed delivery: false"._`
+
 image::userguide\AddOrder2.png[width="790"]
 
+[start=3]
 . The order list shows the newly added order.
+
 image::userguide\AddOrder3.png[width="790"]
 
 [NOTE]
@@ -143,7 +149,7 @@ exists currently in the database.
 
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\autocomplete1.png[width="790"]
+image::userguide\AutoComplete1.png[width="790"]
 ====
 
 {nbsp} +
@@ -159,12 +165,18 @@ Example:  `-assign_order n/Order 1`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
+
 image::userguide\AssignOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Assigned Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: false"._`
+
 image::userguide\AssignOrder2.png[width="790"]
 
+[start=3]
 . The order list shows the newly assigned order.
+
 image::userguide\AssignOrder3.png[width="790"]
 
 [NOTE]
@@ -188,12 +200,18 @@ Example:  `-complete_order n/Order 1`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
+
 image::userguide\CompleteOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Order completed:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
+
 image::userguide\CompleteOrder2.png[width="790"]
 
+[start= 3]
 . The order list shows the delivery status of the order as completed.
+
 image::userguide\CompleteOrder3.png[width="790"]
 
 [NOTE]
@@ -221,18 +239,24 @@ You can change:
 
 Format: `-edit_order n/ORDERNAME [c/CUSTOMER] [r/RESTAURANT] [f/FOOD]... [q/QUANTITY]...`
 
-Example: `-edit_order n/Order 1337 c/John Doe`
+Example: `-edit_order n/Order 2 c/David`
 
 [start]
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
+
 image::userguide\EditOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Successful edition of order:  Order Name: Order 2 Customer: David Restaurant: Prata House Deliveryman: Donald Trump Food: Curry Waterfall x1 Plain Prata x2 Cheese Prata x4 Prata Bomb x10  Completed delivery: false"._`
+
 image::userguide\EditOrder2.png[width="790"]
 
+[start=3]
 . The order list shows the updated order.
+
 image::userguide\EditOrder3.png[width="790"]
 
 [NOTE]
@@ -254,7 +278,7 @@ image::userguide\EditOrder3.png[width="790"]
 
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\autocomplete1.png[width="790"]
+image::userguide\AutoComplete2.png[width="790"]
 ====
 
 {nbsp} +
@@ -273,10 +297,13 @@ Example: `-delete_order n/Order 1`
 
 image::userguide\DeleteOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Deleted Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
 
 image::userguide\DeleteOrder2.png[width="790"]
 
+[start=3]
 . The order list shows that the order has been deleted.
 
 image::userguide\DeleteOrder3.png[width="790"]
@@ -301,12 +328,18 @@ Example: `-list_orders`
 .Example use case
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
+
 image::userguide\ListOrder1.png[width="790"]
 
-. If you are successful, the result box displays the message: "".
+[start=2]
+. If you are successful, the result box displays the message:
+`_"Listed all orders"._`
+
 image::userguide\ListOrder2.png[width="790"]
 
+[start=3]
 . The order list shows all orders currently in the database.
+
 image::userguide\ListOrder3.png[width="790"]
 
 {nbsp} +
@@ -521,9 +554,11 @@ Format: `editdetails [n/NAME] [l/LOCATION] [t/TAG]…​`
 * When editing tags, the existing tags of the restaurant will be removed i.e adding of tags is not cumulative.
 * You can remove all the restaurant’s tags by typing t/ without specifying any tags after it.
 
-Example: `editdetails n/New KFC l/Tuas`
+Example: `editdetails n/Dr Hogs Barbeque l/Punggol t/Barbeque t/Western`
 
 image::userguide\EditDetails.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
@@ -559,7 +594,7 @@ Example: `delete 1`
 ====
 .Note:
 * Deleting a food item from a restaurant will NOT delete the food item in the restaurant's orders as
-the order was already made when the food item still existed.
+the order was made when the food item was still available.
 ====
 
 {nbsp} +
@@ -574,9 +609,6 @@ Format: `rate RATING`
 
 Example: `rate 4`
 
-image::userguide\AddRating.png[width="790"]
-
-
 {nbsp} +
 
 ==== Exiting EditMode: `exitedit`
@@ -588,7 +620,17 @@ Format: `exitedit`
 
 ==== Auto-tagging of food item as "Popular"
 Food items with quantity ordered more than 1.5 times the average quantity ordered of food items in the restaurant
-will be auto-tagged as "Popular".
+will be automatically tagged as "Popular".
+
+Example (refer to image below):
+
+* 16 food items are ordered in Order 2 (1 + 2 + 6 + 7), an average quantity ordered of 4 per food item.
+* Quantity ordered of food items Cheese Prata and Prata Bomb (6 and 7 respectively) is more than 1.5 times
+the average quantity ordered. Automatically tagged as "Popular" upon completion of Order 2.
+
+image::userguide\AutoTag.png[width="790"]
+
+{nbsp} +
 
 [NOTE]
 ====
