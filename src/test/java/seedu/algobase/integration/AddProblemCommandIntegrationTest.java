@@ -40,6 +40,6 @@ public class AddProblemCommandIntegrationTest {
     @Test
     public void addproblem_allConstraints() throws CommandException, ParseException {
         logicManager.execute("addprob n/test1 a/test w/http://localhost.com d/test diff/1.0 src/test t/test \n");
-        logicManager.execute("addprob n/te.st2 a/TEST w/http://www.google.com d/tE_sT diff/5.0 t/t_est \n");
+        logicManager.execute("addprob n/test 123 a/TEST w/http://www.google.com d/tE_sT diff/5.0 t/t_est \n");
     }
 }

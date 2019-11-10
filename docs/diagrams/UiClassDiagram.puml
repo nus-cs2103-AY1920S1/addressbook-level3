@@ -14,14 +14,6 @@ Class ResultDisplay
 Class DetailsTabPane
 Class DisplayTabPane
 Class TaskManagementPane
-Class FindRuleListPanel
-Class FindRuleCard
-Class ProblemListPanel
-Class ProblemCard
-Class PlanListPanel
-Class PlanCard
-Class TagListPanel
-Class TagCard
 Class TaskCard
 Class StatusBarFooter
 Class CommandBox
@@ -48,16 +40,7 @@ MainWindow *-down-> DisplayTabPane
 MainWindow *-down-> TaskManagementPane
 MainWindow *-down-> StatusBarFooter
 
-DisplayTabPane *-down-> FindRuleListPanel
-DisplayTabPane *-down-> ProblemListPanel
-DisplayTabPane *-down-> PlanListPanel
-DisplayTabPane *-down-> TagListPanel
-
 TaskManagementPane -down-> TaskCard
-FindRuleListPanel -down-> FindRuleCard
-ProblemListPanel -down-> ProblemCard
-PlanListPanel -down-> PlanCard
-TagListPanel -down-> TagCard
 
 MainWindow -left-|> UiPart
 
@@ -66,22 +49,10 @@ CommandBox --|> UiPart
 DetailsTabPane --|> UiPart
 DisplayTabPane --|> UiPart
 TaskManagementPane --|> UiPart
-FindRuleListPanel --|> UiPart
-FindRuleCard --|> UiPart
-ProblemListPanel --|> UiPart
-ProblemCard --|> UiPart
-PlanListPanel --|> UiPart
-PlanCard --|> UiPart
-TagListPanel --|> UiPart
-TagCard --|> UiPart
 TaskCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-FindRuleCard ..> Model
-ProblemCard ..> Model
-PlanCard ..> Model
-TagCard ..> Model
 TaskCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic

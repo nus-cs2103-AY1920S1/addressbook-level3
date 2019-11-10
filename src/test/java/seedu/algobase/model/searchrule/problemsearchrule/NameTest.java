@@ -36,4 +36,5 @@ class NameTest {
         assertTrue(Name.isValidName("123456789")); // only numbers
         assertTrue(Name.isValidName("2nd MST")); // combination of alphanumeric characters and spaces
     }
+
 }

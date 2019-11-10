@@ -25,26 +25,22 @@ public class Task {
 
     private final Id id;
     private final Problem problem;
-    private final Boolean isSolved;
-    private final LocalDate targetDate;
+    private final Boolean isDone;
+    private final LocalDate dueDate;
 
     /**
      * Problem field must be present and not null.
      */
-    public Task(Problem problem, LocalDate targetDate, boolean isSolved) {
-        requireAllNonNull(problem);
-        this.id = Id.generateId();
-        this.problem = problem;
-        this.isSolved = isSolved;
-        this.targetDate = targetDate;
+    public Task(Problem problem, LocalDate dueDate, boolean isDone) {
+        this(Id.generateId(), problem, dueDate, isDone);
     }
 
-    public Task(Id id, Problem problem, LocalDate targetDate, boolean isSolved) {
+    public Task(Id id, Problem problem, LocalDate dueDate, boolean isDone) {
         requireAllNonNull(id, problem);
         this.id = id;
         this.problem = problem;
-        this.isSolved = isSolved;
-        this.targetDate = targetDate;
+        this.dueDate = dueDate;
+        this.isDone = isDone;
     }
 
     /**
@@ -54,27 +50,27 @@ public class Task {
     public Task updateProblem(Problem problem) {
         requireAllNonNull(problem);
 
-        return new Task(id, problem, targetDate, isSolved);
+        return new Task(id, problem, dueDate, isDone);
     }
 
     /**
      * Creates and returns a {@code Task} with the details of the original task
-     * with an updated {@code isSolved}.
+     * with an updated {@code isDone}.
      */
-    public Task updateStatus(boolean isSolved) {
-        requireAllNonNull(isSolved);
+    public Task updateStatus(boolean isDone) {
+        requireAllNonNull(isDone);
 
-        return new Task(id, problem, targetDate, isSolved);
+        return new Task(id, problem, dueDate, isDone);
     }
 
     /**
      * Creates and returns a {@code Task} with the details of the original task
      * with an updated {@code targetDate}.
      */
-    public Task updateDueDate(LocalDate targetDate) {
-        requireAllNonNull(targetDate);
+    public Task updateDueDate(LocalDate dueDate) {
+        requireAllNonNull(dueDate);
 
-        return new Task(id, problem, targetDate, isSolved);
+        return new Task(id, problem, dueDate, isDone);
     }
 
     public Id getId() {
@@ -121,12 +117,12 @@ public class Task {
         return problem.getTags();
     }
 
-    public Boolean getIsSolved() {
-        return isSolved;
+    public Boolean getIsDone() {
+        return isDone;
     }
 
-    public LocalDate getTargetDate() {
-        return targetDate;
+    public LocalDate getDueDate() {
+        return dueDate;
     }
 
     /**
@@ -136,7 +132,7 @@ public class Task {
      */
     public String getStatusIcon() {
         //CHECKSTYLE.OFF: AvoidEscapedUnicodeCharactersCheck
-        return this.isSolved ? "[\u2713]" : "[\u2718]";
+        return this.isDone ? "[\u2713]" : "[\u2718]";
         //CHECKSTYLE.ON: AvoidEscapedUnicodeCharactersCheck
     }
 
@@ -169,9 +165,9 @@ public class Task {
         builder.append("Problem: ")
             .append(getProblem())
             .append(" Date: ")
-            .append(getTargetDate())
-            .append(" isSolved: ")
-            .append(getIsSolved());
+            .append(getDueDate())
+            .append(" isDone: ")
+            .append(getIsDone());
         return builder.toString();
     }
 

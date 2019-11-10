@@ -42,7 +42,7 @@ public class TaskCommandUtil {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         Task taskToUpdate = taskList.get(taskIndexInt);
-        if (taskToUpdate.getIsSolved() == isSolved) {
+        if (taskToUpdate.getIsDone() == isSolved) {
             throw new CommandException(String.format(errorMessage, taskToUpdate.getName()));
         }
         taskList.remove(taskIndexInt);
@@ -100,7 +100,7 @@ public class TaskCommandUtil {
                 )
             );
         }
-        if (!planToBeShiftedInto.checkWithinDateRange(taskToBeShifted.getTargetDate())) {
+        if (!planToBeShiftedInto.checkIsWithinDateRange(taskToBeShifted.getDueDate())) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
         taskSetToBeShiftedInto.add(taskToBeShifted);

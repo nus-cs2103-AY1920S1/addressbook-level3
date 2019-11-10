@@ -10,11 +10,11 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class PlanName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+        "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the description must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * A name is any combination of alphanumeric characters or whitespace.
+     * A name must contain at least one non-whitespace character.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 

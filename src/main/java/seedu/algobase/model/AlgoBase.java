@@ -370,13 +370,13 @@ public class AlgoBase implements ReadOnlyAlgoBase {
     }
 
     @Override
-    public IntegerProperty getCurrentSolvedCount() {
-        return plans.getCurrentSolvedCount();
+    public IntegerProperty getCurrentDoneCount() {
+        return plans.getCurrentDoneCount();
     }
 
     @Override
-    public IntegerProperty getCurrentUnsolvedCount() {
-        return plans.getCurrentUnsolvedCount();
+    public IntegerProperty getCurrentUndoneCount() {
+        return plans.getCurrentUndoneCount();
     }
 
     @Override

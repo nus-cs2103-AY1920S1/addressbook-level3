@@ -1,12 +1,15 @@
 package seedu.algobase.logic.parser.task;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_DUE_DATE;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PLAN;
 import static seedu.algobase.logic.parser.CliSyntax.PREFIX_PROBLEM;
 
 import java.time.LocalDate;
+import java.util.logging.Logger;
 
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.task.AddTaskCommand;
 import seedu.algobase.logic.parser.ArgumentMultimap;
@@ -20,12 +23,18 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
  */
 public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(AddTaskCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddTaskCommand
      * and returns an AddTaskCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTaskCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
+        logger.info("Parsing AddTaskCommand with input: " + args);
+
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_PLAN, PREFIX_PROBLEM, PREFIX_DUE_DATE);
 

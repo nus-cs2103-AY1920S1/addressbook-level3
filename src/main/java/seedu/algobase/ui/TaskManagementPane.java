@@ -33,8 +33,8 @@ public class TaskManagementPane extends UiPart<Region> {
 
     public TaskManagementPane(ObservableList<Task> taskList,
                        ObservableStringValue plan,
-                       ObservableIntegerValue solvedCount,
-                       ObservableIntegerValue unsolvedCount,
+                       ObservableIntegerValue doneCount,
+                       ObservableIntegerValue undoneCount,
                        ObservableIntegerValue taskCount
     ) {
         super(FXML);
@@ -45,13 +45,13 @@ public class TaskManagementPane extends UiPart<Region> {
         }
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        taskProgressChart.setData(getChartData(solvedCount.getValue().intValue(), unsolvedCount.getValue().intValue()));
+        taskProgressChart.setData(getChartData(doneCount.getValue().intValue(), undoneCount.getValue().intValue()));
         taskProgressChart.setClockwise(true);
         taskProgressChart.setLabelsVisible(false);
         taskProgressChart.setLegendVisible(taskCount.getValue().intValue() != 0);
         taskProgressChart.setStartAngle(90);
         addListenerForPlanName(plan);
-        addListenerForPieChart(solvedCount, unsolvedCount, taskCount);
+        addListenerForPieChart(doneCount, undoneCount, taskCount);
     }
 
     /**
@@ -75,8 +75,8 @@ public class TaskManagementPane extends UiPart<Region> {
      * Obtains data for pie chart.
      */
     private ObservableList<Data> getChartData(int solvedCount, int unsolvedCount) {
-        taskProgress.addAll(new PieChart.Data("Solved", solvedCount),
-            new PieChart.Data("Unsolved", unsolvedCount));
+        taskProgress.addAll(new PieChart.Data("Done", solvedCount),
+            new PieChart.Data("Undone", unsolvedCount));
         return taskProgress;
     }
 
@@ -99,26 +99,26 @@ public class TaskManagementPane extends UiPart<Region> {
     /**
      * Adds a listener to watch for changes for task progress.
      *
-     * @param solvedCount The observable solved count.
-     * @param unsolvedCount The observable unsolved count.
+     * @param doneCount The observable done count.
+     * @param undoneCount The observable undone count.
      */
     private void addListenerForPieChart(
-        ObservableIntegerValue solvedCount,
-        ObservableIntegerValue unsolvedCount,
+        ObservableIntegerValue doneCount,
+        ObservableIntegerValue undoneCount,
         ObservableIntegerValue taskCount
     ) {
-        solvedCount.addListener((observable, oldValue, newValue) -> {
-            logger.info("Current solved count is updated to [" + newValue + "]");
+        doneCount.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current done count is updated to [" + newValue + "]");
             for (Data d : taskProgress) {
-                if (d.getName().equals("Solved")) {
+                if (d.getName().equals("Done")) {
                     d.setPieValue(newValue.intValue());
                 }
             }
         });
-        unsolvedCount.addListener((observable, oldValue, newValue) -> {
-            logger.info("Current unsolved count is updated to [" + newValue + "]");
+        undoneCount.addListener((observable, oldValue, newValue) -> {
+            logger.info("Current undone count is updated to [" + newValue + "]");
             for (Data d : taskProgress) {
-                if (d.getName().equals("Unsolved")) {
+                if (d.getName().equals("Undone")) {
                     d.setPieValue(newValue.intValue());
                 }
             }

@@ -21,7 +21,7 @@ By: `Team CS2103T-W11-1`      Since: `Sep 2019`      Licence: `MIT`
 AlgoBase (AB) is a one-stop management platform for Computer Science students preparing for technical interviews.
 **With AlgoBase, say goodbye to tough interview days!**
 
-Tired of having to manually track your progress across multiple websites like Kattis, Hackerrank and Leetcode?
+Tired of having to manually track your progress across multiple websites like Kattis, HackerRank and LeetCode?
 AlgoBase allows you to pull practice questions from these online repositories (and more!)
 and consolidates them into a single application.
 
@@ -31,8 +31,9 @@ We got you covered! AlgoBase also allows you to create highly flexible training 
 Are you a guru that has completed many problems, and want a powerful way to filter through your problems? No worries!
 AlgoBase comes equipped with a comprehensive tag system and a flexible filtering mechanism for your needs.
 
-Are you used to the speed of Command Line tools and find that GUI applications are too slow? Not a problem! AlgoBase is designed for those who prefer to use a desktop app for managing algorithm problems,
-equipped with a robust Command Line Interface (CLI) while still maintaining the benefits of a Graphical User Interface (GUI).
+Are you used to the speed of Command Line tools and find that Graphical User Interface (GUI) applications are too slow?
+Not a problem! AlgoBase is designed for those who prefer to use a desktop app for managing algorithm problems,
+equipped with a robust Command Line Interface (CLI) while still maintaining the benefits of a GUI.
 
 Interested? Jump to the Section 2 to get an "Overview" of the AlgoBase, or Section 3 “Quick Start” to get started with AlgoBase!
 
@@ -50,10 +51,9 @@ image::gui/AlgoBaseLayout.png[]
 
 AlgoBase is split into following 3 panes:
 
-** _Display Tabs_ – displays a list of items (problem, tag, plan or findrule)
-** _Details Tabs_  – shows details of a specific item
-** _Plan Tab_ – shows details of the current plan
-
+** _Display Tabs_ – displays a list of items (problems, tags, plans or find rules)
+** _Details Tabs_  – displays details of a specific item
+** _Task Management Pane_ – displays details of the current plan
 // end::overview[]
 
 == Quick Start
@@ -63,6 +63,7 @@ AlgoBase is split into following 3 panes:
 .  Copy the file to the folder you want to use as the home folder for your AlgoBase application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.UI of AlgoBase
 image::Ui.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -70,16 +71,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in
 .  Some example commands you can try:
 
 * *`listprob`* : lists all problems
-* **`addprob`**`n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim` : adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
-* **`editprob`**`1 src/LeetCode` : edits the first problem displayed and sets its source to 'LeetCode'
-* **`switchtab`**`tt/display i/2` : switches to tag tab
-* **`switchtab`**`tt/display i/3` : switches to plan tab
-+
-image::UiStartPlan.png[]
-+
-* **`findplan`**`n/CS2040` : finds plans that with name 'CS2040'
-* **`clear`** : resets Algobase
-* *`exit`* : exits the app
+* *`addprob n/factorial d/define a function factorial that takes in a number and n and returns the factorial of the number t/recursion a/Halim`* :
+adds a problem called 'factorial' tagged with 'recursion' and authored by 'Halim'
+* *`editprob 1 src/LeetCode`* : edits the first problem displayed and sets its source to 'LeetCode'
+* *`switchtab tt/display i/2`* : switches to tag tab
+* *`switchtab tt/display i/3`* : switches to plan tab
+* *`findplan n/CS2040`* : finds plans that with name 'CS2040'
+* *`donetask plan/1 task/1`* : marks the first task in the first training plan as done
+* *`clear`* : resets AlgoBase
+* *`exit`* : exits AlgoBase
 
 .  Refer to <<Features>> for details of each command.
 
@@ -120,25 +120,27 @@ Examples:
 Deletes an existing problem. +
 Format: `deleteprob INDEX [f/]`
 
-* Deletes the problem at the specified `INDEX`.
+* Deletes the problem with the specified `INDEX`.
 * The index refers to the index number shown in the displayed problem list.
 * The index *must be a positive integer* 1, 2, 3, ...
-* The command will fail if the problem identified by `INDEX` is used in some task(s) in existing plans.
+
+[NOTE]
+The command will fail if the problem identified by `INDEX` is used in some task(s) in existing plans.
 Add `f/` to force AlgoBase to delete all tasks associated with the problem.
 
 Examples:
 
 * `listprob` +
 `deleteprob 2` +
-Deletes the 2nd problem in the displayed list.
+Deletes the second problem in the displayed list.
 * `findprob n/factorial` +
 `deleteprob 1` +
-Deletes the 1st problem in the results of the `findprob` command.
+Deletes the first problem in the results of the `findprob` command.
 
 ==== Editing a problem : `editprob`
 
 Edits an existing problem. +
-Format: `editprob INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
+Format: `editprob INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR] [t/TAG]...`
 
 * Edits the problem at the specified `INDEX`. The index refers to the index number shown in the displayed problem list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
@@ -149,9 +151,9 @@ Format: `editprob INDEX [n/NAME] [d/DESCRIPTION] [a/AUTHOR]  [t/TAG]...`
 Examples:
 
 * `editprob 1 a/John Doe` +
-Edits the author of the 1st problem to be `John Doe` respectively.
+Edits the author of the first problem to be `John Doe` respectively.
 * `editprob 2 n/permutations t/` +
-Edits the name of the 2nd problem to be `permutations` and clears all existing tags.
+Edits the name of the second problem to be `permutations` and clears all existing tags.
 
 ==== Listing all problems : `listprob`
 
@@ -159,7 +161,6 @@ Displays a list of all existing problems. +
 Format: `listprob`
 
 // tag::sort[]
-
 ==== Sorting problems: `sortprob`
 
 Sorts the current list of **problems** by a specified method and order. +
@@ -180,13 +181,10 @@ Sorts the current list of problems in ascending order of names.
 Sorts the current list of problems in descending order of author names.
 * `sortprob m/difficulty ord/ascend`
 Sorts the current list of problems from lowest to highest difficulty.
-
 // end::sort[]
 
 === Searching Problems
-
 // tag::find[]
-
 ==== Locating problems: `findprob`
 
 Finds problems fulfilling all provided constraints. +
@@ -234,11 +232,9 @@ Returns any problem with word `Sequences` (case-insensitive) in its name.
 Returns any problem with `algorithm` as one of its tags **AND** with a difficulty between 2.0 and 4.0 (inclusive).
 * `findprob a/Hentin Marz src/Kattis` +
 Returns any problem from `Kattis` that's authored by `Hentin Marz`.
-
 // end::find[]
 
 // tag::findrule[]
-
 ==== Storing a problem-finding rule: `addfindrule`
 
 Saves a problem-finding rule from provided constraints. +
@@ -280,7 +276,7 @@ You can find problem-finding rules that you can `apply` with in the "Find Rules"
 Examples:
 
 * `apply 2` +
-Applies the 2nd find rule in the displayed list.
+Applies the second find rule in the displayed list.
 
 ==== Deleting a problem-finding rule: `deletefindrule`
 
@@ -295,8 +291,7 @@ Alias: `dfr`
 Examples:
 
 * `deletefindrule 2` or `dfr 2` +
-Deletes the 2nd find rule in the displayed list.
-
+Deletes the second find rule in the displayed list.
 // end::findrule[]
 
 === Tags
@@ -337,7 +332,6 @@ Examples:
 
 * `edittag 1 t/difficult c/BLUE`
 
-
 // tag::plan[]
 === Training Plans
 
@@ -351,7 +345,7 @@ Format: `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]`
 * Plans cannot have duplicate names.
 * `START_DATE` and `END_DATE` should be in the format of `yyyy-MM-dd`
 * `START_DATE` should be before or equal to `END_DATE`.
-* `START_DATE` will be `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
+* `START_DATE` will be set to `LocalDate#now()` if not specified, and `END_DATE` will be one month from `START_DATE` if not specified.
 
 Examples:
 
@@ -370,10 +364,10 @@ Examples:
 
 * `listplan` +
 `deleteplan 2` +
-Deletes the 2nd problem in the displayed list.
+Deletes the second plan in the displayed list.
 * `findplan n/CS2040` +
 `delete 1` +
-Deletes the 1st problem in the results of the `findplan` command (will be introduced in the next section).
+Deletes the first plan in the results of the `findplan` command (will be introduced in the next section).
 
 ==== Editing a plan : `editplan`
 
@@ -389,9 +383,9 @@ Format: `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DAT
 Examples:
 
 * `editplan 1 d/past year questions of sit-in labs` +
-Edits the description of the 1st plan to be `past year questions of sit-in labs` respectively.
+Edits the description of the first plan to be `past year questions of sit-in labs` respectively.
 * `editplan 2 start/2019-08-13 f/` +
-Edits the starting date of the 2nd plan to be `2019-08-13` and any task with due date before `2019-08-13` to the plan's end date.
+Edits the starting date of the second plan to be `2019-08-13` and any task with due date before `2019-08-13` to the plan's end date.
 
 ==== Listing all plans : `listplan`
 
@@ -431,85 +425,105 @@ Finds plans that contain a task named 'Sequences'.
 // tag::task[]
 === Task Management
 
-==== Adding a new task to a plan: `addtask`
+==== Adding new tasks: `addtask`
 
 Adds a task to a specified plan. +
 Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/DUE_DATE]`
 
-* `DUE_DATE` should be in between plan's `startDate` and `endDate` (inclusive).
+* `DUE_DATE` should be in the format of `yyyy-MM-dd`
+* `DUE_DATE` should be in between plan's start date and end date (inclusive).
+
+[NOTE]
+`DUE_DATE` will be set to the end date of the plan to be added into, if unspecified.
 
 Examples:
 
-* `addtask plan/1 prob/1 due/2019-12-12`
+* `addtask plan/1 prob/1 due/2019-12-12` +
+Creates a new task with the first problem in the displayed problem list and due date on 12 December 2019,
+and adds it the first plan in the displayed plan list.
 
-==== Deleting a task from a plan: `deletetask`
+==== Copying tasks between plans: `copytask`
+
+Copies a specified task from one plan to another. +
+Format: `copytask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_INDEX`
+
+* Task identified by `TASK_INDEX` should have a due date in between the start date and end date of the plan identified by `PLAN_TO_INDEX` (inclusive).
+* Plan identified by `PLAN_TO_INDEX` should not contain tasks that consist of the same problem as the task identified by `TASK_INDEX`.
+
+Examples:
+
+* `copytask task/1 from/1 to/2` +
+Copies the first task in the first plan to the second plan in the displayed plan list.
+
+==== Deleting tasks: `deletetask`
 
 Deletes a specified task from a specified plan. +
 Format: `deletetask plan/PLAN_INDEX task/TASK_INDEX`
 
 Examples:
 
-* `deletetask plan/1 task/1`
+* `deletetask plan/1 task/1` +
+Deletes the first task in the first plan to the second plan in the displayed plan list.
 
-==== Editing due date of a task from a plan: `edittask`
-
-Edits the due date of a specified task from a specified plan. +
-Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
-
-* `DUE_DATE` should be in between plan's `startDate` and `endDate` (inclusive).
-
-Examples:
-
-* `edittask plan/1 task/1 due/2019-12-12`
-
-==== Marking a task as done: `donetask`
+==== Marking tasks as done: `donetask`
 
 Marks a specified task in a specified plan as done. +
 Format: `donetask plan/PLAN_INDEX task/TASK_INDEX`
 
-Examples:
-
-* `donetask plan/1 task/1`
-
-==== Marking a task as undone: `undonetask`
-
-Marks a specified task in a specified plan as undone. +
-Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
+* The task to be marked as done should have a current status of `undone`.
 
 Examples:
 
-* `undonetask plan/1 task/1`
+* `donetask plan/1 task/1` +
+Marks the first task in the first plan as done.
 
-==== Copying a task from one plan to another: `copytask`
+==== Editing due date of tasks: `edittask`
 
-Copies a specified task from one plan to another. +
-Format: `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+Edits the due date of a specified task from a specified plan. +
+Format: `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE`
 
-* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
+* `DUE_DATE` should be in the format of `yyyy-MM-dd`
+* `DUE_DATE` should be in between plan's start date and end date (inclusive).
 
 Examples:
 
-* `copytask task/1 from/1 to/2`
+* `edittask plan/1 task/1 due/2019-12-12` +
+Changes the due date of the first task in the first plan to 12 December 2019.
 
-==== Moving a task from one plan to another: `movetask`
+==== Moving tasks between plans: `movetask`
 
 Moves a specified task from a specified plan to another. +
-Format: `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_INDEX`
+Format: `movetask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_INDEX`
 
-* Task identified by `TASK_INDEX` should have a due date in between plan's `startDate` and `endDate` (inclusive).
+* Task identified by `TASK_INDEX` should have a due date in between the start date and end date of the plan identified by `PLAN_TO_INDEX` (inclusive).
+* Plan identified by `PLAN_TO_INDEX` should not contain tasks that consist of the same problem as the task identified by `TASK_INDEX`.
 
 Examples:
 
-* `movetask task/1 from/1 to/2`
+* `movetask task/1 from/1 to/2` +
+Removes the first task from the first plan and adds it to the second plan in the displayed plan list.
 
-==== Setting the plan to be used in main display: `setplan`
+==== Setting current plan: `setplan`
 
-Sets a specified plan as the current display plan. +
+Sets a specified plan as the current plan in main display. +
 Format: `setplan PLAN_INDEX`
 
 Examples:
 
-* `setplan 10`
+* `setplan 10` +
+Sets plan with index 10 as the current plan.
+
+==== Marking tasks as undone: `undonetask`
+
+Marks a specified task in a specified plan as undone. +
+Format: `undonetask plan/PLAN_INDEX task/TASK_INDEX`
+
+* The task to be marked as undone should have a current status of `done`.
+
+Examples:
+
+* `undonetask plan/1 task/1` +
+Marks the first task in the first plan as undone.
 // end::task[]
 
 // tag::gui[]
@@ -528,7 +542,6 @@ There are 3 types of tabs in AlgoBase, 2 of which (Display and Details) are show
 .Types of tabs and their usage
 image::gui/TabsOverview1.png[width=70%, scaledwidth=12cm]
 
-
 * **Display tabs** give a high level overview of the contents of a list of items
 * **Details tabs** give a more detailed description of an item in a display tab.
 
@@ -546,12 +559,10 @@ Display Tabs cannot be closed.
 The following steps show how a user can edit problems or plans from the GUI.
 
 **Step 1:** Select the problem or plan you want to delete by double clicking on it.
-
 // end::gui[]
 .Plan with name "Data Structures" is opened.
 image::gui/EditPlanUiAction0Annotated.png[width=70%, scaledwidth=12cm]
 // tag::gui[]
-
 **Step 2:** Make changes to the problem or plan by editing the fields directly.
 
 .The name and start date of the plan are modified.
@@ -570,12 +581,10 @@ The _Edit Plan_ Button cannot be clicked if there are no changes made to the pla
 The following steps show how a user can delete problems or plans from the GUI.
 
 **Step 1:** Select the problem or plan you want to delete by double clicking on it.
-
 // end::gui[]
 .Problem with name "Sequences" is opened.
 image::gui/DeleteProblemUiAction0Annotated.png[width=70%, scaledwidth=12cm]
 // tag::gui[]
-
 **Step 2:** Click on the red _Delete Problem_ or _Delete Plan_ button at the bottom right.
 To prevent accidental deletion, a warning dialog will appear to confirm if you would like to delete the item.
 Click on the _"confirm"_ button.
@@ -587,10 +596,8 @@ image::gui/DeleteProblemUiAction1Annotated.png[width=70%, scaledwidth=12cm]
 
 .The problem is successfully deleted.
 image::gui/DeleteProblemUiAction2Annotated.png[width=70%, scaledwidth=12cm]
-
 // end::gui[]
 // tag::tab[]
-
 ==== Switching Tabs: `switchtab`
 
 .Demonstration of the `SwitchTab` command
@@ -611,7 +618,6 @@ Examples:
 * `switchtab tt/details i/3` – Switches to the third **details** tab
 * `st tt/2 i/3` – Same effects as the previous command but in a shorter format.
 
-
 ==== Opening Tabs: `opentab`
 
 .Demonstration of the `OpenTab` command
@@ -620,7 +626,6 @@ image::gui/OpenTabCommand.png[width="70%"]
 Opens a new **Details** tab in the GUI +
 Format: `opentab m/MODEL_TYPE i/MODEL_INDEX` +
 Format: `ot m/MODEL_TYPE i/MODEL_INDEX`
-
 
 * Model Type
 ** can be _problem_, _tag_, _plan_ and _findrule_
@@ -644,11 +649,12 @@ Examples:
 * `ct i/1` – Same effects as the previous command but in a shorter format.
 // end::tab[]
 
+// tag::data[]
 === Data Management
 
 ==== Importing data: `import`
 
-Imports external data of a specified format (e.g. JSON) into local storage. +
+Imports external data in `JSON` format into local storage. +
 Format: `import format/FORMAT path/FILE_PATH`
 
 * Format can only be `JSON`.
@@ -660,7 +666,7 @@ Examples:
 
 ==== Exporting data: `export`
 
-Exports data into a specified format (e.g. JSON). +
+Exports data into `JSON` format. +
 Format: `export format/FORMAT path/DIRECTORY_PATH`
 
 * Format can only be `JSON`.
@@ -669,6 +675,7 @@ Format: `export format/FORMAT path/DIRECTORY_PATH`
 Examples:
 
 * `export format/json path/.`
+// end::data[]
 
 === Miscellaneous
 
@@ -741,11 +748,8 @@ e.g. `addtag t/sssp c/BLUE`
 ** *List Tags* : `listtag`
 ** *Delete Tag* : `deletetag INDEX` +
 e.g. `deletetag 3`
-
-
 ** *Edit tag* : `edittag INDEX [t/TAGNAME] [c/COLOR]` +
 e.g. `edittag 1 t/sort c/BLUE`
-
 
 * Plans
 ** *Add Training Plan* : `addplan n/NAME [d/DESCRIPTION] [start/START_DATE] [end/END_DATE]` +
@@ -753,7 +757,7 @@ e.g. `addplan n/CS2040`
 ** *Edit Training Plan* : `editplan INDEX [n/NAME] [d/DESCRIPTION] [start/START_DATE] [end/END_DATE] [f/]` +
 e.g. `editplan 1 n/training start/2020-02-02 f/`
 ** *Find Training Plans* : `findplan [n/NAME] [d/DESCRIPTION] [start/RANGE_START] [end/RANGE_END] [task/TASK_NAME]` +
-e.g. `find n/CS2040 start/2019-03-01 end/2019-03-31`
+e.g. `findplan n/CS2040 start/2019-03-01 end/2019-03-31`
 ** *List Training Plans* : `listplan`
 ** *Delete Training Plan* : `deleteplan INDEX` +
 e.g. `deleteplan 2`
@@ -761,17 +765,17 @@ e.g. `deleteplan 2`
 * Tasks
 ** *Add Task to Training Plan* : `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX` +
 e.g. `addtask plan/1 prob/2`
+** *Copy Task between Plans* : `copytask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_TASK` +
+e.g. `copytask task/1 from/1 to/2`
 ** *Delete Task from Training Plan* : `deletetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `deletetask plan/1 task/2`
 ** *Edit Due Date of Task* : `edittask plan/PLAN_INDEX task/TASK_INDEX due/DUE_DATE` +
 e.g. `edittask plan/1 task/2 due/2019-12-12`
-** *Mark Task as done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
+** *Mark Task as Done* : `donetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `donetask plan/1 task/2`
-** *Mark Task as undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
+** *Mark Task as Undone* : `undonetask plan/PLAN_INDEX task/TASK_INDEX` +
 e.g. `undonetask plan/1 task/2`
-** *Copy Tasks among Plans* : `copytask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
-e.g. `copytask task/1 from/1 to/2`
-** *Move Tasks among Plans* : `movetask task/TASK_INDEX from/PLAN_INDEX to/PLAN_TASK` +
+** *Move Task between Plans* : `movetask task/TASK_INDEX from/PLAN_FROM_INDEX to/PLAN_TO_TASK` +
 e.g. `movetask task/1 from/1 to/2`
 ** *Set Current Plan* : `setplan PLAN_TASK` +
 e.g. `setplan 10`
@@ -791,6 +795,6 @@ e.g. `export format/json path/.`
 e.g. `import format/json path/./steven_halim_secret.json`
 
 * Miscellaneous
-** *Help* : `help`
+** *Help* : `help [COMMAND_WORD]`
 ** *Clear* : `clear`
 ** *Exit* : `exit`

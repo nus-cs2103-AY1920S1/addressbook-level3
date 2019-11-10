@@ -7,6 +7,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.text.TextAlignment;
 import seedu.algobase.logic.parser.ParserUtil;
+import seedu.algobase.model.problem.Author;
+import seedu.algobase.model.problem.Description;
+import seedu.algobase.model.problem.Difficulty;
+import seedu.algobase.model.problem.Remark;
+import seedu.algobase.model.problem.Source;
+import seedu.algobase.model.problem.WebLink;
 import seedu.algobase.model.tag.Tag;
 import seedu.algobase.model.task.Task;
 
@@ -36,7 +42,7 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label status;
     @FXML
-    private Label targetDate;
+    private Label dueDate;
     @FXML
     private Label author;
     @FXML
@@ -55,35 +61,75 @@ public class TaskCard extends UiPart<Region> {
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
+
         id.setText(displayedIndex + ". ");
         id.setWrapText(true);
         id.setTextAlignment(TextAlignment.JUSTIFY);
+
         name.setText(task.getName().fullName);
         name.setWrapText(true);
         name.setTextAlignment(TextAlignment.JUSTIFY);
         status.setText(task.getStatusIcon());
-        status.setStyle(task.getIsSolved() ? "-fx-background-color: #96b946;" : "-fx-background-color: #ff6973;");
-        targetDate.setText(task.getTargetDate().format(ParserUtil.FORMATTER));
-        targetDate.setWrapText(true);
-        targetDate.setTextAlignment(TextAlignment.JUSTIFY);
-        author.setText(task.getAuthor().value);
+        status.setStyle(task.getIsDone() ? "-fx-background-color: #96b946;" : "-fx-background-color: #ff6973;");
+
+        dueDate.setText(task.getDueDate().format(ParserUtil.FORMATTER));
+        dueDate.setWrapText(true);
+        dueDate.setTextAlignment(TextAlignment.JUSTIFY);
+
+        if (!Author.isDefaultAuthor(task.getAuthor())) {
+            author.setText(task.getAuthor().value);
+        } else {
+            author.setText("Not specified");
+            author.setStyle("-fx-text-fill: grey;");
+        }
         author.setWrapText(true);
         author.setTextAlignment(TextAlignment.JUSTIFY);
-        description.setText(task.getDescription().value);
+
+        if (!Description.isDefaultDescription(task.getDescription())) {
+            description.setText(task.getDescription().value);
+        } else {
+            description.setText("Not specified");
+            description.setStyle("-fx-text-fill: grey;");
+        }
         description.setWrapText(true);
         description.setTextAlignment(TextAlignment.JUSTIFY);
-        weblink.setText(task.getWebLink().value);
+
+        if (!WebLink.isDefaultWebLink(task.getWebLink())) {
+            weblink.setText(task.getWebLink().value);
+        } else {
+            weblink.setText("Not specified");
+            weblink.setStyle("-fx-text-fill: grey;");
+        }
         weblink.setWrapText(true);
         weblink.setTextAlignment(TextAlignment.JUSTIFY);
-        difficulty.setText(task.getDifficulty().toString());
+
+        if (!Difficulty.isDefaultDifficulty(task.getDifficulty())) {
+            difficulty.setText(task.getDifficulty().toString());
+        } else {
+            difficulty.setText("Not specified");
+            difficulty.setStyle("-fx-text-fill: grey;");
+        }
         difficulty.setWrapText(true);
         difficulty.setTextAlignment(TextAlignment.JUSTIFY);
-        remark.setText(task.getRemark().value);
+
+        if (!Remark.isDefaultRemark(task.getRemark())) {
+            remark.setText(task.getRemark().value);
+        } else {
+            remark.setText("Not specified");
+            remark.setStyle("-fx-text-fill: grey;");
+        }
         remark.setWrapText(true);
         remark.setTextAlignment(TextAlignment.JUSTIFY);
-        source.setText(task.getSource().value);
+
+        if (!Source.isDefaultSource(task.getSource())) {
+            source.setText(task.getSource().value);
+        } else {
+            source.setText("Not specified");
+            source.setStyle("-fx-text-fill: grey;");
+        }
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
+
         for (Tag tag : task.getTags()) {
             Label l = new Label(tag.getName());
             String colorStyle = "-fx-background-color: " + tag.getColor();

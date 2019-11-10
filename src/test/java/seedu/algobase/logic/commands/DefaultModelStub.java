@@ -229,12 +229,12 @@ public class DefaultModelStub implements Model {
     }
 
     @Override
-    public IntegerProperty getCurrentSolvedCount() {
+    public IntegerProperty getCurrentDoneCount() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public IntegerProperty getCurrentUnsolvedCount() {
+    public IntegerProperty getCurrentUndoneCount() {
         throw new AssertionError("This method should not be called.");
     }
 

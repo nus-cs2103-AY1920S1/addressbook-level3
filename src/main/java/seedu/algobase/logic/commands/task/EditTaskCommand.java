@@ -71,7 +71,7 @@ public class EditTaskCommand extends Command {
         }
         Task taskToUpdate = taskList.get(taskIndex);
         LocalDate newDate = editTaskDescriptor.targetDate;
-        if (!planToUpdate.checkWithinDateRange(newDate)) {
+        if (!planToUpdate.checkIsWithinDateRange(newDate)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DATE);
         }
         taskList.remove(taskIndex);

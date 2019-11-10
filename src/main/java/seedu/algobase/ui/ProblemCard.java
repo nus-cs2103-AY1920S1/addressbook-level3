@@ -140,6 +140,7 @@ public class ProblemCard extends UiPart<Region> {
         }
         source.setWrapText(true);
         source.setTextAlignment(TextAlignment.JUSTIFY);
+
         problem.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> {

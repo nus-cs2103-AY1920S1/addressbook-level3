@@ -103,8 +103,8 @@ public class EditPlanCommand extends Command {
             throw new CommandException(ORDER_CONSTRAINTS);
         }
 
-        Stream<LocalDate> dueDates = prototypePlan.getTasks().stream().map(Task::getTargetDate);
-        boolean existsUnmatchDueDates = !dueDates.allMatch(prototypePlan::checkWithinDateRange);
+        Stream<LocalDate> dueDates = prototypePlan.getTasks().stream().map(Task::getDueDate);
+        boolean existsUnmatchDueDates = !dueDates.allMatch(prototypePlan::checkIsWithinDateRange);
 
         if (!isForced && existsUnmatchDueDates) {
             throw new CommandException(MESSAGE_INVALID_TIME_RANGE);
@@ -112,7 +112,7 @@ public class EditPlanCommand extends Command {
             Set<Task> forcedTasks = tasks
                 .stream()
                 .map(
-                    task -> prototypePlan.checkWithinDateRange(task.getTargetDate())
+                    task -> prototypePlan.checkIsWithinDateRange(task.getDueDate())
                         ? task
                         : task.updateDueDate(prototypePlan.getEndDate()))
                 .collect(Collectors.toSet());

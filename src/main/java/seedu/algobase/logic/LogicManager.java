@@ -110,13 +110,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public IntegerProperty getCurrentSolvedCount() {
-        return model.getCurrentSolvedCount();
+    public IntegerProperty getCurrentDoneCount() {
+        return model.getCurrentDoneCount();
     }
 
     @Override
-    public IntegerProperty getCurrentUnsolvedCount() {
-        return model.getCurrentUnsolvedCount();
+    public IntegerProperty getCurrentUndoneCount() {
+        return model.getCurrentUndoneCount();
     }
 
     @Override

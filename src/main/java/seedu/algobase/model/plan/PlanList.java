@@ -33,8 +33,8 @@ public class PlanList implements Iterable<Plan> {
     private final ObservableList<Task> internalUnmodifiableTaskList =
         FXCollections.unmodifiableObservableList(internalTaskList);
     private final StringProperty currentPlan = new SimpleStringProperty();
-    private final IntegerProperty solvedCount = new SimpleIntegerProperty();
-    private final IntegerProperty unsolvedCount = new SimpleIntegerProperty();
+    private final IntegerProperty doneCount = new SimpleIntegerProperty();
+    private final IntegerProperty undoneCount = new SimpleIntegerProperty();
     private final IntegerProperty taskCount = new SimpleIntegerProperty();
 
     /**
@@ -143,9 +143,9 @@ public class PlanList implements Iterable<Plan> {
     public void setCurrentPlan(Plan plan) {
         if (plan != null) {
             currentPlan.set(plan.getPlanName().fullName);
-            solvedCount.set(plan.getSolvedTaskCount());
-            unsolvedCount.set(plan.getUnsolvedTaskCount());
-            taskCount.set(plan.getSolvedTaskCount() + plan.getUnsolvedTaskCount());
+            doneCount.set(plan.getDoneTaskCount());
+            undoneCount.set(plan.getUndoneTaskCount());
+            taskCount.set(plan.getDoneTaskCount() + plan.getUndoneTaskCount());
             internalTaskList.setAll(plan.getTaskList());
         } else {
             clearCurrentPlan();
@@ -157,24 +157,24 @@ public class PlanList implements Iterable<Plan> {
      */
     private void clearCurrentPlan() {
         currentPlan.set("");
-        solvedCount.set(0);
-        unsolvedCount.set(0);
+        doneCount.set(0);
+        undoneCount.set(0);
         taskCount.set(0);
         internalTaskList.setAll();
     }
 
     /**
-     * Returns the number of solved tasks in current plan.
+     * Returns the number of done tasks in current plan.
      */
-    public IntegerProperty getCurrentSolvedCount() {
-        return solvedCount;
+    public IntegerProperty getCurrentDoneCount() {
+        return doneCount;
     }
 
     /**
-     * Returns the number of unsolved tasks in current plan.
+     * Returns the number of undone tasks in current plan.
      */
-    public IntegerProperty getCurrentUnsolvedCount() {
-        return unsolvedCount;
+    public IntegerProperty getCurrentUndoneCount() {
+        return undoneCount;
     }
 
     /**

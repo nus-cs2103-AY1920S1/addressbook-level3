@@ -276,14 +276,14 @@ public interface Model {
     StringProperty getCurrentPlan();
 
     /**
-     * Returns the number of solved tasks in current plan.
+     * Returns the number of done tasks in current plan.
      */
-    IntegerProperty getCurrentSolvedCount();
+    IntegerProperty getCurrentDoneCount();
 
     /**
-     * Returns the number of unsolved tasks in current plan.
+     * Returns the number of undone tasks in current plan.
      */
-    IntegerProperty getCurrentUnsolvedCount();
+    IntegerProperty getCurrentUndoneCount();
 
     /**
      * Returns the total number of tasks in current plan.

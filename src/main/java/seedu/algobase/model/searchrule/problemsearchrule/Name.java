@@ -10,13 +10,13 @@ import static seedu.algobase.commons.util.AppUtil.checkArgument;
 public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Names should only contain alphanumeric characters and spaces, and it should not be blank.";
+        "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * A name is any combination of the following characters: A-Z, a-z, 0-9 or whitespace.
+     * A name is any combination of alphanumeric characters or whitespace.
      * A name cannot be blank.
      */
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 ]*$";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final String name;
 

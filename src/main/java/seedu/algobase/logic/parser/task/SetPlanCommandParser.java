@@ -1,7 +1,11 @@
 package seedu.algobase.logic.parser.task;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.algobase.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.logging.Logger;
+
+import seedu.algobase.commons.core.LogsCenter;
 import seedu.algobase.commons.core.index.Index;
 import seedu.algobase.logic.commands.task.SetPlanCommand;
 import seedu.algobase.logic.parser.Parser;
@@ -13,12 +17,18 @@ import seedu.algobase.logic.parser.exceptions.ParseException;
  */
 public class SetPlanCommandParser implements Parser<SetPlanCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(SetPlanCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the SetPlanCommand
      * and returns a SetPlanCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetPlanCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
+        logger.info("Parsing SetPlanCommand with input: " + args);
+
         try {
             Index index = ParserUtil.parseIndex(args);
             return new SetPlanCommand(index);
