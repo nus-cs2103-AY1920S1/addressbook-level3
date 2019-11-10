@@ -20,7 +20,7 @@ Role: Project Advisor
 
 === Ho Wei Chin
 image::HoWeiChin.png[width="180", align="left"]
-{empty}[https://github.com/HoWeiChin[github]] [<<HoWeiChin#, portfolio>>]
+{empty}[https://github.com/HoWeiChin[github]] [<<howeichin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverable, Tracking, User Interface +
