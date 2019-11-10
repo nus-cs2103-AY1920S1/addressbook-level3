@@ -98,7 +98,9 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ==== Example Usage
 
- Example 1: in $/120 d/31122019 n/work
+===== Example 1
+
+  in $/120 d/31122019 n/work
 
 . Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
 . The income has not utilized the optional `CATEGORY` field.
@@ -114,7 +116,9 @@ image::in_ug_1.png[]
 .Sample Income 1 Added
 image::in_ug_2.png[]
 
- Example 2: in $/500.50 n/allowance d/01012020 c/parents
+===== Example 2
+
+  in $/500.50 n/allowance d/01012020 c/parents
 
 . Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
 . The income includes `parents` under the `CATEGORY` field.
@@ -130,7 +134,7 @@ image::in_ug_3.png[]
 .Sample Income 2 Added
 image::in_ug_4.png[]
 
-Example Commands:
+===== Example Commands:
 
 * `in $/100 d/01012019 n/errand c/work c/company`
 * `in $/250.50 d/29022020 n/mom c/family`
@@ -154,12 +158,15 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 * `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
 ****
 
+==== Important Details:
 Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
 
 
 ==== Example Usage
 
- Example 1: out $/5 d/01012020 n/burger
+===== Example 1
+
+ out $/5 d/01012020 n/burger
 
 . Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
 . The expenditure has not utilized the optional `CATEGORY` field.
@@ -176,7 +183,9 @@ image::out_ug_1.png[]
 .Sample Expenditure 1 Added
 image::out_ug_2.png[]
 
- Example 2: out $/1000 n/maintenance d/02012020 c/car c/transport
+===== Example 2
+
+ out $/1000 n/maintenance d/02012020 c/car c/transport
 
 . Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
 . The income includes `car` and `transport` under the `CATEGORY` field.
@@ -193,7 +202,7 @@ image::out_ug_3.png[]
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
 
-Example Commands:
+===== Example Commands:
 
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
@@ -459,7 +468,7 @@ image::delete_ug_2.png[]
 image::delete_ug_3.png[]
 
 
-Examples:
+===== Example Commands:
 
 * `delete t1`
 * `delete b3`
@@ -485,30 +494,59 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 
 ****
 * `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
-* `ITEM` accepts the description of this Transaction or Budget.
-* `DATE` accepts the date of this Transaction or Budget
-* `CATEGORY` accepts the CATEGORY for the Transaction or Budget.
+* `ITEM` accepts the description of this entry.
+* `DATE` accepts the date of this entry.
+* `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
 * `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
-* You can only update an existing transaction or budget. Nothing will be updated if the transaction or budget of `INDEX` does not exists.
+* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
-To Note:
+==== Important Details:
 
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
 * Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
 * You can not change an `in` transaction to an `out` transaction.
+* Changing an expenditure with the same category field as a budget will reflect changes on the `Budget` as well.
 
 ==== Example Usage
 
-Examples:
+===== Example 1:
+Updating a *Transaction* entry.
+
+. Identify the index number of the entry you want to edit
++
+
++
+.  Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
++
+
++
+. Success message will be displayed upon successful update.
+
+===== Example 2:
+Updating a *Budget* entry.
+
+. Identify the index number of the entry you want to edit
++
+
++
+.  Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing the date and description of this Budget.
++
+
++
+. Success message will be displayed upon successful update.
+
+===== Example Commands:
+
 
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
+* `update p4 d/10102019`
 
 [[Sort]]
 // tag::sort[]
