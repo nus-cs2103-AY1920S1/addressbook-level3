@@ -372,6 +372,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+// tag::visualrep[]
 === Visual Representation of individual's or group's schedule feature
 
 The visual representation refers to the beautiful graphics you see when you view a group or an individual's schedule in TimeBook.
@@ -431,7 +432,6 @@ In order to make the diagram look less messy, a reference diagram shown below is
 image::./yijie/showCommandSdFrame.png[]
 
 Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
-
 
 ==== Design Considerations
 
@@ -494,6 +494,7 @@ per team and thus, it is unnecessary to randomly generate color for each group m
 more than 15 group members, the order of where the blocks are placed corresponds to the order of group members list.
 Hence, the user should still be able to figure out who's block it belongs to even if it is the same colour.
 |===
+// end::visualrep[]
 
 [[Implementation-ClosestLocation]]
 === Closest Common Location(Micro Service)

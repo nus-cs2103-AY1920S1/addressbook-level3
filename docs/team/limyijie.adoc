@@ -17,7 +17,7 @@ image::guiComponents.png[]
 Figure 1. GUI for TimeBook
 
 The problem assigned to me was that it is tedious and difficult to identify common free time slots among NUS undergraduates
-by inspecting separate NUSMods schedules especially when the group size is large. Therefore, my role was to design and write codes
+by inspecting separate NUSMods schedules especially when the group size is large. Therefore, my role was to design and write codes to
 display the combined schedules of NUS undergraduates from a group in the GUI elegantly and intuitively.
 In the following sections, my contribution and the relevant documentations that I have made will be elaborated in more detail.
 
@@ -31,16 +31,15 @@ Note the common symbols and formatting used in this document.
 === Overview of contributions
 This section provides an overview of the code, documentation and administrative contributions to the team project
 
-==== The main feature I added: Displaying the schedule graphic of multiple schedules in TimeBook.
+==== Main feature added: The schedule graphic of multiple schedules in TimeBook.
 
-* What: Enabling users to see an elegant individual or group schedule graphic in the form of a time table in TimeBook. The `show` command does this.
-* Justification: The key feature of TimeBook as it directly addresses the problem of having to tediously cross reference
-to every separate schedule in order to identify free time slots for group meetings.
+* What: Enables users to see an elegant individual or group schedule graphic in the form of a time table in TimeBook. The `show` command does this.
+* Justification: This is the key feature of TimeBook as it directly addresses the problem of having to tediously cross reference every separate schedule in order to identify free time slots for group meetings.
 * Highlights: This feature that I have implemented fits well with the other features that my teammates developed. For example, one of my teammates developed
 an NUSMods parser that makes use of parsing NUSMods links into data that is then displayed using my feature. Implementing this feature is not easy as I had to first create an empty time table
-and figure out a way to add events (represented by blocks) into this empty time table without distorting the other empty time table cells. This means that I had to ensure
+and figure out a way to add events (represented by blocks) into this empty time table without distorting the other time table cells. This means that I had to ensure
 that no matter how small the event's duration is, it must still fit and not cause distortion in the schedule graphic. In addition, I needed to ensure that the final schedule graphic can be
-controlled and is aesthetically pleasing. Lastly, I had to test my feature using TestFX to make sure that the graphic generated is correct.
+controlled. Lastly, I had to test my feature using TestFX to make sure that the graphic generated is correct.
 * Credits: TestFX for providing a framework for automated GUI testing.
 
 Other contributions:
@@ -58,6 +57,15 @@ page to make significant cosmetic improvement to application. #86 #93 #125 #254
 ** Created a google spreadsheet for the team to share bugs the they have found.
 
 === Contributions to User Guide
+Our team had to override the original addressbook User Guide with the instructions for TimeBook. This section shows my contributions
+to the User Guide and my ability to convey instructions for the application that my team has developed to target users.
 
+include::../UserGuide.adoc[tag=showperson]
+
+include::../UserGuide.adoc[tag=showgroup]
 
 === Contributions to Developer Guide
+This section shows my contributions to the developer guide and my ability to convey information for the application that my team has developed to other developers.
+
+include::../DeveloperGuide.adoc[tag=visualrep]
+

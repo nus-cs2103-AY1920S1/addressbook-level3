@@ -396,6 +396,7 @@ image::ugalvin/deleteperson.png[width=100%]
 
 As you can see, after deleting Freddie, he is removed from our persons tab!
 
+// tag::showperson[]
 ==== Show person: `show`
 
 Want to arrange a private meeting with someone in TimeBook?
@@ -425,7 +426,7 @@ After you've reached the fourth week's schedule, the next `togglenext` command w
 image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
 
 *****
-___
+// end::showperson[]
 
 === Schedule Management
 
@@ -737,6 +738,7 @@ image::ugalvin/deletegroup.png[width=100%]
 
 Deleteing a group will automatically update your groups tab!
 
+// tag::showgroup[]
 ==== Show group: `show`
 
 Want to schedule your next group meeting?
@@ -798,7 +800,7 @@ The green blocks still represent the common free time slots for the entire group
 
 image:./icons/lightbulb.png[] You can use the `lookat` command with no arguments to basically filter off the coloured blocks if your group size gets too big and messy!
 *****
-
+// end::showgroup[]
 
 === Advanced Features
 
