@@ -6,10 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 
-class WordsTest {
+public class WordsTest {
 
     @Test
-    void get() {
+    public void get() {
         assertNotNull(Words.SIZE);
         assertThrows(IllegalArgumentException.class, () -> Words.get(-1));
         assertThrows(IllegalArgumentException.class, () -> Words.get(Integer.MIN_VALUE));
