@@ -1732,7 +1732,72 @@ Expected: Feedback message indicates that there is nothing to change.
 ... Test action: Restart the application +
 Expected: A new motivation quote is selected at random and shown in the pane showing motivational quotes at the bottom of the window.
 
+//tag::calendarcommand[]
 === Reminder and Event Command
+
+.. Prerequisites: The calendar entry list is empty.
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00` +
+Expected: Feedback message indicates that a new reminder: insulin inject On 2019-11-30 17:00 is added and the pane of all calendar entries shown.
+... Test case: `reminder d/test dt/2019-12-10 12:00 r/daily` +
+Expected: Feedback message indicates that a new reminder: test At 12:00 everyday From 2019-12-10 is added and the pane of all calendar entries shown.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 11:30 td/01:00` +
+Expected: Feedback message indicates that a new event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 is added along with a new reminder for the event:
+Event: test in 1 hours 0 minutes On 2019-12-01 10:00. And the pane of all calendar entries shown.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 10:00` +
+Expected: Error message shown: The ending date time of an event should come after starting date time.
+
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: insulin inject On 2019-11-30 17:00 +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+reminder: Event: test in 1 hours 0 minutes On 2019-12-01 10:00 +
+The following commands are typed in the order they present.
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00` +
+Expected: Error message shown: This reminder already exists in the calendar
+... Test case: `reminder d/insulin inject dt/2019-11-30 17:00 r/daily` +
+Expected: Feedback message indicates that a new reminder: insulin inject At 17:00 everyday From 2019-11-30 is added and the following reminder(s) were removed because they are covered by the new reminder:
+insulin inject On 2019-11-30 17:00. Also the pane of all all calendar entries shown.
+... Test case: `reminder d/insulin inject dt/2019-12-20 17:00 r/weekly` +
+Expected: Error message shown: This reminder is covered by insulin inject At 17:00 everyday From 2019-11-30.
+... Test case: `reminder d/insulin inject dt/2019-11-20 17:00 r/weekly` +
+Expected: Error message shown: This reminder and the following reminder(s) conflict: insulin inject At 17:00 everyday From 2019-11-30.
+... Test case: `event d/test dt/2019-12-01 11:00 dt/2019-12-01 11:30` +
+Expected: Error message shown: This event already exists in the calendar.
+... Test case: `event d/test2 dt/2019-12-01 10:00 dt/2019-12-01 11:30` +
+Expected: Feedback message indicates that a new event: test2 From 2019-12-01 10:00 To: 2019-12-01 11:30 is added. However, it overlaps with the following events: test From 2019-12-01 11:00 To: 2019-12-01 11:30.
+
+=== Reminder list side pane
+
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: insulin inject At 17:00 everyday From 2019-11-30 +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+reminder: Event: test in 1 hours 0 minutes On 2019-12-01 10:00 +
+reminder: test2 At 16:00 everyday From 2019-11-20 +
+The user opens the app on 2019-12-11 15:00 and does not close it until 18:00.
+
+... Expected: The side pane shows reminders that the user might miss today: +
+test at 12:00 +
+At 16:00, a reminder of test2 is shown in the side pane.
+... Test case: `reminder d/test3 dt/2019-12-11 16:30`(typed in at 16:10) +
+Expected: At 16:30, a reminder of test3 is shown in the side pane. +
+At 17:00, a reminder of insulin inject is shown in the side pane. +
+
+=== Calendar Command
+.. Prerequisites: The calendar entry list contains the following entries: +
+reminder: test At 12:00 everyday From 2019-12-10 +
+event: test From 2019-12-01 11:00 To: 2019-12-01 11:30 +
+The user opens the app on 2019-11-20
+... Test case: `calendar` +
+Expected: A pane of all the calendar entries added is shown.
+... Test case: `calendar ym/2019-12` +
+Expected: A monthly calendar of 2019 Dec is shown. Below are calendar entries on each day of 2019 Dec.
+In this case, there is a reminder of test at 12:00 listed in list for each day from Dec 10. An event of
+test from 11:00 to 11:30 is listed in Dec 1's list.
+... Test case: `calendar ymw/` +
+Expected: A monthly calendar of 2019 Nov is shown. Below are calendar entries on each day from Nov 16 to
+Nov 22.
+//end::calendarcommand[]
 
 [appendix]
 == References
