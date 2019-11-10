@@ -1,12 +1,37 @@
 = Yuan Xinran, Stanley - Project Portfolio
 
 == Introduction
+purpose ...highlights my contribution
+
+intro to team, project, reqs, list main features
 
 == Summary of contributions
+preface
+
+what it does, justification, highlight
+
+code contributed
+
+other contirbutions
 
 == Contributions to the User Guide
+Given below are my contributions to the User Guide.
+
+*_Start of extract_*
+
+include::../UserGuide.adoc[tag=universalCommand]
+
+*_End of extract_*
 
 == Contributions to the Developer Guide
+Given below are my contributions to the Developer Guide.
 
-== PROJECT: PowerPointLabs
+*_Start of extract_*
+
+include::../DeveloperGuide.adoc[tag=autocompletecommands]
+
+include::../DeveloperGuide.adoc[tag=orders]
+
+*_End of extract_*
+
 

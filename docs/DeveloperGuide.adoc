@@ -245,7 +245,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::CommitActivityDiagram.png[]
 // end::undoredo[]
 
-// tag::autocomplete commands[]
+// tag::autocompletecommands[]
 
 === Autocomplete commands feature
 
@@ -307,7 +307,7 @@ Alternative 1 was selected, as it is more user friendly, and leaves a better imp
 
 Alternative 1 was selected, as it allows for faster searching and listing of relevant commands compared to alternative 2.
 
-// end::autocomplete commands[]
+// end::autocompletecommands[]
 // tag::orders[]
 === Order Manager
 Order Manager is an address book of Orders and has some useful functions specifically catered towards the ease of management of orders.
