@@ -27,7 +27,6 @@ import seedu.address.logic.commands.DeleteShortcutCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.NoShortCutCommand;
@@ -120,7 +119,6 @@ public class FinSecParser {
         FinSecParser.commandList.put(SortReverseCommand.COMMAND_WORD, SortReverseCommand.COMMAND_WORD);
         FinSecParser.commandList.put(CheckCommand.COMMAND_WORD, CheckCommand.COMMAND_WORD);
         FinSecParser.commandList.put(ClearCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD);
-        FinSecParser.commandList.put(FindCommand.COMMAND_WORD, FindCommand.COMMAND_WORD);
         FinSecParser.commandList.put(GotoCommand.COMMAND_WORD, GotoCommand.COMMAND_WORD);
         FinSecParser.commandList.put(RejectClaimCommand.COMMAND_WORD, RejectClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteShortcutCommand.COMMAND_WORD, DeleteShortcutCommand.COMMAND_WORD);
@@ -171,12 +169,11 @@ public class FinSecParser {
             case DeleteShortcutCommand.COMMAND_WORD:
                 return new DeleteShortcutParser().parse(arguments);
 
+                //@@author{lawncegoh}
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
+                //@@author{lawncegoh}
             case GotoCommand.COMMAND_WORD:
                 return new GotoCommandParser().parse(arguments);
 
@@ -186,15 +183,19 @@ public class FinSecParser {
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommandParser().parse(arguments);
 
+                //@@author{lawncegoh}
             case CheckCommand.COMMAND_WORD:
                 return new CheckCommandParser().parse(arguments);
 
+                //@@author{lawncegoh}
             case SortCommand.COMMAND_WORD:
                 return new SortCommandParser().parse(arguments);
 
+                //@@author{lawncegoh}
             case SortReverseCommand.COMMAND_WORD:
                 return new SortReverseCommandParser().parse(arguments);
 
+                //@@author{lawncegoh}
             case ApproveClaimCommand.COMMAND_WORD:
                 return new ApproveClaimCommandParser().parse(arguments);
 

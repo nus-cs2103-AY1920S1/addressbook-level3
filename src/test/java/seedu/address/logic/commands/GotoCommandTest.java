@@ -44,15 +44,10 @@ class GotoCommandTest extends GotoCommand {
     }
 
     @Test
-    public void execute_invalidView() {
-        View invalidView;
-        try {
-            invalidView = new View("invalid", 4);
-        } catch (IllegalArgumentException e) {
-            invalidView = null;
-            View finalInvalidView = invalidView;
-            assertThrows(NullPointerException.class, () -> new GotoCommand(finalInvalidView));
-        }
+    public void execute_invalidView() throws CommandException {
+        ModelStubForValidView model = new ModelStubForValidView();
+        View view = new View("lost", 6);
+        assertThrows(CommandException.class, () -> new GotoCommand(view).execute(model));
     }
 
     @Test

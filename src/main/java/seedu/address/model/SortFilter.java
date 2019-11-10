@@ -21,4 +21,12 @@ public class SortFilter {
         return index;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortFilter // instanceof handles nulls
+                && filter == ((SortFilter) other).filter // state check
+                && index == ((SortFilter) other).index);
+    }
+
 }

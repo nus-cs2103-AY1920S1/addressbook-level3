@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 //@@author {lawncegoh}
 public class GotoCommandParser implements Parser<GotoCommand> {
 
+
     /**
      * Parses the given {@code String} of arguments in the context of the GotoCommand
      * and returns a GotoCommand object for execution.
@@ -26,5 +27,4 @@ public class GotoCommandParser implements Parser<GotoCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GotoCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }

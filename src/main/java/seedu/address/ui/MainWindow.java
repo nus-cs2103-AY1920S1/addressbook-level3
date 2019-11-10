@@ -296,13 +296,13 @@ public class MainWindow extends UiPart<Stage> {
                 }
 
                 //@@author{lawncegoh}
-                if (commandResult.isClaim()) {
+                if (commandResult.hasClaim()) {
                     Claim claim = commandResult.giveClaim();
                     Model.handleClaim(claim);
                 }
 
                 //@@author{lawncegoh}
-                if (commandResult.isContact()) {
+                if (commandResult.hasContact()) {
                     Contact contact = commandResult.giveContact();
                     handleContact(contact);
                 }

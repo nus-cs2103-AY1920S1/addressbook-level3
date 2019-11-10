@@ -12,17 +12,20 @@ import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
 
-    @Test
-    public void execute_emptyAddressBook_success() {
-        Model model = new ModelManager();
-        Model expectedModel = new ModelManager();
+    private Model model = new ModelManager(new FinSec(), new UserPrefs());
 
-        assertEquals(model, expectedModel);
+    @Test
+    public void execute_clear() {
+        CommandResult commandResult = new ClearCommand().execute(model);
+        assertEquals("clear"
+                + ": Clears FinSec of all data. Warning! It is not reversible!"
+                + " Would you still like to delete? \n"
+                + "If yes, enter \"Y\" \n"
+                + "Alternatively, enter \"N\"` to continue. ", commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(new FinSec(), new UserPrefs());
+    public void execute_clear2() {
         Model expectedModel = new ModelManager(getTypicalFinSec(), new UserPrefs());
         expectedModel.setFinSec(new FinSec());
 

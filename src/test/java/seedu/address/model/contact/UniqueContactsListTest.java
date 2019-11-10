@@ -167,4 +167,9 @@ public class UniqueContactsListTest {
         assertThrows(UnsupportedOperationException.class, ()
             -> uniqueContactsList.asUnmodifiableObservableList().remove(0));
     }
+
+    @Test
+    public void checkHashCode() {
+        assertEquals(uniqueContactsList.hashCode(), uniqueContactsList.hashCode());
+    }
 }

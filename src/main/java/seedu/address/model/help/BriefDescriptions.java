@@ -12,7 +12,6 @@ import seedu.address.logic.commands.DeleteIncomeCommand;
 import seedu.address.logic.commands.EditContactCommand;
 import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
@@ -50,9 +49,6 @@ public class BriefDescriptions {
         case "delete_contact":
             return DeleteContactCommand.MESSAGE_USAGE;
 
-        //case "delete_claim":
-            //return DeleteClaimCommand.MESSAGE_USAGE;
-
         case "delete_income":
             return DeleteIncomeCommand.MESSAGE_USAGE;
 
@@ -61,9 +57,6 @@ public class BriefDescriptions {
 
         case "edit_income":
             return EditIncomeCommand.MESSAGE_USAGE;
-
-        case "find":
-            return FindCommand.MESSAGE_USAGE;
 
         case "goto":
             return GotoCommand.MESSAGE_USAGE;

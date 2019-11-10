@@ -113,4 +113,11 @@ public class SortReverseCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE_FILTER);
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortReverseCommand // instanceof handles nulls
+                && gotoFilter.equals(((SortReverseCommand) other).gotoFilter)); // state check
+    }
 }

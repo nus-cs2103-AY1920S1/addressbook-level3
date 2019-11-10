@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
@@ -125,6 +126,13 @@ public class AddContactCommandTest {
         public ReadOnlyFinSec getFinSec() {
             return new FinSec();
         }
+    }
+
+    @Test
+    public void checkHashCode() {
+        Contact validPerson = new ContactBuilder().build();
+        assertEquals(validPerson.hashCode(), Objects.hash(validPerson.getName(), validPerson.getPhone(),
+                validPerson.getEmail(), validPerson.getTags()));
     }
 
 }

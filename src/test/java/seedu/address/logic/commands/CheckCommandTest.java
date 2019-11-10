@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
 
 import java.nio.file.Path;
 import java.util.Collection;
@@ -18,12 +18,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FinSec;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyFinSec;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.autocorrectsuggestion.AutocorrectSuggestion;
 import seedu.address.model.claim.Claim;
 import seedu.address.model.commanditem.CommandItem;
@@ -31,50 +31,57 @@ import seedu.address.model.commonvariables.Name;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.income.Income;
 import seedu.address.testutil.ClaimBuilder;
+import seedu.address.testutil.ContactBuilder;
+import seedu.address.ui.UiManager;
 
 //@@author {lawncegoh}
 class CheckCommandTest {
-
-    private Model model = new ModelManager(getTypicalFinSec(), new UserPrefs());
 
     @Test
     public void constructor_nullIndex_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new CheckCommand(null));
     }
 
-    //    @Test
-    //    public void checkValidIndex() throws CommandException {
-    //        ModelStubForValidView model = new ModelStubForValidView();
-    //        Index validIndex = Index.fromZeroBased(0);
-    //        Claim claimToShow = model.getClaim();
-    //
-    //        CommandResult commandResult = new CheckCommand(validIndex).execute(model);
-    //
-    //        assertEquals("Claim Shown" , commandResult.getFeedbackToUser());
-    //    }
+    @Test
+    public void checkValidIndexInClaims() throws CommandException {
+        UiManager.changeState("claims");
+        ModelStubForValidViewClaims model = new ModelStubForValidViewClaims();
+        Index validIndex = Index.fromZeroBased(0);
+        Claim claimToShow = model.getClaim();
+        CommandResult commandResult = new CheckCommand(validIndex).execute(model);
 
-    //    @Test
-    //    public void execute_validIndexUnfilteredList_success() {
-    //        Claim claimToCheck = model.getFilteredClaimList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //        CheckCommand checkCommand = new CheckCommand(INDEX_FIRST_PERSON);
-    //
-    //        String expectedMessage = String.format(CheckCommand.MESSAGE_SUCCESS_CLAIM, checkCommand);
-    //
-    //        ModelManager expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-    //        Model.handleClaim(claimToCheck);
-    //
-    //        assertCommandSuccess(checkCommand, model, expectedMessage, expectedModel);
-    //    }
-    //
-    //    @Test
-    //    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-    //        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredClaimList().size() + 1);
-    //        CheckCommand checkCommand = new CheckCommand(outOfBoundIndex);
-    //
-    //        assertCommandFailure(checkCommand, model, Messages.MESSAGE_INVALID_CLAIM_DISPLAYED_INDEX);
-    //    }
+        assertEquals("Claim Shown" , commandResult.getFeedbackToUser());
+    }
 
+    @Test
+    public void checkValidIndexInContacts() throws CommandException {
+        UiManager.changeState("contacts");
+        ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
+        Index validIndex = Index.fromZeroBased(0);
+        Contact contactToShow = model.getContact();
+        CommandResult commandResult = new CheckCommand(validIndex).execute(model);
 
+        assertEquals("Contact Shown", commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void checkInvalidIndexInContacts() throws CommandException {
+        UiManager.changeState("contacts");
+        ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
+        Index invalidIndex = Index.fromZeroBased(1);
+        Contact contactToShow = model.getContact();
+
+        assertThrows(CommandException.class, () -> new CheckCommand(invalidIndex).execute(model));
+    }
+
+    @Test
+    public void checkInvalidInIncomes() throws CommandException {
+        UiManager.changeState("incomes");
+        ModelStubForValidViewContacts model = new ModelStubForValidViewContacts();
+        Index validIndex = Index.fromZeroBased(1);
+
+        assertThrows(CommandException.class, () -> new CheckCommand(validIndex).execute(model));
+    }
 
     @Test
     public void equals() {
@@ -83,6 +90,10 @@ class CheckCommandTest {
 
         // same object -> true
         assertTrue(checkFirstCommand.equals(checkFirstCommand));
+
+        // same values -> returns true
+        CheckCommand checkFirstCommandCopy = new CheckCommand(INDEX_FIRST_PERSON);
+        assertEquals(checkFirstCommand, checkFirstCommandCopy);
 
         // different types -> false
         assertFalse(checkFirstCommand.equals(1));
@@ -375,15 +386,15 @@ class CheckCommandTest {
     }
 
     /**
-     * Returns a modelstub that has the updatefilteredlist method "activated"
+     * Returns a modelstub for claims
      */
-    private class ModelStubForValidView extends ModelStub {
+    private class ModelStubForValidViewClaims extends ModelStub {
 
         private final FinSecStub finSec = new FinSecStub();
 
         private Claim claim = new ClaimBuilder().build();
 
-        ModelStubForValidView() {
+        ModelStubForValidViewClaims() {
             addClaim(claim);
         }
 
@@ -396,9 +407,38 @@ class CheckCommandTest {
             finSec.addClaim(claim);
         }
 
+
         @Override
         public ObservableList<Claim> getFilteredClaimList() {
             return finSec.getClaimList();
+        }
+    }
+
+    /**
+     * Returns a modelstub for contacts
+     */
+    private class ModelStubForValidViewContacts extends ModelStub {
+
+        private final FinSecStub finSec = new FinSecStub();
+
+        private Contact contact = new ContactBuilder().build();
+
+        ModelStubForValidViewContacts() {
+            addContact(contact);
+        }
+
+        public Contact getContact() {
+            return this.contact;
+        }
+
+        @Override
+        public void addContact(Contact p) {
+            finSec.addContact(contact);
+        }
+
+        @Override
+        public ObservableList<Contact> getFilteredContactList() {
+            return finSec.getContactList();
         }
     }
 
@@ -494,7 +534,7 @@ class CheckCommandTest {
 
         @Override
         public void addContact(Contact p) {
-            throw new AssertionError("This method should not be called.");
+            contacts.add(p);
         }
 
         @Override
