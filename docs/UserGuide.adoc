@@ -284,28 +284,37 @@ Shows the calendar filled with all deadlines in the month. The calendar will be 
 `calendar`
 
 //end::deadline[]
+//@@author keiteo
+=== Test mode: `start`
 
-=== Test mode
+==== Start command: `start [category]`
+This command starts the flashcard test mode. If no parameter is supplied, the application will test all
+available FlashCards.
 
-==== Start command
-This command starts the flashcard test mode.
+E.g. `start`
 
-`start`
+image::StartEmptyParam.png[width="600"]
 
-Starts the flashcard test from any specific category
-`start [category]`
+If tag(s) are entered, this command starts the FlashCard test from any specific category. Only relevant FlashCards from the tag(s) will
+be tested.
 
-==== See flashcard answer
+E.g. `start [category]`
+
+image::StartWithTagParam.png[width="600"]
+
+==== See flashcard answer: `ans`
 This command allows you to check the answer of the flashcard question.
 
-`ans`
-
-==== Rate flashcard
+==== Rate flashcard: `rate [easy/good/hard]`
 This command rates the flashcard, depending on how well you answered the question i.e. easy, good, hard.
 
 `rate [rating]`, e.g. `rate hard`
 
-==== End test
+==== Skip question: `skip`
+If you would like to manually filter and skip questions, the `skip` command helps you to skip FlashCards,
+saving you extra time.
+
+==== End test: `end`
 You can stop the test any time simply by typing `end`.
 
 //@@author LeowWB

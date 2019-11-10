@@ -89,7 +89,7 @@ public class StartCommand extends Command {
 
         CategoryContainsAnyKeywordsPredicate predicate = getSearchTermPredicate();
         logger.log(Level.INFO, "Getting a list of flashcards to test");
-        return model.getFilteredFlashCardListNoCommit(predicate);
+        return new LinkedList<>(model.getFilteredFlashCardListNoCommit(predicate));
     }
 
     /** Converts tagName to a CategoryContainsAnyKeywordsPredicate for searchTag(). */
