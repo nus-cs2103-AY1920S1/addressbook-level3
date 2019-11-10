@@ -25,7 +25,6 @@ class BookmarkCommandFactoryTest {
         assertTrue(factory.getCommand("1") instanceof BookmarkCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,
-                "Invalid index entered.",
-                () -> factory.getCommand("testerString"));
+                "Invalid index entered.", () -> factory.getCommand("testerString"));
     }
 }

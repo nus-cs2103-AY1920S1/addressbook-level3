@@ -14,7 +14,7 @@ class BookmarkCommandTest {
         MockQuestionsLogic questionsLogic = MockQuestionsLogic.getMockQuestionsLogicWithTypicalQuestions();
         BookmarkCommand bookmarkCommand = new BookmarkCommand(-1, questionsLogic);
         assertThrows(CommandException.class,
-                "Index -1 entered out of range for current list of questions.",
-                () -> bookmarkCommand.execute());
+                "Index -1 entered out of range for current list of questions.", () ->
+                        bookmarkCommand.execute());
     }
 }

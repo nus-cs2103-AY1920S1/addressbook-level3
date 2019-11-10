@@ -25,7 +25,6 @@ class DeleteBookmarkCommandFactoryTest {
         assertTrue(factory.getCommand("1") instanceof DeleteBookmarkCommand);
 
         assertThrows(InvalidCommandArgumentsException.class,
-                "Invalid index entered.",
-                () -> factory.getCommand("testerString"));
+                "Invalid index entered.", () -> factory.getCommand("testerString"));
     }
 }
