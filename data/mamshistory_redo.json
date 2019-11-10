@@ -414,8 +414,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS2106",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000002",
@@ -442,8 +442,8 @@
     "newModule" : "",
     "moduleToAdd" : "CS1020",
     "moduleToDrop" : "",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000004",
@@ -568,8 +568,8 @@
     "newModule" : "",
     "moduleToAdd" : "",
     "moduleToDrop" : "CS1231",
-    "resolved" : false,
-    "result" : "",
+    "resolved" : true,
+    "result" : "REJECTED",
     "remark" : ""
   }, {
     "appealId" : "C000013",

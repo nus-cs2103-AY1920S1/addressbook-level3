@@ -1,0 +1,43 @@
+{
+  "inputOutputs" : [ {
+    "input" : "reject mass/ C000122   C000001",
+    "output" : "Successfully rejected: [C000001]\nThese appeal IDs do not exist: [C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000122, C000001]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573396877560
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573396881228
+  }, {
+    "input" : "approve mass/ C00122",
+    "output" : "No appeals were approved\nInvalid appeal IDs: [C00122]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573397069692
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573397072104
+  }, {
+    "input" : "reject mass/ C00122",
+    "output" : "No appeals were rejected\nInvalid appeal IDs: [C00122]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573397127148
+  }, {
+    "input" : "reject mass/ C00122  C000012  C000001  C000003",
+    "output" : "Successfully rejected: [C000012, C000001, C000003]\nInvalid appeal IDs: [C00122]",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573397141351
+  }, {
+    "input" : "undp",
+    "output" : "Unknown command",
+    "isSuccessfulExecution" : false,
+    "timeStamp" : 1573397144313
+  }, {
+    "input" : "undo",
+    "output" : "Undo Successful ",
+    "isSuccessfulExecution" : true,
+    "timeStamp" : 1573397145636
+  } ]
+}
