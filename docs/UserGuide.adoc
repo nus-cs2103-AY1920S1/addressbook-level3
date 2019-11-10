@@ -6,6 +6,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: fedora.css
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
