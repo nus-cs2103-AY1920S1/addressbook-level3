@@ -50,7 +50,7 @@ public class SearchCommandParserTest {
         searchHash.put(SearchKey.KEY_GENRE, emptyList);
         searchHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
         searchHash.put(SearchKey.KEY_ACTOR, emptyList);
-        searchHash.put(SearchKey.KEY_FROM_ONLINE, emptyList);
+        searchHash.put(SearchKey.KEY_IS_WATCHED, emptyList);
         SearchCommand expectedSearchCommand = new SearchCommand(searchHash);
 
         // no leading and trailing whitespaces

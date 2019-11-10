@@ -9,12 +9,7 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_B
 import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -25,13 +20,8 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.ModelManager;
 import seedu.ezwatchlist.model.UserPrefs;
 import seedu.ezwatchlist.model.actor.Actor;
+import seedu.ezwatchlist.model.show.*;
 import seedu.ezwatchlist.model.show.Date;
-import seedu.ezwatchlist.model.show.Description;
-import seedu.ezwatchlist.model.show.IsWatched;
-import seedu.ezwatchlist.model.show.Movie;
-import seedu.ezwatchlist.model.show.Name;
-import seedu.ezwatchlist.model.show.RunningTime;
-import seedu.ezwatchlist.model.show.Show;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SearchCommand}.
@@ -172,7 +162,6 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(emptyHash);
 
         expectedModel.updateSearchResultList(new ArrayList<Show>());
-        //assertCommandSuccess(command, model, expectedMessage, expectedModel);
 
         assertEquals(Collections.emptyList(), model.getSearchResultList());
     }
@@ -194,6 +183,18 @@ public class SearchCommandTest {
         SearchCommand command = new SearchCommand(showHash);
 
         List<Show> expectedList = new ArrayList<>();
+
+        Set<Genre> genreSetAdventureFantasyFamily = new HashSet<>();
+        Genre GENRE_ADVENTURE = new Genre("adventure");
+        Genre GENRE_FANTASY = new Genre("fantasy");
+        Genre GENRE_FAMILY = new Genre("family");
+        genreSetAdventureFantasyFamily.add(GENRE_ADVENTURE);
+        genreSetAdventureFantasyFamily.add(GENRE_FANTASY);
+        genreSetAdventureFantasyFamily.add(GENRE_FAMILY);
+        
+        SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM.addGenres(genreSetAdventureFantasyFamily);
+        SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD.addGenres(genreSetAdventureFantasyFamily);
+
         expectedList.add(SHOW_FANTASTIC_BEASTS_AND_WHERE_TO_FIND_THEM);
         expectedList.add(SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD);
 
