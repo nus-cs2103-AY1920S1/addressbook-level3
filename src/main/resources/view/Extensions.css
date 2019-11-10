@@ -38,3 +38,7 @@
 .activity-owing.activity-owing.activity-owing {
     -fx-text-fill: maroon;
 }
+
+.activity-history-card .activity-neutral.activity-neutral.activity-neutral {
+    -fx-font-size: 13px;
+}

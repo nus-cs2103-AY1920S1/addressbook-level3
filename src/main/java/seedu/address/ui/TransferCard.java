@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * An UI component that displays a required transfer between two participants in an
@@ -32,7 +33,7 @@ public class TransferCard extends UiPart<Region> {
 
         fromPerson.setText(source.getName().toString());
         toPerson.setText(destination.getName().toString());
-        transferAmt.setText(String.format("$%.2f", amount));
+        transferAmt.setText(UiUtil.formatAmount(amount));
     }
 
     @Override

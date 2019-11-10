@@ -15,6 +15,7 @@ import seedu.address.commons.util.Triplet;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.person.Person;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * Panel displaying details of a contact.
@@ -50,7 +51,7 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 .forEach(name -> participantTags.getChildren().add(new Label(name)));
 
         int numParticipants = activity.getParticipantCount();
-        participantCount.setText(numParticipants + " " + pluralize("participant", numParticipants));
+        participantCount.setText(UiUtil.formatParticipantCount(numParticipants));
 
         double totalSpending = activity.getTotalSpending();
         spending.setText(String.format("$%.2f", totalSpending));
@@ -77,10 +78,5 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                     TransferCard newNode = new TransferCard(sender, recipient, transferAmt);
                     transferList.getChildren().add(newNode.getRoot());
                 });
-    }
-
-    private String pluralize(String noun, int count) {
-        assert count >= 0 : "Number of participants is non-negative!";
-        return count != 1 ? noun : noun + "s";
     }
 }

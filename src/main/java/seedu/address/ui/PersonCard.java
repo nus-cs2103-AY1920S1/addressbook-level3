@@ -38,10 +38,12 @@ public class PersonCard extends UiPart<Region> {
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
+
         id.setText("ID: " + person.getPrimaryKey());
         index.setText("#" + displayedIndex);
         name.setText(person.getName().toString());
         phone.setText(person.getPhone().toString());
+
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

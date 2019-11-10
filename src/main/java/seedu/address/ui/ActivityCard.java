@@ -3,7 +3,9 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.activity.Activity;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * An UI component that displays information of an {@code Activity}.
@@ -30,12 +32,7 @@ public class ActivityCard extends UiPart<Region> {
         title.setText(activity.getTitle().toString());
 
         int numParticipants = activity.getParticipantCount();
-        participantCount.setText(numParticipants + " " + pluralize("participant", numParticipants));
-    }
-
-    private String pluralize(String noun, int count) {
-        assert count >= 0 : "Number of participants is non-negative!";
-        return count != 1 ? noun : noun + "s";
+        participantCount.setText(UiUtil.formatParticipantCount(numParticipants));
     }
 
     @Override

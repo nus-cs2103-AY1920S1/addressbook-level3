@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.activity.Expense;
 import seedu.address.model.person.Person;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * An UI component that displays activity-specific information of an {@code Expense}.
@@ -53,7 +54,9 @@ public class ExpenseCard extends UiPart<Region> {
         }
 
         description.setText(getFormattedDescription());
-        amount.setText(String.format("$%s", expense.getAmount().toString()));
+
+        double expenseAmt = expense.getAmount().value;
+        amount.setText(UiUtil.formatAmount(expenseAmt));
 
         int expenseOwnerId = expense.getPersonId();
         Optional<Person> expenseOwnerOpt = activityParticipants.stream()
