@@ -445,10 +445,6 @@ Deleted Flashcard:
     Tags: [cs2100]
 ```
 
-[IMPORTANT]
-sdf
-
-
 === Time Trial: `timetrial`
 
 Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashcard.
