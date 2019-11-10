@@ -16,7 +16,7 @@ endif::[]
 :javaURL: https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html
 
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
-
+// tag:: intro[]
 == Introduction
 
 This user guide explains how to use ORGANice to manage organ transplants.
@@ -406,8 +406,8 @@ This section will explain how to run kidney matching tests for a specific patien
 the process with an example.
 To get a list of potential donors for a patient, type in `match ic/**PATIENT NRIC**`.
 
-Here is an example. Suppose you want to find potential donors for a patient "John Doe" and his NRIC is "S1234568R".
-Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
+Here is an example. Suppose you want to find potential donors for a patient "John Doe" and his NRIC is "S9941002G".
+Type `match ic/S9941002G` in the Command Box and press kbd:[Enter].
 
 You will see a list of potential donors for John Doe along with the compatibility
 rate of each donor, similar to Figure 13.
@@ -436,7 +436,7 @@ image::PatientMatchResults.png[width=790]
 Following this, you can sort the matches based on different criteria to
 determine which patient to prioritize. Head over to the next section to find out
 how to sort matches.
-
+// end::match[]
 // tag::sort[]
 === Sorting matches: `sort`
 After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
