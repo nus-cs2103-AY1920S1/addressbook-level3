@@ -17,7 +17,7 @@ import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 
 public class SearchCommandParserTest {
-    private  SearchCommandParser parser = new SearchCommandParser();
+    private SearchCommandParser parser = new SearchCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {

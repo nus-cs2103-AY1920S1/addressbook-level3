@@ -2,11 +2,11 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIFTH_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
@@ -28,7 +28,7 @@ import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
 
 class WatchCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList2(), getDatabase(),new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList2(), getDatabase(), new UserPrefs());
     private int validSeasonNum = 6;
     private int validEpisodeNum = 4;
     private int invalidSeasonNum = 100;
@@ -42,7 +42,7 @@ class WatchCommandTest {
         WatchCommand watchCommand =
                 new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, false);
         String expectedMarkMessage = String.format(WatchCommand.MESSAGE_WATCH_SHOW_SUCCESS, watchedShow);
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(),new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         //Replacing the unwatched Joker in the list with the watched Joker
         expectedModel.setShow(model.getFilteredShowList().get(0), watchedShow);
         //Check that the Joker movie in the model is now marked as watched.

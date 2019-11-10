@@ -3,9 +3,9 @@ package seedu.ezwatchlist.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
