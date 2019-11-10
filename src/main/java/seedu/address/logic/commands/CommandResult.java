@@ -42,6 +42,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage, boolean showList) {
+        this(feedbackToUser, showHelp, exit, showPage, showList, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean showPage) {
         this(feedbackToUser, showHelp, exit, showPage, false, false);
     }
@@ -51,6 +58,13 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this(feedbackToUser, showHelp, exit, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showClear) {
+        this(feedbackToUser, false, false, false, false,showClear);
     }
 
     /**

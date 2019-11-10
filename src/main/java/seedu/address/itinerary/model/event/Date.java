@@ -49,6 +49,12 @@ public class Date {
                     return false;
                 }
 
+            } else if (month.equals("04") | month.equals("06") | month.equals("09") | month.equals("11")) {
+
+                if (Integer.parseInt(day) > 31) {
+                    return false;
+                }
+
             } else {
 
                 if (month.equals("02")) {

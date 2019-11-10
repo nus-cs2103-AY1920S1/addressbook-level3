@@ -53,6 +53,7 @@ public class CommandBox extends UiPart<Region> {
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
 
+        // Credits to the implementation of the controlsfx library
         AutoCompletionBinding<String> autoComplete =
                 TextFields.bindAutoCompletion(commandTextField, possibleSuggestions);
         autoComplete.setVisibleRowCount(3);
