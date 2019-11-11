@@ -125,7 +125,7 @@ public class SampleDataUtil {
     public static Order[] getSampleOrders() {
         return new Order[]{
             new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh99"))
-                    .setRestaurant(new Name("Burger Palace")).setDeliveryman(new Name("Damith"))
+                    .setRestaurant(new Name("Burger Palace"))
                     .setFood(Map.ofEntries(Map.entry(new Name("Ginger Burger"), 2),
                             Map.entry(new Name("Crispy Duck Burger"), 4),
                             Map.entry(new Name("Pickle Burger"), 1)))
@@ -167,7 +167,7 @@ public class SampleDataUtil {
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
             new Deliveryman(new Name("Damith"), new Phone("83412321"),
-                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("DELIVERING")),
+                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
                     new StatusTag("DELIVERING")),

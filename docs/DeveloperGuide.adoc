@@ -364,19 +364,27 @@ Alternative 1 was selected, as it is much faster to implement compared to altern
 // end::orders[]
 
 // tag::deliverymen statistics
-=== Deliverymen status management feature
+=== Deliverymen status statistics feature
 
-This is a feature which allows the user to keep track of the deliverymen who have met the requirements for a salary increment
-based on their delivery rate and duration of service. It extends DeliveryMANS with a delivery record for every deliveryman as well as relevant analysis of the record.
+Tracking the amount of available manpower you have at any point in time is very crucial to deal with sudden changes in food orders.
+This is a feature which allows the user to effectively manage the deliverymen by providing relevant statistics in regards to their statuses.
+Relevant statistics include current utilization level and activity level of the deliverymen.
 
 ==== Implementation
 
-The salary adjustment feature is primarily monitored by the 'Analyzer', which has access to the delivery record of every deliveryman in the database. From the record, the Analyzer computes two data:
+The statistics feature is primarily managed by the 'StatisticsManager', which has access to the status of every deliveryman in the database through the 3
+status lists - lists of available deliverymen, unavailable deliverymen and delivering deliverymen respectively.
+The 'StatisticsManager' obtains these 3 status lists from the 'StatusManager' and passes it to the 'Analyzer' to compute the relevant data, which in turn
+returns a filled 'StatisticsRecordCard' containing the computed statistics.
 
-* Delivery rate
-** This is the number of orders per day.
+From the status lists, the Analyzer computes two data:
 
-* Time in database
+* Utilization Level
+** This signals to the user the proportion of the deliverymen who are waiting to be assigned orders.
+** It is the percentage of the number of deliverymen who are working (ie. delivering an order) over the number of deliverymen.
+** It is computed as follows: *UTILIZATION LEVEL =  DeliveringMen / (AVAILABLEMEN + DELIVERINGMEN) x 100*
+
+* Activity Level
 ** This is the time difference between the time when the deliveryman was added to the database and the current time when command is executed.
 
 With these structure, it implements the following operations:
