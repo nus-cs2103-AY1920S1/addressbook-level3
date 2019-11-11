@@ -54,18 +54,41 @@ public class DoneEditEventCommand extends Command {
                 if (eventToAdd.getExpense().isPresent()) {
                     model.getPageStatus().getTrip().getExpenseList().add(eventToAdd.getExpense().get());
                 }
+
+                //Added by Karan Dev Sapra
+                if (eventToAdd.getInventoryList().isPresent()) {
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .addEventInventoryList(eventToAdd.getInventoryList().get());
+                }
+
                 commandResult = new CommandResult(String.format(MESSAGE_CREATE_EVENT_SUCCESS, eventToAdd), true);
             } else {
                 //edit the current "selected" event
                 eventToAdd = editEventDescriptor.buildEvent(eventToEdit, model);
                 model.getPageStatus().getDay().getEventList().set(eventToEdit, eventToAdd);
+
                 if (eventToEdit.getExpense().isPresent()) {
                     model.getPageStatus().getTrip().getExpenseList().remove(eventToEdit.getExpense().get());
                 }
                 if (eventToAdd.getExpense().isPresent()) {
                     model.getPageStatus().getTrip().getExpenseList().add(eventToAdd.getExpense().get());
+
                 }
+
+                //Added by Karan Dev Sapra
+                if (eventToEdit.getInventoryList().isPresent()) {
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .removeEventInventoryList(eventToEdit.getInventoryList().get());
+                }
+
+                //Added by Karan Dev Sapra
+                if (eventToAdd.getInventoryList().isPresent()) {
+                    model.getPageStatus().getTrip().getInventoryList()
+                            .addEventInventoryList(eventToAdd.getInventoryList().get());
+                }
+
                 commandResult = new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, eventToAdd), true);
+
             }
 
             model.setPageStatus(model.getPageStatus()
@@ -74,6 +97,7 @@ public class DoneEditEventCommand extends Command {
                     .withResetEvent());
 
             return commandResult;
+
         } catch (NullPointerException | EventNotFoundException ex) {
             throw new CommandException(MESSAGE_NOT_FOUND);
         } catch (ClashingEventException ex) {

@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
@@ -70,6 +71,22 @@ public abstract class ItineraryParserUtil {
     }
 
     /**
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing edges will be trimmed.
+     * @param name
+     * @return
+     * @throws ParseException if teh given {@code name} is invalid.
+     */
+    public static Inventory parseAddInventory(String name) throws ParseException {
+        requireNonNull(name);
+        String trimmedName = name.trim();
+        if (!seedu.address.model.inventory.Name.isValidName(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Inventory(new seedu.address.model.inventory.Name(trimmedName), false, -1);
+    }
+
+    /**
      * Parses a {@code String description} into a {@code Description}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -83,14 +100,7 @@ public abstract class ItineraryParserUtil {
         }
         return new Description(trimmedDescription);
     }
-    /*
-    public static Optional<Booking> parseBooking() {
-    }
 
-
-    public static Optional<Inventory> parseInventory() {
-    }
-    */
 
     /**
      * Parses the file path to be used for the photo from the {@code argMultimap}.
@@ -124,5 +134,6 @@ public abstract class ItineraryParserUtil {
 
         return new Photo(path);
     }
+
 
 }
