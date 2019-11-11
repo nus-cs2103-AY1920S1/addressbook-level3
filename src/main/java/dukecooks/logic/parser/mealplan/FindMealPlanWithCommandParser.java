@@ -26,7 +26,7 @@ public class FindMealPlanWithCommandParser implements Parser<FindMealPlanWithCom
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMealPlanWithCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        String nameKeywords = String.join(" ", trimmedArgs.split("\\s+"));
 
         return new FindMealPlanWithCommand(new MealPlanRecipesContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
