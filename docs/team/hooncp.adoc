@@ -15,7 +15,7 @@ More importantly, it *stores your information locally,*  and does not use any fo
 SecureIT is *optimized for those who prefer to work with a Command Line Interface* (CLI)
 while still having the benefits of a Graphical User Interface (GUI).
 
-The following diagram shows the current UI of the password management:
+Here's a sneak peak of our application:
 
 image::UG first page.png[width = "700"]
 
