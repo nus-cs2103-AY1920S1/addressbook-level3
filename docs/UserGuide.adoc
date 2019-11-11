@@ -1249,13 +1249,23 @@ Examples:
 
 *Recipe Book*
 
-* *Add recipe* : `add recipe <exerciseName>` +
-e.g. `add recipe Chicken Rice`
-* *Delete recipe* : `delete recipe <exerciseName>` +
-e.g. `delete recipe Chicken Rice`
+* *Add recipe* : `add recipe n/<name> i/<ingredients>…​ cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
+* *Delete recipe* : `edit recipe <index> [parameters]`
 * *List recipes* : `list recipe`
-* *View recipe* : `view recipe` +
-e.g. `view recipe Chicken Rice`
+* *Find recipes* : `find recipe <keyword>`
+* *Delete recipe* : `delete recipe <index>`
+* *Clear recipe book* : `clear recipe`
+
+*Meal Plan*
+
+* *Add meal plan* : `add mealplan n/<name> day1/[name]…​ day2/[name]…​ day3/[name]…​ day4/[name]…​ day5/[name]…​ day6/[name]…​ day7/[name]…​`
+* *Delete meal plan* : `edit mealplan <index> [parameters]`
+* *List meal plans* : `list mealplan`
+* *Find meal plans* : `find mealplan <keyword>`
+* *Find recipe in meal plans* : `find mealplanwith <recipe name keyword>`
+* *View meal plan* : `view mealplan <index>`
+* *Delete meal plan* : `delete mealplan <index>`
+* *Clear meal plan book* : `clear mealplan`
 
 *Dashboard*
 
