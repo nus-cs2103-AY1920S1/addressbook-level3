@@ -155,6 +155,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::tab-switch[]
+=== Tab Switch Feature
+Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. +
+Tab switch function is implemented in using both CLI and GUI approach; user can execute tab-switch by typing command in the input text-area or by interaction with the UI component (Button).
+
+==== Implementation Structure
+
+[.float_group]
+[.clearfix]
+---
+.TabCommand Class Diagram and fetchTabInfo Activity Diagram
+image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
+---
+
+1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, system will display the `EngagementList` window by default.
+2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
+
+MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
+System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
+
+//end::tab-switch[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Implementation
@@ -237,28 +260,66 @@ image::CommitActivityDiagram.png[width="190", align="center"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-//tag::tab-switch[]
-=== Tab Switch Feature
-Tab switch feature is a type of Command that allows users to switch to respective windows for using different features in the system. +
-Tab switch function is implemented in using both CLI and GUI approach; user can execute tab-switch by typing command in the input text-area or by interaction with the UI component (Button).
+//tag::sort[]
+=== Sort feature
+==== Implementation
 
-==== Implementation Structure
+The sort mechanism is facilitated by `EngagementComparator`.
+The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
+Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
 
-[.float_group]
-[.clearfix]
----
-.TabCommand Class Diagram and fetchTabInfo Activity Diagram
-image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
----
+Additionally, the `Model` interface is modified to support the following methods:
 
-1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
-* Upon first startup of the system, system will display the `EngagementList` window by default.
-2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
+* `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
+* `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
+* `Model#getSortedEngagementList()` -- Returns the current internal engagement list as an unmodifiable `ObservableList`.
 
-MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
-System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
+These operations are implemented in the `ModelManager` class as `ModelManager#setComparator(Comparator<Engagement>)`, `ModelManager#updateSortedEngagementList()` and `ModelManager#getSortedEngagementList()` respectively.
 
-//end::tab-switch[]
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `currentComparator` will be initialized as `null`.
+
+image::SortListState0.png[width="450", align="center"]
+
+Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+
+image::SortListState1.png[width="450", align="center"]
+
+NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortSequenceDiagram.png[width="750", align="center"]
+
+NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 3. The user executes `add t/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
+
+image::SortListState2.png[width="450", align="center"]
+
+[NOTE]
+If the `currentComparator` assumes the initial value `null` when `Model#updateSortedEngagementList` is called, the method will simply catch the `NullPointerException` thrown by `java.object.requireNonNull` which will essentially abort the attempt to sort with an empty catch block. The initial chronological order is preserved in this case.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the engagement list or alter the order of the list, such as `list`, will usually not call `Model#setComparator(Comparator<Engagement>)`, or `Model#updateSortedEngagementList()`. Thus, the internal `ObservableList` remains unchanged.
+
+image::SortListState3.png[width="450", align="center"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::SortUpdateActivityDiagram.png[width="190", align="center"]
+
+==== Design Considerations
+
+===== Aspect: How sort executes
+
+* **Alternative 1 (current choice):** Use the `List.sort(Comparator<T>)` function to sort the list.
+** Pros: Has trivial support for features that updates the predicate of `FilteredList`, like `Find`.
+** Cons: There is a need to sort the list each time a command that modifies the elements of the list is executed, which may result in performance issues in case the list size is large.
+* **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
+** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
+** Cons: Features like `find` command may lose functionality and needs extra modification.
+//end::sort[]
 
 //tag::report[]
 
@@ -523,67 +584,6 @@ to crash.
 performance issues or application crash issues.
 
 // end::typinggame[]
-
-//tag::sort[]
-=== Sort feature
-==== Implementation
-
-The sort mechanism is facilitated by `EngagementComparator`.
-The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
-Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
-
-Additionally, the `Model` interface is modified to support the following methods:
-
-* `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
-* `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
-* `Model#getSortedEngagementList()` -- Returns the current internal engagement list as an unmodifiable `ObservableList`.
-
-These operations are implemented in the `ModelManager` class as `ModelManager#setComparator(Comparator<Engagement>)`, `ModelManager#updateSortedEngagementList()` and `ModelManager#getSortedEngagementList()` respectively.
-
-Given below is an example usage scenario and how the sort mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `currentComparator` will be initialized as `null`.
-
-image::SortListState0.png[width="450", align="center"]
-
-Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
-
-image::SortListState1.png[width="450", align="center"]
-
-NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
-
-The following sequence diagram shows how the sort operation works:
-
-image::SortSequenceDiagram.png[width="750", align="center"]
-
-NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-Step 3. The user executes `add t/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
-
-image::SortListState2.png[width="450", align="center"]
-
-[NOTE]
-If the `currentComparator` assumes the initial value `null` when `Model#updateSortedEngagementList` is called, the method will simply catch the `NullPointerException` thrown by `java.object.requireNonNull` which will essentially abort the attempt to sort with an empty catch block. The initial chronological order is preserved in this case.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the engagement list or alter the order of the list, such as `list`, will usually not call `Model#setComparator(Comparator<Engagement>)`, or `Model#updateSortedEngagementList()`. Thus, the internal `ObservableList` remains unchanged.
-
-image::SortListState3.png[width="450", align="center"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::SortUpdateActivityDiagram.png[width="190", align="center"]
-
-==== Design Considerations
-
-===== Aspect: How sort executes
-
-* **Alternative 1 (current choice):** Use the `List.sort(Comparator<T>)` function to sort the list.
-** Pros: Has trivial support for features that updates the predicate of `FilteredList`, like `Find`.
-** Cons: There is a need to sort the list each time a command that modifies the elements of the list is executed, which may result in performance issues in case the list size is large.
-* **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
-** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
-** Cons: Features like `find` command may lose functionality and needs extra modification.
-//end::sort[]
 
 === Logging
 
@@ -1150,27 +1150,41 @@ p/😄
 ```
 Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
 
+//tag::yuchen-test[]
 === Sorting the engagement list
-. Instantiating the sort command mode
-.. Type `sort` in the command line and click `send`.
 
-. Executing the sort command
-.. Following the instruction shown in the console, enter `p/start` and press `enter` again.
-.. Enter `o/ascending` and press `enter` again.
-.. The list should be sorted in ascending order of start time.
+(i) Test case: +
+The sequence of commands is as follows:
+```
+sort
+p/start
+o/ascending
+```
+Expected: The list should be sorted in ascending order of start time.
 
-. Executing the sort command by giving all attributes at once
-.. Enter `sort p/start o/ascending` followed by pressing `enter`.
-.. This should give the exact same result as the previous stepwise command.
+(ii) Test case: Executing the sort command by giving all attributes at once
+```
+sort p/start o/ascending
+```
+Expected: This should give the exact same result as the previous stepwise command.
 
 === Undo and Redo
-. Executing a command that changes the list
-.. Type in `delete i/1` (provided there is at least 1 engagement in the list) and press `enter`.
 
-. Executing undo command
-.. Type in `undo` and press `enter`.
-.. The previously deleted engagement should reappear in the list.
+(i) Test case: Executing the undo command
+The sequence of commands is as follows:
+```
+delete i/1 (provided there is at least 1 engagement in the list)
+undo
+```
 
-. Executing redo command
-.. Type in `redo` and press `enter`.
-.. The recovered engagement should disappear in the list.
+Expected: The previously deleted engagement should reappear in the list.
+
+(ii) Test case: Executing the redo command
+The sequence of commands is as follows:
+```
+delete i/1 (provided there is at least 1 engagement in the list)
+undo
+redo
+```
+Expected: The recovered engagement should disappear in the list.
+//end::yuchen-test[]
