@@ -9,7 +9,11 @@
 
 == Overview
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+FlashCardPro is a program to manage flash cards each with three properties; front, back and evaluation. The simplest form of a flash card is a FrontBackCard where the front and back are texts and evaluation is checking that the user’s input is the same as back.
+
+The app also has a review mode where users can test themselves with the cards they have created.
+
+Cards can also easily be shared via a json file per deck of cards.
 
 == Summary of contributions
 
