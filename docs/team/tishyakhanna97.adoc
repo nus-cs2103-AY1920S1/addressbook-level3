@@ -6,13 +6,13 @@
 = Tishya Khanna - Project Portfolio
 
 
-// add picture of travezy
-
 == Introduction
 
 This project portfolio has been written to elaborate on my
-contributions to a team-based software engineering project in the NUS Computing
-module CS2103T.In this module, my team of five was tasked to create an application, with reference to
+contributions to a *team-based software engineering project* in the NUS Computing
+module CS2103T.
+
+In this module, my team of five was tasked to create an application, with reference to
 the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
 
 === Constraints
@@ -47,29 +47,46 @@ a single trip, users can now combine critical travel applications such as
 calendars, itinerary planners, diaries and budgeting tools into one convenient
 and intuitive interface.
 
-Our product is targeting NUS students who are avid travellers. Given their
+Our product is for NUS students who are avid travellers. Given their
 busy schedules and love for travelling, *TravEzy* is the optimal
 solution for their travel needs.
 
-=== Overview of my contribution
+=== Overview of my contributions
 
-I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
+I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy (The image below is a screenshot from the _Diary Feature_). While this was my main task, I also
 worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
 Developer guides. I shall elaborate more in the following sections.
+
+image::DiaryPPP.png[]
 
 
 In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
 
-IMPORTANT: This symbol is to highlight important information
 
-``command``: Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
+
+.Diary Commands Summary
+|===
+|Format and special symbols |Purpose
+
+|``Command``
+| Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
 can type into the command line in order to interact with TravEzy
 
-_Components_: Text which is italicised refers to technical components in the application
+|_Italics_
+| Text which is italicised refers to technical components in the application
 
-*Highlight* Bold text is mainly for titles
+| https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/DeveloperGuide.adoc[``Class``]
+| A grey highlight with blue text implies that the word refers to a component, class or object in the diagram shown.
 
-[underline]#attention# Underlined text is used to highlight certain key words and phrases
+
+|===
+
+
+:
+
+:
+
+
 
 
 
