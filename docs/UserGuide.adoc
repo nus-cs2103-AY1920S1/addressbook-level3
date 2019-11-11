@@ -929,6 +929,7 @@ Saves the bookmarked website locally for offline viewing.
 
 Format: `*cache* INDEX`
 
+Parameter constraints:
 ****
 * `INDEX` is the bookmark that you want to save an offline copy of. If there is a previous version, it will be overwritten.
 ****
@@ -944,6 +945,7 @@ Deletes an offline copy of a bookmark.
 
 Format: `*cache-delete* INDEX`
 
+Parameter constraints:
 ****
 * `INDEX` is the bookmark that you want to delete the offline copy of. It must have an offline copy to delete.
 ****
@@ -961,6 +963,7 @@ to the offline tab where the offline copy is shown.
 Format: `*offline* INDEX`
 //TODO: [v/VERSION = current]`
 
+Parameter constraints:
 ****
 * `INDEX` is the bookmark that you want to view notes of
 //TODO: * `VERSION` is the version of the cached version to show. Default is the current version
@@ -971,11 +974,8 @@ Examples:
 * `*offline* 1` +
 Shows annotated offline copy of bookmark 1.
 
-//TODO: * `*offline* 1 v/2` +
-//Shows the 2nd version of offline copy of bookmark 1. If it is annotated,
-//then annotations are shown as well.
 
-
+// tag::annCmd[]
 [[annotate]]
 ==== Making annotations on an offline copy: *`annotate`*
 
@@ -1006,18 +1006,18 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 For example:
 
-* Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
+* Input `*annotate* 24 p/p1 n/summary of paragraph h/orange` into the command box.
 
-image::ui-screenshots/AddAnnotationCommandUi1.png[]
+image::ui-screenshots/AddAnnotationCommandUi1.png[100,400]
 // offline tab, showing result after   annotate 1 p/p2
 
-* Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
+* Observe that paragraph P1 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
-image::ui-screenshots/AddAnnotationCommandUi2.png[]
+image::ui-screenshots/AddAnnotationCommandUi2.png[300, 400]
 // offline tab, showing result.
 
 
-// More details about command constraints
+Parameter constraints:
 ****
  * `INDEX` is the bookmark that you want to annotate offline version of.
  If `INDEX` is invalid, a warning message will be displayed.
@@ -1031,7 +1031,6 @@ the colour is set to yellow by default.
 If the colour provided is invalid, a warning message will be displayed.
 ****
 
-//TODO: remove all the description of result and replace with GUI image?
 Other examples:
 
 * `*annotate* 1 p/p2` +
@@ -1050,6 +1049,7 @@ a new note with content "change or add note content" will be added to the paragr
 * `*annotate* 1 p/null n/adding a general note` +
 This adds a note with content "adding a general note" to the _General notes section_ in the
 offline copy of bookmark 1.
+// end::annCmd[]
 
 [[annotate-edit]]
 ==== Modifying annotations on an offline copy: *`annotate-edit`*
@@ -1070,15 +1070,16 @@ Format: `*annotate-edit* INDEX p/PARA_NUM [to/NEW_PARA_NUM] [n/NOTES] [h/HIGHLIG
 
 For example:
 
-* Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
+* Input `*annotate-edit* 24 p/g1 to/p1 h/green` into the command box.
 
-image::ui-screenshots/EditAnnotationCommandUi1.png[]
+image::ui-screenshots/EditAnnotationCommandUi1.png[200,400]
 // offline tab after   annotate 1 p/null n/this note was once a general note
 
 * Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
 
-image::ui-screenshots/EditAnnotationCommandUi2.png[]
+image::ui-screenshots/EditAnnotationCommandUi2.png[400,400]
 
+Parameter constraints:
 ****
 * `INDEX` is the bookmark that you want to annotate offline version of.
 If `INDEX` is invalid, a warning message will be displayed.
@@ -1134,16 +1135,16 @@ Format: `*annotate-delete* INDEX p/PARA_NUM [n/KEEP_NOTES=false] [h/KEEP_HIGHLIG
 
 For example:
 
-* Input `*annotate-delete* 1 p/p2 n/true` into the command box.
+* Input `*annotate-delete* 24 p/p1 n/true` into the command box.
 
-image::ui-screenshots/DeleteAnnotationCommandUi1.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi1.png[200,400]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
 
-* Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
+* Observe that the highlight of paragraph P1 if removed and the note is moved to the _General notes section_.
 
-image::ui-screenshots/DeleteAnnotationCommandUi2.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi2.png[200,400]
 
-
+Parameter constraints:
 ****
 * `INDEX` is the bookmark that you want to remove annotations of.
  If `INDEX` is invalid, a warning message will be displayed.
