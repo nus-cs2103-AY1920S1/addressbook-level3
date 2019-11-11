@@ -504,7 +504,7 @@ In contrast, for Alternative 2, manipulating the internal elements of the list d
 // tag::reminder[]
 === Reminder feature
 
-This feature allows users to set reminders for their tasks with certain deadline and delete them when respective tasks are completed.
+This feature allows users to set reminders for their tasks with a specified deadline and delete them when respective tasks are completed.
 
 ==== Implementation for Reminder
 

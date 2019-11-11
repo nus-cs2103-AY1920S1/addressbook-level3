@@ -528,7 +528,7 @@ Adds a reminder to the reminder list when you enters a new reminder. Key informa
 ****
 
 [NOTE]
-You have to ensure that the date of the deadline must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
+Please ensure that the date of the deadline must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
 
 *Examples:*
 
@@ -537,7 +537,7 @@ You have to ensure that the date of the deadline must be in the future before th
 
 *Expected Output:*
 
-A new reminder is added according to the information you provided.
+A new reminder is added according to the information provided.
 
 === Deleting a reminder: `reminder delete`
 Deletes a reminder at the specified `INDEX`.

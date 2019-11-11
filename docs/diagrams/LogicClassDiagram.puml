@@ -73,7 +73,7 @@ XYZReminderCommandParser ..> XYZReminderCommand : creates >
 LogicManager --> Model
 Command .right.> Model
 note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-note right of XYZReminderCommand: XYZReminderCommand = AddReminderCommand, \nDeleteReminderCommand, etc
+note right of XYZReminderCommand: XYZReminderCommand = AddReminderCommand, \nDeleteReminderCommand
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
