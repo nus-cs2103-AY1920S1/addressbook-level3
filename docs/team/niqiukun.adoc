@@ -56,7 +56,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 
 == Contributions to the User Guide
 
-The following excerpt from our User Guide shows the usage of the file manager. Please note that due to the page limit, not all commands are shown.
+The following excerpt from our User Guide shows the usage of the file manager. Please note that not all commands are shown. Refer to the https://ay1920s1-cs2103t-f11-3.github.io/main/UserGuide.html#file[User Guide] for a complete list.
 
 === File Manager
 
@@ -139,7 +139,7 @@ image::tip.png[width = "20", float = "left"]
 *Tip*
 
 * If you notice that the file decryption fails, it may be because you have renamed or moved the file without using SecureIT (for example, in your operating system).
-* In that case, use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file. Please refer to the `remove` and `add` command sections for detailed instructions.
+* In that case, use `remove` command to remove the file from the list first, and then use `add` command to add the renamed/moved file. Please refer to the https://ay1920s1-cs2103t-f11-3.github.io/main/UserGuide.html#removing-a-file-code-remove-code[`remove`] and https://ay1920s1-cs2103t-f11-3.github.io/main/UserGuide.html#adding-an-encrypted-file-code-add-code[`add`] commands for detailed instructions.
 ====
 
 == Contributions to the Developer Guide

@@ -275,7 +275,7 @@ Below is a summary of my considerations and analysis while developing the file m
 +
 *Alternative 1*: When a command is parsed +
 *Pros*: No need to construct `*EncryptedFile*` objects for invalid files. +
-*Cons*: Both the command parsing and execution requires interaction with the file system. `*Parser*` violates the single responsibility principle.
+*Cons*: Both the command parsing and execution require interaction with the file system. `*Parser*` violates the single responsibility principle.
 +
 *Alternative 2*: When a command is executed +
 *Pros*: Interaction with the file system only occurs during execution. Easier to debug. +
