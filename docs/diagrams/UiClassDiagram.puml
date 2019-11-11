@@ -19,11 +19,7 @@ Class UpdateUi
 }
 
 package AppManager <<Rectangle>> {
-Class HiddenAppManager #FFFFFF
 }
-
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow

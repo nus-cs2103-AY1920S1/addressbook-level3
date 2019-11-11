@@ -300,7 +300,7 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== AutoComplete and Dynamic Parsers
+=== [underline]#AutoComplete/Parser Feature#
 _This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
 ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern.
@@ -324,7 +324,7 @@ The above implementation empowers the application with the following features :
    The below activity diagram demonstrates four possible states and a typical user flow.
 
 .Activity diagram of a typical application flow
-image::StateActivityDiagram.PNG[width="400"]
+image::StateActivityDiagram.PNG[width="790"]
 
 *   Definitions of Switch and Mode in table above
 **   SwitchCommands = (commands that change mode)
@@ -406,7 +406,7 @@ This feature provides the user an interface to make their own changes to the sta
 The activity diagram below summarizes what happens in the execution of a settings command:
 
 .Activity diagram of the execution of a settings command.
-image::SettingsActivityDiagram.png[]
+image::SettingsActivityDiagram.png[width='200']
 
 [NOTE]
 Take note that "mode" as defined in our project is the state in which the application is able to take commands specific to that mode.
@@ -414,12 +414,12 @@ Take note that "mode" as defined in our project is the state in which the applic
 Given below is a step by step walk-through of what happens when a user executes a difficulty command while in settings mode:
 
 .Before state of application.
-image::StateDiagramBefore.png[]
+image::StateDiagramBefore.png[width='250']
 *Step 1:* +
 Let us assume that the current difficulty of the application is "EASY". The object diagram above shows the current state of `AppSettings`.
 
 .Sequence diagram of Step 2.
-image::DifficultySequenceDiagram1.png[]
+image::DifficultySequenceDiagram1.png[width='400']
 *Step 2:* +
 When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
 
@@ -439,15 +439,15 @@ image::DifficultySequenceDiagram4.png[]
 Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
 
 .Sequence diagram of Step 6.
-image::DifficultySequenceDiagram5.png[]
+image::DifficultySequenceDiagram5.png[width='250']
 *Step 6:* +
 Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
 
 The state of appSettings is then as follows:
 
 .After state of application
-image::StateDiagramAfter.png[]
-
+image::StateDiagramAfter.png[width='250']
+<<<
 ==== Design Considerations
 
 There were a few considerations for implementing an interface that essentially allows users to touch a lot of parts of the application through settings and some of these methods break software design principles. These are the considerations we came across:
@@ -600,7 +600,7 @@ these polled _timestamps_ to update the `Hints` provided periodically.
 
 ==== Design Considerations
 
-There were a few considerations for designing the `Timer` this way.
+There were a few reasons for designing the `Timer` and `Hints` this way.
 
 |===
 ||**Alternative 1**|**Alternative 2**
@@ -623,11 +623,35 @@ _Cons:_ +
 Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
 implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
 
-3+|**Why did we choose Alternative 2:** +
+3+|**Why we chose Alternative 2:** +
 To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
 abstraction between components. This is also to make life easier when there comes a need to
 debug and resolve problems in the code.
  +
+ ||**Alternative 1**|**Alternative 2**
+ |**Aspect 2**: +
+ Where and how to perform string formatting for `Hints` to be displayed.
+ | **Move retrieval of individual Hint characters and all formatting outside of the Game component completely**: +
+
+ _Pros:_ +
+Maintains immutability of each `Card` inside `Game` component.  +
+
+ _Cons:_ +
+Breaking abstraction as higher level components should not have to deal with string formatting.
+
+ |**Perform formatting at the lowest level possible, using a `FormattedHint` class.** +
+
+ _Pros:_ +
+Higher level components need not know about string formatting at all, maintains good abstraction.  +
+
+ _Cons:_ +
+Individual `Game` components like each `Card` become stateful, need to make deep copies to prevent
+state from carrying across `Game` sessions.
+
+ 3+|**Why we chose Alternative 2:** +
+Implementing cloning of `Cards` affects other areas of code the least, and reduces unnecessary coupling. Since changes to higher level
+elements can potentially affect all other components, it was safer to modify more atomic areas of code.
+  +
 |===
 
 // end::yida-timer[]
@@ -636,8 +660,8 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#Word Bank Management#
-This section discusses the implementation of Word Bank Management in various levels of detail. +
+=== [underline]#WordBank-related Feature#
+This section discusses the implementation of _WordBank_ Management in various levels of detail. +
 This can be split into four complimentary distinct sections.
 
 They are: +
@@ -696,10 +720,10 @@ A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. 
 `id` : for statistical tracking +
 `word`: answer to the question (meaning) +
 `meaning`: the question that will appear in the game +
-`tags`: optional tags to classify cards
+`tags`: optional tags to classify _Cards_
 
 [NOTE]
-Cards with the same meaning are duplicates, and is disallowed.
+`Cards` with the same meaning are duplicates, and is disallowed.
 
 ---
 
@@ -710,12 +734,12 @@ image::WordBankDiagram.png[]
 
 A `WordBank` contains a `UniqueCardList` and a unique `name`. +
 
-`UniqueCardList` : prevent duplicate cards +
+`UniqueCardList` : prevent duplicate `Cards` +
 `name`: unique name of the word bank +
 
 [NOTE]
 `WordBank` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
-The UI can be bound to this list so that the UI automatically updates when the cards in the list
+The UI can be bound to this list so that the UI automatically updates when the `Cards` in the list
 change.
 Word banks with the same name are duplicates, and is disallowed.
 
@@ -733,7 +757,7 @@ A `WordBankList` contains a `UniqueWordBankList`.
 
 [NOTE]
 `WordBank` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
-The UI can be bound to this list so that the UI automatically updates when the cards in the list
+The UI can be bound to this list so that the UI automatically updates when the `Cards` in the list
 change.
 
 In Dukemon, there is should only be one `WordBankList`, which is created upon `Storage` initialisation. +
@@ -773,7 +797,7 @@ by my teammates, to build their own feature implementations. (Statistics, Game, 
 
 // tag::chenhui-wblLogicStorageModel[]
 
-Allows user to customise cards and group them according to topics (word banks). +
+Allows user to customise `Cards` and group them according to topics (word banks). +
 User commands edits and manipulates `Cards` and `WordBanks` heavily.
 
 NOTE: As mentioned previously, user commands will extend and utilise word bank's data structure and storage heavily. +
@@ -796,7 +820,7 @@ image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
 
 Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
-To segregate cards according to their function, we distinguished the following:
+To segregate `Cards` according to their function, we distinguished the following:
 
 //A `Card` contains a word and a unique meaning. (May contain tags) +
 `CardCommands` work on `Cards`. +
@@ -906,7 +930,7 @@ It is also noteworthy to mention that, dragging into Dukemon functionality is we
 
 * Not json file format.
 * Json file but data in wrong format.
-* Json file with correct format but contains duplicate cards within.
+* Json file with correct format but contains duplicate `Cards` within.
 
 User receives apt feedback through the command box for different cases.
 This is possible with careful exceptions handling within the `ImportCommand` itself.
@@ -920,11 +944,11 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // tag::chenhui-section4[]
 
 ==== Revision word bank
-Allows user to visit a centralised word bank that automatically collects cards for revision. +
-Cards that were answered wrongly are automatically added to this revision bank. +
-Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
+Allows user to visit a centralised word bank that automatically collects `Cards` for revision. +
+`Cards` that were answered wrongly are automatically added to this revision bank. +
+Likewise, `Cards` that were answered correctly during game play are automatically removed from this revision bank.
 
-Improves user learning experience by helping the user to collate cards that require revision.
+Improves user learning experience by helping the user to collate `Cards` that require revision.
 
 NOTE: As mentioned previously, revision word bank will extend and utilise word bank's data structure and storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
@@ -949,8 +973,8 @@ The activity diagram above is able to detail my thought process and implementati
 
 1. `AppManager` gets first notification that a `Game` session has ended.
 2. `StorageManager` creates revision word bank if necessary.
-3. `GameStatistics` gives the required information: correct and wrong cards.
-4. `LogicManager` manages the processing of these cards, with some slight variance depending on situation, into revision bank.
+3. `GameStatistics` gives the required information: correct and wrong `Cards`.
+4. `LogicManager` manages the processing of these `Cards`, with some slight variance depending on situation, into revision bank.
 5. `StorageManager` saves it back into hard disk.
 
 // end::chenhui-section4[]
@@ -970,7 +994,7 @@ Data structure for WordBankList.
 | **Create classes for both WordBankList and WordBank, even though they are very similar in structure.** +
 
 _Pros:_ +
-User's modification to their word banks and cards requires very different methods. These two data structure
+User's modification to their _WordBanks_ and _Cards_ requires very different methods. These two data structure
 requires different access to the storage as well. +
 With two different classes, implementation of the Commands that work on these data becomes more distinct.
 This ensures methods within `WordBankList` are written for `WordBankCommands` and methods within `WordBank` are
@@ -1037,7 +1061,7 @@ _Cons:_ +
 Can be further improved, as in Alternative 2.
 
 |**Distinguishing `WordBankCommand` and `CardCommand` specifically - +
-Commands that work on Cards extends the abstract
+Commands that work on `Cards` extends the abstract
 `CardCommand` class and commands that work on `WordBank` extends the abstract `WordBankCommand` class.** +
 
 _Pros:_ +
@@ -1088,7 +1112,7 @@ feedback messages.
 
 // end::chenhui-feature[]
 // tag::jason-feature[]
-=== [underline]#Statistics features#
+=== [underline]#Statistics Feature#
 
 ==== Implementation
 
@@ -1259,13 +1283,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* students
-* wants to learn new English words or definitions
-* can type fast
-* enjoys games
-* is reasonably comfortable using CLI apps
+* Students in formal educational institutions.
+* Students in informal educational contexts.
+* Users who are familiar with the keyboard, able to type fast.
+* Users who enjoy interactive learning.
+* Users who are famiiar and used to CLI-based apps.
 
-*Value proposition*: gamify learning experiences
+*Value proposition*: Making Learning and Memorization Game-like, Fun and Engaging.
 
 // tag::chenhui-userstories[]
 
@@ -1331,7 +1355,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1339,7 +1362,7 @@ _{More to be added}_
 // end::chenhui-userstories[]
 
 
-(For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -1406,66 +1429,78 @@ code that is expected to _callback_ (execute) the argument at a given time.
 (Adapted from https://en.wikipedia.org/wiki/Callback_(computer_programming)[Wikipedia])
 
 
-[[callback]]
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions for the testing of _Dukemon_ manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+The below instruction are only intended as starting points for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Initial Start-up and Editing of a _WordBank_
 
-. Initial launch
+. Initial clean launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the `Dukemon.jar` file and copy into an *empty folder*
+.. Double-click the `.jar` file +
+   [underline]#Expected#: GUI appears with some sample _WordBanks_. Default window size may not be optimum.
 
-. Saving window preferences
+. Selecting and viewing a default _WordBank_
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Enter `select trivia` to choose the _Trivia WordBank_. +
+   [underline]#Expected#: GUI shows feedback _"Selected word bank: trivia"_ in the _ResultDisplay_.
+.. Enter `open`. +
+   [underline]#Expected#: GUI switches to _Open_ mode, _Cards_ belonging to _Trivia_ are shown.
 
-_{ more test cases ... }_
+. Adding a new _Card_ to a _WordBank_
 
-=== Deleting a person
+.. Enter `add w/Damith m/Lecturer of CS2103T t/Easy` +
+   [underline]#Expected#: Feedback shown that a new _Card_ with the above details are added. List of _Cards_ on GUI's right panel reflects the addition of a new _Card_.
+.. Enter `exit` and relaunch _Dukemon_. Enter `select triva` and then `open` upon restarting  +
+   [underline]#Expected#: The new _Card_ ("Damith") added previously is correctly stored in the _Triva_ _WordBank_.
 
-. Deleting a person while all persons are listed
+=== Starting and Force-Stopping a _Game_ session without `Hints`.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+. Starting a _Game_ after a target _WordBank_ has been selected.
+
+.. [underline]#Prerequisite#: A _WordBank_ with *3 or more _Cards_* has been selected using the `select` command.
+.. Enter `settings` +
+   [underline]#Expected#: GUI switches to _Settings_ mode, and various configurable parameters are listed. (ie. _Theme_, _Hints_ etc)
+.. Enter `hints off` +
+   [underline]#Expected#: GUI feedback indicates that _Hints_ are turned OFF
+.. Enter `start easy` +
+   [underline]#Expected#: GUI switches to _Game_ mode with two panels stacked on top of each other. A 15s-countdown _Timer_ is started at the top right of the GUI.
+   A random `Meaning` of a `Card` belonging to the selected _WordBank_ is shown on the upper panel. The bottom panel indicated that there are no `Hints`. When time
+   is running out, the _Timer_ region changes color.
+.. Enter `stop` (*before all `Cards` are shown*) +
+   [underline]#Expected#: _Game_ stops, feedback informs that "Game has been forcibly stopped". _Timer_ stops running and disappears.
+.. Enter `guess abc` to attempt to make a `Guess` after _Game_ ends. +
+   [underline]#Expected#: No `guess` is processed, feedback indicates that "This command does not work right now"
+.. Enter `skip` to attempt to skip over to another _Card_. +
+   [underline]#Expected#: No skipping over occurs, feedback indicates that "This command does not work right now"
+
+[NOTE]
+Other possible Difficulties to start with are `start medium` and `start hard`, allowing 10s and 5s
+respectively for each _Card_. Other invalid commands will yield similar results after stopping the _Game_.
+
+=== Importing and Exporting a _WordBank_ using Drag-and-Drop.
+
+. Starting a _Game_ after a target _WordBank_ has been selected.
+
+.. [underline]#Prerequisite#: A _WordBank_ with *3 or more _Cards_* has been selected using the `select` command.
+.. Enter `settings`
+   [underline]#Expected#: GUI switches to _Settings_ mode, and various configurable parameters are listed. (ie. _Theme_, _Hints_ etc)
+.. Enter `hints off` +
+   [underline]#Expected#: GUI feedback indicates that _Hints_ are turned OFF
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
+
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Dealing with *missing/corrupted* data and configuration files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 

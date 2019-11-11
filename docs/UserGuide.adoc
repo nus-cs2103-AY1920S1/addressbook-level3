@@ -483,13 +483,13 @@ Examples:
 Changes the UI theme to dark.
 
 .Dark Theme
-image::darktheme.png[]
+image::darktheme.png[width='350']
 
 * `theme light` +
 Changes the UI theme to light.
 
 .Light Theme
-image::lighttheme.png[]
+image::lighttheme.png[width='350']
 
 ==== Turning hints on/off: `hints`
 
@@ -546,20 +546,17 @@ Examples:
 * `avatar 0` +
 Changes the avatar to a random one everytime a new command is called.
 
-.Random avatar, in this case, Porygon.
-image::avatarrandom.png[]
-
 * `avatar 1` +
 Changes the avatar to 001 in the original Pokedex, which is Bulbasaur.
 
 .Avatar number 1, in this case, Bulbasaur.
-image::avatar1.png[]
+image::avatar1.png[width='250']
 
 * `avatar 151` +
 Changes the avatar to 151 in the original Pokedex, which is Mew.
 
 .Avatar number 151, in this case, Mew.
-image::avatar151.png[]
+image::avatar151.png[width='250']
 // end::paulsettings[]
 
 // tag::chenhui-commandusage2[]
@@ -802,7 +799,7 @@ Create your own difficulties with customized time durations.
 
 *Q*: _Dukemon_ is not starting up/crashes upon load-up, how can I rectify this? +
 *A*: Move _Dukemon_ to a new, *empty* file directory. Ensure that all data and configuration files in the same directory are
-deleted (_some files may be corrupted_). _Dukemon_ will perform clean start from the new directory.
+deleted (_some files may be corrupted_). _Dukemon_ will perform a clean start from the new directory.
 
 *Q*: The _Game_ failed to start, what can I do? +
 *A*: Ensure that your selected _WordBank_ has at least three _Cards_ to be able to start. Also note that
