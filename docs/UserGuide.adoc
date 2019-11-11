@@ -990,7 +990,7 @@ You can now modify the existing items on the Inventory tab.
 
 
 ==== Clears All the Sales Items in the Table
-This command clears all the sales item in the table.
+This command clears all the sales items in the table.
 
 * Command:
 [blue]`clear`
