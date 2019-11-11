@@ -61,9 +61,9 @@ public class RemoveBadCommand extends Command {
             return new CommandResult(
                     String.format(MESSAGE_DELETE_DEADLINE_SUCCESS, flashCardToDelete.getQuestion().toString()));
         } catch (DeadlineNotFoundException e1) {
-            return new CommandResult(INVALID_DEADLINE);
+            throw new CommandException(INVALID_DEADLINE);
         } catch (FlashCardNotFoundException e2) {
-            return new CommandResult(INVALID_INDEX);
+            throw new CommandException(INVALID_INDEX);
         }
     }
 }
