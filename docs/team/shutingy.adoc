@@ -145,7 +145,7 @@ _(end of extract from User Guide)_
 |===
 
 _(start of extract from Developer Guide)_
-
+include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=addflashcard]
 
 _(end of extract from Developer Guide)_

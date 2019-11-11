@@ -97,7 +97,11 @@ image::ArchitectureSequenceDiagram.png[width=600]
 
 The sections below give more details of each component.
 
+
 [[Design-Ui]]
+
+// tag::ui[]
+
 === UI component
 
 .Structure of the UI Component
@@ -113,6 +117,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+// end::ui[]
 
 [[Design-Logic]]
 === Logic component
@@ -226,9 +232,6 @@ prefixes like `q>`, `a>` and `c>`
 NOTE: **Alternative 1** was preferred as we have constraints using command line interface.
 In addition, there was limited time.
 // end::addflashcard[]
-
-//@@author dalsontws
-
 
 //@@author: dalsontws
 // tag::deadline[]

@@ -1,9 +1,7 @@
-= Dalson Tan - Project Portfolio
+= Dalson Tan - Project Portfolio for KeyboardFlashCards
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-
-== PROJECT: KeyboardFlashCards
 
 == Introduction
 
@@ -14,9 +12,9 @@ This was a key requirement of the project, as we had to ensure users only utilis
 exclusively using the keyboard. In addition, this is a desktop application, used only on a computer.
 
 This is a 6 week software engineering project, where we worked in a team of 5 who are students from the NUS School of Computing.
-Our team consists of 3 Computer Science Second Year students and 2 Computer Engineering Final Year students (myself included).
+Our team consists of 3 Computer Science sophomores and 2 Computer Engineering seniors (myself included).
 
-Our finalised product, _KeyboardFlashCards_ is a educational tool that aims to make remembering things easy. We wanted
+Our finalised product, _KeyboardFlashCards_ is an educational tool that aims to make remembering things easy. We wanted
 to provide an efficient way to study for our peers to NUS School of Computing. As such, we came up with an easy to use,
 FlashCard manager using CLI for efficient and quick storage of important revision material to aid their study.
 
@@ -27,7 +25,8 @@ This section explains certain information that require the user to take note of.
 i.e. prefixes used in our application and what it represents, certain functionality of the command
 
 [CAUTION]
-This section is used clarify certain possible assumptions the user/developer might have when using our application
+This section is used clarify certain possible assumptions the user/developer might have when using our application.
+These assumptions could result in errors and exceptions in the application.
 
 == Summary of contributions
 
@@ -37,13 +36,14 @@ in the User Guide and Developer Guide.
 
 * *Major enhancement #1*: added *the ability to store deadlines in a schedule*
 ** What it does: This feature allows the user to store specific tasks as deadlines.
-The user can now add specific dates that are important to their study and revision i.e. Exam dates, revision dates.
+The user can now add specific dates that are important to their study and revision i.e. exam dates, revision dates.
 In addition, the user can have an overview of all upcoming deadlines by looking at the pop-up calendar.
 ** Justification: This feature improves the product significantly as the user can now ensure they would not miss
 important dates and can now allocate their study and revision schedule according to these dates.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
 The implementation too was challenging as it required changes to existing commands.
-** Credits: Credit goes to https://github.com/SirGoose3432/javafx-calendar[SirGoose3232] for the JavaFX Calendar GUI which was adapted before adding deadlines.
+** Credits: Credit goes to https://github.com/SirGoose3432/javafx-calendar[SirGoose3232] for the JavaFX Calendar GUI
+which was adapted before adding deadlines.
 
 * *Major enhancement #2*: added *the ability to perform spaced repetition of FlashCards*
 ** What it does: This feature allows the user to store specific tasks as deadlines that will be reminded to the user.
@@ -55,9 +55,9 @@ important dates and can now allocate their study and revision schedule according
 ** Highlights: This feature is not included by chance. I wanted to incorporate an effective study technique that is proven
 to work based on research. I decided to implement spaced repetition as it was an https://en.wikipedia.org/wiki/Evidence-based_education[evidence-based]
 learning technique.
-** Credits: Credit goes to the theory of https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting curve] by
+** Credits: This feature is inspired by the theory of https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve] by
 Hermann Ebbinghaus, who theorised that training in mnemonic techniques can help overcome speed of forgetting.
-One effective way is the use of active recall, especially using https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]
+One effective way is the use of active recall, especially using https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition].
 I implemented a simple version of spaced repetition through rating of "Bad" FlashCards.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dalsontws&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dalsontws&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D/[Contributed code]]
@@ -66,15 +66,15 @@ I implemented a simple version of spaced repetition through rating of "Bad" Flas
 
 ** Project management
 *** Allocated various tasks and issues to the team (https://github.com/AY1920S1-CS2103T-T12-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adalsontws/[Issues])
-** Enhancements to existing features:
-*** Added new panel with Deadlines the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/105/[#105])
+** Enhancements to existing features
+*** Added new panel with a list of Deadlines on the GUI(Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/105/[#105])
 ** Documentation
 *** Did cosmetic tweaks to existing contents of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/147/[#147])
 *** Added the value proposition of our product, our target user profiles and user stories: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/31[#31])
 ** Community
 *** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151/[#151])
-*** Reported bugs and suggestions for other teams in the class (Pull requests https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23/[23]
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53/[53], https://github.com/nus-cs2103-AY1920S1/duke/pull/177/[177], https://github.com/nus-cs2103-AY1920S1/duke[246])
+*** Reported bugs and suggestions for other teams in the class (Pull requests https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23/[#23]
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53/[#53], https://github.com/nus-cs2103-AY1920S1/duke/pull/177/[#177], https://github.com/nus-cs2103-AY1920S1/duke[#246])
 ** Tools
 *** Integrated a third party library (Gson) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150/[#150])
 
