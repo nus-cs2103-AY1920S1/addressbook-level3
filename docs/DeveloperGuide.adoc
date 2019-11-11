@@ -397,7 +397,17 @@ With this structure, it implements the following operation:
 
 * `DeliverymenDatabase#analyzeDeliverymenStatus()` -- Retrieves a filled record card containing all the relevant statistics regarding deliverymen statuses
 
-The following sequence diagram shows how the `stats` operation works:
+
+This feature requires a high degree of interaction between the `Status` component and `Statistics` component of `DeliverymenDatabase`.
+This interaction of the relevant classes are illustrated in the class diagram below.
+
+.Partial Structure of Deliverymen Database
+image::StatisticsFeatureClassDiagram.png[]
+
+The `DeliverymenDatabase` acts as an agent for both components to parse information around. This helps to maintains a clear
+separation of concerns to carry out different functions.
+
+Also, the following sequence diagram shows how the `stats` operation works:
 
 .Sequence Diagram of Retrieving Deliverymen Statistics
 image::DeliverymenStatistics.png[]
