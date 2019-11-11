@@ -18,7 +18,7 @@ import guitests.guihandles.MainWindowHandle;
 import seedu.moolah.logic.Logic;
 import seedu.moolah.logic.LogicManager;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.Timekeeper;
+import seedu.moolah.logic.Timekeeper;
 import seedu.moolah.storage.JsonMooLahStorage;
 import seedu.moolah.storage.JsonUserPrefsStorage;
 import seedu.moolah.storage.Storage;

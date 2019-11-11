@@ -15,6 +15,9 @@ import static seedu.moolah.testutil.TypicalMooLah.TRANSPORT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
 import seedu.moolah.testutil.ExpenseBuilder;
 
 public class ExpenseTest {

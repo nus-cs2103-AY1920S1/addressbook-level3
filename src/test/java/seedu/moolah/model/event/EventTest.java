@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -11,7 +11,7 @@ import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_PRICE_BIRT
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_PRICE_BUFFET;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_TIMESTAMP_BIRTHDAY;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EVENT_TIMESTAMP_BUFFET;
-import static seedu.moolah.model.expense.Timestamp.createTimestampIfValid;
+import static seedu.moolah.model.general.Timestamp.createTimestampIfValid;
 import static seedu.moolah.testutil.Assert.assertThrows;
 import static seedu.moolah.testutil.TypicalMooLah.BIRTHDAY;
 import static seedu.moolah.testutil.TypicalMooLah.BUFFET;
@@ -20,6 +20,11 @@ import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.event.Event;
+import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
 import seedu.moolah.testutil.BudgetBuilder;
 import seedu.moolah.testutil.EventBuilder;
 import seedu.moolah.testutil.ExpenseBuilder;

@@ -19,7 +19,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
-import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

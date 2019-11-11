@@ -12,7 +12,7 @@ import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
 import seedu.moolah.model.menu.MenuItem;
 import seedu.moolah.ui.budget.BudgetPanel;

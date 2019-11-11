@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.testutil.ExpenseBuilder;
 
 public class DescriptionContainsKeywordsPredicateTest {

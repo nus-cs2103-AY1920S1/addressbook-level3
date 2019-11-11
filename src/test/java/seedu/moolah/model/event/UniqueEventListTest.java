@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,8 +13,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.expense.exceptions.DuplicateEventException;
-import seedu.moolah.model.expense.exceptions.EventNotFoundException;
+import seedu.moolah.model.event.Event;
+import seedu.moolah.model.event.UniqueEventList;
+import seedu.moolah.model.event.exceptions.DuplicateEventException;
+import seedu.moolah.model.event.exceptions.EventNotFoundException;
 
 public class UniqueEventListTest {
 

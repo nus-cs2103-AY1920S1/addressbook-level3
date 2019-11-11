@@ -12,7 +12,7 @@ import seedu.moolah.logic.commands.GenericCommandWord;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.ui.event.EventListPanel;
 
 /**

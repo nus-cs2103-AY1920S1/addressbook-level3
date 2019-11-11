@@ -2,8 +2,8 @@ package seedu.moolah.model.menu;
 
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
 
 /**
  * Represents a menu item in MooLah.

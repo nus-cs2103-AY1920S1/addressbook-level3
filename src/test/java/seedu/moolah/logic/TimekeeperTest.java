@@ -1,4 +1,4 @@
-package seedu.moolah.model;
+package seedu.moolah.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moolah.testutil.Assert.assertThrows;
@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
+import seedu.moolah.logic.Timekeeper;
 
 public class TimekeeperTest {
 

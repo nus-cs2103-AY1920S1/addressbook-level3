@@ -1,4 +1,4 @@
-package seedu.moolah.model;
+package seedu.moolah.logic;
 
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -14,9 +14,9 @@ import java.util.Optional;
 import javafx.collections.ObservableList;
 import seedu.moolah.logic.Logic;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Event;
-import seedu.moolah.model.expense.Reminder;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.event.Event;
+import seedu.moolah.model.event.Reminder;
+import seedu.moolah.model.general.Timestamp;
 
 /**
  * Handles all comparisons between system time and the time fields of Expenses, Events and Budgets.
@@ -167,7 +167,13 @@ public class Timekeeper {
         return daysLeft < UPPER_THRESHOLD && !hasTranspired(timestamp);
     }
 
-    static boolean hasTranspired(Timestamp timestamp) {
+    /**
+     * Checks whether a timestamp is past the timestamp representing the current system time.
+     *
+     * @param timestamp The timestamp to be checked.
+     * @return Whether the timestamp is past system time.
+     */
+    public static boolean hasTranspired(Timestamp timestamp) {
         return timestamp.isBefore(systemTime);
     }
 

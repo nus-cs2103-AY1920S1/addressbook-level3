@@ -14,7 +14,7 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 public class SwitchPeriodCommandTest {
     private static final Timestamp SEP_15 = new Timestamp(

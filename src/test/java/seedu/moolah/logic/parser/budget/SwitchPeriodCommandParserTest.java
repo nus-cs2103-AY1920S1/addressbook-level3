@@ -10,7 +10,7 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.budget.SwitchPeriodCommand;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 public class SwitchPeriodCommandParserTest {
     private static final String VALID_TIMESTAMP = "05-01-2019";

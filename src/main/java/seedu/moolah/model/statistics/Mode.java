@@ -1,5 +1,7 @@
 package seedu.moolah.model.statistics;
 
+import seedu.moolah.model.general.Price;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.AppUtil.checkArgument;
 
@@ -46,7 +48,7 @@ public class Mode {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.moolah.model.expense.Price // instanceof handles nulls
+                || (other instanceof Price // instanceof handles nulls
                 && modeName.equals(((Mode) other).modeName)); // state check
     }
 

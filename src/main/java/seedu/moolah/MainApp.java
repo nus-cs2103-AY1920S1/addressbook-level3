@@ -21,7 +21,7 @@ import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
-import seedu.moolah.model.Timekeeper;
+import seedu.moolah.logic.Timekeeper;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.alias.AliasMappings;
 import seedu.moolah.model.budget.exceptions.BudgetNotFoundException;

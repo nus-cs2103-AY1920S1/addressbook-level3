@@ -25,9 +25,9 @@ import org.junit.jupiter.api.Test;
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.budget.EditBudgetCommand;
 import seedu.moolah.logic.commands.budget.EditBudgetCommand.EditBudgetDescriptor;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.testutil.EditBudgetDescriptorBuilder;
 
 public class EditBudgetCommandParserTest {

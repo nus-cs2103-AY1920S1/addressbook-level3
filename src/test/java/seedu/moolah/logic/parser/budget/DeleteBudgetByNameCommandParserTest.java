@@ -12,7 +12,7 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.budget.DeleteBudgetByNameCommand;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 public class DeleteBudgetByNameCommandParserTest {
     private DeleteBudgetByNameCommandParser parser = new DeleteBudgetByNameCommandParser();

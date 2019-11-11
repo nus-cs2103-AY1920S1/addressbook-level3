@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.testutil.BudgetBuilder;
 
 public class BudgetTest {

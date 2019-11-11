@@ -8,11 +8,11 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.UniqueBudgetList;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
-import seedu.moolah.model.expense.UniqueEventList;
+import seedu.moolah.model.general.Timestamp;
+import seedu.moolah.model.event.UniqueEventList;
 import seedu.moolah.model.expense.UniqueExpenseList;
 
 /**

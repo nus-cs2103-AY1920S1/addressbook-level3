@@ -18,7 +18,7 @@ import seedu.moolah.model.budget.exceptions.BudgetNotFoundException;
 import seedu.moolah.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.moolah.model.budget.exceptions.DuplicateBudgetException;
 import seedu.moolah.model.budget.exceptions.SwitchToFuturePeriodException;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 public class UniqueBudgetListTest {
     private final UniqueBudgetList uniqueBudgetList = new UniqueBudgetList();

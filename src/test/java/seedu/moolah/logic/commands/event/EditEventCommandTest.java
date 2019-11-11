@@ -25,7 +25,7 @@ import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.testutil.EditEventDescriptorBuilder;
 import seedu.moolah.testutil.EventBuilder;
 

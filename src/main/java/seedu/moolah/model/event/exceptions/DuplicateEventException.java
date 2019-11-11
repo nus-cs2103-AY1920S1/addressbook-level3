@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense.exceptions;
+package seedu.moolah.model.event.exceptions;
 
 /**
  * Signals that the operation will result in duplicate Events (Events are considered

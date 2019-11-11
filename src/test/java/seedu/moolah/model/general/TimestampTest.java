@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.testutil.Assert.assertThrows;
@@ -6,6 +6,7 @@ import static seedu.moolah.testutil.Assert.assertThrows;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import seedu.moolah.model.general.Timestamp;
 
 public class TimestampTest {
 

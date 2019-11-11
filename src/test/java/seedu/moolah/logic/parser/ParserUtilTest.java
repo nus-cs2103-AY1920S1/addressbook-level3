@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.alias.Alias;
-import seedu.moolah.model.expense.Category;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
 
 public class ParserUtilTest {
     private static final String INVALID_DESCRIPTION = "J4()\\|\\\\|nyVV@1k3r";
