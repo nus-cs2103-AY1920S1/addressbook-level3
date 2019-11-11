@@ -787,6 +787,8 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
                         .toCollection(ArrayList::new));
     }
 
+.Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
+
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
@@ -867,7 +869,7 @@ If the amount inputted is valid and cashier has been set, the `ModelManager` wil
 transaction of the sales made.
 
 [NOTE]
-After the execution of the above methods, a clear command will then be called to clear all the sales items on the tab.
+After the execution of the above methods, a clear command will then be called automatically to clear all the sales items on the tab.
 
 [NOTE]
 After checkout command is executed, boolean `onCashierMode` in ModelManager  will be
@@ -901,7 +903,7 @@ image::CheckoutCommandCashierActivityDiag.png[]
 
 ==== Overall Design Considerations
 
-This section explains the design considerations for some crucial implementations in the Cashier Tab.
+This section explains the design considerations for some crucial implementations in the Cashier tab.
 
 |===
 |Alternative 1 |Alternative 2 |Conclusion and Explanation
