@@ -11,10 +11,10 @@ else ([no])
  stop
 endif
 
-if (Is the task already assigned?) then ([yes])
+if (Is the task already assigned?) then ([no])
 
 else ([yes])
-    if (Is force assign?) then ([yes])
+    if (Is the 'force' flag on?) then ([yes])
     : Free that task;
     else ([no])
         stop
@@ -31,5 +31,6 @@ else ([no])
     else ([no])
 endif
 stop
+
 
 @enduml
