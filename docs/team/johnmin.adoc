@@ -2,7 +2,6 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:xrefstyle: full
 ifdef::env-github[]
 :tip-caption: :bulb:
 endif::[]
