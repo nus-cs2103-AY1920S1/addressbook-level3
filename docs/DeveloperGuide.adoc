@@ -1053,6 +1053,21 @@ Expected: No transaction is added. Error details will be shown in the status mes
 (Date is invalid). +
 Expected: Similar to previous.
 
+. Adding a budget with the command: `set`
+
+.. Prerequisites:
+
+.. Test case: `set $/1000 c/Shopping d/31122019` +
+Expected: A budget will be added into the list of budgets in the Budget tab.
+
+.. Test case: `set $/1000 c/Shopping d/01012019` +
+Expected: No budget is added. Error details will be shown in the status message.
+
+.. Other incorrect `set` command to try: `set $/-10 c/Shopping d/31122019` (Amount is negative). +
+Expected: Similar to previous.
+
+.
+
 === Deleting a Person
 
 . Deleting a person while all persons are listed
