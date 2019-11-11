@@ -767,6 +767,10 @@ largest contributing categories to your expenditure so as to cut down on your ex
 With the `catrank` command, you can take a look at your expenditure category ranking chart, and hence
 be able to zoom in on and cut down on expenditure for categories that have the largest contributions to your expenditure.
 
+[NOTE]
+The expenditure category ranking chart is in decreasing order, i.e., the categories with higher expenditure will be at the top of the list,
+and the categories with lower expenditure will be at the bottom of the list.
+
 As the month comes to a close, you realise that you have transactions from many categories, and running the `breakdown` command
 returns you a view that is too cluttered for your liking.
 After you enter the `catrank` command, and the GUI of IchiFund may look like this:
@@ -791,6 +795,10 @@ If you have a tendency to overspend in certain seasons or on certain occasions, 
 at your expenditure ranking chart by month, swiftly identify the months that you spend most in and take steps
 to reduce your expenditure in the same few months in the years to come.
 
+[NOTE]
+The expenditure ranking chart by month is in decreasing order, i.e., the months with higher expenditure will be at the top of the list,
+and the months with lower expenditure will be at the bottom of the list.
+
 Let's say you have always planned overseas trips over the summer break. After entering the `mthrank` command,
 the GUI of IchiFund may look like this:
 
@@ -813,8 +821,8 @@ If you are keen to identify the biggest purchases you make so that you can cut y
 the command `exprank` is what you are looking for. `exprank` allows you to look at your expenditure ranking chart.
 
 [NOTE]
-The expenditure ranking chart is in decreasing order, i.e., the biggest purchases will be at the top of the list,
-and the smallest purchases will be at the bottom of the list.
+The expenditure ranking chart is in decreasing order, i.e., the bigger purchases will be at the top of the list,
+and the smaller purchases will be at the bottom of the list.
 
 Let's say you have made a couple of big purchases over the course of the year. After entering the `exprank` command,
 the GUI of IchiFund may look like this:
