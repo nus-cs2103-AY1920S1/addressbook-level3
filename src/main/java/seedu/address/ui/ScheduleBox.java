@@ -35,6 +35,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
                                   "October", "November", "December"};
     private int currentMonthInFocus;
     private int currentYearInFocus;
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @FXML
     private ListView<Event> eventScheduleListView;
@@ -160,7 +161,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
 
     public void setLabelText(String text) {
         if (text.length() > 7) {
-            LocalDate currentDate = LocalDate.parse(text);
+            LocalDate currentDate = LocalDate.parse(text, FORMATTER);
             currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
             datePicker.setValue(currentDate);
         } else if (text.length() > 1) {
