@@ -71,4 +71,5 @@ skinparam Shadowing false
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
 
+hide footbox
 hide circle

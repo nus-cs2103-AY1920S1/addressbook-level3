@@ -1,4 +1,4 @@
-= Goh Si Ning - Project Portfolio for Jarvis
+= Goh Si Ning - Project Portfolio
 :site-section: AboutUs
 :relfileprefix: team/gohsnn
 :imagesDir: ../images
@@ -18,12 +18,7 @@ As students, we often need to access many different applications daily in order
 to manage individual aspects of our life. Our team hopes that Jarvis will make
 things easier for students by providing a platform that consolidates the most
 important features. Therefore, Jarvis has 4 separate features for each concern
-faced by students:
-
-1. Planner,
-2. Finance Tracker,
-3. Cca Tracker, and
-4. Course Planner
+faced by students: Planner, Finance Tracker, Cca Tracker, and Course Planner.
 
 === About Finance Tracker
 
@@ -32,17 +27,15 @@ which keeps track of the user's purchases and monthly subscriptions (aka
 installments), as well as total monthly expenditure and remaining budget if the
 user has added a monthly spending limit for himself.
 
-Shown below is the graphical user interface of Jarvis. Our application consists
+Shown below is the graphical user interface (GUI) of Jarvis. Our application consists
 of 4 different tabs - one for each of the above-mentioned features. The
 application is currently at the Finance Tracker tab, which is underlined in red.
 When the user enters a command in the command box, Jarvis will return a response
-(whether his command was succesfully executed, or if not, why it was rejected)
+(whether his command was successfully executed, or if not, why it was rejected)
 in the result box.
 
 .The graphical user interface for Jarvis under the Finance Tracker tab
-image::finance-tracker/financetracker-ui.png[]
-
-{sp} +
+image::gohsnn/finance-tracker-ui.png[]
 
 In addition to developing both the front-end and back-end of the Finance
 Tracker feature, I also contributed to adopting the original version of the
@@ -96,16 +89,15 @@ expenditure once.
 ==== Code contributed
 
 Please click on these links to see a sample of my code for this project:
-
-1. https://drive.google.com/open?id=1IGHKCYYw612gu4e2cUfr0B2Gcmdy-3-8[Functional Code]
-2. https://drive.google.com/open?id=1JwHdtob_-5TGDpFWXw8Fq2--81RLfbQc[Test Code]
+https://drive.google.com/open?id=1IGHKCYYw612gu4e2cUfr0B2Gcmdy-3-8[functional code]
+and https://drive.google.com/open?id=1JwHdtob_-5TGDpFWXw8Fq2--81RLfbQc[test code].
 
 ==== Documentation
 
 All sections related to the Finance Tracker in the user guide and developer
 guide were done by me. They will be elaborated in the later sections, namely
-<<gohsnn.adoc#contributions-to-user-guide,Contributions to User Guide>> and
-<<gohsnn.adoc#contributions-to-developer-guide,Contributions to Developer Guide>>.
+<<link-contributions-to-user-guide, Contributions to User Guide>> and
+<<link-contributions-to-developer-guide, Contributions to Developer Guide>>.
 
 === Other Contributions
 
@@ -116,18 +108,18 @@ contribute to increasing the overall test coverage from 71.46% to 75.54%. This
 can be viewed from pull request
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/137[#137].
 
-In addition, I also made a revision to the overall user interface of the
-application to change the order of the feature tabs. This was to increase
-the cohesiveness of the application from the perspective of a student using
-a student life organiser according to the frequency of which they would access
-the different features across the application. This can be viewed from pull
-request https://github.com/AY1920S1-CS2103T-T10-1/main/pull/362[#362].
+In addition, I revised the overall user interface of the application to change
+the order of the feature tabs. This increased the cohesiveness of the
+application from the perspective of a student using a student life organiser,
+according to the frequency of which they would access the different features
+across the application. This can be viewed from pull request
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/362[#362].
 
 ==== Community
 
-To do my part in the community, I have also reviewed several pull requests from
-my team mates (with non-trivial review comments), as can be seen from pull
-requests https://github.com/AY1920S1-CS2103T-T10-1/main/pull/104[#104],
+I have also reviewed several pull requests from my team mates (with non-trivial
+review comments), as can be seen from pull requests
+https://github.com/AY1920S1-CS2103T-T10-1/main/pull/104[#104],
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/136[#136], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/361[#361].
 
@@ -145,7 +137,7 @@ following examples in this https://github.com/gohsnn/ped/issues[link].
 
 This section will summarise my contribution to the overall set of documentation
 for the team project, excluding the Finance Tracker feature, which would be
-elaborated from <<gohsnn.adoc#contributions-to-user-guide,this section>>.
+elaborated from <<link-contributions-to-user-guide, here>>.
 
 ===== User Guide
 
@@ -172,27 +164,23 @@ guide, these diagrams needed to be changed as:
 2. They did not reflect the updated implementation of some features made by the
 team in the subsequent few weeks.
 
-Therefore, apart from making the new diagrams and changing the existing ones,
-I also repackaged all diagrams into more accurate folders for easier perusal by
-my team mates for their documentation. The above-mentioned can be viewed from
-the pull requests
+In addition, I repackaged all diagrams into more accurate folders for
+easier perusal by my team mates for their documentation. The above-mentioned
+can be viewed from the pull requests
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/368[#368],
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/371[#371], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
 
-The following are examples of diagrams that I had helped my fellow team mates
-create on plantUML.
+The following are examples of diagrams that I created for my fellow team mates
+using plantUML.
 
-.AndOrNodeInheritanceClassDiagram for the Course Planner feature
-image::course-planner/AndOrNodeInheritanceClassDiagram.png[]
-
-{sp} +
+.HistoryManagerModelClassDiagram for the Undo-Redo feature
+image::HistoryManagerModelClassDiagram.png[height="200", align="center"]
 
 .IncreaseCcaProgressActivityDiagram for the Cca Tracker feature
-image::cca-tracker/IncreaseCcaProgressActivityDiagram.png[]
+image::IncreaseCcaProgressActivityDiagram.png[height="400", align="center"]
 
-{sp} +
-
+[[link-contributions-to-user-guide]]
 == Contributions to User Guide
 
 As we morphed the existing address-book application, we had to update the
@@ -216,37 +204,26 @@ To have a quick view to see what you have been eating for dinner over the last
 month, you can used `find-paid` to pull up purchases with descriptions matching
 `KEYWORD` provided.
 
-.Step 1: Enter `find-paid` command in command box
-image::finance-tracker/find-paid1.png[]
-
-{sp} +
-
-.Step 2: Jarvis displays all matching purchases to keyword
-image::finance-tracker/find-paid2.png[]
-
-{sp} +
-
 Format: `find-paid KEYWORD`
 
-==== Example
-----
-find-paid Gongcha
-----
+.Step 1: Enter `find-paid` command in command box
+image::gohsnn/find-paid1.png[align="center"]
+
+.Step 2: Jarvis displays all matching purchases to keyword
+image::gohsnn/find-paid2.png[align="center"]
 
 NOTE: If there are no existing purchases in the application that matches
 the keyword given by the user, the result box will display the following message:
 
 .No purchases found in Finance Tracker
-image::finance-tracker/find-paid3.png[]
-
-{sp} +
+image::gohsnn/find-paid3.png[align="center"]
 
 For examples of more commands for the Finance Tracker feature, please click to
 view our
 https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/UserGuide.adoc#finance-tracker[user guide].
 
-{sp} +
 
+[[link-contributions-to-developer-guide]]
 == Contributions to Developer Guide
 
 Similar to the user guide, my team also decided that each member should be
@@ -283,21 +260,20 @@ user for this month
 * `Model#calculateRemainingAmount()` - Calculates the remaining spending amount
 available to user
 
-=== Components
+=== Components of the Finance Tracker
 
 The Finance Tracker feature closely follows the extendable OOP solution already
 implemented within AB3. In the Finance Tracker, the `Installment` objects and
-the `Purchase` objects manage most aspects related to this feature. These
-objects are stored in their respective `ObservableList` - `InstallmentList`
-and `PurchaseList`, which provide an abstraction with `add`, `delete`, and
-`set` operations that are called by `FinanceTracker` and its model.
+the `Purchase` objects manage most aspects related to this feature, along with
+a single `MonthlyLimit` object. `Installment` and `Purchase` objects are stored
+in their respective `ObservableList` - `InstallmentList` and `PurchaseList`,
+which provide an abstraction with `add`, `delete`, and `set` operations that
+are called by `FinanceTracker` and its model.
 
 Shown below is the class diagram for the Finance Tracker.
 
 .Finance Tracker Class Diagram
-image::finance-tracker/ModelFinanceTrackerClassDiagram.png[]
-
-{sp} +
+image::ModelFinanceTrackerClassDiagram.png[height="350", align="center"]
 
 For more elaboration on the components of the Finance Tracker feature, please
 click to view our
@@ -322,11 +298,9 @@ NOTE: An index is considered invalid if the numerical value provided is less
 than or equal to zero, or greater than the largest index in `InstallmentList`.
 
 .Activity Diagram for edit-install command
-image::finance-tracker/EditInstallmentActivityDiagram.png[]
+image::EditInstallmentActivityDiagram.png[align="center"]
 
-{sp} +
-
-=== Execution of command `edit-install`
+==== Execution of command `edit-install`
 
 The following sequence diagram illustrates how an
 `Installment` is edited when a user types in a `edit-install` command.
@@ -337,9 +311,7 @@ In the execute method of EditInstallmentCommand, the calling of the
 with the corresponding fields.
 
 .Sequence Diagram for edit-install command
-image::finance-tracker/EditInstallmentSequenceDiagram.png[]
-
-{sp} +
+image::EditInstallmentSequenceDiagram.png[height="250", align="center"]
 
 === Design Considerations
 
@@ -376,4 +348,3 @@ not have been imperative.
 Taking the long-term vision of the application to be continuously developed
 into consideration, I decided to increase OOP as much as possible. The decision
 was also based on following good software engineering principles.
-

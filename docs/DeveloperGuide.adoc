@@ -1209,7 +1209,7 @@ and `PurchaseList`, which provide an abstraction with `add`, `delete`, and
 Shown below is the class diagram for the Finance Tracker.
 
 .Finance Tracker Class Diagram
-image::finance-tracker/ModelFinanceTrackerClassDiagram.png[]
+image::ModelFinanceTrackerClassDiagram.png[]
 
 ==== Finance Tracker Components
 
@@ -1254,7 +1254,7 @@ NOTE: An index is considered invalid if the numerical value provided is less
 than or equal to zero, or greater than the largest index in `InstallmentList`.
 
 .Activity Diagram for edit-install command
-image::finance-tracker/EditInstallmentActivityDiagram.png[]
+image::EditInstallmentActivityDiagram.png[]
 
 ==== Command Execution
 
@@ -1304,7 +1304,7 @@ level triggers a cascading series of `#setInstallment` method which culminates
 in target installment being edited with the corresponding fields.
 
 .Sequence Diagram for edit-install command
-image::finance-tracker/EditInstallmentSequenceDiagram.png[]
+image::EditInstallmentSequenceDiagram.png[]
 
 ===== Command `delete-paid`
 
@@ -1342,7 +1342,7 @@ level triggers a cascading series of `#deletePurchase` method which
 culminates in target purchase being deleted from model.
 
 .Sequence Diagram for delete-paid command
-image::finance-tracker/DeletePurchaseSequenceDiagram.png[]
+image::DeletePurchaseSequenceDiagram.png[]
 
 ==== Design Considerations
 
@@ -1418,7 +1418,7 @@ a user has. Each task has a `TaskType` and `Status` and may also have a `Priorit
 A simple outline of the `Planner` can be seen below, in Figure 26.
 
 .Overview of the entire Planner
-image::plannermodel.png[align=left]
+image::ModelPlannerClassDiagram.png[align=left]
 
 
 The `Model` in `Jarvis` extends `PlannerModel` which facilitates all operations
