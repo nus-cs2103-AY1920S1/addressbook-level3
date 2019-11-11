@@ -27,17 +27,6 @@ image::Ui.png[width=500, align=center]
 The *Graphical User Interface* (GUI) of *LiBerry*, as shown above,
 is created with *JavaFX* while the entire software is written in *Java*.
 
-=== Motivations
-*LiBerry* is created to promote the setting up of private and community
-libraries, so as to improve literacy rates. One of the main reasons why
-literacy rates is low due to the lack of accessibility of knowledge.
-This is more prevalent in rural communities due to the lack of
-sources of knowledge.
-
-Hence, in order to breach this gap in knowledge, we created *LiBerry*,
-which is a free, connectionless, easy to use library management system
-so as to encourage more people to set up their own community libraries.
-
 === Main Features
 The main features of *LiBerry* are:
 
@@ -63,7 +52,7 @@ IMPORTANT: Denotes important details to take note of.
 This section describes the contributions that I have made to *LiBerry*.
 
 Here is the link to the code that I contributed to the project:
-Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Cronyxx[RepoSense Report]
+Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cronyxx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cronyxx&tabRepo=AY1920S1-CS2103T-F13-1%2Fmain%5Bmaster%5D[RepoSense Report]
 
 === Major enhancement - Undo/Redo feature:
 
