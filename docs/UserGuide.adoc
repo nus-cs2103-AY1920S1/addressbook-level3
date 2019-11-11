@@ -474,7 +474,7 @@ Example Usage:
 
 * `viewEntry`
 
-==== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`
+=== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
@@ -500,7 +500,7 @@ Other Examples:
 * `sortExpense typ/category s/descending`
 * `sortIncome typ/category s/ascending`
 
-==== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`
+=== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`
 
 Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 

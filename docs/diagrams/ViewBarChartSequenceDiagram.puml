@@ -15,9 +15,9 @@ end box
 
 box Statistics STATS_COLOR
 participant ":StatisticsManager" as StatisticsManager STATS_COLOR_T1
-participant "m:MonthList" as MonthList STATS_COLOR
-participant "dl:DailyList" as DailyList LOGIC_COLOR_T1
-participant "ds:DailyStatistics" as DailyStatistics STATS_COLOR_T2
+participant "m:MonthList" as MonthList STATS_COLOR_T1
+participant "dl:DailyList" as DailyList STATS_COLOR_T1
+participant "ds:DailyStatistics" as DailyStatistics STATS_COLOR_T1
 end box
 
 [-> LogicManager : execute("viewBar p/2019-09")

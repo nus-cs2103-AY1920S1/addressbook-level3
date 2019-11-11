@@ -153,6 +153,7 @@ This section describes some details on how certain features are implemented.
 ==== Implementation
 
 .Class Diagram for Categories
+
 image::CategoryListClassDiagram.png[]
 
 For all entries in guiltTrip, the entries should always belong to one category.
@@ -173,26 +174,29 @@ exist in the existing guiltTrip, hence the need for `CategoryList#contains(Categ
 if there are existing entries of the original `Category` to carry out modifications on them.
 * When deleting a `Category`, there is a need to check if there are any entries that have the `Category` as a field.
 
+// tag::EditingCategories[]
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
 .Activity Diagram for Editing Category
 image::EditingCategory.png[]
-
+// end::EditingCategories[]
 As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
 
 ==== Design Considerations
 *Aspect: Deciding whether to allow addition of Categories*
 
-* *Alternative 1*: Having a fixed set of Categories in the CategoryList, users are unable to add delete or edit the existing set of Categories.
+* *Alternative 1*: Having a fixed set of Categories in the `CategoryList`, users are unable to add delete or edit the existing set of Categories.
     ** Pros: Easy to implement.
     ** Cons: Results in less flexibility for the user.
-* *Alternative 2*: Users are allowed to have any category names for their entries. There is no CategoryList to carry out validation checks on.
+* *Alternative 2*: Users are allowed to have any category names for their entries. There is no `CategoryList` to carry out validation checks on.
     ** Pros: Intuitive and convenient for the user.
     ** Cons: Calculation of Statistics would be messy if the user adds many different categories for their entries on a whim, the breakdown of statistics by category could be huge.
-* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be consciously called by the user to modify the categories in the CategoryList.
+* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be consciously called by the user to modify the categories in the `CategoryList`.
     ** Pros: Allows the flexibility for addition of additional categories as well as solving the many different categories problem if alternative 2 was taken as users have to make the conscious effort to create a new category.
     ** Cons: Slightly more complicated to implement.
+// end::Categories[]
 
+// tag::Sort[]
 === Data Presentation: Sort Command
 
 ==== Implementation
@@ -224,7 +228,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `sortExpense typ/Amount s/ascending` Command
 image::SortSequence.png[]
+// end::Sort[]
 
+// tag::Find[]
 === Data Presentation: Find Command
 Finding is similar to the implementation of AB3, hence it will not be covered in detail.
 However, the find command is expanded to include finding by multiple predicates at once.
@@ -235,11 +241,13 @@ For Example, the user can find by both `Amount` and `Description`. These are the
 * `EntryContainsDatePredicate`: Will filter the list to include the Date specified. Currently only supports searching within the month.
 * `EntryContainsTagsPredicate`: Will filter the list to include those with all the specified tags.
 * `EntryContainsDescriptionPredicate`: Will filter the list to include only those with descriptions that contain the keywords.
+// end::Find[]
 
+// tag::Statistics[]
 === Data Presentation: Statistics
 
 .Class Diagram for Statistics Component.
-image::StatisticsClassDiagram.png[]
+image::StatisticsClassDiagram.png[width=40%]
 
 The Statistics class diagram is shown above. Many of the operations are handled by StatisticsManager.
 The two main operations for calculation of Statistics are:
@@ -295,7 +303,7 @@ The details of the process is as below:
 .  This results in a `ViewBarChartCommand` object which is executed by the `LogicManager`
 .  The `ViewBarChartCommand` calls the `Model#updateBarChart(MonthToShow)` 's method which then calls `StatisticsManager#updateBarChart(monthToShow)` method to calculate the statistics for that period.
 .  `StatisticsManager#updateBarChart(MonthToShow)` retrieves the relavant MonthList from `ObservableMap`, yearlyRecord and calls `MonthList#calculateStatisticsForBarChart`.
-.  The called MonthList will then loop through all the DailyList in it and calls `DailyList#calculateStatisticsForBarChart`, retrieving the result and
+.  The called `MonthList` will then loop through all the DailyList in it and calls `DailyList#calculateStatisticsForBarChart`, retrieving the result and
 returning it to `StatisticsManager`.
 .  `StatisticsManager#updateBarChart(MonthToShow)` will replace the all the `DailyStatistics` objects in the `ObservableList` of `DailyStatistics` with the newly calculated `DailyStatistics` objects.
 .  As the `ObservableList` is updated, the BarChart which uses this `ObservableList` is also updated, leading to them being updated.
@@ -334,7 +342,8 @@ showing the user what category of spending increases across the months. For exam
 category Entertainment increased the most in the past months.
 * Bar Chart can be further improved to show analysis of breakdown of category by day and observe trends for the user.
 For example, it could notice that the user has been spending a lot every Tuesday and alert the user about it.
-// end::Categories[]
+// end::Statistics[]
+
 === Toggle Panel Command
 
 ==== Implementation

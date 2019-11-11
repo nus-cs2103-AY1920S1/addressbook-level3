@@ -15,9 +15,8 @@ end box
 
 box Statistics STATS_COLOR
 participant ":StatisticsManager" as StatisticsManager STATS_COLOR_T1
-participant "c:Category" as Category STATS_COLOR_T3
-participant "s:CategoryStatistics" as CategoryStatistics STATS_COLOR_T2
-
+participant "c:Category" as Category STATS_COLOR_T1
+participant "s:CategoryStatistics" as CategoryStatistics STATS_COLOR_T1
 end box
 
 [-> LogicManager : execute("viewPie p/2019-09,2019-11")
