@@ -723,7 +723,12 @@ processed by the `InputProcessor` class and forwarded to the current `State`. If
 method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
 user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
 
-Below is a sequence diagram illustrating the processes that occur when the user enters `t/meeting s/15/11/2019/1500` following `add`.
+Below is a sequence diagram illustrating the processes that occur when the user enters `add t/meeting s/15/11/2019/1500 e/15/11/2019/1600`.
+
+.Sequence diagram illustrating how the `Parser` parses the entered input and returns the result to the GUI in the form of a `CommandResult` object.
+image::InteractiveParserSequenceDiagram.png[]
+{empty} +
+
 
 The high-level working of the `Parser` can be summarized by the activity diagram shown below.
 
