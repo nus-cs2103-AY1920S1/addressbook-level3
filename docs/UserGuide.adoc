@@ -137,7 +137,7 @@ Let's say you want to remove Tao Li from Athletick as she is no longer in the te
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format: `delete -p INDEX`
 
@@ -166,7 +166,7 @@ Type the edit command in the following format, using the relevant prefixes to ed
 
 Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] g/[GENDER] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
-In order to edit Roy Balakrishnan's name to Shawn, type in the following.
+In order to edit Chad le Clos name to Shawn, type in the following.
 
 Example: `edit 6 n/Shawn`
 
@@ -192,9 +192,9 @@ in `.png`.
 
 image::afterEdit.png[width=450]
 
-If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
+If successfully edited, the edited information of Chad le Clos (now Shawn) will be displayed in the result box.
 
-The team list should also reflect Roy's new details.
+The team list should also reflect Chad le Clos's new details.
 
 
 // tag::entire_training[]
@@ -409,7 +409,7 @@ This command adds an event to *Athletick*, and will be used for storing your ath
 Let's say that you want to start recording performances for the `freestyle 50m` event. You will need to add
 the `freestyle 50m` event to *Athletick* first.
 
-Type the command in the following format and press `Enter` to execute it.
+Type the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `event NAME_OF_EVENT`
 
@@ -442,7 +442,7 @@ Records stored under this event will be deleted as well.
 Let's say that your team is no longer participating in the `backstroke 100m` event, and you want to remove it
 from Athletick.
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `delete -e NAME_OF_EVENT`
 
@@ -481,7 +481,7 @@ and she took 24.01 seconds to complete it. Now you want to store this record in 
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
@@ -514,7 +514,7 @@ Let's say that you want to delete Tao Li's record for the freestyle 50m event on
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `delete -r INDEX e/EVENT_NAME d/DDMMYYYY`
 
@@ -539,7 +539,7 @@ Let's say that you want to know what events you have added to *Athletick*.
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `view performance`
 
@@ -564,7 +564,7 @@ Let's say that you want to see the records under the freestyle 50m event.
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `view records EVENT_NAME`
 
@@ -792,7 +792,7 @@ Let's say you want to see which athletes are butterfly swimmers
 
 *What you should do*
 
-Type in the command in the following format and press `Enter` to execute it.
+Type in the command in the following format and press kbd:[Enter] to execute it.
 
 Format : `filter TAG [TAG]...`
 
@@ -940,14 +940,14 @@ press Enter to execute it.
 
 Format : `undo`
 
-image::Undo0.png[width="450"]
+image::Undo0.png[width="400"]
 
 *What you should see*
 
 The result box will display a success message and you can check that
 Mohamad Ali’s contact information is visible in the list again!
 
-image::AfterUndo0.png[width="450"]
+image::AfterUndo0.png[width="400"]
 
 ==== Redoing an `undo` command : `redo`
 
@@ -984,13 +984,13 @@ Enter to execute it.
 
 Format : `redo`
 
-image::Redo0.png[width="450"]
+image::Redo0.png[width="400"]
 *What you should see*
 
 The result box will display a success message.
-Furthermore, the list now only has 7 people and Mohamad Ali is once again gone from the list!
+Furthermore, the list now only has 7 people and Mohamad Ali is once deleted from the list!
 
-image::AfterRedo0.png[width="450"]
+image::AfterRedo0.png[width="400"]
 
 //end::undoredo[]
 

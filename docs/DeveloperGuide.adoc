@@ -306,13 +306,14 @@ This section contains some of our considerations for the training feature.
 
 [width="100%", cols="1, 5, 5"]
 |===
-||*Alternative 1:* Make extensions to the `[green]#AddressBook#` by storing and tagging each `[green]#Person#` with
+||*Alternative 1:* Make extensions to the `[green]#Athletick#` class by storing and tagging each `[green]#Person#` with
 number of trainings attended and total number of trainings.
 |*Alternative 2 (Current Choice):* Create separate classes to manage training information.
 
 |*Pros*
 |It is easy to implement.
-|Allows storing of specific training information without depending on the `[green]#AddressBook#`. This also allows new
+|Allows storing of specific training information without depending on the `[green]#Athletick#` class. This also allows
+new
 features to be easily introduced to training in the future.
 
 |*Cons*
@@ -371,7 +372,7 @@ one with the `training` command makes it editing much quicker.
 
 === Performance feature
 
-Athletick allows users to record athlete's performance details from timed trials.
+Athletick allows users to record an athlete's performance details from timed trials.
 With this information recorded, Athletick allows users to get an overview of the team's capability and
 progress in specific events.
 
@@ -410,7 +411,7 @@ of the HashMap is a list of `[green]#Record#` s under the `[green]#Person#`.
 
 This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
 their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
-attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
+attributes in `[green]#Record#`. Additionally, an athlete's records can be easily retrieved by calling the
 `[green]#HashMap#get()#` method.
 
 `[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
@@ -432,7 +433,7 @@ example scenario when `event freestyle 50m` is given as a user input (ie. when t
 50m` event).
 
 .Sequence diagram showing the operations in Logic and Model when an event is added.
-image::addevent_sequencediagram.png[width="700"]
+image::addevent_sequencediagram.png[width="600"]
 
 Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
@@ -460,10 +461,10 @@ The following sequence diagrams illustrate how the `[green]#Logic#`, `[green]#Ui
 `[green]#Model#` work together when `[green]#Record#` viewing is executed.
 
 .Sequence diagram showing how Records are viewed. Interactions in the RecordsPanel are omitted and shown in a separate sequence diagram below.
-image::viewrecords_sequencediagram.png[width="600"]
+image::viewrecords_sequencediagram.png[width="500"]
 
 .Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
-image::recordspanel_sequencediagram.png[width="400"]
+image::recordspanel_sequencediagram.png[width="350"]
 
 // end::performance_view[]
 
@@ -471,8 +472,8 @@ image::recordspanel_sequencediagram.png[width="400"]
 
 ==== Design Considerations
 
-This section explains the factors that we took into consideration when making decision on how different
-aspects in `[green]#Performance#` should be implemented.
+This section explains the factors that we took into consideration when deciding on how different
+aspects of `[green]#Performance#` should be implemented.
 
 ===== Aspect: Method of storing performance records for athletes.
 
@@ -504,18 +505,16 @@ is not always known
 **Reason for choice of Alternative 1:**
 
 * Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes
-* Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
-methods that are in the HashMap API are relevant
+* Using an _athlete-records_ relationship is similar to the _key-value_ relationship in HashMap so the
+existing methods that are in the HashMap API are relevant
 
 ===== Aspect: Method of displaying events and records to users.
 
 Viewing events and records are separate commands in Athletick.
 
 To view events, the command is `view performance`. Users will be shown a list of all the events they have
-in Athletick.
-
-To view records under a certain event, the command is `view records EVENT_NAME`. Users will be shown a
-graph on each athlete's records under this event.
+in Athletick. To view records under a certain event, the command is `view records EVENT_NAME`. Users will
+be shown a graph on each athlete's records under this event.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -523,14 +522,14 @@ graph on each athlete's records under this event.
 | *Alternative 2: Display all records under all events.*
 
 |**Pros**
-a|* Viewing events, followed by "zooming" in to a particular event's records gives users a more immersive
+a|* Viewing events, followed by "zooming" into a particular event's records gives users a more immersive
 experience
-a|* Navigating is simple as viewing events and its records requires only one command
+a|* Navigating is simple as viewing events and its records require only one command
 
 |**Cons**
 a|* Getting an overview of all events and its respective records is not possible
-* Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
-feature box
+* Supporting 2 commands results in overhead in parsing the command and creating the relevant `[green]#Ui#`
+in the feature box
 a|* Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
 can be difficult when the event of interest is located at the end
 |===
@@ -847,7 +846,7 @@ initialised with the initial `[green]#Athletick#`, `[green]#Attendance#` and
 `[green]#Performance#` state pushed to the respective stacks.
 
 .Initial stacks of states
-image::initialStack.png[width=450]
+image::initialStack.png[width=350]
 
 Step 2. The user executes the `delete -p 3` command to delete the 3rd person in the `[green]#Athletick#` list. The
 delete command will be pushed into the `[green]#Command#` stack. After that,
@@ -856,7 +855,7 @@ state will then be pushed to the `[green]#Athletick#` stack while the `[green]#A
 `[green]#Performance#` stacks are left untouched as their states remain the same.
 
 .Stacks of states after `delete -p 3` command
-image::afterUndoStack.png[width=450]
+image::afterUndoStack.png[width=350]
 
 Step 3. The user now decides that deleting the 3rd person in the list was a mistake, and decides to undo the action
 by executing the `undo` command. The `undo` command then executes the `undo` method in the
@@ -866,16 +865,16 @@ It then peeks at the `[green]#Athletick#` stack to retrieve the `[green]#Athleti
 before `delete -p 3` command was executed.
 
 .Stacks of states after `undo` command
-image::initialStack.png[width=450]
+image::initialStack.png[width=350]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
-was executed, we then resets the `[green]#Athletick#` state to this retrieved
+was executed, we then reset the `[green]#Athletick#` state to this retrieved
 `[green]#Athletick#` state. As such, the previous command will then be undone.
 
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo implementation
-image::undoSQ.png[width="450"]
+image::undoSQ.png[width="400"]
 
 
 ==== Redo Implementation
@@ -898,7 +897,7 @@ Implementation.]
 The activity diagram for `redo` command is as follows:
 
 .Activity diagram for `redo` command
-image::redoactivity.png[width="450"]
+image::redoactivity.png[width="400"]
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
@@ -1139,8 +1138,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |Coach who wants fit players |Filter players by overweight BMIs |Single them out and get them to lose weight
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1430,19 +1427,19 @@ Examples of time-based sports are swimming and track & field, where performance 
 [appendix]
 == Product Survey
 
-*Product Name*
+*https://teamstuff.com/[Teamstuff]*
 
-Author: ...
+Author: Dominique Ng Wenyi
 
 Pros:
 
-* ...
-* ...
+* Availability of team members for future trainings can be shown
+* Alerts given to user for upcoming trainings or a change in attendance
 
 Cons:
 
-* ...
-* ...
+* Lacks analysis of data with visual aids like charts
+* Lacks an in-built calendar for an overview of schedule
 
 [appendix]
 == Instructions for Manual Testing
@@ -1466,29 +1463,142 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete -p 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete -p 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size). +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Selecting an athlete
 
-. Dealing with missing/corrupted data files
+. Selecting an athlete while all athletes are listed
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: List all athletes using the `list` command. Multiple athletes in the list.
+.. Test case: `select 1` +
+   Expected: First athlete is selected from the list. Details of the selected athlete shown in the feature box.
+.. Test case: `select 0` +
+   Expected: No person is deleted. Error details shown in result box.
 
-_{ more test cases ... }_
+=== Adding/editing an image of an athlete
+
+. Adding or editing an image of an athlete
+
+.. Prerequisites: Move the image files to be used into the `images` folder.
+.. Test case: `add n/John Doe p/98765432 e/johnd@example.com g/male a/311, Clementi Ave 2, #02-25 t/backstroke i/john.png`
+   Expected: Athlete is added with the image john.png set as the profile picture.
+.. Test case: `edit 2 i/john.png`
+   Expected: Athlete's profile image is set as john.png.
+.. Test case: `edit 1 i/bobby.png`
+   Expected: Error message : Image file does not exist. Make sure image file is in the `images` folder.
+
+=== Adding a training using athletes present
+
+. Add a training by indicating athletes present
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `training d/11112019 #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at the date
+11th of November 2019 indicating successful adding of training. Running the `calendar 11112019` command will show that
+the first person attended training and everyone else will be displayed as absent.
+
+.. Test case: `training #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at today's
+date indicating successful adding of training. Running the `calendar` command with today's date will show that the
+first
+person attended training and everyone else will be displayed as absent.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: No training added. Error details shown in the result box.
+
+.. Other incorrect commands: `training d/1234567890 #/1`, `training` +
+Expected: Similar to previous.
+
+=== Adding a training using athletes absent
+
+. Add a training by indicating athletes absent
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `training -a d/11112019 #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at the date
+11th of November 2019 indicating successful adding of training. Running the `calendar 11112019` command will show that
+the first person was absent from training and everyone else will be displayed as present.
+
+.. Test case: `training -a #/1` +
+Expected: Result box indicates that training is successfully added. A green dot will appear on calendar at today's
+date indicating successful adding of training. Running the `calendar` command with today's date will show that the first
+person was absent from training and everyone else will be displayed as present.
+
+.. Test case: `training -a d/11112019 #/0` +
+Expected: No training added. Error details shown in the result box.
+
+.. Other incorrect commands: `training d/1234567890 #/1`, `training` +
+Expected: Similar to previous.
+
+=== Editing a training
+
+. Edit a training attendance
+
+.. Prerequisites: There must exist a training on the input date.
+
+.. Test case: `training d/11112019 #/1` +
+Expected: Result box indicates that training was successfully replaced. Green dot that was previously on the calendar
+at 11th November 2019 remains there. Running the `calendar 11112019` command shows the new attendance of training.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: Training is not replaced. Error details shown in the result box.
+
+=== Deleting a training
+
+. Delete a training at date
+
+.. Prerequisites: There must exist a training on the input date.
+
+.. Test case: `delete -t d/11112019` +
+Expected: Result box indicates that training was successfully deleted. Green dot that was previously on the calendar
+at 11th November 2019 disappears. Running the `calendar 11112019` command shows the new attendance of training.
+
+.. Test case: `training d/11112019 #/0` +
+Expected: Training is not replaced. Error details shown in the result box.
+
+=== Viewing attendance of one athlete
+
+. View attendance of one athlete
+
+.. Prerequisites: There must be at least one person in the list. Use the `list`, `filter` or `find` commands.
+
+.. Test case: `attendance 1` +
+Expected: Result box indicates the attendance of specified athlete.
+
+.. Test case: `attendance 0` +
+Expected: Attendance is not shown. Error details shown in the result box.
+
+.. Other incorrect attendance commands to try: `attendance`, `attendance x` (where x is larger than the list size)
+_{give more}_ +
+Expected: Similar to previous.
+
+=== Viewing overall attendance
+
+. View attendance of all athletes
+
+.. Prerequisites: None.
+
+.. Test case: `view attendance` +
+Expected: Result box indicates the team's attendance is being displayed. Also, display in the application will show u
+a list of your athletes and their attendance beside their names.
+
+.. Other incorrect view attendance commands to try: `view`, `view everyones attendance` (where x is larger than the
+list size) _{give more}_ +
+Expected: Error details shown in result box.
 
 === Viewing the calendar
 
@@ -1538,3 +1648,50 @@ shown in the result box.
 .. Other incorrect delete commands to try: `calendar x` (where x is any combination of numbers
 that is not length of 6 or 8)
 Expected: Similar to previous.
+=== Adding an event
+
+. Adding an event while all events are listed
+
+.. Prerequisites: List all events using the `view performance` command. Multiple events in the list
+(`freestyle 50m` is inside, `backstroke 100m` is not).
+.. Test case: `event backstroke 100m` +
+   Expected: `backstroke 100m` event is added to the list. Details of the added event shown in the status message.
+.. Test case: `event freestyle 50m` +
+   Expected: No event is added. Error details shown in the status message.
+.. Other incorrect add commands to try: `add event`, `new event`. +
+   Expected: The former will result in an error message for adding a person. The latter will result in a
+general unknown command error message.
+
+=== Deleting an event
+
+. Deleting an event while all events are listed
+
+.. Prerequisites: List all events using the `view performance` command. Multiple events in the list
+(`freestyle 50m` is inside, `backstroke 100m` is not).
+.. Test case: `delete -e freestyle 50m` +
+   Expected: `freestyle 50m` event is deleted from the list. Details of the deleted event shown in the status message.
+.. Test case: `delete -e backstroke 100m` +
+   Expected: No event is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete e`, `delete event`. +
+Expected: Similar to previous.
+
+=== Undoing a previous command
+. Undoing a previous command after user executes `list` command
+
+.. Prerequisites: Previous command is `list`.
+.. Test case: `undo` +
+    Expected: Error details shown in the status message. Status bar remains
+the same. List of people remains the same.
+.. Other incorrect undo commands to try: `undo x` (where x is any word) +
+Expected: Similar to previous.
+
+=== Redoing a previous command
+. Redoing a previous command after user executes `undo` command
+
+.. Prerequisites: Previous command is `undo`.
+.. Test case: `redo` +
+    Expected: `undo` command reversed. Details of the redone command shown
+in the status message.
+.. Test case: `redo undo` +
+Expected: Error details shown in status message. Status bar remains the same.
+List of people remains the same.
