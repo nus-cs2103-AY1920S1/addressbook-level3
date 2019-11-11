@@ -409,16 +409,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a person
+=== Deleting a patient
 
-. Deleting a person while all persons are listed
+. Deleting a patient while all patients are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all patients using the `pat-list` command. Multiple patients in the list.
+.. Test case: `pat-delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Test case: `pat-delete 0` +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `pat-delete`, `pat-delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Updating a patient's Visit Todos:
@@ -479,3 +479,81 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Prerequisite: There is no ongoing visit.
 .. Test case: `visit-end` +
    Expected: No visit is finished. An error message will appear in the status message.
+
+=== Adding an appointment
+
+. Adding an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-add p/1 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: Appointment is added to the list (based on its start date and time as the list is sorted by that) with first patient's details from the list of patients and the input start and end date times. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-add p/1 sdt/14-02-2020 2000 edt/14-02-2020 2100 rmon/4` +
+   Expected: Appointment is added to the list with first patient's details from the list of patients, the input start and end date times, and recurring frequency of 4 months. The added appointment will be marked `recurring` as well. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case (two commands): `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 ryr/1` +
+                             Followed by: +
+                             `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 rmon/1` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Test case (two commands): `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+                             Followed by: +
+                             `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment delete commands to try: `appt-add`, `appt-delete p/x` (where x is larger than the patient list size) +
+   Expected: Similar to previous.
+
+=== Editing an appointment
+
+. Editing an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-edit 1 p/5 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: First appointment is edited in the list to fifth patient's details from the list of patients and the input start and end date times as mentioned. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-edit 1 rmon/3` +
+   Expected: First appointment is edited in the list to recur by 3 months. If the appointment was previously not recurring, it will be tagged as `recurring`. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case (two commands): `appt-edit 3 p/0` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment delete commands to try: `appt-edit`, `appt-edit x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a non-recurring appointment
+
+. Deleting a non-recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a non-recurring appointment, where x is a positive integer.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a recurring appointment
+
+. Deleting a recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a recurring appointment.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list and the next appointment from xth appointment being recurred is gotten and added to the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting an appointment permanently
+
+. Deleting an appointment permanently while all appointments are listed
+
+.. Prerequisites: List all appointments using the `appt-list` command. Multiple appointments in the list.
+.. Test case: `appt-delete-permanent 1` +
+   Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete-permanent 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
