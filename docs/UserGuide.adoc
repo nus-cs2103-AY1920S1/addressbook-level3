@@ -359,7 +359,7 @@ The following commands operate on bookmarks in Mark. Apart from the *`list`* and
 all other bookmark-related commands operate on bookmarks using the bookmark index that is
 currently shown in the bookmark list.
 
-==== Showing all bookmarks: `*list*`
+==== Showing all bookmarks: *`list`*
 
 Shows a list of all bookmarks in the bookmark manager.
 
@@ -428,7 +428,7 @@ Parameter constraints:
 
 // end::goto-command[]
 
-==== Adding a bookmark: `*add*`
+==== Adding a bookmark: *`add`*
 
 // Context: When to use this command?
 If you're browsing the web and want to bookmark a website, you can do so using the `add` command.
