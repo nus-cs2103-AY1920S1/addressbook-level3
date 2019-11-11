@@ -11,7 +11,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.MultiArgPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
+ * Finds and lists all persons in billboard whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -28,7 +28,7 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "book "
             + PREFIX_AMOUNT + "9 "
-            + PREFIX_START_DATE + "25/3/2019 1200";
+            + PREFIX_START_DATE + "25/4/2019 1200";
 
     private final MultiArgPredicate predicate;
 
@@ -41,7 +41,8 @@ public class FindCommand extends Command {
         requireNonNull(model);
         model.updateFilteredExpenses(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()));
+                String.format(Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW, model.getFilteredExpenses().size()),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

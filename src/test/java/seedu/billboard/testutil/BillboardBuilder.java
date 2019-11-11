@@ -1,7 +1,12 @@
 package seedu.billboard.testutil;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.tag.Tag;
 
 /**
  * A utility class to help with building Billboard objects.
@@ -25,6 +30,9 @@ public class BillboardBuilder {
      */
     public BillboardBuilder withExpense(Expense expense) {
         billboard.addExpense(expense);
+        List<String> tagNames = expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+        Set<Tag> tags = billboard.retrieveTags(tagNames);
+        billboard.incrementCount(tags);
         return this;
     }
 

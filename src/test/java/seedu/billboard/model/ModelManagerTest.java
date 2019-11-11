@@ -9,6 +9,8 @@ import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import static seedu.billboard.testutil.Assert.assertThrows;
 import static seedu.billboard.testutil.TypicalExpenses.BILLS;
 import static seedu.billboard.testutil.TypicalExpenses.FOOD;
+import static seedu.billboard.testutil.TypicalExpenses.FOOTBALL;
+import static seedu.billboard.testutil.TypicalExpenses.GUCCI_SLIDES;
 import static seedu.billboard.testutil.TypicalExpenses.IPHONE11;
 import static seedu.billboard.testutil.TypicalExpenses.KPOP_LIGHT_STICK;
 import static seedu.billboard.testutil.TypicalExpenses.TAXES;
@@ -25,7 +27,8 @@ import org.junit.jupiter.api.Test;
 import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.MultiArgPredicate;
+import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.billboard.testutil.BillboardBuilder;
 
 public class ModelManagerTest {
@@ -42,8 +45,6 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Billboard(), new Billboard(modelManager.getBillboard()));
-        //assertEquals(new ArchiveWrapper(new ArrayList<>()),
-        //        new ArchiveWrapper(modelManager.getArchives().getExpenseList()));
     }
 
     // user prefs/gui settings tests ===============================================
@@ -171,6 +172,27 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void deleteArchive_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.deleteArchive(null));
+    }
+
+    @Test
+    public void deleteArchive_existingArchiveName_success() {
+        modelManager.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
+        modelManager.deleteArchive(VALID_ARCHIVE_TAXES);
+        ModelManager expectedModelManager = new ModelManager();
+
+        assertEquals(expectedModelManager, modelManager);
+    }
+
+    @Test
+    public void deleteArchive_nonExistentArchiveName_success() {
+        modelManager.deleteArchive(VALID_ARCHIVE_TAXES);
+        ModelManager expectedModelManager = new ModelManager();
+        assertEquals(expectedModelManager, modelManager);
+    }
+
+    @Test
     public void deleteArchiveExpense_nullExpense_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.deleteArchiveExpense(VALID_ARCHIVE_TAXES, null));
     }
@@ -178,6 +200,45 @@ public class ModelManagerTest {
     @Test
     public void deleteArchiveExpense_nullArchiveName_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> modelManager.deleteArchiveExpense(null, TAXES));
+    }
+
+    @Test
+    public void deleteArchiveExpense_validArchiveNameAndExpense_success() {
+        modelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL))));
+        modelManager.deleteArchiveExpense("hobbies", KPOP_LIGHT_STICK);
+
+        ModelManager expectedModelManager = new ModelManager();
+        expectedModelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(FOOTBALL))));
+
+        assertEquals(expectedModelManager, modelManager);
+    }
+
+    @Test
+    public void deleteArchiveExpense_nonExistentArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager
+                .deleteArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
+    }
+
+    @Test
+    public void deleteArchiveExpense_nonExistentExpenseInExistingArchive_throwsExpenseNotFoundException() {
+        modelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL))));
+        assertThrows(ExpenseNotFoundException.class, () -> modelManager.deleteArchiveExpense("hobbies", GUCCI_SLIDES));
+    }
+
+    @Test
+    public void addArchive_nullArchive_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.addArchive(null));
+    }
+
+    @Test
+    public void addArchive_validArchive_success() {
+        modelManager.addArchive(new Archive("hobbies", new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL))));
+
+        Billboard expectedBillboard = new Billboard();
+        expectedBillboard.setExpenses(new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL)));
+        ModelManager expectedModelManager = new ModelManager(expectedBillboard, new UserPrefs());
+
+        assertEquals(expectedModelManager, modelManager);
     }
 
     @Test
@@ -230,7 +291,9 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = BILLS.getName().name.split("\\s+");
-        modelManager.updateFilteredExpenses(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Arrays.asList(keywords));
+        modelManager.updateFilteredExpenses(predicate);
         assertNotEquals(modelManager, new ModelManager(billboard, userPrefs));
 
         // resets modelManager to initial state for upcoming tests

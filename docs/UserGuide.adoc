@@ -16,7 +16,11 @@ By: `CS2103T-F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses. _Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI). If you can type fast, _Billboard_ can help you manage your expenses faster than traditional GUI apps!
+_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses.
+_Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI).
+If you can type fast, _Billboard_ can help you manage your expenses faster than traditional
+GUI apps!
 
 == Quick Start
 
@@ -33,12 +37,12 @@ _Billboard_ is for those who prefer to use desktop applications to manage and ke
 ====
 *Command Format*
 
-* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `expense add [DESCRIPTION] [AMOUNT]`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add “buy a book” 10`.
+* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `add [n/NAME] [d/DESCRIPTION] [a/AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
 * The mandatory parameters must be supplied in the order specified.
 * Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
-* Some commands may have optional parameters denoted under options. These can be included by specifying a flag, usually of the format `--flag` or `-f`. E.g `--description` can be used as `expense edit 2 --description "changed description"`.
+* Some commands may have optional parameters denoted under options. These can be included by specifying in `<ANGULAR BRACKETS>` format, e.g `<a/AMOUNT>` can be used as `expense edit 2 a/10`.
 * Flags can be in any order.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[TAG]...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `<t/TAG>...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
 
 ====
 
@@ -46,34 +50,40 @@ _Billboard_ is for those who prefer to use desktop applications to manage and ke
 === Managing expenses: `expense`
 
 . _Add a new expense: expense add_ +
-Adds an expense to records. +
+You can add an expense to records using this command. +
 Usage:
 
- expense add [DESCRIPTION] [AMOUNT]
-+
+add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG] date/[DATE]
+
 Example:  +
-`expense add “buy a book” 10` +
-Adds an expense to record where the description is “buy a book” and the amount is 10. +
+`add n/buy a book d/math textbook a/10 t/coop` +
+Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
 {nbsp} +
 
-. _Edit an existing expense: expense edit_ +
+. _Edit an existing expense: edit_ +
 Edits an existing expense that is being displayed on the GUI. Either description or amount must be supplied. +
 {nbsp} +
 Usage:
 
- expense edit [INDEX] [OPTIONS]
+ edit [INDEX] [OPTIONS]
 +
 Options: +
 
-* `--description`, `-d`: Specify new description to update expense with. +
-* `--amount`, `-a`: Specify new amount to update expense with. +
+* `n/`: Specify new name to update expense with. +
+* `d/`: Specify new description to update expense with. +
+* `a/`: Specify new amount to update expense with. +
+* `t/`: Specify the tag and attach it to the expense. +
+* `date/`: Specify new timestamp to update expense with. +
 {nbsp} +
 
 +
 Example: +
-`expense edit 2 -d “buy a math book”` +
-
+`edit 2 d/buy a math book` +
 Edit the expense at index 2  with new description of: “buy a math book” +
+
+[NOTE]
+This command overwrites existing tags if you input tags.
+
 
 {nbsp} +
 
@@ -82,76 +92,150 @@ Deletes an existing expense that is being displayed on the GUI. +
 {nbsp} +
 Usage:
 
- expense rm [INDEX]
+ delete [INDEX]
 +
 Example: +
-`expense rm 3` +
+`delete 3` +
 Deletes the expense with index 3. +
 {nbsp} +
 
-. _List all expenses: expense list_ +
-Lists all the expenses in the record list. +
+. _List all expenses: list_ +
+You can list all the expenses in the record list using this command. `list` will ignore all parameters. +
 {nbsp} +
 Usage:
 
- expense list
+ list
 +
 Example: +
-`expense list` +
-Displays below expenses (for example) in the GUI: +
+`list` +
+Displays below expenses (for example) in the GUI:
+ +
 
-* buy a book / amount: $10 +
- * pay for dinner / amount: $5 +
+image::ListCommandExample.png[]
 {nbsp} +
 
+// tag::tagging[]
 === Tagging expenses: `tag`
+This feature allows you to assign tags to your expenses. Expenses with the same tag will be grouped together, allowing you to search for related expenses easily.
 
-. _Adding a tag: tag add_ +
-Adds a tag to the expense at the specified index. +
+[NOTE]
+Tag names should be *alphanumeric*. This means that they should not contain spaces or special characters. +
+Tag names are *case sensitive.* +
+You are *not* able to use this feature on *archived expenses*.
+
+To view a list of supported tag commands, you could type `tag` in the command box and press `enter`. +
+Similarly, to view parameters for supported tag commands, you could type `tag` followed by the supported tag command and press `enter`. +
+Example: `tag rm`
+
+==== Adding a tag: `tag add` +
+This command adds your input tag(s) to the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag add [INDEX] [TAG]
-+
+ tag add [INDEX] t/[TAG] t/[TAG…]
+
 Example: +
-`tag add 2 “monthly bills”` +
-Adds the tag “monthly bills” to the expense at index 2. +
+Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense "_USS_" at index 2. +
+{nbsp} +
+To add the tags: +
+1. Type `tag add 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+image:tagging/AddTagOne.png[] +
+2. The result box will display the message "Added tag(s) to Expense: +
+Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: [[hangout], [holiday]]" +
+{nbsp} +
+image:tagging/AddTagTwo.png[] +
+{nbsp} +
+3. You could see the tags "_holiday_" and "_hangout_" in the expense at index 2. +
+{nbsp} +
+image:tagging/AddTagThreeCropped.png[] +
 {nbsp} +
 
-. _Deleting a tag: tag rm_ +
-Deletes a tag from the expense of the specified index. +
+[NOTE]
+You are not able to add *existing* tags. +
+If you input *existing* and *non-existing* tags, Billboard adds the *non-existing* tags only. +
+If you input *duplicate* tags, Billboard adds them *once*. i.e Billboard does *not* allow duplicate tags in an expense. +
+Example: `tag add t/holiday t/holiday`
+
+==== Removing a tag: `tag rm` +
+This command removes your input tag(s) from the expense at the index you have specified. +
 {nbsp} +
 Usage:
 
- tag rm [INDEX] [TAG]
+ tag rm [INDEX] t/[TAG] t/[TAG…]
 
-+
 Example: +
-`tag rm 2 “monthly bills”` +
-Deletes the tag “monthly bills” from the expense at index 2. +
+Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense "_USS_" at index 2. +
+To remove the tags: +
+1. Type `tag rm 2 t/holiday t/hangout` in the command box and press `enter` to execute it. +
+{nbsp} +
+image:tagging/rmTagOne.png[] +
+{nbsp} +
+2. The result box will display the message "Removed tag(s) from Expense: +
+ Name: USS Description:  Amount: 70.00 Created: 13 Apr 2019, 11:23 PM Archive Name:  Tags: []" +
+{nbsp} +
+image:tagging/rmTagTwo.png[] +
+{nbsp} +
+3. You could see that the expense at index 2 no longer has the tags "_hangout_" and "_holiday_". +
+{nbsp} +
+image:tagging/rmTagThree.png[] +
 {nbsp} +
 
-. _Filtering by tag: tag filter_ +
-Filters expenses by the specified tag/s. +
+[NOTE]
+You are not able to remove *non-existing* tags. +
+If you input *duplicate* tags, Billboard removes them *once*. +
+Example: `tag rm t/holiday t/holiday`
+
+==== Filtering by tag: `tag filter` +
+This command filters expenses by your input tag(s). +
 {nbsp} +
 Usage:
 
- tag filter [TAG] [TAG…]
-+
+ tag filter t/[TAG] t/[TAG…]
+
+
 Example: +
-+tag filter “home” “monthly bills”+ +
-Lists out all the expenses that contains the  tags “home” and “monthly bills” +
+Lets say that you want to filter your expenses by the tag "_tech_". +
+To filter your expenses: +
+1. Type `tag filter t/tech` in the command box and press `enter` to execute it. +
+{nbsp} +
+image:tagging/filterTagOne.png[] +
+{nbsp} +
+2. The result box will display the message "3 expense(s) listed!" +
+{nbsp} +
+image:tagging/filterTagTwo.png[] +
+{nbsp} +
+3. Billboard lists all expenses under the tag "_tech_". +
+{nbsp} +
+image:tagging/filterTagThree.png[] +
 {nbsp} +
 
-. _Listing out all the tags: tag list_ +
-Lists out all existing tags. +
+[NOTE]
+If you input *more than one* tags, Billboard lists out all expenses tagged with *one or more* input tags. +
+This command allows *duplicate* tags as input. +
+This command allows *non-existing* tags as input. +
+After executing this command, you could edit (eg. `edit`, `tag add` etc) the filtered expenses using the displayed indexes. +
+
+
+==== Listing out all the tags: `tag list` +
+This command lists out all existing tags. +
 {nbsp} +
 Usage:
 
  tag list
 
+Example: +
+Lets say that you want to list out all existing tags. +
+To list them: +
+1. Type `tag list` in the command box and press `enter` to execute it. +
+{nbsp} +
+image:tagging/listtagone.png[] +
+{nbsp} +
+2. The result box displays a list of all existing tags. +
+{nbsp} +
+image:tagging/listtagtwo.png[] +
 {nbsp} +
 
+// end::tagging[]
 === Finding expenses by attributes: `find`
 
 . _Find : find_ +
@@ -167,7 +251,7 @@ Finds all expenses that contain the keyword ‘lunch’ or 'book' and amount bet
 and date between 1 Jan 2019 to 1 Oct 2019 in any of its attributes. +
 {nbsp} +
 
-=== Sorting expenses by attributes: `[Coming in v1.3]`
+=== Sorting expenses by attributes: `[Coming in v2.0]`
 
 . _Sort by name:_ +
 Sort expenses by name in alphabetical order. +
@@ -192,95 +276,195 @@ Usage:
 
 {nbsp} +
 
+// tag::archive[]
 === Archiving past expenses: `archive`
+This feature allows you to archive expenses. An expense is archived when you want remove it from
+the current list of expenses, but still want to keep a record of it and retrieve it again in the future
+for accounting purposes.
 
-. _Adding a record to an archive: archive add_ +
-Transfers the expense at the specified index to the specified archive. +
-If the specified archive does not exist, then the new archive is created before the expense is added. +
-{nbsp} +
+Archiving expenses allows you to de-clutter your current list of expenses after a long period of time.
+This feature offers greater flexibility in terms of expense organisation as it allows you to create *multiple archives* with
+the archive name of your choice so that you would be able to appropriately group your archived expenses.
+
+NOTE: *Archived expenses cannot be edited.* +
+Archived expenses are not considered current and "active" expenses so you are unable to edit them. +
+You would need to unarchive an expense first before you would be able to perform expense editing commands on it such as
+`edit`, `tag add` and `tag remove` commands.
+
+Although this section of the user guide provides comprehensive information on the usage of `archive` commands,
+you could also view the list of all supported archive commands within the application by typing the command word `archive`
+into the command box and pressing `Enter`:
+
+.The result box will display the list of supported `archive` commands. You can scroll down to view the full list.
+image::archiveCommandMessage.png[]
+
+The following are all the archive commands, descriptions of how they work and their usage.
+
+NOTE: Note the formatting of command parameters used in this section: +
+[INDEX]: The list index of the expense involved in the command. +
+`arc/`: Prefix to indicate that the text appended to it is the specified archive name. +
+[ARCHIVE NAME]: Specified name of archive involved in the command. Archive name is case-sensitive and must be non-empty.
+Names with symbols and multiple words are accepted as well.
+
+==== _Adding an expense to an archive: ``archive add``_ +
+This command allows you to transfer the expense at the specified index to your specified archive. +
+If the archive you entered does not exist, then a new archive is created before the expense is added. +
+ +
 Usage:
 
- archive add [INDEX] [OPTIONS]
-+
-Options:
+ archive add [INDEX] arc/[ARCHIVE NAME]
 
-* `/arc`: Specifies the name of the archive to add the expense to. (REQUIRED) +
+Example:
+
+Suppose you want to archive the expense called "_joker movie tickets_" to an archive called "_movies_". +
+To archive the expense:
+
+1. Type `archive add 7 arc/movies` into the command box, and press `Enter` to execute the command:
++
+.The expense "_joker movie tickets_" is at index 7 in the list.
+image:archiveAddEnterCommand.png[]
+
+2. The next step can be split into 2 scenarios:
+
+* 2a. *There is no existing archive called "_movies_"* +
+A new archive called "_movies_" is created before "_joker movie tickets_" is added to it. +
+The result box will display the message to indicate the archive creation and transfer of the expense:
++
+image::archiveAddArchiveCreatedMessage.png[]
+
+* 2b. *There is an existing archive called "_movies_"* +
+"_joker movie tickets_" is simply added to the existing "_movies_" archive. +
+The result box will display the message to indicate the transfer of the expense:
++
+image::archiveAddExistentArchiveMessage.png[]
+
 {nbsp} +
 
-+
-Example: +
-`archive add 3 arc/MBS casino winnings` +
-Archives the record at the 3rd index into an archive named “MBS casino winnings” +
-{nbsp} +
-
-. _Listing out all archives: archive listall_ +
-Displays the list of all archive names. +
+==== _Listing out all archives: ``archive listall``_ +
+This command informs you of all the existing archives by displaying a list of all existing archive names. +
 {nbsp} +
 Usage:
 
  archive listall
 
-+
-{nbsp} +
-. _Listing records in a particular archive: archive list_ +
-Displays the list of records in the specified archive +
-{nbsp} +
-Usage:
+Example:
 
- archive list [NAME]
-+
-Example: +
-`archive list 2018 expenses` +
-Lists out all the records in the “2018 expenses” archive +
+In the event that you cannot remember what archives you have, you could use this command to view all existing archives. +
+Type `archive listall` into the command box and press `Enter`, and the archive name list will be displayed in the result box as shown:
+
+.List of existing archive names.
+image::archiveListallMessage.png[]
+
 {nbsp} +
 
-. _Deleting an archived record: archive delete_ +
-Deletes the record at the specified index from a specified archive. +
-If the archive record deleted was the last record in the archive, the empty archive will be deleted. +
+==== _Listing expenses in a particular archive: ``archive list``_ +
+This command allows you to view the list of expenses of your specified archive. +
 {nbsp} +
 Usage:
 
- archive delete [INDEX] [OPTIONS]
-+
-Options:
+ archive list [ARCHIVE NAME]
 
-* `arc/`: Specifies the name of the archive to delete the expense from. (REQUIRED) +
+NOTE: You do not need to prepend the archive prefix `arc/` to the archive name as there are no other
+arguments (like [INDEX]) to be entered for this command.
+
+Example:
+
+Suppose you want to view all the expenses you have spend on movies this year. As you have kept all movie expenses in an archive called
+"_movies_", you can execute this command to bring up the expense list in "_movies_":
+
+1. Type `archive list movies` into the command box, and press `Enter` to execute it:
++
+image::archiveListEnterCommand.png[]
+
+2. The displayed list will change to show the expenses in the "_movies_" archive and the result box will display the message
+"Listed all expenses from the [movies] archive":
++
+image::archiveListDisplayed.png[]
+
 {nbsp} +
 
-+
-Example: +
-`archive delete 5 arc/2018 expenses` +
-Deletes the record at the 5th index in the “2018 expenses” archive +
-{nbsp} +
-
-. _Revert/unarchive an archived record: archive revert_ +
-Unarchives the record at the specified index from a specified archive, transferring it back to current list of expenses. +
-If the archive record reverted was the last record in the archive, the empty archive will be deleted. +
+==== _Deleting an archived expense: ``archive delete``_ +
+This command allows you to delete the expense at the specified index from your specified archive. +
+If the archived expense you delete was the last expense in the archive, the empty archive will be deleted. +
 {nbsp} +
 Usage:
 
- archive revert [INDEX] [OPTIONS]
-+
-Options:
+ archive delete [INDEX] arc/[ARCHIVE NAME]
 
-* `arc/`: Specifies the name of the archive to revert the expense from. (REQUIRED) +
+Example:
+
+Suppose you want to delete the expense "_Avengers Endgame_" from the "_movies_" archive as you know you will never need to retrieve again for future reference. +
+To delete "_Avengers Endgame_" from its archive:
+
+1. Enter the `archive list movies` command to display the expense list of the "_movies_" archive. Refer to the `archive list` section above for the diagram to execute this step.
+2. With the expense list of "_movies_" displayed, type `archive delete 1 arc/movies` and press `Enter`:
++
+."Avengers Endgame" expense has an index of 1 in its archive list.
+image::archiveDeleteEnterCommand.png[]
+
+3. The next step can be split into two scenarios:
+* 3a. *"_Avengers Endgame_" is the only expense in the "_movies_" archive.* +
+After the command is executed, "_Avengers Endgame_" is deleted so the "_movies_" archive is now empty, and will thus be deleted. +
+The result box will display the message that indicates the deletion of "_Avengers Endgame_" and "_movies_", and the list displayed will switch back to the main expense list:
++
+.Since the archive is deleted, the list displayed switches back to the main expense list.
+image::archiveDeleteEmptyArchive.png[]
+
+* 3b. *"_Avengers Endgame_" is not the only expense in the "_movies_" archive.* +
+After the command is executed, "_Avengers Endgame_" is deleted. As there are other expenses still in the "_movies_" archive, the archive is not deleted. +
+The result box will display the message that indicates the deletion of "_Avengers Endgame_", and the archive list displayed updates with the removal of "_Avengers Endgame_":
++
+."_Avengers Endgame_" is deleted and this change is immediately reflected in the archive list displayed.
+image::archiveDeleteNonEmptyArchive.png[]
+
 {nbsp} +
 
-+
+==== _Reverting an archived expense: archive revert_ +
+This command allows you to revert/unarchive the expense at the specified index from your specified archive, transferring it back to your current list of expenses. +
+If the archive expense you reverted was the last expense in the archive, the empty archive will be deleted. +
+{nbsp} +
+Usage:
+
+ archive revert [INDEX] arc/[ARCHIVE NAME]
+
 Example: +
-`archive revert 5 arc/2018 expenses` +
-Unarchives the record at the 5th index in the “2018 expenses” archive +
+Suppose you have an expense "_Airpod Pro_" archived into "_gadgets_", but you changed your mind and decided that it should not be archived yet. +
+To unarchive/revert the "_Airpod Pro_" expense:
+
+1. Enter the `archive list gadgets` command to display the expense list of the "_gadgets_" archive. Refer to the `archive list` section above for the diagram to execute this step.
+2. With the expense list of "_gadgets_" displayed, type `archive revert 2 arc/gadgets` and press `Enter`:
++
+."Airpod Pro" expense has an index of 2 in its archive list.
+image::archiveRevertEnterCommand.png[]
+
+3. The next step can be split into two scenarios:
+* 3a. *"_Airpod Pro_" is the only expense in the "_gadgets_" archive.* +
+After the command is executed, "_Airpod Pro_" is removed from the "_gadgets_" archive, so the archive is now empty, and will thus be deleted. +
+The result box will display the message that indicates the transfer of "_Airpod Pro_" and the deletion of "_gadgets_", and the list displayed will switch back to the main expense list:
++
+.Since the archive is deleted, the list displayed switches back to the main expense list and "_Airpod Pro_" can be observed to be back in the main expense list.
+image::archiveRevertEmptyArchive.png[]
+
+* 3b. *"_Airpod Pro_" is not the only expense in the "_gadgets_" archive.* +
+After the command is executed, "_Airpod Pro_" is removed from the "_gadgets_" archive. As there are other expenses still in the "_gadgets_" archive, the archive is not deleted. +
+The result box will display the message that indicates the transfer of "_Airpod Pro_", and the archive list displayed updates with the removal of "_Airpod Pro_":
++
+."_Airpod Pro_" is unarchived and this change is immediately reflected in the archive list displayed.
+image::archiveRevertNonEmptyArchive.png[]
+
 {nbsp} +
+
+// end::archive[]
 
 === Displaying of statistics: `display-stats`
 
 . _Display timeline overview of expenses: display-stats timeline_ +
-Displays a timeline overview of the currently displayed expenses. The expenses over a
-specified time period are aggregated and added as a data point on the timeline. +
+You can view a timeline overview of your currently displayed expenses. The expenses over a
+specified time period are aggregated and added as data points on the timeline. +
 {nbsp} +
 Usage:
 
- show-stats timeline [OPTIONS]
+ display-stats timeline [OPTIONS]
 +
 Options:
 
@@ -290,31 +474,50 @@ Supported date intervals include 'day', 'week', 'month' and 'year'.
 
 +
 Example: +
-`show-stats timeline interval/week` +
+`display-stats timeline interval/week` +
 Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
 {nbsp} +
 
-. _Display breakdown of expenses: show-stats breakdown_ +
-Displays a breakdown of expenses by tag for the currently displayed expenses. The total
+. _Display breakdown of expenses: display-stats breakdown_ +
+You can view a breakdown of expenses by tag for the currently displayed expenses. The total
 expenses per tag are totalled and displayed in a pie chart. +
 {nbsp} +
 Usage:
 
- show-stats breakdown
+ display-stats breakdown
 +
 
 {nbsp} +
 
 +
 Example: +
-`show-stats breakdown` +
+`display-stats breakdown` +
 Shows a pie chart breakdown by tag of all currently displayed expenses. +
 {nbsp} +
 
+
+. _Display heatmap of expenses: display-stats heatmap_ +
+You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
+the bubble for the particular day, the higher the expense. +
+{nbsp} +
+Usage:
+
+ display-stats heatmap
++
+
+{nbsp} +
+
++
+Example: +
+`display-stats heatmap` +
+Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
+{nbsp} +
+
+// tag::undoredo[]
 === Undo and Redo: `undo/redo`
 
 . _Undo the previous action: undo_ +
-Undo will restore the previous billboard state from state history. Undo will ignore all arguments. +
+You can use `undo` command restore the previous billboard state from state history. `undo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -322,7 +525,7 @@ Usage:
 +
 {nbsp} +
 . _Redo the previous undo action: redo_ +
-Redo will restore a previously undone billboard state from state history. Redo will ignore all arguments. +
+You can use `redo` command to redo a previously undone command and restore undone billboard state from state history. `redo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -330,10 +533,13 @@ Usage:
 +
 {nbsp} +
 
+// end::undoredo[]
+
+// tag::history[]
 === Viewing History: `history`
 
 . _View the past command history: history_ +
-History will show all previous command histories. History will ignore all arguments. +
+You can view all previous command histories by using `history` command. `history` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -341,14 +547,28 @@ Usage:
 +
 {nbsp} +
 
+// end::history[]
+
+// tag::updownkey[]
 === Up and down key: `&uarr;/&darr;`
 
 . _Get the previous entered command: &uarr;_ +
-Up arrow key(&uarr;) will get the previous command entered in the command history on the text field. +
+By pressing the Up(&uarr;) key, you can get the previous command entered in the command history on the text field. +
 {nbsp} +
 . _Get the sequential entered command: &darr;_ +
-Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
+By pressing the Down(&darr;) key, you can get the sequential command entered in the command history on the text field. +
 {nbsp} +
+
+// end::updownkey[]
+
+// tag::clear[]
+=== Clear the expenses: `clear`
+
+. _Get the previous entered command: &uarr;_ +
+You can clear all the expenses in Billboard by simply executing the `clear` command. `clear` will ignore the parameter you key in. +
+{nbsp} +
+
+// end::clear[]
 
 === Viewing help: `help`
 
@@ -359,17 +579,6 @@ Usage:
 
  help
 +
-{nbsp} +
-. _Help list of a specific command: help_ +
-Shows the description and instructions on how to use the specified command. +
-{nbsp} +
-Usage:
-
- help [COMMAND]
-+
-Example: +
-`help archive` +
-Shows the help message for the archive commands. +
 {nbsp} +
 
 === Exporting data: `[Coming in v2.0]`

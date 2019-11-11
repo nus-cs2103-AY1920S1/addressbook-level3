@@ -161,7 +161,23 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedBillboard`.
-It store the state history into a `stateList` and maintain a state pointer `currentStatePointer`.
+
+If you successfully execute a command that will change the Billboard state,
+the current Billboard state will automatically commit to the `VersionedBillboard`.
+The current state will be store into the `stateList`,
+and a state pointer `currentStatePointer` will be maintained.
+
+ List of command that will commit to `VersionedBillboard`:
+- AddArchiveCommand
+- AddCommand
+- AddTagCommand
+- ClearCommand
+- DeleteArchiveCommand
+- DeleteCommand
+- RevertArchiveCommand
+- EditCommand
+- RemoveTagCommand
+
 Additionally, it implements the following operations:
 
 * `VersionedBillboard#commit()` -- Saves the current billboard state in its history.
@@ -196,7 +212,10 @@ Step 4. The user now decides that adding the expense was a mistake, and decides 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial billboard state, then there are no previous billboard states to restore. The `undo` command uses `VersionedBillboard#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is pointing to the initial billboard state,
+then there are no previous billboard states to restore.
+The `undo` command uses `VersionedBillboard#isRedoable()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -242,7 +261,8 @@ image::CommitActivityDiagram.png[]
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `Model` and `VersionedBillboard`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::archive[]
@@ -252,7 +272,7 @@ image::CommitActivityDiagram.png[]
 The archive feature supports the following actions:
 
 * Creating an archive
-* Added an expense to an archive
+* Adding an expense to an archive
 * Reverting/"unarchiving" an archived expense
 * Deleting an archived expense
 * Displaying the list of expense of a particular archive
@@ -261,104 +281,112 @@ The archive feature supports the following actions:
 
 These actions are facilitated by the `ArchiveWrapper` and `Archive` classes:
 
-*  `Archive` extends from `ExpenseList` in order to encapsulate an archive name and a list of expenses together as an archive.
-* `ArchiveWrapper` manages all existing archives and hashes each `Archive` object to its archive name.
+.Structure and associations of `ArchiveWrapper` and `Archive` classes
+image::ArchiveClassDiagram.png[]
 
-Similar to `Billboard`, which manages the list of current non-archived expenses,
-`ArchiveWrapper` is used in `ModelManager` and its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
+*  `*Archive*` extends from `*ExpenseList*` in order to encapsulate an archive name and a list of expenses together as an archive.
+* `*ArchiveWrapper*` manages all existing archives and hashes each `*Archive*` object to its archive name.
+
+The implementation of the archive feature is located in the `*Model*` component in terms of the overall architecture of _Billboard_.
+
+`*ArchiveWrapper*` is used in `*ModelManager*` to manage all archives. Its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
 Such operations include:
 
-* `ArchiveWrapper#AddArchive(Archive)` - Adds the given archive to the current map of archive objects.
-* `ArchiveWrapper#HasArchive(String)` - Checks if the specified archive by the given archive name exists.
-* `ArchiveWrapper#removeArchive(Archive)` - Deletes the given archive from the current map of archive objects. (Assumes given archive already exists)
-* `ArchiveWrapper#hasArchiveExpense(String, Expense)` - Checks if the specified archive by the given archive name has the given expense.
-* `ArchiveWrapper#addArchiveExpense(String, Expense)` - Adds the given expense into the specified archive by the given archive name. (Assumes given archive already exists)
-* `ArchiveWrapper#removeArchiveExpense(String, Expense)` - Deletes the given expense into the specified archive by the given archive name. (Assumes given archive and expense already exists)
-* `ArchiveWrapper#getArchiveNames()` - Returns a set of all existing archive names
+* `*ArchiveWrapper#AddArchive(Archive)*` - Adds the given archive to the current map of archive objects.
+* `*ArchiveWrapper#HasArchive(String)*` - Checks if the specified archive by the given archive name exists.
+* `*ArchiveWrapper#removeArchive(Archive)*` - Deletes the given archive from the current map of archive objects. (Assumes given archive already exists)
+* `*ArchiveWrapper#hasArchiveExpense(String, Expense)*` - Checks if the specified archive by the given archive name has the given expense.
+* `*ArchiveWrapper#addArchiveExpense(String, Expense)*` - Adds the given expense into the specified archive by the given archive name. (Assumes given archive already exists)
+* `*ArchiveWrapper#removeArchiveExpense(String, Expense)*` - Deletes the given expense into the specified archive by the given archive name. (Assumes given archive and expense already exists)
+* `*ArchiveWrapper#getArchiveNames()*` - Returns a set of all existing archive names
 
-These operations are exposed in the `Model` interface respectively as:
+These operations are exposed in the `*Model*` interface respectively as:
 
-* `Model#addArchive(Archive)`
-* `Model#HasArchive(String)`
-* `Model#deleteArchive(Archive)`
-* `Model#hasArchiveExpense(String, Expense)`
-* `Model#addArchiveExpense(String, Expense)`
-* `Model#deleteArchiveExpense(String, Expense)`
-* `Model#getArchiveNames()`
+* `*Model#addArchive(Archive)*`
+* `*Model#HasArchive(String)*`
+* `*Model#deleteArchive(Archive)*`
+* `*Model#hasArchiveExpense(String, Expense)*`
+* `*Model#addArchiveExpense(String, Expense)*`
+* `*Model#deleteArchiveExpense(String, Expense)*`
+* `*Model#getArchiveNames()*`
 
-Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `Logic` and how it interacts with `Model`: +
+Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `*Logic*` and how it interacts with `*Model*`: +
 
-Firstly, the user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
+Step 1. The user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
 this list. +
 
-Next, the user executes the command `archive add 3 arc/archiveName` to archive an expense. +
-The command is first parsed by `BillboardParser` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `ArchiveCommandParser`. +
-`ArchiveCommandParser` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `AddArchiveCommandParser` to extract out the arguments entered for the operation.
+Step 2. The user executes the command `archive add 3 arc/archiveName` to archive an expense. +
+The command is first parsed by `*BillboardParser*` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `*ArchiveCommandParser*`. +
+`*ArchiveCommandParser*` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `*AddArchiveCommandParser*` to extract out the arguments entered for the operation.
 In this case, the arguments are `3` and `archiveName` +
 
-This parsing process is shown in the cropped portion of the full sequence diagram below:
+This layered parsing process can be visualised below:
 
+.Process of parsing `AddArchiveCommand` in a cropped sequence diagram
 image::AddArchiveCommandSequenceDiagram_Parsing.png[]
 
-`AddArchiveCommandParser` then returns an `AddArchiveCommand` object to be executed. The `AddArchiveCommand` performs two checks before executing any changes:
+Step 3. `*AddArchiveCommandParser*` then returns an `*AddArchiveCommand*` object to be executed. The `*AddArchiveCommand*` performs two checks before executing any changes:
 
 * First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
-so `Model` is left unmodified in this case.
-* Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `Model#HasArchive(String)`. If the archive does not already exist,
-then a new archive is created with the given archive name using `Model#addArchive(Archive)`. +
+so `*Model*` is left unmodified in this case.
+* Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `*Model#HasArchive(String)*`. If the archive does not already exist,
+then a new archive is created with the given archive name using `*Model#addArchive(Archive)*`. +
 
 After the checks are completed and if no exception is thrown, the command executes the archiving of the expense through these steps:
 
-* The expense to be archived is first retrieved by `Model#getFilteredList()#get(int)`
-* The expense is then deleted from the list of current expenses by calling `model#deleteExpense(Expense)`
-* Next, the expense's `archiveName` field is updated using `Expense#archiveTo(String)`
-* Lastly, the expense is added to the specified archive using `Model#addArchiveExpense(String, Expense)`
+* The expense to be archived is first retrieved by `*Model#getFilteredList()#get(int)*`
+* The expense is then deleted from the list of current expenses by calling `*model#deleteExpense(Expense)*`
+* Next, the expense's `archiveName` field is updated using `*Expense#archiveTo(String)*`
+* Lastly, the expense is added to the specified archive using `*Model#addArchiveExpense(String, Expense)*`
 
-These interactions with `Model` by `AddArchiveCommand` can be shown in the cropped portion of the full sequence diagram below:
+These interactions with `*Model*` by `*AddArchiveCommand*` can be shown in the cropped portion of the full sequence diagram below:
 
+.Interactions between `*Model*` and `*AddArchiveCommand*` during the execution of the command
 image::AddArchiveCommandSequenceDiagram_executeCommand.png[]
 
-Finally, a `CommandResult` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
+Step 4. Finally, a `*CommandResult*` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
 
-Below is the full sequence diagram of the operation:
+Full Sequence diagram of the operation:
 
+.Full sequence diagram of the operation
 image::AddArchiveCommandSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new `AddArchiveCommand`:
+The following activity diagram summarizes what happens when a user executes a new `*AddArchiveCommand*`:
 
+.`*AddArchiveCommand*` activity diagram
 image::AddArchiveCommandActivityDiagram.png[]
 
 ===== Storing Archive
 All expenses, archived and non-archived, are stored in a single JSON file. +
 
 Upon start up of the application, all expenses are retrieved from JSON format and passed into
-`ModelManager` as a combined `Billboard` object. During the initialization of `ModelManager`, the expenses in this `Billboard` object are filtered out into non-archived and
-archived expenses by each `Expense` object's `archiveName` field. The separate lists of non-archive and archive expenses are then used to initialize new `Billboard` and
-`ArchiveWrapper` objects of `ModelManager` respectively. +
+`*ModelManager*` as a combined `*Billboard*` object. During the initialization of `*ModelManager*`, the expenses in this `*Billboard*` object are filtered out into non-archived and
+archived expenses by each `*Expense*` object's `*archiveName*` field. The separate lists of non-archive and archive expenses are then used to initialize new `*Billboard*` and
+`*ArchiveWrapper*` objects of `*ModelManager*` respectively. The `*Billboard*` object of `*ModelManager*` is used to maintain non-archive expenses.+
 
-After each command is executed, the expenses in `Model` are saved into the JSON file. The method `Model#getCombinedBillboard` is called which collates all `Expense` objects
-from its `Billboard` and `ArchiveWrapper` objects together into a single list and creates a new combined `Billboard` object. This combined `Billboard` is returned and used by
-`Storage` to serialize into JSON format and writes it into the JSON file.
+After each command is executed, the expenses in `*Model*` are saved into the JSON file. The method `*Model#getCombinedBillboard*` is called which collates all `*Expense*` objects
+from its `*Billboard*` and `*ArchiveWrapper*` objects together into a single list and creates a new combined `*Billboard*` object. This combined `*Billboard*` is returned and used by
+`*Storage*` to serialize into JSON format and writes it into the JSON file.
 
 ==== Design Considerations
 ===== Aspect: Data Structure to hold archives in `ArchiveWrapper`
-* ** Alternative 1 (Current implementation): ** Use of HashMap, mapping each archive name to its `Archive` object
-** Pros: Instant access to any archive with the archive name given. Therefore, performing add/delete archive expense operations or checking if an archive exists is fast.
-** Cons: As `ArchiveWrapper` is initialized with a single list of archive `Expense` objects, the initialization process is slower as this given list needs to be iterated
-through to filter each `Expense` object into their respective `Archive` objects in the HashMap.
+* ** Alternative 1 (Current implementation): ** Use of HashMap, mapping each archive name to its `*Archive*` object
+** Pros: Accessing data in a HashMap is instant. Therefore, retrieving an archive when performing add/delete archive expense operations or checking if an archive exists is fast.
+** Cons: As `*ArchiveWrapper*` is initialized with a single list of archive `*Expense*` objects, the initialization process is slower as this given list needs to be iterated
+through to filter each `*Expense*` object into their respective `*Archive*` objects in the HashMap.
 
 * ** Alternative 2: ** Use a single list to store all archive expenses
-** Pros: Initialization of `ArchiveWrapper` is fast, as the given list of archive expenses need not be processed.
+** Pros: Initialization of `*ArchiveWrapper*` is fast, as the given list of archive expenses need not be processed.
 ** Cons: Some operations, like delete archive expense or get all archive names, are slower as the entire list must be iterated through each time in the worst case scenario.
 For example, to check if an expense exists in a particular archive, the entire list must be iterated if the expense to be found is at the end of the list.
 
 ===== Aspect: Storing archives
 * ** Alternative 1 (Current implementation): ** Storing non-archive and archive expenses together
 ** Pros: No new storage classes need to be implemented, as this implementation uses the existing classes only.
-** Cons: Initialization process of `ModelManager` is slower as the expenses need to be filtered into archive and non-archive expenses first.
+** Cons: Initialization process of `*ModelManager*` is slower as the expenses need to be filtered into archive and non-archive expenses first.
 
-* ** Alternative 2: ** Storing archive expenses as `Archive` objects in a separate file
-** Pros: Initialization process of `ModelManager` is faster, as its `ArchiveWrapper` object can be initialized directly with the list of `Archive` objects retrieved from the JSON file.
+* ** Alternative 2: ** Storing archive expenses as `*Archive*` objects in a separate file
+** Pros: Initialization process of `*ModelManager*` is faster, as its `ArchiveWrapper` object can be initialized directly with the list of `Archive` objects retrieved from the JSON file.
 No filtering of archive and non-archive expense from the same list is needed.
 ** Cons: More difficult to implement, as more JSON storage classes must be added and knowledge on serialising and deserialising new objects is needed.
 
@@ -371,80 +399,90 @@ The tag feature supports the following operations:
 
 * Adding tags to an expense
 * Removing tags from an expense
-* Filtering expenses by tag
+* Filtering expenses by tags
 * Listing all existing tags
 
-These actions are facilitated by the `UniqueTagList` and `TagCountManager` classes:
+These actions are facilitated by the `*UniqueTagList*` and `*TagCountManager*` classes:
 
-* `UniqueTagList` maps `String` to `Tag` where `String` is the name of the `Tag`. It ensures that the same `Tag` is referenced instead of creating many `Tag` objects of the same name when adding tags.
-* `TagCountManager` maps `Tag` to `Integer`, where `Integer` is the number of `Expense` under each `Tag`. It allows `Tag` objects that are not tagged with any `Expense` to be tracked and removed.
+* `*UniqueTagList*` maps `*String*` to `*Tag*` where `*String*` is the name of the `*Tag*`. It ensures that the same `*Tag*` object is referenced instead of creating many `*Tag*` objects of the same name during operations.
+* `*TagCountManager*` maps `*Tag*` to `*Integer*`, where `*Integer*` is the number of `*Expense*` tagged with each `*Tag*`. It allows `*Tag*` objects that are not tagged with any `*Expense*` to be tracked and removed.
 
 Operations include:
 
-* `UniqueTagList#retrieveTags(List<String>)` -- Retrieves corresponding tags from `UniqueTagList` based on the list of tag names.
-* `UniqueTagList#removeAll(List<Tag>)` -- Removes tags given in the list from the `UniqueTagList`.
-* `UniqueTagList#getTagNames()` -- Returns a list of tag names.
-* `TagCountManager#incrementAllCount(Set<Tag>)` -- Increment the number of expenses mapped to tags given in the set by 1.
-* `TagCountManager#decreaseAllCount(Set<Tag>)` -- Decrease number of expenses mapped to tags given in the set by 1.
-* `TagCountManager#removeZeroCount()` -- Removes all mappings where number of expense is equal to 0.
+* `*UniqueTagList#retrieveTags(List<String>)*` -- Retrieves corresponding tags from `*UniqueTagList*` based on the list of tag names.
+* `*UniqueTagList#removeAll(List<Tag>)*` -- Removes tags given in the list from the `*UniqueTagList*`.
+* `*UniqueTagList#getTagNames()*` -- Returns a list of existing tag names.
+* `*TagCountManager#incrementAllCount(Set<Tag>)*` -- Increments the `*Integer*` mapped to the tags in the set by 1.
+* `*TagCountManager#decreaseAllCount(Set<Tag>)*` -- Decreases the `*Integer*` mapped to the tags in the set by 1.
+* `*TagCountManager#removeZeroCount()*` -- Removes all mappings where the `*Integer*` is equal to 0.
 
-These operations are exposed in the `Model` interface as:
+These operations are exposed in the `*Model*` interface as:
 
-* `Model#retrieveTags(List<String>)`
-* `Model#incrementCount(Set<Tag>)`
-* `Model#decreaseCount(Set<Tag>)` -- `TagCountManager#removeZeroCount()` and `UniqueTagList#removeAll(List<Tag>)` is called in this method as well to remove tags that does not have any expense tagged to it from `UniqueTagList` and `TagCountManager`.
-* `Model#getTagNames()`
+* `*Model#retrieveTags(List<String>)*`
+* `*Model#incrementCount(Set<Tag>)*`
+* `*Model#decreaseCount(Set<Tag>)*` -- `*TagCountManager#removeZeroCount()*` and `*UniqueTagList#removeAll(List<Tag>)*` are called in this method to remove any tag not tagged to any expense from the `*UniqueTagList*` and `*TagCountManager*`.
+* `*Model#getTagNames()*`
 
-Given below is an example usage scenario and how the adding tag mechanism behaves at each step.
+Given below is an example usage scenario and how adding tag executes at every step.
 
-Step 1.
-The user launches the application. The `Model` is initialized with saved data. All tags are loaded into `UniqueTagList` and `TagCountManager`.
+* **Step 1:**
+The user launches the application. The `*Model*` is initialized with saved data. All tags are loaded into `*UniqueTagList*` and `*TagCountManager*`.
 
-Step 2.
-User enters the command `tag add 1 t/test t/test2` to add tags to the 1st `Expense` in Billboard. `BillboardParser` parses the command, creating a `TagCommandParser`.
-The `TagCommandParser` then parses `add 1 t/test t/test2` and creates an `AddTagCommandParser`. Subsequently, the `AddTagCommandParser` parses `1 t/test1 t/test2` into `Index` 1 and
-a list of `String` consisting of `test1` and `test2`. They are then used to create `AddTagCommand` which is returned to `LogicManager`.
+* **Step 2:**
+User enters the command `tag add 1 t/test t/test2` to add tags to the `*Expense*` at index 1 in Billboard. +
+*2a*. `*BillboardParser*` parses this command, creating a `*TagCommandParser*` after determining that it is a tag command. +
+*2b*. The `*TagCommandParser*` then parses `add 1 t/test t/test2` and creates an `*AddTagCommandParser*` after determining that it is a command to add tags. +
+*2c*. Subsequently, the `*AddTagCommandParser*` parses `1 t/test1 t/test2` into `*Index*` 1 and
+a list of `*String*` consisting of `test1` and `test2`. `*AddTagCommandParser*` creates `*AddTagCommand*` with the `*Index*` and list of `*String*` as parameters.
 
-Step 3.
-`LogicManager` executes the `AddTagCommand`. During execution, `AddTagCommand` calls `Model#retrieveTags(Set<String>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
-`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the UI.
+* **Step 3:**
+`*LogicManager*` executes the `*AddTagCommand*`. +
+During execution, +
+*3a*. `*AddTagCommand*` calls `*Model#retrieveTags(List<String>)*` on the list of `*String*` consisting of `test1` and `test2` which returns a set of `*Tag*` with tag names `test1` and `test2`. +
+*3b*. `*AddTagCommand*` then calls `*Model#incrementCount(Set<Tag>)*` on the set of `*Tag*`. +
+*3c*. Lastly, `*AddTagCommand*` calls `*Model#setExpense(Expense, Expense)*` which edits and updates the `*Expense*` at index 1 in the `*Model*`. The updated `*Expense*` is then reflected on the GUI.
 
 [NOTE]
-Duplicate tags in an `Expense` is not allowed.
-If the user tries to add existing `Tag` to an `Expense`, it will not be added, and `Model#incrementCount` will not be called.
-If the user tries to add duplicate `Tag`, i.e enter 2 of the same `Tag`, it will only be added once and number of expense under that `Tag` will only increment by 1.
+Duplicate tags in an `*Expense*` is not allowed. +
+If the user tries to add an existing `*Tag*` to an `*Expense*`, `*AddTagCommand*` throws an exception, leading to an error message. +
+If the user tries to add duplicate `*Tag*`, i.e enter 2 of the same `*Tag*`, `*AddTagCommand*` adds the tag once and increments the number of expenses tagged to it by 1.
 
 The following sequence diagram shows how the adding tag operation works.
 
 image::AddTagSequenceDiagram.png[]
+Figure 21. Sequence diagram of executing AddTagCommand.
+
+NOTE: The lifeline for `*TagCommandParser*` and `*AddTagCommandParser*` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 The following activity diagram summarizes what happens when a user enters a command to add tags to an expense.
 
 image::AddTagActivityDiagram.png[]
+Figure 22. Activity diagram of executing AddTagCommand.
 
 ==== Design Considerations
 
 ===== Aspect: Data structure to support tag commands
-* **Alternative 1 (current choice):** Use a `UniqueTagList` to map tag names to `Tag` and `TagCountManager` to map `Tag` to number of `Expense` under it.
+* **Alternative 1 (current choice):** Use a `*UniqueTagList*` to map tag names to `*Tag*` and `*TagCountManager*` to map `*Tag*` to number of `*Expense*` tagged to it.
 ** Pros:
 *** Each structure has only one responsibility.
 *** Fast retrieval and update of data
 ** Cons:
 *** Requires maintenance of both structures as they need to sync with each other.
-*** Retrieval of `Expense` under a `Tag` requires filtering through the whole list of `Expense`.
+*** Retrieval of all `*Expense*` under a `*Tag*` requires filtering through the whole list of `*Expense*`.
 
-* **Alternative 2 :** Have each `Tag` store a list of `Expense` tagged to it.
+* **Alternative 2 :** Have each `*Tag*` store a list of `*Expense*` tagged to it.
 ** Pros:
-*** Fast retrieval of `Expenses` under each `Tag`
+*** Fast retrieval of all `*Expenses*` under each `*Tag*`
 ** Cons:
 *** Circular dependency
-*** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `*Expense*` in the list even after executing non-tag related commands.
 
-* **Alternative 3 :** Use one map to map `Tag` to `Expense` tagged to it.
+* **Alternative 3 :** Use one map to map `*Tag*` to `*Expense*` tagged to it.
 ** Pros:
-*** Fast retrieval of `Expenses` under each `Tag`
+*** Fast retrieval of all `*Expenses*` under each `*Tag*`
 ** Cons:
-*** Since implementation of Billboard objects are immutable, there is a constant need to update the `Expense` by replacing it with the updated `Expense` even after executing non-tag related commands.
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `*Expense*` in the list even after executing non-tag related commands.
 
 // end::tagging[]
 
@@ -601,9 +639,9 @@ and saved.
 === History feature
 ==== Implementation
 
-The history function will enable user to view previous actions.
+You can use the `history` command to view previous actions.
 
-Billboard will store all the command entered even the command is never executed.
+Billboard will store all the command entered even the command fails to execute or in wrong format.
 
 This function is facilitated by the `CommandHistory` class.
 
@@ -619,6 +657,8 @@ Additionally, it implements the following operations:
 * `CommandHistory#peekPreviousCmd()` -- Get the previous command in command history.
 * `CommandHistory#hasCommand()` -- Check whether any command is executed.
 
+.Sequence diagram of CommandHistory class
+image::CommandHistoryClassDiagram.png[]
 
 The following sequence diagram shows how the storing operation works:
 
@@ -631,15 +671,16 @@ The LogicManager will store the command to CommandHistory before parsing it to e
 
 ===== Aspect: How command histories are stored
 
-* **Alternative 1 (current choice):** Initial a CommandHistory class to store them.
-** Pros: Easy to implement.
-** Cons: None.
-* **Alternative 2:** Maintain a list in Model and store them.
-** Pros: None.
-** Cons: Duplicate list will be saved while saving billboards to VersionedBillboard. Also, restoring billboard will need to update the history list.
+* **Alternative 1 (current choice):** Store all commands including commands that fail to execute.
+** Pros: User can see what goes wrong in the previous command.
+This is the standard way to implement the history function.
+** Cons: Cost more memory to store all commands.
+* **Alternative 2:** Store commands that is successfully executed and can be undone/redone.
+** Pros: User will not need to view the command that is not useful.
+** Cons: User cannot view the invalid command.
 // end::history[]
 
-// tag::up/down key[]
+// tag::updownkey[]
 [[Up-Down-Feature]]
 === Up/Down key feature
 ==== Implementation
@@ -683,12 +724,23 @@ it will return the last command to the user rather than attempting to get the ne
 The following sequence diagram shows how the Up(`&uarr;`)key works:
 
 .Interactions between components of CommandBox and CommandHistory for the Up(`&uarr;`)key
-image::StoreSequenceDiagram.png[]
+image::UpkeySequenceDiagram.png[]
 
 The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
 which shifts the statePointer once to the left,
 pointing to the previous command state, and return the command.
-// end::up/down key[]
+
+==== Design Considerations
+
+===== Aspect: How command histories are stored
+
+* **Alternative 1 (current choice):** Navigate through all commands including invalid commands.
+** Pros: User can edit the invalid command easily, without typing the whole command again.
+** Cons: The static object will need to stay in the memory.
+* **Alternative 2:** Only navigate through commands that can be undone/redone.
+** Pros: User require less time to navigate through the history to find the command(commands that can be undone/redone are usually long)
+** Cons: User will not be able to edited the previous invalid command, cost more time to type the whole command again.
+// end::updownkey[]
 
 === Logging
 
@@ -967,25 +1019,32 @@ Use case resumes at step 2.
 
 
 [Discrete]
-=== UC06: Finding a record with a specified keyword
+=== UC06: Finding a expense record by keywords, date created and amount spent
 
 *MSS*
 
-1. User enters a keyword to search for records containing it
-2. Billboard displays a list of records that contains the specified keyword
+1. User enters parameters that is used to filter expenses.
+2. Billboard displays a list of expenses that satisfies all the parameters.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. There are no records containing the specified keyword
+* 2a. There are no expenses that satisfies all the parameters in user input.
 +
 [none]
 ** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
+[none]
+* 2a. Parameters are not in the correct format.
++
+[none]
+** 2a1. Billboard displays an error message and informs user of correct usage.
++
+Use case ends.
 
 _{More to be added}_
 

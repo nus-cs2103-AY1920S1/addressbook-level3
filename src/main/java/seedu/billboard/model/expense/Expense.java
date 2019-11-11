@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Represents a Expense in the address book.
+ * Represents a Expense in the billboard.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {
@@ -91,9 +91,12 @@ public class Expense {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns deep clone of the expenses by creating a new Expense object with the same data.
      */
+    public Expense getClone() {
+        return new Expense(this.name, this.description, this.amount, this.created, this.tags, this.archiveName);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -128,6 +131,8 @@ public class Expense {
                 + getAmount()
                 + " Created: "
                 + getCreated()
+                + " Archive Name: "
+                + getArchiveName()
                 + " Tags: "
                 + getTags();
     }

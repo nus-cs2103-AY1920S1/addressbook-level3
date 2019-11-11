@@ -3,10 +3,13 @@ package seedu.billboard.logic.parser;
 import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 
+import java.util.NoSuchElementException;
+
 import seedu.billboard.commons.core.index.Index;
 import seedu.billboard.logic.commands.DeleteArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
+//@@author davidcwh
 /**
  * Parses user input.
  */
@@ -26,7 +29,7 @@ public class DeleteArchiveCommandParser implements Parser<DeleteArchiveCommand> 
             String archiveName = ParserUtil.parseArchive(argMultimap.getValue(PREFIX_ARCHIVE).get());
             Index targetIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             return new DeleteArchiveCommand(archiveName, targetIndex);
-        } catch (ParseException pe) {
+        } catch (ParseException | NoSuchElementException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteArchiveCommand.MESSAGE_USAGE), pe);
         }

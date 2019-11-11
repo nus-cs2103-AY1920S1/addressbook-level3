@@ -11,10 +11,19 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import seedu.billboard.model.tag.exceptions.DuplicateTagException;
+import seedu.billboard.model.tag.exceptions.TagNotFoundException;
 
 public class TagCountManagerTest {
     private final TagCountManager count = new TagCountManager();
+
+    @BeforeEach
+    public void initialize() {
+        count.setCountMap(new HashMap<>());
+    }
 
     @Test
     public void contains_nullTag_throwsNullPointerException() {
@@ -35,6 +44,14 @@ public class TagCountManagerTest {
     @Test
     public void add_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> count.add(null));
+    }
+
+    @Test
+    public void add_existingTag_throwsDuplicateTagException() {
+        Map<Tag, Integer> tags = new HashMap<Tag, Integer>();
+        tags.put(new Tag("test"), 1);
+        count.setCountMap(tags);
+        assertThrows(DuplicateTagException.class, () -> count.add(new Tag("test")));
     }
 
     @Test
@@ -61,6 +78,11 @@ public class TagCountManagerTest {
     @Test
     public void incrementCount_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> count.incrementCount(null));
+    }
+
+    @Test
+    public void increment_newTag_throwsTagNotFoundException() {
+        assertThrows(TagNotFoundException.class, () -> count.incrementCount(new Tag("test")));
     }
 
     @Test
@@ -115,6 +137,11 @@ public class TagCountManagerTest {
     @Test
     public void decreaseCount_nullTag_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> count.decreaseCount(null));
+    }
+
+    @Test
+    public void decreaseCount_newTag_throwsTagNotFoundException() {
+        assertThrows(TagNotFoundException.class, () -> count.decreaseCount(new Tag("test")));
     }
 
     @Test

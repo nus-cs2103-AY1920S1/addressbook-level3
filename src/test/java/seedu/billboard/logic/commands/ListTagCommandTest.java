@@ -11,6 +11,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
 
+//@@author waifonglee
 public class ListTagCommandTest {
     private Model model;
     private Model expectedModel;

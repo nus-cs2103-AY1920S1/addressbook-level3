@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javafx.concurrent.Task;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.commons.util.CollectionUtil;
@@ -52,6 +53,34 @@ public class TimelineGenerator implements StatisticsGenerator<ExpenseTimeline> {
 
         return new FilledExpenseTimeline(interval, timelineIntervals,
                 getAggregateExpensesFromSorted(timelineIntervals, sortedExpenses));
+    }
+
+    /**
+     * Generates an {@code ExpenseTimeline} asynchronously using a default date interval of a month.
+     */
+    @Override
+    public Task<ExpenseTimeline> generateAsync(List<? extends Expense> expenses) {
+        return generateAsync(expenses, DateInterval.MONTH);
+    }
+
+    /**
+     * Generates an {@code ExpenseTimeline} asynchronously based on the input expenses and the specified date interval.
+     * @param expenses Input expenses.
+     * @param interval Specified date interval.
+     * @return A {@code Task} wrapping the representation of the expenses as a timeline.
+     */
+    public Task<ExpenseTimeline> generateAsync(List<? extends Expense> expenses, DateInterval interval) {
+        Task<ExpenseTimeline> expenseTimelineTask = new Task<>() {
+            @Override
+            protected ExpenseTimeline call() {
+                List<? extends Expense> copy = new ArrayList<>(expenses);
+                return generate(copy, interval);
+            }
+        };
+        Thread thread = new Thread(expenseTimelineTask);
+        thread.setDaemon(true);
+        thread.start();
+        return expenseTimelineTask;
     }
 
     /**

@@ -5,22 +5,36 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_ARCHIVE_TAXES;
 import static seedu.billboard.testutil.Assert.assertThrows;
+import static seedu.billboard.testutil.TypicalExpenses.FOOTBALL;
+import static seedu.billboard.testutil.TypicalExpenses.GUCCI_SLIDES;
+import static seedu.billboard.testutil.TypicalExpenses.IPHONE11;
+import static seedu.billboard.testutil.TypicalExpenses.KPOP_LIGHT_STICK;
 import static seedu.billboard.testutil.TypicalExpenses.TAXES;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveExpenses;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalArchiveWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.archive.Archive;
+import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
 import seedu.billboard.testutil.Assert;
+import seedu.billboard.testutil.ExpenseBuilder;
 
 public class ArchiveWrapperTest {
 
-    private final ArchiveWrapper archiveWrapper = new ArchiveWrapper(getTypicalArchiveExpenses());
+    private ArchiveWrapper archiveWrapper;
+
+    @BeforeEach
+    public void setUp() {
+        archiveWrapper = new ArchiveWrapper(getTypicalArchiveExpenses());
+    }
 
     @Test
     public void constructor_nullExpenseList_throwsNullPointerException() {
@@ -81,8 +95,18 @@ public class ArchiveWrapperTest {
 
     // add tests =============================================================================
     @Test
-    public void addArchive_nullExpense_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> archiveWrapper.addArchive(null));
+    public void addArchive_nullArchive_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.addArchive(null));
+    }
+
+    @Test
+    public void addArchive_validArchive_success() {
+        Expense taxes = new ExpenseBuilder().withArchiveName(VALID_ARCHIVE_TAXES).build();
+        archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>(Arrays.asList(taxes))));
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(new ArrayList<>(
+                Arrays.asList(IPHONE11, GUCCI_SLIDES, KPOP_LIGHT_STICK, FOOTBALL, taxes)));
+
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
     }
 
     @Test
@@ -95,10 +119,61 @@ public class ArchiveWrapperTest {
         assertThrows(NullPointerException.class, () -> archiveWrapper.addArchiveExpense(null, TAXES));
     }
 
+    // remove tests =============================================================================
+
+    @Test
+    public void removeArchive_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchive(null));
+    }
+
+    @Test
+    public void removeArchive_existingArchiveName_success() {
+        archiveWrapper.removeArchive("luxury");
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(
+                new ArrayList<>(Arrays.asList(KPOP_LIGHT_STICK, FOOTBALL)));
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
+    }
+
+    @Test
+    public void removeArchive_nonExistentArchiveName_success() {
+        archiveWrapper.removeArchive(VALID_ARCHIVE_TAXES);
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(getTypicalArchiveExpenses());
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
+    }
+
+    @Test
+    public void removeArchiveExpense_nullArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense(null, KPOP_LIGHT_STICK));
+    }
+
+    @Test
+    public void removeArchiveExpense_nullExpense_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper.removeArchiveExpense("luxury", null));
+    }
+
+    @Test
+    public void removeArchiveExpense_validArchiveNameAndExpense_throwsNullPointerException() {
+        archiveWrapper.removeArchiveExpense("hobbies", KPOP_LIGHT_STICK);
+        ArchiveWrapper expectedArchiveWrapper = new ArchiveWrapper(
+                new ArrayList<>(Arrays.asList(IPHONE11, GUCCI_SLIDES, FOOTBALL)));
+        assertEquals(expectedArchiveWrapper, archiveWrapper);
+    }
+
+    @Test
+    public void removeArchiveExpense_nonExistentExpenseInExistingArchive_throwsExpenseNotFoundException() {
+        assertThrows(ExpenseNotFoundException.class, () -> archiveWrapper
+                .removeArchiveExpense("luxury", KPOP_LIGHT_STICK));
+    }
+
+    @Test
+    public void removeArchiveExpense_nonExistentArchiveName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> archiveWrapper
+                .removeArchiveExpense(VALID_ARCHIVE_TAXES, KPOP_LIGHT_STICK));
+    }
 
     // other tests =============================================================================
     @Test
-    public void getArchiveExpenseList_modifyList_throwsUnsupportedOperationException() {
+    public void getArchiveExpenses_modifyList_throwsUnsupportedOperationException() {
         archiveWrapper.addArchive(new Archive(VALID_ARCHIVE_TAXES, new ArrayList<>()));
         archiveWrapper.addArchiveExpense(VALID_ARCHIVE_TAXES, TAXES);
         assertThrows(UnsupportedOperationException.class, () ->

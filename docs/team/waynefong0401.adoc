@@ -1,0 +1,74 @@
+= Fang WeiWen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Billboard
+
+---
+
+== Overview
+
+_Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses.
+_Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI).
+It is written in Java, and has about 18 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the feature to undo/redo commands*
+** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Minor enhancement*:
+** added a history command that allows the user to view all the previous commands.
+** added a feature that allows the user to to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=waynefong0401[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project setup:
+*** Restructured the previous AddressBook Level-3 project to Billboard. Deleted the dead code and added attributes for Billboard.
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Corrected mistakes and updated information of the project in the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to Telegram group discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Applied Statistic Tool to get the statistics of the project.
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=history]
+
+include::../UserGuide.adoc[tag=updownkey]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=history]
+
+include::../DeveloperGuide.adoc[tag=updownkey]
+
+
+== Summary of contributions
+
+

@@ -18,7 +18,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Billboard;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.NameContainsKeywordsPredicate;
+import seedu.billboard.model.expense.MultiArgPredicate;
 import seedu.billboard.testutil.EditExpenseDescriptorBuilder;
 
 /**
@@ -101,28 +101,30 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered expense list and selected expense in {@code actualModel} remain unchanged
+     * - the billboard, filtered expense list and selected expense in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        Billboard expectedAddressBook = new Billboard(actualModel.getBillboard());
+        Billboard expectedBillboard = new Billboard(actualModel.getBillboard());
         List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenses());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
-        assertEquals(expectedAddressBook, actualModel.getBillboard());
+        assertEquals(expectedBillboard, actualModel.getBillboard());
         assertEquals(expectedFilteredList, actualModel.getFilteredExpenses());
     }
     /**
      * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s billboard.
      */
     public static void showExpenseAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenses().size());
 
         Expense expense = model.getFilteredExpenses().get(targetIndex.getZeroBased());
         final String[] splitName = expense.getName().name.split("\\s+");
-        model.updateFilteredExpenses(new NameContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
+        MultiArgPredicate predicate = new MultiArgPredicate();
+        predicate.setKeywords(Collections.singletonList(splitName[0]));
+        model.updateFilteredExpenses(predicate);
 
         assertEquals(1, model.getFilteredExpenses().size());
     }

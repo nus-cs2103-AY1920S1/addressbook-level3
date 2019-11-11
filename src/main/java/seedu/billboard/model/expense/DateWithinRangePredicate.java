@@ -1,5 +1,6 @@
 package seedu.billboard.model.expense;
 
+import java.util.Objects;
 import java.util.function.Predicate;
 
 /**
@@ -20,10 +21,12 @@ public class DateWithinRangePredicate implements Predicate<Expense> {
         boolean isAfter = true;
 
         if (startDate != null) {
-            isAfter = expense.getCreated().dateTime.isAfter(startDate.dateTime);
+            isAfter = expense.getCreated().dateTime.isEqual(startDate.dateTime)
+                    || expense.getCreated().dateTime.isAfter(startDate.dateTime);
         }
         if (endDate != null) {
-            isBefore = expense.getCreated().dateTime.isBefore(endDate.dateTime);
+            isBefore = expense.getCreated().dateTime.isEqual(endDate.dateTime)
+                    || expense.getCreated().dateTime.isBefore(endDate.dateTime);
         }
         return isBefore && isAfter;
     }
@@ -36,4 +39,8 @@ public class DateWithinRangePredicate implements Predicate<Expense> {
                 && (endDate == ((DateWithinRangePredicate) other).endDate)); // state check
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(startDate, endDate);
+    }
 }

@@ -1,32 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+<AnchorPane xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
 
-    <LineChart fx:id="timelineChart"
-               AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0"
-               AnchorPane.topAnchor="0.0"
-               minHeight="350.0" prefHeight="350.0" maxHeight="350.0"
-               minWidth="540.0" prefWidth="540.0" maxWidth="540.0"
-               title="Timeline">
+    <LineChart fx:id="timelineChart" maxHeight="400.0" maxWidth="540.0" minHeight="370.0" minWidth="540.0"
+               prefHeight="400.0" prefWidth="540.0" title="Timeline" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
         <xAxis>
-            <CategoryAxis fx:id="xAxis"
-                          label="Date"
-                          animated="false">
-            </CategoryAxis>
+            <NumberAxis fx:id="xAxis" animated="false" label="Date" forceZeroInRange="false" autoRanging="false">
+            </NumberAxis>
         </xAxis>
 
         <yAxis>
-            <NumberAxis fx:id="YAxis"
-                        label="Amount/$"
-                        animated="false">
+            <NumberAxis fx:id="yAxis" animated="false" label="Amount/$">
             </NumberAxis>
         </yAxis>
     </LineChart>

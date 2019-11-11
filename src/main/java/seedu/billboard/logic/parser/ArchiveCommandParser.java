@@ -1,8 +1,5 @@
 package seedu.billboard.logic.parser;
 
-import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,10 +12,15 @@ import seedu.billboard.logic.commands.ListArchiveNamesCommand;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
+//@@author davidcwh
 /**
- * Parses user input.
+ * Parses user input regarding Archive commands.
  */
 public class ArchiveCommandParser implements Parser<ArchiveCommand> {
+
+    public static final String MESSAGE_ARCHIVE_COMMANDS = "Invalid archive command format! \nCommand format: "
+            + "archive (archive command) (parameters if needed)\nSupported archive commands:\n"
+            + "add \ndelete \nrevert \nlist\nlistall \nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
 
     /**
      * Used for initial separation of command word and args.
@@ -36,7 +38,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
     public ArchiveCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_ARCHIVE_COMMANDS);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -59,7 +61,7 @@ public class ArchiveCommandParser implements Parser<ArchiveCommand> {
             return new DeleteArchiveCommandParser().parse(arguments);
 
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_ARCHIVE_COMMANDS);
         }
     }
 }

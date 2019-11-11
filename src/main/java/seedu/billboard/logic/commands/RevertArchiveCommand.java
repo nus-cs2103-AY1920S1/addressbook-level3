@@ -12,6 +12,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Unarchives an expense in an archive:
  * Removes an expense to an existing archive and adds it back to the current list of expenses.
@@ -21,6 +22,7 @@ public class RevertArchiveCommand extends ArchiveCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unarchives the expense identified by the index number used in the displayed archive expense list\n"
+            + "Given archive name must be prefixed by [" + PREFIX_ARCHIVE + "].\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";
 
     public static final String MESSAGE_SUCCESS =
@@ -61,13 +63,14 @@ public class RevertArchiveCommand extends ArchiveCommand {
         Expense expenseToUnarchive = archiveList.get(index.getZeroBased());
         model.deleteArchiveExpense(archiveName, expenseToUnarchive);
         model.addExpense(expenseToUnarchive);
+        expenseToUnarchive.archiveTo("");
 
         String feedback = String.format(MESSAGE_SUCCESS, expenseToUnarchive.getName(), archiveName);
 
         if (archiveList.size() == 0) {
             model.deleteArchive(archiveName);
             feedback += "\n" + String.format(MESSAGE_EMPTY_ARCHIVE_AFTER_REVERT_EXPENSE, archiveName);
-            return new CommandResult(feedback);
+            return new CommandResult(feedback, false, false, CommandResult.DEFAULT_LIST_VIEW);
         } else {
             return new CommandResult(feedback, false, false, archiveName);
         }

@@ -2,7 +2,6 @@ package seedu.billboard.logic.commands;
 
 import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -16,6 +15,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
 
+//@@author waifonglee
 /**
  * Adds tag(s) to an existing expense.
  */
@@ -23,14 +23,16 @@ public class AddTagCommand extends TagCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = TagCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds tags to the expense identified "
-            + "by the index number used in the last expense listing. "
+            + ": Adds tag(s) to the expense identified "
+            + "by the index number used in the last expense listing. \n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "[TAG]\n"
+            + PREFIX_TAG + "[TAG] (1 or more)\n"
             + "Example: " + TagCommand.COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "SCHOOL";
 
-    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: %1$s";
+    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag(s) to Expense: \n%1$s";
+
+    public static final String MESSAGE_ADD_TAG_FAILURE = "No tag(s) to be added";
 
     private final Index index;
     private List<String> tagNames;
@@ -38,7 +40,7 @@ public class AddTagCommand extends TagCommand {
     /**
      * Creates an AddTagCommand to add tags to the specified {@code Expense}
      * @param index                 of the expense in the filtered expense list to edit
-     * @param tagNames          tags to be added to expense.
+     * @param tagNames              of tags to be added to expense.
      */
     public AddTagCommand(Index index, List<String> tagNames) {
         requireAllNonNull(index, tagNames);
@@ -56,49 +58,57 @@ public class AddTagCommand extends TagCommand {
 
         Expense expenseToEdit = lastShownList.get(index.getZeroBased());
 
-        Set<Tag> currentTags = expenseToEdit.getTags();
-        Set<Tag> tagsToAdd = model.retrieveTags(tagNames);
-        Set<Tag> editedTags = combineSets(currentTags, tagsToAdd);
+        Set<Tag> existingTags = expenseToEdit.getTags();
+        Set<Tag> inputTags = model.retrieveTags(tagNames);
 
-        Set<Tag> tagsToIncrementCount = getUniqueTags(currentTags, tagsToAdd);
+        Set<Tag> tagsToIncrementCount = getTagsToIncrement(existingTags, inputTags);
+
+        if (tagsToIncrementCount.isEmpty()) {
+            throw new CommandException(MESSAGE_ADD_TAG_FAILURE);
+        }
+
+        Set<Tag> editedTags = getEditedTags(existingTags, tagsToIncrementCount);
+
         model.incrementCount(tagsToIncrementCount);
 
         Expense editedExpense = new Expense(expenseToEdit.getName(), expenseToEdit.getDescription(),
                 expenseToEdit.getAmount(), expenseToEdit.getCreated(), editedTags);
 
         model.setExpense(expenseToEdit, editedExpense);
-        model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, editedExpense),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     /**
-     * Merge 2 sets into 1 with unique elements.
-     * @param setOne first set.
-     * @param setTwo second set.
-     * @return Merged set with unique elements.
+     * Returns a set of tags whose count needs to be incremented in the TagCountManager by 1.
+     * This set contains tags that are input by the user, and do not exist in the existing tag set.
+     * @param existingTags      in the expense.
+     * @param inputTags         by the user.
+     * @return Set of tags whose count are to be incremented in the TagCountManager by 1.
      */
-    private Set<Tag> combineSets(Set<Tag> setOne, Set<Tag> setTwo) {
-        requireAllNonNull(setOne, setTwo);
-        Set<Tag> toReturn = new HashSet<>();
-        toReturn.addAll(setOne);
-        toReturn.addAll(setTwo);
-        return Collections.unmodifiableSet(toReturn);
+    private Set<Tag> getTagsToIncrement(Set<Tag> existingTags, Set<Tag> inputTags) {
+        requireAllNonNull(existingTags, inputTags);
+        Set<Tag> existingTagsCopy = new HashSet<>(existingTags);
+        Set<Tag> toIncrement = new HashSet<>(inputTags);
+        existingTagsCopy.retainAll(toIncrement);
+        toIncrement.removeAll(existingTagsCopy);
+        return Collections.unmodifiableSet(toIncrement);
     }
 
     /**
-     * Return a set consisting of elements in setTwo that are not in setOne.
-     * @param setOne first set.
-     * @param setTwo second set.
-     * @return set of elements in setTwo but not setOne.
+     * Returns set of tags for edited expense by merging existing tag set and set of tags
+     * whose count are to be incremented.
+     * Tags to be added must not contain any tag from the existing tags set.
+     * @param existingTags      in the expense.
+     * @param toIncrement       tags whose count are to be incremented.
+     * @return unmodifiable edited tag set with unique elements.
      */
-    private Set<Tag> getUniqueTags(Set<Tag> setOne, Set<Tag> setTwo) {
-        requireAllNonNull(setOne, setTwo);
-        Set<Tag> setOneCopy = new HashSet<>(setOne);
-        Set<Tag> toReturn = new HashSet<>(setTwo);
-        setOneCopy.retainAll(setTwo);
-        toReturn.removeAll(setOneCopy);
-        return Collections.unmodifiableSet(toReturn);
+    private Set<Tag> getEditedTags(Set<Tag> existingTags, Set<Tag> toIncrement) {
+        requireAllNonNull(existingTags, toIncrement);
+        Set<Tag> editedTags = new HashSet<>(existingTags);
+        editedTags.addAll(toIncrement);
+        return Collections.unmodifiableSet(editedTags);
     }
 
     @Override

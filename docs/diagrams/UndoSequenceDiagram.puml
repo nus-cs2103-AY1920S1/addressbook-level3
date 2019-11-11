@@ -36,7 +36,7 @@ activate UndoCommand
 UndoCommand -> VersionedBillboard : undo()
 activate VersionedBillboard
 
-VersionedBillboard -> UndoCommand : undoModel
+VersionedBillboard --> UndoCommand : undoModel
 deactivate VersionedBillboard
 
 UndoCommand -> Model : setModel(undoModel)

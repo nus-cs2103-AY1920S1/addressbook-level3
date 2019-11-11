@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,8 @@ public class BillboardTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), billboard.getExpenses());
+        assertEquals(new HashMap<Tag, Integer>(), billboard.getCountManager());
+        assertEquals(new HashMap<String, Tag>(), billboard.getUniqueTagList());
     }
 
     @Test
@@ -59,11 +62,11 @@ public class BillboardTest {
         // Two expenses with the same identity fields
         Expense duplicateExpense = new ExpenseBuilder(BILLS).build();
         List<Expense> newExpenses = Arrays.asList(BILLS, duplicateExpense);
-        BillboardStub newData = new BillboardStub(newExpenses);
+        BillboardStub newData = new BillboardStub(newExpenses, new HashMap<>(),
+                new HashMap<>());
 
         assertThrows(DuplicateExpenseException.class, () -> billboard.resetData(newData));
     }
-
 
     @Test
     public void filterArchiveExpenses_archiveExpenses_success() {
@@ -118,6 +121,16 @@ public class BillboardTest {
         assertThrows(UnsupportedOperationException.class, () -> billboard.getExpenses().remove(0));
     }
 
+    @Test
+    public void getUniqueTagList_modifyMap_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> billboard.getUniqueTagList().remove(0));
+    }
+
+    @Test
+    public void getTagCountManager_modifyMap_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> billboard.getCountManager().remove(0));
+    }
+
     /**
      * A stub ReadOnlyBillboard whose expenses list can violate interface constraints.
      */
@@ -126,8 +139,11 @@ public class BillboardTest {
         private final UniqueTagList uniqueTagList = new UniqueTagList();
         private final TagCountManager countManager = new TagCountManager();
 
-        BillboardStub(Collection<Expense> expenses) {
+        BillboardStub(Collection<Expense> expenses, HashMap<String, Tag> tags,
+                      HashMap<Tag, Integer> count) {
             this.expenses.setAll(expenses);
+            this.uniqueTagList.setTagList(tags);
+            this.countManager.setCountMap(count);
         }
 
         @Override

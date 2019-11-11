@@ -48,17 +48,17 @@ public interface Model {
     // ================ Billboard methods ==============================
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' billboard file path.
      */
     Path getBillboardFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' billboard file path.
      */
-    void setBillboardFilePath(Path addressBookFilePath);
+    void setBillboardFilePath(Path billboardFilePath);
 
     /**
-     * Replaces address book data with the data in {@code billboard}.
+     * Replaces billboard data with the data in {@code billboard}.
      */
     void setBillboard(ReadOnlyBillboard billboard);
 
@@ -66,26 +66,26 @@ public interface Model {
     ReadOnlyBillboard getBillboard();
 
     /**
-     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the billboard.
      */
     boolean hasExpense(Expense expense);
 
     /**
      * Deletes the given expense.
-     * The expense must exist in the address book.
+     * The expense must exist in the billboard.
      */
     void deleteExpense(Expense target);
 
     /**
      * Adds the given expense.
-     * {@code expense} must not already exist in the address book.
+     * {@code expense} must not already exist in the billboard.
      */
     void addExpense(Expense expense);
 
     /**
      * Replaces the given expense {@code target} with {@code editedExpense}.
-     * {@code target} must exist in the address book.
-     * The expense {@code editedExpense} must not be the same as another existing expense in the address book.
+     * {@code target} must exist in the billboard.
+     * The expense {@code editedExpense} must not be the same as another existing expense in the billboard.
      */
     void setExpense(Expense target, Expense editedExpense);
 
@@ -97,14 +97,14 @@ public interface Model {
     Set<Tag> retrieveTags(List<String> toRetrieve);
 
     /**
-     * Decrease count of tags removed from an expense.
+     * Decreases count of tags removed from an expense.
      * Also removes tags whose count is 0.
      * @param toDecrease tags to decrease count from.
      */
     void decreaseCount(Set<Tag> toDecrease);
 
     /**
-     * Increment counts of tags.
+     * Increments counts of tags.
      * @param toIncrement tags whose count are to be incremented.
      */
     void incrementCount(Set<Tag> toIncrement);

@@ -6,7 +6,7 @@ import static seedu.billboard.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
 import seedu.billboard.model.Model;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all expenses in the billboard to the user.
  */
 public class ListCommand extends Command {
 
@@ -19,6 +19,6 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 }

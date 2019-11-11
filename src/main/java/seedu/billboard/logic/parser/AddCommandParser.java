@@ -8,7 +8,7 @@ import static seedu.billboard.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.billboard.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.billboard.logic.commands.AddCommand;
@@ -16,9 +16,7 @@ import seedu.billboard.logic.parser.exceptions.ParseException;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.CreatedDateTime;
 import seedu.billboard.model.expense.Description;
-import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.Name;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -47,11 +45,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         CreatedDateTime createdDateTime = argMultimap.getValue(PREFIX_DATE).isPresent()
                 ? ParserUtil.parseCreatedDateTime(argMultimap.getValue(PREFIX_DATE).get())
                 : new CreatedDateTime(LocalDateTime.now());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        List<String> tagList = ParserUtil.parseTagNames(argMultimap.getAllValues(PREFIX_TAG));
 
-        Expense expense = new Expense(name, description, amount, createdDateTime, tagList);
-
-        return new AddCommand(expense);
+        return new AddCommand(name, description, amount, createdDateTime, tagList);
     }
 
     /**

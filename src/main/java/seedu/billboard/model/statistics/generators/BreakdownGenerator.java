@@ -1,15 +1,13 @@
 package seedu.billboard.model.statistics.generators;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+import javafx.concurrent.Task;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseBreakdown;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.FilledExpenseBreakdown;
-import seedu.billboard.model.tag.Tag;
 
 /**
  * Stateless class to generate a breakdown of expenses. Methods here are guaranteed to have no external
@@ -17,36 +15,49 @@ import seedu.billboard.model.tag.Tag;
  */
 public class BreakdownGenerator implements StatisticsGenerator<ExpenseBreakdown> {
 
+    /**
+     * Generates an expense breakdown based on the given expense grouping grouped by the default of tags.
+     */
     @Override
     public ExpenseBreakdown generate(List<? extends Expense> expenses) {
-        Map<Tag, List<Expense>> breakdown = expenses.stream()
-                .collect(HashMap::new, this::combineMapAndExpense, this::combineMapOfLists);
-
-        return new FilledExpenseBreakdown(breakdown);
+        return generate(expenses, ExpenseGrouping.TAG);
     }
 
     /**
-     * Adds an expense to a map of tags to lists of expenses by using its tags as keys. If there is an already
-     * existing key, the expense is instead merged into the list of expenses under that key.
+     * Generates an expense breakdown based on the given expense grouping.
+     * @param expenses Input expenses to be broken down.
+     * @param grouping Grouping that expenses should be grouped by.
+     * @return Expense breakdown representing the broken down expenses.
      */
-    private void combineMapAndExpense(Map<Tag, List<Expense>> map, Expense expense) {
-        expense.getTags()
-                .forEach(tag -> map.merge(tag, List.of(expense), this::concatList));
+    public ExpenseBreakdown generate(List<? extends Expense> expenses, ExpenseGrouping grouping) {
+        return new FilledExpenseBreakdown(grouping.getGroupingFunction().group(expenses));
     }
 
     /**
-     * Combines the key value pairs of map2 into map1. If there are duplicate keys, the two lists are merged into
-     * a new list with all the values of the old list.
+     * Asynchronously generates an expense breakdown based on the given expense grouping grouped by the default of tags.
      */
-    private <K, V> void combineMapOfLists(Map<K, List<V>> map1, Map<K, List<V>> map2) {
-        map2.forEach((key, list) -> map1.merge(key, list, this::concatList));
+    @Override
+    public Task<ExpenseBreakdown> generateAsync(List<? extends Expense> expenses) {
+        return generateAsync(expenses, ExpenseGrouping.TAG);
     }
 
     /**
-     * Concatenates two lists and returns the result list.
+     * Generates an expense breakdown asynchronously based on the given expense grouping.
+     * @param expenses Input expenses to be broken down.
+     * @param grouping Grouping that expenses should be grouped by.
+     * @return Task wrapper around an expense breakdown representing the broken down expenses.
      */
-    private <T> List<T> concatList(List<T> list1, List<T> list2) {
-        return Stream.concat(list1.stream(), list2.stream())
-                .collect(Collectors.toList());
+    public Task<ExpenseBreakdown> generateAsync(List<? extends Expense> expenses, ExpenseGrouping grouping) {
+        Task<ExpenseBreakdown> expenseBreakdownTask = new Task<>() {
+            @Override
+            protected ExpenseBreakdown call() {
+                List<? extends Expense> copy = new ArrayList<>(expenses);
+                return generate(copy, grouping);
+            }
+        };
+        Thread thread = new Thread(expenseBreakdownTask);
+        thread.setDaemon(true);
+        thread.start();
+        return expenseBreakdownTask;
     }
 }

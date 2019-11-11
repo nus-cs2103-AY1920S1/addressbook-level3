@@ -1,7 +1,7 @@
 package seedu.billboard.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
@@ -10,6 +10,7 @@ import static seedu.billboard.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -23,8 +24,9 @@ import seedu.billboard.model.UserPrefs;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.testutil.ExpenseBuilder;
 
+//@@author waifonglee
 public class AddTagCommandTest {
-    private static final List<String> SINGLE_TAG_STUB = new ArrayList<>(Arrays.asList("school"));
+    private static final List<String> SINGLE_TAG_STUB = new ArrayList<>(Collections.singletonList("school"));
     private static final List<String> DOUBLE_TAG_STUB = new ArrayList<>(Arrays.asList("school", "home"));
 
     private Model model = new ModelManager(getTypicalBillboard(), new UserPrefs());
@@ -33,10 +35,13 @@ public class AddTagCommandTest {
     public void execute_addTag_success() {
         Expense firstExpense = model.getFilteredExpenses().get(INDEX_FIRST_EXPENSE.getZeroBased());
         Expense editedExpense = new ExpenseBuilder(firstExpense).withExistingTags(SINGLE_TAG_STUB.get(0)).build();
+
         AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_EXPENSE, SINGLE_TAG_STUB);
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, editedExpense);
+
         Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
         expectedModel.setExpense(firstExpense, editedExpense);
+
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
 
@@ -45,10 +50,13 @@ public class AddTagCommandTest {
         Expense firstExpense = model.getFilteredExpenses().get(INDEX_FIRST_EXPENSE.getZeroBased());
         Expense editedExpense = new ExpenseBuilder(firstExpense).withExistingTags(DOUBLE_TAG_STUB.get(0),
                 DOUBLE_TAG_STUB.get(1)).build();
+
         AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_EXPENSE, DOUBLE_TAG_STUB);
         String expectedMessage = String.format(AddTagCommand.MESSAGE_ADD_TAG_SUCCESS, editedExpense);
+
         Model expectedModel = new ModelManager(new Billboard(model.getBillboard()), new UserPrefs());
         expectedModel.setExpense(firstExpense, editedExpense);
+
         assertCommandSuccess(addTagCommand, model, expectedMessage, expectedModel);
     }
 
@@ -61,6 +69,13 @@ public class AddTagCommandTest {
     }
 
     @Test
+    public void execute_existingTags_failure() {
+        AddTagCommand addTagCommand = new AddTagCommand(INDEX_FIRST_EXPENSE, Collections.singletonList("bills"));
+
+        assertCommandFailure(addTagCommand, model, AddTagCommand.MESSAGE_ADD_TAG_FAILURE);
+    }
+
+    @Test
     public void equals() {
         final AddTagCommand standardCommand = new AddTagCommand(INDEX_FIRST_EXPENSE,
                 SINGLE_TAG_STUB);
@@ -68,23 +83,23 @@ public class AddTagCommandTest {
         // same values -> returns true
         AddTagCommand commandWithSameValues = new AddTagCommand(INDEX_FIRST_EXPENSE,
                 SINGLE_TAG_STUB);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new AddTagCommand(INDEX_SECOND_EXPENSE,
-              SINGLE_TAG_STUB)));
+        assertNotEquals(standardCommand, new AddTagCommand(INDEX_SECOND_EXPENSE,
+                SINGLE_TAG_STUB));
 
         // different tag names -> returns false
-        assertFalse(standardCommand.equals(new AddTagCommand(INDEX_FIRST_EXPENSE,
-                DOUBLE_TAG_STUB)));
+        assertNotEquals(standardCommand, new AddTagCommand(INDEX_FIRST_EXPENSE,
+                DOUBLE_TAG_STUB));
     }
 }

@@ -56,4 +56,9 @@ public class Amount {
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         return decimalFormat.format(amount);
     }
+
+    @Override
+    public int hashCode() {
+        return amount.hashCode();
+    }
 }

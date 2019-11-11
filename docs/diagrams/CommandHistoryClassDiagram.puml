@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+
+package Logic {
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Ui {
+    Class CommandBox
+}
+
+package CommandHistory {
+    Class CommandHistory {
+        -{static}Stack<String> cmdList
+        -{static}int statePointer
+        +{static}addCmdHistory(cmd: String)
+        +{static}peekNextCmd():String
+        +{static}peekPreviousCmd():String
+        +{static}hasCommand():boolean
+        +{static}getCmdHistory():String
+        +{static}clearHistory()
+    }
+}
+
+LogicManager .up.|> Logic
+
+LogicManager .up.> CommandHistory : store >
+
+CommandBox .up.> CommandHistory : get >
+@enduml

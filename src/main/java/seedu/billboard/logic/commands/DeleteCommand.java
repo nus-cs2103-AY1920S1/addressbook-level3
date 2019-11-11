@@ -11,7 +11,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 
 /**
- * Deletes a expense identified using it's displayed index from the address book.
+ * Deletes a expense identified using it's displayed index from the billboard.
  */
 public class DeleteCommand extends Command {
 
@@ -40,8 +40,11 @@ public class DeleteCommand extends Command {
         }
 
         Expense expenseToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.decreaseCount(expenseToDelete.getTags());
         model.deleteExpense(expenseToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete));
+
+        return new CommandResult(String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.billboard.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,18 +20,16 @@ import seedu.billboard.model.tag.Tag;
 public class SampleDataUtil {
     public static Expense[] getSampleExpenses() {
         return new Expense[] {
-            new Expense(new Name("buy tea"), new Description("tea from foodclique"),
-                    new Amount("1.23"), new CreatedDateTime("12/12/2018"), getTagSet("com1")),
-            new Expense(new Name("buy kopiO"), new Description(""),
-                    new Amount("1.50"), new CreatedDateTime("13/04/2019 2359"), getTagSet("com2")),
-            new Expense(new Name("buy lunch"), new Description("chicken rice from deck"),
-                    new Amount("3.70"), new CreatedDateTime("1/1/2018"), getTagSet("thedeck")),
-            new Expense(new Name("buy book"), new Description("so expensive wtf"),
-                    new Amount("77.3"), new CreatedDateTime("3/05/2019"), getTagSet("coop")),
-            new Expense(new Name("bride prof"), new Description(""),
-                    new Amount("500.00"), new CreatedDateTime("31/12/2018 1200"), getTagSet("LT13")),
-            new Expense(new Name("buy weed"), new Description("jk haha"),
-                    new Amount("150.00"), new CreatedDateTime("10/10/2019"), getTagSet("PGP"))
+            new Expense(new Name("Welcome to Billboard"), new Description("Description goes here (optional)"),
+                    new Amount("20.00"), new CreatedDateTime("08/11/2019"),
+                    getTagSet("many", "tags")),
+            new Expense(new Name("Paid bills"), new Description("I can include things like bills!"),
+                    new Amount("40.00"), new CreatedDateTime("12/12/2018"), getTagSet("bills")),
+            new Expense(new Name("Bought lunch"), new Description("And food!"),
+                    new Amount("3.70"), new CreatedDateTime("1/1/2018"), getTagSet("food")),
+            new Expense(new Name("Billboard is great"), new Description("Yes it is."),
+                    new Amount("12.34"), new CreatedDateTime("3/05/2019"),
+                    getTagSet("upgrade", "now")),
         };
     }
 
@@ -38,6 +37,9 @@ public class SampleDataUtil {
         Billboard sampleBb = new Billboard();
         for (Expense sampleExpense : getSampleExpenses()) {
             sampleBb.addExpense(sampleExpense);
+            List<String> tagNames = sampleExpense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+            Set<Tag> tags = sampleBb.retrieveTags(tagNames);
+            sampleBb.incrementCount(tags);
         }
         return sampleBb;
     }

@@ -22,7 +22,7 @@ public class CreatedDateTime {
     public static final String MESSAGE_CONSTRAINTS = "Created date should follow one of these formats:\n"
              + String.join("\n", ACCEPTABLE_PATTERNS);
 
-    private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:kk a");
+    private static final DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a");
 
 
     public final LocalDateTime dateTime;

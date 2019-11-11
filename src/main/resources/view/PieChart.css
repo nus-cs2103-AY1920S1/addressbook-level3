@@ -1,3 +1,11 @@
 .chart-pie-label {
-    -fx-fill: #EEDDDDDD;
+    -fx-fill: #DDDDDDDD;
+}
+
+.chart-legend {
+    -fx-padding: 20px;
+}
+
+.chart-legend-item-symbol {
+    -fx-background-radius: 3;
 }

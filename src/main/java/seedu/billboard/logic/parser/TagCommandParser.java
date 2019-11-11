@@ -1,8 +1,5 @@
 package seedu.billboard.logic.parser;
 
-import static seedu.billboard.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.billboard.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,16 +11,20 @@ import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.commands.TagCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
+//@@author waifonglee
 /**
  * Parses user input.
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
+    public static final String MESSAGE_TAG_COMMANDS = "Invalid command format! \n"
+            + "Command format: tag (tag command) (parameters)" + "\nSupported tag commands:\n"
+            + "add \nrm \nlist \nfilter\nFor more information:\n" + HelpCommand.MESSAGE_USAGE;
+
     /**
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     /**
      * Parses user input into command for execution.
      *
@@ -34,7 +35,7 @@ public class TagCommandParser implements Parser<TagCommand> {
     public TagCommand parse(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_TAG_COMMANDS);
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -49,7 +50,7 @@ public class TagCommandParser implements Parser<TagCommand> {
         case ListTagCommand.COMMAND_WORD:
             return new ListTagCommand();
         default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_TAG_COMMANDS);
         }
 
     }

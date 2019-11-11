@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,8 @@ import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
+import seedu.billboard.model.tag.TagCountManager;
+import seedu.billboard.model.tag.UniqueTagList;
 import seedu.billboard.testutil.ExpenseBuilder;
 
 import javafx.collections.transformation.FilteredList;
@@ -38,7 +41,8 @@ public class AddCommandTest {
 
     @Test
     public void constructor_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new AddCommand(null, null, null,
+                null, null));
     }
 
     @Test
@@ -46,7 +50,8 @@ public class AddCommandTest {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
         Expense validExpense = new ExpenseBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub);
+        CommandResult commandResult = new AddCommand(validExpense.getName(), validExpense.getDescription(),
+                validExpense.getAmount(), validExpense.getCreated(), getTagNames(validExpense)).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.getFeedbackToUser());
         assertEquals(Collections.singletonList(validExpense), modelStub.expensesAdded);
@@ -55,7 +60,8 @@ public class AddCommandTest {
     @Test
     public void execute_duplicateExpense_throwsCommandException() {
         Expense validExpense = new ExpenseBuilder().build();
-        AddCommand addCommand = new AddCommand(validExpense);
+        AddCommand addCommand = new AddCommand(validExpense.getName(), validExpense.getDescription(),
+                validExpense.getAmount(), validExpense.getCreated(), getTagNames(validExpense));
         ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
         assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_EXPENSE, () -> addCommand.execute(modelStub));
@@ -65,14 +71,17 @@ public class AddCommandTest {
     public void equals() {
         Expense alice = new ExpenseBuilder().withName("Alice").build();
         Expense bob = new ExpenseBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        AddCommand addAliceCommand = new AddCommand(alice.getName(), alice.getDescription(),
+                alice.getAmount(), alice.getCreated(), getTagNames(alice));
+        AddCommand addBobCommand = new AddCommand(bob.getName(), bob.getDescription(),
+                bob.getAmount(), bob.getCreated(), getTagNames(bob));
 
         // same object -> returns true
         assertEquals(addAliceCommand, addAliceCommand);
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddCommand addAliceCommandCopy = new AddCommand(alice.getName(), alice.getDescription(),
+                alice.getAmount(), alice.getCreated(), getTagNames(alice));
         assertEquals(addAliceCommand, addAliceCommandCopy);
 
         // different types -> returns false
@@ -83,6 +92,10 @@ public class AddCommandTest {
 
         // different expense -> returns false
         assertNotEquals(addAliceCommand, addBobCommand);
+    }
+
+    private List<String> getTagNames(Expense expense) {
+        return expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
     }
 
     /**
@@ -115,7 +128,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setBillboardFilePath(Path addressBookFilePath) {
+        public void setBillboardFilePath(Path billboardFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -280,16 +293,31 @@ public class AddCommandTest {
      */
     private class ModelStubWithExpense extends ModelStub {
         private final Expense expense;
+        private final UniqueTagList tags = new UniqueTagList();
+        private final TagCountManager count = new TagCountManager();
 
         ModelStubWithExpense(Expense expense) {
             requireNonNull(expense);
             this.expense = expense;
+            List<String> tagNames = expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+            tags.addNewTags(tagNames);
+            count.incrementAllCount(expense.getTags());
         }
 
         @Override
         public boolean hasExpense(Expense expense) {
             requireNonNull(expense);
             return this.expense.equals(expense);
+        }
+
+        @Override
+        public Set<Tag> retrieveTags(List<String> tagNames) {
+            return tags.retrieveTags(tagNames);
+        }
+
+        @Override
+        public void incrementCount(Set<Tag> toIncrement) {
+            count.incrementAllCount(toIncrement);
         }
     }
 
@@ -298,6 +326,7 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingExpenseAdded extends ModelStub {
         final ArrayList<Expense> expensesAdded = new ArrayList<>();
+        private final TagCountManager count = new TagCountManager();
 
         @Override
         public boolean hasExpense(Expense expense) {
@@ -309,6 +338,16 @@ public class AddCommandTest {
         public void addExpense(Expense expense) {
             requireNonNull(expense);
             expensesAdded.add(expense);
+        }
+
+        @Override
+        public Set<Tag> retrieveTags(List<String> tagNames) {
+            return tagNames.stream().map(Tag::new).collect(Collectors.toSet());
+        }
+
+        @Override
+        public void incrementCount(Set<Tag> toIncrement) {
+            count.incrementAllCount(toIncrement);
         }
 
         @Override

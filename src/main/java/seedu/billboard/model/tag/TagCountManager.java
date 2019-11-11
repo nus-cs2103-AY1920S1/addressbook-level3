@@ -10,16 +10,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import seedu.billboard.model.tag.exceptions.DuplicateTagException;
+import seedu.billboard.model.tag.exceptions.TagNotFoundException;
+
+//@@author waifonglee
 /**
- * Tracks tags and the number of expenses that uses them.
+ * Tracks tags and the number of expenses they are tagged to.
  */
 public class TagCountManager {
     private Map<Tag, Integer> count = new HashMap<>();
 
     /**
      * Checks if tag exists in map.
-     * @param tag tag to be checked.
-     * @return tag's existence.
+     * @param tag   tag to be checked.
+     * @return      tag's existence.
      */
     public boolean contains(Tag tag) {
         requireNonNull(tag);
@@ -33,11 +37,14 @@ public class TagCountManager {
      */
     public void add(Tag tag) {
         requireNonNull(tag);
+        if (contains(tag)) {
+            throw new DuplicateTagException();
+        }
         count.put(tag, 0);
     }
 
     /**
-     * Checks and add tags that does not exist in the list.
+     * Checks and add tags that does not exist in the map.
      * @param tags to be checked.
      */
     public void addNewTags(Set<Tag> tags) {
@@ -51,17 +58,24 @@ public class TagCountManager {
 
     /**
      * Increments count of tag given in the argument.
+     * Tag must exist in the map.
      * @param tag whose count to be incremented.
      */
     public void incrementCount(Tag tag) {
         requireNonNull(tag);
+
+        if (!contains(tag)) {
+            throw new TagNotFoundException();
+        }
+
         int current = count.get(tag);
         count.replace(tag, current + 1);
     }
 
     /**
-     * Increments count of all the tags in the list given in argument.
-     * @param tags whose count to be incremented.
+     * Increments count of all the tags in the set given in argument.
+     * If tag does not exist, it will be added to the Map.
+     * @param tags whose count needs to be incremented by 1.
      */
     public void incrementAllCount(Set<Tag> tags) {
         requireNonNull(tags);
@@ -70,6 +84,7 @@ public class TagCountManager {
             incrementCount(tag);
         }
     }
+
     /**
      * Decrease count of tag given in the argument.
      * Tag must exist in list.
@@ -77,6 +92,11 @@ public class TagCountManager {
      */
     public void decreaseCount(Tag tag) {
         requireNonNull(tag);
+
+        if (!contains(tag)) {
+            throw new TagNotFoundException();
+        }
+
         int current = count.get(tag);
         count.replace(tag, current - 1);
     }
@@ -97,7 +117,7 @@ public class TagCountManager {
      * @return list of tags removed.
      */
     public List<Tag> removeZeroCount() {
-        List<Tag> toReturn = new ArrayList<Tag>();
+        List<Tag> toReturn = new ArrayList<>();
         Iterator it = count.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry) it.next();
@@ -127,12 +147,18 @@ public class TagCountManager {
         return Collections.unmodifiableMap(count);
     }
 
+    //@@author
+    /**
+     * Returns a clone of this object.
+     * @return clone of this object.
+     */
     public TagCountManager getClone() {
         TagCountManager result = new TagCountManager();
         result.setCountMap(getCountMap());
         return result;
     }
 
+    //@@author waifonglee
     @Override
     public boolean equals(Object other) {
         if (other == this) {

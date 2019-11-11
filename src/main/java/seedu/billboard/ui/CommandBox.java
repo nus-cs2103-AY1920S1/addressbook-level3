@@ -34,6 +34,8 @@ public class CommandBox extends UiPart<Region> {
 
             } else if (e.getCode().equals(KeyCode.DOWN)) {
                 commandTextField.setText(CommandHistory.peekPreviousCmd());
+            } else {
+                return;
             }
             commandTextField.end();
         });
@@ -49,6 +51,7 @@ public class CommandBox extends UiPart<Region> {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
+            commandTextField.setText("");
             setStyleToIndicateCommandFailure();
         }
     }

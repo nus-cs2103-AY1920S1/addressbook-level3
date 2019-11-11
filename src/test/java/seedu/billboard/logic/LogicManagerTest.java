@@ -155,7 +155,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveBillboard(ReadOnlyBillboard addressBook, Path filePath) throws IOException {
+        public void saveBillboard(ReadOnlyBillboard billboard, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

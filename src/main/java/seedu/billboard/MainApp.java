@@ -37,7 +37,7 @@ import seedu.billboard.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 2, 0, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -76,7 +76,7 @@ public class MainApp extends Application {
      * and {@code userPrefs}. <br>
      * The data from the sample Billboard will be used instead if {@code storage}'s Billboard or Archive expenses
      * are not found, or an empty Billboard will be used instead if errors occur
-     * when reading {@code storage}'s address book.
+     * when reading {@code storage}'s billboard.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyBillboard> billboardOptional;

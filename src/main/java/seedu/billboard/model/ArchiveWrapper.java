@@ -1,6 +1,7 @@
 package seedu.billboard.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.billboard.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +12,9 @@ import javafx.collections.ObservableList;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Wraps all data at the archive level
- * Duplicate archives are not allowed
  */
 public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
 
@@ -75,7 +76,7 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     /**
-     * Checks if the archiveWrapper has an archive with hte given archiveName.
+     * Checks if the archiveWrapper has an archive with the given archiveName.
      */
     public boolean hasArchive(String archiveName) {
         requireNonNull(archiveName);
@@ -88,6 +89,8 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
     }
 
     void removeArchive(String targetArchiveName) {
+        requireNonNull(targetArchiveName);
+
         archiveList.remove(targetArchiveName);
     }
 
@@ -116,6 +119,8 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
      * The given {@code archiveName} must exist.
      */
     void removeArchiveExpense(String archiveName, Expense key) {
+        requireAllNonNull(archiveName, key);
+
         archiveList.get(archiveName).remove(key);
     }
 
@@ -151,12 +156,14 @@ public class ArchiveWrapper implements ReadOnlyArchiveWrapper {
         return expenses;
     }
 
+    //@@author
     @Override
     @SuppressWarnings("unchecked")
     public ArchiveWrapper getClone() {
         return new ArchiveWrapper((HashMap<String, Archive>) archiveList.clone());
     }
 
+    //@@author davidcwh
     void setArchives(ReadOnlyArchiveWrapper archives) {
         setArchiveList(archives.getArchiveList());
     }

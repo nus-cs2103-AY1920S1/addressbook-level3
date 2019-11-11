@@ -22,8 +22,6 @@ import seedu.billboard.model.Billboard;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.tag.Tag;
-import seedu.billboard.model.tag.TagCountManager;
-import seedu.billboard.model.tag.UniqueTagList;
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -115,16 +113,10 @@ public class TypicalExpenses {
         Billboard bb = new Billboard();
         for (Expense expense : getTypicalExpenses()) {
             bb.addExpense(expense);
+            List<String> tagNames = expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+            Set<Tag> tags = bb.retrieveTags(tagNames);
+            bb.incrementCount(tags);
         }
-        UniqueTagList tagList = new UniqueTagList();
-        TagCountManager countManager = new TagCountManager();
-        List<String> tags = new ArrayList<>(Arrays.asList("bills", "leisure", "monday", "friends"));
-        tagList.addNewTags(tags);
-        Set<Tag> count = tags.stream().map(Tag::new).collect(Collectors.toSet());
-        countManager.incrementAllCount(count);
-        bb.setCountManager(countManager.getCountMap());
-        bb.setUniqueTagList(tagList.getTagList());
-
         return bb;
     }
 
@@ -132,6 +124,9 @@ public class TypicalExpenses {
         Billboard bb = new Billboard();
         for (Expense expense : getDeleteTypicalExpenses()) {
             bb.addExpense(expense);
+            List<String> tagNames = expense.getTags().stream().map(x -> x.tagName).collect(Collectors.toList());
+            Set<Tag> tags = bb.retrieveTags(tagNames);
+            bb.incrementCount(tags);
         }
         return bb;
     }

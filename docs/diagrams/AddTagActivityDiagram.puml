@@ -8,7 +8,11 @@ start
 
 if () then ([correct command format])
     :AddTagCommand executes command;
+if() then ([tag(s) does not exist in the expense])
     :Expense is updated;
+else ([else])
+    :Show error message;
+endif
 else ([else])
     :Show error message;
 endif

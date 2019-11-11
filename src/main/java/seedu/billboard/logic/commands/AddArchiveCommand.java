@@ -14,6 +14,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Adds an expense to an existing archive.
  * If the archive does not exist, create a new archive to store the expense.
@@ -23,8 +24,10 @@ public class AddArchiveCommand extends ArchiveCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD
-            + ": Creates an archive of the given name and\n"
-            + "Adds the expense identified by the index number used in the displayed expense list to the archive\n"
+            + ": Adds the expense identified by the index number used in the displayed expense list"
+            + " to the given archive.\n"
+            + "Given archive name must be prefixed by [" + PREFIX_ARCHIVE + "].\n"
+            + "If the given archive name does not exist, a new archive will be created.\n"
             + "Example: " + ArchiveCommand.COMMAND_WORD + " " + COMMAND_WORD + " 2 " + PREFIX_ARCHIVE + "Groceries";
 
     public static final String MESSAGE_SUCCESS_EXISTING_ARCHIVE = "[%1$s] added to [%2$s] archive";
@@ -63,13 +66,15 @@ public class AddArchiveCommand extends ArchiveCommand {
             model.addArchiveExpense(archiveName, expenseToArchive);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS_CREATE_ARCHIVE,
-                    archiveName, expenseToArchive.getName(), archiveName));
+                    archiveName, expenseToArchive.getName(), archiveName),
+                    false, false, CommandResult.DEFAULT_LIST_VIEW);
         }
 
         model.addArchiveExpense(archiveName, expenseToArchive);
 
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
+                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

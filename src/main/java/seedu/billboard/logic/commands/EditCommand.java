@@ -48,7 +48,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the billboard.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -92,7 +92,8 @@ public class EditCommand extends Command {
 
         model.setExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
-        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
+        return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     /**
