@@ -285,7 +285,7 @@ From this list of expired items, you can use the `shift` command to move any ite
 
 Format: `shift|<index>`
 
-Let's say you have this list of expired items and you want to remind yourself to replenish the first item in the list--the banana.
+Let's say you have this list of expired items and you want to remind yourself to replenish the first item in the list--the ice cream.
 To do so, you can transfer the ice cream to the replenish list by typing `shift|1`, where `1` refers to item number displayed.
 
 .Current list view of items that have expired.
@@ -298,22 +298,22 @@ When you go for grocery shopping in future, you can refer to this handy replenis
 image::shift_to_replenish_success.png[]
 
 ===== Shifting an item from the replenish list to the main list
-Let's say you have stocked up on the items that are in the replenish list.
+After some shopping, you may have stocked up on the items that were in the replenish list.
 Now, you want to add these items back to your tracking list to keep track of their new expiry date.
 To do so, you can simply use the `shift` command again.
 
 Format: `shift|<index>|<expiry date>[|quantity]`
 
 For example, you have just replenished the ice cream and you wish to keep track of its expiry date again.
+To transfer the ice cream back to the tracking list, simply key in `shift|3|<expiry date>|<quantity>`.
 
+.List view of items in the replenish list.
+image::shift_to_main_command_example.png[]
 
-Examples:
+Now, the ice cream that you just bought is on the tracking list as seen from the diagram below.
 
-* `shift|3|29/3/2020` (without quantity) +
-Transfers the 3rd item from the replenish list to the main list with expiry date `29/3/2020` and quantity `1`
-
-* `shift|2|11/2/2020|4` +
-Transfers the 2nd item from the replenish list to the main list with expiry date `11/2/2020` and quantity `4`
+.List view of items in the main list after shift.
+image::shift_to_main_success.png[]
 
 
 ****
@@ -323,7 +323,8 @@ Transfers the 2nd item from the replenish list to the main list with expiry date
 
 
 [TIP]
-For items with single quantity, you can save time by keying in only the item name and expiry date.
+If you only have one of a particular item, you only need to key in the item number and expiry date (without keying in the quantity)!
+We'll do the rest for you.
 
 
 // end::shift[]
@@ -417,21 +418,18 @@ There is no need to save manually.
 
 // tag::add[]
 ==== Adding an item: `add`
+Let's say you bought an item and you want to add it into the tracker to keep track of its expiry date.
+This can be done using the `add` command easily.
+
+[TIP]
+For items with single quantity, you can save time by keying in only the item name and expiry date.
+
+Format: `add|<item name>|<expiry date>[|<quantity>]`
+
+For example,
 
 .New item added to main tracking list
 image::add.png[width="790"]
-
-Adds an item to your tracker. +
-Upon addition of the item, the updated list sorted by name then date in chronological order, will be displayed. +
-Format: `add|<item name>|<expiry date>[|<quantity>]`
-
-Examples:
-
-* `add|durian|30/9/2020` (without quantity) +
-Adds the item `durian` with expiry date `30/9/2019` with quantity `1`
-
-* `add|ice cream|18/8/2020|2` +
-Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 
 ****
 * Item quantity **must be a positive integer** 1,2,3...
@@ -439,16 +437,15 @@ Adds the item `ice cream` with expiry date `18/8/2019` with quantity `2`
 * The furthest date allowed as expiry date is 100 years from current date.
 ****
 
-[TIP]
-For items with single quantity, you can save time by keying in only the item name and expiry date.
+
 // end::add[]
 
 // tag::delete[]
-==== Deleting variable(s): `delete`
+==== Deleting an item or its fields(s): `delete`
+If you would like to delete an item or its related fields from the main list, the `delete` command can be used.
 
 ===== Deleting an item
-Deletes the specified item from your list. +
-Format: `delete|<index>` +
+If you would like to delete a particular item from your list, simply follow the format: `delete|<index>`.
 
 Examples:
 
@@ -463,7 +460,7 @@ Deletes the 3rd item in the sorted main list.
 Deletes the 1st item in the results of the `search` command.
 
 ===== Deleting certain tags from an item
-Deletes tag(s) from the specified item. +
+If you would like to delete tag(s) from a particular item, use the `delete` command in the format: +
 Format: `delete|<index>|<tag>[<other tags>]...` +
 
 Examples:
@@ -472,22 +469,35 @@ Examples:
 `delete|3|#Fruit #Food` +
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
 
+//tag::deleteQuantity[]
 ===== Reducing the quantity of an item
+If you would have used up a certain amount of your item, you can use the `delete` command.
+By specifying the item number and the quantity to be reduced, you can easily decrease your item's quantity in the tracking list.
 
-.Item at index 4 reduced in quantity by 1
-image::delete-quantity.png[width="790"]
-
-Reduces item quantity by the specified quantity. +
 Format `delete|<index>|<quantity>`
+
+Let's say you have just consumed the entire bag of potato chips.
+Now, you no longer have any more potato chips, so you would like to update the item quantity on the tracking list.
+To update the potato chips with the new quantity, simply key in `delete|3|1`.
+
+.Reducing an item quantity
+image::delete_quantity_example.png[]
+
+Since the item has run out, you would also like to add it to the replenish list so that you will be reminded to stock up on it.
+To save you the trouble of keying in the details again, our system has already automatically added the chips to your replenish list for you.
+
+.Item that has run out is automatically transferred to the replenish list
+image::delete_quantity_shift_success.png[]
 
 ****
 * The index refers to the index number shown on the list.
 * The index *must be a positive integer* 1, 2, 3, ...
 * Tags must be prefixed with a '#'.
 * The item must contain the tags to be deleted.
-* The quantity *must be a positive integer* 1, 2 ,3...
+* The quantity *must be a positive integer* 1, 2, 3...
 * The quantity specified must be more than the item's current quantity.
 ****
+//end::deleteQuantity[]
 
 Examples:
 

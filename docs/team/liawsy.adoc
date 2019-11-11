@@ -16,40 +16,46 @@ Responsibilities: Storage + Documentation
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Xpire is an application that helps users manage their items and track their expiry dates.
+With a minimalistic dark mode GUI created with JavaFX, the user can easily use the application via Command Line Interface.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *`ShiftCommand`* that allows the user to transfer items to and fro the replenish list.
+** What it does: -	enables the user to transfer an item from the expiry date tracker into the replenish list containing the items to
+stock up on, such as when the item expires.
+** Justification: - Instead keying in an item's details again, the user simply needs to key in the given
+item index to transfer an existing item to the replenish list. This makes the overall user experience more fuss-free.
+** Highlights: This enhancement required a refactor of the `Model` component using important concepts such as polymorphism and inheritance.
+The implementation was also challenging as it required a in-depth understanding of generics to avoid a huge overhaul of the existing implementation.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement*: added the ability to automatically add an item to the replenish list once the item runs out.
+** What it does: -	automatically transfers an item that has depleted into the replenish list.
+** Justification: -	Instead of having the user delete an item on the tracking list and add it into the replenish list
+manually when it runs out, this enhancement collapses this two-step process into a one-step process.
+** Highlights: The implementation required an in-depth analysis of user needs and comprehensive testing to ensure
+that edge cases will also be factored in.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Added the ability to input item quantity.
+The parsing of the quantity field familiarised me with Regex as I had to consider edge cases.
+* *Minor enhancement*: Added the ability to input similar items into the tracking list.
+This allows the user to add to existing items in cases where they bought the same item on separate occasions.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=liawsy&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
+[https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Add functionality to input items into the tracking list(Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/13[#13])
+*** Add quantity field for items(Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/56[#56]])
+*** Add functionality to reduce item quantity in the tracking list(Pull request  [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/58[#58])
+*** Refactor model and storage to contain both tracking list and replenish list (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/122[#122])
+*** Add shift command to transfer items to and fro replenish list (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/122[#122])
+Wrote additional tests for existing features (Pull requests [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/78[#78], [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/99[#99], [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/227[#227])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
+*** Updated manual testing instructions in Developer Guide on how to edit data file. (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/193[#193])
+*** Updated diagrams in Developer Guide for Architecture Diagrams and all components. (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/135[#135])
+*** Updated glossary in Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/13[#30])
 == Contributions to the User Guide
 
 
@@ -59,7 +65,7 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=shift]
 
-include::../UserGuide.adoc[tag=add]
+include::../UserGuide.adoc[tag=deleteQuantity]
 
 == Contributions to the Developer Guide
 

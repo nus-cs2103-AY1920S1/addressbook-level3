@@ -14,7 +14,6 @@ import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
-import io.xpire.model.item.exceptions.ItemNotFoundException;
 import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
 import io.xpire.model.tag.Tag;
