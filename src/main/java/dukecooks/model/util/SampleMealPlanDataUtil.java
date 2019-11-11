@@ -21,14 +21,34 @@ public class SampleMealPlanDataUtil {
         List<RecipeName> tuna = Arrays.asList(new RecipeName[]{new RecipeName("Tuna Sandwich")});
         List<RecipeName> maggi = Arrays.asList(new RecipeName[]{new RecipeName("Chicken Maggi")});
         List<RecipeName> fried = Arrays.asList(new RecipeName[]{new RecipeName("Fried Chicken")});
+        List<RecipeName> salad = Arrays.asList(new RecipeName[]{new RecipeName("Chicken Salad")});
+        List<RecipeName> lasagna = Arrays.asList(new RecipeName[]{new RecipeName("Beef Lasagna")});
+        List<RecipeName> carbonara = Arrays.asList(new RecipeName[]{new RecipeName("Carbonara")});
+        List<RecipeName> friedRice = Arrays.asList(new RecipeName[]{new RecipeName("Egg Fried Rice")});
+        List<RecipeName> porridge = Arrays.asList(new RecipeName[]{new RecipeName("Century Egg Porridge")});
+        List<RecipeName> bam = Arrays.asList(new RecipeName[]{new RecipeName("Bangers and Mash")});
+        List<RecipeName> aglio = Arrays.asList(new RecipeName[]{new RecipeName("Prawn Aglio Olio")});
+        List<RecipeName> ramen = Arrays.asList(new RecipeName[]{new RecipeName("Tonkotsu Ramen")});
+        List<RecipeName> basil = Arrays.asList(new RecipeName[]{new RecipeName("Basil Pork Rice")});
+
         return new MealPlan[] {
-            new MealPlan(new MealPlanName("Tea Plan"), tea, tea, tea, tea, tea, tea, tea),
-            new MealPlan(new MealPlanName("Milo Plan"), milo, milo, milo, milo, milo, milo, milo),
-            new MealPlan(new MealPlanName("Cheese Omelette Plan"), omelette, omelette, omelette, omelette, omelette,
-                    omelette, omelette),
-            new MealPlan(new MealPlanName("Tuna Sandwich Plan"), tuna, tuna, tuna, tuna, tuna, tuna, tuna),
-            new MealPlan(new MealPlanName("Chicken Maggi Plan"), maggi, maggi, maggi, maggi, maggi, maggi, maggi),
-            new MealPlan(new MealPlanName("Fried Chicken Plan"), fried, fried, fried, fried, fried, fried, fried),
+            new MealPlan(new MealPlanName("Carbohydrates Bulking"), basil, friedRice, porridge, friedRice, basil,
+                    porridge,
+                    friedRice),
+            new MealPlan(new MealPlanName("It is a Meat Week"), bam, fried, lasagna, basil, bam, fried, basil),
+            new MealPlan(new MealPlanName("Trying to be Healthy"), omelette, salad, porridge, aglio, carbonara,
+                    tuna, milo),
+            new MealPlan(new MealPlanName("I Love Pasta so much"), carbonara, aglio, lasagna, carbonara, lasagna,
+                    aglio,
+                    carbonara),
+            new MealPlan(new MealPlanName("I am Broke waiting for pay"), maggi, tuna, tea, milo, omelette, maggi,
+                    maggi),
+            new MealPlan(new MealPlanName("Paycheck has come time to eat"), ramen, bam, aglio, lasagna, fried, salad,
+                    bam),
+            new MealPlan(new MealPlanName("Keto is an excuse for KFC"), fried, fried, fried, fried, fried, fried,
+                    fried),
+            new MealPlan(new MealPlanName("All of my Favourite Meals"), ramen, basil, lasagna, carbonara, porridge,
+                    salad, fried)
         };
     }
 

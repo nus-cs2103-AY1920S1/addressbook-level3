@@ -1,11 +1,13 @@
 package dukecooks.storage.mealplan;
 
+import static dukecooks.model.util.SampleMealPlanDataUtil.getSampleMealPlans;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.KAPPA_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.MILO_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.TAMAGO_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.mealplan.MealPlanBook;
 import dukecooks.model.mealplan.ReadOnlyMealPlanBook;
+import dukecooks.model.mealplan.components.MealPlan;
 import dukecooks.testutil.Assert;
 
 public class JsonMealPlanBookStorageTest {
@@ -108,5 +111,12 @@ public class JsonMealPlanBookStorageTest {
     @Test
     public void saveMealPlanBook_nullFilePath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> saveMealPlanBook(new MealPlanBook(), null));
+    }
+
+    @Test
+    public void sampleRecipeDataUtilTest() {
+        MealPlan[] expected = getSampleMealPlans();
+
+        assertTrue(expected != null);
     }
 }
