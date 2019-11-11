@@ -372,7 +372,7 @@ How to create a JavaScript card via the CLI
 // tag::edit[]
 === Editing the card of an existing deck of flashcards : `edit`
 
-The edit command allows the user to edit flashcards in any existing deck.
+The edit command allows the user to edit flashcards in any existing deck. This command applies for Front and Back cards and Multiple Choice Cards only.
 
 Format: `edit deck/DECK_NAME index/CARD_INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
 
