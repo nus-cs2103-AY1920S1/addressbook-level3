@@ -260,7 +260,7 @@ public class ModelStub implements Model {
 
     }
     @Override
-    public void commitNote(String command) {
+    public void commitNoteBook(String command) {
 
     }
 

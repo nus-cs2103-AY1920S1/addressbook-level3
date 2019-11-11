@@ -1,0 +1,32 @@
+@startuml
+start
+:User executes command;
+:Parses command;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([available command word])
+    if() then ([current NoteBook not
+    equals previous NoteBook])
+        :Saves current NoteBook
+        with the undoable command
+        by pushing into undo stack;
+    else([else])
+    endif
+else ([else])
+    if() then ([current NoteBook not
+ equals previous NoteBook])
+        :Saves current NoteBook
+        with the undoable command
+        by pushing into undo stack;
+    else([else])
+endif
+
+    endif
+    :purge all redundant
+    NoteBooks and their
+    corresponding commands
+    in redo stack;
+stop
+@enduml
+

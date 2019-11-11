@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-participant ":EncryptionUtil" as EncryptionUtil LOGIC_COLOR_T2
+participant "<<class>>\n:EncryptionUtil" as EncryptionUtil LOGIC_COLOR_T2
 
 [--> EncryptionUtil : encryptBytes(input, pwd)
 activate EncryptionUtil

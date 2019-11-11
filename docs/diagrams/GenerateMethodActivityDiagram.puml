@@ -1,0 +1,43 @@
+@startuml
+title: Activity : Generate Random Password
+
+start
+:Create list of
+character sets to include;
+if () then ([includes lower])
+  :Add lower case
+  character set;
+  detach
+elseif () then ([includes upper])
+  :Add upper case
+  character set;
+  detach
+elseif () then ([include numbers])
+  :Add numbers
+  character set;
+  detach
+elseif () then ([include special])
+  :Add special
+  character set;
+    detach
+else ()
+  repeat
+      repeat
+        :SecureRandom chooses a
+        random character set;
+        note left: method #nextInt()\nrandomly generates\nan index in the list\nof character sets
+        :SecureRandom chooses a
+        random character within the set;
+        note left: method #nextInt()\nrandomly generates\nan index in the list\nof characters.
+        :chosen character
+        appended to password;
+      repeat while () is (length requirement
+      not met)
+     -> else;
+  repeat while () is (password does
+  not meet requirement)
+  -> else;
+endif
+stop
+@enduml
+@enduml

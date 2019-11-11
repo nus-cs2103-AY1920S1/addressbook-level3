@@ -1,0 +1,110 @@
+@startuml
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([is undo command])
+    if () then ([is NoteBook undo stack empty])
+        :throw
+        InvalidUndoException;
+    else ([else])
+        if () then ([current NoteBook equals
+ previous NoteBook])
+        :pop undo stack;
+        :perform undo
+        command again;
+        note left
+        Performs undo command
+        recursively until
+        exit condition is hit
+        end note
+        else ([else])
+        :push current NoteBook
+        and its corresponding
+        command into redo stack;
+        note right
+          The corresponding command
+          would be the command tied
+          to the previous NoteBook
+        end note
+        :pop previous NoteBook
+        and its corresponding
+        command from undo stack;
+        :Set current NoteBook
+        to previous NoteBook;
+        endif
+        :return undone
+        command as string;
+        note right
+        undone command refers
+        to the corresponding
+        command tied to the
+        previous NoteBook
+        end note
+    endif
+
+
+elseif () then ([is redo command])
+    if () then ([is NoteBook redo stack empty])
+        :throw
+        InvalidUndoException;
+    else ([else])
+        :push current NoteBook
+        and its corresponding
+        command into undo stack;
+        note right
+          The corresponding command
+          would be the command tied
+          to the next NoteBook
+        end note
+
+        :pop next NoteBook
+        and its corresponding
+        command from redo stack;
+
+        :Set current NoteBook
+        to next NoteBook;
+        :return redone
+        command as string;
+        note right
+        redone command refers
+        to the corresponding
+        command tied to the
+        next NoteBook
+        end note
+        if () then ([is open note command])
+        :Executes open
+        note command;
+        else ([else])
+        endif
+     endif
+
+
+else ([else])
+    if () then (is undoable command)
+        if () then ([NoteBook's undo stack is empty])
+            :Saves current NoteBook
+            with the undoable command
+            by pushing into undo stack;
+
+        else ([else])
+            if() then ([current NoteBook not
+         equals previous NoteBook])
+                :Saves current NoteBook
+                with the undoable command
+                by pushing into undo stack;
+            else([else])
+        endif
+            endif
+            :purge all redundant
+            NoteBooks and their
+            corresponding commands
+            in redo stack;
+    else ([else])
+    endif
+    :execute command;
+endif
+stop
+@enduml

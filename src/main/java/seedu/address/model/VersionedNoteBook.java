@@ -86,7 +86,7 @@ public class VersionedNoteBook extends NoteBook {
     /**
      * Couples the undoable command with the Notebook state.
      */
-    private class NoteBookWithCommand {
+    private static class NoteBookWithCommand {
         private ReadOnlyNoteBook notebook;
         private String command;
 

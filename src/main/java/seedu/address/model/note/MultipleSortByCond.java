@@ -17,14 +17,14 @@ public class MultipleSortByCond {
             + SortByCond.DATEMODIFIED + " or " + SortByCond.NUMOFACCESS + " separated by a whitespace each."
             + "\nDuplicate conditions are not allowed.";
 
-    public final String[] multipleSortByCond;
-    public final Comparator<Note> multipleSortComparator;
+    public final String[] sortConditions;
+    public final MultipleCondNoteComparator multipleSortComparator;
 
     /**
      * Constructs an {@code SortByCond} field with date modified as the default condition.
      */
     public MultipleSortByCond(String[] sortConditions) {
-        this.multipleSortByCond = sortConditions;
+        this.sortConditions = sortConditions;
         this.multipleSortComparator = buildComparator(sortConditions);
     }
 
@@ -34,18 +34,18 @@ public class MultipleSortByCond {
      * of the sort condition increases in the String array.
      * @return
      */
-    public Comparator<Note> buildComparator(String[] sortConditions) {
+    public MultipleCondNoteComparator buildComparator(String[] sortConditions) {
         ArrayList<Comparator<Note>> noteComparators = new ArrayList<>();
         for (String sortCond : sortConditions) {
             SortByCond currentCond = new SortByCond(sortCond);
             Comparator<Note> currentComparator = currentCond.getSortComparator();
             noteComparators.add(currentComparator);
         }
-        return new MultipleComparator(noteComparators);
+        return new MultipleCondNoteComparator(noteComparators);
 
     }
 
-    public Comparator<Note> getSortComparator() {
+    public MultipleCondNoteComparator getSortComparator() {
         return multipleSortComparator;
     }
 
@@ -84,27 +84,27 @@ public class MultipleSortByCond {
 
     @Override
     public String toString() {
-        return String.join(", then by ", Arrays.asList(multipleSortByCond));
+        return String.join(", then by ", Arrays.asList(sortConditions));
     }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof MultipleSortByCond // instanceof handles nulls
-                && multipleSortByCond.equals(((MultipleSortByCond) other).multipleSortByCond)); // state check
+                && sortConditions.equals(((MultipleSortByCond) other).sortConditions)); // state check
     }
 
     @Override
     public int hashCode() {
-        return multipleSortByCond.hashCode();
+        return sortConditions.hashCode();
     }
 
     /**
      * Comparator class that compares notes based on its NumOfAccess attribute.
      */
-    class MultipleComparator implements Comparator<Note> {
+    class MultipleCondNoteComparator implements Comparator<Note> {
         private final List<Comparator<Note>> comparators;
 
-        private MultipleComparator(List<Comparator<Note>> comparators) {
+        private MultipleCondNoteComparator(List<Comparator<Note>> comparators) {
             this.comparators = comparators;
         }
 
