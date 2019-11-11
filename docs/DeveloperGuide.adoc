@@ -123,15 +123,10 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores a `BudgetList` object that represents the user's budgets.
+* stores an `ExpenseList` object that represents the user's untagged expenses.
 * stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
-* stores the MYMorise data.
 * exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -144,7 +139,9 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the MYMorise data in json format and read it back.
+* can save `Budget` objects in json format and read it back.
+* can save `Expense` objects in json format and read it back.
+* can read `Exchange` objects in json format.
 
 [[Design-Commons]]
 === Common classes
@@ -274,15 +271,34 @@ The following activity diagram summarizes what happens when a user enter somethi
 image::AutocompleteActivityDiagram.png[]
 
 === Currency Conversion
-
+==== Implementation
 The Currency conversion is achieved by having a default base currency that all expenses and budgets use if one is not specified. The expenses that are stored
 with a different currency can be converted from the base currency and back. Every time a currency is specified, the present day exchange rate is stored with the expense. This
 is to ensure that the expense value is timeless.
 
-Foreign Currency exchange rates between the default currency, Singapore Dollars (SGD) and a number of supported currencies is made possible by means
-of a HTTP Request to an endpoint returning a JSON containing the exchange rates. This JSON response is stored as is on disk and is only requested once
-upon first launching the application. A default data-set with relatively recent data is in place to ensure that MyMorise is still usable, albeit with some margin of error
-with conversions, even without internet access to retrieve the latest data for the day.
+This was implemented in the `java.seedu.address.model.exchangedata` package, which contains `ExchangeDataSingleton`, `ExchangeData`, and `Rates`. These classes facilitate retrieval of exchange rates that will be requested from various parts of the app, namely `Expense` and `Budget`.
+
+*Step 1*
+The foreign currency exchange rates are downloaded for the app to use from http://exchangeratesapi.io/[ExchangeRatesAPI.io] using their endpoint `https://api.exchangeratesapi.io/latest?base=SGD`. The endpoint returns the data in JSON format, which works well with the existing JSON based storage used for `Expense` and `Budget`. This was implemented in the `java.seedu.address.commons.utils` package containing `HttpsClientUtil` which facilitates the Asynchronous calls to the endpoint to update the local copy of the foreign currency exchange rates upon app startup.
+
+*Step 2*
+The JSON response is persisted on disk. A default data-set of exchange rates will be generated at runtime (but not stored) in the case of unstable or no internet access if one is not yet present. If one was present however a more recent one could not be downloaded, the existing data will be reused.
+
+*Step 3*
+If the exchange data is present as a JSON, it will first be loaded into its JSON reflection class `JsonAdaptedExchangeData` which depends on `JsonAdaptedRates`. These classes assist in the conversions of the JSON to the Model Class `ExchangeData`.
+
+    Presently, ExchangeData is also stored in the StorageManager which was intended to be used to store multiple instances of ExchangeData to load historical exchange rates when the user does an edit, however this proved to be infeasible to implement within the course of the project.
+
+*Step 4*
+The `ExchangeDataSingleton` is updated with the new  `ExchangeData` using the `ExchangeDataSingleton#updateInstance`. The reason for using the Singleton pattern in this case was to ensure that one and only one instance of `ExchangeData` is being referenced to retrieve data at any point in time. Since it is also required to be accessed by `Expense` and `Budget`.
+
+*Step 5*
+Conversions are done in `Expense#getConvertedAmount` for conversion back into the base currency (SGD) and `Expense#getConvertedAmount(Currency currency)` for conversions to any other currency. As most transactions in the app that require the conversion of currency involve an expense (including recomputing `amountLeft` of `Budget`), the computation is done in the expense. The following are the instance where the currency is converted:
+
+* Whenever an expense is displayed on the `ExpenseCard` or `CommandResult`, its converted value will be computed and displayed together with its conversion rate and original amount.
+
+
+
 
 === Logging
 
