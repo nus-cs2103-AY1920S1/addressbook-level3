@@ -4,9 +4,9 @@ start
 
 :read user input;
 
-while (current state parameter's argument is present)
+while ()
   :extract argument;
-  if () then ([valid argument])
+  if () then ([valid])
   :update state;
   else ([else])
   endif
