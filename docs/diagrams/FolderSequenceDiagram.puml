@@ -66,16 +66,16 @@ end box
 Ol -> TreeView :changeListener()
 note right: adds folder\nto the UI
 activate TreeView
-TreeView -> Ol
+TreeView --> Ol
 deactivate TreeView
 
-Ol -> Work
+Ol --> Work
 deactivate Ol
 
-Work -> Root
+Work --> Root
 deactivate Work
 
-Root -> VersionedMark
+Root --> VersionedMark
 deactivate Root
 
 VersionedMark --> Model :
