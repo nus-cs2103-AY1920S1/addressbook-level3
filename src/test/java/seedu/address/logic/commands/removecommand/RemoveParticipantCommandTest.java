@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.removecommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_PARTICIPANT;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
@@ -11,11 +12,7 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignParticipantCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.entity.Participant;
-import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
-import seedu.address.testutil.ParticipantBuilder;
-import seedu.address.testutil.TeamBuilder;
 import seedu.address.testutil.TypicalParticipants;
 import seedu.address.testutil.TypicalTeams;
 
@@ -46,7 +43,10 @@ public class RemoveParticipantCommandTest {
         modelStub.addTeam(TypicalTeams.EMPTY.copy());
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId());
+        RemoveParticipantCommand command =
+                new RemoveParticipantCommand(
+                        TypicalParticipants.A.copy().getId(),
+                        TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -60,7 +60,10 @@ public class RemoveParticipantCommandTest {
         modelStub.addParticipant(TypicalParticipants.A.copy());
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId());
+        RemoveParticipantCommand command =
+                new RemoveParticipantCommand(
+                        TypicalParticipants.A.copy().getId(),
+                        TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -81,12 +84,18 @@ public class RemoveParticipantCommandTest {
         assignParticipantCommand.execute(modelStub);
 
         CommandResult commandResult =
-                new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId()).execute(modelStub);
+                new RemoveParticipantCommand(
+                        TypicalParticipants.A.copy().getId(),
+                        TypicalTeams.EMPTY.getId())
+                        .execute(modelStub);
 
         assertEquals(
                 String.format(
                         RemoveParticipantCommand.MESSAGE_REMOVE_PARTICIPANT_SUCCESS,
-                        TypicalParticipants.A.getName(), TypicalParticipants.A.getId(), TypicalTeams.EMPTY.getName(), TypicalTeams.EMPTY.getId()
+                        TypicalParticipants.A.getName(),
+                        TypicalParticipants.A.getId(),
+                        TypicalTeams.EMPTY.getName(),
+                        TypicalTeams.EMPTY.getId()
                 ),
                 commandResult.getFeedbackToUser());
 

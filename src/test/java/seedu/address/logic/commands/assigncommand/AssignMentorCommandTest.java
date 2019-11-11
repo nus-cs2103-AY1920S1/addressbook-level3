@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.assigncommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_MENTOR;
@@ -13,13 +12,9 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Mentor;
-import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
-import seedu.address.testutil.MentorBuilder;
-import seedu.address.testutil.TeamBuilder;
 import seedu.address.testutil.TypicalMentors;
-import seedu.address.testutil.TypicalParticipants;
 import seedu.address.testutil.TypicalTeams;
 
 
