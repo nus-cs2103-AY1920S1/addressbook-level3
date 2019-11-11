@@ -259,7 +259,7 @@ The following activity diagram gives an overview of what the user observes when 
 
 :figure-caption: Figure
 .Activity diagram for execution of **clone** command
-image::clone/cloneDG/CloneActivityDiagram.png[,350]
+image::clone/cloneDG/CloneActivityDiagram.png[,450]
 
 ==== Design considerations
 This subsection explores some alternative designs considered for certain aspects of the feature's implementation.

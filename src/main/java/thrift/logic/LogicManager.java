@@ -48,6 +48,7 @@ public class LogicManager implements Logic {
     private final ThriftParser thriftParser;
 
     public LogicManager(Model model, Storage storage) {
+        requireAllNonNull(model, storage);
         this.model = model;
         this.storage = storage;
         thriftParser = new ThriftParser();
@@ -95,6 +96,7 @@ public class LogicManager implements Logic {
         if (command instanceof ScrollingCommand) {
             commandResult = ((ScrollingCommand) command).execute(model, transactionListPanel);
         } else {
+            assert command instanceof NonScrollingCommand;
             commandResult = ((NonScrollingCommand) command).execute(model);
         }
         return commandResult;
