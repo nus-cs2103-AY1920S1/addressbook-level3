@@ -51,29 +51,20 @@ image:Ui2.png[width="790"]
 as String processing is required and many edge cases had to be taken into account as user could input anything as the answer.
 ** Credits: StanfordCoreNLP Library and FuzzyWuzzy Library
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: helped with minor UI enhancements to display different types of questions correctly.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: view my code contributions https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=neoshh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[here]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added FAQs to user guide
+*** Added all the user stories for the project to the developer guide.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed and merged PRs
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library, StanfordCoreNLP and FuzzyWuzzy, to the project
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -180,8 +171,7 @@ below shows the steps taken by the `isCorrect` method to determine if the user i
 .Sequence Diagram of SAQ isCorrect Method
 image::SaqIsCorrectSequenceDiagram.png[width=790]
 
-[appendix]
-== User Stories
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
