@@ -67,14 +67,11 @@ The _Transactions_ are split into:
 
 These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
-<<<<<<< HEAD
 === Budgets
 The _Budget_ feature represent the budget to be set until a stipulated deadline for a certain *CATEGORY*.
 As you make transactions of particular *CATEGORY*, the budget with the same *CATEGORY* will be adjusted accordingly.
 (see <<Set, *Setting a Budget*>>)
-=======
-=== Budget
->>>>>>> d892296651702bdbff2880f8dacd22de0cb543ab
+
 
 === Ledger
 The _Ledger_ feature allows you to track outstanding balances when you
