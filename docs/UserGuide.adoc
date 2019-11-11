@@ -132,6 +132,7 @@ by clicking the `Guide` button.
 *Example*: `help`
 ****
 
+//tag::history[]
 ==== Viewing previously typed commands: `history`
 
 Shows the user's previously typed commands in the Results Display. +
@@ -161,6 +162,7 @@ image::HistoryCommandUI.png[]
 The `history` command will only display previous commands with no duplicate commands. +
  Eg. typing `history` twice will only result in a display of `history` only ONCE in the Results Display.
 
+//end::history[]
 
 ==== Viewing information about a command: `info`
 
@@ -450,7 +452,6 @@ Allows users to top up the money into their wallet.
 If the top up was successful, you should be able to see the update to your wallet immediately.
 //end::budgeting[]
 
-//tag::savings[]
 === Savings
 
 Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000, your savings account has a limit that is imposed by the limitations of the user's computer's memory. +
@@ -458,6 +459,7 @@ The savings account is presented to the user in the display as shown in figure b
 
 We will be introducing a higher limit for savings so user's can aim to save more, but that will be in v2.0.
 
+//tag::savings[]
 ==== Transfer money from user's wallet into savings account: `save`
 The user can save an amount of money from the user's wallet, into his/her savings account.
 
@@ -489,6 +491,8 @@ image::SavingsSuccessMessage.png[]
 
 {empty}
 |===
+
+//tag::savings[]
 
 ==== Withdraw money from user's savings account into wallet: `withdraw`
 The user can withdraw a sum from his/her savings account, and add it into his/her wallet.
