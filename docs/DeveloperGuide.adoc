@@ -80,14 +80,23 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` class that comprises parts from two categories:
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+* _Common parts_ that are displayed regardless of the current application context, e.g. `CommandBox`, `ResultDisplay`,`StatusBarFooter` etc.
+* _Contextual parts_ that are only displayed in the respective application context, e.g. `ActivityListPanel`, `PersonDetailsPanel`.
+
+All of these UI classes, including `MainWindow` itself, inherit from the abstract `UiPart` class. The _common_ UI classes are shown above `MainWindow` in the above class diagram, whereas the _contextual_ UI classes are shown below `MainWindow`.
+
+All UI classes are built upon the JavaFX GUI framework. The structure of each UI part `X` is defined in a matching `X.fxml` file in the folder `src/main/resources/view`. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+To create a visually cohesive and pleasant GUI, custom CSS styling rules were also employed to style each UI part individually. These stylesheets may be found as `.css` files in the folder `src/main/resources/view``.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for some changes to `Model` data so that relevant UI parts may be re-rendered with the modified data.
+* Parses the returned `CommandResult` to perform appropriate additional actions, such as exiting the application or switching the contextual part being displayed.
+** The behaviour of the `MainWindow` part is further detailed in <<GUI commands: List and View features>>.
 // end::uicomponent[]
 
 [[Design-Logic]]
@@ -417,7 +426,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 // end::algorithm[]
 
 // tag::guicommands[]
-=== List feature
+=== GUI commands: List and View features
 
 The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
 
