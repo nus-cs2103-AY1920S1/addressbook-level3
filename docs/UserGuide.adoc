@@ -158,6 +158,8 @@ Format: `showfocus`
 ==== Display for invalid modules
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules.
 
+// tag::addremovesems[]
+
 === Semester
 
 ==== Adding a semester: `addsem`
@@ -183,6 +185,8 @@ Examples:
 
 * `removesem y2s2`
 * `removesem y1st2`
+
+// end::addremovesems[]
 
 ==== Setting the current semester. `setcurrent`
 Sets the given semester as the current one. Semesters before the specified semester will be locked and therefore modules cannot be added or removed from them. +

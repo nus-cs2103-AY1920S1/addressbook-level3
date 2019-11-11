@@ -290,7 +290,7 @@ Given below is an example usage scenario and how the commit mechanism behaves at
 Step 1. The user launches the application for the first time. The `VersionTrackingManager` will be initialized with the
 initial module planner state, and its `StudyPlanCommitManagerList` will only contain a manager for the default study plan.
 
-image::VersionTrackingClassDiagram.png[]
+image::VersionTrackingClassDiagram.png[height=""500"]
 
 Step 2. After changing the state of the current active study plan (e.g. by calling `addmod cs1101s y1s1`),
 the user executes `commit first draft` command to save the current state of this study plan with the commit message
@@ -299,14 +299,15 @@ causing the modified state of the current active study plan after the execution 
 in the `StudyPlanCommitManager` corresponding to this study plan, inside the `VersionTrackingManager` under
 `ModulePlanner`.
 
-image::CommitStudyPlan.png[]
+image::CommitStudyPlan.png[height=""290"]
 
-Step 3. The user executes `revert 1.1` to revert to the commit indexed by `1` in the active study plan which
+Step 3. The user executes `revert 1.0` to revert to the commit indexed by `0` in the active study plan which
 has an ID of `1`. The `revert` command also calls `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
 causing the state of the study plan stored in this commit to be made active, and this reverted state to be saved
 into the `StudyPlanCommitManager` inside the `VersionTrackingManager` as a revert commit.
 
 image::RevertCommitSequenceDiagram.png[]
+(simplified diagram to reduce clutter; `revertToCommit` is abbreviated as `revert` etc.)
 
 [NOTE]
 If a study plan does not have any commit history, it will not call `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
@@ -317,15 +318,13 @@ and decides to delete that commit by executing the `removecommit` command. The `
 will call `Model#deleteCommit(int studyPlanIndex, int commitNumber)`,
 which will delete the commit specified by the `commitNumber` from the history of the study plan with ID `studyPlanIndex`.
 
-// image::UndoRedoState3.png[]
-
 [NOTE]
 If the commit number entered does not refer to a valid commit (e.g. there is no commit at all or the index is out of bounds),
 no deletion will take place. Instead the user will be prompted by an error message.
 
 The following activity diagram shows how the `removecommit` operation works:
 
-image::DeleteCommitActivityDiagram.png[]
+image::DeleteCommitActivityDiagram.png[height=""400"]
 
 ==== Design Considerations
 
@@ -789,13 +788,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is the `ModBuddy` and the *Actor* is the `Student`, unless specified otherwise)
+
 // tag::uc01[]
+
 === Use case: UC01 - Create study plan
 
 *MSS*
 
 1. User chooses to create a study plan.
-2. User enters the requested description.
+2. User enters the title of the study plan.
 3. ModBuddy displays the new study plan.
 
 +
@@ -804,13 +805,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 2a. User chooses not to enter a description.
-** 2a1. ModBuddy creates a new study plan with a default description.
-** 2a2. Use case resumes from step 4.
+* 2a. User chooses not to enter a title.
+** 2a1. ModBuddy creates a new study plan with a default title.
+** 2a2. Use case resumes from step 3.
 
 +
 Use case ends.
+
 // end::uc01[]
+
 === Use case: UC02 - Add module
 
 *MSS*
@@ -837,7 +840,7 @@ Use case ends.
 
 *MSS*
 
-1. Student requests to save the current version of the study plan
+1. Student requests to save the current version of the study plan.
 2. ModBuddy confirms that the version has been saved.
 +
 Use case ends.
@@ -942,7 +945,8 @@ Use case ends.
 .  The product should be free for all NUS CS undergraduate students.
 .  Should warn the user that the developers will not be held liable for any failure to graduate within normal candidature period due to the use of the product.
 
-// tag::glossary[]
+// tag::glossaryone[]
+
 [appendix]
 == Glossary
 
@@ -960,6 +964,8 @@ in a successful operation on viewing or manipulating the study plan(s).
 [[commit]] Commit::
 A version of a study plan that the user saves to a local file. The user may opt to view or revert to a particular
 version of any study plan.
+
+// end::glossaryone[]
 
 [[core-module]] Core module::
 A core module is compulsory for all students in the NUS Computer Science course in order to fulfill the graduation
@@ -987,6 +993,8 @@ requirements. Such modules include:
 * ST2334 Probability and Statistics
 * One Science Module
 
+// tag::glossarytwo[]
+
 [[co-requisite]] Co-requisite::
 Co-requisites are modules that are to be taken concurrently.
 
@@ -996,8 +1004,8 @@ as data in the form of programs. In particular, CS here refers to the course for
 Science (with Honours) offered by School of Computing (SoC), National University of Singapore (NUS).
 
 [[current-semester]] Current Semester::
-The semester in which the user is currently taking modules. All modules taken in and before the current semester are locked
-and uneditable. The user may manipulate modules after the current semester.
+The semester in which the user is currently taking modules. All modules taken before the current semester are considered
+completed.
 
 [[default-study-plan]] Default study plan::
 The recommended study plan for a CS freshman, pre-populated with core modules arranged in their recommended semesters of
@@ -1024,6 +1032,7 @@ the Focus Area. The ten Focus Areas are listed below:
 ** Computer Graphics and Games
 ** Computer Security
 ** Database Systems
+// end::glossarytwo[]
 ** Multimedia Information Retrieval
 ** Networking and Distributed Systems
 ** Parallel Computing
@@ -1100,7 +1109,8 @@ the module instructor or the Department academic advisor regarding the acceptabl
 
 [[semester]] Semester::
 An academic year in NUS consists of two regular semesters, each spanning 13 weeks excluding the recess and reading
-weeks. In our application, a semester is defined as a regular semester (as opposed to special semesters).
+weeks. In our application, a semester can be either a mainstream semester (see above) or a special semester (usually
+during summer).
 
 [[student]] Student::
 Our application is specifically targeted to students who study Computer Science (CS) in the School of

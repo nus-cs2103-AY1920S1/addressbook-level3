@@ -10,11 +10,13 @@ end box
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 participant ":ModulePlanner" as ModulePlanner MODEL_COLOR
+participant ":StudyPlanCommitManager" as StudyPlanCommitManager MODEL_COLOR
+participant ":CommitList" as CommitList MODEL_COLOR
 end box
-[-> LogicManager : execute(undo)
+[-> LogicManager : execute("revert 1.0")
 activate LogicManager
 
-LogicManager -> ModulePlannerParser : parseCommand(undo)
+LogicManager -> ModulePlannerParser : parseCommand("revert 1.0")
 activate ModulePlannerParser
 
 create RevertCommitCommand
@@ -30,13 +32,48 @@ deactivate ModulePlannerParser
 LogicManager -> RevertCommitCommand : execute()
 activate RevertCommitCommand
 
-RevertCommitCommand -> Model : revertToCommit(int studyPlanIndex, int commitNumber)
+RevertCommitCommand -> Model : revert(commitNumber)
 activate Model
 
-Model -> ModulePlanner : revertToCommit(int studyPlanIndex, int commitNumber)
+Model -> ModulePlanner : revert(commitNumber)
 activate ModulePlanner
 
-'ModulePlanner -> ModulePlanner :resetData(ReadOnlyAddressBook)
+ModulePlanner -> StudyPlanCommitManager : revert(commitNumber)
+activate StudyPlanCommitManager
+
+StudyPlanCommitManager -> CommitList : getStudyPlan(commitNumber)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager : studyPlan
+deactivate CommitList
+
+StudyPlanCommitManager -> CommitList : getCommitMessage(commitNumber)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager : commitMessage
+deactivate CommitList
+
+StudyPlanCommitManager -> StudyPlanCommitManager : commit(studyPlan, commitMessage)
+activate StudyPlanCommitManager
+
+StudyPlanCommitManager -> CommitList : commitStudyPlan(studyPlan, commitMessage)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager :
+deactivate CommitList
+
+StudyPlanCommitManager --> StudyPlanCommitManager :
+deactivate StudyPlanCommitManager
+
+StudyPlanCommitManager --> ModulePlanner : newActivePlan
+deactivate StudyPlanCommitManager
+
+ModulePlanner -> ModulePlanner : activate(newActivePlan)
+activate ModulePlanner
+
+ModulePlanner --> ModulePlanner :
+deactivate ModulePlanner
+
 ModulePlanner --> Model :
 deactivate ModulePlanner
 

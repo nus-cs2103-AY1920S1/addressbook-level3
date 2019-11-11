@@ -9,24 +9,12 @@ ifndef::env-github[]
 image::title.png[width="250"]
 endif::[]
 
-ifdef::env-github[]
-image::title.png[width="250"]
-endif::[]
-
-ifdef::env-github[]
-image::../docs/images/Ui.png[width="600"]
-endif::[]
-
-ifndef::env-github[]
-image::../images/Ui.png[width="600"]
-endif::[]
-
 == Overview
 
 CS ModBuddy is a desktop application used for NUS CS undergraduates to plan modules and manage their study plans.
-It supports basic operations such as adding modules to and removing modules from different semester.
+It supports basic operations such as adding modules to and removing modules from different semesters.
 In addition, the user may create multiple study plans, toggle between different versions of the same study plan,
-classify their modules via tagging, and check the various constraints on module prerequisites and MC-counts, while
+classify their modules via tagging, and check requirements on module prerequisites and MC-counts, while
 assisted by many user-friendly features such as undo/redo, autocomplete and an elegant GUI.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 30 kLoC.
 CS ModBuddy is morphed from AddressBook-Level 3.
@@ -39,15 +27,16 @@ Each study plan has its own commit history, which represents a chronological ser
 The user can make a commit, i.e. save the current state, and revert to this commit in the future if they so choose.
 ** Justification: This feature improves the product significantly because a user may be unsure of the changes they
 are currently making, and thus may want to revert to a previous state in the future.
-** Highlights: This feature stores a snapshot of the a study plan. Every time the user makes a commit, the study
+** Highlights: This feature stores a snapshot of a study plan. Every time the user makes a commit, the study
 plan is cloned and stored in a list of commits corresponding to each study plan. Corresponding JSON storage support
 was also implemented so that the commits can be stored to local files immediately.
 
 * *Minor enhancements*:
-- Enabled the user to add, delete, switch between multiple study plans.
+- Enabled the user to add, delete, and switch between multiple study plans.
 - Enabled the user to add and delete _non-mainstream_ semesters (i.e. special terms or Year 5 semesters).
 - Implemented most of the storage classes so that study plans and their associated information can be stored to
 local files in JSON format.
+- Allowed the user to obtain a recommended study plan with pre-populated modules.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=liuzechu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test code]]
 
@@ -62,6 +51,8 @@ local files in JSON format.
 *** Wrote additional tests to increase coverage from 69% to 74% (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/301[#301])
 ** Documentation:
 *** Updated the Storage section of the Developer Guide: https://github.com/AY1920S1-CS2103-F09-3/main/pull/314[#314]
+*** Wrote the Glossary of the Developer Guide (see below)
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-3/main/pull/232[#232]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/LiuZechu/ped/issues/1[1], https://github.com/LiuZechu/ped/issues/3[2], https://github.com/LiuZechu/ped/issues/4[3], https://github.com/LiuZechu/ped/issues/5[4], https://github.com/LiuZechu/ped/issues/7[5])
@@ -70,29 +61,22 @@ local files in JSON format.
 
 == Contributions to the User Guide
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 include::../UserGuide.adoc[tag=studyplan]
 
 include::../UserGuide.adoc[tag=versiontracking]
 
-include::../UserGuide.adoc[tag=movingasemester]
+include::../UserGuide.adoc[tag=addremovesems]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
-
-include::../DeveloperGuide.adoc[tag=storage]
+(https://ay1920s1-cs2103-f09-3.github.io/main/DeveloperGuide.html#Design-Storage[Storage section] omitted due to length limit)
 
 include::../DeveloperGuide.adoc[tag=versiontracking]
 
-include::../DeveloperGuide.adoc[tag=uc01]
-
 include::../DeveloperGuide.adoc[tag=uc03]
 
-include::../DeveloperGuide.adoc[tag=glossary]
+include::../DeveloperGuide.adoc[tag=glossaryone]
+
+include::../DeveloperGuide.adoc[tag=glossarytwo]
+\... +
+(For the full version, please refer to https://ay1920s1-cs2103-f09-3.github.io/main/DeveloperGuide.html#glossary[Developer Guide#Glossary])
