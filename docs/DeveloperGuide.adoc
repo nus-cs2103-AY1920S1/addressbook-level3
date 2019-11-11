@@ -673,9 +673,6 @@ user case ends.
 .  Should be able to minimize loss of stored flashcard information if the app closes due to unforeseen external circumstances.
 .  Command format should be easily understandable and intuitive to make it easier then using a GUI interface
 
-
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -684,23 +681,6 @@ Windows, Linux, Unix, OS-X
 
 [[flashcard]] Flashcard::
 A digital card that contains a short piece of information like an English word or a geography common knowledge. Normally used by people to facilitate the memorization process.
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -724,8 +704,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a flashcard
 
 . Deleting a flashcard  while all flashcards (in a tagged set/in the all-flashcard list) are listed
@@ -738,12 +716,8 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or ID number is negative)
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Manually make a Json file with invalid fields and see if FlashMind can identify these issues or not.
