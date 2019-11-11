@@ -6,7 +6,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.stream.Stream;
 
-import seedu.guilttrip.logic.commands.sortcommands.SortIncomeCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortWishCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;

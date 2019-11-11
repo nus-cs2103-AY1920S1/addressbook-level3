@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.ui.UiPart;
 

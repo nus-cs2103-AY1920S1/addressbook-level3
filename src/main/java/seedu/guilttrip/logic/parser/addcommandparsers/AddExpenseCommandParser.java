@@ -7,14 +7,12 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
 import seedu.guilttrip.logic.parser.ParserUtil;
-import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
 import seedu.guilttrip.model.entry.Category;

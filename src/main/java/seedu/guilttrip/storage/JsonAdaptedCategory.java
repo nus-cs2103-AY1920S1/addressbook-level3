@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
