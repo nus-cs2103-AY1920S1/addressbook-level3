@@ -23,19 +23,19 @@ The team consists of five Year 2 Computer Science undergraduates in the National
 
 The project was completed as part of a CS2103T Software Engineering module offered by the NUS School of Computing.
 We were given six weeks to either _morph_ or _enhance_ an existing Java project,
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)].
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book].
 
 We chose to morph the project into *Athletick*, a tool for coaches and captains to use to keep track of their
-team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan their
-schedules, and supports the sorting, filtering, and finding of athletes in their database.
+team's _attendance_ and _performance_. *Athletick* also features a calendar for coaches and captains to plan
+their schedules, and supports the _sorting_, _filtering_, and `searching` of athletes in their database.
 
 Like Address Book, *Athletick* uses the command-line as its main method of input and a JavaFX Graphical User
-Interface for display. Some constraints of the project were that it should have a command-line input, and
-it should be used by a single user only. The full list of constraints can be found
+Interface for display. Some constraints of the project were that it should _have a command-line input_, and
+it should be _used by a single user only_. The full list of constraints can be found
 https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
 
 My role was to build the _Performance_ feature, which encompasses the adding, deleting and viewing of
-events and records.
+_events_ and _records_.
 
 include::../DeveloperGuide.adoc[tag=symbol]
 
