@@ -50,7 +50,7 @@ public class EventAddCommandTest {
         VEvent validVEvent = new VEvent().withSummary(VALID_EVENT_NAME).withDateTimeStart(VALID_DATE_TIME_START)
                 .withDateTimeEnd(VALID_DATE_TIME_END);
         EventAddCommand addCommand = new EventAddCommand(validVEvent);
-        ModelStub modelStub = new ModelStubWithNote(validVEvent);
+        ModelStub modelStub = new ModelStubWithVEvent(validVEvent);
         assertThrows(CommandException.class, () -> addCommand.execute(modelStub), MESSAGE_DUPLICATE_EVENT);
     }
 
@@ -81,10 +81,10 @@ public class EventAddCommandTest {
     /**
      * A Model stub that contains a single vEvent.
      */
-    private class ModelStubWithNote extends ModelStub {
+    private class ModelStubWithVEvent extends ModelStub {
         private final VEvent vEvent;
 
-        ModelStubWithNote(VEvent vEvent) {
+        ModelStubWithVEvent(VEvent vEvent) {
             requireNonNull(vEvent);
             this.vEvent = vEvent;
         }

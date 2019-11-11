@@ -116,4 +116,18 @@ public class QuizBank implements Iterable<Quiz> {
         }
         return false;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof QuizBank)) {
+            return false;
+        }
+
+        QuizBank otherQuizBank = (QuizBank) other;
+        return otherQuizBank.quizzes.equals(this.quizzes);
+    }
 }

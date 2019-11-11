@@ -13,7 +13,6 @@ import org.apache.commons.math3.util.Pair;
 
 import javafx.collections.ObservableList;
 import jfxtras.icalendarfx.components.VEvent;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.event.EventScheduleViewMode;
@@ -21,7 +20,6 @@ import seedu.address.model.event.ReadOnlyEvents;
 import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.ReadOnlyNotesRecord;
-import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.quiz.ReadOnlyQuizzes;
@@ -38,7 +36,6 @@ public interface Model {
     /**
      * {@code Predicate} that always evaluate to true
      */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Student> PREDICATE_SHOW_ALL_STUDENTS = unused -> true;
     Predicate<Note> PREDICATE_SHOW_ALL_NOTES = unused -> true;
 
@@ -66,66 +63,6 @@ public interface Model {
 
     //endregion
 
-    //region AddressBook
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /**
-     * Returns the AddressBook
-     */
-    ReadOnlyAddressBook getAddressBook();
-    //endregion
-
-    //region Person
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address
-     * book.
-     */
-    boolean hasPerson(Person person);
-
-    /**
-     * Deletes the given person. The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person. {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist
-     * in the address book. The person identity of {@code editedPerson} must not be the same as
-     * another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /**
-     * Returns an unmodifiable view of the filtered list of persons
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     *
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-    //endregion
 
     //region SavedQuestions
 
