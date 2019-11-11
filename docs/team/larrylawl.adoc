@@ -90,4 +90,7 @@ include::../DeveloperGuide.adoc[tag=display]
 include::../DeveloperGuide.adoc[tag=addperson]
 
 
+include::../DeveloperGuide.adoc[tag=manualtestdisplay]
+
+
 
