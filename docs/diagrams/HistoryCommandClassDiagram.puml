@@ -4,12 +4,29 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
 
+package UI <<Rectangle>>{
+class HistoryListPanel
+class HistoryWindow
+class MainWindow
+class InputOutputCard
+}
+
+package Logic <<Rectangle>>{
+class Logic
+class LogicManager
+class CommandHistory
+class ObservableList
+class HistoryCommand
+class CommandResult
+}
+
 class MainWindow UI_COLOR
 class HistoryWindow UI_COLOR
-class TextArea UI_COLOR
+class HistoryListPanel UI_COLOR
+class InputOutputCard UI_COLOR
 
 CommandResult -left[hidden]------> ObservableList
-TextArea -right[hidden]----> ObservableList
+HistoryListPanel -right[hidden]----> ObservableList
 
 MainWindow -RIGHT-> Logic : "gets history flags from >"
 
@@ -20,9 +37,10 @@ HistoryCommand .down.> CommandResult : "produces >"
 LogicManager .right.> CommandResult: "gets \nresults \nfrom >"
 CommandHistory *-down-> "1" ObservableList
 
-HistoryWindow <-down- MainWindow: "sets\nflags <"
-HistoryWindow -down-> TextArea
-HistoryWindow .down.> ObservableList: "updates\ntextArea\nusing >"
+HistoryWindow <-down- MainWindow: "sets\ndisplay\nflags <"
+HistoryWindow *-down-> HistoryListPanel
+HistoryListPanel -down-> "*" InputOutputCard
+InputOutputCard .up.> ObservableList: prompts updates\non content change <
 
 
 @enduml
