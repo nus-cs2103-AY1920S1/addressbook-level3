@@ -54,11 +54,13 @@ public class StorageManager implements Storage {
                     Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]),
                     Integer.parseInt(stringArr[0]));
         } else {
-            throw new ParseFileException("Incorrect number of fields");
+            throw new ParseFileException("Incorrect number of fields in the File. The inventory list will be wiped "
+                    + "clean.");
         }
-        if (i.getSubtotal() >= 10000 || i.getTotalCost() >= 10000 || i.getQuantity() < 1
+        if (i.getSubtotal() >= 10000 || i.getTotalCost() >= 10000 || i.getQuantity() < 0
             || i.getCost() < 0 || i.getPrice() < 0) {
-            throw new NumberFormatException("Number(s) outside of approved range.");
+            throw new NumberFormatException("Number(s) outside of approved range. The inventory list will be wiped "
+                    + "clean.");
         }
         return i;
     }
