@@ -61,6 +61,7 @@ public class TypicalItems {
 
     // ====================== Xpire Items ==========================================================================
 
+    //@@author xiaoyu-nus
     // a basic item
     public static final XpireItem APPLE = new XpireItemBuilder()
             .withName(VALID_NAME_APPLE)
@@ -138,7 +139,7 @@ public class TypicalItems {
                                                         .withTags(VALID_TAG_FRIDGE)
                                                         .withReminderThreshold(VALID_REMINDER_THRESHOLD_PAPAYA)
                                                         .build();
-
+    //@@author
 
     //====================== Replenish List Items ====================================================
 
