@@ -1,19 +1,23 @@
 @startuml
-!include style.puml
+!include ../style.puml
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
 title After command "redo"
 
 package ModelHistory{
-    package PastModels {
+    package PastChanges {
         class State1 as "__m0:ModelChanges__"
         class State2 as "__m3:ModelChanges__"
 
         State1 -[hidden]up-> State2
     }
 
-    package FutureModels {}
+    package FutureChanges {}
 }
+
+class Pointer as "Changes to revert redo." #FFFFF
+
+Pointer -left-> State2
 
 @end

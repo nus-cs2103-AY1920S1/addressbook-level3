@@ -1,0 +1,96 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MooLahParser" as MooLahParser LOGIC_COLOR
+participant ":AddMenuExpenseCommandParser" as AddMenuExpenseCommandParser LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "c:AddMenuExpenseCommand" as AddMenuExpenseCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Menu" as Menu MODEL_COLOR
+participant "e:Expense" as Expense MODEL_COLOR
+participant "model:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addmenuexpense m/deck chicken rice")
+activate LogicManager
+
+LogicManager -> MooLahParser : parseCommand("addmenuexpense m/deck chicken rice")
+activate MooLahParser
+
+create AddMenuExpenseCommandParser
+MooLahParser -> AddMenuExpenseCommandParser
+activate AddMenuExpenseCommandParser
+
+AddMenuExpenseCommandParser --> MooLahParser
+deactivate AddMenuExpenseCommandParser
+
+MooLahParser -> AddMenuExpenseCommandParser : parse("addmenuexpense m/deck chicken rice")
+activate AddMenuExpenseCommandParser
+
+AddMenuExpenseCommandParser -> ParserUtil : parseMenuItem("deck chicken rice")
+activate ParserUtil
+
+ParserUtil -> Menu : findMenuItemByDescription("deck chicken rice")
+activate Menu
+
+Menu --> ParserUtil : menuItem
+deactivate Menu
+
+ParserUtil --> AddMenuExpenseCommandParser : menuItem
+deactivate ParserUtil
+
+create AddMenuExpenseCommand
+AddMenuExpenseCommandParser -> AddMenuExpenseCommand
+activate AddMenuExpenseCommand
+
+create Expense
+AddMenuExpenseCommand -> Expense
+activate Expense
+
+Expense --> AddMenuExpenseCommand : expense
+deactivate Expense
+
+AddMenuExpenseCommand --> AddMenuExpenseCommandParser : c
+deactivate AddMenuExpenseCommand
+
+AddMenuExpenseCommandParser --> MooLahParser : c
+deactivate AddMenuExpenseCommandParser
+AddMenuExpenseCommandParser -[hidden]-> MooLahParser : c
+destroy AddMenuExpenseCommandParser
+
+MooLahParser --> LogicManager : c
+deactivate MooLahParser
+
+LogicManager -> AddMenuExpenseCommand : run(model)
+activate AddMenuExpenseCommand
+
+AddMenuExpenseCommand -> AddMenuExpenseCommand : validate(model)
+activate AddMenuExpenseCommand
+
+AddMenuExpenseCommand --> AddMenuExpenseCommand
+deactivate AddMenuExpenseCommand
+
+AddMenuExpenseCommand -> AddMenuExpenseCommand : execute(model)
+activate AddMenuExpenseCommand
+
+AddMenuExpenseCommand -> Model : addExpense(expense)
+activate Model
+
+Model --> AddMenuExpenseCommand
+deactivate Model
+
+AddMenuExpenseCommand --> AddMenuExpenseCommand
+deactivate AddMenuExpenseCommand
+
+AddMenuExpenseCommand --> LogicManager : result
+deactivate AddMenuExpenseCommand
+AddMenuExpenseCommand -[hidden]-> LogicManager : result
+destroy AddMenuExpenseCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
