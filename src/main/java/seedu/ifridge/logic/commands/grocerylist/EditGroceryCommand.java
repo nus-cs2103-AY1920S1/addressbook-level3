@@ -27,7 +27,7 @@ import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing grocery item in the grocery list.
  */
 public class EditGroceryCommand extends Command {
 

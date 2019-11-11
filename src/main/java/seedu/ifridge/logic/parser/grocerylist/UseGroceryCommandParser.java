@@ -17,13 +17,13 @@ import seedu.ifridge.logic.parser.Prefix;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new UseGroceryCommand object
  */
 public class UseGroceryCommandParser implements Parser<UseGroceryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the UseGroceryCommand
+     * and returns an UseGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public UseGroceryCommand parse(String args) throws ParseException {
@@ -51,6 +51,7 @@ public class UseGroceryCommandParser implements Parser<UseGroceryCommand> {
             useGroceryItemDescriptor.setAmount(ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()));
         }
 
+        // if amount used is empty (less than minimum supported)
         if (!useGroceryItemDescriptor.isAmountUsed()) {
             throw new ParseException(UseGroceryCommand.MESSAGE_NOT_USED);
         }
