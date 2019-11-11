@@ -888,7 +888,7 @@ Before the execution, the `Rating` property will be present in exercises that ha
 image::AddCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 .A rating of 3 for exercise 7
-image::EditAnotherCustomrating.png[align="center", width=85%, scaledwidth=15cm]
+image::EditAnotherCustomRating.png[align="center", width=85%, scaledwidth=15cm]
 
 After the execution, the `Rating` property will be removed from all of the exercises and the app
 as illustrated in the next few figures.
