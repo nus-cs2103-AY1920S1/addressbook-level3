@@ -295,6 +295,7 @@ public class ModelManager implements Model {
 
         return stagedPatientBook.getPatientListByIndexes(indexes);
     }
+    //@@author
 
     // Undo/Redo/History specific methods
     //@@author gabrielchao

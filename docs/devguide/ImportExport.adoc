@@ -162,7 +162,3 @@ with `app-undo`.
 * **Alternative 3**: Implement a flag to toggle overriding.
 ** Pros: Best of both worlds.
 ** Cons: More coding and debugging work.
-
-==== Use Cases
-
-This section will detail some use cases for the import and export functionality.
