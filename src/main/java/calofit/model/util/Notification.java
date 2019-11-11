@@ -18,7 +18,7 @@ public class Notification {
      * @return boolean value
      */
     public boolean eatenBreakfast() {
-        if (currDateTime.getHour() > 10) {
+        if (currDateTime.getHour() > 9) {
             return false;
         } else {
             return true;
