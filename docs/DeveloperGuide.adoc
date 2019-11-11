@@ -1096,17 +1096,17 @@ Other ways of building the tree can be easily extended by overloading the
 `buildTree` method. However, this will not override the immutable properties of
 the tree.
 
-====== `AndOrTree` Dependency on Course
+====== Dependency on Course
 
-The `AndOrTree` posed some difficult for us in the decision to couple the
-implementation of `AndOrTree` with `Course`. This is because the tree would
+`AndOrTree` posed some difficulty for us, in the decision to couple the
+implementation of `AndOrTree` with `Course`. This is because the tree will
 only ever be used by the Course Planner within the program, and thus it is
 not required to implement the tree using generics. However, this would increase
 coupling between `AndOrTree` and `Course`, which is unfavourable for testing.
 
-We came up with two possible scenarios to this issue:
+Below are our considerations in implementing this data structure:
 
-* **Option 1: couple `AndOrTree` to `Course`**
+* **Option 1: Couple `AndOrTree` to `Course`**
 +
 This means that there is no need to pass any mapper function into the
 `buildTree()` method as the class does not need to know how to map from `String`
