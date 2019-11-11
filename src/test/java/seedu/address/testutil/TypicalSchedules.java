@@ -95,6 +95,6 @@ public class TypicalSchedules {
     }
 
     public static List<Schedule> getTypicalSchedules() {
-        return new ArrayList<>(Arrays.asList(MONDAY_SCHEDULE, FRIDAY_SCHEDULE, CBD_SCHEDULE));
+        return new ArrayList<>(Arrays.asList(MONDAY_SCHEDULE, FRIDAY_SCHEDULE));
     }
 }
