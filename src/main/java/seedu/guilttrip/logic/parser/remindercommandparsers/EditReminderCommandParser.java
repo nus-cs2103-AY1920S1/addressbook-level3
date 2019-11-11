@@ -32,19 +32,19 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditExpenseCommand object
+ * Parses input arguments and creates a new EditReminderCommand object
  */
 public class EditReminderCommandParser implements Parser<EditReminderCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the EditExpenseCommand
-     * and returns an EditExpenseCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditReminderCommand
+     * and returns an EditReminderCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     /**
      * Parses the given {@code String} of arguments in the context of the
-     *EditReminderCommand and returns an EditReminderCommand object for
+     * EditReminderCommand and returns an EditReminderCommand object for
      * execution.
      * @throws ParseException if the user input does not conform the expected format
      */

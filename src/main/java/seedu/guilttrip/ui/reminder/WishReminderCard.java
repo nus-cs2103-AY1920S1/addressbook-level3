@@ -19,7 +19,7 @@ import seedu.guilttrip.ui.entry.EntryCard;
  */
 public class WishReminderCard extends UiPart<Region> {
 
-    private static final String FXML = "/wishlist/WishListCard.fxml";
+    private static final String FXML = "wishlist/WishListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

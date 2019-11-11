@@ -65,7 +65,7 @@ public class LogicManager implements Logic {
         }
 
         if (guiltTripModified) {
-            logger.info("Finance tracker modified, saving to file");
+            logger.info("GuiltTrip modified, saving to file");
             try {
                 storage.saveGuiltTrip(model.getGuiltTrip());
             } catch (IOException ioe) {

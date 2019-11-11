@@ -38,7 +38,7 @@ import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.Frequency;
 
 /**
- * Edits the details of an existing entry in the guilttrip book.
+ * Edits the details of an existing reminder in the GuiltTrip.
  */
 public class EditReminderCommand extends Command {
 
@@ -69,8 +69,6 @@ public class EditReminderCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(EditReminderCommand.class);
 
     private EditReminderDescriptor editReminderDescriptor;
-
-
 
     /**
      * @param editReminderDescriptor details to edit the entry with

@@ -7,9 +7,8 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.reminders.Reminder;
 
-
 /**
- * Deletes a entry identified using it's displayed index from the guilttrip book.
+ * Deletes a reminder identified using it's displayed index from GuiltTrip.
  */
 public class DeleteReminderCommand extends Command {
 

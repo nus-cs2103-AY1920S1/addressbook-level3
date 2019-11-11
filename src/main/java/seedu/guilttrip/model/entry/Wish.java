@@ -5,7 +5,7 @@ import java.util.Set;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Represents an Expense.
+ * Represents an Wish.
  */
 public class Wish extends Entry {
     private static final String ENTRY_TYPE = "Wish";
@@ -18,8 +18,6 @@ public class Wish extends Entry {
         return ENTRY_TYPE;
     }
 
-
-    //TODO HIGHLY LIKELY ERROR
     /**
      * Returns a new Wish if and only if it's category is edited.
      */
@@ -29,8 +27,8 @@ public class Wish extends Entry {
     }
 
     /**
-     * Returns true if both expenses have the same data fields.
-     * This defines a stronger notion of equality between two entries.
+     * Returns true if both wishes have the same data fields.
+     * This defines a stronger notion of equality between two wishes.
      */
     @Override
     public boolean equals(Object other) {

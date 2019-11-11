@@ -25,10 +25,7 @@ public class SortType {
     /**
      * Constructs a {@code SortType}.
      *
-<<<<<<< HEAD
-=======
      * @param fullType A valid sortType.
->>>>>>> f659a201d941a9d7dedf6472b89947095b946820
      */
     public SortType(String fullType) throws IllegalArgumentException {
         requireNonNull(fullType);

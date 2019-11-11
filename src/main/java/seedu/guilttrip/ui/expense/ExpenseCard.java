@@ -11,11 +11,11 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Expense}.
  */
 public class ExpenseCard extends UiPart<Region> {
 
-    private static final String FXML = "/expense/ExpenseCard.fxml";
+    private static final String FXML = "expense/ExpenseCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

@@ -15,7 +15,7 @@ import seedu.guilttrip.ui.UiPart;
  * Side panel for wishes in wishlist.
  */
 public class WishListPanel extends UiPart<Region> {
-    private static final String FXML = "/wishlist/WishListPanel.fxml";
+    private static final String FXML = "wishlist/WishListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(WishListPanel.class);
 
     @FXML

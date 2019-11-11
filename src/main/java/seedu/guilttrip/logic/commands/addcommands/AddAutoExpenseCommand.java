@@ -17,7 +17,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.AutoExpense;
 
 /**
- * Adds a entry to the guilttrip book.
+ * Adds a AutoExpense to the guiltTrip.
  */
 public class AddAutoExpenseCommand extends Command {
 
@@ -46,7 +46,7 @@ public class AddAutoExpenseCommand extends Command {
     private final AutoExpense toAdd;
 
     /**
-     * Creates an AddAutoExpenseCommand to add the specified {@code Person}
+     * Creates an AddAutoExpenseCommand to add the specified {@code AutoExpense}
      */
     public AddAutoExpenseCommand(AutoExpense autoExpense) {
         requireNonNull(autoExpense);

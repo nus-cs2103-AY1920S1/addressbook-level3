@@ -18,7 +18,7 @@ import seedu.guilttrip.ui.UiPart;
  */
 public class IncomeReminderCard extends UiPart<Region> {
 
-    private static final String FXML = "/income/IncomeCard.fxml";
+    private static final String FXML = "income/IncomeCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

@@ -11,15 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A entry is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the entry being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a entry uses Person#equals(Object) so
- * as to ensure that the entry with exactly the same fields will be removed.
- *
+ * A list of incomes that enforces uniqueness between its elements and does not allow nulls.
  * Supports a minimal set of list operations.
- *
- * @see Person#isSamePerson(Person)
  */
 public class IncomeList implements Iterable<Income> {
 
@@ -28,7 +21,7 @@ public class IncomeList implements Iterable<Income> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent entry as the given argument.
+     * Returns true if the list contains an equivalent income as the given argument.
      */
     public boolean contains(Income toCheck) {
         requireNonNull(toCheck);
@@ -36,8 +29,8 @@ public class IncomeList implements Iterable<Income> {
     }
 
     /**
-     * Adds a entry to the list.
-     * The entry must not already exist in the list.
+     * Adds a income to the list.
+     * The income must not already exist in the list.
      */
     public void add(Income toAdd) {
         requireNonNull(toAdd);
@@ -46,9 +39,9 @@ public class IncomeList implements Iterable<Income> {
     }
 
     /**
-     * Replaces the entry {@code target} in the list with {@code editedPerson}.
+     * Replaces the income {@code target} in the list with {@code editedIncome}.
      * {@code target} must exist in the list.
-     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
+     * The income identity of {@code editedIncome} must not be the same as another existing income in the list.
      */
     public void setIncome(Income target, Income editedIncome) {
         requireAllNonNull(target, editedIncome);
@@ -73,13 +66,13 @@ public class IncomeList implements Iterable<Income> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code incomes}.
+     * {@code incomes} must not contain duplicate incomes.
      */
-    public void setEntries(List<Income> entries) {
-        requireAllNonNull(entries);
+    public void setEntries(List<Income> incomes) {
+        requireAllNonNull(incomes);
 
-        internalList.setAll(entries);
+        internalList.setAll(incomes);
     }
 
     /**

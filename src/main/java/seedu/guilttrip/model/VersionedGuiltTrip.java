@@ -5,20 +5,19 @@ import java.util.List;
 
 import seedu.guilttrip.commons.core.step.Step;
 
-
 /**
  * {@code GuiltTrip} that keeps track of its own history.
  */
 public class VersionedGuiltTrip extends GuiltTrip {
 
-    private final List<ReadOnlyGuiltTrip> addressBookStateList;
+    private final List<ReadOnlyGuiltTrip> guiltTripStateList;
     private int currentStatePointer;
 
     public VersionedGuiltTrip(ReadOnlyGuiltTrip initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new GuiltTrip(initialState));
+        guiltTripStateList = new ArrayList<>();
+        guiltTripStateList.add(new GuiltTrip(initialState));
         currentStatePointer = 0;
     }
 
@@ -28,49 +27,49 @@ public class VersionedGuiltTrip extends GuiltTrip {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new GuiltTrip(this));
+        guiltTripStateList.add(new GuiltTrip(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        guiltTripStateList.subList(currentStatePointer + 1, guiltTripStateList.size()).clear();
     }
 
     /**
-     * Restores the guilttrip book to its previous state.
+     * Restores the GuiltTrip to its previous state.
      */
     public void undo() {
         if (!canUndo(new Step("1"))) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(guiltTripStateList.get(currentStatePointer));
     }
 
     /**
-     * Restores the guilttrip book to its previously undone state.
+     * Restores the GuiltTrip to its previously undone state.
      */
     public void redo() {
         if (!canRedo(new Step("1"))) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(guiltTripStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns true if {@code undo()} has guilttrip book states to undo.
+     * Returns true if {@code undo()} has GuiltTrip states to undo.
      */
     public boolean canUndo(Step step) {
         return currentStatePointer >= step.value;
     }
 
     /**
-     * Returns true if {@code redo()} has guilttrip book states to redo.
+     * Returns true if {@code redo()} has GuiltTrip states to redo.
      */
     public boolean canRedo(Step step) {
-        return currentStatePointer + step.value <= addressBookStateList.size() - 1;
+        return currentStatePointer + step.value <= guiltTripStateList.size() - 1;
     }
 
     @Override
@@ -85,11 +84,11 @@ public class VersionedGuiltTrip extends GuiltTrip {
             return false;
         }
 
-        VersionedGuiltTrip otherVersionedAddressBook = (VersionedGuiltTrip) other;
+        VersionedGuiltTrip otherVersionedGuiltTrip = (VersionedGuiltTrip) other;
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedGuiltTrip)
+                && guiltTripStateList.equals(otherVersionedGuiltTrip.guiltTripStateList)
+                && currentStatePointer == otherVersionedGuiltTrip.currentStatePointer;
     }
 
     /**
@@ -97,7 +96,7 @@ public class VersionedGuiltTrip extends GuiltTrip {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of guiltTripState list, unable to undo.");
         }
     }
 
@@ -106,7 +105,7 @@ public class VersionedGuiltTrip extends GuiltTrip {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of guiltTripState list, unable to redo.");
         }
     }
 
