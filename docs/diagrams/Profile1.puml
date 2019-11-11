@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+!define MS(x) <font: monospaced>x</font>
+
+/'Beta syntax is not able to replicate this diagram in a neat way. However with the legacy
+ syntax, branch labels cannot include square brackets without breaking. Hence, "&#93;" is
+ used to escape the closing square bracket.
+ (See https://forum.plantuml.net/6374/escape-square-brackets-in-a-label)'/
+
+(*top) --> "MS(ProfileWindow) instance is open"
+--> "Check if user pressed 'MS(p)' or \npressed 'MS(Generate Profile File)' button"
+if "" then
+    --> [[Pressed&#93;] "MS(GenerateProfileCommand) invoked"
+    --> "Check if user pressed 'MS(esc)' or \nmanually closed MS(ProfileWindow)"
+else
+    --> [[Not pressed&#93;] "Check if user pressed 'MS(esc)' or \nmanually closed MS(ProfileWindow)"
+    if "" then
+        --> [[Closed&#93;] "MS(ProfileWindow) is hidden"
+        --> (*)
+    else
+        --> [[Not closed&#93;] "MS(ProfileWindow) instance is open"
+    endif
+endif
+
+@enduml

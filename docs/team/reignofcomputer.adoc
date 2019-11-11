@@ -1,0 +1,259 @@
+= Jason Chee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :exclamation:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
+
+== PROJECT: VISIT
+
+---
+
+== Overview
+
+VISIT is an open-source Customer Relationship Management (CRM) software for *House Call Doctors*. It is based on a Command-Line Interface (CLI) application called AddressBook3 by the SE-EDU Initiative. The UnrealUnity Team comprising of 5 people including myself introduced features that allow these doctors on-the-go to manage their appointments in an easy and enhanced fashion. It is written in Java with its GUI created in JavaFX, and has about 16 kLoC.
+
+[.text-center]
+.VISIT Main Window
+image::Ui.png[width="900"]
+
+I was tasked with conceptualizing and implementing the *Appointments* system comprising of *Reminders* and *Follow-ups*. This document highlights these features and provides the documentation for them from the User and Developer Guides.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *the appointments system*
+** What it does: Allows the user to create and manage appointments such as follow-ups with patients and general reminders.
+** Justification: Doctors need a way to track when their next appointments are, or to follow-up with patients in their care, such as if the patient has been cured by the end of their antibiotics dose. They also need some way to track important deadlines and events through reminders, such as a particular hospital being closed.
+** Highlights: This enhancement required two data structures to be used at the same time in parallel due to the underlying way data is stored in AddressBook3. Due to the lack of documentation from how most of the base project worked, a lot of tracing and trial-and-error had to be done.
+
+* *Minor enhancement*: Forced commands without arguments to refuse execution if invalid arguments are still specified.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ReignOfComputer&tabRepo=AY1920S1-CS2103T-F12-2%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Tests:
+*** Wrote additional tests to increase coverage from 55% to 63% (Pull requests https://github.com/AY1920S1-CS2103T-F12-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/190[#190])
+** Project management:
+*** Managed the look and feel of the GitHub website, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/57[#57]
+*** Provisioned site short-urls and project email address.
+*** Vetted and assigned incoming Issues to team members.
+*** Performed major refactoring to rebrand project.
+** Documentation:
+*** Worked on documentation for the project, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/191[#191]
+** Community:
+*** 17 PRs reviewed, example with non-trivial review comments: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/27[#27]
+*** Reported bugs and suggestions for other projects using AddressBook3 as a base (examples: 25 issues opened in https://github.com/AY1920S1-CS2103T-T13-2/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Anus-pe-bot+[Mortago], code review of https://github.com/AY1920S1-CS2103T-F12-1/main/tree/master[Horo])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== *Appointment System*
+
+====
+VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up visits or other timed reminders.
+
+There are two kinds of Appointments: Follow-Ups and Reminders.
+
+You can only have one active Appointment of the same title, adding the same Appointment with a different day count will simply update the existing Appointment.
+
+Follow-ups in this version do not update if you change the name of the patient after the follow-up is created.
+====
+
+==== Adding a follow-up visit with patient : `followup`
+
+Adds a follow-up visit for a particular patient. You can add one even if you have never had a visit with the patient in the past. The application will keep track of when your next appointment with the patient is on the Appointments window. +
+Format: `followup INDEX [d/DAYS]`
+
+[TIP]
+The follow-up entry will by default generate the follow-up for 7 days' time if not specified.
+
+*Examples*:
+
+* `followup 9 d/10` +
+Creates a follow-up entry on patient with index 9 for 10 days later.
+* `followup 1` +
+Creates a follow-up entry on patient with index 1 for 7 days later.
+
+[.text-center]
+image::UGApptFollowUps.png[width="380"]
+
+==== Creating a generic reminder : `reminder`
+
+Creates a new reminder to show up in the Appointments window. +
+Format: `reminder TEXT [d/DAYS]`
+
+[TIP]
+The reminder entry will by default generate the prompt for 7 days' time if not specified.
+
+*Examples*:
+
+* `reminder Two Point Hospital closed d/10` +
+Creates a reminder "Two Point Hospital closed" that will display for the next 10 days.
+* `reminder Losartan recall` +
+Creates a reminder "Losartan recall" that will display for the next 7 days.
+
+[.text-center]
+image::UGApptReminders.png[width="380"]
+
+==== Removing an Appointment : `removeappt`
+
+Remove an appointment from VISIT. This can be either a Follow-up or Reminder. +
+Format: `removeappt DESCRIPTION [d/DAYS]`
+
+[TIP]
+Any appointment matching just the description will be removed if the specific days is not specified.
+
+*Examples*:
+
+* `removeappt Two Point Hospital closed` +
+Removes any appointment which description is "Two Point Hospital closed".
+* `removeappt Satya Nadella` +
+Removes any appointments with the patient whose name is Satya Nadella.
+
+[.text-center]
+image::UGApptRemoveAppt.png[width="380"]
+
+==== Show Appointments "Message of the Day" box : `show`
+
+Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
+Format: `show`
+
+[.text-center]
+image::UGApptShow.png[width="380"]
+
+==== Sort Appointments : `sort`
+
+Sorts the appointments in order of type, days remaining, and finally by name. +
+Format: `sort`
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Appointments feature
+==== Implementation
+The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
+
+[.text-center]
+.Appointment Class Diagram
+image::DGApptAppointmentClassDiagram.png[width="300"]
+
+[.text-center]
+.AppointmentList Class Diagram
+image::DGApptAppointmentListClassDiagram.png[width="400"]
+
+[.text-center]
+.AppointmentTable Class Diagram
+image::DGApptAppointmentTableClassDiagram.png[width="400"]
+
+The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
+
+It implements the following operations:
+
+* `AppointmentTable#getDefaultAppointments()` -- Returns a default, empty `AppointmentTable`.
+* `AppointmentTable#getAppointmentList()` -- Returns an `ObservableList` version of the Appointments for UI usage. This is necessary as `AppointmentTable` is loaded on launch and `AppointmentList` uses this data to propagate the UI.
+* `AppointmentTable#addAppointment(type, description, days)` -- Adds a new Appointment.
+* `AppointmentTable#deleteAppointment(description, days)` -- Deletes an appointment from VISIT.
+* `AppointmentTable#antiDuplicate(check, description, days)` -- Checks if the Appointment already exists. Returns true if there is no duplicate, false if there is a duplicate.
+* `AppointmentTable#sortAppointments()` -- Sorts the list of appointments by days remaining, then name.
+* `AppointmentTable#cascadeDay(days)` -- Decrements the days an Appointment has left. Run on application launch by `UserPrefs` after calculating days elapsed.
+* `AppointmentTable#outputAppointments()` -- Outputs the Appointments to readable String.
+
+These operations are exposed in the `Model` interface.
+
+The following sequence diagram shows how adding an appointment works, using reminders as an example:
+
+[.text-center]
+.Adding an Appointment Sequence Diagram
+image::DGApptAddAppointmentSequenceDiagram.png[]
+
+The following activity diagram shows how adding an appointment works, using follow-ups as an example:
+
+[.text-center]
+.Adding an Appointment Activity Diagram
+image::DGApptFollowUpActivityDiagram.png[width="275"]
+
+[.hide-for-print]
+
+--
+
+[discrete]
+== PROJECT: https://github.com/ReignOfComputer/Stegotreon[Stegotreon]
+
+---
+
+[.text-center]
+image:https://github.com/ReignOfComputer/Stegotreon/raw/master/Screenshot.png[width="790"]
+
+Stegotreon takes a PNG file and a line-separated text file, then automatically generates files with text hidden inside through steganograpy.
+
+Artists on Patreon (and elsewhere) have an issue where their art is leaked outside the paywall. Some have resorted to sending image files directly to patrons, though leaks still happen. Stegotreon creates unique variants of the image file that can be reversed to identify the leaker, even if the file name is changed.
+
+Stegotreon has the ability to send emails on your behalf using SMTP.
+
+[discrete]
+== PROJECT: https://github.com/ReignOfComputer/KerfuffleCipher[KerfuffleCipher]
+
+---
+
+[.text-center]
+image:https://github.com/ReignOfComputer/KerfuffleCipher/raw/master/Screenshot.png[width="790"]
+
+The Kerfuffle Cipher relays messages and data through matrices, represented as arrays in programming languages. Each character in a message will be represented by a 3x1 matrix.
+
+[discrete]
+== PROJECT: https://github.com/ReignOfComputer/JavaPather[JavaPather]
+
+---
+
+[.text-center]
+image:https://github.com/ReignOfComputer/JavaPather/raw/master/Screenshot.png[width="790"]
+
+Adding Java to Windows PATH is too many steps, this automatically tries to detect your Java installation and lets you choose to add it to your User Environment Variables (Machine with Administrator elevation). This allows you to use javac and java commands from CLI, such as Command Prompt and Windows PowerShell. Among other things.
+
+[discrete]
+== PROJECT: https://github.com/ReignOfComputer/JavaTestCenter[JavaTestCenter]
+
+---
+
+[.text-center]
+image:https://github.com/ReignOfComputer/JavaTestCenter/raw/master/Screenshot.png[width="790"]
+
+Quick program for testing simple .java programs. Expects Java to be in System PATH, use JavaPather if not. Takes in a .java file, compiles (-cp) and runs it, optionally takes in input and output and compares.
+
+[discrete]
+== PROJECT: https://github.com/ReignOfComputer/SG-Radio-for-Windows-8.1[SG Radio for Windows]
+
+---
+
+[.text-center]
+image:https://raw.githubusercontent.com/ReignOfComputer/SG-Radio-for-Windows-8.1/master/SGRadioSS.png[width="790"]
+
+Back in 2012, I was actively developing Windows Phone and Windows 8's Metro/Modern/Universal apps - which eventually led to a stint at Microsoft. SG Radio was one such app, and was developed and released as a launch app for Windows 8. SG Radio then went through a drastic upgrade in 2013 (for the release of Windows 8.1), and used as a showcase app in many of Microsoft's demos for both consumers and developers.
+
+SG Radio aggregates various Singapore Radio stations, including Internet radio stations. It's able to get the title of the track that's currently playing and in the past, used Mediacorp's now defunct API to retrieve lyrics as well.
+
+There are various other features built in, such as a standby mode that shows the current time and song, and a timer to shutdown playback after some time. Users are able to mark stations as a favorite, and can even bookmark a song that's currently playing.
+
+[discrete]
+== PROJECT: RoC Apps
+
+---
+
+Under RoC Apps, I have also made several applications for companies like Microsoft and Government of Singapore.
+
+You can reach me at roc [at] reignofcomputer.com for more information.
+
+--

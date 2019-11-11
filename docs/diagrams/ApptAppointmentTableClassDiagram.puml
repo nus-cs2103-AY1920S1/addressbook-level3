@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+show members
+
+  namespace unrealunity.visit {
+    namespace model {
+      namespace appointment {
+        class unrealunity.visit.model.appointment.AppointmentTable {
+            - followup : HashMap<String, Integer>
+            - reminders : HashMap<String, Integer>
+            + AppointmentTable()
+            + addAppointment()
+            + cascadeDay()
+            + deleteAppointment()
+            + equals()
+            + getAppointmentList()
+            {static} + getDefaultAppointments()
+            + hashCode()
+            + outputAppointments()
+            + sortAppointments()
+            + toString()
+            - antiDuplicate()
+            - sort()
+        }
+      }
+    }
+  }
+
+@enduml

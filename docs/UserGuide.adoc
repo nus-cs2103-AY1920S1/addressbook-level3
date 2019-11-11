@@ -1,6 +1,7 @@
-= AddressBook Level 3 - User Guide
+= VISIT - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -11,30 +12,37 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :exclamation:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team UnrealUnity`      Since: `Sep 2019`      Licence: `MIT`
+
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the VISIT User Guide! +
+ +
+*VISIT* is a *desktop address book application* for Doctors to *plan their visits* and *manage their patient information*. Most notably, VISIT is *optimized for Doctors who prefer to use a Command Line Interface* (CLI) while still having a pleasant Graphical User Interface (GUI). If your typing speed is sufficiently quick, VISIT can *greatly increase your efficiency* in managing your patient profiles and appointments. +
+
+This user guide provides in-depth documentation on how to use quickly get up to speed on using VISIT. Interested in spending less time resolving logistical hiccups and more time doing your job? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `VISITapp.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for VISIT.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+[.text-center]
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* *`list`* : lists all patients
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a patient named `John Doe` to VISIT's address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -44,134 +52,549 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
-*Command Format*
+*Using Commands in this Guide*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* All commands listed are *case-insensitive*.
+* Words in `UPPER_CASE` represent the parameters to be specified.
+Parameter headers are required to be in lower-case. +
+e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are *optional*. +
+e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/cough` or as `n/John Doe`.
+* Items with `…`​ after them can be used optionally or multiple times. +
+e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cancer`, `t/pneumonia t/h1n1` etc.
+* Parameters can be in any order if suffixes like "n/" or "p/" are specified. +
+e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== *Application Commands*
 
+
+==== Viewing help : `help`
+
+Shows a quick list of user commands. A link to this User Guide is also provided for the full overview of commands. +
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+==== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+=== *Viewing and Managing Patients*
+
+====
+VISIT can store all the patient information for doctors for easy access. The following commands enable doctors to be able to add patients and their relevant particulars to be tracked by VISIT, and also view a list of patients that have been entered.
+====
+
+==== Listing all patients : `list`
+
+Shows a list of all patients in the Patients dashboard. Used after a search function to return back to the full list. +
+Format: `list`
+
+==== Adding a patient : `add`
+
+Adds a patient to the Patients list. +
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+
+[TIP]
+A patient can have any number of tags (including 0). Tags will be appear in lowercase and ignore duplicates.
+
+*Examples*:
+
+* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234567 t/pneumonia`
+
+==== Editing a patient's particulars : `edit`
+
+Edits an existing patient in the Patients list. +
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+
+****
+* Edits the patient at the specified `INDEX`. The index refers to the index number shown in the displayed patient list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the patient will be removed i.e adding of tags is not cumulative.
+* You can remove all the patient's tags by typing `t/` without specifying any tags after it.
+****
+
+*Examples*:
+
+* `edit 1 p/91234567 e/johndoe@example.com` +
+Edits the phone number and email address of the 1st patient to be `91234567` and `johndoe@example.com` respectively.
+* `edit 2 n/Betsy Crower t/` +
+Edits the name of the 2nd patient to be `Betsy Crower` and clears all existing tags.
+
+==== Locating patient by name : `find`
+
+Finds patients whose names contain the queried KEYWORD. +
+Format: `find KEYWORD`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* Only the name is searched.
+* Partial words will be matched as well. e.g. `Han` will match `Hans`
+* All Patients matching the keyword will be returned.
+****
+
+*Examples*:
+
+* `find John` +
+Returns `john` and `John Doe`
+* `find ans` +
+Returns `Hans` and `Aziz Ansari`
+
+// tag::delete[]
+==== Deleting a patient : `delete`
+
+Deletes the specified patient from the Patients list. +
+Format: `delete INDEX`
+
+****
+* Deletes the patient at the specified `INDEX`.
+* The index refers to the index number shown in the displayed patient list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+*Examples*:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd patient in the list.
+* `find Betsy` +
+`delete 1` +
+Deletes the 1st patient in the results of the `find` command.
+
+// end::delete[]
+==== Clearing all patient data : `clear`
+
+Clears all entries from the Patients list. +
+Format: `clear`
+
+[WARNING]
+Be careful when entering this, as this will erase all patient data from VISIT!
+
+// tag::profile[]
+=== *Viewing and Generating a Patient's Profile*
+
+VISIT allows you to visualize a specified patient’s full details on an easy to access panel. The command can be initiated as follows:  +
+Format: `profile INDEX`
+
+****
+* Shows full profile for the patient at the specified INDEX.
+* The index refers to the index number shown in the displayed patient list.
+* The index must be a positive integer 1, 2, 3, …
+****
+
+==== *Opening a Profile Window:* : `profile`
+*Step 1*: Enter in `profile 1` into the command bar and press kbd:[Enter].
+[.text-center]
+image::UGProfile0.png[width="450"]
+
+*Step 2*: A pop out panel will appear, detailing the various attributes of the specified Patient.
+
+[.text-center]
+image::UGProfile1.png[width="450"]
+
+This window includes all Patient attributes and visitation records.
+
+[WARNING]
+You must close this window before doing anything else with VISIT (Adding Visits, Deleting Patients, etc.).
+
+*Closing the panel* +
+Clicking on the cross on the top-right of the panel or pressing kbd:[esc] button on your keyboard will close the panel.
+
+==== *Generating and Exporting a Profile as a .txt file*
+
+You can generate a text file containing the contents of the Patient's Profile, for your own archiving purposes and exporting.
+
+*Step 1*: Press kbd:[p] on your keyboard or click the kbd:[Generate Profile File] button.
+
+[NOTE]
+You will see a message saying "_Profile .txt created in /generated_profiles/_." once the Profile has been successfully generated.
+
+*Step 2*: Navigate to the _generated_profiles_ folder located in the parent folder of _VISITapp.jar_
+
+[.text-center]
+image::UGProfile3.png[width="500"]
+
+*Step 3*: Access the generated profile stored in the folder.
+
+[.text-center]
+image::UGProfile4.png[width="400"]
+
+[NOTE]
+The generated text file will be the following format: _Name_Contact Number_Date Time.txt_ e.g. _Alex Yeoh_87438807_02-11-2019 20-33-58.txt_
+
+
+Below is an example of a generated profile .txt file:
+[.text-center]
+image::UGProfile5.png[width="400"]
+
+[WARNING]
+While files are write-protected, you can still create duplicate copies for editing. Data encryption and safer data handling is planned for VISIT v2.0 (See <<Upcoming-Features>>).
+
+// end::profile[]
+
+// tag::visitreports[]
+=== *Viewing and Managing Visits*
+
+====
+VISIT enables doctors to also track the visitations for each patient, allowing the specification of diagnosis, medications prescribed as well as other general comments per visit.
+====
+
+==== Adding a new visitation report for a patient : `addvisit`
+Opens a pop-up panel that enables the specification of a new visitation report for a particular patient. +
+
+Format: `addvisit INDEX [v/DATE]`
+
+*Example*:
+
+Let's say that you have just gotten a patient's folder of past visits and you want to record a house call made on 3rd January 2019.
+The patient is 1st in the list.
+
+To enter the details of the report into VISIT:
+
+1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
++
+[.text-center]
+image::UGAddVisit0.png[width="500"]
++
+* Date must be in the "dd/MM/yyyy" format (e.g. `v/19/10/2019`). The valid range of dates starts from the year 1900 and ends at year 2999 (inclusive).
+[TIP]
+If no date is specified and the command is used without the prefix 'v/' (for example `addvisit 1`), the report will default to the current local date of the computer.
+2. Key in the details in the respective fields of the pop-up form that appears.
++
+[.text-center]
+image::UGAddVisit1.png[width="500"]
++
+* Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
+* Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
+3. Click the kbd:[Save] button or press kbd:[F2] to save your entry.
+4. The pop-up form closes and the display box will display a message indicating a successful entry.
++
+[.text-center]
+image::UGAddVisit2.png[width="500"]
++
+
+[NOTE]
+While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
+
+[.text-center]
+image::UGAddVisit3.png[width="500"]
+==== Editing the particulars of a visitation report : `editvisit`
+
+Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
+Format: `editvisit INDEX [i/REPORT_INDEX]`
+
+[NOTE]
+If no report index is specified, `editvisit INDEX` or `editvisit INDEX i/` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
+
+[.text-center]
+image::UGEditVisit0.png[width="500"]
+
+*Example*:
+
+Let's say you want to edit the 2nd visit report of a patient and the patient is the 3rd name in the list.
+
+1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
++
+[.text-center]
+image::UGEditVisit1.png[width="500"]
++
+2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
++
+[.text-center]
+image::UGEditVisit2.png[width="500"]
++
+* Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
+* Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
+3. Click the kbd:[Save] button or press kbd:[F2] to save your edits.
+4. The pop-up form closes and the display box will display a message indicating a successful entry.
+
+[.text-center]
+image::UGEditVisit3.png[width="500"]
+
+[NOTE]
+An error will be thrown if the report with the given report index does not exist or the index given is not a number.
+
+[.text-center]
+image::UGEditVisit4.png[width="500"]
+
+==== Deleting a visitation report : `deletevisit`
+
+Deletes the specified visitation report. +
+Format: `deletevisit INDEX [d/REPORT_INDEX]`
+
+[NOTE]
+If no report index is specified, `deletevisit INDEX` or `deletevisit INDEX d/` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
+
+[.text-center]
+image::UGDeleteVisit0.png[width="500"]
+
+*Example*:
+
+Let's say you want to delete the 1st visit report of a patient and the patient is the 2nd name in the list.
+
+1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
++
+[.text-center]
+image::UGDeleteVisit1.png[width="500"]
++
+2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
+
+[.text-center]
+image::UGDeleteVisit2.png[width="500"]
+
+[NOTE]
+An error will be thrown if the report with the given report index does not exist or the index given is not a number.
+
+[.text-center]
+image::UGDeleteVisit3.png[width="500"]
+
+For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
+
+[.text-center]
+image::UGNoRecords.png[width="500"]
+// end::visitreports[]
+[[appointmentsImplementation]]
+// tag::appointments[]
+=== *Appointment System*
+
+====
+VISIT also enables doctors to keep abreast and up-to-date on any events or deadlines as VISIT can be customized to remind them of any follow-up visits or other timed reminders.
+
+There are two kinds of Appointments: Follow-Ups and Reminders.
+
+You can only have one active Appointment of the same title, adding the same Appointment with a different day count will simply update the existing Appointment.
+
+Follow-ups in this version do not update if you change the name of the patient after the follow-up is created.
+====
+
+==== Adding a follow-up visit with patient : `followup`
+
+Adds a follow-up visit for a particular patient. You can add one even if you have never had a visit with the patient in the past. The application will keep track of when your next appointment with the patient is on the Appointments window. +
+Format: `followup INDEX [d/DAYS]`
+
+[TIP]
+The follow-up entry will by default generate the follow-up for 7 days' time if not specified.
+
+*Examples*:
+
+* `followup 9 d/10` +
+Creates a follow-up entry on patient with index 9 for 10 days later.
+* `followup 1` +
+Creates a follow-up entry on patient with index 1 for 7 days later.
+
+[.text-center]
+image::UGApptFollowUps.png[width="500"]
+
+==== Creating a generic reminder : `reminder`
+
+Creates a new reminder to show up in the Appointments window. +
+Format: `reminder TEXT [d/DAYS]`
+
+[TIP]
+The reminder entry will by default generate the prompt for 7 days' time if not specified.
+
+*Examples*:
+
+* `reminder Two Point Hospital closed d/10` +
+Creates a reminder "Two Point Hospital closed" that will display for the next 10 days.
+* `reminder Losartan recall` +
+Creates a reminder "Losartan recall" that will display for the next 7 days.
+
+[.text-center]
+image::UGApptReminders.png[width="500"]
+
+==== Removing an Appointment : `removeappt`
+
+Remove an appointment from VISIT. This can be either a Follow-up or Reminder. +
+Format: `removeappt DESCRIPTION [d/DAYS]`
+
+[TIP]
+Any appointment matching just the description will be removed if the specific days is not specified.
+
+*Examples*:
+
+* `removeappt Two Point Hospital closed` +
+Removes any appointment which description is "Two Point Hospital closed".
+* `removeappt Satya Nadella` +
+Removes any appointments with the patient whose name is Satya Nadella.
+
+[.text-center]
+image::UGApptRemoveAppt.png[width="500"]
+
+==== Show Appointments "Message of the Day" box : `show`
+
+Shows a pop-up containing the appointments. This is useful if you want to keep a small window just containing the appointments on the screen, separate from the main window. +
+Format: `show`
+
+[.text-center]
+image::UGApptShow.png[width="500"]
+
+==== Sort Appointments : `sort`
+
+Sorts the appointments in order of type, days remaining, and finally by name. +
+Format: `sort`
+// end::appointments[]
+
+=== *Optimization for Command-Line Interface (CLI) Users*
+
+====
+VISIT being an application optimized for doctors who are comfortable with CLI, has support for features such as aliasing for commands to enable command entries which are often used to be stored and used quickly and easily.
+====
+
+==== Setting a shorthand command / alias : `alias`
+
+Set an alias for a command to enable faster command entry for a customized input. This command will override your previous mapping for the alias if there exists a prior mapping. Additionally, using existing commands as aliases is disallowed. +
+Format: `alias l/SHORTHAND v/COMMAND`
+
+*Examples*:
+
+* `alias l/ls v/list` +
+Typing `ls` now works equivalently as typing `list`.
+* `alias l/display all patients v/list` +
+Typing `display all patients` now works equivalently as typing `list`.
+
+[.text-center]
+image::UGAddAlias.png[width="500"]
+
+[NOTE]
+The `alias` command will override any previous alias mapping if any. +
+All your aliases are saved across multiple sessions and are persistent until removed.
+
+==== Removing a shorthand command / alias : `unalias`
+
+Delete an existing alias, if it exists. +
+Format: `unalias SHORTHAND`
+
+*Examples*:
+
+* `unalias ls` +
+Typing `ls` will no longer be equivalent to typing `list`.
+
+[.text-center]
+image::UGUnalias.png[width="500"]
+
+==== Showing all existing shorthand commands / aliases : `aliaslist`
+
+Show all existing aliases. +
+Format: `aliaslist`
+
+Examples:
+
+* `aliaslist` +
+Shows all the existing aliases.
+
+[.text-center]
+image::UGAliasList.png[width="500"]
+
+==== Using aliases
+To use a user-defined alias, you just have to type the alias you defined. Additional optional parameters can also be specified if the aliased command takes in additional arguments. +
+Format: `SHORTHAND [additional arguments]`
+
+Examples:
+
+[.text-center]
+image::UGApplyAlias.png[width="500"]
+
+[NOTE]
+Matching of aliases uses the longest substring match. (i.e. if there exists an alias _follow 7_ and _follow_, typing _follow 7_ will always match with _follow 7_ instead of _follow_.)
+
+=== *Saving the data*
+
+VISIT's address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+[[Upcoming-Features]]
+=== *Upcoming Features*
+The following features are intended for a later release of VISIT that will further expand on the managing power doctors will be able to execute using the application.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+==== Inventory System `[Coming in v2.0]`
+
+VISIT v2.0 will include an inventory system for doctors to manage and organise their medical stores.
+Doctors will be able to generate the list of medication in their stock and assign them to patients using the app
+, which automatically deducts from that list. +
+Warnings of low stocks are also an intended feature.
+
+==== Profile Data Encryption and .pdf exporting `[Coming in v2.0]`
+
+In v2.0, VISIT will allow you to export Patient data from VISIT with greater assurances on confidentiality with .pdf exporting, enabling password encryption for exported Profiles.
+
+==== Generating of Medical Certificates `[Coming in v2.0]`
+
+In v2.0, VISIT will allow you to easily generate an official Medical Certificate with a single command.
+
+==== Microsoft Azure Integration `[Coming in v2.0]`
+
+Microsoft Azure is a popular Cloud Computing platform that allows for data analysis, remote deployment and user
+authentication resources. We plan to leverage this power in VISIT v2.0 so that you may securely access
+VISIT from any location, truly bringing VISIT on-the-go.
+
+==== Improved UI `[Coming in v2.0]`
+
+With more features being added in v2.0, the UI will be reworked to allow new and old features to have
+great accessibility and usability. The new UI will utilise a dashboard system so that Doctors
+are able to view more information as we scale up VISIT's functionality. Each tab in the dashboard
+will represent a feature, i.e. The Appointment list will be a tab containing a Calendar view that
+tracks reminders and followups by the date and time, with a pop up notification on launch and near deadlines.
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: _How do I transfer my saved patient and visit data to another Computer?_ +
+*A*: Install VISIT in the other computer, run it once, typing  `exit` to exit the application. Next, overwrite the generated `data` folder created with the `data` folder of your previous installation folder for VISIT.
+
+*Q*: _How do I transfer my shorthand command data to another Computer?_ +
+*A*: Install VISIT in the other computer and copy the `preferences.json` file from the previous installation folder for VISIT into the installation folder on the new computer.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+=== *Application Commands*
+
+* *Viewing help* : `help`
+* *Exiting the program* : `exit`
+
+=== *Viewing and Managing Patients*
+
+* *Listing all patients* : `list`
+* *Adding a patient* : `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` +
+e.g. `add n/Betsy Crowe t/cold e/betsycrowe@example.com a/Changi Hospital p/1234567 t/pneumonia`
+* *Editing a patient’s particulars* : `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…` +
+e.g. `edit 2 n/Betsy Crower t/`
+* *Locating patient by name* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find Betsy Tim John`
+* *Deleting a patient* : `delete INDEX` +
+e.g. `delete 2`
+* *Clearing all patient data* : `clear`
+
+=== *Viewing and Generating a Patient's Profile*
+* *Viewing and generating a Full Profile* : `profile INDEX` +
+e.g. `profile 1`
+
+=== *Viewing and Managing Visits*
+
+* *Adding a new visitation report for a patient* : `addvisit INDEX [v/DATE]` +
+e.g. `addvisit 1 v/19/10/2019`
+* *Editing the particulars of a visitation report* : `editvisit INDEX [i/REPORT_INDEX]` +
+e.g. `editvisit 1 i/1`
+* *Deleting a visitation report* : `deletevisit INDEX [d/REPORT_INDEX]` +
+e.g. `deletevisit 1 d/1`
+
+=== *Appointment System*
+
+* *Adding a follow-up reminder with patient* : `followup INDEX [d/DAYS]` +
+e.g. `followup 9 d/10`
+* *Creating a generic reminder* : `reminder TEXT [d/DAYS]` +
+e.g. `reminder Two Point Hospital closed d/10`
+* *Removing an Appointment* : `removeappt DESCRIPTION [d/DAYS]` +
+e.g. `removeappt Two Point Hospital closed`
+* *Show Appointments "Message of the Day" box* : `show`
+* *Sort Appointments* : `sort`
+
+=== *Optimization for Command-Line Interface (CLI) Users*
+
+* *Setting a shorthand command / alias* : `alias l/SHORTHAND v/COMMAND` +
+e.g. `alias l/display all patients v/list`
+* *Removing a shorthand command / alias* : `unalias SHORTHAND` +
+e.g. `unalias display all patients`
+* *Showing all existing shorthand commands / aliases* : `aliaslist`

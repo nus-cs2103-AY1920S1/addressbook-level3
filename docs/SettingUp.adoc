@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= VISIT - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main/tree/master
 
 == Prerequisites
 
@@ -37,7 +37,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 
 == Verifying the setup
 
-. Run the `seedu.address.Main` and try a few commands
+. Run the `unrealunity.visit.Main` and try a few commands
 . <<Testing#,Run the tests>> to ensure they all pass.
 
 == Configurations to do before writing code
@@ -57,9 +57,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 === Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
+After forking the repo, the documentation will still have the UnityUnreal branding and refer to the `AY1920S1-CS2103T-F12-2/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level3`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `AY1920S1-CS2103T-F12-2/main`), you should do the following:
 
 . Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 

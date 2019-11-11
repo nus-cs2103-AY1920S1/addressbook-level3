@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ReminderCommandParser" as ReminderCommandParser LOGIC_COLOR
+participant "r:ReminderCommand" as ReminderCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":UserPrefs" as UserPrefs MODEL_COLOR
+end box
+
+box Model STORAGE_COLOR_T1
+participant "at:AppointmentTable" as AppointmentTable MODEL_COLOR
+participant "at:AppointmentList" as AppointmentList MODEL_COLOR
+participant "appt:Appointment" as Appointment MODEL_COLOR
+end box
+
+[-> LogicManager : execute(reminder)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(reminder)
+activate AddressBookParser
+
+create ReminderCommandParser
+AddressBookParser -> ReminderCommandParser
+activate ReminderCommandParser
+
+create ReminderCommand
+ReminderCommandParser -> ReminderCommand
+activate ReminderCommand
+
+opt illegal reminder
+    AddressBookParser <-- ReminderCommand : throw CommandException
+    LogicManager <-- AddressBookParser : throw CommandException
+    [<- LogicManager : throw CommandException
+end
+
+ReminderCommand --> AddressBookParser
+deactivate ReminderCommand
+
+AddressBookParser --> LogicManager : r
+deactivate AddressBookParser
+
+LogicManager -> ReminderCommand : execute()
+activate ReminderCommand
+
+ReminderCommand -> Model : addAppointment(type, description, days)
+activate Model
+
+Model -> UserPrefs : addAppointment(type, description, days)
+activate UserPrefs
+
+UserPrefs -> AppointmentTable : addAppointment(type, description, days)
+activate AppointmentTable
+
+AppointmentTable -> AppointmentTable : antiDuplicate(check, description, days)
+
+opt appointment exists
+    UserPrefs <-- AppointmentTable : throw CommandException
+    Model <-- UserPrefs : throw CommandException
+    ReminderCommand <-- Model : throw CommandException
+    AddressBookParser <-- ReminderCommand : throw CommandException
+    LogicManager <-- AddressBookParser : throw CommandException
+    [<- LogicManager : throw CommandException
+end
+
+AppointmentTable --> UserPrefs : at
+deactivate AppointmentTable
+
+UserPrefs -> AppointmentList : addAppointment(type, description, days)
+activate AppointmentList
+
+AppointmentList -> Appointment : appt
+activate Appointment
+
+AppointmentList <-- Appointment
+
+AppointmentList -> AppointmentList : internalAddWithCheck(toAdd, description)
+
+opt appointment exists
+    AppointmentList -> AppointmentList : setAppointment(target, editedAppointment)
+end
+
+AppointmentList --> UserPrefs : at
+deactivate AppointmentList
+
+UserPrefs --> Model :
+deactivate UserPrefs
+
+Model --> ReminderCommand
+deactivate Model
+
+ReminderCommand --> LogicManager : result
+deactivate ReminderCommand
+
+ReminderCommand -[hidden]-> LogicManager : result
+destroy ReminderCommand
+
+@enduml

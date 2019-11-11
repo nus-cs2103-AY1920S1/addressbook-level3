@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<fx:root minWidth="450" resizable="false" title="Alias List" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/visitWindowIcon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+            <VBox fx:id="aliasListWindow" prefHeight="496.0" prefWidth="529.0" styleClass="background">
+                <children>
+               <HBox prefHeight="38.0" prefWidth="185.0">
+                  <children>
+                     <HBox prefHeight="100.0">
+                        <children>
+                                <!-- Add Name Label -->
+                                <Label contentDisplay="RIGHT" prefHeight="38.0" prefWidth="571.0" styleClass="label-bright-header" text="List of existing aliases" underline="true">
+                              <font>
+                                 <Font size="18.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </HBox>
+                  </children>
+               </HBox>
+
+                    <!-- Add Name Text Field -->
+                    <TextArea fx:id="aliasesGoesHere" editable="false" prefHeight="313.0" prefWidth="538.0" wrapText="true" VBox.vgrow="ALWAYS">
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin></TextArea>
+               <HBox alignment="CENTER" prefHeight="60.0" prefWidth="518.0">
+                  <children>
+                     <Label alignment="CENTER" contentDisplay="RIGHT" styleClass="label-bright-footnote" text="Press 'esc' to close">
+                        <HBox.margin>
+                           <Insets top="3.0" />
+                        </HBox.margin>
+                     </Label>
+                  </children>
+               </HBox>
+                </children>
+                <opaqueInsets>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" left="20.0" right="15.0" top="10.0" />
+                </padding>
+            <stylesheets>
+               <URL value="@DarkTheme.css" />
+               <URL value="@Extensions.css" />
+            </stylesheets>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

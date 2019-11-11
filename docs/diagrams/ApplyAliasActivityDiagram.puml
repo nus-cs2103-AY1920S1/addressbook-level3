@@ -1,0 +1,16 @@
+@startuml
+start
+:User uses a macro/alias;
+
+repeat
+    if () then ([matches alias])
+        if () then ([currentAlias > previousAlias])
+            :Apply this alias instead;
+        else ([else])
+        endif
+    else ([else])
+    endif
+repeat while () is ([more alias exists in table])
+->[else];
+stop
+@enduml

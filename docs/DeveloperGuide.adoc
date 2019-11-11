@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= VISIT - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team UnrealUnity`  	Since: `Sep 2019`  	Licence: `MIT`
 
 == Setting up
 
@@ -25,16 +25,17 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
+[.text-center]
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/tree/master/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/tree/master/src/main/java/unrealunity/visit/Main.java[`Main`] and link:{repoURL}/tree/master/src/main/java/unrealunity/visit/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -58,6 +59,7 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+[.text-center]
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
@@ -66,6 +68,7 @@ image::LogicClassDiagram.png[]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
+[.text-center]
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
 
@@ -74,14 +77,17 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+[.text-center]
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::NewUiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `ReminderPanel`, etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+Other UI parts such as HelpWindow, VisitRecordWindow, are not displayed as UI elements in the MainWindow but opens up through a command entered.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/tree/master/src/main/java/unrealunity/visit/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/tree/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -91,12 +97,13 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+[.text-center]
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/tree/master/src/main/java/unrealunity/visit/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -114,30 +121,33 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 [[Design-Model]]
 === Model component
 
+[.text-center]
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::NewModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/model/Model.java[`Model.java`]
 
 The `Model`,
 
-* stores a `UserPref` object that represents the user's preferences.
+* stores a `UserPref` object that represents the user's preferences, alias and appointments.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Appointment>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
+[.text-center]
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
+[.text-center]
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::NewStorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/unrealunity/visit/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -147,101 +157,301 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `unrealunity.visit.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+[[aliasImplementation]]
+// tag::alias[]
+=== Alias feature
+==== Implementation
+The alias mechanism is facilitated by `AliasTable`. At a lower level, saving of aliases is facilitated by use of a `HashMap`.
+It is contained within `UserPrefs` and can be serialized together with the rest of the members in `UserPrefs`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `AliasTable#applyAlias(commandText)` -- Applies the longest stored aliases to the supplied command.
+* `AliasTable#addAlias(alias, aliasTo)` -- Adds a new alias to the alias table.
+* `AliasTable#removeAlias(alias)` -- Removes a existing alias from the alias table.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#applyAlias(commandText)`, `Model#addAlias(alias, aliasTo)` and `Model#removeAlias(alias)` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The following sequence diagram shows how adding an alias works:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+[.text-center]
+image::AddAliasSequenceDiagram.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+The check for and illegal alias consists of creating a new `AddressBookParser` and parsing the given alias into it, which is not shown in this diagram.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The `unalias` command does the opposite -- it calls `Model#removeAlias(alias)` instead which calls `Model#UserPref(alias)` and `AliasTable#removeAlias(alias)`
 
-image::UndoRedoState3.png[]
+The following sequence diagram shows how applying alias works:
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+[.text-center]
+image::ApplyAliasSequenceDiagram.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+This is a generalized diagram which depicts what happens between `execute(commandText)` and `LogicManager#parseCommand(alias)`. This process is not shown in other sequence diagrams.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+A user-defined alias is considered a match with the user input if the alias is a substring, that starts from the beginning, of the user input. Specifically, `AliasTable` uses the regex `(ALIAS)($| ).*` to check if it is a match. Following that, it picks the longest matching alias to apply to the user input.
 
-image::UndoRedoState4.png[]
+The following activity diagram shows how applying alias picks which alias to apply:
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+[.text-center]
+image::ApplyAliasActivityDiagram.png[]
 
-image::UndoRedoState5.png[]
+[NOTE]
+An unfortunate side effect to matching the longest matching macro increases the time complexity of this operation to O(n) from O(1) if we used wholesale matching instead.
 
-The following activity diagram summarizes what happens when a user executes a new command:
+// end::alias[]
 
-image::CommitActivityDiagram.png[]
+[[appointmentsImplementation]]
+// tag::appointments[]
+=== Appointments feature
+==== Implementation
+The Appointments feature comprises of Reminders and Follow-Ups. Users can create a generic Reminder to be notified of an ongoing "something to take note of", such as a hospital being closed. Follow-ups are used to plan future visits to patients. Both Reminders and Follow-ups are represented by the `Appointment` class, but are facilitated by the `AppointmentList` class for UI updates and `AppointmentTable` class for JSON updating.
+
+[.text-center]
+.Appointment Class Diagram
+image::DGApptAppointmentClassDiagram.png[]
+
+[.text-center]
+.AppointmentList Class Diagram
+image::DGApptAppointmentListClassDiagram.png[]
+
+[.text-center]
+.AppointmentTable Class Diagram
+image::DGApptAppointmentTableClassDiagram.png[]
+
+The `AppointmentList` and `AppointmentTable` are similar and run the same operations in parallel. This is a constraint due to how data is stored into JSON by the underlying program, and is on the timeline to be converged in v2.0. Due to their similarities, we will only look at `AppointmentTable` for the sake of this documentation.
+
+It implements the following operations:
+
+* `AppointmentTable#getDefaultAppointments()` -- Returns a default, empty `AppointmentTable`.
+* `AppointmentTable#getAppointmentList()` -- Returns an `ObservableList` version of the Appointments for UI usage. This is necessary as `AppointmentTable` is loaded on launch and `AppointmentList` uses this data to propagate the UI.
+* `AppointmentTable#addAppointment(type, description, days)` -- Adds a new Appointment.
+* `AppointmentTable#deleteAppointment(description, days)` -- Deletes an appointment from VISIT.
+* `AppointmentTable#antiDuplicate(check, description, days)` -- Checks if the Appointment already exists. Returns true if there is no duplicate, false if there is a duplicate.
+* `AppointmentTable#sortAppointments()` -- Sorts the list of appointments by days remaining, then name.
+* `AppointmentTable#cascadeDay(days)` -- Decrements the days an Appointment has left. Run on application launch by `UserPrefs` after calculating days elapsed.
+* `AppointmentTable#outputAppointments()` -- Outputs the Appointments to readable String.
+
+These operations are exposed in the `Model` interface.
+
+The following sequence diagram shows how adding an appointment works, using reminders as an example:
+
+[.text-center]
+.Adding an Appointment Sequence Diagram
+image::DGApptAddAppointmentSequenceDiagram.png[]
+
+The following activity diagram shows how adding an appointment works, using follow-ups as an example:
+
+[.text-center]
+.Adding an Appointment Activity Diagram
+image::DGApptFollowUpActivityDiagram.png[]
+// end::appointments[]
+
+[[profileImplementation]]
+// tag::profile[]
+=== Profile feature
+
+==== Implementation
+
+The *Profile feature* allows the user to be able to *see the full details of the patient* as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`. The Profile feature also enables users to *export the Profile as a read-only text file* for archiving.
+
+===== *Profile Panel Implementation:*
+_The displaying of the patient profile panel is mainly facilitated by the following components:_
+****
+- `ProfileWindow` - Displays the relevant information of the Patient on the Profile Panel.
+* `#setup` - On invocation, populates the Panel with the given `Person` instance.
+- `ProfileCommand` - Instantiated when the command is parsed by `ProfileCommandParser`.
+* `#execute` - Extracts the Person from the current model.
+- `ProfileUtil` - Utilized during `ProfileWindow#setup` to translate the various `Person` attributes to `Strings` (stringify).
+****
+Given below is a simple example usage scenario demonstrate how Profile feature behaves and interacts with the other components:
+
+*1*. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. This is parsed as a `ProfileCommand`, which is then executed.
+
+*2*. The `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute.
+
+*3*. `MainWindow#executeCommand()` is then executed, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window to the user.
+
+[.text-center]
+.Activity Diagram for Steps 1 - 3
+image::Profile0.png[width="350"]
+
+*[4]*. In this optional step, users can choose to export the Patient's Profile as a .txt file by pressing the `p` key or clicking on the _Generate Profile File_ button on the UI. The implementation of this is detailed in the next section.
+
+*5*. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
+
+[.text-center]
+.Activity Diagram for Step 4-5
+image::Profile1.png[width="350"]
+
+[NOTE]
+The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
+
+This sequence diagram fully shows what happens when a user executes the Profile Command:
+
+[.text-center]
+image::ProfileSequenceDiagram1.png[]
+
+===== *Profile Generation Implementation:*
+_The patient profile generation functionality is mainly facilitated by the following components:_
+****
+- `ProfileWindow` - Serves as origin for invoking the `GenerateProfileCommand` using `#generateProfilePressed`.
+- `GenerateProfileCommand` - Instantiated by `ProfileWindow` with the relevant `Person` attributes.
+* `#execute` - Uses `FileUtil` and `ProfileUtil` to build the contents of the Profile .txt file and create it in the relevant directory.
+****
+
+The following is a scenario to illustrate the behaviour of how this functionality works:
+
+*1*. The user presses the `p` key or the _Generate Profile File_ button on the Profile Panel. This invokes the `generateProfilePressed()` in `ProfileWindow`.
+
+*2*. This generates a new `GenerateProfileCommand` instance relating to the `Person` that `ProfileWindow` is currently on. This command is then executed using the same `LogicManager` as `ProfileWindow`.
+
+*3*. The executed command uses `FileUtil` to generate the parent file (_generated_profiles_) if it has not been created.
+
+*4*. `ProfileUtil` is invoked to assemble a `String` containing the entire content of the `ProfileWindow` in a presentable manner.
+
+*5*. `FileUtil` is then called again to generate a read-only .txt file containing the file content. A `CommandResult` indicating success is the propagated back to `ProfileWindow`.
+
+*6*. Upon success, a small message is generated next to the _Generate Profile File_ button on the Profile Panel.
+
+This simplified sequence diagram summarizes the critical interactions between ProfileWindow, GenerateProfileCommand, FileUtil and ProfileUtil:
+
+[.text-center]
+image::ProfileSequenceDiagram2.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How Profile shows the information from the patient in ProfileWindow
+`ProfileWindow` currently uses the `Person` class as its data structure to access all the relevant information on the Profile Panel. This presents some design considerations as listed here:
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+* **Alternative 1 (current choice):** Does not create an explicit `Profile` class to store the Profile data.
+** Pros: Easy to implement, more straight forward implementation. Defensive copies of Person can be used instead of a explicit `Profile` class which contains the exact same field variables as a Person.
+** Cons: May cause dependency issues as this increases coupling, with relation to the Profile and Patient class.
+* **Alternative 2:** Create an explicit `Profile` class, which is instanced every command call.
+** Pros: Decreases coupling by cutting down on the direct calls to the `Person` instance.
+** Cons: Adds to bloat in code structure, as it is very similar to `Person` class. We must ensure that the `Profile` instance generated is correct every time.
 
-===== Aspect: Data structure to support the undo/redo commands
+// end::profile[]
+[[visitImplementation]]
+// tag::visitationreport[]
+=== Visitation Report feature
+==== Implementation
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+The Visitation Report feature allows the user to `add`, `delete` and `edit` a `VisitReport` such that for every housecall, information like the prescription and diagnosis can be stored. Every `Person` has a `VisitList` attribute and each `VisitList` object contains an arraylist of `VisitReport` objects. The feature is facillitated by `VisitRecordWindow` which creates a form for the user to key in the details of the report, `VisitListPanel` which creates an indexed pop up list of visit reports for the user to check the index of the report they want to edit/delete and `SaveVisitCommand` which saves the users input from the form. The following operations are also implemented:
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+* `VisitList#addRecord()` -- Adds new `VisitReport` object to stored arraylist
+* `VisitList#editRecord()` -- Replaces `VisitReport` object at given index in arraylist with given `VisitReport`
+* `VisitList#deleteRecord()` -- Deletes `VisitReport` by index from stored arraylist
 
-_{Explain here how the data encryption feature will be implemented}_
+The class diagram below shows the new additions to the Person class.
 
-// end::dataencryption[]
+[.text-center]
+image::VisitClass0.png[]
 
+Given below is an example usage scenario and how every component of the Visitation Report feature behaves at each step.
+
+Step 1. The user executes `addvisit 5 v/12/12/2019` command to add a visit report to the visitlist of the 5th person in the address book. This returns a  `CommandResult` which has the attribute `date` set as String `12/12/2019`. `MainWindow#executeCommand()` is called and the check for `CommandResult#isAddVisit()` passes, calling  `VisitRecordWindow#setReportInfo()` to pass the `index` of the person, the `date`, and a `Logic` object to initialize the respective attributes in the `VisitRecordWindow` class. `MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
+
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 1
+image::AddVisit0.png[]
+
+[NOTE]
+If the user executes `addvisit 5` instead, the `date` attribute of the `CommandResult` will be set as the current date and the rest of the flow remains the same.
+
+Step 2. The user fills in the form and presses `f2` on the keyboard or clicks the `submit` button to save the report. This calls `VisitRecordWindow#saveReport()` which will create a new `SaveVisitCommand` and executes it, updating the `VisitList` of the person via `Model#setPerson()`.
+
+Step 3. The user decides to edit the report and executes the `editvisit 1 i/1` command.`MainWindow#executeCommand()` is called and the check for `CommandResult#isEditVisit()` passes, calling  `VisitRecordWindow#setOldReportInfo()` which initializes the respective attributes of `VisitRecordWindow` and populate the form with the content of the `VisitReport` from  `CommandResult#getOldReport()` .`MainWindow#handleShowVisitForm()` is then called to display a pop up form for the user to fill in.
+
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 3
+image::EditVisit0.png[]
+
+
+As shown in the figure above, if the user executes `editvisit 1` instead, a `CommandResult` with a `ObservableList<VisitReport>` object will be returned. `MainWindow#executeCommand()` 's check for `CommandResult#isShowVisitList()` passes, calling `VisitListPanel#setup()` which populates the `VisitListPanel` with the contents of the `ObservableList<VisitReport>` object from `CommandResult#getObservableVisitList()`. Instead of displaying the pop-up form, `MainWindow#handleShowVisitList()` is called to display a pop up list showing an indexed list of all visitation records of the person.
+
+Step 4. The user edits the form and presses `F3` on the keyboard or clicks the `submit` button to save the changes. The same mechanism mentioned in `Step 2` is used to update the contents of the edited visit report.
+
+The sequence diagram below shows how Step 3 and Step 4 works.
+
+[.text-center]
+.`EditVisitCommand` and `SaveVisitCommand` sequence diagram
+image::EditVisit1.png[]
+
+Step 5. The user then decides that the report was beyond salvaging and decides to delete it. Executing the command `deletevisit 1 d/1`, `VisitList#deleteRecord()` deletes the entry from the arraylist and `Model#setPerson()` updates the person with the new `VisitList`. The `CommandResult#isShowVisitList()` check in  `MainWindow#executeCommand()` passes and a pop up list showing an indexed list of all visitation records of the person is displayed.
+
+[.text-center]
+.Activity diagram to illustrate all possible variations of Step 5
+image::DeleteVisit0.png[]
+
+[NOTE]
+If the user executes `deletevisit 1` instead, the index value will be set to `-1` and the `VisitList#deleteRecord()` block would be skipped, but the rest of the flow remains the same.
+
+
+==== Design Considerations
+
+===== Aspect: Range of acceptable dates for `addvisit`
+
+* **Alternative 1 (current choice):** Only allow dates with years 19xx or 2xxx
+** Pros: Prevents user from keying in rubbish dates like year 9999 or 0000
+** Cons: Must conduct 2 checks for date in parser, one for the format dd/MM/19yy and one for the format dd/MM/2yyy.
+* **Alternative 2:** Place no restriction on valid years
+** Pros: Only one check for dd/MM/yyyy format is required.
+** Cons: User can key in rubbish values like dd/MM/9102 or dd/MM/0192
+
+===== Aspect: Keyboard binding to save report
+
+* **Alternative 1 (current choice):** `F2` key
+** Pros: No conflict with any other functions.
+** Cons: Not the most intuitive choice for users.
+* **Alternative 2:** `Enter` key
+** Pros: Very intuitive choice for saving.
+** Cons: It's also used to get to the next line, thus using it as the save button means users can no longer press `Enter` for next line
+// end::visitationreport[]
+
+[[uiImplementation]]
+//tag::guiredesign[]
+=== GUI Redesign
+The GUI Redesign is done to include the new features made for the VISIT application, as well as improve the overall
+user experience with a easily readable interface that displays every important information in a glance.
+
+==== Current Implementation
+The current redesign of the GUI includes the addition of:
+
+* the `ReminderPanel` to display upcoming appointments
+* the `VisitListPanel` to display the visit reports stored in a patient's profile. (as mentioned in Visitation Report feature)
+* the `VisitRecordWindow` form for the user to enter the required information. (as mentioned in Visitation Report feature)
+* the `ProfileWindow` to display the full profile information of a patient.
+* the `MotdWindow` to display the appointments in a new window. Motd stands for Message of the Day.
+
+In addition to these, VISIT's CSS theme is updated to fit current standards of GUI design,
+with a more pronounced color palette and a clearer font.
+
+The following is the snippet of the class diagram of the Ui Component with the new Classes:
+
+[.text-center]
+image::UiRedesignClassDiagram.png[]
+
+1. The `MainWindow` has been new panel which is the ReminderPanel.
+2. Three new Windows, `VisitRecordWindow`, `ProfileWindow` and `MotdWindow`, are in use in addition to the MainWindow.
+These windows are opened through their respective commands.
+3. `ReminderCard` and `VisitCard` gets its data from Model, similar to PersonCard.
+
+==== Future implementation `[Coming in v2.0]`
+
+For future GUI design considerations in v2.0 and above, the panels of each feature such as `PersonListPanel` and `ReminderPanel` can be
+separated by tabs, through a dashboard interface. This allows more information to be displayed within each tab, allowing
+users to work with more data.
+
+//end::guiredesign[]
+
+[[logImplementation]]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -279,7 +489,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of patients and their information
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -297,33 +507,47 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new patient |organize a patient's relevant information
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a patient |remove patient entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |view the full profile of a patient by searching for his/her name |see all details regarding a patient easily at a glance
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |record down details of each <<visitation,visitation>> |keep track of the patients situation
+
+|`* * *` |user |set follow-up reminders |check in on my patients after some time or when their medication runs out
+
+|`* * *` |user |have daily reminders of important deadlines |keep track of appointments and visitations easily
+
+|`* * *` |user |see list of reminders |keep track of what I need to keep track
+
+|`* * *` |user |have <<user-defined-macros,user-defined macros>> |streamline my diagnosis documentation
+
+|`* *` |user |sort my appointments |see the more pressing deadlines first
+
+|`* *` |user |remove a specific appointment |get rid of an unnecessary reminder or visit
+
+|`* *` |user |generate a text file detailing my patient's profile and visits |maintain a archive of patient profiles before deleting them
+
+|`*` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `VISIT` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete patient
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list patients
+2.  System shows a list of patients
+3.  User requests to delete a specific patient in the list
+4.  System deletes the patient
 +
 Use case ends.
 
@@ -337,11 +561,329 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: View patient profile
+
+*MSS*
+
+1.  User requests to list patients
+2.  System shows a list of patients
+3.  User requests to view patient profile by name/index
+4.  System shows patient profile
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+[none]
+* 3. The given name/index is invalid.
++
+[none]
+** 3a. System shows an error message.
++
+Use case resumes at step 2.
+
+[none]
+* 4. The profile is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Record visitation details
+
+*MSS*
+
+* Precondition: User can see list of patients
+1.  User requests to add new visitation record for a specific patient in the list
+2.  System adds new visitation record for chosen patient
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
++
+[none]
+** 1a1. VISIT shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit visitation record
+
+*MSS*
+
+* Precondition: User can see list of patients
+1.  User requests to edit visitation record for specific patient by patient index
+2.  VISIT shows pop-up form for user to edit visitation record
+3.  User saves edit
+4.  VISIT saves edit
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user does not provide a record index
++
+[none]
+** 1a1. VISIT shows an indexed list of visitation records
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Delete visitation record
+
+*MSS*
+
+* Precondition: User can see list of persons
+1.  User requests to delete visitation record for specific patient by index
+2.  VISIT deletes visitation record
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user does not provide a record index
++
+[none]
+** 1a1. VISIT shows an indexed list of visitation records
+Use case resumes at step 1.
+
+
+[discrete]
+=== Use case: Save user-defined macros
+
+*MSS*
+
+1.  User requests to save user-defined macros
+2.  VISIT saves user-defined macros
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The content of the macro is empty.
++
+[none]
+** 1a1. VISIT shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. The shortcut of the macro is illegal.
++
+[none]
+** 1b1. VISIT shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Invoke user-defined macros
+
+*MSS*
+
+1.  User requests to invoke user-defined macros
+2.  VISIT outputs user-defined data
+
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete user-defined macros
+
+*MSS*
+
+1.  User requests to remove user-defined macros
+2.  VISIT removes user-defined macro
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The content of the macro name is empty.
++
+[none]
+** 1a1. VISIT shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 1b. There exists no such macro.
++
+[none]
+** 1b1. VISIT shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: View follow-up visits
+
+*MSS*
+
+1.  User starts up VISIT
+2.  Follow-up visits are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No follow-ups are scheduled.
++
+[none]
+** 2a. VISIT shows no follow-ups.
++
+Use case ends.
+
+[discrete]
+=== Use case: View reminders
+
+*MSS*
+
+1.  User starts up VISIT
+2.  Reminders are displayed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No reminders are set to show.
++
+[none]
+** 2a. VISIT shows no reminders.
++
+Use case ends.
+
+[discrete]
+=== Use case: Open Appointments "Message of the Day" Window
+
+*MSS*
+
+1. User requests to open Appointments Window
+2. Appointments Window opens with Follow-Up and Reminders listed
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2. No follow-up or reminders active.
++
+[none]
+** 2a. Message of the Day window shows no active follow-up or reminders.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new Follow-up
+
+*MSS*
+
+* Precondition: User can see list of patients
+1.  User requests to add a follow-up for specific patient by index and days count
+2.  VISIT adds a new follow-up entry into appointments
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No days count is specified.
++
+[none]
+** 1a1. Default 7 days will be assumed.
++
+[none]
+* 1b. The user does not provide a valid index.
++
+[none]
+** 1b1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a new Reminder
+
+*MSS*
+
+1.  User requests to add a reminder with description and days count
+2.  VISIT adds a new reminder into appointments
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No days count is specified.
++
+[none]
+** 1a1. Default 7 days will be assumed.
++
+[none]
+* 1b. The user does not provide a description.
++
+[none]
+** 1b1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Deletes an Appointment
+
+*MSS*
+
+1.  User requests to delete an appointment with a given description
+2.  VISIT removes any appointment matching the given description
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The user does not provide a description.
++
+[none]
+** 1a1. VISIT shows an error and help text.
+Use case resumes at step 1.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sorting Appointments
+
+*MSS*
+
+1.  User requests to sort the list of appointments
+2.  VISIT sorts the appointments and updates the display
+
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -350,7 +892,6 @@ _{More to be added}_
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -361,22 +902,11 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
+[[user-defined-macros]] User-defined macros::
+User-defined shortcuts for large chunks of commonly used text for diagnosis
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[visitation]] Visitation::
+A housecall or appointment with the patient
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,34 +922,184 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+  Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== User Interface
 
-=== Deleting a person
+. Typing Commands
 
-. Deleting a person while all persons are listed
+.. Click on the Command Box with the text “How may I help you?”
+.. Type in any Command (i.e. Adding a person)
+.. Hit Enter on the keyboard
+Expected: The command should have been successfully entered and the application responds appropriately.
+
+. Using Help
+
+.. Press the F1 key on your keyboard; Alternatively, click on the Help menu bar at the top of the application and select the Help menu item. +
+Expected: The Help Window should appear as a new window.
+
+=== Adding a patient
+
+. Adding a patient to the list
+
+.. Test case: `add n/Sam Strand p/90811019 e/strandingdeath@gmail.com a/Blk 09 Piccadilly Road #14-137 t/fatigue` +
+Expected: A patient named Sam Strand should be added into the list with his phone number, email and address. He should
+also have a tag that says fatigue in the list.
+
+=== Deleting a patient
+
+. Deleting a patient while all patients are listed
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
+.. Test case: `delete 1` +
+  Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+  Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+  Expected: Similar to previous.
+
+=== Adding a visit report
+
+. Adding a visit report to a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `addvisit 1` +
+  Expected: Empty form displayed. After saving the form by pressing the Save button or F2, successful save with person details shown in status message. If the person has no previous records or has a Most recent visit date displayed earlier than the current date, Most recent visit date will be updated to current date in the Person card.
+.. Test case: `addvisit 1 v/12/12/2012` +
+  Expected: Similar to previous
+.. Test case: `addvisit 1 v/invalid` +
+  Expected: Error message displayed
+.. Other incorrect addvisit commands to try: `addvisit`, `addvisit x` (where x is larger than the list size), `addvisit x v/dd/mm/yyyy` (where x is valid person index and dd/mm/yyyy is an invalid date e.g 30/02/2019 or date with valid day and month but with year not conforming to 19xx or 2xxx format) +
+  Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Editing a visit report
 
-=== Saving data
+. Editing a person’s visit reports for chosen person are listed
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: List all reports using the `editvist [PERSON_INDEX]` command.
+.. Test case: `editvisit 1 i/1` +
+  Expected: Form pops up. After saving the form by pressing the Save button or F2, successful save with person details shown in status message.
+.. Test case: `editvisit 1 i/0` +
+  Expected: No form pops up. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editvisit`, `editvisit x` (where x is larger than the person list size)  `editvisit x i/y`(where x is is valid person index and y is an invalid report index) +
+  Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Deleting a visit report
 
-_{ more test cases ... }_
+. Deleting a report while all visit reports for chosen person are listed
+
+.. Prerequisites: List all reports using the `deletevisit [PERSON_INDEX]` command.
+.. Test case: `deletevisit 1 d/1` +
+  Expected: First report is deleted from the list. List of reports updates. If the patient has no more reports after deleting, list of reports closes and window prompt of patient having no past records shows.
+.. Test case: `delete 1 d/0` +
+  Expected: No report is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `deletevisit`, `deletevisit x` (where x is larger than the list size), `deletevisit x i/y` (where x is is valid person index and y is an invalid report index) +
+  Expected: Similar to previous.
+
+=== Viewing and Exporting a Patient’s Profile
+
+. Opening the ProfileWindow
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `profile 1` +
+  Expected: Profile panel for the first Patient is shown on the screen. Details of the Patient should be accurately displayed as well, with all attributes (Name, Phone, Address, etc.), as well as Visit Reports shown.
+.. Test case: `profile 0` +
+  Expected: No profile panel is shown. Error message detailing an invalid command.
+.. Other incorrect profile commands to try: `profile`, `profile x` (where x is larger than the list size) +
+  Expected: Similar to previous.
+
+. Generating a Patient’s Profile in a .txt file
+
+.. Prerequisites: A ProfileWindow detailing a valid user is currently shown and in focus.
+.. Press `p` or the _Generate Profile File_ button
+.. Expected: A success message is shown next to the _Generate Profile File_ button and the patient’s file is generated in the _generated_profiles_ folder of VISITapp.jar. The filename should be according to the following format: “NAME_PHONE_DATE TIME.txt”.
+
+=== Appointment System
+
+. Adding a Reminder
+
+.. Test case: `reminder Test` +
+  Expected: A new reminder with the description “Test” is created with 7 days remaining. Appointments panel is updated to reflect the new reminder.
+.. Test case: `reminder Test d/3` +
+  Expected: A new reminder with the description “Test” is created with 3 days remaining. Appointments panel is updated to reflect the new reminder.
+.. Test case: `reminder` +
+  Expected: No reminder is created. Error details shown in the status message.
+.. Test case: `reminder Test d/-1` +
+  Expected: No reminder is created. Error details shown in the status message.
+
+. Adding a Follow-up
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+.. Test case: `followup 1` +
+  Expected: A new follow-up with the patient in Index 1 is created for 7 days’ time. Appointments panel is updated to reflect the new follow-up.
+.. Test case: `followup 1 d/3` +
+  Expected: A new follow-up with the patient in Index 1 is created for 3 days’ time. Appointments panel is updated to reflect the new follow-up.
+.. Test case: `followup` +
+  Expected: No follow-up is created. Error details shown in the status message.
+.. Test case: `followup 1 d/-1` +
+  Expected: No follow-up is created. Error details shown in the status message.
+
+. Sorting Appointments
+
+.. Prerequisites: Multiple appointments in the list.
+
+.. Test case: `sort` +
+  Expected: Appointments in the list are sorted according to type, then days, then text.
+
+. Removing Appointments
+
+.. Prerequisites: Reminder named “Test” and Follow-up named “Satya Nadella” in the list.
+
+.. Test case: `removeappt Test` +
+  Expected: Reminder “Test” is removed. Appointment panel is updated to reflect the deletion.
+.. Test case: `removeappt Satya Nadella` +
+  Expected: Follow-up “Satya Nadella” is removed. Appointment panel is updated to reflect the deletion.
+
+. Show Message of the Day
+
+.. Prerequisites: Multiple appointments in the list.
+
+.. Test case: `show` +
+  Expected: Message of the Day panel appears with Appointment list.
+
+=== Creating, deleting, listing and using aliases
+
+. Creating an alias
+
+.. Test case: `alias l/ls v/list` +
+  Expected: A new alias is created, mapping `ls` to `list`.
+.. Test case: `alias l/a v/list` +
+  Expected: A new alias is created, mapping `a` to `list`, overriding the existing default mapping of `a` to `add`.
+.. Other incorrect alias commands to try: `alias potato`, `alias l/x v/alias` (where x is an existing non-aliased command) +
+  Expected: No alias is created. Error details shown in the status message. Status bar remains the same.
+
+. Deleting an alias
+
+.. Prerequisites: Have an existing alias mapping of `a` to `add`, but no mapping of `potato` to anything.
+.. Test case: `unalias a` +
+  Expected: The existing mapping of `a` to `add` will be deleted.
+.. Test case: `unalias potato` +
+  Expected: No alias is deleted as there is no existing alias with the name `potato`.
+
+. Using alias
+
+.. Prerequisites: Have an existing alias mapping `follow` to `followup 1`, mapping `follow14` to `followup 1 d/14` and list at least one person using the `list` or `find` command.
+.. Test case: `follow` +
+  Expected: A new follow up is created for the first person in the list with the default days of 7 days. The appointments panel will also be updated with the new appointment.
+.. Test case: `follow14` +
+  Expected: A new follow up is created for the first person in the list with the specified input of 14 days. The appointments panel will also be updated with the new appointment.
+.. Test case: `follow d/30` +
+  Expected: A new follow up is created for the first person in the list with the specified input of 30 days. The appointments panel will also be updated with the new appointment.
+
+. Listing aliases
+
+.. Prerequisites: Only have an existing alias mapping of `a` to `add`.
+.. Test case: `aliaslist` +
+  Expected: List of aliases panel is shown on the screen. All existing user-defined aliases are shown.

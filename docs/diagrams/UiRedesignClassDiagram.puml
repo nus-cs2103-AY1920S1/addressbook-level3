@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+
+package UI <<Rectangle>>{
+Interface Ui <<Interface>>
+Class "{abstract}\nUiPart" as UiPart
+Class UiManager
+Class MainWindow
+Class MotdWindow
+Class VisitRecordWindow
+Class ProfileWindow
+Class ReminderPanel
+Class VisitListPanel
+Class VisitCard
+Class ReminderCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Ui
+
+UiManager .up.|> Ui
+UiManager -down-> MainWindow
+MainWindow -down-> MotdWindow
+MainWindow -down-> ProfileWindow
+MainWindow -down-> VisitRecordWindow
+MainWindow *-down--> VisitListPanel
+MainWindow *-down--> ReminderPanel
+
+ReminderPanel -down-> ReminderCard
+VisitListPanel -down-> VisitCard
+
+MainWindow -down-|> UiPart
+VisitRecordWindow -down-|> UiPart
+ProfileWindow -down-|> UiPart
+
+ReminderPanel -down-|> UiPart
+ReminderCard -down-|> UiPart
+VisitListPanel -down-|> UiPart
+VisitCard -down-|> UiPart
+MotdWindow -down-|> UiPart
+
+VisitCard ...> Model
+ReminderCard ...> Model
+UiManager -right-> Logic
+MainWindow -right-> Logic
+
+VisitListPanel -[hidden]left- ReminderPanel
+ReminderPanel -[hidden]left- VisitRecordWindow
+VisitRecordWindow -[hidden]left- ProfileWindow
+ProfileWindow -[hidden]left- MotdWindow
+
+MainWindow -[hidden]-|> UiPart
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+start
+:User executes ""isProfile"" command;
+
+if () then ([valid person index]);
+    :""Person [index]"" is set as target;
+    else([else])
+        :shows error;
+        stop
+endif
+:""ProfileWindow"" populated with target ""Person"" data;
+:""ProfileWindow"" is shown to the user;
+
+stop
+
+@enduml

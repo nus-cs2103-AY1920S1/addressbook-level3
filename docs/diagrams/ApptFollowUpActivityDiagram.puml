@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+start
+
+:User executes ""followup"" command;
+
+if () then ([valid person index]);
+    :""Person [index]"" is set as target;
+    else([else])
+        :shows error;
+        stop
+endif
+
+if () then ([valid days input]);
+    :""FollowUpCommand"" prepared;
+    else([else])
+        :shows error;
+        stop
+endif
+
+:""FollowUpCommand"" executes ""addAppointment"" in ""model"";
+
+:""addAppointment"" adds Appointment data to ""AppointmentTable";
+
+if () then ([exact appointment not exists]);
+    if ([description not exists]) then ([continue]);
+        :Create new appointment;
+        else([else])
+            :Overwrite appointment;
+    endif
+    else([else])
+        :shows error;
+        stop
+endif
+
+:""addAppointment"" adds Appointment data to ""AppointmentList";
+
+if () then ([description not exists]);
+    :Create new appointment;
+    else([else])
+        :Overwrite appointment;
+endif
+
+
+:Update UI and show user;
+
+stop
+
+@enduml

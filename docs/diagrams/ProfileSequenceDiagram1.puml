@@ -1,0 +1,108 @@
+@startuml
+!include style.puml
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":ProfileWindow" as ProfileWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ProfileCommandParser" as ProfileCommandParser LOGIC_COLOR
+participant "p:ProfileCommand" as ProfileCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[--> MainWindow : executeCommand(commandText)
+activate MainWindow
+
+MainWindow -> LogicManager : execute(isProfile)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(isProfile)
+activate AddressBookParser
+
+create ProfileCommandParser
+AddressBookParser -> ProfileCommandParser
+activate ProfileCommandParser
+
+ProfileCommandParser -> ProfileCommandParser : parse(isProfile)
+activate ProfileCommandParser
+
+opt invalid argument
+    AddressBookParser <-- ProfileCommandParser : throw ParseException
+    LogicManager <-- AddressBookParser : throw ParseException
+    MainWindow <-- LogicManager : throw ParseException
+    [<-- MainWindow : throw ParseException
+end
+
+ProfileCommandParser <-- ProfileCommandParser : index
+deactivate ProfileCommandParser
+
+create ProfileCommand
+ProfileCommandParser -> ProfileCommand : ProfileCommand(index)
+activate ProfileCommand
+
+ProfileCommand --> ProfileCommandParser : p
+deactivate ProfileCommand
+
+ProfileCommandParser --> AddressBookParser : p
+deactivate ProfileCommandParser
+
+AddressBookParser --> LogicManager : p
+deactivate AddressBookParser
+destroy ProfileCommandParser
+
+LogicManager -> ProfileCommand : execute(model)
+activate ProfileCommand
+
+ProfileCommand -> Model : getFilteredPersonList()
+activate Model
+
+ProfileCommand <-- Model: filteredList
+deactivate Model
+
+opt invalid person index
+    AddressBookParser <-- ProfileCommand : throw CommandException
+    LogicManager <-- AddressBookParser : throw CommandException
+    MainWindow <-- LogicManager : throw CommandException
+    [<-- MainWindow : throw CommandException
+end
+
+create CommandResult
+ProfileCommand -> CommandResult : CommandResult(person)
+activate CommandResult
+
+ProfileCommand <-- CommandResult : r
+deactivate CommandResult
+
+ProfileCommand --> LogicManager : r
+deactivate ProfileCommand
+
+LogicManager --> MainWindow : r
+deactivate LogicManager
+destroy ProfileCommand
+
+MainWindow -> CommandResult : getProfilePerson()
+activate CommandResult
+
+MainWindow <-- CommandResult : person
+deactivate CommandResult
+
+MainWindow -> ProfileWindow : setup(r)
+destroy CommandResult
+activate ProfileWindow
+
+MainWindow <-- ProfileWindow
+deactivate ProfileWindow
+
+MainWindow --> ProfileWindow : show()
+
+[<--MainWindow
+deactivate MainWindow
+
+@enduml

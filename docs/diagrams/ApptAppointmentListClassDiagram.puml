@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+show members
+
+  namespace unrealunity.visit {
+    namespace model {
+      namespace appointment {
+        class unrealunity.visit.model.appointment.AppointmentList {
+            - internalList : ObservableList<Appointment>
+            - internalUnmodifiableList : ObservableList<Appointment>
+            + AppointmentList()
+            + addAppointment()
+            + antiDuplicate()
+            + antiDuplicate()
+            + asUnmodifiableObservableList()
+            + deleteAppointment()
+            + equals()
+            + hashCode()
+            + internalAddWithCheck()
+            + iterator()
+            + resetAppointments()
+            + setAppointment()
+            + sortAppointments()
+        }
+      }
+    }
+  }
+
+@enduml
