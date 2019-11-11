@@ -11,48 +11,48 @@ import seedu.planner.model.activity.ActivityWithCount;
  */
 public class TypicalActivityWithCount {
     public static final ActivityWithCount ACTIVITYWITHCOUNT_A = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYONE)
+            .withActivity(TypicalActivity.ACTIVITY_ONE)
             .withCount(1)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_B = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYTWO)
+            .withActivity(TypicalActivity.ACTIVITY_TWO)
             .withCount(2)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_C = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYTHREE)
+            .withActivity(TypicalActivity.ACTIVITY_THREE)
             .withCount(3)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_D = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYFOUR)
+            .withActivity(TypicalActivity.ACTIVITY_FOUR)
             .withCount(4)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_E = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYFIVE)
+            .withActivity(TypicalActivity.ACTIVITY_FIVE)
             .withCount(5)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_F = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYSIX)
+            .withActivity(TypicalActivity.ACTIVITY_SIX)
             .withCount(6)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_G = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYSEVEN)
+            .withActivity(TypicalActivity.ACTIVITY_SEVEN)
             .withCount(7)
             .build();
 
     //Manually added
     public static final ActivityWithCount ACTIVITYWITHCOUNT_H = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYEIGHT)
+            .withActivity(TypicalActivity.ACTIVITY_EIGHT)
             .withCount(8)
             .build();
 
     public static final ActivityWithCount ACTIVITYWITHCOUNT_I = new ActivityWithCountBuilder()
-            .withActivity(TypicalActivity.ACTIVITYNINE)
+            .withActivity(TypicalActivity.ACTIVITY_NINE)
             .withCount(9)
             .build();
 

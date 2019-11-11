@@ -17,4 +17,5 @@ public interface Event {
      * @return Returns a CommandResult to redo the effects of the event that was previously undone.
      */
     UndoableCommand redo();
+
 }
