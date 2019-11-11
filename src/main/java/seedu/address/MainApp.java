@@ -41,7 +41,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 4, 0, true);
+    public static final Version VERSION = new Version(1, 4, 2, false);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
     private static final String MESSAGE_DATA_NOT_FOUND = "Data file(s) not found. "
