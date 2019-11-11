@@ -402,9 +402,11 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 To best address the numerous and varying needs of Hackathon organizers, we have packed Alfred with a multitude of different features, each of which seeks to provide the user with the optimal means of tending to their hackathon organising needs. However, with a host of features comes a sizable codebase which can make it daunting for new programmers, and often even veteran Alfred programmers, to understand how certain features have been implemented. This section aims to empower you by introducing you to some of the noteworthy features currently present within Alfred, along with few that hope to add in the future, so that you may better grasp the implementation of these features in a bid to contribute new features and improvements to existing features within Alfred. Despite our best efforts to make the explanations of Alfred's features' as comprehensive as possible, we do advice not to solely rely on this guide for understanding and encourage you to experiment with each feature's code in order to truly grasp it.
 
+// tag::ImportExportA[]
+[[BulkRegistration]]
 === Bulk Registration
 
-The Bulk Registration feature, referred as the import command, allows you to add multiple entities into Alfred at once through a CSV file. The file must be stored locally as Alfred will attempt to retrieve it through the file path provided by the user. In order for the import command to successfully execute, it is required that the CSV file is formatted according to Alfred's requirements, which you can read more about in our <<UserGuide#, user guide>>.
+The Bulk Registration feature, referred as the import command, allows you to add multiple entities into Alfred at once through a CSV file. The file must be stored locally as Alfred will attempt to retrieve it through the file path provided by the user. In order for the import command to successfully execute, it is required that the CSV file is formatted according to Alfred's requirements, which you can read more about in our <<UserGuide#ParameterConstraints, user guide>>.
 
 This feature will be explained further in the following subsections.
 
@@ -414,8 +416,7 @@ Since this feature manages data from a CSV file, import command relies on the `C
 
 [[ImportCommandClassDiagram]]
 .Import Command Class Diagram
-image::ImportCommandClassDiagram.png[]
-[caption="Import Command Sequence Diagram"]
+image::ImportCommandClassDiagram.png[pdfwidth=70%, align="center"]
 
 In the above class diagram, you can see that
 
@@ -424,14 +425,20 @@ In the above class diagram, you can see that
 
 * 2. In addition to the `CsvUtil` class, the `ImportCommand` also utilizes an `ErrorTracker` class. This class will store any lines in the CSV file that is invalid along with the reason why it is so. Each `Error` object referenced by the `ErrorTracker` will correspond to one line in the CSV file and the cause of the error.
 
-Now, the sections below will give a detailed explanation of different portions of this feature.
+The activity diagram below will explain the overall flow of `ImportCommand`.
+
+[[ImportCommandActivityDiagram]]
+.Import Command Activity Diagram
+image::ImportCommandActivityDiagram.png[pdfwidth=70%, align="center"]
+
+In the above diagram, you can see that teams are buffered for later use, which the reason is explained <<Implementation: `ImportCommand`, below>>. Also, *node A*, located right before the end, will be discussed in <<Implementation: Outputting Error File, this section>>. Now, the sections below will give a detailed explanation of different portions of this feature.
 
 ==== Implementation: `ImportCommand`
 
 Once a valid user input is parsed and passed into the `ImportCommand`, the command will open the file and read its content line by line. Each line is then parsed into the corresponding entity by the `CsvUtil` class. This will be explained further <<Implementation: Parsing of Entities by `CsvUtil`, below>>. The following sequence diagram shows the steps involved in mass importing data into Alfred.
 
 .Import Command Sequence Diagram
-image::ImportCommandSequenceDiagram.png[]
+image::ImportCommandSequenceDiagram.png[pdfwidth=80%, align="center"]
 
 `FileUtil` shown in the <<ImportCommandClassDiagram, class diagram>> was omitted from the above sequence diagram for simplicity as it adds little to the overall flow of execution.
 
@@ -441,9 +448,11 @@ When `ImportCommand` parses and adds entities to `Model`, it is crucial that tea
 
 So as `ImportCommand` accesses the CSV file line by line, the line representing a team will be stored in a `Queue<String>` for later use. When the end of file is reached and all other participants and mentors are parsed and added to `Model`, the `ImportCommand` will poll from the `Queue`, parse into a relevant team, and add it to the `Model` until the `Queue` is empty.
 
+// end::ImportExportA[]
+
 ==== Implementation: Parsing of Entities by `CsvUtil`
 
-As mentioned before, the `CsvUtil` class is used to aid in parsing of CSV lines into entities. The process in which `CsvUtil` parses each entity is heavily dependent on the different fields each entity has. If you are not familiar with this yet, please check out our <<UserGuide.adoc#Parameter-Constraints-and-Additional-Information, user guide>>.
+As mentioned before, the `CsvUtil` class is used to aid in parsing of CSV lines into entities. The process in which `CsvUtil` parses each entity is heavily dependent on the different fields each entity has. If you are not familiar with this yet, please check out our <<UserGuide.adoc#ParameterConstraints, user guide>>.
 
 The process of parsing a line into a mentor or a participant is very similar, so two entities - participant and team - will be explained.
 
@@ -463,11 +472,156 @@ Also for teams, each corresponding `String` is converted to its field counterpar
 
 ==== Implementation: Outputting Error File
 
+Other than the CSV file path, if the user specifies an additional file path, Alfred will create a new CSV file path at that location containing every line in the user-given CSV file that had an error. For example, if lines 4, 6, and 7 were invalid in the imported CSV file, the error CSV file will contain only three lines, namely lines 4, 6, and 7 of the user-given CSV file.
+
+The activity diagram below will illustrate what would happen if two file paths were provided. The following diagram starts at *node A* shown in <<ImportCommandActivityDiagram>>.
+
+.Import Command Error File Path Provided
+image::ImportCommandErrorFileActivityDiagram.png[]
+
+[[ImportCommandDesignConsiderations]]
+// tag::ImportExportB[]
 ==== Design Considerations
+
+When designing this feature, different aspects - list below - were considered.
+
+===== Aspect 1: Storing of File Path
+
+* *Alternative 1:* Store as a `String`
+
+** Cons: May have cross-platform issues.
+
+* *Alternative 2 (Current Choice):* Store as a `Path`
+
+** Pros: Fixes cross-platform issues (by handling all possible separator characters used by different OS's)
+
+Alternative 2 was chosen because of the additional benefits `Path` class provides. Additional overhead of `Path` class (`File` class could also have been used) proved more effective than storing as `Strings`.
+
+===== Aspect 2: Representation of an Invalid Line in CSV File
+
+* *Alternative 1:* Represent as a `String` and print to user
+
+** Pros: Gets the message across. The user will know the content of the line that is causing the problem.
+** Pros: Simple to manage.
+** Cons: The user will have to locate where the line is in the CSV file.
+** Cons: The user will not know why the line causes a problem.
+
+* *Alternative 2 (Current Choice):* Create an `Error` wrapper class
+
+** Pros: Able to store line number, content of line, and cause of error in one object.
+** Pros: Makes sorting of multiple `Error` objects easier through a `compareTo()` method. This proves useful when a buffered line (representing a team) contains error.
+** Pros: Able to display multiple information to user in a neat fashion.
+
+We chose Alternative 2 because `Error` class will be able to provide a more detailed explanation more simply than using a `String`. By displaying to the user the line number and the reason why the line was not able to be imported into Alfred would save user tons of time trying to locate where the line is in the CSV file and why it caused a problem. However, we figured that knowing the line number would not help much in locating the line in the CSV file if the file is huge, hence the next aspect.
+
+===== Aspect 3: Display of Errors
+
+* *Alternative 1:* Display to user through `CommandResult` box of the GUI
+
+** Pros: Gets its job done.
+** Cons: May overcrowd the `CommandResult` box for a big CSV file with lots of errors.
+
+* *Alternative 2:* Creates a new CSV file containing all the errors.
+
+** Pros: Provides a 'clean slate' for the user to correct their errors.
+** Pros: The user does not have to locate the lines in their original CSV file.
+** Cons: The user will not know the reason why certain line caused an error.
+** Cons: May be a bit overkill, especially if only one or two lines were invalid.
+
+This aspect has no **(Current Choice)** attached to any alternative because Alfred utilizes both. As mentioned before, Alternative 2 will be carried out if the user specifies an error file path. Then, whether or not the user has provided the error file path, Alfred will still include an error message in the `CommandResult` box if there are any.
+
+===== Aspect 4: Assigning of Participants and/or Mentor to Teams through `ImportCommand`
+
+* *Alternative 1:* Do not allow assigning to Teams through `ImportCommand`
+
+** Pros: Simple to implement.
+** Pros: Placement of lines in CSV file will not cause problems while adding to Alfred.
+** Cons: Defeats the purpose of "bulk registration" if the user has to go through a 2-step process just to add one team.
+
+* *Alternative 2 (Current Choice):* Allow assigning
+
+** Pros: The user does not have to go through an n-step process to add multiple teams.
+** Cons: Relatively difficult to implement. Have to take care of dependency issues between participants/mentors and teams.
+
+Initially, our plan was to disallow users from assigning other entities to Teams through `ImportCommand`. However, we soon realized that a huge purpose of Alfred and this feature was to facilitate managing of relationships between Teams and other entities. So, we decided to allow assignment by buffering parsing of Teams to a later stage - after all the other participants and mentors have been parsed and added into Alfred.
+
+// end::ImportExportB[]
 
 === Export Feature
 
-The export feature will be used to unload the data in Alfred to an external CSV file. This functionality will prove useful when you or the user wishes to share the aggregate data of a particular hackathon event with other people or organization or wishes to keep a record of past hackathons for future references.
+The export feature will be used to unload the data in Alfred to an external CSV file. This functionality will prove useful when the user wishes to share the aggregate data of a particular hackathon event with other people/organizations or wishes to keep a record of past hackathons for future references.
+
+The user can choose to either export all the data regarding a specific entity or all entities by specifying the entity when typing the command. Through the following sections, implementation of the `ExportCommand` will be explained in detail.
+
+==== Implementation Overview
+
+This feature, like `ImportCommand`, utilizes the `CsvUtil` class because it also handles CSV files. As mentioned before, on top of parsing of data, `CsvUtil` also supports writing of different entities into a provided CSV file by converting them to their corresponding CSV Strings. Below shows the relationships between different classes involved in `ExportCommand`.
+
+.Export Command Class Diagram
+image::ExportCommandClassDiagram.png[]
+
+The diagram shows that much like `ImportCommand`, `ExportCommand` also utilizes utility classes, such as `CsvUtil` and `FileUtil`. However, unlike `ImportCommand`, since Alfred is the one creating the file this time, if the file path given by the user is not a valid path, Alfred will create and export all data to a file located at default file path, which is `./AlfredData/Alfred_Data.csv`.
+
+The activity diagram below will show in more detail how the `ExportCommand` is executed.
+
+[[ExportCommandActivityDiagram]]
+.Export Command Activity Diagram
+image::ExportCommandActivityDiagram.png[]
+
+==== Implementation: `ExportCommand`
+
+The <<ExportCommandActivityDiagram, above>> diagram illustrated the general flow of how `ExportCommand` is executed. You can see that majority of the work is being passed onto the `CsvUtil`. The sequence diagram below will show how `CsvUtil` manages to write all the data into a CSV file.
+
+.Export Command Sequence Diagram
+image::ExportCommandSequenceDiagram.png[]
+
+You can see that `CsvUtil` receives the `EntityList` of each entity type from `Model`. `CsvUtil` will then iterate through one entity at a time, convert to corresponding CSV String, and write to the CSV file. As such, you can see that the actual writing to a CSV file is handled by `CsvUtil` instead of the `ExportCommand` class.
+
+==== Implementation: Subclasses of `ExportCommand`
+
+Exporting all the data from Alfred to a CSV file is nice, but sometimes, the user may only want the data of a specific entity. This would be handled by the subclasses of `ExportCommand`, which consists of `ExportMentorCommand`, `ExportParticipantCommand`, and `ExportTeamCommand`. Similar to their superclass, the subclasses also depend on `FileUtil` and `CsvUtil` classes to create and write data to CSV files.
+
+The overall flow is the same so you can refer to the aforementioned <<ExportCommandActivityDiagram, activity diagram>> and <<ExportCommandSequenceDiagram, sequence diagram>> for more information. The only difference is when the subclasses call `CsvUtil`. If you recall, `ExportCommand` passes `Model` to `CsvUtil`. For each subclass, they will retrieve the respective `ReadOnlyEntityList` and pass to `CsvUtil`. The above activity diagram shows that in `CsvUtil`, it makes three method calls to itself: `writeToCsv(File, MentorList)`, `writeToCsv(File, ParticipantList)`, and `writeToCsv(File, TeamList)`. These three methods are the methods that each subclass will call.
+
+==== Design Consideration
+
+===== Aspect 1: Selective Exporting of Data
+
+* *Alternative 1:* Do not allow selective exporting
+
+** Pros: Simple to implement
+** Cons: User may want to export a portion of data in Alfred
+
+* *Alternative 2 (Current Choice):* Allow user to export data of specific entity type
+
+** Pros: Allows user to narrow the scope down to what is necessary for the user
+** Pros: Relatively simpler to implement than Alternative 3
+** Cons: User may want to export some data each across different entity types
+
+* *Alternative 3:* Allow user to specify a range of entity IDs to export
+
+** Pros: Gives user complete freedom in which data is exported
+** Cons: May be too much work for little value (if user does not find this useful)
+
+For now, we have chosen *Alternative 2*. We thought allowing the user to choose a specific entity type would be sufficient. But implementing *Alternative 3* can be done in the future to make Alfred even more customizable for the user. It would not replace *Alternative 2* but the two will exist side by side. Depending on the additional parameters inputted by the user, commands will execute differently.
+
+===== Aspect 2: Type of Files to Support
+
+* *Alternative 1 (Current Choice):* Support CSV file only
+
+** Pros: Simple to implement
+** Pros: Standard of file formatting is simple
+** Cons: Little freedom for the user
+** Cons: User may not be familiar with a CSV file
+** Cons: One can argue that Excel is easier to edit than CSV
+
+* *Alternative 2:* Support a variety of file extensions
+
+** Pros: Gives user a lot of freedom
+** Cons: Parsing rules for different files may be cumbersome to implement
+** Cons: Having a unified standard for file formatting may not be optimal
+
+For now, data can only be exported to CSV files. This aspect can also be under the <<ImportCommandDesignConsiderations, design considerations>> of `ImportCommand`. In the future, we can increase the number of file extensions supported.
 
 // tag::undoredoDG1[]
 === Undo/Redo feature
@@ -1429,6 +1583,7 @@ Steps 1b1 - 1b2 are repeated until the index is found in the list of Entities.
 +
 Use case resumes from step 4.
 
+// tag::UseCaseImportExport[]
 === Use case: Import external data through a CSV file
 
 *MSS*
@@ -1476,6 +1631,7 @@ Use case resumes from step 5 if user did not request for an error file.
 ** 4a3. HackathonManager creates a CSV file with the invalid lines at user specified path.
 +
 Use case resumes from step 5.
+// end::UseCaseImportExport[]
 
 === Use case: Export data to an external CSV file.
 

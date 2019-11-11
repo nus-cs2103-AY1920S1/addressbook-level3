@@ -28,9 +28,9 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_EMPTY_DATA = "No data to export. File was not created.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports Alfred data to a CSV file.\n"
             + "Format: " + COMMAND_WORD + " [ENTITY] [" + PREFIX_FILE_PATH + "FILE_PATH]\n"
-            + "\tExample 1: " + COMMAND_WORD
+            + "Example 1: " + COMMAND_WORD
             + " (Creates AlfredData/Alfred_Entity_List.csv at current working directory)\n"
-            + "\tExample 2 (Windows): " + COMMAND_WORD + " " + PREFIX_FILE_PATH + "C:/Users/USER"
+            + "Example 2 (Windows): " + COMMAND_WORD + " " + PREFIX_FILE_PATH + "C:/Users/USER"
             + " (Creates Alfred_Entity_List.csv at C:/Users/USER)"; // TODO: Add other examples on different platforms
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
     public static final Path DEFAULT_FILE_PATH = FileUtil.getPath("AlfredData", "Alfred_Data.csv");
@@ -62,7 +62,6 @@ public class ExportCommand extends Command {
             File csvFile = this.csvFilePath.toFile();
             FileUtil.createIfMissing(this.csvFilePath);
             CsvUtil.writeToCsv(csvFile, model);
-            model.updateHistory(this);
             model.recordCommandExecution(this.getCommandInputString());
         } catch (IOException ioe) {
             throw new CommandException(MESSAGE_IO_EXCEPTION);

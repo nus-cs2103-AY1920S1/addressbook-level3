@@ -78,23 +78,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
+[[ParameterConstraints]]
 == Parameter Constraints and Additional Information
 
+// tag::ParameterConstraints[]
 ****
 
-**`Entity Type`**
+[big]##*Entity Types*##
 
-* **Mentor**
+* *Mentor*
 
 ** A mentor has a name, phone number, email address, an organization, and a specialty (i.e. subject name) which must take on values mentioned below under "Parameters."
 ** Two mentors are considered as the same mentor if and only if they have the same names along with one of their phone numbers or emails.
 
-* **Participant**
+* *Participant*
 
 ** A participant has a name, phone number, and an email address.
 ** Two participants are considered as the same participant if and only if they have the same names along with one of their phone numbers or emails.
 
-* **Team**
+* *Team*
 
 ** A team has a team name, a subject to focus on, score, its project name, and its location (table number).
 (For now, many teams can be grouped in 1 location. setting of restrictions coming in v2.0).
@@ -105,7 +107,7 @@ All entities will also receive a unique ID, which means no two entity will share
 That is, entities with same ID will also be considered as a same entity. This is to be considered for specific commands such as the <<CSV File Formatting>> under the <<Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`, Bulk Registration>> command.
 Also, do not that entities are randomly generated and are not necessarily in ascending order.
 
-**`Parameters`**
+[big]##*Parameter Constraints*##
 
 `Name`, `Organization`, `ProjectName` - can be any combination of spaces, letters, and these special characters (,.-')
 
@@ -129,6 +131,7 @@ Must be one of the values below:
 Restrictions of the number of teams per table will be coming in v2.0.
 
 ****
+// end::ParameterConstraints[]
 
 [[Features]]
 == Features
@@ -269,6 +272,22 @@ Examples:
 
 * `list teams` will list all hackathon teams stored within Alfred.
 
+=== Viewing a Specific Entity: `view {mentor/participant/team} ID`
+
+Shows a single entity with given ID.
+
+****
+* The fields of the Entity will be displayed on Alfred's Graphical User Interface.
+****
+
+Examples:
+
+* `list mentors M-1` will show the mentor with ID M-1 stored within Alfred.
+
+* `list participants P-1` will show the hackathon participant with ID P-1 stored within Alfred.
+
+* `list teams T-1` will show the hackathon team with ID T-1 stored within Alfred.
+
 === Deleting an Entity: `delete {mentor/participant/team} ID`
 Deletes an Entity, so that Alfred will no longer keep track of that Entity.
 
@@ -372,7 +391,7 @@ the default find does a search by intersection.
 //tag::assign[]
 === Assigning a Entity to a Team: `assign {mentor/participant} ID TEAM_ID ...`
 
-Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID. +
+Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID. It is possible to assign a participant or mentor to multiple teams.
 
 ****
 * Take note that the `assign` command can only be used to assign Participants and Mentors to a Team.
@@ -700,8 +719,9 @@ Example:
 * `leaderboard s/Social` will display the leaderboard consisting only of teams with the subject "Social"
 * `getTop 3 tb/lessParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "lessParticipants" - the team with fewer participants wins the tie.
 
-
 === Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
+
+// tag::ImportExportA[]
 You may import multiple entities at once into Alfred through the specification of a CSV file. +
 If the PATH_TO_ERROR_FILE is specified, Alfred will create a new CSV file with all of the lines that were not able to be loaded.
 
@@ -710,26 +730,34 @@ Example:
 * `import fp/C:/User/Hackathon2019/participant.csv` will import data from the participant.csv file into Alfred.
 * `import fp/Hackathon2019/participant.csv` will look for the CSV file in your current directory (or the folder where alfred.jar is downloaded).
 
-Example usage of error file is shown at the end of <<CSV File Formatting>>.
+TIP: First, locate the desired file in your respective file manager. +
+On Windows, hold down `shift`, click the file, then click `Copy as path` to copy its file path. +
+On Mac, right-click the file, hold down `OPTION` key, then click `Copy (item name) as Pathname` to copy its file path.
+
+// end::ImportExportA[]
+
+Example usage of error file is shown <<ErrorFileExample, below>>.
 
 ==== CSV File Formatting
-In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format.
+
+In order for the contents of the CSV file to be correctly loaded into Alfred, the file has to be in the correct format, which will be discussed below. For most platforms, there will be a default editor for a CSV file. If the editor is anything other than text editor, please ensure that the default separator is set as one comma (,). There may be whitespaces surrounding a comma if it is easier for you to edit.
 
 ****
 `EntityType` - single capital letter representing the entity type
 
-* **Mentor:** M
-* **Participant:** P
-* **Team:** T
+* *Mentor:* M
+* *Participant:* P
+* *Team:* T
 
 `[ID]` - the ID of the entity (optional)
 
-* **Mentor:** M-d, where d can be any positive integer
-* **Participant:** P-d, where d can be any positive integer
-* **Team:** T-d, where d can be any positive integer
+* *Mentor:* M-d, where d can be any positive integer
+* *Participant:* P-d, where d can be any positive integer
+* *Team:* T-d, where d can be any positive integer
 ** You can also express `ID` as only a positive integer.
 
-For the rest of the parameters, please refer to <<Parameter Constraints and Additional Information>>.
+
+For the rest of the parameters, please refer to <<ParameterConstraints>>.
 
 ****
 
@@ -772,27 +800,30 @@ Example:
 * T,1,Justice League,[P-1|P-2|P-3],M-1,Social,100,Save the Earth,1
 * T,,Justice League,[P-1|P-2|P-3],1,Social,100,Save the Earth,1
 
-***
+'''
+
 
 Alfred will recognize each of the entity headers and will not count it as an error. Example CSV file may look like this:
 
-****
+----
 
-Alfred.csv
+    Alfred.csv
 
-EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location +
-T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1 +
-T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2 +
-EntityType,ID,Name,Phone,Email,Organization,SubjectName +
-M,1,Alfred the Mentor,+6512345678,alfred@batcave.com,Batcave Corp.,EDUCATION +
-M,,Joker,,is this my email?? +
-EntityType,ID,Name,Phone,Email +
-P,1,Bruce Wayne,+65 23456789,wbruce@wayne.ent +
-P,2,Superman,+6519231486,ckent@dailyplanet.org +
-P,3,Diana,+6547234328,diana@amazon.com +
-P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+    EntityType,ID,Name,Participants,Mentor,SubjectName,Score,ProjectName,Location
+    T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1
+    T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2
+    EntityType,ID,Name,Phone,Email,Organization,SubjectName
+    M,1,Alfred the Mentor,+6512345678,alfred@batcave.com,Batcave Corp.,EDUCATION
+    M,,Joker,,is this my email??
+    EntityType,ID,Name,Phone,Email
+    P,1,Bruce Wayne,+65 23456789,wbruce@wayne.ent
+    P,2,Superman,+6519231486,ckent@dailyplanet.org
+    P,3,Diana,+6547234328,diana@amazon.com
+    P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
 
-****
+----
+
+You can also download a sample CSV file https://tinyurl.com/yhw6vs4v[here] to try it out for yourself. +
 
 Assuming Alfred has no data, we can see that lines 3, 6, and 11 will fail.
 
@@ -800,31 +831,35 @@ Assuming Alfred has no data, we can see that lines 3, 6, and 11 will fail.
 * Line 6: Phone number is missing and email is invalid (Invalid format)
 * Line 11: Another participant with ID P-3 exists (Duplicate entity)
 
+[[ErrorFileExample]]
 If you give the following command to Alfred,
 
-`import fp/Alfred.csv fp/Alfred_Errors.csv`
+    import fp/Alfred.csv fp/Alfred_Errors.csv
 
 then the following CSV file will be created where Alfred.csv is located at.
 
-****
+----
 
-Alfred_Errors.csv
+    Alfred_Errors.csv
 
-T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2 +
-M,,Joker,,is this my email?? +
-P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
+    T,,Amazon Warriors,[P-3|P-4],,Environmental,100,Save the Amazon,2
+    M,,Joker,,is this my email??
+    P,3,Lois Lane,+6598765432,loislane@dailyplanet.org
 
-****
+----
 
-***
+
+'''
 
 === Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
+// tag::ImportExportB[]
 You may export Alfred data to an external CSV file. If the entity type is specified, Alfred will export all the data corresponding to that entity type only. If the desired CSV file path is left empty, Alfred will create a CSV file at the default location (`./AlfredData/Alfred_Data.csv`).
 
 Example:
 
 * `export` will export all entities' data in Alfred to the default file path: `/AlfredData/Alfred_Data.csv`.
 * `export mentor fp/data/Alfred.csv` will export all mentor data in Alfred to `/data/Alfred.csv`. If the any folders do not happen to exist, Alfred will create them for you.
+// end::ImportExportB[]
 
 === Help command
 
@@ -866,22 +901,31 @@ Let us suppose that you want to type the command `add mentor` and you forgot the
 
 Instead of going through the user guide to look for the command, a popup box will appear as you type. The content in this box will change as you type, such that the commands suggested will start with the words or letters that you have already entered.
 
-As you type:
+As you type: +
+
 1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear if you choose the command.
 
++
 image::CommandSuggestionStep1.png[width="790"]
++
 
-2.	Press the ```up`` or ```down``` arrow keys to navigate up and down the popup box.
+2.	Press the `up` or `down` arrow keys to navigate up and down the popup box.
 
++
 image::CommandSuggestionStep2.png[width="790"]
++
 
-3.	Press ```Enter``` to choose the command of your choice. The command will then appear on the user input box.
+3.	Press `Enter` to choose the command of your choice. The command will then appear on the user input box.
 
++
 image::CommandSuggestionStep3.png[width="790"]
++
 
 4.	Press ‘left’ or ‘right’ keys to navigate the cursor and fill in the respective fields. Press Enter to execute the command.
 
++
 image::CommandSuggestionStep4.png[width="790"]
++
 
 //end::command-suggestion[]
 
@@ -936,12 +980,10 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 * This helps fulfill a first-come-first-serve policy.
 ****
 
-
-
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Alfred folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: First, download `alfred.jar` in your other computer. Then, transfer the `data` folder at where `alfred.jar` is downloaded in your old computer over to your new computer. In your new computer, transfer the `data` folder over to where `alfred.jar` is downloaded.
 
 == Command Summary
 
@@ -949,17 +991,27 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 [width="100%",cols="2%,<50%,<50%,<90%",options="header",]
 |=======================================================================
 |Command |Function |Format|Example
-|Add an Entity|Add an Entity for Alfred to keep track |`add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`| *Participant:* `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS`
+|Add an Entity|Add an Entity for Alfred to keep track |`add {mentor/participant/team} PARAMETERS`| *Participant:* `add participant n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS` +
+*Team:* `add team n/NAME s/SUBJECT pn/PROJECT_NAME l/TABLE_NUMBER` +
+*Mentor:* `add mentor n/NAME p/PHONE_NUMBER e/EMAIL_ADDRESS o/ORGANIZATION s/SUBJECT`
 
-|Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P01 n/NewParticipantName` *Team:* `edit team T01 n/NewTeamName pn/New Project Name` *Mentor:* `edit participant P01 n/NewMentorName`
+|Update an Entity|Edits an entity based on the supplied parameter values |`edit {mentor/participant/team} ID [PARAMETERS]` | *Participant:* `edit participant P-1 n/NewParticipantName` +
+*Team:* `edit team T-1 n/NewTeamName pn/New Project Name` +
+*Mentor:* `edit participant P-1 n/NewMentorName`
 
-|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` *Team:* `list teams` *Mentor:* `list mentors`
+|List all Entities |Shows a list of all the entities corresponding to the entity type |`list {mentors/teams/participants}`| *Participant:* `list participants` +
+*Team:* `list teams` +
+*Mentor:* `list mentors`
 
-|Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` *Team:* `delete team T-1` *Mentor:* `delete mentor M-1`
+|Deleting an Entity |Deletes an Entity, so that Alfred will no longer keep track of that Entity | `delete {participant/mentor/team} ID` | *Participant:* `delete participant P-1` +
+*Team:* `delete team T-1` +
+*Mentor:* `delete mentor M-1`
 
-|Finding an Entity |Searches for Entities by their name|`find {mentor/team/participant} NAME` | *Participant:* `find participant n/John Doe` *Team:* `find team n/FutureHackathonWinner` *Mentor:* `find mentor n/Joshua Wong`
+|Finding an Entity |Searches for Entities by their name|`find {mentor/team/participant} NAME` | *Participant:* `find participant n/John Doe` +
+*Team:* `find team n/FutureHackathonWinner` +
+*Mentor:* `find mentor n/Joshua Wong`
 
-|List Undo/Redo-able Commands |Displays the Undo/Redo-able Commands in the "History" section of the GUI |`history` | `history
+|List Undo/Redo-able Commands |Displays the Undo/Redo-able Commands in the "History" section of the GUI |`history` | `history`
 
 |Undo Previous Command | Undoes the previously executed command. Look at output of `history` to see which command can be re-done. | `undo` | `undo`
 
@@ -979,7 +1031,12 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 
 |Sets points of a Team |Sets the score of the team with TEAM_ID to a new score NEW_POINT |`score sub TEAM_ID NEW_POINTS` | *Team:* `score set T-1 15`
 
-|Bulk registration|Adds multiple participants at once into Alfred through the specification of a .csv file | `addBulk PATH_TO_CSV_FILE`| `addBulk C:\User\Hackathon2019\participant.csv` will import data from the participant.csv file into Alfred
+|Bulk Registration|Adds multiple participants at once into Alfred through the specification of a .csv file | `import fp/CSV_FILE_PATH fp/[ERROR_FILE_PATH]`| `import fp/C:\User\Hackathon2019\participants.csv` will import data from `participants.csv` into Alfred
+
+|Export Data|Exports all data in Alfred to an external CSV file|`export [{mentor/participant/team}] fp/[CSV_FILE_PATH]`|*All:* `export fp/data/alfred.csv` +
+*Participant:* `export participant` +
+*Team:* `export team` +
+*Mentor:* `export mentor`
 
 |Add a schedule for a Team (Coming in v2.0)|Adds a time slot where the Team of TEAM_ID meets with Mentor of MENTOR_ID |`addSchedule TIME TEAM_ID MENTOR_ID` | `addSchedule 1/2/2019 1400 T-1 M-1` the specified Mentor will meet with Team on 1st February 2019 2pm
 
@@ -998,3 +1055,4 @@ Go through the waitlist and list the participants in the waitlist in ascending o
 |Remove a User from WaitList (Coming in v2.0)|Removes a prospective Participant by USER_ID from Waitlist | `removeFromWaitList USER_ID` | `removeFromWaitList U-1`
 
 |List all User in WaitList (Coming in v2.0)|Lists all prospective Participant in Waitlist | `listWaitList` | `listWaitList`
+|=======================================================================

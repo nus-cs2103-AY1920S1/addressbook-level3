@@ -1,0 +1,30 @@
+@startuml
+!include style.puml
+
+package "commons.util" {
+    Class FileUtil UTIL_COLOR
+}
+
+package "logic.commands" {
+    Abstract Class "{Abstract}\nCommand" as Command LOGIC_COLOR
+    Class ExportCommand LOGIC_COLOR
+    package "csvutil" {
+        Class CsvUtil LOGIC_COLOR
+    }
+    ExportCommand -up-|> Command LOGIC_COLOR
+    ExportCommand .-right-> CsvUtil LOGIC_COLOR : uses >
+}
+logic.commands -[hidden]-> commons.util
+
+ExportCommand --> FileUtil LOGIC_COLOR : uses >
+
+package "model" {
+    Interface Model <<interface>> MODEL_COLOR
+    Class ModelManager MODEL_COLOR
+    ModelManager .-up|> Model
+}
+logic.commands -[hidden]-> model
+
+ExportCommand .-> Model LOGIC_COLOR : retrieves entities >
+
+@enduml

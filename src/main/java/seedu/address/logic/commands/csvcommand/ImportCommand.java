@@ -58,9 +58,9 @@ public class ImportCommand extends Command implements TrackableState {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loads data in CSV file into Alfred\n"
             + "Format: " + COMMAND_WORD + " "
             + PREFIX_FILE_PATH + "CSV_FILE_PATH [" + PREFIX_FILE_PATH + "ERROR_FILE_PATH]\n"
-            + "\tExample 1 (Windows): " + COMMAND_WORD + " "
+            + "Example 1 (Windows): " + COMMAND_WORD + " "
             + PREFIX_FILE_PATH + "C:/Users/USER/AlfredData/Alfred.csv\n"
-            + "\tExample 2 (Windows) " + COMMAND_WORD + " "
+            + "Example 2 (Windows) " + COMMAND_WORD + " "
             + PREFIX_FILE_PATH + "Alfred.csv " + PREFIX_FILE_PATH + "Alfred_Errors.csv";
 
     private Path csvFilePath;

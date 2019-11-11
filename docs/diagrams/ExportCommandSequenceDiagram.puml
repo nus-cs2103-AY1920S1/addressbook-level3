@@ -1,0 +1,65 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+    participant ":LogicManager" as LogicManager LOGIC_COLOR
+    participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+    participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+    participant "e:ExportCommand" as ExportCommand LOGIC_COLOR
+    participant ":CsvUtil" as CsvUtil LOGIC_COLOR
+    participant "res:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+    participant ":Model" as Model MODEL_COLOR
+end box
+
+[->LogicManager : execute("export fp/data/Hackathon2019")
+activate LogicManager
+
+LogicManager -> AlfredParser ++ : parseCommand("export fp/data/Hackathon2019")
+
+    create ExportCommandParser
+    AlfredParser -> ExportCommandParser : <<create>>
+    activate ExportCommandParser
+    ExportCommandParser --> AlfredParser
+    deactivate ExportCommandParser
+
+    AlfredParser -> ExportCommandParser : parse(" fp/data/Hackathon2019")
+    activate ExportCommandParser
+        create ExportCommand
+        ExportCommandParser -> ExportCommand : <<create>> with file path "/data/Hackathon2019"
+        activate ExportCommand
+        return e
+    return e
+
+return e
+
+LogicManager -> ExportCommand ++ : execute()
+
+    ExportCommand -> CsvUtil ++ : <<static>>\nwriteToCsv(File, Model)
+        CsvUtil -> Model ++ : getMentorList()
+        return mList
+        CsvUtil -> CsvUtil ++ : <<static>>\nwriteToCsv(File, mList)
+        deactivate CsvUtil
+
+        CsvUtil -> Model ++ : getParticipantList()
+        return pList
+        CsvUtil -> CsvUtil ++ : <<static>>\nwriteToCsv(File, pList)
+        deactivate CsvUtil
+
+        CsvUtil -> Model ++ : getTeamList()
+        return tList
+        CsvUtil -> CsvUtil ++ : <<static>>\nwriteToCsv(File, tList)
+        deactivate CsvUtil
+    return
+
+    ExportCommand -> CommandResult ** : <<create>>
+    activate CommandResult
+    return res
+
+return res
+
+[<--LogicManager : res
+
+@enduml

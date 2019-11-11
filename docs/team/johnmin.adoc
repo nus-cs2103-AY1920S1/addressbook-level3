@@ -1,72 +1,122 @@
-= John (Kyungho) Min - Project Portfolio
+== John (Kyungho) Min - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+endif::[]
 
-== PROJECT: AddressBook - Level 3
+=== PROJECT: AddressBook - Level 3
 
----
+==== Overview
 
-== Overview
+[small]#Alfred is a desktop application used for organizing hackathons. This project was morphed from `SE-EDU Addressbook - Level 3`, which you can find the link https://se-education.org/addressbook-level3/[here]. This application allows the user to easily manage the relationships between teams and participants/mentors taking part in an hackathon event along with providing a simple mechanism for judging and scoring of teams. It is written in Java with more than 25 kLoC.#
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+[small]#This is what our project looks like:#
 
-== Summary of contributions
+.The GUI for *Alfred*
+image::Ui.png[pdfwidth=75%, align="center"]
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+[small]#I implemented the `import` and `export` features for *Alfred*. The following sections will delve deeper into the enhancements I have made along with the relevant documentations I have added to the user and developer guides.#
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+[small]#Note the following format used in this document:#
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
-
-== Contributions to the User Guide
-
-
+[cols=2, grid=none, frame=none, cols="25%,75%"]
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+| [small]#`Words` in red# | [small]#Indicates that this word is either associated with written code, parameters for commands, or Java classes.
+| [small]#Words in `UPPER_CASE`# | [small]#Indicates a parameter that you need to supply for a command.#
+| [small]#Words in `{braces}`# | [small]#Indicates parameters for a command that you can select from. +
+i.e. {A/B/C} indicates that you may either choose A, B, or C.#
+| [small]#Words in `[brackets]`# | [small]#Indicate parameters that are optional for the command. +
+i.e. `add [param]` indicates that both `add` and `add param` commands will work.#
+| [small]#`Entity`# | [small]#Refers to a collective set of Participants, Mentors, and Teams.#
 |===
 
-include::../UserGuide.adoc[tag=delete]
+==== Summary of contributions
 
-include::../UserGuide.adoc[tag=dataencryption]
+*Major Enhancement 1:* added the ability to bulk register entities into *Alfred* through CSV files.
 
-== Contributions to the Developer Guide
+* [small]#*What it does:* Allows the user to add multiple entities into *Alfred* at once instead of one command at a time.#
+* [small]#*Justification:* This feature improves the product significantly as it allows the user to keep track of registered entities in CSV files and mass import it after registration period.#
+* [small]#*Highlights:* This enhancement requires the user to keep a correctly formatted CSV file for this command to work properly. Rules for formatting is included in our <<../UserGuide.adoc#ParameterConstraints, user guide>>.#
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+*Major Enhancement 2:* added the ability to export all the data in *Alfred* to an external CSV file.
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+* [small]#*What it does:* Allows the user to keep a record of past hackathon events via a one-line command.#
+* [small]#*Justification:* For big events such as hackathons, it will be important to keep a record of each hackathon event. This documentation can be used for many purposes, including sharing aggregate data with other organizations and analyzing past events to predict necessary investments for future events.#
+* [small]#*Highlights:* The user can choose to export data regarding a certain entity type by specifying it in the command. This may be useful if the user wants to run statistical analysis regarding a specific entity type.#
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+*Minor enhancement:* morphed existing `add`, `delete`, and `edit` commands to fit the class structure of *Alfred*
 
+* [small]#*Highlights:* Although this is included as a minor enhancement, it required creation of 12 new Java classes along with syncing of new methods exposed by our new manager class.#
 
-== PROJECT: PowerPointLabs
+*Code contributed*: [https://tinyurl.com/tzuvoyh[Contributions]]
 
----
+*Other contributions*:
 
-_{Optionally, you may include other projects in your portfolio.}_
+* [small]#Project Management:#
+
+** [small]#Managed README.adoc, AboutUs.adoc, ContactUs.adoc, and our team profile pictures for our https://nus-cs2103-ay1920s1.github.io/website/admin/projectList.html#cs2103t-f11[team showcase] (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/29[#29], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/36[#36])#
+
+* [small]#Enhancements to existing features:#
+
+** [small]#Updated existing utility classes to abstract commonly used methods (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14] https://github.com/AY1920S1-CS2103T-F11-1/main/pull/116[#116])#
+** [small]#Morphed existing commands to fit with our project's structure (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/2[#2], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/4[#4], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/63[#63])#
+
+* [small]#Documentation:#
+
+** [small]#Added `ImportCommand` and `ExportCommand` sections in our user guide and developer guide: (Pull request: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/349[#349])#
+
+* [small]#Community:#
+
+** [small]#PRs reviewed with non-trivial review comments: (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/7[#7], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/13[#13] ... https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#159] ...)#
+** [small]#Reported bugs and suggestions for our team (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/324[#324], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/325[#325], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/326[#326], https://github.com[2], https://github.com[3])#
+** [small]#Fixed bugs raised by my teammate and people from other teams (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/270[#270], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/272[#272], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/322[#322])#
+
+* [small]#Tools:#
+
+** [small]#Integrated a third party library (Netlify) to the project (https://github.com/AY1920S1-CS2103T-F11-1/main/commit/96ead6d1d344e580e2a4df56ecb9adb7f6a2ed99#diff-7bd4a925c695c2eb0eced3872b9b965f[README.adoc commit])#
+
+==== Contributions to the User Guide
+
+The following block shows an excerpt from our <<../UserGuide.adoc#ParameterConstraints, user guide>> showing my contributions to the documentation of various constraints of parameters used in our application. It is basically like a glossary of parameters to be used in *Alfred* commands.
+
+include::../UserGuide.adoc[tag=ParameterConstraints]
+
+'''
+
+From here on, I included an excerpt of my contributions to the documentation of the usage of `ImportCommand` and `ExportCommand` in our user guide.
+
+'''
+
+==== Bulk Registration: `import fp/PATH_TO_CSV_FILE [fp/PATH_TO_ERROR_FILE]`
+
+include::../UserGuide.adoc[tag=ImportExportA]
+
+==== Export Data: `export [{mentor/participant/team}] [fp/DESIRED_CSV_FILE_PATH]`
+
+include::../UserGuide.adoc[tag=ImportExportB]
+
+==== Contributions to the Developer Guide
+
+The following block shows an excerpt from our <<../DeveloperGuide.adoc#BulkRegistration, developer guide>> showing my contributions to the documentation of how the `ImportCommand` was implemented.
+
+include::../DeveloperGuide.adoc[tag=ImportExportA]
+include::../DeveloperGuide.adoc[tag=ImportExportB]
+
+'''
+
+Now that the structure and flow is explained, I will show the use cases of the feature in the following section.
+
+'''
+
+include::../DeveloperGuide.adoc[tag=UseCaseImportExport]
+
+==== Further Action
+
+If you want to read more about our project and *Alfred*, here are the relevant links to our websites:
+
+* *Alfred* Website: https://ay1920s1-cs2103t-f11-1.github.io/main/[click]
+* User Guide: https://ay1920s1-cs2103t-f11-1.github.io/main/UserGuide.html[click]
+* Developer Guide: https://ay1920s1-cs2103t-f11-1.github.io/main/DeveloperGuide.html[click]
