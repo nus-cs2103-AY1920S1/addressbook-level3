@@ -2,6 +2,8 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
+
 import io.xpire.commons.util.StringUtil;
 import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
@@ -36,12 +38,9 @@ public class ExportCommand extends Command {
         this.requireNonEmptyCurrentList(model);
 
         ObservableList<? extends Item> currentList = model.getCurrentList();
-        StringBuilder formattedOutput = new StringBuilder(BORDER);
-        for (int index = 1; index <= currentList.size(); index++) {
-            formattedOutput.append(String.format("%d. %s\n", index, currentList.get(index - 1).toString()));
-            formattedOutput.append(BORDER);
-        }
-        byte[] pngData = StringUtil.getQrCode(formattedOutput.toString(), RESOLUTION_SIZE);
+        String formattedOutput = listToString(currentList);
+        byte[] pngData = StringUtil.getQrCode(formattedOutput, RESOLUTION_SIZE);
+
         return new CommandResult(SHOWING_EXPORT_MESSAGE, true, pngData);
     }
 
@@ -52,5 +51,20 @@ public class ExportCommand extends Command {
         } else {
             return obj instanceof ExportCommand;
         }
+    }
+
+    /**
+     * Converts the item list to its string representation.
+     *
+     * @param list Item list.
+     * @return String representation of item list.
+     */
+    private String listToString(List<? extends Item> list) {
+        StringBuilder formattedOutput = new StringBuilder(BORDER);
+        for (int index = 1; index <= list.size(); index++) {
+            formattedOutput.append(String.format("%d. %s\n", index, list.get(index - 1).toString()));
+            formattedOutput.append(BORDER);
+        }
+        return formattedOutput.toString();
     }
 }
