@@ -390,7 +390,11 @@ As with any other application, our prediction algorithm will be more accurate wi
 
 ==== Add new template: `tlist add`
 
-Adds a new template into template list. +
+Adding new templates into your template list can help make shopping for groceries easier.
+For example, you can add an ingredients list for a favourite recipe, or add a template for
+items you buy on a regular basis.
+
+Add a new template into template list. +
 Format: `tlist add n/TEMPLATENAME`
 
 Examples:
@@ -399,13 +403,21 @@ Examples:
 * `tlist add n/Birthday Party Prep`
 * `tlist add n/Beef Goulash`
 
+****
+* All templates in the template list must have a unique name. You will not be able to add a template that has the same name as another existing template.
+Checking of names is case-insensitive.
+****
+
 ==== Edit template name: `tlist edit`
 
-Updates name of specified template in template list. +
+You can also edit the names of existing templates. In the app, you can use the index number of the template to indicate which template you want to edit.
+
+Edit the name of a specified template in template list. +
 Format: `tlist edit INDEX n/TEMPLATENAME`
 
 ****
 * Edits the template at the specified `INDEX`. The index refers to the index number shown in the displayed template list. The index *must be a positive integer* 1, 2, 3, ...
+* All templates in the template list must have a unique name. You will not be able to edit a template with the name of another existing template.
 ****
 
 Examples:
@@ -414,6 +426,8 @@ Examples:
 Edits the name of the 1st template in the template list to `Daily Necessities`
 
 ==== Deleting a template: `tlist delete`
+
+If you no longer need a existing template, delete it to keep your template list neat and organised. You can use the index of a template to indicate the template you want to delete.
 
 Deletes a specified template from the template list. +
 Format: `tlist delete INDEX`
@@ -429,10 +443,14 @@ Deletes the 1st template in the template list
 
 ==== Clear template list: `tlist clear`
 
+If you find it annoying to have to delete templates one by one, you can clear the template list completely using the clear command.
+
 Clears all template entries from the template list. +
 Format: `tlist clear`
 
 ==== Show list of all templates: `tlist list`
+
+If you need to view the templates in your template list, use the list command to open the template list view.
 
 Shows all entries in the template list +
 Format: `tlist list`
@@ -440,14 +458,24 @@ Format: `tlist list`
 
 === Template Management
 
-==== Add new grocery item: `tlist template add`
+==== Add new template item: `tlist template add`
+
+You can add a new item to an existing template.
 
 Adds an item into a specified template. +
 Format: `tlist template add TEMPLATEINDEX n/NAME a/AMOUNT`
 
 ****
 * Adds item into the template under the specified `INDEX` as shown in the displayed template list.
-* Both name and amount fields must be filled in correctly.
+* All items in the template must be unique. Checking of similar names is case-insensitive.
+* The amount must include a magnitude and a unit.
+* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Only the units in the following unit categories are supported:
+** `Weight`: `kg`, `g`, `oz`, `lbs`
+** `Volume`: `L`, `ml`
+** `Quantity`: `units`
+* Whitespace between magnitude and unit is allowed.
+* Items with the same name are allowed to have different units as long as they are of the same unit category.
 ****
 
 Examples:
@@ -464,8 +492,15 @@ Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 * Edits the food item at the specified `ITEMINDEX` in template at specified TEMPLATEINDEX. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Amount must have units.
-* Units in the amount field must match that of the item specified.
+* The amount must include a magnitude and a unit.
+* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Only the units in the following unit categories are supported:
+** `Weight`: `kg`, `g`, `oz`, `lbs`
+** `Volume`: `L`, `ml`
+** `Quantity`: `units`
+* Whitespace between magnitude and unit is allowed.
+* Items with the same name are allowed to have different units as long as they are of the same unit category.
+
 ****
 
 Examples:
