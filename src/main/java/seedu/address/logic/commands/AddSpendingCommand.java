@@ -66,6 +66,7 @@ public class AddSpendingCommand extends Command {
                 currWorkingProject.getDescription(), currWorkingProject.getMemberNames(), currWorkingProject.getTasks(),
                 new Finance(budgets), currWorkingProject.getGeneratedTimetable());
 
+        editedProject.setListOfMeeting(currWorkingProject.getListOfMeeting());
         model.setWorkingProject(editedProject);
         model.setProject(currWorkingProject, editedProject);
         model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);

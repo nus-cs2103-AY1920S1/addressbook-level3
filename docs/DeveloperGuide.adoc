@@ -355,7 +355,7 @@ The following sequence diagram shows the process of sending reminder to the proj
 .Sequence Diagram for sendReminder
 image::SendReminderSequenceDiagram.png[]
 
-These are the stages shown in figure 13.
+These are the stages shown in figure 15.
 
 . Parses the input to obtain the duration.
 . Goes to `Model` to get the the Meetings and Tasks.

@@ -74,7 +74,7 @@ public class GenerateSlotCommand extends Command {
             Project editedProject = new Project(currWorkingProject.getTitle(),
                     currWorkingProject.getDescription(), currWorkingProject.getMemberNames(),
                     currWorkingProject.getTasks(), currWorkingProject.getFinance(), generatedTimetable);
-
+            editedProject.setListOfMeeting(currWorkingProject.getListOfMeeting());
             model.setWorkingProject(editedProject);
             model.setProject(currWorkingProject, editedProject);
             model.updateFilteredProjectList(PREDICATE_SHOW_ALL_PROJECTS);
