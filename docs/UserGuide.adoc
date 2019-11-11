@@ -931,23 +931,27 @@ image::QuizShowAnswers.PNG[]
 === Events ​-​ `event`
 
 This feature aims to provide event management into nJoy assistance through a visually-pleasing scheduler / calendar.
+[NOTE]
+The red line in the calendar marks the current date and time.
 
+.Event Calendar / Schedule in weekly view mode
 image::EventScheduleMain.png[]
-_Event Calendar / Schedule in weekly view mode_
 
-Note that the red line in the calendar marks the current date and time.s
+
 
 ==== Creating a event
 
-Create, store and render a event +
+Create, store and render a event. +
 Format: `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
 [NOTE]
+All parameters / options are required to create an event.
+[NOTE]
 Note that for start and end date-time, it is necessary to input it in the following manner:
-YYYY-MM-DDThh:mm. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
+YYYY-MM-DDThh:mm, with the time being in 24 hour format. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
 [NOTE]
 Note that the event name should not contain backslash characters.
 [NOTE]
-Events in the future have a slightly darker color than those in the past and present.
+Events in the future have a slightly darker color. This is intentional.
 
 The options supported by this feature includes:
 
@@ -955,11 +959,11 @@ The options supported by this feature includes:
 . `startDateTime` - The start date and time of the event
 . `endDateTime` - The end date and time of the event
 . `recur` - Recurrence of the event. Either none, daily or weekly.
-. `color` - Enter any number from 0 - 23 to set the color of this event.
+. `color` - Enter any number from 0 - 23 to set the color of this event. The numbers are pre-matched to unique colors.
 
 Examples:
 
-* *Weekly Event*: `event eventName/Teachers Meeting startDateTime/2019-11-07T15:00 endDateTime/2019-11-07T17:00
+* *Non-Recurring Event*: `event eventName/Teachers Meeting startDateTime/2019-11-07T15:00 endDateTime/2019-11-07T17:00
 recur/none color/17` +
 Creates a event with event name _'Teachers Meeting'_ with start date and time _'7th Nov 2019, 1500'_ with end
 date and time _'7th Nov 2019, 1700'_ and a color grouping of _'17'_.
@@ -970,11 +974,11 @@ image::EventScheduleAdd.png[]
 [[Feature-Event-Index]]
 ==== Indexing a event
 
-Gets the index a event based on its event name. If more than one event has the same name, the command will return all of them.
+Gets the index a event based on its event name. If more than one event has the same name, the command will return the index and details of all of them.
 Else if the event name is not found, it shows the event which has the most similar event name.
 
 [NOTE]
-Should always run this command before edit or delete event commands. As the index of a event CAN change while the application is running.
+Users should always run this command before edit or delete event commands. As the index of a event CAN change while the application is running.
 For example, deleting another event will affect the index of other events.
 
 Format: `event indexOf/...`
@@ -986,7 +990,7 @@ The options supported by this feature includes:
 Examples:
 
 * `event indexOf/CS2103T Lecture` +
-Returns the index of the event in the calendar
+Returns the index and details of the CS2103T Lecture in the calendar.
 
 ==== Editing a event
 
@@ -1004,8 +1008,8 @@ The options supported by this feature includes:
 
 Examples:
 
-* `event 2 eventName/CS2103T Lecture` +
-Edits the first event in the list changing existing event name to _'CS2103T Lecture'_.
+* `event 2 eventName/CS2101 Lecture` +
+Edits the event name of the event with index 2 to _'CS2101 Lecture'_.
 
 ==== Deleting a event
 
@@ -1015,6 +1019,7 @@ Format: `event delete [INDEX]`
 The options supported by this feature includes:
 
 . `[INDEX]` - The event index as defined by the <<Feature-Event-Index, index>> command.
+
 [NOTE]
 Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
 
@@ -1022,54 +1027,9 @@ Deleting a event which is recurring (daily or weeekly) will delete all instances
 * `event delete 1` +
 Deletes the event with index 1
 
-==== Taking screenshot of schedule
-
-Takes a screen shot of the calendar as PNG file +
-Format: `event screenshot`
-
-[NOTE]
-Scroll to which portion of the calendar is to be taken, and the application will then open a separate
-full screen window to maximise the content captured of the screenshot.
-
-[NOTE]
-The event schedule screenshot is stored in the same place as where the JAR file is installed.
-The screenshot can be found under a newly created printable directory.
-If the directory exists beforehand, no new directory is created.
-See <<Feature-Statistics, statistics print feature>>
-
-[NOTE]
-The screenshot will be saved based on the current settings of your event schedule.
-For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23. NJoy will also overwrite any screenshots from the past with the same event name, to ensure that the screenshot in the printable directory is the most updated.
-
-
-* Example: `event screenshot` +
-Takes a screenshot of the current calendar and saves it into Printable folder.
-
-The following example demonstrates how to find the screenshot:
-
-*Step 1.* After executing the event screenshot command, the user should
-navigate to their current directory. An printable folder as shown in the image below should be created!
-
-.Event screenshot Location
-image::EventPrintableLocation.png[]
-
-{nbsp} +
-*Step 2.* The png file should be named according to your schedule settings in the format VIEWMODE_TARGETDATE.png
-
-.Event screenshot file
-image::EventScreenshotFile.PNG[]
-
-{nbsp} +
-*Step 3.* Now you can share your calendar screenshot with others (or yourself)!
-
-.Sample event screenshot
-image::EventScreenshotSample.PNG[]
-
-{nbsp} +
-
 ==== Viewing all events
 
-Show all your events in the calendar. All fields are optional
+Show all your events in the calendar. All fields are optional +
 Format: `event view scheduleMode/... targetDate/...`
 
 The options supported by this feature includes:
@@ -1086,8 +1046,52 @@ Example:
 Opens the calendar view in daily mode with the target date 7 November 2019.
 
 .Viewing the calendar in daily mode with target date 7 November 2019
-image::EventViewDailyMode.PNG[]
+image::EventViewDailyMode.png[]
 
+==== Taking screenshot of schedule
+
+Takes a screen shot of the calendar as PNG file +
+Format: `event screenshot`
+
+[NOTE]
+Scroll to which portion of the calendar is to be taken, and the application will then open a separate
+full screen window to maximise the content captured of the screenshot.
+
+[NOTE]
+The event schedule screenshot is stored in the printable directory which is in the same directory as the NJoy assistant.
+If the directory exists beforehand, no new directory is created.
+See <<Finding-Schedule-Screenshot, finding schedule screenshot>>.
+
+[NOTE]
+The screenshot will be saved based on the current settings of your event schedule.
+For example if you are viewing 2019-11-23 on a weekly mode, the file name will be saved as WEEKLY_2019-11-23. NJoy will also overwrite any screenshots from the past with the same event name, to ensure that the screenshot in the printable directory is the most updated.
+
+
+* Example: `event screenshot` +
+Takes a screenshot of the current calendar and saves it into Printable folder.
+
+[[Finding-Schedule-Screenshot]]
+The following example demonstrates how to find the screenshot:
+
+*Step 1.* After executing the event screenshot command, the user should
+navigate to their current directory. An printable folder as shown in the image below should be created!
+
+.Event screenshot Location
+image::EventPrintableLocation.png[]
+
+{nbsp} +
+*Step 2.* The png file will be named according to your schedule settings in the format VIEWMODE_TARGETDATE.png
+
+.Event screenshot file
+image::EventScreenshotFile.png[]
+
+{nbsp} +
+*Step 3.* Now you can share your calendar screenshot with others (or yourself)!
+
+.Sample event screenshot
+image::EventScreenshotSample.png[]
+
+{nbsp} +
 
 ==== Export all events
 
@@ -1121,7 +1125,7 @@ image::EventExportLocation.png[]
 *Step 2.* The file should be named nJoy_Schedule.ics inside the exports directory.
 
 .Event export file
-image::EventExportFile.PNG[]
+image::EventExportFile.png[]
 
 {nbsp} +
 *Step 3.* Now you can import your events into other calendar applications with this ics file!
