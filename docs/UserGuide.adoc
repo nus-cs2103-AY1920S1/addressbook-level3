@@ -350,7 +350,7 @@ Example:
 // tag::test[]
 === Start test with flashcards : `test`
 
-image::StartTestCommand.png[]
+image::StartTestCommand.png[width="650", align="center"]
 
 ****
 Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
@@ -382,7 +382,7 @@ Gets the previous card in the test deck.
 
 ==== Quit test: `exit`
 
-image::ExitCommand.png[]
+image::ExitCommand.png[width="650", align="center"]
 
 Exits the test process when the user is in test mode.
 

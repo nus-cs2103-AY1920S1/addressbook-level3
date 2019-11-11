@@ -307,7 +307,7 @@ image::TimedTestActivityDiagram.png[]
 
 
 =====
-Step 1. User keys in the command `test deck/DECK_NAME duratoin/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
+Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
 
 Step 2. If `DURATION_IN_SECONDS` is 0, untimed test will be initiated. Else, a timed test will be initiated.
 
