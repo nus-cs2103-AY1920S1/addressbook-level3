@@ -33,10 +33,10 @@ interface Predicate<Plan> {
     + {abstract} test(): boolean
 }
 
-FindPlanDescriptor --"1" PlanNameContainsKeywordsPredicate
-FindPlanDescriptor --"1" PlanDescriptionContainsKeywordsPredicate
-FindPlanDescriptor --"1" TimeRangePredicate
-FindPlanDescriptor --"1" TasksContainsNamePredicate
+FindPlanDescriptor -->"1" PlanNameContainsKeywordsPredicate
+FindPlanDescriptor -->"1" PlanDescriptionContainsKeywordsPredicate
+FindPlanDescriptor -->"1" TimeRangePredicate
+FindPlanDescriptor -->"1" TasksContainsNamePredicate
 PlanNameContainsKeywordsPredicate <|.. Predicate
 PlanDescriptionContainsKeywordsPredicate <|.. Predicate
 TimeRangePredicate <|.. Predicate
