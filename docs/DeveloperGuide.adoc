@@ -44,7 +44,9 @@ MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
-=== How to Read this Developer Guide
+=== Before We Begin
+
+Here are some widely-used symbols in this document:
 
 [NOTE]
 Contains essential information that explains a concept more clearly.

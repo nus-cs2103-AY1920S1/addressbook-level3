@@ -50,6 +50,7 @@ NOTE: Contains key information relevant to the execution of commands.
 ```
 
 == Quick Start
+Follow this installation guide to get MooLah up and running in your computer:
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `MooLah-v1.4.jar` link:{repoURL}/releases[here].
