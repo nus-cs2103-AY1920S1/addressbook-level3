@@ -27,7 +27,7 @@ import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.ui.budget.BudgetListPanel;
 
 /**
- * Edits the details of an existing budget in the MooLah.
+ * Edits the details of an existing budget in MooLah.
  */
 public class EditBudgetCommand extends UndoableCommand {
     public static final String COMMAND_WORD = GenericCommandWord.EDIT + CommandGroup.BUDGET;
@@ -52,8 +52,10 @@ public class EditBudgetCommand extends UndoableCommand {
     private final EditBudgetDescriptor editBudgetDescriptor;
 
     /**
-     * @param index of the budget in the filtered budget list to edit
-     * @param editBudgetDescriptor details to edit the budget with
+     * Creates an EditBudgetCommand to edit the budget with the specified {@code index}.
+     *
+     * @param index Index of the budget in the budget list.
+     * @param editBudgetDescriptor Details to edit the budget with.
      */
     public EditBudgetCommand(Index index, EditBudgetDescriptor editBudgetDescriptor) {
         requireNonNull(index);
@@ -102,8 +104,8 @@ public class EditBudgetCommand extends UndoableCommand {
     }
 
     /**
-     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
-     * edited with {@code editExpenseDescriptor}.
+     * Creates and returns a {@code Budget} with the details of {@code budgetToEdit}
+     * edited with {@code editBudgetDescriptor}.
      */
     private static Budget createEditedBudget(Budget budgetToEdit, EditBudgetDescriptor editBudgetDescriptor) {
         assert budgetToEdit != null;
@@ -135,8 +137,8 @@ public class EditBudgetCommand extends UndoableCommand {
     }
 
     /**
-     * Stores the details to edit the expense with. Each non-empty field value will replace the
-     * corresponding field value of the expense.
+     * Stores the details to edit the budget with. Each non-empty field value will replace the
+     * corresponding field value of the budget.
      */
     public static class EditBudgetDescriptor {
         private Description description;

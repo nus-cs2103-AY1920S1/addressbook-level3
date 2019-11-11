@@ -35,8 +35,6 @@ import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.statistics.Statistics;
 
-
-
 public class AddBudgetCommandTest {
 
     @Test

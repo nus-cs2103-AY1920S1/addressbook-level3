@@ -71,7 +71,7 @@ public class DeleteExpenseFromBudgetCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different expense -> returns false
+        // different index -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 }

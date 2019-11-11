@@ -63,6 +63,11 @@ public class Percentage {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -74,10 +79,5 @@ public class Percentage {
 
         Percentage otherPercentage = (Percentage) other;
         return this.value == otherPercentage.value;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
     }
 }

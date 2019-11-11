@@ -91,7 +91,7 @@ public class SwitchBudgetCommandTest {
         // null -> returns false
         assertFalse(switchToSchoolBudgetCommand.equals(null));
 
-        // different budget -> returns false
+        // different description -> returns false
         assertFalse(switchToSchoolBudgetCommand.equals(switchToOutsideSchoolBudgetCommand));
     }
 

@@ -39,6 +39,9 @@ public class AddBudgetCommand extends UndoableCommand {
 
     private final Budget toAdd;
 
+    /**
+     * Creates an AddBudgetCommand to add the specified {@code Budget}
+     */
     public AddBudgetCommand(Budget budget) {
         requireNonNull(budget);
         toAdd = budget;

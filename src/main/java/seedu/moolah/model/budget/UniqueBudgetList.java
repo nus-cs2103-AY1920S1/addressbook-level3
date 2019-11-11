@@ -115,6 +115,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
 
     /**
      * Sets the specified budget to primary. Sets all other budgets in the list to non-primary at the same time.
+     *
      * @param budget The budget to be set to primary budget.
      */
     public void setPrimary(Budget budget) {
@@ -295,7 +296,7 @@ public class UniqueBudgetList implements Iterable<Budget> {
             throw new DuplicateBudgetException();
         }
         target.transferExpensesTo(editedBudget);
-        internalList.set(index, editedBudget);
+        internalList.set(index, editedBudget.deepCopy());
     }
 
     public boolean isEmpty() {

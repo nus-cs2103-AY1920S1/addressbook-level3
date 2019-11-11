@@ -228,10 +228,6 @@ public class Timestamp implements Comparable<Timestamp> {
         return fullTimestamp.getMonthValue();
     }
 
-    public boolean isEqual(Timestamp startDate) {
-        return fullTimestamp.isEqual(startDate.getFullTimestamp());
-    }
-
     @Override
     public String toString() {
         return fullTimestamp.format(FORMATTER_WITH_YEAR);

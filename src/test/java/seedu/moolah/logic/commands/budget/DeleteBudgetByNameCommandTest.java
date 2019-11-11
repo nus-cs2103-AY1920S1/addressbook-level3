@@ -72,7 +72,7 @@ public class DeleteBudgetByNameCommandTest {
         // null -> returns false
         assertFalse(deleteSchoolCommand.equals(null));
 
-        // different expense -> returns false
+        // different description -> returns false
         assertFalse(deleteSchoolCommand.equals(deleteOutsideScholCommand));
     }
 

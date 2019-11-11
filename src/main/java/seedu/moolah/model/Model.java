@@ -214,7 +214,7 @@ public interface Model {
 
     void changePrimaryBudgetWindow(Timestamp pastDate);
 
-    /** Returns an unmodifiable view of the filtered expense list */
+    /** Returns an unmodifiable view of the filtered budget list */
     ObservableList<Budget> getFilteredBudgetList();
 
     void updateFilteredBudgetList(Predicate<? super Budget> budget);

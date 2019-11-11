@@ -13,7 +13,6 @@ import seedu.moolah.logic.commands.general.HelpCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.alias.Alias;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.budget.Percentage;
 import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Price;
@@ -137,27 +136,6 @@ public class ParserUtil {
     }
 
     /**
-     * Dummy.
-     * @param percentage
-     * @return
-     * @throws ParseException
-     */
-    public static Percentage parsePercentage(String percentage) throws ParseException {
-        requireNonNull(percentage);
-        String trimmedPercentage = percentage.trim();
-        String proportionString = trimmedPercentage.substring(0, percentage.length() - 1);
-        try {
-            int proportion = Integer.parseInt(proportionString);
-            if (!Percentage.isValidPercentage(proportion)) {
-                throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
-            }
-            return new Percentage(proportion);
-        } catch (NumberFormatException e) {
-            throw new ParseException(Percentage.MESSAGE_CONSTRAINTS);
-        }
-    }
-
-    /**
      * Parses {@code String period} into a {@code BudgetPeriod}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -180,7 +158,6 @@ public class ParserUtil {
             throw new ParseException(Timestamp.MESSAGE_CONSTRAINTS_PERIOD);
         }
     }
-
 
     /**
      * Parses user input into Input with a command word and argument attributes.

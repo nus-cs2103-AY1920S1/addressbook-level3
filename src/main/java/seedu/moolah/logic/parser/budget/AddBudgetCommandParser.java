@@ -24,7 +24,7 @@ import seedu.moolah.model.expense.Price;
 import seedu.moolah.model.expense.Timestamp;
 
 /**
- * Parses input arguments and creates a new BudgetCommand object.
+ * Parses input arguments and creates a new AddBudgetCommand object.
  */
 public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
 
@@ -35,8 +35,8 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
     public static final List<Prefix> OPTIONAL_PREFIXES = Collections.unmodifiableList(List.of());
 
     /**
-     * Parses the given {@code String} of arguments in the context of the BudgetCommand
-     * and returns a BudgetCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddBudgetCommand
+     * and returns an AddBudgetCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBudgetCommand parse(String args) throws ParseException {
