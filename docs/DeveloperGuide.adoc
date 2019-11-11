@@ -76,9 +76,7 @@ image::ModelClassDiagram_FlashCardPro.png[]
 
 // tag::cards[]
 
-
-
-.`FlashCard`,
+`FlashCard`:
 
 * There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
 
