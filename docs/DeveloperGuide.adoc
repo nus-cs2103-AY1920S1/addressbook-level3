@@ -522,7 +522,7 @@ Use case ends.
   . 1b1. GuiltTrip notifies user that frequency must be smaller than period.
  . 1c. Index out of bounds.
   . 1b1. GuiltTrip requests for suitable index.
- 
+  
  === Use Case 11: Edit Reminder
 
 ==== MSS
