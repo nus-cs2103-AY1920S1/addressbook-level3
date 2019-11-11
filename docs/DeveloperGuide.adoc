@@ -126,7 +126,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Notebook data.
 * saves the state of the Notebook after each change in state for undo redo function.
-* exposes an unmodifiable `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Classroom>`, `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -330,14 +330,38 @@ image::CommitActivityDiagram.png[]
 // tag::Assignment[]
 === Assignment feature
 ==== Implementation
-
 The Assignment class works with high similarity to the Student Class implemented.
 A UniqueList of Assignments exist in the Classroom Class alongside the UniqueList of Students, and serve to keep track of assignments for a particular Classroom.
-Additionally, it implements the following operations through Commands:
+The commands that work in similar fashion to Student Class are: +
+`AddAssignment`, `DeleteAssignment`, `EditAssignment`, `ListAssignment`
 
-* `UniqueAssignmentList#setAssignment()` -- Adds a new Assignment object to the UniqueAssignmentList.
-* `UniqueAssignmentList#remove()` -- Removes an Assignment object from the UniqueAssignmentList.
-* `Assignment#setGrades()` -- Updates the AssignmentGrade class of the Assignment with user input.
+Additionally, it implements the following operations:
+
+* `UniqueAssignmentList#addAssignment()` -- Adds a new Assignment object to the UniqueAssignmentList.
+* `UniqueAssigmentList#remove()` -- Removes a Lesson object from the UniqueAssignmentList.
+* `UniqueAssignmentList#setAssignment()` -- Updates the Assignment with user input.
+
+
+The Assignment class keeps track of the grades of all students in the class for a particular assignment. This feature is
+necessary to users to monitor the progress of every student, and to provide assistance to students who might be
+failing their tests.
+Each Assignment contains the following classes: AssignmentName, AssignmentGrade, and AssignmentDeadline.
+
+* The AssignmentName stores the name of the assignment.
+
+* The AssignmentGrade class contains the grades of every student in the class through a LinkedHashMap<String studentName, String marks>.
+
+* The AssignmentDeadline class contains the time when the assignment is due.
+
+Upon creation of a new Assignment, `Assignment#initialiseGrades()` is called, which populates the LinkedHashMap
+with keys (students' names) and the value "Not Submitted". The user can then update the grades of a student individually or
+all of the students simultaneously through the `UpdateGrades` command, which calls the method `Assignment#setGrades()`.
+
+After every command, `Assignment#checkCompletion()` is called to determine the completion status of the assignment,
+which will be "Completed" if none of the grades are "Not Submitted". Upon addition of a new student into the classroom,
+each Assignment present in the classroom will add another entry into the AssignmentGrade. If the Assignment was Not Completed,
+the value "Not Submitted" will be paired with the key through the method `Assignment#addNewStudentGrade`. Should the Assignment have been Completed, the value "Late to the party" will be paired instead through the method `Assignment#addOneStudentGrade`, indicating that the student does not need to submit said assignment any longer, since it has already been graded before he/she joined the classroom.
+
 // end::Assignment[]
 
 // tag::getgrades[]
@@ -629,13 +653,12 @@ Author:
 
 Pros:
 
-* ...
-* ...
+* Useful for teachers to consolidate all the information related to their class.
+* Easy to navigate and understand how the application works.
 
 Cons:
 
-* ...
-* ...
+* Unable to pop out reminder when the application is not opened.
 
 [appendix]
 == Instructions for Manual Testing
@@ -663,7 +686,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a student while all students are listed
 
-.. Prerequisites: List all students using the `list` command. Multiple students in the list.
+.. Prerequisites: List all students using the `liststudents` command. Multiple students in the list.
 .. Test case: `deletestudent 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deletestudent 0` +
@@ -671,6 +694,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `deletestudent`, `deletestudent x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Undo / Redo
+
+. Undoing a command that was previously done, and redoing it after.
+
+.. Prerequisites: A command that changes the state of the notebook should be executed (e.g. add / edit / delete).
+.. Test case (assume a student was added in the previous command execution): `undo` +
+   Expected: The previously added student will now be removed. Command result will show the message 'Undo success!". Student panel will show that the student is no longer in the list.
+.. Test case (assume the only previous command was `listassignments`): `undo` +
+   Expected: There will be undo command executed. Reason is because there is no change in the state of the notebook. Command result will show the message 'There is no action to undo!'.
+.. Test case (assume a student was added in the previous command execution): `undo`, followed by `redo` +
+   Expected: When undo is executed, student will be removed from the list just like in test case 1.
+   When redo is executed, the student that was previously removed will now be added back again. Command result will show the message 'Redo success!'. Student panel will show that the student is now back in the list.
+.. Other incorrect undo / redo commands to try: `undo x`, `redo x`, `undoes`, `redoes`
 
 === Saving data
 
