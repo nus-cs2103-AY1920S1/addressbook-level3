@@ -72,6 +72,7 @@ image::commandline.png[width="900"]
 EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
 Typing a command into the interface and entering it (by pressing kbd:[Enter] or clicking `_Go!_`) is the main way of interaction in the application.
 The following is an example of adding a movie into your watch list:
+// end::intro[]
 
 ===== Steps to quickly add a movie
 
@@ -85,13 +86,13 @@ image::searchIpMan.png[width='500']
 .Watchlist page after adding the entry.
 image::watchlistIpMan.png[width='500']
 
+
 And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
 go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
 understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
 
 
 What are you waiting for? Start using `EzWatchlist` now!
-
 
 == Quick Start
 
@@ -109,7 +110,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<UserCommands>> for details of each command.
 
-// end:: intro[]
+
 == Features
 // tag::UI[]
 === User-Interface
@@ -216,7 +217,7 @@ your EzWatchlist usage. EzWatchlist will create your own personalized recommenda
 ===== How to get your recommendations
 1. First, make sure that you have added at least one  (offline or online) into `EzWatchlist` so that we can use that to generate recommendations for you.
 
-2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[3] or pressing the `Statistics.` button on the
+2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[4] or pressing the `Statistics.` button on the
 in the interface.
 
 3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
@@ -250,80 +251,102 @@ Say goodbye to typing errors!
 * Parameters can be in any order e.g. if the command specifies `n/SHOW_NAME t/SHOW_TYPE`, `t/SHOW_TYPE n/SHOW_NAME` is also acceptable.
 ====
 
-==== Viewing help : `help`
+==== View help : `help`
 
 Format: `help`
 
-==== Adding a show: `add`
+// tag::addfirst[]
+==== Add a show: `add`
 
-Adds a show to the watchlist +
+User can add a show they are interested to watch in the watchlist by using +
+`add` command.
+
+[TIP]
+*`add` can only work in **Watchlist page** and **Watched page**.*
 
 Format: `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]...`
 
-* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
-* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
+* Only `SHOW_NAME`, `SHOW_TYPE` are compulsory fields. Rest is optional.
 * `SHOW_TYPE` can only be 'movie' or 'tv'
 * `WATCHED` can only be 'true' or 'false'
+* `SHOW_NAME`, `DESCRIPTION` and `ACTOR_NAME` can be any words
+* `DATE_OF_RELEASE` must be in the format dd/MM/yyyy
 * `RUNNING_TIME` can be any number above 0
-[TIP]
-A show can have any number of actors (including 0)
+* `ACTOR_NAME` can be more than one.
+
 
 Examples:
 
 * `add n/Titanic t/movie`
 * `add n/Friends t/tv`
-* `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
-* `add n/Joker t/movie d/3 OCTOBER 2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
+* `add n/John Wick t/movie d/24/10/014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
+* `add n/Joker t/movie d/3/10/2019 w/false r/122 s/In Gotham City, mentally-troubled comedian Arthur Fleck is disregarded and mistreated by society. He then embarks on a downward spiral of revolution and bloody crime. This path brings him face-to-face with his alter-ego: "The Joker". a/Joaquin Phoenix`
 
+// end::addfirst[]
+
+// tag::addsecond[]
 ==== Adding a show from search result page: `add`
 
-Adds a show from search result page after user has already search for show +
+This is an extension to the `add` feature.
+After user has searched from the show, user can add a show found in the search result page into their watchlist.
 
 Format: `add INDEX`
 
+INDEX is a positive integer and is limited to the number of shows found in search result page.
+
 [TIP]
-This add command can only be used if user is currently at search page, and has already search for show using the search online command.
+This add command can only be used if user is currently at `search page`, and has already searched for show using the search online command.
 
+Example Usage:
 
-Examples:
+Pre-condition: User has already searched for a show using search online command.
 
-* Watchlist page:
-** Empty
-* Result page (after searching online `search n/titanic`):
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
-* `add 1` +
-Add the movie - Titanic found in search list into watchlist
-* Result of Watchlist page:
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+Step 1. User click (or use keyboard `3` key) on search page. User then input `add 1` on command box.
+
+image::add2.png[width="500"]
+
+Step 2. User click (or press keyboard `1` key) on watch list page. User will see `Joker`
+movie added to watch list.
+
+image::add3.png[width="500"]
+
+// end::addsecond[]
 
 ==== Clear the WatchList: `clear`
-
 
 Clear the WatchList +
 Format: `clear`
 
+// tag::watch[]
 ==== Mark/Unmark as watched : `watch`
 
 To mark an unwatched show in the watchlist as watched, use the command format listed below. +
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
+[TIP]
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
+command to ensure that the TV show's season and episode details are up to date.
+
 *Example Usage:*
 
-1. User wants to mark "The Office" as watched.
+1. You want to mark "The Office" in the watchlist page as watched. Navigate to the watchlist by clicking on the watchlist tab or hitting the keyboard shortcut `1`.
 
+.Viewing an unmarked show
 image::WatchTheOffice.png[width="790"]
 
 [start=2]
-2. User enters `watch 1` into the command box in the watchlist tab.
+2. Enter `watch 1` into the command box in the watchlist tab.
 
+.Entering the watch command
 image::Watch.png[width="790"]
 
 [start=3]
-3. The show can now be viewed under the watched tab by clicking the watched tab or hitting the keyboard shortcut `2`.
+3. You may now view the show under the watched tab by clicking the watched tab or hitting the keyboard shortcut kbd:[2].
 
+.Viewing the newly marked show
 image::WatchedTheOffice.png[width="790"]
 
-Alternatively, users can click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
+Alternatively, you may click on the watched checkbox to toggle between whether a show is watched as indicated by the red arrow in the image below.
 
 image::TheOfficeWatchCommand.png[width="790"]
 
@@ -337,6 +360,9 @@ image::TheOfficeWatchCommand.png[width="790"]
 ****
 [TIP]
 Using the `watch` command on an already watched show will un-mark the show as watched.
+[TIP]
+`watch` would only work in **Watchlist page** and **Watched page**.
+
 
 Examples:
 
@@ -349,7 +375,8 @@ Marks all episodes of the first 5 seasons of the second show as watched.
 * `watch 3 s/5 e/2` +
 Marks all episodes up to and including the second episode of the fifth season of the third show in the list as watched.
 
-==== Editing a show's details : `edit`
+// end::watch[]
+==== Edit a show's details : `edit`
 
 Edits an existing show in the list +
 Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...`
@@ -362,6 +389,9 @@ Format: `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIM
 * You can remove all the show's actors by typing `a/` without specifying any actors after it.
 ****
 
+[TIP]
+`edit` would only work in **Watchlist page** and **Watched page**.
+
 Examples:
 
 * `edit 1 n/Joker a/Joaquin Phoenix` +
@@ -369,85 +399,186 @@ Edits the name and actor name of the 1st show in the list to be `Joker` and `Joa
 * `edit 2 a/` +
 Clears all existing actors of the 2nd show in the list.
 
+// tag::search[]
 ==== Search for a show: `search`
-====
-Note: Search results will appear in the Search Page, click kbd:[3] to go straight to the search page.
-====
 
-Searches for shows whose names contain any of the given keywords from the watchlist, watched list and online. +
+Searches for shows whose names contain any of the given keywords from the online database, unless specified to be from
+the watchlist or watched list. +
+
 Format:
 
-* by name: `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
-* by genre: `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/HAS_WATCHED]`
-* by actor (from watchlist): `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/HAS_WATCHED]`
+* by name: +
+`search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
-****
-* The search is case insensitive. e.g "avengers" will match "Avengers"
-* The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris"
-* Not only full words will be matched. e.g. "Joke" will also match with "Joker"
-* For `FROM_ONLINE` and `HAS_WATCHED`, only `yes`, `true`, `no` and `false` would be accepted.
-* When searching based on actor, only shows from the watchlist will be searched.
-* When searching based on genre online, only movies will be searched.
-****
+* by genre: +
+`search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
 
+* by actor (from watchlist only): +
+`search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`
+
+** `SHOW_NAME`, `GENRE`, `ACTOR_NAME` can be any words, as long as it does not contain `/`.
+** `FROM_ONLINE` and `HAS_WATCHED` can only be `yes`, `true`, `no` or `false`.
+** `SHOW_TYPE` can only be `movie` or `tv`.
+
+====
+[TIP]
+Special commands to take note of: +
+`o/no`: to search from watchlist or watched list +
+`o/no w/no`: to search from watchlist only +
+`o/no w/yes`: to search from watched list only
+====
+====
+[NOTE]
+Do take note of the following expected command outputs: +
+When searching based on genre online, only movies will be searched. +
+{sp} +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
+e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+{sp} +
+Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
+Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
+====
+
+====
+[NOTE]
+The search is case insensitive. e.g "avengers" will match "Avengers". +
+The order of the keywords matter. e.g. "Chris Evans" will not match "Evans Chris". +
+Not only full words will be matched. e.g. "Joke" will also match with "Joker".
+====
+{sp} +
+*Example Usage:* +
+You may want to search for movies named "Avengers" and also movies with an actor called "Tom".
+As shown below, assume that your watchlist only has a movie "Avengers: Endgame" that you have watched.
+
+.Current *Watched Page* with a movie watched "Avengers: Endgame"
+image::watchedPageWithAvengerEndgame.png[width="790"]
+{sp} +
+[start=1]
+1. Navigate to the *Search page* by one of the following ways: +
+* clicking on the *search* tab
+* hitting the keyboard shortcut kbd:[3]
+* typing `3` in the command box and pressing kbd:[enter]
+* typing `search` in the command box and pressing kbd:[enter] as shown in the figure below
+
+.Entering of the `search` command
+image::searchCommand.png[width="790"]
+{sp} +
+After you have entered the command, you will be led to the *Search page* as shown below.
+
+.User Interface of the *Search Page*
+image::emptySearchPage.png[width="790"]
+
+[TIP]
+You may skip Step 1 as you will be automatically be navigated to the *Search Page* when you key in any valid `search`
+command, such as the one in Step 2 below.
+
+{sp} +
+[start=2]
+2. Enters `search n/Avengers a/Tom t/movie` into the command box in the *Search Page* as shown below.
+
+.Entering of the `search` command to search for shows
+image::searchAvengerUserInput.png[width="790"]
+
+{sp} +
+Press kbd:[enter] after entering the information shown above and wait for the information to load.
+
+.Loading Screen of the *Search page*
+image::searchPageLoadingScreen.png[width="790"]
+
+The loading page as shown above will appear while EzWatchlist searches for your shows.
+
+[TIP]
+You can go to the other pages in the mean time. Do allow some time for the search to load.
+
+{sp} +
+[start=3]
+3. Search page shows the list of shows based on `search n/Avengers a/Tom t/movie`.
+
+{sp} +
+*Scenario A: You are offline* +
+Only movies from the watchlist or offline database with the movie name "Avengers" or actor name "Tom" will be shown,
+as seen in the figure below.
+
+.*Search Page* showing the search results when offline
+image::searchPageSearchedForAvengersWhenOffline.png[width="790"]
+
+{sp} +
+*Scenario B: You are online* +
+Only movies from the online database with the movie name "Avengers" or actor name "Tom" will be shown, as seen in the
+figure below.
+
+.*Search Page* showing the search results when online
+image::searchPageSearchedForAvengersWhenOnline.png[width="790"]
+{sp} +
 Examples:
 
 * By name:
-** `search n/Joker i/yes` +
+** `search n/Joker o/no` +
 Returns shows with the name "Joker" within the watchlist
 ** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
-Returns movies with the name "Avenger" or "Spiderman" and movies with "Science Fiction" as genre
+Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
 * By genre:
 ** `search g/Action t/movie` +
-Returns movies with the genre "Action"
-* By actor:
-** `search a/Tom w/no` +
+Returns movies from the online database with the genre "Action"
+* By actor: (from watchlist only)
+** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
+// end::search[]
 
+// tag::sync[]
 ==== Synchronise user's show data: `sync`
-Synchronise a show found in watchlist with online searched show data by modifying ALL of the parameters in user selected show with online searched show data. +
-Format:
 
-* `sync INDEX`
+If user has lack of information about a certain show in their watch list, User can use `sync` command.
+Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in
+search result page with a show (for example: show A') that has the same name as Show A found in watch list.
 
-****
-* User may have added their show with their own information. However, user might not know some of the parameters such as actors.
-* Thus, user can use the search online command `search n/` to look up information regarding that show.
-* Then, Synchronise command `sync` can be used to update information/modify on that show.
-* Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
-* The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
-* Names of the show are not case-sensitive.
-* User must have at least input the name of the show to use sync command. (Both are same name, case-insensitive)
-* User can use `add INDEX` command if a selected show in result page is not found in watchlist.
-****
 ====
-Note: `Sync` will write over all the information of show with same name found in watchlist.
+Note:
+
+1. The show in the watch list must have at least a name and type.
+2. Names are not-case sensitive.
+3. `Sync` will *WRITE OVER* all the information of show with same name found in watchlist.
 ====
 
-Examples:
+Format: `sync INDEX`
 
-1. User has already input Titanic show into watchlist manually.
+INDEX is a positive integer and is limited to the number of shows found in search result page.
 
-* Watchlist page:
-** Movie #1: Name: titanic
-* Result page (after searching online `search n/titanic`):
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
-* `sync 1`  +
-Synchronise Titanic show in result page of index 1 with user's Titanic show.
-* Result of Watchlist page:
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+*Example Usage*
 
-2. User has not input Titanic show into watchlist manually.
-* Watchlist page:
-** Empty
-* Result page (after searching online `search n/titanic`):
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
-* `sync 1`  +
-returns and display error because Titanic show is not found in watchlist page.
-* User can choose to use `add 1` command to add Titanic show.
-* `add 1`
-* Result of Watchlist page:
-** Movie #1: Name: Titanic Actor: Leonardo DiCaprio
+Scenario 1: User has already input 'Titanic' show into watchlist manually.
+
+image::Sync1.png[width="300"]
+
+Step 1. User searches for `Titanic` show in search page.
+
+Step 2. `Titanic` result page will be displayed. User input `sync 2` to synchronise movie at index 2 of the list with a movie
+of same name found in watchlist.
+
+image::Sync5.png[width="500"]
+
+Step 3. Go to watchlist. New information of `Titanic` in watchlist will be displayed.
+
+image::Sync6.png[width="500"]
+
+Scenario 2. User has not input Titanic show into watchlist manually.
+
+image::Sync21.png[width="500"]
+
+Step 1. Similar to scenario 1, user searches for `Titanic` show in search page.
+
+image::Sync4.png[width="500"]
+
+Step 2. `Titanic` result page will be displayed. If user were to sync any index, error message will be displayed
+because there is no show of similar name found in watch list.
+
+image::Sync22.png[width="500"]
+
+Step 3. User can choose to use `add 1` command to add show of index 1 found in search result page.
+
+image::Sync23.png[width="500"]
+
+// end::sync[]
 
 // tag::delete[]
 ==== Deleting a show : `delete`
@@ -460,6 +591,9 @@ Format: `delete INDEX`
 * The index refers to the index number shown in the displayed watchlist.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
+
+[NOTE]
+`delete` would only work in **Watchlist page** and **Watched page**.
 
 Examples:
 
@@ -487,11 +621,13 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
+* *Add* : `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
 e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
-* *Add from search result page* `add INDEX` +
+* *Add from search result page* : `add INDEX` +
 e.g. `add 1`
-* *CLEAR* `clear`
+* *Sync* : `sync INDEX` +
+e.g. `sync 2`
+* *Clear* : `clear`
 * *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -499,10 +635,10 @@ e.g. `delete 3`
 e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search*
 ** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
-e.g. `search n/Joker i/yes` searches for shows with the name 'Joker' within the watchlist
-** *by genre* `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
-e.g. `search g/Action t/movie` searches for movies with the genre 'Action'
-** *by actor from watchlist* `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
+e.g. `search n/Joker o/no` searches for shows with the name 'Joker' within the watchlist
+** *by genre* : `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+e.g. `search g/Action t/movie` searches for movies from the online database with the genre 'Action'
+** *by actor from watchlist* : `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
 e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
 
 * *Exit* : `exit`
