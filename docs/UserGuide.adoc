@@ -483,37 +483,57 @@ of 09/02/2019, the earnings will not be added.
 ****
 // end::startEarningsTag[]
 
+//tag::NotesUG[]
 === Notes
 ==== Add Note: `addnote`
 
 Adds Note to the list of notes. +
-Format: `addnote mod/MODULE_CODE c/CONTENT`
+Format: `addnote c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
 Examples:
 
-* `addnote mod/CS2103T c/Check for project submission date`
+* `addnote c/CS2103T type/lab note/Check for project submission date`
+
+[NOTE]
+Only `tutorials`/ `tut` / `lab` / `consultations` / `c` / `sectionals` / `s`
+arguments are allowed for `TYPE`.
+
+image:notes/addnote.png[width="350"]
 
 ==== Edit Note: `editnote`
+To provide a great flexibility, editing of the notes is allowed.
 
-Update Note in the list of notes. +
-Format: `editnote INDEX mod/MODULE_CODE c/CONTENT`
+Update any Note in the list of notes. +
+Format: `editnote INDEX c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT`
 
 Examples:
 
-* `editnote 1 mod/CS2103T`
-* `editnote 1 c/check for meeting time`
-* `editnote 1 mod/CS2103 c/update project content`
+* `editnote 1 c/CS2103T`
+* `editnote 2 type/lab`
+* `editnote 3 note/check for meeting time`
+* `editnote 1 c/CS2103 type/tut note/update project content`
 
-==== Delete Note: `deletenote`
+image:notes/editnote.png[width="350"]
 
+==== Delete Note: `deletenote` / `deletebutton`
+Let's say that if you would like to delete the note from the list there are two option available.
+
+Option 1:
 Delete Note in the list of notes. +
 Format: `deletenote INDEX`
+
+Option 2:
+Delete Note with DeleteButton. +
+image:notes/deletebutton.png[width="350"]
 
 Examples:
 
 * `deletenote 1`
+* press the `x` delete button to delete the desire notes.
+
 
 ==== Find Note: `findnote`
+In order to find the desire note, finding with keyword such as the module_code, class_type or note_content is allow.
 
 Delete Note in the list of notes. +
 Format: `findnote KEYWORD`
@@ -522,10 +542,17 @@ Examples:
 
 * `findnote CS2103T`
 
+image:notes/findnote.png[width="350"]
+
 ==== Listing all note : `listnote`
+To view the list of note. Type `listnote` to view the full list of note.
 
 List all note. +
 Format: `listnote`
+
+image:notes/listnote.png[width="350"]
+
+//end::NotesUG[]
 
 === Student List
 
@@ -894,8 +921,8 @@ _{explain how the user can enable/disable data encryption}_
 `claim_earnings d/DATE c/CLASSID` +
 `filter_earnings VARIABLE`
 * *Note* : +
-`addnote mod/MODULE_CODE c/CONTENT` +
-`editnote INDEX mod/MODULE_CODE c/CONTENT` +
+`addnote c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT` +
+`editnote INDEX c/MODULE_CODE type/CLASS_TYPE note/NOTE_CONTENT` +
 `deletenote INDEX` +
 `findnote KEYWORD` +
 `listnote`
