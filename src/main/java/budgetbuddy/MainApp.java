@@ -116,7 +116,7 @@ public class MainApp extends Application {
 
     /**
      * Loads and returns a Rule Manager from storage.
-     * Returns an empty Rule Manager if no file found or if exception occurs during loading.
+     * Returns a Rule Manager with sample data if no file found or if exception occurs during loading.
      */
     private RuleManager initRuleManager(Storage storage) {
         Optional<RuleManager> ruleManagerOptional;
