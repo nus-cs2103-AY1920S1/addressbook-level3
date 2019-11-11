@@ -29,7 +29,7 @@ Responsibilities: Logic + Model
 
 === Sebastian Lie Hsien Yong
 image::sebastianlie.png[width="150", align="left"]
-{empty}[https://github.com/SebastianLie[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SebastianLie[github]] [<<sebastianlie#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data + UI
@@ -47,7 +47,7 @@ Responsibilities: Logic + Model
 
 === Yoon Jia Jun, Ken
 image::xelyion.png[width="150", align="left"]
-{empty}[https://github.com/Xelyion[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Xelyion[github]] [<<Xelyion#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model + UI
