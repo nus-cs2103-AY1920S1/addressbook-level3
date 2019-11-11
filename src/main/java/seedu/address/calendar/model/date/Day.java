@@ -88,6 +88,15 @@ public class Day implements Comparable<Day> {
     }
 
     /**
+     * Gets the day of week of {@code this}.
+     *
+     * @return The day of week of {@code this}
+     */
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    /**
      * Get the first {@code DayOfWeek} instance of the specified day when the numerical representation of the first
      * day of week in the specified month is known.
      *
@@ -159,15 +168,6 @@ public class Day implements Comparable<Day> {
      */
     public int getDayOfMonth() {
         return dayOfMonth;
-    }
-
-    /**
-     * Gets the day of week of {@code this}.
-     *
-     * @return The day of week of {@code this}
-     */
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
     }
 
     /**

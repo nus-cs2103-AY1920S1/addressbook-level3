@@ -6,6 +6,9 @@ import seedu.address.logic.commands.Command;
 
 import java.util.Optional;
 
+/**
+ * Manages suggested commands to be executed.
+ */
 public class SuggestionManager {
     private Optional<AlternativeCommand> suggestedCommand = Optional.empty();
 

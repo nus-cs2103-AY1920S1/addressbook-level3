@@ -8,6 +8,9 @@ import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Adds a trip to the calendar.
+ */
 public class AddTripCommand extends AddCommand {
     public static final String COMMAND_WORD = "trip";
     public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD

@@ -69,31 +69,6 @@ public class MonthOfYearUtil {
     }
 
     /**
-     * Converts a valid {@code String} representation of a month to an instance of {@code MonthOfYear}.
-     * Guarantees: The given string is a valid representation and contains at least 3 letters
-     *
-     * @param monthStr The valid {@code String} representation of a month
-     * @return {@code MonthOfYear} instance that is represented by {@code monthStr}
-     */
-    static MonthOfYear convertStrToMonth(String monthStr) {
-        checkArgument(isValidMonthStr(monthStr), "monthStr must contain at least 3 letters and "
-                + "represent a valid month of year");
-        Optional<MonthOfYear> monthOfYear = Stream.of(MonthOfYear.values())
-                .filter(month -> {
-                    String monthLowerCase = month.toString().toLowerCase();
-                    String monthStrLowerCase = monthStr.toLowerCase().trim();
-                    return isValidMonthStr(monthStrLowerCase, monthLowerCase);
-                })
-                .findFirst();
-
-        if (monthOfYear.isEmpty()) {
-            assert false : "monthStr should be a valid representation of a month";
-        }
-
-        return monthOfYear.get();
-    }
-
-    /**
      * Compares the given string with the expected string from the start and ensure that they match from the 0th
      * position to the last position of the given string.
      * Note: This comparison is not case sensitive and ignores all trailing spaces
@@ -120,5 +95,30 @@ public class MonthOfYearUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Converts a valid {@code String} representation of a month to an instance of {@code MonthOfYear}.
+     * Guarantees: The given string is a valid representation and contains at least 3 letters
+     *
+     * @param monthStr The valid {@code String} representation of a month
+     * @return {@code MonthOfYear} instance that is represented by {@code monthStr}
+     */
+    static MonthOfYear convertStrToMonth(String monthStr) {
+        checkArgument(isValidMonthStr(monthStr), "monthStr must contain at least 3 letters and "
+                + "represent a valid month of year");
+        Optional<MonthOfYear> monthOfYear = Stream.of(MonthOfYear.values())
+                .filter(month -> {
+                    String monthLowerCase = month.toString().toLowerCase();
+                    String monthStrLowerCase = monthStr.toLowerCase().trim();
+                    return isValidMonthStr(monthStrLowerCase, monthLowerCase);
+                })
+                .findFirst();
+
+        if (monthOfYear.isEmpty()) {
+            assert false : "monthStr should be a valid representation of a month";
+        }
+
+        return monthOfYear.get();
     }
 }

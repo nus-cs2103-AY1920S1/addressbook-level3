@@ -1,5 +1,8 @@
 package seedu.address.calendar.logic.commands;
 
+/**
+ * Provides general exception message.
+ */
 public class CommandUtil {
     public static final String MESSAGE_DATE_RESTRICTION = "Start date must not be after end date. "
             + "Note that START DAY is compulsory. However, START MONTH and START YEAR are not. "

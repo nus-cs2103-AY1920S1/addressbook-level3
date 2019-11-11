@@ -7,6 +7,9 @@ import seedu.address.calendar.logic.parser.Option;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Adds a trip to the calendar, ignore possible clashes in schedule.
+ */
 public class AddTripIgnoreCommand extends AddTripCommand implements AlternativeCommand {
     private static final boolean IS_BINARY_OPTION = true;
 

@@ -17,6 +17,9 @@ import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents an alternative delete command (used when users are given suggestions for delete).
+ */
 public class AlternativeDeleteCommand extends DeleteCommand implements AlternativeCommand {
     private static final boolean IS_BINARY_OPTION = false;
     private List<DeleteCommand> suggestedCommands;
@@ -54,6 +57,11 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
         return chosenCommand.execute(calendar);
     }
 
+    /**
+     * Adds the suggested command.
+     *
+     * @param event The specified event
+     */
     private void addToSuggestions(Event event) {
         EventType eventType = event.getEventType();
         switch (eventType) {
