@@ -40,7 +40,7 @@ Responsibilities: Logic
 
 === Hu Yuchen
 image::brebeek.png[width="150", align="left"]
-{empty}[http://github.com/brebeek[github]] [https://ay1920s1-cs2103t-f14-3.github.io/main/team/brebeek.html[portfolio]]
+{empty}[http://github.com/brebeek[github]] [<<brebeek#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of functionality
