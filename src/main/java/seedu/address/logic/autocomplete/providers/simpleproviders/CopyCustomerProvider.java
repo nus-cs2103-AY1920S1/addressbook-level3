@@ -4,7 +4,7 @@ import seedu.address.logic.autocomplete.providers.SimpleProvider;
 import seedu.address.model.Model;
 
 /**
- * Represents a {@code Graph} used to support autocomplete for {@code CopyCustomerCommand}.
+ * Represents a {@code Provider} used to support autocomplete for {@code CopyCustomerCommand}.
  */
 public class CopyCustomerProvider extends SimpleProvider {
 

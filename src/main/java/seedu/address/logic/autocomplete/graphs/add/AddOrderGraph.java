@@ -26,6 +26,9 @@ public class AddOrderGraph extends GraphWithStartNode {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Order> orderList = model.getOrderBook().getList();
         OrderCustomerIndexNode orderCustomerIndexNode = new OrderCustomerIndexNode(orderList);

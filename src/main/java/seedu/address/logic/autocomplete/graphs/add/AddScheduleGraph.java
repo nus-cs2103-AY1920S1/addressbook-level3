@@ -26,6 +26,9 @@ public class AddScheduleGraph extends GraphWithStartNodeAndPreamble {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Schedule> scheduleList = model.getScheduleBook().getList();
         ScheduleDateNode scheduleDateNode = new ScheduleDateNode(scheduleList);

@@ -1,5 +1,7 @@
 package seedu.address.logic.autocomplete.graphs;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
@@ -11,8 +13,6 @@ import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
 import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.parser.Prefix;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a {@code Graph} that supports commands that accept arguments only.

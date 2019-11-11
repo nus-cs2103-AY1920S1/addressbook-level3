@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.phone.Phone;
 
 /**
- * Represents a {@code Graph} used to support autocomplete for {@code FindPhoneCommand}.
+ * Represents a {@code Provider} used to support autocomplete for {@code FindPhoneCommand}.
  */
 public class FindPhoneProvider implements AutoCompleteResultProvider {
 

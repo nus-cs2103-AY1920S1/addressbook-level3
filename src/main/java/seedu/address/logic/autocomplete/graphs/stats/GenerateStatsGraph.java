@@ -25,6 +25,9 @@ public class GenerateStatsGraph extends GraphWithStartNode {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Schedule> scheduleList = model.getScheduleBook().getList();
         StatsTypeNode statsTypeNode = new StatsTypeNode(Arrays.asList(StatisticType.values()));

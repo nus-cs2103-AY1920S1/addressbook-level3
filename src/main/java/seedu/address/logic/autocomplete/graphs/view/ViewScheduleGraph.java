@@ -20,6 +20,9 @@ public class ViewScheduleGraph extends GraphWithStartNode {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Schedule> scheduleList = model.getFilteredScheduleList();
         ScheduleDateNode scheduleDateNode = new ScheduleDateNode(scheduleList);

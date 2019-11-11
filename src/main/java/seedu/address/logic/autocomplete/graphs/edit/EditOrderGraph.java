@@ -26,6 +26,9 @@ public class EditOrderGraph extends GraphWithStartNodeAndPreamble {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Order> orderList = model.getFilteredOrderList();
         OrderCustomerIndexNode orderCustomerIndexNode = new OrderCustomerIndexNode(orderList);

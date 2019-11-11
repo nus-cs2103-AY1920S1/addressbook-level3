@@ -26,6 +26,9 @@ public class AddCustomerGraph extends GraphWithStartNode {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Customer> customerList = model.getCustomerBook().getList();
         CustomerContactNumberNode customerContactNumberNode = new CustomerContactNumberNode(customerList);

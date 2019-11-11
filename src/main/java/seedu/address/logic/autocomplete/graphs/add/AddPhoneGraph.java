@@ -34,6 +34,9 @@ public class AddPhoneGraph extends GraphWithStartNode {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Phone> phoneList = model.getPhoneBook().getList();
         PhoneIdentityNumberNode phoneIdentityNumberNode = new PhoneIdentityNumberNode(phoneList);

@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.customer.Customer;
 
 /**
- * Represents a {@code Graph} used to support autocomplete for {@code FindCustomerCommand}.
+ * Represents a {@code Provider} used to support autocomplete for {@code FindCustomerCommand}.
  */
 public class FindCustomerProvider implements AutoCompleteResultProvider {
 

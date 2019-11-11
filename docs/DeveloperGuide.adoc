@@ -1046,23 +1046,6 @@ Inverse of undo.
 Action of copying an entry into clipboard.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1136,3 +1119,12 @@ Any corrupted data in any of the data files (customer, phone, order, schedule, a
 will show up in the calculation
 .. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
     Expeected: Chart is displayed in popup window
+
+=== Autocomplete
+
+. `add-c`
+. `edit-c`
+. `schedule`
+. `delete-c`
+. `find-c`
+. `export`

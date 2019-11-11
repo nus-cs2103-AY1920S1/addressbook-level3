@@ -34,6 +34,9 @@ public class EditPhoneGraph extends GraphWithStartNodeAndPreamble {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Phone> phoneList = model.getFilteredPhoneList();
         PhoneNameNode phoneNameNode = new PhoneNameNode(phoneList);

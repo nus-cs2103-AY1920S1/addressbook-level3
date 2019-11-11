@@ -38,6 +38,9 @@ store Identifiable objects.
 
 * *Code contributed*:
 
+** RepoSense:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ubersaiyan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link]
+
 ** Autocomplete:
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/122[#122]
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/143[#143]

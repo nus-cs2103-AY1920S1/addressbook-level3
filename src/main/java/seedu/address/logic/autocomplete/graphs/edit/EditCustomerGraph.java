@@ -26,6 +26,9 @@ public class EditCustomerGraph extends GraphWithStartNodeAndPreamble {
         initialise(model);
     }
 
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
     private void initialise(Model model) {
         List<Customer> customerList = model.getFilteredCustomerList();
         CustomerContactNumberNode customerContactNumberNode = new CustomerContactNumberNode(customerList);

@@ -4,7 +4,7 @@ import seedu.address.logic.autocomplete.providers.SimpleProvider;
 import seedu.address.model.Model;
 
 /**
- * Represents a {@code Graph} used to support autocomplete for {@code DeleteScheduleCommand}.
+ * Represents a {@code Provider} used to support autocomplete for {@code DeleteScheduleCommand}.
  */
 public class DeleteScheduleProvider extends SimpleProvider {
 

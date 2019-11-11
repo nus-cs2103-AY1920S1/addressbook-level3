@@ -11,6 +11,9 @@ import java.util.TreeSet;
 import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.autocomplete.AutoCompleteResultProvider;
 
+/**
+ * Represents a simple pointer to a list.
+ */
 public abstract class SimpleProvider implements AutoCompleteResultProvider {
 
     protected final List<?> dataList;
