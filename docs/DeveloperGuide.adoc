@@ -105,6 +105,7 @@ The `UI` component,
 * Listens for changes to the index of the `FeatureParser` used by the `Logic` component to change tabs.
 * Sets the `FeatureParser` used by the `Logic` component when the user manually changes tabs.
 
+//tag::designlogic[]
 [[Design-Logic]]
 === Logic Component
 
@@ -125,6 +126,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
+//end::designlogic[]
 
 [[Design-Model]]
 === Model Component
