@@ -472,14 +472,17 @@ In this activity diagram, the catch-all term 'report' is used to encompass the a
 // end::incidentfillandsubmit[]
 
 // tag::incidentsearch[]
-=== Incident Search feature
+=== Incident Finding and Listing feature
 ==== Implementation
 
-The incident search mechanism features a set of different types of searches that a user could utilise to list out all related incidents, inclusive of incomplete drafts, complete drafts and completed reports. Further documentation on the commands available in this set can be found in the User Guide. The types of searches are as listed:
+The incident search mechanism features a set of different types of searches that a user could utilise to list out all related incidents, regardless of status of report. Further documentation on the commands available in this set can be found in the User Guide. It is facilitated by the List Incidents Command and the Find Incidents Command. To differentiate the reports by statuses, the Incident Filling and Submission feature cover these capabilities already, as mentioned earlier.
 
-* Unfiltered - Displays all incidents in `Model` +
+===== Overview of Running Find Incidents and List Incidents commands
+
+. Listing all - Displays all incidents in `Model`, taking in no parameters +
 eg. `list-i`
 
+. Finding based on parameters- Displays all incidents in `Model` based on matching parameters indicated +
 * ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`, within `Model` +
 eg. `find-i id/0620150001`
 
@@ -492,36 +495,63 @@ eg. `find-i op/bill`
 * Operator - Displays all incidents with  the name of the `Person operator` in `Incident incident` matching the logged-in user's name exactly, within `Model` +
 eg. `find-i self`
 
+Activity Diagram for illustration:
+
+image::FindIncidentsCommandActivityDiagram.png[]
+
 ****
-* Each parameter in `find-i` search commands can be combined in any order and quantity, returning only results that abide by all filtering by each parameter used
-* Search by keywords is case-insensitive
-* Each parameter in `find-i` accepts multiple keywords, and searches for matches containing any of these keywords
+* `list-i` does not take any parameters, and returns errors if parameters are added to the command
+* Search by keywords is case-insensitive for convenience and ease of use
+* Each parameter in `find-i` search commands can be combined in any order and quantity, returning only results that return a match in all predicates indicated
+* Each parameter in `find-i` accepts multiple keywords, and searches for matches containing any or all of these keywords
+* `find-i` can take in multiple parameters of the same prefix, taking only the last valid parameter of each prefix
 ****
 
-The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
-* `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate
+===== Overview of Implementation of Find Incidents and List Incidents commands
+* The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`.
+* `ModelManager` contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI.
+*  `filteredIncidents` implements the following key methods utilised in the List Incidents and Find Incidents command: +
+    ** `updateFilteredIncidentsList(Predicate<Incident> predicate)` - Updates the stored filtered incidents list with the new predicate +
+    ** `getFilteredIncidentsList()` - Returns full list of all incidents
 
-There are two possible commands within this set of searches. Firstly, we will consider when the user calls the command `list-i` in the application.
 
-The following sequence diagram shows how the `list-i` command works:
+===== Implementation of List Incidents Command
 
+The following sequence diagram shows how the `list-i` command works when `list-i` is called:
+
+.Sequence Diagram of the List Incidents Command running `list-i`
 image::ListIncidentsSequenceDiagram.png[]
 
-As indicated in the diagram, the `LogicManager` instantiates a `ListIncidentsCommand` upon running command `execute(list-i)`. It then calls `ListIncidentsCommand#execute()`, which runs `Model#updateFilteredIncidentList` with the predicate `PREDICATE_SHOW_ALL_INCIDENTS`. This `Predicate<Incident>` always evaluates to true. This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `setPredicate()`. This updates the list of visible incidents. `CommandResult commandResult` is also returned to the `LogicManager` to log the success/failure of the method.
+* The `LogicManager` passes the command to `IncidentManagerParser` when running command `execute("list-i")`, which instantiates a `ListIncidentsCommand` with `Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS` that returns all incidents regardless of state.
+* The `LogicManager` then calls `ListIncidentsCommand#execute()`, which runs `ListIncidentsCommand#handleAllIncidents()`, a private method within `ListIncidentsCommand`.
+* `handleAllIncidents()` runs `Model#updateFilteredIncidentList()` with `Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS`, which always evaluates to true.
+* This `Predicate<Incident>` is passed to `FilteredList<Incident> filteredList`, as a parameter to run the method `filteredList#setPredicate()`.
+* The list of visible incidents is updated.
+* `CommandResult commandResult` is returned to the `LogicManager` to log the success/failure of the method.
 
-Next, we will look at an example in which the user calls `search` to look for incidents written by an operator whose name contains `Alex`.
+===== Implementation of Find Incidents Command
 
-The execution of this method is a little more complex.
+Next, we will look at an example in which the user calls `find-i` to look for incidents written by an operator whose name contains `Alex`.
 
-The following sequence diagram shows how the `search` command identifies the keyword and flag, and returns related incidents:
+The execution of this method is a little more complex. The following sequence diagram shows how the `find-i` command identifies the keyword and flag, and returns related incidents:
 
-image::SearchIncidentsSequenceDiagram.png[]
+.Sequence Diagram of the List Incidents Command running `find-i op/alex desc/pmd`
+image::FindIncidentsSequenceDiagram.png[]
 
-The key difference is the utility of the `SearchIncidentsCommandParser` to parse the keyword after tag `op\` in the command. It creates a `NameKeywordsPredicate` using the String "Alex", which is returned to be used in constructing a new instance of `SearchIncidentsCommand`, stored as a `Predicate<Incident> predicate`. From there, the process is similar, in that `SearchIncidentsCommand#execute()` is run, causing the Model to run `Model#updateFilteredIncidentList(predicate)` using the predicate stored in `SearchIncidentsCommand`. Upon updating the list similar to the `incidents` listing command above, `SearchIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
+The key steps are as follows:
+
+* `IncidentManagerParser` passes the arguments to `FindIncidentsCommandParser` to parse the keywords after the prefixes `desc/` and `op/` in the command.
+* `FindIncidentsCommandParser` utilises `ParserUtil` to parse out the keywords, in this case "pmd" for the description prefix and "alex" for the operator name prefix
+* `FindIncidentsCommandParser` creates a new instance of `DescriptionKeywordsPredicate` to be added to `List<Predicate<Incident>> predicateArr`
+* It does the same for `NameKeywordsPredicate` and any other valid search parameters identified
+* A new instance of `FindIncidentsCommand` is passed the new `List<Predicate<Incident>> predicateArr`, combining the predicates using `combinePredicates()` to account for all predicates in the `List`
+* As before, the `LogicManager` calls `FindIncidentsCommand#execute()`, which causes the Model to run `Model#updateFilteredIncidentList(predicate)` using the combined predicate stored in `FindIncidentsCommand`.
+* This filters and updates the list in `FilteredList<Incident> filteredList`, by running `filteredList#setPredicate(predicate)` with the passed combined predicate.
+* Upon updating the list similar to the List Command above, `FindIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
 
 ==== Design Considerations
 
-===== Aspect: How incident search keyword is inputted
+===== Aspect: How user keys in `find-i` keywords
 
 * **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
 ** Pros: Easy to implement.
@@ -532,21 +562,56 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 
 ===== Aspect: How listing all incidents is called
 
-* **Current choice:** Utilise separate command `incidents`
+* **Current choice:** Utilise separate command `list-i`
 ** Pros: Intuitive to use.
-** Cons: Similar code under different command.
-* **Alternative:** Utilise `search` command (eg. `search unfiltered`)
+** Cons: Similar code under different command, leading to code reuse.
+* **Alternative:** Utilise `find-i` command (eg. `find-i unfiltered`)
 ** Pros: Less overlap in code.
 ** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
 
-===== Aspect: How predicate is added to `SearchIncidentsCommand`
+===== Aspect: Whether the search only returns full word matches
 
-* **Current choice:** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
-** Pros: Abstracts the creation and management of predicates to the `Model`.
+* **Current choice:** Search only returns full word matches
+** Pros: Intuitive to use.
+** Cons: Unable to return similar words eg. search for "desc/fire" does not return description containing "fires"
+* **Alternative:** Search returns all keyword-containing matches
+** Pros: Able to account for similar words to be returned.
+** Cons: Unintuitive to return certain longer words from certain searches eg. "desc/the" returns descriptions containing "weather" +
+    Faster search as code is less inefficient
+
+===== Aspect: How multiple keywords with the same prefixes are processed
+
+* **Current choice:** Keywords are read as an array into `Predicate<Incident>` to be fed into a stream to search for any match with any of the keywords
+** Pros: Requires lesser code. Abstraction of checking matches in keywords remains within the `Predicate<Incident>` class +
+    Able to separate the handling of multiple keywords with the same prefixes, in `Predicate<Incident>`, with the handling of different prefixes, done in `FindIncidentsCommand`
+** Cons: More difficult to implement
+* **Alternative:** Every new predicate takes in a keyword and returns all results with exact matches, to be combined in `FindIncidentsCommand` as separate predicates
+** Pros: Easier to implement
+** Cons: May lead to confusing implementation of the `combinePredicates()` function for returning results which have all prefixes fulfilled, but only require at least one match in keywords fulfilled for each prefix
+
+===== Aspect: How multiple different prefixes are processed
+
+* **Current choice:** `FindIncidentsCommandParser` checks for the presence of every possible prefix and creates a new `Predicate<Incident>` to be added to `predicateArr` to be combined in `FindCommandParser`
+** Pros: Intuitive to use, majorly improves the Find Incidents Command +
+    Utilises Inheritance and Polymorphism principles from OOP to combine the `DescriptionKeywordsPredicate` and `NameKeywordsPredicate` and `IdKeywordsPredicate`, inherited from `Predicate<Incident>` class, all stored in `predicateArr`
+** Cons:
+    Challenging to implement.
+* **Alternative:** `FindIncidentsCommandParser` returns a new `FindCommand` for every prefix identified
+** Pros: Less complicated
+** Cons: More code needed +
+    Does not follow the `Command` interface abstracted from, in that multiple `FindCommands` will run `execute()` at each time, returning multiple `CommandResults`
+* **Alternative:** Do not allow multiple different prefixes to be processed
+** Pros: Easy to implement, less challenging.
+** Cons: Very limited capabilities of Find Incidents Command if multiple parameters cannot be accepted at once.
+
+===== Aspect: How predicate is added to `FindIncidentsCommand`
+
+* **Current choice:** `FindIncidentsCommand` class calls `Model` to create a new Predicate based on search string.
+** Pros: Abstracts the creation and management of predicates to the `Model`. Maintains Separation of Concerns principle.
 ** Cons: Requires greater level of coupling between classes.
-* **Alternative:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+* **Alternative:** `FindIncidentsCommand` or `FindIncidentsCommand` directly create Predicate based on search string.
 ** Pros: Less dependencies within the parser class.
-** Cons: Breaks abstraction flow.
+** Cons: Breaks Model-View-Controller pattern.
 // end::incidentsearch[]
 
 // tag::incidentedit[]
@@ -1089,7 +1154,145 @@ Message: "Listed all incident reports ready for submission".
 .. Test case: `submit 0`
    Expected: Message "Invalid command format!" is displayed along with command usage message.
 
-=== Editing Submitted Incidents
+=== Finding incidents
+
+. Attempting to execute `find-i` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `find-i desc/district` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Attempting to execute `find-i` with a single blank description keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/` +
+   Expected: Message "Description can take any values, and it should not be blank."
+
+. Attempting to execute `find-i` with a single blank incident ID keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i id/` +
+   Expected: Message "Incident ID should only contain numerical digits and should not be blank."
+
+. Attempting to execute `find-i` with a single blank operator keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/` +
+    Expected: Message "Names should only contain alphanumeric characters and spaces, and it should not be blank."
+
+. Executing `find-i` with a single description keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching descriptions. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/cRAsH   ` +
+   Expected: Message "2 incidents listed!", and incidents whereby the description contains the given keyword will be listed in the incidents pane.
+
+. Executing `find-i` with multiple description keywords.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching descriptions. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/CrAsh   catS   ` +
+   Expected: Message "3 incidents listed!", and incidents whereby the description contain any of the given keywords will be listed in the incidents pane.
+
+. Executing `find-i` with a single operator keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/yeoh` +
+   Expected: Message "6 incidents listed!", and incidents whereby the involved operator's name contains the given keyword will be listed in the incidents pane.
+
+. Executing `find-i` with multiple operator keywords.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/yeoh aHMad` +
+   Expected: Message "8 incidents listed!", and incidents whereby the involved operator's name contains any of the given keywords will be listed in the incidents pane.
+
+. Executing `find-i` with a single id keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i id/0420180001` +
+   Expected: Message "1 incident listed!", and incidents whereby the ID matches the given keyword exactly will be listed in the incidents pane.
+
+. Executing `find-i` with self-search.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane with the operator name matching the name of the logged-in operator. +
+Incident pane must be visible in GUI.
+.. Test case: `find-i self` +
+   Expected: Message "6 incidents listed!", and incidents whereby the involved operator's name matches the logged-in operator's name exactly will be listed in the incidents pane.
+
+. Executing `find-i` with multiple different parameters.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with all parameters matching the keywords given. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i self desc/pmd id/0520140001` +
+    Expected: Message "1 incident listed!", and the incidents whereby all the parameters match the given keywords for each parameter will be listed in the incidents pane.
+
+. Executing `find-i` with multiple same parameters.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with all parameters matching the keywords given. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/cats desc crash` +
+    Expected: Message "2 incidents listed!", and the incidents whereby all the parameters match the given keywords for the last usage of the same parameter will be listed in the incidents pane.
+
+. Attempting to execute `find-i` with irrelevant parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i test` +
+    Expected: Error message "Invalid command format! +
+    find-i: Searches all incidents for which ID matches exactly, or description contains any of the specified description keywords, or operator name matches any of the specified operator keywords or logged-in operator's name +
+    Parameters: +
+    id/<ID> +
+    op/<OPERATOR KEYWORD [MORE_KEYWORDS]> +
+    desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...> +
+    self +
+    Example: find-i op/alex yeoh desc/6 self"
+
+. Attempting to execute `find-i` without displaying the incident pane.
+
+.. Prerequisites: User mut be logged in. +
+    Incident pane must not be visible in GUI.
+.. Test case: `find-i` +
+    Expected: Message "Please swap the interface to access the command from this suite. +
+    See help page for more information."
+
+
+=== Listing incidents
+
+. Attempting to execute `list-i` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `list-i` +
+    Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Attempting to execute `list-i` with irrelevant parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `list-i test message` +
+    Expected: Message "Please do not enter irrelevant prefixes/ fields!"
+
+. Executing `list-i` with no parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `list-i` +
+    Expected: Message "Listed all incidents", and all incidents in database will be listed in the incident pane
+
+. Attempting to execute `list-i` without displaying the incident pane.
+
+.. Prerequisites: User mut be logged in. +
+    Incident pane must not be visible in GUI.
+.. Test case: `list-i` +
+    Expected: Message "Please swap the interface to access the command from this suite. +
+    See help page for more information."
+
+=== Editing submitted incidents
 . Attempting to execute `edit-i` without logging in
 .. Prerequisites: User not logged in.
 .. Test case: `edit-i` +

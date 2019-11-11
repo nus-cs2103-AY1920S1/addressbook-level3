@@ -1,0 +1,23 @@
+@startuml
+start
+:User inputs a 'find-i' command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid prefixes are identified])
+    if () then ([keywords for prefixes are valid])
+        if() then ([matching incidents exist])
+        :Return list of matching incidents;
+        else ([else])
+        :Return no matching incidents error;
+        endif
+    else ([else])
+    :Invalid keywords error is returned;
+    endif
+else ([else])
+:Invalid command usage error is returned;
+endif
+stop
+@enduml
+
