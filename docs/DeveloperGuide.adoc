@@ -1049,6 +1049,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
    Expected: Error message shown due to erroneous input.
 
+=== Undo `clear-c`
+
+. Undo clear all orders command.
+
+.. Prerequisites: `clear-o` must be the last undoable command that was executed.
+.. Test case: `undo` +
+   Expected: All the orders that were in the OrderBook will be shown.
+
 === Saving data
 
 . Data is automatically saved after every command.
