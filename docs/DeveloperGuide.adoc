@@ -503,11 +503,11 @@ of the savings are added into the `SavingsHistoryList`, found within the `Saving
 
 The following sequence diagram shows how the making of a saving works:
 
-image::SaveSequenceDiagram.png[align="center"]
+image::SaveSequenceDiagram.png[]
 
 The following activity diagram summarises what happens when a user executes a `SaveCommand`:
 
-image::SaveActivityDiagram.png[width=450, align="center"]
+image::SaveActivityDiagram.png[width=350, align="center"]
 
 ===== Design Considerations
 
