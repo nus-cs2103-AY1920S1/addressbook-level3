@@ -39,14 +39,15 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the item in the shown list "
             + "by the index number used in the displayed list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION] "
-            + "[" + PREFIX_REMINDER + "REMINDER] "
-            + "[" + PREFIX_PRIORITY + "PRIORITY] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "Parameters: \n"
+            + "INDEX (must be a positive integer) \n"
+            + "[" + PREFIX_DESCRIPTION + " DESCRIPTION] \n"
+            + "[" + PREFIX_REMINDER + " REMINDER] \n"
+            + "[" + PREFIX_PRIORITY + " PRIORITY] \n"
+            + "[" + PREFIX_TAG + " TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DESCRIPTION + "DRINK WATER "
-            + PREFIX_PRIORITY + "HIGH";
+            + PREFIX_DESCRIPTION + " DRINK WATER "
+            + PREFIX_PRIORITY + " HIGH";
 
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited Item: %1$s,"
             + " because someone couldn't make up their mind";

@@ -1,10 +1,5 @@
 package seedu.elisa.logic.parser;
 
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -19,6 +14,12 @@ import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddReminderCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_AUTO_RESCHEDULE;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
+
 /**
  * Parses input arguments and creates a new AddCommand object
  */
@@ -31,8 +32,13 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String desc, String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG,
+                        PREFIX_AUTO_RESCHEDULE);
 
+        // AutoReschedule cannot be present with reminders
+        if (argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).isPresent()) {
+            throw new ParseException("-auto can't be used with reminders!! Use it with events instead!");
+        }
 
         ItemDescription description = ParserUtil.parseDescription(desc);
 
@@ -45,7 +51,8 @@ public class AddReminderCommandParser implements Parser<AddCommand> {
         Reminder itemReminder = ParserUtil.parseReminder(argMultimap.getValue(PREFIX_REMINDER).get()).get();
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse(null));
+        Optional<Priority> priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY)
+                .orElse(null));
 
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(description);

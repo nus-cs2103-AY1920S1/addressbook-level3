@@ -1,10 +1,5 @@
 package seedu.elisa.logic.parser;
 
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,6 +15,12 @@ import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddTaskCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_AUTO_RESCHEDULE;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
+
 /**
  *  Parses input arguments and creates a new AddCommand object
  */
@@ -32,7 +33,12 @@ public class AddTaskCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String desc, String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_REMINDER, PREFIX_PRIORITY, PREFIX_TAG,
+                        PREFIX_AUTO_RESCHEDULE);
+
+        if (argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).isPresent()) {
+            throw new ParseException("-auto can't be used with task!! Use it with events instead!");
+        }
 
         ItemDescription description = ParserUtil.parseDescription(desc);
         Optional<Event> dateTime = ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).orElse(null));

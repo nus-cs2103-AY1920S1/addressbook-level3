@@ -42,7 +42,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         // Event must have a deadline.
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT)); // AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
         ItemDescription description = ParserUtil.parseDescription(desc);
