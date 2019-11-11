@@ -1,0 +1,43 @@
+= Muhammad Taha bin Jailani - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: FlashCard Pro
+
+== Overview
+
+FlashCardPro is a program to manage flash cards. A FlashCard essentially has two properties, a front and a back. There
+are four types of card: FrontBack, MCQ, Java and JavaScript. +
+
+The app also has a review mode where users can test themselves with the cards they have created. +
+
+Cards can also easily be shared via a json file per deck of cards. +
+
+Each card exists in a deck. Decks and cards alike can be deleted, edited and created. Furthermore, any changes to cards
+or decks can be undone and redone (after an undo).
+
+== Code Contribution
+
+* [Major Contribution] Populated and maintained the parsing in the Logic Package.
+** Included the creation of most of the enumerations in Responses (but not the implementation).
+
+* [Major Contribution] Implemented the addition of MCQ and Flashcards via CLI.
+
+* [Major Contribution] Implemented Undo/Redo feature.
+
+
+== Documentation Contribution
+
+include::../UserGuide.adoc[tag=redo]
+
+include::../UserGuide.adoc[tag=undo]
+
+include::../UserGuide.adoc[tag=FAQ_Undo]
+
+include::../DeveloperGuide.adoc[tag=Logic]
+
+include::../DeveloperGuide.adoc[tag=UndoRedo]
+
+
+

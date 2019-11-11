@@ -598,6 +598,7 @@ Example:
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer. Copy the JSON files of any decks you would like to transfer into the `data` folder of the app.
 
+// tag::FAQ_Undo[]
 *Q*: I accidentally deleted a deck! What can I do now? +
 *A*: You can just use the Undo command to recover the lost deck!
 
@@ -609,6 +610,7 @@ Example:
 
 *Q*: Will I be able to review my mistakes after a test? +
 *A*: Yes! Test mode allows you to review all the questions in the test and even re-attempt them without changing your initial test score.
+// end::FAQ_Undo[]
 
 
 // end::FAQ[]

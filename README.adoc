@@ -23,6 +23,7 @@ endif::[]
 * Have you wished to create *more kinds of flashcards* in order to learn different things?
 * Unlike traditional pen-and-paper flashcards or even existing flashcard apps like Anki, FlashCard Pro supports flashcards with *multiple choices*, and even flashcards that require you to *complete code snippets*!
 * With FlashCard Pro, you can *test yourself* on each deck, *edit decks and cards* on-the-fly, and *view statistics* on your activity.
+* Make a mistake and deleted a card or deck by accident? Any changes can be reversed with the *undo* command!
 * Never fear losing all your flashcards ever again -- in FlashCard Pro, all decks are *stored in the lightweight and portable JSON format*, allowing decks to be migrated between devices, or sent to your friends! Teachers can also easily design their own decks for students to use as learning tools!
 
 == Site Map

@@ -171,7 +171,7 @@ public class State {
 
     //@@author PhireHandy
     /**
-     * Adds the current deck to the deckHistory for Undo command
+     * Adds the current decks to the deckHistory for Undo command
      */
     public void addCurrDecksToDeckHistory() {
         @SuppressWarnings("unchecked")
