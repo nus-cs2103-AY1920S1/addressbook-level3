@@ -4,19 +4,20 @@
 :stylesDir: ../stylesheets/
 
 == Project: Duke Academy
-Duke Academy is a Java based programming practice application equipped with a wide range of questions related to the field of Data Structures and Algorithms.
 
+Duke Academy is a Java based programming practice application equipped with a wide range of questions related to the field of Data Structures and Algorithms.
 
 == Overview
 
-Duke Academy was built to emulate a Command Line Application where users interact with the GUI by typing commands into a command box. This decision was made to allow new learners to also familiarize themselves with
-using a Command Line Interface, an invaluable skill for all programmers.
+Duke Academy was built to emulate a Command Line Application where users interact with the GUI by typing commands into a command box.
+This decision was made to allow new learners to also familiarize themselves with using a Command Line Interface, an invaluable skill for all programmers.
 
 [.text-center]
 .Main GUI of Duke Academy
 image::DukeAcademyGUI.png[align="center"]
 
-Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature. It provides all the tools needed for a good practice session so that its users will never have to tab out to another application.
+Duke Academy is an integrated platform with a built-in text editor, an auto-grader and a note-taking feature.
+It provides all the tools needed for a good practice session so that its users will never have to tab out to another application.
 
 .Text editor and auto-grader
 image::TextEditorAndGrader.png[align="center]
@@ -29,22 +30,42 @@ DukeAcademy can also be used as a teaching tool by educators as they can set the
 Duke Academy is written in Java, and has about 15 kLoC.
 
 == My Roles and Contributions
-The following segment illustrates the different roles and tasks that I have performed for our team in detail. It also provides a bit of justification for the different choices that I have made pertaining to these  roles and tasks.
+
+The following segment illustrates the different roles and tasks that I have performed for our team in detail.
+It also provides a bit of justification for the different choices that I have made pertaining to these roles and tasks.
 
 === Change underlying architecture to suit our needs - [refactor]
-I was given the task of modifying the existing architecture of AddressBook3 to suit our application. Due to the increased complexity of our product, a large part of the existing architecture had to be changed. I have summarized most of the changes into the following 4 sections:
+
+I was given the task of modifying the existing architecture of AddressBook3 to suit our application.
+Due to the increased complexity of our product, a large part of the existing architecture had to be changed.
+I have summarized most of the changes into the following 4 sections:
 
 . *Separated Logic component into cohesive parts*
-. *Separated model into cohesive parts*
+
+  * What it does : +
+  Splits the old Logic interface in AddressBook3 into different interface with their own specialized functions.
+  The new interfaces are `CommandLogic`, `QuestionsLogic`, `ProgramSubmissionLogic` and `NotesLogic`. Each interface serves as a facade to facilitate operations pertaining to different aspects of our app.
+  * Justification : +
+  As the complexity of our app increased, we realized that the functionality of the application can be split into 4 cohesive units. Each unit deals with _commands_, _questions_, _program evaluation_ and  _notes_ respectively. Thus, instead of using a single logic class to encapsulate all of those functionalities, each cohesive unit was made into its own logic class, keeping them loosely coupled.
+  This helped to make our codebase more testable and maintainable.
 
 . *Implemented Observer pattern* +
 
   * What it does : +
-  Provides a simple and lightweight observable class that can be customized using Java generics. This enables various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
+  Provides a simple and lightweight observable class that can be customized using Java generics.
+  This enables various different components such as the UI to observe changes to the state of the application without introducing them as unnecessary dependencies.
   * Justification : +
-  The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts. However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
+  The existing AddressBook3 implementation made use of JavaFX's native ObservableList class to display the list of contacts.
+  However, as we needed to observe other objects, we realized that JavaFX's native Observable class was slightly too over-engineered for our use cases.
 
 . *Refactor Command pattern*
+
+  * What it does : +
+  Change the implementation of the Command pattern to be more flexible. The `execute()` function of the `Ccommand` interface no longer takes in a `Model`. Argument parsing is also handled by the `Command` itself.
+  Open-closed principle is maintained by requiring commands to be registered into the `CommandLogic` with a `Supplier` functional interface. The https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`] is in charge of injecting different dependencies that various commands need.
+
+  * Justification : +
+  The previous implementation of the `Command` in AddressBook3 was very inflexible in the sense that the execution of each command requires a `Model`. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most Commands no longer relied on a `Model` for execution and started to have their own unique sets of argument parsing rules.
 
 === Program evaluation feature - [feature]
 
@@ -52,7 +73,9 @@ I was given the task of modifying the existing architecture of AddressBook3 to s
 
 === Tabs - [design]
 
+
 === Various commands - [feature]
+
 . *Tab*
 . *Submit*
 . *New Note*
@@ -64,13 +87,19 @@ I was given the task of modifying the existing architecture of AddressBook3 to s
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** What it does: allows the user to undo all previous commands one at a time.
+Preceding undo commands can be reversed by using the redo command.
+** Justification:
+This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights:
+This enhancement affects existing commands and commands to be added in future.
+It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it required changes to existing commands.
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 == Other Contributions
+
 ** Project management
 *** Managed and enforced branching workflow on GitHub
 *** Set up auto-publishing of docs (https://github.com/AY1920S1-CS2103T-F14-1/main/commit/ccde6b5fba8b4d5294678804d0e63c03804ce24c[commit])
@@ -87,11 +116,12 @@ I was given the task of modifying the existing architecture of AddressBook3 to s
 *** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/25[Liberry])
 
 == Code Contributions
-Click the links below to view my code contributions on RepoSense. On RepoSense, you can select options to view my functional code and test code.
+
+Click the links below to view my code contributions on RepoSense.
+On RepoSense, you can select options to view my functional code and test code.
 
 * https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]
 * https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]
-
 
 == Contributions to the User Guide
 
