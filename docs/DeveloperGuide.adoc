@@ -213,9 +213,19 @@ link:{repoURL}/src/main/java/seedu/moneygowhere/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+[#DeleteSequenceDiagram,align="center"]
+image::DeleteSequenceDiagram.png[pdfwidth="75%",width="75%"]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The following steps explain <<DeleteSequenceDiagram>>:
+
+1. The user enters `delete 1`.
+2. `LogicManager` calls `SpendingBookParser#parseCommand()`.
+3. `DeleteCommandParser` is created.
+4. `1` is passed as an argument to `DeleteCommandParser`
+5. `DeleteCommand` is created and returns an object `d`.
+6. On `execute()`, `Model#deleteSpending(1)` is called to delete the spending from the list.
 
 // tag::model[]
 [[Design-Model]]
@@ -360,7 +370,7 @@ The find feature allows the user to search for a spending based on specified fie
 
 ==== Implementation
 
-Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user. The `FindCommandParser` class stores these predicates, which are combined using Java 8 streams with an `AND` operation to form a more specific search query.
+Find is supported by having a `Predicate` implemented for every field in Spending. Predicates are added based on valid input entered by the user. The `FindCommandParser` class stores these predicates, which are combined using Java `8` streams with an `AND` operation to form a more specific search query.
 
 The sequence diagram below demonstrates how the `find` command is executed:
 
@@ -451,7 +461,7 @@ The sequence diagram below demonstrates how the `sort` command is executed:
 [#SortSequenceDiagram,align="center"]
 image::SortSequenceDiagram.png[pdfwidth="75%",width="75%"]
 
-The following steps explain the sequence diagram:
+The following steps explain <<SortSequenceDiagram>>:
 
 1. The user enters `sort n/ASC`.
 2. `LogicManager` calls `SpendingBookParser#parseCommand()`.
