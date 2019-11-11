@@ -34,7 +34,7 @@ public class ProjectCommand extends Command {
             + "Parameters: "
             + PREFIX_DATE + "DATE [" + PREFIX_CATEGORY + "CATEGORY]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_DATE + "12122103 "
+            + PREFIX_DATE + "12122019 "
             + PREFIX_CATEGORY + "Food";
     public static final int REQUIRED_MINIMUM_TRANSACTIONS = 5;
 
