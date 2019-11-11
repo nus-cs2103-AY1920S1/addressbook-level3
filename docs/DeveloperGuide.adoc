@@ -1661,22 +1661,3 @@ Expected: Borrower is not served. An error stating the correct format of a borro
 Expected: The main GUI switches from light mode to dark mode, including those of all other sub-windows
 .. Testcase: `toggleui` (again) +
 Expected: The main GUI switches back to light mode, including those of all other sub-windows
-
-==== Removing or corrupting data
-
-. Removing data
-
-.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
-.. Enter the '/data' directory, which is in the same directory as the Jar file.
-.. Delete any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json).
-.. Launch the LiBerry App.
-.. Expected: The app should start with sample data once again.
-
-. Corrupting data
-
-.. Prerequisites: LiBerry has previously saved data. If starting up for the first time, delete a few books or return a few loans to modify the sample data.
-.. Enter the '/data' directory, which is in the same directory as the Jar file.
-.. Type gibberish into any 1, 2 or all of the 3 stored data files (catalog.json, borrowerrecords.json and loanrecords.json) at any point.
-.. Save the modified data files.
-.. Launch the LiBerry App.
-.. Expected: The app should start with sample data once again.
