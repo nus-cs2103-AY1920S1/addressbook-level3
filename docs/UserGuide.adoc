@@ -70,18 +70,34 @@ NOTE: Please ensure you have Java 11 or above installed before proceeding!
 2. Place the file in the folder you want to set as the home directory. All data and
 miscellaneous files associated with StudyBuddyPro will be placed in this folder.
 
-3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds, and
+should look like the screen shown below. If not,
+please
 refer to the first question in the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
 for help!
 
 +
-image::Ui.png[width="700"]
+.GUI of StudyBuddyPro application displayed on startup
+image::Ui.PNG[width="700"]
 +
 
-4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Typed commands
+will appear in the CLI highlighted in the purple box in the diagram above. Refer to the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
 section for a quick overview of all the available commands!
+
++
+[TIP]
+The blue box in the diagram above with the "Flashcards", "Notes" and "Cheatsheets" logo
+can be used to quickly check which mode you are in! Switching into a mode will highlight
+the relevant mode's logo in an orange circle, as shown in this
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-feature[figure].
++
+
+5. Output from the command will be shown in the boxes highlighted in orange and green in
+the diagram above. The green box is used to display a flashcard, note or cheatsheet
+while the orange box outputs feedback from commands.
 
 == Command Format / Rules
 
@@ -114,7 +130,7 @@ blank.
 E.g. "noted" will return "noted" but not "note" or "notes"
 
 * All searches, like `filter`, are case insensitive.
-E.g. 'tag/cs2103t' will match 'tag/CS2103T' and `filter important` will match `filter IMPORTANT`
+E.g. 'tag/cs2103t' will match 'tag/CS2103T' and `filter tag/important` will match `filter tag/IMPORTANT`
 
 * If multiple inputs are given for a particular field, only the last valid input for the field is taken, unless the field allows multiple inputs.
 E.g. `add q/this is a question a/this is an answer q/another question` -> the application will only take in `q/another question` as the input field for `question`.
@@ -190,7 +206,16 @@ Listing all tags :
 
 Lists all StudyBuddyPro items with matching tags in the application.
 
+[IMPORTANT]
+====
+* The user must specify at least one tag.
+* The user is able to specify multiple tags.
+* CheatSheets that match all of the specified tags will be displayed.
+====
+
     Format: filterall tag/TAG [tag/TAG]...
+
+Let’s say the user wishes to view the definition of pipelining. Pipelining is taught in CS2100, a Computer Organization module taught in the School of Computing at NUS. Hence, the user can make use of filterall to find all flashcards, cheatsheets and notes that are tagged “CS2100”. Note that for simplicity, all tags will be converted to lowercase upon input. Hence, ‘CS2100’ will be read as ‘cs2100’ by our application.
 
 Example usage:
 
@@ -232,13 +257,26 @@ will list all items that match all of the specified tags.
 
 === Clearing specific feature's data: `clear`
 
+[WARNING]
+
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data depending on the mode you are in!
+
 Clears the data in specific feature. Depending on the _mode_ that the user is in, the `clear` command will only clear the specific feature's data.
 
 Example usage:
 
     clear
 
+Expected output:
+
+    Cleared all flashcards/notes/cheatsheets!
+
 === Clearing entire application's data: `clear all`
+
+[WARNING]
+
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data in StudyBuddyPro!
+
 
 Clears all the data in the application.
 
@@ -248,7 +286,7 @@ Example usage:
 
 Expected output:
 
-    Cleared the entire StudyBuddy book!
+    Cleared the entire StudyBuddyPro!
 
 === Exiting the application: `exit`
 
@@ -311,8 +349,6 @@ Example usage:
     edit tag/midterm tag/finals
 
 Expected output:
-
-Expected output:
 ```
 Tag edited!
 All items and contents in StudyBuddy tagged ‘midterm’ is replaced with tag ‘finals’.
@@ -336,6 +372,14 @@ Flashcards feature a try! This feature can help you create your very own flashca
 help you consistently revise. With our built-in reminder features and timetrial modes to
 test yourself, use this feature and be on track to better revising habits today!
 
+[TIP]
+====
+Good news - StudyBuddyPro comes with some preloaded flashcards, specially catered for you as a
+computing student! Be sure to take a look! Psst - here's a hint for our more tech-savvy
+users: You can delete your _flashcards.json_ file in the StudyBuddyPro data folder to restore
+these default flashcards at any time. Of course, your current flashcards will be deleted as well!
+====
+
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _flashcard_ mode. To be sure
@@ -345,7 +389,7 @@ screen should now look like the one found in the screenshot below.
 
 image::FlashcardSuccess.PNG[width="700"]
 
-=== Creating a flashcard: `add`
+=== How to create a flashcard: `add`
 
 Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
@@ -372,6 +416,8 @@ Example usage:
 
     view 6
 
+will view the Flashcard at Index 6.
+
 Expected output:
 ```
 Viewing flashcard:
@@ -397,17 +443,40 @@ Flashcard answer loaded
 
 === Editing a flashcard: `edit` (Coming in v2.0)
 
-Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
+Edits a flashcard's question, answer, title, or tags. The flashcard will be referred to by their original title
+`ORIGINAL_TITLE`.
 
-    Format: edit id/FLASHCARD_ID [m/MODULE] [q/NEW_QUESTION] [f/FILE_NAME] [a/ANSWER] [t/TITLE] [h/HINT] [tag/TAG]...
+    Format: edit ORIGINAL_TITLE [q/NEW_QUESTION] [a/ANSWER] [t/TITLE] [tag/TAG]...
 
 * At least one of the optional fields must be provided.
 
-=== Listing all flashcards: `list`
+Example usage:
+
+    edit IntelliJ Question 1 q/What is the meaning of SLAP? a/Single Layer of Abstraction Principle t/SE Question 1
+
+Expected output:
+```
+Edited flashcard:
+    Title: SE Question 1
+    Question: What is the meaning of SLAP?
+    Tags: [cs2100]
+```
+
+* Notice how the fields that are not edited retain their original information. For example,
+the _tag_ field was not changed and so the original _cs2100_ tag was retained.
+
+* Multiple fields can be edited at the same time. In the example, the _question_, _answer_
+and _title_ fields were all edited at once.
+
+=== How to view a list of all available flashcards: `list`
 
 Lists all flashcards.
 
    Format: list
+
+Example usage:
+
+    list
 
 Expected output:
 ```
@@ -416,7 +485,7 @@ Listed all flashcards:
     Tags: [CS2100]
 ```
 
-=== Deleting a flashcard: `delete`
+=== How to delete a flashcard: `delete`
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
@@ -436,6 +505,11 @@ Are you sure you would like to delete the following flashcard?
     Please use `delete 6` again to confirm your deletion..
 ```
 
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
+
 Upon keying in `delete 6` again, then the flashcard will be deleted.
 
 Expected output:
@@ -454,8 +528,6 @@ Starts a time trial for flashcards with tag <TAG> for <TIME> seconds per flashca
 Example usage:
 
     timetrial cs2103tuml hard
-
-Expected output:
 
 Expected output:
 ```
@@ -497,12 +569,16 @@ Expeted output:
 
 === Find out what flashcards to revise today, or ones you may have missed: `remind`
 
-Reminds the user regarding the flashcards due for revision today and the flashcards
-overdue for revision. Automatically suggests a new date the flashcard should next be
-viewed at for optimal learning. These increments scale with time i.e. suggested viewing
-dates are closer at the start and spread further after more viewings.
+This feature helps the user check which flashcards are due for revision today and which flashcards
+overdue for revision. Don't worry, StudyBuddyPro automatically sets the date the flashcard should next be
+viewed at for optimal learning. These increments also scale with time i.e. newer flashcards will
+have to be viewed more often.
 
-[NOTE] StudyBuddyPro only marks a flashcard as revised and removes it from the due and
+[TIP]
+Be sure to check in everyday to see which flashcards you have due!
+
+[NOTE]
+StudyBuddyPro only marks a flashcard as revised and removes it from the due and
 overdue flashcard list when you see the flashcard's _answer_ not just its question! For
 example, simply using the `view` command without the `show` command to reveal the flashcard's
 answer will not trick the system. Sorry, it's for your own good!
@@ -550,8 +626,13 @@ Here are your overdue flashcards:
 
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _notes_ mode.
+All the operations in this section assume that the user is in the _notes_ mode. To be sure
+you are _notes_ mode, please ensure you used the `switch notes` command before this. Your
+screen should now look like the one found in the screenshot below.
 ====
+
+image::NotesSuccess.PNG[width="700"]
+
 
 === Creating a note: `add`
 
@@ -657,7 +738,7 @@ Are you sure you would like to delete the following note?
     Please use `delete 3` again to confirm your deletion.
 ```
 
-Upon hitting enter, the note will be deleted.
+Upon using `delete 3` again, then the note will be deleted.
 ```
 Deleted note:
     Title: About Notes
@@ -665,7 +746,15 @@ Deleted note:
     Tags: [about]
 ```
 
+
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
+
+
 //tag::notesView[]
+
 
 === Viewing a note: `view`
 
@@ -811,10 +900,20 @@ Edited Note:
 
 == CheatSheet Feature:
 
+Ever spent countless of hours rummaging through your notes just to dig up
+important information to add to your cheatsheet for your exams? Ever feared that you
+ might accidentally miss out on important information to add to your cheatsheet? Fret not! Our
+very own cheatsheet feature of StudyBuddyPro is here to help you auto-generate your important
+information, and to simply, save the day.
+
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _cheatsheet_ mode.
+All the operations in this section assume that the user is in the _cheatsheet_ mode. To be sure
+you are _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
+screen should now look like the one found in the screenshot below.
 ====
+
+image::CheatSheetSuccess.PNG[width="700"]
 
 //tag::cheatsheetAdd[]
 
@@ -874,7 +973,6 @@ Expected output:
 Edited Cheatsheet:
 Title: cs2100 final cheatsheet
 Tags: [cs2100finals]
-Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
 ```
 
 [NOTE]
@@ -900,13 +998,12 @@ Expected output:
 
 ```
 Are you sure you would like to delete the following cheatsheet?
-Title: CS2100 Finals CheatSheet Tags: [finalcheatsheet]
-Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
-    [ 2. 110 in Binary is 6 is Decimal ]
+Title: CS2100 Finals CheatSheet
+Tags: [finalcheatsheet]
 Please use `delete 8` again to confirm your deletion.
 ```
 
-Upon hitting enter, the specified cheatsheet will be deleted.
+Upon hitting enter, then the specified cheatsheet will be deleted.
 
 Expected output:
 ```
@@ -915,6 +1012,11 @@ Deleted Cheatsheet:
     Contents: [ 1. Question: What is 110 Binary in its Decimal Form?; Answer: 6 ]
         [ 2. 110 in Binary is 6 is Decimal ]
 ```
+
+[IMPORTANT]
+
+Inputting invalid commands will *NOT* offer another prompt to the user.
+For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
 
 //tag::cheatsheetView[]
 
@@ -1086,7 +1188,13 @@ should I do? +
 do this while Mac users can use the Terminal application.
 
 *Q*: When I minimise the application, the entire application has shrunk and now it is gone! Help! +
-*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download our StudyBuddyPro again!
+*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download StudyBuddyPro again!
+
+*Q*: The preloaded deck of flashcards is overdue for revision and StudyBuddyPro says the last viewed date for
+those preloaded flashcards was when I first opened StudyBuddyPro, even though I never even
+viewed those flashcards! How is this possible? +
+*A*: StudyBuddyPro assumes all the default flashcards will be viewed when the application
+was first opened. Aren't you curious to see what we collated for you?
 
 == Command Summary
 
