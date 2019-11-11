@@ -50,8 +50,8 @@ For example, to filter all appeals requesting to add a particular module and che
 *** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
-*** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
-*** Reviewed User Guide and Developer Guide for other teams in class
+*** Reported bugs and suggestions for other teams (examples: https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide for other teams in class (example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/33[1])
 
 == Contributions to the User Guide
 
