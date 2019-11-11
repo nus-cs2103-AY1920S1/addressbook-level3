@@ -100,8 +100,6 @@ Refer to the guide <<SettingUp#, here>>.
 
 The architecture diagram below explains the high-level design of Jarvis.
 
-// TODO change architecture diagram
-
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
