@@ -163,7 +163,7 @@ gives a high level overview of the game.
 .Summary Sequence Diagram of Game Window
 image::GameSequenceDiagram.png[align="center"]
 //image::GameActivityDiagram.png[float="left"]
-image::GameActivityDiagram.png[width="30%" align="center"]
+image::GameActivityDiagram.png[width="50%" align="center"]
 .Activity Diagram of the Game Window
 
 `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
