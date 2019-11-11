@@ -22,6 +22,7 @@ import seedu.revision.ui.UiPart;
 
 /**
  * Timer class which handles the animations and implementation of the quiz session timer.
+ * @@author jxofficial
  */
 public class Timer extends UiPart<Region> {
     public static final String MESSAGE_CONSTRAINTS = "Timer must be a number that is greater 1, and "

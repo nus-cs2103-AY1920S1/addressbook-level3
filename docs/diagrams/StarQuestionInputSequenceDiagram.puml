@@ -53,23 +53,31 @@ LogicManager -> StarQuestionCommand : execute(model)
 activate StarQuestionCommand
 
 create CommandResultBuilder
-StarQuestionCommand-> CommandResultBuilder : CommandResultBuilder()
+StarQuestionCommand -> CommandResultBuilder : CommandResultBuilder()
 activate CommandResultBuilder
 deactivate CommandResultBuilder
 
-CommandResultBuilder -> CommandResultBuilder : withStarQuestion(true)
+CommandResultBuilder -> CommandResultBuilder : withFeedback(result)
 
 CommandResultBuilder -> CommandResultBuilder : build()
 
-activate CommandResult
-CommandResultBuilder -> CommandResult : CommandResult(builder)
+activate CommandResultBuilder
 
+create CommandResult
+CommandResultBuilder -> CommandResult : CommandResult(builder)
+activate CommandResult
+CommandResult --> CommandResultBuilder : commandResult
+deactivate CommandResult
+
+deactivate CommandResultBuilder
+
+CommandResultBuilder --> StarQuestionCommand : commandResult
 deactivate CommandResultBuilder
 
 StarQuestionCommand --> LogicManager : commandResult
 deactivate StarQuestionCommand
 
-ref over LogicManager, Model : mark question as starred
+ref over LogicManager, Model : edit question as starred
 
 [<--LogicManager: commandResult
 deactivate LogicManager
