@@ -29,12 +29,9 @@ My role was to design the `stats`, `filter`, and `find` features. The following 
 
 Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
 
-|===
-| :bulb: a|
-This symbol indicates important information.
-|`stats`|
-A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
-|===
+* The symbol :bulb: indicates important information.
+* A grey highlight like `stats` indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
+
 
 == 2. Summary of Contributions
 
