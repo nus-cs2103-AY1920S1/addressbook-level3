@@ -115,14 +115,12 @@ Have an income that you need to log down? PalPay accepts all income inputs throu
 
 ==== Command Syntax
 
-Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+Format: `in $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
-* `ITEM` accepts the description of this income.
-* `DATE` accepts accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
-* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+
+* `CATEGORY` accepts the categories for this income. An `in` Transaction can be created without `CATEGORY` inputs.
+* `in` updates the user's overall balance with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** overall balance by $1000).
 ****
 
 ==== Example Usage
@@ -180,21 +178,18 @@ Have you recently made an expenditure that requires logging down? PalPay accepts
 
 ==== Command Syntax
 
-Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
 * Users should not input negative values into `AMOUNT` (i.e. `out $/-100 ...`) as PalPay has already accounted for the difference between incomes and expenditures.
-* `ITEM` accepts the description of this expenditure.
-* `DATE` accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
-* `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+* `CATEGORY` accepts the categories for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
+* `out` updates the user's overall balance with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** overall balance by $2)
 ****
 
 ==== Important Details:
 
 * Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
-* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
+* An `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
 
 ==== Example Usage
 
