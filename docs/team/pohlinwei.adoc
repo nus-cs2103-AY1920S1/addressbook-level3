@@ -102,6 +102,8 @@ To view my code in more detail, please click https://nus-cs2103-ay1920s1.github.
 
 = Contributions to User Guide 
 
+This section provides a sample of the contributions I have made to the user guide. Specifically, the instructions for using ``check`` and ``suggest``.
+
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
@@ -111,6 +113,8 @@ include::../UserGuide.adoc[]
 include::../UserGuide.adoc[]
 
 = Contributions to the Developer Guide
+
+This section provides the contributions I have made to the developer guide.
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
