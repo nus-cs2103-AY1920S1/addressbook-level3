@@ -1040,7 +1040,7 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == Financial Tracker
-Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your expenses seamlessly!
+Scare that you're gonna overspend whenever you're on a trip? Afraid no more! _TravEzy's_ _Financial Tracker_ allow you to track your expenses seamlessly!
 
 Each of your expense has 6 key fields:
 
@@ -1051,10 +1051,10 @@ Each of your expense has 6 key fields:
 . Type of expenditure
 . Country
 
-The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
+The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, _TravEzy_ tracks it! In _Financial Tracker_, you will be able to manage your expenses easily.
 
 === Interface
-This is what you will see when navigated to the financial tracker:
+This is what you will see when navigated to the _Financial Tracker_:
 
 image::FinancialTrackerInterface.png[Financial Tracker interface,width=800]
 
@@ -1185,7 +1185,7 @@ Currently in somewhere else? Switch to that expense list instead!
 
 `switch COUNTRY`
 
-TIP: Do realise that you can always use the drop down menu instead!
+TIP: You can always use the _Countries dropdown box_ directly instead!
 
 WARNING: You can only type in countries which are only listed from the _Countries dropdown box_
 
