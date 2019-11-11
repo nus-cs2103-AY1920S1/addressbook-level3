@@ -276,7 +276,7 @@ Step 3. The user executes `deleteexpense-primary 1` to delete the first expense 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#addToHistory()`, so the model will not be saved into `ModelHistory`.
+If a command fails its execution, it will not call `Model#commit(String, Model)`, so the model will not be saved into `ModelHistory`.
 
 Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the retrieved model, and applies the change to the model.
 
@@ -320,13 +320,13 @@ by the `addexpense` command.
 ===== Aspect: How to store the model data
 
 * **Alternative 1:** Saves the entire model.
-** Pros:
-** Cons: The approach introduces a lot of memory usage that is going increasing  usage.
+** Pros: It is easier to implement.
+** Cons: The approach introduces a lot of memory usage.
 * **Alternative 2:** Saves the members of the model that were (or are going to be) changed.
-** Pros:
-** Cons:
+** Pros: This approach is more conservative in memory usage.
+** Cons: We have to make sure every field is immutable to preserve changes.
 * **Current implementation (Alternative 2)**:
-We choose this approach as
+We choose this approach as the time and memory resource trade-off is less significant compared to Alternative 1.
 
 // end::undoredo[]
 
