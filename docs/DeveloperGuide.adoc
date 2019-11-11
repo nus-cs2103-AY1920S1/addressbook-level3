@@ -92,6 +92,7 @@ The `UI` component,
 // end::uicomponent[]
 
 // tag::logic[]
+
 [[Design-Logic]]
 === Logic component
 
@@ -114,6 +115,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 // end::logic[]
 
 [[Design-Model]]
@@ -331,45 +333,67 @@ in the list.
 // end::undoredo[]
 
 // tag::optimise[]
+
 === Schedule optimisation
 ==== Implementation
 
-The schedule optimisation feature utilises `TimeTable` and allows the user to resolve any overlapping activities. Resulting in a schedule with the
-lowest overall cost and the most number of activities such that the user's time is maximised. The following command is supported:
+Scheduled activities in a day can be modeled as a `Directed Acyclic Graph (DAG)` where the `vertices` are the `activities` and an `edge` from 1 vertex to another means that the activities are `not overlapping`. Just like DAGs, there are `no cycles` within the schedule due to the linearity of time.
+When the command is executed, an `adjacency list` is formed from the existing activities within the schedule. The paths are then traced, with the help of a utility method, from the adjacency list to find `all possible combinations` of activities such that there are no overlaps between activities. The list of paths are then sorted
+by their total cost. If there are `multiple paths` with the `same total cost`, the one with the `most number of activities` is selected. The existing day is then replaced with a day that contains the new schedule made from the path.
 
 * optimise INDEX_OF_DAY -- optimises and de-conflicts the schedule. This operation supports activities with or without
 a cost. Activities without a cost have a default cost of $0.00.
 
 Given below is a sample usage of the feature:
 
-The scheduled activities in a day can be viewed as a Directed Acyclic Graph (DAG), where a path represents a possible schedule. When a user executes the `Optimise` command on a day with conflicting activities, a utility method creates an adjacency list.
-Another utility method then traverses the adjacency list to create all possible paths. The paths are then sorted to obtain the one with the lowest total cost and most number of activities (nodes).
+The user calls `optimise` command on an existing day with `overlapping activities` within its schedule. This results in a schedule `without overlaps` such that the `lowest overall cost` and the `most number of activities` if there are `multiple combinations` with the `same total cost`, such that the user's time is maximised.
 
 Shown below is a summary of the execution of the command.
 
 image::OptimiseSequenceDiagram.png[]
 
 ==== Design considerations
-Aspect: Execution
+Aspect: Algorithm to de-conflict
 
-* Alternative 1 (current): Find all paths
-
-** Pros:
-*** Able to compare both budget and number of activities.
-*** Can reuse to find different methods of optimisation besides cost, by replacing comparator.
-
-** Cons:
-*** Slow runtime.
-
-* Alternative 2: Find shortest path
+* Alternative 1 (current): Find all combinations, if the total cost is the same, combination with more activities is selected.
 
 ** Pros:
-*** Faster runtime.
+*** Allow users to maximise time by squeezing more activities into the schedule.
+*** Allow optimisation to cover more criteria such as cost, number of activities, etc.
 
 ** Cons:
-*** Less flexible optimisation.
+*** Costly runtime.
+
+* Alternative 2: Use Single Shortest Path (SSSP) algorithms to find a combination without conflicts.
+
+** Pros:
+*** Fast runtime.
+
+** Cons:
+*** Use of SSSP algorithms like Djikstra or Bellman Ford restricts the criteria of optimisation due to the limits of edge weight (i.e. cost).
+
+Aspect: De-conflict process
+
+* Alternative 1 (current): Model as a DAG and find combination with the lowest overall cost.
+
+** Pros:
+*** Easy for users to use, less hassle for indecisive users.
+
+** Cons:
+*** Less control for the user to choose activity.
+
+* Alternative 2: Allow users to manually de-conflict by selecting individual activities they wish to keep.
+
+** Pros:
+*** Users have more control over activities.
+
+** Cons:
+*** Users have to enter multiple inputs to de-conflict.
+
 // end::optimise[]
+
 // tag::autocomplete[]
+
 === Autocomplete
 
 // end::autocomplete[]
