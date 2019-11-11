@@ -1,0 +1,30 @@
+@startuml
+object ":Budget" as o
+object "name:Name" as o2
+object "currency:Currency" as o3
+object "startDate:Date" as o4
+object "endDate:Date" as o5
+object "amount:Amount" as o6
+object "amountLeft:Amount" as o7
+object "expenseList:ExpenseList" as o8
+object "expenses:UniqueExpenseList" as o9
+
+
+o2 : fullName = "Japan Travel"
+o3 : name = "JPY"
+o4 : value = "12 Dec 2019"
+o5 : value = "18 Dec 2019"
+o6 : value = "9500"
+o7 : value = "9500"
+
+o --> o2
+o --> o3
+o --> o4
+o --> o5
+o --> o6
+o --> o7
+o --> o8
+o8 --> o9
+
+
+@enduml

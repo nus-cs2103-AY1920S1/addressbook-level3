@@ -126,12 +126,6 @@ The `Model`,
 * stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
 * stores the MYMorise data.
 * exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -154,6 +148,69 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Budget Feature
+==== Overview
+The Budget feature allows users to track their expenses in relation to the budget set. Expenses created by the user after a budget is set and falls into a budget period will
+automatically be added into that budget.
+
+The feature allows the user to view a list of all the budgets created in the app. From the list of budgets, users may view any specific budget
+showing all the expenses allocated into the budget, along with the amount left in the budget.
+Users may add, delete, edit a budget as well as the expenses inside the budget.
+
+==== Implementation
+The `BudgetList` stores all the budgets created in the App. To facilitate the adding, deleting and editing of budgets, the BudgetList provides a
+few operations such as: +
+`BudgetList#addBudget(budget)` - Add a new budget into the list of budgets in the budget list. +
+`BudgetList#setBudget(budget, editedBudget)` - Edit a current existing budget to a different budget +
+`BudgetList#removeBudget(budget)` - Remove a specified budget
+
+Given below is an activity diagram to show how a budget is added.
+
+image::AddBudgetActivityDiagram.png[]
+
+Given below is an activity diagram to show how an expense is added after the implementation of budget.
+
+image::AddExpenseActivityDiagram.png[]
+
+Given below is a class diagram of a Budget.
+
+image::BudgetClassDiagram.png[]
+
+Notice that the budget consists of 2 Amounts and 2 Dates. +
+The 2 Amounts refer to the Budget Amount set by the user and the Budget Amount
+currently left after deducting all expenses in the budget. +
+The 2 Dates refer to the Start Date of the Budget and the End Date of the budget. All expenses added after the budget is created,
+and fall within this 2 dates, will be automatically added into the budget.
+
+Given below is an example of a object diagram of a newly created Budget.
+
+image::BudgetObjectDiagram.png[]
+
+The Budget consists of an ExpenseList which holds all expenses added into the Budget.
+
+==== Design Consideration
+There were 2 main design choices we had to choose from for the implementation of the Budget Feature. +
+
+*Aspect: A single source of truth* +
+The model consists of an expense list and a budget list.
+
+- *Alternative 1:* Have a master expense list to store all expenses created and a budget list that consist of an internal
+expense list that stores copies of the expenses from master expense list that fall into the budget. In this option, commands that affect expenses, will require
+an update in the master expense list and the expense lists inside budgets affected. +
+    * Pros: Easy to implement, easy to keep track of a overall expenses.
+    * Cons: Multiple objects of the same expense. An update to an expense in the overall expense list will require a same update
+            to the same expense located in the budget. May result in bugs when commands affect expenses.
+
+- *Alternative 2:* Have a default expense list that stores only expenses that do not fall into a budget, and a budget list that consist
+of an internal expense list that stores the expenses that fall into a budget when the expense is added or edited. In this option, there is only
+1 copy of any expense created by the user. Any edit or delete of an expense affects directly to the original expense object.
+    * Pros: Achieve a single source of truth. Does not introduce possible bugs that may be present if there were multiple copies of the same expense.
+    * Cons: More complex to implement. In order to view all expenses in the app, the program will have to loop through the default expense list
+            and the expense lists of every single budget.
+
+*Alternative 2* was chosen. Reason is because a single source of truth would eliminate duplicate entries of the same data. This would
+also reduce the possibility of bugs that may come with duplicate entries.
 
 === AutoComplete Feature
 ==== Implementation

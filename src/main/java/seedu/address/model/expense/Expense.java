@@ -138,7 +138,7 @@ public class Expense implements Comparable<Expense> {
             .append("Name: " + getName())
             .append("\n");
         if (isForeign()) {
-            builder.append("Amount: " + getConvertedAmount())
+            builder.append("Amount: " + String.format("%.2f", getConvertedAmount()))
                 .append(" " + DEFAULT_BASE_CURRENCY)
                 .append(" (" + String.format("%.2f", getAmount().getValue()))
                 .append(" " + getCurrency().toString())

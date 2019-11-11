@@ -1,0 +1,21 @@
+@startuml
+start
+:User executes AddExpense command;
+
+'diamond
+if () then ([expense does not exist])
+    'diamond
+    if () then ([expense falls into a budget period])
+        : get budget which expense falls into;
+        : add expense into the budget;
+
+    else ([else])
+        : add expense into default expense list;
+    endif
+        :Update UI;
+        :Save default expense list and budget list;
+else ([else])
+    : user receives expense duplicate message;
+endif
+stop
+@enduml

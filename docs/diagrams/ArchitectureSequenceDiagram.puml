@@ -13,11 +13,24 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("delete 1")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteExpense(e)
+logic -[LOGIC_COLOR]> model : getViewState()
 activate model MODEL_COLOR
-
 model -[MODEL_COLOR]-> logic
 deactivate model
+
+alt BudgetList
+logic -[LOGIC_COLOR]> model : deleteBudget(b)
+activate model MODEL_COLOR
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+else ExpenseList
+logic -[LOGIC_COLOR]> model : deleteExpense(e)
+activate model MODEL_COLOR
+model -[MODEL_COLOR]-> logic
+deactivate model
+end
+
 
 logic -[LOGIC_COLOR]> storage : saveMymorise()
 activate storage STORAGE_COLOR
