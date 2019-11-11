@@ -109,9 +109,9 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-There are pop-up windows that appeared when the calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
+There are pop-up windows that appear when user calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -120,7 +120,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Responds to the user's keyboard and mouse input.
 * Pop-up windows respond to the buttons on the menu tab.
+* Button on the menu tab which acts as substitute for keyboard input for single-word commands.
+* Each usage of the menu tab buttons will update the Food list accordingly.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
 === Logic component
@@ -144,7 +147,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-//end::UI[]
 
 [[Design-Model]]
 === Model component
@@ -1042,6 +1044,170 @@ The following activity diagram below shows how the `alias` command works.
 
 .Activity Diagram for sample alias command.
 image::AliasActivityDiagram.png[width=650, align="center"]
+
+//tag::info[]
+=== Info Feature
+
+The info feature allows users to view more information about a particular command. This can be done through calling the
+`info` command.
+
+==== Classes for info feature in Model
+
+In order to support the `info` command, new classes were added that correspond to each command in the app.
+This is to allow for easy access and also to better organize the information to be displayed for each commands.
+
+These classes only has public fields without any methods as it is only needed by `InfoWindow` to access the information
+stored within the class.
+
+The classes added where each class represents an info card:
+
+===== `AddInfo`
+===== `AliasInfo`
+===== `AutoSortInfo`
+===== `BudgetInfo`
+===== `BuyInfo`
+===== `ClearInfo`
+===== `CustomSortInfo`
+===== `DefaultInfo`
+===== `DeleteInfo`
+===== `DislikeInfo`
+===== `EditInfo`
+===== `ExitInfo`
+===== `FilterInfo`
+===== `HelpInfo`
+===== `HistoryInfo`
+===== `InfoInfo`
+===== `LikeInfo`
+===== `MakeSortInfo`
+===== `RecommendInfo`
+===== `RemoveDislikeInfo`
+===== `RemoveLikeInfo`
+===== `SaveInfo`
+===== `ShowInfo`
+===== `ThemeInfo`
+===== `TopUpInfo`
+===== `ViewSortInfo`
+===== `WithdrawInfo`
+
+Each of these classes contains these fields:
+
+. Command Word
+. Information
+. Usage example
+. Expected Output
+
+Each of these fields have to be manually typed as it acts like an in-built user guide for the users who do not have
+access to internet connection, but would still like to know about the command.
+
+==== Opening info card about a command
+
+Command word to open up a new `InfoWindow` is `info`. Users are able to view the `InfoWindow` for each and every command
+as long as the command exist within the app (There exist the class for such info card in the model).
+
+For example, `info add` will open up a new `InfoWindow` about the command `add`.
+
+The sequence window below shows how a sample `info` command is executed:
+
+.Sequence diagram for sample `info` command
+image::InfoSequenceDiagram.png[]
+
+The following activity diagram shows how the `info` command works.
+
+.Activity diagram for sample `info` command
+image::InfoActivityDiagram.png[]
+
+==== Design Considerations
+
+Detailed below are our considerations when creating the Info feature.
+
+===== Design considerations of `InfoCommand` class
+
+Explained below are our consideration when designing the `InfoCommand` class.
+
+.Design considerations of the `InfoCommand` class
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Returning a specific message for each input command to create specific `CommandResult` which can be
+handled accordingly in `MainWindow`.
+
+* Pros:
+** This greatly decreases chances of different input command returning the same `CommandResult` due to standardized
+success message, output message, etc.
+** This enables similar commands to have similar or standardized output message without having to worry about causing
+a bug with the info feature.
+
+* Cons:
+** Accommodating newly-added command might be messy and complicated as new field will have to be created
+plus new object to be returned when execute() is called.
+
+a|Simply returning the input command's output message.
+
+* Pros:
+** Makes it easier to accommodate newly-added commands as no new field or object needs to be created.
+
+* Cons:
+** Might cause bug where different command open the same info card due to equal output message.
+** Will have to ensure that every command have a different output message.
+** Similar commands will not be able to have standardized output message.
+|===
+
+We decided to go with alternative 1 and implemented `InfoCommand` class to just return a specific message for each
+and every input command. Not only that this is much safer but this also allows similar commands to have standardized
+output message e.g. `like` command and `dislike` command.
+
+The hassle of having to create new field and object to be returned for every new command added is mitigated by the fact
+that we will not have to worry about similar output message for the commands resulting in a bug in the info feature.
+
+Additionally, this implementation also allows a unique output message to be displayed on the `ResultDisplay` which
+definitely adds more personality to the program and allows a better, more informative feedback to user to be displayed.
+
+Basically the benefits of this implementation as mentioned, greatly outweighs the cost it takes to implement it and
+subsequent command addition would be much easier as it's just repeated routine.
+
+===== Design considerations on how to display the command's information
+
+Explained below are our consideration when designing on the best way to display the command's information.
+
+.Design considerations of the way to display information
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Creating `InfoWindow` that is opened every time the `info` command is used.
+
+* Pros:
+** Allow more information to be displayed about a particular command.
+** Allow developers to design how they want the information to be displayed.
+
+* Cons:
+** Need to create new window and carefully engineer the proportion to prevent truncation, etc.
+** User might not like the app opening up a new window every time the `info` command is called.
+
+a|Displaying the information on the `ResultDisplay`.
+
+* Pros:
+** Safer as it eliminated bugs from having to create a new window.
+** Makes the application less-messy as there are less windows opened.
+
+* Cons:
+** The small `ResultDisplay` component means that not much information can be displayed.
+** Displaying a large amount of information will require the user to slowly read it through the small `ResultDisplay`
+tab which will not be comfortable to the users.
+** This implementation prevents us from freely designing the information displayed as we are only limited to
+designing the information in text form.
+|===
+
+We decided to go with alternative 1 where we just create a new window called `InfoWindow` to display the information.
+Firstly, this allows us to format the information in a way to make it easy for the users to understand. Secondly, we
+are able to fit so much more information in the new window and even possibly image guides which would definitely
+help users understand the commands better.
+
+Displaying the information on the `ResultDisplay` simply would not be helpful enough to the users especially with
+information-heavy commands such as `add` and `edit` which would definitely not fit the small `ResultDisplay` screen.
+
+//end::info[]
 
 == Documentation
 
