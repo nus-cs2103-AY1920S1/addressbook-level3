@@ -393,7 +393,7 @@ Actor: User
 1.  User [.underline]#views all flashcards (UC01)#.
 2.  User locates the correct index of the flashcard he/she wants.
 3.  User request to delete the flashcard with the specific index number.
-3.  FlashMind deletes the flashcard.
+4.  FlashMind deletes the flashcard.
 +
 Use case ends.
 
@@ -416,8 +416,8 @@ Actor: User
 
 1.  User [.underline]#views all existing flashcards (UC01)#.
 2.  User identifies the index of the particular flashcard that he/she wants to tag.
-2.  User tags the flashcard with provided tag names.
-3.  FlashMind creates new tags with the given tag names and put the flashcard under these tags.
+3.  User tags the flashcard with provided tag names.
+4.  FlashMind creates new tags with the given tag names and put the flashcard under these tags.
 +
 Use case ends.
 
@@ -458,7 +458,7 @@ Actor: User
 1. User [.underline]#views all existing flashcards (UC01)#.
 2. User identifies the index of the particular flashcard that he/she wants to edit.
 3. User request to edit the question, tag or answer of a flashcard.
-3. FlashMind updates the question, tag or answer on the specific flashcard.
+4. FlashMind updates the question, tag or answer on the specific flashcard.
 
 *Extensions*
 
@@ -525,12 +525,12 @@ Precondition: The tag exists in the database
 *MSS*
 
 1. User [.underline]#views all existing flashcards (UC01)#.
-1. User starts a quiz on a particular flashcard by providing its index.
-2. FlashMind displays the question on that flashcard.
-3. User carries out the quiz by providing an answer to that question.
-4. FlashMind displays result.
-5. User confirms the result.
-6. Quiz ends.
+2. User starts a quiz on a particular flashcard by providing its index.
+3. FlashMind displays the question on that flashcard.
+4. User carries out the quiz by providing an answer to that question.
+5. FlashMind displays result.
+6. User confirms the result.
+7. Quiz ends.
 
 Use case ends
 
@@ -560,14 +560,14 @@ Precondition: The tag exists in the database
 
 1. User [.underline]#views all existing flashcards (UC01)#.
 2. User identifies a particular tag that he/she wants to quiz on.
-1. User starts a quiz on that tag by providing the tag name.
-2. FlashMind shows the question of the first flashcard.
-3. User answers the question by providing a response.
-4. FlashMind displays result.
-5. User confirms the result.
+3. User starts a quiz on that tag by providing the tag name.
+4. FlashMind shows the question of the first flashcard.
+5. User answers the question by providing a response.
+6. FlashMind displays result.
+7. User confirms the result.
 [none]
 * steps 2-5 are repeated until all the flashcard in the tag have been quizzed.
-6. Quiz ends.
+8. Quiz ends.
 
 Use case ends
 
