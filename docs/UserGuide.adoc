@@ -881,7 +881,7 @@ image::AutoCompletePost.png[width="500"]
 
 
 [TIP]
-You can use kbd:[control] to navigate along the various prefixes.
+You can use kbd:[right arrow] to navigate along the various prefixes.
 
 //end::autocomplete[]
 

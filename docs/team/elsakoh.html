@@ -90,7 +90,7 @@ Information here are things the user can learn so that they have a faster experi
 <p>Justification: This feature increases the usability of +Work, especially for new users, as users do not have to rely on error messages to understand the correct input format. Furthermore, much of the user&#8217;s interaction is spent on using the command-line and would arguably improve the overall experience of using +Work greatly.</p>
 </li>
 <li>
-<p>Highlights: As of the latest release, the <kbd>control</kbd> key will toggle the caret to make user interactions with the command line much quicker.</p>
+<p>Highlights: As of the latest release, the <kbd>right arrow</kbd> key  will toggle the caret to make user interactions with the command line much quicker.</p>
 </li>
 </ul>
 </div>
@@ -170,7 +170,7 @@ Information here are things the user can learn so that they have a faster experi
 <h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">3. Contributions to the User Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following section is an excerpt from my additions to the <strong>+Work User Guide</strong> for the <code>autocorrect</code> feature and Command Summary.</p>
+<p>The following section is an excerpt from my additions to the <strong>+Work User Guide</strong> for the Quick Start, Introduction and <code>autocorrect</code> feature.</p>
 </div>
 <div class="sect2">
 <h3 id="quick-start"><a class="link" href="#quick-start">3.1. Quick Start</a></h3>
@@ -249,124 +249,6 @@ You can use <kbd>control</kbd> to move to the next prefix.
 </td>
 </tr>
 </table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="command-summary"><a class="link" href="#command-summary">3.3. Command Summary</a></h3>
-<div class="ulist">
-<ul>
-<li>
-<p><code>add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]</code>:  <strong>Imports a calendar</strong></p>
-</li>
-<li>
-<p><code>add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]</code>: <strong>Adds an inventory</strong></p>
-</li>
-<li>
-<p><code>add-meeting [meeting/index]</code>: <strong>Adds a meeting from the generated meeting time list from <code>find-meeting-time</code></strong></p>
-</li>
-<li>
-<p><code>add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]</code>: <strong>Adds a member</strong></p>
-</li>
-<li>
-<p><code>add-task [tn/TASK_NAME] [s/TASK_STATUS] [tt/TASK_TAG]</code>: <strong>Adds a task</strong></p>
-</li>
-<li>
-<p><code>assign [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Adds a task to a member</strong></p>
-</li>
-<li>
-<p><code>clear</code>: <strong>Clears all data from dashboard</strong></p>
-</li>
-<li>
-<p><code>clock twelve</code>: <strong>Switches deadline display to the 12 hour clock format</strong></p>
-</li>
-<li>
-<p><code>clock twenty_four</code>: <strong>Switches deadline display to the 24 hour clock format</strong></p>
-</li>
-<li>
-<p><code>set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]</code>: <strong>Assigns a deadline to a task</strong></p>
-</li>
-<li>
-<p><code>delete-calendar [mn/MEMBER_NAME]</code>: Deletes calendar of member</p>
-</li>
-<li>
-<p><code>delete-inv [ii/ITEM_ID]</code>: <strong>Deletes an inventory</strong></p>
-</li>
-<li>
-<p><code>delete-meeting [meeting/MEETING_INDEX]</code>: <strong>Deletes a meeting</strong></p>
-</li>
-<li>
-<p><code>delete-task [ti/TASK_INDEX]</code>: <strong>Deletes a task</strong></p>
-</li>
-<li>
-<p><code>doing-task [ti/TASK_ID]</code>: <strong>Marks a task as <code>doing</code></strong></p>
-</li>
-<li>
-<p><code>done-task [ti/TASK_ID]</code>: <strong>Marks a task as <code>done</code></strong></p>
-</li>
-<li>
-<p><code>edit-inv [ii/ITEM_ID] [i/ITEM_NAME] [p/PRICE] [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Edits an inventory</strong></p>
-</li>
-<li>
-<p><code>edit-member [mi/MEMBER_ID] [mn/MEMBER_NAME] [mt/MEMBER_TAG]</code>: <strong>Edits a member</strong></p>
-</li>
-<li>
-<p><code>edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]</code>: <strong>Edits a task</strong></p>
-</li>
-<li>
-<p><code>exit</code>: <strong>Exits +Work</strong></p>
-</li>
-<li>
-<p><code>fire [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Removes a task from a member</strong></p>
-</li>
-<li>
-<p><code>find-meeting-time [start/dd-mm-yyyy hh:mm] [end/dd-mm-yyyy hh:mm] [hours/HOURS]</code>: <strong>Generates free times among members</strong></p>
-</li>
-<li>
-<p><code>home</code>: <strong>Switches to the project dashboard</strong></p>
-</li>
-<li>
-<p><code>help</code>: <strong>Navigates to help page</strong></p>
-</li>
-<li>
-<p><code>list-members</code>: <strong>Lists all members</strong></p>
-</li>
-<li>
-<p><code>list-tasks</code>: <strong>Lists all tasks</strong></p>
-</li>
-<li>
-<p><code>list-inv</code>: <strong>Lists all inventories</strong></p>
-</li>
-<li>
-<p><code>member-stats</code>: <strong>Displays member statistics</strong></p>
-</li>
-<li>
-<p><code>pdf [ty/TYPE]</code>: <strong>Creates a PDF document of inventory list</strong></p>
-</li>
-<li>
-<p><code>redo</code>: <strong>Redoes last known command</strong></p>
-</li>
-<li>
-<p><code>remove-member [mi/MEMBER_ID]</code>: <strong>Removes a member</strong></p>
-</li>
-<li>
-<p><code>set-image[mi/MEMBER_ID] [im/IMAGE_FILEPPATH]</code>: <strong>Switches to the settings configuration page</strong></p>
-</li>
-<li>
-<p><code>settings</code>: <strong>Switches to the settings configuration page</strong></p>
-</li>
-<li>
-<p><code>task-stats</code>: <strong>Displays task statistics</strong></p>
-</li>
-<li>
-<p><code>theme dark</code>: <strong>Switches to the dark theme</strong></p>
-</li>
-<li>
-<p><code>theme light</code>: <strong>Switches to the light theme</strong></p>
-</li>
-<li>
-<p><code>undo</code>: <strong>Undoes last known command</strong></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -545,4 +427,4 @@ The following class plays an important role at the architecture level:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 20:55:52 SGT</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 22:40:48 SGT</div></div></div></body></html>
