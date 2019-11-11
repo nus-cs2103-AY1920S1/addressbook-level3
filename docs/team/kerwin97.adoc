@@ -115,5 +115,6 @@ include::../UserGuide.adoc[tag=calendar]
 |===
 
 include::../DeveloperGuide.adoc[tag=reminders]
+include::../DeveloperGuide.adoc[tag=reminders2]
 
-include::../DeveloperGuide.adoc[tag=calendar]
+include::../DeveloperGuide.adoc[tag=tabswitch]

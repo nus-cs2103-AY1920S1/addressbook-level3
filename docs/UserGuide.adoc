@@ -171,12 +171,15 @@ The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the 
 
 Examples:
 
-* `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00` +
+* `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00 tt/21/09/2019 13:00, 21/09/2019 15:00`
+* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
 
 image:UserGuide/add_task.png[width="500"]
 image:UserGuide/add_task_2.png[width="500"]
 
-* `add_task c/MA1521 Tutorial mark/N tt/02/11/2020 14:00, 02/11/2020 15:00`
+****
+* The Reminder created will have the Task's `MODULE` as its `DESCRIPTION` and the Task's `TASK_TIME` as its `DATE`.
+****
 
 // end::tasks[]
 ==== Editing task: `edit_task`
@@ -198,6 +201,11 @@ image:UserGuide/edit_task_2.png[width="500"]
 
 * `edit_task 1 tt/19/10/2019 12:00, 19/10/2019 14:00 mark/N`
 
+****
+* If the task `Mark` was originally N and the user edited it to Y, a Reminder for the Task *WILL NOT* be created. Reminders will only be created at the creation of the task.
+* Likewise, editing the `Mark` from Y to N will not delete the Reminder that was created at the creation of said Task.
+****
+
 
 ==== Deleting task: `delete_task`
 
@@ -213,6 +221,13 @@ Examples:
 
 image:UserGuide/delete_task.png[width="500"]
 image:UserGuide/delete_task_2.png[width="500"]
+
+****
+* Deleting a task does not delete the Reminder associated with it.
+* Senario: After creating a Task with `Mark`, Y, a Reminder will be created as well. User deleted said task with `delete_task` command. This removes the task but not the Reminder.
+* If the user creates a new Task with the same description as a Reminder, and `Mark` Y, the program would create the Task, then attempt to create the Reminder and this would cause a __Duplicate Reminder Error__ .
+* To prevent this, remember to deleted associated Reminder as well.
+****
 
 ==== Finding tasks based on Module : `find_task_by_module`
 
@@ -283,6 +298,7 @@ image:calendarview.png[width="700"]
 ==== Add Reminder
 
 Adds reminders. +
+Reminders must be unique and cannot have the same `DESCRIPTION` +
 Format: `add_reminder rd/DESCRIPTION rt/START_TIME, END_TIME` +
 
 [TIP]
@@ -290,6 +306,7 @@ A Reminder can have more than one time slots.
 
 ****
 * `START_TIME` and `END_TIME` must be in the format "dd/MM/YYYY HH:mm, dd/MM/YYYY HH:mm".
+* The `END_TIME` must be after the `START_TIME`.
 * If there are multiple task times, they will be automatically sorted based on their `START_TIME`.
 ****
 
@@ -661,6 +678,17 @@ The picture specified must be in either .jpg, .png or .bmp format. It must also 
 Examples:
 
 * `set_pic 2 pic/Tom.jpg`
+
+==== Reminders Feature Improvements [Coming in v2.0]
+
+Improvements on Reminders Feature such as increased integration with Tasks. To include real time notifications on upcoming Reminders. Add categories of Reminders eg. urgent, important.
+
+[NOTE]
+Reminders to be more flexible such as allowing deletion of reminders associated with certain task.
+
+Examples:
+
+* `reminder_cat cat/Important` (Categorizes reminder as important)
 
 ==== View serial absentees with defined threshold: 'absentees' [Coming in v2.0]
 

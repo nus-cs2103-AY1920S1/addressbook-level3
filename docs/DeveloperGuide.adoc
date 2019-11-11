@@ -551,7 +551,9 @@ The add claim `add_reminder` mechanism is facilitated by `addReminderCommand` an
 following input from the user: `Description`, `Time`, which will construct `Reminder` objects.
 
 .Add Reminder Command Sequence Diagram
-##diagram to be added
+image::reminders/AddReminderSequenceDiagram.png[]
+NOTE: The lifeline for `AddReminderParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 The `addReminderCommand` implements `Parser` with the following operation:
 
@@ -559,7 +561,7 @@ The `addReminderCommand` implements `Parser` with the following operation:
 individual objects based on the prefixes `rd/` and `rt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
 ** `description` would use `ParserUtil#parseReminderDescription()` to ensure that the description typed by the user is in the correct format.
 
@@ -570,13 +572,12 @@ enter the correct format of the respectives objects.
 * `addReminderParser` would then return a `addReminderCommand` object with the parameter, `Reminder` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
-
-##diagram to be added
-
+//end::reminders[]
+image::reminders/AddReminderActivityDiagram.png[]
+//tag::reminders2[]
 *Example Scenerio*
 
-* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
-This adds an `Notes` object that the user has added to record what needs to be done for the class.
+* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019 13:00, 23/01/2019 15:00` to add a reminder for teaching classes.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
@@ -593,7 +594,51 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 
 * Step 6: `addReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Reminder` object have been successfully added.
-//end::reminders[]
+
+==== Delete Reminders
+This command allows the user to delete reminders from the existing reminders list through its index.
+
+The delete reminders command is facilitated by the `DeleteReminderCommand` and `DeleteReminderParser`.
+
+The delete reminder command is part of the logic component of our application. It interacts with the model component of our software application.
+
+*Overview*
+
+The `DeleteReminderParser` implements `Parser` with the following operation:
+
+* `DeleteReminderParser#parse()` - This operation will take in an `int` input from the user, that the
+user wants to delete, which will correspond to the index shown on the reminders list on the application. This will delete
+the reminders in the reminders list. If an invalid format is entered or an invalid index is entered, there will be a prompt
+from the commmand parser.
+
+*Current Implementation*
+
+The delete earnings command is executed by the `DeleteReminderCommand`. Currently, the deletion of any earnings is done based
+on the `INDEX` of the reminders entry.
+
+During the design of our delete reminders function, we considered between two alternatives.
+
+.Delete Reminder Sequence Diagram
+image::reminders/DeleteReminderSequenceDiagram.png[]
+
+*Example Scenerio*
+
+* Step 1: The user enters `delete_reminder 1` to delete a reminder with index 1.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `delete_reminder`, thus, `deleteReminderParser` object would be created with the user's input.
+
+* Step 4: `deleteReminderParser` performs a validation check on each of the respective objects through
+`deleteReminderParser#parse()`.
+
+* Step 5: `LogicManager` would execute `deleteReminderCommand#execute`. In this particular method, the `Reminder` object will be
+of that index will be deleted from the current unique filtered reminder list.
+
+* Step 6: `deleteReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new reminder list.
+
+//end::reminders2[]
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
@@ -730,6 +775,8 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
+// tag::undoAndRedo[]
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -740,6 +787,21 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+
+//tag::tabswitch[]
+=== Tab Change feature
+
+Tab Change feature is a type of Command that allows users to change to respective windows for using different features in the system.
+Tab change function is implemented in using both CLI and GUI. User can execute tab change by typing command in the command box or by interaction with the GUI component (Menu Bar)
+
+//end::tabswitch[]
+
+==== Implementation
+
+.Activity Diagram
+image::reminders/tabchange.png[]
+
+User will execute `change_tab` command with the parameters of `tab/TAB`. Using this, TutorAid will display the list and the view that the user wishes to see, effectively changing tabs.
 
 
 // tag::dataencryption[]
