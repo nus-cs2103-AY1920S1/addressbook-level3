@@ -298,7 +298,7 @@ Alternative 1 was selected, as it allows for faster searching and listing of rel
 // end::autocompletecommands[]
 // tag::orders[]
 === Order Manager
-Order Manager is an address book of Orders and has some useful functions specifically catered towards the ease of management of orders.
+Order Manager has some useful functions specifically catered towards the ease of management of orders.
 
 Firstly, the automated allocation of deliveryman once new orders are added or completed. When a new order is created on the database, or when an existing order is completed, a deliveryman will be assigned to deliver the new/existing pending orders based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
 
@@ -318,7 +318,7 @@ These operations are exposed in the `ModelManager` class as `ModelManager#addOrd
 
 Order manager implements its own `Model`, `Command` and `Parser` for the `Logic Component`, `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
 
-.Class diagram illustrating the design of `Order` components
+.Class diagram of `Order` in `Storage Component` to illustrate the design of `Order` components
 image::OrderClassDiagram.png[width="790"]
 
 ==== Implementation
