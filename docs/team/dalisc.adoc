@@ -88,9 +88,16 @@ _{end of extract 3}_
 
 == 4. Contributions to the Developer Guide
 
-In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
+In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project. Given below is my contribution to the Developer Guide:
 
-_{start of extract: implementation of stats command}_
+_{start of extract 1: implementation of stats command}_
 include::../DeveloperGuide.adoc[tag=statistics]
-_{end of extract}_
+_{end of extract 1}_
 
+_{start of extract 2: manual testing of stats command}_
+include::../DeveloperGuide.adoc[tag=statsManualTesting]
+_{end of extract 2}_
+
+_{start of extract 3: manual testing of filter command}_
+include::../DeveloperGuide.adoc[tag=filterManualTesting]
+_{end of extract 3}_

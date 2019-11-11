@@ -1229,6 +1229,71 @@ _
 .. Other incorrect generate report commands to try: `genReport`, `genReport x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+// tag:statsManualTesting[]
+=== Using the Line Chart and Stats Command
+
+. Changing the time frame of the line's chart horizontal axis
+
+.. Prerequisites: None. The line chart is automatically displayed, with the last ten days as the default time frame.
+.. Test case 1: `stats /week 25/10/2019` +
+   Expected: The line chart will show the seven days of the week that contains the day 25/10/2019. 25/20/2019 is a Friday but the line chart will show from Monday to Sunday. The label of the horizontal axis will change to "Day".
+.. Test case 2: `stats /month 10/2019` +
+   Expected: The line chart will show the 31 days of month of October, 2019. All dates will be shown on the horizontal axis but will be in a shortened format. The label of the horizontal axis will change to "October 2019".
+.. Test case 3: `stats /month 2/2019` +
+   Expected: The line chart will show the 28 days of month of February, 2019. All dates will be shown on the horizontal axis but will be in a shortened format. The label of the horizontal axis will change to "February 2019".
+.. Test case 4: `stats /year 2019` +
+   Expected: The line chart will show the 365 days of year 2019. Dates are in a shortened format but not all dates will be shown on the horizontal axis due to space constraint. The label of the horizontal axis will change to be "Year 2019".
+.. Test case 5: `stats /year 2016` +
+   Expected: The line chart will show the 366 days of leap year 2016. Not all dates will be shown on the horizontal axis due to space constraint. The label of the horizontal axis will change to be "Year 2016".
+.. Test case 6: `stats` +
+   Expected: The line chart will show the last ten days from the current date. The label of the horizontal axis will change to be "Day".
+.. Incorrect stats commands to try: `stats 9/2019`, `stats 2019`, `stats /week 40/23/2019`, `stats /month 40/2009`
+   Expected: An error message will appear informing you that the command format is invalid or the date entered is invalid.
+
+. Testing the dynamism of the line chart by adding and deleting bodies
+
+.. Prerequisites: The time frame of the line chart should be changed to include the date of admission of the body that is going to be added.
+.. Test case 1: `add -b /name Jonathan Bergeson /sex male /dod 14/11/2019 /doa 14/11/2019` +
+   Expected: The y-value for the date 14/11/2019 automatically decreases by 1.
+.. Test case 2: `delete -b <ID number of the previously added body>` +
+   Expected: The y-value for the date 14/11/2019 automatically decreases by 1.
+// end::statsManualTesting[]
+
+// tag:filterManualTesting[]
+=== Filter entries by attributes
+
+. Filter bodies by a combination of at least on attribute.
+
+.. Prerequisites: List all bodies for better viewing of the entries.
+.. Test case 1: `filter -b /sex female` +
+   Expected: Mortago will list only bodies that are female. The command result will specify how many bodies fit the criteria (0 if none).
+.. Test case 2: `filter -b /sex male /status pending police report` +
+   Expected: Mortago will list only bodies that are female and needs a police report written for it. The command result will specify how many bodies fit the criteria (0 if none).
+.. Test case 3: `filter -b /sex male /organsForDonation kidney liver /status arrived` +
+   Expected: Mortago will list only bodies that are male, donating kidney and liver, and has the status arrived. The command result will specify how many bodies fit the criteria (0 if none).
+.. Test case 4: `filter -b /status hello world` +
+   Expected: Mortago will not list any body and the command result will read "0 bodies listed!" as that status does not exist.
+.. Test case 5: `filter /sex male /cod car accident` +
+   Expected: An invalid command error will be thrown and the command result will display it as no flag was given.
+.. Incorrect filter commands to try: `filter`, `filter -b`, `filter -a`
+   Expected: An error message will appear informing you that the command format is invalid.
+
+. Filter workers by a combination of at least on attribute.
+
+.. Prerequisites: List all workers for better viewing of the entries.
+.. Test case 1: `filter -b /sex female` +
+   Expected: Mortago will list only female workers. The command result will specify how many bodies fit the criteria (0 if none).
+.. Test case 2: `filter -w /sex male /designation coroner` +
+   Expected: Mortago will list only male coroners. The command result will specify how many bodies fit the criteria (0 if none).
+.. Test case 3: `filter -w /employmentStatus hello world` +
+   Expected: Mortago will not list any body and the command result will read "0 bodies listed!" as that status does not exist.
+.. Test case 4: `filter /sex male /employmentStatus full-time` +
+   Expected: An invalid command error will be thrown and the command result will display it as no flag was given.
+.. Incorrect filter commands to try: `filter`, `filter -b`, `filter -a`
+   Expected: An error message will appear informing you that the command format is invalid.
+
+// end::filterManualTesting[]
+
 === Saving Data
 
 . Dealing with missing/corrupted data files
