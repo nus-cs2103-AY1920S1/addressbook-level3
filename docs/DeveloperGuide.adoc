@@ -45,7 +45,7 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter`: Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of five components.
 
@@ -83,21 +83,21 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="400"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts
-e.g.`CommandBox`, `ResultDisplay`, `TabPanel` , `StatusBarFooter` etc.
-`TabPanel` consists of `CustomerListPanel` , `OrderListPanel`, `PhoneListPanel` , `CalendarListPanel`
+e.g.`CommandBox`, `ResultDisplay`, `TabPanel`, `StatusBarFooter` etc.
+`TabPanel` consists of `CustomerListPanel`, `OrderListPanel`, `PhoneListPanel`, `CalendarListPanel`
 and `ArchivedOrderListPanel`
 All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts is defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-* Different changes in each tab or panel is controlled via the enum `UiChange`
+* Different changes in each tab or panel are controlled via the enum `UiChange`
 
 // end::UiUG[]
 
@@ -112,7 +112,7 @@ image::LogicClassDiagram.png[]
 
 // end::logicDiagram[]
 
-*API* :
+*API*:
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 // tag::logicsequencediagram[]
@@ -138,7 +138,7 @@ NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy m
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -164,12 +164,12 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API*: link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in json format and read them
+* can save `UserPref` objects in JSON format and read it back.
+* can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in JSON format and read them
  back.
 
 [[Design-Commons]]
@@ -187,22 +187,22 @@ This section describes some noteworthy details on how certain features are imple
 
 ==== Implementation
 
-This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
+This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows sellers to quickly
 generate total statistics from their `DataBooks`, through the use of a `statistic`
-module that handles this calculation. There is three type of statistic to be calculated and only on `completed orders`:
+module that handles this calculation. There are three type of statistic to be calculated and only on `completed orders`:
 
 * `Profit`  `Cost` `Revenue`
 
 It implements the following mode of operations:
 
-* default mode with no date input: generates on all completed order total `profit` , `cost` or `revenue`
+* default mode with no date input: generates on all completed order total `profit`, `cost` or `revenue`
 ** The command enter by the user will be e.g for profit type `generate-s s/PROFIT`
 
-* mode with date input from user: The statistic command takes in 2 `dates`, `starting date` and `ending date`
+* mode with date input from the user: The statistic command takes in 2 `dates`, `starting date` and `ending date`
 and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dates.
-** command entered by user will be e.g for profit type`generate-s s/PROFIT s1/YYYY.MM.DD s2/YYYY.MM.DD`
+** command entered by the user will be e.g for profit type`generate-s s/PROFIT s1/YYYY.MM.DD s2/YYYY.MM.DD`
 
-Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
+Here is the sequence of steps taken by SML when it receives a `StatCommand`:
 
 image::StatisticsCalculationAcitvityDiagram.png[]
 
@@ -210,14 +210,14 @@ image::StatisticsCalculationAcitvityDiagram.png[]
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
-`String` and the other and `XYChart.Series<String,Number>`
+`String` and the other and `XYChart.Series<String, Number>`
 
 * Methods that return a `String`:
 ** `calculateTotalProfitOnCompleted(...)`
 ** `calculateTotalRevenueOnCompleted(...)`
 ** `calculateTotalCostOnCompleted(...)`
 
-* Methods that return a `XYChart.Series<String,Number>`:
+* Methods that return a `XYChart.Series<String, Number>`:
 ** `calculateTotalProfitOnCompletedGraph(...)`
 ** `calculateTotalRevenueOnCompletedGraph(...)`
 ** `calculateTotalCostOnCompletedGraph(...)`
@@ -226,7 +226,7 @@ All methods were written using java8 Stream() feature. This is such that there a
 more readable and maintainable.
 
 `org.apache.commons.math3.stat.StatUtils` library is used to calculate the raw data inside a `double[]`  (primitive double array).
-While the current `v1.4` only use `sum` to calculate the exact `profit` , `revenue` and `cost` , `v2.0` implementation
+While the current `v1.4` only use the `sum` to calculate the exact `profit`, `revenue` and `cost`, `v2.0` implementation
 will make use of the `linear regression` / `average` methods inside the library to generate more advanced statistics.
 
 ===== Design Considerations / Alternative designs considered
@@ -236,17 +236,17 @@ the main focus of this feature was to *calculate statistics only when needed*.
 
 * Alternative design :
 ** To implement statistics, maintain a few running statistic
-counter upon loading of the main app, update these counters/values when calculation is needed
+counters upon loading of the main app, update these counters/values when the calculation is needed
 and then display it. This implementation would have been easy to implement within the existing AB3 code
-since it meant extending the `Model` class with a statistic model, than having the `UI` class to read from
+since it meant extending the `Model` class with a statistic model as compared to having the `UI` class to read from
 this value.
 *** Pros: Easy to implement on top of AB3
-*** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere, since any change in the database / models will cause the values to change
+*** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere since any change in the database/models will cause the values to change
 
 * Alternative Design (current design) :
 ** `Statistics` module will exist outside of the current packages and be standalone. `Logic` will handle communication with
 this module from `UI`. Respective Statistics will then be obtained from `Logic` to be displayed by the `StatsWindow`.
-*** Pros: Ensure that the respective tasks are properly abstracted, adhering to Single Responsibility Principle.
+*** Pros: Ensure that the respective tasks are properly abstracted, adhering to the Single Responsibility Principle.
 *** Pros: Being standalone means the way of calculating the statistics can be changed without affecting the rest of the codebase
 *** Cons: `Logic` will have to handle more calls and increases its responsibilities
 
@@ -254,11 +254,11 @@ this module from `UI`. Respective Statistics will then be obtained from `Logic` 
 
 Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
 and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
-`Logic` for the respective data One of the motivation for this approach was to,
+`Logic` for the respective data One of the motivations for this approach was to,
 as much as possible, maintain the architecture that is already in place in AB3.
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
-the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
-with the actual changes on data done with a call to model during `execute(model)`.
+the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains feedback to the user
+with the actual changes on data done with a call to the model during `execute(model)`.
 
 
 ====== Design Decision 2:
@@ -266,19 +266,19 @@ with the actual changes on data done with a call to model during `execute(model)
 We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
 `UI` to use in its query to logic. When the Ui executes the command to logic, the `CommandResult` is returned with
-this object, which the `UI` will then use to communicate to `Logic`.The resulting change
-is that the `commandResult` type will have a slightly different behaviour.
+this object, which the `UI` will then use to communicate to `Logic`. The resulting change
+is that the `commandResult` type will have slightly different behaviour.
 
 *All `commands` that
 are not `statsCommand` will call the default constructor of the `commandResult` class, where there is  an
-`Optional.empty()` in place of the `StatsPayload`* .
+`Optional.empty()` in place of the `StatsPayload`*.
 
-All `statsCommand` type will have call the constructor of `commandResult` class and pass the `StatsPayload` object in.
+All `statsCommand` type will have to call the constructor of `commandResult` class and pass the `StatsPayload` object in.
 The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
 single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
-`mainWindow` class in the application and subsequently the data is passed to the  `statistic` module.
+`mainWindow` class in the application and subsequently, the data is passed to the  `statistic` module.
 
-A high level view of the packages working together:
+A high-level view of the packages working together:
 
 image::statsOverallClassDiagram.png[width="300", align="center"]
 
@@ -306,7 +306,7 @@ image::StatsCommandSequenceDiagram1.png[width="400", align="center"]
 Step 2: the logic then calls `command.execute(command)`
 
 When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
-create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
+create a new `CommandResult` object and returns that to `Logic`, completing the execution of the user input command.
 Seen here is the sequence diagram of the second step
 
 image::StatsCommandSequenceDiagram2.png[width="400", align="center"]
@@ -315,8 +315,8 @@ Shown below is a quick summary of step 1-2 (Full complete diagram):
 
 image::StatsCommandSequenceDiagram.png[width="600", align="center"]
 
-Step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
-`performUiChanges` that handles the specific `UI` change.This then results in the `statsPayload` class being
+Step 3: After the logic component completes its execution and return a `CommandResult`, the `UI` will call
+`performUiChanges` that handles the specific `UI` change. This then results in the `statsPayload` class being
 passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
 
@@ -326,8 +326,8 @@ Step 4: `Statistic Manager` calculates the date
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
 a `String` or a `XYChart.Series<String, Number>`.
 
-Step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
-form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
+Step 5: with this output from logic, `Statistic Window` will then handle the displaying of the statistic, be it in chart
+form or string form. With this, the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[width="400", align="center"]
 
@@ -339,9 +339,9 @@ Here is a screenshot of the current product:
 image::StatsExampleGraph.png[width="300" align="center"]]
 
 
-==== Limitations / note to developers:
+==== Limitations/Note to developers:
 
-Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SMLJ:
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SML:
 
 
 * Date range starts from 1970 onwards
@@ -374,7 +374,7 @@ This feature is visible in the UI as a dropdown menu when the user enters input 
 
 The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
 This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
-For all predefined strings that matches the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+For all predefined strings that match the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
 
 ===== The underlying data structures
 
@@ -382,7 +382,7 @@ This feature was designed to display values that are currently in the `Model`.
 
 For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
 
-In order to achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
+To achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
 and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
 
 ===== Design Considerations
@@ -401,7 +401,7 @@ which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 ==== Implementation
 
 ===== Overview
-We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users. +
+We decided to incorporate a third-party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users. +
 The full documentation for `Agenda` can be found http://jfxtras.org/doc/8.0/jfxtras-agenda/index.html[here].
 
 ===== Calendar Panel
@@ -426,27 +426,27 @@ SML supports a few main `Schedule` commands:
 * Schedule -- switches the view on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
 ===== How the display works
-The schedules and date in the calendar panel shows is automatically updated depending on the commands executed by the users.
+The schedules and date in the calendar panel shown are automatically updated depending on the commands executed by the users.
 For example:
 
 * If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
 * If the user uses the schedule command -- calendar panel will display the week with the date requested by the user.
 
-Changes to the schedules are made in the `Model` by editing its own scheduleList.
+Changes to the schedules are made in the `Model` by editing its scheduleList.
 `CalendarPanel` listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
 
 The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
 The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date) to be displayed.
 
-When any of the schedule commands are executed, model will edit `CalendarDate` with the updated Calendar (date).
+When any of the schedule commands are executed, the model will edit `CalendarDate` with the updated Calendar (date).
 `CalendarPanel` listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
 
 Here is an example of what happens when a user adds a schedule (AddScheduleCommand):
 
 image::ScheduleCommandSequenceDiagram.png[]
 
-Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its `setAgendaView()` method.
+Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and makes the necessary changes to the agenda view by calling its `setAgendaView()` method.
 
 ===== Design Considerations / Alternative designs considered
 
@@ -466,7 +466,7 @@ If `Optional<Calendar>` in `CommandResult` is empty, today's date and time will 
 Then, `CalendarPanel` will be called in handleSchedule() to set the agenda view.
 ** This implementation was however changed because we thought that the date shown on the panel should be updated automatically.
 Hence, we decided to use a listener instead.
-`CalendarDate` is then placed in `Model` so that it can be edited immediately when `Model` executes any schedule related commands.
+`CalendarDate` is then placed in `Model` so that it can be edited immediately when `Model` executes any schedule-related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
 
 // end::schedule[]
@@ -485,7 +485,7 @@ The command that we wanted to implement is:
 * e.g. `find-c Alice` -- would allow the user to find the customer with any data field that matches "Alice".
 
 ==== Current Implementation
-In order to implement this feature, we decided to introduce a new predicate, `CustomerContainsKeywordsPredicate`.
+To implement this feature, we decided to introduce a new predicate, `CustomerContainsKeywordsPredicate`.
 Similar to AddressBook3's `NameContainsKeywordsPredicate`, the customer predicate tests that all keyword matches at least 1 data field of Customer.
 
 
@@ -725,7 +725,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |handphone seller |find my handphone model easily| not waste time searching for the handphone.
 
-|`* * *`|handphone seller |record and track the quantity of my phones |decide when to get more phones.
+|`* * *`|handphone seller |record and track the number of my phones |decide when to get more phones.
 
 |`* * *`|handphone seller |copy the email address/handphone number of my customer easily |email them/text them easily.
 
@@ -757,7 +757,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|handphone seller|create a new order|schedule the order.
 
-|`* * *`|handphone seller|cancel order|reflect the changes made by customer.
+|`* * *`|handphone seller|cancel order|reflect the changes made by the customer.
 
 |`* * *`|handphone seller|sort statistics by brand|find out which brand is the most popular.
 
@@ -811,7 +811,7 @@ Use case resumes at step 2.
 *MSS*
 
 1. Actor input phone name and other phone attributes.
-2. SML adds phone to the list of phones.
+2. SML adds a phone to the list of phones.
 3. SML shows the new list of phones.
 
 *Extensions*
@@ -830,18 +830,18 @@ Use case resumes at step 1.
 
 *MSS*
 
-1. Actor add order to the system. SML displays the new order list.
+1. Actor adds order to the system. SML displays the new order list.
 2. Actor schedule order. (UC04)
 3. Actor mark order as completed. SML displays completed order message.
 
 *Extensions*
 
 [none]
-* 2a. SML is unable to add as command is missing fields.
+* 2a. SML is unable to add as the command is missing fields.
 +
 Use case ends.
 [none]
-** 2a1. SML shows error message that command is missing fields.
+** 2a1. SML shows an error message that command is missing fields.
 +
 Use case resumes at step 2.
 
@@ -882,7 +882,7 @@ Use case resumes at step 2.
 +
 Use case ends.
 [none]
-** 1a1. SML displays error message and does not create the file.
+** 1a1. SML displays an error message and does not create the file.
 +
 Use case resumes at step 1.
 
@@ -892,13 +892,13 @@ Use case resumes at step 1.
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 customers/phones/orders without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Single User for each session
 .  No internet required
 .  Quality and helpful information/feedback upon user action
-.  System should ideally respond within 5 seconds
-.  System allows for wrong input from user and recovers from erroneous input
-.  App can be downloaded and run via a jar file
+.  The system should ideally respond within 5 seconds
+.  The system allows for wrong input from user and recovers from erroneous input
+.  The application can be downloaded and run via a jar file
 
 _ {More to be added}_
 
@@ -910,7 +910,7 @@ _ {More to be added}_
 Windows, Linux, Unix, OS-X
 
 . *SML* +
-Initialism for our application, Seller Manager Lite.
+An initialism for our application, Seller Manager Lite.
 
 . *Customer* +
 A person who buys from the seller.
@@ -922,7 +922,7 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+A meetup with a buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
 
 === SML-specific Terms
 
@@ -970,10 +970,10 @@ Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
 If you've made a mistake, you can simply revert to the previous command.
 
 . *Redo* +
-Inverse of undo.
+The inverse of undoing.
 
 . *Copy* +
-Action of copying an entry into clipboard.
+The action of copying an entry into the clipboard.
 
 [appendix]
 == Product Survey
@@ -1005,14 +1005,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Open your command line prompt / terminal, navigate and input `java -jar [filename]` to run the file +
+.. Open your command line prompt/terminal, navigate and input `java -jar [filename]` to run the file +
    Expected: Shows the GUI with a set of sample data. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app the same way you launched the application previously. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and the location is retained.
 
 === Adding a phone
 
@@ -1021,7 +1021,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple $/$900 t/NEW t/Cool` +
    Expected: Phone with the above details is added the list. Details of the phone shown in the status message.
 .. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple t/NEW t/Cool` +
-   Expected: No phone is added. Error details shown in the status message. Missing fields.
+   Expected: No phone is added. Error details are shown in the status message. Missing fields.
 .. Other incorrect add commands to try: `add-c n/Steve Jobs c/12345678`, where the email field is missing. +
    Expected: Similar to previous.
 
@@ -1031,9 +1031,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all customers using the `list-c` command. Multiple customers in the list.
 .. Test case: `delete-c 1` +
-   Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+   Expected: The first customer is deleted from the list. Details of the deleted customer shown in the status message.
 .. Test case: `delete-c 0` +
-   Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No customer is deleted. Error details are shown in the status message. The status bar remains the same.
 .. Other incorrect delete commands to try: `delete-p`, `delete-p x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
@@ -1043,9 +1043,9 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all customers using the `list-o` command. There must be at least 1 order in the list.
 .. Test case: `edit-o 1 $/$1000` +
-   Expected: Price of the first order is edited. Details of the edited order is shown in the status message.
+   Expected: Price of the first order is edited. Details of the edited order are shown in the status message.
 .. Test case: `edit-o 1` +
-   Expected: Nothing is edited. Error details shown in the status message. No fields to be edited.
+   Expected: Nothing is edited. Error details are shown in the status message. No fields to be edited.
 .. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
    Expected: Error message shown due to erroneous input.
 
@@ -1062,7 +1062,7 @@ Any corrupted data in any of the data files (customer, phone, order, schedule, a
 
 . Display statistics between 2 dates
 
-.. Prerequisites: Ensure that archive order panel has suitable `Completed` and `scheduled` orders. Only these orders
+.. Prerequisites: Ensure that archived order panel has suitable `Completed` and `scheduled` orders. Only these orders
 will show up in the calculation
 .. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
-    Expeected: Chart is displayed in popup window
+    Expeeted: Chart is displayed in pop-up window
