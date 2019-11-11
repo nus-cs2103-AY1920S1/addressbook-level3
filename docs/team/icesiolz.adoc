@@ -100,7 +100,13 @@ Refactored the UI classes as well as the DarkTheme.css file so that it is able t
 |_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=priority]
+image::icesiolz/UG1.png[]
+
+image::icesiolz/UG2.png[]
+
+image::icesiolz/UG3.png[]
+
+image::icesiolz/UG4.png[]
 
 == Contributions to the Developer Guide
 
