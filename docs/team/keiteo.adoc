@@ -10,7 +10,7 @@ Done as a major part of our introductory software engineering module in the Nati
 we started off by morphing an address book application into our very own product,
 a flashcard manager that is purely controlled using the Command-Line Interface (CLI). This is the key constraint of the
 project, as users can only perform tasks by typing commands on the keyboard.
-exclusively using the keyboard.
+The application started off with 10kLoC and now it has 17kLoC.
 
 This is a 6-week software engineering project, where we worked in a team of 5 with other students from the NUS School of Computing.
 Our team consists of 3 second year students majoring in Computer Science, including myself, and 2 Computer Engineering students in their final year of study.
