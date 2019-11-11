@@ -1089,7 +1089,7 @@ The following are code snippets of each of the chosen implementations above:
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
-It extends each tab with an undo/redo history, stored internally as a `TabStateList` and `TabStatePointer`.
+It extends each tab's model with an undo/redo history, stored internally as a `TabStateList` and `TabStatePointer`.
 Additionally, it implements the following operations in each tab's `ModelManager`:
 
 * `TabModelManager#commit()` -- Saves the current tab's state in its history.
@@ -1101,7 +1101,7 @@ These operations are exposed in the `Model` interface of the tab as `Model#commi
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-Each package in `VersionedtreasuerPro` will be initialized with their initial default state, and the
+Each model  will be initialized with their initial default state, and the
 `currentStatePointer` of each package pointing to that state.
 
 image::UndoRedoState0.png[]
