@@ -56,22 +56,9 @@ public class StartQuizWindow extends ParentWindow {
     private Answerable previousAnswerable;
     private Answerable currentAnswerable;
     private Iterator<Answerable> answerableIterator;
+    private Statistics statistics = new Statistics();
     private int totalScore = 0; //accumulated score for completing all questions in entire quiz
 
-    //to keep track of current score for a particular level eg. level 2 -> 3 out of 5 questions correct
-    private int score = 0;
-    //score of level 1 difficulty questions
-    private int score1 = 0;
-    //score of level 2 difficulty questions
-    private int score2 = 0;
-    //score of level 3 difficulty questions
-    private int score3 = 0;
-    //total number of questions answered in level 1
-    private int total1 = 0;
-    //total number of questions answered in level 2
-    private int total2 = 0;
-    //total number of questions answered in level 3
-    private int total3 = 0;
     //to keep track of the total number of questions answered so far at every level of the quiz
     private int accumulatedSize = 0;
 
@@ -89,7 +76,7 @@ public class StartQuizWindow extends ParentWindow {
         this.mode = mode;
     }
 
-    /** gets the current progess of the user **/
+    /** gets the current progress of the user **/
     public final double getCurrentProgressIndex() {
         return currentProgressIndex.get();
     }
@@ -158,7 +145,7 @@ public class StartQuizWindow extends ParentWindow {
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
             if (commandResult.isCorrect()) {
                 totalScore++;
-                score++;
+                statistics.updateStatistics(currentAnswerable, quizList);
             }
 
             if (commandResult.isExit()) {
@@ -208,21 +195,6 @@ public class StartQuizWindow extends ParentWindow {
         accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
         AlertDialog nextLevelDialog = AlertDialog.getNextLevelAlert(nextLevel, totalScore, accumulatedSize);
 
-        switch (currentAnswerable.getDifficulty().difficulty) {
-        case "1":
-            score1 = score;
-            total1 = getSizeOfCurrentLevel(currentAnswerable);
-            break;
-        case "2":
-            score2 = score;
-            total2 = getSizeOfCurrentLevel(currentAnswerable);
-            break;
-        default:
-            assert false : currentAnswerable.getDifficulty().difficulty;
-        }
-
-        score = 0;
-
         Task<Void> task = new Task<>() {
             @Override
             public Void call() {
@@ -258,8 +230,6 @@ public class StartQuizWindow extends ParentWindow {
      */
     @FXML
     private void handleEnd(Answerable currentAnswerable) {
-        score3 = score;
-        total3 = getSizeOfCurrentLevel(currentAnswerable);
         accumulatedSize = accumulatedSize + getSizeOfCurrentLevel(currentAnswerable);
         currentProgressIndex.set(currentProgressIndex.get() + 1);
         boolean isFailure = mode.value.equals(Modes.ARCADE.toString()) && answerableIterator.hasNext();
@@ -283,9 +253,9 @@ public class StartQuizWindow extends ParentWindow {
             }
         });
 
-        Statistics newResult = new Statistics(totalScore, accumulatedSize, score1, total1, score2, total2, score3,
-                total3);
-        logic.updateHistory(newResult);
+        if (mode.value.equals(Modes.NORMAL.toString())) {
+            logic.updateHistory(statistics);
+        }
 
         //Start the event on a new thread so that showAndWait event is not conflicted with timer animation.
         new Thread(task).start();
@@ -298,14 +268,8 @@ public class StartQuizWindow extends ParentWindow {
     private void restartQuiz() {
         answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
         fillInnerParts();
-        score1 = 0;
-        score2 = 0;
-        score3 = 0;
-        total1 = 0;
-        total2 = 0;
-        total3 = 0;
+        Statistics statistics = new Statistics();
         totalScore = 0;
-        score = 0;
         accumulatedSize = 0;
         currentProgressIndex.set(0);
         commandBox.getCommandTextField().requestFocus();
