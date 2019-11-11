@@ -869,6 +869,7 @@ Format: `recommend`
 ifdef::env-github[| :white_check_mark: a| The list of recommendations will be shown, sorted by their recommendation value.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of recommendations will be shown, sorted by their recommendation value.]
 
+.Example of the recommend command displaying a list of recommendations
 image::recommend.png[align="center"]
 {empty}
 |===
@@ -897,6 +898,7 @@ To list the user's likes and dislikes, use the command without providing any arg
 ifdef::env-github[| :white_check_mark: a| The list of liked or disliked categories, tags and locations will be shown.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of liked or disliked categories, tags and locations will be shown.]
 
+.Example success message that appears after listing likes or dislikes.
 image::like-dislike-list.png[align="center", width=700]
 
 {empty}
@@ -928,6 +930,7 @@ for their convenience.
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be added.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be added.]
 
+.Example success message that appears after adding likes.
 image::add-like.png[align="center", width=700]
 
 {empty}
@@ -945,6 +948,7 @@ image::add-like.png[align="center", width=700]
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be added.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be added.]
 
+.Example success message that appears after adding dislikes.
 image::add-dislike.png[align="center", width=700]
 
 {empty}
@@ -974,6 +978,7 @@ The likes and dislikes must exist in the system before removing them.
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be removed.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be removed.]
 
+.Example success message that appears after removing likes.
 image::removelike.png[align="center", width=700]
 
 {empty}
@@ -991,6 +996,7 @@ image::removelike.png[align="center", width=700]
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be removed.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be removed.]
 
+.Example success message that appears after removing dislikes.
 image::removedislike.png[align="center", width=700]
 
 {empty}
@@ -1016,6 +1022,7 @@ Only use this command if you are sure that you want to clear your likes and disl
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your liked categories, tags and locations would be cleared.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your liked categories, tags and locations would be cleared.]
 
+.Example success message that appears after clearing likes.
 image::removelike-all.png[align="center", width=700]
 
 {empty}
@@ -1032,6 +1039,7 @@ image::removelike-all.png[align="center", width=700]
 ifdef::env-github[| :white_check_mark: a| You will see a success message and your disliked categories, tags and locations would be cleared.]
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and your disliked categories, tags and locations would be cleared.]
 
+.Example success message that appears after clearing dislikes.
 image::removedislike-all.png[align="center", width=700]
 
 {empty}
