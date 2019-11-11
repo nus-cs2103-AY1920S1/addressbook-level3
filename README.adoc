@@ -8,7 +8,7 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/Ui.png[]
 endif::[]
 
 ifdef::env-github[]
@@ -16,7 +16,7 @@ image::docs/images/Ui_Bio.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui_Bio.png[width="600"]
+image::images/Ui_Bio.png[]
 endif::[]
 
 ifdef::env-github[]
@@ -24,7 +24,7 @@ image::docs/images/Ui_Records.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui_Records.png[width="600"]
+image::images/Ui_Records.png[]
 endif::[]
 
 ifdef::env-github[]
@@ -32,7 +32,7 @@ image::docs/images/Ui_Graph.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui_Graph.png[width="600"]
+image::images/Ui_Graph.png[]
 endif::[]
 
 ifdef::env-github[]
@@ -40,7 +40,7 @@ image::docs/images/Ui_Calendar.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui_Calendar.png[width="600"]
+image::images/Ui_Calendar.png[]
 endif::[]
 
 ifdef::env-github[]
@@ -48,7 +48,7 @@ image::docs/images/Ui_Achievements.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui_Achievements.png[width="600"]
+image::images/Ui_Achievements.png[]
 endif::[]
 
 SugarMummy aims to help type II diabetes patients to live more healthily, conveniently, and happily.
