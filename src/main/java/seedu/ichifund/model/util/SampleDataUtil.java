@@ -31,7 +31,7 @@ public class SampleDataUtil {
             new Transaction(new Description("Dinner at Marche"), new Amount("21.03"), new Category("Food"),
                     new Date(new Day("2"), new Month("11"), new Year("2019")), new TransactionType("exp"),
                     new RepeaterUniqueId("")),
-            new Transaction(new Description("Allowance"), new Amount("1337"), new Category("Allowance"),
+            new Transaction(new Description("Sold my piano"), new Amount("5237"), new Category("Allowance"),
                     new Date(new Day("1"), new Month("11"), new Year("2019")), new TransactionType("in"),
                     new RepeaterUniqueId("")),
             new Transaction(new Description("Grab to school"), new Amount("21.03"), new Category("Transportation"),
