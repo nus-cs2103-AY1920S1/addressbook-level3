@@ -101,7 +101,7 @@ image::UiClassDiagram.png[]
 
 The *_UI_* consists of a *_MainWindow_* that is made up of parts e.g.*_CommandBox_*, *_ResultDisplay_*, *_DishListPanel_*, *_StatusBarFooter_* etc. All these parts, including the *_MainWindow_*, inherit from the abstract *_UiPart_* class. +
 
-The #UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[#MainWindow.fxml#]
+The *_UI_* component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[*_MainWindow_*] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[*_MainWindow.fxml_*].
 
 The *_UI_* component,
 
@@ -141,22 +141,20 @@ NOTE: The lifeline for *_DeleteCommandParser_* should end at the destroy marker 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[#Model.java#]
+*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[*_Model.java_*]
 
 The *_Model_*,
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the DishDatabase data, MealLog data and CalorieBudget data.
-* exposes many unmodifiable properties that can be 'observed' by the UI component
-** List of today meals (`ObservableList<Meal>`)
-** List of suggested/filtered dishes (`ObservableList<Dish>`)
-** Current calorie budget (`CalorieBudget`)
-  The UI components can be bound to this list, so that the UI automatically updates when the data in the list changes.
+* stores a *_UserPref_* object that represents the user's preferences.
+* stores the *_DishDatabase_* data, *_MealLog_* data and *_CalorieBudget_* data.
+* exposes many unmodifiable properties that can be 'observed' by the *_UI_* component
+** List of today meals (*_ObservableList<Meal>_*)
+** List of suggested/filtered dishes (*_ObservableList<Dish>_*)
+** Current calorie budget (*_CalorieBudget_*)
+  The *_UI_* components can be bound to this list, so that the *_UI_* automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
-This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the #Model# interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
-
-image:BetterModelClassDiagram.png[]
+This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the *_Model_* interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
 
 [[Design-Storage]]
 === Storage component
