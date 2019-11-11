@@ -2,6 +2,7 @@ package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
@@ -46,7 +47,7 @@ public class UrgentShoppingCommandTest {
         shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
         String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
                 shoppingItemToUrgent);
-        ShoppingCommandTestUtil.assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -73,7 +74,7 @@ public class UrgentShoppingCommandTest {
         shoppingItemToUrgent = shoppingItemToUrgent.setUrgent(true);
         String expectedMessage = String.format(UrgentShoppingCommand.MESSAGE_URGENT_SHOPPING_ITEM_SUCCESS,
                 shoppingItemToUrgent);
-        ShoppingCommandTestUtil.assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(urgentShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

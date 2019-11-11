@@ -2,6 +2,7 @@ package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.DESC_NUTS;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.DESC_ORANGES;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.VALID_NAME_ORANGES;
@@ -53,7 +54,7 @@ public class EditShoppingCommandTest {
         expectedModel.setShoppingItem(model.getFilteredShoppingList().get(0), editedShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -77,7 +78,7 @@ public class EditShoppingCommandTest {
         expectedModel.setShoppingItem(lastShoppingItem, editedShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -98,7 +99,7 @@ public class EditShoppingCommandTest {
         expectedModel.setShoppingItem(model.getFilteredShoppingList().get(0), editedShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

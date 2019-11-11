@@ -2,6 +2,7 @@ package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
@@ -46,7 +47,7 @@ public class DeleteShoppingCommandTest {
         expectedModel.deleteShoppingItem(shoppingItemToDelete);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -74,7 +75,7 @@ public class DeleteShoppingCommandTest {
         expectedModel.sortShoppingItems();
         showNoShoppingItem(expectedModel);
 
-        ShoppingCommandTestUtil.assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test

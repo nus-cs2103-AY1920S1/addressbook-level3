@@ -1,5 +1,6 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
 import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -40,6 +41,6 @@ public class RedoShoppingCommandTest {
         model.undoShoppingList();
         model.undoBoughtList();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(redoShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(redoShoppingCommand, model, expectedMessage, expectedModel);
     }
 }

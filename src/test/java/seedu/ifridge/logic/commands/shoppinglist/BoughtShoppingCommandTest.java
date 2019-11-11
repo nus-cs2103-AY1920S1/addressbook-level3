@@ -1,6 +1,7 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
@@ -54,7 +55,7 @@ class BoughtShoppingCommandTest {
         expectedModel.setShoppingItem(shoppingItemToBought, boughtShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -95,7 +96,7 @@ class BoughtShoppingCommandTest {
         expectedModel.setShoppingItem(shoppingItemToBought, boughtShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
