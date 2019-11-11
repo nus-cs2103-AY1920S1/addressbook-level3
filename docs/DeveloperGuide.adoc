@@ -580,10 +580,15 @@ And there can not be two reimbursements that refer to the same person.
 
 The user can add deadline to a reimbursement, mark a reimbursement, find a reimbursement and sort reimbursements.
 
-The following is an overview class diagram for reimbursement tab:
+The following is an overview class diagram for `LogicManager` in reimbursement tab:
 
 .Overview class diagram of reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabClassDiagram.png[]
+
+And this is a
+https://github.com/AY1920S1-CS2103T-T13-3/main/blob/master/docs/images/GeneralSequenceDiagram.png[general sequence diagram]
+of command execution.
+The detailed implementations of command execution in reimbursement tab are in the following section.
 
 ==== Deadline Command feature
 
