@@ -20,6 +20,9 @@ public class FinanceParserUtil {
 
     public static final String MESSAGE_INVALID_DATE = "Date is invalid. Please follow the format: dd/mm/yyyy.";
 
+    public static final double AMOUNT_CLOSE_TO_LIMIT = 50;
+    public static final double AMOUNT_LIMIT_REACHED = 0;
+
     /**
      * Parses a {@code String description}.
      * Leading and trailing whitespaces will be trimmed.

@@ -14,8 +14,6 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T10-1/main
 
-// TODO update this file
-
 == Prerequisites
 
 . *JDK `11`* or above

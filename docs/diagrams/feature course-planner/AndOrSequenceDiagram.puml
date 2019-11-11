@@ -1,13 +1,14 @@
 @startuml
+!include ../style2.puml
 autoactivate on
 
-box TreeBuilder
-participant ":AndOrTree" as AndOrTree
-participant ":AndOrNode" as AndOrNode
-participant ":AndNode" as AndNode
-participant ":OrNode" as OrNode
-participant ":DataNode" as DataNode
-participant ":AndOrOperationMapper" as AndOrOperationMapper
+box Logic LOGIC_COLOR_T1
+participant ":AndOrTree" as AndOrTree LOGIC_COLOR
+participant ":AndOrNode" as AndOrNode LOGIC_COLOR
+participant ":AndNode" as AndNode LOGIC_COLOR
+participant ":OrNode" as OrNode LOGIC_COLOR
+participant ":DataNode" as DataNode LOGIC_COLOR
+participant ":AndOrOperationMapper" as AndOrOperationMapper LOGIC_COLOR
 end box
 
 [-> AndOrTree : buildTree(rootData, jsonString, function)

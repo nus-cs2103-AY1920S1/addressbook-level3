@@ -1,5 +1,7 @@
 package seedu.jarvis.ui.finance;
 
+import java.text.NumberFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -18,6 +20,8 @@ import seedu.jarvis.ui.template.View;
 public class FinanceListView extends View<AnchorPane> {
 
     private static final String FXML = "FinanceListView.fxml";
+
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 
     @FXML
     private ListView<Purchase> purchaseListView;
@@ -51,12 +55,12 @@ public class FinanceListView extends View<AnchorPane> {
         installmentListView.setItems(model.getFilteredInstallmentList());
         installmentListView.setCellFactory(listView -> new InstallmentListViewCell());
 
-        spentAmount.setText("$" + model.getTotalSpending() + "");
+        spentAmount.setText(currencyFormatter.format(model.calculateTotalSpending()));
 
         if (!model.getMonthlyLimit().isPresent()) {
             remainingAmount.setText("try: set-limit");
         } else {
-            remainingAmount.setText("$" + model.getRemainingAmount() + "");
+            remainingAmount.setText(currencyFormatter.format(model.calculateRemainingAmount()));
         }
 
         purchaseListHeader.setText("What I bought this month...");

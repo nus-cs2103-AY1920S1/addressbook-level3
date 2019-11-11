@@ -49,18 +49,22 @@ public class Cca {
     }
 
     public CcaName getName() {
+        assert name != null : "Name is null.";
         return name;
     }
 
     public CcaType getCcaType() {
+        assert ccaType != null : "Cca type is null.";
         return ccaType;
     }
 
     public EquipmentList getEquipmentList() {
+        assert equipmentList != null : "Equipment list is null.";
         return equipmentList;
     }
 
     public CcaProgress getCcaProgress() {
+        assert ccaProgress != null : "Cca Progress is null.";
         return ccaProgress;
     }
 
@@ -103,6 +107,7 @@ public class Cca {
      * Gets {@code CcaCurrentProgress} as an int.
      */
     public int getCcaCurrentProgressAsInt() {
+
         return ccaProgress.getCcaCurrentProgressAsInt();
     }
 

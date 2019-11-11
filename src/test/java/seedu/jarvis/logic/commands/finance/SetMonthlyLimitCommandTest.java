@@ -139,6 +139,11 @@ public class SetMonthlyLimitCommandTest {
         }
 
         @Override
+        public double calculateRemainingAmount() {
+            return model.calculateRemainingAmount();
+        }
+
+        @Override
         public void setViewStatus(ViewType viewType) {
             viewStatus.setViewType(viewType);
         }

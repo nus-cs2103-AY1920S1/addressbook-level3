@@ -3,6 +3,8 @@ package seedu.jarvis.logic.commands.finance;
 import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_DESCRIPTION;
 import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
+import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.AMOUNT_CLOSE_TO_LIMIT;
+import static seedu.jarvis.logic.parser.finance.FinanceParserUtil.AMOUNT_LIMIT_REACHED;
 
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
@@ -137,8 +139,9 @@ public class SetInstallmentCommand extends Command {
         }
 
         if (hasSpendingLimit) {
-            boolean isReachingLimit = model.calculateRemainingAmount() < 50.0 && model.calculateRemainingAmount() > 0;
-            boolean hasExceededLimit = model.calculateRemainingAmount() <= 0;
+            boolean isReachingLimit = model.calculateRemainingAmount() < AMOUNT_CLOSE_TO_LIMIT
+                    && model.calculateRemainingAmount() > AMOUNT_LIMIT_REACHED;
+            boolean hasExceededLimit = model.calculateRemainingAmount() <= AMOUNT_LIMIT_REACHED;
             if (isReachingLimit) {
                 return new CommandResult(String.format(MESSAGE_ALMOST_TO_LIMIT, toAdd), true);
             } else if (hasExceededLimit) {
