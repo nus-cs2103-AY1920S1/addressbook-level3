@@ -612,8 +612,6 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 
 // tag::repeateradd[]
 ==== Adding Repeater
-
-===== Overview
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
 ===== Implementation
@@ -652,8 +650,6 @@ The `add` command is facilitated by the Logic and Model components of the applic
 
 // tag::repeateredit[]
 ==== Editing Repeater
-
-===== Overview
 This feature allows the user to edit a repeater in IchiFund. Editing a repeater also updates the transactions associated with the added repeater.
 
 ===== Implementation
@@ -694,8 +690,6 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 
 // tag::repeaterdelete[]
 ==== Deleting Repeater
-
-===== Overview
 This feature allows the user to delete repeater in IchiFund. Deleting a repeater also deletes the transactions associated with the deleted repeater.
 
 ===== Implementation
@@ -726,8 +720,6 @@ The `delete` command is facilitated by the Logic and Model components of the app
 
 // tag::repeaterdelete[]
 ==== Finding Repeater
-
-===== Overview
 This feature allows the user to find repeaters in IchiFund. The search by matching provided keywords against repeater descriptions.
 
 ===== Implementation
