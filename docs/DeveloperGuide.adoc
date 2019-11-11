@@ -1102,6 +1102,144 @@ Message: "Listed all incident reports ready for submission".
 .. Test case: `submit 0`
    Expected: Message "Invalid command format!" is displayed along with command usage message.
 
+=== Finding incidents
+
+. Attempting to execute `find-i` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `find-i desc/district` +
+   Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Attempting to execute `find-i` with a single blank description keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/` +
+   Expected: Message "Description can take any values, and it should not be blank."
+
+. Attempting to execute `find-i` with a single blank incident ID keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i id/` +
+   Expected: Message "Incident ID should only contain numerical digits and should not be blank."
+
+. Attempting to execute `find-i` with a single blank operator keyword.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/` +
+    Expected: Message "Names should only contain alphanumeric characters and spaces, and it should not be blank."
+
+. Executing `find-i` with a single description keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching descriptions. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/cRAsH   ` +
+   Expected: Message "2 incidents listed!", and incidents whereby the description contains the given keyword will be listed in the incidents pane.
+
+. Executing `find-i` with multiple description keywords.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching descriptions. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/CrAsh   catS   ` +
+   Expected: Message "3 incidents listed!", and incidents whereby the description contain any of the given keywords will be listed in the incidents pane.
+
+. Executing `find-i` with a single operator keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/yeoh` +
+   Expected: Message "6 incidents listed!", and incidents whereby the involved operator's name contains the given keyword will be listed in the incidents pane.
+
+. Executing `find-i` with multiple operator keywords.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i op/yeoh aHMad` +
+   Expected: Message "8 incidents listed!", and incidents whereby the involved operator's name contains any of the given keywords will be listed in the incidents pane.
+
+. Executing `find-i` with a single id keyword.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with matching operator names. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i id/0420180001` +
+   Expected: Message "1 incident listed!", and incidents whereby the ID matches the given keyword exactly will be listed in the incidents pane.
+
+. Executing `find-i` with self-search.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane with the operator name matching the name of the logged-in operator. +
+Incident pane must be visible in GUI.
+.. Test case: `find-i self` +
+   Expected: Message "6 incidents listed!", and incidents whereby the involved operator's name matches the logged-in operator's name exactly will be listed in the incidents pane.
+
+. Executing `find-i` with multiple different parameters.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with all parameters matching the keywords given. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i self desc/pmd id/0520140001` +
+    Expected: Message "1 incident listed!", and the incidents whereby all the parameters match the given keywords for each parameter will be listed in the incidents pane.
+
+. Executing `find-i` with multiple same parameters.
+
+.. Prerequisites: User must be logged in, and there are incidents in the incident pane, with all parameters matching the keywords given. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i desc/cats desc crash` +
+    Expected: Message "2 incidents listed!", and the incidents whereby all the parameters match the given keywords for the last usage of the same parameter will be listed in the incidents pane.
+
+. Attempting to execute `find-i` with irrelevant parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `find-i test` +
+    Expected: Error message "Invalid command format! +
+    find-i: Searches all incidents for which ID matches exactly, or description contains any of the specified description keywords, or operator name matches any of the specified operator keywords or logged-in operator's name +
+    Parameters: +
+    id/<ID> +
+    op/<OPERATOR KEYWORD [MORE_KEYWORDS]> +
+    desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...> +
+    self +
+    Example: find-i op/alex yeoh desc/6 self"
+
+. Attempting to execute `find-i` without displaying the incident pane.
+
+.. Prerequisites: User mut be logged in. +
+    Incident pane must not be visible in GUI.
+.. Test case: `find-i` +
+    Expected: Message "Please swap the interface to access the command from this suite. +
+    See help page for more information."
+
+
+=== Listing incidents
+
+. Attempting to execute `list-i` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `list-i` +
+    Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Attempting to execute `list-i` with irrelevant parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `list-i test message` +
+    Expected: Message "Please do not enter irrelevant prefixes/ fields!"
+
+. Executing `list-i` with no parameters.
+
+.. Prerequisites: User must be logged in. +
+    Incident pane must be visible in GUI.
+.. Test case: `list-i` +
+    Expected: Message "Listed all incidents", and all incidents in database will be listed in the incident pane
+
+. Attempting to execute `list-i` without displaying the incident pane.
+
+.. Prerequisites: User mut be logged in. +
+    Incident pane must not be visible in GUI.
+.. Test case: `list-i` +
+    Expected: Message "Please swap the interface to access the command from this suite. +
+    See help page for more information."
+
 === Finding vehicles
 
 . Attempting to execute `find-v` without logging in.
