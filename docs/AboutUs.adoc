@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Kevin Lim
 image::lyskevin.png[width="150", align="left"]
-{empty}[https://github.com/lyskevin[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/lyskevin[github]] [<<lyskevin#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Code Quality
@@ -40,7 +40,7 @@ Responsibilities: Logic
 
 === Hu Yuchen
 image::brebeek.png[width="150", align="left"]
-{empty}[http://github.com/brebeek[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/brebeek[github]] [https://ay1920s1-cs2103t-f14-3.github.io/main/team/brebeek.html[portfolio]]
 
 Role: Developer +
 Responsibilities: In charge of functionality
