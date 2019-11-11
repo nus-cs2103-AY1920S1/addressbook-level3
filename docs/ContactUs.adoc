@@ -2,7 +2,7 @@
 :site-section: ContactUs
 :stylesDir: stylesheets
 
-* *Bug reports, Suggestions* : Post in our https://https://github.com/AY1920S1-CS2103-T16-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
+* *Bug reports, Suggestions* : Post in our https://github.com/AY1920S1-CS2103-T16-1/main/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.
 * *Contributions* : We welcome Pull Requests (PRs). Find out how to submit PRs by following the process described https://github.com/oss-generic/process[here].
 * *Email us* : You can also reach any of our project developers at
 
