@@ -9,9 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount should should not be blank, may"
-        + " contain only numbers, up to 14 digits and 2 decimal places. No currency prefix is needed and"
-        + " amount cannot be 0 or negative";
+    public static final String MESSAGE_CONSTRAINTS = "The amount should not be blank, "
+        + " should contain only numbers, up to 12 digits and 2 decimal places.\n" + "No currency prefix is needed and"
+        + " it must be a positive value.";
     public static final String VALIDATION_REGEX = "[\\d]{1,12}[.]??[\\d]{0,2}";
 
     public final String value;

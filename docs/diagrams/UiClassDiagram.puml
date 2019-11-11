@@ -12,6 +12,9 @@ Class MainWindow
 Class HelpWindow
 Class ResultDisplay
 Class ExpenseListPanel
+Class BudgetListPanel
+Class BudgetCard
+Class StatsDisplay
 Class ExpenseCard
 Class StatusBarFooter
 Class CommandBox
@@ -34,20 +37,28 @@ MainWindow --> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
 MainWindow *-down-> ExpenseListPanel
+MainWindow *-down-> BudgetListPanel
+MainWindow *-down-> StatsDisplay
 MainWindow *-down-> StatusBarFooter
 
 ExpenseListPanel -down-> ExpenseCard
+BudgetListPanel -down-> BudgetCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ExpenseListPanel --|> UiPart
+BudgetListPanel --|> UiPart
+StatsDisplay --|> UiPart
 ExpenseCard --|> UiPart
+BudgetCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
 ExpenseCard ..> Model
+BudgetCard ..> Model
+StatsDisplay ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 

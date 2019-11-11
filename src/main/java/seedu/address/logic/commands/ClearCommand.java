@@ -4,11 +4,11 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BudgetList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetList;
 
 /**
  * Clears all Expenses/Budgets.
@@ -35,7 +35,7 @@ public class ClearCommand extends Command {
             Budget lastViewedBudget = model.getLastViewedBudget();
             lastViewedBudget.setExpenseListInBudget(new ExpenseList());
 
-            return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, null,
+            return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, lastViewedBudget,
                 String.format(MESSAGE_CLEAR_EXPENSES_IN_BUDGET_SUCCESS, lastViewedBudget.getName()));
         } else if (viewState.equals(ViewState.BUDGETLIST)) {
             model.setBudgetList(new BudgetList());

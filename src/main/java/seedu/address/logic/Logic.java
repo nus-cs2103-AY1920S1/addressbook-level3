@@ -8,9 +8,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 
 /**
@@ -83,4 +83,10 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     ObservableList<Expense> updateExpenses();
+
+    /**
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
+    ObservableList<String> getHistory();
 }

@@ -89,12 +89,12 @@ public class EditExpenseCommand extends Command {
         requireNonNull(model);
         ViewState viewState = model.getViewState();
         List<Expense> lastShownList;
+        Budget lastViewedBudget = model.getLastViewedBudget();
 
         if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             lastShownList = model.getFilteredExpenseList();
         } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
-            Budget viewingBudget = model.getLastViewedBudget();
-            lastShownList = viewingBudget.getObservableExpenseList();
+            lastShownList = lastViewedBudget.getObservableExpenseList();
         } else {
             throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);
         }
@@ -123,11 +123,11 @@ public class EditExpenseCommand extends Command {
             // toEdit falls in budget, edited doesn't
             b1.get().deleteExpenseInBudget(expenseToEdit);
             model.addExpense(editedExpense);
-        } else if (b1.isEmpty() && b2.isPresent()) {
+        } else if (b1.isEmpty()) {
             // toEdit doesn't fall in budget, edited does
             model.deleteExpense(expenseToEdit);
             b2.get().addExpenseIntoBudget(editedExpense);
-        } else if (b1.isPresent() && b2.isPresent() && !b1.get().equals(b2.get())) {
+        } else if (!b1.get().equals(b2.get())) {
             // both expenses in different budget
             b1.get().deleteExpenseInBudget(expenseToEdit);
             b2.get().addExpenseIntoBudget(editedExpense);
@@ -135,14 +135,16 @@ public class EditExpenseCommand extends Command {
             throw new CommandException(MESSAGE_EDIT_ERROR);
         }
 
+        if (lastViewedBudget != null) {
+            lastViewedBudget.recalculateAmountLeft();
+        }
+
         if (viewState.equals(ViewState.DEFAULT_EXPENSELIST)) {
             return new CommandResult(model.getFilteredExpenseList(), null,
                 null, String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
-        } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
-            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, null,
-                String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
         } else {
-            throw new CommandException(MESSAGE_EDIT_WHEN_NOT_VIEWING_EXPENSELIST_ERROR);
+            return new CommandResult(model.getExpenseListFromBudget(b1.get()), null, lastViewedBudget,
+                String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
         }
     }
 

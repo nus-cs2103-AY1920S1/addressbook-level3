@@ -38,8 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private StatsDisplay statsDisplay;
 
-    private String displayExpenseBudget;
-
     @FXML
     private StackPane commandBoxPlaceholder;
 
@@ -135,13 +133,13 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         statsDisplay = new StatsDisplay();
-        statsDisplay.setDisplayData(logic.getFilteredExpenseList());
+        statsDisplay.setDisplayDataExpenses(logic.getFilteredExpenseList());
         statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
         //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getExpenseListFilePath());
         //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -204,30 +202,26 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            displayExpenseBudget = commandText.split(" ")[0];
-
             // List Expenses on Right panel
             if (commandResult.getExpenseList() != null && commandResult.getBudgetList() == null) {
                 expenseListPanel = new ExpenseListPanel(commandResult.getExpenseList());
                 rightListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
                 if (commandResult.getBudget() != null) {
-                    statsDisplay.setDisplayDataBudget(commandResult.getExpenseList(), commandResult.getBudget());
+                    statsDisplay.setDisplayDataBudgetWithExpenses(commandResult.getExpenseList(),
+                        commandResult.getBudget());
                     resultListTitle.setText(commandResult.getBudget().getName().toString());
-
                 } else {
-                    statsDisplay.setDisplayData(commandResult.getExpenseList());
+                    statsDisplay.setDisplayDataExpenses(commandResult.getExpenseList());
                     resultListTitle.setText("Default Expenses");
                 }
                 // List Budget on Right panel
             } else if (commandResult.getExpenseList() == null && commandResult.getBudgetList() != null) {
                 budgetListPanel = new BudgetListPanel(commandResult.getBudgetList());
                 rightListPanelPlaceHolder.getChildren().add(budgetListPanel.getRoot());
+                statsDisplay.setDisplayDataBudgets(commandResult.getBudgetList());
                 resultListTitle.setText("All Budgets");
-            } else {
-                statsDisplay.setDisplayData(logic.getFilteredExpenseList());
             }
 
-            //TODO: remove this hack
             expenseListPanel = new ExpenseListPanel(logic.updateExpenses());
             //Update Left panel with all expenses.
             leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());

@@ -68,8 +68,8 @@ public class AddExpenseCommand extends Command {
             return new CommandResult(null, model.getFilteredBudgetList(), null,
                 String.format(MESSAGE_SUCCESS, toAdd));
         } else if (viewState.equals(ViewState.EXPENSELIST_IN_BUDGET)) {
-            Budget viewingBudget = model.getLastViewedBudget();
-            return new CommandResult(model.getExpenseListFromBudget(viewingBudget), null, null,
+            Budget lastViewedBudget = model.getLastViewedBudget();
+            return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, lastViewedBudget,
                 String.format(MESSAGE_SUCCESS, toAdd));
         } else {
             throw new CommandException(MESSAGE_ADD_ERROR);

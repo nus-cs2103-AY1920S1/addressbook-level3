@@ -12,7 +12,7 @@ import seedu.address.model.ViewState;
  */
 public class ListDefaultExpensesCommand extends Command {
 
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = "listDefaultExpenses";
 
     public static final String MESSAGE_SUCCESS = "Listed all expenses";
 
