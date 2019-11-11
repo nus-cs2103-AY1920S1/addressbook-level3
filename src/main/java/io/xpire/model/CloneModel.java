@@ -1,7 +1,6 @@
 package io.xpire.model;
 
 import io.xpire.model.item.Item;
-import io.xpire.model.item.XpireItem;
 import io.xpire.model.state.State.StateType;
 
 /**
@@ -35,7 +34,7 @@ public class CloneModel {
 
     }
 
-    public ReadOnlyListView<XpireItem> getXpire() {
+    public Xpire getXpire() {
         return this.xpire;
     }
 

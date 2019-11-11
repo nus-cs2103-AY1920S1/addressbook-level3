@@ -446,6 +446,7 @@ Deletes the 3rd item in the sorted main list.
 `delete|1` +
 Deletes the 1st item in the results of the `search` command.
 
+// tag::deletetag[]
 ===== Deleting certain tags from an item
 Deletes tag(s) from the specified item. +
 Format: `delete|<index>|<tag>[<other tags>]...` +
@@ -455,7 +456,7 @@ Examples:
 * `view|main` +
 `delete|3|#Fruit #Food` +
 Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
-
+// end::deletetag[]
 ===== Reducing the quantity of an item
 
 .Item at index 4 reduced in quantity by 1
@@ -490,28 +491,28 @@ Format: `tag`
 
 [NOTE]
 Like `help` and `export`, this command is not undoable. +
-This command does not show tags of items that are not on the list you are viewing. +
-If you want to view all the tags in the main list or replenish list, simply key in `view`, followed by `tag`.
+This command does not show tags of items that are not on the current list on the screen. +
+If you would like to view all the tags in the main list or the replenish list, simply key in `view`, followed by `tag`!
 
 ===== Add new tag(s) to an item
 
 .Item at index 4 tagged with #Fruit and #Yellow
 image::tag.png[width="790"]
 
-[TIP]
-An item can have up to 5 tags.
-
-Tags an item from the list according to user input +
+Tags an item from the list according to your own input +
 Format: `tag|<index>|<tag>[<other tags>]...`
+
+[TIP]
+You can tag a particular item with more than 2 tags or more at a time. Just be mindful of the 5 tags per item limit!
 
 ****
 * Tags the item at the specified `<index>`.
 * The index refers to the index number shown in the list.
 * The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
-* Tags must be prefixed with a '#'.
-* Only a maximum of 5 tags allowed per item.
-* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
-* Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
+* Your tags must be prefixed with a '#'.
+* You are only allowed a maximum of 5 tags per item.
+* Tag lengths are restricted to 20 characters. Make use of those 20 characters wisely!
+* Your tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
 ****
 
 Examples:
@@ -643,20 +644,28 @@ Items with the same name will be sorted by their expiry dates.
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::undoredo[]
 ==== Undo previous command : `undo`
 Undo the previous command that you have entered in. +
 Format: `undo`
 
 [TIP]
-`undo` only works on commands that alter your items or the current view list. +
-Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view list. +
-Also, `undo` only works for the last 10 commands. Therefore, think before you type!
+`undo` only works on commands that alter your items or the current view! +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
+Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
+
+The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
 
 ==== Redo an earlier command : `redo`
 Redo an earlier command that you have entered in. +
 Format: `redo`
 
-This command works in the opposite direction as `undo`, it will redo any command that you have undid in the past.
+This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
+
+[NOTE]
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
+
+// end::undoredo[]
 
 == FAQ
 
