@@ -20,7 +20,7 @@ public class Note {
 
     // Identity fields
     private final Title title;
-    private final Description description;
+    private final NoteDescription description;
     private final Content content;
     private final DateModified dateModified;
     private final DateAdded dateAdded;
@@ -31,7 +31,7 @@ public class Note {
     /**
      * Every field must be present and not null.
      */
-    public Note(Title title, Description description, Set<Tag> tags, Content content) {
+    public Note(Title title, NoteDescription description, Set<Tag> tags, Content content) {
         requireAllNonNull(title, tags);
         this.title = title;
         this.description = description;
@@ -46,7 +46,7 @@ public class Note {
      * Overloaded constructor with DateModified and NumOfAccess parameters.
      * Every field must be present and not null.
      */
-    public Note(Title title, Description description, Set<Tag> tags, Content content,
+    public Note(Title title, NoteDescription description, Set<Tag> tags, Content content,
                 DateModified dateModified, DateAdded dateAdded, NumOfAccess numOfAccess) {
         requireAllNonNull(title, tags);
         this.title = title;
@@ -82,7 +82,7 @@ public class Note {
         return title;
     }
 
-    public Description getDescription() {
+    public NoteDescription getDescription() {
         return description;
     }
 

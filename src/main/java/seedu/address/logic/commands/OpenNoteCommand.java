@@ -12,8 +12,8 @@ import seedu.address.model.Model;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.DateAdded;
 import seedu.address.model.note.DateModified;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.NumOfAccess;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
@@ -75,7 +75,7 @@ public class OpenNoteCommand extends Command {
     private static Note createEditedNote(Note noteToEdit) {
         assert noteToEdit != null;
         Title updatedTitle = noteToEdit.getTitle();
-        Description updatedDescription = noteToEdit.getDescription();
+        NoteDescription updatedDescription = noteToEdit.getDescription();
         Content updatedContent = noteToEdit.getContent();
         DateModified updatedDateModified = noteToEdit.getDateModified();
         DateAdded dateAdded = noteToEdit.getDateAdded();

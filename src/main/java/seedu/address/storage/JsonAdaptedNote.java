@@ -14,8 +14,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.DateAdded;
 import seedu.address.model.note.DateModified;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.NumOfAccess;
 import seedu.address.model.note.Title;
 import seedu.address.model.person.Person;
@@ -94,10 +94,10 @@ class JsonAdaptedNote {
         }
         if (description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Description.class.getSimpleName()));
+                    NoteDescription.class.getSimpleName()));
         }
-        if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        if (!NoteDescription.isValidDescription(description)) {
+            throw new IllegalValueException(NoteDescription.MESSAGE_CONSTRAINTS);
         }
         if (content == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Content.class.getSimpleName()));
@@ -108,7 +108,7 @@ class JsonAdaptedNote {
         }
 
         final Title modelTitle = new Title(title);
-        final Description modelDescription = new Description(description);
+        final NoteDescription modelDescription = new NoteDescription(description);
         final Content modelContent = new Content(content);
         //TODO: insert assert dateModified and numOfAccess not null
         final DateModified modelDateModified = new DateModified(dateModified);

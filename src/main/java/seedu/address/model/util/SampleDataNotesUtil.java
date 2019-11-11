@@ -5,8 +5,8 @@ import static seedu.address.model.util.SampleDataUtil.getTagSet;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.VersionedNoteBook;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 
 
@@ -16,11 +16,11 @@ import seedu.address.model.note.Title;
 public class SampleDataNotesUtil {
     public static Note[] getSampleNotes() {
         return new Note[] {
-            new Note(new Title("Secret Diary"), new Description("Keeps track of everyday things"),
+            new Note(new Title("Secret Diary"), new NoteDescription("Keeps track of everyday things"),
                     getTagSet("Personal"), new Content("Content of my everyday life")),
-            new Note(new Title("Office tracker"), new Description("Keeps track of my what i do in the office"),
+            new Note(new Title("Office tracker"), new NoteDescription("Keeps track of my what i do in the office"),
                     getTagSet("Work"), new Content("Content of my everyday office life")),
-            new Note(new Title("Project information"), new Description("Critical information for XYZ project"),
+            new Note(new Title("Project information"), new NoteDescription("Critical information for XYZ project"),
                     getTagSet("Work"), new Content("Content of XYZ Project"))
         };
     }

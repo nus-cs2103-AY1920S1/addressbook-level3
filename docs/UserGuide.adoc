@@ -98,6 +98,7 @@ image::tip.png[width = "20",float = "left"]
 === Password
 
 You can access the password directory using this command : `goto password`
+// tag::add[]
 
 ==== Adding a password : `add`
 
@@ -112,6 +113,8 @@ image::AddPW1.png[width="790"]
 image::AddPW2.png[width="790"]
 
 ==== Accessing a password : `read`
+// end::add[]
+// tag::read[]
 
 You can open and view the password for the specified index.
 
@@ -119,8 +122,8 @@ Format: `read INDEX`
 
 Example: `read 1`
 
-image::Read 1.png[width="790"]
-image::Read 2.png[width="790"]
+.Example of how an read command can be used.
+image::Read 2 in 1.png[]
 
 ====
 --
@@ -141,7 +144,9 @@ image::PasswordExpiring.png[width="300"]
 
 You will see this reminder if you have *not* changed your password for over a year.
 
-image::PasswordExpired.png[width="300"]
+.Example of when your password is expired
+image::PasswordExpired.png[width="220"]
+// end::read[]
 
 ==== Copying a field in a password : `copy`
 
@@ -294,7 +299,6 @@ image::GeneratePasswordScreenShot1.png[width="500"]
 ==== Analysing passwords : `analyse`
 
 Curious to know how secure your passwords really are? Type `analyse` into the command box to find out. You might be surprised...
->>>>>>> 57900bceda68ce2fd8fcf27979b3172ea508be0e
 
 ====
 --

@@ -19,8 +19,8 @@ import seedu.address.model.Model;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.DateAdded;
 import seedu.address.model.note.DateModified;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.NumOfAccess;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
@@ -97,7 +97,7 @@ public class EditNoteCommand extends Command {
         assert noteToEdit != null;
 
         Title updatedTitle = editNoteDescriptor.getTitle().orElse(noteToEdit.getTitle());
-        Description updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
+        NoteDescription updatedDescription = editNoteDescriptor.getDescription().orElse(noteToEdit.getDescription());
         Content updatedContent = editNoteDescriptor.getContent().orElse(noteToEdit.getContent());
         DateModified updatedDateModified = noteToEdit.updateDateModified();
         DateAdded dateAdded = noteToEdit.getDateAdded();
@@ -132,7 +132,7 @@ public class EditNoteCommand extends Command {
      */
     public static class EditNoteDescriptor {
         private Title title;
-        private Description description;
+        private NoteDescription description;
         private Content content;
         private Set<Tag> tags;
 
@@ -164,11 +164,11 @@ public class EditNoteCommand extends Command {
             return Optional.ofNullable(title);
         }
 
-        public void setDescription(Description description) {
+        public void setDescription(NoteDescription description) {
             this.description = description;
         }
 
-        public Optional<Description> getDescription() {
+        public Optional<NoteDescription> getDescription() {
             return Optional.ofNullable(description);
         }
 
@@ -213,6 +213,8 @@ public class EditNoteCommand extends Command {
             EditNoteDescriptor e = (EditNoteDescriptor) other;
 
             return getTitle().equals(e.getTitle())
+                    && getDescription().equals(e.getDescription())
+                    && getContent().equals(e.getContent())
                     && getTags().equals(e.getTags());
         }
     }

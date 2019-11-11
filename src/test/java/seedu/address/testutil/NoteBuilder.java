@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.note.Content;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -21,13 +21,13 @@ public class NoteBuilder {
     public static final String DEFAULT_CONTENT = "secret documents";
 
     private Title title;
-    private Description description;
+    private NoteDescription description;
     private Content content;
     private Set<Tag> tags;
 
     public NoteBuilder() {
         title = new Title(DEFAULT_TITLE);
-        description = new Description(DEFAULT_DESCRIPTION);
+        description = new NoteDescription(DEFAULT_DESCRIPTION);
         content = new Content(DEFAULT_CONTENT);
         tags = new HashSet<>();
     }
@@ -62,7 +62,7 @@ public class NoteBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public NoteBuilder withDescription(String description) {
-        this.description = new Description(description);
+        this.description = new NoteDescription(description);
         return this;
     }
 

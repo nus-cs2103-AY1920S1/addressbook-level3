@@ -12,16 +12,19 @@ import java.util.Set;
  */
 public class MultipleSortByCond {
 
-    public static final String MESSAGE_CONSTRAINTS = "Sort condition must have at least one " + SortByCond.DATEADDED
+    public static final String DATEMODIFIED = "datemodified";
+    public static final String DATEADDED = "dateadded";
+    public static final String NUMOFACCESS = "numofaccess";
+    public static final String MESSAGE_CONSTRAINTS = "Sort condition must have at least one " + DATEADDED
             + ", or "
-            + SortByCond.DATEMODIFIED + " or " + SortByCond.NUMOFACCESS + " separated by a whitespace each."
+            + DATEMODIFIED + " or " + NUMOFACCESS + " separated by a whitespace each."
             + "\nDuplicate conditions are not allowed.";
 
     public final String[] sortConditions;
     public final MultipleCondNoteComparator multipleSortComparator;
 
     /**
-     * Constructs an {@code SortByCond} field with date modified as the default condition.
+     * Constructs an {@code MultipleSortByCond} object with the array of sort conditions as parameters.
      */
     public MultipleSortByCond(String[] sortConditions) {
         this.sortConditions = sortConditions;
@@ -29,26 +32,35 @@ public class MultipleSortByCond {
     }
 
     /**
-     * Builds a comparator based on the sort conditions provided.
-     * @param sortConditions decreasing precedence of the sorting condition as the index number
-     * of the sort condition increases in the String array.
-     * @return
+     * Parses a {@code String sortByCond} to a {@code Comparator<Note>}
      */
-    public MultipleCondNoteComparator buildComparator(String[] sortConditions) {
+    private Comparator<Note> parseSortByCond(String sortByCond) {
+        //TODO: assert sortbycond here is valid
+        switch (sortByCond.toLowerCase()) {
+        case DATEADDED:
+            return new SortByDateAdded();
+        case NUMOFACCESS:
+            return new SortByNumOfAccess();
+        default:
+            return new SortByDateModified();
+        }
+    }
+
+    /**
+     * Builds a comparator based on the sort conditions provided.
+     *
+     * @param sortConditions decreasing precedence of the sorting condition as the index number
+     *                       of the sort condition increases in the String array.
+     */
+    private MultipleCondNoteComparator buildComparator(String[] sortConditions) {
         ArrayList<Comparator<Note>> noteComparators = new ArrayList<>();
         for (String sortCond : sortConditions) {
-            SortByCond currentCond = new SortByCond(sortCond);
-            Comparator<Note> currentComparator = currentCond.getSortComparator();
+            Comparator<Note> currentComparator = parseSortByCond(sortCond);
             noteComparators.add(currentComparator);
         }
         return new MultipleCondNoteComparator(noteComparators);
 
     }
-
-    public MultipleCondNoteComparator getSortComparator() {
-        return multipleSortComparator;
-    }
-
 
     /**
      * Gets the Comparator object based on the sorting condition.
@@ -60,32 +72,55 @@ public class MultipleSortByCond {
     }
 
     /**
-     * Returns true if given string conditions has no duplicates and are correct conditions individually.
+     * Checks if given each string in the given array of string are valid sorting conditions.
      */
-    public static boolean isValidSortByCond(String[] sortConditions) {
-        //true by default
-        boolean isDuplicate = false;
-        boolean isCorrectCond = true;
+    private static boolean isValidIndividualSortByCond(String[] sortConditions) {
+        for (String cond : sortConditions) {
+            String sortByCond = cond.toLowerCase();
+            if (!(sortByCond.toLowerCase().equals(DATEMODIFIED) || sortByCond.toLowerCase().equals(DATEADDED)
+                    || sortByCond.toLowerCase().equals(NUMOFACCESS))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if given array of string has any duplicate strings.
+     */
+    private static boolean isDuplicateSortByCond(String[] sortConditions) {
         Set<String> checkDuplicate = new HashSet<>();
         for (String cond : sortConditions) {
             String currentCond = cond.toLowerCase();
             if (checkDuplicate.contains(currentCond)) {
-                isDuplicate = true;
+                return true;
             } else {
                 checkDuplicate.add(currentCond);
             }
-            if (!(currentCond.equals(SortByCond.DATEMODIFIED) || currentCond.equals(SortByCond.DATEADDED)
-                    || currentCond.equals(SortByCond.NUMOFACCESS))) {
-                isCorrectCond = false;
-            }
         }
-        return !isDuplicate && isCorrectCond;
+        return false;
+    }
+
+    /**
+     * Checks if given array of string of sort conditions is empty.
+     */
+    private static boolean isEmptySortByCond(String[] sortConditions) {
+        return sortConditions.length == 0;
+    }
+
+    /**
+     * Returns true if given string conditions has no duplicates and are correct conditions individually.
+     */
+    public static boolean isValidSortByConditions(String[] sortConditions) {
+        return !isDuplicateSortByCond(sortConditions) && isValidIndividualSortByCond(sortConditions)
+                && !isEmptySortByCond(sortConditions);
     }
 
     @Override
     public String toString() {
         return String.join(", then by ", Arrays.asList(sortConditions));
     }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -101,7 +136,7 @@ public class MultipleSortByCond {
     /**
      * Comparator class that compares notes based on its NumOfAccess attribute.
      */
-    class MultipleCondNoteComparator implements Comparator<Note> {
+    static class MultipleCondNoteComparator implements Comparator<Note> {
         private final List<Comparator<Note>> comparators;
 
         private MultipleCondNoteComparator(List<Comparator<Note>> comparators) {
@@ -110,6 +145,7 @@ public class MultipleSortByCond {
 
         /**
          * https://stackoverflow.com/questions/4258700/collections-sort-with-multiple-fields
+         *
          * @param a
          * @param b
          * @return
@@ -124,7 +160,50 @@ public class MultipleSortByCond {
             }
             return 0;
         }
-
-
     }
+
+    /**
+     * Comparator class that compares notes based on its NumOfAccess attribute.
+     */
+    static class SortByNumOfAccess implements Comparator<Note> {
+        @Override
+        public int compare(Note a, Note b) {
+            Integer numOfAccessA = Integer.valueOf(a.getNumOfAccess().numOfAccess);
+            Integer numOfAccessB = Integer.valueOf(b.getNumOfAccess().numOfAccess);
+            return (numOfAccessB.compareTo(numOfAccessA));
+        }
+    }
+
+    /**
+     * Comparator class that compares notes based on its DateModified attribute.
+     */
+    static class SortByDateModified implements Comparator<Note> {
+        @Override
+        public int compare(Note a, Note b) {
+            if (a.getDateModified().value.before(b.getDateModified().value)) {
+                return 1;
+            } else if (a.getDateModified().value.after(b.getDateModified().value)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * Comparator class that compares notes based on its DateAdded attribute.
+     */
+    static class SortByDateAdded implements Comparator<Note> {
+        @Override
+        public int compare(Note a, Note b) {
+            if (a.getDateAdded().value.before(b.getDateAdded().value)) {
+                return 1;
+            } else if (a.getDateAdded().value.after(b.getDateAdded().value)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
+
 }

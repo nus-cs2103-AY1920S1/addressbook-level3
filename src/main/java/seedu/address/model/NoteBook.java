@@ -55,7 +55,7 @@ public class NoteBook implements ReadOnlyNoteBook {
     }
 
     /**
-     * Sorts the notes of the existing data according using (@code SortByCond).
+     * Sorts the notes of the existing data according using (@code SortByConds).
      */
     public void sortNotes() {
         notes.sortNotes(sortByConds);

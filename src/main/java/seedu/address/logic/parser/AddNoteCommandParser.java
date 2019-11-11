@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.Description;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 
@@ -39,7 +39,7 @@ public class AddNoteCommandParser implements Parser<AddNotesCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        Description description = ParserUtil.parseNoteDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+        NoteDescription description = ParserUtil.parseNoteDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
         Content content = new Content("");
         if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
             content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
