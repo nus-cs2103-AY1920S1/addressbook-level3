@@ -81,8 +81,7 @@ to check out my code contributions to DukeCooks.
 | |What I did
 
 |Project management
-|Managed releases `v1.2.1` (1 release) on GitHub +
-Created Labels to be used for issues
+|Created Labels to be used for issues
 Instantiated the Milestones in issues
 
 |Reviewed PRs
