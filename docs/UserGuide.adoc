@@ -490,12 +490,31 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 === Folders
 
 The following commands carry out operations on folders in Mark.
+The results of these operations can be viewed in the folder hierarchy of dashboard tab.
+
+IMPORTANT: The bookmarks that are displayed in the folder hierarchy correspond to the bookmarks in the bookmarks list on the left. +
+ +
+For example, if you have have just performed a `find` command and the bookmark list shrinks from 100 entries to just 10, the folder hierarchy will also
+shrink from showing 100 bookmarks to 10.
+
+TIP: You can use the `list` command to see all your bookmarks in the folder hierarchy.
 
 ==== Expanding the folder hierarchy: *`expand`*
 
-Expands the folder hierarchy by the specified number of levels.
+If you want to expand all unexpanded folders, use this command.
 
 Format: `*expand* [LEVEL=1]`
+
+For example:
+
+* You want to expand all unexpanded folders by one level with just one command. Type `*expand*` in the command box and hit kbd:[Enter].
++
+image::ExpandCommandUi1.png[]
+// unexpanded folders
+* You see all folders expanded by one level.
++
+image::ExpandCommandUi2.png[]
+
 
 ****
 * `LEVEL` should be a positive integer.
@@ -503,16 +522,26 @@ Format: `*expand* [LEVEL=1]`
 * If `LEVEL` is not specified, expand by 1 level.
 ****
 
-Examples:
+Other examples:
 
 * `*expand* 3` +
 Expands the folder hierarchy by 3 levels.
 
 ==== Collapsing the folder hierarchy: *`collapse`*
 
-Collapses the folder hierarchy by the specified number of levels.
+If you have too many expanded folders and want to collapse them, use this command.
 
 Format: `*collapse* [LEVEL=1]`
+
+For example:
+
+* You want to collapse the deepest expanded folders by one level with just one command. Type `*collapse*` in the command box and hit kbd:[Enter].
++
+image::CollapseCommandUi1.png[]
+// expanded folders
+* You see the deepest expanded folders collapsed by one level.
++
+image::CollapseCommandUi2.png[]
 
 ****
 * `LEVEL` should be a positive integer.
@@ -520,17 +549,30 @@ Format: `*collapse* [LEVEL=1]`
 * If `LEVEL` is not specified, collapse by 1 level.
 ****
 
-Examples:
+Other xamples:
 
-* `*collapse* 1` +
-Collapses the folder hierarchy by 1 level.
+* `*collapse* 9999` +
+Collapses the folder hierarchy by 9999 levels, most likely collapsing them all the way.
 
 [[folder]]
-==== Adding a new folder: *`folder`*
+//tag::AddFolderCommand[]
+==== Adding a folder: *`folder`*
 
-Creates a new folder for organizing bookmarks into.
+// Context
+When your bookmark list is getting too long, you may want to use this command to create new folders to organize bookmarks into.
 
 Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You notice you have 20 bookmarks all related to CS2103T. You decide to create a folder for them, so you enter the command `*folder* CS2103T` and hit kbd:[Enter].
++
+image::AddFolderCommandUi1.png[]
+// dashboard tab, showing many CS2103T related bookmarks not in folder
+* You see a new empty folder `CS2103T` appear in the dashboard.
++
+image::AddFolderCommandUi2.png[]
 
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
@@ -540,10 +582,11 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
 
-Examples:
+Other examples:
 
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
+//end::AddFolderCommand[]
 
 ==== Editing a folder: *`folder-edit`*
 
@@ -555,7 +598,7 @@ Format: `*folder-edit* FROM_FOLDER​_NAME t/TO_FOLDER_NAME`
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit enter.
+* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit kbd:[Enter].
 +
 image::EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
@@ -580,7 +623,7 @@ Format: `*folder-delete* FOLDER​_NAME`
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You see an unused bookmark `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
+* You see an unused folder `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
 image::DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders

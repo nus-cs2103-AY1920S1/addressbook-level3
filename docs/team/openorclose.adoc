@@ -1,0 +1,72 @@
+= Daryl Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: Mark (adapted from AddressBook - Level 3)
+
+'''
+
+== Introduction
+
+This project portfolio aims to document my contributions to Mark, a project by my team of 5 Computer Science students from NUS.
+
+Adapted from AddressBook - Level 3, Mark is a user-friendly bookmark manager application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands.
+
+Here are some key features of Mark:
+
+- Save and annotate content from a website for convenient offline access
+
+- Set reminders for your to-dos
+
+- Organize your bookmarks automatically
+
+
+== Contribution Summary
+
+This section serves to describe some of contributions I made to the development of Mark, such as enhancements, documentation, and code reviews.
+
+* *Major enhancement*: implemented *folders in a hierarchical structure* to organize bookmarks:
+** What it does: Allows users to have an alternate organization of their bookmarks, instead of showing all of them in
+one long list and having to search for them.
+** Justification: Users are familiar with organising their files on a computer into folders, so providing this functionality makes their transition to Mark smoother.
+** Highlights: This enhancement required knowledge of data structures and algorithms, as displaying, transforming, and other interactions with the folder hierarchy was quite challenging.
+
+* *Minor enhancement*: added a caching command that allows the user to "download" an copy of a website, for access when there is limited internet access.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Overhauled the UI along with Dorcas and Kai Xin https://github.com/AY1920S1-CS2103T-T13-4/main/pull/246[#246]
+*** Added parser to check that commands without arguments do not get called with arguments https://github.com/AY1920S1-CS2103T-T13-4/main/pull/224[#224]
+** Documentation:
+*** Converted our user guide from Google Docs to AsciiDoc https://github.com/AY1920S1-CS2103T-T13-4/main/pull/6[#6]
+*** Added user guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/61[#61] and developer guide https://github.com/AY1920S1-CS2103T-T13-4/main/pull/128[#128] for folders
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/70[#70] https://github.com/AY1920S1-CS2103T-T13-4/main/pull/75[#75]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[1] https://github.com/openorclose/ped/issues[2])
+** Tools:
+*** Integrated a third party library (Readability4J) to the project https://github.com/AY1920S1-CS2103T-T13-4/main/pull/121[#121]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_(start of extract from User Guide)_
+
+include::../UserGuide.adoc[tag=AddFolderCommand]
+
+_(end of extract from User Guide)_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=folders]
