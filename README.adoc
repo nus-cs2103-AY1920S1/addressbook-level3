@@ -23,9 +23,9 @@ The UI allows the administrator to have a good overview of all the information n
 
 Administrators will be able to track the deliverymen on deliveries at a glance. This allows the administrator to manage them better and efficiently queue the orders to each deliverymen.
 
-=== Food recommendations
+=== Automated food tagging
 
-Popular food items on each restaurant's menu are tagged with a popular tag depending on how many times that food has been ordered.
+Popular food items on each restaurant's menu are tagged automaticall with a "Popular" tag depending on how many times that food has been ordered.
 
 === Automated customer tagging
 
