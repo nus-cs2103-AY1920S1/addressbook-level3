@@ -415,7 +415,7 @@ delete 2
 ```
 Deletes the 2nd engagement in the engagement manager.
 ```
-find meeting
+find p/Low
 delete 1
 ```
 Deletes the 1st engagement in the results of the `find` command.
