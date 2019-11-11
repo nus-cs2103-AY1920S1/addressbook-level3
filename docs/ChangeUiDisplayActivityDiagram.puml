@@ -1,0 +1,43 @@
+@startuml
+start
+:User executes a command;
+
+if () then ([is help command])
+:MainWindow executes\nhandleHelp method;
+
+else ([is not help command])
+
+if () then ([is exit command])
+:MainWindow executes\nhandleExit method;
+
+else ([is not exit command])
+
+if () then ([is back command])
+:handleBack;
+
+if () then ([current state is PROJECT_LIST])
+:Throw CommandException\ncan't go back any further;
+
+else([current state is not PROJECT_LIST])
+:get previous UiEvent from the stack;
+:changeUiDisplay method is called\nto go back to the UiEvent's state;
+:remove working project if the\nprevious state does not have one;
+endif
+
+else([is not back command])
+
+if () then ([change in Ui display needed])
+:get the next state base on the command;
+:generate an UiEvent with the param\nnext state and the current working project;
+:changeUiDisplay method is called to go to next state;
+
+else ([change in Ui display is not needed])
+:changeUiDisplay method is called\nto refresh the current state;
+endif
+endif
+endif
+endif
+
+
+stop
+@enduml

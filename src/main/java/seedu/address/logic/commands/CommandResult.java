@@ -33,6 +33,8 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.commandWord = commandWord;
+
+        // list of command that doesnt require a change in display
         List<String> list = Arrays.asList(LogOutCommand.COMMAND_WORD,
                 SendMailCommand.COMMAND_WORD,
                 BroadcastMailCommand.COMMAND_WORD,
