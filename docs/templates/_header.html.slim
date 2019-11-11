@@ -24,6 +24,8 @@
 - if !(attr? 'no-site-header')
   #site-header
     nav.navbar.navbar-light.bg-light
+      a.navbar-brand href='https://ay1920s1-cs2103t-t10-2.github.io/main/'
+          img src=(site_url '/images/DukeCooks_Logo.png') alt='Team DukeCooks'
       .container
         - if attr? 'site-name'
             a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
@@ -41,7 +43,7 @@
             =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
           - if attr? 'site-githuburl'
             li.navitem
-              a.nav-link href=(attr 'site-githuburl')
+              a.nav-link href='https://github.com/AY1920S1-CS2103T-T10-2/main'
                 span.fa.fa-github.fa-lg aria-hidden='true'
                 | &nbsp;View on GitHub
 
