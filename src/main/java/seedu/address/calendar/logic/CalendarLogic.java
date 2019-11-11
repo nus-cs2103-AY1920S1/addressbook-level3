@@ -8,13 +8,13 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.calendar.logic.commands.AlternativeCommand;
+import seedu.address.calendar.logic.parser.AlternativeCalendarParser;
+import seedu.address.calendar.logic.parser.CalendarParser;
+import seedu.address.calendar.logic.parser.Option;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.logic.parser.AlternativeCalendarParser;
-import seedu.address.calendar.logic.parser.CalendarParser;
-import seedu.address.calendar.logic.parser.Option;
 import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.storage.CalendarStorage;
 import seedu.address.calendar.storage.JsonCalendarStorage;

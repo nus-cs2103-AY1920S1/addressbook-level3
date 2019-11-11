@@ -1,5 +1,7 @@
 package seedu.address.calendar.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import seedu.address.calendar.logic.commands.AddCommand;
 import seedu.address.calendar.logic.commands.CheckCommand;
 import seedu.address.calendar.logic.commands.DeleteCommand;
@@ -13,8 +15,6 @@ import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class CalendarParser extends Parser {
 

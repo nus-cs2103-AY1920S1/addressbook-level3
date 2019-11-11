@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.financialtracker.model.Model;
 
 class SortFinCommandTest {
@@ -50,7 +51,7 @@ class SortFinCommandTest {
      */
     private class ModelStub extends Model {
 
-        String comparator;
+        private String comparator;
 
         ModelStub() {
             this.comparator = null;
