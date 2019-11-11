@@ -476,7 +476,7 @@ image::GenerateScheduleClassDiagram.png[]
 
 // tag::generateschedule2[]
 ---
-Below is an example usage scenario and how the `display_schedule` command behaves at each step.
+Below is an example usage scenario and how the `generate_schedule` command behaves at each step.
 
 ._Program flow of the Generate Schedule Feature_
 
@@ -506,7 +506,7 @@ The distinctDateList will be generated again based on the current list of events
 The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however, the DistinctDateList would not.
 
 [NOTE]
-Note that the Display Schedule Feature does not load and store the DistinctDate Objects.
+Note that the Generate Schedule Feature does not load and store the DistinctDate Objects.
 It processes and generates the list when it is called upon or when the application starts.
 
 **Step 7**.
@@ -859,6 +859,73 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+
+=== Generating Schedule
+
+. Generating Schedule of all the events according to the current event list.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `generate_schedule` +
+   Expected: Result box displays - "Schedule Generated".
+AddMin+ will jump to the Schedule Tab.
+New window will open displaying the entire schedule, according to the event's start, end date and the specific date, time mappings.
+If an event does not have any set date, time mappings then it will only be displayed as the start and end date.
+
+
+=== Display Schedule for Specific Date
+
+. Displaying all the events whose start, end date spans across a specified date.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/10/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events whose start, end date spans across 10/12/2019.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/31/11/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Invalid date: 31/11/2019
+Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
+The event list will not be updated.
+
+=== Display Schedule for Specific Month Year
+
+. Displaying all the events whose start, end date spans across a specified Month and Year.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_month on/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events whose start, end date spans across 12/2019.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/13/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Input Year Month should be MM/yyyy" .
+The event list will not be updated.
+
+=== Display Schedule for between 2 specific date
+
+. Displays all events which meets the following requirements, according if user's specified start and end date range includes a single date that the event's start and end date spans across ,
+the event will be displayed.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/10/12/2019 end/12/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events which spans across at least a single date between 10/12/2019 and 12/12/2019.
+
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/30/12/2019 end/12/12/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Your stated Start Date [30/12/2019] is after your End Date [12/12/2019]!" .
+The event list will not be updated.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/33/12/2019 end/12/12/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Invalid date: 33/12/2019
+Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
+The event list will not be updated.
+
 === Event
 
 . Editing an Event Date
@@ -884,6 +951,7 @@ Status bar remains the same.
 
 .. Test Case: `delete_ev_dt 1 on/25/10/2019` +
     Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
+
 
 === Saving data
 
