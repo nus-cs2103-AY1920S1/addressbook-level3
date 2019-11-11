@@ -1103,11 +1103,6 @@ Each of these classes contains these fields:
 Each of these fields have to be manually typed as it acts like an in-built user guide for the users who do not have
 access to internet connection, but would still like to know about the command.
 
-The class diagram below illustrates the relationship between the classes.
-
-.Info class diagram in Model component
-image::InfoClassDiagram.png[]
-
 ==== Opening info card about a command
 
 Command word to open up a new `InfoWindow` is `info`. Users are able to view the `InfoWindow` for each and every command
