@@ -45,10 +45,16 @@ Interested? Jump to the Section 2, “QuickStart” to get started. Enjoy!
 .. exit : exits the app
 . Refer to Section 3, “Features” for details of each command.
 
+[WARNING]
+Please do not modify the data file or corrupt it in any way. MyProject will not work as intended if you do!
+
 .The home page of MyProject listing all the projects you have
 image::home-page.png[]
 
 == Features
+
+[NOTE]
+Parameters enclosed in square brackets[] are optional.
 
 === Basic Commands
 Here are some basic commands to start and navigate around the app.
@@ -83,9 +89,6 @@ Example:
 
 . `checkout 1`
 . `back`
-
-[NOTE]
-This command is used to return to the project list page after checking out to a project.
 
 ==== Exiting the app: `exit`
 
@@ -207,7 +210,7 @@ image::AddFromContactsCommandSuccess.png[]
 Need to keep track of your team members' schedule? Use this command to record down their timetable easily!
 
 [TIP]
-Timetable set can be used to generate avaiable meeting timeslots using the command `generate`
+Timetable set can be used to generate available meeting timeslots using the command `generate`
 
 Format:
 
@@ -267,7 +270,7 @@ Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm
 ==== Add a project meeting: `addProjectMeeting` [Checkout]
 
 Adds a new project meeting to the current working project.  +
-Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
+Format: `Format: addProjectMeeting c/ dd/MM/yyyy HHmm s/MEETING_DESCRIPTION`
 
 `dd/MM/yyyy HHmm` refers to the date and time the meeting is to be held. +
 `MEETING_DESCRIPTION` refers to the purpose of the meeting.
@@ -278,7 +281,7 @@ by recording it down in the MyProject app.
 
 To add a project meeting:
 
-1. Type `addProjectMeeting c/19/11/2019 1300 s/DIscussion on version 2` and press enter to execute it.Note that
+1. Type `addProjectMeeting c/19/11/2019 1300 s/Discussion on version 2` and press enter to execute it.Note that
 this project meeting will be held after the 4th meeting on 16/11/2019 1700 and before the 5th meeting on 29/11/2019 1300.
 image:addProjectMeeting1.png[]
 

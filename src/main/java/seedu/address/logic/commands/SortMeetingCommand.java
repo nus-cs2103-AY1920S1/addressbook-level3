@@ -70,7 +70,7 @@ public class SortMeetingCommand extends Command {
             break;
 
         default:
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_SORT_MEETING_DISPLAYED_INDEX);
         }
 
         List<Meeting> meetingList = new ArrayList<>();

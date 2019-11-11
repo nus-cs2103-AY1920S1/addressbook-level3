@@ -16,7 +16,10 @@ public class Messages {
     public static final String MESSAGE_INVALID_BUDGET_DISPLAYED_INDEX = "The budget index provided is invalid";
     public static final String MESSAGE_INVALID_MEETING_DISPLAYED_INDEX = "The meeting index provided is invalid";
     public static final String MESSAGE_INVALID_PROJECT_DISPLAYED_INDEX = "The project index provided is invalid";
-    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
-    public static final String MESSAGE_INVALID_DISPLAYED_INDEX = "The index provided is invalid. Index should be an integer in the range of 1 and 4";
-
+    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid.";
+    public static final String MESSAGE_INVALID_SORT_TASK_DISPLAYED_INDEX = "The index provided is invalid. Index should be an integer in the range of 1 and 4";
+    public static final String MESSAGE_INVALID_SORT_SPENDING_DISPLAYED_INDEX = "The index provided is invalid. Index should be an integer between 1 and 2 or 5";
+    public static final String MESSAGE_INVALID_SORT_MEETING_DISPLAYED_INDEX = "The index provided is invalid. Index should be an integer in the range of 1 and 2";
 }
+
+

@@ -101,7 +101,7 @@ public class SampleDataUtil {
                                             new Spending(new Money("200.50"), new Time("12/10/2019 1800"), "Went for Zoukout"))),
                             new Budget("Venue", new Money("200.00"),
                                     getSpendingList(new Spending(new Money("20.00"), new Time("14/10/2019 1800"), "booked conference room for discussion"))))), new Timetable());
-            project1.setListOfMeeting(getSampleMeetings(new Meeting(new Time("12/09/2019 15300"), new Description("Set Milestones")), new Meeting(new Time("05/09/2019 1600"), new Description("Project Roadmap discussion"))));
+            project1.setListOfMeeting(getSampleMeetings(new Meeting(new Time("12/09/2019 1530"), new Description("Set Milestones")), new Meeting(new Time("05/09/2019 1600"), new Description("Project Roadmap discussion"))));
 
             Project project2 = new Project(new Title("GER1000"), new Description("Free and easy"), new ArrayList<String>(),
                     getTaskList(new Task(new Description("Finish Quiz 10"), new Time("04/04/1997 1600"), false)), new Finance(), new Timetable());

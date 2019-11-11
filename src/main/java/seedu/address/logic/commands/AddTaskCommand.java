@@ -20,7 +20,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 public class AddTaskCommand extends Command {
     public static final String COMMAND_WORD = "addTask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds this task to the current project "
-            + "s/[DESCRIPTION] c/[TIME in the form dd/MM/yyyy hhmm]\n"
+            + "s/DESCRIPTION c/TIME in the form dd/MM/yyyy hhmm\n"
             + "Example: " + COMMAND_WORD
             + " s/Finish GUI"
             + " c/05/09/2019 1600";

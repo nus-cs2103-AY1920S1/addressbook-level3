@@ -83,7 +83,7 @@ public class SortTaskCommand extends Command {
             break;
 
         default:
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_SORT_TASK_DISPLAYED_INDEX);
         }
 
         ArrayList<Task> taskList = new ArrayList<>();

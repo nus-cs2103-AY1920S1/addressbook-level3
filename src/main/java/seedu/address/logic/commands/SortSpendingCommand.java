@@ -77,7 +77,7 @@ public class SortSpendingCommand extends Command {
             break;
 
         default:
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_SORT_SPENDING_DISPLAYED_INDEX);
         }
 
         List<Budget> budgetListToEdit = projectToEdit.getFinance().getBudgets();
