@@ -35,7 +35,7 @@ When the user enters a command in the command box, Jarvis will return a response
 in the result box.
 
 .The graphical user interface for Jarvis under the Finance Tracker tab
-image::finance-tracker/financetracker-ui.png[]
+image::gohsnn/finance-tracker-ui.png[]
 
 In addition to developing both the front-end and back-end of the Finance
 Tracker feature, I also contributed to adopting the original version of the
@@ -174,11 +174,11 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
 The following are examples of diagrams that I created for my fellow team mates
 using plantUML.
 
-.AndOrNodeInheritanceClassDiagram for the Course Planner feature
-image::course-planner/AndOrNodeInheritanceClassDiagram.png[height="300", align="center"]
+.HistoryManagerModelClassDiagram for the Undo-Redo feature
+image::HistoryManagerModelClassDiagram.png[height="200", align="center"]
 
 .IncreaseCcaProgressActivityDiagram for the Cca Tracker feature
-image::cca-tracker/IncreaseCcaProgressActivityDiagram.png[height="400", align="center"]
+image::IncreaseCcaProgressActivityDiagram.png[height="400", align="center"]
 
 [[link-contributions-to-user-guide]]
 == Contributions to User Guide
@@ -207,16 +207,16 @@ month, you can used `find-paid` to pull up purchases with descriptions matching
 Format: `find-paid KEYWORD`
 
 .Step 1: Enter `find-paid` command in command box
-image::finance-tracker/find-paid1.png[align="center"]
+image::gohsnn/find-paid1.png[align="center"]
 
 .Step 2: Jarvis displays all matching purchases to keyword
-image::finance-tracker/find-paid2.png[align="center"]
+image::gohsnn/find-paid2.png[align="center"]
 
 NOTE: If there are no existing purchases in the application that matches
 the keyword given by the user, the result box will display the following message:
 
 .No purchases found in Finance Tracker
-image::finance-tracker/find-paid3.png[align="center"]
+image::gohsnn/find-paid3.png[align="center"]
 
 For examples of more commands for the Finance Tracker feature, please click to
 view our
@@ -273,7 +273,7 @@ are called by `FinanceTracker` and its model.
 Shown below is the class diagram for the Finance Tracker.
 
 .Finance Tracker Class Diagram
-image::finance-tracker/ModelFinanceTrackerClassDiagram.png[height="350", align="center"]
+image::ModelFinanceTrackerClassDiagram.png[height="350", align="center"]
 
 For more elaboration on the components of the Finance Tracker feature, please
 click to view our
@@ -298,9 +298,9 @@ NOTE: An index is considered invalid if the numerical value provided is less
 than or equal to zero, or greater than the largest index in `InstallmentList`.
 
 .Activity Diagram for edit-install command
-image::finance-tracker/EditInstallmentActivityDiagram.png[align="center"]
+image::EditInstallmentActivityDiagram.png[align="center"]
 
-=== Execution of command `edit-install`
+==== Execution of command `edit-install`
 
 The following sequence diagram illustrates how an
 `Installment` is edited when a user types in a `edit-install` command.
@@ -311,7 +311,7 @@ In the execute method of EditInstallmentCommand, the calling of the
 with the corresponding fields.
 
 .Sequence Diagram for edit-install command
-image::finance-tracker/EditInstallmentSequenceDiagram.png[height="250", align="center"]
+image::EditInstallmentSequenceDiagram.png[height="250", align="center"]
 
 === Design Considerations
 
