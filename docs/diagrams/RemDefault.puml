@@ -15,7 +15,7 @@ participant ":Model" as Model MODEL_COLOR
 participant ":UserPrefs" as UserPrefs MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("glist remDefault r/3")
 activate LogicManager
 
 LogicManager -> IFridgeParser : parseCommand("glist remDefault r/3")
