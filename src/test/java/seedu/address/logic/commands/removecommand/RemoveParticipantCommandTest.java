@@ -1,14 +1,12 @@
 package seedu.address.logic.commands.removecommand;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_PARTICIPANT;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.assigncommand.AssignParticipantCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -91,25 +89,6 @@ public class RemoveParticipantCommandTest {
                         validParticipant.getName(), validParticipant.getId(), validTeam.getName(), validTeam.getId()
                 ),
                 commandResult.getFeedbackToUser());
-
-    }
-
-    @Test
-    public void execute_participantNotInTeam_throwsCommandException() throws AlfredException {
-        ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().withId(10).build();
-
-        modelStub.addTeam(validTeam);
-        modelStub.addParticipant(validParticipant);
-
-
-        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
-
-
-        assertThrows(
-                CommandException.class,
-                RemoveParticipantCommand.MESSAGE_TEAM_DOES_NOT_HAVE_PARTICIPANT, () -> command.execute(modelStub));
 
     }
 
