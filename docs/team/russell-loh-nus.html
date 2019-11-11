@@ -438,15 +438,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
+<h1>Russell Loh - Project Portfolio</h1>
 </div>
 <div id="content">
-<div class="sect1 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/team/russell-loh-nus.adoc-1">
-<h2 id="_russell_loh_project_portfolio">Russell Loh - Project Portfolio</h2>
+<div class="sect1 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/team/russell-loh-nus.adoc-6">
+<h2 id="_project_title_njoy_teaching_assistant">Project Title: Njoy Teaching Assistant</h2>
 <div class="sectionbody">
-<div class="sect3 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/team/russell-loh-nus.adoc-6">
-<h4 id="_project_title_njoy_teaching_assistant">Project Title: Njoy Teaching Assistant</h4>
 <hr>
-</div>
 <div class="sect2 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/team/russell-loh-nus.adoc-10">
 <h3 id="_overview">Overview</h3>
 <div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/team/russell-loh-nus.adoc-12">
@@ -775,7 +773,7 @@ choices <em>'1965', '1963', '1968', '1970'</em>.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>[QUESTIONS INDEX]</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Index of questions <strong>separated by a whitespace</strong>.
-Follows the index as defined in the <a href="#Feature-Question-List">list</a> and <a href="#Feature-Question-Find">find</a> commands.</p></td>
+Follows the index as defined in the list and find commands.</p></td>
 </tr>
 </tbody>
 </table>
@@ -869,7 +867,7 @@ Starts a slideshow with questions containing index <em>'1'</em>, <em>'2'</em> an
 </div>
 <div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/UserGuide.adoc-667">
 <p><br>
-Below is an example of how to navigate through the slideshow and utilise the <a href="#Features-Slideshow-Polling">polling</a> feature:</p>
+Below is an example of how to navigate through the slideshow and utilise the polling feature:</p>
 </div>
 <div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/UserGuide.adoc-670">
 <p><strong>Step 1.</strong> When the slideshow window appears, scroll between the questions using the <code>Left arrow(←)</code> and <code>Right arrow(→)</code> keys.</p>
@@ -956,7 +954,7 @@ is also created to store similar questions.</p>
 <p><strong>Step 4</strong>. The <code>QuestionBank#questions</code> list is iterated once and the search is performed on the user&#8217;s search term using 2 levels of searching.
 Firstly, the question is tested to see if it matches the search term using the <code>StringUtils.containsIgnoreCase(&#8230;&#8203;)</code> method.
 Next, if the search term is not found, we test the question to see if it is similar to the user&#8217;s search term using the <code>LevenshteinDistance</code> method
-that implements the <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance formula</a> with a threshold of 40 percent (See <a href="#Feature-Question-Design-Similarity">[Feature-Question-Design-Similarity]</a>).</p>
+that implements the <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein distance formula</a> with a threshold of 40 percent.</p>
 </div>
 <div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-284">
 <p><strong>Step 5</strong>. The questions are then duplicated with their index appended to the question in order to keep a separate reference from the main <code>QuestionBank#questions</code> list.
@@ -1059,24 +1057,21 @@ The behaviour of this follows the common procedure that most presentation progra
 <div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-373">
 <p><em>Figure 9. Activity diagram of the actions performed.</em></p>
 </div>
-<div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-375">
-<p>&#160;<br></p>
 </div>
-</div>
-<div class="sect3 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-377">
+<div class="sect3 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-375">
 <h4 id="_design_considerations">Design Considerations</h4>
-<div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-379">
+<div class="paragraph has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-377">
 <p>The following are the various design choices made regarding the feature and alternatives that were considered prior to implementation.</p>
 </div>
-<div class="sect4 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-381">
+<div class="sect4 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-379">
 <h5 id="_controls">Controls</h5>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-383">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-381">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-383">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-381">
 <p><strong> Current Implementation: </strong></p>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-384">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-382">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-384">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-382">
 <p>The choice of using the arrow keys for navigation and the <code>Escape</code> key to quit the slideshow is such that it will feel
 familiar to users who uses presentation programs often as they have similar controls. The only difference will be the usage
 of the <code>Space</code> key to show answers as it will be something new to the users and is unique to <strong>Njoy</strong>.</p>
@@ -1084,11 +1079,11 @@ of the <code>Space</code> key to show answers as it will be something new to the
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-388">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-386">
 <p><strong> Alternatives Considered: </strong></p>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-389">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-387">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-389">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-387">
 <p>Usage of the <code>A</code> key to show answers. However, this is not very feasible as it is easily forgotten and not as user-friendly
 due to the smaller surface of the key as compared to the <code>Space</code> key.</p>
 </li>
@@ -1098,34 +1093,34 @@ due to the smaller surface of the key as compared to the <code>Space</code> key.
 </ul>
 </div>
 </div>
-<div class="sect4 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-392">
+<div class="sect4 has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-390">
 <h5 id="_display">Display</h5>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-394">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-392">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-394">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-392">
 <p><strong> Current Implementation: </strong></p>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-395">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-393">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-395">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-393">
 <p>The ordering of the questions is defined based on the user input so it gives flexibility to the user to choose the ordering
 that they want the questions to be displayed.</p>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-397">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-395">
 <p>Placement of the question numbering, topic, options and answer follows the common convention where
 the question numbering will be at the top followed by the topic, options and then the answer. This is such that viewers
 will not be confused by the layout.</p>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-400">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-398">
 <p>Font sizes are displayed in the following descending order to allow the text for easy viewing:</p>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-401">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-399">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-401">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-399">
 <p><span class="big">Question Number</span></p>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-402">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-400">
 <p>Question Topic &amp; Options</p>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-403">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-401">
 <p><span class="small">Answer</span></p>
 </li>
 </ul>
@@ -1134,11 +1129,11 @@ will not be confused by the layout.</p>
 </ul>
 </div>
 </li>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-405">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-403">
 <p><strong> Alternatives Considered: </strong></p>
-<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-406">
+<div class="ulist has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-404">
 <ul>
-<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-406">
+<li class="has-source-line data-line-/Users/russell/Documents/NUS/Modules/Y2S1/CS2103 SOFTWARE ENGINEERING/Team Project/Git/docs/DeveloperGuide.adoc-404">
 <p>Having a separate answer format for MCQ such that it will have an arrow beside the correct option <em>e.g A) 1965</em> <strong>&lt; (Answer)</strong>.
 However, this is not feasible as it will break the standard formatting of the answers display since both <code>open</code> and <code>mcq</code>
 questions will have 2 different answer formats and may cause confusion to the user.</p>
@@ -1156,7 +1151,7 @@ questions will have 2 different answer formats and may cause confusion to the us
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-11-11 15:32:55 +0800
+Last updated 2019-11-11 16:24:57 +0800
 </div>
 </div>
 </body>

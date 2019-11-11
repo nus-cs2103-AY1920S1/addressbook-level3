@@ -1,9 +1,9 @@
-== Russell Loh - Project Portfolio
+= Russell Loh - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-==== Project Title: Njoy Teaching Assistant
+== Project Title: Njoy Teaching Assistant
 
 ---
 
@@ -16,7 +16,7 @@ allows them to manage their classes, timetables, notes, questions and quizzes.
 Below is an example image of the application:
 
 image::InterfaceWithLabels.png[width=80%, scaledwidth=12cm]
-_Njoy Teaching Assistant application._
+_Figure 1. Njoy Teaching Assistant application._
 
 I was tasked to brainstorm a solution that could enhance classroom learning and implement it. Eventually, I came up with the solution of using question prompts through
 a slideshow that is able to facilitate discussions in the classroom and at the same time, allow teachers to manage these questions more efficiently.
@@ -30,6 +30,8 @@ Certain special formatting are used in this document and their description is as
 | `command` | Indicates a command, keyword or control for the user guide. For the developer guide, it indicates that it is a class, method or variable name.
 | `https://github.com/AY1920S1-CS2103T-W13-2/main[command]` | Indicates a link to a section in the document or to a web page.
 |==============================
+
+---
 
 === Summary of contributions
 
@@ -86,6 +88,8 @@ include::../UserGuide.adoc[tag=questions-management]
 
 include::../UserGuide.adoc[tag=questions-slideshow]
 
+---
+
 === Contributions to the Developer Guide
 
 |===
@@ -95,3 +99,4 @@ include::../UserGuide.adoc[tag=questions-slideshow]
 include::../DeveloperGuide.adoc[tag=questions-find]
 
 include::../DeveloperGuide.adoc[tag=questions-slideshow]
+

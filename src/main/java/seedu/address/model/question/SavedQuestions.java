@@ -135,35 +135,6 @@ public class SavedQuestions implements ReadOnlyQuestions {
     }
 
     /**
-     * Returns all the McqQuestions in a question bank in an ObservableList representation.
-     *
-     * @return mcq questions
-     */
-    public ObservableList<Question> getMcqQuestions() {
-        return questions.getMcqQuestions();
-    }
-
-    /**
-     * Returns all the OpenEndedQuestions in a question bank in an ArrayList representation.
-     *
-     * @return open ended questions
-     */
-    public ObservableList<Question> getOpenEndedQuestions() {
-        return questions.getOpenEndedQuestions();
-    }
-
-    /**
-     * Replaces the given Question {@code target} in the list with {@code editedQuestion}. {@code
-     * target} must exist in saved questions. The Question identity of {@code editedQuestion} must
-     * not be the same as another existing Question in the address book.
-     */
-    public void setQuestion(Question target, Question editedQuestion) {
-        requireNonNull(editedQuestion);
-
-        questions.setQuestion(target, editedQuestion);
-    }
-
-    /**
      * Replaces the given Question {@code target} in the list with {@code editedQuestion}. {@code
      * target} must exist in saved questions. The Question identity of {@code editedQuestion} must
      * not be the same as another existing Question in the saved questions.

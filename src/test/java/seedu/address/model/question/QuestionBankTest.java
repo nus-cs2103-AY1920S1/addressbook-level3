@@ -2,6 +2,8 @@ package seedu.address.model.question;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
@@ -26,6 +27,9 @@ public class QuestionBankTest {
         .withAnswer("2").build();
     private final Question differentQuestion = new QuestionBuilder().withQuestion("What is 1+2?")
         .withAnswer("3").build();
+    private final Question mcqQuestion = new QuestionBuilder().withQuestion("What is 1+2?")
+        .withAnswer("3").withType("mcq").withOptionA("1").withOptionB("2").withOptionC("3")
+        .withOptionD("4").build();
 
     @Test
     public void contains_nullQuestion_throwsNullPointerException() {
@@ -34,13 +38,13 @@ public class QuestionBankTest {
 
     @Test
     public void contains_questionNotInList_returnsFalse() {
-        Assertions.assertFalse(questions.contains(question));
+        assertFalse(questions.contains(question));
     }
 
     @Test
     public void contains_questionInList_returnsTrue() {
         questions.addQuestion(question);
-        Assertions.assertTrue(questions.contains(question));
+        assertTrue(questions.contains(question));
     }
 
     @Test
@@ -48,7 +52,7 @@ public class QuestionBankTest {
         questions.addQuestion(question);
         Question editedQuestion = new QuestionBuilder().withQuestion("What is 1+1?").withAnswer("2")
             .build();
-        Assertions.assertTrue(questions.contains(editedQuestion));
+        assertTrue(questions.contains(editedQuestion));
     }
 
     @Test
@@ -155,22 +159,6 @@ public class QuestionBankTest {
     }
 
     @Test
-    public void setQuestions_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () ->
-            questions.setQuestions((List<Question>) null));
-    }
-
-    @Test
-    public void setQuestions_list_replacesOwnListWithProvidedList() {
-        questions.addQuestion(question);
-        List<Question> questionsList = Collections.singletonList(differentQuestion);
-        questions.setQuestions(questionsList);
-        QuestionBank expectedQuestionBank = new QuestionBank();
-        expectedQuestionBank.addQuestion(differentQuestion);
-        assertEquals(expectedQuestionBank, questions);
-    }
-
-    @Test
     public void searchQuestion_nullSearch_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> questions.searchQuestions(null));
     }
@@ -261,6 +249,22 @@ public class QuestionBankTest {
     }
 
     @Test
+    public void setQuestions_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+            questions.setQuestions((List<Question>) null));
+    }
+
+    @Test
+    public void setQuestions_list_replacesOwnListWithProvidedList() {
+        questions.addQuestion(question);
+        List<Question> questionsList = Collections.singletonList(differentQuestion);
+        questions.setQuestions(questionsList);
+        QuestionBank expectedQuestionBank = new QuestionBank();
+        expectedQuestionBank.addQuestion(differentQuestion);
+        assertEquals(expectedQuestionBank, questions);
+    }
+
+    @Test
     public void setQuestions_listWithDuplicateQuestions_throwsDuplicateQuestionException() {
         List<Question> listWithDuplicateQuestions = Arrays.asList(question, question);
         assertThrows(DuplicateQuestionException.class, () ->
@@ -268,9 +272,64 @@ public class QuestionBankTest {
     }
 
     @Test
+    public void getAllQuestions_listIsNotEmpty_success() {
+        questions.addQuestion(question);
+
+        ObservableList<Question> expectedList = FXCollections.observableArrayList();
+        expectedList.add(question);
+        assertEquals(questions.getAllQuestions(), expectedList);
+    }
+
+    @Test
+    public void getSearchQuestions_listIsEmpty_success() {
+        questions.addQuestion(question);
+
+        ObservableList<Question> expectedList = FXCollections.observableArrayList();
+        assertEquals(questions.getSearchQuestions(), expectedList);
+    }
+
+    @Test
+    public void getQuestionsSummary_questionsInList_success() {
+        questions.addQuestion(question);
+
+        String expectedResult = "Below is the list of questions.\n"
+            + "There are currently 1 questions saved.\n";
+        assertEquals(questions.getQuestionsSummary(), expectedResult);
+    }
+
+    @Test
+    public void getMcqQuestion_questionInList_success() {
+        questions.addQuestion(mcqQuestion);
+
+        ObservableList<Question> expectedList = FXCollections.observableArrayList();
+        expectedList.add(mcqQuestion);
+        assertEquals(questions.getMcqQuestions(), expectedList);
+    }
+
+    @Test
+    public void getOpenEndedQuestion_questionInList_success() {
+        questions.addQuestion(question);
+
+        ObservableList<Question> expectedList = FXCollections.observableArrayList();
+        expectedList.add(question);
+        assertEquals(questions.getOpenEndedQuestions(), expectedList);
+    }
+
+    @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () ->
             questions.asUnmodifiableObservableList().remove(0));
+    }
+
+    @Test
+    public void equals() {
+        QuestionBank questionBank = new QuestionBank();
+
+        // Same object
+        assertTrue(questionBank.equals(questionBank));
+
+        // Null
+        assertFalse(questionBank.equals(null));
     }
 
     /**
