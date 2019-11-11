@@ -630,7 +630,6 @@ More data could be lost in cases of file corruption.
 Smaller file size compared to alternative 1. +
 Lesser data loss in case of file corruption compare to alternative 1. +
  +
- +
 *Cons:* +
 Requires additional implementation for storing reminders. +
 Has to manage multiple files for storage of user's data
