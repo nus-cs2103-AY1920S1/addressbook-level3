@@ -697,6 +697,7 @@ The three sub-classes are:
 * `SaveCommand` -- Creates a snapshot of MAMS as a backup and stores it as a json file in data.
 * `UndoCommand` -- Undo last action.
 * `RedoCommand` -- Redo last undo.
+* `RestoreCommand` -- Restores a previous snapshot created by the SaveCommand.
 
 image::StoreCommandClassDiagram.png[]
 
@@ -704,7 +705,7 @@ Each sub-class has a `execute()` method that takes in a `Model` object. Store co
 
 Below shows how the Store Command mechanism behaves at each step.
 
-Step 1. The user inputs `undo/redo/backup ...`.
+Step 1. The user inputs `undo/redo/backup/restore ...`.
 
 Step 2. The relevant parser class is called.
 
@@ -715,6 +716,7 @@ Step 4. `StoreCommand.execute()` is called.
 * If the command is a `UndoCommand`, it will store a snapshot in the data file under its corresponding tag.
 * If the command is a `RedoCommand`, it will check if a redo action is availiable, restores the state and update the saved states as required.
 * If the command is a `SaveCommand`, it will store a snapshot in the data file under its given tag or a tagged with a timestamp to avoid overwriting previous data if tag is not given.
+* If the command is a `RestoreCommand`, it will restore a previous snapshot in the data folder with its given tag.
 
 [NOTE]
 The save states are stored in the same format as the mams.json data file to reduce coupling of the saving mechanism and the save commands.
@@ -744,12 +746,6 @@ image::UndoSequenceDiagram.png[]
 ** Cons: Increases coupling between the Logic class and Command subclasses
 // end::undo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -1223,24 +1219,20 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
+=== Backup and Restoring
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Default MAMS data is generated, each individual field is made invalid and tested separately.
 
-_{ more test cases ... }_
+=== Undo and Redo
+
+. Dealing with non-undoable commands
+
+.. All non-undoable commands are tested with an undo with a new set of data, it would return a failed command result
+
+. Dealing with undoable commands
+
+.. All undoable commands are undid, the final result is checked against the previous state to ensure that the undo function correctly reverts the data back to the previous state.
+
+
