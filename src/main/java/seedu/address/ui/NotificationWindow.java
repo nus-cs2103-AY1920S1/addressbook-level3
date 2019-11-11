@@ -35,9 +35,10 @@ public class NotificationWindow extends UiPart<Stage> {
     private StackPane okayButtonPlaceholder;
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new Notification Window.
      *
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param root Stage to use as the root of the Notification Window.
+     * @param logic Logic to access the incomplete tasks.
      */
     public NotificationWindow(Stage root, Logic logic) {
         super(FXML, root);
@@ -48,7 +49,7 @@ public class NotificationWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new Notification Window.
      */
     public NotificationWindow(Logic logic) {
         this(new Stage(), logic);
@@ -79,21 +80,21 @@ public class NotificationWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the notification window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the notification window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the notification window.
      */
     public void focus() {
         getRoot().requestFocus();

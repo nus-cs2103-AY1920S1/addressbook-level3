@@ -289,4 +289,16 @@ public interface Model {
     Company getCompany();
 
     void setCompany(Company updatedCompany);
+    // command history
+
+    /**
+     * Adds command to the command list
+     */
+    void addCommand(String command);
+
+    /**
+     * Returns the unmodifiable view of the command list
+     */
+    ObservableList<String> getFilteredCommandList();
+
 }

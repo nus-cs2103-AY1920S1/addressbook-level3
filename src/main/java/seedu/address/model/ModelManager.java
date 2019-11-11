@@ -40,17 +40,22 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
+
+    private final FilteredList<Task> assignedTasks;
     private final FilteredList<Task> unassignedTasks;
     private final FilteredList<Task> completedTasks;
 
     private final FilteredList<Customer> filteredCustomers;
     private final FilteredList<Driver> filteredDrivers;
 
+    private final FilteredList<String> commandList;
+
     private final TaskManager taskManager;
     private final CustomerManager customerManager;
     private final DriverManager driverManager;
     private final IdManager idManager;
     private final Company company;
+    private final CommandHistory commandHistory;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -68,13 +73,16 @@ public class ModelManager implements Model {
         this.driverManager = new DriverManager();
         this.idManager = new IdManager();
         this.company = new Company();
+        this.commandHistory = new CommandHistory();
 
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.taskManager.getList());
+        assignedTasks = new FilteredList<>(this.taskManager.getList());
         unassignedTasks = new FilteredList<>(this.taskManager.getList());
         completedTasks = new FilteredList<>(this.taskManager.getList());
         filteredCustomers = new FilteredList<>(this.customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(this.driverManager.getDriverList());
+        commandList = new FilteredList<>(this.commandHistory.getCommandList());
     }
 
     public ModelManager(CentralManager centralManager, ReadOnlyUserPrefs userPrefs) {
@@ -94,12 +102,17 @@ public class ModelManager implements Model {
         this.taskManager = centralManager.getTaskManager();
         this.idManager = centralManager.getIdManager();
         this.company = centralManager.getCompany();
+        this.commandHistory = new CommandHistory();
+
 
         filteredCustomers = new FilteredList<>(customerManager.getCustomerList());
         filteredDrivers = new FilteredList<>(driverManager.getDriverList());
         filteredTasks = new FilteredList<>(taskManager.getList());
+        assignedTasks = new FilteredList<>(taskManager.getList());
         unassignedTasks = new FilteredList<>(taskManager.getList());
         completedTasks = new FilteredList<>(taskManager.getList());
+        commandList = new FilteredList<>(commandHistory.getCommandList());
+
     }
 
     public ModelManager() {
@@ -460,8 +473,8 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Task> getAssignedTaskList() {
-        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, filteredTasks);
-        return filteredTasks;
+        updateFilteredTaskList(PREDICATE_SHOW_ASSIGNED, assignedTasks);
+        return assignedTasks;
     }
 
     /**
@@ -526,13 +539,14 @@ public class ModelManager implements Model {
     @Override
     public void refreshFilteredTaskList() {
         //refresh assigned task list
-        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, filteredTasks);
+        updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, assignedTasks);
         getAssignedTaskList();
 
         //refresh unassigned task list
         updateFilteredTaskList(PREDICATE_SHOW_EMPTY_TASKS, unassignedTasks);
         getUnassignedTaskList();
 
+        //refresh completed task list
         updateCompletedTaskList(PREDICATE_SHOW_EMPTY_TASKS);
         getCompletedTaskList();
     }
@@ -563,7 +577,6 @@ public class ModelManager implements Model {
         filteredCustomers.setPredicate(predicate);
     }
 
-    // =========== Filtered Driver List Accessors =============================================================
     /**
      * Refreshes the display of customer list.
      */
@@ -592,4 +605,23 @@ public class ModelManager implements Model {
         updateFilteredDriverList(PREDICATE_SHOW_EMPTY_DRIVERS);
         updateFilteredDriverList(PREDICATE_SHOW_ALL_DRIVERS);
     }
+
+    // =========== Command List Accessors =====================================================================
+
+
+    /**
+     * Adds command to the command list
+     */
+    public void addCommand(String command) {
+        this.commandHistory.addCommand(command);
+    }
+
+    /**
+     * Returns an unmodifiable view of the filtered command list.
+     */
+    @Override
+    public ObservableList<String> getFilteredCommandList() {
+        return commandList;
+    }
+
 }

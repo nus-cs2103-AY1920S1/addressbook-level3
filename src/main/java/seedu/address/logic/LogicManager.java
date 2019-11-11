@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
 import seedu.address.model.person.Customer;
@@ -30,21 +31,26 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final CommandHistory commandHistory;
     private final CommandParser commandParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         commandParser = new CommandParser();
+        commandHistory = new CommandHistory();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
+
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
         Command command = commandParser.parseCommand(commandText);
         commandResult = command.execute(model);
+
+        model.addCommand(commandText);
 
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
@@ -100,6 +106,12 @@ public class LogicManager implements Logic {
     public ObservableList<Customer> getFilteredCustomerList() {
         return model.getFilteredCustomerList();
     }
+
+    @Override
+    public ObservableList<String> getCommandList() {
+        return model.getFilteredCommandList();
+    }
+
 
     @Override
     public void refreshFilteredTaskList() {

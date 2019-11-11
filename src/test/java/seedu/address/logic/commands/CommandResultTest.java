@@ -18,6 +18,7 @@ public class CommandResultTest {
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
+
         // null -> returns false
         assertFalse(commandResult.equals(null));
 

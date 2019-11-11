@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static seedu.address.commons.core.Messages.MESSAGE_DATA_START_NEW;
 import static seedu.address.logic.commands.GoCommand.HISTORY_TAB;
 import static seedu.address.logic.commands.GoCommand.HOME_TAB;
+import static seedu.address.logic.commands.GoCommand.STATISTIC_TAB;
 
 import java.util.logging.Logger;
 
@@ -50,6 +51,8 @@ public class MainWindow extends UiPart<Stage> {
     private CustomerListPanel customerListPanel;
     private DriverListPanel driverListPanel;
     private CompletedTaskListPanel completedTaskListPanel;
+    private CommandListPanel commandListPanel;
+    private StatisticPanel statisticPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -77,6 +80,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane completedTaskListPanelPlaceholder;
+
+    @FXML
+    private StackPane commandListPanelPlaceholder;
+
+    @FXML
+    private StackPane statisticPanelPlaceholder;
 
     @FXML
     private TabPane tabPane;
@@ -154,6 +163,12 @@ public class MainWindow extends UiPart<Stage> {
 
         driverListPanel = new DriverListPanel(logic.getFilteredDriverList());
         driverListPanelPlaceholder.getChildren().add(driverListPanel.getRoot());
+
+        commandListPanel = new CommandListPanel(logic.getCommandList());
+        commandListPanelPlaceholder.getChildren().add(commandListPanel.getRoot());
+
+        statisticPanel = new StatisticPanel(logic);
+        statisticPanelPlaceholder.getChildren().add(statisticPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -252,6 +267,8 @@ public class MainWindow extends UiPart<Stage> {
             selectionModel.select(0);
         } else if (param.equalsIgnoreCase(HISTORY_TAB)) {
             selectionModel.select(1);
+        } else if (param.equalsIgnoreCase(STATISTIC_TAB)) {
+            selectionModel.select(2);
         }
     }
 

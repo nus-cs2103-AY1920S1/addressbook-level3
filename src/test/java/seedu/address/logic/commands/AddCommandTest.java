@@ -404,6 +404,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addCommand(String command) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<String> getFilteredCommandList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Company getCompany() {
             throw new AssertionError("This method should not be called.");
         }

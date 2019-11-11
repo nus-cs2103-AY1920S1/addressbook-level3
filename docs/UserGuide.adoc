@@ -67,6 +67,15 @@ For example, to edit the description of the delivery task (Task ID:3) : `editT 3
 List all available commands +
 Format: `help`
 
+==== Navigate between tabs : `go`
+
+Navigates to the specified tab Tl state. +
+Format: `go [TAB_NAME]` +
+Examples:
+
+* `go statistic`
+* `go home`
+
 ==== Lists all Task / Driver / Customer : `list`
 
 Displays all Task / Customer / Driver list in it's original state. +
@@ -194,6 +203,24 @@ Examples:
 Deletes task (Task ID: 1) from the task manager.
 * `del d/2` +
 Deletes driver (Driver ID: 2) from the driver manager.
+
+==== Views completed delivery tasks delivered to Customer
+
+Displays a list of completed tasks delivered to the customer, located in the completed delivery list under History tab.
+
+Examples:
+
+* `viewC 1` +
+View the tasks delivered to the customer (Customer ID: 1).
+
+==== Views completed delivery tasks delivered by Driver
+
+Displays a list of completed tasks delivered by the driver, located in the completed delivery list under History tab.
+
+Examples:
+
+* `viewD 1` +
+View the tasks delivered by the driver (Driver ID: 1).
 
 ==== Saves assigned delivery tasks for a specific date into PDF document: `savepdf`
 The PDF document is arranged in a table format to allow easy reference of the delivery tasks that is assigned to each drivers for the date.
