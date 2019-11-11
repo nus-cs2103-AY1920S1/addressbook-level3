@@ -2,7 +2,9 @@ package seedu.planner.logic.events.schedule;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
@@ -20,6 +22,7 @@ public class ScheduleEvent implements Event {
     private final LocalTime startTime;
     private final Index dayIndex;
     private final Index activityIndex;
+    private final Logger logger = LogsCenter.getLogger(ScheduleEvent.class);
 
     public ScheduleEvent(Index activityIndex, LocalTime startTime, Index dayIndex, Model model) {
         this.activityIndex = activityIndex;
@@ -28,11 +31,21 @@ public class ScheduleEvent implements Event {
         activityScheduled = generateActivityScheduled(model);
     }
 
+    /**
+     * A method to undo the effects of ScheduleCommand.
+     * @return returns UnscheduleCommand.
+     */
     public UndoableCommand undo() {
+        logger.info(String.format("----------------[UNDOING][%s]", this));
         return new UnscheduleCommand(activityScheduled, dayIndex);
     }
 
+    /**
+     * A method to redo the effects of ScheduleCommand
+     * @return returns ScheduleCommand with initial user input parameter.
+     */
     public UndoableCommand redo() {
+        logger.info(String.format("----------------[REDOING][%s]", this));
         return new ScheduleCommand(activityIndex, startTime, dayIndex, true);
     }
 
@@ -47,5 +60,10 @@ public class ScheduleEvent implements Event {
 
         return new ActivityWithTime(activityToSchedule, startTime.atDate(model.getStartDate()
                 .plusDays(dayIndex.getZeroBased())));
+    }
+
+    @Override
+    public String toString() {
+        return "SCHEDULE EVENT";
     }
 }

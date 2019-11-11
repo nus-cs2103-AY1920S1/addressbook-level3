@@ -43,10 +43,12 @@ app should provide a convenient way to rectify them.
 ** *Highlights:* This enhancement affects existing commands and commands to be added in future. It required an in-depth
 analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 
-* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[Update 1] |
-https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[Update 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[Update 3]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[Update 4] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[Update 5]
-| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[Update 6] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[Final Update]
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/112[#112] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/127[#127] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/133[#133]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/194[#194] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/220[#220]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/230[#230] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/243[#243]
+| https://github.com/AY1920S1-CS2103T-T09-1/main/pull/269[#269]
+
 * *Test Code Contributed*:
 
 
@@ -64,19 +66,23 @@ the code base is morphed, the team is able to proceed with implementing their in
 for storage component. With the insights gained, I was able to advise my teammates on how they should approach their
 implementations when working with these components.
 
-* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/68[Morph-Model Part 1] |
-https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[Morph-Model Part 2] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[Morph-Storage]
+* *Functional Code Contributed*: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/68[#68] |
+https://github.com/AY1920S1-CS2103T-T09-1/main/pull/73[#73] | https://github.com/AY1920S1-CS2103T-T09-1/main/pull/99[#99]
+
 * *Test Code Contributed*:
 
 === *Other Contributions*:
 ** Tools:
-*** Set up build tools for maintaining and automation of team repository.
+*** Set up build tools for maintaining and automation of team repository. https://github.com/AY1920S1-CS2103T-T09-1/main/commit/e8cf534369f9a75038d763c551691965bb9f38bb[travis,]
+https://github.com/AY1920S1-CS2103T-T09-1/main/commit/17cd634867f29dd2ad5a258175cc13541411e7f4[appveyor, coverall]
 ** Documentation:
 *** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 ** Community:
-*** Over 20 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+author%3AOneArmyj[Pull Requests] on Github
-*** Over 10 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
-*** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]
+*** Over 30 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?q=is%3Apr+author%3AOneArmyj[Pull Requests] on Github
+*** Over 15 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+commenter%3AOneArmyj[Reviews] on Github
+
+*Overall Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=onearmyj[here]*
+
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to Plan²travel User Guide. They showcase my ability to write documentation

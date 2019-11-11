@@ -2,7 +2,9 @@ package seedu.planner.logic.events.schedule;
 
 import java.time.LocalTime;
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
@@ -21,6 +23,7 @@ public class UnscheduleEvent implements Event {
     private final LocalTime startTime;
     private final Index dayIndex;
     private final Index activityUnscheduledIndex;
+    private final Logger logger = LogsCenter.getLogger(UnscheduleEvent.class);
 
     public UnscheduleEvent(Index activityIndex, Index dayIndex, Model model) {
         this.activityIndex = activityIndex;
@@ -29,11 +32,21 @@ public class UnscheduleEvent implements Event {
         this.activityUnscheduledIndex = generateActivityUnscheduledIndex(model);
     }
 
+    /**
+     * A method to undo the effects of UnscheduleCommand.
+     * @return returns ScheduleCommand.
+     */
     public UndoableCommand undo() {
+        logger.info(String.format("----------------[UNDOING][%s]", this));
         return new ScheduleCommand(activityUnscheduledIndex, startTime, dayIndex, true);
     }
 
+    /**
+     * A method to redo the effects of UnscheduleCommand
+     * @return returns UnscheduleCommand with initial user input parameter.
+     */
     public UndoableCommand redo() {
+        logger.info(String.format("----------------[REDOING][%s]", this));
         return new UnscheduleCommand(activityIndex, dayIndex, true);
     }
 
@@ -66,4 +79,8 @@ public class UnscheduleEvent implements Event {
         return Index.fromZeroBased(lastShownActivities.indexOf(activityUnscheduled));
     }
 
+    @Override
+    public String toString() {
+        return "UNSCHEDULE EVENT";
+    }
 }
