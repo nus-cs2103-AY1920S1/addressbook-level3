@@ -1,4 +1,4 @@
-= TravEzy
+TravEzy
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -490,8 +490,7 @@ image::ItineraryInterface.png[width=800]
 
 Planning to visit DisneySea tomorrow? Add some rides that you plan to take then! 🎢
 
-*Format:*
-
+*Format:* +
 ``add title/TITLE date/DATE time/TIME [l/LOCATION] [d/DESCRIPTION]``
 
 *Example:*
@@ -529,8 +528,7 @@ you can always remove it from the _event list_.
 
 Read on to find out more!
 
-*Format:*
-
+*Format:* +
 ``delete INDEX``
 
 *Example:*
@@ -555,8 +553,7 @@ image::ItineraryDelete2.png[width=600]
 
 Rather than deleting an event when you have a change of plans, why not edit the details of the event instead?
 
-*Format:*
-
+*Format:* +
 ``edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 [TIP]
@@ -588,8 +585,7 @@ image::ItineraryEdit2.png[width=600]
 Impressive! After you have completed an event that you have planned for the day, _TravEzy_ itinerary lets you check that
 event as done. ✅
 
-*Format:*
-
+*Format:* +
 ``done INDEX``
 
 *Example:*
@@ -615,13 +611,8 @@ image::ItineraryDone2.png[width=600]
 What if you want to see all your events in ONE, CONTINUOUS list? The Itinerary allows you to see everything in one,
 convenient list!
 
-*Format:*
-
+*Format:* +
 ``list``
-
-*Example:*
-
-    list
 
 *Step by step:*
 
@@ -650,13 +641,8 @@ How convenient is that! 😄
 The clear function removes *ALL* the events that you have planned in your _event list_. This action *CANNOT* be
 undone. Hence, only click on the *Proceed* button if you are sure that you want to clear your _event list_.
 
-*Format:*
-
+*Format:* +
 ``clear``
-
-*Example:*
-
-    clear
 
 *Step by step:*
 
@@ -681,13 +667,8 @@ image::ItineraryClear3.png[width=600]
 Start you day right by saying hello to _TravEzy_ Itinerary and it will greet you back with the current _time_ and _date_.
 _TravEzy_ will also filter the _event list_ to showcase events that are due today.
 
-*Format:*
-
+*Format:* +
 ``greet``
-
-*Example:*
-
-    greet
 
 *Step by step:*
 
@@ -709,13 +690,8 @@ your past commands for the Itinerary.
 
 Let's find out how!
 
-*Format:*
-
+*Format:* +
 ``history``
-
-*Example:*
-
-    history
 
 *Step by step:*
 
@@ -736,8 +712,7 @@ keywords. 😊
 [TIP]
 If your _event list_ is too cluttered up, try using the ``clear`` command instead to reset the *whole* _event list_ instead.
 
-*Format:*
-
+*Format:* +
 ``search SEARCH CONDITION``
 
 where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/DATE``, ``time/TIME``, ``l/LOCATION``,
@@ -765,8 +740,7 @@ image::ItinerarySearch2.png[width=600]
 
 Organizing your events in the _event list_ has never been easier the Itinerary's awesome sorting capabilities. 💯
 
-Format:
-
+Format: +
 ``sort by/SORT CONDITION``
 
 where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, ``chronological``, ``completion`` or
@@ -875,14 +849,6 @@ See everyone in your address book with one command!
 *Format:* +
 `list`
 
-****
-*Examples:*
-
-* To list your contacts,
-
-    list
-****
-
 *Step by Step:*
 
 Step 1. Type `list` in the _command box_ and click _Enter_.
@@ -919,9 +885,9 @@ When editing tags, the existing tags of the person will be removed i.e adding of
  +
  You can remove the person's country by typing `c/` without specifying any country after it.
 
-****
+*Examples:*
 
-Examples:
+****
 
 * To edit a 1st person's phone number and email address to be `91234567` and `johndoe@example.com` respectively. +
 
@@ -969,7 +935,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`,
 `Bo Yang`
 
-Examples:
+*Examples:*
 ****
 * To find `John`,
 
@@ -999,15 +965,17 @@ Make your address book neat and organized! Clear off any old and unused contact 
 application allows you to delete your old contact information. Time to make your address book look pretty and neat!
 
 *Format:* +
- `delete INDEX`
+`delete INDEX`
 
 [WARNING]
 The index refers to the index number shown in the displayed person list. +
  +
 The index *must be a positive integer* 1, 2, 3, ...
 
+
+*Examples:*
+
 ****
-Examples:
 
 * Delete the 2nd person in the address book. +
 
@@ -1087,8 +1055,7 @@ Adding the expense of milk you've bought at the grocery shop you stopped by?
 
 WARNING: You can only add a total maximum amount of one trillion!
 
-*Format:*
-
+*Format:* +
 ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 *Example:*
@@ -1097,21 +1064,22 @@ WARNING: You can only add a total maximum amount of one trillion!
 
 *Step by step:*
 
-Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
+Step 1. Select which country you're currently at from the _Countries dropdown box_.
+
+Step 2. Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
 
 image::FinancialTrackerAdd1.png[width=600]
 
-Step 2. The _Result box_ will display the message "Expense added".
+Step 3. The _Result box_ will display the message "Expense added".
 
-Step 3. Now you can find your added expense in the _Expense list panel_.
+Step 4. Now you can find your added expense in the _Expense list panel_.
 
 image::FinancialTrackerAdd2.png[width=600]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-*Format:*
-
+*Format:* +
 ``delete INDEX``
 
 *Example:* Delete the first expense you saw on your expense list.
@@ -1131,8 +1099,7 @@ image::FinancialTrackerDelete2.png[width=600]
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-*Format:*
-
+*Format:* +
 ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 *Example:* Edit the 1st expense you saw on your expense list.
@@ -1156,13 +1123,8 @@ image::FinancialTrackerEdit2.png[width=600]
 === Clears an expense list: ``clear``
 Messed up your expense list? Don't worry, just clear it!
 
-*Format:*
-
+*Format:* +
 ``clear``
-
-*Example:* Clears your current country's expense list.
-
- clear
 
 *Step by step:*
 
@@ -1181,13 +1143,8 @@ Did something wrong? We heard you! Simply undo your previous action :)
 
 WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
 
-*Format:*
-
+*Format:* +
 ``undo``
-
-*Example:* Undo your previous `clear` command.
-
- undo
 
 *Step by step:* (A continue from above `clear` command)
 
@@ -1205,8 +1162,7 @@ image::FinancialTrackerUndo2.png[width=600]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-*Format:*
-
+*Format:* +
 `switch COUNTRY`
 
 TIP: You can always use the _Countries dropdown box_ directly instead!
@@ -1234,8 +1190,7 @@ The default sorting way of the expense list is not your thing? Just sort your ex
 
 TIP: All of the sorting is done in reversed order :)
 
-*Format:*
-
+*Format:* +
 ``sort CRITERIA``
 
 Where ``CRITERIA`` can be ``amount``, ``date``, ``time``, ``type`` and ``default``
@@ -1261,13 +1216,8 @@ image::FinancialTrackerSort2.png[width=600]
 === Generate an overview of your spending: ``summary``
 Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-*Format:*
-
+*Format:* +
 `summary`
-
-*Example:*
-
- summary
 
 *Step by step:*
 
@@ -1325,12 +1275,24 @@ keep your _Diary Entries_ short and sweet!
 
 *Example:*
 
+<<<<<<< HEAD
 
     add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
 
 TIP: Note that _Date_ is input in this format:
 dd/mm/yyyy HHMM:
 | d = day | m = month | y = year | H = Hour (24HR) | M = Minute |
+=======
+*Format:* +
+`add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
+
+
+*Example:* Lets take the example of our midnight fishing trip!
+
+ add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
+
+*Step by step:*
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 
@@ -1372,10 +1334,24 @@ TIP: Can't delete what's not there! Try to keep the ``INDEX`` larger than 0 and 
 *Step by step:*
 
 
+<<<<<<< HEAD
 Let's say you lose your wallet while on holiday in Genting, That's definitely a trip that no one would want to remember :(.
 
 
 Step 1: Type ``delete 2`` into the _User Input Box_ and press _Enter_ on the keyboard.You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``delete INDEX``
+
+*Example:* I lost my wallet at the amusement park in Genting, I don't want to remember
+that trip ever again :(
+
+ delete 2
+
+*Step by step:*
+
+Step 1: Enter ``delete 2``
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiaryDeleteBefore.png[width=600]
@@ -1394,11 +1370,18 @@ image::DiaryDeleteAfter.png[width=600]
 
 What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The _Diary_ can do that as well! It allows you to see everything in one, convenient list!
 
+<<<<<<< HEAD
 *Format:*
 
  ``list``
 
 *Example:*
+=======
+*Format:* +
+``list``
+
+*Step by step:*
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
     list
 
@@ -1408,7 +1391,6 @@ What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The _Diar
 Lets relive *EVERYTHING!*
 
 Step 1: Type ``list`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-
 
 image::DiaryListBefore.png[width=600]
 
@@ -1426,6 +1408,7 @@ all the details of your trips. That's why, this _Diary_ allows you to look throu
 
 *Format:*
 
+<<<<<<< HEAD
 ``find TARGET``
 
 *Example:*
@@ -1439,7 +1422,18 @@ TIP: To search for _Dates_, enter them in the same format as before, when you ad
 That was the craziest Rugby World Cup ever! Who lost?
 
 Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``find TARGET``
 
+*Example:* I want to see what I wrote about the Rugby World Cup
+
+ find rugby
+
+*Step by step:*
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
+
+Step 1: Enter ``find rugby``
 
 image::DiaryFindBefore.png[width=600]
 
@@ -1467,6 +1461,7 @@ Let's narrow down your search! The _Diary_ allows you to look through specific s
 
     findSpecific d/12/12/2019
 
+<<<<<<< HEAD
 
 *Step by step:*
 
@@ -1475,7 +1470,18 @@ You know that you had a trip on the 12th of December 2019, but you cant remember
 
 
 Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
 
+*Example:* I know that I had a trip on the 12th of December 2019, but I cant remember what I did...
+
+ findSpecific d/12/12/2019
+
+*Step by step:*
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
+
+Step 1: Enter ``findSpecific d/12/12/2019``
 
 image::DiaryFindSpecificBefore.png[width=600]
 
@@ -1492,6 +1498,7 @@ image::DiaryFindSpecificAfter.png[width=600]
 
 There are some personal memories which are for our eyes only. The _Diary_ can help you to private memories from prying eyes.
 
+<<<<<<< HEAD
 *Format:*
 
 ``private INDEX``
@@ -1512,6 +1519,18 @@ You had your first sip of wine today! Better not let mum find out...
 
 
 Step 1: Type ``private 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``private INDEX``
+
+*Example:* I had my first sip of wine today at the restaurant! I don't want my mum to find out...
+
+ private 4
+
+*Step by step:*
+
+Step 1: Enter ``private 4``
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiaryPrivateBefore.png[width=600]
@@ -1529,6 +1548,7 @@ image::DiaryPrivateAfter.png[width=600]
 
 Once you know you are alone and away from prying eyes, you can look at your private memories safely. The Diary can help you to unprivate those memories.
 
+<<<<<<< HEAD
 *Format:*
 
 ``unprivate INDEX``
@@ -1547,8 +1567,18 @@ TIP: Can't unprivate what's not there! Try to keep the ``INDEX`` larger than 0 a
 
 
 Step 1: Type ``unprivate 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``unprivate INDEX``
 
+*Example:* Ok!, I'm alone and I want to look at my private memories
 
+ unprivate 4
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
+
+*Step by step:*
+
+Step 1: Enter ``unprivate 4``
 
 image::DiaryUnPrivateBefore.png[width=600]
 
@@ -1575,6 +1605,7 @@ If you ``setDetails``, you will not be able to use the ``unprivate`` command and
     setDetails user/youcanthackme password/youreallycanthackme
 
 
+<<<<<<< HEAD
 WARNING: You can only set your details once! After that, you will have to delete TravEzy if you forget your password and need to unlock entries. This is done to ensure *NO ONE* misues your personal information
 
 
@@ -1587,8 +1618,18 @@ TIP: Keep your username and password long to keep those pesky hackers out! Minim
 Better set a password to protect your memories against prying eyes
 
 Step 1: Type ``setDetails user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``setDetails user/USERNAME password/PASSWORD``
 
+*Example:* Better set a password to protect my memories against prying eyes
 
+ setDetails user/youcanthackme password/youreallycanthackme
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
+
+*Step by step:*
+
+Step 1: Enter ``setDetails user/youcanthackme password/youreallycanthackme``
 
 image::DiarySetDetailsBefore.png[width=600]
 
@@ -1604,7 +1645,11 @@ image::DiarySetDetailsAfter.png[width=600]
 
 image::DiarySetDetailsHack.png[width=600]
 
+<<<<<<< HEAD
 . TravEzy will protect you if someone else tries to change your details
+=======
+Step 2: TravEzy will protect you if someone else tries to change your details
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiarySetDetailsHackFail.png[width=600]
@@ -1615,6 +1660,7 @@ image::DiarySetDetailsHackFail.png[width=600]
 
 With password protection, we want to ensure no one else can access our memories . The Diary can do this by ensuring only you can see the private memories.
 
+<<<<<<< HEAD
 *Format:*
 
 
@@ -1630,8 +1676,18 @@ With password protection, we want to ensure no one else can access our memories 
 Unlock your hidden memories!
 
 Step 1: Type ``unlock 4 user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+=======
+*Format:* +
+``unlock INDEX user/USERNAME password/PASSWORD``
 
+*Example:* Time to look at all my private memories
 
+ unlock 4 user/youcanthackme password/youreallycanthackme
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
+
+*Step by step:*
+
+Step 1: Enter ``unlock 4 user/youcanthackme password/youreallycanthackme``
 
 image::DiaryUnLockBefore.png[width=600]
 
@@ -1647,7 +1703,11 @@ image::DiaryUnLockAfter.png[width=600]
 
 image::DiaryUnLockHackBefore.png[width=600]
 
+<<<<<<< HEAD
 . TravEzy will protect you if someone else tries to change your details
+=======
+Step 2: TravEzy will protect you if someone else tries to change your details
+>>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiaryUnLockHackAfter.png[width=600]
