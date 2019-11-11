@@ -1,4 +1,4 @@
-= Ooi Ming Sheng- Project Portfolio
+= Ooi Ming Sheng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -38,23 +38,7 @@ much time to implement. The modification of the JSON storage was still challengi
 understanding of the underlying JSON storage infrastructure and how everything was saved in order to
 be able to save the association class properly.
 
-* *Major enhancement 2*: added *the ability to enter and exit a competition session (i.e. context switching)
-
-** What it does: controls user actions/commands depending on the context that the application is in (i.e.
-whether a competition is in ongoing/in-session)
-
-** Justification: This feature improves the product significantly even though we have actually limited
-user actions depending on the context of the application. The control of the user flow actually focuses
-the user to performing the right actions during the competition session and hence, optimizes the user to perform
-the necessary commands on the application to record the results of the competition as efficiently as possible.
-
-** Highlights: This enhancement affects existing commands and commands to be added in future as the context
-limits what kind of commands can be done at any one point of time.
-This required an in-depth analysis of understanding of how powerlifting competitions function and how the
-user flow could be optimized for efficient recording of competition results, especially since delays in powerlifting
-competitions can be very unprofessional and damaging to the reputation of the user who is organizing this event.
-
-* *Major enhancement 3*: added *the ability to give a ranking of the athletes using different ranking methods
+* *Major enhancement 2*: added *the ability to give a ranking of the athletes using different ranking methods
 
 ** What it does: allows the user to list the participations in a selected competition in a sorted order
 as determined by the inputted rank method (i.e. overall score or maximum weight lifted for a given exercise like
@@ -68,6 +52,22 @@ competitors. This encourages their competitive spirit and adds to the excitement
 ** Highlights: This enhancement gives extreme flexibility and extensibility to future ranking methods
 that need to be added in the future as the developer can just add a new ranking methods and scoring function in
 order to use this new ranking methods to order the participants.
+
+* *Major enhancement 3*: added *the ability to enter and exit a competition session (i.e. context switching)
+
+** What it does: controls user actions/commands depending on the context that the application is in (i.e.
+whether a competition is in ongoing/in-session)
+
+** Justification: This feature improves the product significantly even though we have actually limited
+user actions depending on the context of the application. The control of the user flow actually focuses
+the user to performing the right actions during the competition session and hence, optimizes the user to perform
+the necessary commands on the application to record the results of the competition as efficiently as possible.
+
+** Highlights: This enhancement is important as the context that the application is in
+limits what kind of commands can be done at any one point of time.
+This required an in-depth understanding of how powerlifting competitions function and how the
+user flow could be optimized for efficient recording of competition results, especially since delays in powerlifting
+competitions can be very unprofessional and damaging to the reputation of the user organizing this event.
 
 * *Minor enhancement*: Used java generics to support the various lists of entities and is therefore extensible
 for additional entities to be added should a developer require this
@@ -222,14 +222,10 @@ Powerlifting Competition Coordinator is a free application for powerlifting comp
 that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
 competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
 of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
-rankings within their respective weight classes allowing the organizer track the participants'
+rankings within their respective weight classes allowing the organizer to track the participants'
 standings at all times throughout the duration of the competition.
 
 == Design
-
-This section documents the design and interaction of components in Powerlifting Competition Coordinator.
-Please take a moment to understand the different components before making any code changes.
-
 
 [[Design-Ui]]
 === UI component
@@ -385,7 +381,6 @@ we decide to apply the Command Design Pattern for the Ranklist command too.
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
 
 == PROJECT: NUSanswers
 

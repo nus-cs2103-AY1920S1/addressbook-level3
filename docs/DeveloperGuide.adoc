@@ -24,7 +24,7 @@ Powerlifting Competition Coordinator is a free application for powerlifting comp
 that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
 competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
 of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
-rankings within their respective weight classes allowing the organizer track the participants'
+rankings within their respective weight classes allowing the organizer to track the participants'
 standings at all times throughout the duration of the competition.
 
 === Core team
