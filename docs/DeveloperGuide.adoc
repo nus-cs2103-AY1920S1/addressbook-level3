@@ -599,10 +599,10 @@ them. We will distinguish these types of commands into two categories,
 *invertible commands* and *non-invertible commands*.
 
 * *Invertible commands* -- commands that mutate the state of the `Model` and
-  should be stored for undo/redo functions.
+  should be stored for `undo`/`redo` functions.
 
 * *Non-invertible commands* -- commands that do not mutate the state of the
-  `Model` and should not be stored for undo/redo functions.
+  `Model` and should not be stored for `undo`/`redo` functions.
 
 [NOTE]
 Undo and redo commands will be considered non-invertible commands even though
@@ -869,8 +869,8 @@ one, and our thought process of the eventual choices made for each component.
 
 ===== Course Datasets
 
-Course data-sets are taken directly from the {nus-mods-api}[NUSMods API]. These
-data-sets are stored using the `.json` file format on NUSMod's API. Since
+Course datasets are taken directly from the {nus-mods-api}[NUSMods API]. These
+datasets are stored using the `.json` file format on NUSMod's API. Since
 Jarvis already heavily uses the Jackson JSON API, we have opted to store all
 course data within Jarvis in their original form. Therefore, all data is read
 directly from `.json` files.
@@ -878,7 +878,7 @@ directly from `.json` files.
 [NOTE]
 NUSMods is a popular website officially affiliated with NUS, where
 students are able to look up information about courses and plan their school
-timetable. This makes its data-set a reliable source of course information.
+timetable. This makes its dataset a reliable source of course information.
 
 Each course, and their data, are given its own file. These files are laid out
 in `/modinfo` within `/resources` to be easily accessible by the program.
@@ -1834,6 +1834,19 @@ Windows, Linux, Unix, OS-X
 
 [[CLI]] CLI::
 Command Line Interface
+
+Invertible Commands::
+commands that mutate the state of the Model and should be stored for `undo`/`redo` functions.
+
+Non-invertible commands::
+Commands that do not mutate the state of the Model and should not be stored for `undo`/`redo` functions.
+
+Dataset::
+A collection of related sets of information that is composed of separate elements but can be manipulated as a
+unit by a computer
+
+CcaMilestone::
+A significant goal in a Cca as defined by the user.
 
 [appendix]
 == Product Survey
