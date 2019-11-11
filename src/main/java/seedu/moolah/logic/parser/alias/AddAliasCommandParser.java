@@ -5,10 +5,6 @@ import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
-import static seedu.moolah.logic.parser.CliSyntax.PREFIX_CATEGORY;
-import static seedu.moolah.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.moolah.logic.parser.CliSyntax.PREFIX_PRICE;
-import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import java.util.Collections;
 import java.util.List;
