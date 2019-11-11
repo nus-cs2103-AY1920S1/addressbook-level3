@@ -334,7 +334,7 @@ Parameters follow the same restrictions as highlighted in <<Parameter-constraint
 A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
-==== Important 
+==== Important
 Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
 until the deadline (inclusive). You will be more self-conscious of your spending and minimise your spending by setting a budget. +
@@ -404,7 +404,8 @@ Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ====
-CAUTION: shares can be 0 but result is not guaranteed to be meaningful
+
+CAUTION: Shares can be 0 but result is not guaranteed to be meaningful
 
 ===== Ledger GUI
 
@@ -417,6 +418,8 @@ all transactions that have to do with the _Ledger_. +
 _Ledger_'s balance is separate from PalPay's balance. It is displayed in the same position,
 at the bottom right corner.
 
+NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
+
 ==== Example Usage
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
@@ -425,16 +428,16 @@ at the bottom right corner.
 
 . Enter appropriate command into the command line.
 +
-.Splitting evenly
+.Input for Splitting evenly
 image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
-.Splitting evenly (result)
+.Amy, Betty, Catherine and Dan owes $200 each
 image::SplitEven2.png[pdfwidth=70%]
 +
 For an even split of $1000, each person pays $200. Therefore _Ledger_ shows $200 on the tab of each person.
-_Ledger_ balance *does not* include the amount spent by the user. In this bill, the user is owed $800 in total
+_Ledger_ balance *does not* include how much you spend. In this bill, one is owed $800 in total
 from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in the bottom right.
 
 * `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
@@ -443,13 +446,15 @@ from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in t
 
 . Enter appropriate command into the command line.
 +
-.Splitting unevenly
+.Input for Splitting Unevenly
 image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Uneven split results
 image::SplitUneven2.png[pdfwidth=70%]
++
+Since the number of shares is equal to the number of people listed, you are not included in the splitting of the bill.
 // end::split[]
 
 // tag::receive[]
@@ -560,7 +565,7 @@ is depicted below:
 
 . Suppose there is currently a general _Budget_ with a deadline set for 28th November 2019
 +
-.Two _Budget_ s with dates 20112019 and 28112019 in the "GENERAL" category
+.Two _Budgets_ with dates 20112019 and 28112019 in the "GENERAL" category
 image::project5.png[]
 +
 
@@ -783,14 +788,17 @@ Updating a *Transaction* entry.
 
 . Identify the index number of the entry you want to edit. In this case, we will be using entry 3.
 +
+.Transaction List Containing Entry 3
 image::update_ug_1.png[]
 +
 . Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.
 +
+.User Input for the Update Command
 image::update_ug_2.png[]
 +
 . Success message will be displayed upon successful update. Fields will now be updated accordingly.
 +
+.Success message for the Update Command
 image::update_ug_3.png[]
 
 ===== Example 2:
@@ -799,15 +807,18 @@ Updating a *Budget* entry.
 
 . Identify the index number of the entry you want to edit
 +
+.Budget Tab Containing 1 Entry
 image::update_ug_4.png[]
 +
 . Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
 When you update the amount of a budget, the budget will be re-initialised (reset to 100%).
 +
+.User Input for Updating Budget
 image::update_ug_5.png[]
 +
 . Success message will be displayed upon successful update. Fields will now be updated accordingly.
 +
+.Success message for Updating Budget
 image::update_ug_6.png[]
 
 [[UG_UPDATE_EXAMPLE_3]]
@@ -817,22 +828,27 @@ Updating a *Transaction* entry which has the same category field as a *Budget* e
 
 . Identify the index number of the *Transaction* entry you want to edit.
 +
+.Transaction Sharing a Category with a Budget
 image::update_ug_7.png[]
 +
 . Notice that a *Budget* entry has the same category field as the *Transaction* entry mentioned above. (*Budget* entry 2).
 +
+.Budget sharing a Category with the Target Transaction
 image::update_ug_8.png[]
 +
 . Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing only the amount of this *Transaction*.
 +
+.User Input for Updating Transaction Amount
 image::update_ug_9.png[]
 +
 . Success message will be displayed upon successful update. Fields of the *Transaction* entry will now be updated accordingly.
 +
+.Success message for Updating Transaction Amount
 image::update_ug_10.png[]
 +
 . Remaining amount of the *Budget* entry will also be updated accordingly.
 +
+.Automatic Update of Relevant Budget
 image::update_ug_11.png[]
 
 ===== Example Commands:
