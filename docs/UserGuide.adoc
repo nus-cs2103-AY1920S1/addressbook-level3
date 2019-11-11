@@ -146,8 +146,32 @@ image::Help.png[width=400]
 
 ==== Undo a command: `undo`
 
-Undo the most recent command by
+You can undo your recent commands by using the `undo` command
 
+Format: `undo`
+
+Example:
+
+* Suppose you accidentally deleted task **#6** using the `delete-task` command
+
+image::before-undo.PNG[]
+
+* Entering the `undo` command will bring back the deleted task
+
+image::after-undo.PNG[]
+
+[WARNING]
+Once you restart +Work, you won't be able to `undo` commands from the previous session!
+
+==== Redo a command: `redo`
+
+You can redo a previously `undone` command by typing `redo`.
+
+Format: `redo`
+
+Example:
+
+* Let's say you deleted a task and you `undo` the command. You can simply use the `redo` command to delete the task again
 
 '''
 // end::UniversalCommands[]
@@ -465,19 +489,21 @@ The "Upcoming deadlines" sidebar (right side of above picture) helps you keep tr
 
 === Calendar Commands
 
-This section contains the commands for mananging your team member's calendars and for scheduling a project meeting time.
+This section contains the commands for managing your team member's calendars and for scheduling a project meeting time.
 
 
 ****
-Before you get started using +Work's calendar features, make sure you have completed the following steps
+**Before you start using +Work's calendar commands, make sure**
 
 ====
 
-1. Ensure your team members have exported their calendars as an `.ics` file (See below on how to export a calendar)
+1. Your team members have exported their calendars as an `.ics` file
+[TIP]
+Not sure how to export a calendar? Refer to the short guide below for instructions
 
-2. Collect the calendar files from your team members
+2. You have collected the calendar files from your team members
 
-3. Take note of the file path where the files are stored, it will be used later
+3. You take note of the file path where the files are stored, it will be used in the commands
 
 ====
 
@@ -485,7 +511,7 @@ Before you get started using +Work's calendar features, make sure you have compl
 
 ****
 
-Tip: How to export a calendars as an `.ics` file?
+**How to export a calendars as an `.ics` file?**
 
 ====
 
@@ -503,15 +529,15 @@ Tip: How to export a calendars as an `.ics` file?
 
 ==== Adding a team member's calendar: `add-calendar`
 
-You can add a calendar by specifying the file path where the team member's calendar is stored as well as the name of the team member.
+You can add a calendar by inputting the file path of the team member's calendar as well as the name of the team member.
 
 Format: `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`
 
 Example:
 
-Adding John Doe's calendar to +Work
+Adding __John Doe's__ calendar to +Work
 
-* `add-calendar mn/John Doe fp/C:\Users\gabriel\Desktop\CalendarFiles\john_calendar.ics` +
+* `add-calendar mn/John Doe fp/C:\Users\gabriel\TeamCalendars\john_calendar.ics` +
 
 ==== Removing a team member's calendar: `delete-calendar`
 
@@ -521,24 +547,26 @@ Format: `delete-calendar [mn/MEMBER_NAME]`
 
 Example:
 
-Removing John Doe's calendar from +Work
+Removing __John Doe's__ calendar from +Work
 
 * `delete-calendar mn/John Doe` +
 
 ==== Find possible meeting times: `find-meeting-time`
 
-You can schedule your next meeting by specifying the time period between which you wish to hold your meeting as well as the duration of the meeting in hour(s).
+You can schedule a meeting by specifying the **duration** of the meeting in hour(s) and the **time period** to search for.
 
-+Work will help you find the most suitable meeting time between `START_DATE` and `END_DATE`.
++Work will show a list of  suitable meeting time between `START_DATE` and `END_DATE`.
 
 Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
 
-[TIP]
+[NOTE]
 +Work recognises date and time in the format 'dd-mm-yyyy hh:mm
+[TIP]
++Work shows you the meeting times where the **most** number of people are available
 
 Example:
 
-* Let's say you want to schedule a __2__ hour meeting in the upcoming week, between __11th Nov 8 a.m__ and __15th Nov 5 p.m__. After entering the details in the corresponding fields, as such
+* Let's say you want to schedule a __2__ hour meeting in the upcoming week, between __11th Nov 8 a.m__ and __15th Nov 5 p.m__. After entering the details in the correct format, as such
 
 image::find-meeting-time-entry.PNG[]
 
@@ -550,7 +578,7 @@ image::find-meeting-time-timings.PNG[]
 If there are no suitable timings, +Work will notify you as well
 
 ==== Schedule a team meeting: `add-meeting`
-After using the command `find-meeting-time`, you can schedule a meeting from the list of possible timings by referring to the `INDEX` of the meeting.
+After using the command `find-meeting-time`, you can schedule a meeting from the list of possible timings by referring to the `INDEX` of the meeting in the list.
 
 Format: `add-meeting [meeting/INDEX]`
 
@@ -562,13 +590,13 @@ Example:
 
 image::possible-meeting-timings.PNG[]
 
-* After looking through the suitable timings, you find meeting **#5** is your preferred timing
+* After looking through the suitable timings, you choose meeting **#5** as your preferred timing
 
 image::preferred-meeting-time.PNG[]
 
-* Using the index of the meeting **#5**, enter the command `add-meeting meeting/5` and hit kbd:[Enter]
+* Using the index of meeting **#5**, enter the command `add-meeting meeting/5`
 
-* +Work saves the meeting and allows you to view them at the `home` page
+* You can then view the recently added meeting at the `home` page
 
 image::updated-meeting-time.PNG[]
 
@@ -926,9 +954,11 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
+* `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`: *Adds a calendar*
+
 * `add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
-* `add-meeting [at/dd-mm-yyyy hh:mm - hh:mm] [l/LOCATION]`: *Adds a meeting*
+* `add-meeting [meeting/INDEX]`: *Adds a meeting*
 
 * `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
@@ -936,15 +966,17 @@ _{explain how the user can enable/disable data encryption}_
 
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
 
-* `calendar`: *Switches to the time management page*
-
 * `clock twelve`: *Switches deadline display to the 12 hour clock format*
 
 * `clock twenty_four`: *Switches deadline display to the 24 hour clock format*
 
 * `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
 
+* `delete-calendar [mn/MEMBER_NAME]`: *Deletes a member's calendar*
+
 * `delete-inv [ii/ITEM_ID]`: *Deletes an inventory*
+
+* `delete-meeting [meeting/INDEX]`: *Deletes a meeting*
 
 * `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
@@ -956,19 +988,17 @@ _{explain how the user can enable/disable data encryption}_
 
 * `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
 
+* `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`: *Generate a list of possible meeting times*
+
 * `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
 
 * `generate-inventory /task`: *Generates report of inventory by task*
 
 * `generate-inventory /person`: *Generates report of inventory by person*
 
-* `generate-timings`: *Generates free times among members*
-
 * `home`: *Switches to the project dashboard*
 
 * `help`: *Accesses the help window*
-
-* `import-calendar [mi/MEMBER_ID] [c/PATH_TO_ICS]`: (Coming in v1.3) *Imports a calendar*
 
 * `list-members`: *Lists all members*
 
@@ -998,4 +1028,8 @@ Collaborate online with your teammates, and store your project details such as m
 === Customisable User Profiles `[coming in v2.0]`
 
 Create more detailed profiles for members and choose who has authority to change details of the project.
+
+=== Instant Messaging `[coming in v2.0]`
+
+Communicate with teammates on one central application, instead of using multiple messaging apps.
 // end::version-2.0[]
