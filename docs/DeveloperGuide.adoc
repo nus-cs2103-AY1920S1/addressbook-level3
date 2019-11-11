@@ -716,6 +716,29 @@ image::UpdateViewPanelActivityDiagram.png[]
 [NOTE]
 If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
 
+==== Design Considerations
+
+===== Aspect: How ViewPanel and AllItemsPanel updates
+* **Alternative 1 (current choice):** Updates taking in the lists as parameters.
+** Pros: Straightforward implementation that grantees correct result if the list is correct.
+** Cons: It breaks the "Model View Controller" structure because the UI is not listening to the `ObservableList` anymore. Whenever a command is executed, a function
+call has to be made to update the `ViewPanel` and the `AllItemsPanel`.
+
+* **Alternative 2:** Updates using event listeners
+** Pros: It follows the MVC structure where the panels listen to the `ObservableList` for changes.
+** Cons: As mentioned earlier, it is difficult to use event listeners on the `SortedUniqueList` because the listener will catch the sorting
+as modification to the items. In the future, alternative 2 can be considered with changes to how the listener and sorting works.
+
+===== Aspect: Layout of ResultDisplay
+* **Alternative 1 (current choice):** Directly on top of the CommandBox with resizablility.
+** Pros: Long messages can be viewed and referred to when typing the next comment.
+** Cons: It takes up a fixed space on the GUI which could be used to display more items.
+
+* **Alternative 2 (initial implementation):** Use a pop up window to display the messages which disappears when
+any key is pressed and the user can continue.
+** Pros: It saves spaces on the GUI and success and error message can be dismissed so that user do not have to see it all the time.
+** Cons: User is not able to type while referring to the message.
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
