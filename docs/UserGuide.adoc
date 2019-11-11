@@ -23,8 +23,6 @@ T.A.rence is *optimized for users who prefer to work with a Command Line Interfa
 while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, T.A.rence can get your teaching management tasks done faster than traditional GUI apps.
 
-
-
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -57,11 +55,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Command names are also case-insensitive; e.g. `addTutorial` and `addtutorial`  are equivalent.
 * Longer commands can be truncated; e.g. `delstu`  can be entered instead of `deleteStudent`.
 ====
-
+// tag::FeatureHelp[]
 === Viewing Help : `help`
 
 Format: `help`
-
+// end::FeatureHelp[]
+// tag::FeatureAddModule[]
 === Adding a Module: `addModule`
 
 Adds a module to T.A.rence. +
@@ -76,7 +75,8 @@ Examples:
 ====
 Command synonyms: `addMod`, `addmod`, `addmodule`
 ====
-
+// end::FeatureAddModule[]
+// tag::FeatureAddTutorial[]
 === Adding a Tutorial Slot : `addTutorial`
 
 Adds a tutorial slot into the specified module. +
@@ -108,7 +108,8 @@ Omit `w/` field for the default tutorial weeks (3-13 inclusive).
 
 Command synonyms: `addtut`, `addtutorial`
 ====
-
+// end::FeatureAddTutorial[]
+// tag::FeatureAddStudent[]
 === Adding a Student : `addStudent`
 
 Adds a student into a specified tutorial. +
@@ -143,7 +144,8 @@ The format will be: `addStudent n/[NAME] e/[EMAIL] i/[TUTORIAL_INDEX]` +
 
 Command synonyms: `addstu`, `addstud`, `addstudent`
 ====
-
+// end::FeatureAddStudent[]
+// tag::FeatureDeleteModule[]
 === Deleting a Module : `deleteModule`
 
 Deletes an existing module from T.A.rence, based on it's module list index. +
@@ -169,7 +171,8 @@ The format will be: `deleteModule m/[MOD_CODE]`
 
 Command synonyms: `deletemod`, `delmodule`, `delmod`, `deletemodule
 ====
-
+// end::FeatureDeleteModule[]
+// tag::FeatureDeleteTutorial[]
 === Deleting a Tutorial : `deleteTutorial`
 
 Deletes an existing tutorial from T.A.rence, based on it's tutorial list index. +
@@ -201,7 +204,8 @@ The format will then be `deleteTutorial tn/[TUTORIAL_NAME] m/[MOD_CODE]`
 
 Command synonyms: `deletetut`, `deleteclass`, `deltutorial`, `deltut`, `delclass`, `deletetutorial`
 ====
-
+// end::FeatureDeleteTutorial[]
+// tag::FeatureDeleteStudent[]
 === Deleting a Student : `deleteStudent`
 
 Deletes an existing student from T.A.rence, based on their student list index. +
@@ -227,7 +231,8 @@ Deletes the 1st person in the results of the `find` command.
 ====
 Command synonyms: `deletestu`, `deletestud`, `delstudent`, `delstu`, `delstud`, `deletestudent`
 ====
-
+// end::FeatureDeleteStudent[]
+// tag::FeatureEditStudent[]
 === Editing a Student : `edit`
 
 Allows user to edit an existing student information. Everything except the module and tutorial of the student can be
@@ -250,6 +255,8 @@ Example:
 //-* NusID prefix: nusid/
 //-****
 
+// end::FeatureEditStudent[]
+// tag::FeatureUndo[]
 === Undo Previously-entered Commands : `undo`
 
 Undos a specified number of actions.
@@ -271,8 +278,8 @@ Example:
 * The `NUMBER_OF_STATES_TO_UNDO` refers to the previous number of states to undo in that session
 * The `NUMBER_OF_STATES_TO_UNDO` *must be a positive integer*; 1, 2, 3, ...
 ****
-
-
+// end::FeatureUndo[]
+// tag::FeatureClear[]
 === Clearing all entries : `clear`
 
 Clears all entries from the T.A.rence. +
@@ -286,7 +293,8 @@ Example:
 ****
 * Resets the application state to a clean state.
 ****
-
+// end::FeatureClear[]
+// tag::FeatureFind[]
 === Searching Student by Name: `find`
 
 Searches and displays student particulars based on name. The search can be based on partial strings that match
@@ -307,7 +315,8 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
-
+// end::FeatureFind[]
+// tag::FeatureDisplayScore[]
 === Display Tutorial Class' Test Results : `displayAssignmentScore`
 
 Allows user to display overall results for an exam or assignment. This can be in the form of a graph or table,
@@ -336,7 +345,8 @@ Command synonyms: `displayscore`, `displayassignment`, `displayassignment`
 * When displaying the graph format, a short lag may follow.
 ****
 ====
-
+// end::FeatureDisplayScore
+// tag::FeatureDisplayAssignments
 === Display tutorial class assignments : `displayAssignments`
 
 Allows user to list out existing assignments in a tutorial.
@@ -353,7 +363,8 @@ Example:
 ====
 Command synonyms: `listassignments`, `lista`
 ====
-
+// end::FeatureDisplayAssignments[]
+// tag::FeatureDisplayAttendance[]
 === Display Tutorial Class' Attendance : `displayAttendance`
 
 Allows user to display overall attendance for a class.
@@ -381,7 +392,8 @@ Command Synonyms: `displayatt`, `showattendance`, `showatt`
 * i.e you will need to enter the command again to display the updated attendance.
 ****
 ====
-
+// end::FeatureDisplayAttendance[]
+// tag::FeatureList[]
 === Listing Students from a Tutorial : `list`
 
 Lists all students from a particular tutorial slot. If no index is given, all students will be listed.
@@ -397,7 +409,8 @@ Example:
 ====
 Command synonyms: `liststu`, `liststud`, `liststudents`
 ====
-
+// end::FeatureList[]
+// tag::FeatureCd[]
 === Changing the UI tab : `cd`
 
 Toggles the tab switching between tutorial(t), module(m) and student(s) list.
@@ -411,7 +424,8 @@ Example:
 * `cd t`
 * `cd m`
 * `cd s`
-
+// end::FeatureCd[]
+// tag::FeatureImport[]
 === Import tutorials via NUSMods url: `import`
 
 Imports tutorials via NUSMods url. Does not require an internet connection.
@@ -426,7 +440,8 @@ Example:
 ====
 Command synonyms: `importtutorials`, `importmods`, `importtutorial`
 ====
-
+// end::FeatureImport[]
+// tag::FeatureMarkAttendance[]
 === Marks attendance of a tutorial `markAttendance`
 
 Marks/Toggles attendance of a tutorial or a student.
@@ -451,7 +466,8 @@ Specifying the student name marks/toggles the attendance of a student, otherwise
 
 Command Synonyms:  `mark`, `marka`, `markatt`
 ====
-
+// end::FeatureMarkAttendance[]
+// tag::FeatureExportAttendance[]
 === Exports attendance of a tutorial to csv `exportAttendance`
 
 Exports attendance of a tutorial.
@@ -474,8 +490,8 @@ The filename field is optional and the tutorial name will be specified as the fi
 ****
 Command Synonyms: `export`, `exporta`, `exportatt`, `exportattendance`
 ====
-
-
+// end::FeatureExportAttendance[]
+// tag::FeatureAddAssignment[]
 === Adding an Assignment : `addAssignment`
 
 Adds an assignment to a Tutorial.
@@ -507,7 +523,8 @@ This will be in the format:
 
 Command Synonyms: `export`, `exporta`, `exportatt`, `exportattendance`
 ====
-
+// end::FeatureAddAssignment[]
+// tag::FeatureDeleteAssignment[]
 === Deleting an Assignment : `deleteAssignment`
 
 Deletes an Assignment from a Tutorial.
@@ -538,7 +555,8 @@ This will be in the format:
 
 Command Synonyms: `dela`, `delassn`, `delasm`, `deleteassignment`
 ====
-
+// end::FeatureDeleteAssignment[]
+// tag::FeatureSetAssignmentScore[]
 === Set an Assignment score for a Student : `setAssignmentScore`
 
 Sets an Assignment score for a Student.
@@ -562,7 +580,8 @@ This will be in the format:
 ****
 Command synonyms: `sets`, `setscore`, `setsc`, `setassignmentscore`
 ====
-
+// end::FeatureSetAssignmentScore[]
+// tag::FeatureAddEvent[]
 === Adding an Event : `addEvent`
 
 Adds an Event to a Tutorial.
@@ -592,7 +611,8 @@ You can specify the full tutorial name and module code instead of the index
 
 Command synonyms: `adde`, `addev`, `addevnt`
 ====
-
+// end::FeatureAddEvent[]
+// tag::FeatureDeleteEvent[]
 === Deleting an Event : `deleteEvent`
 
 Adds an Event to a Tutorial.
@@ -626,8 +646,8 @@ This will be the format:
 
 Command synonyms: `delevnt`, `dele`, `delev`
 ====
-
-
+// end::FeatureDeleteEvent[]
+// tag::FeatureEditEvent[]
 === Editing an Event : `editEvent`
 
 Edits an Event in a Tutorial.
@@ -659,7 +679,8 @@ Event detail fields (EVENT_NAME, START_DATE, END_DATE) are optional.
 
 Command synonyms: `edev`, `editev`, `edite`
 ====
-
+// end::FeatureEditEvent[]
+// tag::FeatureListEvent[]
 === List Events in a Tutorial : `listEvents`
 
 Lists Events in a Tutorial.
@@ -683,7 +704,8 @@ This will be in the format:
 
 Command synonyms: `liste`, `listev`, `listevnt`
 ====
-
+// end::FeatureListEvent[]
+// tag::FeatureSetSemStart[]
 === Set start of semester : `setSemStart`
 
 Sets the start date of the semester. Determines dates of tutorial Events.
@@ -700,7 +722,7 @@ Example:
 ====
 Command synonyms: `setsemstart`, `setst`, `setsem`
 ====
-
+// end::FeatureSetSemStart[]
 === Mark Participation for a Student : `classPart` [coming in v2.0]
 
 Gives participation marks to a student of a particular tutorial slot
@@ -729,6 +751,7 @@ Format: `exit`
 All data in T.A.rence is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::enhancements[]
 == Enhancements
 
 T.A.rence contains a few input correction features to enhance usability.
@@ -757,6 +780,7 @@ E.g.: with `addTutorial m/GE` in the input box, pressing "CTRL" changes the disp
 === Command History
 
 Every command entered into T.A.rence is saved. Press the "UP" key to bring up older commands and the "DOWN" key to move back to more recent ones.
+// end::enhancements[]
 
 == FAQ
 

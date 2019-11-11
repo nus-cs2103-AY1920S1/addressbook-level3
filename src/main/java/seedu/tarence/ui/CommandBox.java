@@ -61,7 +61,6 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
             setStyleToDefault();
             try {
-                handlePastInput(null);
                 handleAutocomplete();
             } catch (ParseException | CommandException e) {
                 e.printStackTrace();
@@ -156,6 +155,7 @@ public class CommandBox extends UiPart<Region> {
         } else if (keyCode.equals(KeyCode.DOWN)) {
             pastInputExecutor.execute("down");
         } else {
+            // reset command history index, i.e. display the latest command the next time "up" is pressed
             pastInputExecutor.execute("");
         }
     }
@@ -191,14 +191,15 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleKeyPressed(KeyEvent keyEvent) throws CommandException, ParseException {
+        // command history handler
+        handlePastInput(keyEvent.getCode());
+
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             handleCommandEntered();
         } else if (keyEvent.getCode().equals(KeyCode.TAB)) {
             handleAutofillWithSuggestion();
         } else if (keyEvent.getCode().equals(KeyCode.CONTROL)) {
             handleNextSuggestion();
-        } else if (keyEvent.getCode().equals(KeyCode.UP) || keyEvent.getCode().equals(KeyCode.DOWN)) {
-            handlePastInput(keyEvent.getCode());
         } else if (keyEvent.getCode().equals(KeyCode.PAGE_DOWN) || keyEvent.getCode().equals(KeyCode.PAGE_UP)) {
             handleScrollPanel(keyEvent.getCode());
         } else if (keyEvent.getCode().equals(KeyCode.BACK_SPACE)) {
