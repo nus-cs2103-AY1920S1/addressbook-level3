@@ -1,0 +1,2947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>PalPay - Developer Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>PalPay - Developer Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-18">
+<p>By: <code>Team AY1920S1-CS2103T-W12-3</code>      Since: <code>Sep 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a>
+<ul class="sectlevel2">
+<li><a href="#_purpose">1.1. Purpose</a></li>
+<li><a href="#_audience">1.2. Audience</a></li>
+<li><a href="#_description">1.3. Description</a></li>
+</ul>
+</li>
+<li><a href="#_setting_up">2. Setting up</a></li>
+<li><a href="#_design">3. Design</a>
+<ul class="sectlevel2">
+<li><a href="#Design-Architecture">3.1. Architecture</a></li>
+<li><a href="#Design-Ui">3.2. UI Component</a></li>
+<li><a href="#Design-Logic">3.3. Logic Component</a></li>
+<li><a href="#Design-Model">3.4. Model Component</a></li>
+<li><a href="#Design-Storage">3.5. Storage Component</a></li>
+<li><a href="#Design-Commons">3.6. Common Classes</a></li>
+</ul>
+</li>
+<li><a href="#_implementation">4. Implementation</a>
+<ul class="sectlevel2">
+<li><a href="#_transaction_in_out">4.1. Transaction: <code>in</code> / <code>out</code></a></li>
+<li><a href="#_set_budget_feature_set">4.2. Set Budget Feature: <code>set</code></a></li>
+<li><a href="#_split_feature_split">4.3. Split Feature: <code>split</code></a></li>
+<li><a href="#_settle_up_feature_receive">4.4. Settle Up Feature: <code>receive</code></a></li>
+<li><a href="#Implementation-Projection">4.5. Project Feature: <code>project</code></a></li>
+<li><a href="#_display_feature_display">4.6. Display Feature: <code>display</code></a></li>
+<li><a href="#_view_feature_view">4.7. View Feature: <code>view</code></a></li>
+<li><a href="#_delete_transaction_feature_delete">4.8. Delete Transaction Feature: <code>delete</code></a></li>
+<li><a href="#_update_existing_entry_feature_update">4.9. Update Existing Entry Feature: <code>update</code></a></li>
+<li><a href="#_sort_feature_sort">4.10. Sort Feature: <code>sort</code></a></li>
+<li><a href="#_filter_feature_filter">4.11. Filter Feature: <code>filter</code></a></li>
+<li><a href="#_undo_redo_command_feature_undoredo">4.12. Undo / Redo Command Feature: <code>undo</code>/<code>redo</code></a></li>
+<li><a href="#_logging">4.13. Logging</a></li>
+<li><a href="#Implementation-Configuration">4.14. Configuration</a></li>
+</ul>
+</li>
+<li><a href="#_documentation">5. Documentation</a></li>
+<li><a href="#_testing">6. Testing</a></li>
+<li><a href="#_dev_ops">7. Dev Ops</a></li>
+<li><a href="#_product_scope">Appendix A: Product Scope</a></li>
+<li><a href="#User-Stories">Appendix B: User Stories</a></li>
+<li><a href="#_use_cases">Appendix C: Use Cases</a></li>
+<li><a href="#_non_functional_requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#_glossary">Appendix E: Glossary</a></li>
+<li><a href="#_instructions_for_manual_testing">Appendix F: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#_launch_and_shutdown">F.1. Launch and Shutdown</a></li>
+<li><a href="#_adding_an_in_transaction">F.2. Adding an In Transaction</a></li>
+<li><a href="#_adding_an_out_transaction">F.3. Adding an Out Transaction</a></li>
+<li><a href="#_adding_a_budget">F.4. Adding a Budget</a></li>
+<li><a href="#_adding_a_split_ledger">F.5. Adding a Split Ledger</a></li>
+<li><a href="#_adding_a_receive_ledger">F.6. Adding a Receive Ledger</a></li>
+<li><a href="#_switching_tabs">F.7. Switching Tabs</a></li>
+<li><a href="#_deleting_an_entry">F.8. Deleting an Entry</a></li>
+<li><a href="#_updating_an_entry">F.9. Updating an Entry</a></li>
+<li><a href="#_sorting_the_transactions">F.10. Sorting the Transactions</a></li>
+<li><a href="#_viewing_help_window">F.11. Viewing Help Window</a></li>
+<li><a href="#_saving_data">F.12. Saving Data</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-20">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-22">
+<h3 id="_purpose">1.1. Purpose</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-24">
+<p>This document describes the architecture and system design of <em>PalPay</em>.
+It is a living document that evolves throughout the design and implementation for each release.
+Each release will have an edition of the document, and the current edition of the document is for the first public release of the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-28">
+<p>This document aims to cover the high-level system architecture and design.
+It is segmented into two major parts: software design, including system architecture, and design implementation.
+The software design illustrates the main software components that operate and support the main system architecture.
+Essential details such as the user stories, use cases, and the Non Functional Requirements are included at the back of this document.</p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-33">
+<h3 id="_audience">1.2. Audience</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-35">
+<p>This document is written for software engineers who desires a deeper insight of the system architecture and design of this application - PalPay.
+In particular, the intended audience of this document will be the students taking on the roles of the developers, designers, and software testers of <em>PalPay</em> from CS2103T - Software Engineering.</p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-38">
+<h3 id="_description">1.3. Description</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-40">
+<p><em>PalPay</em> is a CLI application targeted for users who have poor financial management skills. The users should also prefer typing over mouse inputs.
+It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success. Additionally, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-43">
+<p>Below is the Graphical User Interface (GUI) of PalPay:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-46">
+<div class="content">
+<img src="images/dg_gui_example.png" alt="dg gui example">
+</div>
+<div class="title">Figure 1. PalPay&#8217;s GUI</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-48">
+<h2 id="_setting_up">2. Setting up</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-50">
+<p>Refer to the guide <a href="SettingUp.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-52">
+<h2 id="_design">3. Design</h2>
+<div class="sectionbody">
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-55">
+<h3 id="Design-Architecture">3.1. Architecture</h3>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-58">
+<div class="content">
+<img src="images/ArchitectureDiagram.png" alt="ArchitectureDiagram">
+</div>
+<div class="title">Figure 2. Architecture Diagram</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-60">
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App.
+Given below is a quick overview of each component.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-63">
+<p><code>Main</code> has two classes called <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/Main.java"><code>Main</code></a> and <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>.
+It is responsible for,</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-66">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-66">
+<p>At app launch: Initializes the components in the correct sequence, and connects them up with each other.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-67">
+<p>At shut down: Shuts down the components and invokes cleanup method where necessary.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-69">
+<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-72">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-72">
+<p><code>LogsCenter</code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-74">
+<p>The rest of the App consists of four components.</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-76">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-76">
+<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: The UI of the App.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-77">
+<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: The command executor.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-78">
+<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: Holds the data of the App in-memory.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-79">
+<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-81">
+<p>Each of the four components</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-83">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-83">
+<p>Defines its <a href="#api"><em>API</em></a> in an <code>interface</code> with the same name as the Component.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-84">
+<p>Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-86">
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-89">
+<div class="content">
+<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
+</div>
+<div class="title">Figure 3. Class Diagram of the Logic Component</div>
+</div>
+<h4 id="_how_the_architecture_components_interact_with_each_other" class="discrete has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-92">How the architecture components interact with each other</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-94">
+<p>The <strong><em>Sequence Diagram</em></strong> below shows how the components interact with each other for the scenario where the user issues the command <code>delete 1</code>.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-97">
+<div class="content">
+<img src="images/ArchitectureSequenceDiagram.png" alt="ArchitectureSequenceDiagram">
+</div>
+<div class="title">Figure 4. Component Interactions for <code>delete t1</code> Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-99">
+<p>The sections below give more details of each component.</p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-102">
+<h3 id="Design-Ui">3.2. UI Component</h3>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-105">
+<div class="content">
+<img src="images/UiClassDiagram.png" alt="UiClassDiagram">
+</div>
+<div class="title">Figure 5. Structure of the UI Component</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-107">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-109">
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code> etc.
+All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-112">
+<p>The <code>UI</code> component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder.
+For example, the layout of the <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-116">
+<p>The <code>UI</code> component,</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-118">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-118">
+<p>Executes user commands using the <code>Logic</code> component.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-119">
+<p>Listens for changes to <code>Model</code> data so that the UI can be updated with the modified data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-122">
+<h3 id="Design-Logic">3.3. Logic Component</h3>
+<div id="fig-LogicClassDiagram" class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-126">
+<div class="content">
+<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram">
+</div>
+<div class="title">Figure 6. Structure of the Logic Component</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-128">
+<p><strong>API</strong> :
+<a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-131">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-131">
+<p><code>Logic</code> uses the <code>BankAccountParser</code> class to parse the user command.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-132">
+<p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-133">
+<p>The command execution can affect the <code>Model</code> (e.g. adding a transaction).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-134">
+<p>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-135">
+<p>In addition, the <code>CommandResult</code> object can also instruct the <code>Ui</code> to perform certain actions, such as displaying help to the user.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-137">
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete t1")</code> API call.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-140">
+<div class="content">
+<img src="images/DeleteSequenceDiagram.png" alt="DeleteSequenceDiagram">
+</div>
+<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>delete t1</code> Command</div>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-142">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The lifeline for <code>DeleteCommandParser</code> should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-145">
+<h3 id="Design-Model">3.4. Model Component</h3>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-148">
+<div class="content">
+<img src="images/ModelClassDiagram.png" alt="ModelClassDiagram">
+</div>
+<div class="title">Figure 8. Structure of the Model Component</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-150">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-152">
+<p>The <code>Model</code>,</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-154">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-154">
+<p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-155">
+<p>stores the User State data.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-156">
+<p>exposes an unmodifiable <code>ObservableList&lt;BankAccountOperation&gt;</code>, <code>ObservableList&lt;Budget&gt;</code>, <code>ObservableList&lt;LedgerOperation&gt;</code> and <code>ObservableList&lt;Projection&gt;</code>
+that can be 'observed'.<br>
+For example, the UI can be bound to these lists so that the UI automatically updates when the data in the lists change due to user commands.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-159">
+<p>does not depend on any of the other three components.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-162">
+<h3 id="Design-Storage">3.5. Storage Component</h3>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-165">
+<div class="content">
+<img src="images/StorageClassDiagram.png" alt="StorageClassDiagram">
+</div>
+<div class="title">Figure 9. Structure of the Storage Component</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-167">
+<p><strong>API</strong> : <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-169">
+<p>The <code>Storage</code> component,</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-171">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-171">
+<p>can save <code>UserPref</code> objects in json format and read it back.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-172">
+<p>can save the Bank Account data in json format and read it back.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-175">
+<h3 id="Design-Commons">3.6. Common Classes</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-177">
+<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-179">
+<h2 id="_implementation">4. Implementation</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-181">
+<p>This section describes some noteworthy details on how certain features are implemented.</p>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-186">
+<h3 id="_transaction_in_out">4.1. Transaction: <code>in</code> / <code>out</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-188">
+<p>The <code>Transaction</code> abstract class allows user to input income and expense statements. Both <code>in</code> and <code>out</code> transactions requires the mandatory <code>Amount</code>, <code>Description</code> and <code>Date</code> fields to be appended. There is an optional <code>Category</code> field which can accept one or more input depending on the user specifications.
+The <code>in</code> transactions will increase the <code>BankAccount</code> balance amount whilst the <code>out</code> transactions will reduce the <code>BankAccount</code> balance amount.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-191">
+<p><code>In</code> Transactions represent the income statements inputted into Palpay.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-193">
+<p><code>Out</code> Transactions represent the expenditure statements inputted into Palpay.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-195">
+<h4 id="_current_implementation">4.1.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-199">
+<p>Given below is an example usage of how <code>in</code> behaves at each step. <code>out</code> command follows a similar logic flow.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-201">
+<p><strong>Step 1</strong>. The user executes <code>in $/200 n/coke d/10102019</code> to input a new income of $100 on 10th November 2019 under the <strong>category</strong> GENERAL.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-203">
+<p><strong>Step 2</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse</code> to parse this input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-205">
+<p><strong>Step 3</strong>. <code>MainParser</code> determines which command is being executed and creates <code>InCommandParser</code> to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-207">
+<p><strong>Step 4</strong>. <code>InCommandParser</code> parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a <code>InCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-210">
+<p><strong>Step 5</strong>. <code>LogicManager</code> uses <code>InCommand#execute()</code> to add a new <code>InTransaction</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-212">
+<p><strong>Step 6</strong>. <code>BankAccount</code> then calls <code>InTransaction#handleBalance()</code> to increase its balance amount by $200.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-214">
+<p><strong>Step 7</strong>. <code>InCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-219">
+<p>The sequence diagram below illustrates how PalPay handles the command input <code>in $/200 n/coke d/10102019</code>. The arguments are parsed into the logic component where the subsequent model objects are created.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-222">
+<div class="content">
+<img src="images/InSequenceDiagram.png" alt="InSequenceDiagram">
+</div>
+<div class="title">Figure 10. Sequence Diagram for Executing an <code>InCommand</code></div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-224">
+<p>The <code>in</code> and <code>out</code> transaction follows the same logic flow after they are parsed.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-226">
+<p>The difference between <code>in</code> and <code>out</code> transactions is that the <code>handleBalance()</code> method called in the <code>BankAccount</code> results in an <code>addAmount</code> operation for the <code>inTransaction</code> and a <code>subtractAmount</code> operation for the <code>OutTransaction</code> class.</p>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-228">
+<h5 id="_example">Example</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-229">
+<p>Given that the <code>BankAccount</code> balance initially starts with 0 dollars.</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-231">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-231">
+<p><code>in</code> Transaction of <code>$1000</code> will increase the <code>BankAccount</code> balance from $0 to $1000.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-232">
+<p><code>out</code> Transaction of <code>$250</code> will subsequently decrease the <code>BankAccount</code> balance from $1000 to $250.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-233">
+<p>The Activity Diagram shown below will provide a visual representation of the two routes a Transaction object can take.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-236">
+<div class="content">
+<img src="images/InActivityDiagram.png" alt="InActivityDiagram">
+</div>
+<div class="title">Figure 11. Activity Diagram for In and Out Transactions</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-238">
+<h4 id="_design_considerations">4.1.2. Design Considerations</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-240">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-240">
+<p>To prevent repetitive code implementation, the <code>Transaction</code> abstract class is used to facilitate income and expenditure logging.  <code>Transaction</code> is an abstract class which contains the default constructor and commonly used variables. <code>InTransaction</code> and <code>OutTransaction</code> extends the <code>Transaction</code> class as they typically store an <strong>amount</strong>, <strong>date</strong>, <strong>description</strong>, and a set of <strong>categories</strong>.
+A code snippet of the <code>Transaction</code> abstract class is shown below.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-243">
+<div class="content">
+<pre class="CodeRay highlight"><code>public abstract class Transaction {
+
+    protected Amount amount;
+    protected Date date;
+    protected Description description;
+    protected final Set&lt;Category&gt; categories = new HashSet&lt;&gt;();
+
+    public Transaction(Amount amount, Date date, Description description) {
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
+    }</code></pre>
+</div>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-258">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-258">
+<p>The balance in <code>BankAccount</code> and the balance in <code>Ledger</code> are considered two separate identities, both being encompassed under the <code>UserState</code> class.
+Therefore user operations that deal with <code>BankAccount</code> implements the <code>BankAccountOperation</code> interface, while operations
+that deal with <code>Ledger</code> implements the <code>LedgerOperation</code> interface.<br></p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-261">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-261">
+<p>This allows us to achieve polymorphism by overloading methods in <code>Model</code> to handle the different operations correctly.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-262">
+<p>This reduces code coupling as there are different models to handle different balance amounts.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-264">
+<p>A <code>Transaction</code> entry can affect a <code>Budget</code> which has similar categories and is within the same time period. The activity diagram bellow will further clarify this flow.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-265">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-265">
+<p>Only <code>Out</code> Transactions can affect <code>Budget</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-266">
+<p>The activity diagram below shows how and when a <code>Transaction</code> object affects <code>Budget</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-269">
+<div class="content">
+<img src="images/OutbudgetActivityDiagram.png" alt="OutbudgetActivityDiagram">
+</div>
+<div class="title">Figure 12. Activity Diagram for Out Transaction Affecting Budget</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-275">
+<h3 id="_set_budget_feature_set">4.2. Set Budget Feature: <code>set</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-277">
+<p>The <code>Budget</code> class allows the user to set a budget for a given time period for a category, if specified.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of <strong>amount</strong>, <strong>date</strong> and <strong>category</strong>) are not allowed.
+Upon setting the budget, making <code>OutTransaction</code> will deduct the amount from relevant budgets in the list.
+The detailed implementation of the process of updating the budget is explained further below in <a href="#Current-Implementation">Current Implementation</a>.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-283">
+<h4 id="Current-Implementation">4.2.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-285">
+<p>The <code>set</code> command is an extension of parent <code>Command</code> class, facilitated by the <em>Logic</em> and <em>Model</em> components of the application, <em>PalPay</em><br>
+Given an <strong>amount</strong> and <strong>date</strong>, a new Budget is set for the user.<br>
+Upon setting a new budget, a <code>BudgetCard</code> is created and displayed in a list in the application window till the date set by the user.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-289">
+<p>A <code>Budget</code> stores an <strong>initial amount</strong>, <strong>amount</strong> (the current amount), <strong>deadline</strong>, <strong>categories</strong>.
+There is a need for a <code>Budget</code> to store both <strong>initial amount</strong> and <strong>amount</strong> as it allows for percentage of budget remaining to be calculated.<br>
+Shown below is the class diagram of <code>Budget</code> class:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-294">
+<div class="content">
+<img src="images/BudgetClassDiagram.png" alt="BudgetClassDiagram">
+</div>
+<div class="title">Figure 13. Class Diagram of Budget class</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-297">
+<p>Displaying the percentage remaining improves the user experience greatly as our target user is a
+<code>visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary</code>
+as specified in the <a href="#User-Stories">User Story</a>. Hence, taking a quick glance at the <code>Budget card</code> allows the user to
+determine how much of budget he has left, as well as be alarmed by the red font color to spend less if he has overspent beyond the budget set.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-302">
+<p>A snippet of the code which calculates the percentage of budget left is shown below:</p>
+</div>
+<div class="listingblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-304">
+<div class="content">
+<pre class="CodeRay highlight"><code>public String displayPercentage() {
+    double percentage = this.amount.divideAmount(this.initialAmount) * 100;
+    if (percentage &lt; 0.00) {
+        percentage = 0.0; // should not display a negative percentage
+    } else if (percentage &gt; 100.00) {
+        percentage = 100.0; // should not display a percentage greater than 100%
+    }
+    return String.format(&quot;%.2f%% remaining&quot;, percentage);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-316">
+<p>Moreover, as our user is a visual person, PalPay makes use of color to display different messages.
+For instance, budget is displayed in red to alert the user that he has overspent beyond the set budget.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-319">
+<p>Shown below is an example of an overspent budget:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-322">
+<div class="content">
+<img src="images/overspentBudget.png" alt="overspentBudget">
+</div>
+<div class="title">Figure 14. Example of an Overspent Budget</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-325">
+<p>When setting a new <code>Budget</code>, existence of a duplicate budget is checked through a sequence of checks.
+The activity diagram below shows the activity diagram of setting a new budget:</p>
+</div>
+<div id="Duplicate-budget-check" class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-331">
+<div class="content">
+<img src="images/SetBudgetSimpleActivityDiagram.png" alt="SetBudgetSimpleActivityDiagram">
+</div>
+<div class="title">Figure 15. Activity Diagram of Setting a New Budget Successfully</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-333">
+<p>As shown, a new budget cannot have the same <strong>initalAmount</strong>, <strong>deadline</strong> and <strong>categories</strong> as any other existing budget in
+budget list. Allowing existence of duplicate budgets will crowd the interface of <code>Budget</code> tab,
+which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
+in providing a pleasing user exp.<br></p>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-338">
+<h4 id="_example_of_usage">4.2.2. Example of Usage</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-340">
+<p>Given below is an example usage of how <code>set</code> behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-342">
+<p><strong>Step 1</strong>. The user executes <code>set $/100 d/31122019 c/shopping</code> to set a new budget of $100 until 31st December 2019 under the <strong>category</strong> shopping.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-345">
+<div class="content">
+<img src="images/set_dg_1.png" alt="set dg 1">
+</div>
+<div class="title">Figure 16. User Inputs <code>set $/100 d/31122019 c/shopping</code></div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-347">
+<p><strong>Step 2</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-349">
+<p><strong>Step 3</strong>. <code>MainParser</code> determines which command is being executed and creates <code>SetCommandParser</code> to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-351">
+<p><strong>Step 4</strong>. <code>SetCommandParser</code> parses the argument and checks if it is valid. If it is invalid, an exception is thrown.
+Else, it returns a <code>SetCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-354">
+<p><strong>Step 5</strong>. <code>LogicManager</code> uses <code>SetCommand#execute()</code> to add a new budget.<br>
+<code>SetCommand</code> uses <code>ModelManager#has(Budget)</code> to check if it is a duplicate of an existing budget
+in the <code>UniqueBudgetList</code> as shown above in <a href="#Duplicate-budget-check">the above diagram</a>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-358">
+<p><strong>Step 6</strong>. <code>SetCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user at the end.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-362">
+<div class="content">
+<img src="images/set_dg_2.png" alt="set dg 2">
+</div>
+<div class="title">Figure 17. New Budget Successfully Created</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-365">
+<h4 id="_design_considerations_2">4.2.3. Design Considerations</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-367">
+<p>Currently, <code>Budget</code> does not extend from <code>Transaction</code> although the two behave in a similar way.
+There is an aggregation between <code>Budget</code> and <code>Transaction</code> as the two can exist independent of each other,
+although an effect on one may also cause an impact on the other.
+The current design was chosen over the former design of inheritance as there is a stark difference in the two
+in a way that <code>Budget</code> does not affect the <code>balance</code> of the user&#8217;s bank account directly while <code>Transaction</code> does.
+Hence, by Liskov Substitution Principle, inheritance is not a suitable design.<br></p>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-377">
+<h3 id="_split_feature_split">4.3. Split Feature: <code>split</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-379">
+<p>This feature allows the user to pay for a certain item or make a transaction on behalf of his friends.
+Refer to the <a href="UserGuide.html#Features">UserGuide</a> for usage details.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-382">
+<h4 id="_current_implementation_2">4.3.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-383">
+<p>The <code>split</code> command is an abstraction of <code>LendMoney</code> class.<br>
+Given a list of <strong>shares</strong> and <strong>people</strong>, each person is assigned an <strong>amount</strong> based on the corresponding positional share and the total amount given to <code>split</code> command.<br>
+A <code>LendMoney</code> instance is created for each person and executed.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-388">
+<p>Below shows how a typical command from the user is executed by the program.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-391">
+<div class="content">
+<img src="images/Split.png" alt="Split">
+</div>
+<div class="title">Figure 18. Sequence Diagram for Executing a <code>SplitCommand</code></div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-393">
+<p><strong>Step 1</strong>: User enters <code>split $/200 n/a n/b n/c a/desc</code> into the command line to split <strong>$200</strong> among <strong>a</strong>, <strong>b</strong> and <strong>c</strong>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-395">
+<p><strong>Step 2</strong>: Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-397">
+<p><strong>Step 3</strong>: <code>MainParser</code> determines that user input is an instance of a <code>SplitCommand</code> and creates a <code>SplitCommandParser</code>
+to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-400">
+<p><strong>Step 4</strong>: <code>SplitCommandParser</code> parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a <code>SplitCommand</code>. Else, an error is thrown to the result box and the execution
+terminates.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-404">
+<p><strong>Step 5</strong>: <code>LogicManager</code> uses <code>SplitCommand#execute()</code> to update the balances of <code>Ledger</code> and people involved in the
+transaction.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-407">
+<p><strong>Step 6</strong>: <code>SplitCommand#execute()</code> calls <code>Model#add()</code> to add the user input into the user history.
+Within the function call, the actual update of balances is handled in <code>Ledger#handleOperation()</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-410">
+<p><strong>Step 7</strong>: <code>SplitCommand</code> calls <code>Model#commitUserState()</code> after executing to save the latest state of the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-412">
+<p><strong>Step 8</strong>: A <code>CommandResult</code> is then returned to the <code>LogicManager</code> which is then displayed to the user.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-416">
+<div class="content">
+<img src="images/SplitBehaviour.png" alt="SplitBehaviour">
+</div>
+<div class="title">Figure 19. Activity Diagram for Creating a <code>Split</code> Object</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-418">
+<h4 id="_design_considerations_3">4.3.2. Design Considerations</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-420">
+<p>Below shows how the classes involved with <code>Ledger</code> interact with each other.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-423">
+<div class="content">
+<img src="images/LedgerOperationDiagram.png" alt="LedgerOperationDiagram">
+</div>
+<div class="title">Figure 20. Class Diagram for Operations that Deal with Ledger</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-425">
+<p>Current implementation of <code>Split</code> class encourages code reuse by abstracting the delegating the task of rebalancing to another class.<br>
+However, this introduces coupling as the behavior of <code>Split</code> is now inexplicably tied to <code>LendMoney</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-431">
+<h3 id="_settle_up_feature_receive">4.4. Settle Up Feature: <code>receive</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-433">
+<p>This feature allows another person to send money to the user.<br>
+The balance in the <code>Ledger</code> and the balance of the sender is updated accordingly.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-436">
+<h4 id="_current_implementation_3">4.4.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-438">
+<p>The <code>receive</code> command creates <code>ReceiveMoney</code> class that handles the transfer of fund from another person to the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-440">
+<p>How <code>receive</code> relates to the rest of the <code>Ledger</code> classes can be inferred from the
+class diagram above.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-443">
+<p>In the <code>handleBalance</code> method of <code>ReceiveMoney</code>, it will find the correct person in the <code>Ledger</code> by name,
+or create a new <code>Person</code> with given <strong>name</strong> if it is not already in the <code>Ledger</code>.<br>
+Balance of the user and the sender is then updated accordingly.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-447">
+<p>Below is an example usage scenario for how <code>receive</code> would behave.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-449">
+<p><strong>Step 1</strong>: User enters <code>receive $/200 n/a</code> into the command line to settle up <strong>$200</strong> from <strong>a</strong>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-451">
+<p><strong>Step 2</strong>: Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-453">
+<p><strong>Step 3</strong>: <code>MainParser</code> determines that user input is an instance of a <code>ReceiveCommand</code> and creates a <code>ReceiveCommandParser</code>
+to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-456">
+<p><strong>Step 4</strong>: <code>ReceiveCommandParser</code> parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a <code>ReceiveCommand</code>. Else, an error is thrown to the result box and the execution
+terminates.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-460">
+<p><strong>Step 5</strong>: <code>LogicManager</code> uses <code>ReceiveCommand#execute()</code> to update the balances of <code>Ledger</code> and the person in the
+transaction.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-463">
+<p><strong>Step 6</strong>: <code>ReceiveCommand#execute()</code> calls <code>Model#add()</code> to add the user input into the user history.
+Within the function call, the person in <code>Ledger</code> is found and his/her outstanding balance is updated in <code>Ledger#handleOperation()</code>.<br>
+If he is not already inside the <code>Ledger</code>, a new <code>Person</code> is created with the same name.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-467">
+<p><strong>Step 7</strong>: <code>SplitCommand</code> calls <code>Model#commitUserState()</code> after executing to save the latest state of the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-469">
+<p><strong>Step 8</strong>: A <code>CommandResult</code> is then returned to the <code>LogicManager</code> which is then displayed to the user.</p>
+</div>
+<div class="listingblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-472">
+<div class="title">Code snippet of <code>handleBalance</code> in ReceiveMoney</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>public class ReceiveMoney extends Payment {
+    @Override
+    public Amount handleBalance(Amount balance, UniquePersonList peopleInLedger) {
+        Person target = super.handleTarget(peopleInLedger);
+        target.spend(amount);
+        return balance.addAmount(amount);
+    }
+}
+
+public abstract class Payment extends Transaction implements LedgerOperations {
+    protected Person handleTarget(UniquePersonList peopleInLedger) {
+        Person personInvolved = person;
+        if (peopleInLedger.contains(person)) {
+            personInvolved = peopleInLedger.get(person).get();
+        } else {
+            peopleInLedger.add(person);
+        }
+        return personInvolved;
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-498">
+<h3 id="Implementation-Projection">4.5. Project Feature: <code>project</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-500">
+<p>This feature allows users to <em>project</em> their balance amount and budget statuses based on past income and outflows as manifest in their
+<em>TransactionHistory</em> by using the command <code>project DATE [CATEGORY]</code>.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-503">
+<h4 id="_current_implementation_4">4.5.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-505">
+<p>The <code>project</code> command is facilitated by the Logic and Model components of the application, <em>PalPay</em>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-507">
+<p>The sequence diagram below demonstrates how the <code>project DATE [CATEGORY]</code> command is handled by the application.
+If a <code>CATEGORY</code> is not specified by the user, it will be set as <code>GENERAL</code> by default.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-511">
+<div class="content">
+<img src="images/ProjectSequenceDiagram.png" alt="ProjectCommand Sequence Diagram">
+</div>
+<div class="title">Figure 21. Sequence Diagram of the Project Command</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-513">
+<h5 id="_projection_by_date">Projection by Date</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-515">
+<p>When projecting by date alone, all transactions in the <em>user</em>'s transaction list will be taken into account,
+regardless of their categories. On the other hand, only budgets without categories (thus belonging to the
+<code>GENERAL</code> category by default) will be projected upon.</p>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-519">
+<h5 id="_projection_by_date_and_category">Projection by Date and Category</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-521">
+<p>When projecting by date and category, all transactions tagged by the specified category will be taken into account.
+Similarly, all budgets tagged with the specified category will be projected upon.</p>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-524">
+<h5 id="_budget_projections">Budget Projections</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-526">
+<p>Projections on budgets are made by first projecting the <em>user</em>'s balance amount at the point when the budget was set.
+Then, it compares the <em>user</em>'s projected balance amount at the point of the budget&#8217;s deadline, with the budget&#8217;s amount.
+A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
+than the latter.
+Given below is an example usage scenario and how the project command executes at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-533">
+<p><strong>Step 1</strong>. The user launches the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-535">
+<p><strong>Step 2</strong>. If the user does not have at least <strong>5</strong> transactions, he / she adds transactions until
+there are sufficient transactions to project upon. Then, the user executes the <code>project</code> command.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-538">
+<p><strong>Step 3</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-540">
+<p><strong>Step 4</strong>. <code>MainParser</code> determines which command is being used and creates <code>ProjectCommandParser</code> to further parse
+the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-543">
+<p><strong>Step 5</strong>. <code>ProjectCommandParser</code> parses the argument and checks if a valid date and category was provided.<br></p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-545">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-545">
+<p>If an invalid date or category was provided, or if no date was provided, <code>ProjectCommandParser</code> throws an exception and terminates.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-547">
+<p>Otherwise, it returns a <code>ProjectCommand</code>, which contains a <code>Date</code> and possibly a <code>Category</code> specified by the user.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-549">
+<p><strong>Step 6</strong>. <code>LogicManager</code> uses <code>ProjectCommand#execute()</code> to project the user&#8217;s balance and budget states at the time
+of the specified <code>Date</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-552">
+<p><strong>Step 7</strong>. <code>ProjectCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user at the end.</p>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-556">
+<h5 id="_activity_diagram">Activity Diagram</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-558">
+<p>The activity diagram below depicts how a projection is made.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-561">
+<div class="content">
+<img src="images/ProjectActivityDiagram.png" alt="ProjectActivityDiagram">
+</div>
+<div class="title">Figure 22. Activity Diagram of the Project Command</div>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-563">
+<h5 id="_graphical_representation">Graphical Representation</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-565">
+<p>A graphical representation of the <em>user</em>'s projections may be rendered using the <code>display</code> command.</p>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-567">
+<h4 id="_future_enhancements">4.5.2. Future Enhancements</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-569">
+<h5 id="_polynomial_regression">Polynomial Regression</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-571">
+<p>For simplicity of logic and design, the current implementation performs linear regression (via gradient descent),
+projecting user balance and budget states using a best-fit straight line. Ultimately, income and spending trends
+may not be best represented by a straight line, but rather by a polynomial equation. In future updates, the <code>projection</code>
+feature will choose a value, <em>n</em>, and perform a <em>n-th</em> degree polynomial regression, such that the user&#8217;s balance
+and budget states can be more accurately projected.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-578">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Currently, the GradientDescent class implements feature scaling and mean normalisation. Although this
+is not entirely necessary for the current implementation (which uses linear regression), it is meant
+for optimizing polynomial regression in future updates.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-582">
+<h5 id="_normal_equation">Normal Equation</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-584">
+<p>Currently, the gradient descent algorithm is used to plot the projection graph, which is used for predicting the
+<em>user</em>'s balance and budget states at specified point in time. For smaller data sets, analytically computing the
+normal equation to find the best-fit line graph may have result in a faster runtime. In future updates, the
+normal equation method will be used in place of the gradient descent algorithm, for projections with less than
+a set number (e.g. 500) of transactions.</p>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-590">
+<h4 id="_design_considerations_4">4.5.3. Design Considerations</h4>
+
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-594">
+<h3 id="_display_feature_display">4.6. Display Feature: <code>display</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-595">
+<p>This feature provides a graphical view of an existing projection to the <em>user</em>.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-597">
+<h4 id="_current_implementation_5">4.6.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-599">
+<p>Given below is an example usage scenario and how the display command executes at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-601">
+<p><strong>Step 1</strong>. The user launches the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-603">
+<p><strong>Step 2</strong>. If the user does not have any existing projections, he / she creates one or more projections.
+Then, the user executes the <code>display</code> command.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-606">
+<p><strong>Step 3</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-608">
+<p><strong>Step 4</strong>. <code>MainParser</code> determines which command is being used and creates <code>DisplayCommandParser</code> to further parse
+the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-611">
+<p><strong>Step 5</strong>. <code>DisplayCommandParser</code> parses the argument and checks if a valid type and index was provided.<br></p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-613">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-613">
+<p>If an invalid type or index was provided, or if no type or index was provided, <code>DisplayCommandParser</code> throws an exception and terminates.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-615">
+<p>Otherwise, it returns a <code>DisplayCommand</code>, which contains a <code>Type</code> and an <code>Index</code> specified by the user.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-617">
+<p><strong>Step 6</strong>. <code>LogicManager</code> uses <code>ProjectCommand#execute()</code> to display the specified <code>projection</code> in a
+new window.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-620">
+<p><strong>Step 7</strong>. <code>DisplayCommand</code> returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user at the end.
+The following activity diagram depicts how the <code>display</code> command is executed.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-625">
+<div class="content">
+<img src="images/DisplayActivityDiagram.png" alt="DisplayActivityDiagram">
+</div>
+<div class="title">Figure 23. Activity Diagram of the Display Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-627">
+<p>For a more concrete illustration of how the <code>display</code> command is handled by <em>PalPay</em>,
+a sequence diagram is provided below.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-631">
+<div class="content">
+<img src="images/DisplaySequenceDiagram.png" alt="DisplaySequenceDiagram">
+</div>
+<div class="title">Figure 24. Sequence Diagram of the Display Command</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-636">
+<h3 id="_view_feature_view">4.7. View Feature: <code>view</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-638">
+<p>This feature allows the user to switch between the different tabs of the application.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-640">
+<h4 id="_current_implementation_6">4.7.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-642">
+<p>The <code>view</code> command is facilitated by the <code>MainWindow</code>, <code>MainTabPanel</code>, <code>ViewCommandParser</code> and <code>ViewCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-644">
+<p>Given below is an example usage of how <code>view</code> behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-646">
+<p><strong>Step 1</strong>. The user launches the application and views the transaction tab.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-648">
+<p><strong>Step 2</strong>. The user now executes <code>view budget</code> to switch to the budget tab.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-650">
+<p><strong>Step 3</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-652">
+<p><strong>Step 4</strong>. <code>MainParser</code> determines which command is being used and creates <code>ViewCommandParser</code> to further parse the input
+from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-655">
+<p><strong>Step 5</strong>. <code>ViewCommandParser</code> parses the argument and checks if it is valid. If it is
+invalid, <code>ViewCommandParser</code> throws an exception and terminates. Else, it returns a <code>ViewCommand</code> that contains a <code>Tab</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-658">
+<p><strong>Step 6</strong>. <code>LogicManager</code> uses <code>ViewCommand#execute()</code> to switch to the budget tab.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-660">
+<p><strong>Step 7</strong>. <code>ViewCommand</code> returns a <code>CommandResult</code> to the <code>LogicManager</code> with the <code>Tab</code>. <code>LogicManager</code> then
+returns the <code>CommandResult</code> to <code>MainWindow</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-663">
+<p><strong>Step 8</strong>. <code>MainWindow</code> checks if there is a need to switch <code>Tab</code>. If there is, <code>MainWindow</code> uses
+<code>MainWindow#handleSwitchTab()</code> to switch tab. Else, <code>MainWindow</code> does nothing.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-666">
+<p>The following activity diagram shows the flow of the <code>view</code> command.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-669">
+<div class="content">
+<img src="images/ViewActivityDiagram.png" alt="ViewActivityDiagram">
+</div>
+<div class="title">Figure 25. Activity Diagram for <code>View</code></div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-673">
+<h3 id="_delete_transaction_feature_delete">4.8. Delete Transaction Feature: <code>delete</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-675">
+<p>This feature allows the user to delete an existing transaction, budget, ledger or projection entry from their respective lists.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-677">
+<h4 id="_current_implementation_7">4.8.1. Current Implementation</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-679">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-679">
+<p>The delete feature is facilitated by the Logic and Model components of the application.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-680">
+<p>The delete feature works for <code>Transaction</code>, <code>Budget</code>, <code>Ledger</code> and <code>Projection</code> entries.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-682">
+<p>Given below is an example usage of how <code>delete</code> behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-684">
+<p><strong>Step 1</strong>. The user executes <code>delete t1</code> to delete the first entry from the transaction list.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-686">
+<p><strong>Step 2</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse</code> to parse this input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-688">
+<p><strong>Step 3</strong>. <code>MainParser</code> determines which command is being executed and creates <code>DeleteCommandParser</code> to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-690">
+<p><strong>Step 4</strong>. <code>DeleteCommandParser</code> parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a <code>DeleteCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-693">
+<p><strong>Step 5</strong>. <code>LogicManager</code> uses <code>DeleteCommand#execute()</code> to delete either the <code>Transaction</code>, <code>Budget</code>, <code>Ledger</code> or <code>Projection</code> from their respective unique lists.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-695">
+<p><strong>Step 6</strong>. <code>DeleteCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user.</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-698">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-698">
+<p>The following activity diagram summarizes what happens when a user executes a <code>delete</code> command:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-701">
+<div class="content">
+<img src="images/DeleteActivityDiagram.png" alt="DeleteActivityDiagram">
+</div>
+<div class="title">Figure 26. Activity Diagram for <code>delete</code> command</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-703">
+<h4 id="_design_consideration">4.8.2. Design Consideration</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-705">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-705">
+<p>The <code>delete</code> keyword is followed by a <code>TYPE+INDEX</code> parameter.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-706">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-706">
+<p><code>Transaction</code> entries takes in <code>t</code> as its <code>TYPE</code> parameter.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-707">
+<p><code>Budget</code> entries takes in <code>b</code> as its <code>TYPE</code> parameter.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-708">
+<p><code>Ledger</code> entries takes in <code>l</code> as its <code>TYPE</code> parameter.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-709">
+<p><code>Projection</code> entries takes in <code>p</code> as its <code>TYPE</code> parameter.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-710">
+<p>The <code>index</code> parameter refers to the entry number within the <code>TYPE</code> entry&#8217;s view tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-711">
+<p>Example: <code>delete t5</code> deletes the 5th entry from the list of transactions if that particular entry exists.</p>
+</li>
+</ul>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-713">
+<h5 id="_aspect_delete_requires_typeindex_as_one_of_its_parameter">Aspect: Delete requires <code>TYPE+INDEX</code> as one of its parameter</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-715">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-715">
+<p><strong>Alternative 1 (current choice):</strong> takes in <code>TYPE+INDEX</code> to decide whether to delete an item from Transaction, Budget, Ledger or Projection list. (e.g. <code>delete b1</code> deletes item index 1 from budget).</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-716">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-716">
+<p>Pros: Requires lesser user steps to be taken before executing a <code>delete</code> command.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-717">
+<p>Cons: Requires four unique lists to be created instead of 1. (e.g. the <code>UniqueTransactionList</code> stores Transaction items and the <code>UniqueBudgetList</code> to store Budget items).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-718">
+<p>For example, when a new command is executed, we must remember to delete both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-719">
+<p><strong>Alternative 2:</strong> Change to <strong>Transaction</strong>, <strong>Budget</strong>, <strong>Ledger</strong> or <strong>Projection</strong> mode and keying in only index (e.g. <code>delete 1</code>)</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-720">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-720">
+<p>Pros: Requires only one unique list required to store all operation types.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-721">
+<p>Cons: Requires additional user step to switch between modes before executing a updating command.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-728">
+<h3 id="_update_existing_entry_feature_update">4.9. Update Existing Entry Feature: <code>update</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-730">
+<p>This feature currently allows users to update <code>Transaction</code> or <code>Budget</code> entries. The user is unable to perform this feature on <code>Ledger</code> operations. The rationale for this will be further explained in <a href="#Aspect2">Section 4.9.2.2, &#8220;Aspect 2: Update can not edit Ledger Operations&#8221;</a>. The user is currently unable to perform this feature on <code>Projection</code> operations as it will be further implemented in future updates.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-732">
+<h4 id="_current_implementation_8">4.9.1. Current Implementation</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-736">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-736">
+<p>The update feature is facilitated by the Logic and Model components of the application.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-737">
+<p>The parameter requirements differs for the type of entry:</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-738">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-738">
+<p><code>Transaction</code> type requires at least one of it&#8217;s <code>Amount</code>, <code>Description</code>, <code>Date</code> or <code>Category</code> fields to be updated.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-739">
+<p><code>Budget</code> type requires at least one of it&#8217;s <code>Amount</code>, <code>Date</code> or <code>Category</code> fields to be updated.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-740">
+<p><code>Project</code> type requires it&#8217;s <code>Date</code> and <code>Category</code> fields to be updated (Future implementation).</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-741">
+<p>At least one valid parameter must be changed when executing an <code>update</code> command. (i.e. <code>update b1</code> will result in an error as no fields are being changed).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-743">
+<p><strong>Step 1</strong>. The user executes <code>update t2 $/200</code> to update the second entry&#8217;s amount, from the transaction list, to $200 .</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-745">
+<p><strong>Step 2</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse</code> to parse this input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-747">
+<p><strong>Step 3</strong>. <code>MainParser</code> determines which command is being executed and creates <code>UpdateCommandParser</code> to further parse the input.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-749">
+<p><strong>Step 4</strong>. <code>UpdateCommandParser</code> parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a <code>UpdateCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-752">
+<p><strong>Step 5</strong>. <code>LogicManager</code> uses <code>UpdateCommand#execute()</code> to update either the <code>Transaction</code> or <code>Budget</code> from their respective unique lists.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-754">
+<p><strong>Step 6</strong>. <code>UpdateCommand#execute()</code> uses the <code>UpdateTransactionDescriptor</code> class to create a new instance of a transaction or budget with the appended variables.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-756">
+<p><strong>Step 7</strong>. <code>Model</code> from <code>UpdateCommand</code> then changes the necessary fields of this entry.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-758">
+<p><strong>Step 8</strong>. <code>UpdateCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user.</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-761">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-761">
+<p>The following activity diagram summarizes what happens when a user executes an update command:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-764">
+<div class="content">
+<img src="images/UpdateActivityDiagram.png" alt="UpdateActivityDiagram">
+</div>
+<div class="title">Figure 27. Activity Diagram for <code>update</code></div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-767">
+<h4 id="_design_considerations_5">4.9.2. Design Considerations</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-769">
+<p>The <code>update</code> feature allows one or more fields of a Transaction or Budget to be updated. (e.g. <code>update t1 $/2</code> and <code>update t1 $/2 d/10102019</code> will both work as intended).</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-771">
+<p>More often than not, users do not need to change an entire Transaction or Budget entry. This will minimize inputs from users if they do not require every single parameters of a Transaction or Budget to be changed.</p>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-775">
+<h5 id="_aspect_1_update_requires_typeindex_as_one_of_its_parameter">Aspect 1: Update requires <code>TYPE+INDEX</code> as one of its parameter</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-777">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-777">
+<p><strong>Alternative 1 (current choice):</strong> takes in <code>TYPE+INDEX</code> to decide whether to update an item from Transaction, Budget or Projection list. (e.g. <code>delete b1</code> deletes item index 1 from budget).</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-778">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-778">
+<p>Pros: Requires lesser user steps to be taken before executing an <code>update</code> command.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-779">
+<p>Cons: Requires 2 unique lists to be utilized instead of 1. (e.g. the <code>UniqueTransactionList</code> stores Transaction items and the <code>UniqueBudgetList</code> to store Budget items).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-780">
+<p>For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedAddressBook</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-781">
+<p><strong>Alternative 2:</strong> Change to <strong>Transaction</strong>, <strong>Budget</strong> or <strong>Projection</strong> mode and keying in only index (e.g. <code>update 1 ..</code>).</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-782">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-782">
+<p>Pros: Requires only one unique list required to store all operation types.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-783">
+<p>Cons: Requires additional user step to switch between modes before executing a updating command.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-787">
+<h5 id="Aspect2">Aspect 2: Update can not edit Ledger Operations</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-789">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-789">
+<p><strong>Alternative 1 (current choice):</strong> Update Command does not work with <code>Ledger</code> operations.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-790">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-790">
+<p>Pros: Intuitive implementation and execution for the user.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-791">
+<p>Cons: Requires excessive user operations.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-792">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-792">
+<p>The user has to first delete the <code>Ledger</code> operation that he/she wishes to change, followed by inputting the <code>Ledger</code> operation with the amended fields back into <em>PalPay</em>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-793">
+<p><strong>Alternative 2:</strong> Update Command to also work with <code>Ledger</code> operations.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-794">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-794">
+<p>Pros: Requires only one user command to append or change <code>Ledger</code> entries.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-795">
+<p>Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the <code>Split</code> feature.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-796">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-796">
+<p><code>Ledger</code> operations such as <code>split</code> includes many repeated fields (i.e. multiple <code>Persons</code> and <code>shares</code> list).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-797">
+<p>Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to amend.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-799">
+<h4 id="_future_enhancements_2">4.9.3. Future Enhancements</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-801">
+<h5 id="_update_feature_for_projections">Update feature for Projections</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-802">
+<p>Currently the update feature has not been implemented for <code>Projection</code> operations. In future iterations of PalPay, the update feature should work seamlessly with <code>Projection</code> operations, similar to that of <code>Transaction</code> and <code>Budget</code> operations</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-804">
+<p>The activity diagram below will provide a visual representation of the possible user routes using the <code>update</code> command after this enhancement has been implemented.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-807">
+<div class="content">
+<img src="images/UpdatefutureActivityDiagram.png" alt="UpdatefutureActivityDiagram">
+</div>
+<div class="title">Figure 28. Activity Diagram for Future <code>update</code></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-812">
+<h3 id="_sort_feature_sort">4.10. Sort Feature: <code>sort</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-814">
+<p>This feature allows the user to sort their transactions by amount or date, in ascending and descending order.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-816">
+<h4 id="_current_implementation_9">4.10.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-818">
+<p>The <code>sort</code> command is facilitated by the Logic and Model components of the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-820">
+<p>The following sequence diagram shows how the sorting of transactions work when the user enters <code>sort date/d</code>.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-823">
+<div class="content">
+<img src="images/SortSequenceDiagram.png" alt="SortSequenceDiagram">
+</div>
+<div class="title">Figure 29. Sequence Diagram for <code>sort date/d</code></div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-825">
+<h4 id="_example_of_usage_2">4.10.2. Example of Usage</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-827">
+<p>Given below is an example usage of how <code>sort</code> behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-829">
+<p><strong>Step 1</strong>. The user launches the application and views an unsorted list of transactions.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-832">
+<div class="content">
+<img src="images/sort_dg_1.png" alt="sort dg 1">
+</div>
+<div class="title">Figure 30. Initial State of PalPay</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-834">
+<p><strong>Step 2</strong>. The user now executes <code>sort date/d</code> to sort the transactions in the order of descending date.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-837">
+<div class="content">
+<img src="images/sort_dg_2.png" alt="sort dg 2">
+</div>
+<div class="title">Figure 31. User Inputs <code>sort date/d</code></div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-839">
+<p><strong>Step 3</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-841">
+<p><strong>Step 4</strong>. <code>MainParser</code> determines which command is being used and creates <code>SortCommandParser</code> to further parse the input
+from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-844">
+<p><strong>Step 5</strong>. <code>SortCommandParser</code> parses the argument and checks if it is valid. If it is
+invalid, <code>SortCommandParser</code> throws an exception and terminates. Else, it returns a <code>SortCommand</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-847">
+<p><strong>Step 6</strong>. <code>LogicManager</code> uses <code>SortCommand#execute()</code> to sort the transactions in the order of descending date.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-849">
+<p><strong>Step 7</strong>. <code>SortCommand</code> uses <code>ModelManager#getBankAccount()</code> to get the current bank account and uses
+<code>BankAccount#getTransactionHistory()</code> to get the list of transactions of the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-852">
+<p><strong>Step 8</strong>. <code>SortCommand</code> uses <code>SortCommand#sortTransactionHistory()</code> to sort the transactions.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-854">
+<p><strong>Step 9</strong>. <code>SortCommand</code> uses <code>Model#set()</code> to store the sorted transactions and <code>Model#commitUserState()</code> to
+save the latest state of the application.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-857">
+<p><strong>Step 10</strong>. <code>SortCommand</code> returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user
+at the end.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-861">
+<div class="content">
+<img src="images/sort_dg_3.png" alt="sort dg 3">
+</div>
+<div class="title">Figure 32. After Sorting of Transactions</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-863">
+<h4 id="_design_considerations_6">4.10.3. Design Considerations</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-865">
+<h5 id="_aspect_sorting_of_the_bank_account">Aspect: Sorting of the Bank Account</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-867">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-867">
+<p><strong>Alternative 1 (Current Choice):</strong> Creating a comparator for each area to be sorted.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-868">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-868">
+<p><strong>Pros:</strong> Easy to implement.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-869">
+<p><strong>Cons:</strong> Users can only sort by comparators that have been implemented.
+Developers have to create a new comparator class to sort a new area.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-871">
+<p><strong>Alternative 2:</strong> Users can define the area to be sorted.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-872">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-872">
+<p><strong>Pros:</strong> Extremely flexible for the users as they are not limited to the number of areas to be sorted.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-873">
+<p><strong>Cons:</strong> Difficult to implement.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-878">
+<h3 id="_filter_feature_filter">4.11. Filter Feature: <code>filter</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-880">
+<p>This feature allows the user to filter the list of transactions by category, description, month and/or year.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-882">
+<h4 id="_overview">4.11.1. Overview</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-884">
+<p>The <code>FilterCommandParser</code> implements <code>Parser</code> with the following operation:</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-886">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-886">
+<p><code>FilterCommandParser#parse()</code>: This operation will take in at least one <code>String</code> input from the user that represents
+different fields delimited by a whitespace. All transactions that contains all fields will be displayed in the
+transaction tab.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-890">
+<h4 id="_current_implementation_10">4.11.2. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-892">
+<p>The <code>filter</code> command is facilitated by the <code>FilterCommandParser</code> and <code>FilterCommand</code> of the application.
+PalPay filters the list of transactions by checking if the specified fields exist in the transaction.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-895">
+<p>For instance, the command <code>filter c/breakfast m/11 y/2019</code> would display a list of transactions that were made during
+breakfast in November 2019.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-898">
+<p>The following class diagram depicts the relations of the FilterCommand, FilterCommandParser and its related classes.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-901">
+<div class="content">
+<img src="images/FilterClassDiagram.png" alt="FilterClassDiagram">
+</div>
+<div class="title">Figure 33. Class Diagram for <code>Filter</code></div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-903">
+<p>Given below is an example usage scenario and how the filter mechanism behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-905">
+<p><strong>Step 1</strong>. The user launches the application and views an unfiltered list of transactions.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-907">
+<p><strong>Step 2</strong>. The user now executes <code>filter c/breakfast m/11 y/2019</code> to filter the list of transactions.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-909">
+<p><strong>Step 3</strong>. Upon executing the command, <code>LogicManager</code> uses <code>MainParser#parse()</code> to parse the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-911">
+<p><strong>Step 4</strong>. <code>MainParser</code> determines which command is being used and creates <code>FilterCommandParser</code> to further parse
+the input from the user.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-914">
+<p><strong>Step 5</strong>. <code>FilterCommandParser</code> parses the argument and checks if category, description, month or year exists.
+If all field are not present, <code>FilterCommandParser</code> throws an exception and terminates, as depicted in the following
+activity diagram.
+Else, it returns a <code>FilterCommand</code> that contains a <code>TransactionPredicate</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-919">
+<p><strong>Step 6</strong>. <code>LogicManager</code> uses <code>FilterCommand#execute()</code> to update the list of transactions that satisfies the
+given <code>TransactionPredicate</code>.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-922">
+<p><strong>Step 7</strong>. <code>FilterCommand</code> uses <code>Model#commitUserState()</code> to save the latest state of the application. It then
+returns a <code>CommandResult</code> to the <code>LogicManager</code> and the result will be displayed to the user at the end.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-925">
+<p>Below is an activity diagram shows the process of invoking the <code>filter</code> command.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-928">
+<div class="content">
+<img src="images/FilterActivityDiagram.png" alt="FilterActivityDiagram">
+</div>
+<div class="title">Figure 34. Activity Diagram for <code>Filter</code></div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-932">
+<h3 id="_undo_redo_command_feature_undoredo">4.12. Undo / Redo Command Feature: <code>undo</code>/<code>redo</code></h3>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-934">
+<h4 id="_current_implementation_11">4.12.1. Current Implementation</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-936">
+<p>The undo/redo mechanism is facilitated by <code>VersionedUserState</code>.
+It extends <code>UserState</code> with an undo/redo history, stored internally as an <code>userStateList</code> and <code>currentStatePointer</code>.
+Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-940">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-940">
+<p><code>VersionedUserState#commit()</code>&#8201;&#8212;&#8201;Saves the current user state in its history.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-941">
+<p><code>VersionedUserState#undo()</code>&#8201;&#8212;&#8201;Restores the previous user state from its history.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-942">
+<p><code>VersionedUserState#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone user state from its history.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-944">
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitUserState()</code>, <code>Model#undoUserState()</code>
+and <code>Model#redoUserState()</code> respectively.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-947">
+<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-949">
+<p><strong>Step 1</strong>. The user launches the application for the first time.
+The <code>VersionedUserState</code> will be initialized with the initial user state, and the <code>currentStatePointer</code>
+pointing to that single user state.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-954">
+<div class="content">
+<img src="images/UndoRedoState0.png" alt="UndoRedoState0">
+</div>
+<div class="title">Figure 35. Initial State</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-956">
+<p><strong>Step 2</strong>. The user executes <code>delete t5</code> command to delete the 5th transaction in the transaction list.
+The <code>delete</code> command calls <code>Model#commitUserState()</code>, causing the modified state of the user state after the
+<code>delete t5</code> command executes to be saved in the <code>userStateList</code>, and the <code>currentStatePointer</code> is shifted
+to the newly inserted user state.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-962">
+<div class="content">
+<img src="images/UndoRedoState1.png" alt="UndoRedoState1">
+</div>
+<div class="title">Figure 36. After <code>delete t1</code> Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-964">
+<p><strong>Step 3</strong>. The user executes <code>in $/10 n/Allowance d/07112019</code> to log a new transaction.
+The <code>in</code> command also calls <code>Model#commitUserState()</code>, causing another modified user state to be saved
+into the <code>userStateList</code>.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-969">
+<div class="content">
+<img src="images/UndoRedoState2.png" alt="UndoRedoState2">
+</div>
+<div class="title">Figure 37. After <code>in $/10 n/Allowance d/07112019</code> Command</div>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-972">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If a command fails its execution, it will not call <code>Model#commitUserState()</code>, so the user state will
+not be saved into the <code>userStateList</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-975">
+<p><strong>Step 4</strong>. The user now decides that logging the transaction was a mistake, and decides to undo that action by
+executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoUserState()</code>, which will shift the
+<code>currentStatePointer</code> once to the left, pointing it to the previous user state, and restores the user state
+to that state.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-981">
+<div class="content">
+<img src="images/UndoRedoState3.png" alt="UndoRedoState3">
+</div>
+<div class="title">Figure 38. After <code>undo</code> Command</div>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-984">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If the <code>currentStatePointer</code> is at index 0, pointing to the initial user state, then there are no previous
+user states to restore. The <code>undo</code> command uses <code>Model#canUndoUserState()</code> to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-988">
+<p><strong>Step 5</strong>. The user then decides to execute the command <code>list</code>.
+Commands that do not modify the user state, such as <code>list</code>, will usually not call <code>Model#commitUserState()</code>,
+<code>Model#undoUserState()</code> or <code>Model#redoUserState()</code>. Thus, the <code>userStateList</code> remains unchanged.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-993">
+<div class="content">
+<img src="images/UndoRedoState4.png" alt="UndoRedoState4">
+</div>
+<div class="title">Figure 39. After <code>list</code> Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-995">
+<p><strong>Step 6</strong>. The user executes <code>clear</code>, which calls <code>Model#commitUserState()</code>.
+Since the <code>currentStatePointer</code> is not pointing at the end of the <code>userStateList</code>, all user states after
+the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the
+<code>in $/10 n/Allowance d/07112019</code> command. This is the behavior that most modern desktop applications follow.</p>
+</div>
+<div class="imageblock text-center has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1001">
+<div class="content">
+<img src="images/UndoRedoState5.png" alt="UndoRedoState5">
+</div>
+<div class="title">Figure 40. After <code>clear</code> Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1003">
+<p>The following sequence diagram shows how the undo operation works:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1006">
+<div class="content">
+<img src="images/UndoSequenceDiagram.png" alt="UndoSequenceDiagram">
+</div>
+<div class="title">Figure 41. Undo Sequence Diagram</div>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1008">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The lifeline for <code>UndoCommand</code> should end at the destroy marker (X) but due to a limitation of PlantUML,
+the lifeline reaches the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1011">
+<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoUserState()</code>, which shifts the <code>currentStatePointer</code>
+once to the right, pointing to the previously undone state, and restores the user state to that state.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1015">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If the <code>currentStatePointer</code> is at index <code>userStateList.size() - 1</code>, pointing to the latest user state, then
+there are no undone user states to restore. The <code>redo</code> command uses <code>Model#canRedoUserState()</code> to
+check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1019">
+<h5 id="_aspect_how_undo_and_redo_executes">Aspect: How Undo and Redo Executes</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1021">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1021">
+<p><strong>Alternative 1 (current choice):</strong> Saves the entire user state.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1022">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1022">
+<p>Pros: Easy to implement.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1023">
+<p>Cons: May have performance issues in terms of memory usage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1024">
+<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1025">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1025">
+<p>Pros: Will use less memory (e.g. for <code>delete t1</code>, just save the transaction being deleted).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1026">
+<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1028">
+<h5 id="_aspect_which_data_structure_to_support_the_undoredo_commands">Aspect: Which Data Structure to Support the Undo/Redo Commands</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1030">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1030">
+<p><strong>Alternative 1 (current choice):</strong> Use a list and a pointer to store the history of user states.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1031">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1031">
+<p>Pros: Easy for new Computer Science student undergraduates to understand,
+who are likely to be the new incoming developers of our project.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1033">
+<p>Cons: Need to manage the list and pointer carefully as the pointer has to point to the correct position in
+the list at all times.
+For example, when a new command is executed, we must remember to update both <code>userStateList</code> and <code>currentStatePointer</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1036">
+<p><strong>Alternative 2:</strong> Use two stacks. One stack stores the commands to undo and the other stores the commands to redo.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1037">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1037">
+<p>Pros: Do not need to manage a pointer for the stacks.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1038">
+<p>Cons: Need to manage both stacks carefully. For instance, when a command is popped from the undo stack, it needs to
+be pushed into the redo stack.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1043">
+<h3 id="_logging">4.13. Logging</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1045">
+<p>We are using <code>java.util.logging</code> package for logging.
+The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1048">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1048">
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.14, &#8220;Configuration&#8221;</a>)</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1049">
+<p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1050">
+<p>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1052">
+<p><strong>Logging Levels</strong></p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1054">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1054">
+<p><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1055">
+<p><code>WARNING</code> : Can continue, but with caution</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1056">
+<p><code>INFO</code> : Information showing the noteworthy actions by the App</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1057">
+<p><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1060">
+<h3 id="Implementation-Configuration">4.14. Configuration</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1062">
+<p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1064">
+<h2 id="_documentation">5. Documentation</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1066">
+<p>Refer to the guide <a href="Documentation.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1068">
+<h2 id="_testing">6. Testing</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1070">
+<p>Refer to the guide <a href="Testing.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1072">
+<h2 id="_dev_ops">7. Dev Ops</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1074">
+<p>Refer to the guide <a href="DevOps.html">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1077">
+<h2 id="_product_scope">Appendix A: Product Scope</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1079">
+<p><strong>Target user profile</strong>:</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1081">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1081">
+<p>has a need to manage a significant number of transactions</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1082">
+<p>prefer desktop applications over other types</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1083">
+<p>can type fast</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1084">
+<p>prefers typing over mouse input</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1085">
+<p>is reasonably comfortable using CLI apps</p>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1087">
+<p><strong>Value proposition</strong>: manage contacts faster than a typical mouse/GUI driven app</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1091">
+<h2 id="User-Stories">Appendix B: User Stories</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1093">
+<p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
+</div>
+<table class="tableblock frame-all grid-all has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1096" style="width: 59%;">
+<colgroup>
+<col style="width: 22%;">
+<col style="width: 23%;">
+<col style="width: 25%;">
+<col style="width: 30%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">As a &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">I want to &#8230;&#8203;</th>
+<th class="tableblock halign-left valign-top">So that I can&#8230;&#8203;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">data-oriented person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see an overview of my transactions in an intuitive graph</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">gain insights at a glance</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see usage instructions</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">refer to instructions when I forget how to use the App</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">student</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">input my spending into different categories</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">manage my expenses better</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">visual person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see how much budget I have left in each category</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cut down on spending as necessary</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">student with many friends</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">split the bill with my friends</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">know how much I should payment for a meal</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">student who forgets to payment his debt on time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded to payment my debt before the deadline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stop incurring interests</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">patriotic Singaporean who travels to JB often</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easily calculate how much Ringgit to bring</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enjoy my holiday with insufficient money</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">thrifty person</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see how my savings or spending will project into the future</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">plan my budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who forgets to save money</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be incentivized me to save money</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be motivated to not overspend/save money</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1118">
+<p><em>{More to be added}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1121">
+<h2 id="_use_cases">Appendix C: Use Cases</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1123">
+<p>(For all use cases below, the <strong>System</strong> is the <code>PalPay</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+</div>
+<h3 id="_use_case_add_an_income" class="discrete has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1126">Use case: Add an income</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1128">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1130">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1130">
+<p>User requests to add an income amount.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1131">
+<p>PalPay adds the income amount.</p>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1133">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1135">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1138">
+<ul class="none">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1138">
+<p>1a.
+Amount entered by the user is invalid.</p>
+<div class="ulist none has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1142">
+<ul class="none">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1142">
+<p>1a1. PalPay shows an error message.</p>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1144">
+<p>Use case resumes at step 1.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="_use_case_delete_expense" class="discrete has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1147">Use case: Delete expense</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1149">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1151">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1151">
+<p>User requests to view spending.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1152">
+<p>PalPay shows the list of expenses since beginning of time.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1153">
+<p>User requests to delete an expense.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1154">
+<p>PalPay deletes the specified expense.</p>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1156">
+<p>Use case ends.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1158">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1161">
+<ul class="none">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1161">
+<p>1a.
+User specified days passed since.</p>
+<div class="ulist none has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1165">
+<ul class="none">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1165">
+<p>1a1. PalPay shows the list of expenses since the time period specified.</p>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1167">
+<p>Use case resumes at step 3.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1169">
+<p><em>{More to be added}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1172">
+<h2 id="_non_functional_requirements">Appendix D: Non Functional Requirements</h2>
+<div class="sectionbody">
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1174">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1174">
+<p>Should work on any <a href="#mainstream-os">mainstream OS</a> with JDK 11 or above installed.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1175">
+<p>A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1176">
+<p>Upon user input, PalPay should execute tasks (and display results) within 1 second.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1177">
+<p>Users should have (and be able to specify) default options such that they can issue minimal commands for common tasks.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1178">
+<p>Should be quick and efficient, with each user session lasting no longer than 3 minutes to effectively manage his current financial state.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1179">
+<p>Should not make users feel defeated, but rather empowered in managing their finances.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1182">
+<h2 id="_glossary">Appendix E: Glossary</h2>
+<div class="sectionbody">
+<div id="api" class="dlist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1185">
+<dl>
+<dt class="hdlist1">API</dt>
+<dd>
+<p>Application Programming Interface</p>
+</dd>
+</dl>
+</div>
+<div id="mainstream-os" class="dlist has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1190">
+<dl>
+<dt class="hdlist1">Mainstream OS</dt>
+<dd>
+<p>Windows, Linux, Unix, OS-X</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1195">
+<h2 id="_instructions_for_manual_testing">Appendix F: Instructions for Manual Testing</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1197">
+<p>Given below are instructions to test the application manually.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1200">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1202">
+<h3 id="_launch_and_shutdown">F.1. Launch and Shutdown</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1204">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1204">
+<p>Initial launch</p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1206">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1206">
+<p>Download the jar file and copy into an empty folder.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1207">
+<p>Double-click the jar file<br>
+   Expected: Shows the GUI with a set of sample contacts.
+The window size may not be optimum.</p>
+</li>
+</ol>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1211">
+<p>Saving window preferences</p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1213">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1213">
+<p>Resize the window to an optimum size.
+Move the window to a different location.
+Close the window.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1216">
+<p>Re-launch the app by double-clicking the jar file.<br>
+Expected: The most recent window size and location is retained.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1219">
+<h3 id="_adding_an_in_transaction">F.2. Adding an In Transaction</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1221">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1221">
+<p>Adding an in transaction with the command: <code>in</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1223">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1223">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1225">
+<p>Test case: <code>in $/1000 n/Allowance d/11112019</code><br>
+Expected: An in transaction will be added into the list of transactions in the Transaction tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1228">
+<p>Test case: <code>in $/0 n/Allowance d/11112019</code><br>
+Expected: No transaction is added. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1231">
+<p>Other incorrect <code>in</code> commands to try: <code>in $/10.001 n/Allowance d/11112019</code>, <code>in $/1000 n/Allow@nce d/11112019</code>
+(Contains non-alphanumeric characters).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1235">
+<h3 id="_adding_an_out_transaction">F.3. Adding an Out Transaction</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1237">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1237">
+<p>Adding an out transaction with the command: <code>out</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1239">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1239">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1241">
+<p>Test case: <code>out $/10 n/KFC d/11112019</code><br>
+Expected: An out transaction will be added into the list of transactions in the Transaction tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1244">
+<p>Test case: <code>out $/0 n/KFC d/11112019</code><br>
+Expected: No transaction is added. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1247">
+<p>Other incorrect <code>out</code> commands to try: <code>out $/10.001 n/KFC d/11112019</code>, <code>out $/10 n/KFC d/32112019</code>
+(Date is invalid).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1251">
+<h3 id="_adding_a_budget">F.4. Adding a Budget</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1253">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1253">
+<p>Adding a budget with the command: <code>set</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1255">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1255">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1257">
+<p>Test case: <code>set $/1000 c/Shopping d/31122019</code><br>
+Expected: A budget will be added into the list of budgets in the Budget tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1260">
+<p>Test case: <code>set $/1000 c/Shopping d/01012019</code><br>
+Expected: No budget is added. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1263">
+<p>Other incorrect <code>set</code> command to try: <code>set $/-10 c/Shopping d/31122019</code> (Amount is negative).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1266">
+<h3 id="_adding_a_split_ledger">F.5. Adding a Split Ledger</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1268">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1268">
+<p>Adding a split ledger with the command: <code>split</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1270">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1270">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1272">
+<p>Test case: <code>split $/1000 n/Amy n/Betty a/HaiDiLao</code><br>
+Expected: An overall ledger with 4 individual ledgers will be added into the list of ledgers in the Ledger tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1275">
+<p>Test case: <code>split $/1000 n/Amy n/Betty</code><br>
+Expected: No ledger is added. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1278">
+<p>Other incorrect <code>split</code> command to try: <code>split $/1000 n/Amy n/Betty a/HaiDiLao s/1 s/2 s/3 s/4</code>
+(Greater number of shares than number of people).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1282">
+<h3 id="_adding_a_receive_ledger">F.6. Adding a Receive Ledger</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1284">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1284">
+<p>Adding a receive ledger with the command: <code>receive</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1286">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1286">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1288">
+<p>Test case: <code>receive $/20 n/Albert</code><br>
+Expected: An overall ledger with an individual ledger will be added into the list of ledgers in the ledger tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1291">
+<p>Test case: <code>receive $/20 n/A|bert</code><br>
+Expected: No ledger is added. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1294">
+<p>Other incorrect <code>receive</code> command to try: <code>receive $/20.001 n/Albert</code> (Amount cannot have more than
+two decimal places).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1298">
+<h3 id="_switching_tabs">F.7. Switching Tabs</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1300">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1300">
+<p>Switching tabs with the command: <code>view</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1302">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1302">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1304">
+<p>Test case: <code>view budget</code><br>
+Expected: Switches to budget tab if user is in another tab. Else, user remains in budget tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1307">
+<p>Test case: <code>view budg3t</code><br>
+Expected: Remains in current tab. Error details will be shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1310">
+<p>Other incorrect <code>view</code> command to try: <code>view loans</code> (Loans tab does not exist).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1313">
+<h3 id="_deleting_an_entry">F.8. Deleting an Entry</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1315">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1315">
+<p>Deleting an entry with the command: <code>delete</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1317">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1317">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1319">
+<p>Test case: <code>delete t1</code><br>
+Expected: First transaction is deleted from the list. Balance in the footer will be updated.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1322">
+<p>Test case: <code>delete t0</code><br>
+Expected: No transaction is deleted. Error details shown in the status message. Balance remains the same.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1325">
+<p>Other incorrect <code>delete</code> commands to try: <code>delete</code>, <code>delete t1000</code> (When size of the list of transaction
+is smaller than 1000).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1329">
+<h3 id="_updating_an_entry">F.9. Updating an Entry</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1331">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1331">
+<p>Updating an entry with the command: <code>update</code></p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1333">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1333">
+<p>Prerequisites:</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1335">
+<p>Test case: <code>update t1 $/1000</code><br>
+Expected: First transaction in the list is updated. Balance will be updated as well.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1338">
+<p>Test case: <code>update t0 $/1000</code><br>
+Expected: No transaction is updated. Error details shown in the status message. Balance remains the same.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1341">
+<p>Other incorrect <code>update</code> commands to try: <code>update</code>, <code>update i/Invalid</code> (Invalid prefix).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1344">
+<h3 id="_sorting_the_transactions">F.10. Sorting the Transactions</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1346">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1346">
+<p>Sorting the transactions with the command: <code>sort</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1348">
+<p>Prerequisites:</p>
+</div>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1350">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1350">
+<p>Test case: <code>sort amount/a</code><br>
+Expected: Transaction list will be sorted from smallest amount to greatest amount. Balance remains the same.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1353">
+<p>Test case: <code>sort amount</code><br>
+Expected: Transaction list remains unchanged. Error details shown in the status message.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1356">
+<p>Other incorrect <code>sort</code> commands to try: <code>sort</code>, <code>sort date</code> (Order not stated).<br>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1360">
+<h3 id="_viewing_help_window">F.11. Viewing Help Window</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1362">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1362">
+<p>Requesting help from PalPay</p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1364">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1364">
+<p>Prerequisites: None</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1366">
+<p>Test case: <code>help</code><br>
+Expected: A help window pops up that displays the URL of PalPay&#8217;s User Guide and a <code>Copy URL</code> button.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1369">
+<h3 id="_saving_data">F.12. Saving Data</h3>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1371">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1371">
+<p>Dealing with missing/corrupted data files</p>
+<div class="olist loweralpha has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1373">
+<ol class="loweralpha" type="a">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/DeveloperGuide.adoc-1373">
+<p>Delete the file at <code>.\data\bankaccount.json</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-11-11 23:33:14 +0800
+</div>
+</div>
+</body>
+</html>

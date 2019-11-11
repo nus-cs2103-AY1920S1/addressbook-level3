@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>PalPay - User Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>PalPay - User Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-17">
+<p>By: <code>AY1920S1-CS2103T-W12-3</code>      Since: <code>SEPT 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#_quick_start">2. Quick Start</a></li>
+<li><a href="#Features">3. Features</a>
+<ul class="sectlevel2">
+<li><a href="#_transaction">3.1. Transaction</a></li>
+<li><a href="#_budget">3.2. Budget</a></li>
+<li><a href="#_ledger">3.3. Ledger</a></li>
+<li><a href="#_projection">3.4. Projection</a></li>
+</ul>
+</li>
+<li><a href="#Commands">4. Commands</a>
+<ul class="sectlevel2">
+<li><a href="#In">4.1. Logging Income : <code>in</code></a></li>
+<li><a href="#Out">4.2. Logging Expense : <code>out</code></a></li>
+<li><a href="#Set">4.3. Setting a Budget : <code>set</code></a></li>
+<li><a href="#Split">4.4. Splitting a Bill with Friends : <code>split</code></a></li>
+<li><a href="#Receive">4.5. Receiving Money from a Friend : <code>receive</code></a></li>
+<li><a href="#Project">4.6. Projecting Future Balance and Budgets : <code>project</code></a></li>
+<li><a href="#_display_a_projection_graph_display">4.7. Display a Projection Graph: <code>display</code></a></li>
+<li><a href="#View">4.8. Switching Tabs : <code>view</code></a></li>
+<li><a href="#Delete">4.9. Deleting Finance : <code>delete</code></a></li>
+<li><a href="#Update">4.10. Updating Finance : <code>update</code></a></li>
+<li><a href="#Sort">4.11. Sorting Transactions : <code>sort</code></a></li>
+<li><a href="#Filter">4.12. Filtering Transactions : <code>filter</code></a></li>
+<li><a href="#Undo">4.13. Undoing the Last Command : <code>undo</code></a></li>
+<li><a href="#Redo">4.14. Redoing the Last Command : <code>redo</code></a></li>
+<li><a href="#Clear">4.15. Clearing All Entries : <code>clear</code></a></li>
+<li><a href="#List">4.16. Listing All Entries : <code>list</code></a></li>
+<li><a href="#Help">4.17. Viewing Help : <code>help</code></a></li>
+<li><a href="#Exit">4.18. Exiting the Application : <code>exit</code></a></li>
+<li><a href="#_saving_the_data">4.19. Saving the Data</a></li>
+</ul>
+</li>
+<li><a href="#_faq">5. FAQ</a></li>
+<li><a href="#_command_summary">6. Command Summary</a></li>
+</ul>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-19">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-21">
+<p>PalPay is for those who <strong>prefer to use a desktop app for managing personal finances</strong>.
+More importantly, PalPay is <strong>optimized for those who prefer to work with a Command Line Interface</strong> (CLI) while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-26">
+<div class="content">
+<img src="images/dg_gui_example.png" alt="dg gui example">
+</div>
+<div class="title">Figure 1. PalPay&#8217;s Graphical User Interface</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-28">
+<p>This User Guide is written for the users of PalPay as an introductory document of the application.
+You are strongly encouraged to read this document before using the application to enjoy the full functionality of the application.
+Ready to start your journey to financial freedom?
+Jump to <a href="#_quick_start">Section 2, &#8220;Quick Start&#8221;</a> to get started.
+Enjoy!</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-34">
+<h2 id="_quick_start">2. Quick Start</h2>
+<div class="sectionbody">
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-36">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-36">
+<p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-37">
+<p>Download the latest <code>PalPay.jar</code> <a href="https://github.com/AY1920S1-CS2103T-W12-3/main/releases">here</a>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-38">
+<p>Copy the file to the folder you want to use as the home folder for your finance manager.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-39">
+<p>Double-click the file to start the app.
+The GUI should appear within a few seconds.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-43">
+<p>Type your command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+Example: Typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-45">
+<p>Some example commands you can try:</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-47">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-47">
+<p><code>view transaction</code> : shows list of your transactions.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-48">
+<p><code>in $/100 n/mother d/31102019 c/allowance</code> : adds an income to your personal finance of <strong>100</strong> dollars with
+the category <strong>mother</strong> and the description <strong>allowance</strong>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-50">
+<p><code>out $/3 n/pie d/19112019 c/food</code> : adds an expenditure to your personal finance of <strong>3</strong> dollars with
+the category <strong>food</strong> and the description <strong>pie</strong>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-52">
+<p><code>exit</code> : exits the app</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-54">
+<p>Refer to <a href="#Commands">Section 4, &#8220;Commands&#8221;</a> for details of each command.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-57">
+<h2 id="Features">3. Features</h2>
+<div class="sectionbody">
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-59">
+<h3 id="_transaction">3.1. Transaction</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-60">
+<p>The <em>Transaction</em> feature represents the bread and butter logging of incomes and expenditures.
+PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-63">
+<p>The <em>Transactions</em> are split into:</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-65">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-65">
+<p><code>in</code> : income</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-66">
+<p><code>out</code> : expenditure</p>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-68">
+<p>These transactions requires the mandatory <code>AMOUNT</code>, <code>DATE</code> and <code>DESCRIPTION</code> fields to be filled. Additionally, The transactions can take in one or more <code>CATEGORY</code> tags.</p>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-70">
+<h3 id="_budget">3.2. Budget</h3>
+
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-72">
+<h3 id="_ledger">3.3. Ledger</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-73">
+<p>The <em>Ledger</em> feature allows you to track outstanding balances when you
+split a bill with your friends and when they pay you back.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-76">
+<p><em>Ledger</em> commands consist of:</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-78">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-78">
+<p><code>split</code> : split a bill between friends</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-79">
+<p><code>receive</code> : log a single payment from 1 friend</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-81">
+<h3 id="_projection">3.4. Projection</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-82">
+<p>By using the <em>Projections</em> feature, you can project your:</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-84">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-84">
+<p>Account Balance</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-86">
+<p>Budget Deficits / Surpluses</p>
+</li>
+</ol>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-88">
+<p>These projections are cast upon a specified <code>DATE</code>, and optionally, a specified <code>CATEGORY</code>. Upon casting a
+projection, it is automatically stored and thereafter accessible through the <em>Projection</em> tab via the <code>view</code>
+command (see <a href="#View"><strong>View</strong></a>).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-94">
+<h2 id="Commands">4. Commands</h2>
+<div class="sectionbody">
+<div class="exampleblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-96">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-97">
+<p><strong>Command Format</strong> :</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-99">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-99">
+<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user.<br>
+Example: For <code>in $/AMOUNT n/ITEM d/DATE</code>, <code>AMOUNT</code>, <code>ITEM</code> and <code>DATE</code> are parameters which can be used as
+<code>in $/300 n/concert d/19112019</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-102">
+<p>Items in square brackets are optional.<br>
+Example: <code>n/ITEM [c/CATEGORY]</code> can be used as <code>n/coke c/drinks</code> or as <code>n/coke</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-104">
+<p>Items with <code>…</code>​ after them can be used multiple times including zero times.<br>
+Example: <code>[n/NAME]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>n/Amy</code>, <code>n/Amy n/Betty</code> etc.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-106">
+<p>Parameters can be in any order.<br>
+Example: If the command specifies <code>$/AMOUNT n/ITEM</code>, <code>n/ITEM $/AMOUNT</code> is also acceptable.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-108">
+<p>Parameters that need to be concatenated together are represented as <code>PARAM+PARAM</code>.<br>
+Example: <code>TYPE+INDEX</code> refers to joining <code>TYPE</code> and <code>INDEX</code> together without a space, such as <code>t1</code>.</p>
+</li>
+</ul>
+</div>
+<div id="Parameter-constraints" class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-112">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-112">
+<p><strong>Parameter Constraints</strong> :</p>
+<table class="tableblock frame-all grid-all stretch has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-115">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 20%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Prefix</th>
+<th class="tableblock halign-left valign-top">Constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AMOUNT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">$/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid amount between 0 and 1000000 dollars exclusive<br>
+- a valid amount up to 2 decimal places</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DATE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">d/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid date with the format DDMMYY in the Gregorian calendar</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DESCRIPTION</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">n/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid description with alphanumeric chacracters</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CATEGORY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">c/</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid category with alphanumeric characters without space</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TYPE</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid type containing one character<br>
+<code>t</code> : Transaction<br>
+<code>b</code> : Budget<br>
+<code>l</code> : Ledger<br>
+<code>p</code> : Projection</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INDEX</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">- a valid entry number in the list</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-134">
+<h3 id="In">4.1. Logging Income : <code>in</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-136">
+<p>Have an income that you need to log down? PalPay accepts all income inputs through the <code>in</code> command. Inputting an <code>in</code> command will increase the overall balance value. Your income statements have the added option to be tagged under one or more categories. You can do so by including the <code>[c/CATEGORY]</code> parameter in your command line. All uncategorized incomes will be tagged under the <code>GENERAL</code> category.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-138">
+<h4 id="_command_syntax">4.1.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-140">
+<p>Format: <code>in $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-142">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-144">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-144">
+<p><code>CATEGORY</code> accepts the categories for this income. An <code>in</code> Transaction can be created without <code>CATEGORY</code> inputs.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-145">
+<p><code>in</code> updates the user&#8217;s overall balance with a net positive amount (e.g. <code>in n/work $/1000 d/10102019</code> will <strong>increase</strong> overall balance by $1000).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-148">
+<h4 id="_example_usage">4.1.2. Example Usage</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-150">
+<h5 id="_example_1">Example 1</h5>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-152">
+<div class="content">
+<pre>in $/120 d/31122019 n/work</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-154">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-154">
+<p>Logging income</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-155">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-155">
+<p>Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-156">
+<p>The income has not utilized the optional <code>CATEGORY</code> field.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-157">
+<p>Initial balance (red box in Figure 1) has a value of $0.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-160">
+<div class="content">
+<img src="images/in_ug_1.png" alt="in ug 1">
+</div>
+<div class="title">Figure 2. Income Logging Example 1</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-162">
+<p>Income added</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-163">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-163">
+<p>The income is added to the empty <strong>Transactions</strong> tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-164">
+<p>The added income is given a <code>GENERAL</code> category.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-165">
+<p>Balance has increased from $0 to $120 (red box in Figure 2).</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-168">
+<div class="content">
+<img src="images/in_ug_2.png" alt="in ug 2">
+</div>
+<div class="title">Figure 3. Sample Income 1 Added</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-170">
+<h5 id="_example_2">Example 2</h5>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-172">
+<div class="content">
+<pre>in $/500.50 n/allowance d/01012020 c/parents</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-174">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-174">
+<p>Logging income</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-175">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-175">
+<p>Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-176">
+<p>The income includes <code>parents</code> under the <code>CATEGORY</code> field.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-177">
+<p>Initial balance (red box in Figure 3) has a value of $120.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-180">
+<div class="content">
+<img src="images/in_ug_3.png" alt="in ug 3">
+</div>
+<div class="title">Figure 4. Income Logging Example 2</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-182">
+<p>Income added</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-183">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-183">
+<p>The income is added to the bottom of the <strong>Transactions</strong> tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-184">
+<p>The added income tagged under <code>parents</code> category.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-185">
+<p>Balance has increased from $120 to $620.50 (red box in Figure 4).</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-188">
+<div class="content">
+<img src="images/in_ug_4.png" alt="in ug 4">
+</div>
+<div class="title">Figure 5. Sample Income 2 Added</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-190">
+<h5 id="_example_commands">Example Commands:</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-192">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-192">
+<p><code>in $/100 d/01012019 n/errand c/work c/company</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-193">
+<p><code>in $/250.50 d/29022020 n/mom c/family</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-194">
+<p><code>in $/120 d/31122019 n/helping friend</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-200">
+<h3 id="Out">4.2. Logging Expense : <code>out</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-202">
+<p>Have you recently made an expenditure that requires logging down? PalPay accepts all expenditure inputs through the <code>out</code> command. Inputting an <code>out</code> command will decrease the overall balance value. Your expenditure statements, just like the income statements, have the added option to be tagged under one or more categories. You can do so by including the <code>[c/CATEGORY]</code> parameter in your command line. All uncategorized incomes will be tagged under the <code>GENERAL</code> category.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-204">
+<h4 id="_command_syntax_2">4.2.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-206">
+<p>Format: <code>out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-208">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-209">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-209">
+<p>Users should not input negative values into <code>AMOUNT</code> (i.e. <code>out $/-100 &#8230;&#8203;</code>) as PalPay has already accounted for the difference between incomes and expenditures.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-210">
+<p><code>CATEGORY</code> accepts the categories for this expenditure. An <code>out</code> Transaction can be created without any <code>CATEGORY</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-211">
+<p><code>out</code> updates the user&#8217;s overall balance with a net <strong>negative</strong> amount (e.g. <code>out n/milk $/2 d/10102019</code> will <strong>decrease</strong> overall balance by $2)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-214">
+<h4 id="_important_details">4.2.2. Important Details:</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-216">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-216">
+<p>Note that <code>out</code> transactions differ from <code>in</code> transactions in the display amount. The <code>in</code> transactions are characterized by the <strong>positive</strong> value within their display box whilst the <code>out</code> transactions are characterized by the <strong>negative</strong> values in their display box. The difference can be observed in the example usage below.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-217">
+<p>An <code>out</code> Transaction will affect the remaining amount of <code>Budget</code> entries with similar categories within the same time period (Refer to <a href="#UG_OUT_EXAMPLE3">Section 4.2.3.3, &#8220;Example 3&#8221;</a>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-219">
+<h4 id="_example_usage_2">4.2.3. Example Usage</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-221">
+<h5 id="_example_1_2">Example 1</h5>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-223">
+<div class="content">
+<pre>out $/5 d/01012020 n/burger</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-225">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-225">
+<p>Expenditure logging</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-226">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-226">
+<p>Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-227">
+<p>The expenditure has not utilized the optional <code>CATEGORY</code> field.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-228">
+<p>Initial balance (red box in Figure 5) has a value of $620.50.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-231">
+<div class="content">
+<img src="images/out_ug_1.png" alt="out ug 1">
+</div>
+<div class="title">Figure 6. Expenditure Logging Example 1</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-233">
+<p>Expenditure added</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-234">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-234">
+<p>The expenditure is added to the bottom of the <strong>Transactions</strong> tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-235">
+<p>The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-236">
+<p>The added expenditure is given a <code>GENERAL</code> category.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-237">
+<p>Balance has decreased from $620.50 to $615.50 (red box in Figure 6).</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-240">
+<div class="content">
+<img src="images/out_ug_2.png" alt="out ug 2">
+</div>
+<div class="title">Figure 7. Sample Expenditure 1 Added</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-242">
+<h5 id="_example_2_2">Example 2</h5>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-244">
+<div class="content">
+<pre>out $/1000 n/maintenance d/02012020 c/car c/transport</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-246">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-246">
+<p>Expenditure logging</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-247">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-247">
+<p>Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-248">
+<p>The income includes <code>car</code> and <code>transport</code> under the <code>CATEGORY</code> field.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-249">
+<p>Initial balance (red box in Figure 7) has a value of $615.50.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-252">
+<div class="content">
+<img src="images/out_ug_3.png" alt="out ug 3">
+</div>
+<div class="title">Figure 8. Expenditure Logging Example 2</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-254">
+<p>Expenditure added</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-255">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-255">
+<p>The expenditure is added to the bottom of the <strong>Transactions</strong> tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-256">
+<p>The added expenditure is tagged under <code>car</code> and <code>transport</code> category.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-257">
+<p>Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-258">
+<p>The negative value of the balance indicates that the total spending amount outweighs the total savings amount.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-261">
+<div class="content">
+<img src="images/out_ug_4.png" alt="out ug 4">
+</div>
+<div class="title">Figure 9. Sample Expenditure 2 Added</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-264">
+<h5 id="UG_OUT_EXAMPLE3">Example 3</h5>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-266">
+<div class="content">
+<pre>out $/100 n/pants d/02012020 c/clothes</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-268">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-268">
+<p>Expenditure logging</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-269">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-269">
+<p>Inputs an expenditure of $100 with description set to 'pants' and date set on 02/01/2020.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-270">
+<p>The income includes <code>clothes</code> under the <code>CATEGORY</code> field.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-273">
+<div class="content">
+<img src="images/out_ug_5.png" alt="out ug 5">
+</div>
+<div class="title">Figure 10. Expenditure Logging Example 3</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-275">
+<p>Budget with similar categories and time period.</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-276">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-276">
+<p>Entry 3 of the <code>Budget</code> tab has <code>clothes</code> under its <code>CATEGORY</code> field.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-277">
+<p>Entry 3 of the <code>Budget</code> tab has a deadline set to <code>01/01/2021</code>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-280">
+<div class="content">
+<img src="images/out_ug_6.png" alt="out ug 6">
+</div>
+<div class="title">Figure 11. Budget with 'clothes' category</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-282">
+<p>Expenditure added</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-283">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-283">
+<p>The expenditure is added to the bottom of the <strong>Transactions</strong> tab.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-284">
+<p>The added expenditure has a date set to <code>02/01/2020</code>.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-285">
+<p>The added expenditure is tagged under the <code>clothes</code> category.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-288">
+<div class="content">
+<img src="images/out_ug_7.png" alt="out ug 7">
+</div>
+<div class="title">Figure 12. Sample Expenditure 3 Added</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-290">
+<p>Budget entry updated</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-291">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-291">
+<p>Remaining amount of entry 3 of the <code>Budget</code> tab has decreased from $1000 to $900.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-294">
+<div class="content">
+<img src="images/out_ug_8.png" alt="out ug 8">
+</div>
+<div class="title">Figure 13. Budget entry updated</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-297">
+<h5 id="_example_commands_2">Example Commands:</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-299">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-299">
+<p><code>out $/100 d/01012019 n/milk c/food c/drinks</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-300">
+<p><code>out $/29 d/29022020 n/taxi c/transport</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-301">
+<p><code>out $/12 d/31122019 n/burger</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-308">
+<h3 id="Set">4.3. Setting a Budget : <code>set</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-310">
+<p>You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
+A duplicate budget is a budget with the same <code>AMOUNT</code> and <code>DATE</code> and <code>CATEGORY</code>.<br>
+If you attempt to do so, you will receive an error message: <code>This budget already exists</code>.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-314">
+<p>Format: <code>set $/AMOUNT d/DATE [c/CATEGORY]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-316">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-317">
+<p>Paramters follow the same restrictions as highlighted in <a href="#Parameter-constraints">parameter constraints</a>.<br></p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-319">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-319">
+<p><code>AMOUNT</code> input accepts the budget amount to be set.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-320">
+<p><code>DATE</code> input accepts the deadline to be set. It cannot be a date in the past.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-321">
+<p><code>CATEGORY</code> accepts the CATEGORY for the budget.
+A budget can be created without <code>CATEGORY</code> inputs in which case, the budget will automatically be assigned `GENERAL' category.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-325">
+<p>Let&#8217;s say you want to restrict your spending for a certain category until a certain deadline.
+PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
+until the deadline (inclusive). You will be more self-conscious of your spending and minimise your spending by setting a budget.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-329">
+<p>To set a new budget:<br>
+1. Type <code>set</code> and enter the relevant details (amount, deadline, category) in the format given above.<br>
+2. The result box will display the message <code>New budget successfully set</code>.<br>
+3. If the budget already exists in the budget list, the result box will display the message <code>This budget already exists</code>.<br>
+4. Now you can see the newly set budget in the budget list.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-335">
+<p>As you make an <strong>OutTransaction</strong> of a particular <code>CATEGORY</code>, your budgets with the same <code>CATEGORY</code> will be adjusted
+to display the remaining amount of budget. Other budgets in the list belonging to different <code>CATEGORY</code> will not be adjusted.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-338">
+<p>For example, you went out with your friends and bought a cup of Gong Cha.
+Before you log your spending, your budget list looks like this:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-342">
+<div class="content">
+<img src="images/approachingBudget.png" alt="approachingBudget">
+</div>
+<div class="title">Figure 14. Budget List before Executing OutTransaction</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-344">
+<p>You then type in the command <code>out $/5 c/BBT c/friends n/gong cha d/11112019</code>.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-347">
+<div class="content">
+<img src="images/newOutTransaction.png" alt="newOutTransaction">
+</div>
+<div class="title">Figure 15. New OutTransaction Command</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-349">
+<p>Your budget list now shows the updated budgets. Observe how Budget 3 is not affected because it does not belong to the relevant <strong>category</strong>.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-352">
+<div class="content">
+<img src="images/budgetAffected.png" alt="budgetAffected">
+</div>
+<div class="title">Figure 16. Updated Budget List</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-355">
+<p>Budget will not take into consideration past <strong>OutTransaction</strong> when calculating the remaining budget. Remember, you are setting a budget
+from TODAY till the stated <code>DATE</code> (inclusive)!<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-358">
+<p>If you overspend beyond a set budget, the overspent budget will be displayed in red.
+Shown below as budget index 3 is an example of an overspent budget:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-362">
+<div class="content">
+<img src="images/overspentBudget.png" alt="overspentBudget">
+</div>
+<div class="title">Figure 17. Overspent Budget</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-364">
+<p>As the day you have set for the budget approaches, the countdown placeholder as well as the percentage remaining placeholder
+will turn to red when the number of remaining days reaches 3 and below.
+Shown below as budget index 4 is an example of a budget approaching its deadline:</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-369">
+<div class="content">
+<img src="images/approachingBudget.png" alt="approachingBudget">
+</div>
+<div class="title">Figure 18. Budget approaching deadline</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-371">
+<p>Examples:</p>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-373">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-373">
+<p><code>set $/100 d/010120120 c/BBT</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-374">
+<p><code>set $/300 d/29022020 c/shopping</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-380">
+<h3 id="Split">4.4. Splitting a Bill with Friends : <code>split</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-382">
+<p>Split a bill with your friends<br>
+Format: <code>split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]&#8230;&#8203; [s/SHARE]&#8230;&#8203;</code></p>
+</div>
+<div class="exampleblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-385">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-386">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-386">
+<p><code>DESCRIPTION</code> encompasses more details for the bill being split. User can make use of this
+field to determine nature of bill.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-388">
+<p><code>[SHARE]</code> defines portion of bill to be paid by each person</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-389">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-389">
+<p>if no shares are given, <code>amount</code> will be split evenly across all people, including user</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-390">
+<p>user is included in the bill if number of shares is <strong>1</strong> more than number of people</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-391">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-391">
+<p>user&#8217;s share will be the first listed share</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-392">
+<p>each person&#8217;s share is assigned in order</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-393">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-393">
+<p>i.e. last person&#8217;s share is the last share listed</p>
+</li>
+</ul>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-394">
+<p>shares cannot be negative numbers</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-395">
+<p><strong>shares can be 0 but result is not guaranteed to be meaningful</strong></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-398">
+<h5 id="_ledger_gui">Ledger GUI</h5>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-401">
+<div class="content">
+<img src="images/LedgerUI.png" alt="LedgerUI">
+</div>
+<div class="title">Figure 19. Sample Ledger Graphical User Interface</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-403">
+<p>This is how the <strong>Ledger</strong> looks when you switch to the <strong>Ledger</strong> tab.<br>
+The left shows the people who has unresolved balances with you, while the right lists
+all transactions that have to do with the <strong>Ledger</strong>.<br>
+<strong>Ledger</strong>'s balance is separate from the <strong>BankAccount</strong>. It is displayed in the same position,
+at the bottom right corner.</p>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-409">
+<h4 id="_example_usage_3">4.4.2. Example Usage:</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-411">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-411">
+<p><code>split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao</code></p>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-413">
+<div class="content">
+<pre>$1000 is split equally between Amy, Betty, Catherine, Dan and the user.</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-415">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-415">
+<p>Enter appropriate command into the command line.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-418">
+<div class="content">
+<img src="images/SplitEven1.png" alt="SplitEven1">
+</div>
+<div class="title">Figure 20. Splitting evenly</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-420">
+<p>Result is displayed accordingly</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-423">
+<div class="content">
+<img src="images/SplitEven2.png" alt="SplitEven2">
+</div>
+<div class="title">Figure 21. Splitting evenly (result)</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-425">
+<p>For an even split of $1000, each person pays $200. Therefore <strong>Ledger</strong> shows $200 on the tab of each person.
+<strong>Ledger</strong> balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
+from the rest of his friends. Therefore <strong>Ledger</strong> balance is -$800, as shown in the bottom right.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-429">
+<p><code>split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner</code></p>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-431">
+<div class="content">
+<pre>$100 is split with Albert owing $20, Bernard owing $10 and Clement owing $70.</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-433">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-433">
+<p>Enter appropriate command into the command line.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-436">
+<div class="content">
+<img src="images/SplitUneven1.png" alt="SplitUneven1">
+</div>
+<div class="title">Figure 22. Splitting unevenly</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-438">
+<p>Result is displayed accordingly</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-441">
+<div class="content">
+<img src="images/SplitUneven2.png" alt="SplitUneven2">
+</div>
+<div class="title">Figure 23. Uneven split results</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-446">
+<h3 id="Receive">4.5. Receiving Money from a Friend : <code>receive</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-448">
+<p>Receives money from 1 friend<br>
+Format: <code>receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]</code></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-451">
+<h4 id="_example_usage_4">4.5.1. Example usage:</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-453">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-453">
+<p><code>receive $/20 n/Albert</code></p>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-455">
+<div class="content">
+<pre>Transfers $20 from Albert to user. If Albert is no longer owe or is owed money, he will be removed from the Ledger.</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-457">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-457">
+<p>Enter appropriate command into the command line.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-460">
+<div class="content">
+<img src="images/Receive1.png" alt="Receive1">
+</div>
+<div class="title">Figure 24. Receive payment</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-462">
+<p>Result is displayed accordingly.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-465">
+<div class="content">
+<img src="images/Receive2.png" alt="Receive2">
+</div>
+<div class="title">Figure 25. Receive payment result</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-467">
+<p>Albert is removed from the <strong>Ledger</strong> since he no longer owes any money. <strong>Ledger</strong> balance is also updated accordingly.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-471">
+<h3 id="Project">4.6. Projecting Future Balance and Budgets : <code>project</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-473">
+<p>Cast a projection on your future balance amount and budget statuses based on your transaction history.<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-475">
+<p>Format: <code>project d/DATE [c/CATEGORY]</code></p>
+</div>
+<div id="Project-auto-cast" class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-478">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+If a <code>CATEGORY</code> is not specified, it will be set as <code>GENERAL</code> by default. <code>GENERAL</code> projections project
+upon <strong>ALL</strong> transactions, regardless of their categories.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-481">
+<h4 id="_example_usage_5">4.6.1. Example Usage:</h4>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-483">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-483">
+<p><code>project d/22072020</code></p>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-485">
+<div class="content">
+<pre>Projected balance: $955.80</pre>
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-487">
+<p><code>project d/01012020 c/Food</code></p>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-489">
+<div class="content">
+<pre>Projected balance: $188.04
+You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-492">
+<h4 id="_usage_constraints">4.6.2. Usage Constraints</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-493">
+<h5 id="_command_format">Command Format</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-494">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-494">
+<p><code>CATEGORY</code> must be preceded by its tag <code>c/</code>.
+A violation of any of the above will produce the following error message:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-496">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-497">
+<p>Invalid command format!<br>
+project: Project future balance based on past income/outflow.<br>
+Parameters: d/DATE [c/CATEGORY]<br>
+Example: project d/12122103 c/Food</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-502">
+<h5 id="_date_values">Date Values<br></h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-503">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-503">
+<p><code>DATE</code> input must be set in the future.
+A violation of this constraint will produce the following
+error message:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-506">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-507">
+<p>Invalid command usage!<br>
+Date must be set in the future.</p>
+</div>
+</div>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-510">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-510">
+<p><code>DATE</code> cannot be more than <strong>720</strong> days from the day of projection.<br>
+A violation of this constraint will produce the following error message:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-512">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-513">
+<p>Projections should be a maximum of 2 years (730 days) from now.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-515">
+<h5 id="_minimum_number_of_transactions">Minimum Number of Transactions</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-516">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-516">
+<p>There must be a minimum of <strong>5</strong> transactions in total, or in the specified <code>CATEGORY</code>
+for a projection to be successfully cast.
+Should the requirement above be unmet, the following error message will be produced:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-519">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-520">
+<p>There are no transactions in [CATEGORY]. It is impossible to cast a projection.</p>
+</div>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-522">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+[GENERAL] will be displayed in place of [CATEGORY] if a <code>CATEGORY</code> is not specified. This is due to
+the auto-casting of uncategorised projections to the <code>GENERAL</code> category as explained <a href="#Project-auto-cast">here</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-525">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-525">
+<p>Should the number of transactions in a <code>projection</code> fall below <strong>5</strong>, it
+will be automatically deleted, as shown below:</p>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-527">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-527">
+<p>Suppose there are <strong>5</strong> transactions, and a <code>GENERAL</code> projection, which projects upon them.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-530">
+<div class="content">
+<img src="images/project1.png" alt="project1">
+</div>
+<div class="title">Figure 26. Five transactions under the projection tab</div>
+</div>
+<div id="Figure19" class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-534">
+<div class="content">
+<img src="images/project2.png" alt="project2">
+</div>
+<div class="title">Figure 27. A projection which is cast based on the 5 transactions above</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-536">
+<p>If a transaction being deleted causes the number of transactions being projected upon to fall below 5,
+the corresponding projection will automatically be deleted.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-540">
+<div class="content">
+<img src="images/project3.png" alt="project3">
+</div>
+<div class="title">Figure 28. The fifth transaction has been deleted.</div>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-543">
+<div class="content">
+<img src="images/project4.png" alt="project4">
+</div>
+<div class="title">Figure 29. The project earlier seen in <a href="#Figure19">Figure 19</a> has been automatically deleted.</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-545">
+<h5 id="_valid_budget_start_dates_and_deadlines">Valid Budget Start Dates and Deadlines</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-546">
+<p>A projection will only project upon budgets with deadlines set before or equal to the projection <code>DATE</code>. An example
+is depicted below:</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-549">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-549">
+<p>Suppose there is currently a general <code>BUDGET</code> with a deadline set for 28th November 2019</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-552">
+<div class="content">
+<img src="images/project5.png" alt="project5">
+</div>
+<div class="title">Figure 30. Two budgets with dates 20112019 and 28112019 in the "GENERAL" category</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-555">
+<p>If a general <code>PROJECTION</code> is cast to 20th November 2019, it will contain
+the budget with deadline 20112019 but not 28112019,
+since the projection&#8217;s <code>DATE</code> is earlier than 28112019.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-561">
+<div class="content">
+<img src="images/project6.png" alt="project6">
+</div>
+<div class="title">Figure 31. The projection only contains the budget with deadline 20112019</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-563">
+<h5 id="_backward_projections">Backward Projections</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-564">
+<p>While it is possible in <em>PalPay</em>, projecting your balance amount backwards in time is not guaranteed to
+produce sensible results. It is generally not advisable to do so.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-567">
+<h3 id="_display_a_projection_graph_display">4.7. Display a Projection Graph: <code>display</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-569">
+<p>Display a graphical representation of a <code>projection</code> in a new window.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-571">
+<p>Format: <code>display PROJECTION_ID</code></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-573">
+<h4 id="_example_usage_6">4.7.1. Example Usage</h4>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-575">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-575">
+<p>Type <strong>display PROJECTION_ID</strong> into the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-577">
+<div class="content">
+<img src="images/display1.png" alt="display1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-579">
+<p>A new window containing a graphical representation of the specified projection will pop up.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-581">
+<div class="content">
+<img src="images/display2.png" alt="display2">
+</div>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-583">
+<p>If there are any budgets associated with the projection, a corresponding graphical
+representation of the budget will be additionally displayed.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-586">
+<div class="content">
+<img src="images/display3.png" alt="display3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-588">
+<h4 id="_interpreting_the_projection_graph">4.7.2. Interpreting the Projection graph</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-589">
+<p>Here is a typical projection graph.</p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-592">
+<div class="content">
+<img src="images/project7.png" alt="project7">
+</div>
+<div class="title">Figure 32. A typical projection graph</div>
+</div>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-594">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-594">
+<p>The X-Axis<br>
+The X-Axis denotes your balance in dollars ($).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-597">
+<p>The Y-Axis<br>
+The Y-Axis denotes the number of days from now, with today being Y = 0.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-600">
+<p>Red Points<br>
+The red points on the graph each represent your account balance (denoted by the X-value)
+at a particular point of time (denoted by the Y-value).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-604">
+<p>Blue Line Graph<br>
+The blue line graph represents the projection line, with each point along it representing
+a prediction of your account balance (denoted by the X-value)
+at a certain point of time (denoted by the Y-value).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-609">
+<p>All Other Coloured Line Graphs<br>
+All other coloured line graphs represent various budgets which fall within the <code>CATEGORY</code> and <code>DATE</code> range
+of the <code>PROJECTION</code>. Each of these line graphs have three parts:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-612">
+<div class="content">
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-614">
+<div class="content">
+<img src="images/project8.png" alt="project8">
+</div>
+<div class="title">Figure 33. A budget line graph with its parts labelled by a green, blue and yellow box each</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-615">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-615">
+<p>The line in the green box denotes the budget amount in dollars ($).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-617">
+<p>The line in the blue box denotes the budget duration (i.e. the number of days from its inception to
+its deadline)</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-620">
+<p>The line in the yellow box denotes the projection deficit or surplus, at the point of its deadline.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-623">
+<h4 id="_usage_constraints_2">4.7.3. Usage Constraints</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-624">
+<h5 id="_valid_projection_index">Valid Projection Index</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-625">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-625">
+<p>A <code>Projection</code> with <code>PROJECTION_ID</code> must exist.
+Attempting to display a non-existent <code>PROJECTION</code> will result in the following error message:</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-627">
+<div class="content">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-628">
+<p>The projection index provided is invalid.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-630">
+<h5 id="_static_graph_rendering">Static Graph Rendering</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-631">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-631">
+<p><code>Projection</code> graphs do not update automatically when a new <code>Transaction</code> or <code>Budget</code> is
+added or removed. Instead, they are statically rendered upon the <code>display</code> command.</p>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-634">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Due to the static nature of projection graphs, commands should <strong>NOT</strong> be executed while a projection
+graph is open, lest the behaviour of PalPay become unpredictable.<br>
+Consequently, a <code>display</code> command should <strong>ALWAYS</strong> be followed by closing the projection graph window, before
+any other actions are performed within <em>PalPay</em>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-641">
+<h3 id="View">4.8. Switching Tabs : <code>view</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-643">
+<p>Want to switch tabs without using your mouse? You can switch to another tab with the <code>view</code> command.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-645">
+<h4 id="_command_syntax_3">4.8.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-647">
+<p>Format: <code>view TAB</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-649">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-650">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-650">
+<p><code>TAB</code> input only accepts <code>transaction</code>, <code>budget</code>, <code>ledger</code> and <code>projection</code> in v1.4. It is case-insensitive.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-653">
+<h4 id="_example_usage_7">4.8.2. Example Usage:</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-655">
+<p>You do not have to use your mouse in PalPay to switch tabs anymore.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-657">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-657">
+<p>By default, you are in the <code>transaction</code> tab.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-659">
+<div class="content">
+<img src="images/view1.png" alt="view1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-661">
+<p>Simply type <strong>view budget</strong> in the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-663">
+<div class="content">
+<img src="images/view2.png" alt="view2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-665">
+<p>You can now view your budgets. Easy!</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-667">
+<div class="content">
+<img src="images/view3.png" alt="view3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-673">
+<h3 id="Delete">4.9. Deleting Finance : <code>delete</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-675">
+<p>Deletes the specified Transaction, Budget, Ledger or Projection from PalPay.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-678">
+<h4 id="_command_syntax_4">4.9.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-680">
+<p>Format: <code>delete TYPE+INDEX</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-682">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-683">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-683">
+<p><code>TYPE</code> accepts either <code>t</code> (Transaction), <code>b</code> (Budget), <code>l</code> (Ledger) or <code>p</code> (Projection). (e.g. <code>delete b1</code> refers to deleting a <strong>Budget</strong> of index 1).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-684">
+<p><code>TYPE+INDEX</code> requires the TYPE and INDEX to be placed in sequential order (e.g. <code>delete b 1</code> or <code>delete 1</code> or <code>delete 1b</code> will not work).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-685">
+<p>Example: <code>delete t1</code> will delete the first transaction from the list of transactions.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-688">
+<h4 id="_important_details_2">4.9.2. Important Details:</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-690">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-690">
+<p>PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. <code>delete t1 t2 b1</code> or <code>delete t1 t2</code> will not work)</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-691">
+<p>You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of <code>INDEX</code> does not exists.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-693">
+<h4 id="_example_usage_8">4.9.3. Example Usage:</h4>
+<div class="literalblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-695">
+<div class="content">
+<pre>Deleting the 5th entry of the transactions list</pre>
+</div>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-697">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-697">
+<p>Note the index of the entry you want to delete. In this example, <strong>entry 5</strong> is the field we will be deleting.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-699">
+<div class="content">
+<img src="images/delete_ug_1.png" alt="delete ug 1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-701">
+<p>Since we are deleting a <strong>Transaction</strong> entry of index 5, we will input <code>t</code> into our <code>TYPE</code> field and <code>5</code> into our <code>INDEX</code> field.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-703">
+<div class="content">
+<img src="images/delete_ug_2.png" alt="delete ug 2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-705">
+<p>Success message will be displayed upon successful deletion.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-707">
+<div class="content">
+<img src="images/delete_ug_3.png" alt="delete ug 3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-709">
+<h5 id="_example_commands_3">Example Commands:</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-711">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-711">
+<p><code>delete t1</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-712">
+<p><code>delete b3</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-713">
+<p><code>delete l2</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-714">
+<p><code>delete p4</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-722">
+<h3 id="Update">4.10. Updating Finance : <code>update</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-724">
+<p>Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an <code>update</code> feature which helps you change specific fields within your entries.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-726">
+<h4 id="_command_syntax_5">4.10.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-728">
+<p>The <code>update</code> feature has different implementations for different entry types. The conditions for the <code>update</code> feature is as follows.</p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-730">
+<p>Format (Transactions): <code>update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]&#8230;&#8203;</code><br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-732">
+<p>Format (Budget): <code>update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]&#8230;&#8203;</code><br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-734">
+<p>Format (Ledger): Cannot be updated<br></p>
+</div>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-736">
+<p>Format (Projections): Cannot be updated</p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-738">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-739">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-739">
+<p>At least one <code>AMOUNT</code>, <code>DATE</code>, <code>ITEM</code> or <code>CATEGORY</code> fields must be entered. You can input more than 1 of the mentioned fields (e.g. <code>update t1 $/100 n/milk</code>).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-740">
+<p><code>TYPE</code> only accepts either <code>t</code> (Transaction) or <code>b</code> (Budget). (e.g. <code>update t1 ..</code> refers to updating a <strong>Transaction</strong> of index 1).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-741">
+<p><code>TYPE+INDEX</code> requires the TYPE and INDEX to be placed in sequential order (e.g. <code>update b 1 ..</code> or <code>update 1 ..</code> or <code>update 1b ..</code> will not work).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-742">
+<p>Example: <code>update t1 $/3000 d/10102019</code> will update the first transaction from the list of transactions by changing it&#8217;s <strong>Amount</strong> to $1000 and <strong>Date</strong> to 10/10/2019.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-745">
+<h4 id="_important_details_3">4.10.2. Important Details:</h4>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-747">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-747">
+<p><code>update</code> requires at least one field to be updated. (e.g. <code>update t1 $/20 d/10102019 n/milk</code> and <code>update t1 $/10</code> will both be accepted).</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-748">
+<p>You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index <code>INDEX</code> does not exists.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-749">
+<p><code>Ledger</code> and <code>Projection</code> do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-750">
+<p>You cannot change an <code>in</code> Transaction to an <code>out</code> Transaction or vice versa.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-751">
+<p>Changing an expenditure&#8217;s (<code>out</code> Transaction) category field to that of a Budget&#8217;s entry will reflect changes on that particular Budget entry as well. (Further explained in <a href="#UG_UPDATE_EXAMPLE_3">Section 4.10.3.3, &#8220;Example 3:&#8221;</a>)</p>
+<div class="admonitionblock note has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-753">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Changing the categories of an <code>out</code> Transaction entry with similar categories to that of a <code>Budget</code> entry to reflect changes on the budget&#8217;s remaining amount will be incoming in version 2.0.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-755">
+<h4 id="_example_usage_9">4.10.3. Example Usage</h4>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-757">
+<h5 id="_example_1_3">Example 1:</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-759">
+<p>Updating a <strong>Transaction</strong> entry.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-761">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-761">
+<p>Identify the index number of the entry you want to edit. In this case, we will be using entry 3.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-763">
+<div class="content">
+<img src="images/update_ug_1.png" alt="update ug 1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-765">
+<p>Put <code>t</code> as your <code>TYPE</code> input and key in the fields you want to change. In this case, we will only be changing the amount of the transaction.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-767">
+<div class="content">
+<img src="images/update_ug_2.png" alt="update ug 2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-769">
+<p>Success message will be displayed upon successful update. Fields will now be updated accordingly.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-771">
+<div class="content">
+<img src="images/update_ug_3.png" alt="update ug 3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-773">
+<h5 id="_example_2_3">Example 2:</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-775">
+<p>Updating a <strong>Budget</strong> entry.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-777">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-777">
+<p>Identify the index number of the entry you want to edit</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-779">
+<div class="content">
+<img src="images/update_ug_4.png" alt="update ug 4">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-781">
+<p>Put <code>b</code> as your <code>TYPE</code> input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
+When you update the amount of a budget, the budget will be re-initialised (reset to 100%).</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-784">
+<div class="content">
+<img src="images/update_ug_5.png" alt="update ug 5">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-786">
+<p>Success message will be displayed upon successful update. Fields will now be updated accordingly.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-788">
+<div class="content">
+<img src="images/update_ug_6.png" alt="update ug 6">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-791">
+<h5 id="UG_UPDATE_EXAMPLE_3">Example 3:</h5>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-793">
+<p>Updating a <strong>Transaction</strong> entry which has the same category field as a <strong>Budget</strong> entry.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-795">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-795">
+<p>Identify the index number of the <strong>Transaction</strong> entry you want to edit.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-797">
+<div class="content">
+<img src="images/update_ug_7.png" alt="update ug 7">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-799">
+<p>Notice that a <strong>Budget</strong> entry has the same category field as the <strong>Transaction</strong> entry mentioned above. (<strong>Budget</strong> entry 2).</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-801">
+<div class="content">
+<img src="images/update_ug_8.png" alt="update ug 8">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-803">
+<p>Put <code>t</code> as your <code>TYPE</code> input and key in the fields you want to change. In this case, we will be changing only the amount of this <strong>Transaction</strong>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-805">
+<div class="content">
+<img src="images/update_ug_9.png" alt="update ug 9">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-807">
+<p>Success message will be displayed upon successful update. Fields of the <strong>Transaction</strong> entry will now be updated accordingly.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-809">
+<div class="content">
+<img src="images/update_ug_10.png" alt="update ug 10">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-811">
+<p>Remaining amount of the <strong>Budget</strong> entry will also be updated accordingly.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-813">
+<div class="content">
+<img src="images/update_ug_11.png" alt="update ug 11">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-815">
+<h5 id="_example_commands_4">Example Commands:</h5>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-817">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-817">
+<p><code>update t1 $/20 n/coke c/drinks d/12122019</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-818">
+<p><code>update b2 $/300</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-819">
+<p><code>update t4 $/30 d/12102019</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-825">
+<h3 id="Sort">4.11. Sorting Transactions : <code>sort</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-827">
+<p>Have you ever wonder which is the most expensive transaction you ever made?
+Or which is the latest transaction you made? Fret not!
+You can now <code>sort</code> your transactions according to <code>date</code> or <code>amount</code>.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-832">
+<h4 id="_command_syntax_6">4.11.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-834">
+<p>Format: <code>sort PREDICATE/ORDER</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-836">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-837">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-837">
+<p><code>PREDICATE</code> accepts only <code>date</code> or <code>amount</code>. It is case-insensitive.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-838">
+<p><code>ORDER</code> accepts only <code>a</code> or <code>d</code> which represents ascending and descending, respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-841">
+<h4 id="_example_usage_10">4.11.2. Example Usage:</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-843">
+<p>Do you want to know what is the latest transaction you made? No need to scroll all the way down anymore. PalPay
+has made it simple for you.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-846">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-846">
+<p>By default, your transactions are sorted from the earliest
+transaction you entered to the latest transaction you entered.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-849">
+<div class="content">
+<img src="images/sort1.png" alt="sort1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-851">
+<p>Simply type <strong>sort date/d</strong> in the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-853">
+<div class="content">
+<img src="images/sort2.png" alt="sort2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-855">
+<p>Great! You can now see the latest transactions you made.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-857">
+<div class="content">
+<img src="images/sort3.png" alt="sort3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-864">
+<h3 id="Filter">4.12. Filtering Transactions : <code>filter</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-866">
+<p>Here at PalPay, you do not need to scroll through your history of transactions to find out what you spend two months ago.
+PalPay gives you the power to filter your transactions to solve that problem.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-870">
+<h4 id="_command_syntax_7">4.12.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-872">
+<p>Format: <code>filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-874">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-875">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-875">
+<p><code>YEAR</code> accepts only integers from 1900 to 9999.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-876">
+<p><code>MONTH</code> accepts only integers from 1 to 12.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-877">
+<p>All transactions with at least one <code>CATEGORY</code> in the <code>[c/CATEGORY]&#8230;&#8203;</code> input will be displayed.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-878">
+<p>Example: <code>filter c/transport c/allowance y/2019</code> will display transactions with <code>transport</code>, <code>allowance</code>, or
+<code>transport</code> and <code>allowance</code> that occurred in 2019.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-882">
+<h4 id="_example_usage_11">4.12.2. Example Usage:</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-884">
+<p>Imagine that you wanted to find out what you spent on shopping in October 2019.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-886">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-886">
+<p>By default, PalPay shows your all your transactions you have made.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-888">
+<div class="content">
+<img src="images/filter1.png" alt="filter1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-890">
+<p>Simply type <strong>filter c/Shopping m/10 y/2019</strong> in the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-892">
+<div class="content">
+<img src="images/filter2.png" alt="filter2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-894">
+<p>You will now see the list of transactions you have made while shopping in October 2019. Hurray!</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-896">
+<div class="content">
+<img src="images/filter3.png" alt="filter3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-902">
+<h3 id="Undo">4.13. Undoing the Last Command : <code>undo</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-904">
+<p>Did you accidentally delete a transaction? Do not panic! PalPay lets you undo your previous commands with just one
+word, <code>undo</code>.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-907">
+<h4 id="_command_syntax_8">4.13.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-909">
+<p>Format: <code>undo</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-911">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-912">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-912">
+<p>Once you exit PalPay, you cannot undo the previous commands.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-913">
+<p>Below are the commands that are undoable:</p>
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-914">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-914">
+<p><code>in</code> / <code>out</code> / <code>set</code> / <code>split</code> / <code>receive</code> / <code>project</code> /
+<code>sort</code> / <code>filter</code> / <code>update</code> / <code>delete</code> / <code>clear</code> / <code>list</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-918">
+<h4 id="_example_usage_12">4.13.2. Example Usage:</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-920">
+<p>Suppose you want to update your allowance you received in October 2019 to $800 but you accidentally update the GrabTaxi
+ride instead. Without going through the trouble of updating the same transaction again, you can simply perform the
+<code>undo</code> command. Just follow these three simple steps.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-924">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-924">
+<p>Here, you can see the wrong update you just made.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-926">
+<div class="content">
+<img src="images/undo1.png" alt="undo1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-928">
+<p>Simply type <strong>undo</strong> in the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-930">
+<div class="content">
+<img src="images/undo2.png" alt="undo2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-932">
+<p>As you wish, your command has been undone.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-934">
+<div class="content">
+<img src="images/undo3.png" alt="undo3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-939">
+<h3 id="Redo">4.14. Redoing the Last Command : <code>redo</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-941">
+<p>Made an extra <code>undo</code> by mistake? Do not worry! PalPay lets you redo your previous undo(s) with just one word, <code>redo</code>.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-943">
+<h4 id="_command_syntax_9">4.14.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-945">
+<p>Format: <code>redo</code></p>
+</div>
+<div class="sidebarblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-947">
+<div class="content">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-948">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-948">
+<p>You can only redo <code>undo</code> commands.</p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-949">
+<p>Once you exit PalPay, you cannot redo the previous undo(s).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-952">
+<h4 id="_example_usage_13">4.14.2. Example Usage:</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-954">
+<p>Suppose you want to undo your last update but you accidentally undo twice instead.
+You can simply perform the <code>redo</code> command to revert the changes. Just follow these three simple steps.</p>
+</div>
+<div class="olist arabic has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-957">
+<ol class="arabic">
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-957">
+<p>Here, you can see the extra undo you just made and the GrabTaxi ride is back at $800.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-959">
+<div class="content">
+<img src="images/redo1.png" alt="redo1">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-961">
+<p>Simply type <strong>redo</strong> in the command box and press <kbd>Enter</kbd>.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-963">
+<div class="content">
+<img src="images/redo2.png" alt="redo2">
+</div>
+</div>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-965">
+<p>Great! Your transaction is back to normal.</p>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-967">
+<div class="content">
+<img src="images/redo3.png" alt="redo3">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-972">
+<h3 id="Clear">4.15. Clearing All Entries : <code>clear</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-974">
+<p>Do you want to start PalPay from a clean slate again? The <code>clear</code> command lets you do that!<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-977">
+<h4 id="_command_syntax_10">4.15.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-979">
+<p>Format: <code>clear</code></p>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-982">
+<h3 id="List">4.16. Listing All Entries : <code>list</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-984">
+<p>After filtering your transactions, you can use the <code>list</code> command to see all of your transactions in PalPay again.<br></p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-987">
+<h4 id="_command_syntax_11">4.16.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-989">
+<p>Format: <code>list</code></p>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-992">
+<h3 id="Help">4.17. Viewing Help : <code>help</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-994">
+<p>Did you forget how to use the <code>in</code> command? Fret not! You can easily find the link to this User Guide with the
+<code>help</code> command. Simply copy and paste the URL into your browser to access our User Guide.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-997">
+<h4 id="_command_syntax_12">4.17.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-999">
+<p>Format: <code>help</code></p>
+</div>
+<div class="imageblock has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1001">
+<div class="content">
+<img src="images/help.png" alt="help">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1004">
+<h3 id="Exit">4.18. Exiting the Application : <code>exit</code></h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1006">
+<p>Finishing using PalPay for the day? You can use the <code>exit</code> command to close PalPay.</p>
+</div>
+<div class="sect3 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1008">
+<h4 id="_command_syntax_13">4.18.1. Command Syntax</h4>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1010">
+<p>Format: <code>exit</code></p>
+</div>
+</div>
+</div>
+<div class="sect2 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1012">
+<h3 id="_saving_the_data">4.19. Saving the Data</h3>
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1014">
+<p>PalPay data is saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1017">
+<h2 id="_faq">5. FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1019">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Bank Account folder.</p>
+</div>
+</div>
+</div>
+<div class="sect1 has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1022">
+<h2 id="_command_summary">6. Command Summary</h2>
+<div class="sectionbody">
+<div class="ulist has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1024">
+<ul>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1024">
+<p><a href="#In"><strong>In</strong></a> : <code>in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]</code><br>
+Example: <code>in $/100 n/allowance d/11112019 c/income</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1026">
+<p><a href="#Out"><strong>Out</strong></a> : <code>out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]</code><br>
+Example: <code>out $/20 n/coke d/19112019 c/drink c/lunch</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1028">
+<p><a href="#Set"><strong>Set</strong></a> : <code>set $/AMOUNT d/DATE [c/CATEGORY]&#8230;&#8203;</code><br>
+Example: <code>set $/100 d/10102019 c/food</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1030">
+<p><a href="#Split"><strong>Split</strong></a> : <code>split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]&#8230;&#8203; [s/SHARE]&#8230;&#8203;</code><br>
+Example: <code>split $/1000 n/Amy n/Betty n/Catherine n/Dan a/HaiDiLao</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1032">
+<p><a href="#Receive"><strong>Receive</strong></a> : <code>receive $/AMOUNT n/NAME</code><br>
+Example:  <code>receive $/20 n/Albert</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1034">
+<p><a href="#Project"><strong>Project</strong></a> : <code>project DURATION</code><br>
+Example: <code>project d/22072020</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1036">
+<p><a href="#View"><strong>View</strong></a> : <code>view TAB</code><br>
+Example: <code>view transaction</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1038">
+<p><a href="#Delete"><strong>Delete</strong></a> : <code>delete TYPE+INDEX</code><br>
+Example: <code>delete t1</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1040">
+<p><a href="#Update"><strong>Update</strong></a> : <code>update TYPE+INDEX [$/AMOUNT] [d/date] [n/ITEM] [c/CATEGORY]</code><br>
+Example: <code>update b1 $/100 c/transport</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1042">
+<p><a href="#Sort"><strong>Sort</strong></a> : <code>sort PREDICATE</code><br>
+Example: <code>sort amount</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1044">
+<p><a href="#Filter"><strong>Filter</strong></a> : <code>filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]&#8230;&#8203;</code><br>
+Example: <code>filter c/transport c/allowance y/2019</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1046">
+<p><a href="#Undo"><strong>Undo</strong></a> : <code>undo</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1047">
+<p><a href="#Redo"><strong>Redo</strong></a> : <code>redo</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1048">
+<p><a href="#Clear"><strong>Clear</strong></a> : <code>clear</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1049">
+<p><a href="#List"><strong>List</strong></a> : <code>list</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1050">
+<p><a href="#Help"><strong>Help</strong></a> : <code>help</code></p>
+</li>
+<li class="has-source-line data-line-/home/dingyuchen/main/docs/UserGuide.adoc-1051">
+<p><a href="#Exit"><strong>Exit</strong></a> : <code>exit</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-11-11 20:35:51 +0800
+</div>
+</div>
+</body>
+</html>
