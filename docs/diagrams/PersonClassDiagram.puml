@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+class Person
+
+class Name
+
+class DoB
+
+class BloodType
+
+class Gender
+
+class Weight
+
+class Height
+
+class MedicalHistory
+
+Person *-up-> "1" Name
+Person *-up-> "1" Gender
+Person *-up-> "*" MedicalHistory
+Person *-left-> "1" DoB
+Person *-right-> "1" BloodType
+Person *-down-> "1" Weight
+Person *-down-> "1" Height
+
+skinparam classAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
+@enduml
