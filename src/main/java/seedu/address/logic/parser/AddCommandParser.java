@@ -140,7 +140,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             .orElse(""));
         Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
 
-        if (dateJoined.before(dateOfBirth)) {
+        if (dateJoined != null && dateOfBirth != null && dateJoined.before(dateOfBirth)) {
             throw new ParseException(MESSAGE_DATEJOINED_BEFORE_DOB);
         }
 
@@ -179,11 +179,11 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
         }
 
-        if (dateOfAdmission.before(dateOfDeath)) {
+        if (dateOfAdmission != null && dateOfDeath != null && dateOfAdmission.before(dateOfDeath)) {
             throw new ParseException(MESSAGE_DOA_BEFORE_DOD);
-        } else if (dateOfAdmission.before(dateOfBirth)) {
+        } else if (dateOfAdmission != null && dateOfBirth != null && dateOfAdmission.before(dateOfBirth)) {
             throw new ParseException(MESSAGE_DOA_BEFORE_DOB);
-        } else if (dateOfDeath.before(dateOfBirth)) {
+        } else if (dateOfDeath != null && dateOfBirth != null && dateOfDeath.before(dateOfBirth)) {
             throw new ParseException(MESSAGE_DOD_BEFORE_DOB);
         }
         return new Body(dateOfAdmission, name, sex, nric, religion,
