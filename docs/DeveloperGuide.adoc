@@ -1487,4 +1487,3 @@ A Task will be shown on that date in the Calendar view as well.
    Expected: Error. Invalid command, TutorAid can't find such a command to delete.
 .. Test case: `deleteCustomCommand BASICCOMMAND` +
    Expected: Error. You can't delete a basic built-in command.
-
