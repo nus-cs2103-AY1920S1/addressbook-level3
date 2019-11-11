@@ -45,7 +45,7 @@ image::LoginUI.png[width="790"]
 .  Login with your account or if you do not have one, register within Tutoraid.
 .  After logging in, you will be directed to the Student Page.
 +
-image::UI.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  The Reminders Window should pop up as well.
 +
