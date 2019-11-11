@@ -25,6 +25,7 @@ public class BudgetTest {
     private static final Budget BUDGET_ONE = new Budget();
     private static final Budget BUDGET_TWO = new Budget(HUNDRED, new Date(VALID_DATE));
     private static final Budget BUDGET_THREE = new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES);
+    private static final Budget BUDGET_FOUR = new Budget(HUNDRED, HUNDRED, new Date(VALID_DATE), CATEGORIES);
 
 
     @Test
@@ -33,6 +34,14 @@ public class BudgetTest {
                 new Date(VALID_DATE)));
         assertThrows(IllegalArgumentException.class, () -> new Budget(new Amount(Amount.UNSIGNED_INT_LIMIT + 1),
                 new Date(VALID_DATE), CATEGORIES));
+    }
+
+    @Test
+    public void budgetConstructor_success() {
+        assertEquals(new Budget(HUNDRED, new Date(VALID_DATE)), BUDGET_TWO);
+        assertEquals(new Budget(HUNDRED, new Date(VALID_DATE), CATEGORIES), BUDGET_THREE);
+        assertEquals(new Budget(HUNDRED, HUNDRED, new Date(VALID_DATE), CATEGORIES), BUDGET_FOUR);
+        assertEquals(new Budget(HUNDRED, HUNDRED.addAmount(HUNDRED), new Date(VALID_DATE), CATEGORIES), BUDGET_FOUR);
     }
 
     @Test

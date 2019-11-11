@@ -34,7 +34,11 @@ public class Budget implements Comparable<Budget> {
      */
     public Budget(Amount initialAmount, Amount amount, Date date, Set<Category> categories) {
         this.initialAmount = initialAmount;
-        this.amount = amount;
+        if (initialAmount.subtractAmount(amount).isNegative()) {
+            this.amount = initialAmount;
+        } else {
+            this.amount = amount;
+        }
         this.deadline = date;
         this.categories.addAll(categories);
         this.valid = true;
