@@ -157,8 +157,6 @@ You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/D
 
 {Start of extract from Developer Guide}
 
-include::../DeveloperGuide.adoc[tag=training_structure]
-
-include::../DeveloperGuide.adoc[tag=training_design]
+include::../DeveloperGuide.adoc[tag=entire_training]
 
 {End of extract from Developer Guide}

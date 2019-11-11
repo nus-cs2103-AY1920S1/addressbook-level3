@@ -237,6 +237,8 @@ Classes used by multiple components are in the `[green]#seedu.addressbook.common
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
+// tag::entire_training[]
+
 // tag::training_structure[]
 === Training feature
 
@@ -369,6 +371,7 @@ time-consuming and this defeats the purpose of having a command line interface. 
 one with the `training` command makes it editing much quicker.
 
 // end::training_design[]
+// end::entire_training[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
