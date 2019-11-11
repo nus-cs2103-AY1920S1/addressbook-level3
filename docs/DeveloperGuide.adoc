@@ -1339,3 +1339,41 @@ Expected: The current tab switches to game tab
 (iv) Test case: `tab b/report` +
 Expected: The current tab switches to report tab
 
+=== Generating PDF
+
+(i) Test case:
+
+```
+pdf
+i/1 (provided at least 1 engagement in the list)
+f/Jason
+t/Gi Hun
+```
+
+Expected: A PDF file is generated with the content of the _first engagement_ in list, with sender set to _Gi Hun_ and reciver set to _Jason_. The file can be seen in the documents explorer tree view.
+
+(ii) Test case:
+
+```
+Click the refresh button
+```
+
+Expected: Documents explorer tree view refreshes.
+
+(iii) Test case:
+
+```
+Single click on an existing document in documents explorer tree view
+Click the delete button
+Select OK in pop-up dialog
+```
+
+Expected: Selected document is deleted from directory.
+
+(iv) Test case:
+
+```
+Double click on an existing document in documents explorer tree view
+```
+
+Expected: Selected document opens in the default `.pdf` file viewer
