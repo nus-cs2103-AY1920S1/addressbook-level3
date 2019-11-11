@@ -179,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Hides Vehicle & Incident Panels.
      */
-    void initPreLogin() {
+    void initAccountView() {
         logic.setPersonView(true);
         personListPanelPlaceholder.getParent().setVisible(true);
         personListPanelPlaceholder.getParent().setManaged(true);
@@ -192,7 +192,7 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Shows Vehicle & Incident Panels.
      */
-    void initPostLogin() {
+    void initIncidentView() {
         logic.setPersonView(false);
         personListPanelPlaceholder.getParent().setVisible(false);
         personListPanelPlaceholder.getParent().setManaged(false);
@@ -207,7 +207,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleLogin() {
-        initPostLogin();
+        initIncidentView();
         setStatus();
     }
 
@@ -221,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleLogout() {
-        initPreLogin();
+        initAccountView();
         setStatus();
     }
 
@@ -231,9 +231,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleSwap() {
         if (logic.isPersonView()) {
-            initPostLogin();
+            initIncidentView();
         } else {
-            initPreLogin();
+            initAccountView();
         }
     }
 

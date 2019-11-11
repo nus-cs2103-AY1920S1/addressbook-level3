@@ -11,10 +11,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Username {
 
     public static final String MESSAGE_CONSTRAINTS = "Usernames must adhere to the following requirements: \n"
-            + "1. Usernames must be at least 3 characters in length\n"
+            + "1. Usernames must be at least 3 characters in length.\n"
             + "2. Usernames can only consist of alphanumeric characters and the following special characters,"
-            + "excluding the parentheses, (.-)\n"
-            + "3. Usernames cannot begin or end with a non alphanumeric character\n"
+            + "excluding the parentheses, (.-).\n"
+            + "3. Usernames cannot begin or end with a non alphanumeric character.\n"
             + "4. Usernames cannot be blank or contain a whitespace";
 
     /*

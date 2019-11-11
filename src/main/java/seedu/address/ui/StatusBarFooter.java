@@ -24,16 +24,17 @@ public class StatusBarFooter extends UiPart<Region> {
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
-        sessionDetails.setText("Not Logged In");
+        sessionDetails.setText("Status: Not Logged In");
     }
 
     //@@author madanalogy
     public void setLoginDetails(Person person, String time) {
         if (person != null) {
-            sessionDetails.setText("Logged in as " + person.getUsername()
+            assert(time != null);
+            sessionDetails.setText("Status: Logged in as " + person.getUsername()
                     + " on " + time);
         } else {
-            sessionDetails.setText("Not Logged In");
+            sessionDetails.setText("Status: Not Logged In");
         }
     }
 
