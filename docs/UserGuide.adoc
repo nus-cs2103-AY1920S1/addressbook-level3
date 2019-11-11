@@ -58,10 +58,12 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
+Note:
 
-Note: GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** Some windows are not yet optimised for perfect viewing. [Coming in V2.0]
 
-Please use scroll bar to view the windows properly.
+In such cases, please use scroll bar to view the windows properly.
 
 //@@author huiminlim
 ====
@@ -155,15 +157,11 @@ FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 // tag::view[]
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck
+View the individual flashcards in a specific deck
 
-Format: `view [deck/DECK_NAME]`
+Format: `view deck/DECK_NAME`
 
-Examples:
-
-* `view` +
-
-Displays all the decks of cards in the library
+Example:
 
 * `view deck/science_deck` +
 
@@ -425,6 +423,8 @@ Example:
 // tag::test[]
 === Start test with flashcards : `test`
 
+image::StartTestCommand.png[width="650", align="center"]
+
 ****
 Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
 
@@ -455,42 +455,56 @@ Gets the previous card in the test deck.
 
 ==== Quit test: `exit`
 
-Exits the test process when the user is in test mode.
+image::ExitCommand.png[width="650", align="center"]
 
-Exams will also terminate automatically upon running out of cards in the test deck.
+Exits test mode.
 
 Triggers a popup with the results of the test.
 
-Do note that premature ending of a test will still count towards your Statistics.
+Popup will also automatically be triggered upon reaching the end of the deck.
+
+However, upon reaching the end of the deck, the user will be able to review and reattempt questions (though it will not count towards the user's score)
+
+[TIP]
+Do note that premature ending of a test will still count towards your User Statistics.
 
 ==== Front-Back Cards: `front`, `back`, `correct`, `wrong`
+
+image::FrontBack.png[]
 
 ====
 * Users should look at the question on the front of the card and think of their answer.
 
 * Once they have their answer, they can type `back` to view the answer on the back on the card.
 
-* They will then be able to type `correct` or `wrong` to count their results.
+* Once on the card back, one can type `correct` or `wrong` to count their results, which will automatically take them to the next question.
 
 * They can type `front` when they are on the card back to relook at the question.
 ====
 
 ==== Multiple Choice Cards: `<INDEX_OF_CORRECT_ANSWER>`, `front`
+
+image::MCQCard.png[]
+
 ====
 * Upon loading the card, users will be presented with the question and several choices.
 
 * Users will be able to key in their choice into the command bar, with the top most option as 1 and increasing downwards. Do note only numbers are accepted.
 
-* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question.
+* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question or `next` to go to the next question.
 ====
 
 ==== Java/Javascript Cards: `code`
+image::JsJavaCard.png[]
+
 ====
 * Upon loading the card, users will be presented with a coding question.
 
 * They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
 
 * Upon running their programs, if they pass all test cases, their results will automatically be counted.
+
+* Users can then type `next` to go to the next question.
 ====
 //end::test[]
 
