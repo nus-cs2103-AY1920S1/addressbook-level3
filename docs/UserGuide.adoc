@@ -558,14 +558,6 @@ The specified reminder is deleted.
 
 // tag::import[]
 === Importing data : `import`
-*Format:* `import p/FILE_PATH` +
-
-*Examples:* +
-
-* `import p/data.csv`
-* `import p/C:\Users\User\Documents\spending.csv`
-* `import p/./data.csv`
-
 The purpose of this command is to let you import external spending data from a Csv file.
 
 When you want to import your existing spending data which is recorded in a Csv file,
@@ -580,6 +572,14 @@ Only spending data will be imported. This excludes Reminder and Budget data.
 
 However, importing of Reminder and Budget data is *coming in our version 2.0*!
 ====
+
+*Format:* `import p/FILE_PATH` +
+
+*Examples:* +
+
+* `import p/data.csv`
+* `import p/C:\Users\User\Documents\spending.csv`
+* `import p/./data.csv`
 
 ==== [[retrieving-filepath]]Retrieving File Path
 You could retrieve your file path by following these steps, depending on which Operating System you are on:
@@ -641,15 +641,6 @@ Data from the Csv file is imported, keeping existing spending entries.
 
 // tag::export[]
 === Exporting data : `export`
-
-*Format:* export `p/FOLDER_PATH` +
-
-*Examples:* +
-
-* `export p/Documents`
-* `export p/Finance`
-* `export p/C:\Users\user\Documents\MoneyGoWhere`
-
 The purpose of this command is to let you export your spending data to a
 `moneygowhere.csv` file at a folder that you like. You could refer to <<retrieving-filepath,Retrieving File Path>>.
 
@@ -660,6 +651,13 @@ Only spending data will be exported into `moneygowhere.csv` file. This excludes 
 However, exporting of Reminder and Budget data is *coming in our version 2.0*!
 ====
 
+*Format:* export `p/FOLDER_PATH` +
+
+*Examples:* +
+
+* `export p/Documents`
+* `export p/Finance`
+* `export p/C:\Users\user\Documents\MoneyGoWhere`
 
 // end::export[]
 
