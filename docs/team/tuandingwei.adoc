@@ -62,7 +62,6 @@ As the Grades Tracker feature does not have indexes the original delete command 
 
 === Project management:
 *** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub, with a v1.3.1 pre-release after a major revamp of the UI.
-*** Updated the GUI color scheme and command bar design (Pull requests https://github.com[#33], https://github.com[#34])
 *** Wrote additional tests for existing features to increase coverage from 46% to 49% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/166[#166]) Major components of the tests have to be refracted as the major classes of the addressbook have been replaced.
 *** Documentation: Classes and methods are properly documented.
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/159#pullrequestreview-314558487[#159]
