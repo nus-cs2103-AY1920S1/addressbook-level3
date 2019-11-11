@@ -4,11 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
+
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ACTOR_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BOB_THE_BUILDER;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
@@ -32,7 +34,7 @@ import seedu.ezwatchlist.testutil.ShowBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -42,7 +44,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(0), editedShow);
 
         assertTrue(expectedModel.getFilteredShowList().get(0).equals(editedShow));
@@ -55,18 +57,18 @@ public class EditCommandTest {
         Show lastShow = model.getFilteredShowList().get(indexLastShow.getZeroBased());
 
         ShowBuilder showInList = new ShowBuilder(lastShow);
-        Show editedShow = showInList.withName(VALID_NAME_BOB_THE_BUILDER)
+        Show editedShow = showInList.withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER)
                 .withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
 
-        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER)
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
                 .withDescription(VALID_DESCRIPTION_BOB_THE_BUILDER).withActors(VALID_ACTOR_BOB_THE_BUILDER).build();
 
         EditCommand editCommand = new EditCommand(indexLastShow, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_SHOW_SUCCESS, editedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(lastShow, editedShow);
 
         //assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -129,7 +131,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidShowIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShowList().size() + 1);
-        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build();
+        EditShowDescriptor descriptor = new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER)
+                .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
@@ -150,7 +153,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getWatchList().getShowList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build());
+                new EditShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build());
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
     }

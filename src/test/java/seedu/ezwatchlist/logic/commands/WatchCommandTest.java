@@ -2,7 +2,7 @@ package seedu.ezwatchlist.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.WATCH_DESC_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -10,6 +10,7 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSucc
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIFTH_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList2;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +28,7 @@ import seedu.ezwatchlist.testutil.WatchShowDescriptorBuilder;
 
 class WatchCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList2(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList2(), getDatabase(), new UserPrefs());
     private int validSeasonNum = 6;
     private int validEpisodeNum = 4;
     private int invalidSeasonNum = 100;
@@ -41,7 +42,7 @@ class WatchCommandTest {
         WatchCommand watchCommand =
                 new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, false);
         String expectedMarkMessage = String.format(WatchCommand.MESSAGE_WATCH_SHOW_SUCCESS, watchedShow);
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         //Replacing the unwatched Joker in the list with the watched Joker
         expectedModel.setShow(model.getFilteredShowList().get(0), watchedShow);
         //Check that the Joker movie in the model is now marked as watched.
@@ -60,7 +61,7 @@ class WatchCommandTest {
     public void execute_invalidShowIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredShowList().size() + 1);
         WatchCommand.WatchShowDescriptor descriptor =
-                new WatchShowDescriptorBuilder().withName(VALID_NAME_BOB_THE_BUILDER).build();
+                new WatchShowDescriptorBuilder().withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build();
         WatchCommand watchCommand = new WatchCommand(outOfBoundIndex, descriptor, false, false);
 
         assertCommandFailure(watchCommand, model, Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
@@ -74,7 +75,7 @@ class WatchCommandTest {
         WatchCommand watchCommand =
                 new WatchCommand(INDEX_FIRST_SHOW, descriptor, false, true);
         String expectedMessage = WatchCommand.MESSAGE_EDITING_MOVIE_EPISODES_OR_SEASONS;
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         //Replacing the unwatched Joker in the list with the watched Joker
         expectedModel.setShow(model.getFilteredShowList().get(0), watchedShow);
         //Check that the Joker movie in the model is now marked as watched.
@@ -94,7 +95,7 @@ class WatchCommandTest {
         String expectedMessage = String.format(WatchCommand.MESSAGE_MARK_EPISODES_SUCCESS,
                 markedShow.getNumOfEpisodesWatched(), markedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(4), markedShow);
 
         assertCommandSuccess(watchCommand, model, expectedMessage, expectedModel);
@@ -113,7 +114,7 @@ class WatchCommandTest {
         String expectedMessage = String.format(WatchCommand.MESSAGE_MARK_EPISODES_SUCCESS,
                 markedShow.getNumOfEpisodesWatched(), markedShow);
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(4), markedShow);
 
         assertCommandSuccess(watchCommand, model, expectedMessage, expectedModel);
@@ -132,7 +133,7 @@ class WatchCommandTest {
         String expectedMessage = String.format(WatchCommand.MESSAGE_INVALID_SEASON_NUMBER,
                 markedShow.getNumOfSeasons(), markedShow.getName());
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(4), markedShow);
 
         assertCommandFailure(watchCommand, model, expectedMessage);
@@ -151,7 +152,7 @@ class WatchCommandTest {
         String expectedMessage = String.format(WatchCommand.MESSAGE_INVALID_EPISODE_NUMBER,
                 markedShow.getTotalNumOfEpisodes(), markedShow.getName());
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(4), markedShow);
 
         assertCommandFailure(watchCommand, model, expectedMessage);
@@ -172,7 +173,7 @@ class WatchCommandTest {
                 markedShow.getName(),
                 markedShow.getNumOfEpisodesOfSeason(validSeasonNum));
 
-        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), new UserPrefs());
+        Model expectedModel = new ModelManager(new WatchList(model.getWatchList()), getDatabase(), new UserPrefs());
         expectedModel.setShow(model.getFilteredShowList().get(4), markedShow);
 
         assertCommandFailure(watchCommand, model, expectedMessage);

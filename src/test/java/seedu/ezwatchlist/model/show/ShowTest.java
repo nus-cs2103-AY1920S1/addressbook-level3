@@ -76,10 +76,6 @@ public class ShowTest {
         editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withDescription("DESCRIPTION").build();
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
 
-        // different iswatched -> returns false
-        editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withIsWatched("true").build();
-        assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));
-
         // different dateofrelease -> returns false
         editedAvengersendgame = new ShowBuilder(AVENGERSENDGAME).withDateOfRelease("2019").build();
         assertFalse(AVENGERSENDGAME.equals(editedAvengersendgame));

@@ -15,7 +15,7 @@ import seedu.ezwatchlist.logic.commands.exceptions.CommandException;
 import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Show;
 
-/**
+/** @@author wongchuankai
  * Adds a show to the watchlist.
  */
 public class AddCommand extends Command {
@@ -41,13 +41,13 @@ public class AddCommand extends Command {
             + PREFIX_ACTOR + "Joaquin Phoenix "
             + PREFIX_ACTOR + "Robert De Niro";
 
-    public static final String MESSAGE_USAGE2 = COMMAND_WORD + ": Sync a show from IMDB to the watchlist. "
+    public static final String MESSAGE_USAGE2 = COMMAND_WORD + ": Sync a show found online to the watchlist. "
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "New show added: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOW = "This show already exists in the watchlist";
-    public static final String MESSAGE_SUCCESS2 = "Sync movie: %1$s";
+    public static final String MESSAGE_SUCCESS2 = "Add movie: %1$s";
 
     public static final String UNSUCCESSFUL_INDEX = "Search Result Page is currently empty.";
     public static final String UNSUCCESSFUL_LARGER = "The index is larger than the total number"

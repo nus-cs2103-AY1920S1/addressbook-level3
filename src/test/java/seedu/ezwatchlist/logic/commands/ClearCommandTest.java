@@ -1,6 +1,7 @@
 package seedu.ezwatchlist.logic.commands;
 
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyWatchList_success() {
-        Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalWatchList(), new UserPrefs());
+        Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
         expectedModel.setWatchList(new WatchList());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

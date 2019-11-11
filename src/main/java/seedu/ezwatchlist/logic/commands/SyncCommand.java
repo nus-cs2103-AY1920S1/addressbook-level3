@@ -11,13 +11,13 @@ import seedu.ezwatchlist.model.Model;
 import seedu.ezwatchlist.model.show.Name;
 import seedu.ezwatchlist.model.show.Show;
 
-/**
+/** @@author wongchuankai
  * Syncs a result from the search list into the watch list.
  */
 public class SyncCommand extends Command {
 
     public static final String COMMAND_WORD = "sync";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sync a show from IMDB to the watchlist. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sync a show found online to the watchlist. "
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -43,7 +43,7 @@ public class SyncCommand extends Command {
         List<Show> searchResultList = model.getSearchResultList();
         List<Show> unWatchedList = model.getUnWatchedShowList();
         if (toSync.getZeroBased() >= searchResultList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_SHOW_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_SYNC_INVALID_INDEX);
         }
         Show fromImdb = searchResultList.get(toSync.getZeroBased());
         Name name = new Name(fromImdb.getName().toString().toLowerCase());

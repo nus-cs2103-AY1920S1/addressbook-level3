@@ -6,8 +6,8 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_ANNABELLE;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.DESC_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_ACTOR_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_DATE_BOB_THE_BUILDER;
-import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_NAME_BOB_THE_BUILDER;
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_RUNNING_TIME_BOB_THE_BUILDER;
+import static seedu.ezwatchlist.logic.commands.CommandTestUtil.VALID_SHOW_NAME_BOB_THE_BUILDER;
 
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +36,7 @@ public class EditShowDescriptorTest {
 
         // different name -> returns false
         EditShowDescriptor editedAmy = new EditShowDescriptorBuilder(DESC_ANNABELLE)
-                .withName(VALID_NAME_BOB_THE_BUILDER).build();
+                .withName(VALID_SHOW_NAME_BOB_THE_BUILDER).build();
         assertFalse(DESC_ANNABELLE.equals(editedAmy));
 
         // different show -> returns false

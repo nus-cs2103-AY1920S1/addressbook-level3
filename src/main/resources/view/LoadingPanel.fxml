@@ -19,7 +19,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </ImageView>
-            <Label styleClass="label-bright" text="Plz give me some time..." textAlignment="CENTER" />
+            <Label styleClass="label-bright" text="Loading..." textAlignment="CENTER" />
          </children>
       </VBox>
    </children>

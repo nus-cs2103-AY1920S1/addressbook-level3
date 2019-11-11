@@ -18,12 +18,15 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private WatchListStorage watchListStorage;
+    private DatabaseStorage databaseStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(WatchListStorage watchListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(WatchListStorage watchListStorage, DatabaseStorage databaseStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.watchListStorage = watchListStorage;
+        this.databaseStorage = databaseStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -74,4 +77,32 @@ public class StorageManager implements Storage {
         watchListStorage.saveWatchList(watchList, filePath);
     }
 
+    // ================ Database methods ==============================
+
+    @Override
+    public Path getDatabaseFilePath() {
+        return databaseStorage.getDatabaseFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyWatchList> readDatabase() throws DataConversionException, IOException {
+        return readDatabase(databaseStorage.getDatabaseFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyWatchList> readDatabase(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return databaseStorage.readDatabase(filePath);
+    }
+
+    @Override
+    public void saveDatabase(ReadOnlyWatchList database) throws IOException {
+        saveDatabase(database, databaseStorage.getDatabaseFilePath());
+    }
+
+    @Override
+    public void saveDatabase(ReadOnlyWatchList database, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        databaseStorage.saveDatabase(database, filePath);
+    }
 }

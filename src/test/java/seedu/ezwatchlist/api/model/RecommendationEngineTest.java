@@ -26,13 +26,4 @@ class RecommendationEngineTest {
         assertThrows(IllegalArgumentException.class, () ->
                 new RecommendationEngine(validMovieList, null, null));
     }
-
-    @Test
-    void getMovieRecommendations() {
-
-    }
-
-    @Test
-    void getTvShowRecommendations() {
-    }
 }

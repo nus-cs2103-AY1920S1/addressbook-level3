@@ -18,8 +18,9 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonWatchListStorage watchListStorage = new JsonWatchListStorage(getTempFilePath("ab"));
+        JsonDatabaseStorage databaseStorage = new JsonDatabaseStorage(getTempFilePath("database"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(watchListStorage, userPrefsStorage);
+        storageManager = new StorageManager(watchListStorage, databaseStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

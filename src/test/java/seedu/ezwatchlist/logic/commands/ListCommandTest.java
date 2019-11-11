@@ -22,9 +22,10 @@ public class ListCommandTest {
     @BeforeEach
     public void setUp() {
         WatchList watchList = new WatchList();
+        WatchList database = new WatchList();
         UserPrefs userPrefs = new UserPrefs();
-        model = new ModelManager(watchList, userPrefs);
-        expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
+        model = new ModelManager(watchList, database, userPrefs);
+        expectedModel = new ModelManager(model.getWatchList(), database, new UserPrefs());
     }
 
 

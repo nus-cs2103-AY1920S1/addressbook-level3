@@ -8,7 +8,7 @@ public enum SearchKey {
     KEY_TYPE("type"),
     KEY_ACTOR("actor"),
     KEY_GENRE("genre"),
-    KEY_IS_WATCHED("has_watched"),
+    KEY_IS_WATCHED("is_watched"),
     KEY_FROM_ONLINE("from_online");
 
     public final String key;

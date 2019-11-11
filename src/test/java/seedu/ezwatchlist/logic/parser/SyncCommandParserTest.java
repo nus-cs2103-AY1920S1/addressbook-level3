@@ -15,6 +15,7 @@ import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
 class SyncCommandParserTest {
 
     private SyncCommandParser syncCommandParser = new SyncCommandParser();
+
     @Test
     void parse() throws ParseException, OnlineConnectionException {
         assertThrows(ParseException.class, () -> syncCommandParser.parse("INVALID", "search"));
