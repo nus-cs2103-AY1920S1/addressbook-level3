@@ -1,5 +1,7 @@
 = Jerry Kwong - Project Portfolio
+:site-section: AboutUs
 :imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == Project: MyProject
 
@@ -10,9 +12,7 @@ team, for a school project for the NUS School of Computing. My team consisted of
 including me, and the task for this project was to modify a given application called the AddressBook into
 our own application, that serves a different purpose. As second year university students, we have always found
 it difficult to manage many different types of information across many different projects during our first
-year, and hence we decided to modify the AddressBook application into _MyProject_. Since we fit into the target
-demographic as well, it was easier for us to relate to the problem we were trying to solve, which helped us
-when we were deciding what features to implement for this project.
+year, and hence we decided to modify the AddressBook application into _MyProject_.
 
 == Overview
 
@@ -27,7 +27,7 @@ of the project with different types of budgets.
 
 A typical usage of the project looks like this:
 
-image::TypicalProjectScreen.png[]
+image::TypicalProjectScreen.png[picture,400]
 
 My team worked together tirelessly to put this application together. Each of us are in charge of different parts of the
 application's functionality, and my role in the team was to integrate the Person model in the original AddressBook
@@ -98,9 +98,6 @@ include::../UserGuide.adoc[tag=addMember]
 
 include::../UserGuide.adoc[tag=addFromContacts]
 
-include::../UserGuide.adoc[tag=removeMember]
-
-include::../UserGuide.adoc[tag=performanceTracking]
 
 == Contributions to the Developer Guide
 

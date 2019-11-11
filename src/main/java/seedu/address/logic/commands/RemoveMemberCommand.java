@@ -21,8 +21,8 @@ public class RemoveMemberCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the member from the working project.\n"
-            + "Parameters: n/NAME"
-            + "Example: " + COMMAND_WORD + " n/John doe";
+            + "Parameters: INDEX (must be a positive integer)"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_REMOVE_MEMBER_SUCCESS = "Removed %1$s from %2$s";
 

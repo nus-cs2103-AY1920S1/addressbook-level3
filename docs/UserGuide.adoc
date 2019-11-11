@@ -155,12 +155,12 @@ one step process.
 After you press enter you will be able to see the member reflected in the project like this:
 
 .`AddMemberCommand` success project overview display
-image::ProjectOverviewAddMember.png[]
+image::ProjectOverviewAddMember.png[picture, 400]
 
 And you will also be able to see her in your contacts like this:
 
 .New Member displayed in your contacts as a new person added.
-image::PersonListAddMember.png[]
+image::PersonListAddMember.png[picture, 400]
 
 If you look closely at Figure 5. you will see that some of the information does not really seem right. That is because
 you have not input it yet, but don't worry you can always do that later with our `edit` command which you will further down
@@ -191,7 +191,7 @@ Step 1. Find the person you want to add, and take note of the index which the pe
 below, let's say you want to add 'Bernice Yu' into your project. Notice her index is 2.
 
 .Finding the person to add
-image::AddFromContactsFindPerson.png[]
+image::AddFromContactsFindPerson.png[picture, 400]
 
 Step 2. Type in the `addFomContacts` command with the index `2`
 
@@ -200,7 +200,7 @@ image::AddFromContactsCommandInput.png[]
 
 Step 3. Press enter and you're done! Refer to the picture below to see what your screen should look like.
 
-image::AddFromContactsCommandSuccess.png[]
+image::AddFromContactsCommandSuccess.png[picutre, 400]
 
 // end::addFromContacts[]
 
@@ -400,7 +400,7 @@ Step 1. Find the person you want to remove from the project. Let's say you want 
 she just dropped your module. Notice her index is at 1
 
 .Finding the person you want to remove
-image::RemoveMemberFindingPerson.png[]
+image::RemoveMemberFindingPerson.png[picture, 400]
 
 
 Step 2. Type in the `removeMember` command with the index of `1`
@@ -807,24 +807,24 @@ Step 1. Find the task you want to assign and the members you want to assign the 
 indexes.
 
 .Finding the task to assign and the members to assign to
-image::AssignTaskFinding.png[]
+image::AssignTaskFinding.png[picutre,  400]
 
 Step 2. Type in the `assignTask` command along with the correct indexes.
 
 .Typing the `assignTask` command with the correct input
-image::AssignTaskCommandInput.png[]
+image::AssignTaskCommandInput.png[picutre, 400]
 
 Step 3. Press enter and you're done! You will now see the tasks reflected under the respective members in your contacts.
 
 You will see a success message:
 
 .`assignTask` command success message
-image::AssignTaskCommandMessageSuccess.png[]
+image::AssignTaskCommandMessageSuccess.png[picture, 400]
 
 And also see the task reflected under the members:
 
 .How the assigned task is shown
-image::PersonListAssignedTask.png[]
+image::PersonListAssignedTask.png[picture, 400]
 
 ==== Unassigning a task: `unassignTask`
 With the ability to assign task, naturally you should be able to unassign a task as well, and you can do that with this
@@ -849,19 +849,19 @@ Step 1. Identify the tasks you want to unassign and the person you want to unass
 of their indexes.
 
 .Finding the tasks to unassign, and the person to unassign the tasks from.
-image::UnassignTaskFinding.png[]
+image::UnassignTaskFinding.png[picutre, 400]
 
 Step 2. Type in the `unassignTask` command with the relevant inputs
 
 .`unassignTask` command input
-image::UnassignTaskCommandInput.png[]
+image::UnassignTaskCommandInput.png[picture, 400]
 
 Step 3. Press enter and you're done!
 
 You will see a success message:
 
 .`unassignTask` command success message
-image::UnassignTaskMessageSuccess.png[]
+image::UnassignTaskMessageSuccess.png[picture, 400]
 
 And you will no longer see the tasks reflected under the person.
 
@@ -886,12 +886,12 @@ To help you better understand how to use this command, here is a step-by-step gu
 Step 1. Identify the meeting you want to mark attendance for, and the members who were present.
 
 .Finding the meeting to mark attendance for and the members to mark attendance of
-image::MarkAttendanceFinding.png[]
+image::MarkAttendanceFinding.png[picture, 400]
 
 Step 2. Type in the `markAttendance` command with the relevant inputs.
 
 .`markAttendance` command input
-image::MarkAttendanceCommandInput.png[]
+image::MarkAttendanceCommandInput.png[picture,500]
 
 Step 3. Press enter and you're done!
 
@@ -903,7 +903,7 @@ image::MarkAttendanceMessageSuccess.png[]
 And the meeting will show up under the information of the person like this:
 
 .Showing attendance marked
-image::PersonListMarkAttendance.png[]
+image::PersonListMarkAttendance.png[picture, 400]
 
 ==== Viewing performance overview: `showPerformanceOverview`
 After assigning the tasks and marking the attendance of members, you can use this command to give you a comprehensive
@@ -937,6 +937,6 @@ image::MeetingRateTable.png[]
 
 * Lastly you can also view each member individually after scrolling through the tables:
 
-image::IndividualPerformances.png[]
+image::IndividualPerformances.png[performance, 300,400]
 
 // end::performanceTracking[]

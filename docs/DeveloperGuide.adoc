@@ -209,10 +209,10 @@ of strings representing their names, and similarly each `Person` stores the proj
 as a list of strings representing the project titles. Below you will find 2 diagrams which represents this relationship.
 
 .Class diagram of Project
-image::MemberClassDiagram1.png[]
+image::MemberClassDiagram1.png[picutre, 250]
 
 .Class diagram of a Person
-image::MemberClassDiagram2.png[]
+image::MemberClassDiagram2.png[picture, 250]
 
 [NOTE]
 Whenever member is mentioned it should be known that it is represented by a `Person`.
@@ -786,7 +786,7 @@ of the person can only be calculated in `PerformanceOverview` with information f
 `PerformanceOverview` is a separate model we have implemented, which consolidates all the data from each `Person` involved
 in the specific project, as well as from the project itself. The following is a class diagram for `PerformanceOverview`.
 
-image::PerformanceOverviewClassDiagram.png[]
+image::PerformanceOverviewClassDiagram.png[picture,250]
 
 A typical `PerformanceOverview` is created using the following constructor:
 
@@ -832,7 +832,7 @@ Step 4. The `PerformanceOverview` is set in the `Model`, and displayed to the us
 The following activity diagram summarizes the general flow of the execution of the `showPerformanceOverview` command:
 
 .Activity diagram for `showPerformanceOverview`
-image::ShowPerformanceOverviewActivityDiagram.png[]
+image::ShowPerformanceOverviewActivityDiagram.png[picture, 400]
 
 As shown in the activity diagram, there are only 2 main flows during the execution of this command. If there are members
 in the project, the performance of the members can be calculated, and the performance overview will be displayed
