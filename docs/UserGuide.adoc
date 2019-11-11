@@ -8,7 +8,6 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-:doctype: book
 ifdef::env-github[]
 :tip-caption: :bulb:
 :warning-caption: ⚠️
@@ -1798,5 +1797,4 @@ Here are summary lists of commands for the different features.
 |``delete``
 |Delete a certain entry from the diary
 |``delete index``
-
 |===
