@@ -40,7 +40,7 @@ activate ParserUtil
 ParserUtil --> AddCommandParser
 deactivate ParserUtil
 
-AddCommandParser -> ParserUtil : parseDateTime("2019-09-09 12:12")
+AddCommandParser -> ParserUtil : parsePastDateTime("2019-09-09 12:12")
 activate ParserUtil
 
 ParserUtil --> AddCommandParser : dt:DateTime

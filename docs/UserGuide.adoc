@@ -82,7 +82,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
 
 There must not be any duplicate parameters.
-Ordering of parameters is flexible (other than "add").
+Other than "add", ordering of fields is flexible.
 
 rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
 dt/ value must not be in the future.
@@ -115,7 +115,11 @@ Index must be a positive integer.
 
 The index refers to the index number shown in the displayed entries list
 
-==== Edits a specified data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
+==== Edits an existing data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
+
+Format: `edit INDEX`
+
+Allows users to modify existing record fields.
 //end::datalog[]
 
 //tag::calendar[]

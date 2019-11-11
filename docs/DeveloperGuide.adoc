@@ -281,6 +281,7 @@ This feature can be implemented using `PDFBOX` libraries or any other existing l
 The multi-record data logging mechanism is facilitated by a new Record package containing  BloodSugar and Bmi classes that extend an abstract Record class. Add, list and delete command classes and parsers are modified to accommodate multiple record types. Multi-record data is stored internally as a recordList where members are Records.
 
 It modifies the following operations:
+
 * `SugarMummy#add()` — Adds a record to the record list. 
 * `SugarMummy#delete()` — Deletes a record from the record list. 
 * `SugarMummy#list()` — Retrieves all records in record list. 
@@ -333,7 +334,7 @@ Step 5. After add or delete commands have been executed in `LogicManager`, the M
 ==== Aspect: Commands and parsers implementation
 * **Alternative 1 (current choice):** Parse for new record type X within existing add, list, delete commands and their parsers
 ** Pros: Easy to implement as long as record type X inherits from Record. AddCommand, ListCommand and DeleteCommand classes remain very similar to their original implementations. 
-** Cons: Harder to debug when parsing fails because XCommandParser classes are responsible for checking for presence of multiple fields of multiple record types. Parsing may become complicated if the order of parsing fields becomes important. 
+** Cons: Harder to debug when parsing fails because XCommandParser classes are responsible for checking for presence of multiple fields of multiple record types.
 * **Alternative 2:** Create separate AddX, ListX, DeleteX, AddXParser, ListXParser, DeleteXParser for each new record type X introduced
 ** Pros: Each parser is responsible for parsing only record type X’s fields. This narrows down the scope of debugging should parsing fail. 
 ** Cons: Accommodating a new record type involves creating at least 6 additional classes just for operations on data classes. Data classes required to represent the data include: Bmi class with Height and Weight class. 
@@ -341,7 +342,7 @@ Step 5. After add or delete commands have been executed in `LogicManager`, the M
 ==== Aspect: Data Structure for managing multiple record types
 * **Alternative 1 (current choice):** Use a single list to store multiple record types.
 
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. Simpler to implement.
+** Pros: Easy to understand and implement.
 
 ** Cons: Must conduct type checks when retrieving from list. When a new record type is added, all type checks in different places must be updated. 
 * **Alternative 2:** Use separate lists to store different record types.
