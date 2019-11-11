@@ -67,4 +67,39 @@ public class Messages {
     public static final String SHOW = "show";
 
     public static final String REMIND = "remind";
+
+    public static final String COMMAND_SUMMARY = "GLOBAL COMMANDS (Can be executed in any mode)\n" +
+            " - Switch : switch MODE\n" +
+            " - Filter All : filterall tag/TAG…\u200B\n" +
+            " - List tags : taglist\n" +
+            " - Help : help\n" +
+            " - List : list\n" +
+            " - Exit : exit\n" +
+            "\n" +
+            "FLASHCARD COMMANDS\n" +
+            " - Add : add q/QUESTION a/ANSWER t/TITLE [tag/TAG]…\u200B\n" +
+            " - Delete : delete INDEX\n" +
+            " - Filter : filter tag/TAG…\u200B\n" +
+            " - Time Trial : timetrial TAG\n" +
+            " - View : view INDEX\n" +
+            " - List : list\n" +
+            " - Show : show\n" +
+            " - Remind : remind\n" +
+            "\n" +
+            "NOTE COMMANDS\n" +
+            " - Add : add t/TITLE c/CONTENT tag/TAG…\u200B\n" +
+            " - Delete : delete INDEX\n" +
+            " - View : view INDEX\n" +
+            " - Viewing a raw note : viewraw INDEX\n" +
+            " - Filter : filter tag/TAG…\u200B\n" +
+            " - List : list\n" +
+            "\n" +
+            "CHEATSHEET COMMANDS\n" +
+            " - Add : add t/TITLE [tag/TAG]…\u200B\n" +
+            " - Delete : delete INDEX\n" +
+            " - Edit : edit INDEX t/TITLE tag/TAG…\u200B\n" +
+            " - Show : show INDEX\n" +
+            " - View : view INDEX\n" +
+            " - Filter : filter tag/TAG…\u200B\n" +
+            " - List : list";
 }

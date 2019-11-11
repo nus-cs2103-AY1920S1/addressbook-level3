@@ -490,10 +490,12 @@ The following commands assume that the user is in the _flashcard_ mode.
 
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
-+
+
 The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
-+
+
+.Class diagram when the timetrial command is executed
 image::jrImages/TimeTrialClassDiagram.png[]
+
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
 c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyProParser`’s function
@@ -509,10 +511,12 @@ construct a `Timeline` with the following added for 3 flashcards:
 
 The following _figure_ shows the sequence diagram of when the command `timetrial cs2103t` is executed:
 
+.Sequence diagram when the timetrial command is executed
 image::jrImages/TimeTrialSequenceDiagram.png[]
 
 The following _figure_ is an activity diagram that summarizes the flow of events when a user attempts to start a time trial as described above:
 
+.Activity diagram when the timetrial command is executed
 image::jrImages/TimeTrialActivityDiagram.png[]
 
 ==== Design Considerations
@@ -1571,7 +1575,75 @@ is due.
 .. Note how flashcard B is listed under due today while flashcard A is listed under overdue
 flashcards.
 
-. Testing `exit` command
+. Testing `timetrial` command
+[NOTE]
+====
+The following commands have been provided for ease of testing and can be inputted to test some of the test cases:
+
+. add q/Question 1 a/Answer 1 t/q1 tag/test
+. add q/Question 2 a/Answer 2 t/q2 tag/test
+====
+
+* Test case 1
+
+.. Prerequisites
+... Currently in flashcard mode with the Flashcard icon highlighted.
+... There exist flashcards with the tags that you would like to specify.
+
+.. Input command:  `timetrial [tag]`
+
+.. Expected:
+... Feedback box outputs:
+
+    Time trial started
+
+... The question of the flashcard is displayed together with a timer for 5 seconds.
+... Once the time hits 0, the answer is flashed for 3 seconds.
+... Repeat 2 and 3 until all of the flashcards of the specified tags have been displayed.
+
+* Test case 2
+.. Prerequisites
+... Currently in flashcard mode with the Flashcard icon highlighted.
+... There exist flashcards with the tags that you would like to specify.
+
+.. Input command: `timetrial [tag]`.
+.. Input command: `show`.
+.. Expected:
+... Feedback box outputs:
+
+    Flashcard answer loaded
+
+... The answer of the flashcard is loaded, and after a while the time trial continues until all the flashcards have been loaded.
+
+
+* Test case 3
+.. Prerequisites
+... Currently in flashcard mode with the Flashcard icon highlighted.
+... There exist flashcards with the tags that you would like to specify.
+
+.. Input command: `timetrial [tag]`.
+.. Input command: `view 3` (Can be any other flashcard comamand).
+.. Expected:
+... Feedback box outputs:
+
+    Viewing flashcard:  Title: (Flashcard title)
+    Tags: [tags]
+
+... Time trial does not continue and the latest command inputted is executed.
+
+* Test case 4
+.. Prerequisites
+... Currently in flashcard mode with the Flashcard icon highlighted.
+... There are no flashcards with the tags that you would like to specify.
+
+.. Input command: `timetrial [tag]`.
+.. Expected:
+... Feedback box outputs:
+
+    There are no flashcards with the tags specified!
+
+
+3) Testing `exit` command
 
 * Test case 1
 
