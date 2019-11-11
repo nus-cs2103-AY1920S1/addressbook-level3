@@ -200,20 +200,40 @@ This section describes some noteworthy details on how certain features are imple
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time and generates statistics via the `statistics /g` command.
+Step 1. The user launches the application for the first time and navigates to the statistics tab by either clicking the Statistics tab on the UI or `statistics` command.
 
-Step 2. Statistics are generated on-demand and displayed to the user based on the current data.
+Step 2. Statistics are generated on-demand and displayed to the user based on the current data by either clicking the Generate Statistics button on the UI or `generate_stats` command.
 
 ==== Design Considerations
 
 ===== Aspect: How statistics executes
 
-* **Alternative 1 (current choice):** Generate statistics data on-demand, when the user requests.
-** Pros: Easier to implement as would not have to mannage storage of statistical data.
-** Cons: App may have overall lower performance, with the possibility of lag as the app needs to read through all the stored data and generate the statistics data whenever it is queried.
-* **Alternative 2:** Generate statistics each time there is change in the data and store them.
-** Pros: Statistical data will be displayed faster as it is recalculated and stored in the JSON file storage.
-** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
+|===
+||**Alternative 1**|**Alternative 2**
+|**Consideration 1**: +
+Data Structure to support Generate Statistics Command.
+| **Processes the data and generates statistics upon `generate_stats` command. (Current choice)**: +
+
+_Pros:_ +
+Simpler implementation as storage management is not required as statistics are generated on-demand.
+
+_Cons:_ +
+App may have overall lower performance, with the possibility of lag as the app needs to read through all the stored data and generate the statistics data whenever it is queried.
+
+|**Generate statistics each time there is change in the data and store them.** +
+
+_Pros:_ +
+Statistical data will be displayed according to the data stored on the JSON file storage and user will not be required to perform any action to see the latest statistics at any point of time.  +
+
+_Cons:_ +
+ Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
+
+3+|**Why We chose Alternative 1:** +
+Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
+Processing is done on demand. Looking at the use case of the `generate_stats` command, it will be used by the user when they need an overview of the most current data regarding events and employees.
+
+|===
+
 // end::statistics[]
 
 // tag::calvin[]
