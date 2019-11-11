@@ -15,16 +15,16 @@ This project portfolio details my key contributions to Project Teacher's Noteboo
 Teacher's Notebook is a desktop application designed by my group mates and I for a software engineering
 module in National University of Singapore (NUS).
 It's target audience is secondary or primary school teachers in Singapore.
-aims to improve the efficiency of administrative processes in medical institutes.
+It aims to improve the efficiency of the efficiency of these teachers.
 The project was created under the constraint of the fact that the user only
 interacts with the application through a Command Line Interface (CLI).
 It is written in Java, and has about 10 kLoC.
 
 The main features of the project are:
 
-- The ability to manage students and their
+- The ability to manage students and their information
 
-- The ability to
+- The ability to manage and be reminded of lessons
 
 - The ability to
 
@@ -35,14 +35,17 @@ The main features of the project are:
 - *Major Enhancement*: added the ability to upload and display photos of students
 ** What it does
 ** Justification
+** Highlight
 
 - *Major Enhancement*: added the autocomplete feature to the gui
 ** What it does: add a popup menu that suggests commands to the user based on text the user has already entered
 ** Justification: Many commands in Teacher's Notebook are long and tedious, and have specific prefixes or formats.
 By suggesting commands, users can quickly become familiar with commands, and save time not needing to remember the
-format of commands.
+format of commands. It also serves as a shortcut, as users can quickly enter commands without typing
+out the entire command.
 and easily select
-** Highlights: This enhancement allows the user to view up to 10 suggestions in a popup menu, and select between them with the keyboard.
+** Highlights: This enhancement allows the user to view up to 10 suggestions in a popup menu.
+The user can scroll through all suggestions and select any suggestion just using their keyboard.
 Commands suggested are already in their required form with prefixes, making it easier for users
 to execute the intended command successfully without referring to the UserGuide.
 
@@ -53,15 +56,14 @@ to execute the intended command successfully without referring to the UserGuide.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-*** Fixed issues brought up by peers. (Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/61[#61], Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/85[#85])
+*** Fixed issues brought up by peers. (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/167[#167], https://github.com/AY1920S1-CS2103-T14-1/main/pull/165[#165], https://github.com/AY1920S1-CS2103-T14-1/main/pull/156[#156])
 ** Enhancements to existing features:
-*** Added 2 extra panels to the GUI, and added display picture to the student card (Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/61[#61], Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/85[#85])
+*** Added 2 extra panels to the GUI, and added display picture to the student card (PRs https://github.com/AY1920S1-CS2103-T14-1/main/pull/61[#61], https://github.com/AY1920S1-CS2103-T14-1/main/pull/85[#85])
 *** improved test coverage from 25 to 33 %, PR #189, #190, #191: 46-48% (Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/190[#190], Pull requests https://github.com/AY1920S1-CS2103-T14-1/main/pull/189[#189])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Reviewed PRs of other team members
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 - Other contributions:

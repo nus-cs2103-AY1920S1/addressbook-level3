@@ -45,19 +45,17 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 
 // tag::classes[]
 === Classes
+
 The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-image::class/class1.JPG[class,500,480,pdfwidth=50%,scaledwidth=50%]
+image::class/class2.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
 
-The class colored in blue shows the class that the user is currently viewing.
-Viewing a class enables a user to see the full profiles of the students, +
-As well as full information about assignments. Changing classes will allow the user to view the students and assignments of another class.
-The number of students, and the number of assignments are displayed for each class +
+[NOTE]
+Class names are case sensitive.
 
 ==== Adding: addclass
 
-Adds a new class to the list of existing classes. The name of the new class must not be empty,
-and it must be different from all the current class names.
+Adds a new class to the list of existing classes.
 
 Format: `addclass c/CLASS_NAME`
 
@@ -66,10 +64,14 @@ Examples:
 * `addclass c/4E7`
 * `addclass c/3E8`
 
+[NOTE]
+The name of the new class must not be empty,
+and it must be different from all current class names.
+
+
 ==== Deleting: deleteclass
 
-Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
-Classroom must be in the current list of classrooms, and class name cannot be empty. +
+Allows a user to delete the selected class. +
 
 Format: `deleteclass c/CLASS_NAME`
 
@@ -78,10 +80,15 @@ Examples:
 * `deleteclass c/4E7`
 * `deleteclass c/3E8`
 
+[NOTE]
+Classroom must be in the current list of classrooms, and CLASS_NAME cannot be empty.
+
 ==== Setting: setclass
 
-Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
-Classroom must be in the current list of classrooms, and class name cannot be empty. +
+Allows a user to select a different class. The image below illustrates the change in
+the middle GUI panel when setclass is called.
+
+image::class/setclass.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
 
 Format: `setclass c/CLASS_NAME`
 
@@ -91,7 +98,7 @@ Examples:
 * `setclass c/3E8`
 
 [NOTE]
-The classroom names are case-sensitive.
+Classroom must be in the current list of classrooms, and CLASS_NAME cannot be empty.
 // end::classes[]
 
 // tag::lessons[]
@@ -247,7 +254,7 @@ Example:
 
 * `upload 3`
 
-[NOTE]
+[WARNING]
 The index provided must be valid and the directory of the image uploaded is assumed to not change.
 If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
 
@@ -278,19 +285,15 @@ of Teacher's Notebook and make using the application a more forgiving, painless 
 
 ==== Autocomplete
 
-The Autocomplete feature allows a user to toggle through suggestions that guess at what command the user wants to type in. +
+Allows a user to toggle through suggestions that guess at what command the user wants to type in. +
 Upon typing any letters that resemble commands, a popup menu will appear as shown below:
 
 image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
 
-
-The user can then choose the first option of the menu using CTRL, use SHIFT + UP and SHIFT + DOWN to cycle through menu options, +
-or use ESC to turn the autocomplete feature off. CTRL can be used to turn the feature back on. +
-
 Usage:
 
-`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete options +
-`CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it's off. +
+`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete suggestions +
+`CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it is turned off. +
 `ESC` Key to close the autocomplete suggestions and turn off AutoComplete. +
 
 [NOTE]
@@ -303,9 +306,13 @@ with user feedback.
 
 ==== History
 
-The History feature allows a user to toggle through their previously entered commands, +
-regardless of whether the user command was successful. As this may clash with autocomplete suggestion toggling, we recommend closing +
-autocomplete suggestions before using the History feature. +
+Allows a user to toggle through their previously entered commands,
+regardless of whether the command was successful.
+
+[IMPORTANT]
+It is likely that autocomplete and history will clash, as both use the arrow keys.
+We recommend that you turn the autocomplete feature off (`ESC` key) before using the
+history feature.
 
 Usage:
 
@@ -314,10 +321,10 @@ Usage:
 // tag::undoredo[]
 ==== Undo/Redo: Undo/Redo
 
-The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone.
-After the undo/redo command the application will be in the state before/after the action was made. +
+Restores the database to the state before the previous undoable command was executed.
 
-States will only be made if there is a modification to the notebook. Hence, commands like `help` and `liststudents` that does not change the internal structure of the notebook will not lead to a saved state. +
+States will only be made if there is a modification to the notebook.
+Hence, commands like `help` and `liststudents` that do not change the internal structure of the notebook will not lead to a saved state. +
 
 Undo will only be executable if there is a previous state saved. Redo will only be executable if there is a previously undone method. +
 
@@ -332,6 +339,15 @@ Usage:
 
 Enter `undo` or `redo` +
 
+Examples:
+
+* `deletestudent 1` + `undo` (reverses the `delete 1` command) +
+`redo` (applies the delete command again) +
+
+*
+
+
+
 // end::undoredo[]
 
 ==== Help
@@ -344,7 +360,7 @@ Enter `help` +
 
 ==== Clear
 
-Clears all data from the notebook. If triggered erroneously, the clear command can be undone to reclaim all data.
+Clears all data from the notebook. If triggered erroneously, the undo command can be used to reclaim all data.
 
 Usage:
 
