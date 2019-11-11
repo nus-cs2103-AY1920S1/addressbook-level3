@@ -67,6 +67,7 @@ allowing the user to add items and have them arranged in an organised fashion.
 ** Team tasks:
 *** Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
 *** Set up and maintain the issue tracker, assign issues to team members for each milestone, integrate the team repository with Github's project board
+
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** *Enhancements to existing features:*
 
