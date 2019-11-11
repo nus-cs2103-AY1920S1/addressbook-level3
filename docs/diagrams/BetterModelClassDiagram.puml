@@ -71,15 +71,16 @@ Model.ModelManager .up.|> Model.Model
 ''''''''''Model Interface
 Model.Model .down.> Address.Model.AddressBookModel :gets >
 Model.Model .down.> Model.UserPrefsModel :gets >
-Model.Model .right.>Supplier
+Model.UserPrefsModel ..> Model.ReadOnlyUserPrefs
 
 ''''''''''ModelManager Constructor
-''' composition or aggregation?
-Model.ModelManager o--> "1" Address.Model.AddressBookModel
-Model.ModelManager o--> "1" Model.UserPrefsModel
+Model.ModelManager o-- "1" Address.Model.AddressBookModel
+Model.ModelManager o-- "1" Model.UserPrefsModel
 
 ''''''''''UserPrefsModelManager
 Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+Model.UserPrefsModelManager .left.> Model.ReadOnlyUserPrefs
+Model.UserPrefsModelManager o-- "1" Model.UserPrefs
 
 ''''''''''UserPrefs
 Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
