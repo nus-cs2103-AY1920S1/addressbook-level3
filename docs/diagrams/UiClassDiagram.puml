@@ -4,57 +4,75 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI <<Rectangle>>{
+'==== Packages ====
+package UI <<Rectangle>> {
 Interface Ui <<Interface>>
 Class "{abstract}\nUiPart" as UiPart
-Class UiManager
 Class MainWindow
-Class HelpWindow
-Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
 Class CommandBox
-}
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+Class CalendarPanel
+Class ListPanel
+Class LogPanel
+Class PopUpBox
 }
 
 package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
+    Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Interface UserOutputListener <<Interface>>
+    Interface ModelDataListener <<Interface>>
+}
+
+package List <<Rectangle>> {
+}
+
+package Calendar <<Rectangle>> {
+}
+
+package Log <<Rectangle>> {
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
+HiddenOutside .down.> Ui
 
+'==== UiManager ====
 UiManager .left.|> Ui
-UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+UiManager -right-|> ModelDataListener
+UiManager -right-|> UserOutputListener
+UiManager *-down-> MainWindow
+
+'==== MainWindow ====
 MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
+MainWindow *-down-> ListPanel
+MainWindow *-down-> CalendarPanel
+MainWindow *-down-> LogPanel
+MainWindow *-down-> PopUpBox
 
-PersonListPanel -down-> PersonCard
+MainWindow -|> UiPart
 
-MainWindow -left-|> UiPart
+'==== CommandBox ====
+CommandBox -down-|> UiPart
 
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
+'==== CalendarPanel ====
+CalendarPanel -down--|> UiPart
+CalendarPanel -down..> Calendar
 
-PersonCard ..> Model
-UiManager -right-> Logic
-MainWindow -left-> Logic
+'==== ListPanel ====
+ListPanel -down--|> UiPart
+ListPanel -down..> List
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+'==== LogPanel ====
+LogPanel -down--|> UiPart
+LogPanel -down..> Log
 
+'==== PopUpBox ====
+PopUpBox -down--> UiPart
+
+'==== Positioning ====
 MainWindow -[hidden]-|> UiPart
+UiManager -[hidden]-|> MainWindow
+ModelDataListener -[hidden]down-|> UserOutputListener
+
 @enduml

@@ -1,0 +1,96 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package Ui <<Rectangle>> {
+'Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\nCard" as Card
+Class MainWindow
+Class CardHolder
+Class EventCard
+Class TaskCard
+Class UpcomingEventCard
+Class UpcomingTaskCard
+    package Calendar <<Rectangle>> {
+        Class "{abstract}\nTimelineView" as TimelineView
+        Class CalendarPanel
+        Class TimelineDayView
+        Class TimelineWeekView
+        Class TimelineMonthView
+        Class CalendarScreen
+        Class CalendarGridDay
+        Class UpcomingView
+    }
+}
+
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Class EventSource
+    Class TaskSource
+    Interface ModelDataListener <<Interface>>
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .down.> UiManager
+
+'==== UiManager ====
+UiManager *--> MainWindow
+UiManager ..|> ModelDataListener
+
+'==== MainWindow =====
+MainWindow *-down--> CalendarPanel
+
+'==== CalendarPanel ====
+CalendarPanel *-right--> TimelineView
+CalendarPanel *-left-> CalendarScreen
+CalendarPanel *-up--> UpcomingView
+
+'==== CardHolder ====
+CardHolder *-down-> Card
+
+'==== Card ====
+
+'==== EventCard ====
+EventCard --|> Card
+EventCard *-up-> EventSource
+
+
+'==== TaskCard ====
+TaskCard --|> Card
+TaskCard *-up-> TaskSource
+
+'==== TimelineView ====
+TimelineView *-up--> CardHolder
+
+'==== TimelineDayView ====
+TimelineDayView -up--|> TimelineView
+
+'==== TimelineWeekView ====
+TimelineWeekView -up--|> TimelineView
+
+'==== TimelineMonthView ====
+TimelineMonthView -up--|> TimelineView
+
+'==== CalendarScreen ===='
+CalendarScreen *-down-> CalendarGridDay
+
+'==== UpcomingView ====
+UpcomingView *-up-> UpcomingEventCard
+UpcomingView *-up-> UpcomingTaskCard
+
+'==== UpcomingEventCard ====
+UpcomingEventCard *-up-> EventSource
+
+'==== UpcomingTaskCard ====
+UpcomingTaskCard *-up-> TaskSource
+
+EventSource ..[hidden]down|> TaskSource
+UpcomingTaskCard ..[hidden]left|> MainWindow
+
+@enduml

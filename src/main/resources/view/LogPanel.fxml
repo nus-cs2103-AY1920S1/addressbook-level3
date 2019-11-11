@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<VBox fx:id="logPanelBase" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ScrollPane fx:id="scrollLog" fitToWidth="true">
+         <content>
+            <VBox fx:id="boxLog">
+               <padding>
+                  <Insets left="10.0" />
+               </padding></VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

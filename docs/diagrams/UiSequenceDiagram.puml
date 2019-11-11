@@ -1,0 +1,85 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":UiManager" as UiManager LOGIC_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":CalendarPanel" as CalendarPanel UI_COLOR
+participant "ListPanel" as ListPanel UI_COLOR
+end box
+
+'==== UiManager ===='
+[-> UiManager : onModelListChange(lists)
+activate UiManager
+
+UiManager -> UiManager : sortDateEventList(events)
+activate UiManager #0000A2
+UiManager --> UiManager : events
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
+UiManager -> UiManager : sortDateTaskList(tasks)
+activate UiManager #0000A2
+UiManager --> UiManager : tasks
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
+UiManager -> UiManager : addEventIndex(events)
+activate UiManager #0000A2
+UiManager --> UiManager : eventHash
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
+UiManager -> UiManager : addTaskIndex(tasks)
+activate UiManager #0000A2
+UiManager --> UiManager : taskHash
+deactivate UiManager
+UiManager -[hidden]-> UiManager
+
+'==== MainWindow ====
+UiManager -> MainWindow : onModelListChange(events, tasks, eventHash, taskHash)
+activate MainWindow
+
+'==== CalendarPanel ====
+MainWindow -> CalendarPanel : onModelListChange(events, tasks, eventHash, taskHash)
+activate CalendarPanel
+CalendarPanel --> MainWindow
+deactivate CalendarPanel
+CalendarPanel -[hidden]--> CalendarPanel
+'==== ListPanel ====
+MainWindow -> ListPanel : onEventListChange(events, eventHash)
+activate ListPanel
+ListPanel --> MainWindow
+deactivate ListPanel
+ListPanel -[hidden]--> ListPanel
+
+MainWindow -> ListPanel : onTaskListChange(tasks, taskHash)
+activate ListPanel
+ListPanel --> MainWindow
+deactivate ListPanel
+ListPanel -[hidden]--> ListPanel
+
+'==== MainWindow ====
+MainWindow --> UiManager
+deactivate MainWindow
+MainWindow -[hidden]--> MainWindow
+
+deactivate UiManager
+UiManager -[hidden]--> UiManager
+
+'==== UiManager ===='
+[-> UiManager : onUserOutput(output, colorTheme)
+activate UiManager
+
+UiManager -> MainWindow : onUserOutput(output, colorTheme)
+activate MainWindow
+MainWindow --> UiManager
+deactivate MainWindow
+
+UiManager -->[
+deactivate UiManager
+UiManager -[hidden]--> UiManager
+@enduml

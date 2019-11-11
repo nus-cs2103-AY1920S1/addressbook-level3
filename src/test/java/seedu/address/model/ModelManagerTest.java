@@ -1,132 +1,71 @@
 package seedu.address.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.model.events.EventSource;
+import seedu.address.model.tasks.TaskSource;
 
-public class ModelManagerTest {
-
-    private ModelManager modelManager = new ModelManager();
+class ModelManagerTest {
 
     @Test
-    public void constructor() {
-        assertEquals(new UserPrefs(), modelManager.getUserPrefs());
-        assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+    void setModel_getModel_equal() {
+        ModelManager model = new ModelManager();
+
+        List<EventSource> events = List.of(
+            EventSource.newBuilder("a", DateTime.now()).build(),
+            EventSource.newBuilder("b", DateTime.now()).build(),
+            EventSource.newBuilder("c", DateTime.now()).build()
+        );
+        List<TaskSource> tasks = List.of(
+            TaskSource.newBuilder("a").build(),
+            TaskSource.newBuilder("b").build(),
+            TaskSource.newBuilder("c").build()
+        );
+        ModelData modelData = new ModelData(events, tasks);
+
+        // Ensure empty
+        assertEquals(new ModelData(), model.getModelData());
+        assertEquals(List.of(), model.getEvents());
+        assertEquals(List.of(), model.getTasks());
+
+        model.setModelData(modelData);
+        assertEquals(modelData, model.getModelData());
+        assertEquals(events, model.getEvents());
+        assertEquals(tasks, model.getTasks());
     }
 
     @Test
-    public void setUserPrefs_nullUserPrefs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setUserPrefs(null));
-    }
+    void setModel_updateModelListeners_success() {
+        ModelManager model = new ModelManager();
+        ModelDataListenerStub listener1 = new ModelDataListenerStub();
+        ModelDataListenerStub listener2 = new ModelDataListenerStub();
+        ModelDataListenerStub listener3 = new ModelDataListenerStub();
 
-    @Test
-    public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
-        UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
-        modelManager.setUserPrefs(userPrefs);
-        assertEquals(userPrefs, modelManager.getUserPrefs());
+        model.addModelDataListener(listener1);
+        model.addModelDataListener(listener2);
+        model.addModelDataListener(listener3);
 
-        // Modifying userPrefs should not modify modelManager's userPrefs
-        UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
-        assertEquals(oldUserPrefs, modelManager.getUserPrefs());
-    }
+        DateTime start = DateTime.now();
+        ModelData modelData = new ModelData(
+            List.of(
+                EventSource.newBuilder("a", start).build(),
+                EventSource.newBuilder("b", start).build(),
+                EventSource.newBuilder("c", start).build()
+            ),
+            List.of(
+                TaskSource.newBuilder("a").build(),
+                TaskSource.newBuilder("b").build(),
+                TaskSource.newBuilder("c").build()
+            )
+        );
 
-    @Test
-    public void setGuiSettings_nullGuiSettings_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setGuiSettings(null));
-    }
-
-    @Test
-    public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
-        modelManager.setGuiSettings(guiSettings);
-        assertEquals(guiSettings, modelManager.getGuiSettings());
-    }
-
-    @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
-    }
-
-    @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
-    }
-
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
-    }
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
-    }
-
-    @Test
-    public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
-        UserPrefs userPrefs = new UserPrefs();
-
-        // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
-        assertTrue(modelManager.equals(modelManagerCopy));
-
-        // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
-
-        // null -> returns false
-        assertFalse(modelManager.equals(null));
-
-        // different types -> returns false
-        assertFalse(modelManager.equals(5));
-
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        // different userPrefs -> returns false
-        UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        model.setModelData(modelData);
+        assertEquals(modelData, listener1.getModelData());
+        assertEquals(modelData, listener2.getModelData());
+        assertEquals(modelData, listener3.getModelData());
     }
 }

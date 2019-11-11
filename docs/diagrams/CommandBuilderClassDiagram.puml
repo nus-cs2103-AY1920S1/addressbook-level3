@@ -1,0 +1,82 @@
+@startuml
+
+' Style
+hide empty members
+skinparam boxPadding 100
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
+skinparam packageStyle rectangle
+skinparam lineType ortho
+skinparam shadowing false
+
+package Command {
+    abstract class Command
+
+    abstract class CommandBuilder {
+        - context : ArgumentList
+        - commandArguments : ArgumentList
+        - commandOptions : Map<String, ArgumentList>
+        # defineCommandArguments() &#123;abstract&#125; : RequiredArgumentList
+        # defineCommandOptions() &#123;abstract&#125; : Map<String, OptionalArgumentList>
+        + acceptPhrase(phrase : String)
+        + build() : Command
+    }
+
+    package Argument {
+        abstract class Argument<T> {
+            + accept(input : String)
+        }
+
+        abstract class ArgumentBuilder<T> {
+            + build() : Argument<T>
+        }
+
+        abstract class VariableArguments<T> {
+            + accept(input : String)
+        }
+
+        abstract class VariableArgumentsBuilder<T> {
+            + build() : VariableArguments<T>
+        }
+
+        package List {
+            class ArgumentList {
+                - arguments : List<Argument>
+                - variableArguments : VariableArguments
+                + acceptArgument(input : String)
+            }
+
+            abstract class ArgumentListBuilder {
+                +addArgument(argument : ArgumentBuilder)
+                +setVariableArguments(argument : VariableArgumentsBuilder)
+                +build() : ArgumentList
+            }
+
+            class RequiredArgumentList extends ArgumentListBuilder {
+                +addArgument(argument : ArgumentBuilder)
+                +setVariableArguments(argument : VariableArgumentsBuilder)
+            }
+
+            class OptionalArgumentList extends ArgumentListBuilder {
+                +addArgument(argument : ArgumentBuilder)
+                +setVariableArguments(argument : VariableArgumentsBuilder)
+            }
+        }
+    }
+}
+
+CommandBuilder *--"*" ArgumentList
+CommandBuilder ..> RequiredArgumentList
+CommandBuilder ..> OptionalArgumentList
+CommandBuilder .> Command
+
+ArgumentBuilder ..> Argument
+VariableArgumentsBuilder ..> VariableArguments
+
+ArgumentList *--"*" Argument
+ArgumentList *--"0..1" VariableArguments
+
+ArgumentListBuilder .> ArgumentList
+ArgumentListBuilder ..> ArgumentBuilder
+ArgumentListBuilder ..> VariableArgumentsBuilder
+@enduml

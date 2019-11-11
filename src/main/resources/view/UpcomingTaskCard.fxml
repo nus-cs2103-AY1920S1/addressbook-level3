@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+
+<!-- @@author Kyzure -->
+<StackPane fx:id="upcomingTaskCardBase" alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <StackPane alignment="TOP_CENTER">
+                    <children>
+                        <Label fx:id="upcomingWeekDay" alignment="CENTER" text="weekDay" />
+                    </children>
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+                </StackPane>
+                <StackPane alignment="TOP_CENTER" GridPane.rowIndex="1">
+                    <children>
+                        <Label fx:id="upcomingDay" alignment="CENTER" text="day" textAlignment="CENTER" />
+                    </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+                </StackPane>
+                <StackPane fx:id="upcomingTaskBase" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                    <children>
+                        <Label fx:id="upcomingTaskName" maxWidth="225.0" text="taskName">
+                            <StackPane.margin>
+                                <Insets left="10.0" />
+                            </StackPane.margin></Label>
+                    </children>
+                    <GridPane.margin>
+                        <Insets right="5.0" />
+                    </GridPane.margin>
+                </StackPane>
+            </children>
+        </GridPane>
+    </children>
+    <opaqueInsets>
+        <Insets />
+    </opaqueInsets>
+</StackPane>

@@ -1,0 +1,46 @@
+@startuml
+
+' Style
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
+skinparam packageStyle rectangle
+skinparam lineType ortho
+skinparam shadowing false
+
+package Model {
+    class ModelManager {
+        - data : ModelData
+        + setModelData(data : ModelData)
+        + getModelData() : ModelData
+    }
+    class ModelData {
+        - events : UniqueOrderedSet<EventSource>
+        - tasks : UniqueOrderedSet<TaskSource>
+    }
+    class UniqueOrderedSet<E>
+
+    package Event {
+        class EventSource
+        class EventSourceBuilder {
+            + build : EventSource
+        }
+    }
+
+    package Task {
+        class TaskSource
+        class TaskSourceBuilder {
+            + build : TaskSource
+        }
+    }
+}
+
+ModelManager *--"1" ModelData
+
+ModelData *--"2" UniqueOrderedSet
+ModelData *--"*" EventSource
+ModelData *--"*" TaskSource
+
+EventSourceBuilder ..> EventSource
+TaskSourceBuilder ..> TaskSource
+@enduml

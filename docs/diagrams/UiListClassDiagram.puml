@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package Ui <<Rectangle>> {
+    Class MainWindow
+    Class EventCard
+    Class TaskCard
+    package List <<Rectangle>> {
+        Class ListPanel
+        Class EventListPanel
+        Class TaskListPanel
+    }
+}
+
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Class EventSource
+    Class TaskSource
+    Interface ModelDataListener <<Interface>>
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside .left> UiManager
+
+'==== UiManager ====
+UiManager *--> MainWindow
+UiManager .up.|> ModelDataListener
+
+'==== MainWindow ====
+MainWindow -down-> ListPanel
+
+'==== ListPanel ====
+ListPanel *-down-> EventListPanel
+ListPanel *-down-> TaskListPanel
+
+'==== EventListPanel ====
+EventListPanel *-up--> EventCard
+
+'==== TaskListPanel ====
+TaskListPanel *--> TaskCard
+
+'==== EventCard ====
+EventCard *-up-> EventSource
+
+'==== TaskCard ====
+TaskCard *-up-> TaskSource
+
+EventSource .[hidden]right.|> TaskSource
+EventListPanel .[hidden]down|> TaskListPanel
+TaskCard .[hidden]up|> TaskSource
+
+@enduml

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!-- @@author Kyzure -->
+<VBox style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane style="-fx-background-color: transparent;">
+         <children>
+            <Label fx:id="eventListTitle" text="Event List" textAlignment="CENTER" StackPane.alignment="TOP_CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <ScrollPane fx:id="eventScrollPane" fitToWidth="true" hbarPolicy="NEVER">
+               <content>
+                  <VBox fx:id="eventList" prefHeight="1500.0" spacing="2.0">
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding></VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </StackPane>
+   </children>
+</VBox>

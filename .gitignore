@@ -2,6 +2,7 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+/exports/
 
 # IDEA files
 /.idea/
@@ -13,6 +14,7 @@ src/main/resources/docs/
 /config.json
 /preferences.json
 /*.log.*
+/*.ics
 
 # Test sandbox files
 src/test/data/sandbox/

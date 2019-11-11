@@ -1,0 +1,86 @@
+= Ong Cheng Geng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+---
+== Project: Horo (Calendar/Scheduling App)
+---
+== Overview
+
+=== Project Description
+This is a portfolio that documents my contributions towards a Calendar and Scheduling application called Horo. Horo helps the user maintain a to-do list and to schedule their activities, and is able to post reminders to their desktop.
+
+Here is a screenshot of our application in the default Calendar view.
+
+.Horo Calendar view screenshot
+image::HoroMainViewDescription.png[]
+
+=== Project Scope
+Horo was made for the CS2103T Software Engineering module, offered by the National University of Singapore's School of Computing. Over the course of 6 weeks, students were grouped into teams tasked with either enhancing or morphing a basic Command Line Interface (CLI) application. I contributed to the project by writing both functional and test code, as well as documenting these contributions in the product's User and Developer guides.
+
+=== Portfolio Purpose
+My role in this project was to design and implement the Notification system of the application. Subsequent sections will go into greater detail with regards to my contributions to both the code and documentation.
+
+Note the following symbols and formatting used throughout this document:
+|=======
+| `notif_on` | Text highlighted in grey in the User Guide indicates that a term is a command that can be executed by the program if input through the command line.
+| `NotificationManager`| Text highlighted in grey in the Developer Guide indicates that a term is a class or an object used in the source code of the application.
+|=======
+
+== Summary of Contributions
+This section lists the code and documentation I contributed to the project.
+{empty} +
+{empty} +
+
+=== Major Enhancement Added: Notification System
+
+[cols="2,8"]
+|=======
+|What it does  | The Notification System runs in parallel to the main thread of the app. Every minute, it checks whether the user should be reminded of any Event or Task, and posts a new notification if necessary.
+|Justification | The Notification System is a natural extension of an application meant for tracking deadlines and schedules. It serves to remind a forgetful or busy user of their commitments.
+|Highlights    | •	An initial design for the notification system involved running it not as a parallel thread, but as a separate background application. This would allow notifications to be posted even if the main app were closed. However, this design was eventually reworked.  Going forward with the original design would necessitate the development of a second application that the user would have to install in addition to Horo. This would have been at odds with module requirements and learning objectives.
+                  {empty} +
+                  {empty} +
+                 •	An alternative design involved running instantiating the Notification System as a separate component to UI, Logic and Model. However, this design would have been at odds with OOP principles. The Notification System was thus further split into separate extensions of the Logic and UI packages.
+
+|=======
+
+==== Code Contributed
+link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chenggeng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ChengGeng97&tabRepo=AY1920S1-CS2103T-F12-1%2Fmain%5Bmaster%5D[RepoSense Link]
+|=======
+| Notification System         | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/NotificationManager.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationCheckingThread.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationChecker.java[3] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/SystemTrayCommunicator.java[4] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupNotification.java[5] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupListener.java[6] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/NotificationClickActionListener.java[7]
+| Notification Tests          | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckerTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckingThreadTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/ui/systemtray/PopupNotificationTest.java[3]
+| Task Tests                  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceBuilderTest.java[2]
+| Task-Related Command Tests  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteTaskCommandTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java[3]
+|=======
+
+
+=== Other Contributions
+|=======
+|Project Documentation | Reviewed pull requests  link:https://github.com/AY1920S1-CS2103T-F12-1/main/pull/78[#78] link:https://github.com/AY1920S1-CS2103T-F12-1/main/pull/95[#95] link:https://github.com/AY1920S1-CS2103T-F12-1/main/pull/107[#107]
+|Documentation         | Edited the User Guide for better clarity and to fix grammatical mistakes link:https://github.com/AY1920S1-CS2103T-F12-1/main/pull/121[#121]
+|=======
+
+
+== Contributions to the User Guide
+The following section includes excerpts of my contribution to the Horo User Guide, explaining the Notification System and the `notif_on` and `notif_off` commands.
+
+// tag::ug[]
+include::../UserGuide.adoc[tag=chenggengppp]
+// end::ug[]
+
+== Contributions to the Developer Guide
+The following section includes excerpts of my contributions to the Horo Developer Guide.
+
+=== Class Architecture and Behaviour
+This sub-section includes my explanations of the class architecture and behaviour behind the Notification System.
+
+// tag::dg[]
+include::../DeveloperGuide.adoc[tag=notification]
+// end::dg[]
+
+=== Intructions for Manual Testing
+This sub-section includes instructions I have provided for manual testing of the notification system.
+
+include::../DeveloperGuide.adoc[tag=notifmanualtesting]

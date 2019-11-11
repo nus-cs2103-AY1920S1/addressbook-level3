@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<StackPane fx:id="eventCardHolderBase" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox>
+         <children>
+            <StackPane fx:id="line0" alignment="CENTER_LEFT" maxHeight="1.5" minHeight="1.5" prefHeight="1.5">
+               <VBox.margin>
+                  <Insets left="10.0" right="20.0" top="45.0" />
+               </VBox.margin>
+            </StackPane>
+            <StackPane>
+               <children>
+                  <VBox fx:id="timeBox" spacing="2.0">
+                     <StackPane.margin>
+                        <Insets />
+                     </StackPane.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="20.0" top="1.0" />
+               </VBox.margin>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

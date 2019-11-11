@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<VBox fx:id="listPanelBase" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="listPanelGrid">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" />
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="2000.0" vgrow="ALWAYS" />
+        </rowConstraints>
+         <children>
+            <StackPane fx:id="eventListPlaceholder" prefHeight="150.0" prefWidth="200.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="8.0" />
+               </GridPane.margin>
+            </StackPane>
+            <StackPane fx:id="taskListPlaceholder" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="8.0" />
+               </GridPane.margin>
+            </StackPane>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

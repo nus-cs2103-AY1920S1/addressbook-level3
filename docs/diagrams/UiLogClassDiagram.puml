@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+'==== Packages ====
+package UI <<Rectangle>> {
+Class MainWindow
+Class PopUpBox
+    package Log <<Rectangle>> {
+        Class LogPanel
+        Class LogBox
+    }
+}
+
+package Logic <<Rectangle>> {
+    Class UiManager
+}
+
+package Model <<Rectangle>> {
+    Interface UserOutputListener <<Interface>>
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> UiManager
+
+'==== UiManager====
+UiManager .left..|> UserOutputListener
+UiManager *--> MainWindow
+
+'==== MainWindow ====
+MainWindow *-down--> LogPanel
+MainWindow .left.> PopUpBox
+
+'==== LogPanel ====
+LogPanel *-right--> LogBox
+
+@enduml

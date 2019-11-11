@@ -1,0 +1,68 @@
+@startuml
+
+' Style
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam genericDisplay old
+skinparam packageStyle rectangle
+skinparam lineType polyline
+skinparam shadowing false
+
+package Logic {
+    class CommandManager implements CommandInputListener {
+        - commandParser : CommandParser
+        - keywordParser : CommandKeywordParser
+        - userOutputListeners : List<UserOutputListener>
+        + addCommand(keyword : String, builder : CommandBuilder)
+        + addUserOutputListener(listener : UserOutputListener)
+        + onCommandInput(input : String)
+    }
+
+    package Parser {
+        interface Parser<T> {
+            + parse() : T
+        }
+        class CommandParser implements Parser {
+            + parse() : Command
+        }
+        class CommandKeywordParser implements Parser {
+            + addCommand(builder : CommandBuilder)
+            + parse() : CommandBuilder
+        }
+    }
+
+    package Command {
+        abstract class Command {
+            + execute() : UserOutput
+        }
+        abstract class CommandBuilder {
+            + build() : Command
+        }
+        interface CommandInputListener {
+            + onCommandInput(input : String)
+        }
+    }
+}
+
+package Ui {
+    class UserOutput {
+        + toString() : String
+    }
+    interface UserOutputListener {
+        + onUserOutput(output : UserOutput)
+    }
+}
+
+CommandManager *--"1" CommandParser
+CommandManager *--"1" CommandKeywordParser
+CommandManager o--"*" UserOutputListener
+CommandManager ..>CommandBuilder
+
+CommandParser o-- CommandKeywordParser
+CommandKeywordParser o--"*" CommandBuilder
+
+Command ..> UserOutput
+CommandBuilder ..> Command
+
+UserOutputListener ..> UserOutput
+@enduml

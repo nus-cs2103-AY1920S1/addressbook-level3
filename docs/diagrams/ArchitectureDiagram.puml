@@ -1,42 +1,42 @@
 @startuml
-!include <office/Concepts/globe_internet>
 !include <office/Concepts/documents>
 !include <office/Users/user>
-!include style.puml
 
-Package " "<<Rectangle>>{
-    Class UI UI_COLOR
-    Class Logic LOGIC_COLOR
-    Class Storage STORAGE_COLOR
-    Class Model MODEL_COLOR
-    Class Main MODEL_COLOR_T1
-    Class Commons LOGIC_COLOR_T2
-    Class "Log Center" as Logs UI_COLOR_T2
-    Class Hidden #FFFFFF
-    Class HiddenUI #FFFFFF
-    Class HiddenModel #FFFFFF
+hide circles
+hide empty members
+skinparam packageStyle rectangle
+skinparam shadowing false
 
+package Horo {
+    class CommandManager
+    class Ics
+    class ModelManager
+    class NotificationManager
+    class StorageManager
+    class UiManager
+    class UndoRedoManager
 
+    class LogsCenter
+    class Main
 }
-Class "<$user>" as User MODEL_COLOR_T2
-Class "<$documents>" as File UI_COLOR_T1
 
+class "<$user>" as User
+class "<$documents>" as Documents
 
-HiddenUI -up[hidden]-> UI
-HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
-UI -> Logic
-UI -right-> Model
-Logic -> Storage
-Logic -down-> Model
+CommandManager <..> UiManager
 
-Logs -right- Commons
-Hidden .down.> Commons
-Hidden .down.> Commons
-Hidden .down.> Commons
+Ics --> ModelManager
 
-Storage .right.>File
-User --> UI
-Main --> Hidden
+ModelManager ..> StorageManager
+ModelManager ..> UiManager
+ModelManager ..> UndoRedoManager
+
+NotificationManager --> ModelManager
+
+StorageManager --> ModelManager
+StorageManager <..> Documents
+
+UndoRedoManager --> ModelManager
+
+User <..> UiManager
 @enduml

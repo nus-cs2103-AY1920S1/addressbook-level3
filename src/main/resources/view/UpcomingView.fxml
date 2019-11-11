@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<GridPane fx:id="upcomingViewBase" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="350.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints valignment="TOP" vgrow="NEVER" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <StackPane prefWidth="350.0">
+         <children>
+            <Label fx:id="upcomingViewTitle" alignment="TOP_CENTER" text="Upcoming" underline="true" StackPane.alignment="TOP_CENTER">
+               <StackPane.margin>
+                  <Insets top="5.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+      <StackPane fx:id="upcomingPanel" alignment="TOP_CENTER" GridPane.rowIndex="1">
+         <children>
+            <ScrollPane fx:id="upcomingScrollPane" fitToWidth="true" prefWidth="350.0">
+               <content>
+                  <VBox fx:id="upcomingList" prefWidth="350.0" spacing="5.0" />
+               </content>
+            </ScrollPane>
+         </children>
+         <GridPane.margin>
+            <Insets top="8.0" />
+         </GridPane.margin>
+      </StackPane>
+   </children>
+</GridPane>

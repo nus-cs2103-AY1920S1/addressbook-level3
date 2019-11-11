@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<VBox fx:id="timelineBase" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane>
+         <children>
+            <Label fx:id="timelineTitle" alignment="CENTER" contentDisplay="CENTER" text="Timeline" underline="true">
+               <StackPane.margin>
+                  <Insets top="5.0" />
+               </StackPane.margin></Label>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </StackPane>
+      <ScrollPane fx:id="timelineScrollPane" fitToWidth="true">
+         <content>
+            <GridPane fx:id="timelineGrid">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="75.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+              </columnConstraints>
+            </GridPane>
+         </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ScrollPane>
+   </children>
+</VBox>

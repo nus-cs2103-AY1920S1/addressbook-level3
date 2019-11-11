@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- @@author Kyzure -->
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane fx:id="calendarPanelGrid">
+        <columnConstraints>
+          <ColumnConstraints />
+          <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints />
+          <RowConstraints vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <StackPane fx:id="timelinePlaceholder" alignment="TOP_LEFT" prefWidth="20.0" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </StackPane>
+            <StackPane alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <VBox fx:id="calendarScreenPlaceholder" alignment="CENTER_RIGHT" fillWidth="false" />
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </StackPane>
+            <StackPane fx:id="upcomingViewPlaceholder" alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets top="10.0" />
+               </GridPane.margin>
+            </StackPane>
+         </children>
+      </GridPane>
+   </children>
+</VBox>

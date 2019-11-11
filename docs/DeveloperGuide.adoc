@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Horo - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,21 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-F12-1`      Since: `Sept 2019`      Licence: `MIT`
+
+== Introduction
+
+=== About the Application
+*Horo* is a command-line interface scheduling application. It helps the user maintain a to-do list and a calendar, and posts timely reminders on their desktop.
+
+=== Purpose
+This guide specifies the architecture and software design decisions for Horo, and instructions for building upon the current codebase. This is done in hopes of ensuring extensibility and maintainability of Horo for both current and future developers.
+
+
+=== How to use this Guide
+todo
 
 == Setting up
 
@@ -28,219 +40,705 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Horo. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+`Main` consists of a class called `MainApp`. It is responsible for:
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+- At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+- At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+`LogsCenter` is used by many classes to write log messages to Horo's log file.
 
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
-The following class plays an important role at the architecture level:
+The rest of Horo is managed by seven components:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+. <<Design-CommandManager,*`CommandManager`*>> : Responsible for executing commands from the user.
+. <<Design-Ics,*`Ics`*>> : Responsible for handling the importing and exporting of ICS files.
+. <<Design-ModelManager,*`ModelManager`*>> : Responsible for reading and writing to the in-memory data of Horo.
+. <<Design-NotificationManager,*`NotificationManager`*>> : Responsible for sending notifications to the user.
+. <<Design-StorageManager,*`StorageManager`*>> : Responsible for reading and writing the Model to an external disk.
+. <<Design-UiManager,*`UiManager`*>> : Responsible for managing the user interface (UI) of Horo.
+. <<Design-UndoRedoManager,*`UndoRedoManager`*>> : Responsible for tracking changes in ModelManager, and reverting its history when needed.
 
-The rest of the App consists of four components.
+Most components follow the https://en.wikipedia.org/wiki/Observer_pattern[observer design pattern], to reduce tight coupling and increase cohesion.
+They implement these listeners:
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
-* <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+. `CommandInputListener` : The component will be notified about command input from the user.
+. `ModelDataListener` : The component will be notified whenever the Model changes.
+. `UserOutputListener` : The component will be notified whenever a message needs to be displayed to the user.
 
 The sections below give more details of each component.
 
-[[Design-Ui]]
-=== UI component
+[[Design-UiManager]]
+=== UI Component
 
-.Structure of the UI Component
+.Main structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/logic/UiManager.java[`UiManager.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is contains 3 main view parts - `CalendarPanel`, `ListPanel`, `LogPanel`. It also holds several other UI parts e.g. `PopUpPanel` and `Command Box`. Every one of the UI classes will abstract from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework, and layout of these UI parts are defined in `.fxml` files which are found in the `src/main/resources/view` folder. One example of the layout would be: link:{repoURL}/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`], whose FXML link is specified in link:{repoURL}/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `UI` component does the following:
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Executes user two different types commands using the `Logic` component.
+** One command, when executed, affect the actual Events.
+** The other command is executed to change the view of the UI. There are currently 3 main views in the application: `CalendarPanel`, `ListPanel`, `LogPanel`.
+* Listens for any changes in both lists of Tasks and Events using a listener:  link:{repoURL}/blob/master/src/main/java/seedu/address/model/listeners/ModelDataListener.java[`ModelDataListener`].
 
-[[Design-Logic]]
-=== Logic component
+==== Calendar UI View
 
-[[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Structure of the Calendar UI View
+image::UiCalendarClassDiagram.png[]
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+The Calendar View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarPanel.java[`CalendarPanel`], which holds several different other UI parts linked together to form the overall UI. In the Calendar View, it displays three different UI parts of the Calendar: `CalendarScreen`, `TimelineView` and `UpcomingView`.
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/CalendarScreen.java[`CalendarScreen`] is the screen which displays the calendar of a certain month and year to the user. It contains 6 x 7 instance of `CalendarGridDay`, which displays the days of the month.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineView.java[`TimelineView`] is the screen which displays the timeline using 3 different classes which abstract from `TimelineView`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineDayView.java[`TimelineDayView`] displays the timeline of a particular day in a certain month and year.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineWeekView.java[`TimelineWeekView`] displays the timeline of a particular week. The week is according to the `CalendarScreen`, where each row represents a week of a month.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/TimelineMonthView.java[`TimelineMonthView`] displays the timeline of a particular month in a certain year.
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+Each of these timeline will hold up to a certain amount of `CardHolder` depending on the type of `TimelineView`. Each of these `CardHolder` will then hold an amount of `Card` for displaying the event name and date. The details of `Card` will be explained in the one of the next few sections.
 
-[[Design-Model]]
-=== Model component
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/calendar/UpcomingView.java[`UpcomingView`] represents a miniature list of Events and Tasks that has a start date or due date in the same month as the user's system current month, but not before the date as the user's date. This list will then hold up to a certain amount of `UpcomingEventCard` and `UpcomingTaskCard` which will be explained together with `Card` as well.
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+==== List UI View
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+.Structure of the List UI View
+image::UiListClassDiagram.png[]
 
-The `Model`,
+The List View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/ListPanel.java[`ListPanel`] which contains two lists views, `EventListView` and `TaskListView`
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/EventListView.java[`EventListView`] displays the list of Events containing every piece of information of the Events.
+
+* link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/list/TaskListView.java[`TaskListView`] displays the list of Task, containing every piece of information of each Task.
+
+Similar to `TimelineView`, `EventListView` and `TaskListView` will contain a list of `Card` to display the information.
+
+==== Log UI View
+
+.Structure of the Log UI View
+image::UiLogClassDiagram.png[]
+
+The Log View is made up of the link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogPanel.java[`LogPanel`] which contains the list of `LogBox`.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/log/LogBox.java[`LogBox`] displays literal information back to the user when it is called by `MainWindow` when it listens for a command.
+
+link:{repoURL}/blob/master/src/main/java/seedu/address/ui/panel/PopUpBox.java[`PopUpBox`] is rather similar to LogBox. It holds up to the same amount of information, as much until the size of the application window, and collapses the rest. It represents the pop up that animates and displays for a few seconds to the user about the given command.
+
+==== Card UI ====
+
+Firstly, there are two types of ways to display information to the user regarding a Event or Task.
+
+* For Events, it is `EventCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingEventCard`
+
+* For Tasks, it is `TaskCard`, which is abstracted from the `Card` abstract class, followed by `UpcomingTaskCard`.
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/EventCard.java[`EventCard`] may display the following information:
+
+. Event Description
+. Event Start Date
+. Event End Date (Optional)
+. Event Reminder Date (Optional)
+. Event Tags (Optional)
+. Event Index (For deleting or editing)
+
+An link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/TaskCard.java[`TaskCard`] may display the following information:
+
+. Task Description
+. Task Due Date (Optional)
+. Task Reminder Date (Optional)
+. Task Tags (Optional)
+. Task Index (For deleting or editing)
+
+As for link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingEventCard.java[`UpcomingEventCard`] and link:{repoURL}/blob/master/src/main/java/seedu/address/ui/card/UpcomingTaskCard.java[`UpcomingTaskCard`], they only hold the Description of the Event or Task.
+
+[[Design-CommandManager]]
+=== CommandManager Component
+
+The `CommandManager` class manages the addition and invoking of `Commands` in Horo.
+
+.Class diagram of CommandManager
+image::CommandManagerClassDiagram.png[]
+
+Referring to the diagram above, it performs the following operations:
+
+. Listen for user input in `onCommandInput()`.
+. Pass the user input to `commandParser`, to obtain a `Command`.
+. Execute the `Command` and obtain a `UserOutput`.
+. Notify all `userOutputListeners` about the `UserOutput`.
+
+To give a more concrete example of how `CommandManager` functions, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::CommandManagerAddTaskSequenceDiagram.png[]
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+====
+CommandManager closely follows the https://en.wikipedia.org/wiki/Command_pattern[command design pattern].
+====
 
-[[Design-Storage]]
-=== Storage component
+==== Command
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+A `Command` is defined to be an immutable function, that can be invoked at any time, to perform any set of instructions.
+After executing the set of instructions, it will optionally return output to be displayed to the user.
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+In Horo, a `Command` implemented as an abstract class with an abstract `execute()` method.
+To create a new concrete command, extend from `Command` and implement `execute()`.
 
-The `Storage` component,
+If your concrete command requires any dependencies during execution, it is recommended to pass in the dependency from the constructor.
+For example, if your command needs to be able to access `ModelManager`:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+[source,java]
+----
+public class MyCommand extends Command {
+    private final ModelManager model;
+    MyCommand(ModelManager model) {
+        this.model = model;
+    }
 
-[[Design-Commons]]
-=== Common classes
+    @Override
+    UserOutput execute() {
+        this.model.doSomething();
+        // ...
+    }
+}
+----
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+==== CommandParser
+
+A `CommandParser` is defined to be able to parse a `String` of user input, and return a `Command`.
+
+In Horo, a `CommandParser` is implemented as a finite state machine (FSM). It parses user input token by token, and it transitions from state to state depending on the next token.
+
+What the FSM is trying to do is tokenize user input into:
+
+. `Command keyword`
+. `Command phrase(s)`
+
+A *command keyword* is defined as the first sequence of consecutive, non-whitespace characters of the user input.
+For the rest of this guide, a sequence of consecutive, non-whitespace characters will be referred to as a ‘word’.
+A word can be described in the form of a regular expression (regex) as `[^\s]+`.
+
+Examples of valid command keywords:
+
+- `exit`
+- `add_event`
+- `123`
+- `😺`
+
+A *command phrase* is defined as either a word, or multiple words delimited by whitespace surrounded by quotes.
+Command phrases come after a command keyword.
+
+Examples of valid command phrases:
+
+- `Horse`
+- `”Homework”`
+- `”Horo’s Birthday”`
+- `”24/10/2019 07:00”`
+- `’24/10/2019 07:00’`
+- `--description`
+
+`CommandParser` is trying to tokenize any command input into one command keyword, and zero or more command phrases.
+(i.e. `[keyword] [phrase] [phrase] [phrase] ...`).
+To understand how the FSM works, study the activity diagram below:
+
+.Activity diagram of CommandParser
+image::CommandParserActivityDiagram.png[]
+
+After tokenizing, the command keyword is sent to a `CommandKeywordParser`, which returns a `CommandBuilder`.
+The remaining command phrases are sent to the `CommandBuilder`, which builds the `Command` we want.
+
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Use `String.split()` to break up command input into tokens.
+| Implement a FSM to break up command input into tokens.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Split the command input by whitespaces, into words. The first word will be the *command keyword*.
+All subsequent words will have to be joined into *command phrases*.
+| Create a `State` class, and design a state diagram to tokenize the command input into a *command keyword* and *command phrases*.
+
+| Evaluation
+| I did not choose this option because:
+
+Joining words into command phrases can become quite complex, especially when introducing quotation marks.
+
+Additionally, it is difficult for future developers to maintain and extend logic like this.
+| *I chose this option because:*
+
+A state machine is easy to understand and configure.
+
+A state machine can tokenize complex command inputs, allowing future developers to parse advanced command inputs.
+|===
+
+==== CommandKeywordParser
+
+A `CommandKeywordParser` is defined to be able to parse a command keyword, and return a `CommandBuilder`.
+
+In Horo, a `CommandKeywordParser` uses a `HashMap` to map a command keyword to a `Supplier<CommandBuilder>`.
+
+
+==== CommandBuilder
+
+A `CommandBuilder` is defined to be able to accept an arbitrary amount of command phrases, and eventually create a `Command` using those phrases.
+
+In Horo, a `CommandBuilder` is implemented such that the entire definition of a `Command` is in the `CommandBuilder`.
+The `CommandBuilder` will use those definitions to automagically parse command phrases.
+
+.Class diagram of CommandBuilder
+image::CommandBuilderClassDiagram.png[]
+
+Referring to the diagram above, the definition the command is implemented in two methods:
+
+. `defineCommandArguments()`
+. `defineCommandOptions()`
+
+A *command option* is defined to have a keyword and a list of arguments.
+An *option’s keyword* is defined to be a command phrase.
+An *option’s argument* is defined to be a command phrase that is not an option’s keyword, and lies after it.
+
+Example of option’s keyword & arguments below. The option’s keyword is underlined:
+
+- `+++<u>--description</u>+++ Horse`
+- `+++<u>--tags</u>+++ Animal Cat Dog`
+- `+++<u>-d</u>+++ Horse`
+
+A *command argument* is defined to be a command phrase that is not an option’s keyword.
+This is similar to an option’s argument, except that the position of this argument in the user input is important.
+A command argument is a command phrase that lies after the command keyword, and before any command option’s keywords.
+
+Example of command’s arguments below. The command’s keyword is underlined.
+
+- `+++<u>add_event</u>+++ Horse “24/10/2019 10:00”`
+- `+++<u>delete_event</u>+++ 1 2 3`
+
+To understand how `CommandBuilder` works, study the activity diagram below:
+
+.Activity diagram of CommandBuilder
+image::CommandBuilderActivityDiagram.png[]
+
+The `CommandBuilder` API provides a simple way for developers to create a `Command`.
+For example, to create a `MyCommand` which takes in one String argument, and have an option which also takes in one String argument, you could do this:
+
+[source, java]
+----
+class MyCommandBuilder extends CommandBuilder {
+
+    private String arg1;
+    private String arg2;
+
+    @Override
+    protected RequiredArgumentList defineCommandArguments() {
+        return ArgumentList.required()
+            .addArgument(StringArgument.newBuilder("Argument 1", s -> this.arg1 = s));
+    }
+
+    @Override
+    protected Map<String, OptionalArgumentList> defineCommandOptions() {
+        return Map.of(
+            "--option", ArgumentList.optional()
+                .addArgument(StringArgument.newBuilder("Argument 2", s -> this.arg2 = s))
+        );
+    }
+
+    @Override
+    protected Command commandBuild() {
+        return new MyCommand(this.arg1, this.arg2);
+    }
+}
+----
+
+[source, java]
+----
+class MyCommand extends Command {
+
+    private final String arg1;
+    private final String arg2;
+
+    public MyCommand(String arg1, String arg2) {
+        this.arg1 = arg1;
+        this.arg2 = arg2;
+    }
+
+    @Override
+    public UserOutput execute() {
+        // Do something with arg1 and arg2
+    }
+}
+----
+
+Simply register `MyCommandBuilder` to `CommandManager` to use your new command:
+
+[source]
+----
+commandManager.addCommand("mycommand", MyCommandBuilder::new)
+----
+
+[NOTE]
+====
+CommandBuilder closely follows the https://en.wikipedia.org/wiki/Builder_pattern[builder design pattern].
+====
+
+===== Design Considerations
+
+[%header, cols="1h, 2a, 2a"]
+|===
+|
+| Option 1
+| Option 2
+
+| What
+| Each `Command` is created by parsing user input using it's own `Parser`.
+| Each `Command` is defined by a `CommandBuilder`, and created by a `CommandParser`.
+
+| Difficulty
+| Easy
+| Moderate
+
+| How
+| Implement a utility class which can parse user input into arguments. Use this class in each command parser.
+| Implement `CommandBuilder` which can build a `Command` with any number of arguments. Commands provide what arguments they require.
+
+| Evaluation
+| I did not choose this option because:
+
+Each command parser will need to implement logic to use the utility class, handle argument checking and parsing errors.
+
+It is difficult for future developers to create, extend and test `Commands`.
+| *I chose this option because:*
+
+Each `Command` does not require any logic, only arguments are required to be defined.
+
+Since all logic is in `CommandBuilder`, it is simple for developers to test.
+|===
+
+==== Argument
+
+A command’s argument and an option’s argument are both considered an `Argument`. An argument will be parsed from a command phrase to another object. The `Argument` class is a generic class, where the type of the class defines what type of object the command phrase be parsed into.
+
+For example, an `Argument<DateTime>` which receives “24/10/2019 10:00” will be parsed into a `DateTime` object.
+
+
+==== Variable Argument
+
+A `VariableArgument` is a special type of argument. A variable argument will be parsed from a list of command phrases to a list of similar type objects. The `VariableArgument` class is a generic class, where the type of the class defines what types of objects the command phrases should be parsed into. A variable argument can accept zero or more command phrases to be parsed.
+
+For example, a `VariableArgument<Integer>` which receives {1, 2, 3} will be parsed into a list of Integers. `A VariableArgument<Integer>` which receives {} will be parsed into an empty list.
+
+
+==== ArgumentList
+
+A command is said to contain a list of arguments, and it’s options are said to contain a list of arguments too. Both are considered an `ArgumentList`. An `ArgumentList` is defined to contain zero or more `Arguments`, and zero or one `VariableArguments`.
+
+Additionally, if a variable argument is defined, it will be treated as the last argument in the `ArgumentList`. This is because a variable argument can accept zero or more command phrases, which will prevent other arguments from receiving command phrases if it is not the last argument.
+
+[[Design-ModelManager]]
+=== ModelManager Component
+
+The `ModelManager` is responsible for the reading and writing of events and tasks in Horo.
+
+.Class diagram of the ModelManager
+image::ModelManagerClassDiagram.png[]
+
+The `ModelManager` has three main functions:
+
+. Stores all events and tasks in a wrapper class `ModelData`.
+. Notifies all `ModelDataListeners` whenever the `ModelData` changes.
+. Allows any class with a reference to `ModelManager` to update the current `ModelData`.
+
+To give a more concrete example of how `ModelManager` notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::ModelManagerAddTaskSequenceDiagram.png[]
+
+==== ModelData
+
+`ModelData` is designed to be a wrapper class which contains a *snapshot* of Horo's events and tasks.
+It is immutable, and automatically creates deep copies of all events and tasks, to prevent any rouge modifications.
+
+==== EventSource
+
+An `EventSource` is a representation of an event in Horo.
+It is immutable. It has two required fields, and three optional fields:
+
+Required:
+
+. Description : Long description of the event
+. Start `DateTime` : The beginning of the event
+
+Optional:
+
+. End `DateTime` : The end of the event, if the event has no end it is considered to be an instant in the timeline.
+. Reminder `DateTime` : When a reminder should be given to the user, used in the <<notification system>>.
+. Tag(s) : User defined tags, which help in organizing the user's events.
+
+The `EventSourceBuilder` API provides a simple way for developers to create an `EventSource`.
+For example, to create an `EventSource` with three tags:
+
+[source]
+----
+EventSource e = EventSource.newBuilder("CS2103T Lecture", DateTime.now())
+    .setTags(List.of("CS2103T", "NUS", "Lecture"))
+    .build();
+----
+
+==== TaskSource
+
+A `TaskSource` is a representation of a task in Horo.
+It is immutable. It has one required field, and three optional fields:
+
+Required:
+
+. Description : Long description of the task
+
+Optional:
+
+. Due `DateTime` : When the task should be due.
+. Reminder `DateTime` : When a reminder should be given to the user, used in the <<notification system>>.
+. Tag(s) : User defined tags, which help in organizing the user's tasks.
+
+The `TaskSourceBuilder` API provides a simple way for developers to create a `TaskSource`.
+For example, to create a `TaskSource` with two tags:
+
+[source]
+----
+TaskSource t = TaskSource.newBuilder("Buy Groceries")
+    .setTags(List.of("Shopping", "Groceries"))
+    .build();
+----
+
+==== DateTime
+
+A `DateTime` is a representation of an instant of time, without timezone information.
+It is stored as the number of https://en.wikipedia.org/wiki/Unix_time[seconds from epoch]. It is immutable.
+
+The `DateTimeBuilder` API provides a simple way for developers to create a `DateTime`.
+For example, to create a `DateTime` representing `1st November 2019, 12:00PM (UTC)`:
+
+[source]
+----
+DateTime d = DateTime.newBuilder(1, 11, 2019, 12, 0, ZoneOffset.UTC)
+    .build();
+----
+
+[[Design-StorageManager]]
+=== StorageManager Component
+
+The `StorageManager` is responsible for the saving and loading of Horo's Model to the external disk.
+
+.Class diagram of StorageManager
+image::StorageManagerClassDiagram.png[]
+
+The `StorageManager` has four main functions:
+
+. Load the model on Horo startup.
+. Save the model whenever the model changes (notified via `ModelDataListener`).
+. Serialize the model into Javascript Object Notation (JSON) before saving.
+. Deserialize the model from JSON before passing it to `ModelManager`.
+
+For serialization and deserialization of the model, our team has decided to use the well known https://github.com/FasterXML/jackson[Jackson library].
+`EventSource`, `TaskSource` and their respective builders, have appropriate annotations to facilitate serialization and deserialization of JSON.
+
+To give a more concrete example of how `StorageManager` saves the model, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::StorageManagerAddTaskSequenceDiagram.png[]
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+[[Design-UndoRedoManager]]
+=== Undo/Redo feature
+==== Implementation Details
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `UndoRedoManager`, which contains `undoStateList` - a history of `ModelData` states.
+Each `ModelData` object contains two lists: one to store `EventSources` and the other to store `TaskSources`,
+together representing the state of all event and task data at that point in time. `UndoRedoManager` also contains a `undoIndex`,
+which keeps track of the index of the `ModelData` being used presently, as well as a `ModelManager` object.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+`ModelManager` contains a `ModelData` object. Horo's `StorageManager`, `UiManager` and `UndoRedoManager` components
+implement the `ModelDataListener` interface which listens for any changes to this `ModelData` so that they can be updated accordingly.
+Every time a state-changing command (that is not `undo` or `redo`) is executed, the a new `ModelData` representing the modified version
+will replace the old one and this new version will then be deep-copied and added to `undoStateList`.
+Should there be a need to revert back to a past or future state (if undo or redo is called), `ModelManager#modelData` will retrieve their data from the
+appropriate copy of `ModelData` in the list of duplicates.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+`UndoRedoManager` also implements the following operations:
+
+* `UndoRedoManager#undo()` -- Restore `ModelManager#modelData` to their previous versions from the appropriate duplicate in `undoStateList`
+* `UndoRedoManager#redo()` -- Restore `ModelManager#modelData` to their future versions from the appropriate duplicate in `undoStateList`
+* `UndoRedoManager#clearFutureHistory()` -- Delete all `ModelData` states that occur in `undoStateList` after the index given by the `undoIndex`
+
+The `UndoCommand` and `RedoCommand` will interact directly with `UndoRedoManager` while other state-changing commands
+(such as adding or deleting tasks) will interact only with `ModelManager`.
+
+The `ModelDataListener` interface helps us achieve the desired undo-redo functionality:
+
+This listener interface contains a single method, `onModelDataChange(ModelData modelData)`.
+
+The `UndoRedoManager` implements the `ModelDataListener` interface’s method `onModelDataChange(ModelData modelData)` to “listen” for any changes to
+`ModelManager#modelData` (e.g. when an event or task is added or deleted)
+If such a change exists, it will be handled by first instantiating a model data with a deep-copied version of the
+`taskList` and the modified `eventList`, calling `UndoRedoManager#clearFutureHistory()`, and finally to committing the state to `undoStateList`
+
+On the other hand, whenever an undo or redo is executed, `ModelManager`'s `ModelData` is updated
+to match the data of the model data with index `undoIndex` in `undoStateList` so that the correct version of model data is being reflected in the GUI.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user runs the program for the first time. The `UndoRedoManager` will be initialized with the initial `undoStateList`.
+A `ModelData` object will be added to `undoStateList` and the `undoIndex` will point to that single model data in the list.
 
-image::UndoRedoState0.png[]
+image::process1.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `add_event “Suntec City Computer Fair” --at “17/11/2019 12:00”`.
+`ModelManager#ModelData` will be reset to a new `ModelData` object with the added event.
+Then, `UndoRedoManager#onModelDataChange(ModelData modelData)` will be called (as there has been a change to the `eventList`),
+deep-copying the modified `ModelData`.
+All future states beyond the `undoIndex` will be cleared as they are no longer useful. In this particular case, there are no future states to be cleared.
+Finally, the deep-copy of the new model data state will be committed; added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model data state.
 
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
+image::process2.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If a command fails its execution, it will not result in any change to `ModelManager#ModelData`.
+Hence, there is no change to trigger the listener methods and thus no `ModelData` will be saved to `undoStateList`.
+
+Step 3. Suppose the user decides that adding the task was a mistake. He/she then executes the undo command to rectify the error.
+The undo command will decrement the `undoIndex` by one to contain the index of the previous undo redo state, thereafter triggering the
+`UndoRedoManager#notifyModelResetListeners` method. This method updates `ModelManager#modelData` to match the data of the
+model data with index `undoIndex` in `undoStateList`.
+
+image::process3.png[]
+
+[NOTE]
+If the `undoIndex` is 0, pointing to the initial model data state, then there are no previous model data states to restore.
+The undo command uses `UndoRedoManager#canUndo()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
+image::UndoSequenceDiagram.png[width=100%]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The redo command does the opposite — it calls `UndoRedoManager#redo()`, which increments the `undoIndex` by one to contain the index of the previously undone state.
+The `UndoRedoManager#notifyModelResetListeners` then causes `ModelManager#modelData` to be reset to this state’s data.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `undoIndex` is at index `undoStateList.size() - 1`, pointing to the latest model data state, then there are no undone model data states to restore.
+The `redo` command uses `UndoRedoManager#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 4. The user decides to execute the command `log`. Non-state-changing commands such as `log` do not manipulate task and event data.
+Since no changes to `ModelManager#modelData` have been made, the listener methods will not be triggered and no model data will be saved to `undoStateList`.
+Thus, the `undoStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::process4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 5. The user executes `delete_event 1`, removing the event from the `eventList` in `ModelManager#modelData`.
+`UndoRedoManager#onModelDataChange(ModelData modelData)` will be called (as there has been a change to the `ModelData`),
+purging all future states beyond the `undoIndex` as they are no longer useful.
+The modified model data will be deep-copied and a new model data containing the deep-copies will also be added to `undoStateList`.
+The `undoIndex` is incremented by one to contain the index of the newly inserted model data state.
 
-image::UndoRedoState5.png[]
+image::process5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-image::CommitActivityDiagram.png[]
+image::CommitActivityDiagram1.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+.Aspect: How undo & redo executes
+|===
+||Approach 1 (current choice) |Approach 2
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+|Pros
+|Easy to understand and implement.
+|Uses less memory as we only need to keep track of what commands have been executed and their parameters,
+as opposed to storing all task and event data between every change.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+|Cons
+|Performance issues may arise due to the relatively larger memory usage required.
+|Every command will have to be implemented twice, since their inverse operations will all be different. This is
+compounded by the fact that we have to ensure the correctness of every inverse operation individually as well.
+|===
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::notification[]
+[[Design-NotificationManager]]
+=== Notification System
+==== Class Architecture
+.Class diagram for Notification System
+image::NotificationClassDiagram.png[]
 
-_{Explain here how the data encryption feature will be implemented}_
+The Notification System is facilitated by the  `NotificationManager`, which is found in the Logic component. Other constituent classes of the Notification System can be found in the Logic and UI components, depending on their functionality. These classes and their functionalities are listed below:
 
-// end::dataencryption[]
+===== *Logic Classes*
+Logic classes are responsible for deciding if a notification should be posted. As with other components, their functionality is accessed through the `NotificationManager` class. The `NotificationManager` class maintains a reference to a `NotificationCheckingThread` as well as a `SystemTrayCommunicator`.
+
+The logic classes of the Notification System can be found under the `notification` package under the `Logic` component.
+
+- The `NotificationCheckingThread` is a daemon thread that runs in parallel with the main application. It checks for new notifications to post every minute.
+- The `NotificationChecker` is responsible for checking `Model` for any notifications that need to be posted.
+{empty} +
+
+===== *UI Classes*
+UI classes are responsible for displaying notifications to the user.
+
+The UI classes of the Notification System can be found under the `systemtray` package under the `ui` component.
+
+- The `PopupListener` class is the main channel of communication between the logic and UI classes. When a notification needs to be posted, it will relay the information from the logic to UI classes.
+- The `SystemTrayCommunicator` handles posting notifications and displaying the app's icon on the System Tray. It listens to the `NotificationCheckingThread` through a `PopupListener`.
+- The `PopupNotification` class carries the information that will be posted to a popup notification.
+- The `NotificationClickActionListener` is called when the user clicks on a popup notification.
+{empty} +
+
+==== Class Behaviour
+As with other Manager classes, an instance of the  `NotificationManager` is created upon the starting of MainApp. The NotificationManager proceeds to initialize and run a `NotificationCheckingThread`, as well as a `SystemTrayCommunicator`. Upon being started, the `NotificationCheckingThread` will enter a `notificationCheckingLoop` by calling its method of the same name.
+
+To give a better explanation of how the `NotificationCheckingThread` works, a single run of its loop is illustrated below:
+
+.Sequence diagram for NotificationCheckingThread's main loop
+image::NotificationCheckingLoopSequenceDiagram.png[]
+
+Step 1. The `NotificationCheckingThread` calls the `NotificationChecker` to generate instances of `PopupNotification` through a call to `NotificationChecker#getListOfPopupNotifications()`
+
+Step 2. For each `PopupNotification` generated by the NotificationChecker, a call to `PopupListener#notify()` is made.
+
+Step 3. This prompts the `SystemTrayCommunicator` to post a new notification.
+
+Step 4. The `NotificationCheckingThread` sleeps until the start of the next minute, found by the method `NotificationCheckingThread#findMillisecondsToNextMinute()`.
+
+==== Design Considerations
+===== Aspect: How the Notification system should run
+* **Alternative 1 (current choice):** Running the Notification system as a separate thread in the same application
+** Pros: Easier to implement and test.
+** Cons: The user would have to leave the application on if they always wanted to be notified.
+* **Alternative 2:** Running the Notification system as a background application
+** Pros: This would allow notifications to be posted to the user's desktop even if the Horo main app were not open.
+** Cons: This would require the creation of a separate application that the user would have to install on their computer. Because different Java applications are ran in different instances of Java Virtual Machines, this could vastly complicate implementation as the Notification System and the rest Horo would be unable to interact directly.
+
+Alternative 1 was eventually chosen as it was simpler to implement and test, and remain within the initial scope of Horo's development. The application can be potentially changed to use Alternative 2 in the future.
+
+// end::notification[]
 
 === Logging
 
@@ -257,10 +755,198 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
-=== Configuration
+// tag::ics[]
+[[Design-Ics]]
+=== Ics Component
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+*API* : link:{repoURL}/src/main/java/seedu/address/ics/IcsParser.java[`IcsParser.java`]
+
+The ICS component is made up of 2 main sub-components: ICS file parser, and ICS file exporter.
+
+The file parser makes use of a custom parser that converts files with the `.ics` file extension
+to `EventSource` and `TaskSource` objects in Horo.
+
+Here is an overview of how the ICS component looks like:
+
+.ICS Component Architecture
+image::IcsComponentDiagram.png[]
+
+Right now, this is how the `*IcsExporter*` class exports Horo's `*EventSource*` and `*TaskSource*` data.
+Notice that the file is created onnly when it is known that the directory provided by the user is valid.
+This is to prevent extra uncaught errors being thrown.
+
+.Activity Diagram of an Export Command
+image::ExportCommandActivityDiagram.png[]
+
+In order to generate the file content from Horo's saved data, the file exporter uses the `*IcsConverter*` class to convert `*EventSource*` and `*TaskSource*` objects
+stored in the `*ModelManager*` singleton object into their ICS String representations.
+
+They will then be concatenated together using a `*StringBuilder*` object. Boilerplate information will be added
+at the start and end of the save file to make the file valid to be imported to other Calendar applications.
+
+Check out the
+link:https://en.wikipedia.org/wiki/ICalendar[iCalendar Wiki Page] for more information on the specifications.
+
+
+* Can export Horo's save data as a file
+The `ICS` Component,with a `.ics` extension.
+* Can import other Horo's save data from a `.ics` file.
+
+==== Design Considerations
+
+===== Aspect: Handling of Horo TaskSource and EventSource conversion to ICS Strings
+- **Alternative 1 (Current Choice):** Use of a separate class `IcsConverter` to convert `TaskSource` and `EventSource` objects
+    their ICS string representations.
+
+    * Pros: Adherence to Single Responsibility Principle,
+        decouples `IcsExporter` from the `TaskSource` and `EventSource` classes, and keeps code reusable and scalable.
+    * Cons: Not consistent with Object-Oriented Programming structure.
+- **Alternative 2:** Create a common `IcsConvertible` Interface for `TaskSource` and `EventSource` to implement a `toIcsString()` function.
+
+    * Pros: Adheres to Object-Oriented Programming structure.
+    * Cons: Hard to reuse functions and modify code.
+
+Alternative 1 was chosen eventually, as I felt that it is more important to adhere to the Single Responsibility Principle
+and keep all code relevant to converting objects to ICS Strings in the same class.
+
+This further makes it easier for future debugging,
+and makes adding new exportable objects a lot easier as there are common functions that can be used.
+// end::ics[]
+
+// tag::uiImplementation[]
+=== UI Component
+
+==== Implementation during change in Events and Tasks
+.A general Sequence Diagram during a change in the Event and Task Lists model.
+image::UiSequenceDiagram.png[]
+
+The UI system is managed by the `UiManager`, which is found in `Logic` component and is responsible for any change in the models and hence updating the necessary UI portions. The UiManager then holds a single instance of the `MainWindow`, which represents the base of the UI, and holds the different panels of the UI. Here is the sequence of a change in Events and Tasks for the UI.
+
+Step 1. `UiManager` will be called using `onModelListChange(lists)` method. This will, in turn, take in the `ModelLists`, split them into the `events` and `tasks`, and sort them. Afterward, two HashMaps, `eventHash` and `taskHash` are created to deal with the indexing of the UI later on.
+
+Step 2. `MainWindow` will be called by `UiManager` using `onModelListChange(events, tasks, eventHash, taskHash)`, which will in turn proceed to call the methods that will update the different views represented by:
+
+* `CalendarPanel` - `onModelListChange(events, tasks, eventHash, taskHash)`
+* `ListPanel` - `onEventListChange(events, eventHash)` and `onTaskListChange(tasks, taskHash)`
+
+Step 3. `UiManager` will also be called using `onUserOutput(output, colorTheme)`, which will in turn call `onUserOutput(output, colorTheme)` for MainWindow.
+
+As for these 3 main panels, each of them will be explained further below
+
+.Sequence Diagram for `CalendarPanel`
+image::UiCalendarPanelSequenceDiagram.png[]
+
+Step 2.1. `CalendarPanel` will be called by `onModelListChange(events, tasks, eventHash, taskHash)`, and will proceed to zip the two lists into a single list for sorting purposes.
+
+Step 2.2. Afterward, it will call `onChange` for the 3 smaller components:
+
+* `TimelineView` - When called, it will reset the current timeline using `resetTimeline()`
+
+* `CalendarScreen` - When called, it will change the calendar to the given date, as well as calling `changeColor(eventTaskList)` to change the color of a day in the calendar.
+
+* `UpcomingView` - When called, it will simply reset the view to input the correct events and tasks.
+
+.Sequence Diagram for `ListPanel`
+image::UiListPanelSequenceDiagram.png[]
+
+Step 2.3. `ListPanel` will be called using `onEventListChange(events, eventHash)` first. It will proceed to call `EventListPanel` to change the list according to the given list of events.
+
+Step 2.4. Additionally, `ListPanel` will also be called using `onTaskListChange(tasks, taskHash)`, which will eventually call `TaskListPanel` to change the list accordingly as well.
+
+.Sequence Diagram for `LogPanel`
+image::UiLogPanelSequenceDiagram.png[]
+
+Step 3.1. When `MainWindow` gets called using `onUserOutput(output, colorTheme)`, it will proceed to get the actual color scheme in the form of a `String`, and creates 2 different boxes to display the output.
+
+Step 3.2. It will call `LogPanel` to create a `LogBox` using `createLogBox(feedbackToUser, color)` to display the output to the user in `LogPanel`
+
+Step 3.3. Next, it creates `PopUpBox` and display it temporarily on any of the panels, and proceed to unused afterward.
+// end::uiImplementation[]
+
+// tag::uiDayView[]
+==== Implementation when changing the date of timeline
+
+.Sequence Diagram for changing the timeline date
+image::UiViewDaySequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `DayViewCommand` is executed to change the date of the timeline.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewDay(calendarDate)`, which in turn will call `MainWindow` and subsequently `CalendarPanel`.
+
+Step 2. `CalendarPanel` will proceed to execute `changeCalendarScreenDate(calendarDate)`, which will create an instance of `CalendarScreen` to display the calendar.
+
+Step 3. Afterward, a new instance of `TimelineDayView` will be created to display the timeline.
+
+Step 4. Lastly, `MainWindow` will call `viewCalendar` which will be explained in the next section, allowing `CalendarPanel` to be visible while the other panels remain invisible.
+
+// end::uiDayView[]
+
+==== Implementation when changing views
+.Sequence Diagram for changing to Calendar View
+image::UiViewCalendarSequenceDiagram.png[]
+
+Here is an example of the sequence for the UI when `CalendarViewCommand` is executed.
+
+Step 1. When the command is executed, it will proceed to call `UiManager` through `viewCalendar(calendarDate)`, which will proceed to check if the giving date is null or a date. The validity check is previously check in the parser.
+
+Step 2. If calendarDate is null, the `UiManager` will simply call `MainWindow` to switch the view with the method `viewCalendar()`.
+
+Step 3. `MainWindow` will obtain the `Region` of the 3 panels: `CalendarPanel`, `ListPanel` and `LogPanel`, and proceed to set only `CalendarPanel` to be visible.
+
+Step 4. If calendarDate is not null, `UiManager` will then call `MainWindow` using `changeCalendarScreenDate(calendarDate)`, to change the `CalendarScreen` to the given date.
+
+Step 5. Afterward, it will proceed and continue with Step 3, which is simply calling `viewCalendar()` again.
+
+Since the sequence for `CalendarViewCommand` is roughly similar to `ListViewCommand` and `LogViewCommand`, those 2 commands will not be explained.
+
+// tag::uiDesign[]
+==== Design Considerations
+
+The design considerations are more towards how the appearance of the UI, as well as how the architecture of the code would have changed depending on such appearance.
+
+.Old design of the UI for Horo
+image::oldUI.png[]
+
+.Current design of the UI for Horo
+image::Ui.png[]
+
+===== Aspect: Design of the `CalendarPanel`
+* Alternative 1: The `CalendarPanel` is of an actual calendar, depicting a limited number of events and tasks on each day of the month.
+
+** **Pros**: It will provide a better representation of a calendar, allowing people to judge how much is going on in a day of that month in one look.
+
+** **Cons**: Due to the nature of how limited in size a calendar can be, the user will be required to either check `ListPanel` for the details of an event or task, or have an extra screen beside the calendar for the user to check the details.
+
+** **Cons**: Similarly, a calendar can only input up to a fixed amount of events or tasks there are on a particular day.
+
+* Alternative 2 (current choice): The `CalendarPanel` consists of a mini-calendar as well as a timeline. An additional slot for upcoming events and tasks was later designed with an increase in space.
+
+** **Pros**: Provides a much greater space to show how much events or tasks one can have in a day, week or month.
+
+** **Pros**: The user can easily manage and check the Events and Tasks of a certain day.
+
+** **Cons**: Even though it is a timeline, it is still rather similar to list view, just with the timeline added to limit the number of events or tasks seen on that day, week or month.
+
+** **Cons**: The user will not be able to easily know what Events or Tasks there are, unless they change the view to Month view. On the other hand, the increase in space allows a small section for the upcoming events and tasks which tackles this problem.
+
+===== Aspect: Design of the `LogPanel`
+* Alternative 1: The `LogPanel` is placed side-by-side with any other panel.
+
+** **Pros**: The users can always have a visualization of the success of their commands
+
+** **Cons**: A large portion of the space is used for the `LogPanel`, even if it is scaled down compared to the other panels.
+
+** **Cons**: Appearance-wise, it looks extremely clunky due to most of the users' time will be looking at the calendar or list itself instead of the log.
+
+* Alternative 2 (current choice): The `LogPanel` is placed separately as a different panel that can be accessed at any time from other panels. After each command is typed, a pop-up box will appear to indicate the success or failure of the command.
+
+** **Pros**: Most of the time, users would only want to know if their command is successful or not. Thus having the pop-up box will be sufficient for such an indication.
+
+** **Cons**: The user will have to check the `LogPanel`
+
+The initial design is as of the image above showing the old UI. However, we decided to scrape it and did an overhaul of the UI using alternative 2 instead. This is due to our decision of wanting a better-looking and minimalist UI instead of one packed with information.
+
+// end::uiDesign[]
 
 == Documentation
 
@@ -279,13 +965,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is a student
+* has a need to manage their Events and Tasks for visualization.
+* requires reminders for their Events and Tasks.
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage Reminders as well as viewing Events and Tasks much faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,15 +985,46 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add an Event or Task |keep track of an Event or Task that I have in the future
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete an Event or Task |remove the Event or Task I no longer need.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find an Event or Task by name |locate the details of the Event or Task without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |find an Event or Task by tags|remember the details of the Event or Task that I forget about
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user|undo and redo commands |undo any commands which wrongly inputted
+
+|`* * *` |user|edit my Events and Tasks |change the details of the event, be it location, date or time
+
+|`* * *` |user that works on multiple computer |port my data between computers |keep track on all my computers.
+
+|`* * *` |student |have constant reminders to track the deadline of my assignments |not forget to complete and submit them
+
+|`* * *` |student |keep track of how long it takes for me to complete a task |gauge how long I will need to take for future similar tasks
+
+|`* * *` |student with weekly assignments and lectures |have my reminders to be recurring | be reminded without having to input the information in again
+
+|`* * *` |busy student |have a convenient way to visually see my assignments and projects |complete them in the right priority
+
+|`* * *` |busy user |be informed if any different events clash with each other |understand which event to prioritize or reschedule
+
+|`* *` |user |add a contacts | add them into Events to remind myself who I am meeting up with
+
+|`* *` |user |archive my completed Tasks | remind myself if I complete a task but forgot about it
+
+|`* *` |user |create custom commands that contain the execution of multiple sub-commands |quickly input in a command without the need to edit it
+
+|`* *` |student |visualize my timetable |plan for when it is time to take a break from studying
+
+|`* *` |student |find a time for my project teammates to meet up |schedule a meeting without clashing together with other events
+
+|`*` |user |import contacts in vCard format| integrate them with my events
+
+|`*` |user |export contacts in vCard format | integrate them with my other computers
+
+|`*` |student |keep track of sub-tasks in a main task | know my current progress in a report
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,42 +1032,179 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Horo` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case 1: Add a Task
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a Task
+2.  Horo replies that the Task has been added
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user adds additional sub-commands to the Task command
++
+Use case ends.
+
+
+* 2a. The given add Task command is of the wrong format.
++
+[none]
+** 2a1. Horo displays an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 2: Delete a Task
+
+*MSS*
+
+1.  User requests to delete a specific Task from the already displayed list
+2.  Horo deletes the Task
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The given delete Task command is of the wrong format.
++
+[none]
+** 2a1. Horo displays an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case 3: Find a Task by name
+
+*MSS*
+
+1.  User requests to find a Task
+2.  Horo displays the list of Task with the keywords found in its name
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+*Extensions*
+
+[none]
+* 2a. The given find Task command is of the wrong format.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. Horo displays an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 1.
 
+[discrete]
+=== Use case 4: Undo and Redo commands
+
+*MSS*
+
+1.  User requests to add an Task
+2.  Horo replies that the Task has been added
+3.  User requests to undo the command
+4.  Horo replies that the previous command has been undone
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user adds additional sub-commands to the Task command
++
+Use case ends.
+
+* 2a. The given add Task command is of the wrong format.
++
+[none]
+** 2a1. Horo displays an error message.
+Use case resumes at step 1
+
+* 4a. User decides the to Redo the added Task
++
+[none]
+** 3a1. Horo replies that the added Task has been redone
++
+Use case ends
+
+[discrete]
+=== Use case 5: Edit a Task
+
+*MSS*
+
+1.  User requests to add a Task
+2.  Horo replies that the Task has been added
+3.  User request to edit a Task with the sub-commands
+4.  Horo replies that the Task has been edited
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The user adds additional sub-commands to the Task command
++
+Use case ends.
+
+* 2a. The given add Task command is of the wrong format.
++
+[none]
+** 2a1. Horo displays an error message.
++
+Use case resumes at step 1.
+
+* 4a. The given edit Task command is of the wrong format.
++
+[none]
+** 4a1. Horo displays an error message.
++
+Use case resumes at step 3.
++
 _{More to be added}_
+
+[discrete]
+=== Use case 6: Export Command
+*MSS*
+
+1.  User requests to export Horo data.
+2.  Horo creates a file in the same directory as Horo.
+3.  Horo replies that its data has been successfully exported.
++
+Use Case Ends.
+
+*Extensions*
+
+* 2a. The user specifies which directory to export the save data to.
++
+Use Case resumes at step 3.
+
+[discrete]
+=== Use case 7: Import Command
+*MSS*
+
+1.  User requests to import Horo data from a specific file.
+2.  The file is imported into Horo.
+3.  Horo replies that the data has successfully been imported into Horo.
++
+Use Case Ends.
+
+**Extensions**
+
+* 1a.  The file does not exist or is corrupted.
+** 1a1. Horo replies with an error message.
++
+Use Case Ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 Events and Tasks without a noticeable sluggishness in performance for typical usage.
+.  Should function on both `32-bit environment` and `64-bit environment`
+.  Should work without any internet required.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
 
 _{More to be added}_
 
@@ -358,25 +1214,43 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[event]] Event::
+A thing that happens or takes place during a certain period of time, or of a general time.
+
+[[task]] Task::
+A piece of work that is to be completed or taken note of.
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*reminder-bot on Discord*
 
-Author: ...
+Author: JellyWX
 
 Pros:
 
-* ...
-* ...
+* A reminder bot on a popular voice and text chat application
+* Capable of parsing english language as compared to CLI styled commands
 
 Cons:
 
-* ...
-* ...
+* Lack of visualization of the Events and Tasks
+* Parsing english language makes it slower to type with a longer requirement as compared to CLI styled commands
+
+*Google Calendar*
+
+Company: Google
+
+Pros:
+
+* A Calendar application that is capable of storing Events and Tasks as well.
+* Mostly uses GUI for interaction with user instead of having CLI, favouring to the common crowd.
+
+Cons:
+
+* Mostly uses GUI for interaction with user instead of having CLI, which does not favour those who prefers CLI.
+* It requires an account to be usable.
+* The desktop version requires a browser, which in turn requires Internet and hence not offline.
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,34 +1266,148 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
 
-. Saving window preferences
+=== Adding, Deleting and Editing Events
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Adding
 
-_{ more test cases ... }_
+.. Start Horo with no save data.
+.. Enter `list` into the command box.
+.. Enter `add_event "My Event Description" "11/11/2019 12:00"` into the command box.
+.. Expected: An event will be created with the title "My Event Description", with start date "11/11/2019 12:00".
 
-=== Deleting a person
+. Editing
 
-. Deleting a person while all persons are listed
+.. Enter `edit_event 0 --description "New Event Description"` into the command box.
+.. Expected: Your event "My Event Description" will be renamed to "New Event Description".
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Deleting
 
-_{ more test cases ... }_
+.. Enter `delete_event 0` into the command box.
+.. Expected: Your event "New Event Description" will be deleted, leaving an empty list view.
 
-=== Saving data
+=== Import and Export
 
-. Dealing with missing/corrupted data files
+. Export
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Start Horo with no save data.
+.. Enter the `export` command. +
+Expected: A save file with the name `Horo_export_<timestamp>.ics` will be created in the
+same directory as Horo's jar file.
+.. Enter the command `export **--directory** <DIRECTORY>`,
+where <DIRECTORY> is the directory where the save file will be created. +
+Expected: The save file will be created in the specified directory.
 
-_{ more test cases ... }_
+. Import from iCalendar file.
+.. Create some events and tasks in Horo.
+.. Take note of the current events and tasks by entering the `list` command,
+going into the list view.
+.. Enter the `export` command.
+.. Delete the save data from Horo and re-launch the app.
+.. Import the save data using the import command `import <FILEPATH>`. +
+Expected: The imported events and tasks should be the same as when they were exported.
+
+// tag::notifmanualtesting[]
+=== Notification System
+
+. Posting notifications to the desktop
+.. Prerequisites: Make sure notifications have been switched on by using the `notif_on` command. +
+                  Make sure the System Tray is supported.
+.. Test case: `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"` +
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+.. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
+   Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
+// end::notifmanualtesting[]
+
+// tag::uiManualTest[]
+=== Ui System
+
+. Change between different UI views
+.. Prerequisites: Make sure you are on a different view panel than the one you are going to execute.
+.. Test case: `list` +
+Expected: Changes to the list view panel.
+.. Test case: `log` +
+Expected: Changes to the log view panel.
+.. Test case: `calendar` +
+Expected: Changes to the calendar view panel.
+
+. Change date of the calendar without changing the timeline.
+.. Test case: `calendar --date "10/2019"` +
+Expected: Calendar date will change accordingly
+.. If you are not in the calendar view panel, it should change the current view to the calendar view.
+
+. Change date of the timeline in calendar view
+.. Test case: `week dd/MM/yyyy` +
+Expected: Changes the timeline to the week view containing that day in the given week.
+
+.. Test case: `month MM/yyyy` +
+Expected: Changes the timeline to the month view of the specified month and year.
+
+.. Test case: `day dd/MM/yyyy` +
+Expected: Changes the timeline to the day view of the specified day, month and year.
+
+.. For all the test cases, if you are not in calendar view panel, it should change the current view to the calendar view.
+// end::uiManualTest[]
+
+=== Undoing and Redoing Commands
+
+. Undoing an `add_event` or `add_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event:
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, run the undo command
+... `undo`
+.. Expected: The added event or task is no longer visible in the List-view of Horo
+
+. Redoing an `add_event` or `add_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the formerly added event or task reappears in the List-view of Horo
+
+. Undoing `delete_event` or `delete_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event: (Since our delete command allows multiple deletion, try adding more than one)
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, delete the event or task that you have added (you can delete multiple by specifying multiple indexes delimited by spaces)
+... `delete_event [INDEX/ES OF EVENT IN LIST VIEW]`
+... `delete_task [INDEX/ES OF TASK IN LIST VIEW]`
+... Example: `delete_event 0 1 2` (deletes the events with index 0, 1 and 2)
+.. Expected: The added events or tasks are no longer visible in the List-view of Horo
+.. Run the undo command
+... `undo`
+.. Expected: The deleted events and tasks are again visible in the List-view of Horo
+
+. Redoing a `delete_event` or `delete_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the formerly added events or tasks are once again removed from the List-view of Horo
+
+. Undoing `edit_event` or `edit_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event:
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, edit the event or task that you have added (the description, due date and tags are optional)
+... `edit_event [INDEX OF EVENT IN LIST VIEW] [NEW DESCRIPTION] [NEW DUE DATE] [NEW TAG]`
+... Example: `edit_task 1 --description "Buy Rori a present" --due "17/08/2019 12:00" --tag Present`
+.. Expected: Any of the specified new description, due date or tag of the event or task will replace the old information in the List-view
+.. Run the undo command
+... `undo`
+.. Expected: The task or event will contain its old data before the edit was being made
+
+. Redoing a `edit_event` or `edit_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the event or task has been updated again to the new information that was initially specified in the edit command

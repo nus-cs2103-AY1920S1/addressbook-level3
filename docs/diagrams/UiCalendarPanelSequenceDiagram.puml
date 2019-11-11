@@ -1,0 +1,43 @@
+*@startuml
+!include style.puml
+box Ui UI_COLOR_T1
+participant ":CalendarPanel" as CalendarPanel UI_COLOR
+participant ":TimelineView" as TimelineView UI_COLOR
+participant ":CalendarScreen" as CalendarScreen UI_COLOR
+participant ":UpcomingView" as UpcomingView UI_COLOR
+end box
+
+[-> CalendarPanel : onModelListChange(events, tasks, eventHash, taskHash)
+activate CalendarPanel
+
+CalendarPanel -> CalendarPanel : combineList(events, tasks)
+activate CalendarPanel #009100
+CalendarPanel --> CalendarPanel : eventTaskList
+deactivate CalendarPanel
+
+CalendarPanel -> TimelineView : onChange(eventTaskList, eventHash, taskHash)
+activate TimelineView
+TimelineView -> TimelineView : resetTimeline()
+activate TimelineView
+TimelineView --> TimelineView
+deactivate TimelineView
+TimelineView --> CalendarPanel
+deactivate TimelineView
+
+CalendarPanel -> CalendarScreen : onChange(eventTaskList)
+activate CalendarScreen
+CalendarScreen -> CalendarScreen : changeColor(eventTaskList)
+activate CalendarScreen
+CalendarScreen --> CalendarScreen
+deactivate CalendarScreen
+CalendarScreen --> CalendarPanel
+deactivate CalendarScreen
+
+CalendarPanel -> UpcomingView : onChange(eventTaskList)
+activate UpcomingView
+UpcomingView --> CalendarPanel
+deactivate UpcomingView
+
+CalendarPanel -->[
+deactivate CalendarPanel
+@enduml
