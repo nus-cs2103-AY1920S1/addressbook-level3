@@ -280,7 +280,7 @@ Removes a specific deadline into the deadline list. The list on the right-side p
 * Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-CAUTION: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
+NOTE: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
 
 === Show monthly calendar with all deadlines: `calendar`
 
@@ -352,7 +352,7 @@ Once removed, a success message will be shown!
 
 image::removebadsuccess.png[width="550"]
 
-CAUTION: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
+NOTE: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
 
 //end::badflashcard[]
 
