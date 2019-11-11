@@ -112,7 +112,7 @@ include::../UserGuide.adoc[]
 
 include::../UserGuide.adoc[]
 
-= Contributions to the Developer Guide
+== Contributions to the Developer Guide
 
 This section provides the contributions I have made to the developer guide.
 
