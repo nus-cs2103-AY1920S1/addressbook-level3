@@ -232,20 +232,6 @@ public class UniqueBudgetList implements Iterable<Budget> {
         }
     }
 
-    //    /**
-    //     * Handles issue of duplicate primary budgets when undoing "clearbudgets".
-    //     * Sets default budget to non-primary if there are more than one primary budgets in the list.
-    //     */
-    //    public void handleDuplicatePrimaryBudgets() {
-    //        List<Budget> primaryBudgets = internalList
-    //                .stream()
-    //                .filter(b -> b.isPrimary())
-    //                .collect(Collectors.toList());
-    //        if (primaryBudgets.size() > 1) {
-    //            getDefaultBudget().setToNotPrimary();
-    //        }
-    //    }
-
     /**
      * Deletes the budget with the specified description.
      */

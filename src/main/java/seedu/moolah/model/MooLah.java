@@ -73,27 +73,6 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
-        //setPrimaryBudget(newData.getPrimaryBudgetName());
-        //budgets.handleDuplicatePrimaryBudgets();
-        //resetBudgetExpenseLists();
-    }
-
-    /**
-     * Update expense list of all budgets as a result of UndoCommand on expenses.
-     */
-    private void resetBudgetExpenseLists() {
-        /*
-        for (Budget b : budgets) {
-            b.clearExpenses();
-        }
-        for (Expense e : expenses) {
-            Budget b = budgets.getBudgetWithName(e.getBudgetName());
-            if (b != null) {
-                b.addExpense(e);
-            }
-        }
-
-         */
     }
 
     //=========== Expense-level operations =============================================================
