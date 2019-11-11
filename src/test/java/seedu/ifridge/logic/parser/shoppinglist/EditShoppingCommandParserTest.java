@@ -9,9 +9,9 @@ import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.VALID_NAME_NUTS;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_THIRD_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +66,7 @@ public class EditShoppingCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
+        Index targetIndex = INDEX_SECOND_FOOD;
         String userInput = targetIndex.getOneBased()
                 + NAME_DESC_NUTS;
 
@@ -79,7 +79,7 @@ public class EditShoppingCommandParserTest {
 
     @Test
     public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FOOD;
         String userInput = "" + targetIndex.getOneBased() + AMOUNT_DESC_NUTS;
 
         EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder()
@@ -92,7 +92,7 @@ public class EditShoppingCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_THIRD_PERSON;
+        Index targetIndex = INDEX_THIRD_FOOD;
         String userInput = targetIndex.getOneBased() + NAME_DESC_NUTS;
         System.out.println(userInput);
         EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder()
@@ -109,7 +109,7 @@ public class EditShoppingCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased()
                 + AMOUNT_DESC_NUTS + AMOUNT_DESC_ORANGES + AMOUNT_DESC_NUTS;
 
@@ -123,7 +123,7 @@ public class EditShoppingCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + INVALID_NAME_DESC + NAME_DESC_NUTS;
         EditShoppingCommand.EditShoppingItemDescriptor descriptor = new EditShoppingItemDescriptorBuilder()
                 .withName(VALID_NAME_NUTS).build();

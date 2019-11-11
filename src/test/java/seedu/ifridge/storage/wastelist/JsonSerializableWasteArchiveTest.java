@@ -40,7 +40,7 @@ public class JsonSerializableWasteArchiveTest {
     }
 
     @Test
-    public void toModelType_typicalPersonsFile_success() throws Exception {
+    public void toModelType_typicalWasteArchiveFile_success() throws Exception {
         JsonSerializableWasteArchive dataFromFile = JsonUtil.readJsonFile(TYPICAL_WASTE_ARCHIVE_FILE,
                 JsonSerializableWasteArchive.class).get();
         TreeMap<WasteMonth, WasteList> wasteArchiveFromFile = dataFromFile.toModelType();

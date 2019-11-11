@@ -6,8 +6,8 @@ import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
@@ -43,8 +43,8 @@ public class DeleteTemplateListCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        UniqueTemplateItems templateToDelete = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
-        DeleteTemplateListCommand deleteCommand = new DeleteTemplateListCommand(INDEX_FIRST);
+        UniqueTemplateItems templateToDelete = model.getFilteredTemplateList().get(INDEX_FIRST_FOOD.getZeroBased());
+        DeleteTemplateListCommand deleteCommand = new DeleteTemplateListCommand(INDEX_FIRST_FOOD);
 
         String expectedMessage = String.format(DeleteTemplateListCommand.MESSAGE_SUCCESS,
             templateToDelete);
@@ -70,14 +70,14 @@ public class DeleteTemplateListCommandTest {
 
     @Test
     public void equals() {
-        DeleteTemplateListCommand deleteFirstCommand = new DeleteTemplateListCommand(INDEX_FIRST);
-        DeleteTemplateListCommand deleteSecondCommand = new DeleteTemplateListCommand(INDEX_SECOND);
+        DeleteTemplateListCommand deleteFirstCommand = new DeleteTemplateListCommand(INDEX_FIRST_FOOD);
+        DeleteTemplateListCommand deleteSecondCommand = new DeleteTemplateListCommand(INDEX_SECOND_FOOD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteTemplateListCommand deleteFirstCommandCopy = new DeleteTemplateListCommand(INDEX_FIRST);
+        DeleteTemplateListCommand deleteFirstCommandCopy = new DeleteTemplateListCommand(INDEX_FIRST_FOOD);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

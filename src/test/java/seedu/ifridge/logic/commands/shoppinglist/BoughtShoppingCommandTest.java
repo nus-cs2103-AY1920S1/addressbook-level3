@@ -1,12 +1,13 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -36,8 +37,8 @@ class BoughtShoppingCommandTest {
 
     @Test
     public void execute_allValidFieldsUnfilteredList_success() {
-        ShoppingItem shoppingItemToBought = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        BoughtShoppingCommand boughtShoppingCommand = new BoughtShoppingCommand(INDEX_FIRST_PERSON,
+        ShoppingItem shoppingItemToBought = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
+        BoughtShoppingCommand boughtShoppingCommand = new BoughtShoppingCommand(INDEX_FIRST_FOOD,
                 new Amount(VALID_AMOUNT), new ExpiryDate(VALID_EXPIRY_DATE));
         GroceryItem boughtItem = shoppingItemToBought.getBoughtItem(new Amount(VALID_AMOUNT),
                 new ExpiryDate(VALID_EXPIRY_DATE));
@@ -54,7 +55,7 @@ class BoughtShoppingCommandTest {
         expectedModel.setShoppingItem(shoppingItemToBought, boughtShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -73,10 +74,10 @@ class BoughtShoppingCommandTest {
     }
     @Test
     public void execute_validIndexFilteredList_success() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
-        ShoppingItem shoppingItemToBought = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        BoughtShoppingCommand boughtShoppingCommand = new BoughtShoppingCommand(INDEX_FIRST_PERSON,
+        ShoppingItem shoppingItemToBought = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
+        BoughtShoppingCommand boughtShoppingCommand = new BoughtShoppingCommand(INDEX_FIRST_FOOD,
                 new Amount(VALID_AMOUNT), new ExpiryDate(VALID_EXPIRY_DATE));
 
         ShoppingItem boughtShoppingItem = shoppingItemToBought.setBought(true);
@@ -95,14 +96,14 @@ class BoughtShoppingCommandTest {
         expectedModel.setShoppingItem(shoppingItemToBought, boughtShoppingItem);
         expectedModel.sortShoppingItems();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(boughtShoppingCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_FOOD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getShoppingList().getShoppingList().size());
 
