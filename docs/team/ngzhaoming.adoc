@@ -185,7 +185,7 @@ where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/
 
 Step 1. Type ``search`` in the _command box_ and press _Enter_.
 
-image::ItinerarySearch1.png[width=600]
+image::ItinerarySearch1.png[width=400]
 
 Step 2. The _result box_ will display the message "Processing...
 Done!
@@ -193,7 +193,7 @@ Here are the events that matches the details. ( ͡° ͜ʖ ͡°)"
 
 Step 3. The filtered _event list_ will be shown containing events that matches the keywords given.
 
-image::ItinerarySearch2.png[width=600]
+image::ItinerarySearch2.png[width=400]
 
 === Sorting the events: ``sort``
 
@@ -214,7 +214,7 @@ where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, `
 
 Step 1. Type ``sort by/priority`` in the _command box_ and press _Enter_.
 
-image::ItinerarySort1.png[width=600]
+image::ItinerarySort1.png[width=400]
 
 Step 2. The _result box_ will display the message "Processing...
 Done!
@@ -222,7 +222,7 @@ TravEzy has helped sorted out your life!"
 
 Step 3. The Itinerary will present the sorted _event list_ based on the sort condition given.
 
-image::ItinerarySort2.png[width=600]
+image::ItinerarySort2.png[width=400]
 
 == Contributions to the Developer Guide
 
@@ -242,13 +242,13 @@ With these implementations, _TravEzy_ aims to be at the frontier of convenience.
 The itinerary feature implements the aforementioned feature based on the use cases below:
 
 .Use Case Diagram of the Itinerary feature
-image::ItineraryUseCaseDiagram.png[width=300]
+image::ItineraryUseCaseDiagram.png[width=400]
 
 Due to the numerous features supported by the itinerary, it requires a complex structure to ensure that each input
 by the user are cautiously parsed before giving the appropriate command result.
 
 .Architecture Diagram of the Itinerary feature
-image::ItineraryDiagram.png[width=300]
+image::ItineraryDiagram.png[width=400]
 
 The *_Architecture Diagram_* given above explains the high-level design of the itinerary feature.
 Inputs given by the user are channeled from the text UI and parsed in the logic package before different commands
@@ -265,7 +265,7 @@ could be any of the following 5 features, `Calendar`, `Itinerary`, `Financial Tr
 and `Achievements`. Below is the model class diagram for the itinerary feature:
 
 .Model Diagram of the Itinerary feature
-image::ItineraryModelDiagram.png[width=300]
+image::ItineraryModelDiagram.png[width=400]
 
 The Model, is the crux of the itinerary feature which serves several functions this include:
 
@@ -294,7 +294,7 @@ Given below is the _sequence diagram_ of how the Itinerary feature interacts wit
 being called.
 
 .Sequence Diagram of the Search Command
-image::ItinerarySearchCommand.png[]
+image::ItinerarySearchCommand.png[width=400]
 
 [IMPORTANT]
 The lifeline for SearchCommandParser and SearchEventDescriptor should end at the destroy marker (X) but due to a
