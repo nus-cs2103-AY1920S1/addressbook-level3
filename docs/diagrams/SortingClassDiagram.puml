@@ -4,13 +4,16 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor #32a89d
 
+Interface Comparable <<Interface>>
 package Sort <<Rectangle>> {
     Class CustomSorter
     Class DefaultComparator
-    Class FieldComparator
     Class FoodComparator
 }
 
 CustomSorter *--> "1" FoodComparator
+FoodComparator ..|> Comparable
+DefaultComparator ..|> FoodComparator
+
 
 @enduml

@@ -109,9 +109,9 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/savenus/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FoodListPanel`, `PurchaseListPanel`, `SavingsHistoryPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-There are pop-up windows that appeared when the calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
+There are pop-up windows that appear when user calls the `InfoCommand` or `HelpCommand` which is a new window with their own stages. The CSS files for each pop-up windows is taken from the `MainWindow` which ensures that they always match the theme of the `MainWindow` should the user decide to switch the theme while either pop-up window is open.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/savenus/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -120,7 +120,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Responds to the user's keyboard and mouse input.
 * Pop-up windows respond to the buttons on the menu tab.
+* Button on the menu tab which acts as substitute for keyboard input for single-word commands.
+* Each usage of the menu tab buttons will update the Food list accordingly.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+//end::UI[]
 
 [[Design-Logic]]
 === Logic component
@@ -144,7 +147,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-//end::UI[]
 
 [[Design-Model]]
 === Model component
@@ -167,10 +169,61 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Food>`, `ObservableList<Savings>` and `ObservableList<Purchase>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in either of the lists change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference. This would allow `Menu` to only require one `Tag` object per unique `Tag`, instead of each `Food` needing their own `Tag` object. +
- +
+//tag::food[]
+==== Food component in Model
+
+The `Food`,
+
+* stores information on `Name`, `Price` and `Category` which are compulsory fields.
+* stores information on `Description`, `Opening Hours` and `Restrictions` which are optional fields.
+* stores information `Tag` which are retrieved from the `UniqueTagList`.
+
+.Structure of the Food Component
 image:BetterModelClassDiagram.png[]
+
+[NOTE]
+As a more OOP model, we can store a `Tag` list in `Menu`, which `Food` can reference.
+This would allow `Menu` to only require one `Tag` object per unique `Tag`,
+instead of each `Food` needing their own `Tag` object.
+
+==== Design considerations for Food-related Models
+
+When implementing Food-related models, it is important not to add duplicate foods. As the user only requires
+to enter the name, price and category as they are compulsory fields, we need to ensure that this does not happen.
+
+For example, you would not want to add Chicken Rice twice into the food list. As a result, our team went through several alternatives
+to deal with this consideration.
+
+.Design considerations of the for `Food` model
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`equals(Food food)` method should rely on Name, Category, and have an additional check for equality of Location, Opening Hours
+and Restrictions
+
+* Pros:
+** Multiple foods with different Location, Opening Hours and Restrictions are allowed.
+** Multiple food with same Price and Category but different Name are also allowed.
+
+* Cons:
+** Harder to Implement.
+
+a|`equals(Food food)` method should return true if the foods have same name, price or category.
+
+* Pros:
+** Easier Implementation
+** Ensures that the compulsory fields are always distinct
+
+* Cons:
+** Multiple foods with different Location, Opening Hours and Restrictions are not allowed.
+** Multiple foods with same Category or Price are not allowed too.
+|===
+
+We chose alternative 1 because there can be multiple instances of `Food` with different `Name` but same `Category`. For
+example, an instance of Chicken Rice from a Chinese stall may be different from an instance of Chicken Rice from an Indian
+stall. As a result, we would want to be able to add these 2 food items into the food list.
+//end::food[]
 
 [[Design-Storage]]
 === Storage component
@@ -197,10 +250,6 @@ Classes used by multiple components are in the `seedu.savenus.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Data Encryption
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -223,14 +272,18 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 //tag::sorting[]
 === Sorting feature
-The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`.
+The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`. The `FIELD` and
+`DIRECTION` are as followed:
 
 ****
-1. The `FIELD` are as follows: `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
-2. The `DIRECTION` are as follows: `ASCENDING` or `DESCENDING`.
+1. `FIELD` : `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. `DIRECTION` : `ASC` or `DESC`.
 ****
 
-First and foremost, they will be able to sort the food items based on their default ordering.
+[NOTE]
+The `FIELD` and `DIRECTION` can be entirely in Upper or Lower Case.
+
+First and foremost, users will be able to sort the food items based on their default ordering.
 The default ordering is based on ascending price, name and then category. This is done using the `default` command.+
 
 Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
@@ -247,8 +300,41 @@ From the model, the `CustomSorter` stores the comparator for `autosort` and `mak
 
 From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
 
-The `FoodComparator` stores fields which will be needed for various `FOOD` to be compared. The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
-Finally, the `FieldComparator` helps to compare between various `FIELD`.
+The `FoodComparator` stores fields which will be needed for various `Food` to be compared.
+The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
+When `default` is called, the food list will be sorted according to ascending category, ascending name and ascending price.
+
+Detailed below are the design considerations taken into account when engineering the `DefaultComparator` and `FoodComparator`
+classes.
+
+.Design considerations of `
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`DefaultComparator` should extend from `FoodComparator`
+
+* Pros:
+** Duplicate Code is not needed.
+** This from of relationship follows Liskov Substitution Principle, as `DefaultComparator` can be easily substituted
+by an instance of `FoodComparator`.
+
+* Cons:
+** Necessary to specify fields while constructing the `DefaultComparator`.
+
+a|`DefaultComparator` and `FoodComparator` should be standalone classes.
+
+* Pros:
+** Both can implement their own `compareTo()` methods.
+
+* Cons:
+** This Implementation is wasteful as duplicate code is written.
+** Makes it complicated for future developers when they wish to change the `DefaultComparator`.
+|===
+
+As a result, we have chosen alternative 1. By specifying the specific fields in the body of constructor in
+the `DefaultComparator`, it makes it easier for future developers to create their own form of `DefaultComparator`.
+Not only that, it saves time and reduces duplicate code.
 
 ==== Creation of new Custom Comparator
 
@@ -261,11 +347,11 @@ image::MakeSortSequenceDiagram.png[]
 
 The user may want to create a new custom comparator. This can be done with the `makesort` command.
 
-The fields are stored in the SavingsAccount in the CustomSorter object, which stores the necessary
+The fields are stored in the `FoodComparator` in the CustomSorter object, which stores the necessary fields
 as a list.
 
-The current implementation for creating a new CustomSorter is done by overwriting the existing CustomSorter, with a new
-CustomSorter with the desired fields.
+The current implementation for creating a new `CustomSorter` is done by overwriting the existing `CustomSorter`, with a new
+`CustomSorter` with the desired fields.
 
 The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
 which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
@@ -278,6 +364,51 @@ image::MakeSortActivityDiagram.png[align="center", width="500"]
 
 If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
 CustomSorter is overridden by a new CustomSorter with no fields.
+
+==== Sorting of the Food list
+After the customization of the Custom Comparator, the user can now call the `customsort` command to sort the food items based
+on the fields specified. For example, if the fields specified are `PRICE ASC NAME DESC`, the system will sort the food items in order
+of ascending price. If two items have the same price, they will be ranked according to their names using lexicographic
+comparison.
+
+.Activity diagram for a sample sort command
+
+image::SortingActivityDiagram.png[align="center", width="500"]
+
+If two foods have the same price, they will compared using lexicographical ordering based on their names. If they
+are lexicographically similar, their ranks do not change.
+
+.Ranking of food items
+|===
+
+|Name |Price ($) |Ranking (Price) | Overall Ranking
+
+|Chicken Rice
+|2.80
+|2
+|2
+|Nasi Lemak
+|2.80
+|2
+|3
+|Fried Rice
+|4.00
+|4
+|4
+|Dim Sum
+|1.80
+|1
+|1
+
+|===
+
+From the table above, we can see Dim Sum will be ranked at the top as it is the cheapest. On the other hand, Fried Rice will
+be ranked at the bottom as it is the most expensive food item.
+
+As Chicken Rice and Nasi Lemak have the same price, they will compared
+using lexicographical ordering based on their names. Chicken Rice still has a higher ranking than Nasi Lemak as Chicken Rice is
+lexicographically smaller than Nasi Lemak.
+
 //end::sorting[]
 
 
@@ -706,16 +837,6 @@ Additionally, the `RecommendationSystem` class also contains a class `UserRecomm
 dislikes of the user. The functionality of `UserRecommendations` is specified by the `Recommendations` interface,
 encompassing the ability to add and remove likes and dislikes, among other features.
 
-.Design decisions for `RecommendationSystem`
-****
-`RecommendationSystem` was chosen to be a singleton because of the fact that it exists as a global class, encapsulating
-many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and `UserRecommendations` in order to produce the
-required recommendation value.
-
-Furthermore, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application.
-To ensure the above requirements are met, we have decided to implement `RecommendationSystem` as a singleton class.
-****
-
 The `UserRecommendations` object contain 6 sets, namely:
 
 ****
@@ -779,9 +900,59 @@ image::RecValueActivityDiagram.png[width=650, align="center"]
 The calculated recommendation values are used to sort the food items when the `recommend` command
 is executed. Food with similar recommendation values are sorted based on their price.
 
-===== Design Considerations
-Detailed below are the design considerations taken into account when engineering the
- `RecommendationSystem#calculateRecommendation()` function.
+==== Design Considerations
+
+Detailed below are the design considerations taken into account when engineering the Recommendation System.
+
+===== Design Considerations of `RecommendationSystem` class
+
+Explained below are our considerations when designing the `RecommendationSystem` class.
+
+.Design considerations of `RecommendationSystem` class
+[cols="50, 50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Implement `RecommendationSystem` a singleton class
+
+* Pros:
+** Versatile and easy to implement
+** Enforces the Singleton property
+
+* Cons:
+** Testability of class decreases
+** Hidden dependencies are introduced into the class
+
+a|Implement `RecommendationSystem` as a normal class
+
+* Pros:
+** Testability of class would be easier
+
+* Cons:
+** Hard to bring together the classes required by `RecommendationSystem`
+|===
+
+****
+We decided to go with alternative 1 and implement `RecommendationSystem` as a singleton because of the fact that it
+exists as a global class, encapsulating many seemingly unrelated classes such as `Budget`, `PurchaseHistory` and
+`UserRecommendations` in order to produce the required recommendation value.
+
+Implementing `RecommendationSystem` as a singleton would be much simpler than linking together these seemingly
+unrelated classes as discussed in alternative 2.
+
+Additionally, there should only be one unique `RecommendationSystem` and `UserRecommendations` in the application due to
+our design requirements. To ensure the above requirements are met, we have decided to implement `RecommendationSystem`
+as a singleton class.
+
+Furthermore, we have thoroughly tested the implementation of
+`RecommendationSystem` and `UserRecommendations` to mitigate the downsides introduced when implementing a singleton.
+****
+
+{empty} +
+
+===== Design Considerations of `RecommendationSystem#calculateRecommendation()` function.
+
+Explained below are our considerations when designing the `RecommendationSystem#calculateRecommendation()` function.
 
 .Design considerations of the `RecommendationSystem#calculateRecommendation()` function
 [cols="50,50"]
@@ -811,6 +982,7 @@ the recommendation value
 ** An extra field `recommendationValue` has to be added to each `Food`
 |===
 
+****
 We chose alternative 1 because of its simplicity of implementation. Adding a hidden `recommendationValue`
 field for each `Food` might not be the best solution in the design of our application. A `recommendationValue` might
 not make sense in the context of a `Food` object and thus it may not be justifiable to force a connection between the
@@ -818,6 +990,7 @@ two for the sake of efficiency.
 
 Furthermore, we do not have to manually update the recommendation of each `Food` item before every command with this
 design.
+****
 //end::recommendations2[]
 
 === Alias feature
@@ -857,6 +1030,170 @@ The following activity diagram below shows how the `alias` command works.
 
 .Activity Diagram for sample alias command.
 image::AliasActivityDiagram.png[width=650, align="center"]
+
+//tag::info[]
+=== Info Feature
+
+The info feature allows users to view more information about a particular command. This can be done through calling the
+`info` command.
+
+==== Classes for info feature in Model
+
+In order to support the `info` command, new classes were added that correspond to each command in the app.
+This is to allow for easy access and also to better organize the information to be displayed for each commands.
+
+These classes only has public fields without any methods as it is only needed by `InfoWindow` to access the information
+stored within the class.
+
+The classes added where each class represents an info card:
+
+===== `AddInfo`
+===== `AliasInfo`
+===== `AutoSortInfo`
+===== `BudgetInfo`
+===== `BuyInfo`
+===== `ClearInfo`
+===== `CustomSortInfo`
+===== `DefaultInfo`
+===== `DeleteInfo`
+===== `DislikeInfo`
+===== `EditInfo`
+===== `ExitInfo`
+===== `FilterInfo`
+===== `HelpInfo`
+===== `HistoryInfo`
+===== `InfoInfo`
+===== `LikeInfo`
+===== `MakeSortInfo`
+===== `RecommendInfo`
+===== `RemoveDislikeInfo`
+===== `RemoveLikeInfo`
+===== `SaveInfo`
+===== `ShowInfo`
+===== `ThemeInfo`
+===== `TopUpInfo`
+===== `ViewSortInfo`
+===== `WithdrawInfo`
+
+Each of these classes contains these fields:
+
+. Command Word
+. Information
+. Usage example
+. Expected Output
+
+Each of these fields have to be manually typed as it acts like an in-built user guide for the users who do not have
+access to internet connection, but would still like to know about the command.
+
+==== Opening info card about a command
+
+Command word to open up a new `InfoWindow` is `info`. Users are able to view the `InfoWindow` for each and every command
+as long as the command exist within the app (There exist the class for such info card in the model).
+
+For example, `info add` will open up a new `InfoWindow` about the command `add`.
+
+The sequence window below shows how a sample `info` command is executed:
+
+.Sequence diagram for sample `info` command
+image::InfoSequenceDiagram.png[]
+
+The following activity diagram shows how the `info` command works.
+
+.Activity diagram for sample `info` command
+image::InfoActivityDiagram.png[]
+
+==== Design Considerations
+
+Detailed below are our considerations when creating the Info feature.
+
+===== Design considerations of `InfoCommand` class
+
+Explained below are our consideration when designing the `InfoCommand` class.
+
+.Design considerations of the `InfoCommand` class
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Returning a specific message for each input command to create specific `CommandResult` which can be
+handled accordingly in `MainWindow`.
+
+* Pros:
+** This greatly decreases chances of different input command returning the same `CommandResult` due to standardized
+success message, output message, etc.
+** This enables similar commands to have similar or standardized output message without having to worry about causing
+a bug with the info feature.
+
+* Cons:
+** Accommodating newly-added command might be messy and complicated as new field will have to be created
+plus new object to be returned when execute() is called.
+
+a|Simply returning the input command's output message.
+
+* Pros:
+** Makes it easier to accommodate newly-added commands as no new field or object needs to be created.
+
+* Cons:
+** Might cause bug where different command open the same info card due to equal output message.
+** Will have to ensure that every command have a different output message.
+** Similar commands will not be able to have standardized output message.
+|===
+
+We decided to go with alternative 1 and implemented `InfoCommand` class to just return a specific message for each
+and every input command. Not only that this is much safer but this also allows similar commands to have standardized
+output message e.g. `like` command and `dislike` command.
+
+The hassle of having to create new field and object to be returned for every new command added is mitigated by the fact
+that we will not have to worry about similar output message for the commands resulting in a bug in the info feature.
+
+Additionally, this implementation also allows a unique output message to be displayed on the `ResultDisplay` which
+definitely adds more personality to the program and allows a better, more informative feedback to user to be displayed.
+
+Basically the benefits of this implementation as mentioned, greatly outweighs the cost it takes to implement it and
+subsequent command addition would be much easier as it's just repeated routine.
+
+===== Design considerations on how to display the command's information
+
+Explained below are our consideration when designing on the best way to display the command's information.
+
+.Design considerations of the way to display information
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Creating `InfoWindow` that is opened every time the `info` command is used.
+
+* Pros:
+** Allow more information to be displayed about a particular command.
+** Allow developers to design how they want the information to be displayed.
+
+* Cons:
+** Need to create new window and carefully engineer the proportion to prevent truncation, etc.
+** User might not like the app opening up a new window every time the `info` command is called.
+
+a|Displaying the information on the `ResultDisplay`.
+
+* Pros:
+** Safer as it eliminated bugs from having to create a new window.
+** Makes the application less-messy as there are less windows opened.
+
+* Cons:
+** The small `ResultDisplay` component means that not much information can be displayed.
+** Displaying a large amount of information will require the user to slowly read it through the small `ResultDisplay`
+tab which will not be comfortable to the users.
+** This implementation prevents us from freely designing the information displayed as we are only limited to
+designing the information in text form.
+|===
+
+We decided to go with alternative 1 where we just create a new window called `InfoWindow` to display the information.
+Firstly, this allows us to format the information in a way to make it easy for the users to understand. Secondly, we
+are able to fit so much more information in the new window and even possibly image guides which would definitely
+help users understand the commands better.
+
+Displaying the information on the `ResultDisplay` simply would not be helpful enough to the users especially with
+information-heavy commands such as `add` and `edit` which would definitely not fit the small `ResultDisplay` screen.
+
+//end::info[]
 
 == Documentation
 
@@ -1133,6 +1470,33 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Set Aliases
+
+*MSS*
+
+1. User requests to set an alias, providing a command word and an alias word.
+2. $aveNUS checks if the command and alias words are valid, and sets the alias word of the command word.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The alias word given happens to be a command word.
++
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The command word given is not a valid command word of $aveNUS.
++
+[none]
+** 1b1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1170,7 +1534,18 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a Food Item
+
+. Adding a Food Item
+
+.. Prerequisites: The food list in the menu has to be empty.
+.. Test case: `add n/Chicken Rice p/5.00 c/Chinese` +
+   Expected: A new food item is shown in the food list. Details of the food item will be shown to the user.
+.. Test case: `add n/Chicken Rice p/5.00 c/Chinese` +
+   Expected: An error message will appear. The duplicate food item will not be added as the food item has been already
+added from the first test case.
+.. Test case: `add n/Chicken Rice p/5.00` +
+   Expected: An error message will appear. The food needs to have the compulsory field of `CATEGORY`.
 
 === Deleting a Food Item
 
@@ -1178,17 +1553,11 @@ _{ more test cases ... }_
 
 .. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
-   Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
+   Expected: First food item is deleted from the food list. A confirmation message will be shown to indicate successful deletion.
 .. Test case: `delete 0` +
    Expected: No food item is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 === Adding like and dislikes
 

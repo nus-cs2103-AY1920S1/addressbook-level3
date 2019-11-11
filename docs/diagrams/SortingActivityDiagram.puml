@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+start
+:FoodComparator starts sorting;
+:Two Foods are given;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Prices are not equal])
+    :Rank foods accordingly;
+    else([else])
+    if () then ([Names are lexicographically different])
+    :Rank foods accordingly;
+    else([else])
+    :Rank foods as same;
+    endif
+endif
+stop
+@enduml

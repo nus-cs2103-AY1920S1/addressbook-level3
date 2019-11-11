@@ -113,7 +113,7 @@ public class JsonAdaptedFoodTest {
                 new JsonAdaptedFood(VALID_NAME, VALID_PRICE, VALID_DESCRIPTION,
                         VALID_CATEGORY,
                         VALID_TAGS, VALID_LOCATION, INVALID_OPENING_HOURS, VALID_RESTRICTIONS);
-        String expectedMessage = OpeningHours.MESSAGE_CONSTRAINTS;
+        String expectedMessage = OpeningHours.FORMAT_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, food::toModelType);
     }
 
