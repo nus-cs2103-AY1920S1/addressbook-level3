@@ -155,7 +155,7 @@ Should you accidentally provide an invalid date such as 31/02/2019, it will be r
 // end::flexibledateformats[]
 
 // tag::commandHistory[]
-=== Going through your command history:
+=== Going through your command history
 Similar to a typical command line interface (CLI), the user may press the up and down key
 to go through the previous user input history, and display it in the command box. Pressing the up key would go back to the earlier user input command.
 Whereas pressing the down key would move towards the most recent user input key.
