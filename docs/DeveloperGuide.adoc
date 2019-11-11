@@ -1871,6 +1871,29 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `exchangerate` +
    Expected: All exchange rates stored by the application are displayed.
 
+=== Adding a Reminder
+
+. Adding a reminder into the reminder list
+
+.. Test case: `reminder add d/tomorrow m/Pay school fee` +
+   Expected: A reminder to pay school fee by tomorrow, is added into the current reminder list and success message together with the details of newly added reminder is shown in the results display.
+.. Test case: `reminder add m/Pay phone bill` +
+   Expected: No reminder is added. Error details shown in the results display.
+.. Test case: `reminder add d/today`
+   Expected: No reminder is added. Error details shown in the results display.
+
+=== Deleting a Reminder
+
+. Deleting a reminder while there is at least one reminder
+
+.. Prerequisites: There is at least one reminder in the reminder list being displayed on the User Interface.
+.. Test case: `reminder delete 1` +
+   Expected: First reminder is deleted from the reminder list. Details of the deleted reminder shown in the display.
+.. Test case: `reminder delete 0` +
+   Expected: No reminder is deleted. Error details shown in the results display.
+.. Other incorrect delete reminder commands to try: `reminder delete`, `reminder delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
 === Importing Spending Data
 
 . Importing valid spending while all spending are listed
