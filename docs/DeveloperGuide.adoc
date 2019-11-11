@@ -209,10 +209,12 @@ of item quantities are not permitted by `ReplenishParser`, as items in the reple
 
 The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
 replenish list.
+// end::replenishListCommands[]
 
 .Activity Diagram for general parsing of commands
-image::ParseCommandActivityDiagram.png[]
+image::ParseCommandActivityDiagram2.png[]
 
+// tag::replenishListCommandsTwo[]
 In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
 This will be further explained to you in a <<Spelling correction with alternative recommendations,later section>>.
 
@@ -229,7 +231,7 @@ my analysis and decisions.
 * **Alternative 2: Create two versions of each command, one for each list.**
 ** Pros: This allows us to greatly customise the command for each list.
 ** Cons: This however would lead to unnecessary repetition of code across the code base.
-// end::replenishListCommands[]
+// end::replenishListCommandsTwo[]
 
 // tag::autosortPartOne[]
 === Auto-sorting of items by name then date
@@ -303,8 +305,9 @@ The SortedList changes accordingly based on the method of sorting specified.
 
 The activity diagram below details the explicit steps in the execution of a sort command.
 
+
 .Activity Diagram showing the control flow of a sort command executed by the user
-image::SortActivityDiagram.png[]
+image::SortActivityDiagram2.png[]
 
 If a `sort|date` command is executed, the comparator of the internal sorted list is set to be that of a `dateComparator`,
 and the list of items are updated accordingly.
@@ -655,7 +658,7 @@ The figure below depicts the flow of events that check for spelling errors when 
 
 .Activity diagram showing what happens when an unknown command is executed
 
-image::RecommendUnknownCommandActivityDiagram.png[]
+image::RecommendUnknownCommandActivityDiagram2.png[]
 
 For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
 It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
@@ -667,7 +670,7 @@ The figure below presents what happens when a user executes a command with inval
 
 .Activity diagram showing what happens when a command is executed with misspelled arguments
 
-image::RecommendCommandArgumentsActivityDiagram.png[]
+image::RecommendCommandArgumentsActivityDiagram2.png[]
 
 [NOTE]
 Only search and sort commands support this operation.

@@ -110,6 +110,11 @@ For more of my personal work and the omitted details, please refer to sections 3
 
 include::../DeveloperGuide.adoc[tag=replenishListCommands]
 
+.Activity Diagram for general parsing of commands
+image::ParseCommandActivityDiagram.png[]
+
+include::../DeveloperGuide.adoc[tag=replenishListCommandsTwo]
+
 include::../DeveloperGuide.adoc[tag=autosortPartOne]
 //include::../DeveloperGuide.adoc[tag=autosortPartTwo]
 include::../DeveloperGuide.adoc[tag=autosortPartThree]
@@ -118,7 +123,56 @@ include::../DeveloperGuide.adoc[tag=recommendationsIntro]
 
 include::../DeveloperGuide.adoc[tag=recommendationsPartOne]
 //include::../DeveloperGuide.adoc[tag=recommendationsPartTwo]
-include::../DeveloperGuide.adoc[tag=recommendationsPartThree]
+//include::../DeveloperGuide.adoc[tag=recommendationsPartThree]
+The figure below presents what happens when a user executes a command with invalid arguments.
+
+.Activity diagram showing what happens when a command is executed with misspelled arguments
+image::RecommendCommandArgumentsActivityDiagram.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
+
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
+
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
+
+image::RecommendationsSortSequenceDiagram.png[]
+
+The sequence diagram titled `find similar words` below expands on the process omitted above.
+
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
+
+image::FindSimilarSequenceDiagram.png[]
+
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
+
+At last, a `ParseException` which contains the recommendation `"date"`
+is then thrown to the user as feedback.
+
+==== Design Considerations
+When tasked to implement this feature, I had to decide on what was the best way to display any form of recommendations to the user.
+I also evaluated multiple options to derive an optimal data structure to store the recommendations. The following is a brief summary of my analysis and decisions.
+
+===== Aspect: How recommendations execute
+
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
+** Pros: Simpler and straightforward implementation.
+** Cons: May be less intuitive to the user as opposed to auto-completed commands.
+
+* **Alternative 2:** Auto-completion of commands.
+** Pros: Lowers likelihood of spelling mistakes in user input.
+** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
+
+===== Aspect: Data structure to store the recommendations
+* **Alternative 1 (current choice):** Use a TreeMap to store entries that comprise a set of recommendations and their corresponding edit distance.
+** Pros: Entries are automatically sorted by their edit distance, thus words with a smaller edit distance will be recommended first. Duplicate entries are also prohibited.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Store all possible recommendations in a long list.
+** Pros: Simpler implementation.
+** Cons: Not closely related words may also be recommended to the user.
 
 //== PROJECT: PowerPointLabs
 
