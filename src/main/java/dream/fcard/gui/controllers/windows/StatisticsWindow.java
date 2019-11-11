@@ -136,6 +136,10 @@ public class StatisticsWindow extends ScrollPane {
         this.testSessionsThisWeekExplainer.setText("total test "
             + (numTestSessionsThisWeek == 1 ? "session" : "sessions") + " this week");
 
+        if (numTestSessions == 0) {
+            // do not set average score
+            return;
+        }
         this.averageScore.setText(deckStats.getAverageScore());
     }
 
