@@ -115,22 +115,23 @@ protect their memories. In order to further safeguard entries, I implemented the
 users to password protect their memories. Finally, to fully protect the users, I encrypted their data to ensure that no
 unauthorised users can read private information straight from the storage of TravEzy
 
+*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tishyakhanna97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
 
 
 === Other Contributions
 
-*Delay Function*
-* Added a delay function which allows users to see an exit message when leaving the application
 
+*Other contributions*:
 
-* *Other contributions*:
-** *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tishyakhanna97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
-** Project management:
-*** Created and managed milestones (V1.1 - V1.3)
-*** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
-*** Enabled Autopublishing of documentation using Travis
-** Documentation:
-*** Personalised the About us, Contact, Product Website
+* *Delay Function*
+** Added a delay function which allows users to see an exit message when leaving the application
+* Project management:
+** Created and managed milestones (V1.1 - V1.3)
+** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
+** Enabled Autopublishing of documentation using Travis
+** Procided feedback and inputs to teammates https://github.com/AY1920S1-CS2103T-T17-2/main/pull/157[21], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/156[22]
+* Documentation:
+** Personalised the About us, Contact, Product Website
 https://github.com/tishyakhanna97/main/commit/d49c5d2e27baefd2c33f61856c4ee2d6d5899f87[1],
 https://github.com/tishyakhanna97/main/commit/4fd7f51316b6220a2235a7306c2055279b8451d6[2],
 https://github.com/tishyakhanna97/main/commit/2135c8af4518e07c7f45aa8df5d4a8018ac8f062[3],
@@ -138,10 +139,10 @@ https://github.com/tishyakhanna97/main/commit/947fbe848dad7823e7ed05c5a584e056af
 https://github.com/tishyakhanna97/main/commit/d56afcb37369b9bd91363b2eb6a8e215acf4870d[5],
 https://github.com/tishyakhanna97/main/commit/bdfe41963fd43d52149406c69c1cecf900e0c37e[6],
 https://github.com/tishyakhanna97/main/commit/acde2a53650e9ef78d6078cb5b96f849e9f4f191[7]
-*** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
+** Transformed the structure and language of the User Guide and Developer Guide to increase readability and make it more user friendly.
 https://github.com/tishyakhanna97/main/commit/f49233f32a3b2c6c841f59755d0c0fa96e8f4590[8],
-https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9]
-
+https://github.com/tishyakhanna97/main/commit/341deffba3e3b00970f9160feb37a2134ffc1c22[9],
+https://github.com/AY1920S1-CS2103T-T17-2/main/commit/00ebf7dda94401bc4c980f850d6bffef9b81e0f8[10]
 
 
 == Contributions to the User Guide
@@ -252,7 +253,7 @@ Given below is a sample of the sections that I contributed to the Developer Guid
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 
-==== Sequence of Find Command
+=== Sequence of Find Command
 .Sequence Diagram for the Find Command
 
 
@@ -279,7 +280,7 @@ Process:
 NOTE: The lifeline for FindCommandParser should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 
-==== Logic of Unprivate and Unlock  Commands
+=== Logic of Unprivate and Unlock  Commands
 
 
 Given the similar function of the 2 commands, ``unprivate`` and ``unlock``, there is a more detailed explanation of the differences between the commands below.
