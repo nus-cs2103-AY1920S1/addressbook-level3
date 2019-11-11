@@ -13,7 +13,7 @@ import calofit.model.meal.ReadOnlyMealLog;
 /**
  * API of the Storage component
  */
-public interface Storage extends DishDatabaseStorage, MealLogStorage, UserPrefsStorage {
+public interface Storage extends DishDatabaseStorage, MealLogStorage, UserPrefsStorage, CalorieBudgetStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;

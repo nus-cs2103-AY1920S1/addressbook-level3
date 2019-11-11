@@ -10,6 +10,7 @@ import calofit.model.dish.Calorie;
  * Sets the current calorie budget value.
  */
 public class SetBudgetCommand extends Command {
+    public static final String COMMMAND_WORD = "set";
     private Calorie budget;
 
     public SetBudgetCommand(Calorie calories) {

@@ -1,5 +1,6 @@
 package calofit.logic.commands;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -25,5 +26,14 @@ public class SetBudgetCommandTest {
 
         Mockito.verify(mockBudget).setCurrentBudget(VALID_CALORIE.getValue());
         Mockito.verifyNoMoreInteractions(mockBudget);
+    }
+
+    @Test
+    public void testEquals() {
+        SetBudgetCommand cmd = new SetBudgetCommand(new Calorie(200));
+        SetBudgetCommand cmd2 = new SetBudgetCommand(new Calorie(200));
+        Assertions.assertEquals(cmd, cmd);
+        Assertions.assertEquals(cmd, cmd2);
+        Assertions.assertNotEquals(new Object(), cmd2);
     }
 }
