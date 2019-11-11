@@ -337,7 +337,10 @@ image::MarkAttendanceSequenceDiagram.png[]
 Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student's attendance when executed.
 // end::MarkAttendanceFeature[]
 // tag::undoredo[]
-=== Undo/Redo feature
+
+=== Undo feature
+The undo feature allows the user to undo multiple commands at once.
+
 ==== Implementation
 
 The undo mechanism is facilitated by `JsonStateStorage`.
@@ -454,9 +457,12 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
+
 ==== Design Considerations
 
+
 ===== Aspect: How undo & redo executes
+
 
 * **Alternative 1 (current choice):** Saves the entire application state into Hard Drive.
 ** Pros: Won't result in performance issues if there are many states as it won't use up valuable RAM.
@@ -476,7 +482,10 @@ application is closed or started, it will automatically clear any state files.
 ** Pros: Will use less memory (e.g. for `deleteTutorial`, just save the tutorial being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
+
 ===== Aspect: Data structure to support the undo/redo commands
+
+
 
 * **Alternative 1 (current choice):** Use a stack to store the history of application states.
 ** Pros: Eliminates redundancy as previous states not needed will be overwritten.
@@ -491,7 +500,7 @@ redundant data.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+* **Alternative 4:** Use `HistoryManager` for undo.
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 

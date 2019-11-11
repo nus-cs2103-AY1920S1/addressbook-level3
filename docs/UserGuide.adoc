@@ -748,11 +748,18 @@ Format: `note t/[NOTES]
 Exits the program. +
 Format: `exit`
 
-=== Saving the data [coming in v2.0]
+// tag::Storage[]
+=== Saving the data
 
 All data in T.A.rence is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+Data is saved to "application.json".
+
+Temporary state files are created in "/data/states/". On closure of the application, the "/data/states/"
+folder will be automatically deleted.
+
+// end::Storage[]
 // tag::enhancements[]
 == Enhancements
 
@@ -806,5 +813,4 @@ e.g. `addStudent n/Bob e/bob@gmail.com mat/A1234567Z1 nusid/E1234567 m/CS1010S t
 
 * *Exit* : `exit`
 
-=== Commands coming in v2.0
-* *Clear* : `clear`
+
