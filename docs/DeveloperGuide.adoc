@@ -77,7 +77,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiComponent.png[]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -118,6 +118,7 @@ NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) b
 
 // end::logic[]
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -132,11 +133,7 @@ The `Model`,
 * stores a `ActivityManager`, `AccommodationManager`, `ContactManager` and `Itinerary` that represents the managers for activity, accommodation, contact and day respectively.
 * exposes an unmodifiable `ObservableList<Activity>`, `ObservableList<Accommodation>`, `ObservableList<Contact>` and `ObservableList<Day>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-
-//image:BetterModelClassDiagram.png[]
+// end::model[]
 
 // tag::storageuml[]
 [[Design-Storage]]
@@ -392,12 +389,6 @@ Aspect: De-conflict process
 
 // end::optimise[]
 
-// tag::autocomplete[]
-
-=== Autocomplete
-
-// end::autocomplete[]
-
 // tag::scheduleactivity[]
 === Schedule feature
 
@@ -450,7 +441,7 @@ image::ScheduleCommandExecution.png[]
 
 // end::scheduleactivity[]
 
-// tag:::autoschedule[]
+// tag::autoschedule[]
 === Auto Schedule feature
 ==== Rationale
 There are times when users are planning for an overseas trip, there are so many activities in their activity list that they want to do but the problems faced are that they are unable to finish all the activities in the list or they are unable to find an optimal schedule plan.
@@ -461,8 +452,10 @@ For example, `t/shopping t/sightseeing t/dining` would means an activity of `sho
 Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the `duration` for each activity and are recommended to input their `priority` for those activities.
 Afterwards, `autoschedule` would serve to ensure that the activities scheduled do not overlap, are according to what the users prioritised first and that all activities have a chance to be scheduled.
 
+
 === Implementation
 The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` ,if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
+
 If `address` is specified, it is wrapped in an `Address` class and if the `day index(es)` to schedule are specified, they stored in a list with each index wrapped in an `Index` class.
 The `list of NameOrTagWithTime`, `address` and `list of day indexes` are then passed to the `AutoScheduleCommand` for execution later on.
 
@@ -523,26 +516,91 @@ If there other days to schedule, the steps taken will also be the same as Step 4
 ** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
 // end::autoschedule[]
 
-=== Logging
+// tag::autocomplete[]
+=== Auto Complete feature
+==== Rationale
+There are many commands to learn in our program and some of the commands can be wordy. In order to ease the learning curve and to help the user be productive as quickly as possible, autocomplete was implemented.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+==== Implementation
+*KEY IDEA:*
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Every command in the planner can be broadly broken down into a few categories, namely:
 
-*Logging Levels*
+. Command Word
+. Preamble
+. Required Prefix
+.. That are used once
+.. That are used multiple times
+. Optional Prefix
+.. That are used once
+.. That are used multiple times
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+AutoCompleteSuggester makes use of this and checks the input for these categories one by one.
 
-[[Implementation-Configuration]]
-=== Configuration
+* If the input lacks the command word, then the best matching command word will be suggested.
+* If the command word is provided, but the preamble is not (and it is required by the command), then the preamble will be suggested.
+* If the input contains the command word and contains the preamble(when necessary), then the required prefixes and optional prefixes will be suggested. Since there are some prefix that should only be used, the input will be checked to see if these prefixes are present and remove them from the suggestions.
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The `AutoCompleteParser` supports the `AutoCompleteSuggester` by parsing the user input into the command word, the preamble and a list of prefixes used in the program.
 
+Given below is a sequence diagram showing the generation of suggestions:
+
+.Sequence diagram showing the generation of suggestions.
+image::AutoCompleteSuggesterSequenceDiagram.png[]
+
+.Sub diagram for getPossibilities
+image::AutoCompleteSuggesterGetPossibilitiesSequenceDiagram.png[]
+
+Below is how the `autocomplete` feature is triggered:
+
+*Step 1.* Modification in the text of `AutoCompleteTextField` is detected.
+
+*Step 2.* If the input is empty, hide the pop-up box which contains the suggestions. If not empty, get entries (suggestions) for the pop-up box.
+
+*Step 3.* If there are entries, populate the pop-up box with it. Else, hide the pop-up box.
+
+*Step 4.* If pop-up box in previous step was populated, then show the pop-up box to the user.
+
+.Activity diagram showing how the pop-up box containing the suggestions appears:
+image::AutoCompleteActivityDiagram1.png[]
+
+Below is how entries for the pop-up box is obtained:
+
+*Step 1.* Check if input contains '<' or '>', as that would indicate that the user has accepted the suggestion of preamble, which has description enclosed with < and > (for e.g. <INDEX>) but has not replaced it with the actual preamble. If it has '<' or '>', then don't give suggestions to user.
+
+*Step 2.* If the input does not contain '<' or '>', parse the command word.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 4.* If there is no space, don't give suggestions to the user as it is assumed that the user is still typing. If there is a space, then parse preamble, parse prefix and make suggestions based on the command word, preamble and prefix present in the input.
+
+.Activity diagram showing how entries for the pop-up box is generated:
+image::AutoCompleteActivityDiagram2.png[]
+
+==== Design Considerations
+
+===== Aspect: Underlying data structure to store the command words
+* **Current Choice:** Use an ArrayList
+** Pros: Simple to implement.
+** Cons: Might be slow in providing suggestion for the command word, as in the worse case, it needs to iterate through every command word entry and check with every entry.
+* **Alternative:** Use a Trie
+** Pros: Faster in providing suggestion for command word as it only has to iterate through the length of the input.
+** Cons: More complicated to implement. The Trie also needs to be built during startup.
+
+* **Reason for choice**: Given that the program does not have many commands and unlikely to have a significant number more commands in the future, search times are not an issue.
+
+===== Aspect: Checking if the user has completed typing the command word/preamble/prefix content
+* **Current Choice:** Assumes the user has finished the command word/preamble/prefix content when there is a whitespace at the end of input
+** Pros: Simple to implement. Works in most cases.
+** Cons: Might be wrong when suggesting new prefix as there are some commands like autoschedule that have prefixes that can have 2 arguments (autoschedule t/argument1 argument2 d/argument1 argument2...)
+* **Alternative:** Waits for a specific duration of time before giving user suggestions
+** Pros: More likely to provide suggestions when the user needs it.
+** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
+// end::autocomplete[]
+
+// tag::timetable[]
 === Timetable
 
 ==== Current Implementation
@@ -567,6 +625,27 @@ Internally, Timetable is a List of ActivityWithTime. This gives the Timetable fl
 ** Pros: Allows flexible start times and end times. ActivityWithTime can have the same startDateTime, thus allowing conflicting ActivityWithTime.
 
 ** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Slower access time if the size of the List is large.
+// end::timetable[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 

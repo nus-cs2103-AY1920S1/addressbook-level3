@@ -49,7 +49,7 @@ public class AutoCompleteTextField extends TextField {
                     entriesPopup.hide();
                 } else {
                     if (entries.size() > 0) {
-                        populatePopup(entries);
+                            populatePopup(entries);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                         }
@@ -118,7 +118,7 @@ public class AutoCompleteTextField extends TextField {
             return autoCompleteSuggester.getPossibilities(input, false, new ArrayList<>());
         }
 
-        if (input.charAt(input.length() - 1) != ' ') {
+        if (userMightStillBeTyping(input)) {
             return new LinkedList<>();
         }
 
@@ -130,6 +130,14 @@ public class AutoCompleteTextField extends TextField {
         }
         listOfPrefixPresent = autoCompleteParser.parsePrefix(input);
         return autoCompleteSuggester.getPossibilities(command, preambleIsPresent, listOfPrefixPresent);
+    }
+
+    //@@author 1nefootstep
+    /**
+     * Assumes that user is still typing if there is no whitespace at end of {@code input}.
+     */
+    private boolean userMightStillBeTyping(String input) {
+        return input.charAt(input.length() - 1) != ' ';
     }
 
     //@@author 1nefootstep

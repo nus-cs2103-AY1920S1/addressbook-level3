@@ -1,0 +1,22 @@
+@startuml
+start
+:Get entries;
+if () then ([input contains '<' or '>'])
+    :Don't give suggestions to user;
+else ([input does not contain '<' or '>'])
+    :Parse command word;
+    if () then ([Command word not found])
+        :Suggest command words from \nthe planner that partially matches the input;
+    else ([Command word found])
+        :Check if there is whitespace at end of input;
+        if () then ([No])
+            :Don't give suggestions to user;
+        else ([Yes])
+            :Parse preamble;
+            :Parse prefix;
+            :Suggest the command word's preamble (if applicable) \nor possible prefixes of the command;
+        endif
+    endif
+endif
+stop
+@enduml
