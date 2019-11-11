@@ -1014,3 +1014,54 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Trying out the Application
+
+. Adding shows
+
+.. Type `add n/Harry Potter and the Chamber of Secrets t/movie`
+.. These commands should add the movie to your list.
+
+. Searching for shows
+
+.. Type `search n/Harry Potter and the Chamber of Secrets`
+.. This should bring you to the search page and display the movie.
+
+. Syncing the show
+
+.. Type `sync 1`
+.. This should sync the show into the watchlist.
+
+. Adding shows from search result
+
+.. Type `search n/stranger things`
+.. Type `add 3`.
+.. This should add the TV series, Stranger Things to the watchlist.
+
+. Marking a movie as watched
+
+.. Type `watch 1`. This should mark the show as watched and transfer it to your watched list.
+.. Navigate to the watched show by typing "2" and pressing enter.
+.. Alternatively, you may click on the "watched" tab itself.
+.. The `watch` command should only be executable on the watchlist and watched tabs.
+
+. Marking a TV show's seasons and episodes
+
+.. Navigate to the watchlist tab by typing "1" and pressing enter or clicking the tab itself.
+.. Type `watch 1 s/2 e/4`
+.. This should update the last watched episode and season of the "Stranger Things".
+.. Try the command with other season and episode numbers.
+.. The `watch` command should only be executable on the watchlist and watched tabs.
+
+. Advanced search features
+
+.. Type `search n/Stranger Things o/yes`
+.. Type `search g/Horror n/Annabelle`
+.. Try other search fields following the user guide's usage.
+.. Also try searching for shows while being disconnected from the internet.
+
+. Statistics feature
+
+.. Navigate to the statistics page by typing "4" then pressing enter or clicking on the statistics tab.
+.. This should bring you to the statistics tab of EzWatchlist.
+.. Here you can view some shows that have not been watched, your favourite genres and recommendations.
+.. Try accessing this page while being connected and disconnected to the internet.
