@@ -39,10 +39,11 @@ This would make it convenient for them to copy data out of the application.
 
 * *Code contributed*:
 
-* contributed a total of 11k+ LOC:
+* contributed more than 11,000 lines of code (LoC):
 
 ** ~5k functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
 ** 6k+ test: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
+** Over 30 Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pulls/zhixianggg[PRs]
 
 * Functional
 
