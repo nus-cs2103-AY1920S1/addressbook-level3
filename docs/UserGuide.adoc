@@ -436,12 +436,12 @@ NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
 . Enter appropriate command into the command line.
 +
 .Input for Splitting Evenly
-image::SplitEven1.png[pdfwidth=70%]
+image::SplitEven1.png[pdfwidth=60%]
 +
 . Result is displayed accordingly
 +
 .Amy, Betty, Catherine and Dan owes $200 each
-image::SplitEven2.png[pdfwidth=70%]
+image::SplitEven2.png[pdfwidth=60%]
 +
 For an even split of $1000, each person pays $200. Therefore _Ledger_ shows $200 on the tab of each person.
 _Ledger_ balance *does not* include how much you spend. In this bill, one is owed $800 in total
@@ -454,12 +454,12 @@ from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in t
 . Enter appropriate command into the command line.
 +
 .Input for Splitting Unevenly
-image::SplitUneven1.png[pdfwidth=70%]
+image::SplitUneven1.png[pdfwidth=60%]
 +
 . Result is displayed accordingly
 +
 .Display of Correctly Assigned Amounts
-image::SplitUneven2.png[pdfwidth=70%]
+image::SplitUneven2.png[pdfwidth=60%]
 +
 Since the number of shares is equal to the number of people listed, you are not included in the splitting of the bill.
 // end::split[]
@@ -480,12 +480,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 . Enter appropriate command into the command line.
 +
 .Input for Receiving $20 from Albert
-image::Receive1.png[pdfwidth=70%]
+image::Receive1.png[pdfwidth=60%]
 +
 . Result is displayed accordingly.
 +
 .Result of Payment from Albert
-image::Receive2.png[pdfwidth=70%]
+image::Receive2.png[pdfwidth=60%]
 +
 Albert is removed from the _Ledger_ since he no longer owes any money. _Ledger_ balance is also updated accordingly.
 //end::receive[]
