@@ -290,7 +290,7 @@ Shows the calendar filled with all deadlines in the month. The calendar will be 
 
 The calendar will pop up, seen below.
 
-image::calendar.png[width="400", height="500"]
+image::calendar.png[width="600"]
 
 NOTE: Calendar does not show the specific deadline names, but an overview of all your deadlines for the month ahead.
 
@@ -326,7 +326,7 @@ by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
 List all the "Bad" rated FlashCards from a specific date. The FlashCard Questions will be shown.
 
-`listbad d>12/11/2019`
+`listbad d>14/11/2019`
 
 image::listbad.png[width="600"]
 
@@ -336,7 +336,7 @@ NOTE: The automated test mode for the "Bad" `FlashCard` is not functional at thi
 
 You can remove a specific "Bad" rated `FlashCard` from the list
 
-`removebad d>12/11/2019 i>2`
+`removebad d>14/11/2019 i>2`
 
 You can refer to the example above.
 
@@ -346,11 +346,11 @@ image::listbad.png[width="600"]
 
 Afterwards, you can choose to remove as specific "Bad" rated FlashCard from that list. Using the example `removebad d>12/11/2019 i>2`, you can observe this.
 
-image::removebad.png[width="550"]
+image::removebad.png[width="600"]
 
 Once removed, a success message will be shown!
 
-image::removebadsuccess.png[width="550"]
+image::removebadsuccess.png[width="600"]
 
 CAUTION: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
 
