@@ -34,7 +34,7 @@ Interested? Refer to <<Quick-Start>> below to get started. Enjoy!
 [[Quick-Start]]
 == Quick Start
 
-This section summarizes how you can quickly set up Mortago on your computer
+This section summarizes how you can quickly set up Mortago on your computer.
 
 === Setting Up
 .  Ensure you have `Java 11` or above installed in your Computer.
@@ -53,11 +53,11 @@ image::Ui.png[width="790"]
 Type the command in the command box and press kbd:[Enter] to execute it. +
 The following are examples of some commands you can try:
 
-* *`list -b`* : lists all bodies
+* *`list -b`* : lists all bodies.
 * *`add -w/name John Doe /sex male /dateJoined 12/12/2019`* :
 adds a worker named John Doe to the management system.
-* *`delete -w 1`* : deletes the worker with worker ID W000001
-* *`exit`* : exits the app
+* *`delete -w 1`* : deletes the worker with worker ID W000001.
+* *`exit`* : exits the app.
 
 // tag::commandspecs[]
 
@@ -461,7 +461,7 @@ Format: `select id`
 
 Example: `select 1`
 
-The following illustrates how you can use the select command.
+The following illustrates how you can use the `select` command.
 
 . Suppose you wish to select a body with ID B00000001.
 
