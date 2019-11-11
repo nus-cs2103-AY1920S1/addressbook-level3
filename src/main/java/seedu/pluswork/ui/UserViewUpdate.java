@@ -1,6 +1,38 @@
 package seedu.pluswork.ui;
 
 import javafx.scene.layout.Pane;
+import seedu.pluswork.logic.commands.calendar.FindMeetingTimeCommand;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.DeleteInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.ListInventoryCommand;
+import seedu.pluswork.logic.commands.member.AddMemberCommand;
+import seedu.pluswork.logic.commands.member.AssignCommand;
+import seedu.pluswork.logic.commands.member.DeleteMemberCommand;
+import seedu.pluswork.logic.commands.member.EditMemberCommand;
+import seedu.pluswork.logic.commands.member.FindMemberCommand;
+import seedu.pluswork.logic.commands.member.FireCommand;
+import seedu.pluswork.logic.commands.member.ListMemberCommand;
+import seedu.pluswork.logic.commands.member.SetImageCommand;
+import seedu.pluswork.logic.commands.multiline.AddDCommand;
+import seedu.pluswork.logic.commands.multiline.AddICommand;
+import seedu.pluswork.logic.commands.multiline.NoCommand;
+import seedu.pluswork.logic.commands.multiline.YesCommand;
+import seedu.pluswork.logic.commands.settings.ClockCommand;
+import seedu.pluswork.logic.commands.settings.SettingsCommand;
+import seedu.pluswork.logic.commands.settings.ThemeCommand;
+import seedu.pluswork.logic.commands.statistics.GetStatisticsCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.DeleteTaskCommand;
+import seedu.pluswork.logic.commands.task.DoingTaskCommand;
+import seedu.pluswork.logic.commands.task.DoneTaskCommand;
+import seedu.pluswork.logic.commands.task.EditTaskCommand;
+import seedu.pluswork.logic.commands.task.FindTaskCommand;
+import seedu.pluswork.logic.commands.task.ListTaskCommand;
+import seedu.pluswork.logic.commands.task.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.universal.ClearCommand;
+import seedu.pluswork.logic.commands.universal.HelpCommand;
+import seedu.pluswork.logic.commands.universal.HomeCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 
 /**
@@ -36,105 +68,137 @@ public class UserViewUpdate {
         paneToRender.getChildren().clear();
 
         switch (preamble) {
-            case "add-task":
+        case AddTaskCommand
+                .COMMAND_WORD:
 
-            case "list-tasks":
+        case ListTaskCommand
+                .COMMAND_WORD:
 
-            case "delete-task":
+        case DeleteTaskCommand
+                .COMMAND_WORD:
 
-            case "edit-task":
+        case EditTaskCommand
+                .COMMAND_WORD:
 
-            case "set-deadline":
+        case SetDeadlineCommand
+                .COMMAND_WORD:
 
-            case "doing-task":
+        case DoingTaskCommand
+                .COMMAND_WORD:
 
-            case "done-task":
+        case DoneTaskCommand
+                .COMMAND_WORD:
 
-            case "find-task":
-                paneToRender.getChildren().add(userViewMain.loadFoundTasks());
-                break;
+        case FindTaskCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadFoundTasks());
+            break;
 
-            case "add-member":
-                paneToRender.getChildren().add(userViewMain.loadSpecificMember());
-                break;
+        case AddMemberCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadSpecificMember());
+            break;
 
-            case "set-image":
-                paneToRender.getChildren().add(userViewMain.loadSetImage());
-                break;
-
-
-            case "assign":
-                paneToRender.getChildren().add(userViewMain.loadAssign());
-                break;
-
-            case "fire":
-                paneToRender.getChildren().add(userViewMain.loadTasks());
-                break;
-
-            case "edit-member":
-
-            case "remove-member":
-
-            case "find-member":
-                paneToRender.getChildren().add(userViewMain.loadFoundMembers());
-                break;
-
-            case "list-members":
-                paneToRender.getChildren().add(userViewMain.loadMembers());
-                break;
-
-            case "delete-inv":
-
-            case "edit-inv":
-
-            case "add-inv":
-
-            case "add-i":
-
-            case "list-inv":
-                paneToRender.getChildren().add(userViewMain.loadInventories());
-                break;
+        case SetImageCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadSetImage());
+            break;
 
 
-            case "member-stats":
-                paneToRender.getChildren().add(userViewMain.loadMemberStats());
-                break;
+        case AssignCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadAssign());
+            break;
+
+        case FireCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadTasks());
+            break;
+
+        case EditMemberCommand
+                .COMMAND_WORD:
+
+        case DeleteMemberCommand
+                .COMMAND_WORD:
+
+        case FindMemberCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadFoundMembers());
+            break;
+
+        case ListMemberCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadMembers());
+            break;
+
+        case DeleteInventoryCommand
+                .COMMAND_WORD:
+
+        case EditInventoryCommand
+                .COMMAND_WORD:
+
+        case AddInventoryCommand
+                .COMMAND_WORD:
+
+        case AddICommand
+                .COMMAND_WORD:
+
+        case ListInventoryCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadInventories());
+            break;
 
 
-            case "task-stats":
-                paneToRender.getChildren().add(userViewMain.loadTaskStats());
-                break;
+        case GetStatisticsCommand
+                .COMMAND_WORD_MEMBER:
+            paneToRender.getChildren().add(userViewMain.loadMemberStats());
+            break;
 
-            case "find-meeting-time":
-                paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
-                break;
 
-            case "settings":
+        case GetStatisticsCommand.COMMAND_WORD_TASK:
+            paneToRender.getChildren().add(userViewMain.loadTaskStats());
+            break;
 
-            case "theme":
+        case FindMeetingTimeCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadMeetingTimes());
+            break;
 
-            case "clock":
-                paneToRender.getChildren().add(userViewMain.loadSettingsView());
-                break;
+        case SettingsCommand
+                .COMMAND_WORD:
 
-            case "clear":
+        case ThemeCommand
+                .COMMAND_WORD:
 
-            case "home":
+        case ClockCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadSettingsView());
+            break;
 
-            case "add-d":
+        case ClearCommand
+                .COMMAND_WORD:
 
-            case "no":
+        case HomeCommand
+                .COMMAND_WORD:
 
-            case "yes":
-                paneToRender.getChildren().add(userViewMain.loadDashboard());
-                break;
+        case AddDCommand
+                .COMMAND_WORD:
 
-            case "help":
-                paneToRender.getChildren().add(userViewMain.loadHelpView());
-                break;
+        case NoCommand
+                .COMMAND_WORD:
 
-            default:
-                // show nothing (only exit has no case)
+        case YesCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadDashboard());
+            break;
+
+        case HelpCommand
+                .COMMAND_WORD:
+            paneToRender.getChildren().add(userViewMain.loadHelpView());
+            break;
+
+        default:
+            // show nothing (only exit has no case)
         }
     }
 }
