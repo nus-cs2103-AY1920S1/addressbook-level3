@@ -1,6 +1,6 @@
 = Tan Yan Zhen, Natalie - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../nattanyz
+:imagesDir: ../images/nattanyz/
 :stylesDir: ../stylesheets
 
 == PROJECT: FlashCard Pro
