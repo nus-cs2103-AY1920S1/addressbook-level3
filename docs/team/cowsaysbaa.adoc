@@ -12,11 +12,11 @@ As part of the project requirement of CS2103T offered by NUS, my team of 4 softw
 .Graphical user interface of ModuleBook
 image::ModuleBookUILayout.png[]
 
-ModuleBook is a desktop module manager application designed with the needs of NUS students in mind. It is designed to streamline the process of managing time and resources related to the modules offered by NUS. The user interacts with it using a CLI, and comes with GUI created with JavaFX. It is written in Java.
+ModuleBook is a desktop module manager application designed with the needs of NUS students in mind. It is designed to streamline the process of managing time and resources related to the modules offered by NUS. The user interacts with ModuleBook using command line interface, which also comes with graphic user interface created with JavaFX. ModuleBook is written in Java.
 
 As of the current build (v1.4), ModuleBook offers the following features:
 
-. Detailed archive of all modules offered by NUS (adaped from NUSMods API).
+. Detailed archive of all modules offered by NUS (adapted from NUSMods API).
 . Track modules of interest.
 . Search for specific modules using search filters.
 . Add personalised deadlines to tracked modules.
@@ -29,7 +29,7 @@ The following sections illustrate these enhancements in more detail, as well as 
 
 This section documents my contribution to this team project in the from of code, documentation as well as supporting the team.
 
-* *Major enhancement*: added *the ability to find specific modules using filtered search.*
+* *Major enhancement*: Added *the ability to find specific modules using filtered search.*
 ** What it does: Allows the user to search for modules by filtering any combination of the following categories:
 . module
 . title
