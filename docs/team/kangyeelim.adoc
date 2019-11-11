@@ -55,7 +55,7 @@ club's finances.
 This is what our application looks like when it is first opened (Graphical User Interface of treasurerPro):
 
 .Graphical User Interface of treasurerPro
-image::AnnotatedUi.png[width="700"]
+image::annotatedUi2.png[width="700"]
 
 == Summary of Contributions
 My role was to design and write the code for the features of Home Tab. The following sections shows a summary of these

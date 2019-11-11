@@ -6,8 +6,11 @@ import seedu.address.person.model.person.Person;
 import seedu.address.reimbursement.logic.commands.Command;
 import seedu.address.reimbursement.logic.commands.CommandResult;
 import seedu.address.reimbursement.logic.parser.ReimbursementTabParser;
+import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.reimbursement.model.exception.InvalidDeadlineException;
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadException;
 
@@ -33,7 +36,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws Exception {
+    public CommandResult execute(String commandText)
+            throws ParseException, NoSuchPersonReimbursementException, InvalidDeadlineException, IOException {
         Command command = parser.parseCommand(commandText, personModel);
         CommandResult commandResult = command.execute(reimbursementModel, personModel);
         reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());

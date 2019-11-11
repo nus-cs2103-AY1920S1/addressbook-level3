@@ -25,7 +25,7 @@ public class BackCommandParser implements IndependentCommandParser<BackCommand> 
      * @throws Exception if the command syntax is incorrect.
      */
     public BackCommand parse(String args)
-            throws Exception {
+            throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);
 

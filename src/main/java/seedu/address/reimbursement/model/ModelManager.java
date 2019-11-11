@@ -76,7 +76,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Reimbursement addDeadline(Person person, LocalDate deadline) throws Exception {
+    public Reimbursement addDeadline(Person person, LocalDate deadline) throws NoSuchPersonReimbursementException {
         reimbursementList.addDeadline(person, deadline);
         filteredList = reimbursementList;
         return findReimbursement(person);

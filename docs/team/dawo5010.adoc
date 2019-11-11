@@ -33,7 +33,7 @@ clubs track their expenses, reimbursements, sales and inventory. To do so, we in
 management features of AddressBook and used it as a starting point to build treasurerPro. We also built a new User
 Interface (UI) to accommodate the new features that we had added.
 
-In total, treasurerPro took a total of 8 weeks to complete.
+In total, treasurerPro took a total of 10 weeks to complete.
 
 ===  Key to the icons and formatting used in the document
 
@@ -50,7 +50,7 @@ the application.
 [blue]`*command*` :
 Text with blue font and grey highlight indicates a command that can be input by the user.
 
-=== Introduction of treasurerPro
+=== Introduction to treasurerPro
 
 The User Interface of treasurerPro is primarily divided into 6 tabs - Home, Members, Reimbursements, Inventory, Cashier
 and Overview. Each tab serves a particular function:
@@ -68,7 +68,7 @@ The following screenshot shows the User Interface of the application on first la
 image:Ui.png[width="600"]
 
 == Summary of contributions
-I served as Team Lead for the project, and my responsibilities included the design of the new User Interface, as well
+I served as Team Lead for the project, and my responsibilities included designing the new User Interface, as well
 as the features within the Overview tab.
 
 In the following sections, I will illustrate the above-mentioned enhancements in greater detail, along with the
