@@ -181,10 +181,12 @@ Classes used by multiple components are in the *calofit.commons* package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::mealTracking[]
+=== Meal Tracking Feature
 // tag::add[]
-=== Add feature
-==== Implementation
-===== Addition though flags (e.g add n/Chicken c/200 t/dry)
+==== Add feature
+===== Implementation
+====== Addition though flags (e.g add n/Chicken c/200 t/dry)
 
 The `add` feature is implemented through the `AddCommand` class that extends the abstract `Command` class.
 It interacts with other objects through the `Model` interface to manipulate the meal log and dish database to add meals.
@@ -231,23 +233,23 @@ The input by the user and the dish in the dish database is considered equal only
 Addition of tags are supported. However, they are not crucial to the implementation of the add
 function as tags are not considered when deciding equality of dishes.
 
-===== Addition though indexes in suggested/find meal list (e.g add 1 2 3)
+====== Addition though indexes in suggested/find meal list (e.g add 1 2 3)
 The `add` feature also supports the addition of meals through indexes in the suggested meal list.
 This is done to improve the user experience as they do not have to always enter the long commands.
 
-This feature is also implemented through the `AddCommand` class that extends the abstract `Command` class.
+This feature is also implemented through the *_AddCommand_* class that extends the abstract *_Command_* class.
 
-The `add` command in this case takes in a list of numbers pass to it through the `AddCommandParser`. The checking of valid
-indexes is done by the `AddCommandParser`. Once the list is passed to the `AddCommand`, it calls `Model#getFilteredDishlist()`
+The `add` command in this case takes in a list of numbers pass to it through the *_AddCommandParser_*. The checking of valid
+indexes is done by the *_AddCommandParser_*. Once the list is passed to the *_AddCommand_*, it calls *_Model#getFilteredDishlist()_*
 which returns the filtered dish list. The add command will then loop through
 the list of indexes and get the respective dishes from the filtered dish list.
 
 We cannot add the meal immediately to the meal log as the filtered dish list would change when the calorie count changes. Hence the
-meals are first added to separate a `toBeAddedMealList` and once all the indexes are added to that list,
-`MealLog#addListOfMeals(toBeAddedMealList)` is called to add all the meals in to the meal log at once.
+meals are first added to separate a *_toBeAddedMealList_* and once all the indexes are added to that list,
+*_MealLog#addListOfMeals(toBeAddedMealList)_* is called to add all the meals in to the meal log at once.
 
-==== Design Consideration
-===== Aspect: What is considered the same meal
+===== Design Consideration
+====== Aspect: What is considered the same meal
 * **Alternative 1 (Current choice):** Compare name and calorie only
 ** Pros: More precise compared to just comparing names.
 ** Cons: Complications when adding meals.
@@ -265,8 +267,8 @@ part of the meal. Hence we need to consider it when comparing meals. Certain mea
 with the same name may not have the same amount of calories. Hence we decided to go
 with alternative 1.
 
-==== Aspect: Data structure when storing in meals in meal log
-* **Alternative 1 (Current choice):** Use arraylist to store meals in meal log
+===== Aspect: Data structure when storing in meals in meal log
+* **Alternative 1 (Current choice):** Use array list to store meals in meal log
 ** Pros: Able to delete by index.
 ** Cons: Interacting with the meal log will be slow.
 
@@ -282,20 +284,55 @@ an array list is still used.
 
 // end::add[]
 
+==== Edit feature
+===== Implementation
+
+The `edit` feature is implemented through the *_EditCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and edit meals.
+
+The *_edit_* command allows the user to edit any fields in their previous meal entries of the same day with a
+single command. The edit command takes in a *_Index_* which specifies the location of the meal in the meal log
+and a *_EditDishDescriptor_* which contains the information the user wants to edit the meal with.
+
+The edit of meal is done through a 2 step process. The meal is first retrieved from the meal log. Afterwards,
+the meal will be edited with the information in the EditDishDescriptor. Following that, the edited meal is
+inserted using the *_Model#setMeal()_* command. This swaps out the old meal for the new edited meal.
+
+Below is the activity diagram that summarises the scenario when "edit 1 n/Mushroom Soup c/200 tr/shitake" is called by the user.
+
+image::EditActivityDiagram.png[]
+
+===== Design Consideration
+====== Aspect: How editing meal in meal log will change the dish database.
+* **Alternative 1 (Current choice):** No change to dish database
+** Pros: Simple and easy for user to understand
+** Cons: Less accurate data in the dish database
+
+* **Alternative 2:** Edit the corresponding meal that was previously added when adding the meal
+** Pros: Better more accurate data in the dish database
+** Cons: Raises many complications that may get very confusing for the user
+
+* **Explaination of choice:** Interacting with the dish database will cause multiple different edge cases
+that need to be considered. This may cause it to be confusing for the user. For example, if they user intends to
+enters "Mushroom Soup" and get all the information from the dish database. However, the user spelt it wrongly and
+entered "Mushroom Soop" instead. When editing, do we search the dish database for the correct information of
+"Mushroom Soup" or do we just change the name and leave the other information untouched? Hence it is decided to
+allow the user to edit the fields and have no interaction with the dish database for a better user experience.
+
 // tag::delete[]
-=== Delete feature
-==== Implementation
-The `delete` feature is implemented through the `DeleteCommand` class that extends the abstract `Command` class.
-It interacts with other objects through the `Model` interface to manipulate the meal log and remove meals.
+==== Delete feature
+===== Implementation
+The `delete` feature is implemented through the *_DeleteCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and remove meals.
 
 The `delete` command allows for removal of multiple dishes with a single command.
-The `delete` command takes in a `listOfIndex` passed to it by the `DeleteCommandParser`. The checking of valid integers
-is done by the `DeleteCommandParser`. Once the listOfIndex is passed to the `DeleteCommand`, it sorts the list from largest index
-to smallest index using the `Collections.sort(listOfIndex, Comparator.reverseOrder())`. The `DeleteCommand` then loops through
-the sorted list and checks if the index is within the size of the meal log. If the index is valid, `DeleteCommand` will
+The `delete` command takes in a *_listOfIndex_* passed to it by the *_DeleteCommandParser_*. The checking of valid integers
+is done by the *_DeleteCommandParser_*. Once the listOfIndex is passed to the *_DeleteCommand_*, it sorts the list from largest index
+to smallest index using the *_Collections.sort(listOfIndex, Comparator.reverseOrder())_*. The *_DeleteCommand_* then loops through
+the sorted list and checks if the index is within the size of the meal log. If the index is valid, *_DeleteCommand_* will
 remove the respective meal from the meal log.
 
-The removal of meals is done through the `Model#removeMeal(meal)` which would remove the meal from the meal log list.
+The removal of meals is done through the *_Model#removeMeal(meal)_* which would remove the meal from the meal log list.
 
 The following sequence diagram shows how the `delete` operation works when index 1 is deleted:
 
@@ -305,8 +342,8 @@ Below is the activity diagram that summarises the scenario when "delete 1" is ca
 
 image::DeleteActivityDiagram.png[]
 
-==== Design Consideration
-===== Aspect: How is the meal removed
+===== Design Consideration
+====== Aspect: How is the meal removed
 
 * **Alternative 1 (Current Choice):** Removed after the listOfIndex is sorted.
 ** Pros: Prevent the reordering of the meal log causing the larger indexes to correspond to a different meal or
@@ -315,13 +352,14 @@ The meal previously at index 2 is now at index 1. When doing delete 2, the meal 
 only has 1 meal.)
 ** Cons: The command may take some time when handling large amounts of input. This is due to the sorting required.
 
-* **Alternative 2:** Loop through the indexes in the `DeleteCommandParser` and create a new `DeleteCommand` for every index.
+* **Alternative 2:** Loop through the indexes in the *_DeleteCommandParser_* and create a new *_DeleteCommand_* for every index.
 ** Pros: Simple morphing of previous delete method.
 ** Cons: Have to change other parts of the model breaking abstraction.
 
 * ** Explanation of Choice:** The command is for the deletion of meals for that day. A person on average consumes 3 - 4 meals a day.
 Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
 // end::delete[]
+// end::mealTracking[]
 
 // tag::budgetbar[]
 === Budget Bar display

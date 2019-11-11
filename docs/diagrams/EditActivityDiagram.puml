@@ -1,0 +1,25 @@
+@startuml
+start
+:User executes "edit 1 n/Mushroom Soup c/200 tr/shitake" command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([1 is a valid meal index])
+if () then ([shitake tag exist in meal])
+        :Meal name at index 1 is edited to "Mushroom Soup"
+        Meal calorie at index 1 is edited to "200"
+        "Shitake" tag is removed from meal at index 1
+        Other information left unchanged;
+        :Meal log is updated;
+
+else ([else])
+    :Error message shown to user;
+endif
+else([else])
+    :Error message shown to user;
+endif
+stop
+
+@enduml
+
