@@ -425,7 +425,6 @@ If more than one keyword is used, do not add commas between each keyword.
 Partial matching is allowed as well for this command. `find_earnings a` will
  match with apple, for example.
 
-// tag::startEarningsTag[]
 ==== Claim Earnings: `claim_earnings`
 
 Changes the user the earnings status in the list of earnings. +
@@ -442,11 +441,15 @@ Examples:
 Only `approved`/`rejected`/`processing`/`pending submission` statuses are allowed.
 Only one status is allowed at a time.
 
+// tag::startEarningsTag[]
 ==== Auto Add Weekly Earnings: `weekly_earnings`
 
 Adds an earnings from the list of existing earnings to be added in the on the same
 day every week. +
 Format: `weekly_earnings INDEX count/NUMBER_OF_WEEKS
+
+.Weekly Earnings Example
+image::WeeklyEarnings.png[width="400", align="left"]
 
 Examples:
 
