@@ -508,56 +508,149 @@ In contrast, for Alternative 2, manipulating the internal elements of the list d
 // tag::reminder[]
 === Reminder feature
 
-With this reminder feature, users can set the reminders of their tasks with deadlines and delete them when completed.
+This feature allows users to set reminders for their tasks with a specified deadline and delete them when respective tasks are completed.
 
-==== Implementation
+==== Implementation for Reminder
 
-A reminder is constructed with
+In this feature, a reminder is constructed with following two key information as attributes.
 
-* Deadline `d/DATE`
-* Reminder Message `m/MESSAGE`
+* `deadline` (Deadline of a task)
+* `reminderMessage` (Message to inform user)
 
-The recorded reminders sorted with deadline in descending order, are displayed on the User Interface(UI) for notification.
+With the given deadline from users, the following two attributes are created further in the reminder constructor.
 
-This feature is implemented with the following operations:
+* `type` (Type of reminder e.g. Overdue)
+* `remainingDays` (Remaining days before deadline)
+
+The purpose of the above two attributes are for sorting reminders based on the number of days between current date and their deadline in ascending order.
+These two attributes are also utilized in formatting how a reminder should be displayed on the `UI` components.
+
+The following class diagram illustrates the summary of the reminder class.
+
+.Class diagram for reminder
+[align="center"]
+image::ReminderClassDiagram.png[width=75%]
+
+[NOTE]
+As indicated in the above diagram, a reminder uses the `Date` class from spending package as `deadline` attribute, therefore, it is also supported with Natural Language Processing (NLP).
+Since the `remainingDays` attribute is of `long` data type, it is not included in the above diagram.
+
+==== Implementation for Adding Reminder
+
+First of all, for the user to add reminders into MoneyGoWhere, the following command is made available.
 
 * Adding a reminder `reminder add d/DATE m/MESSAGE` +
 e.g. `reminder add d/30/08/2020 m/Pay school fee` - set reminder to pay school fee by 30th of August 2020
 
-* Deleting a reminder `reminder delete INDEX` +
-e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
+In this command, the parameter values lead by the prefixes are `String` values and `parser` will convert these values into acutual `Date` and `ReminderMessage` objects later on.
 
 Below is the activity diagram describing the steps take by MoneyGoWhere when it receives `AddReminderCommand`.
 
 .Activity diagram for adding a reminder
+[align="center"]
 image::AddReminderActivityDiagram.png[width=75%]
 
 [NOTE]
-In the above diagram, it can be seen that respective error messages will be shown for invalid inputs.
+In the above diagram, it can be seen that a reminder input from user will only be recorded after it passes all the validation checks.
 
-Shown below is the sequence diagram containing the interactions between respective components in MoneyGoWHere when user inputs `AddReminderCommand`.
+To illustrate how a reminder is added to the Model component when the user enters `AddReminderCommand`, the sequence diagram is shown below.
 
-.Sequence diagram while user attempts to add a new reminder
-image::AddReminderSequenceDiagram.png[width=75%]
+.Sequence diagram when a new reminder is added to the model component.
+[#AddReminderSequenceDiagram,align="center"]
+image::AddReminderSequenceDiagram.png[pdfwidth="95%",width="100%"]
 
 [NOTE]
-The above sequence diagram demonstrates how a new reminder is constructed from valid user input.
+The above sequence diagram only demonstrates how an `AddReminderCommand` is constructed from valid user input and how it is executed. It does not show how a reminder is added into the `Storage` component and how the `UI` components are updated.
 
-Following is the activity diagram including the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`
+The following are the brief explanation of <<AddReminderSequenceDiagram>>
 
+1. The user enters `reminder add d/today m/Pay bill`.
+2. `SpendingBookParser#parseCommand()` is called by `LogicManager`
+3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder, to delete a reminder or invalid.
+4. Next, `AddReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
+5. After successful validation, `AddReminderCommand` is created and passed back to callers until it reaches to `LogicManager`.
+6. `LogicManager` then executes the command, adding the new reminder to the model through `Model#addReminder()`.
+
+==== Implementation for Removing Reminder
+
+In order for users to delete unwanted reminders, the following command is implemented in MoneyGoWhere application.
+
+* Deleting a reminder `reminder delete INDEX` +
+e.g. `reminder delete 1` - delete the first reminder in the reminder list shown in UI.
+
+Following is the activity diagram which indicates the series of actions performed by MoneyGoWhere when it receives `DeleteReminderCommand`.
+
+[align="center"]
 .Activity diagram for removing a reminder
-image::DeleteReminderActivityDiagram.png[width=75%]
+image::DeleteReminderActivityDiagram.png[width=90%]
 
 [NOTE]
-The negative index from user input will leads to invalid command format error.
+The negative index from user input will leads to invalid command format error as shown in the above diagram.
 
-The below sequence diagram summarize the interactions between different components when user enter `DeleteReminderCommand`.
+Moreover, the following sequence diagram summarizes the interactions between different components when the user enter `DeleteReminderCommand`.
 
 .Sequence diagram while user attempt to remove a reminder
-image::DeleteReminderSequenceDiagram.png[width=75%]
+[#DeleteReminderSequenceDiagram,align="center"]
+image::DeleteReminderSequenceDiagram.png[width=100%]
+
+The following are the brief explanation of <<DeleteReminderSequenceDiagram>>
+
+1. The user enters `reminder delete 1`
+2. `SpendingBookParser#parseCommand()` called by `LogicManager`.
+3. This creates `ReminderCommandParser` and it checks if the given user input is to add a reminder or to delete a reminder or is invalid.
+4. Next, `DeleteReminderCommandParser` is created and it validates the parameters provided by `ReminderCommandParser`.
+5. After successful validation, `DeleteReminderCommand` is created and passed back to callers until it reaches to `Logic Manager`.
+6. `LogicManager` then executes the command, removing the specified reminder from the model through `Model#deleteReminder()`.
 
 [NOTE]
-The above diagram also highlights how logic and model components interact with each other while deleting a reminder.
+The above sequence diagram only shows how a `DeleteReminderCommand` is created and executed. It does not include how a reminder is removed from the storage component and how the UI component is updated.
+
+==== Limitations
+
+1. The date value of the `deadline` attribute is limited to before the end of next year and must be in the future. This prevents users from entering reminder of overdue tasks as inputs.
+
+2. In this feature, the `reminderMessage` attribute cannot be constructed with empty spaces. The purpose of this limitation is to prevent users from entering a reminder without specifying a message to be displayed.
+
+==== Design Considerations
+
+[width="100%", cols="1,2,2", options="header",]
+|===
+|Aspect |Alternative 1 (Current choice) |Alternative 2
+
+|How reminders are stored
+|Store reminders together with other information in `moneygowhere.json`.  +
+ +
+*Pros:* +
+Allows re-use of existing codes for implementation. +
+Only has to manage a single file for storage of user's data. +
+ +
+*Cons:* +
+Could lead to larger file size. +
+More data could be lost in cases of file corruption.
+
+|Store reminders in a new json file separated from other information. +
+ +
+*Pros:* +
+Smaller file size compared to alternative 1. +
+Lesser data loss in case of file corruption compare to alternative 1. +
+ +
+*Cons:* +
+Requires additional implementation for storing reminders. +
+Has to manage multiple files for storage of user's data
+|===
+
+Alternative 1 from above table, is currently implemented in MoneyGoWhere (v1.4) since it is efficient for the application to access user's data from a single storage file.
+
+The following Architecture Diagram summarizes how different components in MoneyGoWhere application interact with each other while storing a reminder from the valid user input with the current implementation.
+
+.Architecture Diagram
+[align="center"]
+image::AddReminderArchitectureSequenceDiagram.png[]
+
+
+[NOTE]
+The above high-level Architecture Diagram only provides the summarized steps taken by different components while storing a reminder into `MoneyGoWhere.json`.
+
 // end::reminder[]
 
 // tag::import[]
@@ -841,6 +934,10 @@ The budget component allows the users to modify the current monthly budget `budg
 double representing the desired monthly budget. The amount cannot exceed 1,000,000,000 Singapore dollars.
 
 For example `budget 10000` sets the current monthly budget to 10000.
+
+[NOTE]
+The budget amount must be a positive number no greater than 1000000000 Singapore dollars and must only have two digits after
+the decimal point.
 
 The second functionality is done automatically by the program, which finds the total spending in the month and reduces
 the sum from the budget.
@@ -1769,6 +1866,32 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `exchangerate` +
    Expected: All exchange rates stored by the application are displayed.
 
+
+=== Adding a Reminder
+
+. Adding a reminder into the reminder list
+
+.. Test case: `reminder add d/tomorrow m/Pay school fee` +
+   Expected: A reminder to pay school fee by tomorrow, is added into the current reminder list and success message together with the details of newly added reminder is shown in the results display.
+.. Test case: `reminder add m/Pay phone bill` +
+   Expected: No reminder is added. Error details shown in the results display.
+.. Test case: `reminder add d/today`
+   Expected: No reminder is added. Error details shown in the results display.
+
+
+=== Deleting a Reminder
+
+. Deleting a reminder while there is at least one reminder
+
+.. Prerequisites: There is at least one reminder in the reminder list being displayed on the User Interface.
+.. Test case: `reminder delete 1` +
+   Expected: First reminder is deleted from the reminder list. Details of the deleted reminder shown in the display.
+.. Test case: `reminder delete 0` +
+   Expected: No reminder is deleted. Error details shown in the results display.
+.. Other incorrect delete reminder commands to try: `reminder delete`, `reminder delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+
 === Importing Spending Data
 
 . Importing valid spending while all spending are listed
@@ -1782,6 +1905,7 @@ These instructions only provide a starting point for testers to work on; testers
 such as a spending with empty `name`, `cost` or `date` parameter.
 .. Test case: `import p/./moneygowhere.csv` +
    Expected: Only valid spending will be added to the spending list, whereas error details specifying which spending is invalid will be shown in the results display.
+
 
 === Exporting Spending Data
 . Exporting all spending into `moneygowhere.csv` file

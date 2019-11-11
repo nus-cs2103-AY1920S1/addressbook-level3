@@ -4,6 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":SpendingBookParser" as SpendingBookParser LOGIC_COLOR
+participant ":ReminderCommandParser" as ReminderCommandParser LOGIC_COLOR
 participant ":AddReminderCommandParser" as AddReminderCommandParser LOGIC_COLOR
 participant "a:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,39 +17,50 @@ participant "deadline:Date" as Date LOGIC_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("reminder d/today m/Pay bill")
+[-> LogicManager : execute("reminder add d/today m/Pay bill")
 activate LogicManager
 
-LogicManager -> SpendingBookParser : parseCommand("reminder d/today m/Pay bill")
+LogicManager -> SpendingBookParser : parseCommand("reminder add d/today m/Pay bill")
 activate SpendingBookParser
 
+create ReminderCommandParser
+SpendingBookParser -> ReminderCommandParser
+activate ReminderCommandParser
+
+
+ReminderCommandParser --> SpendingBookParser
+deactivate ReminderCommandParser
+
+SpendingBookParser -> ReminderCommandParser : parse("add d/today m/Pay bill")
+activate ReminderCommandParser
+
 create AddReminderCommandParser
-SpendingBookParser -> AddReminderCommandParser
+ReminderCommandParser -> AddReminderCommandParser
 activate AddReminderCommandParser
 
-AddReminderCommandParser --> SpendingBookParser
+AddReminderCommandParser --> ReminderCommandParser
 deactivate AddReminderCommandParser
 
-SpendingBookParser -> AddReminderCommandParser : parse("d/today m/Pay bill")
+ReminderCommandParser -> AddReminderCommandParser : parse("d/today m/Pay bill")
 activate AddReminderCommandParser
 
-create Reminder
-AddReminderCommandParser -> Reminder
-activate Reminder
-
 create ReminderMessage
-Reminder -> ReminderMessage
+AddReminderCommandParser -> ReminderMessage
 activate ReminderMessage
 
-ReminderMessage --> Reminder : m
+ReminderMessage --> AddReminderCommandParser : m
 deactivate ReminderMessage
 
 create Date
-Reminder -> Date
+AddReminderCommandParser -> Date
 activate Date
 
-Date --> Reminder : deadline
+Date --> AddReminderCommandParser : deadline
 deactivate Date
+
+create Reminder
+AddReminderCommandParser -> Reminder : m, deadline
+activate Reminder
 
 Reminder --> AddReminderCommandParser : r
 deactivate Reminder
@@ -60,11 +72,17 @@ activate AddReminderCommand
 AddReminderCommand --> AddReminderCommandParser : a
 deactivate AddReminderCommand
 
-AddReminderCommandParser --> SpendingBookParser : a
+AddReminderCommandParser --> ReminderCommandParser : a
 deactivate AddReminderCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddReminderCommandParser -[hidden]-> AddReminderCommandParser
+AddReminderCommandParser -[hidden]-> ReminderCommandParser
 destroy AddReminderCommandParser
+
+ReminderCommandParser --> SpendingBookParser : a
+deactivate ReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ReminderCommandParser -[hidden]-> SpendingBookParser
+destroy ReminderCommandParser
 
 SpendingBookParser --> LogicManager : a
 deactivate SpendingBookParser

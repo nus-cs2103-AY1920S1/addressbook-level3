@@ -7,13 +7,13 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete 1"
+user -[USER_COLOR]> ui : "reminder add d/today m/Pay bill"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("delete 1")
+ui -[UI_COLOR]> logic : execute("reminder add d/today m/Pay bill")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteSpending(s)
+logic -[LOGIC_COLOR]> model : addReminder(r)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
@@ -22,7 +22,7 @@ deactivate model
 logic -[LOGIC_COLOR]> storage : saveSpendingBook(spendingBook)
 activate storage STORAGE_COLOR
 
-storage -[STORAGE_COLOR]> storage : Save to file
+storage -[STORAGE_COLOR]> storage : Save to file \n(moneygowhere.json)
 activate storage STORAGE_COLOR_T1
 deactivate storage
 

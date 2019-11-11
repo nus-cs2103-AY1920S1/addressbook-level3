@@ -2,7 +2,6 @@ package seedu.moneygowhere.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.budget.Budget;
@@ -26,13 +25,13 @@ public class BudgetCommand extends Command {
 
     //Budget must be valid
     public BudgetCommand(Budget budget) {
+        requireNonNull(budget);
         this.budget = budget;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
 
         Currency currencyInUse = model.getCurrencyInUse();
 
@@ -41,12 +40,6 @@ public class BudgetCommand extends Command {
 
         if (!model.getCurrencyInUse().name.equalsIgnoreCase("SGD")) {
             budget = new Budget(budgetAmount / currencyInUse.rate);
-        }
-
-        if (budget.getAmount() < 0 || budget.getAmount() > 1000000000
-                // to prevent user input of 0.0000001, which is displayed as 0
-                || (budget.getAmount() != 0 && budget.getAmount() < 0.01)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_BUDGET_AMOUNT);
         }
 
         model.setBudgetAmount(budget);

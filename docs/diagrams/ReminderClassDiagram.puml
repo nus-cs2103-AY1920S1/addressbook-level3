@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+
+Package Reminder {
+class Reminder
+class ReminderMessage
+enum ReminderType <<Enumeration>>
+}
+
+Package Spending {
+class Date
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Reminder
+Reminder *--> ReminderMessage
+Reminder *--> Date
+Reminder *--> ReminderType
+
+@enduml

@@ -167,7 +167,7 @@ no text will be displayed.
 
 === Adding a spending : `add`
 
-Adds a spending to the list when the user incurs a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
+Adds a spending to the list when you incur a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
 
 *Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
@@ -388,12 +388,22 @@ All available exchange rates are shown, or a conversion of an input currency is 
 // tag::budget[]
 === Setting monthly budget : `budget`
 Sets a budget for the current month in the currency set . +
-The monthly budget cannot exceed 1,000,000,000 Singapore Dollars. +
-
 *Format:* `budget MONTHLY_BUDGET` +
 
+****
+* The monthly budget must be a valid number.
+* The monthly budget amount cannot exceed 1,000,000,000 Singapore Dollars.
+* The monthly budget amount can only have at most 2 digits after the decimal point, regardless if it is trailing zeroes.
+** Examples of valid budget amount:
+*** 20
+*** 100.01
+** Examples of invalid budget amount:
+*** 100.00000
+*** 0.0001
+****
+
 [NOTE]
-Existing budget of current month is overwritten if budget has already been set.
+Using the `budget` command  will overwrite the currently set budget.
 
 *Example:*
 
@@ -518,12 +528,17 @@ A graph is shown.
 
 === Adding a reminder: `reminder add`
 
-Adds a reminder to the reminder list when the user enters a new reminder. Key information such as deadline and message are recorded.
+Adds a reminder to the reminder list when you enters a new reminder. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
+****
+* Your reminders are sorted based on how close they are to their respective deadline.
+* The closer it is to the deadline, the higher position it takes in the reminder list.
+****
+
 [NOTE]
-The date of the deadline in a reminder must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
+Please ensure that the date of the deadline must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
 
 *Examples:*
 
@@ -713,7 +728,7 @@ The most recent undo command is reversed.
 
 //tag::clear[]
 === Clear all data : `clear`
-Clears all entries from the application. +
+You can clear all your saved data from this application using this command. +
 *Format:* `clear`
 
 [NOTE]
