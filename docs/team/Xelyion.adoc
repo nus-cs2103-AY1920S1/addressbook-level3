@@ -1,0 +1,62 @@
+= Xelyion - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+Teacher's Notebook is a desktop application designed for teachers to manage their busy schedules, by aiding the the tasks of
+ managing classrooms, students, and assignments. There is also a reminder function to alert the user to upcoming lessons.
+ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to manage classrooms with the Notebook class*
+** What it does:
+** Justification: This feature improves the product significantly because a user can have more than one classroom of students, and
+have different assignments for each classroom.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis
+ of existing structure and relations between existing classes. The implementation too was challenging as it required changes
+ to the entire structure of the application, from logic and commands to storage.
+
+* *Minor enhancement*: Added color to indicate selection of classrooms
+* *Code contributed*:
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.3rc` (4 releases) on GitHub
+*** Gave comments to peers before merging PRs.
+*** Helped to merge and fix some merge conflicts among the PRs in the team
+** Enhancements to existing features:
+*** Added the ability to
+** Community:
+*** PRs reviewed (with non-trivial review comments)
+*** Reported bugs and suggestions for other teams in the class
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=assignments]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
