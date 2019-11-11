@@ -3,6 +3,7 @@ package dream.fcard.gui.controllers.displays.createandeditdeck;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
@@ -12,6 +13,8 @@ import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
+
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -35,6 +38,7 @@ public class EditDeckDisplay extends VBox {
     private VBox cardCreatingPane;
 
     private int numCards;
+    private Logger logger = LogsCenter.getLogger(EditDeckDisplay.class);
 
     public EditDeckDisplay(Deck deck) {
         try {
@@ -68,8 +72,10 @@ public class EditDeckDisplay extends VBox {
                 if (!name.isBlank()) {
                     int index = StateHolder.getState().hasDeckName(name);
                     if (index == -1 || index == currentIndex) {
+                        logger.info("Renaming deck from :" + oldName + " to:" + name);
                         deck.setDeckName(name);
                         StatsHolder.getDeckStats().renameDeck(oldName, name);
+                        StorageManager.deleteDeck(deck);
                     } else {
                         //@@auth AHaliq
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deck name edit: invalid name.");
