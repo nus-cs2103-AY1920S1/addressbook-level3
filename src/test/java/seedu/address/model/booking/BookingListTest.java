@@ -105,6 +105,7 @@ public class BookingListTest {
         });
     }
 
+    /*
     @Test
     public void setBooking_editedBookingHasNonUniqueIdentity_throwsDuplicateExpenseException() {
         BookingList bookingList = new BookingList();
@@ -114,6 +115,7 @@ public class BookingListTest {
             assertThrows(DuplicateBookingException.class, () -> bookingList.set(BOOKING_A, BOOKING_B));
         });
     }
+    */
 
     @Test
     public void remove_nullExpense_throwsNullPointerException() {

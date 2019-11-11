@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.isAllPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class EditBookingsFieldCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CONTACT + "CONTACT] "
+            + "[" + PREFIX_BUDGET + "BUDGET] "
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_CONTACT + "10";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field must be provided!";
@@ -145,7 +147,7 @@ public class EditBookingsFieldCommand extends Command {
          * @throws NullPointerException If any of the fields are empty.
          */
         public Booking buildBooking() {
-            if (isAllPresent(name, contact)) {
+            if (isAllPresent(name, contact, budget)) {
                 return new Booking(name.get(), contact.get(), budget.get()) {
                 };
             } else {
@@ -184,7 +186,7 @@ public class EditBookingsFieldCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(name, contact);
+            return CollectionUtil.isAnyPresent(name, contact, budget);
         }
 
 
@@ -255,15 +257,17 @@ public class EditBookingsFieldCommand extends Command {
             EditBookingsDescriptor e = (EditBookingsDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getContact().equals(e.getContact());
+                    && getContact().equals(e.getContact())
+                    && getBudget().equals(e.getBudget());
         }
 
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
 
-            this.name.ifPresent(name -> builder.append(" Name of expenditure: ").append(name));
-            this.contact.ifPresent(budget -> builder.append(" Total Budget: ").append(contact));
+            this.name.ifPresent(name -> builder.append(" Name of booking: ").append(name));
+            this.contact.ifPresent(contact -> builder.append(" Contact of the booking: ").append(contact));
+            this.budget.ifPresent(budget -> builder.append(" Total Budget: ").append(budget));
 
             return builder.toString();
         }
