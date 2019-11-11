@@ -503,7 +503,7 @@ Deletes the 12th repeater in the current list. This also deletes the transaction
 
 ==== Finding repeater: `find`
 
-Format: `find [KEYWORDS]`
+Format: `find [KEYWORDS]...`
 
 You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
 
@@ -861,7 +861,7 @@ Displays expenditure ranking chart for July 2019.
 * *Repeater Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 * *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 * *Repeater Delete* : `delete INDEX`
-* *Repeater Filter* : `find KEYWORD [MORE_KEYWORDS]`
+* *Repeater Find* : `find [KEYWORDS]...`
 * *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
 * *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
 * *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
