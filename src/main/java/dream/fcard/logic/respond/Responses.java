@@ -468,7 +468,8 @@ public enum Responses {
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deleted deck " + deckName);
 
                             Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
-                            Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+                            Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK,
+                                    StateHolder.getState().getDecks().size());
 
                             return true;
 
