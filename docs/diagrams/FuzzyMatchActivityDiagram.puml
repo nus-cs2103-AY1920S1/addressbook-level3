@@ -1,0 +1,20 @@
+@startuml
+start
+:Retreive list of keywords for each prefix      ;
+while () is ([has next person in inputList])
+:Retrieve next person in inputList     ;
+if () then ([no keywords present]      )
+:Set person's combinedLevenshteinDistance
+to exceed threshold                                                  ;
+else (     [else])
+:Calculate minimum combinedLevenshteinDistance between
+person's attributes and input keywords                                                ;
+:Set person's combinedLevenshteinDistance
+to the calculated minimum                                      ;
+endif
+endwhile ([else])
+:Remove persons with combinedLevenshteinDistance greater than threshold           ;
+:Sort persons according to ascending combinedLevenshteinDistance            ;
+:Return sorted list  ;
+stop
+@enduml

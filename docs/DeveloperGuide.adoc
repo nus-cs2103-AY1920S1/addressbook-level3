@@ -473,11 +473,13 @@ This section will explain the reason for having some aspects.
 This section explains the implementation of the find persons by attributes feature.
 
 ==== Current Implementation
-The find feature is facilitated by `FindCommand` and `PersonContainsPrefixesPredicate`. +
+The find feature is facilitated by `FindCommand`, `ExactFindCommand` and `PersonContainsPrefixesPredicate`. +
 
 ===== FindCommand
 
-`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
+
+===== ExactFindCommand
+`ExactFindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
 displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
 `model.filteredPersons` with the input predicate of `FindCommand`, which triggers an update *INSERT JAVAFX STUFF. +
 
@@ -488,12 +490,17 @@ TODO
 TODO
 
 ===== Execution Behaviour
-The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>. Therefore,
-this section will gloss over higher-level details and instead zoom-in to the behaviour of `FindCommand#execute`.
+The behaviour of `FindCommand` and `ExactFindCommand` is consistent with that of other commands as described in
+<<Design-Logic>>. Therefore, this section will gloss over higher-level details and instead zoom-in to the behaviour of
+`FindCommand#execute` and `ExactFindCommand#execute.
+
+====== FindCommand Execution
+
+====== ExactFindCommand Execution
 
 Given below is an example usage scenario and the behaviour of `#execute` at each step. +
 
-Step 1: The user inputs a find command, e.g. `find n/Alice Carl Elle t/doctor donor`. It is parsed by
+Step 1: The user inputs a find command, e.g. `find n/Marisha Rey n/Laura t/doctor t/donor`. It is parsed by
 `FindCommandParser` and used to create an `ArgumentMultimap`: `argMultimap`.
 
 Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` object: `predicate`.
@@ -501,7 +508,11 @@ Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` 
 Step 3: `predicate` is used to initialize a `FindCommand` object. `#execute` is then called on it.
 
 Step 4: `#execute` calls the `#updateFilteredPersonList` of the current `Model` which causes it's
-`FilteredList<Person>`: `filteredPersons` to automatically remove `persons` that fail `predicate#test`.
+`FilteredList<Person>`: `filteredPersons` to automatically filter out `persons` that fail `predicate#test`.
+
+Step 5: `#updateFilteredPersonList` calls `#setDisplayedPersonList`.
+
+Additional UI logic occurs but is not relevant in the scope of this explanation.
 
 The following sequence diagram illustrates steps x to y: +
 

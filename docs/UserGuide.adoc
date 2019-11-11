@@ -339,6 +339,7 @@ For example, you cannot change a doctor's age because a doctor does not have tha
 You might want to refer to <<List of Attributes>> to see what attributes are applicable to each type of person in ORGANice.
 // end::edit[]
 
+// tag::find[]
 === Finding persons by attributes: `find`
 
 You can use the `find` command to search for persons whose attributes match your input keywords. A list of matching
@@ -346,14 +347,14 @@ persons along with the number of exact and possible matches will be displayed. +
 
 Format: `find __PREFIX__/__KEYWORD__ (__PREFIX__/__KEYWORD__...)`
 
-Optional parameters: Multiple __keyword__s per __prefix__, multiple __prefixe__s in the same find command.
+Optional parameters: Multiple __keyword__s per __prefix__, multiple __prefix__es in the same find command.
 
 [TIP]
 You may wish to reference <<List of Attributes>>, to view the list of available prefixes to search by.
 
 The find command is **case insensitive** and performs **OR** matching within a prefix and **AND** matching between
-prefixes. It also matches similar looking words to account for possible typos in your keywords. The following example illustrates
-these concepts:
+prefixes. It also matches similar looking words to account for possible typos in your keywords. The following example
+illustrates these concepts:
 
 .Find command with multiple prefixes and multiple keywords per prefix.
 image::findByPrefix.png[width="790"]
@@ -382,7 +383,7 @@ __Use case demonstrating tissue type finding__ +
 Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order.
 
 [TIP]
-Looking for exact matches? No problem! Just replace `find` with `exactFind`!
+Looking for exact matches only? No problem! Just replace `find` with `exactFind`!
 
 That's it for this section. Congratulations, you now know how to use the `find` command!
 // end::find[]

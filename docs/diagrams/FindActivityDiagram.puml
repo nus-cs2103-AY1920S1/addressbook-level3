@@ -1,0 +1,9 @@
+@startuml
+start
+:user executes find command     ;
+:identify prefixes and keywords to search by        ;
+:find exact matches   ;
+:find fuzzy matches   ;
+:display exact followed by fuzzy matches     ;
+stop
+@enduml
