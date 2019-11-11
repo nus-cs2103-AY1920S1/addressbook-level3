@@ -55,6 +55,7 @@ activate Model
 Model --> MassApprove
 deactivate Model
 
+loop For all valid appeal IDs
 MassApprove -> Model : getFullStudentList()
 activate Model
 
@@ -67,6 +68,31 @@ activate Model
 Model --> MassApprove
 deactivate Model
 
+MassApprove -> Model : setStudent()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : setModule()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : updateFilteredStudentList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+MassApprove -> Model : updateFilteredModuleList()
+activate Model
+
+Model --> MassApprove
+deactivate Model
+
+end
 create CommandResult
 MassApprove -> CommandResult
 activate CommandResult
