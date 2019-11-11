@@ -1,0 +1,21 @@
+@startuml
+!include ../style2.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package CcaProgress {
+    Class CcaProgress
+    Class SportProgress
+    Class PerformingArtProgress
+    Class UniformedGroupProgress
+    Class ClubProgress
+
+}
+
+CcaProgress <|-- SportProgress
+CcaProgress <|-- PerformingArtProgress
+CcaProgress <|-- UniformedGroupProgress
+CcaProgress <|-- ClubProgress
+
+@enduml
