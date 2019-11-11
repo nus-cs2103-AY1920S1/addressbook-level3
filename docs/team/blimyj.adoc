@@ -1,11 +1,14 @@
 = Bryan Lim Yan Jie - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == PROJECT: ELISA
 
-== Overview
+== Introduction
 
 My team of 5 were tasked with morphing or enhancing a basic command line interace (CLI) desktop address book application for our Software Engineering Project.
 
@@ -44,7 +47,7 @@ In this section, I will be briefly going through my contributions to this team p
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3.5` (5 releases, excluding `v1.3.4`) on GitHub
+*** Managed releases `v1.1` - `v1.4` (6 releases, excluding `v1.3.4`) on GitHub
 *** Managed team meetings & agendas. (Week 4-10)
 *** Managed bug allocation for PE.
 *** Managed Github team repo. (Setting up of branch protection & tools mentioned below)
