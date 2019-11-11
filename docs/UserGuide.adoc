@@ -902,7 +902,8 @@ do so.
 == Command Summary
 
 . Expenses, Income, Budget, Category:
-.. add typ/Expense c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
+.. addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]
+.. editExpense c
 .. add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
 .. edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]
 .. delete <index>

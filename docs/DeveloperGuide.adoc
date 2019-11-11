@@ -144,24 +144,14 @@ The `Storage`
 * This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, TrackerReminder, etc.)
 * DateReminder data are stored in Entry data.
 
-[[Design-Statistics]]
-=== Statistics component
-
-.Structure of the Statistics Component
-image::StatisticsClass.png[]
-
-.  `Statistics` contains an ObservableMap of `MonthList` class.
-.  `MonthList` contains an ObservableMap of `DailyList` class.
-.  `DailyList` contains an ObservableMap of `CategoryList` class.
-.  These lists are populated when the guiltTrip() is started up and the content is retrieved from Storage.
-.  Any added entries are updated in the `CategoryList` and `DailyList` classes.
-
 == Implementation
 This section describes some details on how certain features are implemented.
 
+// tag::Categories[]
+
 === Data Presentation: Categories
 ==== Implementation
-image::CategoryListClassDiagram[]
+image::CategoryListClassDiagram.png[]
 
 For all entries in guiltTrip, the entries should always belong to one category.
 Creation of categories are also helpful for breakdown of statistics to be complete.
@@ -174,14 +164,16 @@ the application will load the default set of `Category` by `SampleDataUtil#getSa
 
 There are 2 main checks to be carried out when interacting with `Category`.
 
-* When adding and editing a `Category`, there is a need to check that the new Category added does not
+* When adding a Category, there is a need to check that the new Category added does not
 exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)`.
+* When editing a `Category`, there is a need to check that the new Category added does not
+exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)` as well as a need to check
+if there are existing entries of the original `Category` to carry out modifications on them.
 * When deleting a `Category`, there is a need to check if there are any entries that have the `Category` as a field.
 
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
 image::EditingCategory.png[]
-
 
 As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
 
@@ -338,7 +330,7 @@ showing the user what category of spending increases across the months. For exam
 category Entertainment increased the most in the past months.
 * Bar Chart can be further improved to show analysis of breakdown of category by day and observe trends for the user.
 For example, it could notice that the user has been spending a lot every Tuesday and alert the user about it.
-
+// end::Categories[]
 === Toggle Panel Command
 
 ==== Implementation
