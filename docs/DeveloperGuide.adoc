@@ -190,7 +190,7 @@ This section describes some noteworthy details on how certain features are imple
 === Add feature
 ==== Implementation
 
-The add feature allows the user to add flashcard with compulsory field of `QUESTION` and `ANSWER`. `CATEGORY` is optional fields which the user can add to the flashcard later using the `edit` feature.
+The `add` feature allows the user to add `FlashCard`(s) with compulsory field of `QUESTION` and `ANSWER`. `CATEGORY` are optional fields which the user can add to the flashcard later using the `edit` feature.
 
 [NOTE]
 Following are the prefixes for each field: +
@@ -223,9 +223,9 @@ image::AddActivityDiagram.png[width="300"]
 * **Alternative 1(current choice):** Use command `add` together with
 prefixes like `q>`, `a>` and `c>`
 ** pros: Easier to implement and easier to process the data.
-** cons: User might miss the prefixes hence adding wrong FlashCards
+** cons: User might miss the prefixes hence adding wrong `FlashCard`(s)
 * **Alternative 2:** Make use of the GUI. After user execute `add` command,
- an **add flash card window** would pop up and there is segment for individual fields.
+ an **add `FlashCard` window** would pop up and there is segment for individual fields.
 ** pros: More user friendly and void user input error.
 ** cons: Harder to implement.
 
@@ -340,10 +340,6 @@ is added into the existing `UniqueDeadlineList`.
 Following are the prefixes for each field: +
 - `bad INDEX` +
 i.e. bad 2
-
-Given below is an example usage scenario of `bad INDEX` :
-
-The user executes `bad 2` to rate the second `FlashCard` in the list as "Bad".
 
 ==== Design considerations
 ===== Aspect: How to store "Bad" FlashCard in storage
