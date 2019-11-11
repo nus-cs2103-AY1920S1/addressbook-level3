@@ -31,11 +31,11 @@ Note the following symbols and formatting used in this document:
 [NOTE]
 This symbol indicates important information.
 
-`report` A grey highlight(called a monospace) indicates that this is a command that can be inputted into the command line and executed by the application.
+`report` : A grey highlight(called a monospace) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-*_ReportCommand_* Text that is bold and italicised indicates that the text is a Class or Object.
+*_ReportCommand_* : Text that is bold and italicised indicates that the text is a Class or Object.
 
-_Logic#getStatistics()_ Text that is italicised only indicates a method call of an Object(method name is indicated after the # symbol).
+_Logic#getStatistics()_ : Text that is italicised only indicates a method call of an Object(method name is indicated after the "#" symbol).
 
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the
@@ -44,7 +44,7 @@ team project.
 * *Major enhancement*: added *the ability to generate a Report*.
 ** What it does: creates a Report that displays the statistics calculated from the user's meal history for that particualar month.
 ** Justification: This feature gives purpose to the application as the user should be someone who wants to keep track of their calorie intake. By implementing this feature, the user is able to know their calorie intake for the month, as well as other statistics generated from it, whenever they want.
-** Highlights: As virtually any form of statistical data can be generated from a user's meal history, the scope of the data calculated and shown to the user is not exhaustive. The statistics chosen to be calculated are decided based on the user stories and use cases that our team has considered and is linked here.
+** Highlights: As virtually any form of statistical data can be generated from a user's meal history, the scope of the data calculated and shown to the user is not exhaustive. The statistics chosen to be calculated are decided based on the user stories and use cases that our team has considered.
 
 * *Minor enhancement*: added *automatic saving of the meal history of the user as a JavaScript Objection Notation(JSON) file*.
 ** What it does: The user's meal entries into CaloFit will be saved into a JSON file, allowing the user's meal history to be loaded upon starting up CaloFit.
