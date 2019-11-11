@@ -27,7 +27,7 @@ public class DisplayStatsCommand extends Command {
             .collect(Collectors.joining("\n", "", "\n"))
             + "Example: " + COMMAND_WORD + " timeline interval/month";
 
-    public static final String MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS = "Displayed statistics changed!";
+    public static final String MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS = "Displayed statistics changed to %s!";
 
     private final StatisticsFormat newFormat;
     private final StatisticsFormatOptions newOptions;
@@ -53,7 +53,7 @@ public class DisplayStatsCommand extends Command {
         model.setStatisticsFormat(newFormat);
         model.setStatisticsFormatOptions(newOptions);
 
-        return new CommandResult(MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_DISPLAYED_STATS_CHANGED_SUCCESS, newFormat.getName()));
     }
 
     @Override

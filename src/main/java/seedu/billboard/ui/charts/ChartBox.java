@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.billboard.commons.core.date.DateInterval;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.statistics.generators.BreakdownGenerator;
 import seedu.billboard.model.statistics.generators.HeatMapGenerator;
@@ -27,6 +28,7 @@ public class ChartBox extends UiPart<Region> {
 
     private ObservableList<Expense> expenses;
     private ObservableData<DateInterval> dateInterval;
+    private ObservableData<ExpenseGrouping> expenseGrouping;
     private ExpenseChart currentChart;
 
     public ChartBox(ObservableList<Expense> expenses, ObservableData<StatisticsFormat> statsType,
@@ -34,10 +36,13 @@ public class ChartBox extends UiPart<Region> {
         super(FXML);
         this.expenses = expenses;
         this.dateInterval = new ObservableData<>();
-        dateInterval.setValue(DateInterval.MONTH);
+        this.expenseGrouping = new ObservableData<>();
 
         statsType.observe(this::onStatsTypeChanged);
-        statsOptions.observe(options -> options.getNewDateInterval().ifPresent(dateInterval::setValue));
+        statsOptions.observe(options -> {
+            options.getNewDateInterval().ifPresent(dateInterval::setValue);
+            options.getNewGrouping().ifPresent(expenseGrouping::setValue);
+        });
     }
 
     /**
@@ -51,13 +56,13 @@ public class ChartBox extends UiPart<Region> {
 
         switch (type) {
         case TIMELINE:
-            currentChart = new ExpenseTimelineChart(expenses, dateInterval, new TimelineGenerator());
+            currentChart = new ExpenseTimelineChart(expenses, dateInterval, expenseGrouping, new TimelineGenerator());
             break;
         case BREAKDOWN:
-            currentChart = new ExpenseBreakdownChart(expenses, new BreakdownGenerator());
+            currentChart = new ExpenseBreakdownChart(expenses, expenseGrouping, new BreakdownGenerator());
             break;
         case HEAT_MAP:
-            currentChart = new ExpenseHeatMapChart(expenses, new HeatMapGenerator());
+            currentChart = new ExpenseHeatMapChart(expenses, expenseGrouping, new HeatMapGenerator());
             break;
         default:
             throw new UnsupportedOperationException("Chart not implemented for selected statistic");
