@@ -271,9 +271,7 @@ a|
 [[update]]
 ==== Updating an entity: `update`
 
-You can update the attributes of a body or worker by entering an update command with the given format below.. +
-
-You have to indicate the entity type you want to update with a flag, as described in <<Command Format>>.
+You can update the attributes of a body or worker by entering an update command. You have to indicate the entity type you want to update with a flag, as described in section 3.
 [TIP]
 `-f` is not a valid flag for this command. Fridges are automatically updated when bodies are assigned or removed.
 
@@ -357,8 +355,9 @@ To update Jane Doe's designation: +
 |===
 | Command | Expected Output
 
-| `update -w /id 1 /designation Senior Autopsy Technician`
-| Designation of Jane Doe changed to Senior Autopsy Technician.
+| `update -w /id 1 /designation Manager`
+| Output box shows: This entity was successfully updated. ID Number: W00001 +
+Dashboard shows: Jane Doe's designation was changed to Manager.
 |===
 // end::update[]
 
@@ -581,10 +580,10 @@ Format: `undo` or `u`
 The `add`, `update`, `clear`, and `delete` commands can be undone.
 Commands like `list` or `find` cannot be undone.
 
-Commands caused by automated commands, such as an `UpdateCommand` caused by `Notif` can be undone and redone.
-For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE`  is caused by an `UpdateCommand` and can be undone and redone. However, note that this feature does not support
-the `NotifCommand` itself. For example, if a `Body` was added and deleted before the `NotifCommand` associated with it has executed,
-undoing the deletion does not restore the `NotifCommand`.
+Commands caused by automated commands, such as an `update` command caused by a `Notif` can be undone and redone.
+For example, the automatic status change of a `Body` from `ARRIVED` to `CONTACT_POLICE` is caused by an `update` and can be undone and redone. However, note that this feature does not support
+the `Notif` itself. For example, if a `Body` was added and deleted before the `Notif` associated with it has executed,
+undoing the deletion does not restore the `Notif`.
 
 Though you can `undo` a `clear` command, note that you cannot redo any past undone commands after that.
 
