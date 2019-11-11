@@ -50,9 +50,11 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
 
         engine.setVariable("getAccounts", (ScriptBindingInterfaces.Void) this::scriptGetAccounts);
         engine.setVariable("getAccount", (ScriptBindingInterfaces.ObjectOnly) this::scriptGetAccount);
+        engine.setVariable("getShownAccounts", (ScriptBindingInterfaces.Void) this::scriptGetShownAccounts);
+        engine.setVariable("getShownAccount", (ScriptBindingInterfaces.IntOnly) this::scriptGetShownAccount);
         engine.setVariable("getActiveAccount", (ScriptBindingInterfaces.Void) this::scriptGetActiveAccount);
         engine.setVariable("setActiveAccount",
-                (ScriptBindingInterfaces.ObjectOnly) this::scriptSetActiveAccount);
+                (ScriptBindingInterfaces.IntOnly) this::scriptSetActiveAccount);
         engine.setVariable("addAccount", (ScriptBindingInterfaces.StringString) this::scriptAddAccount);
         engine.setVariable("morphAccount", (ScriptBindingInterfaces.AccountObjects) this::scriptMorphAccount);
         engine.setVariable("editAccount", (ScriptBindingInterfaces.ObjectObjects) this::scriptEditAccount);
@@ -128,6 +130,13 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     }
 
     /**
+     * Provides <code>getShownAccounts() -> List&lt;Account&gt;</code>.
+     */
+    private List<Account> scriptGetShownAccounts() throws Exception {
+        return model.getAccountsManager().getFilteredAccountList();
+    }
+
+    /**
      * Provides <code>getActiveAccount() -> Account</code>.
      */
     private Account scriptGetActiveAccount() throws Exception {
@@ -135,16 +144,12 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     }
 
     /**
-     * Provides <code>setActiveAccount(nameOrIndex) -> Account</code>.
+     * Provides <code>setActiveAccount(index) -> Account</code>.
      */
-    private Account scriptSetActiveAccount(Object nameOrIndex) throws Exception {
-        requireAllNonNull(nameOrIndex);
+    private Account scriptSetActiveAccount(int index) throws Exception {
+        model.getAccountsManager().setActiveAccountByIndex(Index.fromZeroBased(index));
 
-        Account toSet = scriptGetAccount(nameOrIndex);
-        int toSetIndex = model.getAccountsManager().getAccounts().indexOf(toSet);
-        model.getAccountsManager().setActiveAccountByIndex(Index.fromZeroBased(toSetIndex));
-
-        return toSet;
+        return model.getAccountsManager().getActiveAccount();
     }
 
     /**
@@ -161,6 +166,13 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
 
         throw new IllegalArgumentException(
                 "Expected integer or string, got " + nameOrIndex.getClass().getSimpleName());
+    }
+
+    /**
+     * Provides <code>getShownAccount(index) -> Account</code>.
+     */
+    private Account scriptGetShownAccount(int index) throws Exception {
+        return model.getAccountsManager().getFilteredAccountList().get(index);
     }
 
     /**
