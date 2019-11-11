@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: DukeCooks
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What is DukeCooks?
 
