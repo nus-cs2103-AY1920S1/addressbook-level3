@@ -5,9 +5,18 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager  " as LogicManager LOGIC_COLOR
 participant ":CardBookParser  " as CardBookParser LOGIC_COLOR
 participant ":AddCardCommandParser    " as AddCardCommandParser LOGIC_COLOR
-participant "ParserUtil " as ParserUtil LOGIC_COLOR
-participant "ExpiryDate " as ExpiryDate LOGIC_COLOR
-participant "e:ParseException  " as ParseException LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "ExpiryDate " as ExpiryDate MODEL_COLOR
+end box
+
+box Util STORAGE_COLOR
+participant "ParserUtil " as ParserUtil STORAGE_COLOR
+end box
+
+box ParseException LOGIC_COLOR_T2
+participant "e:ParseException  " as ParseException LOGIC_COLOR_T1
 end box
 
 [-> LogicManager : execute("add d/VisaPOSB\n v/4291728395018293 c/256 e/12/15")
