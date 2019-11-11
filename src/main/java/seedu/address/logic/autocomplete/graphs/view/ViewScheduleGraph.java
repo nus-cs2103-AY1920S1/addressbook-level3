@@ -1,14 +1,11 @@
-package seedu.address.logic.autocomplete.graphs.misc;
+package seedu.address.logic.autocomplete.graphs.view;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.autocomplete.edges.AutoCompleteEdge;
+import seedu.address.logic.autocomplete.graphs.Edge;
 import seedu.address.logic.autocomplete.graphs.GraphWithStartNode;
-import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
-import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.autocomplete.nodes.schedule.ScheduleDateNode;
 import seedu.address.model.Model;
 import seedu.address.model.schedule.Schedule;
@@ -19,18 +16,16 @@ import seedu.address.model.schedule.Schedule;
 public class ViewScheduleGraph extends GraphWithStartNode {
 
     public ViewScheduleGraph(Model model) {
-        super(model);
+        super();
+        initialise(model);
     }
 
-    @Override
-    protected void build(Model model) {
+    private void initialise(Model model) {
         List<Schedule> scheduleList = model.getFilteredScheduleList();
-        AutoCompleteNode<?> viewScheduleStartNode = EmptyAutoCompleteNode.getInstance();
-        setStartingNode(viewScheduleStartNode);
         ScheduleDateNode scheduleDateNode = new ScheduleDateNode(scheduleList);
-        edgeList.addAll(Arrays.asList(
-                new AutoCompleteEdge<>(PREFIX_DATE, viewScheduleStartNode, scheduleDateNode)
-        ));
+        addEdges(
+                new Edge<>(PREFIX_DATE, startingNode, scheduleDateNode)
+        );
     }
 
 }

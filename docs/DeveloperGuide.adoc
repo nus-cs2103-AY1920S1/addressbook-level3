@@ -384,26 +384,42 @@ class.
 image::AutoCompleteClassDiagram.png[]
 image::GraphsClassDiagram.png[]
 image::NodesClassDiagram.png[]
-image::AutoCompleteSequenceDiagram.png[]
 
 ==== Current Implementation
 
-This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
+This feature is visible in the UI as a dropdown menu when the user types
+into the command box.
 
 ===== How the UI works
 
-The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
-This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
-For all predefined strings that matches the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's
+`TextField`. It stores a reference to a `SortedSet` of strings. When the input is
+changed, it automatically compares the input with this set of suggestions. If any
+suggestion is contained in the input, it will be further compared with other
+suggestions to determine which suggestion is more similar to the input. The degree of
+similarity is determined by the index of the first character of the matching region.
+
+For example, <insert picture>
+
+The lower the index, the more similar the suggestion is.
+
+In order to customize the suggestions to fit different inputs, the `CommandBox`
+attaches a listener to the `AutoCompleteTextField`. When the text is changed, the
+`CommandBox` will extract the entered text and query the `LogicManager` for a set
+of suggestions. The query process will be elaborated on below. This sequence diagram
+is a high level example of the logic.
+
+image::AutoCompleteSequenceDiagram.png[]
 
 ===== The underlying data structures
 
 This feature was designed to display values that are currently in the `Model`.
 
-For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
+For example, the input text `add-c n/` would display a list of `CustomerName`
+that already exists in the `Customer` `DataBook`.
 
-In order to achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
-and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
+In order to achieve this, the first data structure used is a directed `Graph`
+with every `Node` storing a reference to a `List` in a `DataBook`.
 
 ===== Design Considerations
 

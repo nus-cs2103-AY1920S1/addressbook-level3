@@ -5,13 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.autocomplete.edges.AutoCompleteEdge;
+import seedu.address.logic.autocomplete.graphs.Edge;
 import seedu.address.logic.autocomplete.graphs.GraphWithStartNodeAndPreamble;
-import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
-import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.autocomplete.nodes.schedule.ScheduleDateNode;
 import seedu.address.logic.autocomplete.nodes.schedule.ScheduleTagNode;
 import seedu.address.logic.autocomplete.nodes.schedule.ScheduleTimeNode;
@@ -25,41 +22,38 @@ import seedu.address.model.schedule.Schedule;
 public class EditScheduleGraph extends GraphWithStartNodeAndPreamble {
 
     public EditScheduleGraph(Model model) {
-        super(model);
+        super(model.getFilteredScheduleList());
+        initialise(model);
     }
 
-    @Override
-    protected void build(Model model) {
+    private void initialise(Model model) {
         List<Schedule> scheduleList = model.getFilteredScheduleList();
-        setDataList(scheduleList);
-        AutoCompleteNode<?> editScheduleStartNode = EmptyAutoCompleteNode.getInstance();
-        setStartingNode(editScheduleStartNode);
         ScheduleDateNode scheduleDateNode = new ScheduleDateNode(scheduleList);
         ScheduleVenueNode scheduleVenueNode = new ScheduleVenueNode(scheduleList);
         ScheduleTimeNode scheduleTimeNode = new ScheduleTimeNode(scheduleList);
         ScheduleTagNode scheduleTagNode = new ScheduleTagNode(scheduleList);
-        edgeList.addAll(Arrays.asList(
-                new AutoCompleteEdge<>(PREFIX_DATE, editScheduleStartNode, scheduleDateNode),
-                new AutoCompleteEdge<>(PREFIX_TIME, editScheduleStartNode, scheduleTimeNode),
-                new AutoCompleteEdge<>(PREFIX_VENUE, editScheduleStartNode, scheduleVenueNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, editScheduleStartNode, scheduleTagNode),
-                new AutoCompleteEdge<>(PREFIX_DATE, scheduleDateNode, scheduleDateNode),
-                new AutoCompleteEdge<>(PREFIX_TIME, scheduleDateNode, scheduleTimeNode),
-                new AutoCompleteEdge<>(PREFIX_VENUE, scheduleDateNode, scheduleVenueNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, scheduleDateNode, scheduleTagNode),
-                new AutoCompleteEdge<>(PREFIX_DATE, scheduleTimeNode, scheduleDateNode),
-                new AutoCompleteEdge<>(PREFIX_TIME, scheduleTimeNode, scheduleTimeNode),
-                new AutoCompleteEdge<>(PREFIX_VENUE, scheduleTimeNode, scheduleVenueNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, scheduleTimeNode, scheduleTagNode),
-                new AutoCompleteEdge<>(PREFIX_DATE, scheduleVenueNode, scheduleDateNode),
-                new AutoCompleteEdge<>(PREFIX_TIME, scheduleVenueNode, scheduleTimeNode),
-                new AutoCompleteEdge<>(PREFIX_VENUE, scheduleVenueNode, scheduleVenueNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, scheduleVenueNode, scheduleTagNode),
-                new AutoCompleteEdge<>(PREFIX_DATE, scheduleTagNode, scheduleDateNode),
-                new AutoCompleteEdge<>(PREFIX_TIME, scheduleTagNode, scheduleTimeNode),
-                new AutoCompleteEdge<>(PREFIX_VENUE, scheduleTagNode, scheduleVenueNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, scheduleTagNode, scheduleTagNode)
-        ));
+        addEdges(
+                new Edge<>(PREFIX_DATE, startingNode, scheduleDateNode),
+                new Edge<>(PREFIX_TIME, startingNode, scheduleTimeNode),
+                new Edge<>(PREFIX_VENUE, startingNode, scheduleVenueNode),
+                new Edge<>(PREFIX_TAG, startingNode, scheduleTagNode),
+                new Edge<>(PREFIX_DATE, scheduleDateNode, scheduleDateNode),
+                new Edge<>(PREFIX_TIME, scheduleDateNode, scheduleTimeNode),
+                new Edge<>(PREFIX_VENUE, scheduleDateNode, scheduleVenueNode),
+                new Edge<>(PREFIX_TAG, scheduleDateNode, scheduleTagNode),
+                new Edge<>(PREFIX_DATE, scheduleTimeNode, scheduleDateNode),
+                new Edge<>(PREFIX_TIME, scheduleTimeNode, scheduleTimeNode),
+                new Edge<>(PREFIX_VENUE, scheduleTimeNode, scheduleVenueNode),
+                new Edge<>(PREFIX_TAG, scheduleTimeNode, scheduleTagNode),
+                new Edge<>(PREFIX_DATE, scheduleVenueNode, scheduleDateNode),
+                new Edge<>(PREFIX_TIME, scheduleVenueNode, scheduleTimeNode),
+                new Edge<>(PREFIX_VENUE, scheduleVenueNode, scheduleVenueNode),
+                new Edge<>(PREFIX_TAG, scheduleVenueNode, scheduleTagNode),
+                new Edge<>(PREFIX_DATE, scheduleTagNode, scheduleDateNode),
+                new Edge<>(PREFIX_TIME, scheduleTagNode, scheduleTimeNode),
+                new Edge<>(PREFIX_VENUE, scheduleTagNode, scheduleVenueNode),
+                new Edge<>(PREFIX_TAG, scheduleTagNode, scheduleTagNode)
+        );
     }
 
 }

@@ -6,30 +6,17 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 package Graphs {
 
-Interface Graph <<Interface>>
+Class "{abstract}\n Graph" as Graph
 Class "{abstract}\nAutoCompleteGraph" as AutoCompleteGraph
-Class "{abstract}\nGraphBuiltFromModel" as GraphBuiltFromModel
 Class "{abstract}\nGraphWithStartNode" as GraphWithStartNode
-Class "{abstract}\nGraphWithPreamble}" as GraphWithPreamble
-Class "{abstract}\nGraphWithStartNodeAndPreamble}" as GraphWithStartNodeAndPreamble
+Class "{abstract}\nGraphWithStartNodeAndPreamble" as GraphWithStartNodeAndPreamble
+Class Edge
 
 package Add {
 Class AddCustomerGraph
 Class AddOrderGraph
 Class AddPhoneGraph
 Class AddScheduleGraph
-}
-
-package Copy {
-Class CopyCustomerGraph
-Class CopyOrderGraph
-Class CopyPhoneGraph
-}
-
-package Delete {
-Class DeleteCustomerGraph
-Class DeletePhoneGraph
-Class DeleteScheduleGraph
 }
 
 package Edit {
@@ -39,55 +26,32 @@ Class EditPhoneGraph
 Class EditScheduleGraph
 }
 
-package Find {
-Class FindCustomerGraph
-Class FindOrderGraph
-Class FindPhoneGraph
+package Stats {
+Class GenerateStatsGraph
 }
 
-package Misc {
-Class CancelOrderGraph
-Class CompleteOrderGraph
-Class GenerateStatsGraph
+package View {
 Class ViewScheduleGraph
 }
 
 }
 
-AutoCompleteGraph .up.|> Graph
+AutoCompleteGraph -up|> Graph
+GraphWithStartNode -up|> AutoCompleteGraph
+GraphWithStartNodeAndPreamble -up|> GraphWithStartNode
 
-GraphBuiltFromModel -up-|> AutoCompleteGraph
-GraphWithStartNode -up-|> GraphBuiltFromModel
-GraphWithPreamble -up-|> GraphBuiltFromModel
-GraphWithStartNodeAndPreamble -up---|> GraphWithStartNode
+Graph *-left> "*" Edge
 
-AddCustomerGraph -up--|> GraphWithStartNode
-AddOrderGraph -up--|> GraphWithStartNode
-AddPhoneGraph -up--|> GraphWithStartNode
-AddScheduleGraph ---|> GraphWithStartNodeAndPreamble
+ViewScheduleGraph --|> GraphWithStartNode
+GenerateStatsGraph --|> GraphWithStartNode
+AddCustomerGraph --|> GraphWithStartNode
+AddPhoneGraph --|> GraphWithStartNode
+AddOrderGraph --|> GraphWithStartNode
 
-CopyCustomerGraph ---|> GraphWithPreamble
-CopyOrderGraph ---|> GraphWithPreamble
-CopyPhoneGraph ---|> GraphWithPreamble
-
-DeleteCustomerGraph ---|> GraphWithPreamble
-DeletePhoneGraph ---|> GraphWithPreamble
-DeleteScheduleGraph ---|> GraphWithPreamble
-
-EditCustomerGraph -up--|> GraphWithStartNodeAndPreamble
-EditOrderGraph -up--|> GraphWithStartNodeAndPreamble
-EditPhoneGraph -up--|> GraphWithStartNodeAndPreamble
-EditScheduleGraph -up--|> GraphWithStartNodeAndPreamble
-
-FindCustomerGraph ---|> GraphBuiltFromModel
-FindOrderGraph ---|> GraphBuiltFromModel
-FindPhoneGraph ---|> GraphBuiltFromModel
-
-CancelOrderGraph -up--|> GraphWithPreamble
-CompleteOrderGraph -up--|> GraphWithPreamble
-GenerateStatsGraph -up---|> GraphWithStartNode
-ViewScheduleGraph -up--|> GraphWithStartNode
-
-GraphWithPreamble -right[Hidden]-> GraphWithStartNode
+AddScheduleGraph --|> GraphWithStartNodeAndPreamble
+EditCustomerGraph --|> GraphWithStartNodeAndPreamble
+EditOrderGraph --|> GraphWithStartNodeAndPreamble
+EditScheduleGraph --|> GraphWithStartNodeAndPreamble
+EditPhoneGraph --|> GraphWithStartNodeAndPreamble
 
 @enduml

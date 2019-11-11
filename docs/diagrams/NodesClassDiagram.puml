@@ -4,8 +4,6 @@ skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
-'left to right direction
-
 package Nodes {
 Class "{abstract}\nNode" as Node
 Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode

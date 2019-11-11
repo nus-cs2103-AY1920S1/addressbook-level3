@@ -24,7 +24,8 @@ Class "{abstract}\nCommand" as Command
 }
 
 package AutoComplete {
-Interface AutoCompleteResultProvider <<Interface>>
+Class AutoCompleteResult
+Class AutoCompleteResultGenerator
 }
 
 Interface Logic <<Interface>>
@@ -69,7 +70,7 @@ Class StatisticsManager
 }
 
 StatisticsManager .up.|> Statistics
-CommandResult .right.> StatsPayload : contains >
+CommandResult .up.> StatsPayload : contains >
 XYZCommand .up.>StatsPayload : creates >
 Logic ..> CommandResult
 LogicManager .up.> Statistics
@@ -77,6 +78,8 @@ LogicManager .right.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
 
-Logic .down.> AutoCompleteResultProvider
+Logic .> AutoCompleteResult
+LogicManager *-> "1" AutoCompleteResultGenerator
+AutoCompleteResultGenerator .> AutoCompleteResult
 
 @enduml

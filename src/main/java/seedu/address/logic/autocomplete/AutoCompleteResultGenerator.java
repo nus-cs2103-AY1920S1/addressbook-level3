@@ -12,23 +12,24 @@ import seedu.address.logic.autocomplete.graphs.add.AddCustomerGraph;
 import seedu.address.logic.autocomplete.graphs.add.AddOrderGraph;
 import seedu.address.logic.autocomplete.graphs.add.AddPhoneGraph;
 import seedu.address.logic.autocomplete.graphs.add.AddScheduleGraph;
-import seedu.address.logic.autocomplete.graphs.copy.CopyCustomerGraph;
-import seedu.address.logic.autocomplete.graphs.copy.CopyOrderGraph;
-import seedu.address.logic.autocomplete.graphs.copy.CopyPhoneGraph;
-import seedu.address.logic.autocomplete.graphs.delete.DeleteCustomerGraph;
-import seedu.address.logic.autocomplete.graphs.delete.DeletePhoneGraph;
-import seedu.address.logic.autocomplete.graphs.delete.DeleteScheduleGraph;
+import seedu.address.logic.autocomplete.providers.simpleproviders.CopyCustomerProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.CopyOrderProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.CopyPhoneProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.DeleteCustomerProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.DeletePhoneProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.DeleteScheduleProvider;
 import seedu.address.logic.autocomplete.graphs.edit.EditCustomerGraph;
 import seedu.address.logic.autocomplete.graphs.edit.EditOrderGraph;
 import seedu.address.logic.autocomplete.graphs.edit.EditPhoneGraph;
 import seedu.address.logic.autocomplete.graphs.edit.EditScheduleGraph;
-import seedu.address.logic.autocomplete.graphs.find.FindCustomerGraph;
-import seedu.address.logic.autocomplete.graphs.find.FindOrderGraph;
-import seedu.address.logic.autocomplete.graphs.find.FindPhoneGraph;
-import seedu.address.logic.autocomplete.graphs.misc.CancelOrderGraph;
-import seedu.address.logic.autocomplete.graphs.misc.CompleteOrderGraph;
-import seedu.address.logic.autocomplete.graphs.misc.GenerateStatsGraph;
-import seedu.address.logic.autocomplete.graphs.misc.ViewScheduleGraph;
+import seedu.address.logic.autocomplete.providers.simpleproviders.CancelOrderProvider;
+import seedu.address.logic.autocomplete.providers.simpleproviders.CompleteOrderProvider;
+import seedu.address.logic.autocomplete.graphs.stats.GenerateStatsGraph;
+import seedu.address.logic.autocomplete.graphs.view.ViewScheduleGraph;
+import seedu.address.logic.autocomplete.providers.EmptyProvider;
+import seedu.address.logic.autocomplete.providers.FindCustomerProvider;
+import seedu.address.logic.autocomplete.providers.FindOrderProvider;
+import seedu.address.logic.autocomplete.providers.FindPhoneProvider;
 import seedu.address.model.Model;
 
 /**
@@ -53,39 +54,39 @@ public class AutoCompleteResultGenerator {
         // Customer commands
         providers.put("switch-c", EmptyProvider.getInstance());
         providers.put("add-c", new AddCustomerGraph(model));
-        providers.put("delete-c", new DeleteCustomerGraph(model));
-        providers.put("find-c", new FindCustomerGraph(model));
+        providers.put("delete-c", new DeleteCustomerProvider(model));
+        providers.put("find-c", new FindCustomerProvider(model));
         providers.put("list-c", EmptyProvider.getInstance());
         providers.put("clear-c", EmptyProvider.getInstance());
         providers.put("edit-c", new EditCustomerGraph(model));
-        providers.put("copy-c", new CopyCustomerGraph(model));
+        providers.put("copy-c", new CopyCustomerProvider(model));
 
         // Phone commands
         providers.put("switch-p", EmptyProvider.getInstance());
         providers.put("add-p", new AddPhoneGraph(model));
-        providers.put("delete-p", new DeletePhoneGraph(model));
-        providers.put("find-p", new FindPhoneGraph(model));
+        providers.put("delete-p", new DeletePhoneProvider(model));
+        providers.put("find-p", new FindPhoneProvider(model));
         providers.put("list-p", EmptyProvider.getInstance());
         providers.put("clear-p", EmptyProvider.getInstance());
         providers.put("edit-p", new EditPhoneGraph(model));
-        providers.put("copy-p", new CopyPhoneGraph(model));
+        providers.put("copy-p", new CopyPhoneProvider(model));
 
         // Order commands
         providers.put("switch-o", EmptyProvider.getInstance());
         providers.put("add-o", new AddOrderGraph(model));
-        providers.put("find-o", new FindOrderGraph(model));
-        providers.put("complete", new CompleteOrderGraph(model));
-        providers.put("cancel", new CancelOrderGraph(model));
+        providers.put("find-o", new FindOrderProvider(model));
+        providers.put("complete", new CompleteOrderProvider(model));
+        providers.put("cancel", new CancelOrderProvider(model));
         providers.put("list-o", EmptyProvider.getInstance());
         providers.put("clear-o", EmptyProvider.getInstance());
         providers.put("edit-o", new EditOrderGraph(model));
-        providers.put("copy-o", new CopyOrderGraph(model));
+        providers.put("copy-o", new CopyOrderProvider(model));
 
         // Schedule commands
         providers.put("switch-s", EmptyProvider.getInstance());
         providers.put("schedule", new ViewScheduleGraph(model));
         providers.put("add-s", new AddScheduleGraph(model));
-        providers.put("delete-s", new DeleteScheduleGraph(model));
+        providers.put("delete-s", new DeleteScheduleProvider(model));
         providers.put("edit-s", new EditScheduleGraph(model));
         providers.put("clear-s", EmptyProvider.getInstance());
 

@@ -5,13 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.autocomplete.edges.AutoCompleteEdge;
+import seedu.address.logic.autocomplete.graphs.Edge;
 import seedu.address.logic.autocomplete.graphs.GraphWithStartNode;
-import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
-import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.autocomplete.nodes.customer.CustomerContactNumberNode;
 import seedu.address.logic.autocomplete.nodes.customer.CustomerEmailNode;
 import seedu.address.logic.autocomplete.nodes.customer.CustomerNameNode;
@@ -25,25 +22,23 @@ import seedu.address.model.customer.Customer;
 public class AddCustomerGraph extends GraphWithStartNode {
 
     public AddCustomerGraph(Model model) {
-        super(model);
+        super();
+        initialise(model);
     }
 
-    @Override
-    protected void build(Model model) {
+    private void initialise(Model model) {
         List<Customer> customerList = model.getCustomerBook().getList();
-        AutoCompleteNode<?> addCustomerStartNode = EmptyAutoCompleteNode.getInstance();
-        setStartingNode(addCustomerStartNode);
         CustomerContactNumberNode customerContactNumberNode = new CustomerContactNumberNode(customerList);
         CustomerEmailNode customerEmailNode = new CustomerEmailNode(customerList);
         CustomerNameNode customerNameNode = new CustomerNameNode(customerList);
         CustomerTagNode customerTagNode = new CustomerTagNode(customerList);
-        edgeList.addAll(Arrays.asList(
-                new AutoCompleteEdge<>(PREFIX_NAME, addCustomerStartNode, customerNameNode),
-                new AutoCompleteEdge<>(PREFIX_CONTACT, customerNameNode, customerContactNumberNode),
-                new AutoCompleteEdge<>(PREFIX_EMAIL, customerContactNumberNode, customerEmailNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, customerEmailNode, customerTagNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, customerTagNode, customerTagNode)
-        ));
+        addEdges(
+                new Edge<>(PREFIX_NAME, startingNode, customerNameNode),
+                new Edge<>(PREFIX_CONTACT, customerNameNode, customerContactNumberNode),
+                new Edge<>(PREFIX_EMAIL, customerContactNumberNode, customerEmailNode),
+                new Edge<>(PREFIX_TAG, customerEmailNode, customerTagNode),
+                new Edge<>(PREFIX_TAG, customerTagNode, customerTagNode)
+        );
     }
 
 }
