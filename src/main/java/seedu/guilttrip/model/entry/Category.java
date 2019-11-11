@@ -8,7 +8,7 @@ import java.util.Arrays;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Represents a entry's Category in the guilttrip. Checking whether the category is valid is left to the various
+ * Represents a entry's Category in the GuiltTirp. Checking whether the category is valid is left to the various
  * commands.
  */
 public class Category {
@@ -36,7 +36,7 @@ public class Category {
      * is not in the existing lists if its a new Category to be added, and that it is in the existing list
      * if it's a Category created for Entry.
      *
-     * @param categoryName A valid  category name.
+     * @param categoryName A valid category name.
      * @param categoryTyp A valid category type.
      */
     public static Category parseCategory(String categoryName, String categoryTyp) {

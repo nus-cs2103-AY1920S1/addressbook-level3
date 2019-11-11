@@ -8,7 +8,6 @@ import seedu.guilttrip.model.tag.Tag;
  * Represents an Income.
  */
 public class Income extends Entry {
-
     private static final String ENTRY_TYPE = "Income";
 
     public Income(Category cat, Description desc, Date time, Amount amt, Set<Tag> tags) {

@@ -1,21 +1,22 @@
 package seedu.guilttrip.model.reminders.conditions;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.ui.reminder.ReminderListEntry;
 
 /**
- * Tells reminder when to activate. All types of conditions extend form this class.
+ * Tells generalReminder when to activate. All types of conditions extend form this class.
  * Functions as an observable.
  */
-public abstract class Condition {
+public abstract class Condition implements ReminderListEntry {
     private String conditionType;
     private Predicate<Entry> pred;
-    private PropertyChangeSupport support = new PropertyChangeSupport(this);
+    private ObservableSupport support = new ObservableSupport();
     private Entry beingAdded = null;
     private Entry beingRemoved = null;
     private final Logger logger = LogsCenter.getLogger(getClass());
@@ -44,9 +45,9 @@ public abstract class Condition {
      */
     public void addEntryUpdate(Entry entry) {
         if (pred.test(entry)) {
-            support.firePropertyChange("beingAdded", beingAdded, entry);
             logger.info("Entry added: condition met. Updating "
-                    + support.getPropertyChangeListeners().length + " reminder(s)");
+                    + support.getPropertyChangeListeners().size() + " generalReminder(s)");
+            support.firePropertyChange("beingAdded", beingAdded, entry);
             beingAdded = entry;
         }
     }
@@ -56,24 +57,24 @@ public abstract class Condition {
      */
     public void removeEntryUpdate(Entry entry) {
         if (pred.test(entry)) {
-            support.firePropertyChange("beingRemoved", beingRemoved, entry);
+            support.firePropertyChange("beingRemoved", null, entry);
             beingRemoved = entry;
         }
     }
-    public PropertyChangeSupport getSupport() {
+    public ObservableSupport getSupport() {
         return support;
     }
-    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+    public void addPropertyChangeListener(ListenerSupport pcl) {
         support.addPropertyChangeListener(pcl);
     }
-    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    public void removePropertyChangeListener(ListenerSupport pcl) {
         support.removePropertyChangeListener(pcl);
     }
     @Override
     public boolean equals(Object other) {
-        if (this instanceof ClassCondition) {
-            if (other instanceof ClassCondition) {
-                return this.equals(other);
+        if (this instanceof TypeCondition) {
+            if (other instanceof TypeCondition) {
+                return ((TypeCondition) this).equals((TypeCondition) other);
             } else {
                 return false;
             }

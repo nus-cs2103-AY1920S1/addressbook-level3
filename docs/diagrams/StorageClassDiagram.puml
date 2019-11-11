@@ -6,31 +6,31 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface GuiltTripStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonGuiltTripStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> GuiltTripStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .down.> JsonSerializableExpense
-JsonSerializableAddressBookStorage .down.> JsonSerializableIncome
-JsonSerializableAddressBookStorage .down.> JsonSerializableWish
-JsonSerializableAddressBookStorage .down.> JsonSerializableAutoExpenditure
-JsonSerializableAddressBookStorage .down.> JsonSerializableBudget
-JsonSerializableAddressBookStorage .down.> JsonSerializableTrackerReminder
+JsonGuiltTripStorage .left.|> GuiltTripStorage
+JsonGuiltTripStorage .down.> JsonSerializableGuiltTrip
+JsonSerializableGuiltTrip .down.> JsonSerializableExpense
+JsonSerializableGuiltTrip .down.> JsonSerializableIncome
+JsonSerializableGuiltTrip .down.> JsonSerializableWish
+JsonSerializableGuiltTrip .down.> JsonSerializableAutoExpenditure
+JsonSerializableGuiltTrip .down.> JsonSerializableBudget
+JsonSerializableGuiltTrip .down.> JsonSerializableTrackerReminder
 JsonSerializableExpense .down.> JsonAdaptedTag
 JsonSerializableIncome .down.> JsonAdaptedTag
 JsonSerializableWish .down.> JsonAdaptedTag
 JsonSerializableAutoExpenditure .down.> JsonAdaptedTag
 JsonSerializableTrackerReminder .down.> JsonAdaptedTag
-JsonSerializableAddressBudget .down.> JsonAdaptedTag
+JsonSerializableGuiltTrip .down.> JsonSerializableCategory
 JsonSerializableExpense .down.> JsonAdaptedDateReminder
 JsonSerializableIncome .down.> JsonAdaptedDateReminder
 JsonSerializableWish .down.> JsonAdaptedDateReminder

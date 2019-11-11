@@ -11,7 +11,6 @@ import seedu.guilttrip.model.tag.Tag;
  * Represents a Budget.
  */
 public class Budget extends Entry {
-
     private static final String ENTRY_TYPE = "Budget";
 
     private BudgetAmount spent;
@@ -41,9 +40,6 @@ public class Budget extends Entry {
 
     /**
      * Returns amount spent out of the budget.
-     *
-     * TODO: display on UI side panel with amount allocated to budget
-     *
      * @return amount Amount spent (calculated from expenses)
      */
     public BudgetAmount getSpent() {
@@ -89,7 +85,6 @@ public class Budget extends Entry {
         return new Budget(getCategory(), getDesc(), getDate(), period, getAmount(), getTags(), spent);
     }
 
-    //TODO HIGHLY LIKELY ERROR
     /**
      * Returns a new Budget if and only if it's category is edited.
      */

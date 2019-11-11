@@ -24,8 +24,13 @@ public class AutoExpenseUpdater extends Task<Void> {
      * Generates Expenses from AutoExpenses and update the GuiltTrip.
      */
     private void createExpensesFromAutoExpenses() {
+        boolean shouldCommit = !model.getFilteredAutoExpenses().stream().allMatch(AutoExpense::isUpToDate);
         for (AutoExpense autoExpense : model.getFilteredAutoExpenses()) {
             autoExpense.generateNewExpenses().stream().forEach(model::addExpense);
+        }
+
+        if (shouldCommit) {
+            model.commitGuiltTrip();
         }
     }
 

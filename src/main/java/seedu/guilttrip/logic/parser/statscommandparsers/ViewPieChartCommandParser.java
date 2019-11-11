@@ -7,7 +7,6 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_PERIOD;
 import java.util.List;
 
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
-import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.ParserUtil;
@@ -28,7 +27,7 @@ public class ViewPieChartCommandParser {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERIOD);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewTableCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewPieChartCommand.MESSAGE_USAGE));
         }
 
         List<Date> dateToParse = null;
@@ -37,7 +36,7 @@ public class ViewPieChartCommandParser {
             dateToParse = ParserUtil.parseStartAndEndPeriod(argMultimap.getValue(PREFIX_PERIOD).get());
             if (dateToParse.size() > 2) {
                 throw new ParseException(String.format(MESSAGE_INVALID_ARGUMENT_FORMAT,
-                        ViewTableCommand.MESSAGE_FAILURE));
+                        ViewPieChartCommand.MESSAGE_FAILURE));
             }
         }
 

@@ -34,11 +34,11 @@ public class AddCategoryCommand extends Command {
     private final Category toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code category}
      */
-    public AddCategoryCommand(Category entry) {
-        requireNonNull(entry);
-        toAdd = entry;
+    public AddCategoryCommand(Category category) {
+        requireNonNull(category);
+        toAdd = category;
     }
 
     /**

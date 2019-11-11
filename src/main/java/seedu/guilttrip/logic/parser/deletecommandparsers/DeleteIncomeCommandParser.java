@@ -9,7 +9,7 @@ import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new DeleteIncomeCommand object
  */
 public class DeleteIncomeCommandParser implements Parser<DeleteIncomeCommand> {
 

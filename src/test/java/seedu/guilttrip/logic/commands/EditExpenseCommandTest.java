@@ -141,7 +141,7 @@ public class EditExpenseCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of guilttrip book
+     * but smaller than size of GuiltTrip
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() {

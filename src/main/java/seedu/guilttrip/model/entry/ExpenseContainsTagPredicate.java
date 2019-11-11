@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Expense}'s {@code Tag} matches any of the keywords given.
  */
 public class ExpenseContainsTagPredicate implements Predicate<Expense> {
     private final Set<Tag> tags;

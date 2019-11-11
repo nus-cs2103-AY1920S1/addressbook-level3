@@ -1,0 +1,100 @@
+= John Doe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: GuiltTrip
+
+---
+
+== Overview
+
+GuiltTrip is a finance tracker application written in purely Java, and inherits the general structure of AddressBook -
+Level 3. It is created for the purpose of CS2103 Software Engineering module, AY19/20 Sem 1 in the National University
+of Singapore. This is a native JavaFX application that runs cross-platform on all major computer Operating Systems.
+
+The application is a Command-Line based finance tracker, with rich integration of statistical visualization
+tools, customizable User Interface (UI), expense automation and much more. It is designed for
+youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending,
+who are at the same time interested in a Command-Lined centric solution to their financial tracking needs.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *AutoSuggestion for any command input*
+
+** What it does: Intelligently suggest possible commands while a user is typing. It detects user input at every single
+    keystroke and suggests from the pool of commands, at a glance, unobtrusively and succinctly to the user. If a valid
+    command is detected, a help messaged is displayed to prompt user input of specific, suitable arguments.
+
+** Justification: The only feature needed for users to jump right into GuiltTrip and start using right away.
+    It provides rich and relevant feedback to the user. It makes the user guide serve its purpose - as a source of
+    reference should the user needs more information - otherwise the AutoSuggest feature is self-sufficient.
+
+** Highlights: This suggester is modular and other metrics can be easily used to improve the matching algorithm.
+    Currently a EditDistance metric is used to fetch the next few closest commands, and any other better metrics can be
+    implemented and plugged in right away.
+
+** Credits: _This feature is coded entirely from scratch. Inspired by https://en.wikipedia.org/wiki/Levenshtein_distance_
+    , https://github.com/junegunn/fzf[Unix Fuzzy File Finder] among others.
+
+* *Major enhancement 2*: added *the ability to automate Expense generation via the AutoExpense feature*
+
+** What it does: allows the user set recurring Expense that are generated every time the application, GuiltTrip starts
+    up. This provides great convenience that every targeted user would find useful as many Expenses recurred with a
+    fixed frequency, eg. Bills, Meals, School Fees, Membership fees and others.
+
+** Justification: This feature is essential for the application to be useful. Without it, manual generation of expenses
+    everyday is a laborious job and having to type repeated details day after day is not just laborious, but also
+    annoying. This feature provides convenience that is very practical to daily use, and is one that once a user tried
+    it could never turn back to an application without.
+** Highlights: This AutoExpense feature is customizable with user-set frequencies. User ergonomics is put in the first
+    place - abbreviations like `every day`, `daily`, `day`, `every night` are all allowed for making an AutoExpense
+    entry that recurs everyday.
+
+** Credits: _This feature is coded entirely from scratch._
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Managed issues and lead team in using the issues tracker and automated PR issues resolution.
+
+** Enhancements to existing features:
+*** Refactored code with consistent patterns that can implement a feature across different
+    command with a single method. (Eg. erroring in addcommands)
+
+** Documentation:
+*** Added CI/CD badges to website
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-4/main/pull/292[#292]
+** Tools:
+*** Integrated CI/CD tools to Github
+*** Enforced pushing rules on github - no push/force push to master
+*** Enforced "build pass before merging" rule
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=autosuggestion]
+
+include::../UserGuide.adoc[tag=autoexpense]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=qol]
+

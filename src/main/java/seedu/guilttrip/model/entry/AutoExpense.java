@@ -43,10 +43,12 @@ public class AutoExpense extends Entry {
         return lastTime;
     }
 
-    //TODO HIGHLY LIKELY ERROR
+    public boolean isUpToDate() {
+        return getNextTime().isAfter(Date.now());
+    }
 
     /**
-     * Returns a new Budget if and only if it's category is edited.
+     * Returns a new AutoExpense if and only if it's category is edited.
      */
     public AutoExpense modifiedAutoExpense(String newName) {
         Category newCategory = new Category(newName, super.getCategory().getCategoryType());
@@ -72,9 +74,6 @@ public class AutoExpense extends Entry {
 
     /**
      * Side effect - updates lastTime to getNextTime.
-     *
-     * @param date
-     * @return
      */
     private Expense generateNextExpense() {
         Expense expense = new Expense(getCategory(), getDesc(), getNextTime(), getAmount(), getTags());
@@ -84,18 +83,9 @@ public class AutoExpense extends Entry {
 
     /**
      * Gets the frequency.
-     *
-     * @return
      */
     public Frequency getFrequency() {
         return freq;
-    }
-
-    /**
-     * @param lastTime the lastTime to set
-     */
-    public void setLastTime(Date lastTime) {
-        this.lastTime = lastTime;
     }
 
     /**

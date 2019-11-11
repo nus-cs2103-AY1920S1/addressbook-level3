@@ -23,6 +23,7 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.storage.Storage;
@@ -64,7 +65,7 @@ public class LogicManager implements Logic {
         }
 
         if (guiltTripModified) {
-            logger.info("Finance tracker modified, saving to file");
+            logger.info("GuiltTrip modified, saving to file");
             try {
                 storage.saveGuiltTrip(model.getGuiltTrip());
             } catch (IOException ioe) {
@@ -128,6 +129,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<Reminder> getFilteredReminders() {
         return model.getFilteredReminders();
+    }
+
+    @Override
+    public Reminder getReminder() {
+        return model.getReminderSelected();
+    }
+
+    @Override
+    public ObservableList<Notification> getFilteredNotifications() {
+        return model.getFilteredNotifications();
     }
 
     @Override

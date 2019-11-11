@@ -80,13 +80,13 @@ public class CategoryList {
     }
 
     /**
-     * Replaces the entry {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the list.
-     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
+     * Replaces the entry {@code target} in the list with {@code editedCategory}.
+     * {@code category} must exist in the list.
+     * The category identity of {@code editedCategory} must not be the same as another existing category in the list.
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.getCategoryType());
+        ObservableList<Category> internalList = determineWhichList(target.getCategoryType());
         int index = internalList.indexOf(target);
         if (index == -1) {
             logger.info("Category isn't contained in GuiltTrip.");
@@ -97,7 +97,6 @@ public class CategoryList {
             logger.info("Category is a duplicate in GuiltTrip.It already exists.");
             throw new DuplicateCategoryException();
         }
-
         internalList.set(index, editedCategory);
     }
 

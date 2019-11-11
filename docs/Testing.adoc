@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Testing
+= GuiltTrip Level 3 - Testing
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
