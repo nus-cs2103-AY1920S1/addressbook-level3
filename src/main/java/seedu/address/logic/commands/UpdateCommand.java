@@ -82,8 +82,8 @@ public class UpdateCommand extends Command {
                 updateTransactionDescriptor);
 
             model.set(transactionToReplace, updatedTransaction);
-            model.updateProjectionsAfterDelete(transactionToReplace);
-            model.updateProjectionsAfterAdd(updatedTransaction);
+            model.updateProjectionsAfterUpdate(transactionToReplace, updatedTransaction);
+
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
                 false, false, Tab.TRANSACTION);
