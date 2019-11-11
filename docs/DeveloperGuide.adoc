@@ -84,6 +84,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Manager classes like `AutoCompletePanelManager` and `DataPanelsTabPaneManager` handles changes of its respective components.
+
+`UiPartObserver` interface prevents direct communication between 2 UiPart. It is implemented by the result display and autocomplete panel to listen for userinput from the command box and make changes acccordingly.
+
 [[Design-Logic]]
 === Logic component
 
@@ -379,7 +383,7 @@ Use case resumes at step 2.
 
 
 [appendix]
-== Glossary (do along the way)
+== Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -557,3 +561,33 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
    Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect appointment permanent delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.
+
+=== Changing of autocomplete suggestion list:
+
+. Changing list from object list to command list.
+
+.. Test case: Type "pat-" into empty command box +
+   Expected: The suggestion list is changed from object list to command list
+
+. Changing list from command list to prefix list.
+
+.. Test case: Type "pat-add" into empty command box +
+   Expected: The suggestion list is changed from command list to prefix list
+
+. Changing list from command list to index list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit" into empty command box +
+   Expected: The suggestion list is changed from command list to index list
+
+. Changing list from index list to prefix list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit 1" into empty command box +
+   Expected: The suggestion list is changed from index list to prefix list
+
+=== Updating of current autocomplete suggestion list:
+. Updating the object list.
+
+.. Test case: Type "ap" into empty command box +
+   Expected: The suggestion list should only contain "appt-" and "app-" now

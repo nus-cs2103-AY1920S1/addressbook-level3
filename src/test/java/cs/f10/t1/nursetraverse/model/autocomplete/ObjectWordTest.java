@@ -1,8 +1,9 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+package cs.f10.t1.nursetraverse.model.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
 
 class ObjectWordTest {
     private ObjectWord testObjectWord = new ObjectWord("test1", "test description 1");
@@ -14,7 +15,7 @@ class ObjectWordTest {
 
     @Test
     public void getConnectorChar() {
-        assertEquals("-", testObjectWord.getConnectorChar());
+        assertEquals("", testObjectWord.getConnectorChar());
     }
 
     @Test
