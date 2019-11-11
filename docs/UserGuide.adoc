@@ -416,7 +416,7 @@ Format: `find l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY`
 
 Valid tags: `d/`, `l/`, `a/`, `p/` +
 
-With interactive parsing, the `find` command reduces to the following sequence of inputs:
+With interactive parsing, the `find` command is used in following sequence of inputs:
 
 ```
 find
