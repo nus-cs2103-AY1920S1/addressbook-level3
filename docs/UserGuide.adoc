@@ -125,6 +125,7 @@ different command: `event view` has to be keyed into the command line.
 All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
 [NOTE]
 Njoy might choose to ignore or validate against additional arguments provided as commands.
+
 [NOTE]
 Duplication of the specified keywords and options might result in errors or nondeterministic selection of fields. In most cases, the latest field option overwrites the duplicate fields provided.
 ====
@@ -1194,7 +1195,6 @@ Creates an unmarked note with title _'Friday morning class 6A'_ and description 
 * *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
 Creates a high priority note with title _'Tuesday 1pm'_ and description _'Science Conference'_.
 
-'''
 
 ==== Editing a note
 
