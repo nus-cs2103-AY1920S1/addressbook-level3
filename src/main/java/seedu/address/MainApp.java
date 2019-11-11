@@ -228,8 +228,8 @@ public class MainApp extends Application {
             seedu.address.inventory.storage.Storage storage) {
 
         try {
-            InventoryList storageInventoryList = storage.getInventoryList();
-            return new seedu.address.inventory.model.ModelManager(storageInventoryList);
+            //InventoryList storageInventoryList = storage.getInventoryList();
+            return new seedu.address.inventory.model.ModelManager(storage);
         } catch (IOException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty reimbursement list");
