@@ -1342,11 +1342,6 @@ This in turns calls the`#PurchaseList#deletePurchase(Index)` method.
 Step 5. This `PurchaseList#deletePurchase(Index)` method will then delete
 the corresponding purchase at the given index.
 
-[NOTE]
-TLDR: The calling of the `#deletePurchase` method at the `Model`
-level triggers a cascading series of `#deletePurchase` method which
-culminates in target purchase being deleted from model.
-
 .Sequence Diagram for delete-paid command
 image::DeletePurchaseSequenceDiagram.png[]
 
