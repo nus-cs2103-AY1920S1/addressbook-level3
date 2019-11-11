@@ -32,7 +32,7 @@ The `Add` was greatly enhanced to allow the student user to add new modules to G
 
 === Major Enhancement: Ravamped User-Interface (UI)
 
-image::images/CapUI.png[width="800"]
+image::CapUI.png[width="800"]
 
 The UI is revamped to a new design that features modern curved edges and shadow-like background panes. Borders are taken away to promote a more cohesive flow of content. The aim is to deliver a "less is more" simplicity concept. Much attention is given to the effects of having a grey-like background matching with the black fonts and white background. It is designed in a way to display the services that Modulo offers without ambiguity, in order to draw our users' attention and keep them on our site.
 
