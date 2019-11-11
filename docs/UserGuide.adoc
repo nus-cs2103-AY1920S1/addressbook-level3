@@ -154,11 +154,11 @@ Command: `goto dashboard`
 Let's start by using the `add` command to add some tasks into DukeCooks!
 
 Command: `add task` +
-Format: `add task tn/_insert task here_ td/ _insert date here_`
+Format: `add task tn/<insert task here> td/<insert date here>`
 
 [NOTE]
 ====
-Task name entered should not exceed 30 characters.
+Task name entered should not exceed 35 characters.
 When entering the date for a task, please follow the given format: day/month/year.
 ====
 
@@ -176,7 +176,7 @@ Step 3. You can view the newly added task under the Dashboard.
 .Adding a task success
 image::addtask2.png[width="500"]
 
-[icon tip]
+[TIP]
 ====
 Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
 double the productivity!
@@ -188,7 +188,7 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
+Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
 
 [NOTE]
 ====
@@ -216,7 +216,7 @@ Decided that this task is not needed? +
 Well you can delete them off from DukeCooks.
 
 Command: `delete task` +
-Format: `delete task _index number_`
+Format: `delete task <index number>`
 
 [NOTE]
 ====
@@ -243,7 +243,7 @@ Finished with a task? +
 Check it off the list!
 
 Command: `done task` +
-Format: `done task _index number_`
+Format: `done task <index number>`
 
 Example usage (Figure 8 & 9): `done 1`
 
@@ -270,7 +270,7 @@ A pop up window with an encouraging message will be displayed for extra motivati
 For those who want to know what are the tasks relevant given a keyword.
 
 Command: `find task` +
-Format: `find task _keyword_`
+Format: `find task <keyword>`
 
 Example usage (Figure 10 & 11): `find task project`
 
@@ -301,7 +301,7 @@ Command: `list taskincomplete`
 Think you need a little bit more time to complete a task?
 
 Command: `postpone task` +
-Format: `postpone task _index number_ by _number of days_`
+Format: `postpone task <index number> by <number of days>`
 
 Example usage: `postpone task 1 by 5` +
 The above example will postpone the date of task 1 by 5 days.
@@ -779,6 +779,8 @@ Examples:
 * `shoppinglist recipe 4` +
 Generates a shopping list consisting ingredients for all recipes present within the fourth meal plan in the meal plan book.
 
+// tag::healthRecords[]
+[[HealthRecordsTag]]
 === Health Records
 
 Going for a health checkup soon? You can use the commands in this section to manage your
@@ -899,6 +901,8 @@ image::health_editProfile_after.png[]
 ====
 Say no to bad data! DukeCooks helps to sync your data inputs with your health records! _(As shown in **Step 2**)_
 ====
+
+// end::healthRecords[]
 
 ==== Deleting a profile
 Want to get rid of your profile? This command helps to remove your existing profile.
@@ -1096,7 +1100,7 @@ Keeping your profile safe! This action will have no effect to your profile!
 ====
 
 ==== Link Recipes: `[Coming in v2.0]`
-A feature to track user's food consumption based on existing records. +
+A feature to track user's food consumption based on existing recipes. +
 
 Adds relevant records based on the recipe's nutritional information +
 Format: `link recipe n/_<recipename>_ /to health dt/_<date time>_ [remarks/_<remarks>_]`
@@ -1134,8 +1138,9 @@ Examples:
 
 * `print health t/glucose period/ 01/01/2019 - 01/02/2019` +
 Generates a PDF copy of all the blood sugar records from 1st Jan 2019 to 1st Feb 2019.
-* `print health t/glucose t/weight 01/01/2019 - 31/08/2019` +
+* `print health t/glucose t/weight period/ 01/01/2019 - 31/08/2019` +
 Generates a PDF copy of all the blood sugar and weight records respectively from 1st Jan 2019 to 31st Aug 2019.
+
 
 === Workout Tracker
 
@@ -1281,9 +1286,6 @@ of your workout. This will initialise your Workout with no exercises in it.
 
 .Add Workout Input
 image::addWorkoutInput.png[]
-
-.Add Workout Output
-image::addWorkoutOutput.png[]
 
 ==== Push Exercise `push exercise`
 
@@ -1685,24 +1687,32 @@ Command: `link`
 *Dashboard*
 
 * *Going to the Dashboard:* `goto dashboard`
-* *Adding a task:* `add task`
-* *Editing a task* : `edit task`
-* *Removing a task* : `delete task`
-* *Marking a task as complete* : `done task`
-* *Finding a task* : `find task`
+* *Adding a task:* `add task tn/<taskname> td/<taskdate>`
+* *Editing a task* : `edit task <index> tn/<taskname> td/<taskdate>`
+* *Removing a task* : `delete task <index>`
+* *Marking a task as complete* : `done task <index>`
+* *Finding a task* : `find task <keyword>`
 * *Viewing completed tasks* : `list taskcomplete`
 * *Viewing incomplete tasks* : `list taskcomplete`
 
 *Health Records*
 
-* *View health data* : `view health t/<type>` +
-e.g. `view health t/glucose`
-* *Add health data* : `add health t/<type> val/<value> dt/<date> <time>` +
-e.g. `add health t/glucose 120 dt/21/10/2019 12:00`
-* *Edit health data* : `edit health <index> val/<value>` +
-e.g. `edit health 1 120`
-* *Delete health data* : `delete health <index>` +
+* *Going to the Health Records:* `goto health`
+* *Add profile* : `add profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>]` +
+e.g. `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
+* *Edit existing profile* : `edit profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>] [m-/ <medical history>]` +
+e.g. `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
+* *Delete existing profile* : `delete profile`
+
+* *List health by record type* : `list health t/ <type>` +
+e.g. `list health t/glucose`
+* *Add health data* : `add health t/ <type> val/ <value> dt/ <date time> [remark/ <remark>]` +
+e.g. `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
+* *Edit existing health data* : `edit health <index> val/ <value> dt/ <date time> [remark/ <remark>]` +
+e.g. `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
+* *Delete existing health data* : `delete health <index>` +
 e.g. `delete health 1`
+* *Clear all records* : `clear health`
 
 *Workout Tracker*
 

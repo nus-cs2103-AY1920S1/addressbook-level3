@@ -157,8 +157,10 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
+
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+
 
 [discrete]
 ==== Interaction of architecture components
@@ -204,8 +206,8 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-Structure of the Logic Component
 
+.Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
@@ -335,62 +337,61 @@ Here, a task is represented by a Dashboard object.
 
 The operations are as followed:
 
-* `DukeCooks#add_task()` -- Adds and saves the task into `DukeCooks`.
-* `DukeCooks#delete_task()` -- Removes the specified task from `DukeCooks`.
-* `DukeCooks#edit_task()` -- Edits the specified with a new task name and/or date.
-* `DukeCooks#done()` -- Marks a task as complete.
-* `DukeCooks#find_task()` -- Finds a list of task with a given keyword.
-* `DukeCooks#list_taskincomlete()` -- Lists all the incomplete tasks.
-* `DukeCooks#list_taskcomlete()` -- Lists all the completed tasks.
-* `DukeCooks#dashboard()` -- Directs user to the dashboard window.
+* `add task` -- Adds and saves the task into `DukeCooks`.
+* `delete task` -- Removes the specified task from `DukeCooks`.
+* `edit task` -- Edits the specified with a new task name and/or date.
+* `done task` -- Marks a task as complete.
+* `find task` -- Finds a list of task with a given keyword.
+* `list taskincomlete` -- Lists all the incomplete tasks.
+* `list taskcomlete` -- Lists all the completed tasks.
+* `goto dashboard` -- Directs user to the dashboard window.
 
-These operations are exposed in the Model interface as `Model#addDashboard()`,
-`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` , `Model#doneDashboard` and
-`Model#getDashboardRecords()`.
+These operations are exposed in the Model interface as `addDashboard()`,
+`deleteDashboard()`, `setDashboard()`, `Model#hasDashboard()` , `doneDashboard` and
+`getDashboardRecords()`.
 
 Given below is an example usage scenario and how the add/delete/edit/find/done/dashboard
 mechanism behaves at each step.
 
 Step 1. The user is currently at a another part of DukeCooks and wants to go to the Dashboard. The
-user executes the `dashboard` command. The `dashboard` command calls `Model#getDashboardRecords()`,
+user executes the `goto dashboard` command. The `goto dashboard` command calls `getDashboardRecords()`,
 which returns the `ReadOnlyDashboard` that returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
 homepage.
 
 Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
-task into DukeCooks. The `add` command calls `Model#addDashboard()`, causing the task to
-be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
-`UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
-stage, the list of task is sorted by date. After which, the `add` command also calls
-`Model#saveDashboard()` to be saved the `dashboard` into the `UniqueDashboardList`.
+task into DukeCooks. The `add` command calls `addDashboard()`, causing the task to
+be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls`add()` which will call `sortDashboard()`.
+At this stage, the list of task is sorted by date. After which, the `add` command also calls `saveDashboard()` to be
+saved the `goto dashboard` into the `UniqueDashboardList`.
 
 Step 3. The user executes `delete task 3` command to delete the 3rd task in the
-dashboard. The `delete` command calls `Model#deleteDashboard()` causing the specified task
+dashboard. The `delete` command calls `deleteDashboard()` causing the specified task
 to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
-`UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
-stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
+`remove()` which will call `sortDashboard()`. At this
+stage, the list of task is sorted by date. Also, it calls `saveDashboard()`,
 after the `delete task 3` command executes
 to be saved in the `UniqueDashboardList`.
 
 Step 4. The user executes `edit task...` command to edit a field in a task. The `edit`
-command calls `Model#setDashboard()` causing the edited task to be updated in
-`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
-which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
-sorted by date. Also, it calls `Model#saveDashboard()`, after the `edit task...` command executes to be saved into the `UniqueDashboardList`
+command calls `setDashboard()` causing the edited task to be updated in
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `setDashboard()`
+which will call `sortDashboard()`. At this stage, the list of task is
+sorted by date. Also, it calls `saveDashboard()`, after the `edit task...` command executes to be saved into the `UniqueDashboardList`
 
 Step 5. The user executes `find task...` command to find a list of task given a keyword.
-The `find` command calls `Model#hasDashboard()`, which searches through the
+The `find` command calls `hasDashboard()`, which searches through the
 `UniqueDashboardList` for tasks containing the particular keyword.
 
-Step 6. The user executes `done 1` command to mark the first task in the list as complete. The `done`
-command calls `Model#doneDashboard()`, which will cause the task to be marked as complete in the
-`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#done()`, which adds
-the newly created `Dashboard` object and adds it into the list. After which, `UniqueDashboardList#sortDashboard()`
+Step 6. The user executes `done task 1` command to mark the first task in the list as complete. The `done task`
+command calls `doneDashboard()`, which will cause the task to be marked as complete in the
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `done()`, which adds
+the newly created `Dashboard` object and adds it into the list. After which, `sortDashboard()`
 is called to sort the list by date and reflect the newly made changes.
 
-The following sequence diagram (Figure 10) shows how the add operation works:
+The following sequence diagram (Figure 11) shows how the done operation works:
 
 .Done task Sequence Diagram
-[caption="Figure 12: "]
+[caption="Figure 11: "]
 image::DoneTaskSequenceDiagram.png[width="600"]
 
 ==== Making Decisions
@@ -754,70 +755,132 @@ binary search.
 - Cons : Huge storage space is required. Also complicates editing of exercises.
 |===
 
+// tag::healthRecords[]
+[[HealthRecordsTag]]
 === Health Records feature
-The Health Records feature handles the following:
+The Health Records feature allows user to track their health progress using the commands
+`add health`, as well as making changes to their records with `edit health`, `delete health` and `clear health`.
 
-* Keeping track of the health data recorded by the user
-* Present the data with visual representation of a trend graph that shows the health progress of the user
+Additionally, users can create and personalize their own profile with the commands `add profile`,
+`edit profile` and `delete profile`.
 
-*Proposed Implementation*
+In a nut shell, the Health Records feature supports the following operations:
 
-The commands that are callable by the user are as followed:
+* Storing of the health data recorded by the user
+* Present the data with graph representation that shows the health progress of the user
+* Personalizing user profile
 
-.  `view health` - view the specific type of health records
-.  `add health` - adds a new record respective to the type of health records
-.  `edit health` - edits a existing health record
-.  `delete health` - deletes a existing health record
+==== Implementation
 
-The class diagram below illustrates the structure of a Health Record class.
+A `Record` consist of four key components: `Type`, `Timestamp`, `Value`, `Remark`.
+Refer to the diagram below to understand the structure of `Record`.
 
-.HealthRecords Class Diagram
+.Structure of the Record Component
 image::HealthRecordsClassDiagram.png[]
 
-Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
+==== Implementation of Health Records commands
 
-1. Weight
-2. Height
-3. Calories
-4. Glucose
-5. Blood Pressure
-6. Menstrual Cycle (for Females)
+`Record` class supports multiple commands. It includes:
 
-[NOTE]
-The types available are stored in a list named `TYPE_UTIL`. This means that the validity check of `Type` Object will be checked against `TYPE_UTIL` list. If type does not exist, the record will fail to construct.
+* `AddRecordCommand` - Adds a `Record` into DukeCooks
+* `DeleteRecordCommand` - Deletes a `Record` from DukeCooks
+* `EditRecordCommand` - Edits the specified `Record` with a new changes made
+* `ListHealthCommand` - Lists all available records to user
+* `ListHealthByTypeCommand` - Lists all available records of the corresponding record type to user
+* `ClearHealthCommand` - Clears all available records
 
-In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommodate more record types defined by the user. This means that there will not be a restriction imposed in health types that can be recorded. User can create a new health type to start health tracking (eg. Sodium level).
+`Person` class supports multiple commands. It includes:
 
-==== `add health` Command
-`add health t/[type] [inputs]` is parsed in the `addHealthCommandParser`. The inputs will first be initialised to its respective objects with underlying validation checks (eg. `Type` object will call for `isValidType()` method to check against `TYPE_UTIL` List). A `Record` object will then be created with the three valid object components.
+* `AddProfileCommand` - Adds a new `Person` into DukeCooks
+* `DeleteProfileCommand` - Deletes the `Person` into DukeCooks
+* `EditProfileCommand` - Edits various fields of the specified `Person`
 
-The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
+[IMPORTANT]
+====
+User Profile consist of one `person` object.
+Dukecooks will only allow one user profile to exist.
+====
 
-.Sequence Diagram for `add health` command
+==== Execution of AddRecordCommand
+
+The sequence diagram below illustrates the execution of an `AddRecordCommand`.
+
+.AddHealthCommand Sequence Diagram
 image::AddHealthSequenceDiagram.png[]
 
+The command will first be parsed in 'DukeCooksParser' and be handled to its corresponding parsers (i.e. `AddRecordCommandParser`) based on its variant word
+(i.e. `Add`).
+
+After the parsing has been executed successfully, the string argument will be converted to `Type`, `Value`, `Timestamp`,
+`Remark` attributes. These attributes will then be passed into the `Model` component for its underlying validity checks.
+
+Once all checks have passed successfully, a new `Record` will be created according to those attributes
+and added to health records with the command `Model#addRecord`.
+
+[NOTE]
+====
+The illustration of the above execution only applies to all record types except for **Weight** and **Height**.
+Refer to the next section for more details.
+====
+
+==== Syncing record data with profile
+
+To illustrate why the simple model of `AddRecordCommand` will not suffice for *Weight* and *Height* record types,
+below depicts the class diagram of the `Person` class
+
+.Structure of the Person Component
+image::PersonClassDiagram.png[]
+
+It can be observed that `Person` share similar attributes to `Record`, both *Weight* and *Height*.
+However, the implementation of the two types are distinctly different among `Record` and `Person`. `Record` have
+structured *Weight* and *Height* to be attributes of its `Type` enum class while `Person` has defined
+them separately to be classes of their own.
+
+The Sequence diagram below illustrates the execution of `AddRecordCommand` with additional component introduced to
+help sync data between the `Record` and `Person`.
+
+.Reconstructed AddRecordCommand
+image::LinkHealthToProfileSequenceDiagram.png[]
+
+Once `Model#addRecord` has been executed, `AddRecordCommand` will check the type of
+the newly added record. If it is a *Weight* or *Height* record, `LinkProfile#updateProfile`
+will be called. The `LinkProfile` helps `AddRecordCommand` to invoke `EditProfileCommand` by
+calling for changes to be made for profile.
+
+A simplified activity diagram of the problem can be shown below.
+
+.Activity Diagram of adding a new Weight record
+image::LinkProfileActivityDiagram.png[]
+
+Once profile have been successfully updated, person's weight/ height is expected to be
+in sync with health records.
+
+// end::healthRecords[]
 
 ==== Design Considerations
 
-*Aspect: Data structure on how the different health types are stored*
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternative 1 (Current Choice)*
+|Data Structure used to store Record Type
+|`Enum` class is used to store record types.
 
-Maintain a Map to validate type of health record
+- **Pros**: Type safe and more static control over the record types. +
 
-A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
+- **Cons**: Limiting health record types as no dynamic additions can be made. +
 
-* Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
-* Cons: Difficult to keep track of each health type and lack of clarity.
+This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
+types would mean more validity checks and maintainence needed.
 
+|A `HashMap` is used to store record types.
 
-*Alternative 2*
+- **Pros**: Increase flexibility and have the possible extension of allowing user defined health types. +
 
-Introduce each health type as a Class on its own
+- **Cons**: More error prone compared to enums +
 
-* Pros: Clearer distinction and declaration of each health type
-* Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
-
+|===
 
 // tag::diary[]
 [[DiaryTag]]
@@ -1154,10 +1217,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-The following is a Use Case diagram for the Dashboard.
+The following is a Use Case diagram (Figure 26) for the Dashboard.
 
 .Dashboard Use Case Diagram
-[caption="Figure 11: "]
+[caption="Figure 26: "]
 image::DashboardUseCase.png[width="200"]
 
 (For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
@@ -1224,33 +1287,28 @@ Use case resumes at step 2.
 
 [discrete]
 
-=== Use case: UC03 - Adding Calorie Intake
+=== Use case: UC03 - Adding Glucose Record
 
 *MSS*
 
-1.  User requests to add calorie intake for the day
-2.  DukeCooks shows a list of Nutrition (Breakdown)
-3.  User requests to add certain nutrition value fields
-4.  DukeCooks updates Health Records
+1.  User requests to add glucose record
+2.  A new glucose record is added to Health Records
+3.  DukeCooks filters the records to only glucose related records
+4.  DukeCooks directs user to health record's record type page.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Nutrition list is empty (User did not give any nutrition inputs).
+* 1a. DukeCooks detects error in parsing user input
 +
 [none]
-** 2a1. DukeCooks updates calorie count in Health Records (omit nutritional information).
+** 1a1. DukeCooks displays error message
+** 1a2. User enters new input
 +
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. DukeCooks shows an error message.
-+
-Use case resumes at step 2.
+Steps 1a1. and 1a2. are repeated until the data entered are correct.
+Use case resumes from step 2.
 
 [discrete]
 === Use case: UC04 - Creating Workouts
@@ -1433,6 +1491,44 @@ name and recipes of the edited meal plan.
 .. Other incorrect edit commands to try: `edit mealplan`, `edit mealplan x` (where x is larger than the list size) +
    Expected: Similar error messages to previous.
 
+=== Adding a task
+
+. Adding a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` +
+   Expected: A new task named "Project meeting at COM1" is added to the list. Details of the added task is shown in the result display.
+.. Test case: `add task tn/ Project meeting at COM1 td/ 12/12/2019` (A repeat of the previous test case) +
+   Expected: No task is added. Error message is shown in the result display. Status bar remains the same.
+
+=== Deleting a task
+
+. Deleting a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `delete task 1` +
+   Expected: First task is deleted from the list. Details of the deleted task is shown in the result display.
+.. Test case: `delete task 0` +
+   Expected: No task is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete command to try: `delete diary x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a task
+
+. Editing a task while all tasks are listed
+
+.. Prerequisites: List all tasks using the `goto dashboard` command. Multiple tasks are in the list.
+.. Test case: `edit task 1 tn/Lunch meeting` +
+   Expected: First task is edited to the new task name. Details of the edited task is shown in the result display.
+.. Test case: `edit task 1 tn/Lunch meeting!` +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ y` (where y contains more than 35 characters) +
+   Expected: Similar error messages to previous.
+.. Test case: `edit task 1 td/31/11/2019 +
+   Expected: No task is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit command to try: `edit task 1 tn/ 29/2/2019` (2019 is not a leap year; February only has 28 days) +
+   Expected: Similar error messages to previous.
+
 === Adding a diary
 
 . Adding a diary while all diaries are listed
@@ -1486,3 +1582,6 @@ It should be one of the following:
 - `.\data\workouts.json` +
 
 After identifying the file that causes the error, delete that particular data file.
+
+By deleting the data file, a new data file will be generated from the `SampleUtil` corresponding
+to the file that was deleted.

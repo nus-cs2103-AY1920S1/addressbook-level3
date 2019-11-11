@@ -15,27 +15,39 @@ class Record {
 }
 
 class TimeStamp {
-    +timestamp: String
+    -time: Date
+    -date: Time
 
     +isValidDateTime(String)
+
 }
 
-class Type {
-    +type: String
-    +unit: String
-
-    +isValidType(String)
+class Type <<enumeration>> {
+    Glucose
+    Weight
+    Height
+    Calories
+    Carbs
+    Fats
+    Protein
 }
 
 class Value {
-    +value: int
+    -value: double
 
     +isValidNumber(String)
 }
 
-Record *--> TimeStamp
-Record *--> Type
-Record *--> Value
+class Remark {
+    +remarkName: String
+
+    +isValidRemarkName(String)
+}
+
+Record *-down-> "1" TimeStamp : has unique >
+Record *-down-> "1" Type : has unique >
+Record *-down-> "1" Value
+Record *-right-> "*" Remark
 
 show members
 skinparam classAttributeFontColor #FFFFFF
