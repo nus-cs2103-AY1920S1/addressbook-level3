@@ -367,61 +367,64 @@ Alternative 1 was selected, as it is much faster to implement compared to altern
 === Deliverymen status statistics feature
 
 Tracking the amount of available manpower you have at any point in time is very crucial to deal with sudden changes in food orders.
-This is a feature which allows the user to effectively manage the deliverymen by providing relevant statistics in regards to their statuses.
+This is a feature which allows the user to effectively manage the deliverymen by providing relevant statistics in regards to their status.
+The user will be able to foresee and hence prepare for any sudden shortage or excess in manpower.
 Relevant statistics include current utilization level and activity level of the deliverymen.
+
+NOTE: A deliveryman can have any of the 3 status: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*. To effectively manage their status, 3 different lists
+are used to categorise all the deliverymen based on their status. This way of implementation is efficient when it comes to sorting or searching for a deliveryman.
 
 ==== Implementation
 
-The statistics feature is primarily managed by the 'StatisticsManager', which has access to the status of every deliveryman in the database through the 3
+The statistics feature is primarily managed by the `StatisticsManager`, which has access to the status of every deliveryman in the database through the 3
 status lists - lists of available deliverymen, unavailable deliverymen and delivering deliverymen respectively.
-The 'StatisticsManager' obtains these 3 status lists from the 'StatusManager' and passes it to the 'Analyzer' to compute the relevant data, which in turn
-returns a filled 'StatisticsRecordCard' containing the computed statistics.
+The `StatisticsManager` obtains these 3 status lists from the `StatusManager` and passes it to the `Analyzer` to compute the relevant data, which in turn
+returns a filled `StatisticsRecordCard` containing the computed statistics.
 
 From the status lists, the Analyzer computes two data:
 
 * Utilization Level
-** This signals to the user the proportion of the deliverymen who are waiting to be assigned orders.
-** It is the percentage of the number of deliverymen who are working (ie. delivering an order) over the number of deliverymen.
-** It is computed as follows: *UTILIZATION LEVEL =  DeliveringMen / (AVAILABLEMEN + DELIVERINGMEN) x 100*
+** This signals to the user the amount of available manpower that is not utilized. It is the percentage of the number of deliverymen who are working (ie. delivering an order) over the number of active deliverymen (ie. available or delivering an order) .
+** It is computed as follows:
+*** *UtilizationLevel =  DeliveringMen / (AvailableMen + DeliveringMen) x 100*
 
 * Activity Level
-** This is the time difference between the time when the deliveryman was added to the database and the current time when command is executed.
+** This signals to the user the amount of active manpower. It is the percentage of the number of deliverymen who are active deliverymen over the total number of deliverymen.
+** It is computed as follows:
+*** *ActivityLevel =  (AvailableMen + DeliveringMen) / (TotalMen) x 100*
 
-With these structure, it implements the following operations:
+With this structure, it implements the following operation:
 
-* `DeliverymenDatabase#getHistoryOf(Deliveryman index)` -- Enters the delivery record of a specified deliveryman.
+* `DeliverymenDatabase#analyzeDeliverymenStatus()` -- Retrieves a filled record card containing all the relevant statistics regarding deliverymen statuses
 
-* `DeliverymenDatabase#suggestPayList()` -- Obtains a list of deliverymen who are eligible for pay rise.
+The following sequence diagram shows how the `stats` operation works:
 
-Given below is an example usage scenario and how the `suggestPayList` function works.
+.Sequence Diagram of Retrieving Deliverymen Statistics
+image::DeliverymenStatistics.png[]
 
-Step 1. Hooray! It's the time of the month for the restaurant to adjust the workers' pay. The restaurant admin, who is in charge of managing the deliverymen, types in the `paylist` command.
-The command will access the `UniqueDeliverymenList` in order to obtain the list of deliverymen.
+As seen in Figure 10, for every use of the `stats` command, a `RecordCard` object is created. The `Analyzer` will take in the status lists and the `RecordCard`
+to compute and record the results onto the `RecordCard. Subsequently, it will return the edited `RecordCard` to the `StatisticsManager`.
 
-Step 2. For each deliveryman on the list, their delivery record will be analyzed.
-
-* Time in data base: The current time will be obtained and the difference between the current time and the time of joining the database will be taken.
-
-* Delivery rate: The number of orders completed over the time in database will be the delivery rate.
-
-Step 3. If the delivery rate exceeds a certain threshold, the deliveryman will be added to the pay list.
-
-The following sequence diagram summarizes what happens when a user types in letters into the user input command box:
-
-image::PayRiseSequenceDiagram.png[]
+NOTE: The above explanation and sequence diagram (Figure 10) only illustrates what happens inside the `Model` component of the architecture
+when the `stats` command is used. The higher-level components such as `LogicManager`  are left out, even though they are
+also involved in the execution of this command.
 
 ==== Design Considerations
-===== Aspect: Tracking the record of every deliveryman
+===== Aspect: Analysing the status lists
 
-This feature necessitates the tracking of the orders each deliveryman has completed.
+This feature necessitates the analysis of the status lists. A consideration is the design of the architecture in which the statistics feature
+should be implemented. It may be subtle in the current version of *DeliveryMANS*, but will have significant implications when the app is further developed.
 
-* Alternative 1(current choice): Saves the number of completed orders for each deliveryman and write to hard disk.
-** Pros: Easy to implement and takes up less memory.
-** Cons: The details of the order cannot be tracked, even though they might be a potential criteria for pay rise.
+* Alternative 1(current choice): Create another class (`StatisticsManager`) to deal with all the statistics-related methods.
+** Pros: Allows for a more structured and object-oriented way of executing out the `stats` command. This makes it easier to extend additional
+statistics-related enhancements in future, such as adding predictive capabilities to predict the utilisation level over the next few weeks.
+** Cons: More inefficient as the status lists from `StatusManager` have to be passed through different classes before reaching `StatisticsManager`.
+This can affect the runtime of the command when the enhancements get more complicated.
 
-* Alternative 2: Saves the specific completed orders (including the content of order) and write to hard disk.
-** Pros: Allows for a thorough and more accurate analysis for suggesting pay rise
-** Cons: Takes up significant amount of memory
+* Alternative 2: Modify the existing `StatusManager` to handle statistics computation as well.
+** Pros: More convenient as the status lists can be directly obtained from the same class instead of having to pass it around.
+** Cons: Harder to manage in future as the app is improved due to coupling between status management and statistics management.
+Changes to status-related issues may cause regressions to the statistics feature.
 
 // end::deliverymen statistics
 
