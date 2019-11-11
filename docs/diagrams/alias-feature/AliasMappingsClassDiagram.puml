@@ -1,0 +1,43 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor Black
+skinparam classBackgroundColor MODEL_COLOR
+skinparam classBorderColor WHITE
+skinparam classFontColor White
+skinparam classAttributeFontColor white
+
+
+class AliasMappings {
+    getAlias(String) : Alias
+    removeAlias(String) : boolean
+    addAlias(Alias) : AliasMappings
+    aliasWithNameExists(String) : boolean
+    aliasUsesReservedName(Alias) : boolean
+    aliasNameIsReservedCommandWord(Alias) : boolean
+    aliasCommandWordIsAlias(Alias) : boolean
+    validate() : void
+}
+
+class Mapping {
+    aliasName : String
+}
+
+show AliasMappings members
+show Mapping attributes
+
+class Alias {
+    aliasName : String
+    aliasInput : String
+    getAliasName() : String
+    getInput() : String
+    getCommandWord() : String
+}
+show Alias members
+
+UserPref *-right-> AliasMappings
+AliasMappings o-right-> "*" Mapping
+Mapping *-->"1" Alias
+
+@enduml
