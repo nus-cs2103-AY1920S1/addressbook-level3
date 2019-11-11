@@ -82,7 +82,7 @@ public class RescheduleTask extends TimerTask {
         long period = event.getPeriod().getPeriod();
         LocalDateTime newStart = LocalDateTime.now().plusNanos(Duration.ofMillis(period).toNanos());
         Event newEvent = event.changeStartDateTime(newStart);
-        Item newItem = item.changeEvent(newEvent);
+        Item newItem = item.changeEvent(newEvent);;
 
         Platform.runLater(new Runnable() {
             @Override

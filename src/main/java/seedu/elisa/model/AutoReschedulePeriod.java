@@ -65,4 +65,20 @@ public class AutoReschedulePeriod {
     public long getPeriod() {
         return this.period;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AutoReschedulePeriod)) {
+            return false;
+        }
+
+        AutoReschedulePeriod otherPeriod = (AutoReschedulePeriod) other;
+        Long otherLongPeriod = Long.valueOf(otherPeriod.getPeriod());
+        Long thisLongPeriod = Long.valueOf(getPeriod());
+        return otherLongPeriod.equals(thisLongPeriod);
+    }
 }

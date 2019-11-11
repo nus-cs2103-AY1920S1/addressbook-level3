@@ -551,7 +551,11 @@ Now we are ready to look at the sequence of actions. Given below is an example u
 
 Step 1. The user enters the command `event CS2103T Quiz -d 23/09/2019 2359 -auto week`. +
 Step 2. The Event is created, following the sequence of steps in the section _Adding Task/Event_. However there are now some extra steps from Step 3 onwards that occur concurrently from the object creation of Event. +
-Step 3. ... _{work in progress}_ +
+Step 3a. The presence of the `-auto week` creates an AutoReschedulePeriod, which is stored in the Event created. This can be seen in the Class Diagram above. +
+Step 3b. If the start time of this Event is already over, the Event's start time will be modified to show the next start time, using this Event's AutoReschedulePeriod.
+Step 4. When `LogicManager#execute(model)` is called, the presence of AutoReschedulePeriod in the Event triggers the creation of a RescheduleTask, which represents the task of rescheduling this Event. +
+Step 5. This RescheduleTask is added to an AutoRescheduleManager, which manages all RescheduleTasks. +
+Step 6. When the start time of this Event has passed, AutoRescheduleManager will call `RescheduleTask#run()`, and this updates the Event start time, which will be reflected in the Ui. +
 
 
 The following diagrams show how the command `event Quiz -d 10.hour.later -auto week` is executed from the Logic component.
