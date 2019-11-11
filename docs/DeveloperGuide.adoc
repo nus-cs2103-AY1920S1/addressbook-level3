@@ -136,7 +136,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+// tag::Cris[]
 [[Design-Model]]
 === Model component
 
@@ -159,7 +159,7 @@ image:BetterModelClassDiagramN.png[]
 +
 image:BetterModelClassDiagramNew.png[]
 
-
+// end::Cris[]
 // tag::storage[]
 
 [[Design-Storage]]
@@ -505,18 +505,20 @@ Alternative 2 also helps prevent user confusion, as the list that is displayed i
 
 // end::generateschedule[]
 
+// tag::Cris2[]
+
 === Finance
 ==== Implementation
 
 
-The `Finance` Feature is implemented to allow users to get the detail of all employees in a easy manner.
-The tab shows three finance related details which are 'Total Salary' 'Pending To Pay' 'Salary Paid'. Two commands were
-implemented which are 'pay' and 'undo_pay', allow user to make the payment or undo the payment for the employee.
+The `Finance` Feature is implemented to allow users to get the salary details of all employees in an easy manner.
+The tab shows three salary related details which are 'Total Salary' 'Pending To Pay' 'Salary Paid'. Two commands were
+implemented, which are 'pay' and 'undo_pay', allowing the user to make the payment or undo the payment for the employee.
 The `Finance' take in three arguments:
 
 1.  `employeeIndex` - index of event in the displayed employee list
 2. `employeePay` - the hourly salary for the specific employee
-3. `employeeSalaryPaid` - the total amount of salary has paid to th specific employee
+3. `employeeSalaryPaid` - the total amount of salary has paid to the specific employee
 
 Additionally, the `Finance` uses the following operations:
 
@@ -556,7 +558,7 @@ than the value of 'Pending To Pay'. The value of the undo-payment should be less
 [NOTE]
 For storage purposes, only the `Employee#employeeSalaryPaid` is saved.
 
-**Step 7**. The command calls `Finance#updatecard()` to update the `Pending To Pay` of
+**Step 7**. The command calls `Finance#updatecard()` to update the `PendingToPay` of
 the employee card. The UI will update accordingly.
 
 **Step 8**. Done.
@@ -585,8 +587,8 @@ image::FinanceSequenceDiagram.png[]
 
 Decision: Alternative 1 :
 
-I decided to proceed with this option* because it creates less fields of employees, the 'Pending To Pay'
-and 'Total Salary' is calculated on real time. User do not need to type so many fields when they add the employees.
+I decided to proceed with this option* because it creates fewer fields in employees, the 'Pending To Pay'
+and 'Total Salary' is modified real time. User do not need to input so many fields when they add the employees.
 
 |Saves the `Employee#employeeSalaryPaid`, `Employee#Pay`, `Employee#employeePendingPay`, `Employee#employeeTotalSalary` in storage.
 

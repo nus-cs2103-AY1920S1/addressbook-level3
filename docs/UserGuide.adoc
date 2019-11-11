@@ -550,6 +550,7 @@ Clears all the date-time mapping from the 2nd Event on the Event list.
 //end::DeXun2[]
 
 
+//tag::Cris[]
 === Finance Management
 
 ==== Generate Payment To Employee: `pay`
@@ -559,20 +560,23 @@ Generates the payment for an employee
 Format: `pay EMPLOYEE_INDEX s/VALUE
 
 ****
-* EMPLOYEE_INDEX is the number of the employee on the displayed list.
-It must be a valid number.
+* EMPLOYEE_INDEX is the index of the employee in the displayed list.
+It must be a valid number: a non-negative integer smaller the list size.
 * VALUE is the amount of payment pay for the employee.
 * If the VALUE is larger than the money pending to pay, the payment would not be generated.
 * If the employee who has been paid for a past event has been removed from the allocation of a past event,
-the "Pending To Pay" value may become negative. You may not pay an employee who's current pending pay is negative,
+the "Pending To Pay" value may become negative. You will not be able to pay an employee whose current pending pay is negative,
 until the 'undo_pay' command is executed to reset the pending payment value to >= 0.
 ****
 
 Examples:
 
 * `list_em` +
-`pay 2 s/100` +
-Generates the payment of employee with $100.
+`pay 3 s/50` +
+Generates the payment of employee with $50.
+
+._User Interface (UI) of Finance_
+image::pay.png[]
 
 ==== Undo Payment To Employee: `undo_pay`
 
@@ -590,9 +594,11 @@ It must be a valid number.
 Examples:
 
 * `list_em` +
-`undo_pay 2 s/100` +
-Undo the payment of employee with $100.
-
+`undo_pay 3 s/50` +
+Undo the payment of employee with $50.
+._User Interface (UI) of Finance_
+image::undopay.png[]
+//end::Cris[]
 
 
 

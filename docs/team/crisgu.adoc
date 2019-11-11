@@ -11,6 +11,13 @@
 
 AddMin+ is an all-in-one administration desktop application, specially designed to ease the workload of the admin staffs in these companies and allow him/her to effectively handle the administrative tasks of the company. It is mainly a CLI application, but also has a GUI built with JavaFX. AddMin+ was developed by a team of software engineering students, with a codebase of about 15k lines of code.
 
+== About AddMin+, the All in One Administration App
+
+._The Graphical User Interface (GUI) for *AddMin+*_
+image::AddMin.png[]
+
+include::../../README.adoc[tag=AboutAddMin+]
+
 == Summary of contributions
 
 * *Major enhancement*: added and implemented the entire *Finance* section of the project which includes major GUI implementations
@@ -25,34 +32,20 @@ implemented which are 'pay' and 'undo_pay', allow user to make the payment or un
 too many payslips. Having a dedicated *Finance* tab, along with the 'pay' and 'undo_pay' commands will increase the efficiency
 of the HR staff greatly.
 
-** Highlights: This enhancement requires handling and dealing with the `Event` objects extensively. The implementation of the *Schedule* feature
-required an in-depth analysis of the application's storage and modeling architecture. The *Schedule* feature was also challenging as
-it required the implementation of an additional `DistinctDate` object for the `generate_schedule` command which was also used in the
-`Employee` window. During the designing of the *Schedule* component, deep consideration was needed to ensure that the user interface was clean
-and optimal for the users.
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Highlights: The Finance section required a deep understanding of the Employee class as several fields of an Employee object are modified upon the execution of Finance commands. Understanding of the relevant Parser classes were also essential as arithmetic calculations depended on static methods within those Parser classes.
+* *Minor enhancement*: Implement Employee class, and all relevant new fields in the class that did not exist in AB3.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com[Functional code]]  _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** In charged of the entire *Finance* feature of AddMin+ which includes 2 Finance related commands
+*** In charged of Add and Edit commands related to employee.
+*** Managed to refactor person class to employee class and added 5 fields of employee.
+*** PRs reviewed
 
-_{you can add/remove categories in the list above}_
+
 
 == Contributions to the User Guide
 
@@ -61,9 +54,8 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=Cris]
 
-include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -71,9 +63,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=Cris]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=Cris2]
 
 
 == PROJECT: PowerPointLabs
