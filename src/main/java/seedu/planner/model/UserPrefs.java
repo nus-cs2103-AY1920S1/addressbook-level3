@@ -80,6 +80,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     }
 
     public Path getPlannerFilePath() {
+        Path newPlannerFilePath = itineraryFilePath.getParent();
+
+        if (!plannerFilePath.equals(newPlannerFilePath)) {
+            setPlannerFilePath(newPlannerFilePath.getFileName());
+        }
+
         return plannerFilePath;
     }
 

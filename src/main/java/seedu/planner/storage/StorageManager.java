@@ -1,7 +1,6 @@
 package seedu.planner.storage;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -19,6 +18,7 @@ import seedu.planner.storage.accommodation.AccommodationStorage;
 import seedu.planner.storage.activity.ActivityStorage;
 import seedu.planner.storage.contact.ContactStorage;
 import seedu.planner.storage.day.ItineraryStorage;
+
 //@@author OneArmyj
 /**
  * Manages storage of Planner data in local storage.
@@ -205,11 +205,11 @@ public class StorageManager implements Storage {
     // ================ PlannerFilePath methods ==============================
 
     @Override
-    public void deletePlannerFilePath() throws IOException {
-        Files.deleteIfExists(getAccommodationFilePath());
-        Files.deleteIfExists(getActivityFilePath());
-        Files.deleteIfExists(getContactFilePath());
-        Files.deleteIfExists(getItineraryFilePath());
-        Files.deleteIfExists(getItineraryFilePath().getParent());
+    public void deletePlannerFilePath() {
+        getAccommodationFilePath().toFile().delete();
+        getActivityFilePath().toFile().delete();
+        getContactFilePath().toFile().delete();
+        getItineraryFilePath().toFile().delete();
+        getItineraryFilePath().getParent().toFile().delete();
     }
 }

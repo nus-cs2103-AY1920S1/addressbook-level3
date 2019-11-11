@@ -3,8 +3,7 @@ package seedu.planner.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +22,9 @@ import seedu.planner.model.field.Name;
 public class LoadCommand extends Command {
 
     public static final String COMMAND_WORD = "load";
-    public static final String DIRECTORY_OPS_ERROR_MESSAGE = "Could not list files in planner: ";
     public static final String MESSAGE_NO_NAME = "Planner name not specified";
     public static final String NO_PLANNER_MESSAGE = "This planner has not been saved";
-    public static final String EMPTY_PLANNER_MESSAGE = "This planner does not have any files";
+    public static final String LOADED_PLANNER_MESSAGE = "This planner has already been loaded";
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
@@ -58,18 +56,14 @@ public class LoadCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.name);
+        Path oldPlannerFilePath = model.getPlannerFilePath();
+        Path newPlannerFilePath = oldPlannerFilePath.resolveSibling(this.name.name);
+        File newPlannerFile = newPlannerFilePath.toFile();
 
-        if (!Files.exists(newPlannerFilePath)) {
+        if (!newPlannerFile.exists()) {
             throw new CommandException(NO_PLANNER_MESSAGE);
-        }
-
-        try {
-            if (Files.list(newPlannerFilePath).findAny().isEmpty()) {
-                throw new CommandException(EMPTY_PLANNER_MESSAGE);
-            }
-        } catch (IOException ioe) {
-            throw new CommandException(DIRECTORY_OPS_ERROR_MESSAGE + ioe, ioe);
+        } else if (oldPlannerFilePath.equals(newPlannerFilePath)) {
+            throw new CommandException(LOADED_PLANNER_MESSAGE);
         }
 
         model.setPlannerFilePath(newPlannerFilePath.getFileName());

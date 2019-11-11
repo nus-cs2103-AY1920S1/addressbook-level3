@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Stage> {
      * Closes the application.
      */
     @FXML
-    private void handleExit() { // @ernest: now limited to exit command
+    private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
-            feedbackDisplay.setErrorFeedbackToUser(e.getMessage()); // @ernest: may need to rework this part
+            feedbackDisplay.setErrorFeedbackToUser(e.getMessage());
             throw e;
         }
     }

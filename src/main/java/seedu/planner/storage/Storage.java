@@ -92,5 +92,5 @@ public interface Storage extends AccommodationStorage, ActivityStorage, ContactS
     /**
      * Deletes the user prefs' planner file path.
      */
-    void deletePlannerFilePath() throws IOException;
+    void deletePlannerFilePath();
 }

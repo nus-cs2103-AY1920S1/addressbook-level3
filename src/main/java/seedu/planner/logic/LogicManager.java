@@ -27,6 +27,7 @@ import seedu.planner.model.activity.Activity;
 import seedu.planner.model.contact.Contact;
 import seedu.planner.model.day.Day;
 import seedu.planner.storage.Storage;
+
 //@@author OneArmyj
 /**
  * The main LogicManager of the app.
@@ -34,7 +35,6 @@ import seedu.planner.storage.Storage;
 public class LogicManager implements Logic {
     public static final String FILE_FORMAT_ERROR_MESSAGE = "Data file not in correct format: ";
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
-    public static final String FILE_DELETION_ERROR_MESSAGE = "Could not delete file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -56,11 +56,7 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         if (command instanceof SetCommand) {
-            try {
-                storage.deletePlannerFilePath();
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_DELETION_ERROR_MESSAGE + ioe, ioe);
-            }
+            storage.deletePlannerFilePath();
         }
         if (command instanceof SetCommand || command instanceof NewCommand || command instanceof LoadCommand) {
             storage.setAccommodationFilePath(getAccommodationFilePath());
@@ -75,16 +71,11 @@ public class LogicManager implements Logic {
                 model.setActivities(storage.readActivity().get());
                 model.setContacts(storage.readContact().get());
                 model.setItinerary(storage.readItinerary().get());
-                storage.saveAccommodation(model.getAccommodations());
-                storage.saveActivity(model.getActivities());
-                storage.saveContact(model.getContacts());
-                storage.saveItinerary(model.getItinerary());
-            } else {
-                storage.saveAccommodation(model.getAccommodations());
-                storage.saveActivity(model.getActivities());
-                storage.saveContact(model.getContacts());
-                storage.saveItinerary(model.getItinerary());
             }
+            storage.saveAccommodation(model.getAccommodations());
+            storage.saveActivity(model.getActivities());
+            storage.saveContact(model.getContacts());
+            storage.saveItinerary(model.getItinerary());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         } catch (DataConversionException dce) {

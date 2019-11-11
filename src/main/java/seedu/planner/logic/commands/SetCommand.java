@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 
-import java.io.IOException;
-import java.nio.file.Files;
+import java.io.File;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,7 +27,6 @@ import seedu.planner.model.field.Name;
 public class SetCommand extends Command {
 
     public static final String COMMAND_WORD = "set";
-    public static final String DIRECTORY_OPS_ERROR_MESSAGE = "Could not list files in planner: ";
     public static final String DUPLICATE_PLANNER_MESSAGE = "This planner already exists";
     public static final String MESSAGE_NOTHING_TO_SET = "There is nothing to set!";
 
@@ -76,13 +74,10 @@ public class SetCommand extends Command {
             }
 
             Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.name);
+            File newPlannerFile = newPlannerFilePath.toFile();
 
-            try {
-                if (Files.exists(newPlannerFilePath) && Files.list(newPlannerFilePath).findAny().isPresent()) {
-                    throw new CommandException(DUPLICATE_PLANNER_MESSAGE);
-                }
-            } catch (IOException ioe) {
-                throw new CommandException(DIRECTORY_OPS_ERROR_MESSAGE + ioe, ioe);
+            if (newPlannerFile.exists() && !newPlannerFile.delete()) {
+                throw new CommandException(DUPLICATE_PLANNER_MESSAGE);
             }
 
             model.setPlannerFilePath(newPlannerFilePath.getFileName());
