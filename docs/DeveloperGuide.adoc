@@ -170,6 +170,7 @@ NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy mar
 [[Design-Model]]
 // tag::model[]
 
+// tag::model_part[]
 === Model component
 
 .Structure of the Model Component
@@ -188,6 +189,8 @@ We organize different data classes into packages (e.g. `Problem`), inside which 
 
 .Structure of the Problem Package
 image::design/model/ProblemPackageDiagram.png[width="75%", scaledwidth=18cm]
+
+// end::model_part[]
 
 Note that we don't require plans to be unique, thus unlike problems' collection class is named `UniqueProblemList`, plan's collection is simply named `PlanList`.
 

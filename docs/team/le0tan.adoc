@@ -100,11 +100,13 @@ https://github.com/AY1920S1-CS2103-T16-1/main/issues/203[#203])
 
 include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[tag=find]
-
 include::../UserGuide.adoc[tag=findrule]
 
 include::../UserGuide.adoc[tag=help]
+
+=== More contributions to the User Guide
+
+https://ay1920s1-cs2103t-w11-1.github.io/main/UserGuide.html#locating-problems-code-findprob-code[Locating problems]
 
 == Contributions to the Developer Guide
 
@@ -114,9 +116,12 @@ include::../UserGuide.adoc[tag=help]
 
 include::../DeveloperGuide.adoc[tag=savefindrule]
 
+include::../DeveloperGuide.adoc[tag=model_part]
+
+Remaining part: https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Model[Design - Model]
+
 === More contributions to the Developer Guide
 
-https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#Design-Model[Design - Model] +
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#find-problem-feature[Implementation - Find Feature] +
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#use-cases[Use cases for find and sort] +
 https://ay1920s1-cs2103t-w11-1.github.io/main/DeveloperGuide.html#non-functional-requirements[Non-functional requirements]
