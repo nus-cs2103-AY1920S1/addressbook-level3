@@ -25,7 +25,7 @@ public interface Model {
 
     Reimbursement doneReimbursement(Person person) throws NoSuchPersonReimbursementException;
 
-    Reimbursement addDeadline(Person person, LocalDate deadline) throws Exception;
+    Reimbursement addDeadline(Person person, LocalDate deadline) throws NoSuchPersonReimbursementException;
 
     //sort operation
     void sortListByName();

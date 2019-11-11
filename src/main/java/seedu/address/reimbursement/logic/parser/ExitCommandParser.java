@@ -25,7 +25,7 @@ public class ExitCommandParser implements IndependentCommandParser<ExitCommand> 
      * @throws Exception if the command syntax is incorrect.
      */
     public ExitCommand parse(String args)
-            throws Exception {
+            throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args);
 
