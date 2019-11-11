@@ -31,9 +31,9 @@ Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
 {empty}[http://github.com/jascxx[Jason]]
 {empty}[http://github.com/dragontho[Paul]]
 
-image:chrischenhui.png[width="90", align="left"]
-image:kohyida1997.png[width="90", align="left"]
-image:sreesubbash.png[width="90", align="left"]
+image:chrischenhui.png[icon, width="90", align="left"]
+image:kohyida1997.png[width="70", height="90" align="left"]
+image:sreesubbash.png[width="89", align="left"]
 image:jascxx.png[width="82", align="left"]
 image:dragontho.png[width="100", align="left"]
 
