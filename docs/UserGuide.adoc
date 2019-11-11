@@ -92,10 +92,6 @@ Ensure that your scaling setting is set to 100% as anything higher might result 
 image::ScalingSetting.png[]
 //end::roby1[]
 
-=== Navigating $aveNUS
-
-* TODO insert when we complete the user interface.
-
 === Using Commands
 
 You can use the commands described in <<Features>> by typing them into
@@ -282,6 +278,10 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 *Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NI t/Chicken t/RiceL`
 ****
 
+[IMPORTANT]
+You are not allowed to add in duplicate foods. Duplicate foods have the same name, category, description, location,
+restrictions and opening hours.
+
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| The food list will scroll to the bottom, where the new food item is added.]
@@ -437,6 +437,14 @@ You must always provide pairs of `FIELD` and `DIRECTION` to execute the Sorting 
 `CATEGORY`, `LOCATION`, `OPENING_HOURS` and `RESTRICTIONS`.
 * The `DIRECTION` are as follows: `ASC` or `DESC`.
 ****
+
+[NOTE]
+`NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION` and `RESTRICTIONS` are sorted in lexicographical order. For example, `Chicken`
+has a smaller lexicographical value than `chicken` due to case sensitivity.
+
+[NOTE]
+`OPENING_HOURS` are sorted based on start time and end time. If one food's start time is earlier than another food,
+then the food with the earlier start time will have a smaller comparison value.
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
@@ -808,9 +816,6 @@ The factors affecting the calculation of the recommendation value is summarized 
 |===
 //end::recommendationpenalty[]
 
-[IMPORTANT]
-Recommendation turns auto-sorting OFF.
-
 ****
 Format: `recommend`
 ****
@@ -825,8 +830,7 @@ image::recommend.png[]
 |===
 
 [NOTE]
-To clear the recommendations, use the `list` or `add` command.
-Recommendations will be cleared too using specific sorting commands such as `sort`.
+To clear the recommendations, use the `list` or `add` or any sorting related command.
 
 [NOTE]
 The recommended amount to spend per meal is calculated by `budget / (daysToExpiry * 2)` under the assumption that the

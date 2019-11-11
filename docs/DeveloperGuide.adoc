@@ -199,7 +199,7 @@ to deal with this consideration.
 |===
 |Alternative 1 (Chosen Implementation) |Alternative 2
 
-a|`equals(Food food)` method should rely on Name, and have an additional check for equality of Location, Opening Hours
+a|`equals(Food food)` method should rely on Name, Category, and have an additional check for equality of Location, Opening Hours
 and Restrictions
 
 * Pros:
@@ -502,11 +502,11 @@ of the savings are added into the `SavingsHistoryList`, found within the `Saving
 
 The following sequence diagram shows how the making of a saving works:
 
-ADD SEQUENCE DIAGRAM HERE
+image::SaveSequenceDiagram.png[align="center"]
 
 The following activity diagram summarises what happens when a user executes a `SaveCommand`:
 
-ADD ACTIVITY DIAGRAM HERE.
+image::SaveActivityDiagram.png[width=450, align="center"]
 
 ===== Design Considerations
 
@@ -579,14 +579,6 @@ is of a negative value since this is a withdrawal.
 After a successful deduction from the savings account, `model#addToHistory(savingsAmount)` is called, and the details
 of the savings are added into the `SavingsHistoryList`, found within the `SavingsHistory` object.
 
-The following sequence diagram shows how the making of a withdrawal works:
-
-ADD SEQUENCE DIAGRAM HERE
-
-The following activity diagram summarises what happens when a user wishes to withdraw $10 from his savings account:
-
-ADD ACTIVITY DIAGRAM HERE.
-
 ===== Design Considerations
 
 Detailed below are the design considerations taken into account when engineering the
@@ -652,14 +644,6 @@ returns an unmodifiable list of savings made by the user thus far.
 
 Finally, the savings history panel in the `MainWindow` class is updated with this unmodifiable list. The result
 is that the user will see only his savings being displayed within the application's savings history panel.
-
-The following sequence diagram shows how the displaying of only savings/withdrawals works:
-
-ADD SEQUENCE DIAGRAM HERE
-
-The following activity diagram summarises what happens when a user requests to only view his savings:
-
-ADD ACTIVITY DIAGRAM HERE.
 
 //end::savings[]
 
@@ -1548,6 +1532,33 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Set Aliases
+
+*MSS*
+
+1. User requests to set an alias, providing a command word and an alias word.
+2. $aveNUS checks if the command and alias words are valid, and sets the alias word of the command word.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The alias word given happens to be a command word.
++
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The command word given is not a valid command word of $aveNUS.
++
+[none]
+** 1b1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
 [appendix]
 == Non Functional Requirements
 
@@ -1585,7 +1596,18 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a Food Item
+
+. Adding a Food Item
+
+.. Prerequisites: The food list in the menu has to be empty.
+.. Test case: `add n/Chicken Rice p/5.00 c/Chinese` +
+   Expected: A new food item is shown in the food list. Details of the food item will be shown to the user.
+.. Test case: `add n/Chicken Rice p/5.00 c/Chinese` +
+   Expected: An error message will appear. The duplicate food item will not be added as the food item has been already
+added from the first test case.
+.. Test case: `add n/Chicken Rice p/5.00` +
+   Expected: An error message will appear. The food needs to have the compulsory field of `CATEGORY`.
 
 === Deleting a Food Item
 
@@ -1593,17 +1615,11 @@ _{ more test cases ... }_
 
 .. Prerequisites: There has to be a food item in the menu for the user to delete.
 .. Test case: `delete 1` +
-   Expected: First food item is deleted from the food list. Details of the deleted contact shown in the status message.
+   Expected: First food item is deleted from the food list. A confirmation message will be shown to indicate successful deletion.
 .. Test case: `delete 0` +
    Expected: No food item is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 === Adding like and dislikes
 

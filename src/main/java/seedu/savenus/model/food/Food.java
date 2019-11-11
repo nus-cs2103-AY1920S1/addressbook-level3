@@ -141,6 +141,7 @@ public class Food {
 
         Food otherFood = (Food) other;
         return otherFood.getName().equals(getName())
+                && otherFood.getCategory().equals(getCategory())
                 && (otherFood.getDescription().equals(getDescription())
                         && otherFood.getLocation().equals(getLocation())
                         && otherFood.getRestrictions().equals(getRestrictions())
