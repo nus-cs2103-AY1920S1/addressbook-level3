@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.CopyToCommand;
 import seedu.planner.logic.commands.ExitCommand;
-import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.LoadCommand;
 import seedu.planner.logic.commands.NewCommand;
@@ -66,8 +66,10 @@ public class PlannerParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(false);
 
+        /*
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
+         */
 
         case ListCommand.COMMAND_WORD:
             return new ListCommandParser().parse(arguments);
@@ -101,6 +103,9 @@ public class PlannerParser {
 
         case LoadCommand.COMMAND_WORD:
             return new LoadCommandParser().parse(arguments);
+
+        case CopyToCommand.COMMAND_WORD:
+            return new CopyToCommandParser().parse(arguments);
 
         case OptimiseCommand.COMMAND_WORD:
             return new OptimiseBudgetCommandParser().parse(arguments);

@@ -7,15 +7,10 @@ import static seedu.planner.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.planner.testutil.Assert.assertThrows;
 import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
-import seedu.planner.logic.commands.FindCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.deletecommand.DeleteContactCommand;
@@ -24,7 +19,6 @@ import seedu.planner.logic.commands.editcommand.EditContactCommand.EditContactDe
 import seedu.planner.logic.commands.listcommand.ListContactCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.contact.Contact;
-import seedu.planner.model.field.NameContainsKeywordsPredicate;
 import seedu.planner.testutil.contact.ContactBuilder;
 import seedu.planner.testutil.contact.ContactUtil;
 import seedu.planner.testutil.contact.EditContactDescriptorBuilder;
@@ -71,6 +65,7 @@ public class PlannerParserTest {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
+    /*
     @Test
     public void parseCommand_find() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
@@ -78,6 +73,7 @@ public class PlannerParserTest {
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
+     */
 
     @Test
     public void parseCommand_help() throws Exception {
