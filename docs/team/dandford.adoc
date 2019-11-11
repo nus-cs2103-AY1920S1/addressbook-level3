@@ -26,7 +26,7 @@ to include allowing it to find for all fields of the entry.
 ** Justification: This feature improves the product as there is more Data Organization and the user can choose what data to see through find.
 ** Highlights: This feature involves sorting the exiting list of entries and filtering them, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 * *Other contributions*:
 
@@ -40,7 +40,7 @@ to include allowing it to find for all fields of the entry.
 *** Standardized the User Guide and Developer's Guide
 *** Designed the layout for User Guide(Pictures)
 ** Community:
-*** Set up the basic structure for the project. (Creation of expenses classes):https://github.com/AY1920S1-CS2103-T16-4/main/pull/67 [#67]
+*** Set up the basic structure for the project. (Creation of expenses classes): https://github.com/AY1920S1-CS2103-T16-4/main/pull/67[#67]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 
 
@@ -137,8 +137,8 @@ Other Examples:
 * `viewBar`
 
 === Sorting and Finding
-Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#31-categories
-Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#31-categories
+Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#37-sorting--sortexpense-sortincome-sortbudget-sortwish[Link For Sorting]
+Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#38-find--findexpense-findincome-findwish-findbudget[Link For Finding]
 
 == Contributions to the Developer Guide
 === Data Presentation: Categories
@@ -156,7 +156,7 @@ if there are existing entries of the original `Category` to carry out modificati
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
 .Activity Diagram for Editing Category
-image::EditingCategory.png[width=80%]
+image::EditingCategory.png[width=50%]
 
 === Data Presentation: Statistics
 
@@ -208,26 +208,7 @@ image::ViewPieChartSequenceDiagram.png[]
 ==== Implementation: (Statistics) - ViewBarChartCommand
 Similar to `ViewPie` and `ViewTable`, the `StatisticsBarChart` class listens to the `ObservableList` of `DailyStatistics` and will update
 according to changes in it. Hence all operations which involve calculation of daily statistics needs to update this `ObservableList` by replacing its entries so as to
-update the relevant Bar Chart in `Ui`.
-
-The details of the process is as below:
-
-. The user executes the command `viewBar p/2019-09`
-.  `LogicManager` uses the `guiltTripParser` class to parse the user command.
-.  This results in a `ViewBarChartCommand` object which is executed by the `LogicManager`
-.  The `ViewBarChartCommand` calls the `Model#updateBarChart(MonthToShow)` 's method which then calls `StatisticsManager#updateBarChart(monthToShow)` method to calculate the statistics for that period.
-.  `StatisticsManager#updateBarChart(MonthToShow)` retrieves the relavant MonthList from `ObservableMap`, yearlyRecord and calls `MonthList#calculateStatisticsForBarChart`.
-.  The called `MonthList` will then loop through all the DailyList in it and calls `DailyList#calculateStatisticsForBarChart`, retrieving the result and
-returning it to `StatisticsManager`.
-.  `StatisticsManager#updateBarChart(MonthToShow)` will replace the all the `DailyStatistics` objects in the `ObservableList` of `DailyStatistics` with the newly calculated `DailyStatistics` objects.
-.  As the `ObservableList` is updated, the BarChart which uses this `ObservableList` is also updated, leading to them being updated.
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-.  `Logic` returns the `CommandResult` object.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewBar p/2019-09")` API call.
-
-.Interactions Inside the Logic Component for the `viewBar p/2019-09` Command
-image::ViewBarChartSequenceDiagram.png[]
+update the relevant Bar Chart in `Ui`. Further elaboration can be found at https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/DeveloperGuide.adoc#342-implementation-statistics---viewbarchartcommand[View-Bar-Chart-Elaboration].
 
 ==== Design Considerations: Statistics
 *Aspect: Calculation of Income and Expenses*
@@ -238,6 +219,7 @@ image::ViewBarChartSequenceDiagram.png[]
 * *Alternative 2(current choice)*: Have MonthList and DailyList classes which store the specific filteredlist of expenses for that month. This is a new filteredlist which observes the changes in the original list of expenses and is updated if a new expense is added which corresponds to the month.
 ** Pros: Will be faster as initiating the expenses in the MonthList is only done at the start of the application. Any queries after that just refers to the already constructed MonthList. It is also structured as calculations of expenses now involve going to the related MonthList to carry out the calculations.
 ** Cons: More complicated to implement.
+
 [NOTE]
 There isn’t a need to use YearList as most users will usually want to see their statistics breakdown over a period of a month rather than over a period of years.
 
