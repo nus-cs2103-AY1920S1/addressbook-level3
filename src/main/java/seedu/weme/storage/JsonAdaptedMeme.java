@@ -1,5 +1,6 @@
 package seedu.weme.storage;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -45,9 +46,11 @@ class JsonAdaptedMeme {
 
     /**
      * Converts a given {@code Meme} into this class for Jackson use.
+     *
+     * @param folderPath the path to the folder the meme images are saved in.
      */
-    public JsonAdaptedMeme(Meme source) {
-        filePath = source.getImagePath().toString();
+    public JsonAdaptedMeme(Meme source, Path folderPath) {
+        filePath = folderPath.relativize(source.getImagePath().getFilePath()).toString(); // store only filename
         description = source.getDescription().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -58,9 +61,10 @@ class JsonAdaptedMeme {
     /**
      * Converts this Json-friendly adapted meme object into the model's {@code Meme} object.
      *
+     * @param folderPath the path to the folder the meme images are saved in.
      * @throws IllegalValueException if there were any data constraints violated in the adapted meme.
      */
-    public Meme toModelType() throws IllegalValueException {
+    public Meme toModelType(Path folderPath) throws IllegalValueException {
         final List<Tag> memeTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             memeTags.add(tag.toModelType());
@@ -70,10 +74,11 @@ class JsonAdaptedMeme {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     ImagePath.class.getSimpleName()));
         }
-        if (!ImagePath.isValidFilePath(filePath)) {
+        String imagePathString = folderPath.resolve(filePath).toString(); // convert to be usable by Weme
+        if (!ImagePath.isValidFilePath(imagePathString)) {
             throw new IllegalValueException(ImagePath.MESSAGE_CONSTRAINTS);
         }
-        final ImagePath modelUrl = new ImagePath(filePath);
+        final ImagePath modelUrl = new ImagePath(imagePathString);
 
         if (description == null) {
             throw new IllegalValueException(String.format(

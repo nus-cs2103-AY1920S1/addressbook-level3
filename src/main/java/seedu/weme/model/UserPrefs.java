@@ -18,9 +18,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     public static final String EXPORT_PATH_KEY = "exportPath";
     public static final String DATA_FOLDER_PATH_KEY = "dataFolderPath";
-    private static final String MEME_IMAGE_DIRECTORY_NAME = "memes";
-    private static final String TEMPLATE_IMAGE_DIRECTORY_NAME = "templates";
-    private static final String DATA_FILE_NAME = "weme.json";
+    public static final String MEME_IMAGE_DIRECTORY_NAME = "memes";
+    public static final String TEMPLATE_IMAGE_DIRECTORY_NAME = "templates";
+    public static final String DATA_FILE_NAME = "weme.json";
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path dataFolderPath = Paths.get("data");

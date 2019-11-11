@@ -1,5 +1,7 @@
 package seedu.weme.storage;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,25 +40,31 @@ class JsonSerializableStats {
     /**
      * Converts a given {@code ReadOnlyWeme} into this class for Jackson use.
      *
+     * @param folderPath the path to the folder the meme images are saved in.
      * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
      */
-    public JsonSerializableStats(Stats source) {
+    public JsonSerializableStats(Stats source, Path folderPath) {
         Map<String, SimpleIntegerProperty> likeData = source.getObservableLikeData();
         Map<String, SimpleIntegerProperty> dislikeData = source.getObservableDislikeData();
         for (Map.Entry<String, SimpleIntegerProperty> entry : likeData.entrySet()) {
-            likeMap.put(entry.getKey(), entry.getValue().get());
+            Path imagePath = Paths.get(entry.getKey());
+            String entryString = folderPath.relativize(imagePath).toString();
+            likeMap.put(entryString, entry.getValue().get());
         }
         for (Map.Entry<String, SimpleIntegerProperty> entry : dislikeData.entrySet()) {
-            dislikeMap.put(entry.getKey(), entry.getValue().get());
+            Path imagePath = Paths.get(entry.getKey());
+            String entryString = folderPath.relativize(imagePath).toString();
+            dislikeMap.put(entryString, entry.getValue().get());
         }
     }
 
     /**
      * Converts this stats into the model's {@code Stats} object.
      *
+     * @param folderPath the path to the folder the meme images are saved in.
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Stats toModelType() throws IllegalValueException {
+    public Stats toModelType(Path folderPath) throws IllegalValueException {
         Stats stats = new StatsManager();
         Map<String, SimpleIntegerProperty> likeData = new HashMap<>();
         Map<String, SimpleIntegerProperty> dislikeData = new HashMap<>();
@@ -66,7 +74,8 @@ class JsonSerializableStats {
             } else if (likeData.containsKey(entry.getKey())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_LIKE);
             }
-            likeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
+            String imagePathString = folderPath.resolve(entry.getKey()).toString();
+            likeData.put(imagePathString, new SimpleIntegerProperty(entry.getValue()));
         }
         for (Map.Entry<String, Integer> entry : dislikeMap.entrySet()) {
             if (entry.getValue() < 0) {
@@ -74,7 +83,8 @@ class JsonSerializableStats {
             } else if (dislikeData.containsKey(entry.getKey())) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_DISLIKE);
             }
-            dislikeData.put(entry.getKey(), new SimpleIntegerProperty(entry.getValue()));
+            String imagePathString = folderPath.resolve(entry.getKey()).toString();
+            dislikeData.put(imagePathString, new SimpleIntegerProperty(entry.getValue()));
         }
         stats.setLikeData(likeData);
         stats.setDislikeData(dislikeData);

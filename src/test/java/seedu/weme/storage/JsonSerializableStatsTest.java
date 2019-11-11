@@ -12,6 +12,7 @@ import seedu.weme.commons.util.JsonUtil;
 
 class JsonSerializableStatsTest {
 
+    private static final Path MEME_IMAGE_FOLDER = Paths.get("src", "test", "data", "memes");
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableStatsTest");
     private static final Path INVALID_LIKE_FILE = TEST_DATA_FOLDER.resolve("invalidLikeWeme.json");
     private static final Path INVALID_DISLIKE_FILE = TEST_DATA_FOLDER.resolve("invalidDislikeWeme.json");
@@ -21,7 +22,7 @@ class JsonSerializableStatsTest {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(INVALID_LIKE_FILE,
                 JsonSerializableWeme.class).get();
         JsonSerializableStats statsFromFile = dataFromFile.getStats();
-        assertThrows(IllegalValueException.class, statsFromFile::toModelType);
+        assertThrows(IllegalValueException.class, () -> statsFromFile.toModelType(MEME_IMAGE_FOLDER));
     }
 
     @Test
@@ -29,7 +30,7 @@ class JsonSerializableStatsTest {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(INVALID_DISLIKE_FILE,
                 JsonSerializableWeme.class).get();
         JsonSerializableStats statsFromFile = dataFromFile.getStats();
-        assertThrows(IllegalValueException.class, statsFromFile::toModelType);
+        assertThrows(IllegalValueException.class, () -> statsFromFile.toModelType(MEME_IMAGE_FOLDER));
     }
 
 }

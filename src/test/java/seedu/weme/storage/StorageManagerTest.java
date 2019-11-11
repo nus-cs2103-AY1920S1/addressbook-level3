@@ -62,8 +62,8 @@ public class StorageManagerTest extends ApplicationTest {
     }
 
     @Test
-    public void getWemeFilePath() {
-        assertNotNull(storageManager.getWemeFilePath());
+    public void getWemeFolderPath() {
+        assertNotNull(storageManager.getWemeFolderPath());
     }
 
 }

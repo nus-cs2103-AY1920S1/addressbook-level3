@@ -46,17 +46,20 @@ public class JsonWemeStorageTest extends ApplicationTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readWeme("notJsonFormatWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("notJsonFormatWeme"));
     }
 
     @Test
     public void readWeme_invalidMemeWeme_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWeme("invalidMemeWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("invalidMemeWeme"));
     }
 
     @Test
     public void readWeme_invalidAndValidMemeWeme_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWeme("invalidAndValidMemeWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("invalidAndValidMemeWeme"));
     }
 
     @Test

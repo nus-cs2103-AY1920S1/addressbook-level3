@@ -16,6 +16,7 @@ import seedu.weme.testutil.TypicalWeme;
 
 public class JsonSerializableWemeTest extends ApplicationTest {
 
+    private static final Path IMAGE_DATA_FOLDER = Paths.get("src", "test", "data");
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableWemeTest");
     private static final Path TYPICAL_WEME_FILE = TEST_DATA_FOLDER.resolve("typicalWeme.json");
     private static final Path INVALID_MEME_FILE = TEST_DATA_FOLDER.resolve("invalidMemeWeme.json");
@@ -27,7 +28,7 @@ public class JsonSerializableWemeTest extends ApplicationTest {
     public void toModelType_typicalMemesFile_success() throws Exception {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(TYPICAL_WEME_FILE,
                 JsonSerializableWeme.class).get();
-        Weme wemeFromFile = dataFromFile.toModelType();
+        Weme wemeFromFile = dataFromFile.toModelType(IMAGE_DATA_FOLDER);
         Weme typicalWeme = TypicalWeme.getTypicalWeme();
         assertEquals(wemeFromFile, typicalWeme);
     }
@@ -36,30 +37,30 @@ public class JsonSerializableWemeTest extends ApplicationTest {
     public void toModelType_invalidMemes_throwsIllegalValueException() throws Exception {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(INVALID_MEME_FILE,
                 JsonSerializableWeme.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType(IMAGE_DATA_FOLDER));
     }
 
     @Test
     public void toModelType_duplicateMemes_throwsIllegalValueException() throws Exception {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(DUPLICATE_MEME_FILE,
                 JsonSerializableWeme.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableWeme.MESSAGE_DUPLICATE_MEME,
-                dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, JsonSerializableWeme.MESSAGE_DUPLICATE_MEME, (
+            ) -> dataFromFile.toModelType(IMAGE_DATA_FOLDER));
     }
 
     @Test
     public void toModelType_invalidTemplates_throwsIllegalValueException() throws Exception {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(INVALID_TEMPLATE_FILE,
             JsonSerializableWeme.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType(IMAGE_DATA_FOLDER));
     }
 
     @Test
     public void toModelType_duplicateTemplates_throwsIllegalValueException() throws Exception {
         JsonSerializableWeme dataFromFile = JsonUtil.readJsonFile(DUPLICATE_TEMPLATE_FILE,
             JsonSerializableWeme.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableWeme.MESSAGE_DUPLICATE_TEMPLATE,
-            dataFromFile::toModelType);
+        assertThrows(IllegalValueException.class, JsonSerializableWeme.MESSAGE_DUPLICATE_TEMPLATE, (
+            ) -> dataFromFile.toModelType(IMAGE_DATA_FOLDER));
     }
 
 }

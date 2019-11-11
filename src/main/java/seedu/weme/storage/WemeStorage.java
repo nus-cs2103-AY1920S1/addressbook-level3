@@ -14,9 +14,9 @@ import seedu.weme.model.Weme;
 public interface WemeStorage {
 
     /**
-     * Returns the file path of the data file.
+     * Returns the folder path of the data folder.
      */
-    Path getWemeFilePath();
+    Path getWemeFolderPath();
 
     /**
      * Returns Weme data as a {@link ReadOnlyWeme}.
@@ -27,7 +27,7 @@ public interface WemeStorage {
     Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException;
 
     /**
-     * @see #getWemeFilePath()
+     * @see #getWemeFolderPath()
      */
     Optional<ReadOnlyWeme> readWeme(Path filePath) throws DataConversionException, IOException;
 

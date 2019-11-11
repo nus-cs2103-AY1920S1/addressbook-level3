@@ -56,7 +56,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        WemeStorage wemeStorage = new JsonWemeStorage(userPrefs.getDataFilePath());
+        WemeStorage wemeStorage = new JsonWemeStorage(userPrefs.getDataFolderPath());
         storage = new StorageManager(wemeStorage, userPrefsStorage);
 
         initLogging(config);
