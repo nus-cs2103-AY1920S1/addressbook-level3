@@ -586,7 +586,7 @@ This command does not work if the application is in another tab or the specified
 .Calendar view for November 2019
 image::calendar-view-modified.png[width="450", float="left"]
 [.left]
-.Engagement list for 29/10/2019 (circled date)
+.Engagement list circled date
 image::calendar-open-display.png[width="450"]
 {empty} +
 
