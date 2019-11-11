@@ -452,27 +452,176 @@ with current implementations (able to wrap `ObservableList` and sort the content
 ** Cons: Cannot make use of existing methods in ORGANice that work for Comparator.
 // end::sort[]
 
+// tag::processingDG[]
+
 === Processing feature
 This section describes how the processing feature is implemented.
 
-Processing is done by accessing `Patient` and `Donor` in `ModelManager`, then creating an ArrayList named, `ProcessingList` to store the tasks needed to do.
+Processing is facilitated by the `ProcessingCommand` class, which extends the `Command` class.
 
-If the donor and patient pair has never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+Processing is done by accessing `Patient` and `Donor` in `ModelManager`,
+then creating a `ProcessingList` which acts like ArrayList to store the tasks which needs to be done.
+
+It implements the `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` boolean operation. +
+This method will first determine which Nric belongs to a patient and which Nric belongs to a donor
+since the input allows user to give two Nric in no particular order. +
+It will also get the `Donor` and `Patient` objects with the NRIC given. +
+Then, it will check if the donor have a `ProcessingList` generated before. +
+If the donor have an empty `ProcessingList`, it means that the donor is newly processed. +
+Hence, it will mean that the donor may be able to pair with the given patient. +
+If the donor already have a `ProcessingList`, it means that the donor is already being processed with a patient. +
+Then, this method will check if the patient given by the user is the same patient being processed together with this donor. +
+This is done by checking the `Patient` attribute that is tagged to the `ProcessingList` of the donor. +
+Finally, the method will check if the patient and donor given by the user is valid by checking if
+they are able to be matched or not and if they exist in ORGANice. +
+A code snippet of the method is shown below: This code aims to get the `Donor` and `Patient` from the given Nrics given by the user. +
+This method is necessary since user is able to give the Nrics input in no particular order.
+```
+if (model.hasDonor(firstNric)) {
+    donorNric = firstNric;
+    donor = model.getDonor(donorNric);
+
+    patientNric = secondNric;
+    patient = model.getPatient(patientNric);
+} else {
+    patientNric = firstNric;
+    patient = model.getPatient(patientNric);
+
+    donorNric = secondNric;
+    donor = model.getDonor(donorNric);
+}
+```
+
+`Status` class is also  created and it is one of the attributes of `Patient` and `Donor`.
+However, this cannot be edited or added by users. +
+The status of the 'Patient' and 'Donor' will change when Processing command is executed on that pair of patient and donor.
+
+* When a new `Patient` or `Donor` object is created, the `Status` of the new object will be set to `not processing`.
+
+* When the `Processing` command is being executed, `Status` of the `Patient` and the `Donor` will be changed to `processing`,
+provided that the `Patient` and `Donor` are valid.
+
+* When the `Done` command is being executed, `Status` of the `Patient` and the `Donor` will be changed to `done`,
+provided that the `Patient` and `Donor` are valid.
+
+If the donor and patient have never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
 
 If the user makes any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
 
-//Todo: additional feature such as add tasks, delete tasks etc
+When the user execute the processing feature, the method, `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
+to determine if the user give a valid patient and donor input. +
+It will then check if there is a need to generate a new default task list or the donor already have a list tagged to itself. +
+Then, the `Status` of the patient and donor will be set to `processing`.
+It will then display the list out.
+
+Following is an activity diagram to show the processing feature.
+
+.Activity Diagram of the Processing Command
+image::ProcessingActivity.png[]
+
+//Todo: additional feature such as add, edit and delete tasks
+
+// end::processingDG[]
 
 ==== Design considerations
 This section will explain the reason for having some aspects.
 
 ===== Aspect: Method of storing the `ProcessingList`
-* **Alternative 1 (current choice):** Use ArrayList to store the tasks.
-** Pros: Easy to implement.
-** Cons: It is not the most efficient algorithm and the huge number of `ProcessingList` may take up a huge datafile at the end of the day.
-* **Alternative 2:** Use a new class that works like ArrayList.
+* **Alternative 1 (current choice):** Use a new class, `TaskList` that works like ArrayList.
 ** Pros: Able to implement more specific methods for the ProcessingList.
-** Cons: More methods and test cases needed and it is harder to implement.
+** Cons: More methods and test cases needed which are harder to implement.
+* **Alternative 2:** Use ArrayList to store the tasks.
+** Pros: Easy to implement as the default methods are already created.
+** Cons: Future extension on this will be difficult as the `ProcessingList` is unique to this feature.
+
+===== Aspect: Using specific prefixes for Nric inputs
+* **Alternative 1 (current choice):** Nrics of patient and donor can be inputted in no particular order.
+** Pros: More user friendly as users do not need to make sure the Nric must be in correct order. (For example, patient's Nric must come before donor's Nric)
+** Cons: It is harder to implement and more exceptions need to be taken care of.
+* **Alternative 2:** Using specific prefixes for Nric input to differentiate the Nrics of donor and patient.
+** Pros: It is easier to implement as `icP/PATIENT NRIC` and `icD/DONOR NRIC` will be easier to parse to the Command method.
+** Cons: It is less user friendly as users need to remember more prefixes for this entire application.
+
+// tag::processingMarkDoneDG[]
+
+=== ProcessingMarkDone feature
+This section describes how the processingMarkDone feature is implemented.
+
+ProcessingMarkDone is facilitated by the `ProcessingMarkDoneCommand` class, which extends the `Command` class.
+
+ProcessingMarkDone is done by accessing `Patient` and `Donor` in `ModelManager`,
+then, it will get the `ProcessingList` from the `Donor` and then marking a task as done.
+
+It implements the `ProcessingMarkDoneCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` boolean operation. +
+This method works similar to `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` method but with a slight difference. +
+This method just need to check the `Status` of the `Donor` and `Patient` object and make sure it is `processing`. +
+However, this method still need to determine which Nric belongs to a patient and which Nric belongs to a donor
+since the input allows user to give two Nric in no particular order. +
+A code snippet of the method is shown below: This part of the method is different from the `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` method.
+
+```
+if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
+        && patient.getStatus().isProcessing() && donor.getStatus().isProcessing()
+        && match(donor, patient)) {
+    return true;
+} else {
+    return false;
+}
+```
+
+When the user execute the processingMarkDone feature, the method, `ProcessingMarkDoneCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
+to determine if the user give a valid patient and donor input. +
+It will also check if the task number given is valid. +
+Then, it will call `Donor#markTaskAsDone(int taskNumber)` to mark the task on the `ProcessingList` of that donor.
+It will then display the list out.
+
+Following is an object diagram to show the processingMarkDone feature
+
+TODO diagram
+
+// end::processingMarkDoneDG[]
+
+// tag::doneDG[]
+
+=== Done feature
+This section describes how the done feature is implemented.
+
+Done is facilitated by the `DoneCommand` class, which extends the `Command` class.
+
+Done is executed by accessing `Patient` and `Donor` in `ModelManager`,
+then determine if the patient and donor can match each other or not.
+
+It implements the `DoneCommand#isPass(String result)` boolean operation. +
+This method check whether the result of the cross-matching test. +
+
+If the patient and donor did a cross-matching test and the result of the test is a fail,
+then the patient and donor needs to be sent back to find new matches and they
+should not be able to match each other anymore. +
+`Donor` will have an ArrayList `patientsMatchedBefore` which stores all the patients' Nric which fails to match with it.
+Then, the patient and donor will have their `Status` set to `not processing` so that they can find another match and be considered in future matching results.
+
+If the patient and donor did a cross-matching test and the result of the test is a pass,
+then the patient and donor can be removed from ORGANice already.
+
+// end::doneDG[]
+
+Following is an object diagram to show the processingMarkDone feature
+
+TODO diagram
+
+//Todo store the patient and donor information as archive instead of removing it
+
+
+==== Design considerations
+This section will explain the reason for having an aspect.
+
+===== Aspect:
+* **Alternative 1 (current choice):** To remove the patient and donor details if they pass the cross-matching test.
+** Pros: It is easier to implement given the short amount of time we have to complete this project.
+** Cons: It will be harder for users to do data analysis regarding the past successful matches.
+* **Alternative 2:** Archive the details of patient and donor.
+** Pros: The data can be accessed for analysis.
+** Cons: It is harder to implement and space taken may increase exponentially.
 
 === Finding feature
 This section explains the implementation of the find persons by attributes feature.

@@ -5,8 +5,9 @@ import static organice.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the status of donor and patient in ORGANice.
+ * By default, all newly added donor and patient will be not processing.
  * When a donor and patient is matched, they will be processed and their status will be processing.
- * When they are done with cross-matching, their status will change to either done or not processing
+ * When they are done with cross-matching, their status will change to either done or not processing,
  * depending on the result of the cross-matching.
  * Guarantees: immutable; is valid as declared in {@link #isValidStatus(String)}
  */

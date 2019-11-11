@@ -485,7 +485,7 @@ You can then run `sort rate` to obtain the list of donors with higher compatibil
 After finding a list of matches, the hospital will be able to schedule a cross-matching test between
 a specific donor and patient.
 To schedule a cross-matching test, there will be a lot of other administrative tasks to be done.
-Hence, this command will be able to allow you to have an overview on what kind of tasks you need to do for that
+Hence, this command will be able to allow you to have an overview of what kind of tasks you need to do for that
 particular pair of donor and patient before the cross-matching.
 
 ==== `Status` of the donor and patient pair
@@ -496,14 +496,14 @@ The `Status` of patient and donor can be either `Not Processing`, `Processing` o
 
 * `Not Processing` : The current donor or patient is not yet matched with anyone and is not going for any cross-matching test yet.
 
-* `Processing` : The current donor or patient found a match already and is in the midst of preparing for a cross-matching test.
+* `Processing` : The current donor or patient has already found a match and is in the midst of preparing for a cross-matching test.
 
 * `Done` : The current donor or patient have completed the cross-matching and the result of the cross-matching shows a positive result.
 Hence, this donor or patient does not need to be in ORGANice anymore.
 
-All the patients and donors should be `Not Processing` initially.
-When the command is used for the first time for the patient and donor pair, the `Status` of the patient and donor will change from `Not Processing` to `Processing`.
-If the patient and donor is being processed, their `Status` will remain `Processing`.
+All the patients and donors should be `Not Processing` initially. +
+When the command is used for the first time for the patient and donor pair, the `Status` of the patient and donor will change from `Not Processing` to `Processing`. +
+If the patient and donor is being processed, their `Status` will remain as `Processing`.
 
 ==== Task list for the donor and patient
 
@@ -557,6 +557,7 @@ This will allow you to be able to know what other administrative things you need
 for the specific donor and patient before the cross-matching test.
 Beside each task on the task list, there will be either a cross, ✘, or a tick, ✓.
 A tick would mean that the task is completed and a cross will mean that the task has not yet been completed.
+A screenshot of the list generated can be shown below:
 
 .Screenshot of the screen after you use the command on a valid donor and patient and a valid task number
 
@@ -569,9 +570,9 @@ The donor and patient need to be in `Processing` state to be considered valid.
 Example:
 `processingMarkDone ic/S6764235G ic/S5234567D 1`
 
-// end::process[]
+// end::mark[]
 
-// tag::mark[]
+// tag::done[]
 
 === Mark as done: `done`
 
@@ -580,14 +581,15 @@ update the results in ORGANice.
 Cross matching tests have two possible results: pass or fail.
 
 Format: `done ic/**PATIENT NRIC** ic/**DONOR NRIC** res/[pass/fail]`
-The order of the NRICs does not matter, as long as the patient and the donor must be valid.
+
+The order of the NRICs does not matter, as long as the patient and the donor must both be valid.
 
 The following section outlines what happens based on the two results: +
 
 If the result of the cross matching is a 'pass':
 
 . Run the command based on the given format
-. It is up to the you to schedule an organ transplant surgery
+. It is up to you to schedule an organ transplant surgery
 between the patient and donor.
 . Mark the patient and donor as `Done`, based on the command format.
 . The patient and donor statuses will be marked as `Done`.
@@ -603,15 +605,15 @@ match detection with other patients and donors.
 
 . The patient and donor statuses will be marked as `Not Processing`.
 
-. The donor and patient pair will not be considered a potential match in future match detection.
+. The donor and patient pair will not be considered a potential match anymore in future match detections.
 
 
 Example:
 
 * `done ic/S6764235G ic/S5234567D res/pass`
-* `done ic/S6764235G ic/S5234567D res/fail`
+* `done ic/S5234567D ic/S6764235G  res/fail`
 
-// end::mark[]
+// end::done[]
 
 // tag::delete[]
 
@@ -715,11 +717,11 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
 ** *Sort based on compatibility rate*: `sort/rate`
 ** *Sort based on organ expiry date*: `sort expiry`
 ** *Sort based on patient priority* `sort priority` +
-* *Processing*: `processing ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**`
-* *Mark tasks as done*: `processingMarkDone ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**
+* *Processing*: `processing ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** **TASKNUMBER**`
+* *Mark tasks as done*: `processingMarkDone ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**`
 * *List* : `list t/**TYPE**`
 * *Help* : `help`
-* *Done* : `done ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** `
+* *Done* : `done ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** res/[pass/fail]`
 * *Exit* : `exit`
 
 == Glossary

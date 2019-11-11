@@ -39,7 +39,7 @@ Responsibilities: Ensures the testing of the project is done properly and on tim
 
 === Chua Sim Nee
 image::simnee.png[width="150", align="left"]
-{empty}[https://github.com/SimNee[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SimNee[github]] [<<simnee#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: Ensure proper coding standards are followed.

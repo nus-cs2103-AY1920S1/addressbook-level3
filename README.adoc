@@ -40,7 +40,7 @@ image::docs/images/UI.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/UI.png[width="600"]
 endif::[]
 
 == Build Status
