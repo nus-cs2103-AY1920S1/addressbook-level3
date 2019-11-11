@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "delete 5"
+title After command "delete i/5"
 
 package States <<rectangle>> {
     class State1 as "__el0:EngagementList__"

@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "add d/meeting..."
+title After command "add t/meeting..."
 
 package States <<rectangle>> {
     class State1 as "__el0:EngagementList__"

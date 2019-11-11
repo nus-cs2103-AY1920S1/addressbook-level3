@@ -174,11 +174,11 @@ Step 1. The user launches the application for the first time. The `HistoryManage
 
 image::UndoRedoState0.png[width="450", align="center"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the engagement list. The `delete` command calls `Model#saveEngagementList()`, causing the modified state of the engagement list after the `delete 5` command executes to be saved in the `historyList`, and the `versionPointer` is shifted to the newly inserted engagement list state.
+Step 2. The user executes `delete i/5` command to delete the 5th person in the engagement list. The `delete` command calls `Model#saveEngagementList()`, causing the modified state of the engagement list after the `delete 5` command executes to be saved in the `historyList`, and the `versionPointer` is shifted to the newly inserted engagement list state.
 
 image::UndoRedoState1.png[width="450", align="center"]
 
-Step 3. The user executes `add d/meeting ...` to add a new engagement. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
+Step 3. The user executes `add t/meeting ...` to add a new engagement. The `add` command also calls `Model#saveEngagementList()`, causing another modified engagement list state to be saved into the `historyList`.
 
 image::UndoRedoState2.png[width="450", align="center"]
 
@@ -536,7 +536,7 @@ image::SortSequenceDiagram.png[width="750", align="center"]
 
 NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Step 3. The user executes `add d/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
+Step 3. The user executes `add t/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
 
 image::SortListState2.png[width="450", align="center"]
 
@@ -927,22 +927,36 @@ Use case resumes at step 1.
 === Use case: (UC16) Sort appointments
 *MSS*
 
-1.  User requests to Sort appointments and specifies ordering method
-2.  System sorts the list of appointments by the specified order
+1.  User requests to sort appointments
+2.  User specifies the property to sort regarding to
+3.  User specifies the order of ascending or descending
+4.  System sorts the list of appointments by the specified order
 +
 Use case ends.
 
 *Extensions*
 [none]
-* 1a. User does not specify order
+* 2a. User does not specify property
 [none]
-** 1a1. System shows error message
+** 2a1. System shows error message
 +
 Use case ends.
 [none]
-* 1b. User specifies an invalid order
+* 2b. User specifies an invalid property
 [none]
-** 1b1. System shows error message
+** 2b1. System shows error message
++
+Use case ends.
+[none]
+* 3a. User does not specify order
+[none]
+** 3a1. System shows error message
++
+Use case ends.
+[none]
+* 3b. User specifies an invalid order
+[none]
+** 3b1. System shows error message
 +
 Use case ends.
 
@@ -956,8 +970,6 @@ Use case ends.
 .  Application should not exceed 100MB in size.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 //tag::glossary[]
 [appendix]
@@ -1018,4 +1030,29 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Sorting the engagement list
+. Instantiating the sort command mode
+.. Type `sort` in the command line and click `send`.
+
+. Executing the sort command
+.. Following the instruction shown in the console, enter `p/start` and press `enter` again.
+.. Enter `o/ascending` and press `enter` again.
+.. The list should be sorted in ascending order of start time.
+
+. Executing the sort command by giving all attributes at once
+.. Enter `sort p/start o/ascending` followed by pressing `enter`.
+.. This should give the exact same result as the previous stepwise command.
+
+=== Undo and Redo
+. Executing a command that changes the list
+.. Type in `delete i/1` (provided there is at least 1 engagement in the list) and press `enter`.
+
+. Executing undo command
+.. Type in `undo` and press `enter`.
+.. The previously deleted engagement should reappear in the list.
+
+. Executing redo command
+.. Type in `redo` and press `enter`.
+.. The recovered engagement should disappear in the list.
+
+
