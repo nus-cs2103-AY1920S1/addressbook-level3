@@ -1500,17 +1500,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Adding problems
+=== Problem
 
-. Adding a new problem to AlgoBase.
+==== Adding a problem
+
 .. Test case: `addprob n/Sequences d/find number of inversions t/algorithm` +
    Expected: A problem named 'Sequences' and tagged 'algorithm' is added to AlgoBase.
 .. Test case: `addprob n/ d/unnamed problem` +
 Expected: No problem is added. The problem's name shouldn't be blank. Error details shown in the status message.
 
-=== Deleting problems
+==== Deleting a problem
 
-. Deleting a problem from AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `deleteprob 1` +
    Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
@@ -1519,9 +1519,8 @@ Expected: No problem is added. The problem's name shouldn't be blank. Error deta
 .. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Editing problems
+==== Editing a problem
 
-. Changing fields of an existing problem in AlgoBase.
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `editprob 1 n/Two Sequences` +
    Expected: Change the name of the first problem to 'Two Sequences'.
@@ -1530,12 +1529,12 @@ Expected: No problem is added. The problem's name shouldn't be blank. Error deta
 .. Test case: `editprob x` +
    Expected: No problem is edited. Index of problem should be a valid integer. Error details shown in the status message.
 
-=== Listing problems
+==== Listing problems
 
 .. Test case: `listprob` +
 Expected: All problems in AlgoBase are listed in the problem panel.
 
-=== Sorting problems
+==== Sorting problems
 
 .. Test case: `sortprob m/name` +
    Expected: The current problem list is sorted with respect to names in ascending order.
@@ -1548,50 +1547,47 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `sortprob m/name m/diff` +
    Expected: The current problem list remains unchanged and an error is thrown to inform the user that the method name is incorrect.
 
-// tag::tag_test[]
-=== Adding tags
+==== Finding a problem
 
-. Adding a tag to the existing AlgoBase
+.. Test case: `findprob n/sort` +
+   Expected: All problems whose name includes “sort” (case-insensitive) is listed in the “Problems” panel.
+.. Test case: `findprob` +
+   Expected: An error is thrown and the user is informed that at least one constraint should be provided.
+
+// tag::tag_test[]
+=== Tag
+
+==== Adding a tag
 
 .. Test case: `addtag t/test c/BLUE` +
    Expected: New Tag [test] added to AlgoBase.
 .. Test case: type in `addtag t/test c/BLUE` for twice +
    Expected: Tag [test] already exists in AlgoBase.
 
-=== Deleting tags
-
-. Deleting a tag in the existing AlgoBase
+==== Deleting a tag
 
 .. Test case: `deletetag 1` +
    Expected: Tag [test] deleted.
 .. Test case: `deletetag 9999` +
    Expected: The Tag index provided is invalid
 
-=== Editing tags
+==== Editing a tag
 
-. Editing a tag in the existing AlgoBase
 .. Test case: `edittag 1 t/edited c/RED` +
    Expected: Tag [edited] edited.
 .. Test case: `edittag t/edited c/RED` +
    Expected: An error is thrown and the user is informed that the format of command is invalid.
 
-=== Listing tags
+==== Listing a tag
 
-. Listing all tags in the existing AlgoBase
 .. Test case: `listtag` +
    Expected: All tags listed.
 
 // end::tag_test[]
 
-=== Finding problems
+=== Find Rule
 
-. Finding problems that fulfills certain constraints
-.. Test case: `findprob n/sort` +
-   Expected: All problems whose name includes “sort” (case-insensitive) is listed in the “Problems” panel.
-.. Test case: `findprob` +
-   Expected: An error is thrown and the user is informed that at least one constraint should be provided.
-
-=== Adding problem-finding rules
+==== Adding a problem-finding rule
 
 .. Prerequisites: there is no find rules named “rule1” or “rule2” or “rule3” in the existing AlgoBase, and find rules with a certain name is never added more than once.
 .. Test case: `addfindrule rule1 n/Sequences` +
@@ -1601,7 +1597,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `afr rule3` +
    Expected: An error is thrown and the user is informed that at least one constraint should be provided.
 
-=== Applying problem-finding rules
+==== Applying a problem-finding rule
 
 .. Prerequisites: there are four find rules in the existing AlgoBase.
 .. Test case: `apply 1` +
@@ -1611,7 +1607,7 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `apply 100` +
    Expected: An error is thrown and the user is informed that the provided find rule index is invalid.
 
-=== Deleting problem-finding rules
+==== Deleting a problem-finding rule
 
 .. Prerequisites: there are four find rules in the existing AlgoBase.
 .. Test case: `deletefindrule 1` +
@@ -1620,10 +1616,10 @@ Expected: All problems in AlgoBase are listed in the problem panel.
    Expected: The first find rule is deleted and the find rules list is updated.
 
 // tag::plan_test[]
+=== Plan
 
-=== Adding a plan
+==== Adding a plan
 
-. Adding an empty plan into AlgoBase.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
    Expected: A new plan with respective information is added and displayed on plan tab. Start date is now and end date is one month from now.
 .. Test case: `addplan n/ByteDance d/coding test for Software engineering` +
@@ -1633,9 +1629,8 @@ Expected: All problems in AlgoBase are listed in the problem panel.
 .. Test case: `addplan n/Graph end/1912-06-23` +
    Expected: No plan is added. If no starting time is specified, the starting time will be `LocalDate#now()`, and the starting time should not be after end time. Error details shown in the status message.
 
-=== Editing a plan
+==== Editing a plan
 
-. Changing fields of an existing plan in AlgoBase.
 .. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
 .. Test case: `editplan 1 d/give up start/2019-01-01 end/2020-02-02` +
    Expected: The description and the dates of the first displayed plan is changed.
@@ -1646,9 +1641,8 @@ Expected: The end date of the first displayed plan is changed to `2019-02-02`. A
 ..Test case: `editplan 1 start/2019-01-30 /f` +
 Expected: The starting date of the first displayed plan is changed to `2019-01-30`. Any task's due date before `2019-01-30` will be changed to the plan's end date.
 
-=== Finding plans
+==== Finding plans
 
-. Finding plans with matching fields in AlgoBase.
 .. Test case: `findplan n/bytedance` +
    Expected: The plan named 'ByteDance' is listed.
 .. Test case: `findplan start/2019-01-01 end/2019-12-12` +
@@ -1658,9 +1652,8 @@ Expected: The starting date of the first displayed plan is changed to `2019-01-3
 .. Test case: `findplan start/2019-01-01 end/2018-01-02` +
    Expected: Invalid command. Range start should not be after range end. Error details shown in the status message.
 
-=== Deleting a plan
+==== Deleting a plan
 
-. Deleting a plan from AlgoBase.
 .. Prerequisites: List all plans using the `listplan` or `findplan` command. Multiple plans in the list.
 .. Test case: `findplan n/bytedance` +
 `deleteplan 1` +
@@ -1669,14 +1662,13 @@ Expected: The starting date of the first displayed plan is changed to `2019-01-3
 `deleteplan 1` +
    Expected: The first plan among all plans is deleted.
 
-=== Listing plans
+==== Listing plans
 
-. Listing all existing plans in AlgoBase.
 .. Test case: `listplan` +
 Expected: All plans in Algobase are listed in the plan display tab.
 // end::plan_test[]
 
-=== Setting a plan as current plan
+==== Setting a plan as current plan
 .. Prerequisites
 ... There are exactly 2 training plans in AlgoBase.
 .. Test case: `setplan 2` +
@@ -1685,7 +1677,9 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `setplan 20` +
    Expected: No task is added. Error details shown in the status message, indicating that the given plan index is invalid.
 
-=== Adding a task to an existing plan
+=== Task
+
+==== Adding a task to an existing plan
 .. Prerequisites
 ... There is at least 1 training plan and 10 problems in AlgoBase.
 ... Plan 1 is empty.
@@ -1696,7 +1690,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `addtask plan/1 prob/2 due/3030-01-01` +
    Expected: No task is added. Error details shown in the status message, indicating that the due date is not within the range of plan.
 
-=== Editing due date of a task
+==== Editing due date of a task
 .. Prerequisites
 ... There is at least 1 training plan in AlgoBase.
 ... Plan 1 has at least 1 task.
@@ -1706,7 +1700,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `edittask plan/1 task/1 due/3030-01-01` +
    Expected: Error details shown in the status message, indicating that the due date is not within the range of plan.
 
-=== Deleting a task
+==== Deleting a task
 .. Prerequisites
 ... There is exactly 1 training plan in AlgoBase.
 ... Plan 1 has at least 1 task.
@@ -1715,7 +1709,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `deletetask plan/100 task/1` +
    Expected: Error details shown in the status message, indicating that the plan index is invalid.
 
-=== Marking a task as done
+==== Marking a task as done
 .. Prerequisites
 ... There is at least 1 training plan in AlgoBase.
 ... Plan 1 has at least 2 tasks.
@@ -1726,7 +1720,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `donetask plan/1 task/2` +
    Expected: Error details shown in the status message, indicating that the specified task is already done.
 
-=== Marking a task as undone
+==== Marking a task as undone
 .. Prerequisites
 ... There is at least 1 training plan in AlgoBase.
 ... Plan 1 has at least 2 tasks.
@@ -1737,7 +1731,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `undonetask plan/1 task/2` +
    Expected: Error details shown in the status message, indicating that the specified task is not yet done.
 
-=== Copying a task between plans
+==== Copying a task between plans
 .. Prerequisites
 ... There are at least 2 training plans in AlgoBase.
 ... Plan 1 has at least 2 tasks.
@@ -1747,7 +1741,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `copytask task/1 from/1 to/2` +
    Expected: Error details shown in the status message, indicating that the specified task is already in plan 2.
 
-=== Moving a task between plans
+==== Moving a task between plans
 .. Prerequisites
 ... There are at least 2 training plans in AlgoBase.
 ... Plan 1 has at least 2 tasks.
@@ -1757,15 +1751,10 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `movetask task/1 from/1 to/2` +
    Expected: Error details shown in the status message, indicating that the specified task is already in plan 2.
 
-=== Saving Data
-. Dealing with missing/corrupted data files
-.. Delete the `data` folder in project root folder and launch AlgoBase. +
-   Expected: No errors shown. A new data file is created silently.
-.. Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
-   Expected: Error details shown in the status message, indicating corrupted data file.
-
 //@@author tiuweehan
-=== Switching tabs
+=== GUI
+
+==== Switching tabs
 . Switching between Tabs
 .. Prerequisites: Currently at the first display tab (Problem).
 .. Test case: `switchtab tt/display i/2` +
@@ -1783,7 +1772,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `switchtab tt/3 i/1` +
    Expected: No tabs are changed. Error message is shown.
 
-=== Opening a new tab
+==== Opening a new tab
 . Opening a new Details Tab for a Problem or Plan
 .. Prerequisites: At least 1 problem or plan exists in the current problem display tab.
 .. Test case: `opentab m/problem i/1` +
@@ -1811,8 +1800,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `ot m/5 i/1` +
    Expected: No tabs are opened. Error message is shown.
 
-=== Closing an existing tab
-. Closing a Details Tab
+==== Closing an existing tab
+
 .. Prerequisites: At least one Details Tab exist.
 .. Test case: `closetab i/1` while first tab is selected (Assuming there are 3 details tabs) +
    Expected: The first tab is closed and the new first tab (previously second tab) is selected.
@@ -1827,9 +1816,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: `ct i/4` while current tab is selected (Assuming there are 3 details tabs) +
    Expected: No details tab are closed. Error message is shown.
 
-=== Editing Problem from GUI
+==== Editing a problem from GUI
 
-. Editing a Problem from GUI
 .. Prerequisites: At least one problem exists and it is opened in a Details Tab.
 .. Test case: No changes are made to the Problem. +
    Expected: The _Edit Problem_ button should be disabled and not clickable.
@@ -1838,9 +1826,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: Some invalid changes are made and the user clicks on _Edit Problem_ button. +
    Expected: Error details shown in the status message. Field updates are not reflected in the Display and Plan tabs, and Details Tab remains in edit mode. _Edit Problem_ button is not disabled.
 
-=== Deleting Problem from GUI
+==== Deleting a problem from GUI
 
-. Deleting a Problem from GUI
 .. Prerequisites: At least one problem exists and it is opened in a Details Tab.
 .. Test case: User clicks on the Delete button. +
    Expected: A warning dialog shows up with a _Confirm_ and _Cancel_ button.
@@ -1849,9 +1836,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: User clicks on the Delete button then clicks _Cancel_ on the warning dialog. +
    Expected: The Warning dialog is closed and no other changes are made.
 
-=== Editing Plan from GUI
+==== Editing a plan from GUI
 
-. Deleting a Plan from GUI
 .. Prerequisites: At least one plan exists and it is opened in a Details Tab.
 .. Test case: No changes are made to the Plan. +
    Expected: The _Edit Plan_ button should be disabled and not clickable.
@@ -1860,9 +1846,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: Some invalid changes are made and the user clicks on _Edit Problem_ button. +
    Expected: Error details shown in the status message. Field updates are not reflected in the Display and Plan tabs, and Details Tab remains in edit mode. _Edit Plan_ button is not disabled.
 
-=== Deleting Plan from GUI
+==== Deleting a plan from GUI
 
-. Editing a Plan from GUI
 .. Prerequisites: At least one plan exists and it is opened in a Details Tab.
 .. Test case: User clicks on the Delete button. +
    Expected: A warning dialog shows up with a _Confirm_ and _Cancel_ button.
@@ -1871,7 +1856,7 @@ Current plan in the task management is updated to plan 1.
 .. Test case: User clicks on the Delete button then clicks _Cancel_ on the warning dialog. +
    Expected: The Warning dialog is closed and no other changes are made.
 
-=== Switching tabs from GUI
+==== Switching tabs from GUI
 
 . Switching between Display Tabs
 .. Prerequisites: Currently at the first display tab (Problem).
@@ -1883,7 +1868,8 @@ Current plan in the task management is updated to plan 1.
 .. Test case: Click on a different tab +
    Expected: The display tab is now at the tab that is clicked on.
 
-=== Opening a new tab from GUI
+==== Opening a new tab from GUI
+
 . Opening a new Details Tabs for a Problem or Plan
 .. Prerequisites: There is at least 1 problem or plan in the Display Tab currently.
 .. Test case: The user double clicks on a problem or plan in the display tab. +
@@ -1894,8 +1880,17 @@ Current plan in the task management is updated to plan 1.
 .. Test case: The user double clicks on a problem or plan in the display tab that is already in a details tab.
    Expected: The tab is switched to details tab containing the problem or plan.
 
-=== Closing an existing tab from GUI
+==== Closing an existing tab from GUI
+
 .. Prerequisites: At least one Details Tab exist.
 .. Test case: User clicks on the `x` button next to the tab. +
    Expected: The Details tab corresponding to that tab is closed.
+
+=== Data
+
+.. Test case: Delete the `data` folder in project root folder and launch AlgoBase. +
+   Expected: No errors shown. A new data file is created silently.
+.. Test case: Delete some mandatory fields in the data file located at `data/algobase.json` and launch AlgoBase. +
+   Expected: Error details shown in the status message, indicating corrupted data file.
+
 //author
