@@ -47,7 +47,7 @@ public class EditTaskCommand extends Command {
             + PREFIX_TASK_STATUS + "STATUS "
             + PREFIX_DEADLINE + "DEADLINE "
             + PREFIX_TASK_TAG + "TAG...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TASK_INDEX + "1 " + PREFIX_TASK_NAME + " new name";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TASK_INDEX + "1 " + PREFIX_TASK_NAME + "new name";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
