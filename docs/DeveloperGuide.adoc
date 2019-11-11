@@ -1477,7 +1477,6 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-<<<<<<< HEAD
    Expected: GUI shows set of sample transactions.
    Filter title set to current month and year of system time.
    Window size is fixed at 960x720px.
