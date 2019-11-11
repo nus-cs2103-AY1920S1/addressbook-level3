@@ -176,8 +176,6 @@ If you want to see the full list of accounts you currently own, you can enter co
 
 Format: `account list`
 
-image::accountlist.png[]
-
 ==== Edit an account: `account edit`
 
 You can edit the account you think that needs modified. You can choose to edit either the name or the description of the account, or both.
@@ -192,20 +190,12 @@ Format: `account edit <id> [n/<name>] [d/<description>]`
 
 Examples:
 
-*`account edit 1 n/food`
+* `account edit 1 n/food`
 The name of your first account will be changed to 'food'.
-*`account edit 1 d/money spent on food`
+* `account edit 1 d/money spent on food`
 The name of your first account will be changed to 'money spent on food'.
-*`account edit 1 n/food d/money spent on food`
+* `account edit 1 n/food d/money spent on food`
 The name of your first account will be changed to 'food', at the same time the description of the same account will be changed to 'money spent on food'.
-
-image::accountedit_1.png[]
-
-1a. Enter the command "account edit 2 n/book".
-
-image::accountedit_2.png[]
-
-You have successfully changed the name of the second account to "book".
 
 ==== Delete account: `account delete`
 
@@ -223,14 +213,6 @@ Examples:
 * `account delete 2`
 You have deleted the second account in your account list.
 
-image::accountdelete_1.png[]
-
-1a. Enter the command "account delete 6".
-
-image::accountdelete_2.png[]
-
-1b. You have successfully deleted the sixth account.
-
 ==== Find account: `account find`
 
 If you want to see a specific type of accounts you have, or find a specific account, you can find the account(s) with a specified keyword.
@@ -242,10 +224,6 @@ Examples:
 
 * `account find trip`
 You can see a list of accounts with the word 'trip' contained in their names.
-
-image::accountfind_2.png[]
-
-You have found 2 accounts with their names containing the keyword "trip".
 
 ==== View report of an account: `account report`
 
@@ -261,18 +239,6 @@ Format: `account report <id>`
 Example:
 
 * `account report 2` You can view the report of the first account.
-
-image::accountreport2.png[]
-
-You can view the details of the second account.
-
-image::accountreport_1.png[]
-
-1a. Enter the command "account report 2".
-
-image::accountreport2.png[]
-
-1b. You can view the details of the second account.
 
 ==== Export the overview of all accounts: `account overview`
 
