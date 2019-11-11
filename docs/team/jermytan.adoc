@@ -115,16 +115,16 @@ With Xpire's `export` feature, you can easily transfer the list of items to any 
 by simply scanning the generated QR code.
 
 Xpire can not only help you track your items' expiry dates, it can also export the current
-list of items through a QR code (see Figure 12). Any device with a QR code reader will be
-able to download the list of items (see Figure 13).
+list of items through a QR code (see Figure 1). Any device with a QR code reader will be
+able to download the list of items (see Figure 2).
 
 Format: `export`
 
 .QR code containing the data of the items in the current view list
-image::export.png[width="790"]
+image::export.png[width="500"]
 
 .List of items received when scanning the QR code through a mobile phone
-image::export-phone.PNG[width="250"]
+image::export-phone.PNG[width="200"]
 
 [NOTE]
 ====
@@ -136,22 +136,22 @@ page after scanning the QR code. Follow the steps below to rectify this issue if
 ====
 
 * Upon scanning the QR code, you may see a pop-up prompt suggesting to you to search the content
-received on the web (see Figure 14).
+received on the web (see Figure 3).
 
 .Pop-up prompt to suggest to search the content on the web
-image::export-prompt.PNG[width="250"]
+image::export-prompt.PNG[width="200"]
 
 * Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
-options available (see Figure 15). Choose "Copy" or any other similar options.
+options available (see Figure 4). Choose "Copy" or any other similar options.
 
 .Additional options to handle the content
-image::export-other-options.PNG[width="250"]
+image::export-other-options.PNG[width="200"]
 
 * Once the content has been copied, you can simply paste and save the content on Notes or any other
-notepad application on your mobile phone (see Figure 16).
+notepad application on your mobile phone (see Figure 5).
 
 .Pasting and saving exported content onto the mobile phone's built-in notepad application
-image::export-save-in-notes.png[width="250"]
+image::export-save-in-notes.png[width="200"]
 
 === Searching for item(s) by name and/or tag: `search`
 
@@ -163,7 +163,7 @@ With `search`, you can simply input any words or phrases and Xpire will display 
 Format: `search|<keyword>[|<other keywords>]...`
 
 .Items matching #fruit or chicken shown
-image::search.png[width="790"]
+image::search.png[width="500"]
 
 [NOTE]
 `search` is designed to work only on the current view list. In other words, `search` will only
@@ -172,14 +172,14 @@ display matching items which exists in the current view list.
 [TIP]
 You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name,
 by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g.
- `red fuji apple`, `red strawberry` and `green apple` (see Figure 6), the above commands will display only `red
- fuji apple` (see Figure 7).
+ `red fuji apple`, `red strawberry` and `green apple` (see Figure 7), the above commands will display only `red
+ fuji apple` (see Figure 8).
 
 .Item list before searching
-image::search-initial.png[width="790"]
+image::search-initial.png[width="500"]
 
 .Item list after keying `search|red` and then `search|apple`
-image::search-after.png[width="790"]
+image::search-after.png[width="500"]
 
 ****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
@@ -193,15 +193,15 @@ image::search-after.png[width="790"]
 
 Examples:
 
-* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 8).
+* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 9).
 
 .Item list after keying `search|kebab`
-image::search-kebab.png[width="790"]
+image::search-kebab.png[width="500"]
 
-* `search|Chicken Ham` will display `Chicken Ham` (see Figure 9).
+* `search|Chicken Ham` will display `Chicken Ham` (see Figure 10).
 
 .Item list after keying `search|Chicken Ham`
-image::search-chicken-ham.png[width="790"]
+image::search-chicken-ham.png[width="500"]
 
 * `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 
@@ -224,7 +224,7 @@ This implementation is under `Logic` and `Model` components, and it uses a helpe
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram illustrating the export mechanism
-image::SequenceDiagramExport.png[width="790"]
+image::SequenceDiagramExport.png[width="500"]
 
 Example usage scenario:
 
@@ -253,9 +253,9 @@ The following UML activity diagram will further demonstrate the high-level workf
 The selection of parser and the creation of `ExportCommand` object is omitted for brevity.
 
 .Activity diagram illustrating the high-level workflow of search command
-image::ActivityDiagramExportCommand.png[width="790"]
+image::ActivityDiagramExportCommand.png[width="500"]
 
-As illustrated in Figure 28, the `export` functionality also considers the case where the current view list
+As illustrated in Figure 12, the `export` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
 successfully.
 
@@ -302,37 +302,14 @@ This implementation is under `Logic` and `Model` components.
 Below are the UML sequence diagrams and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram illustrating the search mechanism
-image::SequenceDiagramSearch.png[width="790"]
+image::SequenceDiagramSearch.png[width="500"]
 
 [NOTE]
 Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
 The diagram below further illustrates the parsing of arguments.
 
 .Sequence diagram illustrating the parsing of arguments
-image::SequenceDiagramSearchParseArgs.png[width="790"]
-
-Example usage scenario:
-
-[NOTE]
-Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
-
-Step 1. User enters command `search|banana`. The command is received by the `LogicManager` 's `execute` method which
-then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
-or `REPLENISH`.
-
-Step 2. Depending on which item list is currently being displayed, either `XpireParser` 's or `ReplenishParser` 's `parse`
-method will be called to create a `SearchCommandParser` object.
-
-Step 3. The `parse` method of the `SearchCommandParser` will be called to parse the keyword, "banana" in our case,
-into a `ContainsKeywordsPredicate` object which will then be pass to the constructor of `SearchCommand`. Subsequently,
-the `SearchCommand` object will be returned to the `LogicManager`.
-
-Step 4. The `LogicManager` then calls the returned `SearchCommand` object's `execute` method which calls the
-`filterCurrentList` method of `Model` to update the current view list by invoking `FilteredList` 's `setPredicate` with
-the `ContainsKeywordsPredicate` object, stored in the `SearchCommand` object, as the parameter.
-
-Step 5. Upon successful updating of the current view list, a `CommandResult` object will be created by `SearchCommand`
-to encapsulate a positive feedback message that will be shown to the user. The `CommandResult` will then be returned to the `LogicManager`.
+image::SequenceDiagramSearchParseArgs.png[width="500"]
 
 To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
 
@@ -340,9 +317,9 @@ To further demonstrate the high-level workflow of the `search` command, the foll
 The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
 
 .Activity diagram illustrating the high-level workflow of search command
-image::ActivityDiagramSearchCommand.png[width="790"]
+image::ActivityDiagramSearchCommand.png[width="500"]
 
-As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+As illustrated in Figure 14, the `search` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
 successfully.
 
@@ -392,7 +369,7 @@ also be made "stackable" through using the API.
 === Use case diagram
 
 .Use case diagram for Xpire
-image::UseCaseDiagram.png[width="790"]
+image::UseCaseDiagram.png[width="500"]
 
 The above use case diagram is added to the developer guide to help summarise the
 use cases for Xpire.
