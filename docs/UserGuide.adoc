@@ -492,7 +492,7 @@ Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
 
 Format (Ledger): Cannot be updated +
 
-Format (Projections): `update TYPE+INDEX [d/DATE]`
+Format (Projections): Cannot be updated
 
 ****
 * `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
@@ -501,7 +501,7 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 * `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
+* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
@@ -510,9 +510,9 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 ==== Important Details:
 
 * `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
-* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
+* `Ledger` and `Projection` does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
 * You can not change an `in` transaction to an `out` transaction.
-* Changing an expenditure with the same category field as a budget will reflect changes on the `Budget` as well.
+* Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that `Budget` entry as well.
 
 ==== Example Usage
 
@@ -553,7 +553,6 @@ image::update_ug_6.png[]
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
-* `update p4 d/10102019`
 
 [[Sort]]
 // tag::sort[]
