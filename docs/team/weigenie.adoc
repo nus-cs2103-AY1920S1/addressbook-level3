@@ -12,7 +12,7 @@ Hi! My name is Wei Gen.
 
 I am currently a second year student in NUS School of Computing, pursuing a Bachelor of Computing (Honours).
 
-This portfolio page aims to document the contributions I have made in the development of FinSec, which is a project
+This project portfolio page aims to document the contributions I have made in the development of FinSec, a project
 that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own
 learning and self-development in becoming a more competent software engineer.
 
@@ -20,27 +20,26 @@ learning and self-development in becoming a more competent software engineer.
 
 == Overview
 
-FinSec is a useful application that was created with the end goal of aiding Financial Secretaries of any organisation.
-It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but
-also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
+FinSec is an application that was created with the end goal of aiding Financial Secretaries of any organisation in
+managing their financial data, mainly their contacts, claims, incomes and budget. It is a Command Line Interface (CLI)
+based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User
+Interface (GUI) interface for any users _(like you!)_ to easily view interact with FinSec.
 
 == Role
 
 My main role was to act as the Team Lead for the project, completing team tasks for the project and managing
-general tasks for the team members. As I was the only one who has been in the position of our target audience, I
-can best understand their user requirements, so I was also the one to set the directions of the project.
+general tasks for the team members. As I was the only one who has been in the position of our target audience and
+could best understand their user requirements, so I was also the one to set the directions of the project.
 
-Development-wise, I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
+I also developed the Claims feature _(including logic, storage and model)_, as well as adding the
 association between Claims and Contacts. I also created the documentation and tests that came along with the features.
 
 == Summary of contributions
 
 * *Major enhancement*: added the *Claim feature*
-** *What it does*: This feature allows users, who are mainly Financial Secretaries, to enter Claims into
-the FinSec application and track their claim entries.
+** *What it does*: To allow users to add Claim entries into the FinSec application and track their claim entries.
 ** *Justification*: The `Claim feature` is a vital feature to the FinSec application since that the majority of
-organisations and clubs have claims to keep track of. It allows Financial Secretaries to keep proper records of the
-organisation and to keep track of its financial status.
+organisations and clubs have claims to keep track of.
 ** *Implementation*: The Person class in Address Book 3 (AB3) is remodelled to resemble a claim entry _(with additional
 attributes of ID, Description, Amount, Date and Status)_.
 ** *Highlights*: The implementation of this feature is fairly manageable since that it is an adaptation of the Person
@@ -59,9 +58,9 @@ and only if it is can its status be approved or rejected respectively.
 of claims as well.
 ** *Justification*: Each claim added is associated to a contact. The user will be able to view all the claims associated
 to a contact when viewing them using the CheckCommand.
-** *Implementation*: During the execution of the AddClaimCommand, it checks the FinSec if there is a contact with the
+** *Implementation*: During the addition of a claim, the app checks if there is a contact with the
 entered name. Only if there is an existing contact for the claim will the command be executed. It also adds
-the Claim ID to the contact's list of claims to keep track of each contact's claim.
+the Claim ID to the contact's list of claims.
 ** *Highlights*: I have also added a table to the IndividualContactWindow for the user to view the details of every
 claim of each contact easily.
 
@@ -71,11 +70,8 @@ claim of each contact easily.
 
 ** Project management:
 *** Managed the release of version `v1.1` on GitHub
-*** Created GitHub organisation for the team
-*** Created team repository and managed the access for each individual.
-*** Set up auto-publishing of docs.
+*** Created GitHub organisation, team repository and managed access for the team.
 *** Integrated various build services into the team repository.
-*** Assign tasks to corresponding team members.
 
 ** Documentation
 *** I made improvements to the Developer's Guide and User Guides:
