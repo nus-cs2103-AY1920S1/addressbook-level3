@@ -45,7 +45,7 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
-        if (editedItem.getTotalCost() >= 10000 || editedItem.getSubtotal() >=10000) {
+        if (editedItem.getTotalCost() >= 10000 || editedItem.getSubtotal() >= 10000) {
             throw new InvalidNumberException(InventoryMessages.MESSAGE_TOTAL_TOO_LARGE);
         }
 
