@@ -89,7 +89,7 @@ public class CommandResult {
         return isShowStats;
     }
 
-    public boolean getIsCorrect() {
+    public boolean isCorrect() {
         return this.isCorrect;
     }
 

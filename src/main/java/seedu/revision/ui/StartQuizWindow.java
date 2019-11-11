@@ -282,7 +282,7 @@ public class StartQuizWindow extends ParentWindow {
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
-            if (commandResult.getIsCorrect()) {
+            if (commandResult.isCorrect()) {
                 totalScore++;
                 score++;
             }
@@ -293,7 +293,7 @@ public class StartQuizWindow extends ParentWindow {
                 handleExit();
                 return new CommandResultBuilder().build();
             }
-            if (!commandResult.getIsCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
+            if (!commandResult.isCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
                 handleEnd(currentAnswerable);
                 return new CommandResultBuilder().build();
             }

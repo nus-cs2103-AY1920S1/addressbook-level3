@@ -65,7 +65,7 @@ of many of the other features.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases v1.3 - v1.4 (2 releases) on GitHub
+*** Managed release v1.4 on GitHub
 *** Managed issues and resolved the main bulk of the post Mock PE issues.
 
 ** Enhancements to existing features:
@@ -75,6 +75,7 @@ of many of the other features.
 
 ** Documentation:
 *** Created skeleton sequence and activity diagrams for the team to reuse so that the DG can have a more congruent look.
+*** Added all the use cases for the project.
 
 ** Community:
 *** Reviewed this link:{mainPullUrl}/14[PR].
@@ -86,15 +87,249 @@ of many of the other features.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=wilfred-start]
+=== Starting the quiz: `start`.
 
-include::../UserGuide.adoc[tag=wilfred-add]
+User can start by choosing the mode of the quiz. (normal / arcade / custom). See <<Quiz Mode>> for in-quiz commands.
 
-include::../UserGuide.adoc[tag=wilfred-edit]
+Format: `start mode/MODE`
 
-include::../UserGuide.adoc[tag=wilfred-quiz]
+[TIP]
+To start all questions in the question bank, use command +
+start mode/normal
 
-include::../UserGuide.adoc[tag=wilfred-summary]
+Examples:
+
+* `start mode/normal`
+* `start mode/custom cat/uml /diff/1 timer/20`
+
+=== Adding a question: `add`
+
+Adds a question to the question bank
+
+Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
+
+****
+[%hardbreaks]
+The following are the valid answer formats for each question type:
+*MCQ*: 1 Correct answer and 3 Wrong answers.
+*True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
+*SAQ*: Multiple correct answers, no wrong answers.
+****
+
+Examples:
+
+* `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
+x/Greenfield x/Brownfield y/None of the others x/Padifield`
+* `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
+* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+
+=== Editing a question : `edit`
+
+Edits an existing question in the question bank.
+
+Format: `edit INDEX [q/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...`
+
+****
+* Edits the question at the specified `INDEX`. The index refers to the index number shown in the displayed question list.
+The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing category and/or difficulty, the existing category and/or difficulty of the question will be removed
+i.e adding of category and/or difficulty is not cumulative.
+****
+
+Examples:
+
+* `edit 1 q/According the the textbook, is greenfield or brownfield tougher?` +
+Edits the the first question to "According the the textbook, is greenfield or brownfield tougher?"
+
+== Quiz Mode
+
+=== Normal Mode
+Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
+The user is given 30 seconds to answer each question.
+
+image::normal-mode.png[]
+
+=== Arcade Mode
+Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
+The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 20 seconds to answer each question.
+
+image::arcade-mode.png[]
+
+=== Custom Mode
+`Category`, `Difficulty` and `Timer` (must be above 1 second) can be customised by the user. Levels are also sorted according to
+difficulty.
+
+=== Answering Questions
+|======
+|MCQ |TrueFalse |SAQ
+|Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
+
+== Command Summary
+
+* *Help* : `help`
+
+* *Start* `start mode/MODE` +
+e.g. `start mode/normal`
+
+* *Exit* `exit`
+
+* *Status* : `status`
+
+* *Add* `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER...` +
+e.g. `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
+x/Greenfield x/Brownfield y/None of the others of the above x/Padifield`
+
+* *Edit* : `edit INDEX [q/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...` +
+e.g. `edit 1 q/According the the textbook, is greenfield or brownfield tougher?`
+
+* *Delete* : `delete INDEX [MORE_INDICES]` +
+e.g. `delete 1 3 5`
+
+* *List* : `list [cat/CATEGORY] [diff/DIFFICULTY]`
+e.g. `list cat/requiments diff/2`
+
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find user story`
+
+* *Clear* : `clear`
+
+* *Restore* : `restore`
+
+[appendix]
+== Use Cases
+
+(For all use cases below, the *System* is the `RevisionTool` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case (UC01): Add answerable
+
+*MSS*
+
+1.  User requests to add an answerable
+2.  RevisionTool adds the answerable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The answerable already exists in the list.
++
+[none]
+** 2a1. RevisionTool shows an error message.
++
+Use case ends.
+
+* 2a. Any of the parameters provided are invalid.
++
+[none]
+** 2a1. RevisionTool shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case (UC02): Delete answerable
+
+*MSS*
+
+1.  User requests to list answerables
+2.  RevisionTool shows a list of answerables
+3.  User requests to delete a specific answerable in the list
+4.  RevisionTool deletes the answerable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. RevisionTool shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case (UC03): Start Quiz in `Normal Mode`
+*MSS*
+
+1.  User requests to start quiz in Normal Mode
+2.  RevisionTool shows the Quiz Mode window with the first question displayed.
+3.  User enters his input into the command box.
+4.  RevisionTool checks the input and records the result of the answer (i.e. whether correct or not).
+5.  RevisionTool displays the next question. Use case resumes at step 3.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of questions for the quiz is empty.
++
+Use case ends.
+
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. RevisionTool shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. User inputs an exit command.
++
+Use case ends.
+[none]
+* 5a. The current level of the quiz has ended.
++
+[none]
+** 5a1. RevisionTool prompts the user to continue or end the quiz.
+** 5a2. User chooses to proceed to the next level.
++
+Use case resumes at step 5.
+
+* 5b. The current level of the quiz has ended.
++
+[none]
+** 5b1. RevisionTool prompts the user to continue or end the quiz.
+** 5b2. User chooses to end the quiz.
++
+Use case ends.
+
+* 5c. The entire quiz has ended.
++
+[none]
+** 5c1. RevisionTool prompts the user to restart or end the quiz.
+** 5c2. User chooses to restart the quiz.
++
+Use case ends resumes at step 2.
+
+* 5d. The entire quiz has ended.
++
+[none]
+** 5d1. RevisionTool prompts the user to restart or end the quiz.
+** 5d2. User chooses to end the quiz.
++
+Use case ends.
+
+* *a. Time available to answer each question of the quiz runs out (30 seconds for Normal Mode).
++
+[none]
+** *a1. RevisionTool marks the question as wrong.
++
+Use case resumes at step 5.
+
+[NOTE]
+For Custom Mode, the use case is the same except timer can be customised. +
+For Arcade Mode, an extension 4a will be added. If the user gets the question wrong, the quiz will end and the User will
+be prompted to restart or end the quiz.
 
 == Contributions to the Developer Guide
 
@@ -102,8 +337,155 @@ include::../UserGuide.adoc[tag=wilfred-summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=wilfred-answerable]
+=== The `Answerable` Class
 
-include::../DeveloperGuide.adoc[tag=wilfred-overview]
+.Class Diagram of the Answerable Class
+image::AnswerableClassDiagram.png[]
 
-include::../DeveloperGuide.adoc[tag=wilfred-implementation]
+The main class that the Revision Tool operates on is the `Answerable` class.
+
+Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any amount of categories associated with it.
+The amount of answers that an `Answerable` can have depends on its type.
+
+There are 3 subclasses of the `Answerable` Class which are: `Mcq`, `TrueFalse` and `Saq`. Each class defines it's
+own rules on the validity of `Answer` s (highlighted in red in the class diagram) provided to it.
+
+The following are the rules of validity for each subclass:
+
+* Mcq: 4 answers in total. 1 correct answer, 3 wrong answers.
+* TrueFalse: Either 'true' or 'false' as its answer.
+* Saq: Any amount of answers.
+[NOTE]
+For all subclasses, there cannot be any duplicates of answers. For example, if an Mcq class has "option1" as one of its
+wrong answers, it cannot have "option1" as its correct answer or another wrong answer.
+
+=== Managing parsing in Configuration and Quiz Mode (Overview)
+The Revision Tool uses two Parser interfaces (`Parser` and `QuizParser`) to parse different sets of commands (i.e. in Configuration Mode and in Quiz Mode).
+
+.Class Diagram of ParserManager to display how parsers are created in both modes.
+image::ParserClassDiagram.png[width=500]
+
+
+As shown in the figure above, the `ParserManager` class is responsible for creating the respective parsers for Configuration and Quiz Mode.
+This was designed while taking into consideration that the Quiz Mode Parsers (i.e. XYZParsers) will require
+an extra `Answerable` argument on top of the user input String in order to carry out commands such as determining whether the user's input is the correct answer.
+(E.g. to call methods such as Answerable#isCorrect(Answer))
+
+As different commands are accepted in Configuration and Quiz Mode, the `ParserManager` class uses overloaded methods
+(`parseCommand(String)` and `parseCommand(String, Answerable)` to determine the valid commands in each mode. If a Configuration Mode
+command such as `add` were to be used in Quiz Mode, the ParserManager would deem the the command as invalid. +
+
+With reference to Figure 6, The following are the parsers used in each mode:
+
+* ABCParser (Configuration Mode):
+** AddCommandParser
+** DeleteCommandParser
+** EditCommandParser
+** FindCommandParser
+** ListCommandParser
+** StartCommandParser
+
+* XYZParser (Quiz Mode):
+** McqInputCommandParser
+** TfInputCommandParser
+** SaqInputCommandParser
+
+A more detailed description of the implementation of parsing in Configuration and Quiz Mode and its design considerations
+can be found in <<Implementation-ConfigQuiz>>.
+
+[[Implementation-ConfigQuiz]]
+=== Configuration and Quiz Mode
+As different commands are available for Configuration and Quiz Mode, we have to determine which commands are valid based on
+the state of the application. To implement this, we had to examine two main design considerations: The *structure of the parser component* and *how to
+determine which parser to use*. We will discuss these considerations in the following segment.
+
+==== Design Considerations
+|===
+|*Aspect* | *Alternative 1* | *Alternative 2* | *Conclusion and Explanation*
+|Structure of the Parser Component
+|Command parsers for both modes implement the same interface (i.e. implement both `parse(String)` and `parse(String, Answerable)` methods)
+but for the method which is not used, throw an error if a client calls it.
+|Command parsers belonging to each mode implement different interfaces (i.e. a `Parser` or `QuizParser` interface)
+which dictates the parameters of their parse() methods. (i.e. `parse(String)` for Configuration Mode vs `parse(String, Answerable)` for Quiz Mode)
+|*Alternative 2 was implemented.* The main reason for this choice was to adhere to the interface-segregation principle.
+If alternative 1 were to be implemented, a Configuration Mode command may have to implement a parse(String, Answerable)
+dummy method which it will not use. This is bad design as a client might be able to call the dummy method and receive
+unexpected results. Thus, by separating the interfaces, clients will only need to know about the methods that they need.
+
+|Determining which parser to use| Create two parser manager classes (i.e. `QuizParserManager` and `ParserManager`)
+with accompanying `QuizLogicManager` and `LogicManager` classes whose methods will be called in `MainWindow` for Configuration Mode and
+`StartQuizWindow` for Quiz Mode respectively.
+|Use a single `ParserManager` class which has overloaded methods of parse(String) and parse(String, Answerable). A
+single `LogicManager` will also implement `execute(String)` and `execute(String, Answerable)`. In Configuration Mode, the
+`LogicManager` will call `execute(String)` as there is no need to take in an Answerable and in Quiz Mode, the `LogicManager`
+will call `execute(String, Answerable)` to initiate quiz-related commands.
+|*Alternative 2 was implemented.* By doing so, we were able to adopt a facade design pattern. The main benefit would be that
+the client doesn't need to know the logic involved in selecting which type of parser and logic to use. This hides the internal
+complexity of the `ParserManager` class which will be responsible for determining which type of parser to use.
+|===
+
+==== Commands in Configuration Mode
+In Configuration Mode, a single string is passed as an argument to the Logic#execute method (i.e. `execute(String)`).
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Commands in Quiz Mode
+In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the Logic#execute method. (i.e. `execute(String, Answerable)`)
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
+
+.Interactions Inside the Logic Component for the `c` input command.
+image::QuizSequenceDiagram.png[width=790]
+
+==== Key differences between Configuration Mode and Quiz Mode:
+
+|===
+|*Configuration Mode* | *Quiz Mode*
+|Logic#execute takes in a single string. | Logic#execute takes in a String and an Answerable.
+|No methods of `Answerable` are called. | `Answerable#isCorrect(Answer)` is called from `AnswerableInputCommand`s such as `McqInputCommand` to check whether the user's answer is correct.
+|`CommandResult` is used to display feedback to the user| `CommandResult` is used to display feedback to the user and inform `LogicManager` whether the selected answer is correct.
+|`Model` is used to save actions such as the addition/deletion of answerables. | `Model` is used to update the score history statistics.
+|===
+
+==== Implementation of `CommandResult` (Builder Design Pattern)
+The `CommandResult` class is designed using a builder pattern to allow flexibility of values returned to the `LogicManager`.
+To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
+Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
+
+Below is a code snippet of the `CommandResultBuilder` and `CommandResult` class:
+
+image::wilfred-commandwithfeedback.png[width=790]
+image::wilfred-commandbuild.png[width=790]
+image::wilfred-commandresult.png[width=790]
+
+Examples of how to build a CommandResult:
+....
+CommandResult c = new CommandResultBuilder().withFeedback(message).withExit(true).build();
+CommandResult c = new CommandResultBuilder().isCorrect(true).build();
+....
+
+==== How the quiz works
+After the user has `start` ed the quiz, the application enters Quiz Mode. The following is the flow of events after a quiz
+session has started.
+
+.Activity Diagram of a Quiz Session in `NormalMode`
+image::QuizSessionActivityDiagram.png[width=790]
+
+*Elaboration of Steps:*
+
+. After the user has started a normal mode quiz. He/she will be prompted to key in their answer.
+. If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
+. If the input is invalid, the revision tool will prompt the user to key in their input again with guidance provided on
+the commands accepted.
+. If the time limit is exceeded (e.g. 30 seconds in Normal Mode), the revision tool will mark the question as wrong and
+move on to the next question.
+. Once a level has ended, the user will be given the choice to move on to the next level or exit the quiz.
+. Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
+
+[NOTE]
+For Custom Mode, the game play is the same except that user can choose the category and difficulty of questions. +
+For Arcade Mode, when a users enters a wrong answer, the quiz will end.
+
