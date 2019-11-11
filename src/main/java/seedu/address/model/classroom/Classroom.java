@@ -156,7 +156,8 @@ public class Classroom implements ReadOnlyClassroom {
      * Gets list of the student names in String format.
      * @return list of student names.
      */
-    private List<String> getStudentNameList() {
+    @Override
+    public List<String> getStudentNameList() {
         List<String> toReturn = new ArrayList<>();
         for (Student student : getStudentList()) {
             toReturn.add(student.getName().toString());

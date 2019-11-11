@@ -9,6 +9,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClassrooms.getTypicalClassroom;
 import static seedu.address.testutil.TypicalStudents.ALICE;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -117,6 +118,15 @@ public class ClassroomTest {
         @Override
         public ObservableList<Assignment> getAssignmentList() {
             return assignments;
+        }
+
+        @Override
+        public List<String> getStudentNameList() {
+            List<String> output = new ArrayList<>();
+            for (Student student : students) {
+                output.add(student.getName().toString());
+            }
+            return output;
         }
     }
 

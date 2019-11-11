@@ -82,8 +82,8 @@ public class CommandTestUtil {
     public static final String VALID_ENDTIME_TUE = "07/01/2020 1300";
     public static final String VALID_ENDTIME_WED = "08/01/2020 1300";
 
-    public static final String VALID_ASSIGNMENT_NAME_ENGLISH = "English Worksheet 1";
-    public static final String VALID_ASSIGNMENT_NAME_MATH = "Math Homework 3";
+    public static final String VALID_ASSIGNMENT_NAME_ENGLISH = "English Worksheet 2";
+    public static final String VALID_ASSIGNMENT_NAME_MATH = "Math Homework 2";
     public static final String VALID_ASSIGNMENT_DEADLINE_ENGLISH = "02/12/2024 1029";
     public static final String VALID_ASSIGNMENT_DEADLINE_MATH = "12/12/2019 1800";
 

@@ -12,7 +12,7 @@ import seedu.address.model.assignment.Assignment;
 public class TypicalAssignments {
 
     public static final Assignment ASSIGNMENT_MATH = new AssignmentBuilder()
-            .withAssignmentName("Math Homework 3")
+            .withAssignmentName("Math Homework 2")
             .withAssignmentDeadline("12/12/2019 1800").build();
 
     public static final Assignment ASSIGNMENT_SCIENCE = new AssignmentBuilder()

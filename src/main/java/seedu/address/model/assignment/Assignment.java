@@ -150,6 +150,26 @@ public class Assignment {
         return output;
     }
 
+    /**
+     * Returns true if both assignments have the same identity and data fields.
+     * This defines a stronger notion of equality between two assignments.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Assignment)) {
+            return false;
+        }
+
+        Assignment otherStudent = (Assignment) other;
+        return otherStudent.getAssignmentName().equals(getAssignmentName())
+                && otherStudent.getAssignmentDeadline().equals(getAssignmentDeadline())
+                && otherStudent.getGrades().equals(getGrades());
+    }
+
     public boolean isCompleted() {
         return this.isCompleted;
     }
