@@ -27,11 +27,11 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 ** My team's decision to make `State` non-static influenced me to decouple `UserStats` and `DeckStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
 ** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). I also implemented `SessionListUtil` and `StatsDisplayUtil` for handling the calculation of average scores and the display of `TableView` objects. The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
 
-image::stats window.png[width="650", align="center"]
-The Statistics window contains key statistics like the user's number of login sessions, duration of login sessions, number of decks, number of cards, and average score for test sessions. It also displays the user's login sessions in a table format, which can be sorted by clicking on the column headers. Similarly, the user's decks are summarised in a table. Double-clicking on a table row will open the corresponding deck statistics window.
+image::stats window.png[width="400", align="center"]
+*The Statistics window* contains key statistics like the user's number of login sessions, duration of login sessions, number of decks, number of cards, and average score for test sessions. It also displays the user's login sessions in a table format, which can be sorted by clicking on the column headers. Similarly, the user's decks are summarised in a table. Double-clicking on a table row will open the corresponding deck statistics window.
 
-image::deck stats window.png[width="650", align="center"]
-The Deck Statistics window shows the user's statistics pertaining to the deck, and all of their test sessions involving the deck in a table format.
+image::deck stats window.png[width="400", align="center"]
+*The Deck Statistics window* shows the user's statistics pertaining to the deck, and all of their test sessions involving the deck in a table format.
 
 *Major enhancement*: contributions to the GUI of the app.
 
@@ -51,10 +51,10 @@ The Deck Statistics window shows the user's statistics pertaining to the deck, a
 *** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
 *** I have also designed a different layout for my statistics windows, consisting of big numbers with labels, which is more creative and visually appealing than my initial design, which displayed the information in a bland way.
 
-image::old stats window.png[]
+image::old stats window.png[width="400", align="center"]
 My old design for the statistics window, which has since been substantially improved, as my comfort level with JavaFX has increased. See above for the new statistics window.
 
-image::initial design.png[]
+image::initial design.png[width="650", align="center"]
 My initial design work on Figma.
 
 The following table provides a summary of some of my GUI enhancements:
@@ -123,11 +123,11 @@ include::../UserGuide.adoc[tag=introduction]
 include::../UserGuide.adoc[tag=whatis]
 include::../UserGuide.adoc[tag=interacting]
 include::../UserGuide.adoc[tag=stats]
-=======
+
 
 == Contributions to the Developer Guide
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=statistics]
