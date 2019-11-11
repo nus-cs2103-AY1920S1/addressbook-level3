@@ -28,13 +28,13 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[Architecture, 250, 250]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the EatMe app. Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/eatme/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/eatme/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/eatme/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/eatme/MainApp.java[`MainApp`]. It is responsible for
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -42,13 +42,13 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : Used by many classes to write log messages to the app's log file.
 
 The rest of the App consists of four components.
 
-* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Ui,*`UI`*>>: The UI of the app.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Model,*`Model`*>>: Holds the data of the app in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
@@ -67,7 +67,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[Delete, 500, 500]
+image::ArchitectureSequenceDiagram.png[Delete, 600, 600]
 
 The sections below give more details of each component.
 
@@ -110,7 +110,7 @@ link:{repoURL}/src/main/java/seedu/eatme/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::ArchitectureSequenceDiagram.png[Delete, 500, 500]
+image::ArchitectureSequenceDiagram.png[Delete, 600, 600]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -126,8 +126,8 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the EateryList data.
-* stores the FeedList data.
+* stores a `EateryList` object that represents the data from the list of eateries in the app.
+* stores the `FeedList` object that represents the data from the list of feeds in the app.
 * exposes an unmodifiable `ObservableList<Eatery>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * exposes an unmodifiable `ObservableList<FeedPost>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -143,8 +143,8 @@ image::StorageClassDiagram.png[Storage, 400, 400]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save `EateryList` data in json format and read it back.
-* can save `FeedList` data in json format and read it back.
+* can save `EateryList` objects in json format and read it back.
+* can save `FeedList` objects in json format and read it back.
 // end::generalDiagrams2[]
 
 [[Design-Commons]]
@@ -190,7 +190,7 @@ image:AddSequenceDiagram.png[]
 
 The following sequence diagram shows the reference sequence diagram for creating `Eatery e`.
 
-image:AddCreateSequenceDiagram.png[AddCreate, 500, 500]
+image:AddCreateSequenceDiagram.png[AddCreate, 600, 600]
 
 ==== Design Considerations
 ===== Aspect: How Add executes
@@ -255,54 +255,6 @@ The reference sequence diagram for creating `Eatery edited` has been omitted as 
 ** Cons: Not as user-friendly -- might need to specify more argument parameters to handle manipulation of tags (e.g. `\at [tags]` to add tags and `\rt [tags]` to remove existing tags).
 // end::edit[]
 
-// tag::stats[]
-=== Statistics feature
-==== Implementation
-
-The stats feature allows the user to generate statistics about the eateries they have visited and reviews they have made at those visited eateries.
-
-Given below is an example usage scenario and how the stats mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `EateryList` will be initialised with the initial or previous json data stored.
-
-Step 2. The user executes `stats` to generate statistics for the current application state. The `EatMeParser` would return a `StatsCommand` to execute the command.
-
-Step 3. `StatsCommand` then creates `Statistics` to generate the different types of statistics needed. To create the different types of statistics, `Statistics` would, first, sort the eateries in `EateryList` based on different conditions i.e. categories, total expense, total number of visits. After sorting the eateries, `Statistics` would then use these sorted lists to generate the appropriate statistics.
-
-[NOTE]
-If the user executes the `stats` command in the Todo mode, `StatsCommand` would throw a `CommandException` to the user specifying that the user is in the wrong mode. In addition, if there is no eateries with any reviews in the application at the time of `stats` execution, the `StatsCommand` would throw a `CommandException` error saying that there is no data to generate statistics. Lastly, if there is any error during the generating of statistics, the `StatsCommand` will throw another `CommandException` saying that there is an unknown error and the application is unable to generate statistics.
-
-Step 4. `StatsCommand` would then call `Model#setStatistics()` with `Statistics` as a a parameter.
-
-Step 5. After successfully generating the statistics, `StatsCommand` will return the `CommandResult` to the `Ui`.
-
-The following sequence diagram shows how the statistics feature is executed.
-image:StatsSequenceDiagram.png[]
-
-Since the statistic feature has a different user interface compared to the other commands i.e. `AddCommand`, `AddTagCommand`, etc., it would be useful to explain how the different user interface components work.
-
-Step 1. When the `Ui` receives the `CommandResult` from `StatsCommand`, the `Ui` will call `MainWindow#showStats()`.
-
-Step 2. `MainWindow#showStats() will check if `StatsWindow` is already open. If it is opened, it will call `StatsWindow#initStats()` and focuses the window. Else, it will call `StatsWindow#initStats()` and displays the window.
-
-Step 3. In `StatsWindow#initStats()`, `StatsWindow` will create a `CustomLayeredGraph` and `CustomPiechart` to create the graph and pie chart needed for the statistics report.
-
-The following sequence diagram shows how the statistics feature shows the statistics to the user.
-image:StatsUiSequenceDiagram.png[]
-
-==== Design Considerations
-===== Aspect: Whether the statistics should auto-update when an eatery is added or a review is added to an eatery.
-* ** Alternative 1 (current choice):** Not making the statistics auto-update
-*** Pros: Easy to implement; don't need to refactor existing code to make use of ObservableList and add ListChange listeners.
-*** Cons: User would need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
-
-* ** Alternative 2: ** Making the statistics auto-update
-*** Pros: User would not need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
-*** Cons: Need to refactor a lot of existing code.
-
-More detailed explanation for choosing *alternative 1*: Although it may be annoying for the user to keep calling `stats` command after every change made, we realise that since `stats` acts as a statistics report for the users, users may not call the `stats` command as often to justify refactoring the entire code. Furthermore, to make a change to the eatery or reviews, the user would still need to minimize `StatsWindow` and unminimize it to view the auto-updated changes. Hence, the number of steps the user would need to execute to see the change in statistics is the same even for both auto-update and without auto-update.
-// end::stats[]
-
 // tag::revieweatery[]
 === Review Eatery feature
 ==== Implementation
@@ -355,12 +307,9 @@ No further nesting of Review field in Eatery.
 * **Alternative 2:** Further nesting of Review field in Eatery.
 ** Pros: A better OOP model.
 ** Cons: May decrease performance and difficult to implement.
-
-
 // end::revieweatery[]
 
 // tag::editreview[]
-
 === Edit Review feature
 ==== Implementation
 
@@ -519,8 +468,6 @@ if they are already associated with the eatery before deleting.
 Preserves the OOP model of the project and there is no need for setter methods.
 
 ** Cons: Very inefficient to return new Eatery object every time tags are changed.
-
-
 //end::deletetag[]
 
 // tag::close[]
@@ -573,6 +520,7 @@ image::CloseCommitActivityDiagram.png[]
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 // end::close[]
 
+// tag::reopen[]
 === Reopen Eatery feature
 ==== Implementation
 
@@ -604,7 +552,7 @@ image::ReopenCommitActivityDiagram.png[]
 ===== Aspect: How Reopen executes
 * **Alternative 1 (current choice):** Returns a new Eatery with identical fields except for the isOpen field.
 ** Pros:
-*** Follows pre-exisiting EditCommand implementation.
+*** Follows pre-existing EditCommand implementation.
 *** No need for setter methods.
 ** Cons: Have to return a new object each time a change is made.
 * **Alternative 2:** Setter method for isOpen field of Eatery.
@@ -620,6 +568,55 @@ image::ReopenCommitActivityDiagram.png[]
 * **Alternative 2:** Maintain two separate lists of Eateries for Reopened and Closed.
 ** Pros: Reopened Eateries stored apart from Closed Eateries. Commands executed will only affect Eateries stored in a particular list.
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
+// end::reopen[]
+
+// tag::stats[]
+=== Statistics feature
+==== Implementation
+
+The stats feature allows the user to generate statistics about the eateries they have visited and reviews they have made at those visited eateries.
+
+Given below is an example usage scenario and how the stats mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `EateryList` will be initialised with the initial or previous json data stored.
+
+Step 2. The user executes `stats` to generate statistics for the current application state. The `EatMeParser` would return a `StatsCommand` to execute the command.
+
+Step 3. `StatsCommand` then creates `Statistics` to generate the different types of statistics needed. To create the different types of statistics, `Statistics` would, first, sort the eateries in `EateryList` based on different conditions i.e. categories, total expense, total number of visits. After sorting the eateries, `Statistics` would then use these sorted lists to generate the appropriate statistics.
+
+[NOTE]
+If the user executes the `stats` command in the Todo mode, `StatsCommand` would throw a `CommandException` to the user specifying that the user is in the wrong mode. In addition, if there is no eateries with any reviews in the application at the time of `stats` execution, the `StatsCommand` would throw a `CommandException` error saying that there is no data to generate statistics. Lastly, if there is any error during the generating of statistics, the `StatsCommand` will throw another `CommandException` saying that there is an unknown error and the application is unable to generate statistics.
+
+Step 4. `StatsCommand` would then call `Model#setStatistics()` with `Statistics` as a a parameter.
+
+Step 5. After successfully generating the statistics, `StatsCommand` will return the `CommandResult` to the `Ui`.
+
+The following sequence diagram shows how the statistics feature is executed.
+image:StatsSequenceDiagram.png[]
+
+Since the statistic feature has a different user interface compared to the other commands i.e. `AddCommand`, `AddTagCommand`, etc., it would be useful to explain how the different user interface components work.
+
+Step 1. When the `Ui` receives the `CommandResult` from `StatsCommand`, the `Ui` will call `MainWindow#showStats()`.
+
+Step 2. `MainWindow#showStats() will check if `StatsWindow` is already open. If it is opened, it will call `StatsWindow#initStats()` and focuses the window. Else, it will call `StatsWindow#initStats()` and displays the window.
+
+Step 3. In `StatsWindow#initStats()`, `StatsWindow` will create a `CustomLayeredGraph` and `CustomPiechart` to create the graph and pie chart needed for the statistics report.
+
+The following sequence diagram shows how the statistics feature shows the statistics to the user.
+image:StatsUiSequenceDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Whether the statistics should auto-update when an eatery is added or a review is added to an eatery.
+* ** Alternative 1 (current choice):** Not making the statistics auto-update
+*** Pros: Easy to implement; don't need to refactor existing code to make use of ObservableList and add ListChange listeners.
+*** Cons: User would need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
+
+* ** Alternative 2: ** Making the statistics auto-update
+*** Pros: User would not need to call `stats` command after every addition or change made to the eatery or reviews of an eatery.
+*** Cons: Need to refactor a lot of existing code.
+
+More detailed explanation for choosing *alternative 1*: Although it may be annoying for the user to keep calling `stats` command after every change made, we realise that since `stats` acts as a statistics report for the users, users may not call the `stats` command as often to justify refactoring the entire code. Furthermore, to make a change to the eatery or reviews, the user would still need to minimize `StatsWindow` and unminimize it to view the auto-updated changes. Hence, the number of steps the user would need to execute to see the change in statistics is the same even for both auto-update and without auto-update.
+// end::stats[]
 
 // tag::modeCommand[]
 === Changing Mode of EatMe feature
@@ -652,6 +649,42 @@ image::ModeCommandActivity.png[]
 ** Pros: Data between the two modes will be separated. Commands executed will only affect data stored in the list for the particular mode.
 ** Cons: More effort required for maintenance purposes. Need to make sure that data from main list should not go into todo list, and vice versa
 //end::modeCommand[]
+
+//tag::saveTodoCommand[]
+=== Saving Todo Eatery feature
+==== Implementation
+This command allows the user to save an eatery from the todo list to the main eatery list. It extends `Command`.
+
+Given below is an example usage of how the SaveTodo Command behaves.
+
+Step 1: The user launches the application. Data from `EateryList` will be fetched and initialised in main mode by default.
+
+Step 2: The user executes mode command and the mode of the application will be switched to Todo mode, displaying items in the todo list instead.
+
+Step 3: The user can execute `save 1`, indicating to the system the index of eatery to be saved.
+
+Step 4: The eatery in the todo list will be removed and an add command will be constructed in the CommandBox for the user to input any necessary fields before adding.
+
+The following sequence diagram shows how the `SaveTodo` command works:
+image::SaveTodoCommandSequence.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+image::SaveTodoCommandActivity.png[]
+
+==== Design Considerations
+===== Aspect: How SaveTodo execute
+* **Alternative 1 (current choice):** Construct the commands as a string before displaying to the user.
+** Pros: User-friendly. User will be able to add the eatery to the main list with minimum effort.
+** Cons: Unable to save directly to the main list from todo list. Possible situation can be that the user did not add the new eatery after executing `saveTodo` command.
+This situation will result in the user requiring to type the whole `add` command on his own as information will not be saved.
+
+* **Alternative 2** Allow eatery to have the same attributes fields as eatery in main list
+** Pros: As eatery in todo list and main list have the same attributes, it will be possible to `save` the eatery directly to the main list without further input from the user.
+** Cons: User will be required to include additional field when adding an eatery in the todo list. Field entered may be irrelevant as user had yet to visit the eatery.
+
+===== Aspect: Data structure to support SaveTodo Command
+* **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
+//end::saveTodoCommand[]
 
 // tag::newsFeedFeature
 === News Feed Feature
@@ -722,44 +755,8 @@ image::DeleteFeedSequenceDiagram.png[]
 ** Cons: Unable to view feed posts when offline.
 // end::newsFeedFeature
 
-//tag::saveTodoCommand[]
-=== Saving Todo Eatery feature
-==== Implementation
-This command allows the user to save an eatery from the todo list to the main eatery list. It extends `Command`.
-
-Given below is an example usage of how the SaveTodo Command behaves.
-
-Step 1: The user launches the application. Data from `EateryList` will be fetched and initialised in main mode by default.
-
-Step 2: The user executes mode command and the mode of the application will be switched to Todo mode, displaying items in the todo list instead.
-
-Step 3: The user can execute `save 1`, indicating to the system the index of eatery to be saved.
-
-Step 4: The eatery in the todo list will be removed and an add command will be constructed in the CommandBox for the user to input any necessary fields before adding.
-
-The following sequence diagram shows how the `SaveTodo` command works:
-image::SaveTodoCommandSequence.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-image::SaveTodoCommandActivity.png[]
-
-==== Design Considerations
-===== Aspect: How SaveTodo execute
-* **Alternative 1 (current choice):** Construct the commands as a string before displaying to the user.
-** Pros: User-friendly. User will be able to add the eatery to the main list with minimum effort.
-** Cons: Unable to save directly to the main list from todo list. Possible situation can be that the user did not add the new eatery after executing `saveTodo` command.
-This situation will result in the user requiring to type the whole `add` command on his own as information will not be saved.
-
-* **Alternative 2** Allow eatery to have the same attributes fields as eatery in main list
-** Pros: As eatery in todo list and main list have the same attributes, it will be possible to `save` the eatery directly to the main list without further input from the user.
-** Cons: User will be required to include additional field when adding an eatery in the todo list. Field entered may be irrelevant as user had yet to visit the eatery.
-
-===== Aspect: Data structure to support SaveTodo Command
-* **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
-
-//end::saveTodoCommand[]
-
-=== Load friend's EateryList feature
+// tag::load[]
+=== Load Eateries feature
 ==== Implementation
 
 The load mechanism is facilitated by `ModelManager`. It implements the `Model` interface with the following operation:
@@ -812,6 +809,7 @@ image::LoadCommitActivityDiagram.png[]
 ** Cons:
 *** Harder to implement.
 *** Might confuse the user if the UserPaths has been changed. Especially if the friend's EateryList is similar to the user (i.e. same school).
+// end::load[]
 
 === Logging
 
@@ -846,6 +844,7 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+// tag::appendixA[]
 == Product Scope
 
 *Target user profile*:
@@ -860,8 +859,10 @@ Refer to the guide <<DevOps#, here>>.
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: manage eateries faster than a typical mouse/GUI driven app with statistics of key details such as budget, category and location
+// end::appendixA[]
 
 [appendix]
+// tag::appendixB[]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -881,10 +882,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |working adult |view the menu beforehand |save time from thinking what to eat
 |=======================================================================
-
-_{More to be added}_
+// end::appendixB[]
 
 [appendix]
+// tag::appendixC[]
 == Use Cases
 
 (For all use cases below, the *System* is the `EatMe` and the *Actor* is the `user`, unless specified otherwise)
@@ -972,32 +973,37 @@ Use case ends.
 ** 1b1. EatMe shows an error message.
 +
 Use case resumes at step 1.
-
-_{More to be added}_
+// end::appendixC[]
 
 [appendix]
+// tag::appendixD[]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java 11 or above installed.
 .  Should be able to hold up to 1000 eateries without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Main functionalities (CRUD) should work without WiFi.
-
-_{More to be added}_
+.  A user with above average typing speed for regular English text (i.e. not code, system admin commands, etc.) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Main functionalities of the app (i.e. CRUD) should work without WiFi.
+// end::appendixD[]
 
 [appendix]
+// tag::appendixE[]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[eatery]] Eatery::
-Any place that serves food open to the public (ie, restaurants, cafes, roadside, pushcart)
+Any place that serves food open to the public (e.g. restaurants, cafes, roadside, pushcart, etc.)
 
 [[category]] Category::
-Broadly contains cuisines (ie, Chinese, International)
+Any type of cuisines (e.g. Chinese, International)
+
+[[feed]] Feed::
+Any food blog
+// end::appendixE[]
 
 [appendix]
+// tag::appendixF[]
 == Product Survey
 
 *Soon*
@@ -1013,8 +1019,10 @@ Cons:
 
 * Unable to delete lists
 * Unable to search
+// end:appendixF[]
 
 [appendix]
+// tag::appendixG[]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1028,15 +1036,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder.
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample eateries. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Saving an eatery
 
@@ -1046,7 +1052,7 @@ _{ more test cases ... }_
 ... Application is on todo mode.
 ... Todo list is not empty
 .. Test case: Save 1 +
-    Expected: The application will toggle to main mode and a add command will be display in the commandbox.
+    Expected: The application will toggle to main mode and an `add` command will be display in the textbox.
 .. Test Case: Save 0 +
     Expected: An error message will be shown in the status message.
 
@@ -1056,34 +1062,11 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all eateries using the list command. Multiple eateries in the list.
 .. Test case: delete 1 +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First eatery is deleted from the list. Details of the deleted eatery shown in the status message.
 .. Test case: delete 0 +
    Expected: No eatery is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: delete, delete x (where x is larger than the list size) _{give more}_ +
-
-=== Deleting an Eatery
-
-. Deleting an `Eatery` while all `Eateries` are listed
-
-.. Prerequisites: List all `Eateries` using the list command. Multiple `Eateries` in the list.
-.. Test case: `delete 1` +
-   Expected: First `Eatery` is deleted from the list. Details of the deleted `Eatery` shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No `Eatery` is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size, or x is a non-integer) +
-   Expected: Similar to previous.
-
-_{ more test cases to be added }_
-
-=== Saving data
-
-. [Proposed] Dealing with missing/corrupted data files
-
-.. Prerequisites: json file type present in a data file where the EatMe app is.
-.. Test case: Running the application with json file type with incorrect format +
-   Expected: Application starts with a blank `Eatery` list panel. Error details shown in the status message.
-
-_{ more test cases to be added }_
+.. Other incorrect delete commands to try: delete, delete x (where x is larger than the list size)
+// end::appendixG[]
 
 
 
