@@ -292,7 +292,7 @@ The calendar will pop up, seen below.
 
 image::calendar.png[width="600"]
 
-NOTE: Calendar does not show the specific `Deadline`, but an overview of all your `Deadline`(s) for the month ahead.
+NOTE: The calendar window does not show the specific `Deadline`, but an overview of all your `Deadline`(s) for the month ahead.
 
 //end::deadline[]
 
@@ -309,7 +309,7 @@ Rates a specific 'FlashCard' as "Bad". It will then be stored as a `Deadline` in
 list on the right-side pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Key the above mentioned example into the command box
+Key the above mentioned example into the command box.
 
 image::BadFlashcard.png[width="550"]
 
@@ -319,7 +319,7 @@ A new `Deadline` will now be shown at the right side-bar, 3 days later from the 
 
 image::BadFlashcardAdded.png[width="550"]
 
-NOTE: "Bad" rated `D(s) will be added to a deadline which is due 3 days later. This is an approximated value that based on
+NOTE: "Bad" rated `FlashCard`(s) will be added to as a `Deadline` which is due 3 days later. This is an approximated value that based on
 the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve
 by Hermann Ebbinghaus who hypothesised this theory in 1985.
 

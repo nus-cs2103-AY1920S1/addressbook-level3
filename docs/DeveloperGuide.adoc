@@ -278,7 +278,7 @@ of completing homework by the 4th October 2020.
 NOTE: The `deadline` feature does not allow adding of duplicate/identical `Deadline`(s). Also, new `Deadline`(s) must
 be later than the current date and is a valid type of date i.e. 29/02/2019 is invalid as 2019 is not a leap year.
 
-The following sequence diagram shows how the deadline operation works:
+The following sequence diagram shows how the `deadline` operation works:
 
 image::DeadlineSequenceDiagram.png[]
 
@@ -308,7 +308,7 @@ prefixes like `t>` and `d>`
 === Bad rating feature
 ==== Implementation
 
-The `bad` feature allows the user to rate specific `FlashCards` as "Bad" if they did not perform well on them.
+The `bad` feature allows the user to rate specific `FlashCard`(s) as "Bad" if they did not perform well on them.
 These rated `FlashCard`(s) will then we stored as a `Deadline` dated 3 days later, where the user will then be reminded to
 re-test them.
 
@@ -320,15 +320,15 @@ https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve].
 The following are new classes used to integrate the "Bad" `FlashCard` rating feature.
 
 * `BadQuestions` -- Main object class for the feature. Makes use of a `HashMap` of key-value pairing of a Date `String`
-that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCards`. This allows ease of
-search for "Bad" rated `FlashCards` based on the date stored.
+that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCard`(s). This allows ease of
+search for "Bad" rated `FlashCard`(s) based on the date stored.
 * `BadCommand` -- Contains a `ObservableList` of `Deadline` objects. The list will be initialised from the storage
 at start up of application. A `Comparator` class was added to arrange the list according to ascending `DueDate`.
 * `ListBadCommand` --  Embodies the `Deadline` command by the user. It will hold all the information about
 the `Deadline` that will be added.
 * `RemoveBadCommand` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
 
-In addition, two Exception classes are added to handle possible runtime errors while adding new "Bad" `FlashCards`.
+In addition, two Exception classes are added to handle possible runtime errors while adding new "Bad" `FlashCard`(s).
 This is done to ensure that the user specified "Bad" `FlashCard` is valid for storage and processing.
 
 * `NoBadFlashCardException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
