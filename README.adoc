@@ -29,7 +29,7 @@ It is a desktop application where users will interact with a CLI(Command Line In
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://commons.apache.org/proper/commons-math/[Apache Commons],
-https://commons.apache.org/proper/commons-text/[Apache Commons Text] https://poi.apache.org/[Apache POI]
+https://commons.apache.org/proper/commons-text/[Apache Commons Text], https://poi.apache.org/[Apache POI]
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]
