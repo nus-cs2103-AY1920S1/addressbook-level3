@@ -1,11 +1,9 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+package cs.f10.t1.nursetraverse.model.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
-
-import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
 
 
 class CommandWordTest {

@@ -45,7 +45,7 @@ public class AutoCompleteListHandler {
      * @param matchedAutoCompleteWords Linkedlist of matched words
      * @return chosenList
      */
-    public ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
+    private ObservableList<AutoCompleteWord> chooseList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords) {
         ObservableList<AutoCompleteWord> currentList;
         if (matchedAutoCompleteWords.size() == 0) {
             // Set to object list
@@ -126,7 +126,7 @@ public class AutoCompleteListHandler {
      * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
      * @return updatedList
      */
-    public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
+    private ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
                                                        ObservableList<AutoCompleteWord> currentList,
                                                        LinkedList<String> parsedUserInputList) {
         ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();

@@ -9,6 +9,15 @@ import org.junit.jupiter.api.Test;
 class UserinputParserUtilTest {
 
     @Test
+    public void parse() {
+        String testString = "pat-delete 1";
+        LinkedList<String> parsedWords = UserinputParserUtil.parse(testString);
+        assertEquals("pat-", parsedWords.get(0));
+        assertEquals("delete", parsedWords.get(1));
+        assertEquals("1", parsedWords.get(2));
+    }
+
+    @Test
     public void splitIntoSegments() {
         String testString = "pat-delete 1";
         String[] segments = UserinputParserUtil.splitIntoSegments(testString);
@@ -28,7 +37,7 @@ class UserinputParserUtilTest {
     public void parseFirstSegment() {
         String testFirstSegment = "pat-delete";
         LinkedList<String> segments = UserinputParserUtil.parseFirstSegment(testFirstSegment);
-        assertEquals("pat", segments.get(0));
+        assertEquals("pat-", segments.get(0));
         assertEquals("delete", segments.get(1));
     }
 
