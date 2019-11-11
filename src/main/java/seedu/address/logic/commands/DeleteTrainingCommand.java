@@ -8,6 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.training.Training;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Deletes a training identified by the {@code date}.
@@ -35,14 +36,15 @@ public class DeleteTrainingCommand extends DeleteCommand {
     }
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.hasTrainingOnDate(date)) {
+        if (model.hasTrainingOn(date)) {
             Training trainingToBeDeleted = model.deleteTrainingOnDate(date);
             this.trainingToBeDeleted = trainingToBeDeleted;
         } else {
             throw new CommandException(String.format(MESSAGE_NO_TRAINING_ON_DATE, date));
         }
         date.setType(2);
-        return new CommandResult(String.format(MESSAGE_DELETE_TRAINING_SUCCESS, date), date, model);
+        return new CommandResult(String.format(MESSAGE_DELETE_TRAINING_SUCCESS, date),
+                new Feature("calendar"), date, model);
     }
 
     @Override

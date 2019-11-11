@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
 import seedu.address.model.person.Person;
 import seedu.address.model.training.Training;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Adds a training session of players specified by the indexes on the specified
@@ -64,10 +65,12 @@ public class TrainingCommandPresent extends TrainingCommand {
         this.trainingToAdd = training;
 
         CommandResult result;
-        if (model.hasTrainingOnDate(super.getDate())) {
-            result = new CommandResult(String.format(TRAINING_REPLACE_SUCCESS, date), date, model);
+        if (model.hasTrainingOn(super.getDate())) {
+            result = new CommandResult(String.format(TRAINING_REPLACE_SUCCESS, date),
+                    new Feature("calendar"), date, model);
         } else {
-            result = new CommandResult(String.format(TRAINING_ADD_SUCCESS, date), date, model);
+            result = new CommandResult(String.format(TRAINING_ADD_SUCCESS, date), new Feature(
+                    "calendar"), date, model);
         }
         model.addTraining(training);
         date.setType(2);

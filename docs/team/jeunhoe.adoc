@@ -22,17 +22,7 @@ University of Singapore (NUS) and we created *Athletick* as part of a requiremen
 engineering module. We were tasked with morphing a desktop address book application with the constraint that it had
 to be a command line interface application. This project was completed over six weeks.
 
-Note the following symbols and formatting used in this document:
-
-|===
-
-| `training` | A grey highlight (mark-up) indicates that this is a command that can be input into the command line and executed by the application.
-
-| `[green]#TrainingManager#` | Green text with grey highlight indicates a component, class or object in the architecture of the application.
-
-| NOTE: | This symbol indicates important information.
-
-|===
+include::../DeveloperGuide.adoc[tag=symbol]
 
 == Summary of contributions
 This section contains a summary of my contributions to the project. This includes code, documentation and other helpful
@@ -61,10 +51,12 @@ by listing members present, or by members absent. We understand that keying play
 big teams. Giving the option to coaches to mark attendance by entering players absent will reduce the amount of
 typing which will save time.
 
-*Enhancement added:* I added the ability to monitor an athlete’s attendance rate.
+*Enhancement added:* I added the ability to monitor an athlete’s attendance.
 
 * What it does:
-** The `attendance`, `select`, `view attendance` and `calendar` commands allow a user to track their team’s attendance.
+** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`, `view
+attendance` and `calendar` commands.
+
 
 * Justification:
 ** Coaches are concerned about their team’s overall attendance rate as it is a good indicator an
@@ -143,21 +135,30 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/187[#187])
 
 
 == Contributions to the user guide
-This section displays my contributions to the user guide for the training and attendance features. They showcase my
-ability to write documentation targeting end-users of our application.
+This section displays excerpts of my contributions to the user guide for the training and attendance features. They
+showcase my ability to write documentation targeting end-users of our application.
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html#training-feature[here].
 
 {Start of extract from User Guide}
 
-include::../UserGuide.adoc[tag=training]
+include::../UserGuide.adoc[tag=training_intro]
+
+include::../UserGuide.adoc[tag=training_absent]
+
+include::../UserGuide.adoc[tag=view_attendance_command]
+
 
 {End of extract from User Guide}
 
 == Contributions to the developer guide
-This section displays my contributions to the developer guide for the training feature. They showcase my ability to
-write technical documentation to developers, as well as the technical depth of my contributions to the project.
+This section displays excerpts of my contributions to the developer guide for the training feature. They showcase my
+ability to write technical documentation to developers, as well as the technical depth of my contributions to the project.
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html#training-feature[here].
 
 {Start of extract from Developer Guide}
 
-include::../DeveloperGuide.adoc[tag=training]
+include::../DeveloperGuide.adoc[tag=training_structure]
+
+include::../DeveloperGuide.adoc[tag=training_design]
 
 {End of extract from Developer Guide}

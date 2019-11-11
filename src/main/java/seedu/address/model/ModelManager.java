@@ -318,7 +318,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasTrainingOnDate(AthletickDate date) {
+    public boolean hasTrainingOn(AthletickDate date) {
         return this.trainingManager.hasTrainingOnDate(date);
     }
 

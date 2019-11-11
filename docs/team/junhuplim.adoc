@@ -1,13 +1,7 @@
 = Lim Jun Hup - Project Portfolio for Athletick
-
-//++++
-//<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
-//++++
-
 :site-section: AboutUs
 :imagesDir: ../images
 :sectnums:
-//:icons: font
 ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
@@ -29,10 +23,10 @@ Security.
 This project is a 6 weeks long project for our software engineering module.
 We were tasked to either enhance or morph a basic command line interface (CLI) desktop
 Address Book application and one of the main constraints of this project is that
-the application has to remain as a command line interface.
+the application has to remain as a command line interface application.
 
 What my team and I decided to do was to morph the existing address book application to a team
-management desktop application called Athletick. Athletick is designed for captains and
+management application called Athletick. Athletick is designed for captains and
 coaches of timing-based performance sports to help take and keep track of attendance
 and performance of their teams.
 
@@ -77,16 +71,16 @@ In the event that users have made a mistake or changed their minds about executi
 a command, the `undo` command enables them to revert to a version immediately before the mistaken command
 was executed. If they change their minds again and decide to execute the command after all,
 then the `redo` command enables them to do so easily.
- * Highlights:
+ * Highlights
 ** This enhancement works with existing as well as future commands.
 
-** As there were a few ways to implement this enhancement, an in-depth analysis of design
+** An in-depth analysis of design
 alternatives was necessary to weigh the different alternatives and decide on the implementation for this enhancement.
 
-** The implementation too was challenging as it required a full understanding of
+** The implementation was challenging as it required a full understanding of
 the major components of the application and the existing features implementations.
 Also, as the enhancement is able to work with future commands, the implementation of
-this enhancement has to be considerable of the future features implementations and
+this enhancement has to be considerable of the future features implementations so as to
 allow the future enhancement for such features to be easily integrated into the current implementation.
 
 *Code contributed*: The links provided show my code contribution for the project.
@@ -95,24 +89,30 @@ allow the future enhancement for such features to be easily integrated into the 
 *Other contributions*
 
 * Project management
+** Managed version release v1.3.4 of Athletick to prepare for final
+production release on GitHub
+(https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v.1.3.4[v1.3.4])
 ** Introduced Trello for tasks and deadlines management
-** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed.
+** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed
 * Existing features enhancement
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation
-** Added documentation for `undo` and `redo` for both User Guide and Developer Guide:
+** Added documentation for `undo` and `redo` for both User Guide and Developer Guide
 (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/219[#219])
-** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly.
-(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
+** Standardised product screenshots for `clear` and `help` in User Guide to make it more reader-friendly
+(Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/223[#223])
+** Fixed icons bugs and improved on alignment in User Guide and Developer Guide
+(Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/242[#242],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/243[#243])
 * Community
 ** Reviewed PRs with non-trivial review comments (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/210[#210],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/225[#225])
 ** Commented and provided suggestions on other team's PR
 (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/29[Review])
-** Reported bugs and suggestions for other teams (Bug reports and suggestions:  https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
+** Reported bugs and suggestions for other teams (Bug reports and suggestions: https://github.com/junhuplim/ped/issues/5[1], https://github.com/junhuplim/ped/issues/8[2],
 https://github.com/junhuplim/ped/issues/9[3])
 
 
@@ -121,12 +121,17 @@ https://github.com/junhuplim/ped/issues/9[3])
 This section showcases my contribution to the User Guide. They showcase my ability to write
 documentation targeting end-users.
 
+{Start of extract from User Guide}
+
 include::../UserGuide.adoc[tag=undoredo]
+
+{End of extract from User Guide}
 
 == Contributions to the Developer Guide
 
 This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project.
 
+{Start of extract from Developer Guide}
 include::../DeveloperGuide.adoc[tag=undoredo]
-
+{End of extract from Developer Guide}
