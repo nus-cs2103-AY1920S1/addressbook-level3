@@ -189,6 +189,10 @@ This section describes some noteworthy details on how certain features are imple
 The `Transaction` abstract class allows user to input income and expense statements. Both `in` and `out` transactions requires the mandatory `Amount`, `Description` and `Date` fields to be appended. There is an optional `Category` field which can accept one or more input depending on the user specifications.
 The `in` transactions will increase the `BankAccount` balance amount whilst the `out` transactions will reduce the `BankAccount` balance amount.
 
+`In` Transactions represent the income statements inputted into Palpay.
+
+`Out` Transactions represent the expenditure statements inputted into Palpay.
+
 ==== Current Implementation
 
 The sequence diagram below illustrates how PalPay handles the command input `in $/200 n/coke d/10102019`. The arguments are parsed into the logic component where the subsequent model objects are created.
@@ -196,9 +200,23 @@ The sequence diagram below illustrates how PalPay handles the command input `in 
 .Sequence diagram for executing an `InCommand`
 image::InSequenceDiagram.png[]
 
-The `in` and `out` transaction follows the same logic flow after they are parsed. The only difference is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation in the `inTransaction` and a `subtractAmount` operation in the `OutTransaction` class.
+The `in` and `out` transaction follows the same logic flow after they are parsed.
 
-`Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
+The difference between `in` and `out` transactions is that the `handleBalance()` method called in the `BankAccount` results in an `addAmount` operation for the `inTransaction` and a `subtractAmount` operation for the `OutTransaction` class.
+
+===== Example
+Given that the `BankAccount` balance initially starts with 0 dollars.
+
+* `in` Transaction of `$1000` will increase the `BankAccount` balance from $0 to $1000.
+* `out` Transaction of `$250` will subsequently decrease the `BankAccount` balance from $1000 to $250.
+* The Activity Diagram shown below will provide a visual representation of the two routes a Transaction object can take.
+
+.Activity Diagram for In and Out Transactions
+image::InActivityDiagram.png[]
+
+==== Design Considerations
+
+* To prevent repetitive code implementation, the `Transaction` abstract class is used to facilitate income and expenditure logging.  `Transaction` is an abstract class which contains the default constructor and commonly used variables. `InTransaction` and `OutTransaction` extends the `Transaction` class as they typically store an *amount*, *date*, *description*, and a set of *categories*.
 A code snippet of the `Transaction` abstract class is shown below.
 
 ```
@@ -216,13 +234,19 @@ public abstract class Transaction {
     }
 ```
 
-
-==== Design Considerations
-
-The balance in `BankAccount` and the balance in `Ledger` are considered two separate identities, both being encompassed under the `UserState` class.
+* The balance in `BankAccount` and the balance in `Ledger` are considered two separate identities, both being encompassed under the `UserState` class.
 Therefore user operations that deal with `BankAccount` implements the `BankAccountOperation` interface, while operations
 that deal with `Ledger` implements the `LedgerOperation` interface. +
-This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
+** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
+** This reduces code coupling as there are different models to handle different balance amounts.
+
+* A `Transaction` entry can affect a `Budget` which has similar categories.
+** Only `Out` Transactions will affect `Budget`.
+** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
+
+.Activity diagram for Out Transaction affecting Budget
+image::OutbudgetActivityDiagram.png[]
+
 
 // end::transaction[]
 
@@ -420,7 +444,7 @@ a set number (e.g. 500) of transactions.
 ==== Design Considerations
 // end::project[]
 
-=== Display Feature `display`
+=== Display Feature: `display`
 This feature provides a graphical view of an existing projection to the _user_. +
 
 ==== Current Implementation
@@ -447,6 +471,28 @@ This feature allows the user to switch between the different tabs of the applica
 
 The `view` command is facilitated by the `MainWindow`, `MainTabPanel`, `ViewCommandParser` and `ViewCommand`.
 
+Given below is an example usage of how `view` behaves at each step.
+
+**Step 1**. The user launches the application and views the transaction tab.
+
+**Step 2**. The user now executes `view budget` to switch to the budget tab.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `ViewCommandParser` to further parse the input
+from the user.
+
+**Step 5**. `ViewCommandParser` parses the argument and checks if it is valid. If it is
+invalid, `ViewCommandParser` throws an exception and terminates. Else, it returns a `ViewCommand` that contains a `Tab`.
+
+**Step 6**. `LogicManager` uses `ViewCommand#execute()` to switch to the budget tab.
+
+**Step 7**. `ViewCommand` returns a `CommandResult` to the `LogicManager` with the `Tab`. `LogicManager` then
+returns the `CommandResult` to `MainWindow`.
+
+**Step 8**. `MainWindow` checks if there is a need to switch `Tab`. If there is, `MainWindow` uses
+`MainWindow#handleSwitchTab()` to switch tab. Else, `MainWindow` does nothing.
+
 The following activity diagram shows the flow of the `view` command.
 
 .Activity Diagram for `View`
@@ -456,52 +502,84 @@ image::ViewActivityDiagram.png[]
 // tag::delete[]
 === Delete Transaction Feature: `delete`
 
-This feature allows the user to delete an existing transaction or budget from the list. +
-The following activity diagram summarizes what happens when a user executes Delete command:
+This feature allows the user to delete an existing transaction, budget, ledger or projection entry from their respective lists. +
+
+==== Current Implementation
+
+* The delete feature is facilitated by the Logic and Model components of the application.
+* The delete feature works for `Transaction`, `Budget`, `Ledger` and `Projection` entries.
+* The following activity diagram summarizes what happens when a user executes Delete command:
 
 .Activity Diagram of Delete Command
 image::DeleteActivityDiagram.png[]
 
-==== Current Implementation
-
-`Transaction` is an abstract class which implements `UndoableAction`. `inTransaction` and `outTransaction` extend the `Transaction` class.
-`Transaction` stores an *amount*, *date* and a set of *categories* which describe the variables a `Transaction` with the `BankAccount` will typically hold.
-`Split` transaction is the only dependency that relies on an additional `peopleInvolved` variable.
-`inTransaction` and `outTransaction` implement `BankAccountOperation`.
-
 ==== Design Consideration
+
+* The `delete` command is followed by a `TYPE+INDEX` parameter.
+** `Transaction` entries takes in `t` as its `TYPE` parameter.
+** `Budget` entries takes in `b` as its `TYPE` parameter.
+** `Ledger` entries takes in `l` as its `TYPE` parameter.
+** `Projection` entries takes in `p` as its `TYPE` parameter.
+* The `index` parameter refers to the entry number within the `TYPE` entry's view tab.
+* Example: `delete t5` deletes the 5th transaction from the list of transaction if that particular entry exists.
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to delete an item from Transaction, Budget, Ledger or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `delete` command
+** Pros: Requires lesser user steps to be taken before executing a `delete` command.
 ** Cons: Requires four unique lists to be created instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
 ** For example, when a new command is executed, we must remember to delete both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `delete 1 ..`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
+* **Alternative 2:** Change to **Transaction**, **Budget**, **Ledger** or **Projection** mode and keying in only index (e.g. `delete 1`)
+** Pros: Requires only one unique list required to store all operation types.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
 // end::delete[]
 
 // tag::update[]
-=== Update: `update`
+=== Update Existing Entry Feature: `update`
 
-This feature allows users to update either the **Amount**, **Date** or **Category** of either a Transaction or Budget.
+This feature allows users to update `Transaction`, `Budget` or `Projection` entries. The user is unable to perform this feature on `Ledger` and operations the rationale will be further explained in **Aspect 2**.
+
+==== Current Implementation
+
+*  The update feature is facilitated by the Logic and Model components of the application.
+* The parameter requirements differs for the type of entry:
+** `Transaction` type requires at least one of it's `Amount`, `Description`, `Date` or `Category` fields to be updated.
+** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated.
+** `Project` type only requires it's `Date` field to be updated.
+* At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed).
+* The following activity diagram summarizes what happens when a user executes an update command:
+
+.Activity Diagram for update
+image::UpdateActivityDiagram.png[]
 
 ==== Design Considerations
 
-This `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended). This will minimize the need to input all non-required parameters if a user does not require all parameters of a Transaction or Budget to be changed.
+The `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended).
 
-===== Aspect: Update requires `TYPE+INDEX` as one of its parameter
+More often than not, users do not need to change an entire Transaction or Budget entry. This will minimize inputs for users if they do not require every single parameters of a Transaction or Budget to be changed.
+
+===== Aspect 1: Update requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to update an item from Transaction, Budget or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `update` command
+** Pros: Requires lesser user steps to be taken before executing a `update` command.
 ** Cons: Requires three unique lists to be utilized instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
 ** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Change to **Transaction** or **Budget** mode and keying in only index (e.g. `update 1 ..`)
-** Pros: Requires only one unique list required to store both Transactions and Budgets.
+* **Alternative 2:** Change to **Transaction**, **Budget** or **Projection** mode and keying in only index (e.g. `update 1 ..`).
+** Pros: Requires only one unique list required to store all operation types.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
+===== Aspect 2: Update can not edit Ledger Operations
+
+* **Alternative 1 (current choice):** Update Command only works with `Transaction`, `Budget` and `Projection` Operations.
+** Pros: Intuitive implementation and execution for the user.
+** Cons: Requires excessive user operations. The user has to first delete the `Ledger` operation that he/she wishes to change, then input the `Ledger` operation with the amended fields.
+** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Update Command to also work with `Ledger` operations.
+** Pros: Requires only one user command to append or change `Ledger` entries.
+** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
+*** `Ledger` operations such as `split` includes many repeated fields (i.e. multiple `Persons` and `shares` list).
+*** Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to amend.
 // end::update[]
 
 // tag::sort[]
@@ -920,7 +998,6 @@ Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a Person
 
@@ -939,7 +1016,6 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving Data
 
@@ -947,4 +1023,3 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_

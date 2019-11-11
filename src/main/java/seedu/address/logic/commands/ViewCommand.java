@@ -6,13 +6,13 @@ import seedu.address.model.Model;
 import seedu.address.ui.tab.Tab;
 
 /**
- * Views the different kind of modes in PalPay.
+ * Views the different tabs in PalPay.
  */
 public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
 
-    public static final String MESSAGE_USAGE = ViewCommand.COMMAND_WORD + ": View the bank account.\n"
-        + "Parameter: SIMI\n"
+    public static final String MESSAGE_USAGE = ViewCommand.COMMAND_WORD + ": View the tab in PalPay.\n"
+        + "Parameter: TAB\n"
         + "Example: " + ViewCommand.COMMAND_WORD + " transaction";
 
     public static final String MESSAGE_SUCCESS = "Tab switched!";

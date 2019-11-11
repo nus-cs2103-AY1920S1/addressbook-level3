@@ -1,0 +1,37 @@
+@startuml
+start
+:User executes View command;
+:ViewCommandParser parses and validates user input;
+if() then ([isEmpty])
+:Throws ParseException;
+stop
+
+else([else])
+    if() then ([transaction])
+    :Returns ViewCommand(Tab.TRANSACTION);
+    else([else])
+        if() then ([budget])
+        :Returns ViewCommand(Tab.BUDGET);
+        else([else])
+            if() then ([ledger])
+            :Returns ViewCommand(Tab.LEDGER);
+            else([else])
+                if() then ([projection])
+                :Returns ViewCommand(Tab.PROJECTION);
+                else([else])
+                :Throws ParseException;
+                stop
+                endif
+            endif
+        endif
+    endif
+endif
+:LogicManager executes ViewCommand;
+:Returns CommandResult;
+if() then([isSwitchTab])
+:handleSwitchTab;
+else([else])
+endif
+stop
+
+@enduml

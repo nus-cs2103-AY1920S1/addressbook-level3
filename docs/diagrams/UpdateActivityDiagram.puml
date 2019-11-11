@@ -1,0 +1,57 @@
+@startuml
+
+start
+:User executes update command;
+if (Transaction type) then ([yes])
+  if(Index extry exists) then ([yes])
+
+  else([no])
+  :Display error message;
+  stop
+  endif
+  :Checks for Amount, Description, Date and Categories fields;
+  if(At least one valid parameter) then([yes])
+
+  else([no])
+  :Display error message;
+  stop
+  endif
+
+elseif (Budget type) then ([yes])
+  if(Index extry exists) then ([yes])
+
+  else([no])
+  :Display error message;
+  stop
+  endif
+  :Checks for Amount, Date and Categories fields;
+    if(At least one valid parameter) then([yes])
+
+    else([no])
+    :Display error message;
+    stop
+    endif
+
+elseif (Projection) then ([yes])
+  if(Index extry exists) then ([yes])
+
+  else([no])
+  :Display error message;
+  stop
+  endif
+  :Checks for Date field only;
+    if(Date parameter is valid) then([yes])
+
+    else([no])
+    :Display error message;
+    stop
+    endif
+
+else ([Invalid type])
+  :Display error message;
+endif
+:Entry successfully updated;
+:Display success message;
+stop
+
+@enduml
