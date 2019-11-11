@@ -31,6 +31,10 @@ public class AddProjectMeetingCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_MEETING = "Meeting is already set in this project.";
 
+    public static final String MESSAGE_MEETING_CLASH = "Meeting time clash with an existing meeting";
+
+    public static final String MESSAGE_MEETING_DESCRIPTION_EXISTS = "Meeting with the same description already exists";
+
     private final Meeting toAdd;
 
     /**
@@ -57,6 +61,14 @@ public class AddProjectMeetingCommand extends Command {
         newMeetingList.addAll(meetingList);
         if (newMeetingList.contains(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEETING);
+        } else {
+            for (Meeting meeting: newMeetingList) {
+                if (meeting.getTime().equals(toAdd.getTime())) {
+                    throw new CommandException(MESSAGE_MEETING_CLASH);
+                } else if (meeting.getDescription().equals(toAdd.getDescription())) {
+                    throw new CommandException(MESSAGE_MEETING_DESCRIPTION_EXISTS);
+                }
+            }
         }
         newMeetingList.add(toAdd);
         Collections.sort(newMeetingList, SortingOrder.getCurrentSortingOrderForMeeting());

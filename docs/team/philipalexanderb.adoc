@@ -121,13 +121,149 @@ in our application and a summary of commands available in our application.
 
 === Project Meeting
 
-include::../UserGuide.adoc[tag=addProjectMeeting]
+==== Add a project meeting: `addProjectMeeting` [Checkout]
 
-include::../UserGuide.adoc[tag=deleteMeeting]
+Adds a new project meeting to the current working project.  +
+Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
+
+`dd/MM/yyyy HHmm` refers to the date and time the meeting is to be held. +
+`MEETING_DESCRIPTION` refers to the purpose of the meeting.
+
+Example: +
+Let's say that you plan to have a meeting on the 19th November 2019, you want to keep track of this meeting
+by recording it down in the MyProject app.
+
+To add a project meeting:
+
+1. Type `addProjectMeeting c/19/11/2019 1300 s/DIscussion on version 2` and press enter to execute it.Note that
+this project meeting will be held after the 4th meeting on 16/11/2019 1700 and before the 5th meeting on 29/11/2019 1300.
+image:addProjectMeeting1.png[]
+
+2. Success message with the respective information about the meeting will be displayed. The meeting added will
+be automatically sorted according to the dates and times in ascending order. Thus, the new meeting added will
+be placed as number 5.
+image:addProjectMeeting2.png[]
+
+==== Delete a meeting: `deleteMeeting` [Checkout]
+
+
+Deletes the specified meeting from the current working project.  +
+Format: `deleteMeeting INDEX`
+
+`INDEX` is the number used to identify this meeting in the meeting list.
+
+Example:
+
+* `deleteMeeting 1`
 
 === Email Features
 
-include::../UserGuide.adoc[tag=email]
+Tired of switching between applications? We got you covered, below you will find some commands which support sending
+emails right here within the application.
+
+[NOTE]
+Do keep in mind that only the user Account in our current version is only compatible with Gmail Account and please ensure that the Access to less secure app in the security setting is enabled before signing in!
+
+// tag::email[]
+==== Sign in to your account: `signIn`
+Signs in to the your email account. +
+Format: `signIn ac/ACCOUNT_EMAIL_ADDRESS pa/PASSWORD`
+
+`ACCOUNT_EMAIL_ADDRESS` refers to the sender's/user's email address.
+`PASSWORD` refers to the password to the sender's/user's email address.
+
+Example:
+
+* `signIn ac/example@gmail.com pa/12345678`
+
+
+[IMPORTANT]
+Please Turn on the access to less secure app in your account's security setting.
+
+[NOTE]
+This command is required to be executed before the remainder of the email commands can be executed. +
+The correctness of the email address used and the password will be checked.
+
+==== Log out from your account: `logOut`
+Logs out from your email account. +
+Format: `logOut`
+
+Example:
+
+* `logOut`
+
+==== Send an email: `sendMail`
+Sends an email to the specified person in your contacts. +
+Format: `sendMail r/RECIPIENT_EMAIL su/SUBJECT me/MESSAGE_BODY`
+
+`RECIPIENT_EMAIL` refers to the email address of the recipients. +
+`SUBJECT` refers to the email header. +
+`MESSAGE_BODY` refers to the email body.
+
+Example:
+
+* `sendMail r/example@gmail.com su/Test me/HelloWorld!`
+
+[NOTE]
+We will not check the correctness of the person's email address
+
+==== Broadcast an email: `broadcastMail` [Checkout]
+
+Sends an email to all members in the current working project. +
+Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
+
+`SUBJECT` refers to the email header. +
+`MESSAGE_BODY` refers to the email body.
+
+Example:
+Let's say that a new task has just been added and you want to inform your group members of the new task. Instead of switching to another
+application to inform your group members, you can simply use the `broadcastMail` command to inform everyone in the group.
+
+To broadcast Email:
+
+1. Type `broadcastMail su/New Task Added me/Finalise UG and DG before 17th November` and press enter to execute it.
+Note that the `SUBJECT` will be sent as the email header and the `MESSAGE_BODY` will be sent as the email body.
+image:broadcastMail1.png[]
+
+2. A success message will be displayed in the box saying "Mail have been sent successfully!"
+image:broadcastMail2.png[]
+
+3. Members will receive the email that looks like the following:
+image:broadcastMail3.png[]
+
+[NOTE]
+We will not check the correctness of the members' email addresses
+
+==== Send reminder: `sendReminder` [Checkout]
+
+Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
+Format: `sendReminder d/DURATION`
+
+`DURATION` is the number of days from the current time within which the Tasks are due and The Meetings are held.
+
+Example: +
+Let's say that you have several meetings and task for the coming week, and you want to remind your group of the upcoming meetings
+and the tasks that are supposed to be done by the week.
+
+Instead of typing all the meetings and tasks for the coming week all over again, you can just easily send these lists to their email
+addresses from the application.
+
+To send reminder:
+
+1. Type `sendReminder d/7` and press enter to execute it.Note that the date at the time this screenshot was taken is 10/11/2019, thus,
+only meeting meetings 2-4 and task 1-3 will be sent as reminders to the members.
+image:sendReminder1.png[]
+
+2. A success message will be displayed in the box saying "Reminders have been sent!"
+image:sendReminder2.png[]
+
+3. Members will receive an email with the tasks due and meetings happening within the next 7 days.
+image:sendReminder3.png[]
+
+[NOTE]
+We will not check the correctness of the members' email addresses
+
+// end::email[]
 
 
 == Contributions to the Developer Guide
@@ -135,10 +271,184 @@ include::../UserGuide.adoc[tag=email]
 |===
 |_Below is the section of developer guide that I contributed for my features._
 |===
-include::../DeveloperGuide.adoc[tag=addProjectMeeting]
 
-include::../DeveloperGuide.adoc[tag=broadcastMail]
+=== Meeting feature
+==== Description of feature
+Within every project, there are meetings to be held at certain time.
+The diagram below shows the class diagram of the meeting class and how it interacts with the model.
 
-include::../DeveloperGuide.adoc[tag=sendReminder]
+.Class Diagram for Meeting
 
-include::../DeveloperGuide.adoc[tag=signIn]
+image::MeetingClassDiagram.png[]
+
+As shown above, each project stores multiple meetings in a list. These meetings are automatically sorted based on the time in ascending order.
+Here are some meeting related commands that can be executed by the app.
+
+. addProjectMeeting - adds a meeting into the project model.
+. deleteProjectMeeting- removes a meeting from the project model based on index specified by user
+
+==== Details
+As seen in figure 10, each meeting consists of 2 parameters namely description and time to show what is the meeting about
+and the date and time of the meeting respectively.
+A typical meeting will look like this on the app:
+
+image::ProjectMeeting.png[]
+
+
+=== Broadcast Mail feature
+==== Description of feature
+
+Broadcast an email to all members in the project.
+
+Similar to sendReminder, the basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
+which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
+stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
+Currently, only gmail server has been made available for use in sending the emails.
+
+[NOTE]
+User Email  Account Information is stored through the signIn command.
+
+==== Details
+BroadcastMail takes in a two String, an email Subject and Body.
+The subject will be the email title which are normally on the email header and the body
+will be the message body of the email.
+
+The following sequence diagram shows the process of broadcast email to the project members.
+
+.Sequence Diagram for broadcastMail
+image::BroadcastMailSequenceDiagram.png[]
+
+These are the stages shown in figure 15.
+
+. Parses the input to obtain the Subject and Body of the email.
+. Goes to `Project` to get the Members names.
+. Goes to `Model` to get the the members in the project.
+. Goes to `Model` to get the OwnerAccount information.
+. Sends email to all the members with header Subject and message Body.
+. Display the success message.
+
+.Activity Diagram for BroadcastMail
+image::BroadcastMailActivityDiagram.png[]
+
+The diagram above shows how `broadcastMail` works.
+
+==== Design considerations
+
+===== Aspect: Data structure to support the broadcastMail commands
+
+The alternatives are similar to sendReminder as the underlying problem lies in sending email
+to all the members in the project group.
+
+
+=== Sending Reminder feature
+==== Description of feature
+
+Sends reminder for tasks and meetings that are due in the number of days given by the user input.
+
+The basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
+which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
+stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
+Currently, only gmail server has been made available for use in sending the emails.
+
+[NOTE]
+User Email  Account Information is stored through the signIn command.
+
+==== Details
+SendReminder takes in a single integer as parameter. The integer will be the duration in days from the current times in which the meetings and tasks are due.
+
+The following sequence diagram shows the process of sending reminder to the project members.
+
+.Sequence Diagram for sendReminder
+image::SendReminderSequenceDiagram.png[]
+
+These are the stages shown in figure 15.
+
+. Parses the input to obtain the duration.
+. Goes to `Model` to get the the Meetings and Tasks.
+. Obtains list of tasks and meetings which are due in the duration time.
+. Goes to `Project` to get the Members names.
+. Goes to `Model` to get the members in the project.
+. Goes to `Model` to get the OwnerAccount information.
+. Sends email to all the members about the upcoming meetings and tasks in the project.
+. Display the success message.
+
+.Activity Diagram for sendReminder
+image::SendReminderActivityDiagram.png[]
+
+The diagram above shows how `sendReminder` works. There are 2 possible error messages that can occur. Firstly,
+if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
+an error will be shown if the user non-numeric or negative or zero number as the duration of time.
+
+
+==== Design considerations
+
+===== Aspect: Data structure to support the sendReminder commands
+
+* **Alternative 1:** Storing List<Person> in the Project for members.
+** Pros: Easy to implement. Do not need to look for the person object in the addressBook from the List of String of
+members' names in the project.
+** Cons: Introduces coupling and may cause unwanted bugs due to cyclic dependencies as Project contains Person and
+Person contains Project.
+* **Alternative 2:** Stores members as List<String> of members names.
+** Pros: Reduces coupling and and eliminates cyclic dependencies between Project and Person object..
+** Cons: Have to hash the members object in the addressBook by names and go through the List<String> of members'
+names one by one to get the Person object of the member. Harder to implement.
+
+
+=== Sign In feature
+==== Description of feature
+
+Signs in using a Google account for mailing purposes.
+
+The basic implementation uses javax.Mail to check for the validity of the email address and password.
+User's email account information is stored in the Model class through this command.
+
+[NOTE]
+In this version, only gmail server has been made available for use in signing in and sending emails.
+
+==== Details
+signIn takes in two inputs, first is the email address of the user (in gmail), second is the password to the email address.
+
+The following sequence diagram shows the process of signing in to the user's account.
+
+.Sequence Diagram for signIn command
+image::SignInSequenceDiagram.png[]
+
+These are the stages shown in figure 15.
+
+. Parses the input to obtain the Email address and Password.
+. Goes to `Model` to check if user has signed in.
+. Creates OwnerAccount with the address and password.
+. Goes to `Model` to store the Email address and Password as `OwnerAccount`.
+. Display the success message.
+
+.Activity Diagram for SignIn
+image::SignInActivityDiagram.png[]
+
+The diagram above shows how `signIn` works.
+
+==== Design considerations
+
+===== Aspect: Algorithm to check validity of the Account in SignIn commands
+
+* **Alternative 1 (current choice):** Sends an email to a dummy email address cs2103t17@gmail.com.
+** Pros: Easy to implement. Do not need to use external libraries which might be time-consuming and difficult to learn.
+** Cons: Takes a while for the method to be executed as it checks whether it can send an email to the address cs2103t17@gmail.com.
+* **Alternative 2:** Use external libraries and utilise more of the javax.Mail API.
+** Pros: Might make the email checking more efficient, thus need only check for the password input.
+** Cons: Would have to use external libraries which will be harder to implement. Only checks for the existence of the email address and does not
+check for the correctness of the password input.
+
+===== Aspect: Eliminating signIn command
+
+* **Alternative 1 (current choice):** Lets user Signs In using their own Gmail Account.
+** Pros: Allows users to user their own Gmail Account and lets members(recipients) know email
+sent by the team leaders.
+** Cons: Expose users' password when users are trying to sign in. Users will need to change the account
+security settings to let less secure app access the account. Compromises account security.
+* **Alternative 2:** Hardcode an account in the application that is responsible for all mailing command/
+** Pros: Do not expose users' password and Users do not need to change their Account security settings to
+send the emails.
+** Cons: Members(recipient) receiving email from the users' may not know the origin of the email.
+This may lead to confusion for the project's members.
+
