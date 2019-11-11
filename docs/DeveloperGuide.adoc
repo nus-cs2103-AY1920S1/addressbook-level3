@@ -388,7 +388,7 @@ These three statuses are maintained by an `enum` in `Incident`. Executing the `f
 drafts (complete or incomplete) into `COMPLETE_DRAFT` while the `submit` command changes the status of only `COMPLETE_DRAFTS` to `SUBMITTED_REPORT`.
 To prevent potential misuse, only the operator who has created the incident report is allowed access to execute the fill and submit commands on that report.
 
-===== Overview of `Fill` and `Submit`
+===== Overview of Fill and Submit commands
 
 Each command works in two modes:
 
@@ -424,7 +424,7 @@ image::FillCommandWithParamsSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
 
-===== Aspect: How incident `fill` and `submit` commands execute in no parameter mode
+===== Aspect: How incident Fill and Submit commands execute in no parameter mode
 
 * **Current choice:** Use `ListIncidents` command with appropriate predicate to fulfill `fill` and `submit` functionalities in no-parameter mode.
 ** Pros: +
@@ -442,7 +442,7 @@ image::FillCommandWithParamsSequenceDiagram.png[width="800"]
 ** Pro: 1. Most appropriate use of abstraction and single responsibility principle, which are crucial OOP concepts.
 ** Con: 1. User needs to either remember an additional command word or type a longer `list-i` command by specifying the filter predicate, which reduces user convenience.
 
-===== Aspect: How incident `fill` and `submit` commands execute in parameter mode
+===== Aspect: How incident Fill and Submit commands execute in parameter mode
 
 * **Current choice:** Both `callerNumber` and `description` fields need to be specified when filling specified incident report. The other incident report fields are auto-filled and can only be changed by using the `edit` command once the incident report has been submitted.
 ** Pros: +
