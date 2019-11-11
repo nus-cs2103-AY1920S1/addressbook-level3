@@ -1,0 +1,13 @@
+{
+  "customers" : [ {
+    "customerName" : "Valid",
+    "contactNumber" : "87438807",
+    "email" : "alexyeoh@example.com",
+    "tagged" : [ "friends" ]
+  }, {
+    "customerName" : "Invalid phone number",
+    "contactNumber" : "99aa2728",
+    "email" : "berniceyu@example.com",
+    "tagged" : [ "colleagues", "friends" ]
+  }]
+}
