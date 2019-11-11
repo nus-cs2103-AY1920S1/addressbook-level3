@@ -49,7 +49,7 @@ I have added to the user and developer guides in relation to these enhancements.
 This section shows a summary of my role in the project, my technical ability to code, document, and other helpful contributions to the
 team project.
 
-==== Role
+=== Role
 
 My main technical role was to design and write the codes for the integration with the application with an online database of movies and tv shows.
 This was highly integral due to the nature and vision of the application where information about movies and tv shows

@@ -21,9 +21,7 @@ import info.movito.themoviedbapi.model.tv.TvSeason;
 import info.movito.themoviedbapi.model.tv.TvSeries;
 
 import seedu.ezwatchlist.api.exceptions.OnlineConnectionException;
-import seedu.ezwatchlist.api.model.ApiManager;
 import seedu.ezwatchlist.api.model.ImageRetrieval;
-import seedu.ezwatchlist.api.model.RecommendationEngine;
 import seedu.ezwatchlist.model.actor.Actor;
 import seedu.ezwatchlist.model.show.Date;
 import seedu.ezwatchlist.model.show.Description;
