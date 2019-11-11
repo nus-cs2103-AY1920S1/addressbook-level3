@@ -17,11 +17,7 @@ import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -51,6 +47,8 @@ public class MainWindow extends VBox {
     private Label messageLabel;
     @FXML
     private TextArea cli;
+    @FXML
+    private Button addNewDeckButton;
 
     private CliEditor clieditor;
 
@@ -89,6 +87,18 @@ public class MainWindow extends VBox {
         StorageManager.saveAll(StateHolder.getState().getDecks());
         //StorageManager.saveStats();
         System.exit(0);
+    };
+
+    private Consumer<Boolean> toggleListViewAccessOff = b -> {
+        deckList.setMouseTransparent( true );
+        deckList.setFocusTraversable( false );
+        addNewDeckButton.setDisable(true);
+    };
+
+    private Consumer<Boolean> toggleListViewAccessOn = b -> {
+        deckList.setMouseTransparent(false);
+        deckList.setFocusTraversable(true);
+        addNewDeckButton.setDisable(false);
     };
 
     private CreateDeckDisplay tempCreateDeckDisplay;
@@ -190,6 +200,8 @@ public class MainWindow extends VBox {
         Consumers.addConsumer(ConsumerSchema.CREATE_NEW_DECK, create);
         Consumers.addConsumer(ConsumerSchema.SEE_SPECIFIC_DECK, seeDeck);
         Consumers.addConsumer(ConsumerSchema.QUIT_PROGRAM, quitProgram);
+        Consumers.addConsumer("TOGGLE_LIST_VIEW_OFF", toggleListViewAccessOff);
+        Consumers.addConsumer("TOGGLE_LIST_VIEW_ON", toggleListViewAccessOn);
     }
 
     /**

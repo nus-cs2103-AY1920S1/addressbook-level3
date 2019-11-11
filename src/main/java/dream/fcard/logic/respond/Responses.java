@@ -617,6 +617,7 @@ public enum Responses {
                                 TimedTestDisplay timedTestDisplay = new TimedTestDisplay(currExam);
                                 Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, timedTestDisplay);
                             }
+                            Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
                             return true;
                         }
                     } catch (DeckNotFoundException e) {
@@ -743,6 +744,7 @@ public enum Responses {
                     }
                     Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
                     Consumers.doTask(ConsumerSchema.CLEAR_MESSAGE, true);
+                    Consumers.doTask("TOGGLE_LIST_VIEW_ON", true);
                     StateHolder.getState().setCurrState(StateEnum.DEFAULT);
                     return true;
                     //@author
