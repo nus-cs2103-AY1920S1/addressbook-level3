@@ -411,10 +411,12 @@ Example:
 
 . Type `show n/Bobby` in the command line as shown below: +
 +
+.Command box
 image::showpersoncommand.png[]
 . Hit the kbd:[Enter] key and you should see details of the person!
 You should see a window similar to the one below.
 +
+.Result after executing the `show` command for Bobby
 image::showpersonresult.png[]
 
 // tag::navigationforshow[]
@@ -760,6 +762,7 @@ Examples:
 
 . Type `show g/CS2103` in the command line as shown below +
 +
+.Command box
 image::showgroupcommand.png[]
 
 . Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
@@ -767,6 +770,7 @@ image::showgroupcommand.png[]
 +
 [[showgroupresult]]
 
+.Result after executing `show g/CS2103`
 image::showgroupresult.png[]
 
 include::UserGuide.adoc[tag=navigationforshow]
@@ -790,6 +794,7 @@ Let's use the same schedule exactly like the one shown <<#showgroupresult, above
 * Simply type `lookat n/Bobby n/Denise` if you are interested to inspect both of their schedules!
 You should see that Bobby's and Denise's schedule become highlighted.
 
+.Zoom in of Bobby and Denise's schedule
 image::lookatgroupresult.png[]
 
 *****

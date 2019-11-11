@@ -34,8 +34,8 @@ import seedu.address.ui.popup.LocationPopup;
 import seedu.address.ui.popup.LocationsView;
 import seedu.address.ui.popup.TimeslotPopup;
 import seedu.address.ui.popup.TimeslotView;
-import seedu.address.ui.schedule.GroupInformation;
-import seedu.address.ui.schedule.PersonDetailCard;
+import seedu.address.ui.schedule.GroupInformationDisplay;
+import seedu.address.ui.schedule.PersonInformationDisplay;
 import seedu.address.ui.schedule.ScheduleViewManager;
 import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
 import seedu.address.ui.util.ColorGenerator;
@@ -281,10 +281,10 @@ public class MainWindow extends UiPart<Stage> {
             }
         } else if (type.equals(ScheduleState.GROUP)) {
             GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) logic.getScheduleDisplay();
-            GroupInformation groupInformation = new GroupInformation(groupScheduleDisplay.getPersonDisplays(),
+            GroupInformationDisplay groupInformationDisplay = new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(),
                     null, groupScheduleDisplay.getGroupDisplay(),
                     ColorGenerator::generateColor);
-            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformation,
+            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformationDisplay,
                     "png", "./export.png");
             try {
                 exporter.export();
@@ -336,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isFilter()) {
                 GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
                 if (!groupScheduleDisplay.getFilteredNames().isEmpty()) {
-                    handleSidePanelChange(new GroupInformation(groupScheduleDisplay.getPersonDisplays(),
+                    handleSidePanelChange(new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(),
                             groupScheduleDisplay.getFilteredNames().get(), groupScheduleDisplay.getGroupDisplay(),
                             ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
                     scheduleViewManager.filterPersonsFromSchedule(groupScheduleDisplay.getFilteredNames().get());
@@ -376,7 +376,7 @@ public class MainWindow extends UiPart<Stage> {
                 //There is only 1 schedule in the scheduleWindowDisplay
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
                 handleSidePanelChange(
-                        new PersonDetailCard(personScheduleDisplay
+                        new PersonInformationDisplay(personScheduleDisplay
                                 .getPersonSchedules()
                                 .get(0)
                                 .getPersonDisplay())
@@ -385,7 +385,7 @@ public class MainWindow extends UiPart<Stage> {
             case GROUP:
                 GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
                 handleChangeOnDetailsView(scheduleViewManager.getScheduleView().getRoot());
-                handleSidePanelChange(new GroupInformation(groupScheduleDisplay.getPersonDisplays(), null,
+                handleSidePanelChange(new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(), null,
                                 groupScheduleDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
                         SidePanelDisplayType.GROUP);
                 break;

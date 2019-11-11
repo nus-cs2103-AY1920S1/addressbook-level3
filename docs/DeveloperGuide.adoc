@@ -73,13 +73,29 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
+This section describes the various UI components that make up TimeBook's Graphical User Interface. The diagram below shows the
+full structure of the UI component.
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+In general, TimeBook's UI consists of a `MainWindow` that is made up of the following main parts:
+
+. `CommandBox` -- The box that users would key in commands to execute.
+. `ResultDisplay` -- The box that would show response to the user after every command has been executed.
+. `TabPanel` -- The tabs at the left side of the window. It displays the list of groups or persons that have been added to TimeBook.
+. `ScheduleView` -- The display that contains the graphics of schedules belonging to individuals or groups.
+. `GroupInformationDisplay` -- The display that contains in-depth information about the group.
+. `PersonInformationDisplay` -- The display that contains in-depth information about the person.
+
+Additionally, TimeBook also has a separate window for popups when users executes the `select` or `selectfreetime` commands.
+The major ui components for this separate window are `LocationView` and `TimeslotView`.
+
+All these components, including the `MainWindow`, inherit from the abstract `UiPart` class. Note that not all of these ui components are shown
+at any one point in time. For example, the TabPanel gets displaced with either GroupInformationDisplay or PersonInformationDisplay
+when a user executes commands such as `addgroup` or `addevent`. In a nut shell, the MainWindow will show different ui components depending on the command executed.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -376,8 +392,9 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 === Visual Representation of individual's or group's schedule feature
 
 The visual representation refers to the beautiful graphics you see when you view a group or an individual's schedule in TimeBook.
-All of these graphics are created in the `ScheduleView` class. The model below illustrates the purpose of the `ScheduleView` class in TimeBook.
+All of these graphics are created in the `ScheduleView` class. The object oriented domain model below illustrates the problem domain of the `ScheduleView` class in TimeBook.
 
+.Object oriented domain model for `ScheduleView`.
 image::./yijie/ScheduleViewDomainModel.png[svdm,500,500]
 
 The `ScheduleView` class in TimeBook follows the above model closely. Let's walk you through how the graphics are created:
@@ -385,8 +402,8 @@ The `ScheduleView` class in TimeBook follows the above model closely. Let's walk
 . Each `PersonTimeslot` object must first have a date, a start time and an end time.
 . Obtain a list of `PersonTimeslot` that has no clashes. This means that there should not be any overlapping time slots in the list.
 . Sort the list of according to their date first, followed by start times.
-. For each date, create a *container* to stack `Block` objects. Eventually, this *container* represents the graphic for one date in the `ScheduleView` object.
-.. If the first `PersonTimeslot` in the list starts after 8am (TimeBook's schedule start time), stack an empty `Block` in the *container* with the height the same
+. For each date, create a *VBox* (a container to to stack `Block` objects). Eventually, this *VBox* represents the graphic for one date.
+.. Condition: If the first `PersonTimeslot` in the list starts after 8am (TimeBook's schedule start time), stack an empty `Block` in the *container* with the height the same
 as the duration between 8am and the start time of the first `PersonTimeslot` object in the list.
 . For each `PersonTimeslot` object in the list, stack a coloured `Block` in the same *container*. This `Block` should have the same height as the duration between the start and end time of the `PersonTimeslot` object.
 . Stack in empty `Block` to fill the gaps between the end time of the current `PersonTimeslot` and the start time of the next `PersonTimeslot` in the list.
@@ -409,25 +426,30 @@ A sample usage of the ScheduleViewManager is described below.
 Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members, Alice, Ben and Carl in TimeBook and executes the command
 `show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week as shown in the object diagram below.
 
+.Initial state of GroupScheduleViewManager after the `show` command is executed.
 image::./yijie/gsvm_state1.png[]
 
 Step 2. Suppose the user thinks that arranging a group meeting on the first week is too rushed, so he executes the `togglenext` command to view the group's schedule for the next week.
 The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule as shown in the diagram below.
 
+.State of GroupScheduleViewManager after the `togglenext` command is executed.
 image::./yijie/gsvm_state2.png[]
 
-Step 3. Suppose the user wants to organise a group meeting with some of his group members and still want to keep track of the entire group schedule's free time slots, he
+Step 3. After that, the user wants to organise a group meeting with some of his group members and still want to keep track of the entire group schedule's free time slots, he
 executes the `lookat` command to inspect Alice's and Carl's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules in the object diagram below.
 
+.State of the GroupScheduleViewManager after the `lookat` command is executed.
 image::./yijie/gsvm_state3.png[]
 
 Now that we have the full picture of how the graphics are created and controlled, we are ready to show how the user obtain a visual representation of a person or group's schedule using the `show` command.
 The following sequence diagram shows the sequence of events that lead to changes in the UI when an example of the `show` command is executed for a group called *CS2103*.
 
+.Sequence diagram for the `show` command.
 image::./yijie/showCommandSequenceDiagram.png[]
 
 In order to make the diagram look less messy, a reference diagram shown below is created to show what happens in the *get schedule view* frame.
 
+.Reference frame that was omitted from the sequence diagram.
 image::./yijie/showCommandSdFrame.png[]
 
 Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
@@ -450,9 +472,7 @@ Details of how the graphics are created within the `ScheduleView` have been desc
 
 | 2. Enable users to see schedules up to an indefinite weeks in advance.
 | 1. Every users should be able to plan their meetings.
-| 1. Difficult to implement.
-
-2. Slow requests as every query will regenerate a new set of graphics.
+| 1. Slow requests as every query will regenerate a new set of graphics.
 
 4+| We chose to allow users to see schedules up to 4 weeks in advance mainly due to usability. We recognise that most group meetings do not happen
 within a short period of 1 week as it may seem rushed for everyone in a group. We also found that it is unnecessary to enable users to see their schedules
@@ -462,8 +482,7 @@ after the 1 month mark since it is most likely to not have been updated yet.
 |===
 | Aspect: | Choice | Pros | Cons
 .2+| Viewing some group member's schedule in a group using the `lookat` command.
-| 1. Filter and only to the specified group members from the command. Does not recalculate and
-display the free time slots for the filtered group members. **(Current choice)**
+| 1. Filter, but do not recalculate the free time slot to the filtered group members from the command. **(Current choice)**
 | 1. Easier to implement.
 
 2. Faster for each query when schedules are more complicated.

@@ -10,7 +10,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Circle?>
-<ScrollPane fitToHeight="true" fitToWidth="true" id="personDetailContainer" fx:id="personDetailContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToHeight="true" fitToWidth="true" id="personInformationContainer" fx:id="personInformationContainer"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
