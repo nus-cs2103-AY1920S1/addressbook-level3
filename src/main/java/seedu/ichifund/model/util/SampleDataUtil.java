@@ -79,12 +79,12 @@ public class SampleDataUtil {
     public static Loan[] getSampleLoans() {
         return new Loan[] {
             new Loan(new LoanId("0"),
-                    new Amount("420.69"), new Name("Felix Kjellberg"),
+                    new Amount("420.69"), new Name("felix"),
                     new Date(new Day("1"), new Month("2"), new Year("2019")),
                     new Date(new Day("2"), new Month("5"), new Year("2020")),
                     new Description("For Trees Donation")),
             new Loan(new LoanId("0"),
-                    new Amount("23"), new Name("Mr. Schlansky"),
+                    new Amount("23"), new Name("kartike"),
                     new Date(new Day("1"), new Month("1"), new Year("2017")),
                     new Date(new Day("1"), new Month("1"), new Year("2019")),
                     new Description("Borrowed for Nandos"))

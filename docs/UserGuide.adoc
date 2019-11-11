@@ -600,11 +600,7 @@ In a social setting, finances aren't limited to just one persons own spending, o
 This borrowing and lending can make it hard to keep track of how much money you actually have.
 With the loans feature you can keep track of the `amount` you owe, the `name` of the person you owe it to and the `date` by which you have to return it.
 
-Each Loan you create will keep track of:
-
-1. A sum of money `amount`
-
-2.
+// tag::loanadd[]
 
 ==== Adding loan: `add`
 
@@ -641,8 +637,10 @@ Example:
 * `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods `
 
 This creates a loan of 420.42 for "Buying airpods" taken on 12 December 2019 to 02 February 2020.
+// end::loanadd[]
 
 
+// tag::loanedit[]
 ==== Editing new loan: `edit`
 
 Format: `edit INDEX [a/AMOUNT] [de/DESCRIPTION] [n/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
@@ -667,7 +665,10 @@ Example:
 * edit 1 de/Current Student Loan a/99999.99 n/DBS SG Bank sd/1 sm/1 sy/2020 ed/30 em/12 ey/2021
 
 This edits the first loanr in the current list to - $99999.99 loan taken on 1st January 2020 and to be paid back by 30th December 2021.
+// end::loanedit[]
 
+
+// tag::loanpaid[]
 ==== Marking Loan Paid: `paid`
 
 Mark loan as paid and remove it from the list. +
@@ -685,6 +686,9 @@ Takes the first loan and removes it form the list.
 
 .After Executing loanpaid
 image::Loan_4_help.png[]
+
+// end::loanpaid[]
+
 
 === Analytics
 

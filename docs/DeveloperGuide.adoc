@@ -610,7 +610,7 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 
 === Repeaters
 
-
+// tag::repeateradd[]
 
 
  tag::repeateradd[]
@@ -788,6 +788,7 @@ When the user input the `balance` command in the Analytics tab, the following ch
 7. The model is updated with the `List` of `Data` from the newly created `TrendReport`.
 // end::analyticsbalance[]
 
+//tag::loans[]
 === Loans
 
 // tag::loanadd[]
@@ -832,7 +833,7 @@ The `pay` command is facilitated by the Logic and Model components of the applic
 *Step 5*: `LogicManager` uses `PayLoanCommand#execute()` to delete the `Loan` from the `Model` which is handled by `ModelManager`.
 
 *Step 6*: `PayLoanCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
-// end::payloan[]
+// end::loans[]
 
 === Logging
 
