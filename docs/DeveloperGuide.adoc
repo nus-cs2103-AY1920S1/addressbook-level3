@@ -528,8 +528,6 @@ instead of shows that have both the name "Avengers" and the genre "Comedy"
 ==== Implementation
 The `AddCommand` extends `Command` and uses `AddCommandParser` to process the command entered by the user.
 
-There are two different ways of using add feature and both have different outcome.
-
 *Scenario 1:* Adding show in the WatchList.
 
 *Scenario 2.* Adding show found from online search.
@@ -547,7 +545,7 @@ Step 4. The `AddCommand#execute()` method is called, referencing the current mod
 
 The following activity diagram summarises the workflow of Add:
 
-image::addactivitydiagram.png[width="300"]
+image::AddActivitySequenceDiagram.png[width="300"]
 
 _Figure 3: Activity Diagram of `AddCommand`_
 
@@ -571,10 +569,13 @@ Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
 
 Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `searchList` of INDEX found in model.
 
+The following sequence diagram shows how the `add` operation works:
+
+image::AddSequenceDiagram.png[width="500"]
 
 The following activity diagram summarises the workflow of Add:
 
-image::AddActivityDiagram2.png[width="300"]
+image::AddActivitySequenceDiagram.png[width="300"]
 
 
 _Figure 4: Activity Diagram of `AddCommand`_
@@ -588,9 +589,52 @@ In Figure 4, User input search(online) command. User then input `add INDEX` comm
 ** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
 ** Pros: Enables for greater cohesion since there is a specific command for adding information of a show in watchlist.
 ** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the add and edit command
-*** Cons: May have performance issues in terms of memory usage.
+** Cons: May have performance issues in terms of memory usage.
 
 // end::add[]
+
+// tag::add2[]
+=== [Feature] Add feature (Extension)
+==== Implementation
+
+This `add` feature is an extension to the `add` feature found in previous feature.
+It is used after user has searched for a show using `search` feature and the user wants to add a certain show
+into his watchlist.
+
+Given below is an example usage of `add` feature (Extension) and how the add mechanism behaves at each step.
+
+Step 1. The user uses the search(Online) command and executes `add INDEX` command to add a show from search result page of INDEX in the WatchList.
+
+Step 2. Entering the command calls AddCommandParser#parse().
+
+Step 3. A new `AddCommand` is created, with the show to be added in AddCommand.
+
+Step 4. The `AddCommand#execute()` method is called, referencing the current model and add the show given by user to the `searchList` of INDEX found in model.
+
+
+The following sequence diagram shows how the `add` extension operation works:
+
+image::AddSequenceDiagram2.png[width="500"]
+
+The following activity diagram summarises the workflow of Add extension:
+
+image::AddActivitySequenceDiagram2.png[width="350"]
+
+
+_Figure 4: Activity Diagram of `AddCommand`_
+
+In Figure 4, User input search(online) command. User then input `add INDEX` command. Show of INDEX found in search result page is added to WatchList.
+
+==== Design Considerations
+
+===== Aspect: How `AddCommand` executes
+
+** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
+** Pros: Enables for greater cohesion since there is a specific command for adding information of a show in watchlist.
+** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the add and edit command
+** Cons: May have performance issues in terms of memory usage.
+
+// end::add2[]
 
 
 // tag::sync[]
@@ -633,12 +677,12 @@ Step 7. If a show in watchlist matched with the name of the index show, `model.s
 
 The following sequence diagram shows how the sync operation works:
 
-image::SyncSequenceDiagram.png[width="790"]
+image::SyncSequenceDiagram.png[width="500"]
 
 
 The following activity diagram summarises the workflow of Sync:
 
-image::SyncActivityDiagram.png[width="300"]
+image::SyncActivityDiagram.png[width="500"]
 
 
 ==== Design Considerations
