@@ -623,7 +623,7 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Note:
 
 - You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated and will not be visible on the calendar schedule.
+- Venue that is too long will be truncated / not visible on the calendar schedule.
 - If a schedule spans across 2 days, the order index and venue might not be visible.
 - Simple hover your cursor over the schedule (where content is truncated), the full string (order index + venue) should appear as a temporary pop-up in a while.
 ****
@@ -939,7 +939,7 @@ image::ExportCommand.png[width="800"]
 ****
 . The CSV file of file name "FILENAME" will be created in the data folder.
 ****
-image::ExportCSV.png[width="800"]
+image::exportCSV.png[width="800"]
 ****
 [underline]#Format#: `export FILE_NAME` +
 
