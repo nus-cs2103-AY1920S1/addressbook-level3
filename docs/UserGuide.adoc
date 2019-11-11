@@ -42,8 +42,7 @@ simplify, enhance, improve, and make convenient your management of expenses. The
 *Command Format*
 
 * Parameters in the format `prefix/[SQUARE BRACKETS]` are _mandatory parameters_ to be supplied by the user
-e.g. in `add n/[NAME] a/[AMOUNT]`, `NAME` and `AMOUNT` are mandatory parameters
-which should be supplied, as in: `add n/buy a book a/10.00`.
+e.g. in `add n/[NAME] a/[AMOUNT]`, `NAME` and `AMOUNT` are mandatory parameters which should be supplied, as in: `add n/buy a book a/10.00`.
 * The mandatory parameters can be in any order.
 * Some commands may have _optional parameters_. These are denoted by using `prefix/<ANGULAR BRACKETS>`,
 e.g When you see `a/<AMOUNT>`, the command can be either `edit 2 n/lunch a/10` or `edit 2 n/lunch`.
@@ -64,6 +63,14 @@ You can add an expense to your saved expense list using this command. All expens
 Usage:
 
  add n/[NAME] a/[AMOUNT]  d/<DESCRIPTION>  date/<DATE> t/<TAG>...
++
+INFO: +
+
+* `NAME` must be alphanumeric and may have spaces.
+* `AMOUNT` must be a positive and non-zero monetary amount.
+* `DESCRIPTION` has no constraints.
+* `DATE` should be in the format dd/mm/yyyy <HHMM> where HHMM is optional.
+* `TAG` should be alphanumeric without spaces.
 
 +
 Example:  +
@@ -72,20 +79,16 @@ Adds an expense to record where the name is “buy a book”, description is "ma
 {nbsp} +
 
 . _Edit an existing expense: edit_ +
-You can edit any existing expense that is being displayed, in the event that you have a need to change a past expense .
-Changes will be automatically saved . +
+You can edit any existing expense that is being displayed, in the event that you have a need to change a past expense.
+Changes made are automatically saved. +
 {nbsp} +
 Usage:
 
- edit [INDEX] [OPTIONS]
+ edit [INDEX] n/<NAME> d/<DESCRIPTION> a/<AMOUNT> date/<DATE> t/<TAG>...
 +
-Options: +
+INFO: +
 
-* `n/`: Specify new name to update expense with. +
-* `d/`: Specify new description to update expense with. +
-* `a/`: Specify new amount to update expense with. +
-* `t/`: Specify the tag and attach it to the expense. +
-* `date/`: Specify new timestamp to update expense with. +
+*  You need to supply at least one of the optional parameters, or the command will fail.
 {nbsp} +
 
 +
