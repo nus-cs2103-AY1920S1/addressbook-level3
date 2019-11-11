@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
  */
 public class Amount {
     public static final String MESSAGE_CONSTRAINTS =
-            "Amount should only contain a BigDecimal and it should not be blank";
+            "Amount should only contain a positive non-zero monetary value and it should not be blank";
 
 
     public final BigDecimal amount;
@@ -27,8 +27,8 @@ public class Amount {
      */
     public static boolean isValidAmount(String test) {
         try {
-            new BigDecimal(test);
-            return true;
+            BigDecimal result = new BigDecimal(test);
+            return result.compareTo(BigDecimal.ZERO) > 0;
         } catch (NumberFormatException e) {
             return false;
         }
