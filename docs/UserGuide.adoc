@@ -126,7 +126,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
 | ``[m/MONTH]``
-| Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
+| Square brackets imply that the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
 | 💡
 | A light bulb indicates that the enclosed text is a tip.
@@ -146,7 +146,7 @@ Main is the welcome screen for _TravEzy_. From here, you can easily navigate to 
 
 This is how _TravEzy's main_ page looks like:
 
-image::mainInterface.png[Main interface,width=800]
+image::MainInterface.png[Main interface,width=800]
 
 === Going to another page: ``goto``
 
@@ -166,11 +166,11 @@ where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``
 
 Step 1. Type ``goto itinerary`` in the _command box_ and press _Enter_. +
 
-image::mainGoto1.png[Goto command]
+image::MainGoto1.png[Goto command,width=600]
 
 Step 2. You will be directed to the _itinerary page_.
 
-image::mainGoto2.png[Goto result]
+image::MainGoto2.png[Goto result,width=600]
 
 
 === Viewing help: ``help``
@@ -184,13 +184,13 @@ If you are lost, this command will be helpful.
 
 Step 1. Type ``help`` in the _command box_ and press _Enter_. +
 
-image::mainHelp1.png[Help command]
+image::MainHelp1.png[Help command,width=600]
 
 Step 2. The message in the _result box_ will be updated to indicate that the help window has been opened.
 
 Step 3. The help window will appear as a pop-up and you may click the "copy link". This link will direct you to _TravEzy's_ user guide (i.e. this document).😊 +
 
-image::mainHelp2.png[Help result]
+image::MainHelp2.png[Help result,width=600]
 
 === Exiting the application: ``exit``
 
@@ -203,7 +203,7 @@ It's time to catch your flight, exit  _TravEzy_ and start your trip!
 
 Step 1. Type ``exit`` in the _command box_ and press _Enter_. +
 
-image::exit1.png[Exit command]
+image::MainExit1.png[Exit command,width=600]
 
 Step 2. All _TravEzy's_ windows will close.
 
@@ -226,6 +226,8 @@ image::calendarScreenshots/calendarInterfaceUG.png[Calendar interface,width=800]
 To help you easily differentiate between various types of _events_, _TravEzy_ has categorised the _events_ into four types: _commitment_, _holiday_, _school break_ and _trip_. Visually, _TravEzy_ also uses different _labels_ for the different types of _events_, as shown in the image above.
 
 WARNING: The _labels_ indicate the *type* of _event_ you have for that particular day. It does not indicate the number of _events_.
+
+WARNING: You will not be able to see the _labels_ on your calendar if your window (the display screen of this application) size is too small. If you need some help with that, click https://www.computerhope.com/issues/ch001478.htm[here].
 
 === Adding an event to your calendar: ``add``
 
@@ -268,9 +270,11 @@ Step 4. The _result box_ will also display a message to indicate that your _comm
 
 image::calendarScreenshots/add2.png[Add result,width=600]
 
+WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+
 TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively. This applies to the following commands as well.
 
-WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+TIP: _TravEzy's calendar_ understands that ``12`` refers to ``Dec`` as well! Furthermore, it understands that ``Decem`` refers to ``Dec``. This means that you can either type a *1 or 2 digit number* to represent a month *or* you can indicate a month with *at least first three letters* of the month.
 
 === Deleting an event from your calendar: ``delete``
 
@@ -442,23 +446,28 @@ image::calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 == Itinerary
 
-Now that you have book your flight, it's time to start planning your schedule with _TravEzy's_ itinerary. Here is our
-Itinerary!
+Now that you have booked your flight, it's time to start planning your trip using _TravEzy's_ Itinerary.
 
-image::ItineraryInterface.png[]
-
-In _TravEzy_, we have broken down your events into 4 key parts, namely _Title_, _Date_, _Time_, and _Tag_.
+In _TravEzy_, we have broken down your events into 6 key parts, namely _Title_, _Date_, _Time_, _Location_,
+_Description_ and _Tag_.
 
 For example, here is an Itinerary entry about our trip to Japan
 
 . _Title_ -> Visit Tokyo DisneySea
 . _Date_ -> 12122019
 . _Time_ -> 1000
+. _Location_ -> DisneySea
+. _Description_ -> Remember to take pictures with the Disney Mascots!
 . _Tag_ -> Priority: Critical
 
 In the Itinerary, you will be able to add, delete, edit, list and show your entries. There are also a few more special
-tasks that you can do with your itinerary. Read on to find out more! 😊
+tasks that you can do with your Itinerary. Read on to find out more! 😊
 
+=== Interface
+
+This is how _TravEzy's_ Itinerary looks like:
+
+image::ItineraryInterface.png[width=800]
 
 === Adding an event: ``add``
 
@@ -474,9 +483,9 @@ Planning to visit DisneySea tomorrow? Add some rides that you plan to take then!
 
 *Step by step:*
 
-Step 1. Type ``add title/Ride DisneySea Electric Railway date/12122019 time/1500 l/DisneySea`` in the command box.
+Step 1. Type ``add title/Ride DisneySea Electric Railway date/12122019 time/1500 l/DisneySea`` in the _command box_.
 
-Step 2. Remember to prioritize your events using the Priority dropdown box, to one of the 5 different priorities:
+Step 2. Remember to prioritize your events using the _Priority dropdown box_, to one of the 5 different priorities:
 
 . Priority: None
 . Priority: Low
@@ -486,20 +495,20 @@ Step 2. Remember to prioritize your events using the Priority dropdown box, to o
 
 After selecting the priority for the event, press _Enter_.
 
-image::ItineraryAdd1.png[]
+image::ItineraryAdd1.png[width=600]
 
-Step 3. The result box will display the message "Processing...
+Step 3. The _result box_ will display the message "Processing...
 Done!
 Your event has been successfully added! HAND, TravEzy! :D"
 
-Step 4. Now you can find your added event in the the event list.
+Step 4. Now you can find your added event in the event list.
 
-image::ItineraryAdd2.png[]
+image::ItineraryAdd2.png[width=600]
 
 === Deleting an event: ``delete``
 
-Had a change in plan during your trip but have already keyed in the event into _TravEzy's_ itinerary? Don't worry
-you can always remove it from the event list.
+Had a change in plan during your trip but have already keyed in the event into _TravEzy's_ Itinerary? Don't worry
+you can always remove it from the _event list_.
 
 Read on to find out more!
 
@@ -513,17 +522,17 @@ Read on to find out more!
 
 *Step by step:*
 
-Step 1. Type ``delete 4`` in the command box and press _Enter_.
+Step 1. Type ``delete 4`` in the _command box_ and press _Enter_.
 
-image::ItineraryDelete1.png[]
+image::ItineraryDelete1.png[width=600]
 
-Step 2. The result box will display the message "Processing...
+Step 2. The _result box_ will display the message "Processing...
 Done!
 Your event has been deleted successfully. Yay! :^)"
 
-Step 3. Now _TravEzy's_ itinerary view panel will show the new event list with the specified event removed.
+Step 3. The new _event list_ will be shown with the specified event being removed.
 
-image::ItineraryDelete2.png[]
+image::ItineraryDelete2.png[width=600]
 
 === Editing an event: ``edit``
 
@@ -534,7 +543,7 @@ Rather than deleting an event when you have a change of plans, why not edit the 
 ``edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 [TIP]
-If you wish to edit the tag field in the event, indicate it with the prefix ``tag/`` and use the Priority Dropdown Box
+If you wish to edit the tag field in the event, indicate it with the prefix ``tag/`` and use the _Priority Dropdown Box_
 to select the new priority.
 
 *Example:*
@@ -543,19 +552,19 @@ to select the new priority.
 
 *Step by step:*
 
-Step 1. Type ``edit 4 title/Explore DisneySea's Aquatopia d/Take photos of the fishes tag/`` in the command box.
+Step 1. Type ``edit 4 title/Explore DisneySea's Aquatopia d/Take photos of the fishes tag/`` in the _command box_.
 
 Step 2. If you indicate a change of the priority in the edit command using ``tag/``, do remember to select the new priority using
-the Priority Dropdown Box.
+the _Priority Dropdown Box_.
 
-image::ItineraryEdit1.png[]
+image::ItineraryEdit1.png[width=600]
 
-Step 3. The result box will display the message "Updated successfully! :D
+Step 3. The _result box_ will display the message "Updated successfully! :D
 HAND, TrazEzy~"
 
-Step 4. Now _TravEzy's_ itinerary view panel will show the new event list with the edited event.
+Step 4. _TravEzy's_ Itinerary will showcase the new _event list_ with the edited event.
 
-image::ItineraryEdit2.png[]
+image::ItineraryEdit2.png[width=600]
 
 === Checking a command as done: ``done``
 
@@ -572,17 +581,17 @@ event as done. ✅
 
 *Step by step:*
 
-Step 1. Type ``done 4`` in the command box and press _Enter_.
+Step 1. Type ``done 4`` in the _command box_ and press _Enter_.
 
-image::ItineraryDone1.png[]
+image::ItineraryDone1.png[width=600]
 
-Step 2. The result box will display the message "Processing...
+Step 2. The _result box_ will display the message "Processing...
 Done!
 Your event has been marked done successfully. Yay! :^)"
 
-Step 3. Now _TravEzy_ itinerary view panel will mark that event as done. Good Job! 👍
+Step 3. In the _event list_, that event will be marked as done. Great Job! 👍
 
-image::ItineraryDone2.png[]
+image::ItineraryDone2.png[width=600]
 
 === Listing all events: ``list``
 
@@ -599,29 +608,30 @@ convenient list!
 
 *Step by step:*
 
-Step 1. Type ``list`` in the command box and press _Enter_.
+Step 1. Type ``list`` in the _command box_ and press _Enter_.
 
-image::ItineraryList1.png[]
+image::ItineraryList1.png[width=600]
 
-Step 2. The result box will display the message "Processing...
+Step 2. The _result box_ will display the message "Processing...
 Done!
 Your event has been marked done successfully. Yay! :^)"
 
-Step 3. Now _TravEzy_ itinerary view panel will showcase all the events in your itinerary.
+Step 3. A continuous _event list_ will be shown with all the events in the Itinerary.
 
-image::ItineraryList2.png[]
+image::ItineraryList2.png[width=600]
 
 === Clearing all entries: ``clear``
 
-After using _TravEzy_ itinerary for a long time, you might find that your itinerary is cluttered with many past events.
-However, it might be a hassle to delete each events one by one. Don't worry, _TravEzy's_ itinerary got you covered and allows
- you to clear the entire event list instead.
+After using _TravEzy_ Itinerary for a long time, you might find that your Itinerary is cluttered with many past events.
+However, it might be a hassle to delete each events one by one.
+
+Don't worry, _TravEzy's_ Itinerary got you covered and allows you to clear the entire _event list_ instead.
 
 How convenient is that! 😄
 
 [WARNING]
-The clear function removes *ALL* the events that you have planned in your event itinerary. This action *CANNOT* be
-undone. Hence, only click on the *Proceed* button if you are sure that you want to clear your event list.
+The clear function removes *ALL* the events that you have planned in your _event list_. This action *CANNOT* be
+undone. Hence, only click on the *Proceed* button if you are sure that you want to clear your _event list_.
 
 *Format:*
 
@@ -633,29 +643,26 @@ undone. Hence, only click on the *Proceed* button if you are sure that you want 
 
 *Step by step:*
 
-Step 1. Type ``clear`` in the command box and press _Enter_.
+Step 1. Type ``clear`` in the _command box_ and press _Enter_.
 
-image::ItineraryClear1.png[]
+image::ItineraryClear1.png[width=600]
 
 Step 2. A popup window will appear prompting whether you would like to _Proceed_ in clearing all your events from the
-itinerary list.
+_event list_.
 
-Step 3. The result box will display the message "Currently viewing clear window warning.".
+Step 3. The _result box_ will display the message "Currently viewing clear window warning.".
 
-image::ItineraryClear2.png[]
+image::ItineraryClear2.png[width=600]
 
-Step 3. Upon selecting _Proceed_, a notification will be shown on the screen with the message, "Done! We have wiped off
+Step 4. Upon selecting _Proceed_, a notification will be shown on the screen with the message, "Done! We have wiped off
 all your events from the face of this Earth! ( ﾟヮﾟ)".
 
-Step 4. The result box will proceeed to display the message ""
-
-
-image::ItineraryClear3.png[]
+image::ItineraryClear3.png[width=600]
 
 ===  Greet TravEzy itinerary: ``greet``
 
-Start you day right by saying hello to _TravEzy_ itinerary and it will greet you back with the current _time_ and _date_.
-_TravEzy_ will also filter the event list to showcase events that are due today.
+Start you day right by saying hello to _TravEzy_ Itinerary and it will greet you back with the current _time_ and _date_.
+_TravEzy_ will also filter the _event list_ to showcase events that are due today.
 
 *Format:*
 
@@ -667,21 +674,21 @@ _TravEzy_ will also filter the event list to showcase events that are due today.
 
 *Step by step:*
 
-Step 1. Type ``greet`` in the command box and press _Enter_.
+Step 1. Type ``greet`` in the _command box_ and press _Enter_.
 
-image::ItineraryGreet1.png[]
+image::ItineraryGreet1.png[width=600]
 
-Step 2. The result box will display the message "Hello! Welcome to the itinerary page!" this will be followed by the
+Step 2. The _result box_ will display the message "Hello! Welcome to the itinerary page!" this will be followed by the
 current _date_ and _time_.
 
-Step 3. _TravEzy_ itinerary view panel will showcase all the events that are due today.
+Step 3. The _event list_ in the Itinerary will only showcase events that are due for the day.
 
-image::ItineraryGreet2.png[]
+image::ItineraryGreet2.png[width=600]
 
 === Showing past commands: ``history``
 
 Curious on what are the past commands that you have inputted during the current session? _TravEzy_ will show you a list of
-your past commands for the itinerary.
+your past commands for the Itinerary.
 
 Let's find out how!
 
@@ -695,24 +702,22 @@ Let's find out how!
 
 *Step by step:*
 
-Step 1. Type ``history`` in the command box and press _Enter_.
+Step 1. Type ``history`` in the _command box_ and press _Enter_.
 
-image::ItineraryHistory1.png[]
+image::ItineraryHistory1.png[width=600]
 
-Step 2. The result box will display the message "Commands called for this session (Most recent → Earliest):"
-followed by the list of past commands that are being called in _TravEzy's_ itinerary for that session.
+Step 2. The _result box_ will display the message "Commands called for this session (Most recent → Earliest):"
+followed by the list of past commands that are being called in the Itinerary for that session.
 
-image::ItineraryHistory2.png[]
+image::ItineraryHistory2.png[width=600]
 
 === Searching for an event: ``search``
 
-Is your event list too cluttered up with events? Let _TravEzy_ help you by searching for events that matches specific
-keywords.
-
-Let _TravEzy_ help you zoom into specific events! 😊
+Does your _event list_ too many events to browse through? Let _TravEzy_ Itinerary help you by searching for events that matches specific
+keywords. 😊
 
 [TIP]
-If your event list is too cluttered up, try using the ``clear`` command instead to reset the whole event list instead.
+If your _event list_ is too cluttered up, try using the ``clear`` command instead to reset the *whole* _event list_ instead.
 
 *Format:*
 
@@ -727,21 +732,21 @@ where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/
 
 *Step by step:*
 
-Step 1. Type ``search`` in the command box and press _Enter_.
+Step 1. Type ``search`` in the _command box_ and press _Enter_.
 
-image::ItinerarySearch1.png[]
+image::ItinerarySearch1.png[width=600]
 
-Step 2. The result box will display the message "Processing...
+Step 2. The _result box_ will display the message "Processing...
 Done!
 Here are the events that matches the details. ( ͡° ͜ʖ ͡°)"
 
-Step 3. _TravEzy_ itinerary view panel will showcase the events which matches the specified keyword.
+Step 3. The filtered _event list_ will be shown containing events that matches the keywords given.
 
-image::ItinerarySearch2.png[]
+image::ItinerarySearch2.png[width=600]
 
 === Sorting the events: ``sort``
 
-Need some way to categorize your events in the event list, let _TravEzy_ itinerary sort out all the events for you.
+Organizing your events in the _event list_ has never been easier the Itinerary's awesome sorting capabilities. 💯
 
 Format:
 
@@ -756,17 +761,33 @@ where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, `
 
 *Step by step:*
 
-Step 1. Type ``sort by/priority`` in the command box and press _Enter_.
+Step 1. Type ``sort by/priority`` in the _command box_ and press _Enter_.
 
-image::ItinerarySort1.png[]
+image::ItinerarySort1.png[width=600]
 
-Step 2. The result box will display the message "Processing...
+Step 2. The _result box_ will display the message "Processing...
 Done!
 TravEzy has helped sorted out your life!"
 
-Step 3. _TravEzy_ itinerary view panel will sort all the events in the event list based on the sort condition given.
+Step 3. The Itinerary will present the sorted _event list_ based on the sort condition given.
 
-image::ItinerarySort2.png[]
+image::ItinerarySort2.png[width=600]
+
+=== Auto-completion feature
+
+Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
+Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
+
+This is how _TravEzy's_ Itinerary auto-complete looks like:
+
+image::ItineraryAuto.png[width=600]
+
+1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
+_command box_.
+
+[WARNING]
+The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
+it to read the input before hitting _Enter_
 
 == Address Book
 
@@ -1023,7 +1044,7 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 == Financial Tracker
-Scare that you're gonna overspend whenever you're on a trip? Afraid no more! TravEzy's Financial Tracker allow you to track your expenses seamlessly!
+Scare that you're gonna overspend whenever you're on a trip? Afraid no more! _TravEzy's_ _Financial Tracker_ allow you to track your expenses seamlessly!
 
 Each of your expense has 6 key fields:
 
@@ -1034,18 +1055,21 @@ Each of your expense has 6 key fields:
 . Type of expenditure
 . Country
 
-The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, TravEzy tracks it! In Financial Tracker, you will be able to manage your expenses easily.
+The Date and Time specify when you spend your expenses, followed by the amount, description, types of expenditure and country where you're current travelling at. Example of the types of expenditure are food, entertainment, health care, etc. You name it, _TravEzy_ tracks it! In _Financial Tracker_, you will be able to manage your expenses easily.
 
 === Interface
-This is what you will see when navigated to the financial tracker:
+This is what you will see when navigated to the _Financial Tracker_:
 
-.Financial Tracker Interface
-image::FinancialTrackerInterface.png[]
+image::FinancialTrackerInterface.png[Financial Tracker interface,width=800]
 
 === Adding an expense: ``add``
 Adding the expense of milk you've bought at the grocery shop you stopped by?
 
-*Format:* ``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
+WARNING: You can only add a total maximum amount of one trillion!
+
+*Format:*
+
+``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 *Example:*
 
@@ -1055,18 +1079,20 @@ Adding the expense of milk you've bought at the grocery shop you stopped by?
 
 Step 1.  Type ``add a/2.89 d/Meiji Milk t/grocery`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerAdd1.png[]
+image::FinancialTrackerAdd1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense added".
 
 Step 3. Now you can find your added expense in the _Expense list panel_.
 
-image::FinancialTrackerAdd2.png[]
+image::FinancialTrackerAdd2.png[width=600]
 
 === Deleting an expense: ``delete``
 Added a wrong expense? Of course you can delete it if you want to :)
 
-*Format:* ``delete INDEX``
+*Format:*
+
+``delete INDEX``
 
 *Example:* Delete the first expense you saw on your expense list.
 
@@ -1076,16 +1102,18 @@ Added a wrong expense? Of course you can delete it if you want to :)
 
 Step 1. Type ``delete 1`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerDelete1.png[]
+image::FinancialTrackerDelete1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Your expense has been deleted".
 
-image::FinancialTrackerDelete2.png[]
+image::FinancialTrackerDelete2.png[width=600]
 
 === Editing an expense: ``edit``
 Add a wrong expense? Why not edit it instead!
 
-*Format:* ``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+*Format:*
+
+``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 *Example:* Edit the 1st expense you saw on your expense list.
 
@@ -1097,18 +1125,20 @@ Step 1. Notice the first expense's fields in the _Expense list panel_.
 
 Step 2. Now, type ``edit 1 a/29.80 d/Nike bottle`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerEdit1.png[]
+image::FinancialTrackerEdit1.png[width=600]
 
 Step 3. The _Result box_ will display the message "The expense updated successfully!".
 
 Step 4. Now the first expense's amount and description fields have been changed to `29.80` and `Nike bottle` respectively.
 
-image::FinancialTrackerEdit2.png[]
+image::FinancialTrackerEdit2.png[width=600]
 
 === Clears an expense list: ``clear``
 Messed up your expense list? Don't worry, just clear it!
 
-*Format:* ``clear``
+*Format:*
+
+``clear``
 
 *Example:* Clears your current country's expense list.
 
@@ -1118,20 +1148,22 @@ Messed up your expense list? Don't worry, just clear it!
 
 Step 1. Type ``clear`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerClear1.png[]
+image::FinancialTrackerClear1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense list cleared!".
 
 Step 3. Now in your _Expense list panel_, your expense list has been cleared!
 
-image::FinancialTrackerClear2.png[]
+image::FinancialTrackerClear2.png[width=600]
 
 === Undo your previous action: ``undo``
 Did something wrong? We heard you! Simply undo your previous action :)
 
 WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` command.
 
-*Format:* ``undo``
+*Format:*
+
+``undo``
 
 *Example:* Undo your previous `clear` command.
 
@@ -1141,21 +1173,23 @@ WARNING: You can only undo your previous `add`, `edit`, `delete` and `clear` com
 
 Step 1. Type ``undo`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerUndo1.png[]
+image::FinancialTrackerUndo1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Done!".
 
 Step 3. Notice that your expense list has been recovered. Nice save!
 
-image::FinancialTrackerUndo2.png[]
+image::FinancialTrackerUndo2.png[width=600]
 
 // tag::financialtracker[]
 === Switching between countries: ``switch``
 Currently in somewhere else? Switch to that expense list instead!
 
-*Format:* `switch COUNTRY`
+*Format:*
 
-TIP: Do realise that you can always use the drop down menu instead!
+`switch COUNTRY`
+
+TIP: You can always use the _Countries dropdown box_ directly instead!
 
 WARNING: You can only type in countries which are only listed from the _Countries dropdown box_
 
@@ -1167,41 +1201,24 @@ WARNING: You can only type in countries which are only listed from the _Countrie
 
 Step 1. Type ``switch Japan`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSwitch1.png[]
+image::FinancialTrackerSwitch1.png[width=600]
 
 Step 2. The _Result box_ will display the message "Expense list switched".
 
 Step 3. Now your expense list inside the _Expense list panel_ has been switched to that which is in Japan!
 
-image::FinancialTrackerSwitch2.png[]
-
-=== Requesting help: ``help``
-At anytime, not sure what to do? Simply ask for help!
-
-*Format:* `help`
-
-*Example:*
-
- help
-
-*Step by step:*
-
-Step 1. Type ``help`` in the _Command box_ and press _Enter_.
-
-image::FinancialTrackerHelp1.png[]
-
-Step 2. The _Result box_ will display the message "Currently viewing the financial tracker help window".
-
-Step 3. As you should have noticed, the help window has been popped out for your reference!
-
-image::FinancialTrackerHelp2.png[]
+image::FinancialTrackerSwitch2.png[width=600]
 
 === Sort out your expense list: ``sort``
 The default sorting way of the expense list is not your thing? Just sort your expense list according your needs!
 
 TIP: All of the sorting is done in reversed order :)
 
-*Format:* ``sort date`` | ``sort time`` | ``sort amount`` | ``sort type`` | ``sort default``
+*Format:*
+
+``sort CRITERIA``
+
+Where ``CRITERIA`` can be ``amount``, ``date``, ``time``, ``type`` and ``default``
 
 *Example:* to sort by amount
 
@@ -1213,18 +1230,20 @@ Step 1. Notice the amount field in each expenses are currently not in order.
 
 Step 2. Now, type ``sort amount`` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSort1.png[]
+image::FinancialTrackerSort1.png[width=600]
 
 Step 3. The _Result box_ will display the message "Expense List sorted!".
 
 Step 4. Now all your expenses are sorted in descending order of your amount!
 
-image::FinancialTrackerSort2.png[]
+image::FinancialTrackerSort2.png[width=600]
 
 === Generate an overview of your spending: ``summary``
 Do you ever have difficulty summarising your spending? Afraid not! You can view you expenses statistics easily!
 
-*Format:* `summary`
+*Format:*
+
+`summary`
 
 *Example:*
 
@@ -1234,13 +1253,13 @@ Do you ever have difficulty summarising your spending? Afraid not! You can view 
 
 Step 1. Type `summary` in the _Command box_ and press _Enter_.
 
-image::FinancialTrackerSummary1.png[]
+image::FinancialTrackerSummary1.png[width=600]
 
 Step 2. The result box will display the message "Currently viewing the Summary Window".
 
 Step 3. As you should have noticed, the Summary Window has been popped out showing you statistics of your expenses in a nice-looking pie chart and bar chart form!
 
-image::FinancialTrackerSummary2.png[]
+image::FinancialTrackerSummary2.png[width=600]
 // end::financialtracker[]
 
 == Diary
@@ -1581,39 +1600,40 @@ of the actual percentage.
 == FAQ
 
 *Q:* How do I backup my data onto cloud storage? +
-*A:* Locate The Traveller Diary folder in your local drive and compact it into a zip file before uploading it onto a cloud storage online.
+*A:* Locate the ``data`` folder in the same directory where you saved you jar file. Compact it into zip file before uploading it onto cloud storage.
 
 *Q:* How do I transfer my data onto another computer? +
-*A:* Install The Traveller Diary in the other computer and overwrite the empty data file it creates with during start up with the file that contains the data of your previous TTD. Alternatively, you can store it in a cloud storage it first before retrieving it and transferring it into your new computer.
+*A:* Backup your data first. Then, download _TravEzy_ in the other computer and put your ``data`` folder on the same directory where you saved the jar file. Execute _TravEzy_ and you should see your data has been safely transferred.
 
 *Q:* Can I change the theme of the application? I prefer to work with a night theme interface. +
-*A:* Stay tuned for TravEzy v2.0 for this features! The TravEzy theme also aims to provide user with a UI that they are
-comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful
-and would greatly consider adding it for the upcoming major update on TravEzy! Stay tuned for that!
+*A:* Stay tuned for _TravEzy_ v2.0 for this features! The _TravEzy_ theme also aims to provide user with a UI that they are comfortable with. Hence, we strongly believe giving users the option to personalize their theme is extremely useful and would greatly consider adding it for the upcoming major update on _TravEzy_! Stay tuned for that!
 
-*Q:* Who can view my travel posts in my TTD? +
-*A:* As TTD is a single user application, it is not opened to the public, and unable to be viewed by others. Hence, it is called “diary” for a reason, which stores discrete entries reporting events that happened throughout the day. Users can however, showcase their application in front of their friends to show off their overseas trips. +
+*Q:* Who can view my travel posts in my _TravEzy_? +
+*A:* As _TravEzy_ is a single user application, it is not opened to the public, and unable to be viewed by others. You can however, showcase your application in front of your friends to show off your overseas trips. +
 
 *Q:* Is it possible to connect to social media such as Facebook, Snapchat, Instagram? +
-*A:* Currently, it is not possible to connect to social media using TTD. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
+*A:* Currently, it is not possible to connect to social media using _TravEzy_. However, we will consider implementing this feature in the future! Stay tuned for that! 😉
 
 *Q:* Is there any in-app purchase for this application? +
-*A:* NO there isn’t. TTD is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get TTD today!
+*A:* NO there isn’t. _TravEzy_ is created from a non-profit organization and we are not here to milk any of your gold coins! It is absolutely free! It cost nothing, zilch, nada, 零, nil, kosong. So what are you waiting for get?  Get _TravEzy_ today!
 
 *Q:* I’m having difficulties uploading the pictures onto the travel diary. +
-*A:* At the moment, TravEzy does not have any feature where it allows the user to store their travel photos. However,
-this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and
-subsequently in a cloud database which is stored online. The Traveller Diary initial uploads will only allow uploads
-of pictures that are in jpg or png. Unfortunately, we do not support gif.
-Do ensure that your pictures are below 25MB with the dimensions no bigger than 1920px x 1080px.
+*A:* At the moment, _TravEzy_ does not have any feature where it allows the user to store their travel photos. However, this will definitely be implemented in v2.0. We intend for the pictures to be stored in the user's local drive and subsequently in a cloud database which is stored online.
 
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
-*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve TTD. Thank you and looking forward to serving you better!
+*A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve _TravEzy_. Thank you and we looking forward to serving you better!
 
-*Q:* What are some of the cool features that are available in TravEzy currently? +
-*A:* TravEzy currently boast a plethora of features such as calendar, itinerary, address book, travelling diary,
-financial tracker and achievements page. All these features work in tandem with each other to give you the best and only
-the best travelling experience. Not only that, the TravEzy team also decided to spice things up and included some easter eggs scattered throughout the
+*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will also be reflected when I start the application? +
+*A:* _TravEzy_ gives you a caveat and strongly advise against tempering with the storage files in _TravEzy_ as this could result in falsification of the data.
+
+*Q:* Why are there data which I did not included when I first startup _TravEzy_? +
+*A:* Being a new user, _TravEzy_ will provide you with some sample data to experiment first before you start using _TravEzy_ proper. Hope that you will enjoy using _TravEzy_.
+
+*Q:* I'm seemed to be having a bug whereby when given multiple similar prefixes, _TravEzy_ will still accept the input but only takes in the second prefix argument. Is this suppose to work as expected? +
+*A:* Yes, _TravEzy_ allows users to implement multiple similar prefixes for some commands so it reduce the trouble to delete the previous prefix argument in order to add in a new one.
+
+*Q:* What are some of the cool features that are available in _TravEzy_ currently? +
+*A:* _TravEzy_ currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the _TravEzy_ team also decided to spice things up and included some easter eggs scattered throughout the
 application for users to discuss and discover. Hope that you have fun finding these cool easter egg features! 🐰🐰🐰
 
 == Command Summary
@@ -1660,19 +1680,19 @@ Here are summary lists of commands for the different features.
 
 |``add``
 |Add an event entry to the itinerary
-|``add title/title date/date time/time [l/location] [d/description]``
+|``add title/TITLE date/DATE time/TIME [l/LOCATION] [d/DESCRIPTION]``
 
 |``delete``
 |Delete a certain entry from the itinerary
-|``delete index``
+|``delete INDEX``
 
 |``edit``
 |Edit a certain entry from the itinerary
-|``edit index title/title date/date time/time l/location d/description t/[tag]``
+|``edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 |``done``
 |Mark an event as done from the itinerary
-|``done index``
+|``done INDEX``
 
 |``list``
 |List all the events that are currently in the itinerary
@@ -1696,11 +1716,11 @@ Here are summary lists of commands for the different features.
 
 |``search``
 |Search the whole event list and filter out events which meets the search condition
-|``search [title \| date \| time \| location]/[keyword]``
+|``search [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION] [d/DESCRIPTION] [tag/]``
 
 |``sort``
 |Sort the event list based on the sorting condition
-|``sort by/[title \| location \| chronological \| completion \| priority]``
+|``sort by/[title] [location] [chronological] [completion] [priority]``
 
 |===
 
@@ -1748,19 +1768,35 @@ Here are summary lists of commands for the different features.
 
 |``add``
 |Adds an expense to the Financial Tracker
-|``add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE [date/DATE] [time/TIME]``
+|``add a/AMOUNT d/DESCRIPTION t/TYPE OF EXPENDITURE [date/DATE] [time/TIME]``
 
 |``edit``
 | Edits an existing expense in the Financial Tracker
-|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] [date/DATE] [time/TIME]``
+|``edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE OF EXPENDITURE] [date/DATE] [time/TIME]``
 
 |``delete``
 |Deletes the specified expense from the Financial Tracker
 |``delete INDEX``
 
-|``help``
-|View Help
-|``help``
+|``clear``
+|Clears all your expenses in your current country's expense list
+|``clear``
+
+|``undo``
+|Undo your previous action
+|``undo``
+
+|``switch``
+|Switch to another country's expense list
+|``switch COUNTRY``
+
+|``sort``
+|Sort your expense list based on amount, type, date, time or default
+|``sort CRITERIA``
+
+|``summary``
+|Generate an overview of your expenses statistics
+|``summary``
 
 |===
 
@@ -1779,41 +1815,3 @@ Here are summary lists of commands for the different features.
 |``delete index``
 
 |===
-
-
-=== TRIVAGO (Coming in V2.0)
-``addData``     : add a new data to be used for price comparison +
-
-``showData``    : show the prices for a selected data +
-
-``deleteData``  : delete data used for price comparison +
-
-``compareData`` : compare prices between two data +
-
-``reviewData``  : review the previous few comparisons that user did +
-
-``listData``    : list out all the data that user has inputted into TTD
-
-Travel Recommendations: +
-``setDates``    : set the dates for your proposed trip +
-
-``setPrice``    : set your price range +
-
-``setType``     : set the type of trip (Fun, educational etc) +
-
-``generate``    : generate recommendations from stored diaries
-
-NUS trips: +
-``loadTrips``   : download trips from NUS societies +
-
-``deleteTrips`` : delete certain NUS trips +
-
-``showTrip``    : show your whole trip in a calendar view +
-
-``getSoc``      : get societies from NUS which organise trips +
-
-``deleteSoc``   : delete certain societies +
-
-``selectSoc``   : select a certain society to load trips
-
-== Glossary

@@ -18,6 +18,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class ExpenseList {
 
+    private static final String MAXIMUM_REACHED = "Maximum cap 1 trillion reached! You wouldn't want to spend that :(";
+
     //-----------define sorting types------------//
     private final Comparator<? super Expense> byTime = (ep1, ep2) -> ep2.getTime().valueToCompare
             - ep1.getTime().valueToCompare;
@@ -49,6 +51,10 @@ public class ExpenseList {
         } else {
             expenses.sort(currentComparator);
         }
+
+        // strange enough, this is to update the observer
+        expenses.add(null);
+        expenses.remove(null);
     }
 
     /**
@@ -80,7 +86,7 @@ public class ExpenseList {
      */
     public void addExpense(Expense expense, boolean isUserInput) throws CommandException {
         if ((maximumCap + expense.getAmount().numericalValue) > 1000000000000d) {
-            throw new CommandException("Maximum cap 1 trillion reached! Are you sure you're not crazy?!");
+            throw new CommandException(MAXIMUM_REACHED);
         } else {
             if (isUserInput) {
                 undoStack.add(this.copy());
@@ -121,18 +127,25 @@ public class ExpenseList {
 
     /**
      * Edits an expense.
+     * @param index index of the expense to be edited.
      * @param expenseToEdit The expense to be edited.
      * @param editedExpense The new expense.
      * @throws CommandException
      */
-    public void setExpense(Expense expenseToEdit, Expense editedExpense) throws CommandException {
+    public void setExpense(int index, Expense expenseToEdit, Expense editedExpense) throws CommandException {
         CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);
 
-        int index = expenses.indexOf(expenseToEdit);
-        if (index == -1) {
+        Expense toTest = expenses.get(index);
+        if (!toTest.equals(expenseToEdit)) {
             throw new CommandException("The index that you gave is not valid.");
         }
+        if ((maximumCap - expenseToEdit.getAmount().numericalValue
+                + editedExpense.getAmount().numericalValue) > 1000000000000d) {
+            throw new CommandException(MAXIMUM_REACHED);
+        }
         undoStack.add(this.copy());
+        maximumCap -= expenseToEdit.getAmount().numericalValue;
+        maximumCap += editedExpense.getAmount().numericalValue;
         expenses.set(index, editedExpense);
         sort();
     }

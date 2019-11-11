@@ -31,6 +31,7 @@ class AmountTest {
 
         // valid amount
         assertTrue(Amount.isValidAmount("3.1"));
+        assertTrue(Amount.isValidAmount("00000000000000000003.1"));
         assertTrue(Amount.isValidAmount("3.01")); // 2 decimals
         assertTrue(Amount.isValidAmount(String.valueOf(Integer.MAX_VALUE))); // HugeAmount
     }

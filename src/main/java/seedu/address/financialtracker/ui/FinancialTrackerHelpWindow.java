@@ -2,13 +2,16 @@ package seedu.address.financialtracker.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.PageManager;
 import seedu.address.ui.UiPart;
 
 /**
@@ -23,10 +26,10 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto PAGE";
     private static final String EXIT_MESSAGE = "exit";
-    private static final String ADD_MESSAGE = "add a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] "
+    private static final String ADD_MESSAGE = "add a/AMOUNT d/DESCRIPTION t/TYPE_OF_EXPENDITURE "
             + "[date/DATE] [time/TIME]";
     private static final String DELETE_MESSAGE = "delete INDEX";
-    private static final String EDIT_MESSAGE = "edit INDEX a/AMOUNT d/DESCRIPTION t/[TYPE_OF_EXPENDITURE] "
+    private static final String EDIT_MESSAGE = "edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE_OF_EXPENDITURE] "
             + "[date/DATE] [time/TIME]";
     private static final String SORT_MESSAGE = "sort amount";
     private static final String SWITCH_MESSAGE = "switch Japan";
@@ -83,6 +86,23 @@ public class FinancialTrackerHelpWindow extends UiPart<Stage> {
     private FinancialTrackerHelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+
+        // Adapted from pohlinwei
+        getRoot().focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(0.5));
+                delay.setOnFinished(event -> getRoot().hide());
+                delay.play();
+            }
+        }));
+
+        getRoot().setOnShowing(event -> {
+            getRoot().setHeight(494);
+            getRoot().setWidth(582);
+            // centralise
+            getRoot().setX(PageManager.getXPosition() - 291);
+            getRoot().setY(PageManager.getYPosition() - 247);
+        });
     }
 
     /**
