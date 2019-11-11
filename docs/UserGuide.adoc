@@ -789,11 +789,14 @@ Format (Projections): Cannot be updated
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of "index" `INDEX` does not exists.
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
 * You cannot change an `in` _Transaction_ to an `out` _Transaction_ or vice versa.
-* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in *Example 3* below).
+* Changing an expenditure's (`out` _Transaction_) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in *Example 3* below).
+
 [NOTE]
-Changing the categories of an `out` _Transaction_ entry with similar categories to that of a _Budget_ entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
+Changing the *categories* of an `out` _Transaction_ entry with similar categories to that of a _Budget_ entry will reflect changes on the budget's remaining amount in version 2.0.
 
 //end::update1[]
+[NOTE]
+Changing an expenditure's (`out` _Transaction_) *date* field to a date within the date period of a _Budget_ entry will reflect changes on the budget's remaining amount in version 2.0.
 
 ==== Example Usage
 
