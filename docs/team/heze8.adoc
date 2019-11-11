@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: `EzWatchlist`
----
+
 == 1. Introduction
 The following Project Portfolio documents my contributions to the software project, `EzWatchlist`.
 Which was a project my team of software engineering students and I decided to pursue for our Software Engineering project.
@@ -115,7 +115,7 @@ Project management:
 
 *** I am the Project lead, thus my job consisted of making sure the team coordinated, the overall vision of the application was reached, and handling all the issues that arose in the development.
 
-*** Managed releases `v1.1` - `v1.3` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
 
 *** Managed and assigned the issues, milestones and project board on Github.
 
@@ -150,7 +150,7 @@ I wrote the introduction to ease the user into the main features of the applicat
 
 |===
 |_The following is an excerpt from our `EzWatchlist` User Guide, showing additions that I have
-made for the Introduction:_
+made for the Introduction. The full introduction can be found https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#introduction[here]:_
 
 |===
 include::../UserGuide.adoc[tag=intro]
@@ -158,7 +158,7 @@ include::../UserGuide.adoc[tag=intro]
 ___
 
 |===
-|_Moreover I also wrote the Advanced Features portion of the user guide available https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#advanced-features[here]._
+|_Moreover I wrote the Advanced Features portion of the user guide, available https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#advanced-features[here]._
 |===
 
 == Contributions to the Developer Guide
@@ -172,7 +172,7 @@ and illustrate technical details.
 include::../DeveloperGuide.adoc[tag=apicomponent]
 
 |===
-|_Moreover, I also contributed in the developer guide, the implementation of the Api Model classes, Image Retrieval, and generation of Recommendations. The following is only an excerpt of my design considerations. The full portion can be found https://ay1920s1-cs2103t-f13-4.github.io/main/DeveloperGuide.html#online-data[here]_
+|_Moreover, I also contributed the description of my implementation of the Api Model classes, Image Retrieval, and generation of Recommendations. The following is only an excerpt of my design considerations. The full portion can be found https://ay1920s1-cs2103t-f13-4.github.io/main/DeveloperGuide.html#online-data[here]_
 |===
 
 include::../DeveloperGuide.adoc[tag=apiimpl]

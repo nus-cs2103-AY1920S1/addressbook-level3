@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/ezwatchlist/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/ezwatchlist/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/EzWatchlist/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/EzWatchlist/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -78,7 +78,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/EzWatchlist/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ShowListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -97,7 +97,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/ezwatchlist/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/EzWatchlist/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `WatchListParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -118,12 +118,12 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/EzWatchlist/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Ezwatchlist data.
+* stores the EzWatchlist data.
 * exposes an unmodifiable `ObservableList<Show>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -138,7 +138,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/ezwatchlist/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/EzWatchlist/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -154,7 +154,7 @@ The `Storage` component,
 image::ApiClass.png[width='600']
 
 *API* :
-link:{repoURL}/src/main/java/seedu/ezwatchlist/api/ApiManager.java[`ApiManager.java`]
+link:{repoURL}/src/main/java/seedu/EzWatchlist/api/ApiManager.java[`ApiManager.java`]
 
 In Figure 9, we see the structure of the API component centered around `ApiManager`. Moreover:
 
@@ -169,7 +169,7 @@ In Figure 9, we see the structure of the API component centered around `ApiManag
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.ezwatchlist.commons` package.
+Classes used by multiple components are in the `seedu.EzWatchlist.commons` package.
 
 == Implementation
 
@@ -229,7 +229,7 @@ image::WatchSequenceDiagram.png[]
 === [Proposed] Statistics feature
 ==== Proposed Implementation
 
-The statistics feature is facilitated by `Statistics` object. It extends `Ezwatchlist` with a summary of the users' personal
+The statistics feature is facilitated by `Statistics` object. It extends `EzWatchlist` with a summary of the users' personal
 preferences and footprint including the most watched genre, shows that you might have forgotten to watch, and the
 recommendations generated for you. It is stored internally as an `Statistics` object containing a `ModelManager`.
 Additionally, it implements the following operations:
@@ -343,7 +343,7 @@ image::moviecard.png[width=900]
 At any point the application might fail due to the application not being connected to the internet. If that occurs a
 `OnlineConnectionException` is thrown for the application to handle.
 
-The relationship between all the classes are shown in the following class diagram:
+The relationship between all the classes, and their methods are shown in the following class diagram in Figure 13:
 
 .Detailed Api Class Diagram
 image::ApiClassDiagram.png[width=600]
@@ -377,7 +377,6 @@ amount of memory used.
 *** Everytime the image is viewed, the application has to retrieve it from online making it more intensive on the network.
 *** If the internet connection fails, the image can no longer be viewed.
 //end::ImageRetrieval[]
-// end::apiimpl[]
 
 ==== Aspect: Recommendations
 Recommendations are generated through the `RecommendationEngine` class in the API package. Currently,
@@ -386,8 +385,8 @@ recommendations are retrieved through the `ApiInterface` implemented in the API 
 ===== Implementation
 Given below in Figure 14 is a _sequence diagram_ of how the recommendations are generated when called from the `ApiManager`.
 
-.Sequence Diagram of getMovieRecommendations
-image::movieRecommendationSD.png[width=700]
+.Sequence Diagram of Movie Recommendations retrieval.
+image::movieRecommendationSD.png[width=500]
 
 Step 1. First an instance of `RecommendationEngine` is created by passing in the list of movies the user has and the *api call object* generated by the instance of the `ApiManager` object.
 
@@ -407,6 +406,7 @@ Step 5. With the list of movies returned, the application can then display the m
 [NOTE]
 If no recommendations can be generated, a `NoRecommendationsExceptions` is thrown. Moreover, an
 `OnlineConnectionException` is still thrown when not connected to the internet.
+// end::apiimpl[]
 
 // end::onlinedata[]
 [[Implementation-Configuration]]
@@ -629,7 +629,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*:
 
-EZWatchList provides a unique, clean and simple way of organizing and keeping track of your watchlist. All in one solution to your problem.
+EzWatchlist provides a unique, clean and simple way of organizing and keeping track of your watchlist. All in one solution to your problem.
 
 [appendix]
 == User Stories
@@ -707,7 +707,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Ezwatchlist` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `EzWatchlist` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add Movie
@@ -717,9 +717,9 @@ _{More to be added}_
 1.  User navigates to the main page
 2.  User enters 'Add' command
 3.  User enters the movie name
-4.  Ezwatchlist will display a list of movies found
+4.  EzWatchlist will display a list of movies found
 5.  User enters the index given by the list
-6.  Ezwatchlist will add the movie to their watchlist
+6.  EzWatchlist will add the movie to their watchlist
 +
 Use case ends.
 
@@ -746,7 +746,7 @@ Use case resumes at step 4.
 
 1.  User navigates to the main page
 2.  User enters 'Watched' command giving the index of the item
-3.  Ezwatchlist will mark that item as watched
+3.  EzWatchlist will mark that item as watched
 +
 Use case ends.
 
@@ -765,9 +765,9 @@ Use case ends.
 
 1.  User navigates to the main page
 2.  User enters 'search' command giving the name of the item
-3.  Ezwatchlist will bring the user to a search page with items found in a list
+3.  EzWatchlist will bring the user to a search page with items found in a list
 4.  User enters View command of the index of the item.
-5.  Ezwatchlist will bring that item into details page
+5.  EzWatchlist will bring that item into details page
 +
 Use case ends.
 
@@ -793,7 +793,7 @@ Use case resumes at step 3.
 
 1.  User navigates to the main page.
 2.  User enters 'edit' command giving the name of the item.
-3.  Ezwatchlist will bring the user to a details page of the item entered.
+3.  EzWatchlist will bring the user to a details page of the item entered.
 4.  User edits the details of the item.
 5.  User saves the edits.
 +
@@ -814,9 +814,9 @@ Use case ends.
 
 1.  User navigates to the page containing the item to be deleted.
 2.  User enters 'delete' command giving the name of the item.
-3.  Ezwatchlist asks for confirmation from the user.
+3.  EzWatchlist asks for confirmation from the user.
 4.  User confirms.
-5.  Ezwatchlist deletes the item.
+5.  EzWatchlist deletes the item.
 +
 Use case ends.
 
@@ -839,7 +839,7 @@ Use case ends.
 *MSS*
 
 1.  User navigates to the statistics page
-2.  Ezwatchlist displays the information.
+2.  EzWatchlist displays the information.
 +
 Use case ends.
 
@@ -905,23 +905,6 @@ The page where the user can access to view the list of shows indicated as watche
 The list of shows that the user wishes to watch in the future.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -943,26 +926,3 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

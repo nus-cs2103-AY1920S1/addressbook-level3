@@ -41,7 +41,7 @@ public class AddCommand extends Command {
             + PREFIX_ACTOR + "Joaquin Phoenix "
             + PREFIX_ACTOR + "Robert De Niro";
 
-    public static final String MESSAGE_USAGE2 = COMMAND_WORD + ": Sync a show from IMDB to the watchlist. "
+    public static final String MESSAGE_USAGE2 = COMMAND_WORD + ": Sync a show found online to the watchlist. "
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

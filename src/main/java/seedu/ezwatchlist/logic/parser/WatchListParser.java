@@ -73,9 +73,6 @@ public class WatchListParser {
         case SearchCommand.COMMAND_WORD:
             return new SearchCommandParser().parse(arguments, currentTab);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
