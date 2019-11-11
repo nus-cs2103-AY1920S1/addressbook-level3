@@ -14,7 +14,8 @@ and its GUI is created with JavaFx. It is written in Java and has about 30 kLOC.
 * *Major Feature*: added *recmf command*
 ** What it does: Recommends a list of medically suggested foods to type II diabetics.
 ** Justification: This feature is crucial to diabetic patients since their health states are closely related to food consumptions.
-** Highlights: This feature benefits the extension of more accurate and personalized food recommendations since the food model with nutrition values that can be calculated and analyzed. Besides, it is also useful for future commands that relate to diet records and analysis.
+** Highlights: This feature benefits the extension of diet recording and analyzing, which can be done via linking the current implementation of nutrition values to dates and consumption amounts.
+This can further benefit the development of more personalized food recommendations based on the user's nutrition intake and BMI.
 
 * *Minor enhancement*:
 ** added a `recmfmix` command as a concise version of `recmf` command
