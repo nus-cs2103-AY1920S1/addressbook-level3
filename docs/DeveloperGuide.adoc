@@ -1496,15 +1496,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use cases
 
-(For all use cases below, the *System* is the `THRIFT` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `**THRIFT**` and the *Actor* is the user, unless specified otherwise)
 
 [discrete]
 === Use case: Setting monthly budget
 
 *<<MSS, MSS>>*
 
-1. User requests to set their monthly budget to a certain amount.
-2. THRIFT processes the request and sets the amount as the monthly budget.
+1. User requests to set the budget of a certain month to a specified amount.
+2. `**THRIFT**` processes the request and sets the specified amount as the budget for that certain month.
 +
 _Use case ends_
 
@@ -1514,7 +1514,7 @@ _Use case ends_
 * 1a. The parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the monthly budget is not updated.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user and the monthly budget is not updated.
 +
 _Use case ends_
 
@@ -1523,8 +1523,8 @@ _Use case ends_
 
 *MSS*
 
-1. User requests to add a new expense or income into the records.
-2. THRIFT processes the request and adds the expense/income into the transactions list.
+1. User requests to add a new expense or income transaction into their records.
+2. `**THRIFT**` processes the request and adds the expense/income transaction into the transactions list.
 +
 _Use case ends_
 
@@ -1534,7 +1534,7 @@ _Use case ends_
 * 1a. The parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the transactions list is not updated.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user and the transactions list is not updated.
 +
 _Use case ends_
 
@@ -1543,18 +1543,18 @@ _Use case ends_
 
 *MSS*
 
-1. User requests to delete an existing transaction from the records.
-2. THRIFT processes the request and removes the transaction from the transactions list.
+1. User requests to delete an existing transaction from their records.
+2. `**THRIFT**` processes the request and removes the transaction from the transactions list.
 +
 _Use case ends_
 
 *Extensions*
 
 [none]
-* 1a. The command or transaction specified by the user is not valid.
+* 1a. The transaction record specified by the user is not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the transactions list is not updated.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user and the transactions list is not updated.
 +
 _Use case ends_
 
@@ -1564,7 +1564,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to update a transaction's name, value, remark or tags.
-2. THRIFT processes the request, updates the specified details in the transactions list and informs user of what has been changed.
+2. `**THRIFT**` processes the request, updates the specified details in the transactions list and informs user of what has been changed.
 +
 _Use case ends_
 
@@ -1574,7 +1574,7 @@ _Use case ends_
 * 1a. Some parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid command format error to the user and does not update details for invalid parameters.
+** 1a1. `**THRIFT**` displays an invalid command format error to the user and does not update details for invalid parameters.
 +
 _Use case ends_
 
@@ -1584,7 +1584,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to clone a transaction, specifying the occurrence of clones: how many clones are to be created and their frequency over a future period.
-2. THRIFT processes the request and adds the specified number of identical transactions to the transactions list.
+2. `**THRIFT**` processes the request and adds the specified number of identical transactions to the transactions list.
 +
 _Use case ends_
 
@@ -1599,14 +1599,14 @@ _Use case ends_
 * 1b. The index parameter specified by the user is not valid.
 +
 [none]
-** 1b1. THRIFT displays an invalid command format error to the user and does not update the transactions list.
+** 1b1. `**THRIFT**` displays an invalid command format error to the user and does not update the transactions list.
 +
 _Use case ends_
 
 * 1b. The occurrence specified by the user is not valid.
 +
 [none]
-** 1b1. THRIFT displays an invalid command format error to the user and does not update the transactions list.
+** 1b1. `**THRIFT**` displays an invalid command format error to the user and does not update the transactions list.
 +
 _Use case ends_
 
@@ -1616,7 +1616,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to view to syntax of a specific command.
-2. THRIFT displays the syntax of the requested command.
+2. `**THRIFT**` displays the syntax of the requested command.
 +
 _Use case ends_
 
@@ -1626,7 +1626,7 @@ _Use case ends_
 * 1a. The command specified by the user is not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid command error to user.
+** 1a1. `**THRIFT**` displays an invalid command error to user.
 +
 _Use case ends_
 
@@ -1636,7 +1636,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to view list of transactions for a specific month.
-2. THRIFT displays transactions of that month.
+2. `**THRIFT**` displays transactions of that month.
 +
 _Use case ends_
 
@@ -1647,7 +1647,7 @@ _Use case ends_
 = *Extensions*
 
 1. User requests to tag a specific transaction.
-2. THRIFT processes the request and adds the tag to the specific transaction.
+2. `**THRIFT**` processes the request and adds the tag to the specific transaction.
 +
 _Use case ends_
 
@@ -1657,7 +1657,7 @@ _Use case ends_
 * 1a. The command specified by the user is not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid command error to user.
+** 1a1. `**THRIFT**` displays an invalid command error to user.
 +
 _Use case ends_
 
@@ -1668,7 +1668,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to untag a specific transaction.
-2. THRIFT processes the request and removes the tag from the specific transaction.
+2. `**THRIFT**` processes the request and removes the tag from the specific transaction.
 +
 _Use case ends_
 
@@ -1678,7 +1678,7 @@ _Use case ends_
 * 1a. The parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user and the transaction is not updated.
 +
 _Use case ends_
 
@@ -1688,7 +1688,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to convert the currency of a specific transaction to a new currency.
-2. THRIFT processes the request and updates specific transaction with the new value in the new currency.
+2. `**THRIFT**` processes the request and updates specific transaction with the new value in the new currency.
 +
 _Use case ends_
 
@@ -1698,7 +1698,7 @@ _Use case ends_
 * 1a. The parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user and the transaction is not updated.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user and the transaction is not updated.
 +
 _Use case ends_
 
@@ -1708,7 +1708,7 @@ _Use case ends_
 *MSS*
 
 1. User requests to convert a value in SGD to a specific currency.
-2. THRIFT processes the request and displays the new value in the new currency.
+2. `**THRIFT**` processes the request and displays the new value in the new currency.
 +
 _Use case ends_
 
@@ -1718,7 +1718,7 @@ _Use case ends_
 * 1a. The parameters specified by the user are not valid.
 +
 [none]
-** 1a1. THRIFT displays an invalid parameter error to the user.
+** 1a1. `**THRIFT**` displays an invalid parameter error to the user.
 +
 _Use case ends_
 
@@ -1728,22 +1728,23 @@ _Use case ends_
 *MSS*
 
 1. User requests to search for a keyword in THRIFT.
-2. THRIFT processes its currently saved entire transaction list to look for matches.
-3. THRIFT found matches and display the results at the `**TransactionListPanel**` screen.
+2. `**THRIFT**` processes its currently saved entire transaction list to look for matches.
+3. `**THRIFT**` found matches and display the results at the `**TransactionListPanel**` screen.
 +
 _Use case ends_
 
 [appendix]
 == Non functional requirements
 
-. THRIFT should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
-. THRIFT should be able to hold up to 250 transactions without a noticeable drop in performance for typical usage.
+. `**THRIFT**` should be able to run on any <<mainstream-os, mainstream OS>> as long as it has `Java 11` installed.
+. `**THRIFT**` should be able to hold up to 250 transactions without a noticeable drop in performance for typical usage.
 . A user with above average typing speed for <<regular-english-text, regular English text>> (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-. THRIFT should be able to run with or without internet connection.
-. THRIFT should work for a single user only.
-. THRIFT should not require user to install.
+. `**THRIFT**` should be able to run with or without internet connection.
+. `**THRIFT**` should work for a single user only.
+. `**THRIFT**` should not require user to install.
 . Features implemented should be testable using manual testing and automated testing.
-. THRIFT should support screen resolution of 1920 x 1080 or higher.
+. `**THRIFT**` should support screen resolution of 1920 x 1080 or higher.
+. `**THRIFT**` should support the English <<locale, locale>> only. Any locale from this link:https://docs.microsoft.com/en-us/cpp/c-runtime-library/language-strings?view=vs-2019[link] that starts with "en" will be supported.
 
 [appendix]
 == Glossary
@@ -1753,6 +1754,9 @@ Stands for "Terminal-input Human Readable Interactive Finance Tracker". It is th
 
 [[api]] API::
 Stands for "Application Programming Interface" which simplifies programming by abstracting the underlying implementation and only exposing objects or actions the developer needs.
+
+[[locale]] Locale::
+Stands for a setting on the user's computer that defines the user's language and region.
 
 [[puml]] PlantUML::
 Stands for a software tool that we use to render the diagrams used in this document.
@@ -1794,35 +1798,33 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Setting a monthly budget to be a certain amount.
 
-.. Test case: `budget v/1000 d/10/2019` +
-    Expected: The monthly budget for `10/2019` is now set to $`1000`. Details of the new monthly budget is shown in the status message. The monthly balance in the GUI is re-calculated to reflect the updated budget.
-.. Test case: `budget` +
-    Expected: The monthly budget is not updated. Error details shown in the status message (missing `d/MONTH` and `v/VALUE` parameters). Status bar remains the same.
-.. Test case: `budget v/10000000 d/10/2019` +
-    Expected: The monthly budget is not updated. Error details shown in the status message (`v/VALUE` input exceeds constraint of 1 million). Status bar remains the same.
+.. Test case: **budget v/1000 d/10/2019** +
+    Expected: The monthly budget for **10/2019** is now set to $**1000**. Details of the new monthly budget is shown in the Result Box.
+.. Test case: **budget** +
+    Expected: The monthly budget is not updated. Error details shown in the status message (missing **d/MONTH** and **v/VALUE** parameters).
+.. Test case: **budget v/10000000000 d/10/2019** +
+    Expected: The monthly budget is not updated. Error details shown in the status message (**v/VALUE** input exceeds constraint of 1 billion).
 
 === Adding a transaction
 
 . Adding a transaction, be it income or expense.
 
-.. Test case: `add_expense n/Bought a pair of Apple Earpods v/350` +
-    Expected: A new expense transaction is added into the list. Details of the expense transaction shown in the status message. The date string is automatically saved into the transaction list.
-.. Test case: `add_income n/Awarded bursary prize v/500` +
-    Expected: A new income transaction is added into the list. Details of the income transaction shown in the status message. The date string is automatically saved into the transactions list.
-.. Test case: `add_expense n/Lunch in school` +
-    Expected: No transaction is added. Error details shown in the status message (missing `v/VALUE` parameter). Status bar remains the same.
+.. Test case: **add_expense n/Bought a pair of Apple Earpods v/350** +
+    Expected: A new expense transaction is added into the list. Details of the expense transaction shown in the Result Box. The current system date is automatically added to this new transaction and saved into the transaction list.
+.. Test case: **add_income n/Awarded bursary prize v/500** +
+    Expected: A new income transaction is added into the list. Details of the income transaction shown in the Result Box. The current system date is automatically added to this new transaction and saved into the transaction list.
+.. Test case: **add_expense n/Lunch in school** +
+    Expected: No transaction is added. Error details shown in the Result Box (missing **v/VALUE** parameter).
 
 === Deleting a transaction
 
 . Deleting a transaction while all transactions are listed
 
-.. Prerequisites: List all transactions using the `list` command. Multiple transactions in the list.
-.. Test case: `delete i/1` +
-   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete i/0` +
-   Expected: No transaction is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: Ensure that there is at least one transactions being listed in the transaction list using either the **list** command or **find** command.
+.. Test case: **delete i/1** +
+   Expected: First transaction is deleted from the list. Details of the deleted transaction shown in the Result Box.
+.. Test case: **delete i/0** +
+   Expected: No transaction is deleted. Error details shown in the Result Box (invalid **i/INDEX** parameter).
 
 === Updating a transaction's details
 
@@ -1925,10 +1927,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Finding a transaction
 
-. Looking up transactions that have the supplied keywords in its `**Remark**` and `**Description**` fields.
+. Looking up transactions that matches any of the supplied keywords in its `**Remark**` and `**Description**` fields.
 
-.. Test case: `find Apple`. +
-    Expected: Transactions with the word 'Apple' in its `**Remark**` or `**Description**` field will be displayed to the user.
+.. Test case: **find Apple** +
+    Expected: Transactions with the word **Apple** in its `**Remark**` or `**Description**` field will be displayed in the transaction list to the user.
 
 === Undoing the previous command
 
