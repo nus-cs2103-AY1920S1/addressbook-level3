@@ -102,8 +102,8 @@ include::../UserGuide.adoc[tag=wilfred-summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=wilfred-logic]
-
 include::../DeveloperGuide.adoc[tag=wilfred-answerable]
 
-include::../DeveloperGuide.adoc[tag=wilfred-quiz]
+include::../DeveloperGuide.adoc[tag=wilfred-overview]
+
+include::../DeveloperGuide.adoc[tag=wilfred-implementation]

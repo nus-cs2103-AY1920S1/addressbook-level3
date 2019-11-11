@@ -40,13 +40,11 @@ public class LogicManager implements Logic {
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
-
         CommandResult commandResult;
         //Parse user input from String to a Command
         Command command = parserManager.parseCommand(commandText);
         //Executes the Command and stores the result
         commandResult = command.execute(model);
-
         try {
             //We can deduce that the previous line of code modifies model in some way
             //since it's being stored here.
@@ -63,17 +61,15 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText, Answerable currentAnswerable)
             throws ParseException, CommandException {
-
         //Parse user input from String to a Command
         Command command = parserManager.parseCommand(commandText, currentAnswerable);
+        //Executes the Command and stores the result
         CommandResult commandResult = command.execute(model);
-
         if (commandResult.getIsCorrect()) {
             logger.info("Correct answer selected");
         } else {
             logger.info("Wrong answer selected");
         }
-
         return commandResult;
     }
 

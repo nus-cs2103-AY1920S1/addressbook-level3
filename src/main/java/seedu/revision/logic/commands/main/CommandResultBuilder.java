@@ -35,22 +35,13 @@ public class CommandResultBuilder {
     private boolean isCorrect = false;
 
     /** The mode of the quiz in session **/
-    private Mode mode;
+    private Mode mode = new NormalMode();
 
     /** To pass the Model. */
-    private Model model;
+    private Model model = new ModelManager();
 
     /**
-     * Constructs a {@code CommandResultBuilder} with the default values.
-     * and other fields set to their default value.
-     */
-    public CommandResultBuilder() {
-        this.mode = new NormalMode();
-        this.model = new ModelManager();
-    }
-
-    /**
-     * Adds feedback to the {@code CommandResultBuilder} to be returned to the user.
+     * Adds feedback to the {@code CommandResultBuilder} that will be returned.
      * @param feedbackToUser feedback that will be provided to the user.
      * @return CommandResultBuilder with the updated feedback.
      */

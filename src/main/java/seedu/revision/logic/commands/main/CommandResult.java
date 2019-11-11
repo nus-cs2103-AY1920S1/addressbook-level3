@@ -44,8 +44,8 @@ public class CommandResult {
 
     /**
      * Constructs a {@code CommandResult} using a {@code CommandResultBuilder}.
-     * and other fields set to their default value. Defensive programming: By taking in a builder, the developer
-     * cannot type in the parameters manually. The builder also assigns default values when initiated.
+     * Defensive programming: By taking in a builder, the developer cannot type
+     * in the parameters manually. The builder also assigns default values when initiated.
      */
     public CommandResult(CommandResultBuilder builder) {
         requireNonNull(builder);
