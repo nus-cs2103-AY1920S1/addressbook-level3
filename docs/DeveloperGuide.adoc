@@ -1441,7 +1441,7 @@ general unknown command error message.
    Expected: `freestyle 50m` event is deleted from the list. Details of the deleted event shown in the status message.
 .. Test case: `delete -e backstroke 100m` +
    Expected: No event is deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `delete e`, `delete event`.
+.. Other incorrect delete commands to try: `delete e`, `delete event`. +
 Expected: Similar to previous.
 
 === Undoing a previous command
