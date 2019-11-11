@@ -35,12 +35,11 @@ a reader or a writer object.
 The following functions are implemented:
 
 1. `CsvUtil#writePatientsToCsv(List<Patient>, String)` -- Write
-a list of `Patient` objects into a .csv file with specified `exportFileName`.
-If successful, return the path of the written file.
-2. `CstUtil#readPatientsFromCsv(String)` -- Read a .csv file with specified
-`importFileName` and return a corresponding list of `Patient` objects.
-3. `importsAreUnique(List<Patient>)` -- Check if the patients in a given list are unique, i.e. the list
-contains no duplicate patients.
+a list of `Patient` objects into a .csv file to the path at the specified `pathString`.
+2. `CstUtil#readPatientsFromCsv(String)` -- Read a .csv file at the specified path indicated by
+`pathString` and return a corresponding list of `Patient` objects.
+3. `importsContainDupes(List<Patient>)` -- Check if the given list contains duplicate patients, i.e. the list
+is not unique.
 
 ==== Csv Processing Design Considerations
 * **Alternative 1 (current choice)**: Use `Jackson` 's `dataformat.csv` library.
@@ -76,7 +75,7 @@ If indexes are not specified in the command arguments, a list of all currently e
 objects will be retrieved with `Model#getStagedPatientList()`.
 
 The `app-export` command MUST be provided with a desired file name for the .csv file. The .csv
-file will be written to `/exports/filename.csv`. Existing files will NOT be overridden and
+file will be written to `/exports/[FILENAME].csv`. Existing files will NOT be overridden and
 thus the provided file name cannot already exist in `/exports`.
 
 The following diagrams show how an export command works:
@@ -119,7 +118,7 @@ objects by using `CsvUtil`. The list is then passed to `Model`. What happens nex
 on which variant of import is called.
 
 For both variants of the command, the imported list of patients CANNOT have any duplicates.
-This is ensured with `CsvUtil#importsAreUnique(List<Patient>)`.
+This is ensured with `CsvUtil#importsContainDupes(List<Patient>)`.
 
 ====== Command: `app-import-replace`
 
@@ -150,7 +149,7 @@ it will not be executed. This is checked by the function stated above,
 ====== Aspect: Allowing Patient Overriding for `app-import-merge`
 
 * **Alternative 1 (current choice)**: Disallow overriding.
-** Pros: Existing `Patient`  will not be accidentally overridden.
+** Pros: Existing `Patient` data will not be accidentally overridden.
 No need to deal with potential merge conflicts.
 ** Cons: User may have intended to use `app-import-merge` to update old data.
 More hassle for the user to delete old `Patient` data that they want to replace.
@@ -163,3 +162,7 @@ with `app-undo`.
 * **Alternative 3**: Implement a flag to toggle overriding.
 ** Pros: Best of both worlds.
 ** Cons: More coding and debugging work.
+
+==== Use Cases
+
+This section will detail some use cases for the import and export functionality.
