@@ -59,6 +59,7 @@ and Overview. Each tab serves a particular function:
 . The Members tab holds information of all the club's members
 . The Reimbursements tab keeps track of outstanding reimbursements
 . The Inventory tab keeps track of items owned by the club
+. The Cashier tab allows for easy sales management
 . The Overview tab shows summary statistics of the club's finances
 
 Additionally, there are two common elements across all tabs. The command box, for users to input their
@@ -121,7 +122,7 @@ The following describes the various other contributions that I have made to the 
 . Project management:
 ** I managed all major releases, from version 1.1 to 1.4. In total, 8 releases were made by me (including interim
 releases).
-** I took charge of 3 team meetings out of a total of 11 meetings that we held.
+** I took charge of 4 team meetings out of a total of 11 meetings that we held.
 
 . Enhancement to existing features:
 ** Updated JavaFX CSS Stylesheet to include new UI elements.
@@ -132,7 +133,7 @@ releases).
 ** Reformatted User Guide to ensure consistency between sections.
 
 . Community:
-** Mediated disagreements on workflow process between teammates as Team lead.
+** Mediated disagreements on workflow process between teammates as Team Lead.
 ** Cleaned up code style errors in teammates' packages (PRs:
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/95[#95]
 https://github.com/AY1920S1-CS2103T-T13-3/main/pull/124[#124])
