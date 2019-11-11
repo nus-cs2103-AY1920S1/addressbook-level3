@@ -92,11 +92,16 @@ class ScheduleManagerTest {
                         LocalDateTime.now(),
                         ScheduleState.PERSON));
 
+        assertEquals(scheduleManager.getState(), ScheduleState.PERSON);
+
         assertDoesNotThrow(() ->
                 scheduleManager.updateScheduleWithUser(
                         timeBook.getPersonList().getUser(),
                         LocalDateTime.now(),
                         ScheduleState.HOME));
+
+        assertEquals(scheduleManager.getState(), ScheduleState.HOME);
+
     }
 
     @Test
@@ -147,7 +152,7 @@ class ScheduleManagerTest {
                 LocalDateTime.now(),
                 ScheduleState.PERSON);
 
-        assertNotNull(scheduleManager.getScheduleDisplay());
+        assertEquals(scheduleManager.getScheduleDisplay().getState(), ScheduleState.PERSON);
     }
 
     @Test
@@ -157,6 +162,12 @@ class ScheduleManagerTest {
                 timeBook.getPersonList().getPersons(),
                 timeBook.getGroupList().getGroups());
 
-        assertNotNull(scheduleManager.getSidePanelDisplay());
+        assertEquals(scheduleManager.getSidePanelDisplay().getSidePanelDisplayType(), SidePanelDisplayType.PERSON);
+
+        scheduleManager.updateSidePanelDisplay(SidePanelDisplayType.GROUP,
+                timeBook.getPersonList().getPersons(),
+                timeBook.getGroupList().getGroups());
+
+        assertEquals(scheduleManager.getSidePanelDisplay().getSidePanelDisplayType(), SidePanelDisplayType.GROUP);
     }
 }

@@ -42,11 +42,6 @@ class FreeTimeslotTest {
     }
 
     @Test
-    void testToString() {
-        assertNotNull(freeTimeslot.toString());
-    }
-
-    @Test
     void getId() {
         assertEquals(id, freeTimeslot.getId());
     }
@@ -65,24 +60,25 @@ class FreeTimeslotTest {
 
     @Test
     void getStartTime() {
-        assertEquals(LocalTime.of(10, 30), freeTimeslot.getStartTime());
+        assertEquals(startTime, freeTimeslot.getStartTime());
     }
 
     @Test
     void setStartTime() {
-        freeTimeslot.setStartTime(LocalTime.of(11, 0));
-        assertEquals(LocalTime.of(11, 0), freeTimeslot.getStartTime());
-
+        LocalTime newStartTime = LocalTime.of(11, 0);
+        freeTimeslot.setStartTime(newStartTime);
+        assertEquals(newStartTime, freeTimeslot.getStartTime());
     }
 
     @Test
     void getEndTime() {
-        assertEquals(LocalTime.of(11, 30), freeTimeslot.getEndTime());
+        assertEquals(endTime, freeTimeslot.getEndTime());
     }
 
     @Test
     void setEndTime() {
-        freeTimeslot.setEndTime(LocalTime.of(12, 0));
-        assertEquals(LocalTime.of(12, 0), freeTimeslot.getEndTime());
+        LocalTime newEndTime = LocalTime.of(12, 0);
+        freeTimeslot.setEndTime(newEndTime);
+        assertEquals(newEndTime, freeTimeslot.getEndTime());
     }
 }
