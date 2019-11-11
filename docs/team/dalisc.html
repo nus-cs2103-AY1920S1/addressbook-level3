@@ -700,8 +700,40 @@ The line chart displays statistics for the year specified. In this case is it 20
 <p><em>{end of extract 1}</em></p>
 </div>
 <div class="paragraph">
-<p><em>{start of extract 2: filter command}</em>
+<p><em>{start of extract 2: filter command}</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_filter_all_entries_filter">Filter all entries: <code>filter</code></h4>
+<div class="paragraph">
+<p>You can filter all entries according to the given keywords in any of an entry’s attributes by entering a filter command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>All entries with matching keywords are displayed. Keyword is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p>All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries
+displayed must fulfill all attributes. Please refer to <a href="#add">Section 3.1.1</a> for the different fields available to be
+filtered.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>filter -FLAG [/attributeName attributeValue &#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filter -w /sex female</code><br>
+All female worker entries are displayed.</p>
+</li>
+<li>
+<p><code>filter -b /cod Car Accident /sex male</code><br>
+All body entries with car accident as the cause of death and those that are male are displayed.
 <em>{end of extract 2}</em></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
