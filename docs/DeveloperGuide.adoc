@@ -1740,7 +1740,8 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Shortcut `ai` is deleted. Details of the deleted shortcut shown in the status message.
 .. Test case: `delete_shortcut test` +
    Expected: No shortcut is deleted. Error details shown in the status message.
-.. Other incorrect delete shortcut commands to try: ` `, `delete_shortcut x` (where x is a shortcut that has not been created) + 
+.. Other incorrect delete shortcut commands to try: ` `, `delete_shortcut x` (where x is a shortcut that has not been created) +
+   Expected: Similar to previous.
 
 === Viewing added autocorrect suggestion
 . See autocorrect suggestion list
