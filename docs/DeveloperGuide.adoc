@@ -613,9 +613,9 @@ The Events feature allows users to add events that are supposed to occur on a fu
 On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
 and allow them to automatically add these events as expenses.
 
-image::EventClassDiagram.png[]
+image::EventClassDiagram.png[width=70%, align=center]
 
-Like expenses, events hold two Descriptions (one for its details and one fir the budget it belongs to), a Price, a Timestamp
+Like expenses, events hold two Descriptions (one for its details and one for the budget it belongs to), a Price, a Timestamp
 and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
 the potential conversion of the Event into an Expense through the `convertToExpense` method. This method is called when the user
 accepts the automated addition of an expense from the corresponding event, into the budget that the event was added into a while back.
@@ -626,7 +626,7 @@ The Events feature supports the `addevent`, `deleteevent`, `editevent` and `list
 
 As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
 
-image::DisplayReminders.png[]
+image::DisplayReminders.png[width = 70%, align=center]
 
 To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
 on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
@@ -919,7 +919,7 @@ When a user enters an ``input`` to be executed, the ``MooLahParser`` will do the
 
 ==== Design Considerations
 
-===== Potential Recusive aliases
+===== Potential Recursive aliases
 As users may modify the data files of MooLah, they may modify the aliases directly. As such it was necessary to validate
 that the modified aliases will not cause infinite recursion. This is done by traversing between aliases which chain to each other
 and ensuring that none of them lead back to themselves. Otherwise, if it is detected that an alias can loop to itself, the
@@ -1699,15 +1699,16 @@ Clearing all budgets in MooLah
 .. Other incorrect editexpense-primary commands to try: `editexpense-primary`, `editexpense-priamry x d/a` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Testing events
+=== Testing of events
 .. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
    Expected: A success message will appear.
-.. Now, view the event list using either `listevent` or `view event list`.
+.. Now, view the event list using either `listevent` or `view event list`. (Event commands can be inputted on any panel, but this is to facilitate the next step.) +
    Expected: The event with description `test` should be at the bottom of the event list.
-.. Edit the expense via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+.. Edit the event via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
    Expected: A success message will appear.
 .. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
-Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
+Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event. You can then view that budget
+to see that the expense has been added.
 
 === Testing of aliases
 .. Test case: `addalias a/ cr i/ addexpense d/ chicken rice p/1.3 c/food` +
