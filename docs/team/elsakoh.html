@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Koh Hui Hui Elizabeth - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">PlusWork</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Koh Hui Hui Elizabeth - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This project portfolio documents my contributions as well as key features that I have implemented in my team project , +Work. The project was for my Software Engineering module (CS2103T) read at the National University of Singapore (NUS).</p>
+</div>
+<div class="sect2">
+<h3 id="about-the-team"><a class="link" href="#about-the-team">1.1. About The Team</a></h3>
+<div class="paragraph">
+<p>Including myself, my team comprises of 5 computer science undergraduates from the National University of Singapore.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="about-the-project"><a class="link" href="#about-the-project">1.2. About The Project</a></h3>
+<div class="paragraph">
+<p>+Work is a project that is created for the our Software Engineering Module. In this module, we had to morph or enhance the existing AddressBook application to meet the needs of a particular user group.</p>
+</div>
+<div class="paragraph">
+<p>+Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes.</p>
+</div>
+<div class="paragraph">
+<p>+Work uses a Command Line Inteferface for users to type into, while incorporating a simple Graphical User Interface (GUI) for users to visualise project details easily.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="formatting-of-document"><a class="link" href="#formatting-of-document">1.3. Formatting of Document</a></h3>
+<div class="paragraph">
+<p>Shown below are symbols that will appear in this document, and their significance.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Information listed here are essential information that users need to
+take note of in order for +Work to function as expected.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Information here are things that the user can learn, so as to more efficiently use +Work.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Information here are things the user can learn so that they have a faster experience with +Work
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">2. Summary of Contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.</p>
+</div>
+<div class="sect2">
+<h3 id="enhancements"><a class="link" href="#enhancements">2.1. Enhancements</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: I implemented the autocomplete feature for the command line.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: This feature suggests the possible +Work commands based on what the user has typed in the command line in a dropdown list. If an autocomplete suggestion has been chosen, it will paste the relevant prefixes for that specific command.</p>
+</li>
+<li>
+<p>Justification: This feature increases the usability of +Work, especially for new users, as users do not have to rely on error messages to understand the correct input format. Furthermore, much of the user&#8217;s interaction is spent on using the command-line and would arguably improve the overall experience of using +Work greatly.</p>
+</li>
+<li>
+<p>Highlights: As of the latest release, the <kbd>control</kbd> key will toggle the caret to make user interactions with the command line much quicker.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Created UI for the help page for new users to interact and understand +Work easily. (Pull request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/88">#88</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=elsakoh&amp;tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D">Functional code</a>] [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=elsakoh&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=elsakoh&amp;tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D">Test code</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-significant-contribution-to-project"><a class="link" href="#other-significant-contribution-to-project">2.2. Other Significant Contribution to Project</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up a project management tool, Trello, at the start of the project to facilitate ease of communication and clear division of roles.</p>
+</li>
+<li>
+<p>Refactored code to remove addressbook (Pull request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/162">#162</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhanced the styling for the dropdown menu of autocomplete  (Pull request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/168">#168</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Wrote parts of the +Work User Guide relating to <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#quick-start">Quick Start</a>,https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#introduction[Introduction], <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#autocomplete">Autocomplete</a> and <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#command-summary">Command Summary</a>.</p>
+</li>
+<li>
+<p>Wrote parts of the +Work Developer Guide relating to <a href="https://github.com">Autocomplete</a> and <a href="https://github.com">Architecture</a>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reported bugs and suggestions for other teams in the class (<a href="https://github.com/elsakoh/ped">report</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">3. Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following section is an excerpt from my additions to the <strong>+Work User Guide</strong> for the <code>autocorrect</code> feature.</p>
+</div>
+<div class="sect2">
+<h3 id="command-line-autocomplete"><a class="link" href="#command-line-autocomplete">3.1. Command Line Autocomplete</a></h3>
+<div class="paragraph">
+<p>+Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen.<br>
+For example, when you type <code>add-mem</code> into the command-line, +Work will prompt you to select <code>add-member</code> from the drop down menu.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutoCompletePre.png" alt="AutoCompletePre">
+</div>
+</div>
+<div class="paragraph">
+<p>After selecting <code>add-member</code>, +Work will paste <code>add-member mn/ mi/ mt/</code> into your command-line automatically!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutoCompletePost.png" alt="AutoCompletePost">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You can use <kbd>control</kbd> to navigate along the various prefixes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contribution-to-the-developer-guide"><a class="link" href="#contribution-to-the-developer-guide">4. Contribution to the Developer Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following section displays my additions to the <strong>+Work Developer Guide</strong> for the <code>AutoComplete</code> feature.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</p>
+</div>
+<div class="sect2">
+<h3 id="autocomplete-feature"><a class="link" href="#autocomplete-feature">4.1. AutoComplete feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">4.1.1. Proposed Implementation</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: Logic handles the autocomplete logic. While Commandbox will receive the result and populate the context menu based on output from logic.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to change autocomplete logic in the future if need be, such as integrating prefix suggestions, which require the dashboard&#8217;s data;</p>
+</li>
+<li>
+<p>Cons: Need to access the autocomplete component. Hard to pass props to logic with regards to textbox like caret position.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Handle all autocomplete logic within command box</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This would be easier to implement and maintain UI components. Can access TextField directly.</p>
+</li>
+<li>
+<p>Cons: Difficult to access other logic components. Handles both UI and logic in the same component. ]</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how AutoComplete  behaves at each step:</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application. The command box is initialized together in the main window. Logic is initialised and passed into command box.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user attempts to type a command <code>input</code> in Command Box.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. Command Box  calls <code>Logic#getAutoCompleteResults()</code> which calls <code>AutoComplete#completeText(String input)</code>, which calls <code>Keywords #commandList(String input)</code>. This returns a filtered Linked List of possible commands.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The Linked List of commands will be passed back into Command Box who will call <code>populatePopup(LinkedList&lt;String&gt; searchResult)</code> to make its own ContextMenu to be displayed.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The UI now reflects a list of available commands filtered based on text.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the autocomplete works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutoCompleteFlow.png" alt="AutoCompleteFlow">
+</div>
+<div class="title">Figure 1. Operational flow of <code>getAutoCompleteResults()</code></div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 14:59:35 SGT</div></div></div></body></html>

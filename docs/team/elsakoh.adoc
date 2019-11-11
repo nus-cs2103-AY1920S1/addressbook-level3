@@ -70,10 +70,54 @@ This section details all of my contributions to the project, and showcases how I
 
 The following section is an excerpt from my additions to the *+Work User Guide* for the `autocorrect` feature.
 
-include::../UserGuide.adoc[tag=autocomplete]
+=== Command Line Autocomplete
+
++Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
+
+image::AutoCompletePre.png[]
+
+After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
+
+image::AutoCompletePost.png[]
+
+
+[TIP]
+You can use kbd:[control] to navigate along the various prefixes.
+
 
 == Contribution to the Developer Guide
 The following section displays my additions to the *+Work Developer Guide* for the `AutoComplete` feature.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-include::../DeveloperGuide.adoc[tag=autocomplete]
+=== AutoComplete feature
+==== Proposed Implementation
+* **Alternative 1 (current choice)**: Logic handles the autocomplete logic. While Commandbox will receive the result and populate the context menu based on output from logic.
+
+** Pros: Easy to change autocomplete logic in the future if need be, such as integrating prefix suggestions, which require the dashboard's data;
+
+** Cons: Need to access the autocomplete component. Hard to pass props to logic with regards to textbox like caret position.
+
+* **Alternative 2**: Handle all autocomplete logic within command box
+
+** Pros: This would be easier to implement and maintain UI components. Can access TextField directly.
+
+** Cons: Difficult to access other logic components. Handles both UI and logic in the same component. ]
+
+Given below is an example usage scenario and how AutoComplete  behaves at each step:
+
+Step 1. The user launches the application. The command box is initialized together in the main window. Logic is initialised and passed into command box.
+
+Step 2. The user attempts to type a command `input` in Command Box.
+
+Step 3. Command Box  calls `Logic#getAutoCompleteResults()` which calls `AutoComplete#completeText(String input)`, which calls `Keywords #commandList(String input)`. This returns a filtered Linked List of possible commands.
+
+Step 4. The Linked List of commands will be passed back into Command Box who will call `populatePopup(LinkedList<String> searchResult)` to make its own ContextMenu to be displayed.
+
+Step 5. The UI now reflects a list of available commands filtered based on text.
+
+The following sequence diagram shows how the autocomplete works.
+
+
+.Operational flow of `getAutoCompleteResults()`
+image::AutoCompleteFlow.png[]
