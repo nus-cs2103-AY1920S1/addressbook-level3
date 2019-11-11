@@ -43,12 +43,26 @@ image::LedgerUI.png[]
 * *Other contributions*:
 
 ** Project management:
-*** Authored and assigned multiple issues.
+*** Authored and assigned multiple issues. (Issues:
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/226[#226],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/199[#199],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/197[#197],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/136[#136]
+)
 *** Reviewed and merged pull requests.
-*** Fixed numerous bugs.
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/133[#133])
+*** Fixed numerous bugs. (Examples:
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/186[#186],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/185[#185]
+)
 
 ** Enhancements to existing features:
-*** Wrote comprehensive unit and integration test cases for the application's logic and model.
+*** Refactor `Transactions` into _Operations_, such that the `Model` can be overloaded
+to achieve polymorphism. (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/95[#95])
+*** Refactor `VersionedBankAccount` into `VersionedUserState` that allows for the integration of the `Ledger`
+class, without associating the balances of `BankAccount` and `Ledger`.
+*** Wrote comprehensive unit test cases for the `Split` and `Receive` commmands and parsers.
 (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/114[#114],
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/202[#202],
@@ -63,18 +77,12 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
 
 ** Community:
 *** Reported bugs and suggestions for other teams in the module. (Examples:
-https://github.com/AY1920S1-CS2103T-T10-3/main/issues/219[#219],
-https://github.com/AY1920S1-CS2103T-T10-3/main/issues/220[#220],
-https://github.com/AY1920S1-CS2103T-T10-3/main/issues/222[#222],
-https://github.com/AY1920S1-CS2103T-T10-3/main/issues/229[#229])
-*** Provided tips and help to other students in the module. (Examples:
-https://github.com/nus-cs2103-AY1920S1/forum/issues/70[#70],
-https://github.com/nus-cs2103-AY1920S1/forum/issues/79[#79],
-https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
-
-** Tools:
-*** Managed the initial set up of the group repository on GitHub.
-*** Integrated Travis CI, Coveralls, Netlify and RepoSense into the group repository.
+https://github.com/AY1920S1-CS2103-T14-2/main/issues/194[T14-2 #194],
+https://github.com/AY1920S1-CS2103-T14-2/main/issues/195[T14-2 #195],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/208[T12-4 #208],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/207[T12-4 #207],
+https://github.com/AY1920S1-CS2103T-T12-4/main/issues/202[T12-4 #202]
+)
 
 == Contributions to the User Guide
 
