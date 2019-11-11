@@ -83,14 +83,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MemeGridPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data and also Statistical Data in `StatsEngine` so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -102,7 +102,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses a subclass of `WemeParser` to parse the user command.
+.  `Logic` uses a `WemeParser` to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a meme).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -177,17 +177,17 @@ Only state changes on the internal structure of Weme are undoable.
 
 // tag::undoable[]
 
-Commands such as `list`, `find` that only change the user interface, commands such as `export` and `load` that are related to external files, as well as commands such as `edit` and `delete` that modify the import list are not supported.
+Commands such as `list`, `find` that only change the user interface, commands such as `export` and `load` that are related to external files, as well as commands such as `edit` and `delete` in the import tab that modifies the import list are not supported.
 
 These are the list of commands that support undo / redo operations:
 
 * Meme Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`, `stage`
-* Template Tab: `add`, `edit`, `delete`, `archive`, `unarchive`, `use`
-* Create Tab: `add`, `edit`, `delete`, `abort`, `create`
+* Template Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `use`
+* Create Tab: `add`, `edit`, `delete`, `move`, `abort`, `create`
 * Export Tab: `unstage`, `clear`
 * Import Tab: `import`
 
-`undo` and `redo` works between tabs. This means that if you make a change in the Memes tab, by editing a meme, and then you switch to the Templates tab, when you execute `undo`, it reverts the change in the Memes tab as well.
+`undo` and `redo` works between tabs. This means that if you make a change in the Memes tab, by editing a meme, and then you switch to the Templates tab, when you execute `undo`, it reverts the change in the Memes tab as well. However, `undo`/`redo` is not usable while viewing a meme.
 
 // end::undoable[]
 

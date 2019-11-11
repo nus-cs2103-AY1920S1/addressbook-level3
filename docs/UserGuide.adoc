@@ -227,29 +227,42 @@ Format: `dislike INDEX`
 Same as like, dislike also allows arrow key operations.
 
 // end::like[]
+// tag::archive[]
 
 ==== Listing archived memes: `archives`
 
-Lists all archived memes. +
+Lists all memes that are archived in the memes tab. +
 Format: `archives`
+
+****
+* To view unarchived memes again, just execute the `list` command!
+****
 
 ==== Archiving a meme:  `archive`
 
-Archives a meme at the specified index. +
+Archives the meme at the specified index. Hides the meme from the default view. +
 Format: `archive INDEX`
+
+****
+* You can only archive unarchived memes. Execute `list` to see the unarchived memes.
+****
 
 ==== Unarchiving a meme: `unarchive`
 
-Unarchives a meme at the specified index. +
+Unarchives the meme at the specified index. Shows the meme in the default view. +
 Format: `unarchive INDEX`
 
+****
+* You can only unarchive archived memes. Execute `archives` to see the archived memes.
+****
+// end::archive[]
 
 ==== Viewing a meme: `view`
 Views the meme at the specified index. +
 Format: `view INDEX`
 
 ****
-* To exit the view, simply switch to another tab using the tab command.
+* To exit the view, simply switch to another tab using the tab command. Only `tab`, `help` and `exit` are usable while viewing a meme.
 For example, `tab memes` will bring the user back to the memes tab.
 ****
 
@@ -316,21 +329,6 @@ Format: `delete INDEX`
 Clears all templates. +
 Format: `clear`
 
-==== Archiving a template: `archive`
-
-Archives the template at the specified index. +
-Format: `archive INDEX`
-
-==== Unarchiving a template: `unarchive`
-
-Unarchives the template at the specified index. +
-Format: `unarchive INDEX`
-
-==== Listing all archived templates: `archives`
-
-Lists all templates that are archived in the templates tab. +
-Format: `archives`
-
 ==== Creating memes from templates: `use`
 
 Uses the template at the specified index to start a meme creation session. +
@@ -339,6 +337,32 @@ For details, please refer to the next section <<Create Tab>>. +
 Format: `use INDEX`
 
 // end::templates[]
+==== Listing all archived templates: `archives`
+
+Lists all templates that are archived in the templates tab. +
+Format: `archives`
+
+****
+* To view unarchived templates again, just execute the `list` command!
+****
+
+==== Archiving a template: `archive`
+
+Archives the template at the specified index. Hides the template from the default view.+
+Format: `archive INDEX`
+
+****
+* You can only archive unarchived templates. Execute `list` to see the unarchived templates.
+****
+
+==== Unarchiving a template: `unarchive`
+
+Unarchives the template at the specified index. Shows the template in the default view.+
+Format: `unarchive INDEX`
+
+****
+* You can only unarchive archived templates. Execute `archives` to see the archived templates.
+****
 
 // tag::meme-create[]
 
