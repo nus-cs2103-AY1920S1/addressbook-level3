@@ -94,7 +94,13 @@ public class Expense {
      * Returns deep clone of the expenses by creating a new Expense object with the same data.
      */
     public Expense getClone() {
-        return new Expense(this.name, this.description, this.amount, this.created, this.tags, this.archiveName);
+        return new Expense(
+                name.getClone(),
+                description.getClone(),
+                amount.getClone(),
+                created.getClone(),
+                new HashSet<>(tags),
+                archiveName);
     }
 
     @Override
