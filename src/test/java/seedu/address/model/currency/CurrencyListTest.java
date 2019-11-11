@@ -9,19 +9,18 @@ import static seedu.address.model.ModelTestUtil.VALID_CURRENCY_2;
 import static seedu.address.model.ModelTestUtil.VALID_RATE_CURRENCY_2;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
-import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
-import seedu.address.testutil.CustomisedCurrencyBuilder;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
+import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
+import seedu.address.testutil.CustomisedCurrencyBuilder;
+
 public class CurrencyListTest {
-
-
 
     @Test
     void contains_nullCurrency_throwsNullPointerException() {

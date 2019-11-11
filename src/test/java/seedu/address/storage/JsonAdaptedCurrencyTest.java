@@ -6,6 +6,7 @@ import static seedu.address.model.ModelTestUtil.VALID_SYMBOL_CURRENCY_1;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
