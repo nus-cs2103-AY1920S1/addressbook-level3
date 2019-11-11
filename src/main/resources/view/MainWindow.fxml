@@ -21,7 +21,7 @@
     <scene>
         <Scene>
             <stylesheets>
-                <URL value="@DarkTheme.css"/>
+                <URL value="@YellowTheme.css"/>
                 <URL value="@Extensions.css"/>
                 <URL value="@Piechart.css"/>
             </stylesheets>
@@ -56,15 +56,14 @@
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
-                        <Text fx:id="expenseListTitle" fill="WHITE" text="All Expenses" textAlignment="CENTER"
-                              wrappingWidth="305">
+                        <Text fx:id="expenseListTitle" fill="BLACK" text="All Expenses">
                             <font>
                                 <Font size="18.0"/>
                             </font>
                         </Text>
                         <StackPane fx:id="leftListPanelPlaceHolder" VBox.vgrow="ALWAYS">
                             <padding>
-                                <Insets bottom="10" left="10" right="10" top="10"/>
+                                <Insets top="10"/>
                             </padding>
                         </StackPane>
 
@@ -75,15 +74,14 @@
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10"/>
                         </padding>
-                        <Text fx:id="resultListTitle" fill="WHITE" text="Default Expenses" textAlignment="CENTER"
-                              wrappingWidth="305">
+                        <Text fx:id="resultListTitle" fill="BLACK" text="Default Expenses">
                             <font>
                                 <Font size="18.0"/>
                             </font>
                         </Text>
                         <StackPane fx:id="rightListPanelPlaceHolder" VBox.vgrow="ALWAYS">
                             <padding>
-                                <Insets bottom="10" left="10" right="10" top="10"/>
+                                <Insets top="10"/>
                             </padding>
                         </StackPane>
                     </VBox>
