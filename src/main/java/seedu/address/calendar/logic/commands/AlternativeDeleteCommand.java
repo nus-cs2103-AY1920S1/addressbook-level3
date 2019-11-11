@@ -17,6 +17,9 @@ import seedu.address.calendar.model.event.Trip;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Represents an alternative delete command (used when users are given suggestions for delete).
+ */
 public class AlternativeDeleteCommand extends DeleteCommand implements AlternativeCommand {
     private static final boolean IS_BINARY_OPTION = false;
     private List<DeleteCommand> suggestedCommands;
@@ -54,6 +57,17 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
         return chosenCommand.execute(calendar);
     }
 
+    @Override
+    public CommandResult execute(Calendar calendar) throws CommandException {
+        requireNonNull(chosenCommand);
+        return chosenCommand.execute(calendar);
+    }
+
+    /**
+     * Adds the suggested command.
+     *
+     * @param event The specified event
+     */
     private void addToSuggestions(Event event) {
         EventType eventType = event.getEventType();
         switch (eventType) {
@@ -71,11 +85,5 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
             suggestedCommands.add(new DeleteTripCommand((Trip) event));
             break;
         }
-    }
-
-    @Override
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        requireNonNull(chosenCommand);
-        return chosenCommand.execute(calendar);
     }
 }

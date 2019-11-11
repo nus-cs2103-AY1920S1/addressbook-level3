@@ -16,6 +16,9 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses user input for the calendar page.
+ */
 public class CalendarParser extends Parser {
 
     @Override

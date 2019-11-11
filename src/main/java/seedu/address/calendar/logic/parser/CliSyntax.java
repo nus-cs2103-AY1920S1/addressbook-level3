@@ -2,6 +2,9 @@ package seedu.address.calendar.logic.parser;
 
 import seedu.address.logic.parser.Prefix;
 
+/**
+ * Contains all prefixes that are valid for the calendar page.
+ */
 public class CliSyntax {
     public static final Prefix PREFIX_MONTH = new Prefix("m/");
     public static final Prefix PREFIX_YEAR = new Prefix("y/");

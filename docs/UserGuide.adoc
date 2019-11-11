@@ -1265,8 +1265,7 @@ Enjoy!
 
 Trying to journal about your fishing trip? The _Diary_ allows you to add _Diary Entries_ and keep them alive in your desktop forever.
 
-*Format:*
-
+*Format:* +
 `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
 
@@ -1283,15 +1282,6 @@ keep your _Diary Entries_ short and sweet!
 TIP: Note that _Date_ is input in this format:
 dd/mm/yyyy HHMM:
 | d = day | m = month | y = year | H = Hour (24HR) | M = Minute |
-
-
-*Format:* +
-`add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
-
-
-*Example:* Lets take the example of our midnight fishing trip!
-
- add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
 
 
 
@@ -1318,10 +1308,9 @@ image::DiaryAddAfter.png[width=600]
 
 === Deleting diary entries from your diary ``delete``
 
-For some memories, it's best to forget them ☹. The _Diary_ can help you to get rid of unpleasant _Diary Entries_.
+It's best to forget some memories ☹. The _Diary_ can help you to get rid of unpleasant _Diary Entries_.
 
-*Format:*
-
+*Format:* +
 ``delete INDEX``
 
 *Example:*
@@ -1357,8 +1346,7 @@ image::DiaryDeleteAfter.png[width=600]
 
 What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The _Diary_ can do that as well! It allows you to see everything in one, convenient list!
 
-*Format:*
-
+*Format:* +
  ``list``
 
 *Example:*
@@ -1384,10 +1372,9 @@ image::DiaryListAfter.png[width=600]
 === Find diary entries ``find``
 
 "Hey, when did I go to Spain?" It can be hard to remember
-all the details of your trips. That's why, this _Diary_ allows you to look through all your _Diary Entries_ to find the ones you want!
+all the details of your trips. That's why, this _Diary_ lets you look through all your entries quickly, to give you the entry that *you* want!
 
-*Format:*
-
+*Format:* +
 ``find TARGET``
 
 *Example:*
@@ -1420,8 +1407,7 @@ image::DiaryFindAfter.png[width=600]
 Let's narrow down your search! The _Diary_ allows you to look through specific sections of each _Diary Entry_ to find the exact entry that you want!
 
 
-*Format:*
-
+*Format:* +
  ``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
 
 *Example:*
@@ -1433,7 +1419,7 @@ Let's narrow down your search! The _Diary_ allows you to look through specific s
 *Step by step:*
 
 
-You know that you had a trip on the 12th of December 2019, but you cant remember what you did...
+You know that you had a trip on the 12th of December 2019, but you can't remember what you did...
 
 
 Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
@@ -1453,8 +1439,7 @@ image::DiaryFindSpecificAfter.png[width=600]
 
 There are some personal memories which are for our eyes only. The _Diary_ can help you to private memories from prying eyes.
 
-*Format:*
-
+*Format:* +
 ``private INDEX``
 
 *Example:*
@@ -1489,8 +1474,7 @@ image::DiaryPrivateAfter.png[width=600]
 
 Once you know you are alone and away from prying eyes, you can look at your private memories safely. The Diary can help you to unprivate those memories.
 
-*Format:*
-
+*Format:* +
 ``unprivate INDEX``
 
 *Example:*
@@ -1523,8 +1507,7 @@ image::DiaryUnPrivateAfter.png[width=600]
 You never know who may use your laptop when you're away. The _Diary_ can help you to protect your memories to stop hackers from looking at your private memories with a _username_ and _password_.
 If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below).
 
-*Format:*
-
+*Format:* +
 ``setDetails user/USERNAME password/PASSWORD``
 
 *Example:*
@@ -1572,9 +1555,7 @@ image::DiarySetDetailsHackFail.png[width=600]
 
 With password protection, we want to ensure no one else can access our memories . The Diary can do this by ensuring only you can see the private memories.
 
-*Format:*
-
-
+*Format:* +
 ``unlock INDEX user/USERNAME password/PASSWORD``
 
 *Example:*

@@ -1,11 +1,14 @@
 package seedu.address.calendar.model;
 
-import seedu.address.calendar.model.event.Event;
-
 import java.util.List;
 
+import seedu.address.calendar.model.event.Event;
+
+/**
+ * Represents a read-only calendar.
+ */
 public class ReadOnlyCalendar {
-    List<Event> events;
+    private List<Event> events;
 
     public ReadOnlyCalendar(List<Event> events) {
         this.events = events;

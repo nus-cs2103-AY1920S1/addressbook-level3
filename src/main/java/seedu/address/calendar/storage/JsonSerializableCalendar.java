@@ -7,11 +7,15 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
 import seedu.address.calendar.model.ReadOnlyCalendar;
 import seedu.address.calendar.model.event.Event;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 @JsonRootName(value = "calendar")
+/**
+ * Serializable version of the calendar.
+ */
 public class JsonSerializableCalendar {
     private final List<JsonAdaptedEvent> events = new ArrayList<>();
 

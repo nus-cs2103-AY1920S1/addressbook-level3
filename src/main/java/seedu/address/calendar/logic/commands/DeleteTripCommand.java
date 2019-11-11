@@ -8,6 +8,9 @@ import seedu.address.calendar.model.event.Trip;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Deletes a trip from the calendar.
+ */
 public class DeleteTripCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "trip";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD

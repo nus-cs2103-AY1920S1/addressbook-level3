@@ -9,9 +9,19 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses a show command.
+ */
 public class ShowCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect month/year format. %s";
 
+    /**
+     * Parses a show command.
+     *
+     * @param args The arguments provided by the user
+     * @return The required show command
+     * @throws ParseException If the command cannot be parsed successfully
+     */
     ShowCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_MONTH, CliSyntax.PREFIX_YEAR);
 

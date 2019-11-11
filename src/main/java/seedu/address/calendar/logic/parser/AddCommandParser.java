@@ -19,12 +19,22 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses an add command.
+ */
 class AddCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect add command format. %s";
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
             CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_NAME };
 
+    /**
+     * Parses the user input
+     *
+     * @param args The user inputs
+     * @return The relevant add command
+     * @throws ParseException If the input cannot be successfully parsed
+     */
     AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
 
@@ -74,6 +84,15 @@ class AddCommandParser {
         return parse(eventType, name, startDate, endDate);
     }
 
+    /**
+     * Parses the command based on the relevant information given.
+     *
+     * @param eventType The relevant event type
+     * @param name The relevant name of the event
+     * @param startDate The relevant start date of the event
+     * @param endDate The relevant end date of the event
+     * @return
+     */
     AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate) {
         switch (eventType) {
         case COMMITMENT:
