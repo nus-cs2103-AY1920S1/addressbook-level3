@@ -18,7 +18,7 @@ Role: Project Advisor, Agile Coach
 
 === Lee Liak Ghee
 image::liakify.jpg[width="150", align="left"]
-{empty}[https://github.com/liakify[github]]
+{empty}[https://github.com/liakify[github]][https://ay1920s1-cs2103t-w11-2.github.io/main/team/liakify.html[Project Portfolio page]]
 
 Role: Developer +
 
