@@ -119,8 +119,8 @@ public class UpdateCommand extends UndoableCommand {
                 UpdateBodyDescriptor updateBodyDescriptor = (UpdateBodyDescriptor) updateEntityDescriptor;
 
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
-                        || originalBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED))
-                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null)))) {
+                        || originalBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED)))
+                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null))) {
                     throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
                 }
 
