@@ -968,53 +968,364 @@ if you wish to use `bb`.
 
 The following helper functions are predefined in the script environment.
 
+****
+**Function signatures**
+
+Function signatures specified below are in the following format:
+
+`functionName(parameter1, parameter2, { optionalParameter1, optionalParameter2 }) -> ReturnType`
+
+Optional arguments should be given as a single JavaScript object. For example, for the above signature:
+
+`functionName("argument 1", "argument 2", { optionalParameter1: "optional argument 1" })`
+
+**Types**
+
+* If the type starts with a capital letter e.g. `Account`, it is a Java type.
+* If the type starts with a lowercase letter e.g. `number`, it is a JavaScript primitive.
+* If the type is `[Type]`, it is an array of `Type`.
+* If a function's return type is unspecified, the function does not return a value.
+****
+
 ==== Account functions
 
 * `refreshAccountView()`
++
+Refreshes the account list after accounts have been added, modified or deleted. This does not activate the account tab.
+
+'''
+
 * `getAccounts() -> List<Account>`
++
+Gets the list of all accounts.
+
+'''
+
+* `getShownAccounts() -> List<Account>`
++
+Gets the list of accounts currently shown in the accounts tab. (This depends on the previous execution of the command `account find`.)
+
+'''
+
 * `getActiveAccount() -> Account`
-* `setActiveAccount(nameOrIndex) -> Account`
++
+Gets the current active account.
+
+'''
+
+* `setActiveAccount(index) -> Account`
++
+Sets the current active account.
++
+Parameters:
++
+** `index`: the zero-based index of the account, as in `getShownAccounts()`
+
+'''
+
 * `getAccount(nameOrIndex) -> Account`
++
+Gets an account by name or index.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+
+'''
+
+* `getShownAccount(index) -> Account`
++
+Gets an account by index.
++
+Parameters:
++
+** `index`: the zero-based index of the account, as in `getShownAccounts()`
+
+'''
+
 * `addAccount(name, description) -> Account`
++
+Adds an account with the given name and description.
++
+Parameters:
++
+** `name`: the name of the account, as a `string`
+** `description`: the description of the account, as a `string`
+
+'''
+
 * `morphAccount(oldAccount, { name, description }) -> Account`
++
+Returns a new `Account` that is the same as `oldAccount` except for the specified properties changed.
++
+Parameters:
++
+** `oldAccount`: the `Account` to morph
+** The remaining parameters are as in `addAccount`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `editAccount(nameOrIndex, { name, description }) -> Account`
++
+Edits the specified account, changing the specified properties, and returns the edited account.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+** The remaining parameters are as in `addAccount`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `deleteAccount(nameOrIndex)`
++
+Edits the specified account, changing the specified properties, and returns the edited account.
++
+Parameters:
++
+** `nameOrIndex`: the zero-based index of the account, as in `getAccounts()`, or the account's name (case-sensitive) as a `string`
+
+'''
+
 * `accountName(account) -> string`
++
+Gets the account's name.
+
+'''
+
 * `accountDescription(account) -> string`
++
+Gets the account's description.
+
+'''
+
 * `accountBalance(account) -> number`
++
+Gets the account's balance, in cents.
+
+'''
+
 * `accountTxns(account) -> List<Transaction>`
++
+Gets the list of transactions of the account.
 
 ==== Transaction functions
 
 * `refreshTxnView()`
++
+Refreshes the transaction list after transactions have been added, modified or deleted. This does not activate the transaction tab.
+
+'''
+
 * `addTxn(amount, direction, description, { account, date, categories }) -> Transaction`
++
+Adds a transaction with the given information.
++
+Parameters:
++
+** `amount`: the amount in cents as a `number`
+** `direction`: the direction, either `'IN'` or `'OUT'`
+** `description`: the description as a `string`
+** `account`: the `Account` to add the transaction to; defaults to `getActiveAccount()`
+** `date`: the date of the transaction, either as a `LocalDate` or a `string` parsable by `parseDate`; defaults to today's date
+** `categories`: the categories of the transaction, as an array of `string`; defaults to empty
+
+'''
+
 * `morphTxn(oldTxn, { amount, direction, description, date, categories }) -> Transaction`
++
+Returns a new `Transaction` that is the same as `oldTxn` except for the specified properties changed.
++
+Parameters:
++
+** `oldTxn`: the `Transaction` to morph
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `editTxn(account, oldTxn, { amount, direction, description, date, categories }) -> Transaction`
++
+Edits the given transaction, changing the specified properties, and returns the edited transaction.
++
+Parameters:
++
+** `account`: the `Account` containing `oldTxn`
+** `oldTxn`: the `Transaction` to edit
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `deleteTxn(account, txn)`
++
+Deletes the given transaction from the given account.
+
+'''
+
 * `getShownTxn(index) -> Transaction`
++
+Gets a transaction by index.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+
+'''
+
 * `editShownTxn(index, { amount, direction, description, date, categories }) -> Transaction`
++
+Edits a transaction, changing the specified properties, and returns the edited transaction.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+** The remaining parameters are as in `addTxn`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `deleteShownTxn(index)`
++
+Deletes a transaction.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownTxns()`
+
+'''
+
 * `getShownTxns() -> List<Transaction>`
++
+Gets the list of transactions currently shown in the transactions tab. (This depends on the current active account as well as the last time the view was refreshed.)
+
+'''
+
 * `txnAmount(txn) -> number`
++
+Gets the amount of the transaction, in cents.
+
+'''
+
 * `txnDescription(txn) -> string`
++
+Gets the description of the transaction.
+
+'''
+
 * `txnDate(txn) -> LocalDate`
++
+Gets the date of the transaction.
+
+'''
+
 * `txnDirection(txn) -> string ("IN" | "OUT")`
++
+Gets the direction of the transaction.
+
+'''
+
 * `txnCategories(txn) -> [string]`
++
+Gets the categories the transaction is in, as an array of ``string``s.
 
 ==== Loan functions
 
 * `addLoan(amount, direction, person, { description, date, paid }) -> Loan`
++
+Adds a loan with the given information.
++
+Parameters:
++
+** `amount`: the amount in cents as a `number`
+** `direction`: the direction, either `'IN'` or `'OUT'`
+** `person`: the name of the other party as a `string`
+** `description`: the description as a `string`; defaults to empty
+** `date`: the date of the loan, either as a `LocalDate` or a `string` parsable by `parseDate`; defaults to today's date
+** `paid`: whether the loan is paid; either `true` or `false`; defaults to `false`
+
+'''
+
 * `morphLoan(loan, { amount, direction, person, description, date, paid }) -> Loan`
++
+Returns a new `Loan` that is the same as `loan` except for the specified properties changed.
++
+Parameters:
++
+** `loan`: the `Loan` to morph
+** The remaining parameters are as in `addLoan`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `editShownLoan(index, { amount, direction, person, description, date, paid }) -> Loan`
++
+Edits the given loan, changing the specified properties, and returns the edited loan.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownLoans()`
+** The remaining parameters are as in `addLoan`.
+** If a parameter is not specified, then the associated property is not changed.
+
+'''
+
 * `deleteShownLoan(index)`
++
+Deletes the specified loan.
++
+Parameters:
++
+** `index`: the zero-based index of the transaction, as in `getShownLoans()`
+
+'''
+
 * `getShownLoans() -> List<Loan>`
++
+Gets the loans currently shown in the loans tab. (This depends on the previous execution of the command `loan list`.)
+
+'''
+
 * `getLoans() -> List<Loan>`
++
+Gets all loans.
+
+'''
+
 * `loanAmount(loan) -> number`
++
+Gets the amount in cents of the loan.
+
+'''
+
 * `loanDirection(loan) -> string ("IN" | "OUT")`
++
+Gets the direction of the loan.
+
+'''
+
 * `loanPerson(loan) -> string`
++
+Gets the name of the other party in the loan.
+
+'''
+
 * `loanDate(loan) -> LocalDate`
++
+Gets the date of the loan.
+
+'''
+
 * `loanDescription(loan) -> string`
++
+Gets the loan's description.
+
+'''
+
 * `loanIsPaid(loan) -> boolean`
++
+Returns `true` if the loan is paid; `false` otherwise.
 
 ==== Miscellaneous functions
 
@@ -1030,7 +1341,7 @@ Parameters:
 
 * `makeDate(year, month, day) -> LocalDate`
 +
-Constructs a date from the year, month and day, passed as `number`s.
+Constructs a date from the year, month and day, passed as ``number``s.
 
 '''
 
@@ -1043,6 +1354,12 @@ Shows an alert dialog and waits for the user to dismiss the dialog.
 * `executeCommand(command) -> CommandResult`
 +
 Executes a command.
++
+This may only be executed from the JavaFX application thread. Behaviour is undefined
+if this is called from a background thread.
++
+NOTE: While Budget Buddy does not by itself run commands from background threads,
+scripts are free to create threads.
 +
 Parameters:
 +
