@@ -599,19 +599,19 @@ Below is the sub-diagram for retrieving the note through the `open` command.
 .Sub-diagram to illustrate how a note is retrieved through the `open` command.
 image::OpenNoteSequenceDiagramRef.png[width="400"]
 
-Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
+Given below is an example usage of the `open` command in notes, where a user intends to open a note to read
 or edit its contents.
 
-. Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+. Through the `goto note` command, the user arrives at the notes component of the app. The user can then executes the command
 `open 1`.
 
-. The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+. This invokes the `Model#OpenNoteCommand()` command which proceeds to check if the index `1` given is a valid index using
 the `ParserUtil#parseIndex()` method.
 
 . If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
 within the app.
 
-. The user proceeds to edit the Title, Description and Content field of the note through this panel and saves his
+. The user can then proceeds to edit the Title, Description and Content field of the note through this panel and saves his
 edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
 
 . The note book is now updated with the note edited by the user.
@@ -652,33 +652,30 @@ Not all commands are undoable. Undo-able commands are commands that modifies the
 `clear`, `edit` and `open`.
 ====
 
-Below is an example run through to illustrate how the undo command is executed:
+Below is an example to illustrate how the undo command is executed:
 
 . The user launches the application for the first time. The `*VersionedNoteBook*` will be initialized with the initial
 note book state, with empty `*UndoStack*` and `*RedoStack*`.
-. The user executes `delete 5` command to delete the 5th note in the note book. The delete command calls Model#commitNoteBook(),
-causing the state of the note book before the `delete 5` command executes to be saved in the `*UndoStack*`. The current state
-of the note book becomes the state of the note book after `delete 5` command executes.
-. The user now decides that deleting the note was a mistake, and decides to undo that action by executing the `undo` command.
+. The user executes `delete 5` command to delete the 5th note in the note book. The delete command invokes the `Model#commitNoteBook()`,
+causing the state of the note book before the `delete 5` command is executed to be saved in the `*UndoStack*`. The current state
+of the note book is then updated to the state after the `delete 5` command executes.
+. The user now decides that deleting the note was a mistake, and wants to undo that action by executing the `undo` command.
 . This will call the `Model#undo()`, which will first check if the `*UndoStack*` is empty.
-====
-Note:
+.. The `*UndoStack*` will be empty if no undoable command were called prior
+    to calling the `undo` command.
+.. The undo mechanism will proceed only if the `*UndoStack*` is not empty,
+    else an error will be returned to the user rather than attempting to perform the undo.
 
-. The `*UndoStack*` will be empty if no undoable command were called prior
-to calling the `undo` command.
-. The undo mechanism will proceed only if the `*UndoStack*` is not empty,
-else an error will be returned to the user rather than attempting to perform the undo.
-====
 . The current state of the note book is then checked against the previous state of the note book.
 .. In the event that they are the same, the
 previous note book state is popped from the `*UndoStack*` and the `undo` command is called recursively (starting from step 2).
 This recursive call is performed until either the current and previous note book state are different or until the `*UndoStack*` is empty.
-.. In the event that they are different, proceed on to step 4.
+.. In the event that they are different, proceed on to step 6.
 
-. The current state of the note book is first stored in the `*RedoStack*`.
-. The note book is then reverted to the previous note book state. This same previous note book state is removed from
+. The current state of the note book is stored in the `*RedoStack*`.
+. The note book is then reverted to the previous note book state. This same previous note book state is popped from
 the `*UndoStack*`.
-. Undo command is complete.
+. The undo command is complete.
 
 ====
 Note:
@@ -686,8 +683,8 @@ Note:
 * Step 3 is to prevent users from being able to perform `undo` actions when there is no change to be undone.
 ====
 
-For the redo command, a key point to note is that it is not logical to redo a command from the `*RedoStack*` when an undoable
-command is executed. Therefore, anytime an undoable command is executed, the `*RedoStack*` is purged. This behavior is follows
+For the redo command, a key point to note is that it is not logical to redo a command from the `*RedoStack*` after an undoable
+command is executed. Therefore, anytime an undoable command is executed, the `*RedoStack*` is purged. This behavior follows
 that of most modern desktop applications as well.
 
 As the rest of the mechanisms of the `redo` command is similar to that of the `undo` command but opposite,
@@ -707,7 +704,8 @@ its details are omitted.
 ** Cons: More complex to implement and more prone to bugs as each individual command must be correct to work correctly.
 
 *The reason why we chose alternative 1:*
-By adopting a simpler implementation, we are able to introduce less bugs into system. Furthermore, this implementation better
+By adopting a simpler implementation, we are able improve testability of the command.
+This helps in introducing less bugs into system. Furthermore, this implementation better
 supports future extensions as undoable commands can be added much easier.
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -720,7 +718,8 @@ supports future extensions as undoable commands can be added much easier.
 ** Cons: More complex to implement.
 
 *The reason why we chose alternative 1:*
-It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
+It is easier to visualize the implementation of this method and is less complex to implement.
+As the code is much cleaner, it is more readable which also helps in improving testability and future extensions as well.
 //end::notesFeature[]
 
 // tag::carddesign[]

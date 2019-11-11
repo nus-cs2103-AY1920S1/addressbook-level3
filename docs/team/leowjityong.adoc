@@ -14,19 +14,18 @@ interface desktop application called _Address Book 3 (AB3)_. We have decided to 
 
 Below is a snapshot of how SecureIT looks like!
 
-.The graphical user interface for SecureIT in its Notes component.
+.The graphical user interface for SecureIT in its notes component.
 image::SecureIT.png[width="600"]
 
 === About this Project
-SecureIT is a secure information management system that enables office workers to securely manage important data such as
+SecureIT is a secure information management system that enables office workers to securely manage confidential data such as
 passwords, notes, files and credit card information completely offline.
 Users are able to interact with SecureIT via the Command-line Interface (CLI) which requires them to issue commands
 to the application in the form of successive lines of text.
 My role in this project was to design and implement all features related to notes within SecureIT.
 
 In this document, I will be providing detailed descriptions and explanations to showcase
-my contributions to SecureIT’s key features. I have also included the relevant documentations from the user and
-developer guide to aid in the illustration of the key features I have implemented.
+my contributions to SecureIT’s key features.
 
 [cols="3,40"]
 |========
@@ -37,35 +36,38 @@ a|`*Note*`| Bolded monospaced font indicates a component, class or object in thi
 |========
 
 === Summary of contributions
-* *Minor Enhancement*: Added *the ability to open note*
-** What it does: gives users the ability to open a note and edit it through the UI.
+* *Minor Enhancement*: Added *the ability to open a note*
+** What it does: gives users the ability to open a note and edit it through the User Interface(UI).
 ** Justification: This feature helps reading and editing notes in the app much easier, which is useful for an enhanced
 user experience.
 ** Highlights: To implement this feature, an additional UI panel was created to display the note.
 This UI panel allows users to freely edit the note's contents and save the changes back to the note.
-The implementation was challenging as it required changes to existing commands.
+The implementation was challenging because it required thorough understanding of how the UI interacted with the other components
+for this to work.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: added *the ability to undo and redo previous commands*
 ** What it does: gives users the ability to undo and redo commands one at a time.
-Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future.
-The implementation was challenging as it required changes to existing commands.
+Undo command undo the last undoable action.
+Redo command restores any actions previously undone by the undo command.
+** Justification: This feature serves to be extremely important because users tend to make mistakes and the app should provide them
+with an easy way to undo their mistakes. This helps to enhance the user experience and can save users precious time and energy used
+to amend their mistakes manually.
+** Highlights: This enhancement required a good understanding of data structures and algorithm to be able to come out with a
+clean and intuitive solution.
+This enhancement also required a thorough understanding of how the components interacted with each other as it had to integrate
+with several commands.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jityong&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Code]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jityong&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Reposense]
 
 * *Other contributions*:
 
 ** Project management:
-*** Contributed to the implementation of the key encryption and decryption utility classes. (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/36[#36])
+*** Contributed to the implementation the encryption and decryption mechanism for the app. (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/36[#36])
 ** Enhancements to existing features:
-*** Updated GUI with editable split planes. (Pull requests  https://github.com/AY1920S1-CS2103T-F11-3/main/pull/68[#68])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#xxx])
+*** Updated GUI to make it more interactive. (Pull requests  https://github.com/AY1920S1-CS2103T-F11-3/main/pull/68[#68])
 ** Documentation:
 *** Updated Model and UI components UML diagrams to accommodate new newly added components. (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/57[#57])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): xxx
-*** Reported bugs and suggestions for teammates (examples:  https://github.com/AY1920S1-CS2103T-F11-3/main/issues/87[#87], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/184[#184])
 *** Reported bugs and suggestions for other teams (examples:  https://github.com/jityong/ped/issues/5[#5], https://github.com/jityong/ped/issues/7[#7], https://github.com/jityong/ped/issues/4[#4])
 
 === Contributions to the User Guide
