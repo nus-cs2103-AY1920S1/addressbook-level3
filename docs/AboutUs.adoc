@@ -14,6 +14,7 @@ http://www.comp.nus.edu.sg[School of Computing, National University of Singapore
 === Ong Yan Chun
 image::yaaanch.png[width="150", align="left"]
 {empty}[https://github.com/yaaanch[github]]
+{empty}[https://ay1920s1-cs2103-f09-3.github.io/main/team/yaaanch.html[Project Portfolio Page]]
 
 Role: Team Lead +
 Responsibilities: UX Expert
@@ -23,6 +24,7 @@ Responsibilities: UX Expert
 === Liu Zechu
 image::liuzechu.png[width="150", align="left"]
 {empty}[https://github.com/LiuZechu[github]]
+{empty}[https://ay1920s1-cs2103-f09-3.github.io/main/team/liuzechu.html[Project Portfolio Page]]
 
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking
@@ -32,15 +34,17 @@ Responsibilities: Code Quality + Scheduling and Tracking
 === Chow Yi Wai
 image::chowyiwai.png[width="150", align="left"]
 {empty}[https://github.com/chowyiwai[github]]
+{empty}[https://ay1920s1-cs2103-f09-3.github.io/main/team/chowyiwai.html[Project Portfolio Page]]
 
 Role: Developer +
 Responsibilities: Documentation + Deliverables and Deadlines
 
 '''
 
-=== Andy Lam
+=== Andy Lam Kwok Wee
 image::andyylam.png[width="150", align="left"]
 {empty}[https://github.com/andyylam[github]]
+{empty}[https://ay1920s1-cs2103-f09-3.github.io/main/team/andyylam.html[Project Portfolio Page]]
 
 Role: Developer +
 Responsibilities: Integration + Intellij Expert
@@ -50,6 +54,7 @@ Responsibilities: Integration + Intellij Expert
 === Lim Zi Wei
 image::halfwhole.png[width="150", align="left"]
 {empty}[https://github.com/halfwhole[github]]
+{empty}[https://ay1920s1-cs2103-f09-3.github.io/main/team/halfwhole.html[Project Portfolio Page]]
 
 Role: Developer +
 Responsibilities: Testing + Git Expert

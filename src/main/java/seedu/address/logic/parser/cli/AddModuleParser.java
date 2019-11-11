@@ -45,6 +45,10 @@ public class AddModuleParser implements Parser<AddModuleCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddModuleCommand.MESSAGE_USAGE));
         }
+
+        assert argMultimap.getNumberOfArgsForPattern(MODULE_PATTERN) >= 1;
+        assert argMultimap.getNumberOfArgsForPattern(SEMESTER_PATTERN) == 1;
+
         SemesterName semesterName = ParserUtil.parseSemester(argMultimap.getValue(SEMESTER_PATTERN).get());
         List<String> moduleCodes = argMultimap.getAllValues(MODULE_PATTERN);
         List<String> parsedModuleCodes = new ArrayList<>();

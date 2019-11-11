@@ -35,13 +35,13 @@ public class UniqueStudyPlanListTest {
 
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_studyPlanInList_returnsTrue() {
         uniqueStudyPlanList.add(SP_1);
         assertTrue(uniqueStudyPlanList.contains(SP_1));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_studyPlanWithSameIdentityFieldsInList_returnsTrue() {
         uniqueStudyPlanList.add(SP_1);
         assertTrue(uniqueStudyPlanList.contains(SP_1));
     }
@@ -107,7 +107,7 @@ public class UniqueStudyPlanListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsStudyPlanNotFoundException() {
+    public void remove_studyPlanDoesNotExist_throwsStudyPlanNotFoundException() {
         assertThrows(StudyPlanNotFoundException.class, () -> uniqueStudyPlanList.remove(SP_1));
     }
 
@@ -141,8 +141,8 @@ public class UniqueStudyPlanListTest {
     @Test
     public void setStudyPlans_list_replacesOwnListWithProvidedList() {
         uniqueStudyPlanList.add(SP_1);
-        List<StudyPlan> personList = Collections.singletonList(SP_2);
-        uniqueStudyPlanList.setStudyPlans(personList);
+        List<StudyPlan> studyPlanList = Collections.singletonList(SP_2);
+        uniqueStudyPlanList.setStudyPlans(studyPlanList);
         UniqueStudyPlanList expectedUniqueStudyPlanList = new UniqueStudyPlanList();
         expectedUniqueStudyPlanList.add(SP_2);
         assertEquals(expectedUniqueStudyPlanList, uniqueStudyPlanList);

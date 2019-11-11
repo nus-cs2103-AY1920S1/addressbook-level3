@@ -30,29 +30,29 @@ CS ModBuddy is for those who prefer to use a desktop app for planning their modu
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=andyylam&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=andyylam&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=andyylam&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=andyylam&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Test code]]
 
 
-* *Major enhancements*: 
+* *Major enhancements*:
 
 ** Added *the ability to undo/redo previous commands*
-*** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command. It is important to that the undo and redo commands do not apply for commands that changes storage files. 
+*** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command. It is important to that the undo and redo commands do not apply for commands that changes storage files.
 *** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands, as well as consideration of the complexity of the current model.
-*** Credits: The implementation of the undo and redo commands were heavily inspired by its conceptualisation in Address Book 3. However, it was even more challenging to implement in this project because of the increased complexity and hierarchy of the model. 
+*** Credits: The implementation of the undo and redo commands were heavily inspired by its conceptualisation in Address Book 3. However, it was even more challenging to implement in this project because of the increased complexity and hierarchy of the model.
 
 ** Revamped the *parser such that prefixes are not required*
-*** What it does: allows the user to be able to input commands much more efficiently without needing to put a prefix before every command. For instance, to add `CS2103` to `Y1S1`, the user can simply enter `addmod CS2103 Y1S1`. 
+*** What it does: allows the user to be able to input commands much more efficiently without needing to put a prefix before every command. For instance, to add `CS2103` to `Y1S1`, the user can simply enter `addmod CS2103 Y1S1`.
 *** Justification: This feature improves the product significantly because a user can input his/her commands much faster without the use of prefixes.
 *** Highlights: This enhancement affects existing commands and commands to be added in future. It required consideration of parser alternatives and highly precise error handling to make sure that the intended resutl is obtained from the parser.
 
 * *Minor enhancements*
 
 ** Added a `setcurrentsemester` command that sets the given semester as the current one. Semesters before the specified semester will be locked and therefore modules cannot be added or removed from them.
-** Added a `block` command that block off the given semester, for reasons such as exchange, LOA, etc. The semester is then locked, and modules cannot be written to it. The `unblock` command removes this lock from the semester. 
+** Added a `block` command that block off the given semester, for reasons such as exchange, LOA, etc. The semester is then locked, and modules cannot be written to it. The `unblock` command removes this lock from the semester.
 
 * *Other contributions*:
 
 ** Enhancements to existing features:
 *** Spearheaded initial tests for refactored models: Module, Semester, StudyPlan to increase coverage from 27% to 38% (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/200[#200])
-*** Wrote additional tests for GUI (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/324[#324])
+*** Wrote additional tests for GUI and implemented them as headless tests (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/324[#324])
 *** Improve aesthetics of GUI by fixing unintended bugs with colors (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/246[#246])
 *** Implement reading of required resource file `modulesinfo.json` from within the jar file (Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/217[#217]).
 

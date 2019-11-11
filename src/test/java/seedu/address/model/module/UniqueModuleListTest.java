@@ -37,13 +37,13 @@ public class UniqueModuleListTest {
 
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_moduleInList_returnsTrue() {
         uniqueModuleList.add(CS3244);
         assertTrue(uniqueModuleList.contains(CS3244));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_moduleWithSameIdentityFieldsInList_returnsTrue() {
         uniqueModuleList.add(CS3244);
         Module editedAlice = new ModuleBuilder(CS3244).build();
         assertTrue(uniqueModuleList.contains(editedAlice));
@@ -116,7 +116,7 @@ public class UniqueModuleListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsModuleNotFoundException() {
+    public void remove_moduleDoesNotExist_throwsModuleNotFoundException() {
         assertThrows(ModuleNotFoundException.class, () -> uniqueModuleList.remove(CS3244.getModuleCode().toString()));
     }
 
@@ -150,8 +150,8 @@ public class UniqueModuleListTest {
     @Test
     public void setModules_list_replacesOwnListWithProvidedList() {
         uniqueModuleList.add(CS3244);
-        List<Module> personList = Collections.singletonList(ST2334);
-        uniqueModuleList.setModules(personList);
+        List<Module> moduleList = Collections.singletonList(ST2334);
+        uniqueModuleList.setModules(moduleList);
         UniqueModuleList expectedUniqueModuleList = new UniqueModuleList();
         expectedUniqueModuleList.add(ST2334);
         assertEquals(expectedUniqueModuleList, uniqueModuleList);

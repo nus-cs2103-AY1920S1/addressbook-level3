@@ -36,13 +36,13 @@ public class UniqueSemesterListTest {
 
 
     @Test
-    public void contains_personInList_returnsTrue() {
+    public void contains_semesterInList_returnsTrue() {
         uniqueSemesterList.add(FULL_UNBLOCKED_SEMESTER_1);
         assertTrue(uniqueSemesterList.contains(FULL_UNBLOCKED_SEMESTER_1));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
+    public void contains_semesterWithSameIdentityFieldsInList_returnsTrue() {
         uniqueSemesterList.add(FULL_UNBLOCKED_SEMESTER_1);
         assertTrue(uniqueSemesterList.contains(FULL_UNBLOCKED_SEMESTER_1));
     }
@@ -108,7 +108,7 @@ public class UniqueSemesterListTest {
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsSemesterNotFoundException() {
+    public void remove_semesterDoesNotExist_throwsSemesterNotFoundException() {
         assertThrows(SemesterNotFoundException.class, () -> uniqueSemesterList.remove(FULL_UNBLOCKED_SEMESTER_1));
     }
 
@@ -142,8 +142,8 @@ public class UniqueSemesterListTest {
     @Test
     public void setSemesters_list_replacesOwnListWithProvidedList() {
         uniqueSemesterList.add(FULL_UNBLOCKED_SEMESTER_1);
-        List<Semester> personList = Collections.singletonList(FULL_UNBLOCKED_SEMESTER_2);
-        uniqueSemesterList.setSemesters(personList);
+        List<Semester> semesterList = Collections.singletonList(FULL_UNBLOCKED_SEMESTER_2);
+        uniqueSemesterList.setSemesters(semesterList);
         UniqueSemesterList expectedUniqueSemesterList = new UniqueSemesterList();
         expectedUniqueSemesterList.add(FULL_UNBLOCKED_SEMESTER_2);
         assertEquals(expectedUniqueSemesterList, uniqueSemesterList);
