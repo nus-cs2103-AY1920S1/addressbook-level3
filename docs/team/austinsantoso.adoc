@@ -36,17 +36,17 @@ This section shows my contributions to the team project.
 
 ** Project management:
 *** Posted user stories as issues
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/87[#87]
+*** PRs reviewed (with non-trivial review comments): (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/87[#87])
 ** Enhancements to existing features:
-*** Refactored existing class `Person` to `Spending` (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/54[#54])
+*** Refactored existing class `Person` to `Spending` (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/54[#54])
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/80[#80]
-*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112]
+*** Did cosmetic tweaks to existing contents of the User Guide: (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/80[#80])
+*** Did cosmetic tweaks to existing contents of the Developer Guide:(Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112])
 
 ** Community:
-*** Performed manual testing, reported bugs and suggestions for teammates.
-*** Performed manual testing, reported bugs and suggestions for other teams in the class
+*** Performed manual testing, reported bugs and suggestions for teammates.(Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/issues/206[1])
+*** Performed manual testing, reported bugs and suggestions for other teams in the class. (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/issues/117[1])
 
 == Contributions to the User Guide
 
