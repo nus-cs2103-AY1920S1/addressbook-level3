@@ -1366,14 +1366,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add a Card
+=== Use case: Add a _Card_
 
 *MSS*
 
-1.  User selects and opens a WordBank.
-2.  Dukemon shows a list of Cards.
-3.  User adds Word and Meaning pair.
-4.  Dukemon adds a Card into WordBank.
+1.  User selects and opens a _WordBank_.
+2.  Dukemon shows a list of _Cards_.
+3.  User adds _Word_ and _Meaning_ pair.
+4.  Dukemon adds a _Card_ into _WordBank_.
 
 
 Use case ends.
@@ -1383,13 +1383,13 @@ Use case ends.
 
 *MSS*
 
-1.  User selects and opens a WordBank.
-2.  Dukemon shows a list of Cards.
+1.  User selects and opens a _WordBank_.
+2.  Dukemon shows a list of _Cards_.
 3.  User starts a game.
-4.  Dukemon shows the Meaning of a Card.
-5.  User guesses Word of the corresponding Card.
+4.  Dukemon shows the _Meaning_ of a _Card_.
+5.  User guesses _Word_ of the corresponding _Card_.
 +
-Steps 4-5 are repeated till all Cards are played.
+Steps 4-5 are repeated till all _Cards_ are played.
 6.  Game ends. Dukemon shows statistics of game.
 
 
@@ -1484,9 +1484,9 @@ The below instruction are only intended as starting points for testers to work o
    [underline]#Expected#: GUI feedback indicates that _Hints_ are turned OFF
 .. Enter `start easy` +
    [underline]#Expected#: GUI switches to _Game_ mode with two panels stacked on top of each other. A 15s-countdown _Timer_ is started at the top right of the GUI.
-   A random `Meaning` of a `Card` belonging to the selected _WordBank_ is shown on the upper panel. The bottom panel indicated that there are no `Hints`. When time
+   A random _Meaning_ of a _Card_ belonging to the selected _WordBank_ is shown on the upper panel. The bottom panel indicated that there are no `Hints`. When time
    is running out, the _Timer_ region changes color.
-.. Enter `stop` (*before all `Cards` are shown*) +
+.. Enter `stop` (*before all _Cards_ are shown*) +
    [underline]#Expected#: _Game_ stops, feedback informs that "Game has been forcibly stopped". _Timer_ stops running and disappears.
 .. Enter `guess abc` to attempt to make a `Guess` after _Game_ ends. +
    [underline]#Expected#: No `guess` is processed, feedback indicates that "This command does not work right now"
@@ -1509,7 +1509,7 @@ respectively for each _Card_. Other invalid commands will yield similar results 
 
 . Importing a _WordBank_ using Drag-and-Drop
 
-.. [underline]#Prerequisite#: _WordBank_ to be imported is in *valid .json format*, and all of its `Cards` are *valid within constraints.* Let *V* be the _WordBank_ to be imported.
+.. [underline]#Prerequisite#: _WordBank_ to be imported is in *valid .json format*, and all of its _Cards_ are *valid within constraints.* Let *V* be the _WordBank_ to be imported.
 ..  (Single) Click on *V.json* in your file directory. Start _Dukemon_ and drag *V.json* into the panel on the right side (where the list of _WordBanks_ is shown.)  +
    [underline]#Expected#: _WordBank_ *V* is successfully added into the list of _WordBanks_, feedback indicates location where file was imported from.
 
