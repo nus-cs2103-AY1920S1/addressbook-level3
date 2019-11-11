@@ -162,7 +162,8 @@ It is managed by `AccountsManager`, with `Account` objects stored internally in 
 
 The class diagram below shows how the `AccountsManager` maanges its list of `Account` objects:
 
-image::AccountClassDiagram.png[]
+image::accountclassdiagram.png[]
+// end::accounts_1[]
 
 Each `Account` object has the following attributes:
 
@@ -173,7 +174,7 @@ Each `Account` object has the following attributes:
 * `balance:long` -- The balance of the account, calculated by the net sum of expenses and income.
 * `balanceLongProperty:LongProperty` -- The Long property of the balance.
 * `categoryset:Set<Category>` -- The set of categories involved in the account.
-// end::accounts_1[]
+
 To facilitate the manipulation of `Account` objects, `AccountsManager` implements the following operations:
 
 * `AccountsManager#updateFilteredAccountList(Predicate<Account> predicate)` -- Updates the predicate of `filteredAccounts`.

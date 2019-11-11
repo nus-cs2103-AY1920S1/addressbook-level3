@@ -307,7 +307,7 @@ Example:
 * `account switch 3` Will switch the active account to the third one in the list, as long as there are at least 3 accounts listed.
 The active account will be highlighted, as shown below:
 
-image::AccountSwitch1.png[]
+image::AccountSwitch.png[]
 
 ==== Export the overview of all accounts: `account overview`
 
@@ -316,15 +316,13 @@ In the overview, you are able to see the balance, the total expenses, the total 
 
 Format: `account overview`
 
-image::accountOverview_1.png[]
 Step 1. Type `account overview` in the command textfield input.
 
-image::accountOverview_2.png[]
 Step 2. Successful message displayed, and you can navigate to the exports folder in the same directory of the source file.
 
 image::AccountOverview_3.png[]
 
-image::accountOverview4.png[]
+image::accountoverview4.png[]
 Step 3. Open the html file in the exports folder to see the overview of all accounts.
 
 // end::accounts[]
