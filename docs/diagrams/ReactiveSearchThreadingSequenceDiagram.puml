@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager   " as LogicManager LOGIC_COLOR
+participant "currentRequest:Thread     " as Thread1 #Grey
+participant "newRequest:Thread     " as Thread2 #Grey
+participant "query:Runnable      " as Runnable LOGIC_COLOR
+end box
+
+activate Thread1
+
+opt #Orange commandText not blank
+[-> LogicManager : eagerEvaluate("patient sa",\nresultDisplay::setFeedbackToUser)
+activate LogicManager
+
+LogicManager -> Thread1 : interrupt()
+activate Thread1
+Thread1 --> LogicManager
+deactivate Thread1
+
+create Runnable
+LogicManager -> Runnable
+activate Runnable
+LogicManager <-- Runnable
+deactivate Runnable
+
+
+deactivate Thread1
+create Thread2
+LogicManager -> Thread2 : Thread(query)
+
+
+activate Thread2
+
+LogicManager <-- Thread2
+
+
+deactivate Thread2
+
+LogicManager -> Thread2 : start()
+activate Thread2
+
+Thread2 -> Thread1 : join()
+activate Thread1
+Thread2 <-- Thread1
+deactivate Thread1
+
+[<-- LogicManager
+destroy Thread1
+@enduml
