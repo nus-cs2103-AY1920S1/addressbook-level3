@@ -124,7 +124,4 @@ public class Analyzer {
         }
     }
 
-    // ======= Functions to alter boundary values ============================================================
-
-    private void changeBoundaryValues() {}
 }

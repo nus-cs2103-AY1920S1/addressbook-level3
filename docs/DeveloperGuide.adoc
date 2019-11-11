@@ -122,16 +122,9 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `CustomerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a customer).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -147,11 +140,6 @@ The `Model`,
 * stores the customer, restaurant, deliverymen and order data.
 * exposes an unmodifiable `ObservableList<>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -364,56 +352,77 @@ Alternative 1 was selected, as it is much faster to implement compared to altern
 // end::orders[]
 
 // tag::deliverymen statistics
-=== Deliverymen salary adjustment feature
+=== Deliverymen status statistics feature
 
-This is a feature which allows the user to keep track of the deliverymen who have met the requirements for a salary increment
-based on their delivery rate and duration of service. It extends DeliveryMANS with a delivery record for every deliveryman as well as relevant analysis of the record.
+Tracking the amount of available manpower you have at any point in time is very crucial to deal with sudden changes in food orders.
+This is a feature which allows the user to effectively manage the deliverymen by providing relevant statistics in regards to their status.
+The user will be able to foresee and hence prepare for any sudden shortage or excess in manpower.
+Relevant statistics include current utilization level and activity level of the deliverymen.
+
+NOTE: A deliveryman can have any of the 3 status: *AVAILABLE*, *UNAVAILABLE*, *DELIVERING*. To effectively manage their status, 3 different lists
+are used to categorise all the deliverymen based on their status. This way of implementation is efficient when it comes to sorting or searching for a deliveryman.
 
 ==== Implementation
 
-The salary adjustment feature is primarily monitored by the 'Analyzer', which has access to the delivery record of every deliveryman in the database. From the record, the Analyzer computes two data:
+The statistics feature is primarily managed by the `StatisticsManager`, which has access to the status of every deliveryman in the database through the 3
+status lists - lists of available deliverymen, unavailable deliverymen and delivering deliverymen respectively.
+The `StatisticsManager` obtains these 3 status lists from the `StatusManager` and passes it to the `Analyzer` to compute the relevant data, which in turn
+returns a filled `StatisticsRecordCard` containing the computed statistics.
 
-* Delivery rate
-** This is the number of orders per day.
+From the status lists, the Analyzer computes two data:
 
-* Time in database
-** This is the time difference between the time when the deliveryman was added to the database and the current time when command is executed.
+* Utilization Level
+** This signals to the user the amount of available manpower that is not utilized. It is the percentage of the number of deliverymen who are working (ie. delivering an order) over the number of active deliverymen (ie. available or delivering an order) .
+** It is computed as follows:
+*** *UtilizationLevel =  DeliveringMen / (AvailableMen + DeliveringMen) x 100*
 
-With these structure, it implements the following operations:
+* Activity Level
+** This signals to the user the amount of active manpower. It is the percentage of the number of deliverymen who are active deliverymen over the total number of deliverymen.
+** It is computed as follows:
+*** *ActivityLevel =  (AvailableMen + DeliveringMen) / (TotalMen) x 100*
 
-* `DeliverymenDatabase#getHistoryOf(Deliveryman index)` -- Enters the delivery record of a specified deliveryman.
+With this structure, it implements the following operation:
 
-* `DeliverymenDatabase#suggestPayList()` -- Obtains a list of deliverymen who are eligible for pay rise.
+* `DeliverymenDatabase#analyzeDeliverymenStatus()` -- Retrieves a filled record card containing all the relevant statistics regarding deliverymen statuses
 
-Given below is an example usage scenario and how the `suggestPayList` function works.
 
-Step 1. Hooray! It's the time of the month for the restaurant to adjust the workers' pay. The restaurant admin, who is in charge of managing the deliverymen, types in the `paylist` command.
-The command will access the `UniqueDeliverymenList` in order to obtain the list of deliverymen.
+This feature requires a high degree of interaction between the `Status` component and `Statistics` component of `DeliverymenDatabase`.
+This interaction of the relevant classes are illustrated in the class diagram below.
 
-Step 2. For each deliveryman on the list, their delivery record will be analyzed.
+.Partial Structure of Deliverymen Database
+image::StatisticsFeatureClassDiagram.png[]
 
-* Time in data base: The current time will be obtained and the difference between the current time and the time of joining the database will be taken.
+The `DeliverymenDatabase` acts as an agent for both components to parse information around. This helps to maintains a clear
+separation of concerns to carry out different functions.
 
-* Delivery rate: The number of orders completed over the time in database will be the delivery rate.
+Also, the following sequence diagram shows how the `stats` operation works:
 
-Step 3. If the delivery rate exceeds a certain threshold, the deliveryman will be added to the pay list.
+.Sequence Diagram of Retrieving Deliverymen Statistics
+image::DeliverymenStatistics.png[]
 
-The following sequence diagram summarizes what happens when a user types in letters into the user input command box:
+As seen in Figure 10, for every use of the `stats` command, a `RecordCard` object is created. The `Analyzer` will take in the status lists and the `RecordCard`
+to compute and record the results onto the `RecordCard. Subsequently, it will return the edited `RecordCard` to the `StatisticsManager`.
 
-image::PayRiseSequenceDiagram.png[]
+NOTE: The above explanation and sequence diagram (Figure 10) only illustrates what happens inside the `Model` component of the architecture
+when the `stats` command is used. The higher-level components such as `LogicManager`  are left out, even though they are
+also involved in the execution of this command.
 
 ==== Design Considerations
-===== Aspect: Tracking the record of every deliveryman
+===== Aspect: Analysing the status lists
 
-This feature necessitates the tracking of the orders each deliveryman has completed.
+This feature necessitates the analysis of the status lists. A consideration is the design of the architecture in which the statistics feature
+should be implemented. It may be subtle in the current version of *DeliveryMANS*, but will have significant implications when the app is further developed.
 
-* Alternative 1(current choice): Saves the number of completed orders for each deliveryman and write to hard disk.
-** Pros: Easy to implement and takes up less memory.
-** Cons: The details of the order cannot be tracked, even though they might be a potential criteria for pay rise.
+* Alternative 1(current choice): Create another class (`StatisticsManager`) to deal with all the statistics-related methods.
+** Pros: Allows for a more structured and object-oriented way of executing out the `stats` command. This makes it easier to extend additional
+statistics-related enhancements in future, such as adding predictive capabilities to predict the utilisation level over the next few weeks.
+** Cons: More inefficient as the status lists from `StatusManager` have to be passed through different classes before reaching `StatisticsManager`.
+This can affect the runtime of the command when the enhancements get more complicated.
 
-* Alternative 2: Saves the specific completed orders (including the content of order) and write to hard disk.
-** Pros: Allows for a thorough and more accurate analysis for suggesting pay rise
-** Cons: Takes up significant amount of memory
+* Alternative 2: Modify the existing `StatusManager` to handle statistics computation as well.
+** Pros: More convenient as the status lists can be directly obtained from the same class instead of having to pass it around.
+** Cons: Harder to manage in future as the app is improved due to coupling between status management and statistics management.
+Changes to status-related issues may cause regressions to the statistics feature.
 
 // end::deliverymen statistics
 
@@ -640,22 +649,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Administrator |view the schedule of deliverymen |see how many times deliverymen have delivered and reward them for their hard work
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `DeliveryMANS` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete restaurant
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list restaurants
+2.  DeliveryMANS shows a list of restaurants
+3.  User requests to delete a specific restaurant in the list
+4.  DeliveryMANS deletes the restaurant
 +
 Use case ends.
 
@@ -669,17 +676,15 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. DeliveryMANS shows an error message.
 +
 Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers / restaurants / deliverymen without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -692,23 +697,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -724,7 +712,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample orders. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -732,26 +720,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Entering EditMode
 
-=== Deleting a person
+. Entering EditMode for a restaurant when all the restaurants are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all restaurants using the `-restaurant` command. Multiple restaurants in the list.
+.. Test case: `editmode 1` +
+   Expected: EditMode is entered for the first restaurant in the list.
+    An extra `StackPane` showing the restaurant under EditMode will be displayed,
+    while the `SplitPane` displaying the list of restaurants originally will now be filled with the
+    restaurant's `Food` menu and `Order` list.
+    Details of the restaurant shown in the status message.
+.. Test case: `editmode 0` +
+   Expected: EditMode is not entered for any restaurant.
+    Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editmode`, `editmode x` (where x is larger than the restaurant list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
-=== Saving data
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

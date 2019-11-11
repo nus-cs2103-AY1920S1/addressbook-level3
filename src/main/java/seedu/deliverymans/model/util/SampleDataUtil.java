@@ -125,7 +125,6 @@ public class SampleDataUtil {
     public static Order[] getSampleOrders() {
         return new Order[]{
             new Order.OrderBuilder().setOrderName(new Name("Order 1")).setCustomer(new Name("AlexYeoh99"))
-                    //.setRestaurant(new Name("Burger Palace")).setDeliveryman(new Name("Damith"))
                     .setRestaurant(new Name("Burger Palace"))
                     .setFood(Map.ofEntries(Map.entry(new Name("Ginger Burger"), 2),
                             Map.entry(new Name("Crispy Duck Burger"), 4),
@@ -145,7 +144,7 @@ public class SampleDataUtil {
                             Map.entry(new Name("Rat with Caviar"), 1)))
                     .completeOrder(),
             new Order.OrderBuilder().setOrderName(new Name("Order 4")).setCustomer(new Name("David"))
-                    .setRestaurant(new Name("IchiNiSan Ramen")).setDeliveryman(new Name("Low Ee Ter"))
+                    .setRestaurant(new Name("IchiNiSan Ramen")).setDeliveryman(new Name("Ethan Lim"))
                     .setFood(Map.ofEntries(Map.entry(new Name("Wasabi Ramen"), 1),
                             Map.entry(new Name("Ramen Teppanyaki"), 3)))
                     .completeOrder(),
@@ -168,10 +167,10 @@ public class SampleDataUtil {
     public static Deliveryman[] getSampleDeliverymen() {
         return new Deliveryman[]{
             new Deliveryman(new Name("Damith"), new Phone("83412321"),
-                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("DELIVERING")),
+                    getTagSet("inactive", "giveCharlieAplus"), new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Donald Trump"), new Phone("91234567"),
                     getTagSet("buff", "powerful", "bestDeliveryman2019", "notFat", "cuteHairstyle"),
-                    new StatusTag("AVAILABLE")),
+                    new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Charlie Choong"), new Phone("98887146"),
                 getTagSet("active", "AisEnough"), new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Low Ee Ter"), new Phone("99367862"), getTagSet("inactive"),
@@ -181,7 +180,7 @@ public class SampleDataUtil {
             new Deliveryman(new Name("Jynn Shen"), new Phone("82632181"), getTagSet("veryactive"),
                 new StatusTag("DELIVERING")),
             new Deliveryman(new Name("Jackie Chan"), new Phone("82321242"), getTagSet("deliverymaster"),
-                    new StatusTag("AVAILABLE")),
+                    new StatusTag("UNAVAILABLE")),
             new Deliveryman(new Name("Barry Allen"), new Phone("88547422"), getTagSet("lightningfast"),
                     new StatusTag("AVAILABLE")),
             new Deliveryman(new Name("Gloria Tan"), new Phone("83123111"), getTagSet()),
