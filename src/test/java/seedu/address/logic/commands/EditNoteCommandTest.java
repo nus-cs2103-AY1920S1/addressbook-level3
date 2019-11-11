@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.NotesCommandTestUtil.DESC_DIARYONE;
@@ -23,9 +22,9 @@ import seedu.address.logic.commands.EditNoteCommand.EditNoteDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.CardBook;
 import seedu.address.model.FileBook;
-import seedu.address.model.NoteBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.NoteBook;
 import seedu.address.model.PasswordBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.note.Note;
@@ -33,12 +32,13 @@ import seedu.address.testutil.EditNoteDescriptorBuilder;
 import seedu.address.testutil.NoteBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditNoteCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests
+ * for EditNoteCommand.
  */
 public class EditNoteCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new FileBook(), new CardBook(),
-    getTypicalNoteBook(), new PasswordBook(), new UserPrefs());
+            getTypicalNoteBook(), new PasswordBook(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -91,69 +91,14 @@ public class EditNoteCommandTest {
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
-//    @Test
-//    public void execute_filteredList_success() {
-//        showNoteAtIndex(model, INDEX_FIRST);
-//
-//        Note noteInFilteredList = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
-//        Note editedNote = new NoteBuilder(noteInFilteredList).withTitle(VALID_NAME_BOB).build();
-//        EditNoteCommand editCommand = new EditNoteCommand(INDEX_FIRST,
-//                new EditNoteDescriptorBuilder().withTitle(VALID_NAME_BOB).build());
-//
-//        String expectedMessage = String.format(EditNoteCommand.MESSAGE_EDIT_NOTE_SUCCESS, editedNote);
-//
-//        Model expectedModel = new ModelManager(new NoteBook(model.getNoteBook()), new UserPrefs());
-//        expectedModel.setNote(model.getFilteredNoteList().get(0), editedNote);
-//
-//        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-//    }
-//
-//    @Test
-//    public void execute_duplicateNoteUnfilteredList_failure() {
-//        Note firstNote = model.getFilteredNoteList().get(INDEX_FIRST.getZeroBased());
-//        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder(firstNote).build();
-//        EditNoteCommand editCommand = new EditNoteCommand(INDEX_SECOND, descriptor);
-//
-//        assertCommandFailure(editCommand, model, EditNoteCommand.MESSAGE_DUPLICATE_NOTE);
-//    }
-//
-//    @Test
-//    public void execute_duplicateNoteFilteredList_failure() {
-//        showNoteAtIndex(model, INDEX_FIRST);
-//
-//        // edit note in filtered list into a duplicate in address book
-//        Note noteInList = model.getNoteBook().getNoteList().get(INDEX_SECOND.getZeroBased());
-//        EditNoteCommand editCommand = new EditNoteCommand(INDEX_FIRST,
-//                new EditNoteDescriptorBuilder(noteInList).build());
-//
-//        assertCommandFailure(editCommand, model, EditNoteCommand.MESSAGE_DUPLICATE_NOTE);
-//    }
-
     @Test
     public void execute_invalidNoteIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredNoteList().size() + 1);
-        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_NAME_BOB).build();
+        EditNoteDescriptor descriptor = new EditNoteDescriptorBuilder().withTitle(VALID_TITLE_DIARYONE).build();
         EditNoteCommand editCommand = new EditNoteCommand(outOfBoundIndex, descriptor, VALID_STRING_COMMAND_ARG);
 
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
     }
-//
-//    /**
-//     * Edit filtered list where index is larger than size of filtered list,
-//     * but smaller than size of address book
-//     */
-//    @Test
-//    public void execute_invalidNoteIndexFilteredList_failure() {
-//        showNoteAtIndex(model, INDEX_FIRST);
-//        Index outOfBoundIndex = INDEX_SECOND;
-//        // ensures that outOfBoundIndex is still in bounds of address book list
-//        assertTrue(outOfBoundIndex.getZeroBased() < model.getNoteBook().getNoteList().size());
-//
-//        EditNoteCommand editCommand = new EditNoteCommand(outOfBoundIndex,
-//                new EditNoteDescriptorBuilder().withTitle(VALID_NAME_BOB).build());
-//
-//        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
-//    }
 
     @Test
     public void equals() {

@@ -19,7 +19,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.CardBook;
 import seedu.address.model.Model;
 import seedu.address.model.NoteBook;
@@ -37,7 +36,6 @@ import seedu.address.model.note.Note;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.NoteBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddNotesCommandTest {
 
@@ -52,7 +50,7 @@ public class AddNotesCommandTest {
         ModelStubAcceptingNoteAdded modelStub = new ModelStubAcceptingNoteAdded();
         Note validNote = new NoteBuilder().build();
 
-        CommandResult commandResult = new AddNotesCommand(validNote,VALID_STRING_COMMAND_ARG).execute(modelStub);
+        CommandResult commandResult = new AddNotesCommand(validNote, VALID_STRING_COMMAND_ARG).execute(modelStub);
 
         assertEquals(String.format(AddNotesCommand.MESSAGE_SUCCESS, validNote), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validNote), modelStub.notesAdded);
@@ -61,11 +59,12 @@ public class AddNotesCommandTest {
     @Test
     public void execute_duplicateNote_throwsCommandException() {
         Note validNote = new NoteBuilder().build();
-        AddNotesCommand addNotesCommand = new AddNotesCommand(validNote,VALID_STRING_COMMAND_ARG);
+        AddNotesCommand addNotesCommand = new AddNotesCommand(validNote, VALID_STRING_COMMAND_ARG);
         ModelStub modelStub = new ModelStubWithNote(validNote);
 
-        assertThrows(CommandException.class, AddNotesCommand.MESSAGE_DUPLICATE_NOTE,
-                () -> addNotesCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddNotesCommand.MESSAGE_DUPLICATE_NOTE, () ->
+                addNotesCommand.execute(modelStub));
+
     }
 
     @Test
@@ -331,7 +330,7 @@ public class AddNotesCommandTest {
         }
 
         @Override
-        public void commitNote(String command) {
+        public void commitNoteBook(String command) {
 
         }
 
@@ -421,7 +420,7 @@ public class AddNotesCommandTest {
         final ArrayList<Note> notesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasNote (Note note) {
+        public boolean hasNote(Note note) {
             requireNonNull(note);
             return notesAdded.stream().anyMatch(note::isSameNote);
         }

@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddNotesCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 import seedu.address.model.tag.Tag;
 

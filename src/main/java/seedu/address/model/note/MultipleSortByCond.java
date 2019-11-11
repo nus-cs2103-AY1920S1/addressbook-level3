@@ -31,6 +31,9 @@ public class MultipleSortByCond {
         this.multipleSortComparator = buildComparator(sortConditions);
     }
 
+    /**
+     * Parses a {@code String sortByCond} to a {@code Comparator<Note>}
+     */
     private Comparator<Note> parseSortByCond(String sortByCond) {
         //TODO: assert sortbycond here is valid
         switch (sortByCond.toLowerCase()) {
@@ -48,7 +51,6 @@ public class MultipleSortByCond {
      *
      * @param sortConditions decreasing precedence of the sorting condition as the index number
      *                       of the sort condition increases in the String array.
-     * @return
      */
     private MultipleCondNoteComparator buildComparator(String[] sortConditions) {
         ArrayList<Comparator<Note>> noteComparators = new ArrayList<>();

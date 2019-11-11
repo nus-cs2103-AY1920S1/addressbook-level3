@@ -5,8 +5,8 @@ import static seedu.address.model.util.SampleDataUtil.getTagSet;
 import seedu.address.model.ReadOnlyNoteBook;
 import seedu.address.model.VersionedNoteBook;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Note;
+import seedu.address.model.note.NoteDescription;
 import seedu.address.model.note.Title;
 
 

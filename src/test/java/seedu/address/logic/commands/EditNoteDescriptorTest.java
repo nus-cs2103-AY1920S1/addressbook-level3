@@ -2,12 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.NotesCommandTestUtil.DESC_DIARYONE;
 import static seedu.address.logic.commands.NotesCommandTestUtil.DESC_DIARYTWO;
 import static seedu.address.logic.commands.NotesCommandTestUtil.VALID_CONTENT_DIARYTWO;
 import static seedu.address.logic.commands.NotesCommandTestUtil.VALID_DESCRIPTION_DIARYTWO;
+import static seedu.address.logic.commands.NotesCommandTestUtil.VALID_TAG_PERSONAL;
 import static seedu.address.logic.commands.NotesCommandTestUtil.VALID_TITLE_DIARYONE;
 
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,7 @@ public class EditNoteDescriptorTest {
         assertFalse(DESC_DIARYONE.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_DIARYONE.equals(DESC_BOB));
+        assertFalse(DESC_DIARYONE.equals(DESC_DIARYTWO));
 
         // different title -> returns false
         EditNoteDescriptor editedDiaryOne = new EditNoteDescriptorBuilder(DESC_DIARYONE)
@@ -50,7 +49,7 @@ public class EditNoteDescriptorTest {
         assertFalse(DESC_DIARYONE.equals(editedDiaryOne));
 
         // different tags -> returns false
-        editedDiaryOne = new EditNoteDescriptorBuilder(DESC_DIARYONE).withTags(VALID_TAG_HUSBAND).build();
+        editedDiaryOne = new EditNoteDescriptorBuilder(DESC_DIARYONE).withTags(VALID_TAG_PERSONAL).build();
         assertFalse(DESC_DIARYONE.equals(editedDiaryOne));
     }
 }

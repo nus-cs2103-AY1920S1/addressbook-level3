@@ -39,14 +39,14 @@ public class AddNoteCommandIntegrationTest {
                 new CardBook(), getTypicalNoteBook(), new PasswordBook(), new UserPrefs());
         expectedModel.addNote(validNote);
 
-        assertCommandSuccess(new AddNotesCommand(validNote,VALID_STRING_COMMAND_ARG), model,
+        assertCommandSuccess(new AddNotesCommand(validNote, VALID_STRING_COMMAND_ARG), model,
                 String.format(AddNotesCommand.MESSAGE_SUCCESS, validNote), expectedModel);
     }
 
     @Test
     public void execute_duplicateNote_throwsCommandException() {
         Note noteInList = model.getNoteBook().getNoteList().get(0);
-        assertCommandFailure(new AddNotesCommand(noteInList,VALID_STRING_COMMAND_ARG), model,
+        assertCommandFailure(new AddNotesCommand(noteInList, VALID_STRING_COMMAND_ARG), model,
                 AddNotesCommand.MESSAGE_DUPLICATE_NOTE);
     }
 
