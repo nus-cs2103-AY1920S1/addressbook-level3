@@ -36,6 +36,7 @@ public class FindIncomeCommand extends Command {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_AMOUNT + "5.60";
 
+
     public static final String EMPTY_PROPETIES = "Propeties cannot be empty.";
 
     private final List<Predicate<Entry>> predicate;

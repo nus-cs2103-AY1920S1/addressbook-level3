@@ -89,12 +89,13 @@ public class CommandTestUtil {
 
 
     //Category related Test Utils.
-    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_EXPENSE;
-    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + VALID_CATEGORY_TYPE_INCOME;
-    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + VALID_CATEGORY_NAME_EXPENSE_FOOD;
-    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + VALID_CATEGORY_NAME_INCOME;
+    public static final String CATEGORY_TYPE_EXPENSE = " " + PREFIX_CATEGORY + "Expense";
+    public static final String CATEGORY_TYPE_INCOME = " " + PREFIX_CATEGORY + "Income";
+    public static final String CATEGORY_NAME_EXPENSE = " " + PREFIX_DESC + "food";
+    public static final String CATEGORY_NAME_INCOME = " " + PREFIX_DESC + "business";
     public static final String CATEGORY_NAME_EXPENSE_FOR_ENTRIES = " " + PREFIX_CATEGORY
             + VALID_CATEGORY_NAME_EXPENSE_FOOD;
+
     //For Edit
     public static final String CATEGORY_NAME_FOR_EDIT_NEW = " " + PREFIX_DESC + VALID_NEW_CATEGORY_NAME;
     public static final String CATEGORY_NAME_FOR_EDIT_OLD = " " + PREFIX_OLD_NAME + VALID_OLD_CATEGORY_NAME;

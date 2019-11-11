@@ -9,13 +9,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.guilttrip.MainApp;
 import seedu.guilttrip.commons.core.LogsCenter;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.Logic;
+import seedu.guilttrip.model.reminders.Reminder;
 
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui {
+public class UiManager implements Ui, ListenerSupport {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -83,4 +86,10 @@ public class UiManager implements Ui {
         System.exit(1);
     }
 
+    @Override
+    public void propertyChange(Evt evt) {
+        if (evt.getPropertyName().equals("SelectedReminder")) {
+            this.mainWindow.updateReminderSelected((Reminder) evt.getNewValue());
+        }
+    }
 }

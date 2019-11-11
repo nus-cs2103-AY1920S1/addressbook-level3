@@ -28,6 +28,6 @@
         <Label fx:id="type" styleClass="cell_big_label" text="\$type" />
 
       </HBox>
-      <FlowPane fx:id="params" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <FlowPane fx:id="params" styleClass="cell_big_label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
   </GridPane>
 </HBox>
