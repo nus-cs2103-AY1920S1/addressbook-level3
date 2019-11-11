@@ -985,6 +985,7 @@ Use case ends.
 
 Use case ends
 
+[discrete]
 === Use case: cancel patient's appointment (UC9)
 Pre-condition: Patient’s record exists
 
