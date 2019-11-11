@@ -7,7 +7,7 @@
 |===
 |_About Me._
 |===
-image::joshuaseetss.png[width="200", align="left"]
+image::joshuaseetss.png[width="100", align="left"]
 {empty}[https://github.com/joshuaseetss[github]]
 
 Hi! My name is Joshua.
@@ -18,7 +18,7 @@ This write-up documents the contributions I made towards the development of FinS
 
 == PROJECT: FinSec
 |===
-|_The description of the project._
+|_This section contains the description of the project._
 |===
 
 FinSec is a useful application that was created as an aid to financial secretaries of any organisation. It is a Command Line Interface (CLI) based tool to cater to computing students who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
@@ -30,9 +30,9 @@ image::../images/Ui.png[width="602"]
 
 == Role
 |===
-|_The role I played in the team._
+|_This section contains the roles I played in the team._
 |===
-My primary role in the project was to create the prototype for the Shortcut feature and the Income feature, and develop them respectively.
+My primary role in the project was to create the prototype for the Shortcut, Income, and AutocorrectSuggestion features and develop them respectively.
 
 I was also in charge of Testing and UI, ensuring that the coverall percentage does not fall too low and the UI/UX of FinSec is up to standards.
 
@@ -51,22 +51,22 @@ I was also in charge of Testing and UI, ensuring that the coverall percentage do
 
 * *Minor enhancement*: Added the *Income feature*
 ** What it does: This feature allows users (typically Financial Secretaries) to enter Income transactions into the FinSec application and track their income entries.
-** Justification: The `income feature` is a vital feature to the FinSec application since that the majority of organisations and clubs have incomes to keep track of. It allows Financial Secretaries to keep proper records of the organisation and to keep track of its financial status.
+** Justification: The `income feature` is a vital feature to the FinSec application since most organisations and clubs have incomes to keep track of. It allows Financial Secretaries to keep proper records of the organisation and to keep track of its financial status.
 ** Implementation: The Person class in Address Book 3 (AB3) is remodelled to resemble an income entry (with additional attributes of Description, Amount, Date).
 ** Highlights: The implementation of this feature is fairly straightforward since that it is a direct adaptation of the Person class.
 
 * *Minor enhancement*: Added the *Autocorrect Suggestions feature*
-** What it does: This feature gives users suggestions in a drop-down list as they are typing their commands into FinSec. The suggestions given corresponds with what the user is currently typing. Currently, the possible suggestions are the default commands available for the user to use. Whenever the user adds a shortcut (from the `shortcut feature`) or a contact, it will add on (in real-time) to the suggestions list that could be displayed to the user (depending on what the user types).
-** Justification: The drop-down list that this feature provides greatly enhances the user experience when using the application. With this feature, the user does not have to perpetually refer to the User Guide for the list of available commands. This is especially useful for FinSec, an application with 20 commands.
-** Implementation: An additional class AutocorrectTextField is created to cater for the add-ons to the TextField class. By loading the updated Set of Strings in that class, the new dictionary of suggestions is available to be displayed to the user when he types.
-** Highlights: The implementation of this feature is slightly difficult since that it deals with majority of UI which I am not very familiar with. However, tutorials online help me to learn more about the different components such as Listeners. I also made minor enhancements to this feature by adding attributes (such as Name) into the claim suggestions for better usability for the user.
+** What it does: This feature gives users suggestions in a drop-down list as they are typing their commands into FinSec. The suggestions given corresponds with what the user is typing at the time. Currently, the possible suggestions are the default commands available for the user. Whenever the user adds a shortcut (from the `shortcut feature`) or a contact, it will add on (in real-time) to the suggestions list.
+** Justification: The drop-down list that this feature provides greatly enhances the user experience. Because of this feature, the user does not have to keep referring to the User Guide for the list of available commands. This is especially useful for FinSec, which has 20 commands.
+** Implementation: An additional class AutocorrectTextField is created to cater for the add-ons to the TextField class. By loading the updated Set of Strings in that class, the new dictionary of suggestions is available to be displayed to the user as he types.
+** Highlights: The implementation of this feature is slightly challenging as it deals mainly with UI, which I am not very familiar with. However, online tutorials helped me to learn more about the different components like Listeners. I also made minor enhancements to this feature by adding attributes (such as Name) into the claim suggestions for enhanced usage.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=joshuaseetss[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=joshuaseetss[Project Code Dashboard]]
 
 * *Other contributions*
 
 ** Project management
-*** I managed the release of version 1.4 of FinSec on GitHub.
+*** I managed the release of version 1.3.3 of FinSec on GitHub: https://github.com/AY1920S1-CS2103T-W12-1/main/releases/tag/v1.3.3[v1.3.3]
 ** Enhancements to existing features
 *** I refactored and optimised some reusable code in AB3 to increase code quality and make the program more Object Oriented : https://github.com/AY1920S1-CS2103T-W12-1/main/pull/150[#150], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/345[#345], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/340[#340]
 ** Documentation
