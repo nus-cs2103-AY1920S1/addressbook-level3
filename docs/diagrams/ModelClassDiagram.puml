@@ -22,7 +22,7 @@ Class Engagement
 Class TimeSlot
 Class Attendees
 Class Location
-Class Description
+Class EngagementType
 Class Priority
 Class UniqueEngagementList
 }
@@ -40,7 +40,7 @@ UniqueEngagementList o--> "*" Engagement
 Engagement *--> TimeSlot
 Engagement *--> Attendees
 Engagement *--> Location
-Engagement *--> Description
+Engagement *--> EngagementType
 Engagement *--> Priority
 
 

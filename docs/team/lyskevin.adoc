@@ -96,15 +96,10 @@ The calendar's display then switches to December 2019 and the engagements list w
 
 This command does not work if the application is in another tab or the specified date is invalid.
 
-[.float-group]
-[.clearfix]
---
 .Calendar view for November 2019
-image::calendar-view-modified.png[width="450", float="left"]
-[.left]
+image::calendar-view-modified.png[width="450"]
 .Engagements list for circled date
 image::calendar-open-display.png[width="450"]
---
 {empty} +
 
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
