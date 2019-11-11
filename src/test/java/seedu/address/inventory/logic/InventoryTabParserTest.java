@@ -90,7 +90,7 @@ public class InventoryTabParserTest {
     @Test
     public void parser_editCommand_unsuccessful() {
         try {
-             parser.parseCommand("edit number d/new c/test q/6 co/9 p/8", new InventoryList());
+            parser.parseCommand("edit number d/new c/test q/6 co/9 p/8", new InventoryList());
         } catch (Exception e) {
             assertEquals(InventoryMessages.MESSAGE_INVALID_EDIT_COMMAND_FORMAT, e.getMessage());
         }
