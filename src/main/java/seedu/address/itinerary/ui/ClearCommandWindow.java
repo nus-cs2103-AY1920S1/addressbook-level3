@@ -2,6 +2,8 @@ package seedu.address.itinerary.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,7 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.itinerary.logic.ItineraryLogic;
 import seedu.address.ui.UiPart;

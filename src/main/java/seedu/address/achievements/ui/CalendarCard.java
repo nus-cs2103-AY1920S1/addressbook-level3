@@ -32,7 +32,9 @@ public class CalendarCard {
         try {
             double getPercentageTrip = calendarStatistics.getPercentageTrip();
             observableList.add(
-                    new AchievementsDataLabel("Percentage of Vacation Days spent on Trips", "").getRoot());
+                    new AchievementsDataLabel("Percentage of Vacation Days spent on Trips",
+                            calendarStatistics.getNumDaysTrip() + " / "
+                                    + calendarStatistics.getNumDaysVacation()).getRoot());
             observableList.add(new AchievementsProgressBar(calendarStatistics.getPercentageTrip()).getRoot());
         } catch (NoVacationException nve) {
             logger.info("No vactation days. Progress bar for calendar not loaded.");
