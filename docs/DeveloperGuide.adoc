@@ -590,6 +590,38 @@ image::SortUpdateActivityDiagram.png[width="190", align="center"]
 ** Cons: Features like `find` command may lose functionality and needs extra modification.
 //end::sort[]
 
+
+//tag::interactive-parsing[]
+=== Interactive Parsing
+
+==== Overview
+
+Interactive parsing allows users to build a command sequentially, as opposed to doing it entirely in one shot. A user that wishes to
+add an interview can simply type `add t/interview` to receive prompts on what to enter next.
+
+This feature was conceived to make the application easy to use for amateur users.
+
+==== Implementation
+
+To achieve interaction, the `Parser` keeps track of the `State` of the current `Command` being built. `State` is an abstract class that represents
+the individual states the application can be at in the midst of building a `Command`. `EndState` is an abstract class that extends from `State`,
+from which `Command` objects can be built. As and when valid inputs are entered, the `Parser` updates
+the current `State` to the subsequent `States` of the corresponding `Command`.
+
+The `Parser` starts at an idle, inactive `State` Upon entering `add t/meeting`, the `State` being tracked is changed twice - first
+to the `State` corresponding to the type of the `Engagement` and then to the `State` responsible for the start date-time.
+
+Such `State` changes happen sequentially until all the arguments necessary for the `Command` have been supplied. When all necessary arguments are present,
+the `State` being tracked transitions into an `EndState`. Once the tracked `State` transitions into an `EndState`, the `Parser` builds the `Command`
+which is executed by the `LogicManager`.
+
+Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
+is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
+
+This observation allows the usage of a
+
+//end::interactive-parsing[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
