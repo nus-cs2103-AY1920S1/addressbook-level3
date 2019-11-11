@@ -459,7 +459,9 @@ from `AutoCompleteValueProvider` in the form of `AutoCompleteNode`.
 For clarity, here are some class diagrams for the AutoComplete package.
 
 image::AutoCompleteClassDiagram.png[]
+
 image::GraphsClassDiagram.png[]
+
 image::NodesClassDiagram.png[]
 
 ===== Alternative Designs
@@ -1149,8 +1151,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Dependency flows from schedulebook to orderbook to phonebook and customerbook.
 .. If file "a" has dependency on file "b", and file "a" is missing, both empty file "a" and "b" will be loaded.
 .. If file is corrupted i.e. wrong string input, sample file will be loaded.
-
-_{ more test cases ... }_
 
 // end::savingData[]
 

@@ -186,7 +186,7 @@ toggle to the Tab Panel that it belongs to.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add -c n/NAME`, `NAME` is a parameter which can be used as `add -c n/John Doe`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add-c n/NAME`, `NAME` is a parameter which can be used as `add-c n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
@@ -360,14 +360,16 @@ Switches to Phone Tab Panel.
 ==== Add a phone: `add-p`
 Adds a phone. Similar to adding a customer. +
 
-[underline]#Format#: `add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
+[underline]#Format#: `add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
 
 [TIP]
-IMEI Number should be 15 digits long.
+Identity Number (IMEI) should be 15 digits long.
 [TIP]
 Capacity can be 8GB, 16GB, 32GB, 64GB, 128GB, 256GB, 512GB or 1024GB. You do not need to type GB after the prefix cp/.
 [TIP]
 Cost must start with $ and can only have a maximum of 2 decimal place.
+[TIP]
+The maximum cost allowed is $999999999.99.
 [TIP]
 A customer can have any number of tags, including 0.
 
@@ -442,7 +444,7 @@ Clears every phone in SML. +
 
 ==== Edit a phone: `edit-p`
 Edits the data fields of a phone. Note that orders in the order tab panel associated with the phone will also be edited. +
-[underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
+[underline]#Format#: `edit-p INDEX [i/IDENTITY_NUMBER] [s/SERIAL_NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
 
 
 ****
@@ -504,9 +506,7 @@ Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 ****
 * Negative prices will be rejected.
 * $0 is accepted to accommodate for free transactions.
-* Prices above 1.7 * 10^308^ will not be rejected. However, they will
-*corrupt* the data. There is no practical reason
-for a price to be that high.
+* The maximum price allowed is $999999999.99.
 ****
 
 ==== Find an order: `find-o`
@@ -1134,6 +1134,8 @@ The hashtag represents the length of the valid input for the primary key.
 
 [underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE`
 
+// tag::autocomplete[]
+
 ==== Autocomplete integrated with command history `[coming in v2.0]`
 
 This extension of the autocomplete feature is to allow users to receive
@@ -1144,6 +1146,8 @@ suggestions based on past inputs.
 This feature is to allow users to define customized command words to
 simplify long commands. For example, `generate-s s/profit` can be
 simplified to `gp`.
+
+// end::autocomplete[]
 
 == FAQ
 *Q*: How do I transfer my data to another Computer? +
@@ -1173,8 +1177,8 @@ simplified to `gp`.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
-|`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
+|`add-p i/IDENTITY_NUMBER s/SERIAL_NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
+|`edit-p INDEX [i/IDENTITY_NUMBER] [s/SERIAL_NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
 |`clear-p`| Deletes all phones and their associated orders and schedules.
 |`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contain the keywords in its field.
