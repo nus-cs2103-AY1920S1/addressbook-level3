@@ -135,12 +135,12 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
 == Contributions to the User Guide
 
 |===
-|_Given below are extracts of sections I contributed to in the User Guide.
+|_Given below is an extract of what I contributed to the User Guide.
 They showcase my ability to write documentation targeting end-users.
 The full User Guide can be found
 https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html[here].
 
-My key contributions include the documentation `[green]#Performance#`-related commands, as well as
+My key contributions include the documentation of `[green]#Performance#`-related commands, as well as
 `filter`, `find` and `delete -p` commands._
 |===
 
@@ -154,7 +154,7 @@ _[End of extract from User Guide]_
 == Contributions to the Developer Guide
 
 |===
-|_Given below are extracts of sections I contributed to in the Developer Guide.
+|_Given below is an extract of what I contributed to in the Developer Guide.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 The full Developer Guide can be found
 https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html[here].
