@@ -159,20 +159,28 @@ Please click the following link to see my code contributions dashboard. https://
 ** Updated the ReadMe description.
 
 * Enhancements to existing features:
-** Wrote additional tests for existing features to increase coverage from 34% to 45% : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/182[#182]
+** Wrote additional tests for existing features(Group,Student,Tag and Mark) to increase coverage from 34% to 45% : https://github.com/AY1920S1-CS2103T-W13-2/main/pull/182[#182]
+** Helped create interface where team could use to export files to different formats(Word Document/Excel)
+** Wrote tests for generic classes, such as the NjoyParser, Logic Manager, Model Manager and Parser Util to increase coverage by 4%:
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/209[#209], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/215[#215],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/218[#218]
 
 * Documentation:
 ** Made cosmetic tweaks to the existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/183[#183],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/187[#187]
 
-** Made relevant changes for the Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/187[#187]
+** Made relevant changes for the Developer Guide: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/187[#187], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/194[#194],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/192[#192]
 
 * Community:
-** Reviewed Pull Requests: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/191[#191],
+** Reviewed Pull Requests: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/187[#205]
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/187[#198],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/195[#195],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/191[#191],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/184[#184], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/123[#123], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/119[#119],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/94[#94],
-https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35[#35],
+https://github.com/AY1920S1-CS2103T-W13-2/main/pull/35[#35]
 
 
 == Contributions to the User Guide
@@ -186,17 +194,17 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `tag` creation section the User Guide:*
 
-include::../UserGuide.adoc[lines=247..280]
+include::../UserGuide.adoc[lines=226..260]
 
 *The following is an example of the `student` editing section in the User Guide:*
 
-include::../UserGuide.adoc[lines=183..214]
+include::../UserGuide.adoc[lines=159..190]
 
 *The following is an example of the `group` display section in the User Guide:*
 
-include::../UserGuide.adoc[lines=420..439]
+include::../UserGuide.adoc[lines=410..429]
 
-include::../UserGuide.adoc[lines=445..448]
+include::../UserGuide.adoc[lines=435..438]
 
 == Contributions to the Developer Guide
 
@@ -209,15 +217,15 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the add `student` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=712..717]
+include::../DeveloperGuide.adoc[lines=708..714]
 
-include::../DeveloperGuide.adoc[lines=730..746]
+include::../DeveloperGuide.adoc[lines=726..742]
 
 *The following is the add `mark` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=904..910]
+include::../DeveloperGuide.adoc[lines=900..906]
 
 
 *The following shows the relationship of `Student`, `Group`, `Mark` and `Tag` via a class diagram in the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1109..1112]
+include::../DeveloperGuide.adoc[lines=1105..1108]
