@@ -429,13 +429,16 @@ with every change to your transactions list, so you do not have to worry about m
 transaction made!
 
 [[repeaters]]
+// tag::introrep[]
 === Repeaters
 There is sometimes a need to add the same transaction over and over again. Such is the case for recurring transactions such as phone bills and salaries. With our repeater feature, you can add these recurring transactions in a hassle free manner.
 
 In the repeater tab, you can maintain a list of your repeaters. Each repeater is associated with a list of transactions, which are managed by the repeater. The image below gives an overview of the GUI of the feature. The associated transactions managed by each repeater are highlighted with the respective colored box.
 
 image::rep.png[]
+// end::introrep[]
 
+// tag::addrep[]
 ==== Creating repeater: `add`
 
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
@@ -467,7 +470,9 @@ Examples:
 
 * `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2020` +
 This creates a repeater titled "Phone bills" as an expenditure for utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2020. This also creates the transactions associated with the created repeater.
+// end::addrep[]
 
+// tag::editrep[]
 ==== Editing repeater `edit`
 
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
@@ -488,7 +493,9 @@ Examples:
 
 * `edit 1 a/31.34 c/Food ty/in so/1 eo/-1 sm/1 sy/2019 em/12 ey/2020` +
 This edits the first repeater in the current list into a $31.34 expenditure for every first day of the month, between January 2019 and December 2020. This also updates the transactions associated with the edited repeater.
+// end::editrep[]
 
+// tag::deleterep[]
 ==== Deleting repeater: `delete`
 
 Format: `delete INDEX`
@@ -499,17 +506,20 @@ Examples:
 
 * `delete 12` +
 Deletes the 12th repeater in the current list. This also deletes the transactions associated with the deleted repeater.
+// end::deleterep[]
 
+// tag::findrep[]
 ==== Finding repeater: `find`
 
 Format: `find [KEYWORDS]...`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
+You can use the `find` command to find repeaters whose description matches any the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
 
 Examples:
 
 * `find phone john` +
 This finds all repeaters whose description contains all of the keywords "phone" and "john".
+// end::findrep[]
 
 === Budgets
 
