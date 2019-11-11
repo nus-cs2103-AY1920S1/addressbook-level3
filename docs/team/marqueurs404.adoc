@@ -7,7 +7,15 @@
 
 == Overview
 
-include::../UserGuide.adoc[tag=ppp-introduction]
+TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3).
+TimeBook is a scheduling application that aims to help busy NUS undergraduates keep track of schedules of their friends and them, and find the best meeting times and venues.
+TimeBook will have the following features:
+
+. A beautiful graphical user interface (GUI) with  most of the user interactions via the command line interface (CLI).
+. Allows users to add the schedules of his or her friends and organise them into groups.
+. Deconflict different schedules of different people and different groups to find the common free time among them.
+. Integration with NUSmods API to allow users to enter their NUSmods timetable link to add it to their schedule.
+. Integration with Google Maps API to allow the application to evaluate the best venue for the group to meet up during the free time in their schedules.
 
 This document summarizes my contributions to the TimeBook project in terms of the code, user guide and developer guide.
 
@@ -27,40 +35,41 @@ This section documents a summary of the major and minor contributions I have mad
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
-** Enhancements to existing features:
-*** Wrote tests for features I implemented (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/189[#189])
+** Project management: Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Wrote tests for features that I implemented (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/189[#189])
 ** Documentation:
 *** Added documentation for the Developer Guide and User Guide, for the sections related to NUSMods and External API that I implemented. (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/135[#135], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/137[#137], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/144[#144], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/172[#172], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/174[#174])
 *** Updated documentation for the Developer Guide for the Design -> Architecture, Design -> Model component and Design -> Api component. (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/278[#278])
-** Community:
-*** Reported bugs and suggestions for other teams in the class during the practical exam dry run.
+** Community: Reported bugs and suggestions for other teams in the class during the practical exam dry run.
 ** Tools:
-*** Integrated a Github plugin (Coveralls) to the team repo
-*** Integrated a Github plugin (Travis CI) to the team repo
-*** Set up a Telegram Bot to notify team members of Travis build statuses on success or failure (https://github.com/AY1920S1-CS2103T-T10-4/main/commit/049c9d34e602d9b74d83636ac5ac33324408ffb4[#45])
+*** Integrated Github plugins (Coveralls & Travis CI) to the team repo
+*** Set up a Telegram Bot for Travis build status notifications (https://github.com/AY1920S1-CS2103T-T10-4/main/commit/049c9d34e602d9b74d83636ac5ac33324408ffb4[#45])
 
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide, namely the `addmod`, `addmods` and `showmod` commands. They showcase my ability to write documentation targeting end-users._
+|_Given below are some of the sections that I contributed to the User Guide, namely the `addmod`, `addmods` and `showmod` commands. They showcase my ability to write documentation targeting end-users. The `addmod` section is abbreviated for brevity's sake._
 |===
-
-include::../UserGuide.adoc[tag=addmod]
 
 include::../UserGuide.adoc[tag=addmods]
 
+include::../UserGuide.adoc[tag=addmod-short]
+
 include::../UserGuide.adoc[tag=showmod]
+
+...[more in UserGuide]
+
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are the *Add NUSMods To Schedule* section and the *External APIs* section that I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are parts of the *Add NUSMods To Schedule* section and the *External APIs* section that I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=nusmods]
 
 include::../DeveloperGuide.adoc[tag=websocket-marcus-1]
 include::../DeveloperGuide.adoc[tag=websocket-marcus-2]
+
+...[more in DeveloperGuide]

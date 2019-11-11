@@ -197,6 +197,21 @@ The `Api`,
 * handles queries to external APIs such as Google Maps and NUSMods.
 * handles caching of API results for limited connectivity support.
 
+[[Design-API]]
+=== Api component
+
+The following diagram explains the design of the API component:
+
+.Expected structure of API Component in `v2.0`.
+image::api/ApiComponentClassDiagram.png[]
+[NOTE]
+Currently there is no `Api` interface or `ApiManager` to manage the external interactions with other components. Other components are directly accessing static methods in the `xxxApi` classes and `Cache` class for accessing API data. We intend to refactor the component to make it more OOP as shown in the figure above in `v2.0`.
+
+The `Api`,
+
+* handles queries to external APIs such as Google Maps and NUSMods.
+* handles caching of API results for limited connectivity support.
+
 [[Design-Commons]]
 === Common classes
 
@@ -1075,23 +1090,6 @@ Windows, Linux, Unix, OS-X
 Application Programming Interface
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1136,3 +1134,27 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Adding NUSMods timetable to a person's schedule
+
+. Adding via NUSMods link to a new person with an empty schedule.
+
+.. Prerequisites: A new person John is added with the `addperson n/John` command.
+.. Test case 1: `addmods link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
+Expected: John's schedule is successfully updated with the all the lesson times and exam times for the module classes specified in the link.
+.. Test case 2: Enter `addmods link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` twice consecutively. +
+Expected: No lessons are added to John's schedule. Error message shows up due to a clash in timings between events in current schedule and the modules you are adding.
+.. Other incorrect addmods commands to try: `addmods`, `addmods n/John link/random_string`, `addmods n/John link/https//randomurl.com`, `addmods n/John link/https://nusmods.com/timetable/sem-1/share?INVALIDMODULE=LEC:G05`, `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2103T=INVALIDCLASSTYPE:G05`, `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2103T=LEC:INVALIDCLASSNUMBER` +
+No lessons are added to John's schedule. Error details are shown in the feedback display.
+
+=== Adding an NUS module's lessons to a person's schedule
+
+. Adding CS2100 lecture 1, lab 15 and tutorial 08 to a new person with an empty schedule.
+
+.. Prerequisites: A new person John is added with the `addperson n/John` command.
+.. Test case 1: `addmod n/John m/CS2100 cl/TUT:08,LAB:15,LEC:1` +
+Expected: John's schedule is successfully updated with CS2100 lecture 1, lab 15, tutorial 08 and exam timeslots.
+.. Test case 2: Execute `addmod n/John m/CS2100 cl/TUT:08,LAB:15,LEC:1` twice. +
+Expected: No lessons will be added to John's schedule. Error message shows up due to a clash in timings between events in current schedule and the module you are adding.
+.. Other incorrect addmod commands to try: `addmod`, `addmod n/John m/random_string`, `addmod n/John m/CCS2100 cl/random_string`. +
+Expected: No lessons are added to John's schedule. Error details are shown in the feedback display.
