@@ -240,8 +240,8 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
 ** This reduces code coupling as there are different models to handle different balance amounts.
 
-* A `Transaction` entry can affect a `Budget` which has similar categories.
-** Only `Out` Transactions will affect `Budget`.
+* A `Transaction` entry can affect a `Budget` which has similar categories within the same time period.
+** Only `Out` Transactions can affect `Budget`.
 ** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
 .Activity diagram for Out Transaction affecting Budget
@@ -522,20 +522,20 @@ This feature allows the user to delete an existing transaction, budget, ledger o
 
 * The delete feature is facilitated by the Logic and Model components of the application.
 * The delete feature works for `Transaction`, `Budget`, `Ledger` and `Projection` entries.
-* The following activity diagram summarizes what happens when a user executes Delete command:
+* The following activity diagram summarizes what happens when a user executes a `delete` command:
 
-.Activity Diagram of Delete Command
+.Activity Diagram for `delete` command
 image::DeleteActivityDiagram.png[]
 
 ==== Design Consideration
 
-* The `delete` command is followed by a `TYPE+INDEX` parameter.
+* The `delete` keyword is followed by a `TYPE+INDEX` parameter.
 ** `Transaction` entries takes in `t` as its `TYPE` parameter.
 ** `Budget` entries takes in `b` as its `TYPE` parameter.
 ** `Ledger` entries takes in `l` as its `TYPE` parameter.
 ** `Projection` entries takes in `p` as its `TYPE` parameter.
 * The `index` parameter refers to the entry number within the `TYPE` entry's view tab.
-* Example: `delete t5` deletes the 5th transaction from the list of transaction if that particular entry exists.
+* Example: `delete t5` deletes the 5th entry from the list of transactions if that particular entry exists.
 
 ===== Aspect: Delete requires `TYPE+INDEX` as one of its parameter
 
@@ -552,7 +552,7 @@ image::DeleteActivityDiagram.png[]
 // tag::update[]
 === Update Existing Entry Feature: `update`
 
-This feature allows users to update `Transaction`, `Budget` or `Projection` entries. The user is unable to perform this feature on `Ledger` and operations the rationale will be further explained in **Aspect 2**.
+This feature currently allows users to update `Transaction` or `Budget` entries. The user is unable to perform this feature on `Ledger` operations. The rationale for this will be further explained in **Aspect 2**. The user is currently unable to perform this feature on `Projection` operations as it will be further implemented in future updates.
 
 ==== Current Implementation
 
@@ -560,11 +560,11 @@ This feature allows users to update `Transaction`, `Budget` or `Projection` entr
 * The parameter requirements differs for the type of entry:
 ** `Transaction` type requires at least one of it's `Amount`, `Description`, `Date` or `Category` fields to be updated.
 ** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated.
-** `Project` type only requires it's `Date` field to be updated.
+** `Project` type requires it's `Date` and `Category` fields to be updated (Future implementation).
 * At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed).
 * The following activity diagram summarizes what happens when a user executes an update command:
 
-.Activity Diagram for update
+.Activity Diagram for `update`
 image::UpdateActivityDiagram.png[]
 
 ==== Design Considerations
@@ -587,13 +587,23 @@ More often than not, users do not need to change an entire Transaction or Budget
 
 * **Alternative 1 (current choice):** Update Command only works with `Transaction`, `Budget` and `Projection` Operations.
 ** Pros: Intuitive implementation and execution for the user.
-** Cons: Requires excessive user operations. The user has to first delete the `Ledger` operation that he/she wishes to change, then input the `Ledger` operation with the amended fields.
-** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Requires excessive user operations.
+*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into PalPay.
 * **Alternative 2:** Update Command to also work with `Ledger` operations.
 ** Pros: Requires only one user command to append or change `Ledger` entries.
 ** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
 *** `Ledger` operations such as `split` includes many repeated fields (i.e. multiple `Persons` and `shares` list).
 *** Will require several conditional user inputs to differentiate between the various repeated entities that the user wishes to amend.
+
+==== Future Enhancements
+
+===== Update feature for Projections
+Currently the update feature has not been implemented for `Projection` operations. In future iterations of PalPay, the update feature should work seamlessly with `Projection` operations, similar to that of `Transaction` and `Budget` operations
+
+The activity diagram below will provide a visual representation of the possible user routes using the `update` command after this enhancement has been implemented.
+
+.Activity Diagram for future `update`
+image::UpdatefutureActivityDiagram.png[]
 // end::update[]
 
 // tag::sort[]
