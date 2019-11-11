@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser;
+package seedu.weme.logic.parser.contextparser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,8 +27,7 @@ import seedu.weme.logic.commands.memecommand.MemeEditCommand.EditMemeDescriptor;
 import seedu.weme.logic.commands.memecommand.MemeFindCommand;
 import seedu.weme.logic.commands.memecommand.MemeListCommand;
 import seedu.weme.logic.commands.memecommand.MemeUnarchiveCommand;
-import seedu.weme.logic.parser.contextparser.MemeParser;
-import seedu.weme.logic.parser.contextparser.WemeParser;
+import seedu.weme.logic.commands.memecommand.MemeViewCommand;
 import seedu.weme.logic.parser.exceptions.ParseException;
 import seedu.weme.model.ModelContext;
 import seedu.weme.model.meme.Meme;
@@ -111,6 +110,13 @@ public class MemeParserTest extends ApplicationTest {
     public void parseCommand_archives() throws Exception {
         assertTrue(parser.parseCommand(MemeArchivesCommand.COMMAND_WORD) instanceof MemeArchivesCommand);
         assertTrue(parser.parseCommand(MemeArchivesCommand.COMMAND_WORD + " 3") instanceof MemeArchivesCommand);
+    }
+
+    @Test
+    public void parseCommand_view() throws Exception {
+        MemeViewCommand command = (MemeViewCommand) parser.parseCommand(
+                MemeViewCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        assertEquals(new MemeViewCommand(INDEX_FIRST), command);
     }
 
     @Test

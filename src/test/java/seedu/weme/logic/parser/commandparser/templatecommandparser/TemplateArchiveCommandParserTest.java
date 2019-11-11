@@ -1,4 +1,4 @@
-package seedu.weme.logic.parser.templatecommandparser;
+package seedu.weme.logic.parser.commandparser.templatecommandparser;
 
 import static seedu.weme.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.weme.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -8,7 +8,6 @@ import static seedu.weme.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.Test;
 
 import seedu.weme.logic.commands.templatecommand.TemplateArchiveCommand;
-import seedu.weme.logic.parser.commandparser.templatecommandparser.TemplateArchiveCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
