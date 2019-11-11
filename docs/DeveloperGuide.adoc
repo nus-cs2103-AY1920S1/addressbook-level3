@@ -259,17 +259,16 @@ The `Day/Trip` reference contains the list of `Events/Days` in memory respective
 
 image::ItineraryDelete2.png[]
 
-//Expense
+
+// tag::expense_ppp[]
 === [Expense] Expense Manager
 The _Expense Manager_ is one of the main features of TravelPal, it maintains a list of `Expense` stored in an `ExpenseList`.
 _Expense Manager_ is also capable of calculating and displaying budget, sorting expenses and toggling display options.
 [[expense_model]]
 ==== Aspect : Model
 
-
-
 [[expense_class_diagram]]
-image::expense/developerguide/ExpenseModelClassDiagram.png[title=Class diagram showing the expense model]
+image::expense/developerguide/ExpenseModelClassDiagram.png[width="60%" title=Class diagram showing the expense model]
 
 ===== Expense
 
@@ -281,7 +280,6 @@ They are implemented as instance of class `Name` `Budget` and `DayNumber` respec
 `MiscExpense` and `PlannedExpense` are the child classes extending from `Expense` class, they are
 used to represent the two types of expenses: _miscellaneous expense_ and _planned expense_.
 
-
 ===== ExpenseList
 
 `ExpenseList` is an class that stores the `Expense` models.
@@ -290,7 +288,7 @@ It supports wrapper methods around the underlying `ObservableList` to facilitate
 [[expense_ui]]
 ==== Aspect : UI
 
-image::expense/developerguide/ExpenseUIClassDiagram.png[title=Class diagram showing the user interface of expense]
+image::expense/developerguide/ExpenseUIClassDiagram.png[width="95%" title=Class diagram showing the user interface of expense]
 
 NOTE: The `ExpensesPage` implements an `UiChangeConsumer` interface to facilitate the toggling between the _Days View_ and
  _List View_ of _Expense Manager_, which is not shown in the diagram above.
@@ -331,7 +329,7 @@ after the _amount of expense_ is edited, both the expense in `ExpenseList` and t
 
 The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in `LogicManager`.
 [[expense_sequence_diagram]]
-image::expense/developerguide/DoneEditExpenseCommandSequenceDiagram.png[title=Sequence diagram showing the execution of DoneEditCommand]
+image::expense/developerguide/DoneEditExpenseCommandSequenceDiagram.png[width="95%" align="left" title=Sequence diagram showing the execution of DoneEditCommand]
 
 When `DoneEditCommand#execute(model)` is called, `getPageStatus()` is used to fetch information / update information from `model`. The following
 steps shows the sequence of event happened within the method:
@@ -357,19 +355,17 @@ Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Del
 The `DeleteExpenseCommand` in logic checks for index of deletion and type of expense. Only `MiscExpense` can be deleted through
 this command. Below is an example execution of deleting an expense:
 [[delete_expense_activity_diagram]]
-image::expense/developerguide/DeleteExpenseDiagram.png[title=Activity diagram showing the execution of deleting an expense]
-
+image::expense/developerguide/DeleteExpenseDiagram.png[width="80%" title=Activity diagram showing the execution of deleting an expense]
 
 '''
 
-//Currency
 === [Currency] Currency
 The _Currency_ maintains a list of `CustomisedCurrency` stored in an `CurrencyList`.
 _Currency_ supports creation, deletion and selection of currency.
-[[expense_model]]
+
 ==== Aspect : Model
-[[expense_class_diagram]]
-image::expense/developerguide/CurrencyModelClassDiagram.png[title=Class diagram showing the currency model]
+
+image::expense/developerguide/CurrencyModelClassDiagram.png[width="60%" align="left" title=Class diagram showing the currency model]
 
 ===== CustomisedCurrency
 
@@ -385,7 +381,7 @@ A `CustomisedCurrency` contains exactly one instance `Name` `Symbol` and `Rate` 
 [[currency_ui]]
 ==== Aspect : UI
 
-image::expense/developerguide/CurrencyUIClassDiagram.png[title=Class diagram showing the user interface of currency]
+image::expense/developerguide/CurrencyUIClassDiagram.png[width="90%" align="left" title=Class diagram showing the user interface of currency]
 
 The main `Page` for displaying and creating currency is `CurrencyPage`. The page contains a list of `CurrencyCard` for displaying
 individual currency details. Two types of `CurrencyCard`: `SelectedCurrencyCard` and `UnelectedCurrencyCard` are used to indicate
@@ -410,7 +406,11 @@ is to be used to display `Budget` with the selected currency symbol and rate con
 
 All the monetary values in the application is displayed through calling the method from UI: `Budget#getValueStringInCurrency(CustomisedCurrency)`
 
+// end::expense_ppp[]
+
 '''
+
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature

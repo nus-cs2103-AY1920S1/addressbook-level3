@@ -252,6 +252,7 @@ image::daysCommand.png[]
 image::daysPage.png[]
 
 
+// tag::expense_ppp1[]
 
 === Expense Manager
 
@@ -329,6 +330,10 @@ To add an expense with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _
 `edit n/Miscellaneous Expenses b/10.5 dn/2`
 ======
 
+// end::expense_ppp1[]
+
+
+// tag::currency_ppp1[]
 
 === Currency
 
@@ -381,6 +386,7 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 `edit n/USD s/1 r/0.74`
 ======
 
+// end::currency_ppp1[]
 
 === Diary
 

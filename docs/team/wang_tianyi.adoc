@@ -1,0 +1,104 @@
+= Wang Tianyi - Project Portfolio for __TravelPal__
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:last-update-label!:
+:nofooter:
+
+== Portfolio Overview
+
+This project portfolio page documents my contribution to the team project __TravelPal__. The page includes an overview of
+the project, summary of the features I have implemented and other contributions, such as User Guide and Developer Guides.
+
+== About our Project
+The application developed by our team, _TravelPal_, is an all-in-one trip planner which provides frequent leisure travellers
+with a highly customisable, intuitive and integrated trip management system. We aim to ease pre-trip planning process
+with features such as trip itinerary and expense manager, and offer a platform for users to record their trip highlights
+with our diary feature.
+
+As _TravelPal_ is for those who prefer using the keyboard over a mouse, it uses a Command Line Interface (CLI) for keyboard input, but it also provide alternative input with mouse. As for output, it is displayed in a Graphical User Interface (GUI) - which is a display that includes panes, menus and message boxes. We believe such implementation makes our application more user-friendly.
+
+
+
+== Summary of contributions
+
+This section encompasses an overview of my contribution to the TravelPal application, including the summary of my code
+implementation and how they add value to the application in terms of functionality and user experience.
+
+
+==== Major enhancements: Implemented the _Expense Manager_ feature.
+
+I implemented the complete _Expense Manager_ feature and handled the expenditures of trips.
+
+image::expense/PPP/ExpenseManagerDays1.png[width="90%" align="center"]
+* *What it does*: the _Expense Manager_ allows users to micromanage a list of expenses. User can choose to manually add a new
+expense to a day or include an expense when adding an event in trip itinerary. All expenses will be displayed according
+to the days, and a summary of the daily expenses and the total expenses for the trip will be displayed.
+* *Justification*: This is one of the most useful features for pre-trip planning. A potential user may use the manager
+to keep track of their estimated expenses, compare it with the budget and adjust their schedules accordingly.
+* *Highlights*: This enhancement requires understanding of other features as the expenses needs to be updated whenever
+there is a change in trip events. The expenses also need to be grouped under each days. Therefore, I had to make sure
+that the interactions between event class, day list and expenses are bug-free and efficient.
+* *Credits*: I used the concepts and logic from the existing code of address book to implement my features.
+
+'''
+
+==== Second enhancements: Implemented the _Currency Manager_ feature.
+
+I added a currency feature which allows users to create and select customised currency with exchange rate.
+
+* *What it does*: the _Currency_ feature allows users to add and select currencies with customised currency name, symbol and
+exchange rate. When a currency is selected, all the monetary valued will be displayed in that currency.
+
+* *Justification*: Given the limited domestic tourism size, currency conversion is very relevant to travellers in Singapore.
+International travellers may want to view the expenses in local currency so that our trip manager can be more intuitive and easy to use.
+
+* *Highlights*: To help users type currency symbols more efficiently, I added a list of preset currency symbols with index. This feature allows
+ users to simply enter an index, which is automatically converted into currency symbols. The implementation demands effective handling of javafx.
+
+'''
+
+
+
+==== Other Contributions
+* Code contributed: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=arjun&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=arjunwangty&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[RepoSense code]][https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?utf8=%E2%9C%93&q=is%3Aclosed+is%3Apr+author%3Aarjunwangty+[Github pull requests]]
+
+* Idea generation:
+** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
+inception. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
+
+* Project management:
+** Reviewed and approved several PRs
+** Update AboutUs page https://github.com/AY1920S1-CS2103T-T11-4/main/pull/18[#18]
+
+
+== Contributions to the User Guide
+
+|===
+|
+In developing __TravelPal__, a completely new user guide was needed to provide usage instructions for the various new features.
+
+Shown below is one of the various sections I contributed to the User Guide,
+on adding a photo inside the *diary* feature.
+|===
+
+include::../UserGuide.adoc[tag=expense_ppp1]
+include::../UserGuide.adoc[tag=currency_ppp1]
+NOTE: See the https://ay1920s1-cs2103t-t11-4.github.io/main/UserGuide.html[user guide] for this usage scenario, not included in this project portfolio page.
+
+
+
+== Contributions to the Developer Guide
+
+|===
+|
+This section displays the section of User Guide relating to the expense manager and currency customisation, created and edited by me.
+|===
+
+include::../DeveloperGuide.adoc[tag=expense_ppp]
+
+== Conclusion
+
+Development of __TravelPal__ is one of my first brown-field software engineering projects. During the process, I have gained many
+useful programming knowledge and consolidated my understanding of application design. It has been an educational and rewarding team working
+experience.
