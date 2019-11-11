@@ -16,12 +16,12 @@
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing and future commands, as well as the structure of the model part of the application. Especially due to the inclusion of files in the form of images, an in-depth analysis of design alternatives had to be considered. It was challenging to ensure that the implementation supported existing commands, while keeping in mind and support the features our application will deliver.
+** Highlights: This enhancement affects existing and future commands, as well as the design of the model of the application. The inclusion of files, as we are handling meme images, complicates a lot of logic with the existing commands. Commands that were easy to implement such as `add` were not trivial to undo when local files are being manipulated. As a result, many alternatives had to be considered before arriving to a well-planned conclusion. A thorough understanding of how the entire application functioned was necessary to ensure that the undo/redo implementation syncs well with existing and future commands, making the design of the feature much more complicated.
 ** Credits: Basic idea from AB4 implementation.
 
 * *Minor enhancement*:
-** Added archive-related commands for Memes and Templates [https://github.com/AY1920S1-CS2103-T16-3/main/pull/133[#133]]
 ** Added logic for tabs [https://github.com/AY1920S1-CS2103-T16-3/main/pull/40[#40]]
+** Added archive-related commands with tests for Memes and Templates [https://github.com/AY1920S1-CS2103-T16-3/main/pull/133[#133]] [https://github.com/AY1920S1-CS2103-T16-3/main/pull/209[#209]]
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jonchan51&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense Code]]
 
@@ -30,8 +30,10 @@
 ** Project management:
 *** Extensively reviewed most of peer's pull requests before merging into master [https://github.com/AY1920S1-CS2103-T16-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Ajonchan51[Reviews]]
 *** Managed issues and milestones on GitHub for weekly deadlines.
+*** Renamed AB3 to Weme as part of morphing [https://github.com/AY1920S1-CS2103-T16-3/main/pull/10[#10]]
 ** Enhancements to existing features:
 *** Fixed SampleDataUtil for file support [https://github.com/AY1920S1-CS2103-T16-3/main/pull/67[#67]]
+*** Fixed GUI to support larger range of resolutions [https://github.com/AY1920S1-CS2103-T16-3/main/pull/247[#247]]
 ** Documentation:
 *** Assisted with update of documentation from addressbook3 to Weme [https://github.com/AY1920S1-CS2103-T16-3/main/pull/75[#75]]
 ** Community:
@@ -47,11 +49,17 @@
 
 include::../UserGuide.adoc[tag=undoredo]
 
+include::../UserGuide.adoc[tag=archive]
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+
+****
+Besides the section below, I have also written the https://ay1920s1-cs2103-t16-3.github.io/main/DeveloperGuide.html#archives-feature[Archives Feature] section.
+****
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
