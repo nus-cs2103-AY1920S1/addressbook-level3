@@ -41,9 +41,9 @@ endif::[]
 
 == Acknowledgements
 
-* AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org[se-edu]
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+* This application is based on AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org[se-edu]
+* Some parts of this sample application (AddressBook-Level3) were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://commons.apache.org/proper/commons-math/[Apache Commons Math], http://jfxtras.org/doc/8.0/jfxtras-agenda/index.html[JFXtras], https://www.javadoc.io/doc/org.json/json/20171018/index.html[Json].
 
 == Licence : link:LICENSE[MIT]

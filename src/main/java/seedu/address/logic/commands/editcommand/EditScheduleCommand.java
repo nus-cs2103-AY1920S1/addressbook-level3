@@ -112,8 +112,8 @@ public class EditScheduleCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_ORDER_SCHEDULED_INVALID);
         }
 
+        // check if edited schedule already exists
         Schedule editedSchedule = createEditedSchedule(scheduleToEdit, editScheduleDescriptor);
-
         if (!scheduleToEdit.isSameAs(editedSchedule) && model.hasSchedule(editedSchedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }

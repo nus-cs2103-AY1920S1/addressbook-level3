@@ -89,6 +89,8 @@ public class ArchivedOrderCard extends UiPart<Region> {
         orderPrice.setText(order.getPrice().value);
 
         if (order.getStatus().equals(Status.COMPLETED)) {
+            order.getSchedule().get().getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
+                    .forEach(tag -> scheduleTags.getChildren().add(new Label(tag.tagName)));
             assert(order.getSchedule().isPresent());
             try {
                 orderStatus.setText(String.format("%s : %s | Venue: %s", order.getStatus().toString(),
@@ -102,10 +104,6 @@ public class ArchivedOrderCard extends UiPart<Region> {
             orderStatus.setText(order.getStatus().toString());
         }
 
-        if (order.getSchedule().isPresent()) {
-            order.getSchedule().get().getTags().stream().sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> scheduleTags.getChildren().add(new Label(tag.tagName)));
-        }
         if (order.getCustomer() != null) {
             order.getCustomer().getTags().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
