@@ -238,9 +238,12 @@ public class CliEditor {
      */
     private void printClipBoard() {
         String str = Clipboard.getSystemClipboard().getString();
+        boolean hasMultiline = str.contains("\n");
         for (String s : str.split("\n")) {
             characterInput(s);
-            newLine();
+            if (hasMultiline) {
+                newLine();
+            }
         }
     }
 
