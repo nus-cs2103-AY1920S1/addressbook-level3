@@ -9,6 +9,11 @@
 
 == Overview
 
+
+.Sample User Interface of MAMS
+
+image::Ui.png[height=50%]
+
 Every semester, administrators from the National University of Singapore (NUS) have to
 systematically work their way through a heavy backlog of special requests, known as "appeals".
 These appeals are usually made by frantic students during Module Registration,
