@@ -198,14 +198,14 @@ the item is automatically tagged as `#Expired`.**
 
 ===== Implementation
 As shown in a snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
-In particular, `ReplenishParser` parses and handles the commands in the replenish list.
+In particular, `ReplenishParser` is the one that parses and handles the commands in the replenish list.
 
 .Snippet of Logic class diagram to highlight the relationship between the parsers
 image::ParserClassDiagram.png[]
 
 [NOTE]
 Certain commands such as sorting by date, or deleting
-of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
+of item quantities are not permitted by `ReplenishParser`, as items in the replenish list do not have expiry dates or quantities.
 
 The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
 replenish list.
@@ -234,9 +234,9 @@ my analysis and decisions.
 // tag::autosortPartOne[]
 === Auto-sorting of items by name then date
 ==== Implementation
-Items in both lists are automatically sorted by their name then date in chronological order.
+As mentioned previously, items in both lists are automatically sorted by their name then date.
 This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
-that both implement `SortedUniqueItemList`, in a relationship summarised in the diagram below.
+that both implement `SortedUniqueItemList`, in a relationship summarised in the class diagram below.
 
 .Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
 image::SortedUniqueItemListClassDiagram.png[]
@@ -276,9 +276,8 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved.
+the default method of sorting (by name) is then retrieved. +
 
-<<<
 // end::autosortPartOne[]
 
 // tag::autosortPartTwo[]
@@ -316,17 +315,17 @@ The ability to check for spelling errors of command arguments is explained in a 
 
 // tag::autosortPartThree[]
 ==== Design Considerations
-In the process of actualising this feature, I contemplated on when items should be automatically sorted by name and displayed.
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by their names and displayed.
 I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: When items auto-sorted by their names are displayed
 
-* **Alternative 1 (current choice):** Display the sorted list of items when items are viewed.
+* **Alternative 1 (current choice):** Maintain the current method of sorting unless a sort command is executed.
 ** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
-** Cons: The user might not be able to find items added solely by their names.
+** Cons: The user might not be able to find items recently added.
 
-* **Alternative 2:** Display the sorted list of items with the addition of every item.
-** Pros: Allows the user to find any added item with ease as items are sorted by their name in chronological order.
+* **Alternative 2:** Re-sort the list of items by their names with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in lexicographical order.
 ** Cons: Resets the method of sorting back to name by default every time an item is added.
 
 ===== Aspect: Data structure to store the auto-sorted items
@@ -546,38 +545,108 @@ Hard to do when applying stackable `SearchCommand` and `SortCommand` as the `pre
 ** Cons: Requires `Item`/`XpireItem` to have a history of its edits. Violates Single Responsibility Principle and Separation of Concerns as each `Item` now needs to do two different things which is to store data and know its previous edited versions.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::search[]
+=== Search by name or tag(s)
 
-_{Explain here how the data encryption feature will be implemented}_
+This feature allows users to filter out specific items either by name or by tag(s) through providing
+the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel.
+For search by name, partial words can be matched. For search by tag, only exact words will be matched.
 
-Given below is an example usage scenario and how the mechanism behaves at each step.
+This implementation is under `Logic` and `Model` components.
 
-The following sequence diagram shows how the operation works:
+==== Implementation
 
-The following activity diagram summarizes what happens when a user executes a new command:
+Below are the UML sequence diagrams and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram illustrating the search mechanism
+image::SequenceDiagramSearch.png[width="790"]
+
+[NOTE]
+Parsing of arguments is omitted from the diagram above to place greater emphasis on the filtering process.
+The diagram below further illustrates the parsing of arguments.
+
+.Sequence diagram illustrating the parsing of arguments
+image::SequenceDiagramSearchParseArgs.png[width="790"]
+
+Example usage scenario:
+
+[NOTE]
+Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
+
+Step 1. User enters command `search|banana`. The command is received by the `LogicManager` 's `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser` 's or `ReplenishParser` 's `parse`
+method will be called to create a `SearchCommandParser` object.
+
+Step 3. The `parse` method of the `SearchCommandParser` will be called to parse the keyword, "banana" in our case,
+into a `ContainsKeywordsPredicate` object which will then be pass to the constructor of `SearchCommand`. Subsequently,
+the `SearchCommand` object will be returned to the `LogicManager`.
+
+Step 4. The `LogicManager` then calls the returned `SearchCommand` object's `execute` method which calls the
+`filterCurrentList` method of `Model` to update the current view list by invoking `FilteredList` 's `setPredicate` with
+the `ContainsKeywordsPredicate` object, stored in the `SearchCommand` object, as the parameter.
+
+Step 5. Upon successful updating of the current view list, a `CommandResult` object will be created by `SearchCommand`
+to encapsulate a positive feedback message that will be shown to the user. The `CommandResult` will then be returned to the `LogicManager`.
+
+To further demonstrate the high-level workflow of the `search` command, the following UML activity diagram is provided:
+
+[NOTE]
+The selection of parser and the creation of `SearchCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramSearchCommand.png[width="790"]
+
+As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
+successfully.
 
 ==== Design Considerations
 
-===== Aspect: How set reminder executes
+Below highlights the different considerations while implementing this feature.
 
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
+===== Aspect: How to implement AND search?
 
-* **Alternative 2:**
+* **Option 1 (initial choice):** Modify the input command format to include "&" as a separator. The "&" separator will be placed between 2 keywords to signify an AND condition between the them.
 ** Pros:
+*** Requires only a single `search` command to do both AND and OR search.
+*** There is no need to change the original architecture for `Model`.
 ** Cons:
+*** Complicates the input command format (since it has both "|" and "&" separators) and makes it not user-friendly.
+*** Could be confusing to the user when they want to a mix of AND and OR conditions in a single `search` command.
+*** Could be difficult to parse correctly since there are 2 different separators.
+*** Extra work has to be done to change the ContainsKeywordsPredicate to accept AND condition.
+* **Option 2 (current choice):** Make the `search` command "stackable". Every `search` command will now only
+execute on the current view list. e.g. the result of a `search` command can be further filtered with another `search` command.
+** Pros:
+*** Users can intuitively make an AND search of 2 or more keywords by first searching with 1 keyword and then
+search again with another keyword, and repeat again for more keywords.
+*** There is no change to the input command format.
+** Cons:
+*** Requires multiple `search` commands to be executed for AND search.
+*** Have to figure out how to implement "stackable" commands.
 
-===== Aspect:
-* **Alternative 1 (current choice):**
-** Pros:
-** Cons:
+===== Aspect: How to implement "stackable" commands?
 
-* **Alternative 2:**
+* **Option 1 (current choice):** Modify the `ModelManager`.
 ** Pros:
+*** Uses the separation of concerns principle. The commands do not need to know how the item list will behave when they are executed.
+They simply need to make the relevant Application Programming Interface (API) calls and the `ModelManager` will handle the behaviour
+of the list.
+*** Adheres to the open-closed principle. The commands do not need to make any changes to its architecture and other commands can
+also be made "stackable" through using the API.
 ** Cons:
-// end::dataencryption[]
+*** Have to modify the `ModelManager` 's architecture to support the API that modifies the current view list.
+* **Option 2:** Modify the commands.
+** Pros:
+*** Do not need to modify the API.
+** Cons:
+*** Violates single responsibility principle. The commands will now handle both the execution algorithm and the behaviour of the item list.
+*** Violates open-closed principle. The `Command` 's architecture will have to be modified to be "stackable".
+
+// end::search[]
 
 // tag::tag[]
 === Tag Feature
@@ -606,17 +675,87 @@ image::Tag/SequenceDiagramTagCommand.png[width="790"]
 
 // tag::search[]
 === Search
+>>>>>>> 7a9c5fc271183379425342c81d2f7b0f441903f4
 
-This feature allows users to filter out specific items either by name or by tag(s) through providing the relevant keyword(s). Items which contain any of the keywords will be shown on the view panel. For search by name, partial words can be matched. For search by tag, only exact words will be matched.
+// tag::export[]
+=== Export
 
-This implementation is under `Logic` and `Model` components.
+This feature allows users to export the items in the current view list to other devices through a QR code.
+Any device with a QR code reader will be able to download the list of items.
+
+This implementation is under `Logic` and `Model` components, and it uses a helper method from `StringUtil`.
 
 ==== Implementation
 
-Below is the UML sequence diagram of an example usage scenario.
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
-image::SearchCommandSequenceDiagram.png[]
-// end::search[]
+.Sequence diagram illustrating the export mechanism
+image::SequenceDiagramExport.png[width="790"]
+
+Example usage scenario:
+
+Step 1. User enters command `export`. The command is received by the `LogicManager`'s `execute` method which
+then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
+or `REPLENISH`.
+
+Step 2. Depending on which item list is currently being displayed, either `XpireParser` 's or `ReplenishParser` 's `parse`
+method will be called to create a `ExportCommand` object. The `ExportCommand` object will be returned to the `LogicManager`.
+
+Step 3. The `LogicManager` then calls the returned `ExportCommand` object's `execute` method which calls the
+`getCurrentList` method of `Model` to retrieve the list of items in the current view list.
+
+Step 4. The items in the current view list is then converted to its string representation and then passed into the `getQrCode`
+method in `StringUtil`.
+
+Step 5. The `getQrCode` method uses https://github.com/zxing/zxing[Google ZXing] library to process the input string
+into a QR code and this QR code is subsequently converted to a byte array (`pngData`) so that it can be passed around easily.
+
+Step 6. Upon successful creation of the QR code data, a `CommandResult` object will be created by `ExportCommand` to encapsulate
+a feedback message and the QR code data, which will be rendered and shown to the user. The `CommandResult` will then be returned to the `LogicManager`.
+
+The following UML activity diagram will further demonstrate the high-level workflow of the `export` command.
+
+[NOTE]
+The selection of parser and the creation of `ExportCommand` object is omitted for brevity.
+
+.Activity diagram illustrating the high-level workflow of search command
+image::ActivityDiagramExportCommand.png[width="790"]
+
+As illustrated in Figure 28, the `export` functionality also considers the case where the current view list
+is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
+successfully.
+
+==== Design Consideration
+
+Below highlights the essential design consideration while implementing this feature.
+
+===== Aspect: What is the most suitable type of export functionality required for this application?
+
+* **Option 1:** Export to a csv file.
+** Pros:
+*** Easily transferable and shared to other computers.
+*** Easily allows user to edit the exported data.
+** Cons:
+*** Does not work well on other platforms such as mobile phones and iPads.
+*** Slow to transfer the data to other computers. Have manually transfer the
+csv file through email, thumb drive or cloud drive.
+* **Option 2 (current choice):** Export through QR code.
+** Pros:
+*** Allows data to be easily transferred to any device with QR code scanner.
+*** Instantaneous data transfer upon scanning the QR code.
+** Cons:
+*** Hard to be shared to other computers since computers generally do not have QR code scanner.
+*** Focuses more on ready-only rather than editing the data.
+
+Since Xpire is an application that helps users keep track of items' expiry dates as well as
+maintain a list of to-buy items for users' reference, its exported data should focus more on
+conveniently showing users the items' information rather than emphasise on editing the data.
+
+As such, due to the nature of this application, option 2 was chosen since it can precisely meet
+the needs of the users, which is to be able to easily view the exported data anywhere and anytime
+through their mobile phones.
+
+// end::export[]
 
 // tag::recommendationsIntro[]
 === Spelling correction with alternative recommendations
@@ -624,7 +763,7 @@ image::SearchCommandSequenceDiagram.png[]
 Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
-Relevant functions supporting this operation are implemented in `StringUtil`.
+Relevant functions supporting this operation are implemented in link:https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
 
 [NOTE]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
@@ -666,30 +805,30 @@ as its closest match and wrapped as a recommendation in a `ParseException` objec
 // tag::recommendationsPartThree[]
 The figure below presents what happens when a user executes a command with invalid arguments.
 
-.Activity diagram showing what happens when an a command is executed with misspelled arguments
+.Activity diagram showing what happens when a command is executed with misspelled arguments
 
 image::RecommendCommandArgumentsActivityDiagram.png[]
 
 [NOTE]
 Only search and sort commands support this operation.
 
-In the example below encapsulated in a sequence diagram, the user has misspelled "date" as "dat" in a sort command.
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
 
-.Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
 
 image::RecommendationsSortSequenceDiagram.png[]
 
 The sequence diagram titled `find similar words` below expands on the process omitted above.
 
-.Sequence diagram showing how "date" is found to be the most similar word to "dat"
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
 
 image::FindSimilarSequenceDiagram.png[]
 
-The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `dat`.
-In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
-`getSuggestions("dat")` then filters the results and finds `date` to be the best match.
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
 
-At last, a `ParseException` which contains the recommendation `date`
+At last, a `ParseException` which contains the recommendation `"date"`
 is then thrown to the user as feedback.
 
 ==== Design Considerations
@@ -698,12 +837,12 @@ I also evaluated multiple options to derive an optimal data structure to store t
 
 ===== Aspect: How recommendations execute
 
-* **Alternative 1 (current choice):** Displays recommendations after user inputs command that fails to produce results.
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
 ** Pros: Simpler and straightforward implementation.
 ** Cons: May be less intuitive to the user as opposed to auto-completed commands.
 
 * **Alternative 2:** Auto-completion of commands.
-** Pros: Lowers likelihood of spelling mistakes in user input to begin with.
+** Pros: Lowers likelihood of spelling mistakes in user input.
 ** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
 
 ===== Aspect: Data structure to store the recommendations
@@ -1037,7 +1176,7 @@ Use case ends.
 * 1a. The given index is invalid.
 +
 [none]
-** 1a1. Expire shows an error message.
+** 1a1. Xpire shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1060,7 +1199,7 @@ _{More to be added}_
 Accessibility
 
 .  The app shall be accessible by people who have downloaded the JAR file.
-.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
+//.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
 
 Availability
 
@@ -1094,6 +1233,7 @@ Product Scope
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
 .  The product is not required to produce reminders when the app is inactive.
+.  The product is not required to handle intentionally corrupted json files.
 
 Usability
 
@@ -1211,13 +1351,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on +
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. +
+   Expected: Shows the GUI with a set of sample items. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by using the `java -jar xpire.jar` command. +
    Expected: The most recent window size and location is retained.
 
 === Command Box
@@ -1265,6 +1406,39 @@ add any reminder threshold. +
 .. Test case: `set reminder|1|1000` +
   Expected: the first item turns yellow.
 
+=== Viewing items
+
+. Viewing items in the replenish list
+
+.. Test case: `view|replenish` +
+   Expected: All items in the replenish list are displayed.
+.. Test case: `view|replenihs` +
+   Expected:  No change in the display of items. The term `replenish` is given as a suggestion in the error message.
+.. Test case: `view|REPLENISH` +
+   Expected: Similar to previous.
+.. Test case: `view|something` +
+   Expected: No change in the display of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: , `view|3000`, `view|xyz` (where xyz is any garbage input)  +
+   Expected: Similar to previous.
+
+. Viewing items in the main tracking list
+
+.. Test case: `view|main` +
+   Expected: All items in the main list are displayed.
+.. Test case: `view|mainn` +
+   Expected:  No change in the display of items. The term `main` is given as a suggestion in the error message.
+.. Test case: `view|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect view commands to try: `view|-1`, view|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Viewing items in the current list
+
+.. Test case: `view` +
+   Expected: All items in the current list are displayed.
+.. Test case: `viwe` +
+   Expected: `view` is given as a recommendation in the error message.
+
 === Adding expired items to the tracking list for testing
 
 Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
@@ -1295,17 +1469,18 @@ For more information about JSON objects, please refer to https://www.digitalocea
 
 === Deleting an item
 
-. Deleting an item while all items are listed
+. Deleting an item in either list while all items are listed
 
-.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be deleted must exist
+in the list.
 .. Test case: `delete|1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message.
 .. Test case: `delete|0` +
-   Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No item is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-. Deleting an item quantity
+. Deleting an item quantity in the main tracking list while all items are listed
 
 The examples given below acts according to the following list:
 
@@ -1319,9 +1494,34 @@ image::delete_example_list.png[]
    Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
    Details of this shift is reflected in the status message.
 .. Test case `delete|2|0` +
-   Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
+   Expected: Quantity is not reduced. Error details showed in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
    Expected: Similar to previous.
+
+. Deleting an item quantity in the replenish list while all items are listed
+
+.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+=== Tagging an item
+
+. Tagging items in either list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be tagged must have less than
+5 existing tags.
+.. Test case: `tag|1|#fruit` +
+   Expected: The first item in the list will be tagged with #Fruit.
+.. Other incorrect tagging commands to try: `tag|0`, `tag|x` +
+   Expected: No item is tagged. Error details shown in the status message.
 
 === Setting a reminder for an item
 
@@ -1335,6 +1535,8 @@ image::delete_example_list.png[]
    Expected: Reminder not set. Feedback shows error details.
 .. Test case `set reminder|1|365000` +
    Expected: Reminder not set. Feedback shows error details.
+.. Other incorrect set reminder commands to try: `set reminder|`, `set reminder|0` +
+   Expected: Similar to previous.
 
 . Removing a reminder for an item
 
@@ -1347,20 +1549,55 @@ image::delete_example_list.png[]
 
 . Find items expiring in a specific number of days
 
-.. Prerequisites: Current view is the main list. The list contains at least one expired item.
+.. Prerequisites: Current view is the main list. The list contains at least one expired item. The items you wish to check also must have either already expired or have reminders
+set for them previously.
+.. Test case: `check` +
+   Expected: Items that are expiring soon or have already expired are listed.
 .. Test case `check|0` +
    Expected: Expired items are displayed in the `View` (items in red). +
    Feedback shows listing of items expiring in 0 day.
 .. Test case `check|20` +
    Expected: Items expiring in 20 days are displayed in the `View`. +
    Feedback shows listing of items expiring in 20 days.
+.. Other incorrect set reminder commands to try: `check|2000000` +
+   Expected: No change in the display of items. Error details shown in the status message.
 
 . Find all expired items and items whose reminder date has been reached (items in yellow)
 
 .. Prerequisites: Current view is the main list. The list contains at least one expired item or item with active reminder.
 .. Test case `check` +
-   Expected: Expired items and items with active reminder in the `View` (items in red or yellow).
+   Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
    Feedback shows listing of expired items and items whose reminder has been activated.
+
+=== Sorting items
+
+. Sorting items by their name
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|name` +
+   Expected: The current item list is sorted with respect to their names in lexicographical order.
+.. Test case: `sort|naem` +
+   Expected:  No change in the order of items. The term `name` is given as a suggestion in the error message.
+.. Test case: `sort|NAME` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|0`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Sorting items by their date
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|date` +
+   Expected: The current item list is sorted with respect to their dates in chronological order.
+.. Test case: `sort|datee` +
+   Expected:  No change in the order of items. The term `date` is given as a suggestion in the error message.
+.. Test case: `sort|DATE` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
 
 === Saving data
 
