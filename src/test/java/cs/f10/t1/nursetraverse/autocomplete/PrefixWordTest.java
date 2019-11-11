@@ -2,8 +2,10 @@ package cs.f10.t1.nursetraverse.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import org.junit.jupiter.api.Test;
+
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
+
 
 class PrefixWordTest {
 

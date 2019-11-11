@@ -3,8 +3,10 @@ package cs.f10.t1.nursetraverse.autocomplete;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
 import org.junit.jupiter.api.Test;
+
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+
 
 class CommandWordTest {
     private CommandWord testCommandWord = new CommandWord("test1", "test2",

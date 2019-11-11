@@ -8,15 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedList;
 
+import org.junit.jupiter.api.Test;
+
+import cs.f10.t1.nursetraverse.model.HistoryRecord;
+
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.IndexWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
-import org.junit.jupiter.api.Test;
-
-import cs.f10.t1.nursetraverse.model.HistoryRecord;
-import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
 import cs.f10.t1.nursetraverse.model.patient.Name;

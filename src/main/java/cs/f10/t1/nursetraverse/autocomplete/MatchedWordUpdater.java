@@ -1,10 +1,10 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
+import java.util.LinkedList;
+
 import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
-
-import java.util.LinkedList;
 
 /**
  * Update current matching words based on string in command box text field

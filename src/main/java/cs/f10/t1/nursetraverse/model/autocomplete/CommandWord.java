@@ -1,8 +1,8 @@
 package cs.f10.t1.nursetraverse.model.autocomplete;
 
-import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
-
 import java.util.LinkedList;
+
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 
 /**
  * Represents an autocomplete command word(eg: find, sort, delete) in application

@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedList;
 
+import org.junit.jupiter.api.Test;
+
 import cs.f10.t1.nursetraverse.model.autocomplete.AssociableWord;
 import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
-import org.junit.jupiter.api.Test;
 
 class AssociableWordTest {
     private AssociableWord testAssociableWord =

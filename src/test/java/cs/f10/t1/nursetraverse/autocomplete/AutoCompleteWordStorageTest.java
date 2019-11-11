@@ -6,12 +6,12 @@ import static cs.f10.t1.nursetraverse.model.util.SampleDataUtil.getVisitTodos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
-import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
 import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
 import cs.f10.t1.nursetraverse.model.patient.Name;
