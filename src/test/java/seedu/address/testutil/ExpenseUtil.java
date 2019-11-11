@@ -29,6 +29,7 @@ public class ExpenseUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + expense.getName().fullName + " ");
         sb.append(PREFIX_AMOUNT + expense.getAmount().value + " ");
+        sb.append(PREFIX_CURRENCY + expense.getCurrency().name + " ");
         sb.append(PREFIX_DATE + expense.getDate().value + " ");
         sb.append(PREFIX_TAG + expense.getTag().tagName);
         return sb.toString();

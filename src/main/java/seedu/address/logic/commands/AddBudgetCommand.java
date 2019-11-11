@@ -29,7 +29,7 @@ public class AddBudgetCommand extends Command {
                                                             + PREFIX_END_DATE + "END-DATE...\n"
                                                             + "Example: " + COMMAND_WORD + " "
                                                             + PREFIX_NAME + "Japan Travel "
-                                                            + PREFIX_AMOUNT + "$2000.00 "
+                                                            + PREFIX_AMOUNT + "2000.00 "
                                                             + PREFIX_CURRENCY + "USD "
                                                             + PREFIX_DATE + "12/12/2019 "
                                                             + PREFIX_END_DATE + "18/12/2019\n";

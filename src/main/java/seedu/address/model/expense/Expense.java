@@ -133,10 +133,18 @@ public class Expense implements Comparable<Expense> {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n")
             .append("Name: " + getName())
-            .append("\n")
-            .append("Amount: " + getAmount())
-            .append(" " + getCurrency())
-            .append("\n")
+            .append("\n");
+        if (isForeign()) {
+            builder.append("Amount: " + getConvertedAmount())
+                .append(" " + DEFAULT_BASE_CURRENCY)
+                .append(" (" + String.format("%.2f", getAmount().getValue()))
+                .append(" " + getCurrency().toString())
+                .append(")");
+        } else {
+            builder.append("Amount: " + getAmount())
+                .append(" " + getCurrency().name);
+        }
+        builder.append("\n")
             .append("Date: " + getDate())
             .append("\n")
             .append("Tag: " + getTag());
