@@ -1315,15 +1315,16 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample transactions, repeaters, budgets and loans. Transactions created by
+repeaters are present as well. Window size is fixed at 960x720px.
 
-. Saving window preferences
+. Launch with corrupted config.json and/or preferences.json
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Manually edit config.json and/or preferences.json
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample transactions, repeaters, budgets and loans. Transactions created by
+repeaters are present as well. Window size is fixed at 960x720px.
 
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -1339,10 +1340,122 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Adding a repeater
+
+. Adding repeaters creates associated transactions
+
+.. Go to the repeaters tab
+.. Add a repeater using any valid `add` command +
+   Expected: Shows newly created repeater with correct fields
+.. Go to the transaction tab and use `filter` command to find newly added transactions +
+   Expected: Shows newly created transactions with correct fields for appropriate filters
+
+. Boundary value arguments
+.. Add a repeater with end date later than start date by exactly 60 months +
+   Expected: Repeater successfully added
+
+. Invalid command arguments
+
+.. Go to the repeaters tab
+.. Add a repeater with end date earlier than start date +
+   Expected: Error message displayed on console
+.. Add a repeater with end date later than start date by >60 months +
+   Expected: Error message displayed on console
+.. Add a repeater with both month offsets ignored +
+   Expected: Error message displayed on console
+
+. Duplicate repeaters
+
+.. Add any valid repeater
+.. Add a repeater with the exact same field +
+   Expected: Error message displayed on console
+
+=== Editing a repeater
+
+. Editing repeaters edits associated transactions
+
+.. Go to the repeaters tab
+.. If required, add a repeater
+.. Edit a repeater using a valid `edit` command (e.g. `edit 1 a/0.41`) +
+   Expected: Shows newly created repeater with correct fields
+.. Go to the transaction tab and use `filter` command to find newly edited transactions +
+   Expected: Shows newly edited transactions with correct fields for appropriate filters
+
+=== Deleting a repeater
+
+. Deleting repeaters delete associated transactions
+
+.. Go to the repeaters tab
+.. If required, add a repeater
+.. Delete a repeater using a valid `delete` command (e.g. `delete 1`) +
+   Expected: GUI no longer shows deleted repeater
+.. Go to the transaction tab and use `filter` command to find associated transactions +
+   Expected: Associated transactions cannot be found
+
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Launch with corrupted fundbook.json
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Manually edit and save data/fundbook.json, corrupting data by entering "aaaaa" at start of file.
+.. Double-click the jar file +
+   Expected: Shows the GUI with no data items. Window size is fixed at 960x720px.
 
-_{ more test cases ... }_
+. Relaunch after changing list of transactions
+
+.. Go to the transaction tab
+.. Add a transaction using the `add` command and exit IchiFund
+.. Double-click the jar file
+.. If necessary, use `filter` command to find newly added transaction +
+   Expected: Shows the GUI with newly added transaction
+.. Edit the transaction using the `edit` command and exit IchiFund
+.. Double-click the jar file
+.. If necessary, use `filter` command to find newly added transaction +
+   Expected: Shows the GUI with newly edited transaction
+.. Delete the transaction using the `delete` command and exit IchiFund
+.. Double-click the jar file
+.. If necessary, use `filter` command to find deleted transaction +
+   Expected: Shows the GUI without the deleted transaction
+
+. Relaunch after changing list of repeaters
+
+.. Go to the repeaters tab
+.. Add a repeater using the `add` command
+.. Exit IchiFund
+.. Double-click the jar file
+.. Go to repeaters tab+
+   Expected: GUI shows newly added repeater
+.. Go to the repeaters tab
+.. Edit a repeater using the `edit` command
+.. Go to the transaction tab and use `filter` command to find newly edited transactions +
+   Expected: Shows newly edited transactions for appropriate filters
+.. Exit IchiFund
+.. Double-click the jar file
+.. Go to repeaters tab, or search for newly edited transactions in transaction tab +
+   Expected: In repeaters tab, shows newly edited repeater; in
+transaction tab, shows newly edited transactions for appropriate filters
+.. Go to the repeaters tab
+.. Add a repeater using the `delete` command
+.. Exit IchiFund
+.. Double-click the jar file
+.. Go to repeaters tab +
+   Expected: In repeaters tab, deleted repeater is not shown
+
+. Relaunch after changing list of budgets
+
+.. Go to the budget tab
+.. Add a budget using the `add` command and exit IchiFund
+.. Double-click the jar file
+.. Go to the budget tab +
+   Expected: Shows the GUI with newly added budget. Budget progress is the same.
+.. Delete a budget using the `delete` command and exit IchiFund
+.. Double-click the jar file
+.. Go to the budget tab +
+   Expected: GUI does not show deleted budget
+
+. Relaunch after changing list of loans
+
+.. Go to the loan tab
+.. Add a loan using the `add` command and exit IchiFund
+.. Double-click the jar file
+.. Go to the loan tab +
+   Expected: Shows the GUI with newly added loan.
