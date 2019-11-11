@@ -50,7 +50,7 @@ This sections will show my contribution to the team project which consists of my
 **** Ensure that all test is pass then merge to the team repository: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/322[#322], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/344[#344])
 
 ** Enhancements to existing features:
-**** Implement variety of test cases for features which increase coverage from 44% to 48%: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/343[#343])
+**** Implement variety of test cases for features which increase coverage from 44% to 50%: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/343[#343], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/383[#383], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/393[#393])
 
 ** Documentation:
 **** Made improvement to Developer Guide with diagram and details issues: (Pull request: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/243[#243])
