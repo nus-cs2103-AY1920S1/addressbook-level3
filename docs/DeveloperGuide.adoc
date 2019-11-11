@@ -852,6 +852,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+//tag::manualTestingTemplate[]
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -933,6 +934,8 @@ Grocerylist should have several entries of FullFat Milk with slight variations i
 .. Test case: `slist addTemp 0`
    Expected: No items added into the shopping list. Error details shown in the status message.
 .. Other incorrect commands to try: `slist addTemp x` where x is greater than the template list size.
+
+//end::manualTestingTemplate[]
 
 === Saving data
 

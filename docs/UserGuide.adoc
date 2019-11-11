@@ -570,7 +570,10 @@ Examples:
 
 
 //tag::addTempfeature[]
+
 ==== Add items in template into shopping list: `slist addTemp`
+If you want to make sure you have all the items in a template, You can automatically generate a shopping list using the template without
+having to check your grocerylist .
 
 Adds all template items that are not currently found in the grocery list into the shopping list. +
 Format: `slist addTemp INDEX`
@@ -580,6 +583,7 @@ Examples:
 * `slist addTemp 1`
 
 //end::addTempfeature[]
+
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
@@ -747,7 +751,7 @@ are expired and automatically moves them into the waste list.
 |`tlist clear` | Clears all template entries from the template list
 |`tlist list` | Shows all entries in the template list
 |`tlist template add TEMPLATEINDEX [n/NAME] [a/AMOUNT]` | Adds an item into a specified template
-|`tlist n/TEMPLATENAME edit INDEX [n/FOODITEM] [a/AMOUNT]` | Edits a specified item in the specified template TEMPLATENAME
+|`tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/FOODITEM] [a/AMOUNT]` | Edits a specified item in the specified template TEMPLATENAME
 |`tlist template delete TEMPLATEINDEX i/ITEMINDEX` | Deletes the specified item from the specified template
 |`tlist template list TEMPLATEINDEX` | Shows all entries in the specified template
 |`slist add n/FOOD_ITEM a/AMOUNT` | Adds a new item to the shopping list
