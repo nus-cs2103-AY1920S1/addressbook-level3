@@ -16,21 +16,11 @@ import seedu.moolah.testutil.TypicalMooLah;
 public class JsonSerializableMooLahTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMooLahTest");
-    private static final Path TYPICAL_EXPENSES_FILE = TEST_DATA_FOLDER.resolve("typicalExpensesMooLah.json");
     private static final Path INVALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("invalidExpenseMooLah.json");
     private static final Path DUPLICATE_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("duplicateExpenseMooLah.json");
     private static final Path TYPICAL_EVENTS_FILE = TEST_DATA_FOLDER.resolve("typicalEventsMooLah.json");
     private static final Path INVALID_EVENT_FILE = TEST_DATA_FOLDER.resolve("invalidEventMooLah.json");
     private static final Path DUPLICATE_EVENT_FILE = TEST_DATA_FOLDER.resolve("duplicateEventMooLah.json");
-
-    //    @Test
-    //    public void toModelType_typicalExpensesFile_success() throws Exception {
-    //        JsonSerializableMooLah dataFromFile = JsonUtil.readJsonFile(TYPICAL_EXPENSES_FILE,
-    //                JsonSerializableMooLah.class).get();
-    //        MooLah mooLahFromFile = dataFromFile.toModelType();
-    //        MooLah typicalExpensesMooLah = TypicalMooLah.getTypicalExpensesOnlyMooLah();
-    //        assertEquals(mooLahFromFile, typicalExpensesMooLah);
-    //    }
 
     @Test
     public void toModelType_invalidExpenseFile_throwsIllegalValueException() throws Exception {

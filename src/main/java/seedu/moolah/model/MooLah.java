@@ -25,25 +25,6 @@ public class MooLah implements ReadOnlyMooLah {
     private final UniqueBudgetList budgets;
     private final UniqueEventList events;
 
-    /*
-     * The 'unusual' code block below is a non-static initialization block,
-     * sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to
-     * avoid duplication among constructors.
-     */
-    /*{
-        expenses = new UniqueExpenseList();
-        budgets = new UniqueBudgetList();
-        if (budgets.isEmpty()) {
-            Budget defaultBudget = Budget.createDefaultBudget();
-            defaultBudget.setPrimary();
-            budgets.add(defaultBudget);
-        }
-        events = new UniqueEventList();
-    }*/
-
     public MooLah() {
         expenses = new UniqueExpenseList();
         budgets = new UniqueBudgetList();
@@ -97,27 +78,6 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
-        //setPrimaryBudget(newData.getPrimaryBudgetName());
-        //budgets.handleDuplicatePrimaryBudgets();
-        //resetBudgetExpenseLists();
-    }
-
-    /**
-     * Update expense list of all budgets as a result of UndoCommand on expenses.
-     */
-    private void resetBudgetExpenseLists() {
-        /*
-        for (Budget b : budgets) {
-            b.clearExpenses();
-        }
-        for (Expense e : expenses) {
-            Budget b = budgets.getBudgetWithName(e.getBudgetName());
-            if (b != null) {
-                b.addExpense(e);
-            }
-        }
-
-         */
     }
 
     //=========== Expense-level operations =============================================================
@@ -200,6 +160,7 @@ public class MooLah implements ReadOnlyMooLah {
 
     /**
      * Checks whether MooLah has a budget with the specified name.
+     *
      * @param targetDescription The description (i.e. name) of the budget to check.
      * @return A boolean indicating whether the MooLah has such budget.
      */
@@ -210,7 +171,6 @@ public class MooLah implements ReadOnlyMooLah {
 
     /**
      * Returns the primary budget in the MooLah.
-     * @return The primary budget in the MooLah.
      */
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
@@ -311,9 +271,6 @@ public class MooLah implements ReadOnlyMooLah {
         requireNonNull(editedEvent);
 
         events.setEvent(target, editedEvent);
-        //        for (Budget budget : budgets) {
-        //            budget.setEvent(target, editedEvent);
-        //        }
     }
 
     @Override

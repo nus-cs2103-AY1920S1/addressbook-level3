@@ -124,8 +124,12 @@ public class BudgetCard extends UiPart<Region> {
     /**
      * Sets the progress bar colour to the colour defined in the stylesheet {@code -progress-bar-colour}.
      * If the budget total amount exceeds the budget allocated amount, the progress bar colour is set to
-     * {@code -progress-bar-overbudget}, else it is set to {@code -progress-bar-inbudget}, as defined in the
-     * stylesheet.
+     * {@code -progress-bar-overbudget}.
+     * If the budget total amount is near the budget allocated amount, the progress bar colour is set to
+     * {@code -progress-bar-nearbudget}.
+     * If the budget total amount is half the budget allocated amount, the progress bar colour is set to
+     * {@code -progress-bar-halfbudget}.
+     * Else the progress bar colour is set to {@code -progress-bar-inbudget}.
      */
     private void updateBudgetCardProgressBarColour() {
         if (budget.isDefaultBudget()) {

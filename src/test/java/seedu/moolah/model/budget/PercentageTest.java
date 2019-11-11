@@ -64,16 +64,16 @@ public class PercentageTest {
 
     @Test
     public void testEquals() {
-        //Not a Percentage object
+        // not a percentage object
         assertFalse(SAMPLE_PERCENTAGE.equals(""));
 
-        //Same as this object
+        // same as this object
         assertTrue(SAMPLE_PERCENTAGE.equals(SAMPLE_PERCENTAGE));
 
-        //Percentage with different value
+        // percentage with different value
         assertFalse(SAMPLE_PERCENTAGE.equals(new Percentage(40)));
 
-        //Percentage with same value
+        // percentage with same value
         assertTrue(SAMPLE_PERCENTAGE.equals(new Percentage(33)));
     }
 

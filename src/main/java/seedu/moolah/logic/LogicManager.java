@@ -116,10 +116,6 @@ public class LogicManager implements Logic {
 
         return commandResult;
     }
-    //@Override
-    //public ObservableList<Budget> getFilteredBudgetList() {
-    //  return model.getFilteredBudgetList();
-    //}
 
     @Override
     public Budget getPrimaryBudget() {

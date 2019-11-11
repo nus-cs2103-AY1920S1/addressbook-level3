@@ -109,8 +109,7 @@ public class Timekeeper {
     }
 
     /**
-     * Dummy.
-     *
+     * Refreshes all budgets (except default budget) in MooLah.
      */
     public void refreshBudgets() {
         for (Budget budget : budgets) {

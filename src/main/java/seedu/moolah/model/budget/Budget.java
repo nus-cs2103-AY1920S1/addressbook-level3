@@ -37,7 +37,7 @@ public class Budget {
     private ObservableList<Expense> expenses;
     private boolean isPrimary;
 
-    //Constructor for user, four fields.
+    //Constructor for user input, four fields.
     public Budget(Description description, Price amount, Timestamp startDate, BudgetPeriod period) {
         requireAllNonNull(description, amount, startDate, period);
 
@@ -122,6 +122,7 @@ public class Budget {
      */
     public Budget normalize(Timestamp anchor) {
         requireNonNull(anchor);
+
         if (this.isDefaultBudget()) {
             return this; // default budget has "infinity" period, no need to normalize
         }
@@ -146,6 +147,7 @@ public class Budget {
      */
     public void addExpense(Expense toAdd) {
         requireNonNull(toAdd);
+
         if (!this.expenses.contains(toAdd)) {
             this.expenses.add(toAdd);
         }
@@ -158,6 +160,7 @@ public class Budget {
      */
     public void removeExpense(Expense toRemove) {
         requireNonNull(toRemove);
+
         this.expenses.remove(toRemove);
     }
 
@@ -174,8 +177,11 @@ public class Budget {
         for (Expense e : this.expenses) { // Change budget name in expenses
             e.setBudget(other);
         }
-        if (other.expenses != this.expenses) { // Prevents concurrent modification
-            for (Expense e : this.expenses) { // Add expenses to other budget's expense list
+        if (other.expenses == this.expenses) { // Prevents concurrent modification
+            return;
+        }
+        for (Expense e : this.expenses) { // Add expenses to other budget's expense list
+            if (!other.expenses.contains(e)) {
                 other.expenses.add(e);
             }
         }
