@@ -128,7 +128,7 @@ For example, the `Logic` component in _Figure 2_ defines it's API in the `Logic.
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
-The `logic` component's class diagram shows the relationships between the components it interacts with. Also, it provides the flow of the actions with arrows.
+The `Logic` component's class diagram shows the relationships between the components it interacts with. Also, it provides the flow of the actions with arrows.
 
 [discrete]
 ==== How the application modes works?
@@ -189,15 +189,15 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
-This section describes the behaviour of the `logic` component in details.
-The _figure_ below portrays the internal structures of the `logic` components and their interactions.
+This section describes the behaviour of the `Logic` component in details.
+The _figure_ below portrays the internal structures of the `Logic` components and their interactions.
 
 [[fig-LogicClassDiagram]]
-.Class diagram of the structure of the `logic` Component
+.Class diagram of the structure of the `Logic` Component
 image::LogicClassDiagram.png[]
 
 The class diagram above draws out the relationships between the internal components and their flow of actions.
-The segment below provides more details of the `logic` components and its API's link.
+The segment below provides more details of the `Logic` components and its API's link.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -215,7 +215,7 @@ The _figure_ below is the sequence diagram for the interactions within the `Logi
 Assuming that the user is in the _flashcard_ mode.
 ====
 
-.Sequence diagram for the interactions Inside the `logic` Component for the `delete 1` Command
+.Sequence diagram for the interactions Inside the `Logic` Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
 [IMPORTANT]
