@@ -16,12 +16,13 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class TabState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Tab command initiated. Please enter the tab you would like"
-            + " to shift to, prefixed by \"b/\"."
-            + " The available tabs are \"game\", \"calendar\", \"engagement\" and \"report\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid tab name after \"b/\".";
-    private static final String MESSAGE_INVALID = "Invalid input! The tab name should be one of"
-            + " game, calendar, engagement or report";
+    private static final String MESSAGE_CONSTRAINTS = "Which tab would you like to shift to? Please enter the tab"
+            + " to shift to, prefixed by " + PREFIX_TAB.getPrefix()
+            + ". Example - [b/calendar]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid tab name after "
+            + PREFIX_TAB.getPrefix() + ". The tab name must be one of \"game\", \"engagement\","
+            + " \"calendar\" or \"report\"";
+
     private static final String KEYWORD_GAME_TAB = "game";
     private static final String KEYWORD_ENGAGEMENT_TAB = "engagement";
     private static final String KEYWORD_CALENDAR_TAB = "calendar";
@@ -55,7 +56,7 @@ public class TabState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> tab)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(tab, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(tab, MESSAGE_INVALID_INPUT);
         enforceValidity(tab);
     }
 
@@ -68,7 +69,7 @@ public class TabState extends PenultimateState {
     private void enforceValidity(Optional<String> tab) throws StateTransitionException {
         String tabString = tab.get();
         if (!isValid(tabString)) {
-            throw new StateTransitionException(MESSAGE_INVALID);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 

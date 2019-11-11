@@ -21,12 +21,11 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 public class CalendarState extends PenultimateState {
 
     private static final String MESSAGE_CONSTRAINTS = "What would you like to do with the calendar? Please enter"
-            + " the command prefixed by \"c/\". Allowed actions are"
-            + " \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid action after \"c/\"."
-            + " Allowed actions are \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
-    private static final String MESSAGE_INVALID_INPUT = "Invalid input!"
-            + " Allowed actions are \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
+            + " the command prefixed by " + PREFIX_CALENDAR.getPrefix() + ". Allowed actions are"
+            + " \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\". Example - [c/nextmonth]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid action after "
+            + PREFIX_CALENDAR.getPrefix()
+            + ". Allowed actions are \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".";
 
     public CalendarState(ArgumentMultimap soFar) {
         super(soFar);
@@ -46,7 +45,7 @@ public class CalendarState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> operation)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(operation, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(operation, MESSAGE_INVALID_INPUT);
         enforceValidity(operation);
     }
 

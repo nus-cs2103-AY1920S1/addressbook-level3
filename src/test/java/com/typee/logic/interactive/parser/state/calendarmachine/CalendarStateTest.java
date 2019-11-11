@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.calendarmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_CALENDAR;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,6 +16,9 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 
 public class CalendarStateTest {
 
+    public static final String EXPECTED_CONSTRAINTS = "What would you like to do with the calendar? Please enter"
+            + " the command prefixed by " + PREFIX_CALENDAR.getPrefix() + ". Allowed actions are"
+            + " \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\". Example - [c/nextmonth]";
     private CalendarState calendarState;
 
     @BeforeEach
@@ -106,9 +110,7 @@ public class CalendarStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(calendarState.getStateConstraints(), "What would you like to do with the calendar? Please enter"
-                + " the command prefixed by \"c/\". Allowed actions are"
-                + " \"nextmonth\", \"previousmonth\", \"opendisplay\", and \"closedisplay\".");
+        assertEquals(EXPECTED_CONSTRAINTS, calendarState.getStateConstraints());
     }
 
     @Test

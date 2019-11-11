@@ -22,6 +22,9 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class EndDateStateTest {
 
+    private static final String EXPECTED_CONSTRAINTS = "When should the engagement end? Please enter the end"
+            + " date-time prefixed by " + PREFIX_END_TIME.getPrefix() + ". Example - [e/15/11/2019/1600]";
+
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
@@ -191,8 +194,7 @@ class EndDateStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new EndDateState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "Please enter an end date and time prefixed by \"e/\"."
-                + " The start time must conform to the dd/mm/yyyy/hhmm format.");
+        assertEquals(EXPECTED_CONSTRAINTS, state.getStateConstraints());
     }
 
     @Test

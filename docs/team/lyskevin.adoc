@@ -1,0 +1,239 @@
+= Lim Yong Shen, Kevin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Typee
+
+[PROFILE]
+====
+--
+image::lyskevin.png[width="130", align="center"]
+--
+Welcome to my CS2103T project portfolio page for project Typee. The following pieces of software were used in the development of Typee:
+--
+image:java-logo.png[width="50", height="50"]
+image:junit5-logo.png[width="50", height="50"]
+image:json-logo.png[width="50", height="50"]
+image:travis-logo.png[width="50", height="50"]
+image:appveyor-logo.png[width="50", height="50"]
+image:github-logo.png[width="50", height="60"]
+image:javafx-logo.png[width="80"]
+image:coveralls-logo.png[width="80"]
+image:codacy-logo.png[width="100"]
+
+====
+
+== Overview
+
+Typee is a desktop engagement manager which helps secretaries and receptionists manage their daily work. Engagements comprise of appointments,
+interviews and meetings. Secretaries and receptionists are likely to manage these tasks as part of their profession. The primary means of
+interaction is through the Command Line Interface (CLI) because the application was built with fast typers in mind. The application also
+provides a Graphical User Interface (GUI) which was created using JavaFX and FXML. The rest of the software was built with Java.
+
+== Summary of Contributions
+
+* *Major enhancement*: Added the *calendar window* feature. +
+** What it does: The calendar displays general date and engagement information. It is capable of displaying a list of engagements
+for each displayed date and lets users navigate back and forth between months. +
+** Justification: This feature gives the user a visual representation of the engagements that they have for the month. It adds
+both breadth (engagement information across the entire month) and depth (individual engagement lists for each day) to the application. +
+** Highlights: This enhancement was challenging to implement because it required heavy use of JavaFX and FXML, which I was not well-versed
+in. The calendar window also updates itself in real-time as engagements are added or deleted, which involved careful management of dependencies. +
+between different areas of the codebase. The implementation involved parsing dates, which can be notoriously tedious in programming.
+** Credits: The UI code for the calendar window was adapted from https://github.com/SirGoose3432/javafx-calendar.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lyskevin&tabRepo=AY1920S1-CS2103T-F14-3%2Fmain%5Bmaster%5D[Link]]
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Refactored unit tests to increase test coverage from 24% to 47%. This was just after refactoring Address Book 3's code, which broke a lot
+of tests (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/89[#89], https://github.com/AY1920S1-CS2103T-F14-3/main/pull/90/files[#90],
+https://github.com/AY1920S1-CS2103T-F14-3/main/pull/91/files[#91], and https://github.com/AY1920S1-CS2103T-F14-3/main/pull/92[#92]).
+** Documentation:
+*** Changed Address Book 3's user guide to reflect Typee's features (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/27/files[#27])
+*** Added use cases to the developer guide (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/61[#61])
+*** Updated README and UI screenshot (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/47/files[#47])
+*** Updated Contact Us page (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/9/files[#9])
+*** Updated Abous Us page (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/35/files[#35])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65]
+*** Reported bugs and suggestions for other teams in the class: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/111[Tagline],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11[MoneyGoWhere]
+*** Some class mates used parts of the calendar feature which I implemented (https://github.com/AY1920S1-CS2103T-F14-2/main/pull/221/files[TutorAid])
+** Tools:
+*** Set up Travis Continuous Integration (CI) for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/47/files[#47],
+https://github.com/AY1920S1-CS2103T-F14-3/main/pull/49/files[#49]).
+*** Set up AppVeyor CI for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/66[#66]).
+*** Set up Coveralls for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/64[#64]).
+
+== Contributions to the User Guide
+
+|===
+|_Given below are parts of my contributions to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
+Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
+Nothing will happen if this command is used with a date which already has an open engagements list window.
+
+Format: `calendar c/opendisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+If a date from another month is used to open an engagement list window, the calendar view will switch to
+display that specified month. This command can be used to quickly switch to another month which is not immediately before or
+after the currently displayed month.
+
+All engagement list windows will be closed if something is done to change the displayed calendar month
+(e.g. using the `calendar c/nextmonth` command). This includes using this command as mentioned in the above paragraph.
+
+Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
+in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
+The calendar's display then switches to December 2019 and the engagement list window for 11 December 2019 opens up.
+
+This command does not work if the application is in another tab or the specified date is invalid.
+
+.Engagement list for 01/11/2019
+image::calendar-open-display.png[width="450", align="center"]
+{empty} +
+The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
+calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
+the calendar view for November 2019, albeit at the top left corner.
+
+Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
+for that date.
+
+=== Closing a displayed list of engagements for a specified date (calendar view only): `calendar c/closedisplay`
+Closes the open engagements list window for the specified date. This command does not work if the application
+if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
+
+Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
+Changes the calendar view to the month following the currently displayed one. This command does not work if the
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
+
+Format: `calendar c/nextmonth`
+
+.Changing to the next month from November 2019
+image::calendar-next-month.png[width="450", align="center"]
+{empty} +
+Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
+
+=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
+Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
+application is in another tab or if attempting to go below the minimum allowable year of 0001.
+
+Format: `calendar c/previousmonth`
+
+.Changing to the previous month from November 2019
+image::calendar-previous-month.png[width="450", align="center"]
+{empty} +
+Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
+to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
+
+This command closes any open engagement windows from the current month before updating the display to the previous month.
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are parts of my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== Calendar Window
+
+The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
+Users can choose to change the month being displayed and also open scrolling text windows which
+show more detailed descriptions of the stored engagements for a particular day.
+
+==== Implementation Structure
+.Structure of the Calendar Window
+image::CalendarWindowClassDiagram.png[align="center"]
+{empty} +
+The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
+displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
+
+The following sequence diagram shows the creation of a `CalendarWindow` instance when the user switches to the
+calendar window tab.
+
+.CalendarWindow Initialization Sequence Diagram
+image::CalendarWindowSequenceDiagram.png[align="center"]
+{empty} +
+
+==== UI Design
+The `CalendarWindow` class was designed with the observer pattern in mind. The calendar's display and any open engagements
+list windows are automatically updated as engagements are added to or deleted from the application. `CalendarDateCell` and
+`EngagementListViewCell` both have a reference to an `ObervableList` of engagements in order to conform to the observer pattern.
+The following table shows all UI components which are used and their respective purposes.
+
+.Calendar Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `DateDisplayGrid`
+| GridPane
+| Displays a grid which represents 35 calendar dates.
+| Shows the user the days of the month which is currently being displayed.
+
+| `CalendarDateStackPane`
+| StackPane
+| Displays the date of a single `CalendarDateCell` and the number of engagements for that date.
+| Provides the user with some general engagement information for a particular date.
+
+| `PreviousMonthButton`
+| Button
+| Switches the calendar's display to the previous month.
+| Allows the user to navigate to the previous month.
+
+| `CalendarTitle`
+| Text
+| Indicates the month and year currently being displayed by the calendar window.
+| Informs the month and year currently being displayed by the calendar window.
+
+| `NextMonthButton`
+| Button
+| Switches the calendar's display to the next month.
+| Allows the user to navigate to the next month.
+
+| `EngagementListView`
+| ListView
+| Displays a list of engagements for a particular date.
+| Lets the user see more detailed information about all of his/her engagements for a particular date
+
+| `EngagementListViewCell`
+| ListCell
+| Displays information for a single engagement.
+| Allows the user to see detailed information about a single engagement. This is used as the cell factory for ListView.
+
+|===
+
+==== Command Execution Workflows
+
+The following command interacts with the `CalendarWindow`. It is accompanied by an activity diagram which models its workflow:
+
+* `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
+
+.Open Display Activity Diagram
+image::CalendarOpenDisplayActivityDiagram.png[align="center"]
+{empty} +
+
+==== Design Considerations
+
+===== Aspect: Information being displayed in each calendar cell
+
+* **Alternative 1 (current choice):** Only display the number of engagements for each date.
+** Pros: Does not take up a lot of on-screen space. More detailed information about each day's engagements can be viewed
+by opening the engagements list window for that particular date.
+** Cons: The information shown in the calendar window is very generalized.
+* **Alternative 2:** Display the descriptions (and maybe more detailed information) of each date's engagements.
+** Pros: Shows more detailed information in the calendar window.
+** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
+The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
+

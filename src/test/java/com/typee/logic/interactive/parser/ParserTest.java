@@ -1,5 +1,7 @@
 package com.typee.logic.interactive.parser;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_DATE;
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PROPERTY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,11 +31,8 @@ class ParserTest {
     private static final String VALID_COMMAND_WORD_3 = "redo";
     private static final String COMMAND_WORD_SORT = "sort";
     private static final String COMMAND_WORD_CURRENT = "// current";
-    private static final String MESSAGE_SORT_PROPERTY_STATE = "Sort command initiated."
-            + " Please enter the property you would"
-            + " like to sort by, prefixed by \"p/\". The sortable properties are start date,"
-            + " end date, description and priority, to be specified as \"start\", \"end\","
-            + " \"description\" and \"priority\" respectively.";
+    private static final String MESSAGE_SORT_PROPERTY_STATE = "Which property would you like to sort by? Please"
+            + " enter the property prefixed by " + PREFIX_PROPERTY.getPrefix() + ". Example - [p/start]";
     private static final String INVALID_COMMAND_EXCESSIVE_ARGUMENTS = "delete i/5 t/meeting";
     private static final String MESSAGE_INACTIVE_PARSER = "The arguments of the"
             + " previously entered command have been flushed."
@@ -41,8 +40,8 @@ class ParserTest {
     private static final String COMMAND_WORD_DELETE = "delete";
     private static final String COMMAND_WORD_CLEAR_ARGUMENTS = "// clear";
     private static final String PARTIAL_CALENDAR_INPUT = "calendar c/opendisplay";
-    private static final String MESSAGE_OPEN_DISPLAY_STATE = "Please enter a valid date in"
-            + " the dd/mm/yyyy format, prefixed by \"d/\".";
+    private static final String MESSAGE_OPEN_DISPLAY_STATE = "Which day's engagements would you like to view?"
+            + " Please enter a date prefixed by " + PREFIX_DATE.getPrefix() + ". Example - [d/15/11/2019]";
     private static final String COMMAND_WORD_EXIT = "exit";
     private static final String PARTIAL_ADD_COMMAND_1 = "add t/interview s/15/11/2019/1600 e/16/11/2019/1700";
     private static final String PARTIAL_ADD_COMMAND_2 = "l/COM-1 d/Team Meeting";
@@ -54,6 +53,7 @@ class ParserTest {
     private static final String COMMAND_WORD_TAB = "tab";
     private static final String PARTIAL_CALENDAR_COMMAND = "b/calendar";
     private static final String KEYWORD_CALENDAR_TAB = "Calendar";
+
     private InteractiveParser interactiveParser;
 
     @BeforeEach

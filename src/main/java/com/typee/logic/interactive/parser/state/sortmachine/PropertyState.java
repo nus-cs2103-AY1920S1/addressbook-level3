@@ -15,12 +15,12 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class PropertyState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Sort command initiated. Please enter the property you would"
-            + " like to sort by, prefixed by \"p/\". The sortable properties are start date, end date, description"
-            + " and priority, to be specified as \"start\", \"end\", \"description\" and \"priority\" respectively.";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid property after \"p\".";
-    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Accepted properties are"
-            + " \"start\", \"end\", \"description\" and \"priority\".";
+    private static final String MESSAGE_CONSTRAINTS = "Which property would you like to sort by? Please enter the "
+            + "property prefixed by " + PREFIX_PROPERTY.getPrefix() + ". Example - [p/start]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a property after "
+            + PREFIX_PROPERTY.getPrefix() + ". Accepted properties are \"start\", \"end\","
+            + " \"description\" and \"priority\".";
+
     private static final String KEYWORD_START_PROPERTY = "start";
     private static final String KEYWORD_END_PROPERTY = "end";
     private static final String KEYWORD_DESCRIPTION_PROPERTY = "description";
@@ -44,7 +44,7 @@ public class PropertyState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> property)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(property, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(property, MESSAGE_INVALID_INPUT);
         enforceValidity(property);
     }
 

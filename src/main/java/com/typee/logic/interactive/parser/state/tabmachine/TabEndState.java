@@ -62,6 +62,7 @@ public class TabEndState extends EndState {
             return new Tab(KEYWORD_CALENDAR_TAB);
 
         default:
+            logger.severe(String.format(LOG_BUILD_FAILURE, TabCommand.class, MESSAGE_INVALID_INPUT));
             throw new CommandException(MESSAGE_INVALID_INPUT);
         }
     }

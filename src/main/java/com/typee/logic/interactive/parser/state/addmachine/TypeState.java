@@ -16,10 +16,12 @@ import com.typee.model.engagement.EngagementType;
  */
 public class TypeState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Add Command initiated. Please enter a valid engagement type"
-            + " after the prefix \"t/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Please enter a valid engagement type following"
-            + " \"t/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Let's add an engagement! What is the type of the engagement to"
+            + " be added? Please enter the type of the engagement prefixed by " + PREFIX_ENGAGEMENT_TYPE.getPrefix()
+            + ". Example - [t/meeting]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid engagement type after "
+            + PREFIX_ENGAGEMENT_TYPE.getPrefix() + ". An engagement should be an appointment, interview"
+            + " or a meeting";
 
     public TypeState(ArgumentMultimap soFar) {
         super(soFar);
@@ -39,13 +41,13 @@ public class TypeState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> typeValue)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(typeValue, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(typeValue, MESSAGE_INVALID_INPUT);
         enforceValidity(typeValue);
     }
 
     private void enforceValidity(Optional<String> typeValue) throws StateTransitionException {
         if (!EngagementType.isValid((typeValue.get()))) {
-            throw new StateTransitionException(EngagementType.getMessageConstraints());
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 

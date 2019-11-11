@@ -82,7 +82,7 @@ public class CalendarWindow extends UiPart<Region> {
         for (CalendarDateCell calendarDateCell : calendarDateCells) {
             setDate(calendarDateCell, calendarDate);
             addAllEngagementsForDate(calendarDateCell, calendarDate);
-            updateEngagementCountDisplay(calendarDateCell);
+            calendarDateCell.updateEngagementCountDisplay();
             calendarDate = calendarDate.plusDays(1);
         }
     }
@@ -112,7 +112,7 @@ public class CalendarWindow extends UiPart<Region> {
     }
 
     /**
-     * Sets the openSingleDayEngagementsDisplayWindow date of the specified {@code CalendarDateCell} to the
+     * Sets the display date of the specified {@code CalendarDateCell} to the
      * date represented by the specified {@code LocalDate}.
      *
      * @param calendarDateCell The specified {@code CalendarDateCell}.
@@ -140,25 +140,6 @@ public class CalendarWindow extends UiPart<Region> {
             if (DateUtil.isWithinTimeSlot(calendarDate, engagement.getTimeSlot())) {
                 calendarDateCell.addEngagement(engagement);
             }
-        }
-    }
-
-    /**
-     * Updates the specified {@code CalendarDatePane} to openSingleDayEngagementsDisplayWindow the number of engagements
-     * in the specified {@code CalendarDateCell}.
-     *
-     * @param calendarDateCell The specified {@code CalendarDateCell}.
-     */
-    private void updateEngagementCountDisplay(CalendarDateCell calendarDateCell) {
-        if (calendarDateCell.getNumberOfEngagements() > 0) {
-            Text engagementCountDisplay;
-            if (calendarDateCell.getNumberOfEngagements() == 1) {
-                engagementCountDisplay = new Text("1 engagement");
-            } else {
-                engagementCountDisplay = new Text(calendarDateCell.getNumberOfEngagements() + " engagements");
-            }
-            StackPane.setAlignment(engagementCountDisplay, Pos.CENTER);
-            calendarDateCell.getCalendarDateStackPane().getChildren().add(engagementCountDisplay);
         }
     }
 

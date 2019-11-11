@@ -24,6 +24,9 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class DescriptionStateTest {
 
+    public static final String EXPECTED_CONSTRAINTS = "What is the engagement about? Please enter a brief description "
+            + "prefixed by " + PREFIX_DESCRIPTION.getPrefix() + ". Example - [d/CS2103T Discussion.]";
+
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
@@ -155,7 +158,7 @@ class DescriptionStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new DescriptionState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "Please enter a non-blank description prefixed by \"d/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, state.getStateConstraints());
     }
 
     @Test
