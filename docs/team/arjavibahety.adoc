@@ -1,4 +1,18 @@
 = Bahety Arjavi - Project Portfolio
+:site-section: DeveloperGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:toclevels: 3
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-T13-2/tree/master
 
 == PROJECT: Mortago
 
@@ -26,29 +40,21 @@ managers who prefer typing while still enjoy the benefits of Graphical User Inte
 over a short span of 6 weeks and has approximately 20,000 lines of code. It aims to make mortuary management, an area
 often lacking much technological innovations, hassle free.
 
-In a mortuary, a mortuary manager needs to do bookkeeping of bodies admitted and manually keep track of the status of
-each one of them. If the next of kin of a body cannot be contacted within 24 hours, he need to report it to the
-police so that they can do a more thorough investigation. They also need to manually track which fridge is vacant and
-can be used to store a body as it awaits to be claimed.
-
-Mortago is here to help! It is not just any regular record keeping database management system. It is a one-stop platform which automates
-fridge management, reminds its users of necessary updates, and even allows them to
-conveniently generate reports! It completely removes the need to use a register and allows managers to store even
-more comprehensive data such as organs for donation for a particular body. It consolidates all the
-information about bodies and fridges which a mortuary manager could possible need into one beautiful dashboard. It
-also draws statistical charts which are updated in real-time to better help managers visualize data trends.
+Mortago is a one-stop platform which automates fridge management, reminds its users of necessary updates,
+and even allows them to conveniently generate reports! It completely removes the need to use a register. It consolidates all the
+information about bodies and fridges in one beautiful dashboard. It also plots charts which are updated in
+real-time to help managers visualize data trends.
 
 I worked on the notification feature and the delete command. Moreover, I was responsible for automating fridge
 management in Mortago. The sections below summarize my contributions to the code base, user guide, developer guide, as
-well
-as other team project tasks.
+well as other team project tasks.
 
 The following are the frequently used symbols used in this document:
 
-`delete` :A grey highlight indicates that this text is either a full or partial command that can be
+* `delete` : A grey highlight indicates that this text is either a full or partial command that can be
 entered into the CLI. It can also mean a component, class, function, or object used in the code base.
 
-[TIP] : Light bulb indicates important additional information for a particular command.
+* [TIP] : Light bulb indicates important additional information for a particular command.
 
 
 === 2. Summary of contributions
@@ -74,8 +80,7 @@ was reused to create `NotifWindow`.
 *Major Enhancement:* I morphed the `delete` command in AB3
 
 * What it does: The `delete` command allows the user to delete a `Body`, `Worker`, or `Fridge` in Mortago. It uses
-flagging
-to differentiate them.
+flagging to differentiate them.
 * Justification: If the user enters a body by mistake, the `delete` command offers a convenient way to rectify the
 mistake. Flagging is used because it is more convenient for the user instead of using 3 different commands for
 deletion.
