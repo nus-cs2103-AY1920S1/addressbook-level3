@@ -257,10 +257,6 @@ image::DGApptFollowUpActivityDiagram.png[]
 // tag::profile[]
 === Profile feature
 
-[.text-center]
-.VISIT's Profile Feature. Profile Panel (left) and an exported Profile .txt file (right)
-image::PppProfile0.png[width="600"]
-
 ==== Implementation
 
 The *Profile feature* allows the user to be able to *see the full details of the patient* as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`. The Profile feature also enables users to *export the Profile as a read-only text file* for archiving.

@@ -209,9 +209,6 @@ You can generate a text file containing the contents of the Patient's Profile, f
 
 *Step 1*: Press kbd:[p] on your keyboard or click the kbd:[Generate Profile File] button.
 
-[.text-center]
-image::UGProfile2.png[width="500"]
-
 [NOTE]
 You will see a message saying "_Profile .txt created in /generated_profiles/_." once the Profile has been successfully generated.
 
