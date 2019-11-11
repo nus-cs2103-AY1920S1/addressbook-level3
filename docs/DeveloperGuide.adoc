@@ -1417,6 +1417,20 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size). +
    Expected: Similar to previous.
 
+=== Adding an event
+
+. Adding an event while all events are listed
+
+.. Prerequisites: List all events using the `view performance` command. Multiple events in the list
+(`freestyle 50m` is inside, `backstroke 100m` is not).
+.. Test case: `event backstroke 100m` +
+   Expected: `backstroke 100m` event is added to the list. Details of the added event shown in the status message.
+.. Test case: `event freestyle 50m` +
+   Expected: No event is added. Error details shown in the status message.
+.. Other incorrect add commands to try: `add event`, `new event`. +
+   Expected: The former will result in an error message for adding a person. The latter will result in a
+general unknown command error message.
+
 === Deleting an event
 
 . Deleting an event while all events are listed
@@ -1426,6 +1440,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete -e freestyle 50m` +
    Expected: `freestyle 50m` event is deleted from the list. Details of the deleted event shown in the status message.
 .. Test case: `delete -e backstroke 100m` +
-   Expected: No event is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No event is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete e`, `delete event`.
    Expected: Similar to previous.
