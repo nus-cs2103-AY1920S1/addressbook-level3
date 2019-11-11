@@ -1,4 +1,4 @@
-== John (Kyungho) Min - Project Portfolio
+= John (Kyungho) Min - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
