@@ -29,8 +29,6 @@ This symbol indicates important information.
 
 `suggest` A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-{empty} +
-
 == Summary of contributions
 
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
