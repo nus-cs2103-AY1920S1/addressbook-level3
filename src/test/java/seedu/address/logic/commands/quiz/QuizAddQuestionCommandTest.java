@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.quiz.QuizCommand.BLANK_QUIZ_ID;
+import static seedu.address.logic.commands.quiz.QuizCommand.INVALID_QUESTION_NUMBERS;
+import static seedu.address.logic.commands.quiz.QuizCommand.REPEATED_QUESTION;
 
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +53,7 @@ public class QuizAddQuestionCommandTest {
         // null -> returns false
         assertFalse(addQuestionCommand.equals(null));
 
-        // different group -> returns false
+        // different quiz -> returns false
         assertFalse(addQuestionCommand.equals(otherAddQuestionCommand));
     }
 
@@ -67,6 +69,42 @@ public class QuizAddQuestionCommandTest {
         String expectedMessage = "Added question: " + 4 + " to quiz: " + "Success" + ".";
         assertEquals(expectedMessage,
                 commandResult.getFeedbackToUser());
+    }
+
+    /**
+     * Test for adding to quiz unsuccessfully, due to duplicate question present in group.
+     */
+    @Test
+    public void execute_duplicateQuestionToQuiz_throwsCommandException() {
+        QuizAddQuestionCommand quizAddQuestionCommand =
+                new QuizAddQuestionCommand("quizID", 4, 1);
+        ModelStub modelStub = new ModelStubWithQuizWithQuestion("quizID", 4, 1);
+        assertThrows(CommandException.class, () -> quizAddQuestionCommand.execute(modelStub),
+                String.format(REPEATED_QUESTION));
+    }
+
+    /**
+     * Test for adding to quiz unsuccessfully, due to question number out of bounds.
+     */
+    @Test
+    public void execute_addQuestionNumberOutOfBounds_throwsCommandException() {
+        QuizAddQuestionCommand quizAddQuestionCommand =
+                new QuizAddQuestionCommand("quizID", -1, 1);
+        ModelStub modelStub = new ModelStubWithQuizWithQuestion("quizID", 1, 1);
+        assertThrows(CommandException.class, () -> quizAddQuestionCommand.execute(modelStub),
+                INVALID_QUESTION_NUMBERS);
+    }
+
+    /**
+     * Test for adding to quiz unsuccessfully, due to quiz question number out of bounds.
+     */
+    @Test
+    public void execute_addQuizQuestionNumberOutOfBounds_throwsCommandException() {
+        QuizAddQuestionCommand quizAddQuestionCommand =
+                new QuizAddQuestionCommand("quizID", 1, -1);
+        ModelStub modelStub = new ModelStubWithQuizWithQuestion("quizID", 1, 1);
+        assertThrows(CommandException.class, () -> quizAddQuestionCommand.execute(modelStub),
+                INVALID_QUESTION_NUMBERS);
     }
 
     /**

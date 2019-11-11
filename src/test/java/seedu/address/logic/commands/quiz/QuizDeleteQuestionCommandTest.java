@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.quiz.QuizCommand.BLANK_QUIZ_ID;
+import static seedu.address.logic.commands.quiz.QuizCommand.INVALID_QUESTION_INDEX;
+import static seedu.address.logic.commands.quiz.QuizCommand.INVALID_QUESTION_NUMBERS;
 
 import org.junit.jupiter.api.Test;
 
@@ -81,6 +83,34 @@ public class QuizDeleteQuestionCommandTest {
         ModelStub modelStub = new ModelStubWithQuizWithQuestion("NormalThree", question);
         assertThrows(CommandException.class, () -> quizDeleteQuestionCommand.execute(modelStub),
                 BLANK_QUIZ_ID);
+    }
+
+    /**
+     * Test for removing a question unsuccessfully because question index number is out of bounds.
+     */
+    @Test
+    public void execute_removeQuestionIndexNumberOutOfBounds_throwsCommandException() {
+        QuizDeleteQuestionCommand quizDeleteQuestionCommand =
+                new QuizDeleteQuestionCommand("RemoveFail", -1);
+        Question question = new QuestionBuilder().build();
+        ModelStub modelStub =
+                new QuizDeleteQuestionCommandTest.ModelStubWithQuizWithQuestion("RemoveFail", question);
+        assertThrows(CommandException.class, () -> quizDeleteQuestionCommand.execute(modelStub),
+                INVALID_QUESTION_NUMBERS);
+    }
+
+    /**
+     * Test for removing a question unsuccessfully because question index number is invalid.
+     */
+    @Test
+    public void execute_removeQuestionIndexNumberInvalid_throwsCommandException() {
+        QuizDeleteQuestionCommand quizDeleteQuestionCommand =
+                new QuizDeleteQuestionCommand("RemoveFail", 100);
+        Question question = new QuestionBuilder().build();
+        ModelStub modelStub =
+                new QuizDeleteQuestionCommandTest.ModelStubWithQuizWithQuestion("RemoveFail", question);
+        assertThrows(CommandException.class, () -> quizDeleteQuestionCommand.execute(modelStub),
+                INVALID_QUESTION_INDEX);
     }
 
     /**
