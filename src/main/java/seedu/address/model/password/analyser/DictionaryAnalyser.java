@@ -1,5 +1,7 @@
 package seedu.address.model.password.analyser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,9 +12,10 @@ import seedu.address.model.password.analyser.match.DictionaryMatch;
 import seedu.address.model.password.analyser.resources.Dictionary;
 import seedu.address.model.password.analyser.result.DictionaryResult;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 
 /**
- * Represents analyser object that analyses passwords in password book for common dictionary string.
+ * Represents an {@code Analyser} that analyses passwords in password book for common dictionary string.
  */
 public class DictionaryAnalyser implements Analyser {
 
@@ -20,6 +23,7 @@ public class DictionaryAnalyser implements Analyser {
     private Dictionary dictionary;
 
     public DictionaryAnalyser(Dictionary dictionary) {
+        requireNonNull(dictionary);
         this.dictionary = dictionary;
     }
 
@@ -29,9 +33,9 @@ public class DictionaryAnalyser implements Analyser {
         for (Password acc : passwordList) {
             List<DictionaryMatch> matches = getAllMatches(acc.getPasswordValue().value);
             if (matches.isEmpty()) {
-                results.add(new DictionaryResult(acc, DESC_PASS, matches));
+                results.add(new DictionaryResult(acc, ResultOutcome.PASS, matches));
             } else {
-                results.add(new DictionaryResult(acc, DESC_FAIL, matches));
+                results.add(new DictionaryResult(acc, ResultOutcome.FAIL, matches));
             }
         }
         return results;
@@ -47,16 +51,16 @@ public class DictionaryAnalyser implements Analyser {
 
                 // Match on lower
                 String lowerPart = splitPassword.toLowerCase();
-                Integer lowerRank = dictionary.getDictionary().get(lowerPart);
+                Integer lowerRank = dictionary.getRank(lowerPart);
                 if (lowerRank != null) {
                     matches.add(new DictionaryMatch(start, end - 1, lowerPart, lowerRank));
                     continue;
                 }
 
                 //Match on leet
-                List<String> unleetList = LeetUtil.translateLeet(lowerPart);
+                List<String> unleetList = LeetUtil.generateUnleetList(lowerPart);
                 for (final String unleetPart : unleetList) {
-                    Integer unleetRank = dictionary.getDictionary().get(unleetPart);
+                    Integer unleetRank = dictionary.getRank(unleetPart);
                     if (unleetRank != null) {
                         matches.add(new DictionaryMatch(start, end - 1, unleetPart, unleetRank));
                         continue;

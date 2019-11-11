@@ -360,8 +360,11 @@ public class ParserUtil {
         requireNonNull(length);
         try {
             int lengthNum = Integer.parseInt(length);
-            if (!GeneratePasswordCommand.isValidGeneratePasswordLength(lengthNum)) {
-                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
+            if (lengthNum < 4) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MIN);
+            }
+            if (lengthNum > 25) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MAX);
             }
             return lengthNum;
         } catch (NumberFormatException e) {
@@ -377,9 +380,9 @@ public class ParserUtil {
      */
     public static boolean parseBool(String bool) throws ParseException {
         requireNonNull(bool);
-        if (!(bool.equals("false"))) {
+        if (!(bool.toLowerCase().equals("false"))) {
             throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_BOOLEAN);
         }
-        return Boolean.valueOf(bool);
+        return Boolean.valueOf(bool.toLowerCase());
     }
 }

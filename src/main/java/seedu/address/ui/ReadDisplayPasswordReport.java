@@ -2,6 +2,10 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.fxml.FXML;
@@ -15,8 +19,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.report.AnalysisReport;
 import seedu.address.model.password.analyser.report.StrongAnalysisReport;
+import seedu.address.model.password.analyser.result.Result;
 
 /**
 * A Ui for the displaying password analysis report that is displayed when read command is called.
@@ -48,30 +54,38 @@ public class ReadDisplayPasswordReport extends UiPart<Region> {
         } else {
             tableHolder.setVisible(true);
             tableHolder.setManaged(true);
-            AnalysisReport a = (AnalysisReport) analysisReport;
-            for (int i = 0; i < a.getResults().size(); i++) {
-                Label label = new Label(a.getTargetHeader(i));
+            AnalysisReport castedAnalysisReport = (AnalysisReport) analysisReport;
+            HashMap<Analyser, List<Result>> reports = castedAnalysisReport.getReports();
+            for (Map.Entry<Analyser, List<Result>> report : reports.entrySet()) {
+                Analyser a = report.getKey();
+                List<Result> results = report.getValue();
+                Label label = new Label(a.getHeader());
                 TableView table = new TableView<AnalysisReport>();
                 table.setFixedCellSize(25);
+
                 TableColumn<AnalysisReport, Number> indexColumn = new TableColumn<AnalysisReport, Number>("Index");
                 indexColumn.setSortable(false);
                 indexColumn.setCellValueFactory(column->
                         new ReadOnlyObjectWrapper<Number>(table.getItems().indexOf(column.getValue()) + 1));
-                TableColumn one = new TableColumn("Description");
-                one.setCellValueFactory(new PropertyValueFactory("passwordDesc"));
-                one.setSortable(false);
-                TableColumn two = new TableColumn("Username");
-                two.setCellValueFactory(new PropertyValueFactory("passwordUser"));
-                two.setSortable(false);
-                TableColumn three = new TableColumn("Password");
-                three.setCellValueFactory(new PropertyValueFactory("passwordValue"));
-                three.setSortable(false);
-                TableColumn four = new TableColumn("Result");
-                four.setCellValueFactory(new PropertyValueFactory("description"));
-                four.setSortable(false);
 
-                table.getColumns().setAll(indexColumn, one, two, three, four);
-                table.setItems(a.getTargetResults(i));
+                TableColumn descColumn = new TableColumn("Description");
+                descColumn.setCellValueFactory(new PropertyValueFactory("passwordDesc"));
+                descColumn.setSortable(false);
+
+                TableColumn userColumn = new TableColumn("Username");
+                userColumn.setCellValueFactory(new PropertyValueFactory("passwordUser"));
+                userColumn.setSortable(false);
+
+                TableColumn passwordColumn = new TableColumn("Password");
+                passwordColumn.setCellValueFactory(new PropertyValueFactory("passwordValue"));
+                passwordColumn.setSortable(false);
+
+                TableColumn resultColumn = new TableColumn("Result");
+                resultColumn.setCellValueFactory(new PropertyValueFactory("description"));
+                resultColumn.setSortable(false);
+
+                table.getColumns().setAll(indexColumn, descColumn, userColumn, passwordColumn, resultColumn);
+                table.setItems(castedAnalysisReport.getObservableResults(results));
                 table.prefHeightProperty().bind(Bindings.max(2, Bindings.size(table.getItems()))
                         .multiply(25)
                         .add(45)); //room for table header

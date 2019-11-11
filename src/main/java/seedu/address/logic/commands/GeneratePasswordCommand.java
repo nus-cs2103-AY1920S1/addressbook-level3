@@ -28,10 +28,13 @@ public class GeneratePasswordCommand extends Command {
             + PREFIX_SPECIAL + "FALSE ";
     public static final String MESSAGE_AT_LEAST_ONE_FIELD_CHECKED = "Input Error. "
             + "At least one character field needs to be true\n";
-    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
-            + "and at least of length 4 to 25";
-    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "All characters sets are included by default.\n"
-            + "You are only required to input CHARACTER_SET/\"false\" for fields that you wish to not include.";
+    public static final String MESSAGE_CONSTRAINTS_LENGTH_MIN =
+            "Length of password should be positive and at least length 4.";
+    public static final String MESSAGE_CONSTRAINTS_LENGTH_MAX = "Length of password is at most 25.";
+    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Invalid length. "
+            + "Please input a positive, integer between 4 and 25.";
+    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "All character sets are included by default.\n"
+            + "You are only required to input CHARACTER_SET/false for fields that you wish to exclude.";
 
     private int length;
     private boolean hasLower;

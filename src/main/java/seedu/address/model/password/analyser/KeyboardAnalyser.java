@@ -9,9 +9,10 @@ import seedu.address.model.password.analyser.match.KeyboardMatch;
 import seedu.address.model.password.analyser.resources.AdjacencyGraph;
 import seedu.address.model.password.analyser.result.KeyboardResult;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 
 /**
- * Represents analyser object that analyses passwords in password book for common keyboard pattern usage.
+ * Represents an {@code Analyser} that analyses passwords in password book for common keyboard pattern usage.
  */
 public class KeyboardAnalyser implements Analyser {
 
@@ -24,9 +25,9 @@ public class KeyboardAnalyser implements Analyser {
             String password = acc.getPasswordValue().value;
             List<KeyboardMatch> matches = getAllMatches(password);
             if (matches.isEmpty()) {
-                results.add(new KeyboardResult(acc, DESC_PASS, matches));
+                results.add(new KeyboardResult(acc, ResultOutcome.PASS, matches));
             } else {
-                results.add(new KeyboardResult(acc, DESC_FAIL, matches));
+                results.add(new KeyboardResult(acc, ResultOutcome.FAIL, matches));
             }
         }
         return results;

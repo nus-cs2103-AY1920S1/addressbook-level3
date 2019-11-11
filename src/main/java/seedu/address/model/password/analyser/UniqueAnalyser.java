@@ -7,14 +7,13 @@ import java.util.List;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.UniqueMatch;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.UniqueResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for unique passwords.
+ * Represents an {@code Analyser} that analyses passwords in password book for unique passwords.
  */
 public class UniqueAnalyser implements Analyser {
-    private static final String DESC_NOT_UNIQUE = "not unique";
-    private static final String DESC_UNIQUE = "unique";
     private static final String MESSAGE_HEADER = "Analysing passwords to check unique: \n";
 
 
@@ -28,9 +27,9 @@ public class UniqueAnalyser implements Analyser {
             ArrayList<Password> arrList = passwordToAccounts.get(password);
             if (arrList.size() > 1) {
                 matches = getAllMatches(acc, arrList);
-                results.add(new UniqueResult(acc, DESC_NOT_UNIQUE, matches));
+                results.add(new UniqueResult(acc, ResultOutcome.FAIL, matches));
             } else {
-                results.add(new UniqueResult(acc, DESC_UNIQUE, matches));
+                results.add(new UniqueResult(acc, ResultOutcome.PASS, matches));
             }
         }
         return results;
@@ -63,8 +62,8 @@ public class UniqueAnalyser implements Analyser {
             if (p == acc) {
                 continue;
             }
-            matches.add(new UniqueMatch(0, acc.getPasswordValue().value.length(),
-                    acc.getPasswordValue().value, acc));
+            matches.add(new UniqueMatch(0, acc.getPasswordValue().value.length() - 1,
+                    acc.getPasswordValue().value, p));
         }
         return matches;
     }

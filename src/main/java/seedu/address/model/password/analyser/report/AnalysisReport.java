@@ -1,18 +1,19 @@
 package seedu.address.model.password.analyser.report;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the Analysis Report formed from the {@code List} of {@code Result} from the each {@code Anlayser}.
+ * Represents an Analysis Report that compiles the {@code List} of {@code Result} from the each {@code Analyser}.
  */
 public class AnalysisReport {
     protected static final String MESSAGE_DIVIDER = "-------------------------------------------\n";
-    protected static final String MESSAGE_INIT =
+    protected static final String MESSAGE_LOGO =
             "  ____                           ___ _____  \n"
                     + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
                     + " \\___ \\ / _ \\/ __| | | | '__/ _ \\| |  | |   \n"
@@ -29,64 +30,42 @@ public class AnalysisReport {
     private static final String MESSAGE_COLUMNS = COLUMN1 + COLUMN2 + COLUMN1;
 
     protected StringBuilder reportBuilder;
-    protected List<List<Result>> results;
-    protected List<String> resultsHeader;
+    protected HashMap<Analyser, List<Result>> reports;
     /**
      * Constructs an Analysis Report.
      */
     public AnalysisReport() {
         this.reportBuilder = new StringBuilder();
-        this.results = new ArrayList<>();
-        this.resultsHeader = new ArrayList<>();
-        reportBuilder.append(MESSAGE_INIT);
+        this.reports = new HashMap<>();
+        reportBuilder.append(MESSAGE_LOGO);
     }
 
     /**
      * Writes summary information about analysis for all passwords.
      */
-    public void write(List<Result> results) {
-        this.results.add(results);
+    public void write(Analyser analyser, List<Result> analysisResults) {
+        reports.put(analyser, analysisResults);
+        reportBuilder.append(analyser.getHeader());
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (Result o : results) {
+        for (Result o : analysisResults) {
             reportBuilder.append(o);
         }
         reportBuilder.append("\n");
-        //TODO good way to write title
     }
 
     /**
-     * Writes header message for the various analysers.
+     * Returns a {@code ObservableList} of {@code Result}.
      *
-     * @param header the header message of the analyser.
+     * @param results the list of {@code Result} produced from {@code Analyser}.
      */
-    public void writeHeading(String header) {
-        this.resultsHeader.add(header);
-        reportBuilder.append(header);
-    }
-
-    /**
-     * Returns the results list of {@code Result} specified by index.
-     *
-     * @param index the index to in list to retrieve from.
-     */
-    public ObservableList<Result> getTargetResults(int index) {
-        List<Result> targetList = this.results.get(index);
+    public ObservableList<Result> getObservableResults(List<Result> results) {
         ObservableList<Result> resultObservableList = FXCollections.observableArrayList();
-        resultObservableList.addAll(targetList);
+        resultObservableList.addAll(results);
         return resultObservableList;
     }
 
-    /**
-     * Returns the header for the type of {@code Result} specified by index.
-     *
-     * @param index the index to in list to retrieve from.
-     */
-    public String getTargetHeader(int index) {
-        return this.resultsHeader.get(index);
-    }
-
-    public List<List<Result>> getResults() {
-        return this.results;
+    public HashMap<Analyser, List<Result>> getReports() {
+        return this.reports;
     }
 
     @Override

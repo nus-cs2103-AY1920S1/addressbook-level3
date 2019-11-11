@@ -13,6 +13,7 @@ import seedu.address.model.password.PasswordModifiedAt;
 import seedu.address.model.password.PasswordValue;
 import seedu.address.model.password.Username;
 import seedu.address.model.password.Website;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.StrengthResult;
 
 
@@ -24,7 +25,7 @@ class StrengthAnalyserTest {
                 new PasswordValue("password"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult1 = StrengthAnalyser.calculateStrength(p1);
-        StrengthResult expectedResult1 = new StrengthResult(p1, "weak", true,
+        StrengthResult expectedResult1 = new StrengthResult(p1, ResultOutcome.WEAK, true,
                 true, false, false, false);
         assertEquals(actualResult1, expectedResult1);
 
@@ -32,7 +33,7 @@ class StrengthAnalyserTest {
                 new PasswordValue("!@#"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult2 = StrengthAnalyser.calculateStrength(p2);
-        StrengthResult expectedResult2 = new StrengthResult(p2, "weak", false,
+        StrengthResult expectedResult2 = new StrengthResult(p2, ResultOutcome.WEAK, false,
                 false, false, false, true);
         assertEquals(actualResult2, expectedResult2);
 
@@ -40,7 +41,8 @@ class StrengthAnalyserTest {
                 new PasswordValue("123asddd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult3 = StrengthAnalyser.calculateStrength(p3);
-        StrengthResult expectedResult3 = new StrengthResult(p3, "weak", true,
+        System.out.println(actualResult3);
+        StrengthResult expectedResult3 = new StrengthResult(p3, ResultOutcome.MODERATE, true,
                 true, false, true, false);
         assertEquals(actualResult3, expectedResult3);
     }
@@ -51,7 +53,7 @@ class StrengthAnalyserTest {
                 new PasswordValue("P@sSw0Rd"), new PasswordModifiedAt(new Date()),
                 new Website("NIL"), getTagSet("SocialMedia"));
         StrengthResult actualResult1 = StrengthAnalyser.calculateStrength(p1);
-        StrengthResult expectedResult1 = new StrengthResult(p1, "strong", true,
+        StrengthResult expectedResult1 = new StrengthResult(p1, ResultOutcome.STRONG, true,
                 true, true, true, true);
         assertEquals(actualResult1, expectedResult1);
     }

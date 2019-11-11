@@ -11,29 +11,21 @@ public interface Match {
 
     /**
      * Returns the portion of the password in which a {@code Match} was found.
-     *
-     * @return the {@code String} value of the {@code Match}.
      */
     String getToken();
 
     /**
      * Returns the start index of portion in the {@code PasswordValue}.
-     *
-     * @return the the start index
      */
     int getStartIndex();
 
     /**
      * Returns the end index of portion in the {@code PasswordValue}.
-     *
-     * @return the end index
      */
     int getEndIndex();
 
     /**
-     * Stringifies the details of the {@code Match} to be output in a report
-     *
-     * @return all specific details about this {@code Match} in printable String format.
+     * Stringifies the details of the {@code Match}.
      */
     String toString();
 

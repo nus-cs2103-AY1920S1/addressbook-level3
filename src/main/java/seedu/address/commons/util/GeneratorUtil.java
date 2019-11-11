@@ -26,21 +26,21 @@ public class GeneratorUtil {
 
     /**
      * Generates random password value based on user input.
-     * @return a random password value string
+     *
+     * @return the random password value string
      */
     public static String generateRandomPassword(int length, boolean hasLower,
                                                 boolean hasUpper, boolean hasNum, boolean hasSpecial) {
-        ArrayList<String[]> characterSet = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
-        SecureRandom randomNumGen = new SecureRandom();
+        ArrayList<String[]> characterSetsToUse = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
+        SecureRandom rand = new SecureRandom();
         StringBuilder password = new StringBuilder();
 
         while (!meetUserRequirement(password.toString(), hasLower, hasUpper, hasNum, hasSpecial)) {
             password.setLength(0);
-            //generate random character from characterSet for 8 times.
             for (int k = 0; k < length; k++) {
-                int ranArrayChooser = randomNumGen.nextInt(characterSet.size());
-                int randomLetterIndex = randomNumGen.nextInt(characterSet.get(ranArrayChooser).length - 1);
-                password.append(characterSet.get(ranArrayChooser)[randomLetterIndex]);
+                int ranArrayChooser = rand.nextInt(characterSetsToUse.size());
+                int randomLetterIndex = rand.nextInt(characterSetsToUse.get(ranArrayChooser).length - 1);
+                password.append(characterSetsToUse.get(ranArrayChooser)[randomLetterIndex]);
             }
         }
 
@@ -48,14 +48,13 @@ public class GeneratorUtil {
     }
 
     /**
-     * Checks if the randomly generated password string meets the user's configuration.
+     * Returns true if the randomly generated password string meets the user's configuration requirement.
      *
      * @param password the current randomly generated password string.
      * @param hasLower the option to include lower case alphabets.
      * @param hasUpper the option to include upper case alphabets.
      * @param hasNum the option to include numbers.
      * @param hasSpecial the option to include lower case alphabets.
-     * @return if the user configuration requirement is met.
      */
     private static boolean meetUserRequirement(String password, boolean hasLower, boolean hasUpper,
                                                       boolean hasNum, boolean hasSpecial) {
@@ -88,7 +87,7 @@ public class GeneratorUtil {
      */
     private static ArrayList<String[]> setCharacterSet(boolean hasLower,
                                                        boolean hasUpper, boolean hasSpecial, boolean hasNum) {
-
+        assert hasLower == true || hasUpper == true || hasSpecial == true || hasNum == true; //Precondition
         ArrayList<String[]> characterSet = new ArrayList<>();
 
         if (hasLower) {

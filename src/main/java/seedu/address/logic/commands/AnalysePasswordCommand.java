@@ -45,13 +45,12 @@ public class AnalysePasswordCommand extends Command {
         try {
             requireNonNull(model);
             model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
-            List<Password> passwordList = model.getFilteredPasswordList();
-            List<Analyser> analyserList = getRequiredAnalysers();
+            List<Password> passwords = model.getFilteredPasswordList();
+            List<Analyser> analysers = getRequiredAnalysers();
             AnalysisReport analysisReport = new AnalysisReport();
-            for (Analyser analyser : analyserList) {
-                analysisReport.writeHeading(analyser.getHeader());
-                List<Result> results = analyser.analyse(passwordList);
-                analysisReport.write(results);
+            for (Analyser analyser : analysers) {
+                List<Result> results = analyser.analyse(passwords);
+                analysisReport.write(analyser, results);
             }
             return CommandResult.builder(MESSAGE_SUCCESS)
                     .read()
