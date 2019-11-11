@@ -42,6 +42,14 @@ public class TypicalPhones {
             .withSerialNumber("A342432").withName("iPhone 11").withBrand("iPhone")
             .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$5000").withTags("used").build();
 
+    public static final Phone IPHONE_JSON_TEST2 = new PhoneBuilder().withIdentityNumber("111221111111111")
+            .withSerialNumber("A342762").withName("iPhone 11").withBrand("iPhone")
+            .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$5000").withTags("used").build();
+
+    public static final Phone IPHONE_JSON_TEST3 = new PhoneBuilder().withIdentityNumber("111441111111111")
+            .withSerialNumber("A349682").withName("iPhone 11").withBrand("iPhone")
+            .withCapacity(Capacity.SIZE_32GB).withColour("White").withCost("$5000").withTags("used").build();
+
     /**
      * Returns a {@code DataBook} with all the typical phones.
      */
