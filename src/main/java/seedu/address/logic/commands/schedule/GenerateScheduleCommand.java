@@ -9,12 +9,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_GENERATE_FAILURE;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.processor.DistinctDatesProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.distinctdate.DistinctDate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Generates a new list of DistinctDate objects, which represented all the Dates in the current
@@ -32,6 +34,9 @@ public class GenerateScheduleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB);
+        }
         List<DistinctDate> distinctDates = DistinctDatesProcessor.generateAllDistinctDateList(model);
         model.updateEventDistinctDatesList(distinctDates);
         if (distinctDates.size() == 0) {

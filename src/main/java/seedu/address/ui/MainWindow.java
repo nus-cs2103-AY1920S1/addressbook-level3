@@ -419,6 +419,10 @@ public class MainWindow extends UiPart<Stage> {
                 selectionModel.select(0);
             }
 
+            if (commandResult.getType().contains("Statistics")) {
+                selectionModel.select(3);
+            }
+
             if (commandResult.getType().equals("Finance")) {
                 selectionModel.select(2);
                 finance.updateCards();

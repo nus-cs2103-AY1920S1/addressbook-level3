@@ -164,18 +164,20 @@ Exits and shuts down the program
 
 Format: `exit`
 
-==== Navigation between Tabs : `main` | `schedule`
+==== Navigation between Tabs : `main` | `schedule` | `statistics`
 
-Provides a way to jump between the Main and Schedule Tab.
+Provides a way to jump between the Main, Schedule and Statistics Tab.
 
 [TIP]
-A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab.
+A Schedule-related command executed in the Main Tab will direct you to the Schedule Tab. Meanwhile, a Statistics-related command will not execute on any other tab but the Statistics tab.
 While an Employee-related command executed in the Schedule Tab will not be allowed as the user does not have an employee list to refer to in the Schedule Tab.
 Lastly, all Event-related command is executed based on the current Event list that is being displayed, regardless if the user is in the Main Tab or Schedule Tab.
 
 Main Tab: `main`
 
 Schedule Tab: `schedule`
+
+Statistics Tab: `statistics`
 
 === Entity Management
 
@@ -801,27 +803,32 @@ Format: `generate_stats`
 **Example: To generate list and pie chart statistics on demand.**
 
 **Step 1**.
-Either type `generate_stats` into the command box or navigate to the statistics tab and click the 'Generate Statistics' button.
+Navigate to the statistics tab either using the mouse to click the statistics tab or by typing `statistics` command.
+
+image::StatsUiPart0.png[]
+
+**Step 2**.
+Generate the statistics either by using the mouse to click the generate statistics button or by typing `generate_stats` command.
 
 image::StatsUiPart1.png[]
 
-**Step 2**.
+**Step 3**.
 Statistics will be displayed in 2 different types of views: list and pie chart.
-The list will display the upcoming events that require manpower sorted from the nearest date to the furthest date.
-The pie charts represent the events and employees tags respectively.
+The list will display the upcoming events that require manpower sorted from the nearest upcoming date to the furthest date.
+The pie charts represent the upcoming events that require manpower and employees tags respectively. This is done this way to help the user identify efficiently if they have sufficient employees with matching tags for the event or if more employees may need to be hired to match the tag of the upcoming event.
 For example, a music event will have a 'music' tag and an employee who plays the guitar will have a 'musician' tag.
 The pie charts will reflect that there is one event under the 'music' tag and one employee under the 'musician' tag.
 
 image::StatsUiPart2.png[]
 
-**Step 3**.
+**Step 4**.
 To allocate an employee to an upcoming event, double-click the event on the list and it will display the allocate function covered earlier in the User Guide.
 The segments on the pie charts can also be clicked to display the number of events or employees associated with that specific tag on the top right corner of each of the pie charts.
 
 image::StatsUiPart3.png[]
 
-**Step 4**.
-Generate statistics when any change in data occurs to keep the statistics up to date and relevant.
+**Step 5**.
+Generate statistics manually when any change in data occurs to keep the statistics up to date and relevant.
 
 image::StatsUiPart4.png[]
 

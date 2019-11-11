@@ -86,7 +86,7 @@ public class EditEventCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (MainWindow.isFinanceTab()) {
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
             throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
         }
 
@@ -109,7 +109,7 @@ public class EditEventCommand extends Command {
 
         //start date not before end date
         if (editedStartDate.compareTo(editedEndDate) > 0) {
-            throw new CommandException(MESSAGE_DATE_START_AFTER_END);
+            throw new CommandException(String.format(MESSAGE_DATE_START_AFTER_END, editedStartDate, editedEndDate));
         }
 
         if (editedEvent.getManpowerNeeded().value < editedEvent.getCurrentManpowerCount()) {
