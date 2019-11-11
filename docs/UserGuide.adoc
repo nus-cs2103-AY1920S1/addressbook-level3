@@ -522,6 +522,7 @@ followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this comman
 
 .Timeline of expenses grouped by tag
 image::display-timeline-example-normal.png[]
+{nbsp} +
 
 You can view one or more timelines that are based on your currently displayed expenses. Upon entering the command, the statistic chart will automatically update to display a timeline configured with the options you have provided.
 The expenses over a specified time period are aggregated and added as data points on the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used, as well as the groupings used to split your expenses into each individual timeline. +
@@ -555,6 +556,7 @@ The options for this command, and for all other `display-stats` commands, are ca
 
 .Breakdown of expenses grouped by month.
 image::display-breakdown-example-month.png[]
+{nbsp} +
 
 You can break the displayed expenses down into smaller groups and view that breakdown as a pie chart, allowing you to compare your spending between groups. Upon entering the command, the statistic chart will automatically update to display a breakdown chart configured with the options you have provided. The total
 expenses per category are totalled and displayed as each slice in the pie chart. You can customize the criteria used to split the expenses into groups. +
@@ -584,6 +586,8 @@ total amount determines the size of its slice of the pie chart.
 
 .Heatmap of all expenses grouped by tags.
 image::display-heatmap-example-normal.png[]
+{nbsp} +
+
 You can view a heatmap of total expenses per day for the currently displayed expenses, limited to the past year. The y-axis represents the day of the week the expense was made, while
 the x-axis represents the week of the year the expense was made, with each bubble representing the expenses made on that particular day. The larger the bubble for the particular day, the higher the total expenses on that day.
 This allows you to get an overall impression of your spending behaviours over the past year. +
