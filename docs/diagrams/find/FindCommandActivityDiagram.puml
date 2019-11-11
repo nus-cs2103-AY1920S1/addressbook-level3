@@ -2,7 +2,7 @@
 
 start
 
-:User executes a find command;
+:User executes a findprob command;
 
 if () then ([command is valid])
 	:Instantiate a FindCommand with a corresponding predicate;

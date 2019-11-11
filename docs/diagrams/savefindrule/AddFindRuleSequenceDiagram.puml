@@ -15,7 +15,7 @@ activate AddFindRuleCommandParser
         ProblemSearchRule --> AddFindRuleCommandParser
     deactivate ProblemSearchRule
     create AddFindRuleCommand
-    AddFindRuleCommandParser -> AddFindRuleCommand : AddFindRuleCommand(predicates)
+    AddFindRuleCommandParser -> AddFindRuleCommand : AddFindRuleCommand(findRule)
     activate AddFindRuleCommand
         AddFindRuleCommand --> AddFindRuleCommandParser
     deactivate AddFindRuleCommand

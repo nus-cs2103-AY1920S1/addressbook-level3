@@ -47,7 +47,7 @@ Upon completing a task, users can mark it as done, which contributes to the prog
 The figure below illustrates the layout of the AlgoBase application:
 
 .Layout of AlgoBase
-image::gui/AlgoBaseLayout.png[]
+image::gui/AlgoBaseLayout.png[scaledwidth=18cm]
 
 AlgoBase is split into following 3 panes:
 
@@ -64,7 +64,7 @@ AlgoBase is split into following 3 panes:
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .UI of AlgoBase
-image::Ui.png[]
+image::Ui.png[scaledwidth=18cm]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will list all possible commands in the result window and open the help window.
@@ -191,7 +191,7 @@ Finds problems fulfilling all provided constraints. +
 Format: `findprob [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] [diff/LOWER_BOUND-UPPER_BOUND] [t/TAG_KEYWORDS]`
 
 .The result of `findprob` is shown in the problems list
-image::findprob_1.png[width="70%", scaledwidth=10cm]
+image::findprob_1.png[width="70%", scaledwidth=18cm]
 
 [NOTE]
 When providing the search restrictions, you should ensure that keywords are non-blank and difficulty range is valid (as specified in `addprob` command). Also at least one search restriction should be provided.
@@ -222,7 +222,7 @@ If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-
 If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
-Ensure that `-` only appears once as the connective between two bounds (i.e. negative difficulty is not allowed, as mentioned before). Otherwise the command is considered invalid.
+Note that negative difficulty is not allowed, as mentioned before. Otherwise the command may be considered invalid.
 
 Examples:
 
@@ -242,7 +242,7 @@ Format: `addfindrule RULE_NAME [n/NAME] [a/AUTHOR] [d/DESCRIPTION] [src/SOURCE] 
 Alias: `afr`
 
 .Information related to find rules is displayed in the "Find Rules" panel
-image::find_rule_1.png[width="70%", scaledwidth=10cm]
+image::find_rule_1.png[width="70%", scaledwidth=12cm]
 
 [TIP]
 If you want to "keep a list of problems" that fulfills certain conditions, say "graph theory questions from Kattis", you may store these rules using `addfindrule` and `apply` them later. +
@@ -601,7 +601,7 @@ image::gui/DeleteProblemUiAction2Annotated.png[width=70%, scaledwidth=12cm]
 ==== Switching Tabs: `switchtab`
 
 .Demonstration of the `SwitchTab` command
-image::gui/SwitchTabCommand.png[width="70%"]
+image::gui/SwitchTabCommand.png[width="70%", scaledwidth=12cm]
 
 Switches between tabs in the GUI +
 Format: `switchtab tt/TAB_TYPE i/TAB_INDEX` +
@@ -621,7 +621,7 @@ Examples:
 ==== Opening Tabs: `opentab`
 
 .Demonstration of the `OpenTab` command
-image::gui/OpenTabCommand.png[width="70%"]
+image::gui/OpenTabCommand.png[width="70%", scaledwidth=12cm]
 
 Opens a new **Details** tab in the GUI +
 Format: `opentab m/MODEL_TYPE i/MODEL_INDEX` +
@@ -682,7 +682,7 @@ Examples:
 // tag::help[]
 ==== Viewing help : `help`
 
-List all possible commands or find command usage using the command word. +
+Lists all possible commands or shows the command usage of a command word. +
 Format: `help [COMMAND_WORD]`
 
 * `help`
