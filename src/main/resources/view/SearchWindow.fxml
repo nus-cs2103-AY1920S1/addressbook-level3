@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root resizable="false" title="Search" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/help_icon.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <HBox alignment="CENTER" prefHeight="372.0" prefWidth="378.0">
+                <opaqueInsets>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </opaqueInsets>
+                <padding>
+                    <Insets bottom="10.0" left="5.0" right="10.0" top="5.0" />
+                </padding>
+            <children>
+               <TitledPane collapsible="false" prefHeight="498.0" prefWidth="547.0" text="Search for a module">
+                  <content>
+                     <VBox prefHeight="326.0" prefWidth="462.0">
+                        <children>
+                           <Label contentDisplay="RIGHT" text="Modlue Codes: ">
+                              <graphic>
+                                 <TextField fx:id="moduleCodesBox" />
+                              </graphic>
+                           </Label>
+                           <Label contentDisplay="RIGHT" text="Module Title:    ">
+                              <graphic>
+                                 <TextField fx:id="moduleTitleBox" />
+                              </graphic>
+                           </Label>
+                           <Label contentDisplay="RIGHT" text="Description:      ">
+                              <graphic>
+                                 <TextField fx:id="descriptionBox" />
+                              </graphic>
+                           </Label>
+                           <Label contentDisplay="RIGHT" text="Prerequisites:    ">
+                              <graphic>
+                                 <TextField fx:id="prerequisitesBox" />
+                              </graphic>
+                           </Label>
+                           <Label contentDisplay="RIGHT" text="Preclusions:      ">
+                              <graphic>
+                                 <TextField fx:id="preclusionsBox" />
+                              </graphic>
+                           </Label>
+                           <Label contentDisplay="RIGHT" prefHeight="27.0" prefWidth="510.0" text="Semesters:        ">
+                              <graphic>
+                                 <VBox prefHeight="0.0" prefWidth="123.0">
+                                    <children>
+                                       <CheckBox fx:id="semOneBox" mnemonicParsing="false" text="Sem 1" />
+                                       <CheckBox fx:id="semTwoBox" mnemonicParsing="false" text="Sem 2" />
+                                       <CheckBox fx:id="semThreeBox" mnemonicParsing="false" text="Special Term 1" />
+                                       <CheckBox fx:id="semFourBox" mnemonicParsing="false" text="Special Term 2" />
+                                    </children>
+                                 </VBox>
+                              </graphic>
+                           </Label>
+                           <Button fx:id="searchButton" alignment="CENTER" mnemonicParsing="false" onAction="#search" text="Search" />
+                        </children>
+                     </VBox>
+                  </content>
+               </TitledPane>
+            </children>
+            </HBox>
+        </Scene>
+    </scene>
+</fx:root>

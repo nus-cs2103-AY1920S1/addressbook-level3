@@ -1,0 +1,69 @@
+= Alex Wu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ModuleBook
+
+---
+
+== About the project
+
+Our team consisting of 4 computer science students were tasked with enhancing a basic command line interface (CLI) desktop addressbook application for our Software Engineering project. We chose to morph the application into a study assistant application catering to NUS students called ModuleBook. ModuleBook is specially designed to help NUS students find and keep track of the modules they are taking each semester; add and maintain deadlines related to each module; keep a list of helpful and commonly used website links for easy access. This document presents my contributions to this project.
+
+This is what our project looks like:
+
+.The graphical user interface for ModuleBook
+image::UiLabelledA.png[]
+
+Note the use of the following symbols and formatting in this document:
+
+====
+`Words` - phrases in this format indicates that this is a command that can be inputted into the command line and executed by the application, or they are referring to components, classes or objects in the architecture of the application.
+====
+
+NOTE: This symbol indicates important information
+
+TIP: Indicates a tip or advice
+
+
+== Summary of contributions
+This section gives a summary of my contribution to the team project in terms of coding, documentation and other feature improvements.
+
+*   *Major enhancement: Added link feature to manage links in a TrackedModule.*
+**	What it does: The link command allows the user to manage a set of website links. The link command currently supports add, delete , edit, go and mark actions.
+**	Justification: Some modules may have a module website, or the user may have found other academic websites that contain information helpful to their studies. In this case, the user can add the links to the specific module in ModuleBook and access it easily from the application.
+**	Highlights: This feature checks for validity of links provided and ensures that the user does not entire the same name for links twice so it would be easier for the user to manage. This feature was designed with the user’s needs in mind. Commands has been simplified so each action can be done with minimal typing. Some commands can be done through the GUI as well.
+**	Credit: A third-party library, Apache Commons, was imported to check for the validity of links provided.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=alexwxh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=alexwxh&tabRepo=AY1920S1-CS2103T-W13-1%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+**  Documentation:
+***	Created the general skeleton of the ModuleBook user guide (https://github.com/AY1920S1-CS2103T-W13-1/main/pull/12[#12]).
+***	Updated User Guide and Developer Guide pertaining to link feature (https://github.com/AY1920S1-CS2103T-W13-1/main/pull/66[#66], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/79[#79], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/150[#150])
+**  Community:
+***	Reviewed Pull Requests (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W13-1/main/pull/16[#16], https://github.com/AY1920S1-CS2103T-W13-1/main/pull/57[#57]
+***	Reported bugs and offered suggestions for other teams: https://github.com/alexwxh/ped/issues[PE Dry Run Repo]
+
+**  Tools:
+*** Integrated a third-party library (Apache Commons) to the project: https://github.com/AY1920S1-CS2103T-W13-1/main/pull/40[#40]
+
+== Contributions to the User Guide
+
+
+|===
+|_We had to update the original addressbook user guide to match our morphed application, ModuleBook. The following section are excerpts from my contribution to this task. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=link]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=link]
+

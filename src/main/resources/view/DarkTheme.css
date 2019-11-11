@@ -18,8 +18,8 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -74,6 +74,18 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+.text-bright {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI";
+    -fx-fill: white;
+    -fx-opacity: 1;
+}
+
+.text-command {
+    -fx-background-color: derive(#1d1d1d, 40%);
+    -fx-padding: 4px 4px 4px 4px;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -207,13 +219,54 @@
     -fx-background-color: black;
 }
 
+/* Accordian */
+.accordian {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.titled-pane {
+    -fx-text-fill: derive(#1d1d1d, 20%);
+}
+
+.titled-pane:focused {
+    -fx-text-fill: black;
+}
+
+.titled-pane > .title {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-padding: 5px, 5px, 5px, 5px;
+}
+
+.titled-pane:focused > .title {
+    -fx-color: derive(#1d1d1d, 40%);
+}
+
+
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+    -fx-rotate: -90;
+}
+
+.titled-pane > *.content {
+    -fx-background-color:
+    -fx-box-border,
+    linear-gradient(to bottom, derive(-fx-color,-02%), derive(-fx-color,65%) 12%,      derive(-fx-color,23%) 88%, derive(-fx-color,50%) 99%, -fx-box-border);
+    -fx-background-insets: 0, 0 1 1 1;
+    -fx-padding: 0.167em;
+ }
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: black;
+}
+
 /*
  * Metro style Push Button
  * Author: Pedro Duque Vieira
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 5 7 5 7;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
@@ -332,6 +385,10 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
+#mainPanel {
+    -fx-background-color: #383838;
+}
+
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
@@ -349,4 +406,14 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+.tag-archived {
+    -fx-background-color: rgb(194, 192, 192);
+    -fx-border-color: #383838;
+}
+
+.tag-tracked {
+    -fx-background-color: rgb(125, 221, 125);
+    -fx-border-color: #383838;
 }

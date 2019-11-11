@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= ModuleBook - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,18 +12,20 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-Team W13-1`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+ModuleBook is a standalone application that tracks and manages modules from National University of Singapore (NUS). The application contains many features useful for module management, such as deadline tracking and hyperlink storage.
+
+ModuleBook is for NUS students who want a desktop app for managing modules. More importantly, ModuleBook is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ModuleBook can manage your tasks more efficiently than traditional GUI apps. Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `modulebook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -33,9 +35,10 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all modules.
+* **`add`**`cs2103t` : adds a module with module code `cs2103t` to be tracked by ModuleBook.
+* **`delete`**`cs2103t` : deletes tracked module with module code CS2103T from the list of tracked module if the module exists.
+* **`deadline`**`cs2103t`**`d/complete UG and DG`**`t/time` : adds deadline to module with code 'cs2103t'
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -43,135 +46,381 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+[NOTE]
+See <<Glossary>> for more information on terms such as `Tracked` Module and `Archived` Module.
+
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add MODULE_CODE`, `MODULE_CODE` is a parameter which can be used as `add CS1101S`.
+* Items in square brackets are optional e.g `MODULE_CODE [MODULE_TITLE]` can be used as `CS1231 discrete structures`.
+//* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+//* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+Please also note the follow icons, that may serve as points of interests
+
+NOTE: A piece of information you may wish to note.
+
+TIP: A tip or suggestion
+
+WARNING: A cautionary word of advice
+
+=== Viewing help: `help`
 
 Format: `help`
 
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
-Format: `list`
-
-=== Editing a person : `edit`
-
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
+=== Exiting the program: `exit`
 
 Exits the program. +
 Format: `exit`
 
+=== Listing all tracked modules : `list`
+Shows a list of all current tracked modules. +
+Format: `list`
+
+// tag::moduleview[]
+=== Viewing a module: `view`
+
+==== Method 1: Typing the command
+
+Views a module and enters the module view. Can be a tracked module or an archived module.
+
+Format: `view <MODULE_CODE>`
+
+Example: `view cs1231`
+
+==== Method 2: Double clicking on the module in the list
+
+Alternatively, you may simply view the module by double clicking on the module in the module list.
+
+image::userguide/ViewCommandGuiStep1.png[]
+
+image::userguide/ViewCommandGuiStep2.png[]
+
+
+=== Return from module view: `back`
+Returns from the module view.
+
+Format: `back`
+
+// end::moduleview[]
+
+// tag::addFindDelete[]
+=== Finding an archived module: `find`
+
+==== Method 1: Using command lines
+Find archived modules with the the given prefix and keyword. +
+Format: `find PREFIX\ KEYWORD ...`
+
+[NOTE]
+It is possible to use any number or combination of filters. Prefixes not present will not be considered in the search.
+
+****
+* Prefixes: (case sensitive)
+** `all\` : List all the modules. *Overrides* all other prefixes.
+*** Example: `find mod\ cs all\`, `all\` will override `mod\` and list all the modules.
+** `mod\` : Find all modules with *module code* that contains *at least one* of the given *keyword(s)*.
+*** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` *or* `ma` *or* `st`.
+** `title\` : Find all modules with *title* that contains *all* of the given *keyword(s)*.
+*** Example: `find title\ software engineering` will list all modules with titles containing `"software" *and* "engineering"`.
+** `desc\` : Find all modules with *description* that contains *all* of the given *keywords(s)*.
+*** Example: `find desc\ software engineering` will list all modules with description containing `"software" *and* "engineering"`.
+** `prereq\` : Find all modules with *prerequisites* that match *at least one* of the given *keyword(s)*.
+*** Example: `find prereq\ cs2030 cs2040` will list all modules with prerequisite of `cs2030` *or* `cs2040`.
+** `preclu\` : Find all modules with *preclusion* that match *at least one* of the given *keyword(s)*.
+*** Example: `find preclu\ cs2030 cs2040` will list all modules with preclusion of `cs2030` *or* `cs2040`.
+** `sem\` : Find all modules offered in a particular sem 1 - 4. (Sem 3 and 4 are special terms 1 and 2).
+*** Example: `find sem\ 1 3` will list all modules offered in semester 1 *or* special term 1.
+* The prefixes can be used together in any order to filter modules that passes all the search requirements.
+** Example: `find mod\ cs2 cs3 desc\ software engineering sem\ 1` will show all modules with module code containing `cs2`
+*or* `cs3` with description containing `"software"` *and* `"engineering"` offered in semester 1.
+* The keywords are case insensitive. e.g `cs2103t` will match `CS2103T`.
+* *Keywords* used in *title\* and *desc\* are tolerant of minor *spelling mistakes*.
+** Example: `find desc\ enginering` will display results similar to `find desc\ engineering`.
+* Search is performed using string matching, commonly used keywords will therefore produce many search results.
+* Invalid prefixes and keywords before a valid prefix will be ignored.
+** Eg: `find INVALID\ invalidKeyword mod\ cs` the `INVALID\ invalidKeyword` will be ignored, `mod\ cs` will be searched.
+****
+[NOTE]
+Keywords are searched using *"OR"* relation (apart from `title\` and `desc\` which uses an *"AND"* relation.) while predicates are seached using
+*"AND"* relations.
+For example, `find mod\ cs ma title\ linear algebra` will produce results of all modules with (module code containing `cs` *OR* `ma`) *AND* (title containing `linear` *AND* `algebra`)
+
+==== Method 2: Using GUI
+
+Alternatively, you can simply click on the search button on the top left hand corner (shortcut key: F2) and select search. Input your
+keywords in the fields provided within the popup.
+
+.Searching using GUI
+image::userguide/SearchGui.png[]
+
+[TIP]
+Modules are imported from NUSMods database.
+
+=== Adding a module: `add`
+
+Adds a module to be tracked. +
+Format: `add MODULE_CODE`
+****
+* The add is case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Only module code is searched for module to be added.
+* Only full words will be matched e.g. `cs2103` will not match `cs2103t`.
+****
+[TIP]
+Modules are imported from NUSMods database.
+
+Examples:
+
+* `add cs2103t`
+
+=== Deleting a module: `delete`
+
+Untracks a module. +
+Format: `delete MODULE_CODE`
+****
+* The delete is case insensitive. e.g `cs2103t` will match `CS2103T`.
+* Only module code is searched for module to be added.
+* Only full words will be matched e.g. `cs2103` will not match `cs2103t`.
+****
+
+Examples:
+
+* `delete cs2103t`
+// end::addFindDelete[]
+
+// tag::deadline[]
+=== Manage deadline tasks: `deadline`
+
+==== `add`
+
+Format: `deadline MODULE_LIST_NUM a/add d/DESCRIPTION t/TIME p/PRIORITY`
+
+Adds deadline task consisting of description, time and priority to the respective module.
+Priority inputs are `HIGH`, `MEDIUM` OR `LOW`. Deadline task with `HIGH` priority is displayed in red, `MEDIUM` in yellow
+and `LOW` in green. Deadline list is sorted according to priority and deadline date and time.
+All parameters are compulsory. Date and Time must be in `dd/MM/yyyy HHmm` format.
+
+Example: `deadline 1 a/add d/tutorial 1 t/22/10/2019 2359 p/HIGH`
+
+Here is result of inputting the above command successfully.
+
+image::userguide/AddDeadlineUI.png[width="790"]
+
+==== `edit`
+
+* Edit Description
+
+Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST d/NEW_DESCRIPTION`
+
+Edits description from the deadline task numbered in deadline list for the respective module.
+
+Example: `deadline 2 a/edit task/2 d/finish increments`
+
+* Edit Time
+
+Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST t/NEW_TIME`
+
+Edits time from the deadline task numbered in deadline list for the respective module.
+Date and Time must be in `dd/MM/yyyy HHmm` format.
+
+Example: `deadline 3 a/edit task/2 t/29/10/2018 2359`
+
+==== `done`
+
+Format: `deadline MODULE_LIST_NUM a/done task/TASK_NUMBER_IN_LIST`
+
+Marks the deadline task numbered in deadline list
+as *done* with a tick.
+
+Example: `deadline 1 a/done task/2`
+
+Here is result of inputting the above command successfully.
+
+image::userguide/DoneDeadlineUI.png[width="790"]
+
+==== `doneAll`
+
+Format: `deadline MODULE_LIST_NUM a/doneAll`
+
+Marks all the deadline tasks in deadline list
+as *done* with a tick.
+
+Example: `deadline 1 a/doneAll`
+
+==== `in Progress`
+
+Format: `deadline MODULE_LIST_NUM a/inProgress task/TASK_NUMBER_IN_LIST`
+
+Marks the deadline task numbered in deadline list
+as *in-progress* with a dash.
+
+Example: `deadline 1 a/inProgress task/1`
+
+==== `undone`
+
+Format: `deadline MODULE_LIST_NUM a/undone task/TASK_NUMBER_IN_LIST`
+
+Marks the deadline task numbered in deadline list
+as *undone* with empty space.
+
+Example: `deadline 1 a/undone task/1`
+
+==== `delete`
+
+Format: `deadline MODULE_LIST_NUM a/delete task/TASK_NUMBER_IN_LIST`
+
+Deletes deadline task numbered in deadline list from the respective module.
+
+Example: `deadline 1 a/delete task/2`
+
+==== `deleteAll`
+
+Format: `deadline MODULE_LIST_NUM a/deleteAll`
+
+Deletes all the deadline tasks from the respective module.
+
+Example: `deadline 1 a/deleteAll`
+
+// end::deadline[]
+
+// tag::link[]
+
+=== Manage links in modules: `link`
+
+Link commands are only available when viewing a module and only valid on currently displayed tracked modules.
+
+NOTE: Before you use any `link` command, make sure you are viewing your desired course module first.
+
+TIP: If you happen to forget any of the url paired with the names you have entered, simply hover over the button and the information will be displayed.
+
+==== Adding link to module: `link add n/LINK_NAME l/LINK_URL`
+
+You can use this command to add a link with the given name to a selected TrackedModule. This is useful if you manage to come across an important website related to a certain module you are currently taking and wish to note it down. A button will be created in ModuleBook with name you specified.
+
+Suppose you are taking CS2103, and you will frequently visit the course website to check for new updates or tasks to complete by the next milestone. You wish to put the link somewhere so you can access it easily and also manage them effectively. You can do so using the following steps:
+
+. Enter the command. Make sure you are viewing the CS2103 module.
+
+image::userguide/AddLinkStep1.png[][pdfwidth="50%",width="50%"]
+
+[start=2]
+. Press Enter. You should see a new button created in the Links section and a success message.
+
+image::userguide/AddLinkStep2.png[][pdfwidth="50%",width="50%"]
+
+==== Editing existing link: `link edit n/LINK_NAME [nn/NEW_NAME nl/NEW_URL]`
+
+You can use this command to edit the name and/or url of an existing link.
+
+Suppose the name "Nusmods Timetable" is too long and you want to change it to just "Nusmods". It is very simple to achieve:
+
+. Enter the corresponding command
+
+image::userguide/EditLinkStep1.png[][pdfwidth="50%",width="50%"]
+
+[start=2]
+. Press Enter. The link should be updated with the new name and a success message should appear.
+
+image::userguide/EditLinkStep2.png[][pdfwidth="50%",width="50%"]
+
+==== Launching the link: `link go n/LINK_NAME`
+
+You can use this command to access a link in the default browser of your system.
+
+NOTE: If you are using any lesser known operating system, the app may not be able to detect it and this feature may not work as intended.
+
+Now suppose you wish to access a link you provided previously (from the `add` command). Doing that is very simple:
+
+. Enter the command `link go n/Course Website`
+
+. The website should open in the default browser of your system and a success message should display.
+
+TIP: Alternatively, you can access the link by clicking on it through the GUI as well.
+// end::link[]
+
+==== Deleting a link: `link delete n/LINK_NAME`
+
+You can use this command to delete a link with a matching name in the given module.
+
+Suppose you have no use for a link to Nusmods in the module and you want to remove it to de-clutter. You can remove it by:
+
+. Enter the delete command
+
+image::userguide/DeleteLinkStep1.png[][pdfwidth="50%",width="50%"]
+
+[start=2]
+. Press Enter. You should see a success message and the link should be gone.
+
+image::userguide/DeleteLinkStep2.png[][pdfwidth="50%",width="50%"]
+// tag::link[]
+
+==== Marking/unmarking a link: `link mark/unmark n/LINK_NAME`
+
+Some links may be more important than others, and you may access them more frequently. To keep track of that, you can mark them using the `mark` feature.
+
+Suppose you go to the course website of CS2103 very often and want to make sure you can identify the link immediately, mark it so it stays at the front all available links:
+
+. Enter the command `link mark n/Course Website`
+
+image::userguide/MarkLinkStep1.png[][pdfwidth="50%",width="50%"]
+[start=2]
+. Press Enter. The specified link will now be marked with a symbol and brought to the front of the list.
+
+image::userguide/MarkLinkStep2.png[][pdfwidth="50%",width="50%"]
+
+// end::link[]
+
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+ModuleBook data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Grade Manager `[Coming Soon]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Tracks grades inputted by the user.
 
-== FAQ
+=== File Manager `[Coming in v2.0]`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+Users can add files related to the module, and open them.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Exit* : `exit`
+* *List* : `list`
+* *View* `view MODULE_CODE` +
+e.g. `view cs2100`
+* *Back* `back`
+* *Find* : `find PREFIx\ KEYWORD(s) ...` +
+e.g. `find mod\ cs2 cs3 desc\ software engineering prereq\ cs2030 sem\ 1 2`
+* *Add* `add MODULE_CODE` +
+e.g. `add cs2101`
+* *Delete* : `delete MODULE_CODE` +
+e.g. `delete cs2101`
+
+// tag::glossary[]
+
+[[Glossary]]
+== Glossary
+
+=== Common Application terms
+**Home view** - The state of the application that displays the home page in the main panel.
+
+image::userguide/Glossary_HomeView.png[]
+
+**Module view** - The state of the application that displays the specified module in the main panel.
+
+image::userguide/Glossary_ModuleView.png[]
+
+=== Common Module terms
+
+**Archived** - A module that the institution provides. Can be viewed and tracked. It is indicated by a gray vertical bar on the module list.
+
+image::userguide/Glossary_ArchivedModule.png[]
+
+**Tracked** - A module that is tracked. References an archived module. Can be viewed and untracked. It is indicated by a green vertical bar on the module list.
+
+image::userguide/Glossary_TrackedModule.png[]
+
+// end::glossary[]

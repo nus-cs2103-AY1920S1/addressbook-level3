@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.module.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -43,7 +43,7 @@ test {
 
 dependencies {
     String jUnitVersion = '5.4.0'
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.1'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -61,13 +61,17 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    implementation 'org.apache.commons:commons-text:1.8'
+
+    implementation group: 'commons-validator', name: 'commons-validator', version: '1.4.0'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'modulebook.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -95,6 +99,14 @@ coveralls {
 tasks.coveralls {
     dependsOn coverage
     onlyIf { System.env.'CI' }
+}
+
+task extrachecks(type: Exec) {
+    commandLine 'bash', './config/travis/run-checks.sh'
+}
+
+tasks.check {
+    dependsOn extrachecks
 }
 
 test {
@@ -133,8 +145,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'ModuleBook',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-W13-1/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "t:TrackedModule" as TrackedModule MODEL_COLOR
+end box
+
+[-> Model : currentDisplayed()
+activate Model
+
+[<-- Model : t
+deactivate Model
+
+[-> TrackedModule: hasLinkTitle(link)
+activate TrackedModule
+
+[<-- TrackedModule:
+deactivate TrackedModule
+
+[-> TrackedModule : addLink(link)
+activate TrackedModule
+
+
+[<-- TrackedModule
+deactivate TrackedModule
+
+@enduml

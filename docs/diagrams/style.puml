@@ -38,6 +38,8 @@ skinparam BackgroundColor #FFFFFFF
 skinparam Shadowing false
 
 skinparam Class {
+    AttributeFontColor #FFFFFF
+    AttributeFontName Arial
     FontColor #FFFFFF
     BorderThickness 1
     BorderColor #FFFFFF

@@ -1,0 +1,18 @@
+@startuml
+start
+:Given a module;
+:Given a predicate;
+If () then ([Description, title predicate])
+:Split specified field \ninto a list of strings;
+:Compare each word in list \nwith given keywords;
+note left
+Keywords with 2 levenshtein distance
+of word is accepted.
+end note
+:Check if list contains all keywords;
+else ([ModuleCode, prerequisite,\n preclusion, semester predicate])
+:Check if specified field contains\n at least one keyword;
+Endif
+:Return True/False;
+stop
+@enduml

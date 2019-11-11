@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= ModuleBook - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,13 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-W13-1`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+This developer guide describes the software architecture and implementation details of the software, ModuleBook. It is intended to be read by developers and software testers for the software.
 
 == Setting up
 
@@ -64,9 +68,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `add CS2103T`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `add CS2103T` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -79,7 +83,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ModuleListPanel`, `StatusBarFooter`, `HomeViewPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,18 +102,18 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ModuleBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("add CS2103T")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `Add CS2103T` Command
+image::AddSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,14 +126,9 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the ModuleBook data.
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,105 +141,281 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `TrackedModule` data in json format and read it back.
+* can read the `ArchivedModule` data from json format.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.module.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::moduleview[]
+=== Module View Feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The module view feature allows users to view a module to access extra information about the module. The user can view (and unview) a module using the `view` (and `back`) commands.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
+The module view feature is facilitated by `displayedModule` in `ModelManager`. The following describes how the `displayedModule` is modified and read to the `Ui`.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+. The user enters a view command in the `Ui`.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+. `LogicManager` parses the user input, constructs and executes the `ViewCommand`.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+. The `ViewCommand` attempts to find the matching module from the list of Tracked Modules, else it attempts to find the matching module from the list of Archived Modules, else it throws an exception.
 
-image::UndoRedoState0.png[]
+. The `ViewCommand` sets the `displayedModule` in the `Model` and returns the `CommandResult` to the `LogicManager`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+. The `LogicManager` returns the `CommandResult` to the `Ui`.
 
-image::UndoRedoState1.png[]
+. The `Ui` gets the `displayedModule` from `LogicManager` and updates the Ui to display the module.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+The following sequence diagram shows how the module view feature is executed.
 
-image::UndoRedoState2.png[]
+.Module View Sequence Diagram
+image::ModuleViewSequenceDiagram.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+The `BackCommand` mostly follows the same sequence as described above, except that it does not need to find any module, and sets the displayed module to `null`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+The following activity diagram describes the process of finding a matching module to display.
 
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+.Activity Diagram of module finding process
+image::ModuleViewFindModuleActivityDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Updating the Ui
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+**Current Implementation**: New field in the `CommandResult` that the Ui will check to determine if it needs to update.
 
-===== Aspect: Data structure to support the undo/redo commands
+Pros:
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* Simple and easy to control what command updates the Ui.
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+Cons:
 
-_{Explain here how the data encryption feature will be implemented}_
+* More difficult to maintain over the course of the project. New Ui elements require new fields to update the Ui.
 
-// end::dataencryption[]
+**Alternate Implementation**: Every command updates the Ui.
+
+Pros:
+
+* Maintainance free.
+
+Cons:
+
+* Potentially inefficient.
+* Possible side effects from certain commands.
+// end::moduleview[]
+
+// tag::markmodulestatus[]
+=== [Proposed] Marking modules as completed, ongoing or planned
+
+Users can mark modules as pass:[<text style="color:darkgreen"><b>completed</b></text>], pass:[<text style="color:darkorange"><b>ongoing</b></text>] or pass:[<text style="color:blue"><b>planned</b></text>]. Users can also timestamp the modules with the semester that the user pass:[<text style="color:darkgreen"><b>has taken</b></text>]/pass:[<text style="color:darkorange"><b>is taking</b></text>]/pass:[<text style="color:blue"><b>will take</b></text>] the module.
+
+==== Implementation
+
+The tracked module will have 2 new fields: `moduleStatus` and `semesterTimestamp`.
+
+The `moduleStatus` will be an enumeration of:
+
+* pass:[<text style="color:darkgreen"><b>completed</b></text>],
+* pass:[<text style="color:darkorange"><b>ongoing</b></text>] and
+* pass:[<text style="color:blue"><b>planned</b></text>].
+
+The `semesterTimestamp` will be a combination of:
+
+* an academic year
+** In NUS, the academic year representation is prefixed with "AY", followed by the last 2 digits of the starting year, and the last 2 digits of the ending year
+** e.g. AY1920, AY2021
+
+* a semester
+** In NUS, there are a total of 4 semesters. Semester 1, Semester 2, Special Term 1 (ST1) and Special Term 2 (ST2).
+** e.g. 1, 2, ST1, ST2
+
+The user will be free to modify the `moduleStatus` and the `semesterTimestamp`. The following class diagram will illustrate the above implementation.
+
+.Possible implementation of Module Status
+image::ModuleStatusClassDiagram.png[]
+
+==== Possible Extensions
+
+With the new data, users may be able to easier manage their tracked modules and gleam useful information.
+
+. pass:[<text style="color:darkgreen"><b>Completed modules</b></text>] will be hidden from the module list, but still viewable through a `listall` command (proposed command) and accessible through the `view` command.
+
+. pass:[<text style="color:darkgreen"><b>Completed modules</b></text>] and pass:[<text style="color:darkorange"><b>ongoing modules</b></text>] can be used to determine if a user fulfil the requirements for their pass:[<text style="color:blue"><b>planned modules</b></text>].
+// end::markmodulestatus[]
+
+// tag::searchfiltering[]
+=== Search filtering feature
+==== Implementation
+
+The search filtering feature Uses different categories of predicates
+to narrow down the search space of the archived module list. The user is able to able to combine different categories
+of search to find modules that passes all the user defined filters. This can be achieved through the use of `Predicate`
+which can be chained with additional predicates and applied to a `FilteredList`. This requires additional predicate classes that searches their individual fields
+for the keywords.:
+
+* `ModuleCodeContainsKeywordsPredicate` -- Tests that a `module` module code matches any of the keywords given.
+* `TitleContainsKeywordsPredicate` -- Tests that a `module` title contains all of the keywords given.
+* `DescriptionContainsKeywordsPredicate` -- Tests that a `module` description contains all of the keywords given.
+* `PrerequisiteContainsKeywordsPredicate` -- Tests that a `module` prerequisites matches any of the keywords given.
+* `PreclusionContainsKeywordsPredicate` -- Tests that a `module` preclusions matches any of the keywords given.
+* `SemesterContainsKeywordsPredicate` -- Tests that a `module` semester matches any of the keywords given.
+
+.Class diagram for search.
+image::FindCommandClassDiagram.png[]
+
+As shown in the figure above, predicate classes are created in the FindCommandParser, the list of predicates is used to construct a find command.
+Note that only DescriptionContainsKeywordsPredicate and TitleContainsKeywordsPredicate depends on LevenshteinDistanceChecker, the rest of the predicates do not depend on it.
+
+.Activity diagram for search predicates.
+image::SearchActivityDiagram.png[]
+
+The figure above shows how each predicate checks for the keyword. Do note that `DescriptionContainsKeywordsPredicate`
+and `TitleContainsKeywordsPredicate` requires their specified field to contain *all* of the keywords, while the rest of the
+predicates returns true as long as their field contains *at least one* of the keyword.
+
+The user is able to use any combination of filters and the order of input should not matter. Examples of valid find commands:
+
+****
+* `find mod\ cs2` : Should display a list of modules with module code containing "cs2"
+* `find mod\ cs2 prereq\ cs2040` : Should display a list of modules with module code containing "cs" and with prerequisite of "cs2040"
+****
+
+The following sequence diagram shows how the find operation wold work:
+
+.Sequence diagram for search filtering.
+image::FindSequenceDiagram.png[]
+
+NOTE: The lifeline for `FindCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+As represented in the figure above, when a `FindCommandParser` is constructed by `ModuleBookParser#parseCommand`, the `FindCommandParser` would construct a list
+of `Predicate<module>` based on the parsed arguments, which is used to construct a `FindCommand`.
+
+During the execution of `FindCommand#execute()`, each predicate is chained and applied to the `FilteredList`.
+
+Finally, a `FilteredList` of `Modules` that passes all of the filters will be displayed.
+
+==== Design Considerations
+
+===== Aspect: Requirements.
+
+* **Module field requirements:** Information from the `archivedModules.json` would have to be abstracted out
+as individual fields in the `ArchivedModule` object.
+** *pros:* Added fields can be used for future developments.
+** *cons:* Can potentially slow down `Module` construction and operations due to increased size for each `Module` object.
+
+===== Aspect: Fuzzy search.
+
+* **Search with spelling mistake tolerance:** Due to the potential of spelling mistakes within fields such as the module
+and module discription which does not rely on module codes, searching these fields can accept mistakes with a degree of 2
+Levenshtein Distance from any of the original intended word.
+** *pros*: Much more robust searching potential.
+** *cons*: Will slow down the search.
+
+===== Aspect: Incremental development.
+
+* **Adding new search filters:** Developing and integrating new filters.
+** *pros:* Filters can be developed independently and incrementally, filters can be integrated based on priority.
+** *pros:* Can be further adapted to search fields from `Deadline` and `Links`.
+// end::searchfiltering[]
+
+// tag::deadline[]
+=== Deadline Management Feature
+
+As a module management system, one of the important features will be the management of deadlines for each modules.
+
+This section will elaborate the current implementation and design considerations of deadline management feature.
+
+==== Current implementation
+
+The deadline management feature supports the following main operations.
+
+* `add` - adds a new deadline task to the respective module.
+
+* `edit` - edits the description or date and time of deadline task.
+
+* `done` - marks a deadline task as done.
+
+* `doneAll` - marks all the deadline tasks as done.
+
+* `inProgress` - marks a deadline task as inProgress.
+
+* `undone` - marks a deadline task as undone
+
+* `delete` - deletes an existing task from the deadline list.
+
+* `deleteAll` - deletes the entire deadline list from a module.
+
+The following activity diagram summarises what happened when a user executes the AddDeadlineCommand:
+
+.Activity Diagram for the execution of AddDeadlineCommand.
+image::AddDeadlineActivityDiagram.png[]
+
+The format to add deadline command is as follows:
+
+....
+deadline 2 a/add d/description t/dateAndTime p/priority
+....
+
+The add deadline mechanism is facilitated by `AddDeadlineCommand` and `AddDeadlineCommandParser`.
+It takes in the following input from the user: `MODULE_LIST_NUMBER`, `DESCRIPTION`, `DATE_AND_TIME` and
+`PRIORITY` which will construct a Deadline object to be added to the deadline list.
+
+Given below is an example usage scenario of how add deadline mechanism behaves at each step.
+
+Step 1. The user executes:
+
+....
+deadline 2 a/add d/do homework t/2/12/2019 1645 p/MEDIUM
+....
+
+Step 2. `LogicManager` would use `ModuleBookParser#parseCommand()` to parse input from the user.
+
+Step 3. `ModuleBookParser` would determine which command is being used and creates the respective parser.
+In this case, `DeadlineCommandParser` is being created from the COMMAND.WORD: `deadline` and
+the user’s input would be passed in as a parameter.
+
+Step 4. `DeadlineCommandParser` would then determine which action is being used and creates the respective parser.
+In this case, `AddDeadlineCommandParser` is created and user's input would be parsed.
+
+Step 5. `AddDeadlineCommandParser` would do a validation check on the user’s input before creating
+and returning a `AddDeadlineCommand` with `index` and `Deadline` as its attributes. `index` represents
+the `TrackedModule` list index (i.e 2) which the `Deadline` object will be added to.
+
+Step 6. `LogicManager` would execute `AddDeadlineCommand#execute()`,
+checks whether there is an existing module,
+then adds to the `TrackedModule`.
+
+Step 7. `AddDeadlineCommand` would return a `CommandResult`
+to the `LogicManager`.
+
+The following sequence diagram illustrates how the add deadline operation works:
+
+.Sequence Diagram diagram for AddDeadlineCommand.
+image::AddDeadlineSequenceDiagram.png[]
+
+==== Design Considerations
+Aspect: Data Structure used to support add command
+
+*  Alternative 1(Current choice) : Use of `ArrayList` to store deadline tasks in a `TrackedModule`.
+** Pros: Commands (eg. edit, sort, delete) can be easily supported
+by a list operations.
+** Pros: Ensures that only one deadline list is maintained for each TrackedModule.
+** Cons: More difficult to maintain over the course of the project.
+New commands(eg. done, priority) need to edit and maintain the list constantly.
+** Cons: Duplicate deadline tasks harder to identify.
+
+*  Alternative 2 : Use a `HashSet` to store deadline tasks in a `TrackedModule`.
+** Pros: Duplicate deadline tasks can be identified easily.
+** Cons: Not easy to identify tasks using index.
+// end::deadline[]
 
 === Logging
 
@@ -258,9 +433,93 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+//tag::link[]
+
+=== Link Management Feature
+
+The link management feature allows users to add and manage a set of website links that will be associated with a given module.
+
+==== Overview of link feature
+
+===== Implementation
+
+Our application currently supports adding and managing of links specific to certain modules.
+
+The link management feature is primarily facilitated by the following classes:
+
+- `Link` - represents a link object
+
+- `TrackedModule` - represents a module that was tracked. Stores the `Link` objects related to it.
+
+- `LinkCommand` - embodies the `link` command input given by the user and contains the necessary changes that will be made to the `TrackedModule` object.
+
+- `LinkCommandParser` - parses user input related to `link` commands and returns the corresponding `LinkCommand` to be executed.
+
+Each `link` object is stored in an `ArrayList<Link>`, which in turn is stored in its corresponding `TrackedModule`.
+
+In summary, the class diagram of how `Link` is implemented is shown as:
+
+.Class diagram for Link objects
+image::LinkClassDiagram.png[][pdfwidth="30%",width="30%"]
+
+The link feature currently recognizes and supports add, delete, edit and launch commands.
+
+Link commands are parsed through the `LinkCommandParser` class, which in turn calls the respective `XYZLinkCommandParser` class (i.e. `AddLinkCommandParser`, `EditLinkCommandParser`).
+The `XYZLinkCommandParser` class parses and returns a corresponding `XYZLinkCommand` class, which calls `execute()` and the `TrackedModule` will be updated accordingly if the execution was successful.
+
+The following activity diagram summarizes what happens when the link command is entered and executed:
+
+.Activity diagram for a LinkCommand execution
+image::LinkCommandActivityDiagram.png[][pdfwidth="40%",width="40%"]
+
+An example usage scenario of an *add link* operation is given below and the behavior of the link management feature is shown.
+
+1. The user launches the application with an existing save file. `ModuleBook` is initialized with existing `TrackedModule`.
+
+2. The user inputs `link add n/LINK_NAME l/LINK_URL` to add a link with name `LINK_NAME`, linked to `LINK_URL` to the `TrackedModule` with the corresponding `MODULE_INDEX`.
+
+3. `LogicManager` receives user input and parses it using `ModuleBookParser#parseCommand()`.  `ModuleBookParser` reads the `COMMAND_WORD` and identifies the input as a `Link` related command and passes the input to `LinkCommandParser`.
+
+4. `LinkCommandParser` determines the `add` action required. It then proceeds to pass the relevant input to  `AddLinkCommandParser`.
+
+5. `AddLinkCommandParser` checks for the validity of `LINK_URL` given by the user and creates the relevant `Link` and `AddLinkCommand` objects.
+
+6. `AddLinkCommand` calls `Model#getDisplayedModule()` to find the required module. If it does not exist or is not currently tracked, `AddLinkCommand` throws a `CommandException`. Otherwise, it then proceeds to call `TrackedModule#hasLinkTitle(LINK_NAME)` to check for an existing `Link` object with the same `LINK_NAME`.
+
+7. If such a `Link` object exists, `AddLinkCommand` aborts and throws a `CommandException`. Otherwise, the created `Link` will be added to the specified `TrackedModule`.
+
+8. If the operation is successful, a `CommandResult` with the success message will be returned.
+
+.Sequence diagram for add link operation
+image::AddLinkCommandSequenceDiagram.png[]
+.Reference of add link to module function from sequence diagram shown above
+image::AddLinkCommandSequenceDiagramExtension.png[][pdfwidth="50%",width="50%"]
+
+==== Design Considerations
+
+Aspect: Data structure used for link management
+
+* Alternative 1: All `TrackedModule` maintain a `ArrayList<Link>`. Adding `Link` objects will add to this `ArrayList`.
+
+** Pros: Easy to implement and edit for beginner programmers.
+
+** Cons: Accessing and editing existing `Link` might be less efficient. If number of `Link` objects maintained increases, `ArrayList` may not be optimal.
+
+* Alternative 2: Use `HashSet<Link>` to maintain `Link` in each `TrackedModule`
+
+** Pros: Reduces access time, since `Link` objects can be obtained by giving `LINK_TITLE`, rather than searching the list linearly for a matching object.
+
+** Cons: Difficult to add features. Future implmentations may add a `Priority` feature to `Link` objects. `HashSet` does not support any form of sorting and thus may pose a problem.
+
+* Solution (current implementation): Adopt alternative 1. Since from a user standpoint, the number of links added to any module should not be too large to affect performance of application.
+
+//end::link[]
+
 
 == Documentation
 
@@ -279,67 +538,111 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* is a student of National University of Singapore (NUS)
+* prefer desktop apps over web apps
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules faster and with less hassle than the traditional web apps deployed by the institution
 
 [appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
-[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |track a module I'm currently taking |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |untrack a module |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a module |locate details of modules that NUS provides
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |curious student |view a module's details |check out if I want to take the module
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |busy student |add and manage deadlines |keep track of my assignments and tasks
+
+|`* * *` |organized student |add and manage hyperlinks |keep track of online resources and websites that the module uses
+
+|`* *` |student |catalog past modules |know what modules I have taken, and access the content if needed
+
+|`* *` |graduating student |check what modules I need to complete |
+
+|`* *` |computing student |plan my focus area modules |choose a specialization
+
+|`* *` |busy student |prioritize certain modules (and their deadlines) |manage my time better
+
+|`* *` |organized student |add and manage files |keep track of files related to a module
+
+|`* *` |organized student |add notes to a module |keep track of certain information about a module
+
+|`* *` |hardworking student |access past exam papers |download them without too much hassle
+
+|`*` |organized student |track my grades |know roughly how well I'm doing in the module
+
+|`*` |competitive student |calculate my GPA |
+
+|`*` |new student |schedule my modules |plan how to approach my future focus areas
+
+|`*` |student |generate a sample module planner |plan my modules
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ModuleBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Find and Track a Module
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to find a module with incomplete keyword (e.g. 'CS2')
+2.  ModuleBook shows a list of modules matching the keyword (e.g. 'CS2030, CS2040, CS2100, CS2101, etc.')
+3.  User requests to track a module
+4.  ModuleBook tracks the module and displays to the user that the module is now tracked.
++
+Use case ends.
+
+[discrete]
+=== Use case: Add a deadline for a tracked module
+
+*MSS*
+
+1.  User requests to view the specific tracked module
+2.  ModuleBook displays the module details
+3.  User requests to add a deadline
+4.  ModuleBook adds the deadline
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
+* 2a. The module is not currently tracked
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. User requests to track the module
+** 2a2. The module is now tracked
+
 +
-Use case resumes at step 2.
+Use case resumes at step 3
+
+[%hardbreaks]
+[none]
+* 3a. ModuleBook requests for a description
+[none]
+** 3a1. User provides a description
+** 3a2. ModuleBook requests for a datetime
+** 3a3. User provides a datetime
+
++
+Use case resumes at step 4.
 
 _{More to be added}_
 
@@ -347,10 +650,8 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should be able to track and manage about **60 modules** without unreasonable lag (as this is roughly more than the number of modules a typical student is expected to complete at NUS).
 
 [appendix]
 == Glossary
@@ -358,25 +659,56 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+=== Common Application terms
+**Home view** - The state of the application that displays the home page in the main panel.
+
+image::userguide/Glossary_HomeView.png[]
+
+**Module view** - The state of the application that displays the specified module in the main panel.
+
+image::userguide/Glossary_ModuleView.png[]
+
+=== Common Module terms
+
+**Archived** - A module that the institution provides. Can be viewed and tracked. It is indicated by a gray vertical bar on the module list.
+
+image::userguide/Glossary_ArchivedModule.png[]
+
+**Tracked** - A module that is tracked. References an archived module. Can be viewed and untracked. It is indicated by a green vertical bar on the module list.
+
+image::userguide/Glossary_TrackedModule.png[]
+
 
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+[discrete]
+=== LumiNUS
 
 Pros:
 
-* ...
-* ...
+* Good deadline system
+* Working file management system
 
 Cons:
 
-* ...
-* ...
+* A lot of GUI navigation involved
+* Cannot add user-generated deadlines
+* Cannot view past module details or content
+
+'''
+
+[discrete]
+=== NUSMods
+
+Pros:
+
+* Easy to use and powerful module search feature
+* Modules come with schedules for tutorials, lectures, etc
+
+Cons:
+
+* Not applicable for managing modules (such as deadlines, grades)
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +732,12 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a module
 
-=== Deleting a person
+. Deleting a module while all modules are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: List all modules using the `list` command. Multiple modules in the list.
+.. Test case: `delete cs2103t` +
+   Expected: Module with module code cs2103t is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete INVALID_MODULE_CODE` +
+   Expected: No module is deleted. Error details shown in the status message. Status bar remains the same.
