@@ -91,28 +91,43 @@ a custom implementation of a TreeSet that implements a `List<E>` was necessary.
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]]
 [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]] +
 
-
-{YET TO DO}
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` and `v1.2` (2 releases) on GitHub
+*** Set up team repository.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** CRUD for appointment management (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/41[#41],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/74[#74])
+*** Implements undo and redo functionality (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/3[#3],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/73[#73])
 
-_{you can add/remove categories in the list above}_
+*** Implements optional fields for person (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/115[#115])
+
+*** Implements reactive search (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/145[#145])
+
+** Documentation:
+*** Updates to User and developer Guide: (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/99[#99],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/167[#167],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/235[#235],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/247[#247])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-3/main/pull/173[#173], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/188[#188]
+*** Reported bugs and suggestions for other teams in the class (issue
+ https://github.com/SakuraBlossom/ped/issues/7[1],
+https://github.com/SakuraBlossom/ped/issues/3[2],
+https://github.com/SakuraBlossom/ped/issues/6[3])
+
+** Tools:
+*** Set up Travis and Codacy for team repo
 
 == Contributions to the User Guide
 
@@ -120,10 +135,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-====
+
 include::../UserGuide.adoc[tag=reactiveSearchUG]
-====
-//include::../UserGuide.adoc[tag=dataencryption]
+===
+include::../UserGuide.adoc[tag=patient]
 
 == Contributions to the Developer Guide
 

@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.utils.ReversibleActionPairCommandStub;
@@ -21,16 +21,16 @@ class RedoCommandTest {
     @Test
     public void execute_performRedo_success() {
 
-        CommandHistory history = new CommandHistory();
+        CommandHistoryManager history = new CommandHistoryManager();
         Model model = TestUtil.getTypicalModelManager();
         Model expectedModel = TestUtil.getTypicalModelManager();
 
         RedoCommand redoCommand = new RedoCommand(history);
-        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
+        assertCommandFailure(redoCommand, model, CommandHistoryManager.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
         history.addToCommandHistory(new ReversibleActionPairCommandStub(commandResultMessage));
-        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
+        assertCommandFailure(redoCommand, model, CommandHistoryManager.MESSAGE_NO_REDO_HISTORY_ERROR);
 
         try {
             Assertions.assertTrue(history.performUndo(model).equals(new CommandResult(commandResultMessage)));
@@ -40,12 +40,12 @@ class RedoCommandTest {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
 
-        assertCommandFailure(redoCommand, model, CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR);
+        assertCommandFailure(redoCommand, model, CommandHistoryManager.MESSAGE_NO_REDO_HISTORY_ERROR);
     }
 
     @Test
     public void equals() {
-        CommandHistory history = new CommandHistory();
+        CommandHistoryManager history = new CommandHistoryManager();
         RedoCommand redoFirstCommand = new RedoCommand(history);
         RedoCommand redoSecondCommand = new RedoCommand(history);
 

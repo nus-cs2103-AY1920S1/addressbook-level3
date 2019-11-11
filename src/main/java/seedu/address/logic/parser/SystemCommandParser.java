@@ -21,7 +21,7 @@ import seedu.address.logic.commands.appointments.EditAppCommand;
 import seedu.address.logic.commands.appointments.MissAppCommand;
 import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.Command;
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
 import seedu.address.logic.commands.duties.CancelDutyShiftCommand;
 import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
@@ -75,10 +75,10 @@ public class SystemCommandParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private final CommandHistory commandHistory;
+    private final CommandHistoryManager commandHistoryManager;
 
-    public SystemCommandParser(CommandHistory commandHistory) {
-        this.commandHistory = commandHistory;
+    public SystemCommandParser(CommandHistoryManager commandHistoryManager) {
+        this.commandHistoryManager = commandHistoryManager;
     }
 
     /**
@@ -125,10 +125,10 @@ public class SystemCommandParser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            return new UndoCommand(commandHistory);
+            return new UndoCommand(commandHistoryManager);
 
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand(commandHistory);
+            return new RedoCommand(commandHistoryManager);
 
 
         case EnqueueCommand.COMMAND_WORD:

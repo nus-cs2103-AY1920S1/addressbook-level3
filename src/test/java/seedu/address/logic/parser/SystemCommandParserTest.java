@@ -16,7 +16,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.common.Command;
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.commands.patients.EditPatientDetailsCommand;
 import seedu.address.logic.commands.patients.ListPatientCommand;
@@ -35,7 +35,7 @@ import seedu.address.testutil.TestUtil;
 public class SystemCommandParserTest {
 
     private Model model = TestUtil.getTypicalModelManager();
-    private final CommandHistory history = new CommandHistory();
+    private final CommandHistoryManager history = new CommandHistoryManager();
     private final SystemCommandParser parser = new SystemCommandParser(history);
 
     @Test

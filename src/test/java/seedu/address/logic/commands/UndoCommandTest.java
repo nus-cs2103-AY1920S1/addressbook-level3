@@ -7,7 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.utils.ReversibleActionPairCommandStub;
 import seedu.address.model.Model;
 import seedu.address.testutil.TestUtil;
@@ -20,12 +20,12 @@ class UndoCommandTest {
     @Test
     public void execute_performUndo_success() {
 
-        CommandHistory history = new CommandHistory();
+        CommandHistoryManager history = new CommandHistoryManager();
         Model model = TestUtil.getTypicalModelManager();
         Model expectedModel = TestUtil.getTypicalModelManager();
 
         UndoCommand undoCommand = new UndoCommand(history);
-        assertCommandFailure(undoCommand, model, CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR);
+        assertCommandFailure(undoCommand, model, CommandHistoryManager.MESSAGE_NO_UNDO_HISTORY_ERROR);
 
         String commandResultMessage = "cmd 1";
         history.addToCommandHistory(new ReversibleActionPairCommandStub(commandResultMessage));
@@ -35,7 +35,7 @@ class UndoCommandTest {
 
     @Test
     public void equals() {
-        CommandHistory history = new CommandHistory();
+        CommandHistoryManager history = new CommandHistoryManager();
         UndoCommand undoFirstCommand = new UndoCommand(history);
         UndoCommand undoSecondCommand = new UndoCommand(history);
 

@@ -156,7 +156,7 @@ Hence, the user *should not have administrative privilege to unregister any pati
 
 Updates the particulars of a patients +
 
-NOTE: Editing tags will overwrite all existing tags. Must not edit when patient is in queue or being served. +
+NOTE: Editing tags will overwrite all existing tags. Patients particulars should not be edited while patient is in queue or being served. +
 
 Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`

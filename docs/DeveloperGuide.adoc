@@ -225,7 +225,12 @@ The undo/redo feature allows users to revert the action of a command or redo a c
 ==== Current Implementation
 
 We use a pairing of two commands to describe any action that can be undone.
-This pairing is encapsulated as a `ReversibleActionPairCommand`, which consists of the command to be executed and its inverse.
+This pairing is encapsulated as a `ReversibleActionPairCommand`, which consists of
+two `ReversibleCommand` classes: the command to be executed and its inverse.
+
+A Command can be classified as one of two types, a `ReversibleCommand` or `NonActionableCommand`.
+A `ReversibleCommand` refers to any command which modifies the data stored by the system.
+Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
 
 Consider that our appointment management system provides the user the ability to
 add, cancelling and reschedule an appointment using the commands named
@@ -234,86 +239,36 @@ add, cancelling and reschedule an appointment using the commands named
 By executing the `CancelApptCommand`, we can mimic the undo functionality of the `AddApptCommand`,
 which is simply cancelling the same appointment the `AddApptCommand` had scheduled.
 
+The undo/redo mechanism is facilitated by the `CommandHistoryManager` class, which is found in the `logic` component.
+The history stores actions that can be undone as a `ReversibleActionPairCommand` and implements the following operations:
 
-
-
-
-
-
-Unlike implementing the undo functionality into every command that modifies the database of our system,
-we can mimic these undo functionality by pairing and executing existing commands which are available to us.
-
-
-The following activity diagram summarises what happens when a user executes a new command:
-
-.Commit Activity Diagram
-image::CommitActivityDiagram.png[]
-
-
-
-
-
-
-A Command can be classified as one of two types, a `ReversibleCommand` or `NonActionableCommand`.
-A `ReversibleCommand` refers to any command which modifies the data stored by the system.
-Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
-
-The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
-The history class stores commands that can be undone as a `ReversibleActionPairCommand`,
-which describes a pairing of two `ReversibleActionCommand`, the first command being the action to be executed and its inverse.
-(e.g. Pairing 'add event A' and 'delete event A' command).
-
-
-
-With such an implementation, our design can conform to the Command pattern without violating the Single Responsibility Principle.
-Moreover, this implementation is less likely to face performance issues in terms of memory usage, compared to the Memento Pattern,
-which implements the undo capability by storing an instance of every previous state of the application in memory.
-
-
-
-
-The design of `CommandHistory` uses the Command pattern, a common design pattern often used in software engineering.
-It implements the following operations:
-
-* `CommandHistory#addToCommandHistory()` -- Saves the most recent command that modifies the system's model in its undo history.
-* `CommandHistory#performUndo()` -- Performs the inverse operation to restore the system to its previous state.
-* `CommandHistory#performRedo()` -- Restores a previously undone state by re-executing the respective undone command.
-* `CommandHistory#canUndo()` -- Checks if there are previous states to be restored
-* `CommandHistory#canRedo()` -- Checks if the a previously undone state can be restored
+* `CommandHistoryManager#addToCommandHistory()` -- Saves the most recent command that modifies the system's model in its undo history.
+* `CommandHistoryManager#performUndo()` -- Performs the inverse operation to restore the system to its previous state.
+* `CommandHistoryManager#performRedo()` -- Restores a previously undone state by re-executing the respective undone command.
+* `CommandHistoryManager#canUndo()` -- Checks if there are previous states to be restored
+* `CommandHistoryManager#canRedo()` -- Checks if the a previously undone state can be restored
 
 These operations are all contained within the `Logic` component and do not depend on any other components.
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo/redo mechanism behaves.
 
-Step 1. The user launches the application for the first time. The `CommandHistory` will be initialised with an empty undo and redo stack.
+On initialisation of the application, the undo and redo stack of the `CommandHistoryManager` would be empty.
 
-Step 2. The user executes `newpatient ... -name Mark` command which registers a new patient named `Mark` with the unique id of `S9729970A`.
-The `newpatient` command creates a `ReversibleActionPairCommand`, which pairs of a `RegisterPatientCommand` and `UnregisterPatientCommand`.
-After the invoking execution of the `RegisterPatientCommand`, the whole `ReversibleActionPairCommand` is pushed to the undo history stack
-via the `CommandHistory#addToCommandHistory()`
-
-image::UndoRedoState0.png[]
-
-Step 3. The user executes `enqueue S9729970A` command to add a patient whose reference id matches `S9729970A`.
-    The `enqueue` command also calls the `CommandHistory#addToCommandHistory()`, which pushes the enqueue action pair into the command history stack.
-
-image::UndoRedoState1.png[]
-
-Step 4. The user executes `newpatient ... -name John Doe` to register a new patient. Similar to the previous command, also causes another action pair to be added into the command history undo stack.
+. Suppose that the user already executed several commands earlier, with the latest command being `newpatient ... -name John Doe`,
+which registers a patient named 'John Doe'.
+This action invokes `CommandHistoryManager#addToCommandHistory()` pushing the new action pair command into the undo stack.
 
 image::UndoRedoState2.png[]
 
-[NOTE]
-If a command fails its execution, it will not call `CommandHistory#performRedo()`. Hence, the command will not be saved into the command history.
-
-Step 5. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `CommandHistory#performUndo()`.
+. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `CommandHistoryManager#performUndo()`.
 This invokes the `UnregisterPatientCommand` which reverts the system to its previous state,
 and moves the action from the top undo stack to the top of the redo history stack.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the undo stack is empty then there are no previous states to be restored. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+An empty undo stack implies that there are no previous states to be restored.
+The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -322,28 +277,34 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `CommandHistory#performRedo()` which restores the address book to that state by invoking the original command again.
+The `redo` command does the opposite -- it calls `CommandHistoryManager#performRedo()` which restores the address book to that state by invoking the original command again.
 
 [NOTE]
 If the `commandRedoHistory` is empty, then there are no undone states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `patient S9482963D`.
+. The user then decides to execute the command `patient S9482963D`.
 A command that searches for a patient whose id matches `S9482963D`,
 only reads and does not modify any data from the model.
-Such commands will not call `CommandHistory#addToCommandHistory()`,
-`CommandHistory#performUndo()`, `CommandHistory#performRedo()`.
+Such commands will not call `CommandHistoryManager#addToCommandHistory()`,
+`CommandHistoryManager#performUndo()`, `CommandHistoryManager#performRedo()`.
 
 Thus, the undo and redo stacks remain unchanged.
 
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `newappt ...` to schedule a new appointment for a patient.
-This action invokes `CommandHistory#addToCommandHistory()`, pushing the new action pair command in the undo stack.
+This action invokes `CommandHistoryManager#addToCommandHistory()`, pushing the new action pair command in the undo stack.
 However, the commands in the `commandRedoHistory` stack will be purged.
 
 We designed it this way because it no longer makes sense to redo the `newpatient ... -name John Doe`​ command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
+
+The following activity diagram summarises what happens when a user executes a new command:
+
+.Commit Activity Diagram
+image::CommitActivityDiagram.png[]
+
 
 
 
