@@ -384,7 +384,7 @@ Also for teams, each corresponding `String` is converted to its field counterpar
 
 The export feature will be used to unload the data in Alfred to an external CSV file. This functionality will prove useful when you or the user wishes to share the aggregate data of a particular hackathon event with other people or organization or wishes to keep a record of past hackathons for future references.
 
-// tag::undoredo[]
+// tag::undoredoDG1[]
 === Undo/Redo feature
 
 The Undo/Redo feature, as the name suggests, allows you to undo and redo commands. Only commands that alter the state of the data
@@ -439,6 +439,8 @@ the commands that mutate data in Alfred. All command types except the following 
 will therefore have the state of the data recorded in `ModelHistoryManager` after command execution):
 `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
 
+// end::undoredoDG1[]
+
 ==== Implementation: How `ModelManager` is Updated When the Undo Command is Executed
 The following sequence diagram shows what happens when the UndoCommand is executed.
 
@@ -452,16 +454,22 @@ if there are sufficient states to undo to, otherwise an exception is thrown.
 [NOTE]
 A analogous process is executed for the Redo Command.
 
+// tag::undoredoDG2[]
 ==== Behaviour of Undo/Redo Mechanism
 `ModelHistoryMangager` contains a List of `ModelHistoryRecord`, and a pointer pointing to the `ModelHistoryRecord` that
 reflects the current state of the data in Alfred.
 
 In order to better illustrate how the state of the data is tracked and stored in `ModelHistoryManager`, consider the following example.
 The following commands are executed:
+
 1. AddParticipantCommand: `add participant n/Clark Kent p/+6598321212 e/clark.kent@supermail.com`
+
 2. AddMentorCommand: `add mentor n/Lex Luthor o/LexCorp p/+6598321010 e/lex.not.evil@gmail.com s/Social`
+
 3. ListParticipantCommand: `list participants`
+
 4. UndoCommand: `undo 2`
+
 5. AddTeamCommand: `add team n/Justice League s/Social pn/BetterThanAvengers l/12`
 
 This is the state of `ModelHistoryManager` when Alfred is first started.
@@ -545,7 +553,7 @@ In order to accommodate this design for the Undo/Redo feature, we decided to lim
 `ModelHistoryManager` to 50. It is unlikely that a user would want to undo more than 50 commands at a go, as that would indicate
 a very significant error in the workflow, and recovering from that should not have a reliance on the Undo/Redo feature.
 
-// end:undoredo[]
+// end::undoredoDG2[]
 
 === History feature
 

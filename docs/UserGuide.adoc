@@ -413,12 +413,15 @@ image::RemoveCommandExample1.png[width="790"]
 image::RemoveCommandExample2.png[width="790"]
 //end::remove[]
 
-// tag::history[]
+// tag::history1[]
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
 
 [[history_diagram]]
+.History Section of UI
 image::UndoRedoExplanation.png[width="790"]
+
+// end::history1[]
 
 ****
 * This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
@@ -436,35 +439,44 @@ On the other hand, invoking `add participant` with the suitable parameters will 
 * In total, only 50 states will be stored, so this serves as a limit for the number of commands you can undo/redo to.
 ****
 
+// tag::history2[]
+
 [NOTE]
 The following commands are not undo/redo-able: `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
 All other commands are undo/redo-able.
 
 Example:
 
-After running the following commands:
+After running the following commands: +
 
-1. `list participants`
-2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com`
-3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com`
-4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com`
-5. `edit participant P-4 n/The Flash`
+1. `list participants` +
+
+2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com` +
+
+3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com` +
+
+4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com` +
+
+5. `edit participant P-4 n/The Flash` +
 
 Running `history` will show you the following output in the "History" section of the Graphical User Interface:
 
+.Output from History Command
 image::HistoryCommandExampleOutput.png[width="790"]
 
 //Add annotations to image when the UI is finalised.
-The topmost panel is the "redo" delimiter. +
-The second panel from the top is the "current" delimiter. +
-The bottommost panel shows you the "undo" delimiter. +
+The topmost panel is the "redo" delimiter. The second panel from the top is the "current" delimiter. The bottommost panel shows you the "undo" delimiter.
+
 In this example, the output of the `history` command shows you can invoke the `undo` command four times.
-Notice that the `list participants` command is not shown in the "History" section as it does not change data. +
+
+Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+
 Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
 and the 4th undo-able command being the oldest executed command. In this case, the maximum number of commands you can undo at once is 4.
+
 Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error.
 
-//end::history[]
+//end::history2[]
 
 === Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`
 Undoes previously executed commands.
