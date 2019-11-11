@@ -29,7 +29,7 @@ MAMS is written primarily in Java, and features a GUI created with JavaFX, with 
 ** Justification: This feature is one of the fundamental commands that is required by Appeal admins to resolve appeals made by students. One of the most common requests made is to take up modules or drop modules.
 ** Highlights: Many logical checks are required before a addmod command can be executed. E.g. student cannot exceed workload/module cannot exceed quota limit.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cheongliyuan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=cheongliyuan&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]] (Use provided RepoSense filters to view "Functional" and "Test" Code)
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cheongliyuan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=cheongliyuan&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
 
 * *Other contributions*:
 ** Documentation:
