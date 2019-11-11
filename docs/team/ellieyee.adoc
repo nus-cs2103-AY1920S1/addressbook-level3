@@ -77,21 +77,11 @@ include::../UserGuide.adoc[tag=FeatureDeleteModule]
 
 include::../UserGuide.adoc[tag=FeatureDeleteTutorial]
 
-include::../UserGuide.adoc[tag=FeatureDeleteStudent]
-
-include::../UserGuide.adoc[tag=FeatureEditStudent]
-
-include::../UserGuide.adoc[tag=FeatureFind]
-
 include::../UserGuide.adoc[tag=FeatureDisplayScore]
 
 include::../UserGuide.adoc[tag=FeatureDisplayAssignments]
 
 include::../UserGuide.adoc[tag=FeatureDisplayAttendance]
-
-include::../UserGuide.adoc[tag=FeatureList]
-
-include::../UserGuide.adoc[tag=FeatureCd]
 
 == Contributions to the Developer Guide
 
@@ -99,10 +89,6 @@ include::../UserGuide.adoc[tag=FeatureCd]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=architecture]
-
 include::../DeveloperGuide.adoc[tag=ui]
-
-include::../DeveloperGuide.adoc[tag=edit]
 
 include::../DeveloperGuide.adoc[tag=list]
