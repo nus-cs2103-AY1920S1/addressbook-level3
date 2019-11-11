@@ -38,7 +38,7 @@ GUI apps!
 *Command Format*
 
 * Words in `[SQUARE BRACKETS]` are mandatory parameters to be supplied by the user e.g. in `add [n/NAME] [d/DESCRIPTION] [a/AMOUNT]`, `NAME` `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add n/buy a book d/math book a/10`.
-* The mandatory parameters must be supplied in the order specified.
+* The mandatory parameters can be in any order.
 * Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
 * Some commands may have optional parameters. These are denoted by using `<ANGULAR BRACKETS>`, e.g When you see `<a/AMOUNT>`, the command can be either `expense edit 2 n/lunch a/10` or `expense edit 2 n/lunch`.
 * Flags can be in any order.
@@ -53,8 +53,9 @@ GUI apps!
 You can add an expense to records using this command. +
 Usage:
 
-add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG] date/[DATE]
+ add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG] date/[DATE]
 
++
 Example:  +
 `add n/buy a book d/math textbook a/10 t/coop` +
 Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
