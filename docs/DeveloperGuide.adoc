@@ -672,11 +672,6 @@ image::Tag/SequenceDiagramTagCommand.png[width="790"]
 
 // end::tag[]
 
-
-// tag::search[]
-=== Search
->>>>>>> 7a9c5fc271183379425342c81d2f7b0f441903f4
-
 // tag::export[]
 === Export
 
