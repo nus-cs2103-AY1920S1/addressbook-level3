@@ -1656,9 +1656,9 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: List all contacts using the `goto_contacts` command. Multiple contacts in the list.
 .. Test case: `delete_contact 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-.. Test case: `delete 0` +
+.. Test case: `delete_contact 0` +
    Expected: No contact is deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Other incorrect delete contact commands to try: `delete_contact`, `delete_contact x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 
@@ -1674,8 +1674,32 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect add income commands to try: `add_income d/Shirtsales`, `add_income x` (where x is a random string) +
    Expected: Similar to previous.
 
+=== Deleting an income
 
-=== Entering an unknown command word
+. Deleting an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Test case: `delete_income 1` +
+   Expected: First income is deleted from the list. Details of the deleted income shown in the status message.
+.. Test case: `delete_income 0` +
+   Expected: No income is deleted. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `delete_income`, `delete_income x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Editing an income
+
+. Editing an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. At least 1 income in the list.
+.. Test case: `edit_income 1 d/This is a test` +
+   Expected: The first income on the list description field is edited. Details of the edited income shown in the status message.
+.. Test case: `edit_income 1` +
+   Expected: The first income on the list is not edited. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `edit_income 1 q/`, `edit_income 1 x/` (where x is an unknown field) +
+   Expected: Similar to previous.
+
+
+=== Entering an unknown command word / Creating a shortcut
 . Entering a command that is not in FinSec
 
 .. Prerequisites: None.
@@ -1690,6 +1714,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: FinSec creates a shortcut. Details will be shown in the status message.
 .. Other incorrect add shortcut commands to try: ` ` (empty string) +
    Expected: Similar to previous.
+
 
 === Viewing added autocorrect suggestion
 . See autocorrect suggestion list
