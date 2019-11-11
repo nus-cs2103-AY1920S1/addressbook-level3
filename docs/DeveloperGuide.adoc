@@ -300,6 +300,7 @@ rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+[[undo-sequence-diagram]]
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
@@ -356,8 +357,11 @@ undo stack and pushing it into the redo stack. There is no way to pop multiple s
 === Autotag feature
 ==== Implementation
 
-The autotag mechanism is facilitated by `AutotagController`. It stores and manages a list of `SelectiveBookmarkTaggers` which apply tags to
-bookmarks if they match specific criteria. It also implements the following operations:
+// TODO: rewrite this part
+The autotag mechanism is facilitated by the main class `AutotagController`. It stores and manages a list of
+`SelectiveBookmarkTaggers`, which represent autotags in the `Model`.
+
+`AutotagController` implements the following operations:
 
 * `AutotagController#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the controller contains the given tagger.
 * `AutotagController#addTagger(SelectiveBookmarkTagger)` -- Starts managing the given tagger.
@@ -369,49 +373,73 @@ and `Model#applyAllTaggers()` respectively.
 
 Given below is an example usage scenario and how the autotag mechanism behaves at each step.
 
-Step 1. The user opens the application with an existing list of bookmarks and no autotags.
+****
+**Step 1**. The user opens the application with an existing list of bookmarks and no autotags.
 
-image::AutotagState0.png[]
+.The initial state of Mark
+image::AutotagState0.png[350, 350]
 
-Step 2. The user executes the command `**autotag** Help u/stackoverflow.com/questions` to add an autotag that tags all
+**Step 2**. The user executes the command `**autotag** Help u/stackoverflow.com/questions` to add an autotag that tags all
 bookmarks from **stackoverflow.com/questions** with the tag **Help**.
 
-* A `SelectiveBookmarkTagger` is created with a `UrlContainsKeywordsPredicate` and a `Tag` named **Help**.
-The predicate's keyword is **stackoverflow.com/questions**.
-* `b2`, which matches `UrlContainsKeywordsPredicate`, is replaced by a copy of itself that
-also contains the tag `Help`.
+* A `SelectiveBookmarkTagger` is created with a `BookmarkPredicate` and a `Tag` named **Help**.
+The predicate's URL keyword is **stackoverflow.com/questions**.
+* The new autotag is applied to bookmark `b2`, which matches the `UrlContainsKeywordsPredicate`. This is carried out by
+replacing `b2` with a copy of itself (`b3`) that also contains the tag **Help**.
 
-image::AutotagState1.png[]
+.The state of Mark after an autotag is added and applied to existing bookmarks
+image::AutotagState1.png[400, 400]
 
-The following sequence diagram shows how the `autotag` command works.
-__(The sequence diagram will be improved in future versions of the Developer Guide.)__
-
-// TODO: improve sequence diagram
-image::AutotagSequenceDiagram.png[]
-
-NOTE: The lifeline for `AutotagCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, it
-reaches the end of this diagram.
-
-**Autotags will now be applied whenever a bookmark is added or modified.**
-
-Step 3. The user then executes the command `**add** n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/`
+**Step 3**. The user then executes the command `**add** n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/`
 to bookmark a question on StackOverflow.
 
+* A new bookmark with the name `JavaFX new scene` is created.
 * This bookmark matches the conditions for the previously added autotag, so it is tagged **Help**.
 
-image::AutotagState2.png[]
+.The state of Mark after a new bookmark is added and tagged automatically
+image::AutotagState2.png[400, 400]
 
-// TODO: Show how autotags are deleted (existing tags are not removed)
-// Step 4: The user deletes an autotag with the command `**autotag-delete** Help`.
+****
 
-The following activity diagram (<<autotag-activity-diagram>>) summarizes what happens when an autotag is added.
+The following diagrams show how the `*autotag*` command works in more detail.
+
+The parsing of an `*autotag*` command is done in a similar way as shown in the first half of the
+<<undo-sequence-diagram, sequence diagram for the `undo` command>>. This result in the creation of an
+`AutotagCommand` that contains a `SelectiveBookmarkTagger` to be added to the `Model`.
+
+When `AutotagCommand#execute(model, storage)` is called, the command first checks whether the given `model` contains
+the command's `SelectiveBookmarkTagger` (also known as `tagger`).
+If it does not, `tagger` is added to `model`, and all taggers in `model` are then applied to the bookmarks in `model`.
+Finally, the current state of Mark is saved with a message that indicates the successful execution of the
+`*autotag*` command. This sequence of operations is illustrated in the following diagram:
+
+.Sequence diagram showing the general execution of an `AutotagCommand`
+image::AutotagSequenceDiagram.png[300, 300]
+
+The next sequence diagram provides more details of how taggers are applied to bookmarks in Mark.
+
+.Sequence diagram showing the execution of `Model#applyAllTaggers()`
+image::ApplyAllTaggersSequenceDiagram.png[500, 500]
+
+NOTE: The **sd** frame should cover the whole diagram, but due to a limitation of PlantUML, it does not.
+
+With reference to the above diagram, the `Model`
+first calls the method `VersionedMark#applyAllTaggers()`. `VersionedMark` then obtains its `list` of bookmarks, and
+passes the list to its `AutotagController` to apply all `SelectiveBookmarkTaggers` to the list.
+The `AutotagController` then iterates through all the bookmarks and taggers, and applies tags to bookmarks using the method
+`SelectiveBookmarkTagger#applyTagSelectively(Bookmark)`. A new list of bookmarks is returned, which `VersionedMark`
+sets as its bookmark list.
+
+The following activity diagram summarizes what happens when an autotag is added (assuming valid user input).
 A similar mechanism is used to tag bookmarks when a bookmark is added or modified.
 
 [[autotag-activity-diagram]]
 .Activity diagram showing how an autotag is added
-image::AutotagActivityDiagram.png[]
+image::AutotagActivityDiagram.png[300, 300]
 
 ==== Design Considerations
+
+The following aspects of the autotag mechanism were considered when designing the autotag implementation.
 
 // TODO: ===== Aspect: How autotags are represented
 
@@ -419,7 +447,7 @@ image::AutotagActivityDiagram.png[]
 
 * **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of runtime, as bookmarks may be checked multiple times.
+** Cons: May have performance issues in terms of runtime, as bookmarks can be checked multiple times.
 * **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
 ** Pros: Will be faster if most bookmarks are unchanged.
 ** Cons: More complicated to implement.
