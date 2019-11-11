@@ -33,12 +33,12 @@ import seedu.planner.storage.activity.JsonActivityStorage;
 import seedu.planner.storage.contact.JsonContactStorage;
 import seedu.planner.storage.day.JsonItineraryStorage;
 
-public class UndoCommandTest {
+public class RedoCommandTest {
     @TempDir
     public Path testFolder;
 
     @Test
-    public void execute_undoAddActivity_success() throws CommandException, ParseException {
+    public void execute_redoAddActivity_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -48,10 +48,12 @@ public class UndoCommandTest {
         assertTrue(model.hasActivity(newActivity));
         logic.execute("undo");
         assertFalse(model.hasActivity(newActivity));
+        logic.execute("redo");
+        assertTrue(model.hasActivity(newActivity));
     }
 
     @Test
-    public void execute_undoAddAccommodation_success() throws CommandException, ParseException {
+    public void execute_redoAddAccommodation_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -60,10 +62,12 @@ public class UndoCommandTest {
         assertTrue(model.hasAccommodation(newAccommodation));
         logic.execute("undo");
         assertFalse(model.hasAccommodation(newAccommodation));
+        logic.execute("redo");
+        assertTrue(model.hasAccommodation(newAccommodation));
     }
 
     @Test
-    public void execute_undoAddContact_success() throws CommandException, ParseException {
+    public void execute_redoAddContact_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -72,10 +76,12 @@ public class UndoCommandTest {
         assertTrue(model.hasContact(newContact));
         logic.execute("undo");
         assertFalse(model.hasContact(newContact));
+        logic.execute("redo");
+        assertTrue(model.hasContact(newContact));
     }
 
     @Test
-    public void execute_undoAddDay_success() throws CommandException, ParseException {
+    public void execute_redoAddDay_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -84,10 +90,12 @@ public class UndoCommandTest {
         assertTrue(model.hasDay(newDay));
         logic.execute("undo");
         assertFalse(model.hasDay(newDay));
+        logic.execute("redo");
+        assertTrue(model.hasDay(newDay));
     }
 
     @Test
-    public void execute_undoDeleteActivity_success() throws CommandException, ParseException {
+    public void execute_redoDeleteActivity_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -99,10 +107,12 @@ public class UndoCommandTest {
         assertFalse(model.hasActivity(newActivity));
         logic.execute("undo");
         assertTrue(model.hasActivity(newActivity));
+        logic.execute("redo");
+        assertFalse(model.hasActivity(newActivity));
     }
 
     @Test
-    public void execute_undoDeleteAccommodation_success() throws CommandException, ParseException {
+    public void execute_redoDeleteAccommodation_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -113,10 +123,12 @@ public class UndoCommandTest {
         assertFalse(model.hasAccommodation(newAccommodation));
         logic.execute("undo");
         assertTrue(model.hasAccommodation(newAccommodation));
+        logic.execute("redo");
+        assertFalse(model.hasAccommodation(newAccommodation));
     }
 
     @Test
-    public void execute_undoDeleteContact_success() throws CommandException, ParseException {
+    public void execute_redoDeleteContact_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -127,10 +139,12 @@ public class UndoCommandTest {
         assertFalse(model.hasContact(newContact));
         logic.execute("undo");
         assertTrue(model.hasContact(newContact));
+        logic.execute("redo");
+        assertFalse(model.hasContact(newContact));
     }
 
     @Test
-    public void execute_undoDeleteDay_success() throws CommandException, ParseException {
+    public void execute_redoDeleteDay_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -141,10 +155,12 @@ public class UndoCommandTest {
         assertFalse(model.hasDay(newDay));
         logic.execute("undo");
         assertTrue(model.hasDay(newDay));
+        logic.execute("redo");
+        assertFalse(model.hasDay(newDay));
     }
 
     @Test
-    public void execute_undoEditActivity_success() throws CommandException, ParseException {
+    public void execute_redoEditActivity_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -161,10 +177,14 @@ public class UndoCommandTest {
         logic.execute("undo");
         assertFalse(model.hasActivity(editedActivity));
         assertTrue(model.hasActivity(newActivity));
+
+        logic.execute("redo");
+        assertTrue(model.hasActivity(editedActivity));
+        assertFalse(model.hasActivity(newActivity));
     }
 
     @Test
-    public void execute_undoEditAccommodation_success() throws CommandException, ParseException {
+    public void execute_redoEditAccommodation_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -180,10 +200,14 @@ public class UndoCommandTest {
         logic.execute("undo");
         assertFalse(model.hasAccommodation(editedAccommodation));
         assertTrue(model.hasAccommodation(newAccommodation));
+
+        logic.execute("redo");
+        assertTrue(model.hasAccommodation(editedAccommodation));
+        assertFalse(model.hasAccommodation(newAccommodation));
     }
 
     @Test
-    public void execute_undoEditContact_success() throws CommandException, ParseException {
+    public void execute_redoEditContact_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model, generateTempStorage());
 
@@ -198,6 +222,10 @@ public class UndoCommandTest {
         logic.execute("undo");
         assertFalse(model.hasContact(editedContact));
         assertTrue(model.hasContact(newContact));
+
+        logic.execute("redo");
+        assertTrue(model.hasContact(editedContact));
+        assertFalse(model.hasContact(newContact));
     }
 
     @Test
@@ -230,6 +258,12 @@ public class UndoCommandTest {
         assertTrue(model.hasAccommodation(newAccommodation));
         assertTrue(model.hasContact(newContact));
         assertTrue(model.hasDay(newDay));
+
+        logic.execute("redo");
+        assertFalse(model.hasActivity(newActivity));
+        assertFalse(model.hasAccommodation(newAccommodation));
+        assertFalse(model.hasContact(newContact));
+        assertFalse(model.hasDay(newDay));
     }
 
     @Test
@@ -250,6 +284,9 @@ public class UndoCommandTest {
 
         logic.execute("undo");
         assertFalse(model.getDay(dayIndex).hasActivity(newActivity));
+
+        logic.execute("redo");
+        assertTrue(model.getDay(dayIndex).hasActivity(newActivity));
     }
 
     @Test
@@ -272,6 +309,9 @@ public class UndoCommandTest {
 
         logic.execute("undo");
         assertTrue(model.getDay(dayIndex).hasActivity(newActivity));
+
+        logic.execute("redo");
+        assertFalse(model.getDay(dayIndex).hasActivity(newActivity));
     }
 
     /**
