@@ -445,7 +445,7 @@ except there are more methods involved as there is a greater degree of nesting.
 The workflow for adding a record can be illustrated by the Activity Diagram below.
 
 .Activity diagram showing how a Record is added to an Event.
-image::addrecord_activitydiagram.png[width="700"]
+image::addrecord_activitydiagram.png[width="500"]
 
 ===== Function 3: Viewing of Event and Record
 
