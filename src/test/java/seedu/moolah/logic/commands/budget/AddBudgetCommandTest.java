@@ -10,9 +10,9 @@ import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Stack;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,6 @@ import seedu.moolah.commons.core.GuiSettings;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.MooLah;
-import seedu.moolah.model.ReadOnlyModelHistory;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.alias.Alias;
@@ -33,6 +31,8 @@ import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Description;
 import seedu.moolah.model.general.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 
 public class AddBudgetCommandTest {
@@ -47,15 +47,12 @@ public class AddBudgetCommandTest {
         ModelStubAcceptingBudgetAdded modelStub = new ModelStubAcceptingBudgetAdded();
         Budget validBudget = SCHOOL;
 
-        List<Budget> expectedBudgetsAdded = Arrays.asList(validBudget);
-        Stack<ModelStub> expectedPastModels = new Stack<>();
-        expectedPastModels.push(new ModelStubAcceptingBudgetAdded(modelStub));
+        List<Budget> expectedBudgetsAdded = Collections.singletonList(validBudget);
 
         CommandResult commandResult = new AddBudgetCommand(validBudget).run(modelStub);
 
         assertEquals(String.format(AddBudgetCommand.MESSAGE_SUCCESS, validBudget), commandResult.getFeedbackToUser());
         assertEquals(expectedBudgetsAdded, modelStub.budgetsAdded);
-        assertEquals(expectedPastModels, modelStub.pastModels);
     }
 
     @Test
@@ -89,7 +86,6 @@ public class AddBudgetCommandTest {
         // different budget -> returns false
         assertFalse(addSchoolBudgetCommand.equals(addOutsideSchoolBudgetCommand));
     }
-
 
     /**
      * A default model stub that have all of the methods failing.
@@ -157,6 +153,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
+        public void applyChanges(ModelChanges changes) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyModelHistory getModelHistory() {
             throw new AssertionError("This method should not be called.");
         }
@@ -167,17 +168,12 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public String getLastCommandDesc() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean canRollback() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void rollbackModel() {
+        public Optional<String> rollback() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -187,22 +183,22 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void migrateModel() {
+        public Optional<String> migrate() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitModel(String description) {
+        public void commit(String changeMessage, Model prevModel) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToPastHistory(Model model) {
+        public void addToPastChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addToFutureHistory(Model model) {
+        public void addToFutureChanges(ModelChanges changes) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -383,7 +379,6 @@ public class AddBudgetCommandTest {
         }
     }
 
-
     /**
      * A Model stub that contains a single budget.
      */
@@ -402,22 +397,23 @@ public class AddBudgetCommandTest {
         }
     }
 
-
     /**
      * A Model stub that always accept the budget being added.
      */
     private class ModelStubAcceptingBudgetAdded extends ModelStub {
         final ArrayList<Budget> budgetsAdded;
-        final Stack<ModelStub> pastModels;
 
         public ModelStubAcceptingBudgetAdded() {
             budgetsAdded = new ArrayList<>();
-            pastModels = new Stack<>();
         }
 
         public ModelStubAcceptingBudgetAdded(ModelStubAcceptingBudgetAdded model) {
             budgetsAdded = new ArrayList<>(model.budgetsAdded);
-            pastModels = (Stack<ModelStub>) model.pastModels.clone();
+        }
+
+        @Override
+        public Model copy() {
+            return new ModelStubAcceptingBudgetAdded(this);
         }
 
         @Override
@@ -433,29 +429,11 @@ public class AddBudgetCommandTest {
         }
 
         @Override
-        public void commitModel(String description) {
-            pastModels.push(new ModelStubAcceptingBudgetAdded(this));
+        public void commit(String changeMessage, Model prevModel) {
+            // Should not do anything for isolated testing.
         }
 
-        @Override
-        public ReadOnlyMooLah getMooLah() {
-            return new MooLah();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this) {
-                return true;
-            }
-
-            if (!(obj instanceof ModelStubAcceptingBudgetAdded)) {
-                return false;
-            }
-
-            ModelStubAcceptingBudgetAdded other = (ModelStubAcceptingBudgetAdded) obj;
-            return budgetsAdded.equals(other.budgetsAdded)
-                    && pastModels.equals(other.pastModels);
-        }
     }
+
 }
 

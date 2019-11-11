@@ -9,39 +9,47 @@ import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 public class DeleteExpenseFromBudgetCommandTest {
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_validIndex_success() {
         assertEquals(model.getPrimaryBudget().getDescription().fullDescription, "School related expenses");
-        assertTrue(model.getPrimaryBudget().getExpenses().size() == 2);
+        assertEquals(2, model.getPrimaryBudget().getExpenses().size());
         Expense expenseToDelete = model.getPrimaryBudget().getExpenses().get(INDEX_FIRST.getZeroBased());
-        DeleteExpenseFromBudgetCommand deleteExpenseFromBudgetCommand = new DeleteExpenseFromBudgetCommand(INDEX_FIRST);
-
-        String expectedMessage = String.format(DeleteExpenseFromBudgetCommand.MESSAGE_DELETE_EXPENSE_SUCCESS,
-                expenseToDelete);
-
-        ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
+        DeleteExpenseFromBudgetCommand command = new DeleteExpenseFromBudgetCommand(INDEX_FIRST);
 
         expectedModel.deleteExpense(expenseToDelete);
         Budget primaryBudget = expectedModel.getPrimaryBudget();
         Budget primaryBudgetCopy = primaryBudget.deepCopy();
         primaryBudgetCopy.removeExpense(expenseToDelete);
         expectedModel.setBudget(primaryBudget, primaryBudgetCopy);
-        assertCommandSuccess(deleteExpenseFromBudgetCommand, model, expectedMessage, expectedModel);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
+
+        String expectedMessage = String.format(DeleteExpenseFromBudgetCommand.MESSAGE_DELETE_EXPENSE_SUCCESS,
+                expenseToDelete);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test

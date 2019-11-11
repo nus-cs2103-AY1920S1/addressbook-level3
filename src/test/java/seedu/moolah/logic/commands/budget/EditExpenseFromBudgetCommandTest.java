@@ -8,11 +8,11 @@ import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_DESCRIPT
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_PRICE_TAXI;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
@@ -20,18 +20,26 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.moolah.logic.commands.general.ClearCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
 import seedu.moolah.testutil.ExpenseBuilder;
 
 
 public class EditExpenseFromBudgetCommandTest {
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_allFieldsSpecified_success() {
@@ -52,24 +60,19 @@ public class EditExpenseFromBudgetCommandTest {
                 .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN)
                 .withTimestamp("22-10-2019")
                 .build();
-        EditExpenseFromBudgetCommand editExpenseFromBudgetCommand = new EditExpenseFromBudgetCommand(
+        EditExpenseFromBudgetCommand command = new EditExpenseFromBudgetCommand(
                 indexLastExpense, descriptor);
-
-        String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
-                editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
 
         expectedModel.setExpense(lastExpense, editedExpense);
         Budget primaryBudget = expectedModel.getPrimaryBudget();
         Budget primaryBudgetCopy = primaryBudget.deepCopy();
         primaryBudgetCopy.setExpense(lastExpense, editedExpense);
         expectedModel.setBudget(primaryBudget, primaryBudgetCopy);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editExpenseFromBudgetCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
+                editedExpense);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
 
@@ -90,40 +93,32 @@ public class EditExpenseFromBudgetCommandTest {
                 .withPrice(VALID_EXPENSE_PRICE_TAXI)
                 .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN)
                 .build();
-        EditExpenseFromBudgetCommand editExpenseFromBudgetCommand = new EditExpenseFromBudgetCommand(
+        EditExpenseFromBudgetCommand command = new EditExpenseFromBudgetCommand(
                 indexLastExpense, descriptor);
-
-        String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
-                editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
 
         expectedModel.setExpense(lastExpense, editedExpense);
         Budget primaryBudget = expectedModel.getPrimaryBudget();
         Budget primaryBudgetCopy = primaryBudget.deepCopy();
         primaryBudgetCopy.setExpense(lastExpense, editedExpense);
         expectedModel.setBudget(primaryBudget, primaryBudgetCopy);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editExpenseFromBudgetCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
+                editedExpense);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void run_noFieldSpecified_success() {
-        EditExpenseFromBudgetCommand editExpenseFromBudgetCommand =
+        EditExpenseFromBudgetCommand command =
                 new EditExpenseFromBudgetCommand(INDEX_FIRST, new EditExpenseDescriptor());
         Expense editedExpense = model.getPrimaryBudget().getCurrentPeriodExpenses().get(INDEX_FIRST.getZeroBased());
 
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
+
         String expectedMessage = String.format(EditExpenseFromBudgetCommand.MESSAGE_EDIT_EXPENSE_SUCCESS,
                 editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
-
-        assertCommandSuccess(editExpenseFromBudgetCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test

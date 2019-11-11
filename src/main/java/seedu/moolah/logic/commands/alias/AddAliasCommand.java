@@ -55,6 +55,11 @@ public class AddAliasCommand extends UndoableCommand {
     }
 
     @Override
+    public String getDescription() {
+        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
+    }
+
+    @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
         try {
@@ -82,8 +87,4 @@ public class AddAliasCommand extends UndoableCommand {
                 && this.toAdd.equals(((AddAliasCommand) obj).toAdd));
     }
 
-    @Override
-    public String getDescription() {
-        return String.format(COMMAND_DESCRIPTION, toAdd.getAliasName());
-    }
 }

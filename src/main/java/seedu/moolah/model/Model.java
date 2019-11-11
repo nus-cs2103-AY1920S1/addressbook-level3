@@ -2,6 +2,7 @@ package seedu.moolah.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -13,6 +14,8 @@ import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Description;
 import seedu.moolah.model.general.Timestamp;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
 
 /**
@@ -28,66 +31,83 @@ public interface Model {
     Predicate<Budget> PREDICATE_SHOW_ALL_BUDGETS = unused -> true;
 
     /**
-     * Resets data to the given model.
+     * Resets the model according to the given model.
+     * @param model the {@code Model} whose values are going to replace the current ones
      */
     void resetData(Model model);
 
     /**
      * Creates a copy of the current model.
+     * @return a copy of the current model.
      */
     Model copy();
+
+    /**
+     * Modifies the model according to the given changes.
+     * @param changes changes that are going to be applied to the model
+     */
+    void applyChanges(ModelChanges changes);
 
     // ======== MODEL HISTORY ===============
 
     /**
      * Returns the model history.
+     * @return a read-only view of the model history
      */
     ReadOnlyModelHistory getModelHistory();
 
     /**
      * Replaces model history with the data in {@code history}.
+     * @param history the {@code ModelHistory} object whose data are going to replace the current ones
      */
     void setModelHistory(ReadOnlyModelHistory history);
 
     /**
-     * Returns the description of the last command executed at the time.
+     * Adds an entry to the past changes.
+     * @param changes the {@code ModelChanges} to be added
      */
-    String getLastCommandDesc();
+    void addToPastChanges(ModelChanges changes);
 
     /**
-     * Adds an entry to the past history.
+     * Adds an entry to the future changes.
+     * @param changes the {@code ModelChanges} to be added
      */
-    void addToPastHistory(Model model);
+    void addToFutureChanges(ModelChanges changes);
 
     /**
-     * Adds an entry to the future history.
+     * Commits the current model to the history with respect to the previous model.
+     * @param changeMessage the change message to be recorded
+     * @param prevModel the previous state of the model for reference
      */
-    void addToFutureHistory(Model model);
-
-    /**
-     * Commits the current model to the history.
-     */
-    void commitModel(String description);
+    void commit(String changeMessage, Model prevModel);
 
     /**
      * Checks whether model can be rolled-back.
+     * @return true if model can be rolled-back, false otherwise
      */
     boolean canRollback();
 
     /**
-     * Rolls back model to the immediate previous state.
+     * Rolls back model to the immediate previous state and returns the
+     * description of the applied change.
+     * @return an {@code Optional} that contains the description of the applied change if there are changes,
+     * false otherwise.
      */
-    void rollbackModel();
+    Optional<String> rollback();
 
     /**
      * Checks whether model can be migrated.
+     * @return true if model can be migrated, false otherwise
      */
     boolean canMigrate();
 
     /**
-     * Migrates model to the immediate next state.
+     * Migrates model to the immediate next state and returns the
+     * description of the applied change.
+     * @return an {@code Optional} that contains the description of the applied change if there are changes,
+     * false otherwise.
      */
-    void migrateModel();
+    Optional<String> migrate();
 
     // ======== USER PREFS ===============
     /**

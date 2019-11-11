@@ -42,6 +42,11 @@ public class MooLah implements ReadOnlyMooLah {
         resetData(toBeCopied);
     }
 
+    @Override
+    public MooLah copy() {
+        return new MooLah(this);
+    }
+
     //// list overwrite operations
 
     /**

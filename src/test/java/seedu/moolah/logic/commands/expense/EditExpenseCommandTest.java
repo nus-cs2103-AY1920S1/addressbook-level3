@@ -1,6 +1,7 @@
 package seedu.moolah.logic.commands.expense;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.logic.commands.CommandTestUtil.DESC_CHICKEN;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_CATEGORY_CHICKEN;
@@ -9,11 +10,11 @@ import static seedu.moolah.logic.commands.CommandTestUtil.VALID_EXPENSE_PRICE_TA
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moolah.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
@@ -21,11 +22,11 @@ import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.logic.commands.expense.EditExpenseCommand.EditExpenseDescriptor;
 import seedu.moolah.logic.commands.general.ClearCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.MooLah;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.EditExpenseDescriptorBuilder;
 import seedu.moolah.testutil.ExpenseBuilder;
 
@@ -34,22 +35,26 @@ import seedu.moolah.testutil.ExpenseBuilder;
  */
 public class EditExpenseCommandTest {
 
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_allFieldsSpecifiedUnfilteredList_success() {
         Expense editedExpense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
-        EditExpenseCommand editExpenseCommand = new EditExpenseCommand(INDEX_FIRST, descriptor);
+        EditExpenseCommand command = new EditExpenseCommand(INDEX_FIRST, descriptor);
+
+        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -67,31 +72,24 @@ public class EditExpenseCommandTest {
                 .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI)
                 .withPrice(VALID_EXPENSE_PRICE_TAXI)
                 .withCategory(VALID_EXPENSE_CATEGORY_CHICKEN).build();
-        EditExpenseCommand editExpenseCommand = new EditExpenseCommand(indexLastExpense, descriptor);
+        EditExpenseCommand command = new EditExpenseCommand(indexLastExpense, descriptor);
+
+        expectedModel.setExpense(lastExpense, editedExpense);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.setExpense(lastExpense, editedExpense);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
-
-        assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void run_noFieldSpecifiedUnfilteredList_success() {
-        EditExpenseCommand editExpenseCommand =
-                new EditExpenseCommand(INDEX_FIRST, new EditExpenseDescriptor());
+        EditExpenseCommand command = new EditExpenseCommand(INDEX_FIRST, new EditExpenseDescriptor());
         Expense editedExpense = model.getFilteredExpenseList().get(INDEX_FIRST.getZeroBased());
 
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
+
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
-
-        assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -103,21 +101,16 @@ public class EditExpenseCommandTest {
                 .get(INDEX_FIRST.getZeroBased());
         Expense editedExpense = new ExpenseBuilder(expenseInFilteredList)
                 .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI).build();
-        EditExpenseCommand editExpenseCommand = new EditExpenseCommand(INDEX_FIRST,
-                new EditExpenseDescriptorBuilder()
+        EditExpenseCommand command = new EditExpenseCommand(INDEX_FIRST, new EditExpenseDescriptorBuilder()
                         .withDescription(VALID_EXPENSE_DESCRIPTION_TAXI).build());
 
-        String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
-
-        Model expectedModel = new ModelManager(new MooLah(model.getMooLah()),
-                new UserPrefs(), new ModelHistory());
         expectedModel.setExpense(model.getFilteredExpenseList().get(0), editedExpense);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription())
+                .setMooLah(model.getMooLah()).setExpensePredicate(model.getFilteredExpensePredicate()));
 
-        assertCommandSuccess(editExpenseCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
-
-    // Editing an expense to have the same details as another should not result in failure
 
     @Test
     public void run_invalidExpenseIndexUnfilteredList_failure() {
@@ -129,10 +122,6 @@ public class EditExpenseCommandTest {
         assertCommandFailure(editExpenseCommand, model, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
     }
 
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
-     */
     @Test
     public void run_invalidExpenseIndexFilteredList_failure() {
         showExpenseAtIndex(model, INDEX_FIRST);
@@ -153,19 +142,19 @@ public class EditExpenseCommandTest {
         // same values -> returns true
         EditExpenseDescriptor copyDescriptor = new EditExpenseDescriptor(DESC_CHICKEN);
         EditExpenseCommand commandWithSameValues = new EditExpenseCommand(INDEX_FIRST, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditExpenseCommand(INDEX_SECOND, DESC_CHICKEN)));
+        assertNotEquals(standardCommand, new EditExpenseCommand(INDEX_SECOND, DESC_CHICKEN));
     }
 
 }

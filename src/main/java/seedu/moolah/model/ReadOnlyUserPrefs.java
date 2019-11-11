@@ -11,6 +11,11 @@ import seedu.moolah.model.alias.AliasMappings;
  */
 public interface ReadOnlyUserPrefs {
 
+    /**
+     * Creates a read-only copy of the current UserPrefs.
+     */
+    ReadOnlyUserPrefs copy();
+
     GuiSettings getGuiSettings();
 
     Path getMooLahFilePath();

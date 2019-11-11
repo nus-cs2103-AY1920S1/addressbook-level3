@@ -89,6 +89,11 @@ public class MooLahTest {
         }
 
         @Override
+        public ReadOnlyMooLah copy() {
+            return new MooLahStub(expenses);
+        }
+
+        @Override
         public ObservableList<Expense> getExpenseList() {
             return expenses;
         }
