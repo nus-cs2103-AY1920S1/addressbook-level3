@@ -1,0 +1,104 @@
+
+= Ryan Chew - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CaloFit
+
+---
+
+== Overview
+
+My team of 4 software engineering students and I were tasked with enhancing a basic desktop addressbook application(AddressBook - Level 3) for our Software Engineering project. We chose to morph
+it into a calorie tracker cum food database system called CaloFit. This enhanced application allows health-conscious people or those who are aiming for a diet to set their calorie budget for the day; manage the meals that they take; find dishes based on keywords or their remaining calorie budget; and get data about their calorie intake progress through a report.
+
+CaloFit is a desktop application for tracking the calories that the user has taken from his or her meals over the course of using the application. +
+The user interacts with CaloFit using a Command Line Interface(CLI) that is represented by a box near the top of the application screen. This is where the user can type in their commands and press "Enter" on their keyboards to execute them. +
+It has a Graphical User Interface(GUI) created with JavaFX. The GUI is the main display that the user sees upon starting up CaloFit.
+
+This is what our project looks like as shown in Figure 1 below:
+
+image::PPPMain.png[]
+Figure 1: The GUI for CaloFit.
+
+My roles were to handle the backend refactoring to morph the application, and to do the budget-related features.
+In the following sections, I will cover those changes and features, together with the relevant updates to
+the user and developer guides.
+
+Note the following symbols and formatting used in this document:
+
+[NOTE]
+This symbol indicates important information.
+
+`report` A grey highlight(called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+* *Major enhancement*: added a *budget bar display*.
+** What it does:
+Visually displays the user's meals eaten today, as a progress-like bar. Each segment corresponds to one meal, and is sized accordingly.
+** Justification:
+This feature gives immediate visual feedback to users, of the meals they have eaten today, and how much more they can eat.
+** Highlights:
+The bar display is the most obvious user-facing result of the model refactoring process.
+** Credits:
+The [https://github.com/controlsfx/controlsfx[ControlsFX library]] was used to provide the display of the segmented progress bar.
+
+* *Minor enhancement*: added a *`set` command to control total budget*.
+** What it does: This commandd allows the user to customize and set their (expected) daily calorie intake.
+** Justification: This allows each user to tailor the app for their own diet plans.
+
+* *Minor enhancement*: added *saving of the user's historical calorie budget data to a JSON (Javascript Object Notation) file*.
+** What it does: The user's historical calorie budget data into CaloFit will be saved into a JSON file, allowing the user's calorie budget history to be loaded upon starting up CaloFit.
+** Justification: This feature is necessary to preserve the user's past and current calorie budget/limit, both to reference in the budget bar, and be tracked in the statistics.
+** Credits: The methods and structure of converting a Class into a JSON file was taken from the original AddressBook-Level 3 and refactored for the purpose mentioned above.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=iltep64&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=FelixNWJ&tabRepo=AY1920S1-CS2103T-W11-4%2Fmain%5Bmaster%5D[Functional code]]
+
+* *Other contributions*:
+
+
+** Project management:
+*** In charge of overall software architecture
+**** Refactored original AddressBook model structure, into something closer to our problem domain.
+**** Provided many low-level code infrastructure to support teammates' high-level features.
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (https://github.com/iltep64/ped/issues[List of bugs reported])
+** Tools:
+*** Introduced [https://site.mockito.org/[Mockito]], a mocking library to help test implementation.
+
+== Contributions to the User Guide
+
+With the new purpose of the app, we had to change the AB3 user guide,
+with customized instructions for our application.
+The following are excerpts from our *CaloFit User Guide*.
+They showcase my ability to write documentation targeting end-users.
+
+|===
+|_Given below are sections I contributed to the User Guide, regarding the budget bar:_
+|===
+
+include::../UserGuide.adoc[tag=ui]
+
+|===
+|_Given below are sections I contributed to the User Guide, for the `set` command:_
+|===
+include::../UserGuide.adoc[tag=setcmd]
+|===
+|_Given below are sections I contributed to the User Guide, about valid inputs.
+|===
+include::../UserGuide.adoc[tag=syntax]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for the budget bar feature._
+|_They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=budgetbar]
+

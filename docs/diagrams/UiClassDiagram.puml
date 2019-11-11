@@ -20,6 +20,8 @@ Class ReportWindow
 Class StatusBarFooter
 Class CommandBox
 class Notification
+class MealSegment
+class BufferSegment
 }
 
 package Model <<Rectangle>> {
@@ -73,6 +75,9 @@ CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 HelpWindow -[hidden]right- ReportWindow
 BudgetBar -[hidden]right- MealListPanel
+
+BudgetBar --> "*" MealSegment
+BudgetBar --> "1" BufferSegment
 
 MainWindow -[hidden]-|> UiPart
 @enduml

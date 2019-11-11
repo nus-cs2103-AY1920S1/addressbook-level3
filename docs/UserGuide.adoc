@@ -39,6 +39,57 @@ image::UserGuideQuickStartReleasesPage.png[]
 
 Refer to <<Features>> for details of each command.
 
+// tag::ui[]
+[[UIOverview]]
+== UI Overview
+
+This section covers the various parts of the CaloFit user interface.
+
+=== Command Box
+
+image::command_bar.png[]
+The command box is the main means of interacting with CaloFit.
+Users can enter commands, as detailed in <<Commands>>, in order to work with the app.
+
+To submit a command, the user can press the `Enter` key.
+The application will parse and evaluate the command.
+Any further feedback from the command will be displayed in the feedback box below.
+
+image::command_bar_err.png[]
+If any error is encountered, the command text will not be cleared, and turn red.
+
+=== Budget Bar
+image::budgetbar_partial.png[]
+
+The budget bar shows a visual overview of the meals the user has consumed today.
+Each meal displayed in the budget bar is proportionately sized to its calories,
+and is labelled by its dish name.
+Additionally, a white buffer segment is shown, representing the remaining amount of calories availablee today.
+
+The [yellow]#yellow# mark indicates the current budget limit,
+while the [red]#red# mark indicates 120% of the current budget limit.
+This gives you a visual overview as to how much more the user can consume for today,
+and give a margin of error even when exceeding the budget.
+
+
+When the total calorie count of meals today exceeds even the 120% mark, the bar will not show a buffer segment.
+Instead, the meals will occupy the entire width of the bar, remaining proportionate to their calorie counts.
+The budget marks will also move to the appropriate positions, still representing 100% and 120% of the budget.
+
+_Coming in v2.0:_
+When a meal's bar segment is too small, its dish name will be hidden.
+Information on the dish still can be viewed as a tooltip, when hovering over the segment.
+
+=== Consumed Meals
+
+image::consumed_pane.png[]
+
+=== Suggested Meals
+
+image::suggest_pane.png[]
+
+// end::ui[]
+
 [[Features]]
 == Features
 
@@ -46,10 +97,8 @@ Refer to <<Features>> for details of each command.
 
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/MEAL_NAME`, `MEAL_NAME` is a parameter which can be used as `add n/Carbonara`.
-
-* Items in square brackets are optional e.g `add n/MEAL_NAME [c/CALORIES]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
-
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/<<mealname_syntax, MEAL_NAME>>`, `<<mealname_syntax, MEAL_NAME>>` is a parameter which can be used as `add n/Carbonara`.
+* Items in square brackets are optional e.g `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
 === Meal Tracking
@@ -59,7 +108,7 @@ Refer to <<Features>> for details of each command.
 Adds a meal that the user ate to be tracked by CaloFit. +
 There are 2 formats that can be used: +
 
-Format 1: `add n/MEAL_NAME [c/CALORIES] [t/TAGS]` +
+Format 1: `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
 Inputting calories of the meal is optional. +
 If the meal is a dish stored in CaloFit, the calories will be taken from CaloFit. If not, a default value of 700 will be added for you, +
 Tags are completely optional and there is no default tag. You could also have more than 1 tag. +
@@ -70,7 +119,7 @@ You can also add multiple meals at one go using the indexes. This can be done by
 e.g. `add 1 2 3`
 
 [NOTE]
-MEAL_NAME can only be a maximum of 30 characters to ensure it displays correctly for you.
+<<mealname_syntax, MEAL_NAME>> can only be a maximum of 30 characters to ensure it displays correctly for you.
 
 Examples usage: +
 It is lunchtime and you are about to go have some Mushroom Soup.
@@ -121,8 +170,8 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES] [t/TAGS]` +
-The input of at least 1 field (either NAME, CALORIES or TAGS) is required.
+Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
+The input of at least 1 field (either NAME, <<calories_syntax, CALORIES>> or TAGS) is required.
 A mix of the different fields is possible as well.
 
 Examples:
@@ -249,14 +298,19 @@ image::NotificaitonMissedLunch.png[]
 image::NotificaitonMissedDinner.png[]
 // end::notification[]
 
+// tag::setcmd[]
 === Setting calorie intake budget: `set`
 
 Set user calorie intake budget for today. +
-Format: `set CALORIES`
+This will update the calorie bar to show reflect the new amount of calories remaining.
+If in suggestion mode, the suggest meals will also be refreshed depending on the calories remaining as well.
+
+Format: `set <<calories_syntax, CALORIES>>`
 
 Examples:
 
 * `set 2500`
+// end::setcmd[]
 
 // tag::report[]
 === Generating a Report: `report`
@@ -308,15 +362,15 @@ Format: `help`
 
 == Command Summary
 
-* *Add* `add n/MEAL_NAME [c/CALORIES]` +
+* *Add* `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` +
 e.g. `add n/duck rice c/360`
 * *Add* `add NUMBER_IN_SUGGESTED_MEAL_LIST` +
 e.g. `add 1`
-* *Edit* : `edit MEAL_NUMBER [n/MEAL_NAME] [c/CALORIES]` +
+* *Edit* : `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>]` +
 e.g. `edit 1 n/duck noodle c/250`
 * *Delete* : `delete MEAL_NUMBER` +
 e.g. `delete 3`
-* *Set* : `set CALORIES` +
+* *Set* : `set <<calories_syntax, CALORIES>>` +
 e.g. `set 2600`
 * *Find* : `find MEAL_NAME` +
 e.g. `find soup`
@@ -326,3 +380,11 @@ e.g. `suggest`
 e.g. `report`
 * *Help* : `help` +
 e.g. `help`
+
+
+// tag::syntax[]
+== Command Syntax Notes
+
+* [[calorie_syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
+* [[mealname_syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
+// end::syntax[]
