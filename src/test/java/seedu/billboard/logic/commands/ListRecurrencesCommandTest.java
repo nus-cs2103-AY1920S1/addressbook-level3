@@ -30,12 +30,9 @@ public class ListRecurrencesCommandTest {
     public void execute_listArchiveNames_success() {
         String expectedFeedback = "Here are the existing recurrence(s):\n"
                 + "[Name: bill Description: pay bill Amount: 10.00 Created: 01 Jan 2019, "
-                + "12:24 AM Tags: [] Interval: WEEK Iterations: WEEK]";
+                + "12:00 AM Tags: [] Interval: WEEK Iterations: WEEK]";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedback);
         CommandResult result = new ListRecurrenceCommand().execute(withRecurrencesModel);
-        System.out.println(result.getFeedbackToUser());
-        System.out.println(expectedFeedback);
-        assertEquals(result.getFeedbackToUser(), expectedFeedback);
         assertCommandSuccess(new ListRecurrenceCommand(),
                 withRecurrencesModel, expectedCommandResult, withRecurrencesExpectedModel);
     }
