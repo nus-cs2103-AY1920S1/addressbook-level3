@@ -229,6 +229,8 @@ public class SystemCommandParser {
 
         case RegisterStaffCommand.COMMAND_WORD:
         case EditStaffDetailsCommand.COMMAND_WORD:
+        case AddConsultationRoomCommand.COMMAND_WORD:
+        case RemoveRoomCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.DOCTORS_TAB);
 
         case AddAppCommand.COMMAND_WORD:

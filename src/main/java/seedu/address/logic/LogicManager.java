@@ -65,15 +65,8 @@ public class LogicManager implements Logic {
         try {
             previousEagerEvaluationThread.join();
             Thread.sleep(200);
-        } catch (InterruptedException ex) {
-            logger.info("Skipping eager evaluation execution ");
-            return;
-        }
-
-        logger.info("Starting Eager evaluation execution  - " + commandText);
-        displayResult.accept("searching...");
-
-        try {
+            logger.info("Starting Eager evaluation execution  - " + commandText);
+            displayResult.accept("searching...");
             CommandResult result = command.execute(model);
             if (!result.getFeedbackToUser().isEmpty()) {
                 logger.info("Result: " + result.getFeedbackToUser() + " - " + commandText);
@@ -83,6 +76,8 @@ public class LogicManager implements Logic {
             logger.info("Eager evaluation commands should not throw any exception: " + ex.getMessage());
         } catch (ForceThreadInterruptException ex) {
             logger.info("Interrupting eager evaluation execution");
+        } catch (InterruptedException ex) {
+            logger.info("Skipping eager evaluation execution");
         }
     }
 

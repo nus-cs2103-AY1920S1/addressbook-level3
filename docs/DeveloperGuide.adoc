@@ -129,14 +129,10 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `next 1` and `enqueue E0000001A` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `enqueue E0000001A` API call.
 
 .Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
-
-
-.Interactions inside the Logic Component for the `next 1` Command
-image::NextSequenceDiagram.png[]
 
 
 [[Design-Model]]
@@ -194,11 +190,11 @@ image::StorageClassDiagramV2.png[]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save and read data of the particulars of patients and doctors in json format.
-* can save and read data of the Appointments and duty shifts data in json format.
-* able to reuse `JsonAddressBookStorage` to store the details of doctors and patients.
-* able to reuse `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
+* saves `UserPref` objects in json format and read it back.
+* saves and read data of the particulars of patients and doctors in json format.
+* saves and read data of the Appointments and duty shifts data in json format.
+* reuses `JsonAddressBookStorage` to store the details of doctors and patients.
+* reuses `JsonAppointmentBookStorage` to store the details of staff duty shifts and patient's appointments.
 
 [[Design-Commons]]
 === Common classes
@@ -225,43 +221,42 @@ This unique reference identifier consist of two parts:
 
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
+=== Undo/Redo feature
 
 The undo/redo feature allows users to revert the action of a command or redo a command action that has been undone.
 
-==== Proposed Implementation
+==== Implementation
 
 The undo/redo mechanism is facilitated by the `CommandHistory` class, which is found in the `logic` component.
 The history class stores undoable commands as a `ReversibleActionPairCommand`,
 which pairs two `ReversibleActionCommand`, the first command being the action to be executed and its inverse. (e.g. Pairing 'add event A' and 'delete event A' command).
 
+A `Command` object can be classified as one of two types, a `ReversibleCommand` and a `NonActionableCommand`.
 A `ReversibleCommand` refers to any command which modifies the data in the system's model.
 Commands that only reads data from the model without modifying it, will not be added to the undo history stack.
+Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
 
-Considering that the undo functionality of an 'add event' command, is similar to the action of the 'delete event' command,
-execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
+//TODO: insert class diagram
+
+Consider that the undo functionality of an 'add event' command is similar to the action of the 'delete event' command.
+The execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
 Hence, with such an implementation, we can avoid unnecessary duplication of code.
 
-The design of `ReversibleActionCommand` uses the Command pattern, a common design pattern often used in software engineering.
+The design of `CommandHistory` uses the Command pattern, a common design pattern often used in software engineering.
 It implements the following operations:
-
-* `ReversibleActionPairCommand#execute()` -- Executes the primary action.
-* `ReversibleActionPairCommand#undo()` -- Undoes the primary action by executing its inverse operation.
-* `ReversibleActionPairCommand#redo()` -- Restores a previously undone primary action by executing the same operation again.
-
-Additionally, after the action pair has been executed,
-it is then added to the undo stack of the `CommandHistory` via the following implemented operations:
 
 * `CommandHistory#addToCommandHistory()` -- Saves the most recent command that modifies the system's model in its undo history.
 * `CommandHistory#performUndo()` -- Performs the inverse operation to restore the system to its previous state.
 * `CommandHistory#performRedo()` -- Restores a previously undone state by re-executing the respective undone command.
+* `CommandHistory#canUndo()` -- Checks if there are previous states to be restored
+* `CommandHistory#canRedo()` -- Checks if the a previously undone state can be restored
 
-These operations are all contained within the `Logic` component.
+These operations are all contained within the `Logic` component and do not depend on any other components.
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `CommandHistory` will be initialised with an empty undo stack.
+Step 1. The user launches the application for the first time. The `CommandHistory` will be initialised with an empty undo and redo stack.
 
-Step 2. The user executes `newpatient -id S9729970A -name Mark` command which registers a new patient named `Mark` with the unique id of `S9729970A`.
+Step 2. The user executes `newpatient ... -name Mark` command which registers a new patient named `Mark` with the unique id of `S9729970A`.
 The `newpatient` command creates a `ReversibleActionPairCommand`, which pairs of a `RegisterPatientCommand` and `UnregisterPatientCommand`.
 After the invoking execution of the `RegisterPatientCommand`, the whole `ReversibleActionPairCommand` is pushed to the undo history stack
 via the `CommandHistory#addToCommandHistory()`
@@ -273,23 +268,22 @@ Step 3. The user executes `enqueue S9729970A` command to add a patient whose ref
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `newpatient ...` to register a new patient. The command also invokes `CommandHistory#addToCommandHistory()`, causing another action pair to be saved into the command history undo stack.
+Step 4. The user executes `newpatient ... -name John Doe` to register a new patient. Similar to the previous command, also causes another action pair to be added into the command history undo stack.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `CommandHistory#addToCommandHistory()`. Hence, the command will not be saved into the command history.
+If a command fails its execution, it will not call `CommandHistory#performRedo()`. Hence, the command will not be saved into the command history.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `CommandHistory#performUndo()`,
-which pops the top of the command history stack and
-
-
-which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 5. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command.
+The `undo` command will call `CommandHistory#performUndo()`.
+This invokes the `UnregisterPatientCommand` which reverts the system to its previous state,
+and moves the action from the top undo stack to the top of the redo history stack.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the undo stack is empty then there are no previous states to be restored. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -298,16 +292,26 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `CommandHistory#performRedo()` which restores the address book to that state by invoking the original command again.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `commandRedoHistory` is empty, then there are no undone states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `patient S9482963D`.
+A command that searches for a patient whose id matches `S9482963D`,
+only reads and does not modify any data from the model.
+Such commands will not call `CommandHistory#addToCommandHistory()`,
+`CommandHistory#performUndo()`, `CommandHistory#performRedo()`.
+
+Thus, the undo and redo stacks remain unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `newappt ...` to schedule a new appointment for a patient.
+This action invokes `CommandHistory#addToCommandHistory()`, pushing the new action pair command in the undo stack.
+However, the commands in the `commandRedoHistory` stack will be purged.
+
+We designed it this way because it no longer makes sense to redo the `newpatient ... -name John Doe`​ command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -321,17 +325,7 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* *Alternative 1 (current choice):* Save the entire address book.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Implementation is easy.
-|*Cons*|
-1. May have performance issues in terms of memory usage.
-|===
-
-* *Alternative 2:* Individual command knows how to undo/redo by itself.
+* *Alternative 1 (current choice):* Pair Individual commands with their inverse action.
 +
 [cols="1,10"]
 |===
@@ -339,6 +333,27 @@ image::CommitActivityDiagram.png[]
 1. Use less memory (e.g. for `delete`, just save the person being deleted).
 |*Cons*|
 1. Must ensure that the implementation of each individual command are correct.
+|===
+
+* *Alternative 3:* Individual command knows how to undo/redo by itself.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Use less memory (e.g. for `delete`, just save the person being deleted).
+|*Cons*|
+1. Must ensure that the implementation of each individual command are correct.
+|===
+
+
+* *Alternative 2:* Save the entire address book.
++
+[cols="1,10"]
+|===
+|*Pros*|
+1. Implementation is easy.
+|*Cons*|
+1. May have performance issues in terms of memory usage.
 |===
 
 ===== Aspect: Data structure to support the undo/redo commands
@@ -365,6 +380,41 @@ image::CommitActivityDiagram.png[]
 
 // end::undoredo[]
 
+// tag::reactivesearch[]
+
+=== Reactive Search
+
+The main concept behind reactive searching is that we would like time-consuming searching to be UI non-blocking and executed as rapidly as possible so that user is instantly provided with results for a given keyword.
+
+Similar to eager evaluation, Reactive Search attempts to process commands if it does not mutate the storage. Otherwise it does a simple redirect to the tab relevant to the command.
+
+.Reactive Search Sequence Diagram showing how a thread is created to do the expensive processing.
+image::ReactiveSearchSequenceDiagram.png[]
+
+After the newly created thread starts, it will attempt to kill any previous thread that is still processing asynchronously before starting its own processing.
+
+After which, changes to the ObservableList will trigger the updateItem listener in UI. And since each graphical update is fast and can only be executed from the JavaFX main application thread, we defer each of them via Platform.run() so that the FX main application thread can execute them in order whenever it is free.
+
+[source, java]
+----
+class EventListViewCell extends ListCell<Event> {
+    @Override
+    protected void updateItem(Event event, boolean empty) {
+        super.updateItem(event, empty);
+
+        if (empty || event == null) {
+            Platform.runLater(() -> setGraphic(null));
+        } else {
+            Platform.runLater(() -> setGraphic(new EventCard(event, getIndex() + 1, displayStatus).getRoot()));
+        }
+    }
+}
+----
+
+Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
+
+// end::reactivesearch[]
+
 // tag::autocomplete[]
 
 === AutoComplete
@@ -373,8 +423,6 @@ We are using Prefix Tree which is known as a Trie for AutoComplete. This gives u
 
 .AutoComplete Sequence Diagram
 image::AutoCompleteSequenceDiagram.png[]
-
-// tag::autocompleteDesignConsideration[]
 
 ===== Aspect: Data structure to implement AutoComplete
 
@@ -400,7 +448,6 @@ image::AutoCompleteSequenceDiagram.png[]
 1. Time Complexity Inefficient.
 |===
 
-// end::autocompleteDesignConsideration[]
 // end::autocomplete[]
 
 === Queue feature
