@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: DukeCooks
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What can I expect from this document?
 
@@ -260,7 +260,7 @@ of your workout. This will initialise your Workout with no exercises in it.
 image::addWorkoutInput.png[]
 
 .Add Workout Output
-image::addWorkoutOutput.png[]
+image::addWorkoutOutput23.png[]
 
 ==== Push Exercise `push exercise`
 
