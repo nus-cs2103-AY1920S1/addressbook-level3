@@ -649,6 +649,8 @@ This section will contain details on all commands in the Inventory Tab.
 [WARNING]
 Due to size limitations, a large number may be truncated when shown in the table. +
 To avoid this, you are advised to key in a number smaller than 10,000.
+Also, if the inventoryInformation.txt file is altered, it may cause the app to not open.
+In such events, delete the txt file.
 ====
 
 ==== Add an Item:

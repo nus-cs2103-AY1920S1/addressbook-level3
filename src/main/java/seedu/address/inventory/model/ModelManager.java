@@ -19,13 +19,9 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
         this.inventoryList = inventoryList;
     }
 
-    public ModelManager(Storage storage) {
+    public ModelManager(Storage storage) throws IOException {
         this.storage = storage;
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (IOException e) {
-            this.inventoryList = new InventoryList();
-        }
+        this.inventoryList = storage.getInventoryList();
     }
 
     @Override

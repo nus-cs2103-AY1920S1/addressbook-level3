@@ -60,7 +60,7 @@ public class LogicManager implements Logic {
 
     @Override
     public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
-        this.inventoryModel = new ModelManager(inventoryList);
+        //this.inventoryModel = new ModelManager(inventoryList);
         inventoryStorage.writeFile(inventoryList);
     }
 }

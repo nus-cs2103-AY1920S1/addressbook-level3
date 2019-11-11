@@ -2101,7 +2101,7 @@ Expected: The sales notification threshold is set to 80%, and the application wi
 .. Before the application is open, corrupt some of the text files by deleting parts of it. +
 Then, open the application. +
 Expected: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty table.
-If the inventoryInformation.txt file is changed, the Inventory tab will start with an empty table.
+If the inventoryInformation.txt file is changed, the app will not open. To remedy, delete the txt file.
 If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders set.
 If the addressbook.json is changed, the sample address book data would be populated in the Members tab.
-Changing the reimbursementInformation should not cause any issues.
+If the reimbursementInformation.txt is altered, all deadline data will be lost.
