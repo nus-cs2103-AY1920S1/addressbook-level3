@@ -8,17 +8,20 @@
 --
 image::brebeek.png[width="130", align="left"]
 --
-// This section is originally created by jun-ha0
+// This section is originally created by jun-ha0, modified by lyskevin
 
 [blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following technologies
 and software were used in the development of *_Typee_* application:
 --
-image::java-logo.png[width="80", height="80", float="left"]
-image::javafx-logo.png[width="80", height="80", float="left"]
-image::junit5-logo.png[width="80", height="80", 66,70, float="left"]
-image::json-logo.png[width="80", height="80", 67,70, float="left"]
-image::travis-logo.png[width="80", height="80", 68,70,float="left"]
-image::github-logo.png[width="80", height="80"]
+image:java-logo.png[width="50", height="50"]
+image:junit5-logo.png[width="50", height="50"]
+image:json-logo.png[width="50", height="50"]
+image:travis-logo.png[width="50", height="50"]
+image:appveyor-logo.png[width="50", height="50"]
+image:github-logo.png[width="50", height="60"]
+image:javafx-logo.png[width="80"]
+image:coveralls-logo.png[width="80"]
+image:codacy-logo.png[width="100"]
 
 ====
 
@@ -105,10 +108,71 @@ include::../UserGuide.adoc[tag=undo-redo]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=sort]
+=== Sort feature
+==== Implementation
+
+The sort mechanism is facilitated by `EngagementComparator`.
+The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
+Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
+
+Additionally, the `Model` interface is modified to support the following methods:
+
+* `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
+* `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
+* `Model#getSortedEngagementList()` -- Returns the current internal engagement list as an unmodifiable `ObservableList`.
+
+These operations are implemented in the `ModelManager` class as `ModelManager#setComparator(Comparator<Engagement>)`, `ModelManager#updateSortedEngagementList()` and `ModelManager#getSortedEngagementList()` respectively.
+
+Given below is an example usage scenario and how the sort mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `currentComparator` will be initialized as `null`.
+
+image::SortListState0.png[width="450", align="center"]
+
+Step 2. The user executes `sort p/priority o/ascending` command to sort the engagement list in ascending order of priority. The `sort` command calls `Model#setComparator()`, causing the `currentComparator` in ModelManager to assume the value `EngagementComparator#PRIORITY`. The command then calls `Model#updateSortedEngagementList` to execute the sorting.
+
+image::SortListState1.png[width="450", align="center"]
+
+NOTE: The parsing of `sort` follows the interactive parsing structure *_Typee_* adopts, where various stages are created while parsing. See Sequence Diagram below.
+
+The following sequence diagram shows how the sort operation works:
+
+image::SortSequenceDiagram.png[width="750", align="center"]
+
+NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+Step 3. The user executes `add t/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
+
+image::SortListState2.png[width="450", align="center"]
+
+[NOTE]
+If the `currentComparator` assumes the initial value `null` when `Model#updateSortedEngagementList` is called, the method will simply catch the `NullPointerException` thrown by `java.object.requireNonNull` which will essentially abort the attempt to sort with an empty catch block. The initial chronological order is preserved in this case.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the engagement list or alter the order of the list, such as `list`, will usually not call `Model#setComparator(Comparator<Engagement>)`, or `Model#updateSortedEngagementList()`. Thus, the internal `ObservableList` remains unchanged.
+
+image::SortListState3.png[width="450", align="center"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::SortUpdateActivityDiagram.png[width="190", align="center"]
+
+==== Design Considerations
+
+===== Aspect: How sort executes
+
+* **Alternative 1 (current choice):** Use the `List.sort(Comparator<T>)` function to sort the list.
+** Pros: Has trivial support for features that updates the predicate of `FilteredList`, like `Find`.
+** Cons: There is a need to sort the list each time a command that modifies the elements of the list is executed, which may result in performance issues in case the list size is large.
+* **Alternative 2:** Replace the `FilteredList` in `ModelManager` with a `SortedList`.
+** Pros: Sorting the list is more intuitive, and the ordering of the engagements is automatically preserved whenever a command that modifies the list elements is executed.
+** Cons: Features like `find` command may lose functionality and needs extra modification.
+
+== Use cases
 
 include::../DeveloperGuide.adoc[tag=undoredo-uc]
 
 include::../DeveloperGuide.adoc[tag=glossary]
+
+== Instructions for Manual Testing
 
 include::../DeveloperGuide.adoc[tag=yuchen-test]
