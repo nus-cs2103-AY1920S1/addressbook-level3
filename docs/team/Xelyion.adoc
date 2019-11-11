@@ -24,23 +24,19 @@ have different assignments for each classroom.
  to the entire structure of the application, from logic and commands to storage.
 
 * *Minor enhancement*: Added color to indicate selection of classrooms
-* *Minor enhancement*: Added color to indicate selection of classrooms
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*:
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.3rc` (4 releases) on GitHub
+*** Gave comments to peers before merging PRs.
+*** Helped to merge and fix some merge conflicts among the PRs in the team
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added the ability to
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
+*** PRs reviewed (with non-trivial review comments)
+*** Reported bugs and suggestions for other teams in the class
 == Contributions to the User Guide
 
 
@@ -48,20 +44,7 @@ have different assignments for each classroom.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuideOld.adoc[tag=add]
-
-include::../UserGuideOld.adoc[tag=edit]
-
-include::../UserGuideOld.adoc[tag=list]
-
-include::../UserGuideOld.adoc[tag=reminder]
-
-include::../UserGuideOld.adoc[tag=delete]
-
-include::../UserGuideOld.adoc[tag=find]
-
-
-
+include::../UserGuide.adoc[tag=assignments]
 
 == Contributions to the Developer Guide
 
@@ -70,8 +53,6 @@ include::../UserGuideOld.adoc[tag=find]
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
 
 
 == PROJECT: PowerPointLabs

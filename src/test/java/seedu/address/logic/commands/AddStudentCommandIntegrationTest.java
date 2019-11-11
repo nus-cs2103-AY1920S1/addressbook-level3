@@ -2,14 +2,13 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
 
-import org.junit.jupiter.api.BeforeEach;
+import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -17,7 +16,7 @@ import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 import seedu.address.testutil.StudentBuilder;
 
-import java.util.List;
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddStudentCommand}.

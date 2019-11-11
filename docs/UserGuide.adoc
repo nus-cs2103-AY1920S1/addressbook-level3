@@ -43,7 +43,7 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/ADDRESS`, `a/ADDRESS, n/NAME` is also acceptable
 ====
 
-// tag::classrooms[]
+// tag::classes[]
 === Classrooms
 The user can view his or her classrooms in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
@@ -228,7 +228,7 @@ Examples:
 * `findstudent John Doe`
 * `findstudent Jane Doe`
 
-// tag::upload[]
+//tag::upload[]
 ==== Uploading: upload
 
 Allows a user to upload a PNG/JPG file to set the display picture of the student at the specified index in the student list of the current class. +
