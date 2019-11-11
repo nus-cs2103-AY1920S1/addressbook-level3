@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
+import seedu.address.util.CommandResult;
+
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

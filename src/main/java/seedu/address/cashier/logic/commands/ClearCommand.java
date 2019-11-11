@@ -2,6 +2,8 @@ package seedu.address.cashier.logic.commands;
 
 import static seedu.address.cashier.ui.CashierMessages.CLEARED_SUCCESSFULLY;
 
+import seedu.address.util.CommandResult;
+
 /**
  * Clears the sales list.
  */

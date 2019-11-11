@@ -29,7 +29,7 @@ Our team decided to incorporate and morph the AddressBook application as part of
 enables treasurers or members of Co-Curricular Activities (CCA) Clubs and Societies to manage their club finances,
 reimbursements, inventory and members' contact details easily. The duration of our project was 13 weeks.
 
-===  Key to the Icons and Formatting Used in the Document
+=== Key to the Icons and Formatting Used in the Document
 
 [NOTE]
 This symbol indicates extra information or definition.
@@ -41,7 +41,7 @@ the application. It also indicates a generic command format for the command box 
 [blue]`command` :
 Text with this blue font and grey highlight indicates a command that can be inputted by the user.
 
-=== Introduction of treasurerPro
+=== Introduction to treasurerPro
 
 This desktop application consists of 6 tabs, a command box for users to input their commands and a response box
 for Leo, our lion mascot. Each tab serves a different purpose that helps treasurers and members better manage their club

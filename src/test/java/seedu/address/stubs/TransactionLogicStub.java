@@ -5,11 +5,11 @@ import java.io.IOException;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.commands.Command;
-import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.logic.parser.TransactionTabParser;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.util.CommandResult;
 
 /**
  * Represents a home tab's Logic stub.

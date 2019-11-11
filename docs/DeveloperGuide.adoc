@@ -1064,31 +1064,35 @@ There are four main statistics shown:
 
 The above summaries are automatically updated whenever new data is entered from any of the other tabs.
 
-There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user to set percentage thresholds for notifications.
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
+to set percentage thresholds for notifications.
 
 ==== Set Command Feature
 
 This feature allows the user to set a goal for their budget, expense or sales targets.
 
-The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Set Command in the Overview package.
 image::OverviewSetCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file.
 
 ==== Notify Command Feature
 
-This feature allows the user to set a percentage threshold for notifications.
-Upon hitting that percentage for a particular financial goal, the user will automatically be notified of it with a message from Leo.
+This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
+particular financial goal, the user will automatically be notified of it with a message from Leo.
 
-The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
 .Sequence Diagram of Notify Command in the Overview Package
 image::OverviewNotifyCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
-The full execution of the command is shown in the activity diagram below:
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file. The full execution of the command is shown in the activity diagram below:
 
 .Activity Diagram of Notify Command in the Overview Package
 image::OverviewNotifyActivityDiagram.png[]
@@ -1122,6 +1126,14 @@ the long run as their lists of transactions and items become larger and larger.
 
 Additionally, it allows for future extensibility of summary statistics, as new statistics can be created simply by
 modifying or adding on new criteria.
+
+|===
+
+A design consideration was also made for the implementation of the notifications that are to be displayed
+to the user upon hitting the notification threshold. These are shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
 
 |A new class is created to act as a notifier, and is called after the execution of every command to check if any
 notifications need to be displayed to the user.
@@ -1162,105 +1174,76 @@ The following are code snippets of each of the chosen implementations above:
         }
     }
 
-
-// tag::undoredo[]
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation
 
 The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
-It extends each tab with an undo/redo history, stored internally as a `TabStateList` and `TabStatePointer`.
+It extends each tab's `Model` with an undo/redo history, stored internally as a `tabStateList` and `tabStatePointer`.
 Additionally, it implements the following operations in each tab's `ModelManager`:
 
-* `TabModelManager#commit()` -- Saves the current tab's state in its history.
-* `TabModelManager#undo()` -- Restores the previous tab's state from its history.
-* `TabModelManager#redo()` -- Restores a previously undone tab's state from its history.
+* `ModelManager#commit()` -- Saves the current tab's state in its history.
+* `ModelManager#undo()` -- Restores the previous tab's state from its history.
+* `ModelManager#redo()` -- Restores a previously undone tab's state from its history.
 
 These operations are exposed in the `Model` interface of the tab as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time.
-Each package in `VersionedtreasuerPro` will be initialized with their initial default state, and the
-`currentStatePointer` of each package pointing to that state.
+Each package's model will be initialized with their initial default state, and the
+`tabStatePointer` of each package pointing to that state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book.
-The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes a command that modifies the application state.
+The command calls `Model#commit()`. The state after executing the command is saved in the `tabStateList`, and the
+`tabStatePointer` is shifted to that new state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person.
-The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+[NOTE]
+Commands that do not modify the application state will not call `Model#commit()`, and thus no new state
+will be created in `tabStateList`. The `tabStatePointer` will continue to point at the same state.
+
+Step 3. The user executes `undo` to undo the last command.
+The `undo` command calls `Model#undo`, which shifts the currentStatePointer to the previous state,
+restoring it to that state.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If the `tabStatePointer` is already pointing to the first item in the list, an error will be returned to the
+user and nothing will be done.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user executes `redo` to redo the last `undo` command.
+The `redo` command calls `Model#redo`, which shifts the currentStatePointer to the next state,
+restoring it to that state. In this case, it is identical to after Step 2.
 
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore.
-The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore.
-The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case.
-If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`.
-Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`.
-Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`.
-Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged.
-We designed it this way because it no longer makes sense to redo the `add n/David ...` command.
-This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::UndoRedoState1.png[]
 
 ==== Design Considerations
+In order to implement the undo/redo command, several alternatives in design were considered before
+settling on the current implementation:
 
-===== Aspect: How undo & redo executes
+|===
+|Alternative 1 (Current Choice)|Alternative 2|Conclusion and Explanation
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+|The state of the tab is saved after every command.
 
-===== Aspect: Data structure to support the undo/redo commands
+*Pros*: This is much easier to implement.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice.
-For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
-Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+*Cons*: Extra memory is used to store each state after every command.
+
+|Each command is capable of undoing/redoing itself.
+
+*Pros*: Less memory is required.
+
+*Cons*: The implementation of each command becomes more complex, as it must be able to correctly undo/redo itself.
+
+|Alternative 2 is selected due to its ease of implementation. Most modern computers also have sufficient
+memory space to store extra states.
+|===
 
 === Logging
 

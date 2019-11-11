@@ -18,6 +18,7 @@ import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
 import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.util.CommandResult;
 
 /**
  * Edits a transaction in the transaction list.
