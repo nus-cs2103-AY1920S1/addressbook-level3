@@ -737,6 +737,7 @@ is equivalent to entering:
 addexpense c/Food d/chickenrice p/2.30
 ----
 
+// end::shortcuts[]
 
 
 ****
@@ -775,6 +776,7 @@ addalias a/hello i/helloworld
 deletealias hello
 ----
 This will delete the `hello` alias from your saved aliases.
+// tag::shortcuts1[]
 
 ==== Autocomplete and Suggestions
 
@@ -801,6 +803,7 @@ You can cycle through the choices using the `UP` and `DOWN` keys. To confirm you
 
 When you have entered a valid command, MooLah will show you a list of prefixes that are supported by this command and that
 you have not yet entered.
+// end::shortcuts1[]
 
 ****
 .suggestions for "addexpense" command
@@ -868,7 +871,6 @@ image::highlight1.png[align="center", width=400]
 When the suggestion menu is open, the `UP` and `DOWN` keys will cycle through the suggestions instead!
 
 
-// end::shortcuts[]
 
 
 // tag::statsug[]
