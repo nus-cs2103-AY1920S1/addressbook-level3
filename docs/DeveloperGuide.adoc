@@ -72,12 +72,13 @@ While parsing, `Responses` will consider 2 criteria:
 . Only the `Responses` that exist in the `ResponseGroup` matching the `State.currState` `StateEnum` will be considered.
 . Only `Responses` with a regex that matches the input String will be considered. +
 
-As such, depending on the `StateEnum` (a.k.a. the current 'mode' of the application), only some `Responses` will be considered.
-For simplicity's sake, the `Responses` that exist for each application 'mode' can be said to exist in a specific bucket
-(when the application is in `TEST` mode, the `Responses` that exist in the Test bucket are TEST_NEXT`, `TEST_PREV` and `TEST_EXIT`). +
+As such, depending on the `StateEnum` (a.k.a. the current 'mode' of the application), only some `Responses` will be
+considered. For simplicity's sake, the `Responses` that exist for each application 'mode' can be said to exist in a
+specific bucket (when the application is in `TEST` mode, the `Responses` that exist in the Test bucket are `TEST_NEXT`,
+`TEST_PREV` and `TEST_EXIT`). +
 
 When the right command is found, the specific `Responses` enumeration will execute its own `ResponseFunc`, which is the
-implementation of the specific command (eg a '`help`' command will print out the appropriate help message for the user). +
+implementation of the specific command (eg a `help` command will print out the appropriate help message for the user). +
 
 To assist with the running of certain commands, the `HelpCommand` and `CreateCommand` classes are used to abstract the logic
 further.
