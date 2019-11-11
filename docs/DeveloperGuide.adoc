@@ -141,7 +141,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 ._Structure of the Model Component_
-image::ModelClassDiagram.png[]
+image::ModelClassDiagramNew.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -153,9 +153,12 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in both `Employee` and `Event`, which `AddMin+` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` or `Event` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[]
+image:BetterModelClassDiagramN.png[]
++
+image:BetterModelClassDiagramNew.png[]
+
 
 // tag::storage[]
 
@@ -592,6 +595,7 @@ and 'Total Salary' is calculated on real time. User do not need to type so many 
 *Cons*: when the user want to add employees, the user have type in all these fields.
 |========================================================================================
 // end::Cris[]
+== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
