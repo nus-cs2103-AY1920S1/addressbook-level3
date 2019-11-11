@@ -53,26 +53,6 @@ The rest of the App consists of four components.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
-Each of the four components
-
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
-[discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
-
-The sections below give more details of each component.
-
 [[Design-Ui]]
 === UI component
 
@@ -175,9 +155,6 @@ The `AppointmentBook`,
 
 * stores a `Event` object that, depending on its usage, can represent either a patient's appointment and staff duty shift.
 * stores a `UniquePersonList` which represents a list of all registered appointments or shifts.
-
-
-
 
 [[Design-Storage]]
 === Storage component
