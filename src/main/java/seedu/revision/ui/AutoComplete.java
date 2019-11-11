@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
@@ -31,8 +33,10 @@ import seedu.revision.logic.commands.main.StartCommand;
 public class AutoComplete extends TextField {
     /** Entries based on Command_Usage. */
     private static final SortedSet<String> entries = new TreeSet<>();
+    private static final SortedSet<String> entriesWithFixedCommand = new TreeSet<>();
     /** The popup of Auto-Complete list. */
     private ContextMenu popUpEntries;
+    private boolean isFixedCommand;
 
     /**
      * Constructor for autocomplete.
@@ -40,19 +44,31 @@ public class AutoComplete extends TextField {
     public AutoComplete() {
         super();
         this.setEntries();
+        this.setEntriesWithFixedCommand();
+        this.isFixedCommand = false;
         popUpEntries = new ContextMenu();
         textProperty().addListener((observableValue, s, s2) -> {
             if (getText().length() == 0) {
                 popUpEntries.hide();
             } else {
-                popUpEntries.hide();
-                LinkedList<String> searchResult = new LinkedList<>();
-                searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
-                populatePopup(searchResult);
-                if (!popUpEntries.isShowing()) {
-                    popUpEntries.show(AutoComplete.this, Side.BOTTOM, 20, 0);
+                for (String subItems : entriesWithFixedCommand) {
+                    if (isContain(subItems, getText())) {
+                        isFixedCommand = true;
+                    }
+                }
+                if (isFixedCommand) {
+                    popUpEntries.hide();
+                } else {
+                    popUpEntries.hide();
+                    LinkedList<String> searchResult = new LinkedList<>();
+                    searchResult.addAll(entries.subSet(getText(), getText() + Character.MAX_VALUE));
+                    populatePopup(searchResult);
+                    if (!popUpEntries.isShowing()) {
+                        popUpEntries.show(AutoComplete.this, Side.BOTTOM, 20, 0);
+                    }
                 }
             }
+            isFixedCommand = false;
         });
 
         focusedProperty().addListener((observableValue, aBoolean, aBoolean2) ->
@@ -82,6 +98,17 @@ public class AutoComplete extends TextField {
         entries.add(HistoryCommand.COMMAND_WORD);
     }
     /**
+     * Set another entries to remove the double enter problem.
+     */
+    private void setEntriesWithFixedCommand() {
+        entriesWithFixedCommand.add(ClearCommand.COMMAND_WORD);
+        entriesWithFixedCommand.add(ExitCommand.COMMAND_WORD);
+        entriesWithFixedCommand.add(ListCommand.COMMAND_WORD);
+        entriesWithFixedCommand.add(HelpCommand.COMMAND_WORD);
+        entriesWithFixedCommand.add(RestoreCommand.COMMAND_WORD);
+        entriesWithFixedCommand.add(HistoryCommand.COMMAND_WORD);
+    }
+    /**
      * Populate the entry set with the given search results.
      * @param searchResult The set of matching strings.
      */
@@ -104,5 +131,19 @@ public class AutoComplete extends TextField {
         popUpEntries.getItems().addAll(menuItems);
 
     }
+
+    /**
+     *
+     * @param source String that you comparing to.
+     * @param subItem String that you using to compare.
+     * @return True if subItem is in source, false otherwise.
+     */
+    private static boolean isContain(String source, String subItem) {
+        String pattern = "\\b" + subItem + "\\b";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(source);
+        return m.find();
+    }
+
 
 }

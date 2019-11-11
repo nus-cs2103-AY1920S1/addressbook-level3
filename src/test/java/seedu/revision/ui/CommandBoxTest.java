@@ -123,7 +123,7 @@ class CommandBoxTest extends GuiUnitTest {
     private void assertBehaviorForSuccessfulCommand() {
         guiRobot.clickOn(".commandTextField");
         guiRobot.write(COMMAND_SUCCESS);
-        guiRobot.type(KeyCode.DOWN, KeyCode.ENTER, KeyCode.ENTER);
+        guiRobot.type(KeyCode.ENTER);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 }
