@@ -773,8 +773,9 @@ image::OverviewOfWordBankList.png[]
 
 ---
 
-===== _WordBank_'s storage system integration.
 // tag::chenhui-wblStorageModel[]
+
+===== _WordBank_'s storage system integration.
 
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
