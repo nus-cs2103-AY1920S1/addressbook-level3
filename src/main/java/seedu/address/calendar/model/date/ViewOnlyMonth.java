@@ -132,6 +132,12 @@ public class ViewOnlyMonth {
         return days.get(0);
     }
 
+    /**
+     * Copies the specified view only month.
+     *
+     * @param viewOnlyMonthToCopy The specified view only month
+     * @return A copy of the specified view only month
+     */
     public static ViewOnlyMonth copy(ViewOnlyMonth viewOnlyMonthToCopy) {
         List<ViewOnlyDay> copiedDays = List.copyOf(viewOnlyMonthToCopy.days);
         return new ViewOnlyMonth(viewOnlyMonthToCopy.monthOfYear, viewOnlyMonthToCopy.year, copiedDays);

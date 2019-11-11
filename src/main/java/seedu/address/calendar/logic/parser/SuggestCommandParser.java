@@ -7,12 +7,22 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses a suggest command.
+ */
 public class SuggestCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect suggest command format. %s";
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
             CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_PERIOD };
 
+    /**
+     * Parses a suggest command.
+     *
+     * @param args The arguments provided by the user
+     * @return The required suggest command
+     * @throws ParseException If the command cannot be parsed successfully
+     */
     SuggestCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
 

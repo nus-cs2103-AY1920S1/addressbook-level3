@@ -9,11 +9,21 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses an alternative delete command.
+ */
 public class AlternativeDeleteCommandParser {
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
             CliSyntax.PREFIX_END_YEAR, CliSyntax.PREFIX_NAME };
 
+    /**
+     * Parses an alternative delete command.
+     *
+     * @param args The arguments provided by the user
+     * @return The required delete command
+     * @throws ParseException If the command cannot be parsed successfully
+     */
     DeleteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
 

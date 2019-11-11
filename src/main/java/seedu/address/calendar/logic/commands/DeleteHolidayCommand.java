@@ -8,6 +8,9 @@ import seedu.address.calendar.model.event.Holiday;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Deletes a holiday from the calendar.
+ */
 public class DeleteHolidayCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "holiday";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD

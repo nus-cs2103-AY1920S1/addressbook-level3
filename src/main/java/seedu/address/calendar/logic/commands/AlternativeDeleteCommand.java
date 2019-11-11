@@ -57,6 +57,12 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
         return chosenCommand.execute(calendar);
     }
 
+    @Override
+    public CommandResult execute(Calendar calendar) throws CommandException {
+        requireNonNull(chosenCommand);
+        return chosenCommand.execute(calendar);
+    }
+
     /**
      * Adds the suggested command.
      *
@@ -79,11 +85,5 @@ public class AlternativeDeleteCommand extends DeleteCommand implements Alternati
             suggestedCommands.add(new DeleteTripCommand((Trip) event));
             break;
         }
-    }
-
-    @Override
-    public CommandResult execute(Calendar calendar) throws CommandException {
-        requireNonNull(chosenCommand);
-        return chosenCommand.execute(calendar);
     }
 }
