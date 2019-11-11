@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Deletes a school break from the calendar.
+ */
 public class DeleteSchoolBreakCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "school_break";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD

@@ -9,6 +9,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.Optional;
 
+/**
+ * Suggests user suitable times to travel.
+ */
 public class SuggestCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "suggest";
     public static final String MESSAGE_SUGGESTION_SUCCESS = "Here is a list of suggestions for you:\n%s";

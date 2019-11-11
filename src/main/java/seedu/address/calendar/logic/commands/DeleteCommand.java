@@ -4,6 +4,9 @@ import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 
+/**
+ * Deletes an event from the calendar.
+ */
 public abstract class DeleteCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "delete";
     public static final String MESSAGE_DELETE_SUCCESS = "Deleted: %s";

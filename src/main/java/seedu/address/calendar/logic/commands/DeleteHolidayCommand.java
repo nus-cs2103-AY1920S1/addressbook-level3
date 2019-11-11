@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Deletes a holiday from the calendar.
+ */
 public class DeleteHolidayCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "holiday";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD

@@ -8,6 +8,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Deletes the commitment from the calendar.
+ */
 public class DeleteCommitmentCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "commitment";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD
