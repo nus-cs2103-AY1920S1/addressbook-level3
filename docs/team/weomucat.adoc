@@ -18,7 +18,7 @@ Our application, named *Horo*, aims to allow efficient management and organizati
 {empty} +
 
 .Graphical user interface (GUI) of Horo
-image::Ui.png[GUI]
+image::Ui.png[GUI, 600]
 
 {empty} +
 
