@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
 
 == PROJECT: ɯeme
 
@@ -15,8 +16,15 @@
 
 * *Major enhancement*: added *the ability to suggest and auto-complete commands*
 ** What it does: allows the user to type command faster and more easily by showing possible command arguments and allow the user to use TAB key to auto-complete the command.
-** Justification: This feature improves the product significantly because a user can be tired of typing the full command over and over again, or unsure of what arguments to supply.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it requires live update of input and different methods to process different commands in order to generate suggestions.
+** Justification: This feature improves the product significantly because a user can be tired of typing the full command over and over again,
+or unsure of what arguments to supply. This feature allows the user to see what are the available commands and in case the user forgets the exact spelling of the command,
+the user can then be reminded of the similar commands and use kbd:[tab] to automatically correct the typo. Furthermore,
+the user can be reminded of the possible commands arguments (e.g. popular tags) from past records when the user is short of ideas.
+The usage of kbd:[tab] for auto-completion also tremendously improves the speed of typing and hence the overall experience of the user.
+
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it requires live update of input and different methods to process different commands in order to generate suggestions.
+The prompters mirrors parsers but they function differently. A branch new set of logic is implemented in the prompters and util methods to facilitate smoother suggestions and auto-completion.
 ** Credits: `LevenshteinDistance` in `org.apache.commons.text` is used in calculating the similarity between strings.
 
 * *Minor enhancement*:
