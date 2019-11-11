@@ -185,7 +185,7 @@ Example:
 // tag::MemberCommandsPart1[]
 // tag::MemberCommands[]
 
-=== Member-related Commands
+=== Member Commands
 
 ==== Adding a member: `add-member` +
 To add a member to the list of team members in +Work, use the command `add-member` following the format below.
@@ -349,7 +349,7 @@ image::AfterFireMember.png[]
 // end::MemberCommands[]
 
 // tag::task[]
-=== Task-related Commands
+=== Task Commands
 
 ==== Adding a task: `add-task`
 
@@ -942,7 +942,6 @@ You can use kbd:[control] to navigate along the various prefixes.
 
 //end::autocomplete[]
 
-////
 
 tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -955,13 +954,13 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: Can I use file formats other than ics for the calendar feature? +
-*A*: No, the file format has to be in ics folder, downloaded either from NUSmods or Google Calendar.
+*A*: No, the file format has to be in ics folder, downloaded either from https://nusmods.com[NUSmods] or https://calendar.google.com/calendar[Google Calendar].
 
 *Q*: Can I export the claims report as a word document? +
 *A*: No, the application only supports exporting of files in PDF format.
 
 *Q*: What if the calendar cannot find a timing where everyone is free? +
-*A*: There will be a grid showing the number of available members by time, so it will be easier for the user to choose the best possible time for the meeting.
+*A*: There will be a list showing the number of available members for the time period you specified, so it will be easier for the user to choose the best possible your meeting.
 
 *Q*: My project has a budget, does the application help me keep track of the projects financial status? +
 *A*: Using /inventory the application can keep track of current expenses for each task and the member who purchased it, however, there are currently no accounting services available.
@@ -969,11 +968,11 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Some of the tasks for my project require sub tasks to be completed, is there a way to add them? +
 *A*: Ideally since the user is the project leader, they should only see the main tasks to be accomplished for the project. This would help facilitate their managerial role within the project. Hence, the application does not support subtasks.
 
-*Q*: How can I add multiple users to the same task? +
-*A*: Since +Work is member-oriented, the application displays information according to members. Hence, you have to assign task to all the different members that are working on the task.
+*Q*: How can I add multiple members to the same task? +
+*A*: You can use the `assign` command detailed in in <<Member Commands>>.
 
 *Q*: What happens when a task has been completed? +
-*A*: You can mark the task as `done`, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
+*A*: You can mark the task as `done`, which will move the task to the `done` portion of the dashboard. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
 
 // tag::commandsummary[]
 == Command Summary
