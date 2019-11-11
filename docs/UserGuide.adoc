@@ -695,7 +695,6 @@ Example:
 Removes condition from GeneralReminder.
 
 User must first select a reminder to modify before he can edit said reminder.
-
 Note that the entry type of the General reminder cannot be removed.
 
 Format: `removeCondition <Reminder Index>`
