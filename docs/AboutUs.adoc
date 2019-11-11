@@ -41,7 +41,7 @@ image::sheryltay28.png[width="150", align="left"]
 {empty}[https://github.com/sheryltay28[github]] [<<sheryltay28#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Logic + Data
+Responsibilities: Logic + Model
 
 '''
 
