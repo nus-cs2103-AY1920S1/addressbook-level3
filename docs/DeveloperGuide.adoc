@@ -365,6 +365,7 @@ one with the `training` command makes it editing much quicker.
 // end::training_design[]
 
 // tag::performance_intro[]
+
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -373,7 +374,11 @@ progress in specific events.
 
 ==== Implementation
 
-This section explains how `[green]#Performance#` is implemented in Athletick. It is split into 4 sections.
+This section explains how `[green]#Performance#` is implemented in Athletick.
+
+// end::performance_intro[]
+
+It is split into 4 sections.
 
 . Overview
 . Adding and deleting of  `[green]#Event#`
@@ -381,6 +386,8 @@ This section explains how `[green]#Performance#` is implemented in Athletick. It
 . Viewing of  `[green]#Event#` and  `[green]#Record#`
 
 ===== Overview
+
+// tag::performance_overview[]
 
 `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
 Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
@@ -415,8 +422,7 @@ The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data th
 `[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
 and is updated accordingly when data in `[green]#Performance#` changes.
-
-// end::performance_intro[]
+// end::performance_overview[]
 
 ===== Function 1: Adding and Deleting of Event
 

@@ -159,6 +159,8 @@ _[Start of extract from Developer Guide]_
 
 include::../DeveloperGuide.adoc[tag=performance_intro]
 
+include::../DeveloperGuide.adoc[tag=performance_overview]
+
 include::../DeveloperGuide.adoc[tag=performance_designconsiderations]
 
 _[End of extract from Developer Guide]_
