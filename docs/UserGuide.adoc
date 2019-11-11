@@ -445,9 +445,6 @@ upon *ALL* transactions, regardless of their categories.
 
 ==== Usage Constraints
 ===== Command Format
-* `DATE` input only accepts dates in the following format: DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`.
-* `DATE` input must be set in the future.
 * `CATEGORY` must be preceded by its tag `c/`.
 A violation of any of the above will produce the following error message:
 ****
@@ -456,9 +453,16 @@ project: Project future balance based on past income/outflow. +
 Parameters: d/DATE [c/CATEGORY] +
 Example: project d/12122103 c/Food
 ****
-===== Date Range +
-* `DATE` cannot be more than *720* days from the day of projection.
-A violation of the above will produce the following error message:
+===== Date Values +
+* `DATE` input must be set in the future.
+A violation of this constraint will produce the following
+error message:
+****
+Invalid command usage! +
+Date must be set in the future.
+****
+* `DATE` cannot be more than *720* days from the day of projection. +
+A violation of this constraint will produce the following error message:
 ****
 Projections should be a maximum of 2 years (730 days) from now.
 ****
@@ -483,8 +487,8 @@ image::project1.png[]
 .A projection which is cast based on the 5 transactions above
 image::project2.png[]
 +
-. Should a transaction be deleted, the number of transactions being projected upon will fall below 5,
-and thus, the projection will automatically be deleted.
+. If a transaction being deleted causes the number of transactions being projected upon to fall below 5,
+the corresponding projection will automatically be deleted.
 +
 .The fifth transaction has been deleted.
 image::project3.png[]
@@ -497,12 +501,6 @@ image::project4.png[]
 Display a graphical representation of a `projection` in a new window.
 
 Format: `display PROJECTION_ID`
-
-****
-* A `Projection` with `PROJECTION_ID` must exist.
-* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
-added or removed. Instead, they are statically rendered upon the `display` command.
-****
 
 ==== Example Usage
 
@@ -520,6 +518,22 @@ representation of the budget will be additionally displayed.
 image::display3.png[]
 +
 
+
+==== Usage Constraints
+===== Valid Projection ID
+* A `Projection` with `PROJECTION_ID` must exist.
+Attempting to display a non-existent `PROJECTION` will result in the following error message:
+****
+The projection index provided is invalid.
+****
+===== Static Graph Rendering
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
+[NOTE]
+Due to the static nature of projection graphs, commands should *NOT* be executed while a projection
+graph is open, lest the behaviour of PalPay become unpredictable. +
+Consequently, a `display` command should *ALWAYS* be followed by closing the projection graph window, before
+any other actions are performed within _PalPay_.
 
 [[View]]
 // tag::view[]

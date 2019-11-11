@@ -24,7 +24,7 @@ import seedu.address.ui.tab.Tab;
 public class ProjectCommand extends Command {
 
     public static final String COMMAND_WORD = "project";
-    public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
+    public static final String MESSAGE_INVALID_DATE = "Date must be set in the future.";
     public static final String MESSAGE_BUDGET_CAUTION =
             "You are likely to exceed your budget of $%s, with a deficit of $%s!\n";
     public static final String MESSAGE_BUDGET_ON_TRACK =
