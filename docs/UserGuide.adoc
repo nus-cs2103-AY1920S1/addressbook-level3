@@ -76,7 +76,7 @@ By using the _Projections_ feature, you can project your:
 
 These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
 projection, it is automatically stored and thereafter accessible through the _Projection_ tab via the `view`
-command (see <<View>>).
+command (see <<View, *View*>>).
 
 
 [[Commands]]
@@ -625,6 +625,7 @@ image::view2.png[]
 +
 image::view3.png[]
 
+// end::view[]
 
 [[Delete]]
 // tag::delete[]
