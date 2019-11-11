@@ -8,9 +8,5 @@
     "openingHours": "0921 0922",
     "restrictions": "Bruh"
 
-  } ],
-  "wallet" : {
-    "remainingBudget" : "100",
-    "daysToExpire" : "30"
-  }
+  } ]
 }

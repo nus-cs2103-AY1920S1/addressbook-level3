@@ -19,9 +19,5 @@
     "openingHours": "0800 2100",
     "restrictions": "Epic"
 
-  } ],
-  "wallet" : {
-    "remainingBudget" : "100",
-    "daysToExpire" : "30"
-  }
+  } ]
 }
