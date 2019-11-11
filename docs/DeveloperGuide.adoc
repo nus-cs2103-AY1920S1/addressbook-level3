@@ -1499,31 +1499,31 @@ Expected: A message indicating the list is empty will be shown.
 ... Test case: `achvm asdf` +
     Expected: A error message is shown to the user indicating that the command cannot have any arguments.
 
-.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+.. Prerequisites: There are at least 3 days worth of `BLOOSUGAR` records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of `BLOOSUGAR` level.
 ... Test case: `achvm`+
-Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. Coloured image representing achievement is shown.
+Expected: `BRONZE` level achievement for `BLOOSUGAR` is shown to be `ACHIEVED` in the achievements pane. Coloured image representing achievement is shown.
 ... Test case: `achVm`+
-Expected: Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane. The `achvm` command is not case-sensitive.
+Expected: `BRONZE` level achievement for `BLOOSUGAR` is shown to be `ACHIEVED` in the achievements pane. The `achvm` command is not case-sensitive.
 
-.. Prerequisites: There are at least 2 days worth of bloodsugar records with a minimum of the past two days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level.
+.. Prerequisites: There are at least 2 days worth of `BLOOSUGAR` records with a minimum of the past two days having consistent daily averages of 4.0 to 7.8 mmol/L of `BLOOSUGAR` level.
 ... Test case: `add rt/BLOODSUGAR dt/2019-11-06 12:12 con/4.5`+
-Expected: An achievement message is appended to the message showing successful addition of records in the feedback display pane, indicated the attainment of (an) achievement(s). Bronze level achievement for BloodSugar is shown to be `ACHIEVED` in the achievements pane when `achvm` is entered.
+Expected: An achievement message is appended to the message showing successful addition of records in the feedback display pane, indicated the attainment of (an) achievement(s). `BRONZE` level achievement for `BLOOSUGAR` is shown to be `ACHIEVED` in the achievements pane when `achvm` is entered.
 
-.. Prerequisites: There are EXACTLY 3 days of bloodsugar records (one record per day) having consistent daily bloodsugar levels of 4.0 to 7.8 mmol/L.
+.. Prerequisites: There are EXACTLY 3 days of `BLOOSUGAR` records (one record per day) having consistent daily `BLOOSUGAR` levels of 4.0 to 7.8 mmol/L.
 ... Test case: `delete 3`+
-Expected: A nessage is appended to the successful records removal message indicating the loss of (an) achievement(s). Bronze level achievement for BloodSugar is no longer shown to be `ACHIEVED` in the achievements pane when `achvm` is entered. Achievement state resets to `YET TO ACHIEVE` and image representing achievement can is in silhouette form again.
+Expected: A message is appended to the successful records removal message indicating the loss of (an) achievement(s). `BRONZE` level achievement for `BLOOSUGAR` is no longer shown to be `ACHIEVED` in the achievements pane when `achvm` is entered. Achievement state resets to `YET TO ACHIEVE` and image representing achievement can is in silhouette form again.
 
-.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+.. Prerequisites: There are at least 3 days worth of `BLOOSUGAR` records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of `BLOOSUGAR` level. The last date of `BLOOSUGAR` records is on 2019-11-06.
 ... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/4.5`+
-Expected: Bronze level achievement for BloodSugar continues to be shown to be `ACHIEVED` in the achievements pane if `achvm` is entered.
+Expected: `BRONZE` level achievement for `BLOOSUGAR` continues to be shown to be `ACHIEVED` in the achievements pane if `achvm` is entered.
 
-.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+.. Prerequisites: There are at least 3 days worth of `BLOOSUGAR` records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of `BLOOSUGAR` level. The last date of `BLOOSUGAR` records is on 2019-11-06.
 ... Test case: `add rt/BLOODSUGAR dt/2019-11-08 12:12 con/4.5`+
-Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+Expected: `BRONZE` level achievement for `BLOOSUGAR` continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
 
-.. Prerequisites: There are at least 3 days worth of bloodsugar records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of bloodsugar level. The last date of bloodsugar records is on 2019-11-06.
+.. Prerequisites: There are at least 3 days worth of `BLOOSUGAR` records with a minimum of the past three days having consistent daily averages of 4.0 to 7.8 mmol/L of `BLOOSUGAR` level. The last date of `BLOOSUGAR` records is on 2019-11-06.
 ... Test case: `add rt/BLOODSUGAR dt/2019-11-07 12:12 con/7.9`+
-Expected: Bronze level achievement for BloodSugar continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
+Expected: `BRONZE` level achievement for `BLOOSUGAR` continues to be shown to be `PREVIOUSLY ACHIEVED` in the achievements pane if `achvm` is entered. Image representing achievement is gray-scaled and streak count resets to zero.
 
 === Biography Commands
 
