@@ -27,7 +27,7 @@
                 <padding>
                     <Insets top="1" bottom="1" />
                 </padding>
-                <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Current Workload" />
+                <Label fx:id="creditsPrefix" styleClass="prefix-label,  prefix_purple" text="Current Allowable Workload" />
                 <Label fx:id="credits" styleClass="cell_small_label" text="\$credits" />
                 <Label fx:id="creditsSuffix" styleClass="cell_small_label" text=" MC(s)" />
             </HBox>

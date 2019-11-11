@@ -10,14 +10,15 @@ box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 participant ":HistoryCommandParser" as HistoryCommandParser LOGIC_COLOR
 participant "command : HistoryCommand" as HistoryCommand LOGIC_COLOR
+participant "commandHistory :\nFilterOnlyCommandHistory" as CommandHistory LOGIC_COLOR
 end box
 
--> MainWindow : executeCommand("history -h")
+-> MainWindow : executeCommand("history -o -s")
 activate MainWindow
 
-MainWindow -> Logic: execute("history -h")
+MainWindow -> Logic: execute("history -o -s")
 activate Logic
-Logic -> HistoryCommandParser: parse(" -h")
+Logic -> HistoryCommandParser: parse(" -o -s")
 activate HistoryCommandParser
 create HistoryCommand
 HistoryCommandParser -> HistoryCommand
@@ -26,8 +27,12 @@ HistoryCommand --> HistoryCommandParser
 deactivate HistoryCommand
 HistoryCommandParser -> Logic: command
 deactivate HistoryCommandParser
-Logic -> HistoryCommand : execute(model)
+Logic -> HistoryCommand : execute(model, commandHistory)
 activate HistoryCommand
+HistoryCommand -> CommandHistory : updateFilteredCommandHistory(\nSHOW_ONLY_SUCCESSFUL)
+activate CommandHistory
+CommandHistory --> HistoryCommand : list filtered accordingly
+deactivate CommandHistory
 HistoryCommand -> Logic : commandResult
 note right: showHistory and hideOutput\n flags in commandResult\n is set to true.
 deactivate HistoryCommand
@@ -44,17 +49,14 @@ deactivate HistoryWindow
 
 MainWindow -> HistoryWindow : show()
 activate HistoryWindow
-HistoryWindow --> MainWindow : showing history \nwindow
+
+
+HistoryWindow -> HistoryWindow: scrollToBottom()
+activate HistoryWindow
+HistoryWindow --> HistoryWindow : scrolled to\nbottom of\ndisplay
 deactivate HistoryWindow
 
-MainWindow -> Logic : getCommandHistory()
-activate Logic
-Logic -> MainWindow: commandHistory
-deactivate Logic
-
-MainWindow -> HistoryWindow: updateHistoryDisplay(commandHistory)
-activate HistoryWindow
-HistoryWindow --> MainWindow: History display \n updated
+HistoryWindow --> MainWindow : showing history \nwindow
 deactivate HistoryWindow
 
 <-- MainWindow: history command executed

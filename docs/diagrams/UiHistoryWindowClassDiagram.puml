@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class MainWindow
+
+Class ResultDisplay
+
+package History {
+Class HistoryWindow
+Class HistoryListPanel
+Class InputOutputCard
+}
+
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+
+
+MainWindow -down-> HistoryWindow
+HistoryWindow *-down-> HistoryListPanel
+HistoryWindow *-down-> ResultDisplay
+HistoryListPanel -down-> InputOutputCard
+
+InputOutputCard .right.> HiddenLogic
+
+note "All classes shown here in the UI\npackage implicitly inherit from the \nabstract class UiPart shown in the \nfirst UI diagram above." as N1
+N1 .[hidden].> UI
+
+
+@enduml

@@ -17,80 +17,134 @@ endif::[]
 By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
+// tag::intro[]
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
-with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
-aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
-leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
-side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
-a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
+The Module Appeal Management System (MAMS) is a desktop app that aims
+to combine Command Line Interface (CLI) style commands with a triple-pane
+GUI for easy navigation of module appeals, module information, and student
+particulars. This app is particularly aimed towards *module appeal
+administrators who prefer to work through their heavy backload of module appeals
+without ever having to leave the comfort of the keyboard for their mouse*.
+The MAMS system can quickly bring up entire lists of students, appeals,
+and modules for side-by-side comparison, with specific display commands
+to view the expanded details of any particular object in question.
+Once reviewing of the information is complete, the MAMS system also
+provides a suite of commands for resolving appeals,
+overriding MC limits, and allocation of modules to students.
+//end::intro[]
 
 == Quick Start
-
+// tag::quickStart[]
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `MAMS.jar` link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
-. **Important**: Unzip `data.zip`. Inside, there should be a folder containing `mams.json`, ie. `data/mams.json`.
-Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`. Due to the special nature of
-app, users are specifically restricted from deleting/adding data entries. Note that certain un-archiver tools
-may automatically create a new parent `data/` folder around the zipped `data/` folder. Should that happen, please only
-move the inner `data/` folder containing `mams.json` to the target directory. In any case, the resulting
-folder structure should look a little like the below:
+.  Download the latest `mams.jar`
+link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder
+for The Module Appeal Management System (MAMS).
+. **Important**: Unzip `data.zip`. Inside, there should be a folder
+containing `mams.json`, ie. `data/mams.json`.
+Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`.
+
+  - This is required due to the special nature of the application,
+where target users are specifically restricted from
+deleting/adding data entries since it does not fall under their job scope.
+We hence provide a sample data-set for testing purposes.
+This may be replaced with actual data differing on a semester-by-semester basis.
+ - Note that certain un-archiver tools may automatically create a
+new parent `data/` folder around the zipped `data/` folder.
+Should that happen, please only move the inner `data/` folder
+containing `mams.json` to the target directory.
+ - **Important** : Before proceeding to the next step, check that the resulting
+folder structure/names look a little like the below:
 
   .
   ├── mams.jar
   └── data/
       └── mams.json
 
-.  Double-click the file to start the app. The GUI should appear in a few seconds..
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
+.  NOTE: If the GUI does not display any items on startup,
+the previous step was performed incorrectly.
+Please close the application and review the folder structure.
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Refer to <<Features>> for details of each command.
-. Note that the application is developed primarily for Windows or MacOS. If you use a different OS,
+. Note that the application is developed primarily for Windows
+or MacOS usage. If you use a different OS,
 you may face unexpected issues.
+
+//end::quickStart[]
 
 [[Features]]
 == Features
 
-Broadly speaking, the MAMS handles three main types of items: *Students, Appeals, and Modules*.
+// tag::featuresPreamble[]
 
-A student is uniquely identified by his/her 8-character Matriculation Number starting with a letter, eg. `A0132243`
+Broadly speaking, MAMS handles three main types of items: *Appeals, Modules, and Students*.
 
 An appeal request is uniquely identified by a prefix `C`, followed by a 6-digit Case ID, eg. `C123456`
 
 A module is uniquely identified by a COURSE_PREFIX (eg. `CS` for Computer Science) and a 4 character sequence. eg. `CS2103`.
 
+A student is uniquely identified by his/her 8-character Matriculation Number starting with a letter, eg. `A0132243`
+
 ====
 *Command Format*
 
-* Each command must begin with a command word. See each command below for the list of associated command words.
-* Words in `UPPER_CASE` are the arguments to be supplied by the user eg. `INDEX` denotes that you should provide a numeric index in the command-specified format.
-* Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]` can be used as `list` or `list -s`.
-* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
+* Each command must begin with a command word. See each command
+below for the list of associated command words.
+* Words in `UPPER_CASE` are the arguments to be supplied by the user eg. `INDEX` denotes
+that you should provide a numeric index in the command-specified format.
+* Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]`
+can be used as `list` or `list -s`.
+However, some commands may require that at
+least one of the optional parameters be present. These will be specified
+in the command itself.
+* Any item that is followed by an ellipsis (`...`) can be used multiple times including zero
+eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
 * Arguments within square brackets can be supplied in any order.
-* Tags will often be used in the command to specify the targeted list for the command. Certain commands allow operations on multiple lists.
-** `a/` : prefix for the `Appeal List`
-** `m/` : prefix for the `Module List`
-** `s/` : prefix for the `Student List`
+* As a general rule, invalid or unnecessary parameters will cause
+the command to be treated as invalid. This is not
+definitive, however, and exceptions to this rule may be specified
+for specific commands, either now or in the future.
+* Tags will often be used in the command to specify the targeted list for the command.
+Certain commands allow operations on multiple lists, eg.
+** `a/` : prefix for supplying values specific to the
+`Appeal List` (`a/VALUE_TO_BE_SUPPLIED`)
+** `m/` : prefix for supplying values specific to the
+`Module List` (`m/VALUE_TO_BE_SUPPLIED`)
+** `s/` : prefix for supplying values specific to the
+`Student List` (`m/VALUE_TO_BE_SUPPLIED`)
+** This list is not exhaustive, and is for illustrative purposes only.
+Precise formats will be given in each command.
 ====
 
+// end::featuresPreamble[]
+
+// tag::view[]
 === Viewing single objects: `view`
 
-This command brings up an item with fully expanded details on a single pane. Multiple MAMS items can be displayed
+This command brings up an item with fully expanded details on a single pane.
+Multiple MAMS items can be displayed
 in one single command, as long as they are from different types.
 
 Format: `view [a/INDEX] [m/INDEX] [s/INDEX]`
 
-Note: Even though all the parameter tags are marked as optional, at least one must be present for the command to
-execute. In the case where a parameter tag is used more than once, the last tag of that type will be accepted.
+Note: Even though all the parameter tags are marked as optional,
+at least one must be present for the command to
+execute. In the case where a parameter tag is used more than once,
+the last tag of that type will be accepted.
 
 Tags:
 
 * `a/INDEX`: displays the expanded details of the appeal at `INDEX` on the displayed appeal list
 * `m/INDEX`: displays the expanded details of the module at `INDEX` on the displayed module list
 * `s/INDEX`: displays the expanded details of the student at `INDEX` on the displayed student list
+*  All supplied `INDEX` values must be non-zero positive integers.
+*  When multiple tags of the same type are specified, only the last supplied tag of each type will be checked.
+*  Invalid parameters will cause the command to fail
+*  At least one prefix must be present for the command to execute successfully.
 
 *Examples:*
 
@@ -104,6 +158,10 @@ Sample Output: Fully expanded administrative details of the module at index 7.
 
 image::ViewCommandDemoAfter.png[width="790"]
 
+// end::view[]
+
+// tag::list[]
+
 === Listing objects by specified lists: `list`
 
 Format: `list [-a] [-m] [-s]`
@@ -115,12 +173,10 @@ Options:
 * `-s`: lists out all students in MAMS
 * if no options are specified, `list` command will behave as
 though all three tags have be applied. ie. it will
-list out all appeals, modules, and students.
-* if an invalid option has been supplied, eg.`-hs` or `-invalid`, an error message will be shown,
-and the command will fail.
-* invalid or unnecessary parameters will be ignored. This is by design, since
-the `list` command does not take in a parameter input.
-** eg. for `history -o hello`, `hello` will be ignored.
+list out all appeals, modules, and students. This is for the convenience of the user.
+* if an invalid parameter has been supplied, eg. `hello`, `-hs` or `-invalid`, an error/usage message will be shown,
+and the command will be aborted.
+** eg. for `list -a hello -invalid`, `hello` and `-invalid` will cause the command to fail.
 
 *Examples:*
 
@@ -134,13 +190,17 @@ Sample Output: Lists all appeals and students in MAMS
 
 image::ListCommandDemoAfter.png[width="790"]
 
+//end::list[]
+
+// tag::history[]
+
 === Command History
 
 ==== Cycle through command history
 
 In the command box (the area where you type in commands), you can cycle through your previous inputs by using the
 kbd:[&uarr;] and kbd:[&darr;] arrow keys. They will autofill the command box with the previous and next input stored
-in the command history respectively.
+in the command history respectively, in a style similar to most CLI terminals.
 
 Example:
 
@@ -161,18 +221,17 @@ Options:
 
 * `-o`: hide the command feedback in the history window
 * `-s`: show only successful commands in the history window
-* all options for this command must be space-delimited
+* all options for this command must be space-delimited, as shown in the format above
 * if no options are supplied, the `history` command will default to show
 both command input and command feedback history in the
 history window, as well as all executed commands (regardless of success status).
-* if an invalid option has been supplied, eg.`-hs` or `-invalid`, an error message will be shown,
-and the command will fail.
-* invalid or unnecessary parameters will be ignored. This is by design, since
-the `history` command does not take in a parameter input.
-** eg. for `history -o hello`, `hello` will be ignored.
+* if an invalid parameter has been supplied, eg. `hello`, `-hs` or `-invalid`, an error/usage message will be shown,
+and the command will be aborted.
+** eg. for `history -o hello -invalid`, `hello` and `-invalid` will cause the command to fail.
 
-Hotkey Usage:
-When the history window is focused, you may use several hotkeys to navigate around the window.
+Hot-key Usage:
+
+When the history window is focused, you may use several hot-keys to navigate around the window.
 They are as follows:
 
 * kbd:[&uarr;] kbd:[&darr;] Navigate up and down the history entries.
@@ -203,6 +262,9 @@ image:HistoryWindowCopyDemo.png[width="790"]
 
 Command history is automatically saved to disk whenever it is updated with new inputs.
 Upon the next MAMS startup, previous command history will be loaded from disk as well.
+In other words, command history is persistent across usage sessions of MAMS.
+
+//end::history[]
 
 //tag::find[]
 === Find keywords: `find`
@@ -514,8 +576,28 @@ Example: `restore t/Backup_1`
 Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
 //end::backuprestore[]
 
+=== Displaying help: `help`
+Displays a window containing a URL to this UserGuide.
 
+Format: `help`
 
+Sample Input: `help`
+
+image::HelpCommandDemoBefore.png[width="790"]
+
+Sample Output: Help window displayed.
+
+image::HelpCommandDemoAfter.png[width="790"]
+
+=== Exiting the application: `exit`
+Exits the application, and closes all windows. Alternatively, the user may click on the
+close button (located at the top of the window in most OSes) in the main window.
+
+Format: `exit`
+
+Sample Input: `exit`
+
+Sample Output: All windows related to MAMS closed.
 
 == Command Summary
 
@@ -523,9 +605,10 @@ Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
 - e.g. `list -a -s` to list out all appeals and students in MAMS.
 
 * **view**: `view [a/INDEX] [m/INDEX] [s/INDEX]`
+- Note: at least one of the parameters is required.
 - e.g. `view a/1 m/7` to view expanded details of appeal and module at indexes 1 and 7 respectively
 
-* **history**: `history [-h]`
+* **history**: `history [-s] [-o]`
 - eg. `history` to open the history window
 
 * **find**: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
@@ -584,3 +667,11 @@ Redo do last Undo if availiable.
 
 ** `reject mass/ [APPEAL_ID]...`
 - e.g `reject mass/C0000023 C000034`  Marks the shown appeal IDS as rejected
+
+* **help**: `help`
+- eg. `help` displays a new window containing the URL to this UserGuide.
+- Note: invalid or unnecessary parameters are ignored for this command.
+
+* **exit**: `exit`
+- eg. `exit` closes the application.
+- Note: invalid or unnecessary parameters are ignored for this command.
