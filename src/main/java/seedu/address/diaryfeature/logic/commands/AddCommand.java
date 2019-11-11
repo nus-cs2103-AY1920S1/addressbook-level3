@@ -14,9 +14,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class AddCommand extends Command<DiaryModel> {
 
     public static final String COMMAND_WORD = "add";
-    private static final String MESSAGE_SUCCESS = "New entry added:";
+    public static final String MESSAGE_SUCCESS = "New entry added:";
     private final DiaryEntry toAdd;
-    private static final String MESSAGE_DUPLICATE_ERROR = "This entry already exists!";
+    public static final String MESSAGE_DUPLICATE_ERROR = "This entry already exists!";
 
 
     /**

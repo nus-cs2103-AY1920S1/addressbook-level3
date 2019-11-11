@@ -18,7 +18,7 @@ public class DeleteCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "delete";
     private static final String OVERFLOW = "For the delete command, your index has to be less than the size" +
             " of the list! Make your number smaller.";
-    private static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Entry: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Entry: %1$s";
     private final Index targetIndex;
 
     /**
