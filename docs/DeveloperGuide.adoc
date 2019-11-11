@@ -194,7 +194,7 @@ image::LogicForAB.png[]
 This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
-.Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>.
+.Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>
 image::ParserForInventoryCashier.png[]
 
 The `XYZTabParser` represents the `InventoryTabParser` for the Inventory tab and `CashierTabParser`
@@ -777,11 +777,6 @@ This tab will act as a shopping cart to add and record sales items that are to b
 
 Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be appended to the list of transactions on the Home tab.
 In addition, the stock remaining in the inventory will be updated accordingly in the Inventory tab.
-
-This is the overall Class Diagram of this tab:
-
-.Class Diagram of Cashier Tab (cashier package)
-image::UMLCashierTab.png[width="650"]
 
 ==== Add Sales Item Feature
 
