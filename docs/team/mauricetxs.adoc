@@ -69,4 +69,8 @@ include::../UserGuide.adoc[tag=notification]
 
 include::../DeveloperGuide.adoc[tag=suggest]
 
+include::../DeveloperGuide.adoc[tag=suggestTesting]
+
 include::../DeveloperGuide.adoc[tag=notification]
+
+include::../DeveloperGuide.adoc[tag=notificationTesting]

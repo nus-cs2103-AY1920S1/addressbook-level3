@@ -381,7 +381,7 @@ The find feature displays the result of the searched dish on the right pane to t
 
 ===== Implementation
 
-The find mechanism is toggled when the user types in the "find" command. Through a `FindCommand` that extends from the abstract `Command` class. It interacts with the object that implements `Model` interface by updating the observable list with a predicate that contains what the user is searching for.
+The find mechanism is toggled when the user types in the "find" command. Through a *_FindCommand_* that extends from the abstract *_Command_* class. It interacts with the object that implements *_Model_* interface by updating the observable list with a predicate that contains what the user is searching for.
 
 Given below is a Class Diagram that shows how the FindCommand interacts with other components of CaloFit.
 
@@ -389,15 +389,14 @@ image::FindClassDiagram.png[]
 
 Given below is an example usage scenario and how the find mechanism behaves at each step.
 
-Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase`.
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_.
 
 [NOTE]
 If the DishDatabase is empty, nothing will be display.
 
-Step 2. The user enters "find soup" in the Command Line Input to invoke the `FindCommand` command which will run `FindCommand#execute()`. `Model#setDishFilterPredicate()` will be executed to update the observable list with the given predicate.
+Step 2. The user enters "find soup" in the Command Line Input to invoke the *_FindCommand_* command which will run _FindCommand#execute()_. _Model#setDishFilterPredicate()_ will be executed to update the observable list with the given predicate.
 
 Step 3. The number of dishes found will be return, while printing the updated dish list on CaloFit right pane.
-
 
 ===== Design Considerations
 
@@ -406,7 +405,7 @@ Step 3. The number of dishes found will be return, while printing the updated di
 * **Alternative 1 (current choice):** Update dish list with the search result
 ** Pros: Neater code, easier to maintain and uses lesser memory.
 ** Cons: Unable to get history of find list.
-* **Alternative 2:** Create a new list for every `FindCommand`.
+* **Alternative 2:** Create a new list for every *_FindCommand_*.
 ** Pros: Easier to understand and customise if require data for method.
 ** Cons: Unnecessary memory wastage for list created and not used.
 * **Explanation of Choice:** Since we only need to show what the current user finds, there are no usage for the past find result.
@@ -415,9 +414,9 @@ Step 3. The number of dishes found will be return, while printing the updated di
 
 * **Alternative 1 (current choice):** Stores the value in a dish list.
 ** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
-** Cons: Would constantly require `Model` with a responsibility that is not relevant to it's current.
-* **Alternative 2:** Wrap the values in a `Find` object
-** Pros: Neater and easier to maintain, since all find-related values are stored in the `Find` object.
+** Cons: Would constantly require *_Model_* with a responsibility that is not relevant to it's current.
+* **Alternative 2:** Wrap the values in a *_Find_* object
+** Pros: Neater and easier to maintain, since all find-related values are stored in the *_Find_* object.
 ** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
 // end::find[]
 
@@ -427,22 +426,22 @@ The suggest feature displays the suggested automatically to the user accordingly
 
 ===== Implementation
 
-The suggest mechanism is toggled when the application starts up. It will always display the suggested meals for the user in the right pane. The feature can be can be toggled back by typing the "suggest" command. Through a `SuggestCommand` that extends from the abstract `Command` class. It interacts with the object that implements the `Model` interface by updating the observable list with dishes that are within the calories budget. The calories budget is obtained from `Model#getRemainingCalories()`.
+The suggest mechanism is toggled when the application starts up. It will always display the suggested meals for the user in the right pane. The feature can be can be toggled back by typing the "suggest" command. Through a *_SuggestCommand_* that extends from the abstract *_Command_* class. It interacts with the object that implements the *_Model_* interface by updating the observable list with dishes that are within the calories budget. The calories budget is obtained from _Model#getRemainingCalories()_.
 
 Additionally, it implements the following operation:
 
-* `Model#getRemainingCalories` -- gets the current allowed calories budget.
+* _Model#getRemainingCalories_ -- gets the current allowed calories budget.
 
-This operation is exposed in the `Model` interface as `Model#getRemainingCalories()`.
+This operation is exposed in the *_Model_* interface as _Model#getRemainingCalories()_.
 
 Given below is an example usage scenario and how the suggest mechanism behaves at each step.
 
-Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase`.
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_.
 
 [NOTE]
 If the DishDatabase is empty, or the daily calorie budget have exceeded the set amount, or there are no dishes that is within the amount, nothing will be display.
 
-Step 2. The user enters "suggest" in the Command Line Input to invoke the `SuggestCommand` command which will run `SuggestCommand#execute()`. `Model#getRemainingCalories()` will be executed to get the remaining calories, which will provide `#Model#updateFilteredDishList` with the calories budget to update the list accordingly.
+Step 2. The user enters "suggest" in the Command Line Input to invoke the *_SuggestCommand_* command which will run _SuggestCommand#execute()_. _Model#getRemainingCalories()_ will be executed to get the remaining calories, which will provide _Model#updateFilteredDishList_ with the calories budget to update the list accordingly.
 
 Step 3. The success message will be returns, while printing the updated dish list on CaloFit right pane.
 
@@ -457,7 +456,7 @@ image::SuggestCommand.png[]
 * **Alternative 1 (current choice):** Update dish list with calorie budget
 ** Pros: Neater code, easier to maintain and uses less memory.
 ** Cons: Unable to get history of suggest list.
-* **Alternative 2:** Create a new list for every `SuggestCommand`.
+* **Alternative 2:** Create a new list for every *_SuggestCommand_*.
 ** Pros: Easier to understand and customise if require data for method.
 ** Cons: Unnecessary memory wastage for list created and not used.
 * **Explanation of Choice:** Since we only need to show the user the current meal suggest, there are no usage for the past suggest result.
@@ -466,9 +465,9 @@ image::SuggestCommand.png[]
 
 * **Alternative 1 (current choice):** Stores the value in a dish list.
 ** Pros: Commonly used, thus easier to understand and easier to deal with. It can also be easily updated.
-** Cons: Would constantly require `Model` with a responsibility that is not relevant to its current.
-* **Alternative 2:** Wrap the values in a `Suggest` object
-** Pros: Neater and easier to maintain, since all suggest-related values are stored in the `Suggest` object.
+** Cons: Would constantly require *_Model_* with a responsibility that is not relevant to its current.
+* **Alternative 2:** Wrap the values in a *_Suggest_* object
+** Pros: Neater and easier to maintain, since all suggest-related values are stored in the *_Suggest_* object.
 ** Cons: Additional class to maintain, harder for newcomers to understand code with too many classes.
 // end::suggest[]
 
@@ -478,7 +477,7 @@ The notification feature prompts the user with new window if a meal had been mis
 
 ===== Implementation
 
-The notification feature is automatically activated when the application starts up. On start up, it is implemented through a `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
+The notification feature is automatically activated when the application starts up. On start up, it is implemented through a *_NotificationHelper_* that gets information from _Model#getMealLog().getTodayMeals()_ method to check if there are any meal consumed and if a meal had been consumed. The *_NotificationHelper_* class would the do a check on the timestamp of the latest meals by using various methods in the *_Notification_* class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
 
 [NOTE]
 Notification will be prompted: +
@@ -494,24 +493,24 @@ Meals that will be counted:
 
 Additionally, it implements the following operation:
 
-* A "timer" object that is in the `UIManager` class will ensure that the notifications are executed in 10 minutes interval.
+* A "timer" object that is in the *_UIManager_* class will ensure that the notifications are executed in 10 minutes interval.
 
-* `Notification#eatenBreakfast` -- returns a boolean value to indicate whether the user has eaten their breakfast.
+* _Notification#eatenBreakfast_ -- returns a boolean value to indicate whether the user has eaten their breakfast.
 
-* `Notification#eatenLunch` -- returns a boolean value to indicate whether the user has eaten their lunch.
+* _Notification#eatenLunch_ -- returns a boolean value to indicate whether the user has eaten their lunch.
 
-* `Notification#eatenDinner` -- returns a boolean value to indicate whether the user has eaten their dinner.
+* _Notification#eatenDinner_ -- returns a boolean value to indicate whether the user has eaten their dinner.
 
 Given below is an example usage scenario and how the notification mechanism behaves at each step.
 
-Step 1. The user starts up CaloFit for the first time. The `DishDatabase` will be loaded with the initial data by calling `MainApp#loadDishDatabase` with an empty MealLog.
+Step 1. The user starts up CaloFit for the first time. The *_DishDatabase_* will be loaded with the initial data by calling _MainApp#loadDishDatabase_ with an empty MealLog.
 
 [NOTE]
 The application will immediately check once, when the application is launched, followed by every 10 minutes interval.
 
-Step 2. The application will then execute `NotificationHelper` once to check if any meal have been missed. If there is none then no notification will be prompted. If a meal is missed it will prompt to the user, and notify them every 10 minutes.
+Step 2. The application will then execute *_NotificationHelper_* once to check if any meal have been missed. If there is none then no notification will be prompted. If a meal is missed it will prompt to the user, and notify them every 10 minutes.
 
-Step 3. After 10 minutes, `UIManager` will then execute `NotificationHelper` and check if the user has keyed in any meals. This process will carry on for every 10 minutes utill the user keys in his meal.
+Step 3. After 10 minutes, *_UIManager_* will then execute *_NotificationHelper_* and check if the user has keyed in any meals. This process will carry on for every 10 minutes utill the user keys in his meal.
 
 The following sequence diagram shows how the notification operation works:
 
@@ -529,7 +528,6 @@ image::NotificationActivityDiagram.png[]
 ** Cons: Require much more memory as a new window is created, if the user was away for a period of time and the application was left opened, user would be required to clear quite a number of tabs.
 * **Explanation of Choice:** Since this feature serves as an assistance to the user, we should not bring in more hassle and inconvenience to the user. Thus even with a higher risk of notification not showing up due to error. After 10 more minutes the notification will be prompted.
 // end::notification[]
-
 // end::assistance[]
 
 // tag::report[]
@@ -856,7 +854,7 @@ Otherwise suggest feature will not work.
         Expected: CaloFit will display the soup dishes that the user is looking for followed by the suggested list of dishes.
 // end::suggestTesting[]
 
-// tag:: notificationTesting[]
+// tag::notificationTesting[]
 === Testing notification feature
 
 [NOTE]
@@ -874,7 +872,7 @@ Do not launch the application till instructed.
 . Notify user when user miss their dinner.
     .. Test case: set the system time to 8am, clean launch the application, `add n/cereal c/300`, set the system time to 9pm, leave it for as long as the user wants to test.
         Expected: A notification indicating that dinner have been missed would be prompted every 10 minutes.
-// end:: notification Testing[]
+// end::notificationTesting[]
 
 // tag::reportTesting[]
 === Testing the generation of the report
