@@ -30,10 +30,10 @@ deactivate MarkParser
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoMark()
+UndoCommand -> Model : undoMark(1)
 activate Model
 
-Model -> VersionedMark : undo()
+Model -> VersionedMark : undo(1)
 activate VersionedMark
 
 VersionedMark -> VersionedMark :resetData(ReadOnlyMark)
@@ -43,7 +43,7 @@ deactivate VersionedMark
 Model --> UndoCommand : record
 deactivate Model
 
-UndoCommand --> LogicManager : result
+UndoCommand --> LogicManager : record
 deactivate UndoCommand
 UndoCommand -[hidden]-> LogicManager : result
 destroy UndoCommand

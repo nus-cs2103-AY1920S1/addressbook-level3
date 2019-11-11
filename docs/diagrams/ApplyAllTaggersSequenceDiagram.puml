@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":VersionedMark" as VersionedMark MODEL_COLOR
+end box
+
+box Autotag MODEL_COLOR_T2
+participant ":AutotagController" as AutotagController MODEL_COLOR
+participant ":SelectiveBookmarkTagger" as SelectiveBookmarkTagger MODEL_COLOR
+end box
+
+group sd Apply all taggers in Model
+
+[-> Model : applyAllTaggers()
+activate Model
+Model -> VersionedMark : applyAllTaggers()
+activate VersionedMark
+
+VersionedMark -> VersionedMark : getBookmarkList()
+activate VersionedMark
+VersionedMark --> VersionedMark : list
+deactivate VersionedMark
+
+VersionedMark -> AutotagController : applyTaggersToList(list)
+activate AutotagController
+
+loop bookmarks b in list
+    AutotagController -> AutotagController : applyTaggers(b)
+    activate AutotagController
+    loop taggers in AutotagController
+        AutotagController -> SelectiveBookmarkTagger : applyTagSelectively(currentB)
+        activate SelectiveBookmarkTagger
+        SelectiveBookmarkTagger --> AutotagController : taggedB
+        deactivate SelectiveBookmarkTagger
+    end
+    AutotagController --> AutotagController : taggedB
+    deactivate AutotagController
+end
+
+AutotagController --> VersionedMark : taggedList
+deactivate AutotagController
+
+VersionedMark -> VersionedMark : setBookmarks(taggedList)
+activate VersionedMark
+VersionedMark --> VersionedMark
+deactivate VersionedMark
+
+VersionedMark --> Model
+deactivate VersionedMark
+
+[<- Model
+deactivate Model
+
+end group
+
+@enduml

@@ -17,6 +17,11 @@ public class Reminder {
     //TODO: temporarily; to change when confirmed
     private static final String DATE_FORMATTER = "dd/MM/uuuu HHmm";
 
+    //Has the reminder shown
+    private boolean isShown = false;
+    //Is the reminder Due
+    private boolean isDue = false;
+
     //data fields
     private Url url;
     private LocalDateTime remindTime;
@@ -63,6 +68,22 @@ public class Reminder {
                 && otherReminder.getNote().equals(getNote())
                 && otherReminder.getFormattedTime().equals(getFormattedTime())
                 && otherReminder.getUrl().equals(getUrl());
+    }
+
+    public void toShow() {
+        isShown = true;
+    }
+
+    public boolean getShow() {
+        return isShown;
+    }
+
+    public void setDue() {
+        isDue = true;
+    }
+
+    public boolean getDue() {
+        return isDue;
     }
 
     /**

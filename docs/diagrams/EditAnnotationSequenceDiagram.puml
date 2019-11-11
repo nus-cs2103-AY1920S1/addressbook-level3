@@ -1,0 +1,109 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "a:EditAnnotationHighlightCommand" as AnnotationCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "b:Bookmark" as Bookmark MODEL_COLOR
+participant "doc:OfflineDocument" as OfflineDocument MODEL_COLOR
+participant "newAn:Annotation" as Annotation MODEL_COLOR
+participant "origP:PhantomParagraph" as PhantomParagraph MODEL_COLOR
+participant "targetP:TrueParagraph" as Paragraph MODEL_COLOR
+end box
+
+group sd respective annotation command execution
+
+AnnotationCommand -> AnnotationCommand : getRequiredDocCopy(b)
+activate AnnotationCommand
+
+AnnotationCommand -> Bookmark : getDoc()
+activate Bookmark
+
+Bookmark --> AnnotationCommand : doc
+deactivate Bookmark
+
+AnnotationCommand --> AnnotationCommand : doc
+deactivate AnnotationCommand
+
+AnnotationCommand -> OfflineDocument : getParagraph(origPid)
+activate OfflineDocument
+
+OfflineDocument --> AnnotationCommand : origP
+deactivate OfflineDocument
+
+AnnotationCommand -> OfflineDocument : getParagraph(targetPid)
+activate OfflineDocument
+
+OfflineDocument --> AnnotationCommand : targetP
+deactivate OfflineDocument
+
+AnnotationCommand -> AnnotationCommand : getNewAnnotation(origP)
+activate AnnotationCommand
+
+AnnotationCommand -> PhantomParagraph : getAnnotation()
+activate PhantomParagraph
+
+PhantomParagraph --> AnnotationCommand : newAn
+deactivate PhantomParagraph
+
+opt newHighlight != null
+AnnotationCommand -> Annotation : setHighlight(newHighlight)
+activate Annotation
+
+Annotation --> AnnotationCommand
+deactivate Annotation
+end
+
+opt newNote != null
+AnnotationCommand -> Annotation : setNote(newNote)
+activate Annotation
+
+Annotation --> AnnotationCommand
+deactivate Annotation
+end
+
+AnnotationCommand --> AnnotationCommand : newAn
+deactivate AnnotationCommand
+
+opt targetP != null
+AnnotationCommand -> AnnotationCommand : moveAnnotation(origP, targetP, newAn, doc)
+activate AnnotationCommand
+
+AnnotationCommand -> Paragraph : addAnnotation(newAn)
+activate Paragraph
+
+Paragraph --> AnnotationCommand
+deactivate Paragraph
+
+AnnotationCommand -> PhantomParagraph : isTrueParagraph()
+activate PhantomParagraph
+
+PhantomParagraph --> AnnotationCommand : isTrue
+deactivate PhantomParagraph
+
+alt isTrue
+AnnotationCommand -> PhantomParagraph : removeAnnotation()
+activate PhantomParagraph
+
+PhantomParagraph --> AnnotationCommand
+deactivate PhantomParagraph
+
+else else
+AnnotationCommand -> OfflineDocument : removePhantom(origPid)
+activate OfflineDocument
+
+OfflineDocument --> AnnotationCommand
+deactivate OfflineDocument
+
+end
+
+AnnotationCommand --> AnnotationCommand
+deactivate AnnotationCommand
+
+end
+
+end group
+
+@enduml

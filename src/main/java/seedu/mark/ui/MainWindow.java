@@ -2,19 +2,32 @@ package seedu.mark.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.commons.core.LogsCenter;
 import seedu.mark.logic.Logic;
@@ -22,7 +35,9 @@ import seedu.mark.logic.commands.TabCommand.Tab;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.logic.parser.exceptions.ParseException;
+import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Url;
+import seedu.mark.model.reminder.Reminder;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -78,6 +93,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane folderStructurePlaceholder;
 
+    private ObservableList<Reminder> reminders;
+    private ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -91,7 +109,12 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        reminders = logic.getReminderList();
+        displayReminderMessage();
+        logic.startMarkTimer(executor);
     }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -192,8 +215,12 @@ public class MainWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+
         helpWindow.hide();
+
         primaryStage.hide();
+        executor.shutdownNow();
+        Platform.exit();
     }
 
     /**
@@ -305,5 +332,101 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Compares two time in hours.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in hour.
+     */
+    private long compareHour(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(before, after).toHours();
+    }
+
+    /**
+     * Compares two time in minutes.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in minute.
+     */
+    private long compareMinute(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(before, after).toMinutes();
+    }
+
+    /**
+     * Creates a notification for a specific reminder.
+     *
+     * @param reminder the reminder that is used to create notification.
+     * @return the notification for reminder.
+     */
+    private Notifications getNotification(Reminder reminder) {
+        Notifications notif = Notifications.create();
+        notif.title("Reminder Notification");
+
+
+        Bookmark bookmark = logic.getBookmarkFromReminder(reminder);
+        String remindMessage = reminder.getNote().toString() + "\n"
+                + "Bookmark: " + bookmark.getName().toString() + "\n"
+                + "Due at : " + reminder.getFormattedTime();
+        notif.text(remindMessage);
+        Image image = new Image("/images/bell.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        notif.graphic(imageView);
+        notif.hideAfter(javafx.util.Duration.seconds(60));
+        notif.position(Pos.BOTTOM_RIGHT);
+
+        return notif;
+    }
+
+    /**
+     * Displays the reminder notification.
+     */
+    private void displayReminderMessage() {
+
+        Runnable task = new Runnable() {
+            public void run() {
+
+                LocalDateTime now = LocalDateTime.now();
+
+                try {
+                    for (int i = 0; i < reminders.size(); i++) {
+                        Reminder reminder = reminders.get(i);
+                        LocalDateTime remindTime = reminder.getRemindTime();
+                        if (now.isBefore(remindTime) && compareHour(now, remindTime) < 5 && !reminder.getShow()) {
+                            Notifications notif = getNotification(reminder);
+
+                            Platform.runLater(() -> {
+                                notif.show();
+                            });
+
+                            reminder.toShow();
+
+                            if (compareMinute(now, remindTime) < 0) {
+                                reminder.setDue();
+                                continue;
+                            }
+
+                        } else if (compareMinute(now, remindTime) == 0 && !reminder.getDue()) {
+                            Notifications noti = getNotification(reminder);
+
+                            Platform.runLater(() -> {
+                                noti.show();
+                            });
+                            reminder.setDue();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+
+        executor.scheduleAtFixedRate(task, 10, 10, TimeUnit.SECONDS);
     }
 }

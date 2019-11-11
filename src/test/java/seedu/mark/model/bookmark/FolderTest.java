@@ -30,9 +30,9 @@ class FolderTest {
         assertFalse(Folder.isValidFolder(" ")); // spaces only
         assertFalse(Folder.isValidFolder("^")); // only non-alphanumeric characters
         assertFalse(Folder.isValidFolder("peter*")); // contains non-alphanumeric characters
-        assertFalse(Folder.isValidFolder("peter pan")); // contains spaces
 
         // valid name
+        assertTrue(Folder.isValidFolder("peter pan")); // contains spaces
         assertTrue(Folder.isValidFolder("peterjack")); // alphabets only
         assertTrue(Folder.isValidFolder("12345")); // numbers only
         assertTrue(Folder.isValidFolder("peterthe2nd")); // alphanumeric characters

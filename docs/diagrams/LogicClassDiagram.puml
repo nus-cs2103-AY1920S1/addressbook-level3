@@ -70,5 +70,5 @@ JKLCommandResult --|> CommandResult
 LogicManager ..> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
-note bottom of JKLCommandResult: JKLCommandResult = HelpCommandResult, \nExitCommandResult, TabCommandResult
+note bottom of JKLCommandResult: JKLCommandResult = HelpCommandResult, \nExitCommandResult, TabCommandResult, etc
 @enduml

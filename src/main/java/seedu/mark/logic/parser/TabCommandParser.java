@@ -107,12 +107,18 @@ public class TabCommandParser implements Parser<TabCommand> {
 
         switch (arg.toLowerCase().strip()) {
         case "dash":
+            //fallthrough
+        case "dashboard":
             type = Tab.DASHBOARD;
             break;
         case "on":
+            //fallthrough
+        case "online":
             type = Tab.ONLINE;
             break;
         case "off":
+            //fallthrough
+        case "offline":
             type = Tab.OFFLINE;
             break;
         default:

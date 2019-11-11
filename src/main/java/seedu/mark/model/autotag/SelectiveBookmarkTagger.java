@@ -25,6 +25,16 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
     }
 
     /**
+     * Checks whether this {@code SelectiveBookmarkTagger} has an empty predicate.
+     *
+     * @return true if this tagger's {@code BookmarkPredicate} is empty, and
+     *         false otherwise.
+     */
+    public boolean hasEmptyPredicate() {
+        return predicate.isEmpty();
+    }
+
+    /**
      * Tests the given {@code Bookmark} and tags it only if it matches this
      * {@code SelectiveBookmarkTagger}'s {@code predicate}.
      *
@@ -40,5 +50,13 @@ public class SelectiveBookmarkTagger extends BookmarkTagger {
     public String toString() {
         return "Tagger: Applies the tag " + getTagToApply().toString() + " to bookmarks "
                 + "that match the predicate " + predicate.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SelectiveBookmarkTagger // instanceof handles nulls
+                && super.equals(other))
+                && getPredicate().equals(((SelectiveBookmarkTagger) other).getPredicate()); // state check
     }
 }

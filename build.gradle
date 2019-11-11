@@ -43,7 +43,7 @@ test {
 
 dependencies {
     String jUnitVersion = '5.4.0'
-    String javaFxVersion = '11'
+    String javaFxVersion = '11.0.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -63,6 +63,8 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-web', version: javaFxVersion, classifier: 'linux'
+    //use for reminder notification
+    implementation 'org.controlsfx:controlsfx:11.0.1-SNAPSHOT'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'

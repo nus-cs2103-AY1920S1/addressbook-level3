@@ -23,22 +23,16 @@ import seedu.mark.model.tag.Tag;
 public class AutotagCommandParser implements Parser<AutotagCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AutotagCommand
-     * and returns an AutotagCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * Creates a {@link BookmarkPredicate} based on the values present in the
+     * given {@code argMultimap}.
+     *
+     * @param argMultimap An {@code ArgumentMultimap} containing values that the
+     *                    new predicate should contain, if any.
+     * @return {@code BookmarkPredicate} containing the given values.
+     * @throws ParseException if any of the relevant values in the
+     *                        {@code argMultimap} is an empty String.
      */
-    public AutotagCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL,
-                        PREFIX_FOLDER, PREFIX_NOT_FOLDER);
-
-        if (argMultimap.getPreamble().isEmpty() || argMultimap.getPreamble().split("\\s+").length > 1) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE));
-        }
-
-        Tag tagToApply = ParserUtil.parseTag(argMultimap.getPreamble());
-
+    public static BookmarkPredicate makePredicateFromMultimap(ArgumentMultimap argMultimap) throws ParseException {
         BookmarkPredicate predicate = new BookmarkPredicate();
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
@@ -71,14 +65,7 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
             checkValuesNonEmpty(folderNames);
             predicate = predicate.withoutFolder(folderNames);
         }
-
-        if (predicate.isEmpty()) {
-            throw new ParseException(AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);
-        }
-
-        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(tagToApply, predicate);
-
-        return new AutotagCommand(tagger);
+        return predicate;
     }
 
     /**
@@ -93,4 +80,31 @@ public class AutotagCommandParser implements Parser<AutotagCommand> {
         }
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AutotagCommand
+     * and returns an AutotagCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AutotagCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_URL, PREFIX_NOT_NAME, PREFIX_NOT_URL,
+                        PREFIX_FOLDER, PREFIX_NOT_FOLDER);
+
+        if (argMultimap.getPreamble().isEmpty() || argMultimap.getPreamble().split("\\s+").length > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE));
+        }
+
+        Tag tagToApply = ParserUtil.parseTag(argMultimap.getPreamble());
+
+        BookmarkPredicate predicate = makePredicateFromMultimap(argMultimap);
+
+        if (predicate.isEmpty()) {
+            throw new ParseException(AutotagCommand.MESSAGE_NO_CONDITION_SPECIFIED);
+        }
+
+        SelectiveBookmarkTagger tagger = new SelectiveBookmarkTagger(tagToApply, predicate);
+
+        return new AutotagCommand(tagger);
+    }
 }

@@ -2,12 +2,13 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
@@ -112,6 +113,21 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void renameFolder(Folder from, Folder to) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public boolean canDeleteFolder(Folder folder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasFolder(Folder folder) {
         throw new AssertionError("This method should not be called.");
     }
@@ -127,7 +143,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -202,6 +218,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return false;
     }
@@ -230,6 +251,12 @@ public class ModelStub implements Model {
     public SimpleObjectProperty<Bookmark> getBookmarkDisplayingCacheProperty() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void startTimer(ScheduledExecutorService executor) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 
     @Override
     public ObservableList<Paragraph> getObservableDocument() {

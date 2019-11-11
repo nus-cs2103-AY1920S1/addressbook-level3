@@ -74,8 +74,7 @@ public class EditAnnotationCommand extends AnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
-        OfflineDocument doc = docOriginal.copy();
+        OfflineDocument doc = getRequiredDocCopy(oldBkmark);
 
         Paragraph originalP;
         Paragraph newP = null;

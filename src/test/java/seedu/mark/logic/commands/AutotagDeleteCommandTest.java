@@ -5,11 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.testutil.Assert.assertThrows;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.ModelStub;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
+import seedu.mark.model.predicates.BookmarkPredicate;
+import seedu.mark.model.tag.Tag;
 import seedu.mark.storage.Storage;
 import seedu.mark.storage.StorageStub;
 
@@ -69,12 +74,12 @@ public class AutotagDeleteCommandTest {
     }
 
     /**
-     * A Model stub that always returns true when attempting to remove a tagger.
+     * A Model stub that always returns a tagger when #removeTagger(String) is called.
      */
     private class ModelStubWithAutotags extends ModelStub {
         @Override
-        public boolean removeTagger(String taggerName) {
-            return true;
+        public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
+            return Optional.of(new SelectiveBookmarkTagger(new Tag(taggerName), new BookmarkPredicate()));
         }
 
         @Override
@@ -84,12 +89,12 @@ public class AutotagDeleteCommandTest {
     }
 
     /**
-     * A Model stub that always returns false when attempting to remove a tagger.
+     * A Model stub that always returns an empty {@code Optional} when attempting to remove a tagger.
      */
     private class ModelStubNoAutotags extends ModelStub {
         @Override
-        public boolean removeTagger(String taggerName) {
-            return false;
+        public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
+            return Optional.empty();
         }
 
         @Override

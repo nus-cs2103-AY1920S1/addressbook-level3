@@ -1,0 +1,126 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MarkParser" as MarkParser LOGIC_COLOR
+participant ":AddReminderCommandParser" as AddReminderCommandParser LOGIC_COLOR
+participant "a:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":VersionedMark" as VersionedMark MODEL_COLOR
+participant "b:Bookmark" as Bookmark MODEL_COLOR
+participant "rl: ObservableList<Reminder>" as ReminderList MODEL_COLOR
+end box
+
+box Reminder MODEL_COLOR_T2
+participant ":ReminderAssociation" as ReminderAssociation MODEL_COLOR
+participant "re:Reminder" as Reminder MODEL_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":ReminderListPanel" as ReminderListPanel UI_COLOR
+end box
+
+[-> LogicManager : execute("reminder 1 t/12/12/2019 1200")
+activate LogicManager
+
+LogicManager -> MarkParser : parseCommand("reminder 1 t/12/12/2019 1200")
+activate MarkParser
+
+create AddReminderCommandParser
+MarkParser -> AddReminderCommandParser
+activate AddReminderCommandParser
+
+AddReminderCommandParser --> MarkParser
+deactivate AddReminderCommandParser
+
+MarkParser -> AddReminderCommandParser : parse("1 t/12/12/2019 1200")
+activate AddReminderCommandParser
+
+create AddReminderCommand
+AddReminderCommandParser -> AddReminderCommand
+activate AddReminderCommand
+
+AddReminderCommand --> AddReminderCommandParser : a
+deactivate AddReminderCommand
+
+AddReminderCommandParser --> MarkParser : a
+deactivate AddReminderCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddReminderCommandParser -[hidden]-> MarkParser
+destroy AddReminderCommandParser
+
+MarkParser --> LogicManager : a
+deactivate MarkParser
+
+LogicManager -> AddReminderCommand : execute()
+activate AddReminderCommand
+
+AddReminderCommand -> Model : getFilteredBookmarkList()
+activate Model
+
+Model --> AddReminderCommand : b
+deactivate Model
+
+AddReminderCommand -> Bookmark : getUrl()
+activate Bookmark
+
+Bookmark --> AddReminderCommand : url
+deactivate Bookmark
+
+create Reminder
+AddReminderCommand -> Reminder : new Reminder(note, time, url)
+activate Reminder
+
+Reminder --> AddReminderCommand : re
+deactivate Reminder
+
+AddReminderCommand -> Model : addReminder(b, re)
+activate Model
+
+Model -> VersionedMark : addReminder(b, re)
+activate VersionedMark
+
+VersionedMark -> ReminderAssociation : addReminder(b, re)
+activate ReminderAssociation
+
+ReminderAssociation --> VersionedMark
+deactivate ReminderAssociation
+
+VersionedMark -> ReminderList : setReminder()
+activate ReminderList
+
+ReminderList -> ReminderListPanel : changeListener()
+activate ReminderListPanel
+
+ReminderListPanel --> ReminderList
+deactivate ReminderListPanel
+
+ReminderList --> VersionedMark
+deactivate ReminderList
+
+VersionedMark --> Model
+deactivate VersionedMark
+
+Model --> AddReminderCommand
+deactivate Model
+
+create CommandResult
+AddReminderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddReminderCommand
+deactivate CommandResult
+
+AddReminderCommand --> LogicManager : result
+deactivate AddReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+destroy AddReminderCommand
+@enduml

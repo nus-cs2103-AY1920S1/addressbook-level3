@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command \n "add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/"
+'title After command \n "add n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/"
 
 show object fields
 package Bookmarks <<rectangle>> {

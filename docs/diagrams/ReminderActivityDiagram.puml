@@ -1,0 +1,27 @@
+@startuml
+start
+:User executes reminder command;
+:The parser parse the reminder command;
+if () then ([command adds reminder])
+    :Mark retrieves the bookmark;
+    :Creates the reminder of the bookmark;
+    :Add the bookmark and the reminder to reminder association;
+else ([else])
+    if () then ([command deletes reminder])
+        :Mark retrieves the reminder;
+        :Remove reminder from reminder association;
+    else([else])
+        if () then ([command edits reminder])
+            :Mark retrieves the reminder;
+            :Create the edited copy of the reminder;
+            :Edit the reminder association;
+        else ([command goto a reminder])
+            :Mark retrieves the reminder;
+            :Reminder association retrieves the bookmark;
+            :Goto the bookmark;
+        endif
+    endif
+endif
+:Update reminder list panel;
+stop
+@enduml

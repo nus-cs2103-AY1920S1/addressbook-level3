@@ -5,9 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.mark.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.mark.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2101;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_FOLDER_CS2103T;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.mark.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NEW_FOLDER;
 import static seedu.mark.testutil.Assert.assertThrows;
 import static seedu.mark.testutil.TypicalIndexes.INDEX_FIRST_BOOKMARK;
 
@@ -28,7 +30,9 @@ import seedu.mark.logic.commands.ClearCommand;
 import seedu.mark.logic.commands.CollapseCommand;
 import seedu.mark.logic.commands.DeleteCacheCommand;
 import seedu.mark.logic.commands.DeleteCommand;
+import seedu.mark.logic.commands.DeleteFolderCommand;
 import seedu.mark.logic.commands.EditCommand;
+import seedu.mark.logic.commands.EditFolderCommand;
 import seedu.mark.logic.commands.ExitCommand;
 import seedu.mark.logic.commands.ExpandCommand;
 import seedu.mark.logic.commands.ExportCommand;
@@ -67,6 +71,21 @@ public class MarkParserTest {
         AddFolderCommand command = (AddFolderCommand) parser.parseCommand(
                 AddFolderCommand.COMMAND_WORD + " " + VALID_FOLDER_CS2103T);
         assertEquals(new AddFolderCommand(new Folder(VALID_FOLDER_CS2103T), null), command);
+    }
+
+    @Test
+    public void parseCommand_editFolder() throws Exception {
+        EditFolderCommand command = (EditFolderCommand) parser.parseCommand(
+                EditFolderCommand.COMMAND_WORD + " " + VALID_FOLDER_CS2103T + " " + PREFIX_NEW_FOLDER
+                        + VALID_FOLDER_CS2101);
+        assertEquals(new EditFolderCommand(new Folder(VALID_FOLDER_CS2103T), new Folder(VALID_FOLDER_CS2101)), command);
+    }
+
+    @Test
+    public void parseCommand_deleteFolder() throws Exception {
+        DeleteFolderCommand command = (DeleteFolderCommand) parser.parseCommand(
+                DeleteFolderCommand.COMMAND_WORD + " " + VALID_FOLDER_CS2103T);
+        assertEquals(new DeleteFolderCommand(new Folder(VALID_FOLDER_CS2103T)), command);
     }
 
     @Test

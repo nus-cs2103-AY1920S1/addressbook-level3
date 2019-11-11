@@ -5,62 +5,100 @@
 
 == PROJECT: Mark
 
+:sectnums:
 == Overview
 
-== Summary of contributions
+*Mark* is designed for those who prefer to use a desktop application for managing bookmarks as well as tasks related to web pages.
+More importantly, it is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+Mark is morphed from an existing desktop Java application https://nus-cs2103-ay1920s1.github.io/addressbook-level3/[Address Book] and several
+enhancements were made to it over a period of 8 weeks by my team of 5 software developers.
+The following sections document all the contributions that I have made to Mark.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+== Summary of Contributions
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+Here is a summary of my personal contributions to the team project over the 8 weeks. All the code contribution
+ can be found https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=na-nazhou&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Na-Nazhou&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here].
 
-* *Other contributions*:
+=== Major Enhancement: Undo/Redo a specific number of previous commands
+* *What it does*:
+This feature allows the user to undo a given number previous undoable commands (i.e. commands that alter the state
+of bookmarks or reminders). Previous undo commands can also be reversed by specifying the number
+of actions the undo command has undone. A list of actions undone/redone by the user will also be shown
+to the user as a command result displayed in the result display box after each undo/redo command.
+* *Justification*:
+This feature improves Mark significantly because a user can make mistakes in commands and the application should provide a convenient way to rectify them. In addition, allowing
+users to specify the number of actions to undo/redo greatly improves users' productivity as they can now undo/redo multiple actions using one command
+instead to typing undo/redo repeatedly.
+* *Highlights*:
+This enhancement affects existing commands and commands to be added in future.
+An in-depth analysis of design alternatives was required.
+The implementation too was challenging as it required changes to existing commands.
+* *Credits*:
+Basic idea from https://github.com/se-edu/addressbook-level4[AddressBook (Level 4)]
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+=== Minor Enhancements
+* Added a `goto` command that can immediately open a bookmark in the embedded web view of the app
+* Added support for opening any bookmark by double clicking the bookmark in either bookmark list, folder tree view or favorite bookmark list
+in the GUI
+* Added a `favorite` command that can add an existing bookmark to the list of favorite bookmarks and a separate list of
+of favorite bookmarks to the dashboard tab of the app
+* Improved the existing `add` command to support bookmarking current web page by supplying a keyword `this`
+in place of the `URL` field
+* Improved the existing `find` command to support filtering bookmarks by tags and/or folders
+
+=== Other Contributions
+* Project management:
+** Set up the team organisation and team repo
+** Managed issue tracker and milestones for team repo
+** Managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.3[`v1.3`] on GitHub
+
+* Documentation:
+** Migrated Developer Guide from Address Book to Mark and added the user stories: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/7[#7]
+
+* Community:
+** PRs reviewed (with non-trivial reviews): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/66[#66], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/75[#75], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/112[#112], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/153[#153] +
+A complete list of PRs reviewed can be found https://github.com/AY1920S1-CS2103T-T13-4/main/pulls?q=is%3Apr+is%3Aclosed+reviewed-by%3ANa-Nazhou[here].
+** Reported bugs and suggestions for the team project: https://github.com/AY1920S1-CS2103T-T13-4/main/issues/85[#85], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/102[#102], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/170[#170]
+
+* Tools:
+** Integrated several CI tools (Travis, AppVeyor) to the team repo
+** Added additional tools (Codacy, Netlify and Coveralls) to the team repo
+** Added some useful GitHub plugins (WIP bot, PR Triage) to the team repo
 
 == Contributions to the User Guide
 
+I wrote about the usage of `goto`, `favorite`, `undo` and `redo` commands for the User Guide.
+Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users.
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
+=== Opening a bookmark: *`goto`*
 include::../UserGuide.adoc[tag=goto-command]
 
+=== Adding a bookmark to Favorites: *`favorite|fav`*
 include::../UserGuide.adoc[tag=favorite-command]
 
-include::../UserGuide.adoc[tag=undo-redo-command]
+=== Undoing previous commands: *`undo`*
+include::../UserGuide.adoc[tag=undo-command]
+
+=== Redoing previously undone commands: *`redo`*
+include::../UserGuide.adoc[tag=redo-command]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+I modified the section about logic component in the Developer Guide and
+added the description of the architecture and some use cases of Undo/Redo feature to the Developer
+Guide as well.
+Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=logic]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=use-case-undo-redo]
+=== Use Cases for Undo/Redo
+==== Use case: UC09 - Undo previous undoable commands
+include::../DeveloperGuide.adoc[tag=use-case-undo]
+
+==== Use case: UC10 - Redo previously undone commands
+include::../DeveloperGuide.adoc[tag=use-case-redo]

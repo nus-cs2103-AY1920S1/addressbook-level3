@@ -2,36 +2,45 @@
 start
 :User executes annotate command;
 :Mark retrieves bookmark in query;
-:Mark retrieves cache copy in query;
-:Mark retrieves offline document of cache copy;
+:Mark retrieves offline document of bookmark;
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
 :Retrieve paragraph(s) in query;
-if () then ([command adds annotation])
-    :Add annotation to paragraph;
+if () then ([is add annotation command])
+    if () then ([is add general note])
+        :Add annotation to new\nPhantomParagraph;
+    else ([else])
+        :Add annotation to\nparagraph;
+    endif
 else ([else])
-    if () then ([command deletes annotation])
-        if () then ([delete only highlight])
-            :Make annotation of paragraph stray;
+    if () then ([is delete annotation command])
+        if () then ([is delete all annotations])
+            :Clear all\nannotations;
         else ([else])
-            if () then ([delete only annotation note])
-                :Remove note from annotation of paragraph;
+            if () then ([is delete only highlight])
+                :Make annotation of\nparagraph general;
             else ([else])
-                :Remove annotation from paragraph;
+                if () then ([is delete only\nannotation note])
+                    :Remove note from\nannotation of paragraph;
+                else ([else])
+                    :Remove annotation\nfrom paragraph;
+                endif
             endif
         endif
     else ([command edits annotation])
-        if () then ([edit highlight or note content])
+        if () then ([is edit highlight\nor note content])
             :Modify annotation;
         else ([else])
-            if () then ([is stray note])
-                :Move stray note to other paragraph;
-                :Destroy (phantom) paragraph;
-            else ([else])
-                :Move note to other paragraph;
+        endif
+
+        if () then ([is move annotation])
+            :Move note to other paragraph;
+            if () then ([is move from\nPhantomParagraph])
+                :Destroy PhantomParagraph;
             endif
+        else ([else])
         endif
     endif
 endif

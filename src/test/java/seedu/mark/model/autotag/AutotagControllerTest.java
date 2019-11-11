@@ -8,6 +8,7 @@ import static seedu.mark.testutil.TypicalBookmarks.getTypicalBookmarks;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -82,6 +83,25 @@ class AutotagControllerTest {
             taggedBookmarks.add(tagger.applyTag(bookmark));
         }
         return taggedBookmarks;
+    }
+
+    @Test
+    public void removeTagger_taggerExists_returnsTagger() {
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_HELLO));
+        assertEquals(controller.removeTagger("Hello"), Optional.of(TAGGER_HELLO));
+    }
+
+    @Test
+    public void removeTagger_taggerDoesNotExist_returnsEmptyOptional() {
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_URL_EXAMPLE));
+        assertEquals(controller.removeTagger("WORLD"), Optional.empty());
+    }
+
+    @Test
+    public void removeAllTaggers() {
+        AutotagController controller = new AutotagController(FXCollections.observableArrayList(TAGGER_URL_EXAMPLE));
+        controller.removeAllTaggers();
+        assertEquals(controller, new AutotagController());
     }
 
     @Test

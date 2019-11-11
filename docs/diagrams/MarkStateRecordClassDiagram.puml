@@ -1,0 +1,24 @@
+@startuml
+hide circle
+skinparam arrowThickness 1.1
+
+Interface ReadOnlyMark <<Interface>>
+
+ReadOnlyMark <|.. Mark
+Mark <|-- VersionedMark
+VersionedMark *-down- "*" MarkStateRecord
+MarkStateRecord *- "1" ReadOnlyMark
+
+class MarkStateRecord {
+    String record
+    getState()
+    getRecord()
+}
+
+class VersionedMark {
+    saveMark(string record)
+    undoMark(int step)
+    redoMark(int step
+}
+
+@enduml

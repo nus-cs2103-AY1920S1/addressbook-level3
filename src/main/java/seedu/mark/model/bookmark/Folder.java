@@ -8,8 +8,9 @@ import static seedu.mark.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; name is valid as declared in {@link #isValidFolder(String)}
  */
 public class Folder {
-    public static final String MESSAGE_CONSTRAINTS = "Folder names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Folder names must start with an alphanumeric character, "
+            + "and can only contain alphanumeric characters and spaces.";
+    public static final String VALIDATION_REGEX = "[a-zA-Z0-9][a-zA-Z0-9 ]*";
 
     private static final String ROOT_FOLDER_NAME = "ROOT";
     private static final String IMPORT_FOLDER_NAME = "ImportedBookmarks";

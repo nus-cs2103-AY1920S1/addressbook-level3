@@ -3,15 +3,20 @@ package seedu.mark.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.mark.model.annotation.OfflineDocument.NAME_NO_DOCUMENT;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.collections.transformation.SortedList;
 import seedu.mark.model.annotation.Paragraph;
 import seedu.mark.model.annotation.ParagraphIdentifier;
@@ -21,6 +26,7 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
@@ -48,6 +54,7 @@ public class Mark implements ReadOnlyMark {
     private final SimpleStringProperty offlineDocCurrentlyShowing;
 
 
+
     public Mark() {
         bookmarks = new UniqueBookmarkList();
         folderStructure = new FolderStructure(Folder.ROOT_FOLDER, new ArrayList<>());
@@ -58,7 +65,9 @@ public class Mark implements ReadOnlyMark {
         autotagController = new AutotagController(FXCollections.observableList(new ArrayList<>()));
 
         annotatedDocument = FXCollections.observableList(new ArrayList<>());
+
         offlineDocCurrentlyShowing = new SimpleStringProperty(NAME_NO_DOCUMENT);
+
     }
 
     /**
@@ -93,7 +102,12 @@ public class Mark implements ReadOnlyMark {
         setAutotagController(newData.getAutotagController());
 
         setAnnotatedDocument(newData.getAnnotatedDocument());
+
+
+        setReminders();
+
         setOfflineDocCurrentlyShowing(newData.getOfflineDocCurrentlyShowing().getValue());
+
     }
 
     //// bookmark-level operations
@@ -155,6 +169,38 @@ public class Mark implements ReadOnlyMark {
      */
     public void addFolder(Folder folder, Folder parentFolder) {
         this.folderStructure.addFolder(folder, parentFolder);
+    }
+
+    /**
+     * Renames a folder with name {@code from} to {@code to}.
+     * {@code from} must exist.
+     * {@code to} must not exist.
+     */
+    public void renameFolder(Folder from, Folder to) {
+        this.folderStructure.renameFolder(from, to);
+        changeFolderOfBookmarks(from, to);
+    }
+
+    /**
+     * Deletes folder {@code folder} from Mark.
+     * @param folder
+     */
+    public void deleteFolder(Folder folder) {
+        this.folderStructure.deleteFolder(folder);
+        changeFolderOfBookmarks(folder, Folder.ROOT_FOLDER);
+    }
+
+    /**
+     * Renames folder of bookmarks from {@code from} to {@code to}.
+     * @param from
+     * @param to
+     */
+    private void changeFolderOfBookmarks(Folder from, Folder to) {
+        for (Bookmark bookmark: bookmarks) {
+            if (bookmark.getFolder().equals(from)) {
+                setBookmark(bookmark, new BookmarkBuilder(bookmark).withFolder(to.folderName).build());
+            }
+        }
     }
 
     //// reminder operations
@@ -219,6 +265,16 @@ public class Mark implements ReadOnlyMark {
         }
     }
 
+    /**
+     * Finds the bookmark for a specific reminder.
+     *
+     * @param reminder the reminder of the bookmark.
+     * @return the bookmark of the reminder.
+     */
+    public Bookmark getBookmarkFromReminder(Reminder reminder) {
+        return reminderAssociation.getBookmarkFromReminder(reminder);
+    }
+
     //// autotag controller operations
 
     /**
@@ -233,7 +289,7 @@ public class Mark implements ReadOnlyMark {
     }
 
     /**
-     * Checks whether Mark contains the given tagger.
+     * Checks whether Mark contains a tagger with the same name as the given tagger.
      */
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         return autotagController.hasTagger(tagger);
@@ -252,9 +308,11 @@ public class Mark implements ReadOnlyMark {
      * Removes the given tagger from Mark.
      *
      * @param taggerName name of the tagger to be removed.
-     * @return false if the tagger is not found.
+     * @return An {@code Optional} containing the {@link SelectiveBookmarkTagger}
+     *         that was removed if the tagger exists, and an empty {@code Optional}
+     *         otherwise.
      */
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         return autotagController.removeTagger(taggerName);
     }
 
@@ -362,6 +420,51 @@ public class Mark implements ReadOnlyMark {
     public boolean isBookmarkHasReminder(Bookmark bookmark) {
         return reminderAssociation.isBookmarkHasReminder(bookmark);
     }
+
+    /**
+     * Compares two time in hours.
+     *
+     * @param before the time that is before.
+     * @param after the time that is after.
+     * @return the difference of two time in hour.
+     */
+    private long compareHour(LocalDateTime before, LocalDateTime after) {
+        return Duration.between(after, before).toHours();
+    }
+
+    /**
+     * Deletes expired reminders.
+     */
+    public void deleteExpiredReminder(ScheduledExecutorService executor) {
+        Runnable task = new Runnable() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Reminder> expiredReminders = new ArrayList<>();
+                        LocalDateTime now = LocalDateTime.now();
+
+                        for (int i = 0; i < reminders.size(); i++) {
+                            Reminder reminder = reminders.get(i);
+                            LocalDateTime time = reminder.getRemindTime();
+                            if (compareHour(now, time) >= 1) {
+                                expiredReminders.add(reminder);
+                            }
+                        }
+
+                        for (int i = 0; i < expiredReminders.size(); i++) {
+                            Reminder expiredReminder = expiredReminders.get(i);
+                            removeReminder(expiredReminder);
+                        }
+                    }
+                });
+
+            }
+        };
+
+        executor.scheduleAtFixedRate(task, 0, 10, TimeUnit.SECONDS);
+    }
+
 
     @Override
     public int hashCode() {

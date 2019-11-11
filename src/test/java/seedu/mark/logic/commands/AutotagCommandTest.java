@@ -56,7 +56,7 @@ public class AutotagCommandTest {
         // null -> returns false
         assertFalse(firstCommand.equals(null));
 
-        // different bookmark -> returns false
+        // different tagger -> returns false
         assertFalse(firstCommand.equals(secondCommand));
     }
 
@@ -75,7 +75,6 @@ public class AutotagCommandTest {
 
     @Test
     public void execute_newTaggerDoesNotMatchBookmarks_successNoBookmarksTagged() {
-        // No bookmarks tagged
         Model model = new ModelManager(getTypicalMark(), new UserPrefs());
 
         BookmarkPredicate predicate = prepareNamePredicate("zzz");

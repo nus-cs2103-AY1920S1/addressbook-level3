@@ -1,7 +1,9 @@
 package seedu.mark.logic.parser;
 
 import static seedu.mark.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_FOLDER;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_NAME;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_NOT_URL;
 import static seedu.mark.logic.parser.CliSyntax.PREFIX_URL;
@@ -24,12 +26,15 @@ public class AutotagCommandParserTest {
     private static final String VALID_NAME_1 = "website";
     private static final String VALID_NAME_2 = "question";
     private static final String VALID_URL_1 = "facebook.com";
+    private static final String VALID_FOLDER = "Quiz";
 
     private static final String NAME_DESC_1 = " " + PREFIX_NAME + VALID_NAME_1;
     private static final String NAME_DESC_2 = " " + PREFIX_NAME + VALID_NAME_2;
     private static final String NOT_NAME_DESC_1 = " " + PREFIX_NOT_NAME + VALID_NAME_1;
     private static final String URL_DESC_1 = " " + PREFIX_URL + VALID_URL_1;
     private static final String NOT_URL_DESC_1 = " " + PREFIX_NOT_URL + VALID_URL_1;
+    private static final String FOLDER_DESC = " " + PREFIX_FOLDER + VALID_FOLDER;
+    private static final String NOT_FOLDER_DESC = " " + PREFIX_NOT_FOLDER + VALID_FOLDER;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, AutotagCommand.MESSAGE_USAGE);
@@ -91,6 +96,13 @@ public class AutotagCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
 
+        // folder
+        userInput = VALID_TAG + FOLDER_DESC;
+        expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG),
+                new BookmarkPredicate().withFolder(Collections.singletonList(VALID_FOLDER))));
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
         // not name
         userInput = VALID_TAG + NOT_NAME_DESC_1;
         expectedCommand = new AutotagCommand(
@@ -104,6 +116,13 @@ public class AutotagCommandParserTest {
         expectedCommand = new AutotagCommand(
                 new SelectiveBookmarkTagger(new Tag(VALID_TAG),
                         new BookmarkPredicate().withoutUrlKeywords(Collections.singletonList(VALID_URL_1))));
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+
+        // not folder
+        userInput = VALID_TAG + NOT_FOLDER_DESC;
+        expectedCommand = new AutotagCommand(new SelectiveBookmarkTagger(new Tag(VALID_TAG),
+                        new BookmarkPredicate().withoutFolder(Collections.singletonList(VALID_FOLDER))));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

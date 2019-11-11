@@ -1,5 +1,6 @@
 package seedu.mark.model.folderstructure;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
@@ -65,6 +66,26 @@ public class FolderStructure {
         }
         for (FolderStructure subfolder: subfolders) {
             FolderStructure found = subfolder.find(folder);
+            if (found != null) {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds the FolderStructure that the specified folder's parent belongs to, return null if not found.
+     *
+     * @param folder the folder
+     * @return the folder structure that the folder's parent belongs to,
+     * null if no folder structure has the folder as a child
+     */
+    private FolderStructure findParent(Folder folder) {
+        for (FolderStructure subfolder: subfolders) {
+            if (subfolder.folder.equals(folder)) {
+                return this;
+            }
+            FolderStructure found = subfolder.findParent(folder);
             if (found != null) {
                 return found;
             }
@@ -146,5 +167,30 @@ public class FolderStructure {
     @Override
     public int hashCode() {
         return Objects.hash(folder, subfolders);
+    }
+
+    /**
+     * Renames a folder from {@code from} to {@code to}.
+     * @param from must exist
+     * @param to must not exist
+     */
+    public void renameFolder(Folder from, Folder to) {
+        FolderStructure parent = findParent(from);
+        FolderStructure previous = find(from);
+        requireNonNull(parent);
+        parent.subfolders.set(parent.subfolders.indexOf(
+                find(from)), new FolderStructure(to, previous.subfolders));
+    }
+
+    /**
+     * Deletes {@code folder}.
+     * @param folder
+     */
+    public void deleteFolder(Folder folder) {
+        FolderStructure parent = findParent(folder);
+        requireNonNull(parent);
+        FolderStructure folderStructure =
+                parent.getSubfolders().stream().filter(fs -> fs.folder.equals(folder)).findFirst().get();
+        parent.getSubfolders().remove(folderStructure);
     }
 }

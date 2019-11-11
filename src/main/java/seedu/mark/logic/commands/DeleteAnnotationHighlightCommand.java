@@ -36,9 +36,8 @@ public class DeleteAnnotationHighlightCommand extends DeleteAnnotationCommand {
     @Override
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
-        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
+        OfflineDocument doc = getRequiredDocCopy(oldBkmark);
 
-        OfflineDocument doc = docOriginal.copy();
 
         Paragraph p;
 

@@ -192,7 +192,7 @@ public class FolderStructureTreeView extends UiPart<Region> {
 
     private void setNewUrl(Consumer<Url> currentUrlChangeHandler) {
         TreeItem<String> treeItem = treeView.getSelectionModel().getSelectedItem();
-        // Do nothing when selection is cleared
+        // Do nothing when selection is cleared or when it's a folder item
         if (treeItem == null || !mapOfTreeItemToUrl.containsKey(treeItem)) {
             return;
         }

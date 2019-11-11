@@ -38,6 +38,7 @@ An intuitive bookmark manager made by people who love to type, for people who lo
 == Acknowledgements
 
 * This application was inspired by the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://jsoup.org/[JSoup],
+https://github.com/junit-team/junit5[JUnit5], https://github.com/dankito/Readability4J[Readability4J]
 
 == Licence : link:LICENSE[MIT]
