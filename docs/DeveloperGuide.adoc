@@ -867,8 +867,72 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 === Adding a template
-. Adding a template which has the same name as another existing template
-.. Prerequisites: 
+.. Prerequisites: Template list must contain a template with the name 'Birthday Party'.
+.. Test case: `tlist add n/x` (where x is a template name that does not currently exist in the template list)
+   Expected: Template added into the list. The templates in the list are sorted by alphabetical order.
+.. Test case: 'tlist add n/Birthday Party' +
+   Expected: No template added to the template list. Error details shown in the status message.
+.. Other incorrect add commands to try: `add`, `tlist add`, `tlit add`
+
+=== Deleting a template
+.. Prerequisites: There must be at least one template in the template list.
+.. Test case: `tlist delete 1`
+   Expected: Template deleted from the list.
+.. Test case: `tlist delete x` (where x is larger than the template list size)
+   Expected: No template deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `tlist delete`, `tlist 0`
+
+=== Editing a template
+.. Prerequisites: There must be at least one template in the template list with no templates named `Monthly Necessities`.
+.. Test case: `tlist edit 1 n/Monthly Necessities`
+   Expected: Template edited with the name `Monthly Necessities`.
+.. Test case: `tlist edit 0 n/Monthly Necessities`
+   Expected: No template edited. Error details shown in the status message.
+
+=== Adding a template item
+.. Prerequisites: Template list must contain at least one template.
+.. Test case: `tlist template add 1 n/x a/y` (where x is a item name that does not currently exist in the first template and y is a valid amount for the item).
+   Expected: Template item added into the list.
+.. Test case: `tlist template add 0 n/x a/y` (where x is a item name that does not currently exist in the first template and y is a valid amount for the item).
+   Expected: Template item not added into the list. Error details shown in status message.
+.. Other incorrect add template item commands to try:
+... `tlist template add 1 n/x a/y` (where x is an item name that already exists in the template)
+... `tlist template add 1 n/x a/y` (where x is an item name that already exists in another template or list, and y is an invalid amount with a unit type that conflicts that of the other item entry)
+
+=== Editing a template item
+.. Prerequisites: Template list must contain at least one template, which contains at least one item.
+.. Test case: `tlist template edit 1 i/1 n/x` (where x is an item name that does not already exist in the template).
+   Expected: Template item added into the template.
+.. Test case: `tlist template edit 1 n/x` (where x is an item name that does not exist in the template).
+   Expected: Template item not added into the list. Error details shown in the status message.
+.. Other incorrect edit template item commands to try:
+... `tlist template edit 1 i/1 n/x` (where x is an item name that does not exist in the template).
+... `tlist template edit 1 i/1 n/x a/y` (where x is an item name that already exists in another template or list, and y is an invalid amount with a unit type that conflicts that of the other item entry)
+... `tlist template edit z i/1 n/x a/y` (where x and y are valid name and amounts and z is greater than the template size.
+
+=== Deleting a template
+.. Prerequisites: Template list must contain at least one template, which contains at least one item.
+.. Test case: `tlist template edit 1 i/1`
+   Expected: Template item deleted from the template.
+.. Test case: `tlist template edit 1 i/0`
+   Expected: Template item not deleted. Error details shown in the status message.
+.. Other incorrect delete template item commands to try: `tlist template x i/1` where x is greater the the template list size, `tlist template 1 i/x` where x is greater than the template size.
+
+=== Adding a template to the shopping list
+.. Prerequisites: Template must contain at least one template with at least item with name 'FullFat Milk' and amount '300ml.
+Grocerylist should have several entries of FullFat Milk with slight variations in name and amount. For e.g.:
+... For name: fullfat milk, Fullfat Milk, FULLFAT MILK
+... For amount: 300ml, 400ml, 1L, 0.3L
+.. Test case: `slist addTemp 1`
+   Expected: All items in the template that are either not found in the grocery list or are already expired will be added into the shopping list.
+             The amount of the item that is added to the shopping list is the result after subtracting all non-expired grocery item amounts
+             from the amount stated in the template item entry. In the case that the sum in the grocerylist exceeds the required amount, the item will
+             not be added to the shopping list and message will be shown stating all items are in stock.
+             In the case that the shopping list already has FullFat Milk,
+             the result is added to original amount recorded.
+.. Test case: `slist addTemp 0`
+   Expected: No items added into the shopping list. Error details shown in the status message.
+.. Other incorrect commands to try: `slist addTemp x` where x is greater than the template list size.
 
 === Saving data
 
