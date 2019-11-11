@@ -144,7 +144,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
 === Analyse Password
 The following class diagram is the current structure of the `Analyser` component, using `DictionaryAnalyser` as an example:
 
@@ -202,8 +201,6 @@ list of Passwords (e.g. new passwords added/ passwords deleted.)
 ** Cons: Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
 from the last time they were analysed.
 
-// end::undoredo[]
-
 // tag::dataencryption[]
 === Data Encryption
 
@@ -233,6 +230,7 @@ The decryption process is similar to the encryption process, except that the `EN
 
 // end::dataencryption[]
 
+//  tag::notesFeature[]
 === Notes Feature
 ==== Open Note
 
@@ -240,11 +238,13 @@ The user is able to open a note in the note book in a separate panel to easily r
 
 The following sequence diagram illustrates how the note is retrieved and edited through the UI via the `open` command.
 
-image::OpenNoteSequenceDiagram.png[]
+.Diagram illustrates how note is retrievable and editable through the UI.
+image::OpenNoteSequenceDiagram.png[width="250"]
 
 Below is the sub-diagram for retrieving the note through the `open` command.
 
-image::OpenNoteSequenceDiagramRef.png[]
+.Sub-diagram to illustrate how a note is retrieved through the `open` command.
+image::OpenNoteSequenceDiagramRef.png[width="400"]
 
 ****
 * Note that the sequence diagram for the `edit` command is similar to the `open` command shown above, hence is omitted.
@@ -253,19 +253,19 @@ image::OpenNoteSequenceDiagramRef.png[]
 Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
 or edit its contents.
 
-*Step 1.* Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+. Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
 `open 1`.
 
-*Step 2.* The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+. The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
 the `ParserUtil#parseIndex()` method.
 
-*Step 3.* If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
+. If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
 within the app.
 
-*Step 4.* The user proceeds to edit the `Title`, `Description` and `Content` field of the note through this panel and saves his
+. The user proceeds to edit the `Title`, `Description` and `Content` field of the note through this panel and saves his
 edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
 
-*Step 5.* The note book is now updated with the note edited by the user.
+. The note book is now updated with the note edited by the user.
 
 
 ==== Undo/Redo
@@ -285,6 +285,7 @@ command to inform the user what command is redone. It also stores the current st
 
 Below is a comprehensive activity diagram to illustrate how the undo & redo mechanism works.
 
+.Activity diagram to illustrate how the undo & redo executes.
 image::UndoRedoActivityDiagram.png[]
 
 Not all commands are undo-able. Undo-able commands are those that modifies the note book which includes: `add`, `delete`,
@@ -352,8 +353,9 @@ Sorting of notes is handled by the MultipleSortByCond class, which allows the no
 three different ways - by date modified, date added or number of access.
 
 Below is a
-class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
+class diagram to illustrate how the `NoteBook` class and MultipleSortByCond class interact with one another.
 
+.Class diagram to illustrate how the `MultipleSortByCond` class interacts the other classes.
 image::SortNoteClassDiagram.png[]
 
 Sorting the note book rearranges the notes according to the sort conditions provided.
@@ -368,6 +370,7 @@ Example: `sort by/NumOfAccess DateAdded`
 This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the sort conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
 in NoteBook.
 
+//end::notesFeature[]
 
 === Logging
 

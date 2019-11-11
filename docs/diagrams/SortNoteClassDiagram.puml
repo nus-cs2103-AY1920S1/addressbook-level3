@@ -9,7 +9,7 @@ skinparam linetype ortho
 class NoteBook {
 multipleSortByCond: MultipleSortByCond
 --
- +sortNotes() : void
++sortNotes() : void
 }
 
 class MultipleSortByCond {
