@@ -79,10 +79,9 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
-
-.Structure of the UI Component
-image::UiClassDiagram.png[]
 // tag::UiUG[]
+.Structure of the UI Component
+image::UiClassDiagram.png[width="400"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -201,7 +200,7 @@ and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dat
 
 Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
-image::StatisticsCalculationAcitvityDiagram.png[width="400", align="center"]
+image::StatisticsCalculationAcitvityDiagram.png[width="300", align="center"]
 
 [[Design-Statistics]]
 ===== Statistic Module
@@ -330,14 +329,15 @@ Step 5: with this output from logic, `Statistic Window` or `DefaultStatisticWind
 then handle the displaying of the statistic, be it in chart
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
-image::StatisticsCalculationUI.png[width="700", align="center"]
+image::StatisticsCalculationUI.png[width="400", align="center"]
 
-// end::statisticsCommand[]
+
 ==== Current Version `v1.4`:
 
 Here is a screenshot of the current product:
 
 image::StatsExampleGraph.png[width="300" align="center"]]
+
 
 ==== Limitations / note to developers:
 
@@ -360,6 +360,7 @@ extracting the relevant information from your data.
 ** Any additional Ui Changes should be handled by the controllers for the UI classes `StatisticWindow` and `DefaultStatisticWindow`
 class.
 
+// end::statisticsCommand[]
 
 === Autocomplete feature
 

@@ -821,6 +821,7 @@ Shown below:
 
 image::StatsExampleGraph.png[width="300"]
 
+// end::statisticsCommandUG[]
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
@@ -830,7 +831,7 @@ as long as the date is valid
 Accuracy is guaranteed up to $0.01 *only*
 [TIP]
 Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
-// end::statisticsCommandUG[]
+
 Limitations:
 
 * Range of dates affecting chart display:

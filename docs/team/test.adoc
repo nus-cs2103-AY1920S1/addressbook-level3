@@ -98,5 +98,3 @@ include::../DeveloperGuide.adoc[tag=UiUG]
 ***
 include::../DeveloperGuide.adoc[tag=statisticsCommand]
 
-***
-
