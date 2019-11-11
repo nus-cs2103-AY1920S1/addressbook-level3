@@ -487,7 +487,7 @@ Deletes the specified engagement from the engagement list. +
 Format: `delete i/INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the engagement at the specified `INDEX`.
 * The index refers to the index number shown in the displayed engagement list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -579,7 +579,7 @@ All engagement list windows will be closed if something is done to change the di
 
 Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
 in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
-The calendar's display then switches to December 2019 and the engagement list window for 11 December 2019 opens up.
+The calendar's display then switches to December 2019 and the engagements list window for 11 December 2019 opens up.
 
 This command does not work if the application is in another tab or the specified date is invalid.
 
@@ -795,4 +795,3 @@ e.g. `delete i/3`
 * *Undo* : `undo`
 * *List* : `list`
 * *Help* : `help`
-

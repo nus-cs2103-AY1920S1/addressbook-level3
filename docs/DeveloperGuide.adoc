@@ -525,8 +525,11 @@ The alternative would be to add fixed constraints to the size of each cell but t
 ==== Implementation
 The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
 by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
-of the game being over.
+of the game being over. The two diagrams below show the UML sequence diagram and activity diagram of the game window, which
+gives a high level overview of the game.
 
+.Summary Sequence Diagram of Game Window
+image::GameSequenceDiagram.png[]
 //image::GameActivityDiagram.png[float="left"]
 image::GameActivityDiagram.png[width="60%"]
 .Activity Diagram of the Game Window
@@ -1309,6 +1312,7 @@ p/😄
 ```
 Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
 
+
 //tag::yuchen-test[]
 === Sorting the engagement list
 
@@ -1389,4 +1393,18 @@ The sequence of commands is as follows:
 calendar c/previousmonth
 ```
 Expected: All open engagements list windows are closed and the calendar displays the month prior to the currently displayed month.
+
+=== Tab
+
+(i) Test case: `tab b/engagement` +
+Expected: The current tab switches to engagement tab
+
+(ii) Test case: `tab b/calendar` +
+Expected: The current tab switches to calendar tab
+
+(iii) Test case: `tab b/game` +
+Expected: The current tab switches to game tab
+
+(iv) Test case: `tab b/report +
+Expected: The current tab switches to report tab
 
