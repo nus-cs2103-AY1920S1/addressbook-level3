@@ -174,18 +174,20 @@ image::warning.png[width = "20", float = "left"]
 
 ====
 
+// tag::claimfeature[]
+
 === Adding a claim : `add_claim`
 
-Adds a claim to the claims list +
+Adds a claim to the claims list. +
 
 Keyword: `add_claim`
 
-Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/NAME [t/TAG]`
+Format: `add_claim n/NAME d/DESCRIPTION_OF_CLAIM c/AMOUNT date/DATE [t/TAG]`
 
 Examples:
 
 ....
-add_claim d/Sports Equipment a/115.2 date/29-12-2019 n/Lee Wei Gen t/Sports
+add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
 ....
 
 ====
@@ -195,14 +197,14 @@ image::warning.png[width = "20", float = "left"]
 *Warning*
 
 * `AMOUNT` should be up to 2 decimal places only. +
-* `DATE` should be a valid date (eg. 29-02-2019 not valid). +
+* `DATE` should be a valid date in the form of "dd-MM-yyyy"_(eg. 29-02-2019 not valid)_. +
 * A contact must already exist with the inputted `NAME`.
 
 ====
 
 === Approving a claim : `approve`
 
-Approves an existing pending claim +
+Approves an existing pending claim at the specified `INDEX`. +
 
 Keyword: `approve`
 
@@ -211,8 +213,10 @@ Format: `approve INDEX`
 Examples:
 
 ....
-approve 1 (approves the first claim in the claim list)
+approve 1
 ....
+
+The above example approves the first claim in the claim list.
 
 ====
 --
@@ -220,20 +224,17 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* Can only approve a pending claim (ie. Approved and rejected claims cannot be approved).
+* The claim list must be currently displayed.
+* Claim at the specified `INDEX` must be a pending claim.
+* `INDEX` refers to the index number shown in the displayed claim list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
+claim list.
 
 ====
 
-* Approves the claim at the specified `INDEX`.
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* The index refers to the index number shown in the displayed claim list.
-* The index *must be a positive integer* 1, 2, 3, ...
-
-
 === Rejecting a claim : `reject`
 
-Rejects an existing pending claim +
+Rejects an existing pending claim at the specified `INDEX`. +
 
 Keyword: `reject`
 
@@ -242,15 +243,10 @@ Format: `reject INDEX`
 Examples:
 
 ....
-reject 1 (approves the first claim in the claim list)
+reject 1
 ....
 
-
-* Rejects the claim at the specified `INDEX`.
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* The index refers to the index number shown in the displayed claim list.
-* The index *must be a positive integer* 1, 2, 3, ...
+The above example rejects the first claim in the claim list.
 
 ====
 --
@@ -258,9 +254,13 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* Can only reject a pending claim (ie. Approved and rejected claims cannot be rejected).
-
+* The displayed list must be the claim list.
+* Claim at the specified `INDEX` must be a pending claim.
+* `INDEX` refers to the index number shown in the displayed claim list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
+claim list.
 ====
+
 
 //=== Editing a claim : `edit_claim`
 //
@@ -274,6 +274,7 @@ image::warning.png[width = "20", float = "left"]
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
+// end::claimfeature[]
 
 === Adding an income : `add_income`
 
