@@ -32,6 +32,12 @@ public class DeleteCheatSheetCommand extends Command {
 
     public static final String MESSAGE_DELETE_CHEATSHEET_SUCCESS = "Deleted Cheatsheet: %1$s";
 
+    /**
+     * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
+     * 'delete 1' twice in a row and not get a prompt.
+     */
+    private static boolean successfulDeletionOnPreviousCommand = false;
+
     private final Index targetIndex;
 
     private final Logger logger = LogsCenter.getLogger(DeleteCheatSheetCommand.class.getName());
@@ -63,11 +69,14 @@ public class DeleteCheatSheetCommand extends Command {
         if (CommandHistory.getLastCommand().isPresent()) {
             if (CommandHistory.getLastCommand().get() instanceof DeleteCheatSheetCommand) {
                 if (((DeleteCheatSheetCommand) CommandHistory.getLastCommand().get()).getTargetIndex()
-                        .equals(this.targetIndex)) {
+                        .equals(this.targetIndex) && !successfulDeletionOnPreviousCommand) {
                     // correct. allow delete
                     int currentAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
 
                     model.deleteCheatSheet(cheatsheetToDelete);
+
+                    // item has been deleted, set this to true
+                    successfulDeletionOnPreviousCommand = true;
 
                     int newAmountOfCheatSheets = model.getFilteredCheatSheetList().size();
                     // to assert that one cheatsheet got deleted
@@ -75,8 +84,15 @@ public class DeleteCheatSheetCommand extends Command {
 
                     commandResult = new CheatSheetCommandResult(String.format
                             (MESSAGE_DELETE_CHEATSHEET_SUCCESS, cheatsheetToDelete));
+                } else {
+                    // nothing has been deleted, set back to false
+                    successfulDeletionOnPreviousCommand = false;
                 }
+            } else {
+                successfulDeletionOnPreviousCommand = false;
             }
+        } else {
+            successfulDeletionOnPreviousCommand = false;
         }
 
         logger.info("Cheatsheet is deleted.");

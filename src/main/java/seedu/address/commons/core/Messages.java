@@ -36,6 +36,12 @@ public class Messages {
             + "to delete the following flashcard?";
     public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_NOTE = "Are you sure you would like "
             + "to delete the following note?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_CHEATSHEET = "Are you sure you would like "
+            + "to clear all cheatsheets?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_FLASHCARD = "Are you sure you would like "
+            + "to clear all notes?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_NOTE = "Are you sure you would like "
+            + "to clear all flashcards?";
     public static final String MESSAGE_CONFIRM_DELETE = "Please use `delete %d` again to confirm your deletion.";
 
 
