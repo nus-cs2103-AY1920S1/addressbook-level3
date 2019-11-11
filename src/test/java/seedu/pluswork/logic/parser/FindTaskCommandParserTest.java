@@ -8,13 +8,14 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.FindTaskCommand;
+import seedu.pluswork.logic.commands.task.FindTaskCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.task.FindTaskCommandParser;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 
 public class FindTaskCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private FindTaskCommandParser parser = new FindTaskCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() throws CommandException {

@@ -1,7 +1,7 @@
 package seedu.pluswork.logic.parser.stub;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.DoneTaskCommand;
+import seedu.pluswork.logic.commands.task.DoneTaskCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 

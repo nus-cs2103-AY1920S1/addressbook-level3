@@ -21,6 +21,9 @@ import java.util.List;
 
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
+import seedu.pluswork.logic.commands.member.EditMemberCommand;
+import seedu.pluswork.logic.commands.task.EditTaskCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.inventory.InvName;

@@ -16,8 +16,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.ListTaskCommand;
+import seedu.pluswork.logic.commands.task.ListTaskCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
@@ -90,7 +91,7 @@ public class LogicManagerTest {
 
         // Execute add command
 
-        String addTaskCommand = seedu.pluswork.logic.commands.AddTaskCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
+        String addTaskCommand = AddTaskCommand.COMMAND_WORD + TASK_NAME_DESC_FINANCE;
         Task expectedTask = new TaskBuilder(REVIEW_BUDGET).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTask(expectedTask);

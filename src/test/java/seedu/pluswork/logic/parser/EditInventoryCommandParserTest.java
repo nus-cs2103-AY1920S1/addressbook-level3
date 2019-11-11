@@ -8,8 +8,9 @@ import static seedu.pluswork.logic.parser.ParserUtil.MESSAGE_INVALID_PRICE;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.EditInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.inventory.EditInventoryCommandParser;
 import seedu.pluswork.model.inventory.InvName;
 
 public class EditInventoryCommandParserTest {

@@ -7,6 +7,7 @@ import static seedu.pluswork.testutil.TypicalTasksMembers.getTypicalProjectDashb
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 import seedu.pluswork.model.UserPrefs;

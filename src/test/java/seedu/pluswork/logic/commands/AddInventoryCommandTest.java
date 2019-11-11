@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;

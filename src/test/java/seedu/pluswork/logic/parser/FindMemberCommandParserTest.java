@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.FindMemberCommand;
+import seedu.pluswork.logic.commands.member.FindMemberCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.member.FindMemberCommandParser;
 import seedu.pluswork.model.member.MemberNameContainsKeywordsPredicate;
 
 public class FindMemberCommandParserTest {

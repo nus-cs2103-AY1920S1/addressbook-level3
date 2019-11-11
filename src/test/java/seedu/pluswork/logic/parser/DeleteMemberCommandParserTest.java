@@ -7,8 +7,9 @@ import static seedu.pluswork.testutil.TypicalIds.ID_FIRST_MEMBER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.DeleteMemberCommand;
+import seedu.pluswork.logic.commands.member.DeleteMemberCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.member.DeleteMemberCommandParser;
 
 public class DeleteMemberCommandParserTest {
     private DeleteMemberCommandParser parser = new DeleteMemberCommandParser();

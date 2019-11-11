@@ -6,9 +6,10 @@ import static seedu.pluswork.logic.parser.CommandParserTestUtil.assertParseFailu
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.ThemeCommand;
+import seedu.pluswork.logic.commands.settings.ThemeCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.logic.parser.settings.ThemeCommandParser;
 
 /**
  * White-box testing for parsing done here, refer to {@link ParserUtilTest} for varied user

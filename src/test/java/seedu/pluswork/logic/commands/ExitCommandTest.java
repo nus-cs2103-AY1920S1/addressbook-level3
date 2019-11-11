@@ -1,10 +1,11 @@
 package seedu.pluswork.logic.commands;
 
 import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.pluswork.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.pluswork.logic.commands.universal.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.pluswork.logic.commands.universal.ExitCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 

@@ -1,10 +1,11 @@
 package seedu.pluswork.logic.commands;
 
 import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.pluswork.logic.commands.SettingsCommand.SHOWING_SETTINGS_MESSAGE;
+import static seedu.pluswork.logic.commands.settings.SettingsCommand.SHOWING_SETTINGS_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.pluswork.logic.commands.settings.SettingsCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 

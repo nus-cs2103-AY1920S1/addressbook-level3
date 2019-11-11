@@ -18,6 +18,7 @@ import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.calendar.AddMeetingCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;

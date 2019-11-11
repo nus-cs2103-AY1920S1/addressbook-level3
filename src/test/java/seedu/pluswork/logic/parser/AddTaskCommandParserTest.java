@@ -23,8 +23,9 @@ import static seedu.pluswork.testutil.TypicalTasksMembers.REVIEW_BUDGET;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.parser.task.AddTaskCommandParser;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
