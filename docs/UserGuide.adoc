@@ -556,7 +556,7 @@ image::addbud1.png[]
 This will create a $82.69 budget named _Saving my tummy_ that tracks this month's expenditures tagged with the _food_ category.
 
 [NOTE]
-If the optional arguments `m/MONTH` and `y/YEAR` are not provided, the budget will track the current month.
+If the optional arguments `m/MONTH` and `y/YEAR` are not provided, the budget will track on all transactions.
 
 image::addbud2.png[]
 

@@ -27,9 +27,11 @@ public class Budget {
 
     /**
      * Description and amount must be present and not null.
+     * Month and year should either both be present or absence.
      */
     public Budget(Description description, Amount amount, Month month, Year year, Category category) {
         requireAllNonNull(description, amount);
+        assert((month == null && year == null) || month != null && year != null);
         this.description = description;
         this.amount = amount;
         this.month = month;
@@ -66,7 +68,11 @@ public class Budget {
             return true;
         }
 
-        return otherBudget != null && otherBudget.getDescription().equals(getDescription());
+        return otherBudget != null && otherBudget.getDescription().equals(getDescription())
+                && ((otherBudget.getMonth() == null && getMonth() == null)
+                || otherBudget.getMonth().equals(getMonth()))
+                && ((otherBudget.getYear() == null && getYear() == null)
+                || otherBudget.getYear().equals(getYear()));
     }
 
     /**
@@ -111,7 +117,7 @@ public class Budget {
                 && otherBudget.getAmount().equals(getAmount())
                 && ((otherBudget.getMonth() == null && getMonth() == null)
                 || otherBudget.getMonth().equals(getMonth()))
-                && ((otherBudget.getYear() == null && getMonth() == null)
+                && ((otherBudget.getYear() == null && getYear() == null)
                 || otherBudget.getYear().equals(getYear()))
                 && ((otherBudget.getCategory() == null && getCategory() == null)
                 || otherBudget.getCategory().equals(getCategory()));
