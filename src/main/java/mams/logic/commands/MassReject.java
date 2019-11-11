@@ -37,6 +37,7 @@ public class MassReject extends Reject {
                 if (appealId.equalsIgnoreCase(appeal.getAppealId())) {
                     Appeal rejectedAppeal;
                     Appeal appealToReject = appeal;
+                    foundId = true;
                     if (!appealToReject.isResolved()) {
                         rejectedAppeal = new Appeal(appealToReject.getAppealId(),
                                 appealToReject.getAppealType(),
@@ -60,7 +61,6 @@ public class MassReject extends Reject {
                             && appealToReject.getResult().equalsIgnoreCase("REJECTED")) {
                         alreadyRejected.add(appeal.getAppealId());
                     }
-                    foundId = true;
                     break;
                 }
             }
