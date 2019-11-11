@@ -647,7 +647,7 @@ Use case resumes at step 2.
 [none]
 ** 2a1. System displays an error message.
 +
-user case ends.
+use case ends.
 // end::statsusecase[]
 
 [appendix]

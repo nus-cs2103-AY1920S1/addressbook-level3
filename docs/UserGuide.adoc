@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-T14-3/main
 
-By: `CS2103 T14-3`      Since: `Nov 2019`      Licence: `MIT`
+By: `CS2103 T14-3`      Since: `Nov 2019`      License: `MIT`
 
 == Introduction
 
@@ -82,9 +82,9 @@ Examples:
 
 * `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. a/Mount Everest` :
   Creates a new short answer flashcard with the given question, definition and answer.
-* `add q/What is the tallest mountain in thw world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
+* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
   c/Mount Blanc c/Shkhara c/Bukit Timah a/Mountain Everest` : Creates a new MCQ flashcard with the given question, definition choices and answer.
-* `add q/What is the tallest mountain in thw world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
+* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
   c/Mount Blanc c/Shkhara c/Bukit Timah a/Alps` : Since the answer you input does not match with any of the choices, the
   system will generate an error message.
 
@@ -219,6 +219,7 @@ Format: `end`
 // tag::stat[]
 
 === Skip Flashcards in Quiz
+NOTE: Only usable in quiz mode (i.e after a quiz or quiztag command)
 
 Format: `skip`
 
