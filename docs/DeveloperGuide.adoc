@@ -657,7 +657,6 @@ Refer to the guide <<DevOps#, here>>.
 * is a student that needs to revise for exams
 * has a need to remember certain things
 * prefer desktop apps over other types
-* can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
@@ -672,38 +671,36 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 | Priority | As a... | I want to... | So that I can...
-| `* * *` | familiar with command line | type commands into a command line interface | perform tasks faster
+| `* * *` | user who is familiar with command line | type commands into a command line interface | perform tasks faster
 | `* * *` | university student | use flashcards to remember things easily | prepare better for my exams
 | `* * *` | meticulous student | set priorities of each subject I am studying  | study subjects in an orderly manner
-| `* * *` | forgetful student | set exam reminders   | remember when to start studying for my exams
-| `* * *` | busy student  | exit the <<test, test>> mode at any time  | perform other tasks
+| `* * *` | forgetful student | set exam reminders | remember when to start studying for my exams
+| `* * *` | busy student | exit the <<test, test>> mode at any time  | perform other tasks
 | `* * *` | meticulous student  | search for a particular flashcard | review a specific flashcard whenever I want
 | `* * *` | new user | key in part of a command and let the program suggest the rest | key in commands more easily
-| `* * *` | student | see a timer next to each flashcard  | know how long I&#39;ve spent answering the current question
-| `* * *` | student studying multiple subjects | categorize my flashcards under different modules | study them in such manner
+| `* * *` | student | see a timer next to each flashcard | know how long I&#39;ve spent answering the current question
+| `* * *` | student studying multiple subjects | categorize my flashcards under different modules | study them in such a manner
 | `* * *` | meticulous student | sort my subjects  | study subjects in an orderly manner
 | `* * *` | meticulous student | make use of colour codes  | highlight and know my weaknesses
 | `* * *` | advanced user | search through my content   | find subjects/topics easily
-| `* * *` | meticulous student,   | use the calendar to plan my study |  so that I will not miss any subject
+| `* * *` | meticulous student   | use the calendar to plan my study |  so that I will not miss any subject
 | `* * *` | meticulous student | view what tasks are overdue | know what I have not done
 | `* * *` | meticulous student | a mock <<test, test>> timer to simulate exam situation | be prepared for my upcoming exams
 | `* * *` | meticulous student | label difficult questions | the flash cards will appear more frequently for better knowledge absorption
 | `* * *` | student | move backward through the flashcards  | recall the previous question/answer
-| `* *`  | meticulous student | view the overall statistic | monitor my performance overtime
+| `* *`  | meticulous student | view my overall statistics | monitor my performance over time
 | `* *`  | meticulous student | use the scoring system  | know how well prepared I am
-| `* *`  | As a user | hide the answer until I finish all the questions | remember better
+| `* *`  | conscientious user | hide the answer until I finish all the questions | remember better
 | `* *`  | meticulous student | check the correctness of my answer | know whether my answer was right
-| `* *`  | busy student | use the night mode  | study in a dark environment
+| `* *`  | busy student | use a night mode  | study in a dark environment
 | `* *`  | student with many friends | export flashcards in a simple shareable format | share with my friends
-| `* *`  | artistic student | customise the theme | so that I would have a better user experience
-| `* *`  | colour blind student | special accessibility options  | see my flashcards clearly
+| `* *`  | artistic student | customise the theme | have a better user experience
+| `* *`  | colour blind student | have special accessibility options  | see my flashcards clearly
 | `*` | competitive student | export and share my statistics with my friends | compare my performance to theirs
 | `*` | forgetful student | key in my answer | see my own attempt to compare with the correct answer
-| `*` | competitive student | compare my results with others | so that I can be recognised for my skills and knowledge
+| `*` | competitive student | compare my results with others | be recognised for my skills and knowledge
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use cases
@@ -793,8 +790,6 @@ Use case resumes at step 2.
 .  Flash card tests should be not be executable if there are no flash cards in the system.
 .  Old flash cards should still be working every time there's an update to the programme.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -813,19 +808,21 @@ The state in which the user is shown their flashcards one-by-one and in successi
 [appendix]
 == Product Survey
 
-*Product Name*
+*KeyboardFlashCards*
 
-Author: ...
+Author: AY1920S1-CS2103T-T12-4
 
 Pros:
 
-* ...
-* ...
+* Has a convenient CLI
+* Has a highly customizable interface
+* Can easily export to cheat sheet
+* Can help manage deadlines
+* Has a comprehensive search feature
 
 Cons:
 
-* ...
-* ...
+* Does not have cloud integration
 
 [appendix]
 == Instructions for manual testing
@@ -865,5 +862,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
+.. Test case: Missing data file +
+   Expected: Application starts up as per normal. A default data set is loaded.
+.. Test case: Corrupted data file +
+   Expected: Application starts up as per normal. No data is loaded.
