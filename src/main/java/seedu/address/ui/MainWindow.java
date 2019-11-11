@@ -385,7 +385,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
-            if (commandResult.getType().equals("Generate")) {
+            if (commandResult.getType().contains("Generate")) {
                 generateDate();
             }
 
@@ -417,6 +417,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().contains("Employee")) {
                 selectionModel.select(0);
+            }
+
+            if (commandResult.getType().contains("Statistics")) {
+                selectionModel.select(3);
             }
 
             if (commandResult.getType().equals("Finance")) {

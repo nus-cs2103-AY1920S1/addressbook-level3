@@ -12,6 +12,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.EventContainsKeyDateRangePredicate;
+import seedu.address.ui.MainWindow;
 
 /**
  * Finds and lists all events in event list that is between the 2 specified dates
@@ -33,6 +34,9 @@ public class DisplayScheduleBetweenCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (MainWindow.isFinanceTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB);
+        }
         model.updateFilteredScheduledEventList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_EVENTS_LISTED_OVERVIEW,

@@ -2,7 +2,6 @@ package seedu.address.logic.commands.statistics;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,12 +9,15 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.event.Event;
 import seedu.address.model.tag.Tag;
+import seedu.address.ui.MainWindow;
 
 /**
  * Generates statistics of both events and employees, providing a quick
@@ -31,8 +33,11 @@ public class GenerateStatisticsDetailCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Detailed Statistics Generated";
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_STATS);
+        }
         StringBuilder output = new StringBuilder("");
         List<Employee> employeeList = model.getFullListEmployees();
         FilteredList<Employee> maleEmployeeList = model.getFullListEmployees()
@@ -40,11 +45,15 @@ public class GenerateStatisticsDetailCommand extends Command {
         FilteredList<Employee> femaleEmployeeList = model.getFullListEmployees()
                 .filtered(employee -> employee.getEmployeeGender().gender.toLowerCase().equals("female"));
         List<Event> eventList = model.getFullListEvents();
-        List<Event> sortedByStartDateEventList = eventList.stream()
-                .sorted(Comparator.comparing(Event::getStartDate))
+        List<Event> upcomingEventsList = model.getFilteredEventList()
+                .stream()
+                .filter(event -> !event.isPastEvent())
                 .collect(Collectors.toList());
-        FilteredList<Event> filterEventList = model.getFullListEvents()
-                .filtered(event -> event.getCurrentManpowerCount() < event.getManpowerNeeded().value);
+        List<Event> eventsRequireManpowerList = model.getFilteredEventList()
+                .stream()
+                .filter(event -> !event.isPastEvent())
+                .filter(event -> event.getCurrentManpowerCount() < event.getManpowerNeeded().value)
+                .collect(Collectors.toList());
         Map<String, Integer> employeeTagMap = new TreeMap<>();
         Map<String, Integer> eventTagMap = new TreeMap<>();
         Set<Tag> tempSet;
@@ -61,7 +70,7 @@ public class GenerateStatisticsDetailCommand extends Command {
             }
         }
 
-        for (Event event : eventList) {
+        for (Event event : eventsRequireManpowerList) {
             tempSet = event.getTags();
             for (Tag tag : tempSet) {
                 if (eventTagMap.containsKey(tag.getTagName())) {
@@ -73,17 +82,15 @@ public class GenerateStatisticsDetailCommand extends Command {
             }
         }
 
-
-
         output.append("----------------------------------"
                 + "\nEvent Statistics"
                 + "\n----------------------------------"
-                + "\nUpcoming event: " + sortedByStartDateEventList.get(0).getName()
+                + "\nUpcoming event: " + upcomingEventsList.get(0).getName()
                 + "\nTotal number of events: " + eventList.size()
-                + "\nTotal number of events needing manpower: " + filterEventList.size()
-                + "\nNumber of distinct event tags: " + eventTagMap.size()
-                + "\n\nDistinct event tags and number of events with specified tag"
-                + "\n-------------------------------------------------------------");
+                + "\nTotal number of upcoming events needing manpower: " + eventsRequireManpowerList.size()
+                + "\nNumber of distinct upcoming event tags: " + eventTagMap.size()
+                + "\n\nDistinct upcoming event tags and number of events with specified tag"
+                + "\n----------------------------------------------------------------");
 
         for (Map.Entry<String, Integer> entry : eventTagMap.entrySet()) {
             output.append("\n" + entry.getKey() + " : " + entry.getValue());

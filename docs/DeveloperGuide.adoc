@@ -478,7 +478,7 @@ image::GenerateScheduleClassDiagram.png[]
 
 // tag::generateschedule2[]
 ---
-Below is an example usage scenario and how the `display_schedule` command behaves at each step.
+Below is an example usage scenario and how the `generate_schedule` command behaves at each step.
 
 ._Program flow of the Generate Schedule Feature_
 
@@ -508,7 +508,7 @@ The distinctDateList will be generated again based on the current list of events
 The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however, the DistinctDateList would not.
 
 [NOTE]
-Note that the Display Schedule Feature does not load and store the DistinctDate Objects.
+Note that the Generate Schedule Feature does not load and store the DistinctDate Objects.
 It processes and generates the list when it is called upon or when the application starts.
 
 **Step 7**.
@@ -949,14 +949,132 @@ Close the window.
 .. Prerequisites: List all employees using the `list_em` command.
 Multiple employees in the list.
 .. Test case: `delete_em 1` +
-   Expected: Employee of ID '1' is deleted from the list.
+   Expected: Employee of index '1' is deleted from the list.
 Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
 .. Test case: `delete_em 0` +
    Expected: No employee is deleted.
 Error details shown in the status message.
-Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+
+=== Generating Schedule
+
+. Generating Schedule of all the events according to the current event list.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `generate_schedule` +
+   Expected: Result box displays - "Schedule Generated".
+AddMin+ will jump to the Schedule Tab.
+New window will open displaying the entire schedule, according to the event's start, end date and the specific date, time mappings.
+If an event does not have any set date, time mappings then it will only be displayed as the start and end date.
+
+
+=== Display Schedule for Specific Date
+
+. Displaying all the events whose start, end date spans across a specified date.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/10/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events whose start, end date spans across 10/12/2019.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/31/11/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Invalid date: 31/11/2019
+Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
+The event list will not be updated.
+
+=== Display Schedule for Specific Month Year
+
+. Displaying all the events whose start, end date spans across a specified Month and Year.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_month on/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events whose start, end date spans across 12/2019.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_date on/13/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Input Year Month should be MM/yyyy" .
+The event list will not be updated.
+
+=== Display Schedule for between 2 specific date
+
+. Displays all events which meets the following requirements, according if user's specified start and end date range includes a single date that the event's start and end date spans across ,
+the event will be displayed.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/10/12/2019 end/12/12/2019` +
+   Expected: Result box displays the number of events listed in the Event List in the Schedule Tab.
+AddMin+ will jump to the Schedule Tab.
+The event list will display all events which spans across at least a single date between 10/12/2019 and 12/12/2019.
+
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/30/12/2019 end/12/12/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Your stated Start Date [30/12/2019] is after your End Date [12/12/2019]!" .
+The event list will not be updated.
+
+.. Prerequisites: Multiple events in the event list. User must either be in the Main Tab or Schedule Tab.
+.. Test case: `display_schedule_between start/33/12/2019 end/12/12/2019` +
+   Expected: Result box prompt a user input error and displays the following message "Invalid date: 33/12/2019
+Date should be in the following format dd/MM/yyyy, be a valid Calendar Date, and be in the last 10 years." .
+The event list will not be updated.
+
+=== Event
+
+. Editing an Event Date
+
+.. Prerequisites: At least one event listed in the event list. Either add events using `add_ev` if empty, or `list_ev` otherwise.
+.. Test Case: `edit_ev 1 on/20/10/2019 till/20/10/2020` +
+    Expected Error Message : "The maximum acceptable range between the Start and End Dates is 90 days."
+.. Test Case: `edit_ev 1 till/25/10/2019` +
+    Expected: Event End Date is edited successfuly.
+.. Other incorrect commands:
+    `edit_ev 1 on/20/10/2019 till/10/10/2019` (Start Date after End Date) +
+    `edit_ev 1 on/10/10/1990 till/20/10/1990` (Too Long ago) +
+    `edit_ev 1 on/31/02/2019` (Not a valid calendar date)
+
+. Setting Event Date-Time
+
+.. Prerequisites: Same and continued from above.
+.. Test Case: `set_ev_dt 1 time/1000-1300` +
+    Expected: Mapping from Start to End Date successfully assigned. Double click on the Event or use `fetch_ev 1` to see the mapping.
+
+.. Test Case: `delete_ev_dt 1 on/20/10/2020` (or any date out of range) +
+    Expected Error Message: "The Date [20/10/2020] is not found in the Date-Time Mapping of Event: [Musical]"
+
+.. Test Case: `delete_ev_dt 1 on/25/10/2019` +
+    Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
+
+=== Auto-Allocation of employees to an event
+. Allocating employees to a displayed Event.
+
+.. Prerequisites:
+1. User is in `Main` or `Schedule` Tab.
+2. There are at least two Events in the displayed list.
+3. There are sufficient available employees for the Event.
+4. Chosen Event still requires manpower.
+.. Test case: `allocate 1` +
+    Expected: Employees with non-conflicting schedules are allocated to the
+1st Event displayed in the list. Number of employees allocated is based on demand of event.
+.. Test case: `allocate 1 t/male` +
+    Expected: Employees, tagged [male] with non-conflicting schedules are allocated to the
+1st Event displayed in the list. Number of employees allocated is based on demand of event.
+.. Test case: `allocate 2 n/1` +
+    Expected: 1 Employee with non-conflicting schedule is allocated to the
+2nd Event displayed in the list.
+.. Test case: `allocate 2 n/1 t/male` +
+    Expected: 1 Employee, tagged [male], with non-conflicting schedules are allocated to the
+2nd Event displayed in the list.
+
+.. Test case: `allocate 0` +
+    Expected: No employee is allocated to event.
+Error details shown in the status message.
+.. Other incorrect auto-allocate commands to try: `allocate`, `allocate x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 === Saving data
