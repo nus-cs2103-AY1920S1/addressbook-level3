@@ -30,7 +30,7 @@ Responsibilities: GUI
 
 === Murugesan Karthika
 image::kzrthikz.png[width="150", align="left"]
-{empty}[https://github.com/Kzrthikz[github]] [<<Kzrthikz#, portfolio>>]
+{empty}[https://github.com/Kzrthikz[github]] [<<kzrthikz#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deadline Manager

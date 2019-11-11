@@ -60,7 +60,8 @@ adds a deadline task. There is no need for users to sort again after adding dead
 *** Write codes for exception and error handling (Pull requests
 https://github.com/AY1920S1-CS2103T-W13-1/main/pull/147[#147],
 https://github.com/AY1920S1-CS2103T-W13-1/main/pull/160[#160] )
-*** Write tests for deadline tasks (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/169[#169])
+*** Write tests for deadline tasks (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/169[#169],
+https://github.com/AY1920S1-CS2103T-W13-1/main/pull/177[#177])
 ** Documentation:
 *** Updated the contact us page, deadline section of developer guide and user guide.
 ** Community:
