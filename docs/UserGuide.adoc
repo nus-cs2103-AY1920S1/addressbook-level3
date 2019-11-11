@@ -87,17 +87,15 @@ will appear in the CLI highlighted in the purple box in the diagram above. Refer
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
 section for a quick overview of all the available commands!
 
-+
+5. Output from the command will be shown in the boxes highlighted in orange and green in
+the diagram above. The green box is used to display a flashcard, note or cheatsheet
+while the orange box outputs feedback from commands.
+
 [TIP]
 The blue box in the diagram above with the "Flashcards", "Notes" and "Cheatsheets" logo
 can be used to quickly check which mode you are in! Switching into a mode will highlight
 the relevant mode's logo in an orange circle, as shown in this
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-feature[figure].
-+
-
-5. Output from the command will be shown in the boxes highlighted in orange and green in
-the diagram above. The green box is used to display a flashcard, note or cheatsheet
-while the orange box outputs feedback from commands.
 
 == Command Format / Rules
 
