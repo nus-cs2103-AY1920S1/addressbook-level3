@@ -652,7 +652,7 @@ Rules will be executed from the top of the list downwards.
 
 Swaps the position of two specified rules in the Rule Engine.
 
-Format: `rule swap <rule 1 ID> <rule 2 ID>
+Format: `rule swap <rule 1 ID> <rule 2 ID>`
 
 Examples:
 
