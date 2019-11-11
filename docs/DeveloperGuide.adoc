@@ -826,6 +826,8 @@ Therefore, we are able to get the required from the `Food` object the user selec
 And at the same time, ensure the data integrity of that information.
 Also, by encapsulating the `Food` object within the `Purchase` object and making it a private field, we are able to ensure that the purchased `Food` is not modified in an unintended manner.
 
+//end::purchasing[]
+
 ==== Buying a Food Item
 
 The user may want to buy a food item and record the purchase. This can be done with the `buy` command.
