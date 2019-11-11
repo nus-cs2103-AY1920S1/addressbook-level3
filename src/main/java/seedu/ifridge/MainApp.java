@@ -35,6 +35,7 @@ import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.ShoppingItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.food.exceptions.InvalidDictionaryException;
 import seedu.ifridge.model.util.SampleDataUtil;
@@ -275,7 +276,6 @@ public class MainApp extends Application {
     private HashMap<String, String> updateMapWithBoughtItems(
             HashMap<String, String> mapToBeCreated, ReadOnlyGroceryList boughtList)
             throws InvalidDictionaryException {
-        //Method to be written
         ObservableList<GroceryItem> boughtItems = boughtList.getGroceryList();
 
         for (int i = 0; i < boughtItems.size(); i++) {
@@ -299,10 +299,36 @@ public class MainApp extends Application {
         return mapToBeCreated;
     }
 
+    /**
+     * Updates the dictionary map with the names and unitTypes in the shoppinglist
+     * @param mapToBeCreated map to be edited
+     * @param shoppingList list consisting of shopping items
+     * @returne editedMap to be entered into Unitdictionary
+     * @throws InvalidDictionaryException
+     */
     private HashMap<String, String> updateMapWithShoppingItems(
             HashMap<String, String> mapToBeCreated, ReadOnlyShoppingList shoppingList)
             throws InvalidDictionaryException {
-        //Method to be written
+        ObservableList<ShoppingItem> shoppingItems = shoppingList.getShoppingList();
+
+        for (int i = 0; i < shoppingItems.size(); i++) {
+            ShoppingItem shoppingItem = shoppingItems.get(i);
+            Name name = shoppingItem.getName();
+            Amount amount = shoppingItem.getAmount();
+
+            String nameInUpperCase = name.toString().toUpperCase();
+            String unitType = Amount.getUnitType(amount);
+            String setType = mapToBeCreated.get(nameInUpperCase);
+
+            if (setType != null && !setType.equals(unitType)) {
+                throw new InvalidDictionaryException();
+            } else if (setType == null) {
+                mapToBeCreated.put(nameInUpperCase, unitType);
+            } else {
+                continue;
+            }
+        }
+
         return mapToBeCreated;
     }
 
