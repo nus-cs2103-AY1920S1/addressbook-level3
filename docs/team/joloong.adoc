@@ -92,7 +92,7 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
 They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=view]
+include::../UserGuide.adoc[tag=view]
 
 //include::../UserGuide.adoc[tag=sort]
 
