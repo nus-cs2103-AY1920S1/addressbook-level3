@@ -254,7 +254,8 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 === Add new Javascript card or Java Card
 
 ****
-In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript. Currently, you need to use the GUI to make these cards.
+In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript. Currently, you need to use the GUI to make Java cards while
+you can use either the GUI or CLI to make a JavaScript Card.
 
 To begin creating either card:
 
@@ -262,13 +263,13 @@ To begin creating either card:
 - In the deck display window click on `Change name/Add question` to add a new card.
 - In the card creation window, select either `Java` or `JavaScript`.
 
-To make a Java Card
+To make a Java card
 
 - Enter a question that tells you what code to write. An example question would be:
 
     Write a program to read in strings and print out each string with all alphabetical characters in uppercase.
 
-- Test cases for Java Cards are as follows:
+- Test cases for Java cards are as follows:
 ** Enter input that you want to be fed into your program into the box that says `Enter input...`. +
 
 Example (for the question above):
@@ -286,20 +287,20 @@ Example (for the question above):
       LETTERS&&NUMBERS
 
 
-* Do not put whitespace behind or in front of each line of your input or output if the whitespace is not intended. The Java Card's output comparison checker is sensitive to any differences between your program's output and expected output.
+* Do not put whitespace behind or in front of each line of your input or output if the whitespace is not intended. The Java card's output comparison checker is sensitive to any differences between your program's output and expected output.
 * You cannot enter empty outputs but an empty input is ok.
 * To enter another test case, click on `Add` and a new row of input and output boxes will appear.
 * To delete a test case row, click `Delete`.
-* Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new Java Card.
+* Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new Java card.
 
-To make a JavaScript Card
+To make a JavaScript card via the GUI
 
 - Enter a question that tells you what code to write. +
 
 
   Task: Write a function called addExclam(str) that takes in a string and adds a "!". Input: A string. Output: The string with a "!" at the back.
 
-- Test cases for JavaScript Cards are as follows:
+- Test cases for JavaScript cards are as follows:
 ** JavaScript cards use an `assert` function to check if your function is correct. The first argument to the assert is a call to your function. The second argument to the assert is the output you expect your function to give.
 ** Enter your asserts like so: +
 
@@ -311,7 +312,7 @@ What `assert(addExclam("Hello"), "Hello!")` does is to compare the result of `ad
 
 * If your assert calls the wrong function like `addexclam` instead of `addExclam`, your asserts will fail.
 * If your asserts have the wrong expected output in the first place such as `assert(addExclam("I love you!"), "I love you!");` where the expected output is missing an additional exclamation mark, your asserts will fail even if you have the correct function.
-* Advanced use case: You can technically write multiple functions in the same JavaScript Card program. Then just put in asserts that call each function: +
+* Advanced use case: You can technically write multiple functions in the same JavaScript card program. Then just put in asserts that call each function: +
 
     assert(addExclam("Hello"), "Hello!");
     assert(addFive(123), 128);
@@ -324,10 +325,22 @@ and if you write both the correct `addExclam` and `addFive` functions, the card 
        const addExclam = str => str + "!";
        const addFive = i => i + 5;
 
-** The card expects you to write asserts as shown and nothing else. If you write checks like `addOne(1) == 2`, the JavaCard's `assert` function cannot be used to check how many test cases you have, and how many you passed.
-** Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new JavaScript Card.
-
+** The card expects you to write asserts as shown and nothing else. If you write checks like `addOne(1) == 2`, the `JavaCard`'s assert` function cannot be used to check how many test cases you have, and how many you passed.
+** Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new JavaScript card.
 ** Once you have clicked `Add Card`, click on `Done` to finish your card creating session. You are now ready to test yourself.
+
+How to create a JavaScript card via the CLI
+
+* The command is as follows : Suppose I have a deck named `myDeck`, and the question `Make a function that adds 5 to a number`, type
+
+        add deck/myDeck front/Make a function that adds 5 to a number js
+
+* In the above command, the keyword js tells the command line that you want to enter some asserts. The multiline CLI will then tell you:
+
+        Enter your asserts below.
+
+* Type your asserts as described previously starting on the next line. Do not modify the message `Enter your asserts below.`
+* Once you have keyed in your asserts, type `CTRL+D` to escape multiline mode. You should see your new JavaScript card in your deck.
 ****
 
 
