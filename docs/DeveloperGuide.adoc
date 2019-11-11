@@ -896,12 +896,12 @@ will suffer as more commands are executed.
 Furthermore, it is very unlikely for user to want to navigate more than 50 commands into history, as it would likely be
 more convenient to re-type the command if that is the case.
 
-==== Aspect: Usage of Arrow Keys
+===== Aspect: Usage of Arrow Keys
 Most CLI applications with such a Command History Navigation feature would use the UP/DOWN arrow keys directly, but the UP/DOWN
 arrow keys have been mapped for a different use (Command Suggestion Feature) in Alfred. Hence, we decided to use the ALT modifier key for the feature. It is
 an inconvenience, but likely a minor one.
 
-==== Aspect: Navigation to Successfully-Executed Commands
+===== Aspect: Navigation to Successfully-Executed Commands
 As mentioned above, only successfully executed commands can be navigated to using this feature. This is because unsuccessful
 commands will still remain within the Command Input Box in Alfred, which the user can readily edit. Only upon successful command
 execution will the text in the Command input Box disappear, so this feature is necessary to retrieve the Command's input text.
