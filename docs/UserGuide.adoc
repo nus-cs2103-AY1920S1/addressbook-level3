@@ -391,15 +391,15 @@ Example: `delete 1`
 
 === File
 
-SecureIT has a file manager which helps you keep secret files that you do not wish others to see. Using your master password, SecureIT convert your files into encrypted code which other apps cannot understand.
+SecureIT has a file manager which helps you keep confidential files that you do not wish others to see. Using your master password, SecureIT converts your files into an encrypted format which cannot be read by other applications.
 
 To access the file manager, simply enter `goto file` in the command box.
 
 ==== Encrypting a file : `encrypt`
 
-Encrypts a local file as specified by its file path. The file's content is converted into encrypted code which other apps cannot understand. Encrypted files have the prefix `[LOCKED]` in their file names.
+You can encrypt a local file using its file path. You may also tag the file at the same time for easy reference later on.
 
-As you encrypt the file, you may tag the file at the same time for easy reference later on.
+Encrypted files have the prefix `[LOCKED]` in their file names.
 
 Format: `encrypt FILEPATH [t/TAG]...`
 
@@ -432,7 +432,7 @@ image::warning.png[width = "20", float = "left"]
 
 ==== Decrypting a file : `decrypt`
 
-Decrypts a local file as specified by the displayed index number.
+You can decrypt a local file using its displayed index number.
 
 Format: `decrypt INDEX`
 
@@ -450,9 +450,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Adding an encrypted file : `add`
 
-Adds an encrypted file as specified by its file path. The file must be encrypted by SecureIT previously.
-
-As you add the file, you may tag the file at the same time for easy reference later on.
+You can add an encrypted file using its file path. You may tag the file at the same time for easy reference later on. The file must be encrypted by SecureIT previously.
 
 Format: `add FILENAME [t/TAG]...`
 
@@ -472,7 +470,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Removing a file : `remove`
 
-Removes an encrypted file record as specified by the displayed index number.
+You can remove an encrypted file record using its displayed index number.
 
 Please note that only the file record within SecureIT is removed. The actual file is not deleted from the file system.
 
@@ -491,7 +489,7 @@ image::warning.png[width = "20", float = "left"]
 
 ==== Renaming an encrypted file : `rename`
 
-Renames an encrypted file as specified by its index number. The prefix `[LOCKED]` is retained.
+You can rename an encrypted file using its index number. The prefix `[LOCKED]` is retained.
 
 Format: `rename INDEX TARGET_FILENAME`
 
@@ -508,7 +506,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Moving an encrypted file : `move`
 
-Moves an encrypted file as specified by its index number. The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
+You can move an encrypted file using its index number. The target directory must be a real directory (not a shortcut, alias, symbolic link, etc.)
 
 Format: `move INDEX TARGET_DIRECTORY`
 
@@ -529,7 +527,7 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Finding encrypted files : `find`
 
-Finds matching encrypted files as specified by the search keywords.
+You can find matching encrypted files using the search keywords.
 
 To return from search results, use `list` command.
 
@@ -548,17 +546,27 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Listing all files : `list`
 
-Lists all encrypted files managed by SecureIT.
+You can list all encrypted files managed by SecureIT.
 
 Format: `list`
 
-==== Viewing an encrypted file : `preview` [coming soon]
+==== Viewing an encrypted file : `preview`
 
-Previews an encrypted file as specified by its index number. You can only preview `.txt`, `.jpg` and `.png` files.
+You can preview an encrypted file using its index number. You can only preview `.txt`, `.jpg`, `.png`, `.pdf`, and `.docx` files.
 
 Format: `preview INDEX`
 
 Example: `preview 1`
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* The app may freeze for some time if the file to be previewed is large. Please do not force exit the app.
+* The file preview is for your reference only. Due to various standards on file formats, the preview can be different from the actual file. For example, your annotations on PDF files may not be correctly displayed, and the text format of Word files may not be retained in the preview.
+====
 
 ===  Note
 Want to have a secure place to write down some of your confidential information? SecureIT's notes feature is here to help!

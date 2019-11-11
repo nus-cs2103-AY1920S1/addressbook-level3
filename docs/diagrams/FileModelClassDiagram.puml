@@ -1,0 +1,91 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam genericDisplay old
+
+Class FilePreviewPanel UI_COLOR
+
+Class FileBook
+Package File {
+    Class EncryptedFile
+    Class FileName
+    Class FilePath
+    Class EncryptedAt
+    Class ModifiedAt
+    Enum "<<enumeration>>\nFileStatus" as FileStatus
+    Class UniqueFileList
+    Class "ViewableFile<T>" as ViewableFile
+    Enum "<<enumeration>>\nViewableFileType" as ViewableFileType
+}
+Class Tag
+
+FilePreviewPanel ..> ViewableFile
+
+Class EncryptedFile {
++ {static} PREFIX : String
+---
++ getFullPath() : String
++ getEncryptedPath() : String
+}
+
+Class FileName {
++ value : String
+---
++ getFileNameWithoutExtension() : String
++ getExtension() : String
+}
+
+Class FilePath {
++ value : String
+}
+
+Class EncryptedAt {
++ value : Date
+}
+
+Class ModifiedAt {
++ value : Date
+}
+
+Enum FileStatus {
+ACTIVE
+CORRUPTED
+MISSING
+}
+
+Class Tag {
++ tagName : String
+}
+
+Class ViewableFile {
+- content : T
+---
++ getContent() : T
+}
+
+Enum ViewableFileType {
+TEXT
+IMAGE
+PDF
+WORD
+}
+
+FileBook *--> "1" UniqueFileList
+UniqueFileList o--> "*" EncryptedFile
+EncryptedFile *--> "1" FileName
+EncryptedFile *--> "1" FilePath
+EncryptedFile *--> "1" FileStatus
+EncryptedFile *--> "0..1" EncryptedAt
+EncryptedFile *--> "0..1" ModifiedAt
+ViewableFile *--> "1" ViewableFileType
+EncryptedFile *-down-> "*" Tag
+ViewableFile --> "1" EncryptedFile
+
+show members
+
+skinparam classFontColor #FFFFFF
+skinparam classAttributeFontColor #FFFFFF
+skinparam classAttributeIconSize 0
+@enduml
