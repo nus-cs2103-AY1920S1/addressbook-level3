@@ -90,7 +90,7 @@ image::../images/calendarScreenshots/otherContributions.png[Other functionalitie
 
 {empty}
 
-To view my code in more detail, please click here: [https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar[Functional code]] [https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/test/java/seedu/address/calendar/model[Test code]]
+To view my code in more detail, please click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#sort=totalCommits%20dsc&groupSelect=groupByAuthors&search=&sortWithin=title&since=2019-09-06&until=2019-10-13&timeframe=commit&mergegroup=false&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=pohlinwei&tabRepo=AY1920S1-CS2103T-T17-2%2Fmain%5Bmaster%5D[here].
 
 == Other contributions
 
@@ -99,4 +99,24 @@ To view my code in more detail, please click here: [https://github.com/AY1920S1-
 -	reviewed pull request and provided suggestions for improvements (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/180[#180])
 -	managed the release of TravEzy version 1.1 and 1.2 
 -	made the user guide more reader-friendly (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/193[#193])
+
+= Contributions to User Guide 
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[]
+
+include::../UserGuide.adoc[]
+
+= Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[]
+
+include::../DeveloperGuide.adoc[]
 
