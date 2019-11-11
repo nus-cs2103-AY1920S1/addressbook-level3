@@ -135,7 +135,8 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
 
 |===
 |_Given below are extracts of sections I contributed to in the User Guide.
-They showcase my ability to write documentation targeting end-users._
+They showcase my ability to write documentation targeting end-users.
+_
 |===
 
 _[Start of extract from User Guide]_
@@ -161,6 +162,8 @@ include::../DeveloperGuide.adoc[tag=performance_overview]
 include::../DeveloperGuide.adoc[tag=performance_event]
 
 include::../DeveloperGuide.adoc[tag=performance_record]
+
+include::../DeveloperGuide.adoc[tag=performance_view]
 
 include::../DeveloperGuide.adoc[tag=performance_designconsiderations]
 
