@@ -27,7 +27,7 @@ Weme is a meme manager app for those who *prefer to use a desktop app for managi
 .  Copy the file to the folder you want to use as the home folder for your Weme.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-//image::Ui.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -103,6 +103,11 @@ Format: `tab TAB_NAME` +
 * *import*
 * *preferences*
 
+Illustration after switching to `templates` tab: +
+Command: `tab templates`
+
+image::Tab.png[width="790"]
+
 ==== Exiting the program : `exit`
 
 Exits Weme. +
@@ -117,11 +122,6 @@ Format: `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
 
 [TIP]
 A meme can have any number of tags (including 0). Tags can only contain letters and numbers and cannot exceed a length of 35 characters.
-
-Examples:
-
-* `add p//Users/Me/Downloads/dgirl_oof.jpg t/Funny` +
-Adds a meme with the image from `/Users/Me/Downloads/dgirl_oof.jpg` and tag `Funny`
 
 ****
 * The `PATH` argument can be either a relative path or an absolute path.
@@ -138,6 +138,22 @@ If you are using MacOS or *nix systems, both `/` s must be present if your path 
 If you are using Windows, your command might look something like `add p/C:/Users/Me/Downloads/dgirl_off.jpg` instead.
 * The path must lead to one of our supported image formats. (`.jpg`, `.png`, `.gif`)
 ****
+
+Example:
+
+* `add p//Users/Me/Downloads/dgirl_oof.jpg t/Funny` +
+Adds a meme with the image from `/Users/Me/Downloads/dgirl_oof.jpg` and tag `Funny`
+
+Illustration of adding a meme with description `Cat and child` and tags `baby` and `cuteCat`: +
+Command: `add p/pathToMeme d/Cat and child t/baby t/cuteCat`
+
+Before command:
+
+image::MemeAddCommand2.png[width="790"]
+After command:
+
+image::MemeAddCommand.png[width="790"]
+
 
 ==== Listing all memes: `list`
 
@@ -163,6 +179,15 @@ Edits the description of the 1st meme to be `Funny SoC Meme` and tags to be `fun
 * `edit 2 d/Random Meme t/` +
 Edits the description of the 2nd meme to be `Random Meme` and clears all existing tags.
 
+Illustration of editing the description of the meme at index 1 in the displayed list: +
+Command: `edit 1 d/doge doge doge`
+
+Before command:
+
+image::MemeEditCommand1.png[width="790"]
+After command:
+
+image::MemeEditCommand2.png[width="790"]
 ==== Finding a meme: `find`
 
 Finds all memes whose tags contain any of the specified keywords.
@@ -181,6 +206,17 @@ Examples:
 
 * `find pikachu` +
 Returns memes whose tags contain `pikachu`
+
+Illustration of finding memes with tag `cute`: +
+Command: `find cute`
+
+Before command:
+
+image::Ui.png[width="790"]
+
+After command:
+
+image::MemeFindCommand.png[width="790"]
 
 // tag::delete[]
 
@@ -586,6 +622,8 @@ edits the tags of a meme.
 // tag::command-suggestion[]
 === Command Suggestions
 
+Weme supports command suggestions and auto-completion using kbd:[tab] for every command available.
+****
 * Suggestions for command word/argument based on current user input will be displayed in the result box.
 * The auto-suggestion is dynamic and automatically updates while the user type in command.
 * The suggestions are retrieved from historical records and sorted according to the similarity to user input, with the first suggestion
@@ -597,20 +635,42 @@ the first suggestion displayed (if there is any).
 * If the user input is of invalid format, the text will turn red and error messages will be displayed in the result box
 immediately without pressing kbd:[Enter] key. This does not account for invalid values, e.g. input meme index is 5 but there is
 no meme of index 5.
+****
 
-Example 1: +
-When user types in `a` in the meme context, the following suggestions will appear: +
+Examples:
+
+* When user types in `a` in the meme tab, the following suggestions will appear: +
 `add: adds a meme to Weme. +
 archive: archive a meme by index. +
-archives: list all archived memes.` +
-If kbd:[Tab] is pressed, `a` in the command box will be replaced by `add`.
+archives: list all archived memes.`
 
-Example 2: +
-When user types in `add p/pathToMeme t/c`, the following suggestions will appear: +
+image::CommandPrompt1.png[width="790"]
+
+After pressing kbd:[Tab], `a` in the command box will be replaced by `add`.
+
+image::CommandPrompt2.png[width="790"]
+
+* When user types in `add p/pathToMeme t/c` in the memes tab, the following suggestions will appear: +
 `CS +
 cute +
-CS2103` +
-If kbd:[Tab] is pressed, `c` in the command box will be replaced by `CS`.
+csgg`
+
+image::CommandPrompt3.png[width="790"]
+
+After pressing kbd:[Tab], `c` in the command box will be replaced by `CS`.
+
+image::CommandPrompt4.png[width="790"]
+
+* When user types in `find doge joker funny cuuuuutie` in the memes tab, the following suggestions will appear: +
+`cute +
+CUTECATS +
+favorite`
+
+image::CommandPrompt5.png[width="790"]
+
+After pressing kbd:[Tab], `cuuuuutie` in the command box will be replaced by `cute`.
+
+image::CommandPrompt6.png[width="790"]
 
 // end::command-suggestion[]
 
