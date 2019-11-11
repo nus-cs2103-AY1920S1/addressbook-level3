@@ -7,8 +7,8 @@
 
 == Overview
 
-Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10+ kLoC.
+Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules all on one platform..
+The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10+ kLoC.
 
 == Summary of contributions
 
@@ -17,7 +17,7 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 ** Justification: This feature is a critical addition for sellers who have numerous schedules planned throughout the week. Without a visual representation of a calendar, it would be extremely non-user-friendly as sellers would have to check through their list of schedules and the timings one by one.
 ** Highlights: I designed a panel class to contain the third-party library for rendering events as a calendar. The class acts as a wrapper around the calendar and contains the logic for controlling the calendar.
 To make the application more user friendly, the application automatically switches to the calendar panel when any schedule commands are executed. This is to provide users a visual confirmation of the results of their command.
-** Credits: Used _JFXtras_ for Calendar Panel to render schedules visually.
+** Credits: Used a third party library http://jfxtras.org/doc/8.0/jfxtras-agenda/index.html[_JFXtras_] in Calendar Panel to render schedules visually.
 
 * *Other enhancement*:
 ** Schedule commands (Logic) to complement the calendar display.
@@ -26,7 +26,7 @@ To make the application more user friendly, the application automatically switch
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[RepoSense tP Code Dashboard]
 ** Functional Code
 *** Calendar GUI (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/105[#105])
-*** Logic: Basic CRUD + other Schedule commands (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])
+*** Logic: CRUD + other Schedule commands (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])
 *** Model (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162])
 ** Test Code
 *** Logic: Command and Parser tests (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/167[#167], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/265[#265])
