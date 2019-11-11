@@ -53,34 +53,44 @@ The overall color scheme of the application is a result of hours and hours of br
 successfully come up with color schemes for any theme selected by the user that is not only easy on the eyes, but also
 stylish in design.
 
-There are also a list of themes available which gives the user a sense of freedom where they are able to tweak how the
-application looks according to their own preferences. There is also custom theme available to suit the tastes of even
-the most demanding of users.
+I also added buttons on the menu pane that functions as the single-word commands such as `recommend` and `default`.
+These buttons function just like typing the commands on the Command Text Box and the icon for each button has been
+carefully selected from online database of icons to perfectly match its function.
 
 ==== Justification
 
-The look of the app is the first thing that users see when starting up the application. By having a expertly
+The look of the app is the first thing that users see when starting up the application. By having an expertly
 designed UI, the user will feel more at ease when using the app as it gives a sense of overall professionalism.
 
 The reasoning behind adding enhancements to the UI components such as statistics tab and wallet section is to make
 the app more convenient to the user. By adding such displays, the user will no longer have to type on the command line
 just to get the statistics that they desire. Even the most experienced of keyboard users will definitely not want to
-constantly type commands just for a bunch if information that could have been easily displayed on the screen.
+constantly type commands just for a bunch of information that could have been easily displayed on the screen.
 
 The themes are added so that the users are able to easily modify how the app look to their likings. Due to our team's
 foresight and forward-thinking nature, we thought that it would be much more accommodating to the user. Imagine having
 to stare at the same application for hours on end without being able to change the look of the application at all,
 which is why it is important to have themes.
 
+The buttons are added to improve the user's convenience as most single-word commands like `recommend` are done by
+typing the command word into the Command Text Box. By being able to use the command just by clicking the button, it
+would greatly save the user's time. This also allows the app to accommodate the different type of users, where some
+might prefer mouse over keyboard, and vice versa.
+
 ==== Highlights
 
-As of now, this feature does not have any CLI implementation as I prioritise being able to display the features first.
+The UI features such as `theme` has been implemented to work with Command Line Interface. For example, `theme dark` will
+change the application's theme to Dark theme. This is to enhance the clickable theme button and also to give users the
+freedom of choice.
 
 A menu tab has been created on the left side of the application with a variety of buttons available such as help menu,
-and theme button which allow user to know what they can do before even reading the user guide.
+and theme button with tooltip that appears when user hovers over the button. This is to give a brief outline to the
+users on what the application is capable of doing.
 
 The `MainWindow` has been meticulously modified and tweaked to make the application look more professional and
-numerous bug fixes were done to allow most laptop to open the application without any problems.
+numerous bug fixes were done to allow most laptop to open the application without any problems. The application used
+to have problems with smaller laptop screens due to the size of the UI but I have managed to tweak the UI to suit
+reasonably small screens.
 
 === Minor enhancement: Information Features
 
@@ -102,6 +112,10 @@ enable the `HelpWindow` to automatically open up the user guide using the system
 Firstly, the `info` command is implemented to give users a better understanding of how the application works. The
 information listed for the commands are written as detailed as possible without over-using technical terms. This works
 like an in-built user-guide, hence improving convenience.
+
+The `info` command does not require internet connection as everything is manually typed by the developers and is
+integrated into the application. This is so help those users who do not have internet connection but would still want
+to know more about various commands.
 
 Secondly, the enhanced `help` command is done so as to provide users with more convenience. The list of commands is to
 allow users to easily find out the features that the app can provide without having to look through the entire user
@@ -141,25 +155,23 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/pull/177[#177]]
 
 ** Organized mini project milestones [Examples: https://github.com/AY1920S1-CS2103T-F13-2/main/issues/228[#228]]
 
-** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/221[#221]]
+** Fixed bugs after they were found [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/317[#317]]
 
 * Documentation:
 
-** Updated the User Guide
-
-*** Updated README and badges [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/116[#116]]
-
-*** Updated the UI screenshots
-
-*** Provided sample screenshots for any UI changes
+** Updated the User Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/315[#315]]
 
 ** Updated the Developer Guide
 
-*** Updated UI section of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/190[#190]]
+*** Updated UI section of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/198[#198]]
+
+*** Updated Info feature of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/323[#323]]
+
+*** Updated Theme feature of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/333[#333]]
 
 == Contributions to the User Guide
 
-This section shows the contributions that I have made to the sorting feature of the User Guide.
+This section shows the contributions that I have made to the general feature of the User Guide.
 
 include::../UserGuide.adoc[tag=roby1]
 
