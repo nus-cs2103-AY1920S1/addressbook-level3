@@ -38,6 +38,8 @@ public class DeckStatisticsWindow extends ScrollPane {
     @FXML
     private Label sessionsThisWeekExplainer;
     @FXML
+    private Label averageScore;
+    @FXML
     private ScrollPane testSessionsScrollPane;
     @FXML
     private TableView<Session> testSessionsTableView;
@@ -94,5 +96,7 @@ public class DeckStatisticsWindow extends ScrollPane {
             return;
         }
         totalDuration.setText("Total test duration: " + duration);
+
+        this.averageScore.setText(deck.getAverageScore());
     }
 }
