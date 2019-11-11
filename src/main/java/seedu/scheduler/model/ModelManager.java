@@ -30,7 +30,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.scheduler.commons.core.GuiSettings;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.commons.exceptions.ScheduleException;
-import seedu.scheduler.model.person.Department;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
@@ -55,7 +54,7 @@ public class ModelManager implements Model {
     private final IntervieweeList intervieweeList; // functionality not stable, refrain from using
     private final InterviewerList interviewerList;
     private final FilteredList<Interviewee> filteredInterviewees; // if we want to display all interviewees on UI
-    private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all inteviewers on UI
+    private final FilteredList<Interviewer> filteredInterviewers; // if we want to display all interviewers on UI
 
     private RefreshListener refreshListener;
     private TabListener tabListener;
@@ -82,7 +81,7 @@ public class ModelManager implements Model {
 
         this.userPrefs = new UserPrefs(userPrefs);
         this.appStatus = AppStatus.getInstance();
-        this.updateScheduleList();
+        this.resetSchedulesList();
     }
 
     public ModelManager() {
@@ -99,6 +98,7 @@ public class ModelManager implements Model {
     public boolean isScheduled() {
         return this.appStatus.isScheduled();
     }
+
 
     // ================================== IntervieweeList and InterviewerList ======================================
 
@@ -139,6 +139,7 @@ public class ModelManager implements Model {
     @Override
     public void addInterviewee(Interviewee interviewee) {
         intervieweeList.addEntity(interviewee);
+        this.resetScheduledResult();
     }
 
     @Override
@@ -174,7 +175,7 @@ public class ModelManager implements Model {
     @Override
     public void addInterviewer(Interviewer interviewer) {
         interviewerList.addEntity(interviewer);
-        this.updateScheduleList();
+        this.resetScheduledResult();
     }
 
     /**
@@ -248,24 +249,25 @@ public class ModelManager implements Model {
     @Override
     public void deleteInterviewee(Interviewee target) throws PersonNotFoundException {
         intervieweeList.removeEntity(target);
-        this.updateScheduleList();
+        this.resetScheduledResult();
     }
 
     @Override
     public void deleteInterviewer(Interviewer target) throws PersonNotFoundException {
         interviewerList.removeEntity(target);
-        this.updateScheduleList();
+        this.resetScheduledResult();
     }
 
     @Override
     public void setInterviewee(Interviewee target, Interviewee editedTarget) throws PersonNotFoundException {
         intervieweeList.setEntity(target, editedTarget);
+        this.resetScheduledResult();
     }
 
     @Override
     public void setInterviewer(Interviewer target, Interviewer editedTarget) throws PersonNotFoundException {
         interviewerList.setEntity(target, editedTarget);
-        this.updateScheduleList();
+        this.resetScheduledResult();
     }
 
 
@@ -355,8 +357,8 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Generates an empty schedule list from the current interviewer list. Used to generate GUI after user imports data
-     * and also before the user runs a schedule command.
+     * Generates an empty schedule list from the current interviewer list. Used to generate GUI after user modifies data
+     * in InterviewerList, before the user runs a schedule command.
      *
      * @return ArrayList of {@Code Schedule}
      * @throws ParseException when timings are not of HH:mm format
@@ -375,12 +377,7 @@ public class ModelManager implements Model {
                 dates.add(date);
             }
         }
-        ArrayList<String> headers = new ArrayList<>();
-        for (Interviewer interviewer: listOfInterviewers) {
-            Name name = interviewer.getName();
-            Department department = interviewer.getDepartment();
-            headers.add(stringifyHeadersForTable(name, department));
-        }
+        ArrayList<String> headers = interviewerList.getTitlesForSchedule();
         ArrayList<String> datesList = new ArrayList<>(dates);
         datesList.sort(new DateComparator()); //sorts the dates in ascending order
         for (String date: datesList) {
@@ -445,16 +442,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Static method to combine name and department into one string used for headers.
-     * @param name
-     * @param department
-     * @return Header as String
-     */
-    public static String stringifyHeadersForTable(Name name, Department department) {
-        return department.toString() + " - " + name.toString();
-    }
-
-    /**
      * Replaces schedule data with the data in {@code schedule}.
      * @param list
      */
@@ -486,19 +473,6 @@ public class ModelManager implements Model {
     public void scheduleTabChange() {
         if (tabListener != null) {
             tabListener.changeTabSchedule();
-        }
-    }
-
-    /**
-     * Updates schedule list with an empty schedule list.
-     */
-    public void updateScheduleList() {
-        try {
-            this.setEmptyScheduleList();
-            List<Schedule> schedules = this.getEmptyScheduleList();
-            this.setSchedulesList(schedules);
-        } catch (ParseException e) {
-            logger.log(Level.WARNING, "Should not have exceptions");
         }
     }
 
@@ -543,6 +517,30 @@ public class ModelManager implements Model {
             titlesLists.add(schedule.getTitles());
         }
         return titlesLists;
+    }
+
+    @Override
+    public void resetScheduledResult() {
+        // Clear all allocated slots
+        this.intervieweeList.clearAllAllocatedSlots();
+        this.interviewerList.clearAllAllocatedSlots();
+
+        // Clear the interviewees from the schedule
+        this.resetSchedulesList();
+    }
+
+    /**
+     * Resets the schedules in the schedule list to empty schedule, i.e. the schedule only reflects the interviewers'
+     * availability and the scheduled result is cleared.
+     */
+    private void resetSchedulesList() {
+        try {
+            this.setEmptyScheduleList();
+            List<Schedule> schedules = this.getEmptyScheduleList();
+            this.setSchedulesList(schedules);
+        } catch (ParseException e) {
+            logger.log(Level.WARNING, "Should not have exceptions");
+        }
     }
 
     @Override
@@ -600,19 +598,6 @@ public class ModelManager implements Model {
     }
 
     // ===========================================================================================================
-
-    @Override
-    public void resetDataBeforeScheduling() {
-        // Clear all allocated slots
-        this.intervieweeList.clearAllAllocatedSlots();
-        this.interviewerList.clearAllAllocatedSlots();
-
-        // Clear the interviewees from the schedule
-        for (Schedule schedule : schedulesList) {
-            schedule.clearAllocatedInterviewees();
-        }
-    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

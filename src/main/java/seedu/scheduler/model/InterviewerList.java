@@ -3,11 +3,13 @@ package seedu.scheduler.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.scheduler.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
 
+import seedu.scheduler.model.person.Department;
 import seedu.scheduler.model.person.Interviewer;
 import seedu.scheduler.model.person.Name;
 import seedu.scheduler.model.person.UniquePersonList;
@@ -94,6 +96,30 @@ public class InterviewerList implements ReadAndWriteList<Interviewer> {
      */
     public void clearAllAllocatedSlots() {
         this.interviewers.forEach(Interviewer::clearAllocatedSlots);
+    }
+
+    /**
+     * Returns a string of interviewers in the format "DEPARTMENT - NAME" to be the headers for a schedule object.
+     * @return headers
+     */
+    public ArrayList<String> getTitlesForSchedule() {
+        ArrayList<String> titles = new ArrayList<>();
+        for (Interviewer interviewer: interviewers) {
+            Name name = interviewer.getName();
+            Department department = interviewer.getDepartment();
+            titles.add(stringifyHeadersForTable(name, department));
+        }
+        return titles;
+    }
+
+    /**
+     * Static method to combine name and department into one string used for headers.
+     * @param name
+     * @param department
+     * @return Header as String
+     */
+    public static String stringifyHeadersForTable(Name name, Department department) {
+        return department.toString() + " - " + name.toString();
     }
 
     @Override

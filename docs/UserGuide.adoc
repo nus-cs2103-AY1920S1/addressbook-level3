@@ -131,8 +131,8 @@ Each time slot that an interviewer or interviewee indicates, must be strictly of
 *Default values:* +
 `duration`: 30
 
-WARNING: When adding interviewees or interviewers manually into Scheduler, the `TIMESLOT` input provided must have a duration (in minutes) that matches `duration`.
-In addition, the `TIMESLOT` indicated must also strictly follow the start and end times of each time slot. Refer to the example below for a clearer idea.
+WARNING: When adding interviewees or interviewers manually into Scheduler, the timeslots provided must have a duration (in minutes) that matches `duration`.
+In addition, the timeslots indicated must also strictly follow the start and end times of each time slot. Refer to the example below for a clearer idea.
 
 Example:
 
@@ -148,10 +148,11 @@ Result:
  10:00-10:30, 10:30-11:00, 11:00-11:30, .... , 20:00-20:30, 20:30-21:00
  //Timeslots are 30min intervals from 10:00 (startTime) to 21:00 (endTime)
 
-As seen in the example above, each timeslot are 30min intervals from the start and end times of the Working Hours (10:00 to 21:00).
-The indicated timeslots for interviewer/interviewee has to be one of these timeslots, e.g. 10:30-11:00, and *cannot be* any other values, e.g. 10:40-11:05.
-*Failure to do so will result in an inaccurate display of schedules.*
+As seen in the example above, timeslots are *unique* 30min intervals from the start to the end time of the Working Hours (10:00 to 21:00).
+There is no overlap between timeslots. If the indicated duration is not divisible by the Working Hours, the last timeslot generated will be before the end time indicated.
 
+IMPORTANT: The indicated timeslots, in adding or importing interviewers/interviewees, has to be one of these unique timeslots and *cannot take* any other values.
+*Failure to do so will result in an inaccurate display of schedules.*
 
 
 [[Features]]
@@ -176,14 +177,17 @@ The indicated timeslots for interviewer/interviewee has to be one of these times
 Shows helpful information on using this software.
 Format: `help`
 
+//tag::import
 === Importing existing availabilities `import`
-The to-be-imported interviewer availability and interviewee details .csv file needs to follow the format as the templates below.
+2 types of data can be imported - interviewers' availabilities and interviewees' details.
+Both of these details needs to be in CSV format and must follow the format given in the templates below.
+These templates were adapted versions of NUSync's interview sign up excel sheets.
 The templates for the import commands can be found here:
 
-* Interviewer availability: http://bit.ly/interviewerTemplate
-* Interviewees details: http://bit.ly/intervieweeDetails
+* Interviewers' availability: http://bit.ly/interviewerTemplate
+* Interviewees' details: http://bit.ly/intervieweeDetails
 
-TIP: If you wish to import a new set of data of the same type, we strongly recommend that you use the <<Clear, Clear>> command to clear pre-existing data before re-importing newer data.
+TIP: If you wish to import a new set of data of the same type, we strongly recommend that you use the <<Clear all data `clear`, Clear>> command to clear pre-existing data before re-importing newer data.
 This is because Scheduler does not allow duplicate persons, for both interviewer and interviewee. Unless you are very certain that the
 the second import does not contain any duplicate data, we would suggest that you run the 'clear' command beforehand.
 
@@ -200,14 +204,16 @@ NOTE: The schedule displayed will only show timeslots within the <<Working Hours
 
 Key formatting information for Interviewer's Data:
 
-* The first column of each day's schedule will consist of the timeslots for that day.
-* Each timeslot should also be in the format `HH:mm - HH:mm`.
-* The very first header at the top left-hand corner should indicate the day of the schedule. The subsequent headers should indicate the interviewers in the format `DEPARTMENT - INTERVIEWER'S_NAME`.
-* A "1" in a timeslot represents that the interviewer in that column is *available* and "0" represents that he/she is *unavailable*.
-* Separation of different days of schedules is made by leaving 2 empty lines after the end of the first table.
+image::InterviewerData.png[]
 
-Format of command: `import interviewer fp/PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
+* 1. The first column of each day's schedule will consist of the timeslots for that day.
+* 2. Each timeslot should also be in the format `HH:mm - HH:mm`.
+* 3. The very first header at the top left-hand corner should indicate the day of the schedule. The subsequent headers should indicate the interviewers in the format `DEPARTMENT - INTERVIEWER'S_NAME`.
+* 4. A "1" in a timeslot represents that the interviewer in that column is *available* and "0" represents that he/she is *unavailable* for that particular timeslot.
+* 5. Separation of different days of schedules is made by leaving 2 empty lines after the end of the first table.
+
+Format of command: `import interviewer fp/FILE_PATH` +
+    - FILE_PATH needs to be of .csv extension +
     - E.g. C:\\Users\Bob\file.csv
 
 Example:
@@ -228,12 +234,11 @@ NOTE: There will be no changes in the schedules tab after the import of intervie
 Key formatting information for Interviewee's Data:
 
 * Headers specify the details of the Interviewee to be imported. The order of the headers must be strictly followed as shown in the above template.
-* Emails: Adding more than 1 personal or work email is allowed. Use whitespaces to separate each email.
 * Timeslots: Each timeslot should be in the format `dd/MM/yyy HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 * There can only be 1 unique value for all other fields. Commas should not be used in these fields.
 
-Format: `import interviewee fp/PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
+Format: `import interviewee fp/FILE_PATH` +
+    - FILE_PATH needs to be of .csv extension. +
     - E.g C:\\Users\Bob\file.csv
 
 Example:
@@ -245,6 +250,18 @@ Constraints:
 * Timeslots must obey the allowed values that are specified in the <<User Preferences, User Preferences>>.
 * Duplicate entries of the same interviewee cannot be presented in the CSV file to be imported.
 
+// end::import
+
+// tag::clear
+=== Clear all data `clear`
+Clears both interviewee and interviewer data in Scheduler. Will not remove user preferences.
+
+Format: `clear`
+
+WARNING: Data erased cannot be undone!
+//end::clear
+
+=======
 === UI Display
 
 ==== Display Schedules
@@ -594,14 +611,58 @@ Notes:
 
 // end::delete[]
 
-// tag::clear[]
+// tag::UiDisplay[]
 
-=== Clear all interviewees/interviewers `clear`
-Clears all interviewees, interviewers and schedules from Scheduler.
+=== UI Display
 
-Format: `clear`
+==== Display Schedules
+Display multiple tables that consist information of the schedules generated in a day format. The columns will show the date of the schedule followed by
+the interviewers and their respective departments. The rows consists of the time slots as well as names of the interviewee.
 
-// end::clear[]
+Format: `display schedule`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Schedules tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
+
+==== Display Interviewee
+Display information of the interviewees in a table format.
+
+Format: `display interviewee`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Interviewee tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
+
+==== Display Interviewer
+Display information of the interviewers in a table format.
+
+Format: `display interviewer`
+
+Notes:
+* You are also able to toggle to display schedule by clicking on the Interviewer tab.
+
+====
+
+Constraints:
+
+* The command must be exactly the same as the format.
+
+====
 
 ==== Differentiating the importance of timetable slots through colours `[Coming in v2.0]`
 To edit time slots and change their colour so to show the importance of that slots.
@@ -610,6 +671,17 @@ There are 3 importance: Low, Medium and High.
 Format: `change s/SLOT IMPORTANCE`
 
 Example: `change s/17/10/2019 13:00-14:00 medium`
+
+// end::UiDisplay[]
+
+// tag::clear[]
+
+=== Clear all interviewees/interviewers `clear`
+Clears all interviewees, interviewers and schedules from Scheduler.
+
+Format: `clear`
+
+// end::clear[]
 
 === Get interview schedule `get` `[Coming in v2.0]`
 Find an interviewer/interviewee and display his/her interview schedule.
@@ -629,6 +701,76 @@ User will also be able to filter by tags.
 
 Format: `filter tag TAG_NAME`
 
+// tag::schedule[]
+
+=== Scheduling `schedule`
+==== Schedule the interviews
+Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
+their choice of department.
+
+Format: `schedule`
+
+[NOTE]
+To ensure that the displayed scheduling result is always updated with the latest database of interviewers and interviewees,
+add/delete/edit of interviewee or interviewer will remove the scheduling result, hence you will need to type `schedule` again.
+
+// end::schedule[]
+
+=== Exporting of interview schedule `export`
+Exports the allocated interview schedule timetable to the specified comma separated values (CSV) file.
+
+Format: `export fp/FILE_PATH`
+
+* PATH_TO_FILE is the absolute path to the file.
+* E.g C:\\Users\Bob\file.csv
+
+NOTE: If `FILE_PATH` is a valid .csv file but does not exist, it will be created in the specified path.
+
+Example:
+
+ export fp/C:\Users\johndoe\schedules.csv
+
+Exported data format:
+
+* The exported data will follow the format of the schedules in 'schedules' tab.
+* Each schedule (table) will be separated from the previous with 2 empty lines.
+* Timeslots with "0" indicates that the interviewer is not available for the timeslot.
+Timeslots with "1" indicates that it is an available slot that has not been filled up by an interviewee.
+* Csv file can be converted into an excel file by following this guide - https://www.ablebits.com/office-addins-blog/2014/05/01/convert-csv-excel/.
+
+Constraints:
+
+* This command requires the interview schedule to be generated first.
+* Although the specified filepath does not need to exist, it needs to be of .csv extension.
+
+WARNING: The exported data will erase and replace all pre-existing data in the specified file.
+
+// tag::email[]
+
+=== Sending of email `email`
+==== Sending of interview time slot to interviewee
+Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.
+
+Format: `email ct/timeslot n/INTERVIEWEE NAME`
+
+Notes:
+
+* The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Sending of interview time slot to all interviewees
+Opens an email dialog containing the interviewee's allocated interview time slot to every interviewee, including other details such as the interviewer and location. A summary report is then generated at the end of the command execution.
+
+Format: `email ct/alltimeslot`
+
+Notes:
+
+* The email dialog will only appear if the interviewee’s email is present in the database and that the interview schedule has already been generated.
+
+==== Checking status of emails sent
+Provides a summary report of the number of interviewees with emails sent and the total number of interviewees stored in the database.
+
+Format: `email ct/status`
+
 ==== Sending of interview results to an interviewee `[Coming in v2.0]`
 Opens an email dialog containing the interviewee’s result/interview outcome and other details that you might want to include.
 
@@ -646,7 +788,8 @@ Format: `email ct/allresults`
 Note:
 
 * The email dialog will only appear if the interviewee's email is present in the database and the interview results has been updated.
-// end::email
+
+// end::email[]
 
 === Recording of additional statuses: `record` `[Coming in v2.0]`
 ==== Recording of interviewee’s attendance

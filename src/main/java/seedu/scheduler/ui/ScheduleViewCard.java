@@ -20,4 +20,21 @@ public class ScheduleViewCard extends UiPart<Region> {
         this.schedule = schedule;
         scheduleViewPane.getChildren().setAll(schedule.getRoot());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+        // instanceof handles nulls
+        if (!(other instanceof ScheduleViewCard)) {
+            return false;
+        }
+
+        // state check
+        ScheduleViewCard card = (ScheduleViewCard) other;
+        return schedule.equals(card.schedule);
+    }
 }
+

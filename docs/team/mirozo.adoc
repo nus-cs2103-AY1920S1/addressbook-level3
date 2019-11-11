@@ -15,17 +15,34 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Summary of contributions
 
-* *Major enhancement*: Import and Export command
-** What it does:
-** Justification:
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancements*:
+** *Added the ability to import both interviewer's data and interviewee's data.*
+*** What it does: Allows the user to conveniently import all interviewers and interviewees data, consisting of
+their personal details, as well as, their availabilities.
+*** Justification: It is incredibly tedious for the user to make use of the 'add' command to manually add each interviewer and interviewee into Scheduler.
+Hence, the automation of this process, which is to import data, is absolutely necessary. It also allows the user to conveniently make changes
+in the raw data (CSV file) which allows the flexibility of using formatting tools or automation (VBA) in Microsoft Excel, rather than manually edit the entries
+in the application.
+*** Highlights: Implementing this feature requires a good understanding of the model and the 'add' feature as it builds upon it.
+String processing of the imported data was also tedious and very prone to bugs due to many formatting issues that could happen.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *Added the ability to export schedules.*
+*** What it does: Allows the user to conveniently export the scheduled interview timetables.
+*** Justification: Exporting these schedules to an external file allows the flexibility of sharing these timetables
+with colleagues/interviewers. It also allows the user to use third party applications (Excel) to touch-up/re-format the data.
+ Most importantly, it frees Scheduler of the need to hold the current schedules so that it can be used again to schedule other interviews.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*:
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mirozo&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mirozo&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
+** Designed a way to update Schedules by re-generating the list of schedules solely from a given list of Interviewers. This is the
+backbone for the integration between UI and Model after the execution commands that modifies the model e.g. `add`, `delete`,
+`edit`, `import` and `clear` commands. The subsequent schedule command's integration with UI also builds upon this method.
+Look at section "Updating Schedule List" in Developer's Guide for a better idea of the above.
+** Implemented responsive UI for `add`, `delete`, `edit`, `import` and `clear` commands, together with team mate Yau Dong.
+
 
 ** Project management:
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub

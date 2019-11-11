@@ -9,31 +9,35 @@
 
 == Overview
 
-Scheduler is a desktop application which is used to automate the process of scheduling interviews.
-Its main feature is matching interviewees with interview time slots to generate an interview timetable.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+In many student clubs or even in the corporate world, there are many instances in which the organisation needs to match interviewers with interviewees, especially during times of mass recruitment. Scheduler is a desktop application that was conceived to automate this laborious process of scheduling interviews and to minimise human errors in the scheduing process.
+
+The main feature of Scheduler is to match interviewees with the available time slots of interviewers, so as to generate an overall interview timetable for all interviewees and interviewers. The user is able to interact with the application using a command-line interface (CLI), and it also comes with a graphical user interface (GUI) created using JavaFX. It is written in Java and has about 10 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement*: Added *the ability to automatically generate email*
-** What it does: It allows the user to automatically generate the email to be used for sending to an interviewee. The email will be populated with information such as the allocated time slot and another content that can be configured as part of the user preferences.
+** What it does: It allows the user to automatically generate the email to be used for sending to an interviewee after the interview scheduling process has been completed. The email will be populated with information such as the allocated time slot and another content that can be configured as part of the user preferences.
 ** Justification: This feature drastically improves the efficiency of the user as it is extremely tedious to extract out each interviewee's email and allocated time slot and manually crafting a unique message to each interviewee after the interview allocation is completed.
 ** Highlights: A significant portion of the Storage to disk had to be redesigned in order to accommodate the deviation of the program's original architecture of being an Address Book into something that is able to hold different categories of people.
 ** Credits: _None_
 
-* *Minor enhancement*: Restructured the program's Model to accommodate the change in the program's architecture and integrated with changes from other aspects of the program.
+* *Minor enhancement*: Restructured the program's Model and Storage to accommodate the change in the program's architecture and integrated with changes from other aspects of the program.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=dcshzj[Functional code]]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=dcshzj[Functional & Test code]
 
 * *Other contributions*:
 
 ** Project management:
 *** Ensuring that the team is keeping up with weekly progress to ensure almost 100% of the tasks for each milestone is hit.
+*** Managed the allocation of issues and PRs to corresponding milestones and the triaging of issues reported.
 ** Enhancements to existing features:
+*** Expanded the functionality of the user preferences storage to allow for the customisation of the email message body sent to interviewees (Pull request https://github.com/AY1920S1-CS2103-F09-1/main/pull/107[#107])
+*** Developed unit tests for various aspects of the codebase to bring the code coverage from 70% to 80%. (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/158[#158] https://github.com/AY1920S1-CS2103-F09-1/main/pull/168[#168] https://github.com/AY1920S1-CS2103-F09-1/main/pull/172[#172] https://github.com/AY1920S1-CS2103-F09-1/main/pull/180[#180] https://github.com/AY1920S1-CS2103-F09-1/main/pull/184[#184])
 *** Designed and developed integration tests to ensure compatibility among different aspects of the program.
 ** Documentation:
+*** Documented the use of the email feature in both the user and developer guide (Pull requests https://github.com/AY1920S1-CS2103-F09-1/main/pull/34[#34] https://github.com/AY1920S1-CS2103-F09-1/main/pull/77[#77] https://github.com/AY1920S1-CS2103-F09-1/main/pull/100[#100])
 ** Community:
-** Tools:
+*** PRs reviewed: https://github.com/AY1920S1-CS2103-F09-1/main/pull/61[#61] https://github.com/AY1920S1-CS2103-F09-1/main/pull/88[#88] https://github.com/AY1920S1-CS2103-F09-1/main/pull/90[#90] https://github.com/AY1920S1-CS2103-F09-1/main/pull/95[#95] https://github.com/AY1920S1-CS2103-F09-1/main/pull/150[#150] https://github.com/AY1920S1-CS2103-F09-1/main/pull/152[#152] https://github.com/AY1920S1-CS2103-F09-1/main/pull/167[#167] https://github.com/AY1920S1-CS2103-F09-1/main/pull/176[#176] https://github.com/AY1920S1-CS2103-F09-1/main/pull/179[#179] https://github.com/AY1920S1-CS2103-F09-1/main/pull/181[#181]
 
 == Contributions to the User Guide
 |===

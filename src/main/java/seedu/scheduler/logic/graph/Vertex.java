@@ -29,6 +29,10 @@ public abstract class Vertex<U, V> {
         return this.partner != null;
     }
 
+    public boolean isMatchedTo(Vertex v) {
+        return this.partner == v;
+    }
+
     public int getIndex() {
         return index;
     }

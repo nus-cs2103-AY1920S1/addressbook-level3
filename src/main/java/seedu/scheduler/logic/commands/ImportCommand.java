@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import seedu.scheduler.commons.core.LogsCenter;
 import seedu.scheduler.logic.commands.exceptions.CommandException;
 import seedu.scheduler.model.FilePath;
+import seedu.scheduler.model.IntervieweeList;
+import seedu.scheduler.model.InterviewerList;
 import seedu.scheduler.model.Model;
 import seedu.scheduler.model.person.Interviewee;
 import seedu.scheduler.model.person.Interviewer;
@@ -62,6 +65,7 @@ public class ImportCommand extends Command {
                 ArrayList<Interviewer> interviewers = csvReader.readInterviewers();
                 logger.log(Level.INFO, "Finished reading .csv file");
                 logger.log(Level.INFO, stringifyInterviewers(interviewers));
+                checkForDuplicateInterviewerEntries(interviewers, model.getUnfilteredInterviewerList());
                 for (Interviewer interviewer: interviewers) {
                     model.addInterviewer(interviewer);
                 }
@@ -73,6 +77,7 @@ public class ImportCommand extends Command {
                 ArrayList<Interviewee> interviewees = csvReader.readInterviewees();
                 logger.log(Level.INFO, "Finished reading .csv file");
                 logger.log(Level.INFO, stringifyInterviewees(interviewees));
+                checkForDuplicateIntervieweeEntries(interviewees, model.getUnfilteredIntervieweeList());
                 for (Interviewee interviewee: interviewees) {
                     model.addInterviewee(interviewee);
                 }
@@ -120,6 +125,42 @@ public class ImportCommand extends Command {
             resultBuilder.append("\n");
         }
         return resultBuilder.toString();
+    }
+
+    /**
+     * Checks imported list of interviewers for duplicate entries by comparing them with the pre-existing list.
+     * @param interviewers Imported list of interviewers
+     * @param modelList Current list of interviewers in the model
+     * @throws DuplicatePersonException when there is a duplicate entry
+     */
+    public static void checkForDuplicateInterviewerEntries(ArrayList<Interviewer> interviewers,
+            ObservableList<Interviewer> modelList)
+            throws DuplicatePersonException {
+        InterviewerList interviewerList = new InterviewerList();
+        for (Interviewer interviewer: modelList) {
+            interviewerList.addEntity(interviewer);
+        }
+        for (Interviewer interviewer: interviewers) {
+            interviewerList.addEntity(interviewer);
+        }
+    }
+
+    /**
+     * Checks imported list of interviewees for duplicate entries by comparing them with the pre-existing list.
+     * @param interviewees Imported list of interviewers
+     * @param modelList Current list of interviewees in the model
+     * @throws DuplicatePersonException when there is a duplicate entry
+     */
+    public static void checkForDuplicateIntervieweeEntries(ArrayList<Interviewee> interviewees,
+            ObservableList<Interviewee> modelList)
+            throws DuplicatePersonException {
+        IntervieweeList intervieweeList = new IntervieweeList();
+        for (Interviewee interviewee: modelList) {
+            intervieweeList.addEntity(interviewee);
+        }
+        for (Interviewee interviewee: interviewees) {
+            intervieweeList.addEntity(interviewee);
+        }
     }
 
     @Override

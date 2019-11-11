@@ -12,6 +12,7 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class AppStatus
 
 Package Person {
 Class Interviewee
@@ -30,6 +31,11 @@ Class Tag
 }
 }
 
+Package Ui {
+Class RefreshListener UI_COLOR_T1
+Class TabListener UI_COLOR_T1
+}
+
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
@@ -37,10 +43,15 @@ HiddenOutside ..> Model
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "*" Interviewee
-ModelManager o-left-> "1" UserPrefs
-ModelManager o-right-> "1..*" Schedule
+ModelManager o-left-> "1" AppStatus
+ModelManager o-left> "1" UserPrefs
+ModelManager o-right> "1..*" Schedule
+ModelManager o--> RefreshListener
+ModelManager o--> TabListener
 UserPrefs .up.|> ReadOnlyUserPrefs
+UserPrefs -[hidden]down-> UserPrefs
 
+Ui -[hidden]-> Model
 Interviewee *---> Name
 Interviewee *---> Phone
 Interviewee *---> Emails

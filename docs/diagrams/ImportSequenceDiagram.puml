@@ -57,6 +57,9 @@ activate CsvReader
 CsvReader --> ImportCommand : interviewers
 deactivate CsvReader
 
+ImportCommand -[hidden]-> CsvReader
+destroy CsvReader
+
 loop interviewer in interviewers
 
     ImportCommand -> Model : addInterviewer(interviewer)
@@ -74,6 +77,9 @@ activate CommandResult
 
 CommandResult --> ImportCommand : result
 deactivate CommandResult
+
+ImportCommand -[hidden]-> CommandResult
+destroy CommandResult
 
 ImportCommand --> LogicManager : result
 deactivate ImportCommand

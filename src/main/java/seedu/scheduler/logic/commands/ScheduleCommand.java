@@ -45,7 +45,7 @@ public class ScheduleCommand extends Command {
             feedback = NO_MATCHING_FOUND;
         } else {
             if (model.isScheduled()) {
-                model.resetDataBeforeScheduling();
+                model.resetScheduledResult();
             }
 
             List<Interviewer> interviewers = new ArrayList<>(model.getUnfilteredInterviewerList());
@@ -125,10 +125,10 @@ public class ScheduleCommand extends Command {
                 maxMatching = currNumMatching;
             }
 
-            model.resetDataBeforeScheduling();
+            model.resetScheduledResult();
         }
 
-        model.resetDataBeforeScheduling();
+        model.resetScheduledResult();
 
         return optimumGraph;
     }

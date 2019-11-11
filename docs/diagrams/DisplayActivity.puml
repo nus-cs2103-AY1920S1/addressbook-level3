@@ -9,20 +9,23 @@ start
 'diamond are used instead.
 
 
-if ()then ([arguments matches "interviewee"])
+if () then ([arguments valid])
+    if () then ([arguments is "interviewee"])
     :signal TabListener;
-- TabListener signals Main Window
-- Main Window display interviewee tab
-else if () then ([arguments matches "interviewer"])
-    :display interviewer tab;
     - TabListener signals Main Window
-    - Main Window display interviewer tab
-else if () then ([arguments matches "schedule"])
-:display schedule tab;
-- TabListener signals Main Window
-- Main Window display schedule tab
-else ([else])
-:throw invalid command exception;
+    - Main Window display interviewee tab
+    else if () then ([arguments is "interviewer"])
+    :signal TabListener;
+        - TabListener signals Main Window
+        - Main Window display interviewer tab
+    else if () then ([arguments is "schedule"])
+    :display schedule tab;
+    - TabListener signals Main Window
+    - Main Window display schedule tab
+    endif
+else ([arguments invalid])
+    : throw invalid command exception;
+    - display invalid command to user
 endif
 stop
 @end uml
