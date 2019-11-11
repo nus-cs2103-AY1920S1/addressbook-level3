@@ -231,6 +231,7 @@ image::EditCommandSequenceDiagram.png[]
 ** Pros: Will use less memory
 ** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
 // end::edit[]
+// tag::autocorrect[]
 === Autocorrect feature
 
 Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.
@@ -299,7 +300,7 @@ The sequence diagram below shows the interaction with the Logic components as de
 
 image::ListCommandSequenceDiagram.png[]
 // end::list[]
-// tag::Mark Attendance Feature[]
+// tag::MarkAttendanceFeature[]
 === Mark Attendance feature
 
 The `MarkAttendance` command lets T.A.rence mark the attendance of a specified student in a tutorial.
@@ -333,7 +334,7 @@ The sequence diagram below shows the interaction between the Logic componenents 
 image::MarkAttendanceSequenceDiagram.png[]
 
 Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student's attendance when executed.
-// end::Mark Attendance Feature[]
+// end::MarkAttendanceFeature[]
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Implementation
@@ -451,7 +452,7 @@ image::UndoRedoState4.png[]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
-// end::undoredo[]
+// tag::undoredo[]
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes

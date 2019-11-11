@@ -66,17 +66,27 @@ This is partly because extraneous elements (Lectures, Venues) have been filtered
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#import-tutorials-via-nusmods-url-import[importTutorials]
+include::../UserGuide.adoc[tag=FeatureImport]
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#marks-attendance-of-a-tutorial-markattendance[markAttendance]
+include::../UserGuide.adoc[tag=FeatureMarkAttendance]
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#exports-attendance-of-a-tutorial-to-csv-exportattendance[exportAttendance]
+include::../UserGuide.adoc[tag=FeatureExportAttendance]
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#adding-an-assignment-addassignment[addAssignment]
+include::../UserGuide.adoc[tag=FeatureAddAssignment]
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#adding-an-event-addevent[addEvent]
+include::../UserGuide.adoc[tag=FeatureDeleteAssignment]
 
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#set-start-of-semester-setsemstart[setSemStart]
+include::../UserGuide.adoc[tag=FeatureSetAssignmentScore]
+
+include::../UserGuide.adoc[tag=FeatureAddEvent]
+
+include::../UserGuide.adoc[tag=FeatureDeleteEvent]
+
+include::../UserGuide.adoc[tag=FeatureEditEvent]
+
+include::../UserGuide.adoc[tag=FeatureListEvent]
+
+include::../UserGuide.adoc[tag=FeatureSetSemStart]
 
 == Contributions to the Developer Guide
 
@@ -84,5 +94,7 @@ include:: https://github.com/ZiHawkEye/main/blob/master/docs/UserGuide.adoc#set-
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include:: https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#24-model-component[modelComponent]
-include:: https://github.com/ZiHawkEye/main/blob/master/docs/DeveloperGuide.adoc#mark-attendance-feature[markAttendance]
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=MarkAttendanceFeature]
+

@@ -99,7 +99,7 @@ from json and re-creating the proper specified model.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::https://github.com/AhmadHatziq/main/blob/master/docs/UserGuide.adoc#undo-previously-entered-commands-undo[undo]
+include::../UserGuide.adoc[tag=FeatureUndo]
 
 == Contributions to the Developer Guide
 
@@ -107,7 +107,10 @@ include::https://github.com/AhmadHatziq/main/blob/master/docs/UserGuide.adoc#und
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::https://github.com/AhmadHatziq/main/blob/master/docs/DeveloperGuide.adoc#storage-component[storage]
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=storage]
+
 =======
 
 
