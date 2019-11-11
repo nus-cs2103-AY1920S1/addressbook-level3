@@ -52,7 +52,7 @@ public class InventoryMessages {
             + "add, delete, edit, sort, go and exit.";
 
     public static final String MESSAGE_ADDED_DUPLICATE_ITEM = "The given description is the same as that"
-            + " of an existing item. We have added the quantity to the existing item.";
+            + " of an existing item. All numeric fields of the existing item have been updated.";
 
     public static final String MESSAGE_NEGATIVE_NUMBER = "The given input cannot be negative.";
 

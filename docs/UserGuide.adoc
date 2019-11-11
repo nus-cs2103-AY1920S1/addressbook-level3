@@ -273,6 +273,7 @@ enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6
 
 [NOTE]
 The Undo Sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
+The list can be sorted even if it is empty.
 
 * Steps
 1. Type any one of the above commands in blue font into the command box.
@@ -755,6 +756,7 @@ This command allows you to sort the table of items into a specified order for vi
 
 [NOTE]
 Using the reset command, it can be reset to the initial order of the table when the app was first opened.
+Leo will still show a success message that the list is sorted even if it is empty.
 
 === Cashier Tab
 This section will contain the details on all commands available on the Cashier Tab.
