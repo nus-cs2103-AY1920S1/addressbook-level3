@@ -247,7 +247,7 @@ Finds the module with the matching module code or module description.
 The enhanced search is case insensitive and matches any keyword in the module code or description e.g. `cs1010s` matches `CS1010S`
 
 The search method adopts the inclusive OR search method that returns any modules with the keyword.
-e.g. searching for `metho` will return `Programming Methodology I` and `Programming Methodology II`.
+e.g. searching for `prog metho` will return `Programming Methodology I` and `Programming Methodology II`.
 
 Format: `find KEYWORD`
 e.g. `find CS1010S`, `find Programming`
