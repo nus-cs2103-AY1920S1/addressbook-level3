@@ -6,9 +6,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 endif::[]
 
-=== PROJECT: AddressBook - Level 3
+== PROJECT: AddressBook - Level 3
 
-==== Overview
+=== Overview
 
 Alfred is a desktop application used for organizing hackathons. This project was morphed from `SE-EDU Addressbook - Level 3`, which you can find the link https://se-education.org/addressbook-level3/[here]. This application allows the user to easily manage the relationships between teams and participants/mentors taking part in an hackathon event along with providing a simple mechanism for judging and scoring of teams. It is written in Java with more than 25 kLoC.
 
@@ -23,7 +23,7 @@ Note the following format used in this document:
 
 [cols=2, grid=none, frame=none, cols="25%,75%"]
 |===
-| `Words` in red | Indicates that this word is either associated with written code, parameters for commands, or Java classes.
+| `Words in this form` | Indicates that this word(s) is either associated with written code, parameters for commands, or Java classes.
 | Words in `UPPER_CASE` | Indicates a parameter that you need to supply for a command.
 | Words in `{braces}` | Indicates parameters for a command that you can select from. +
 i.e. {A/B/C} indicates that you may either choose A, B, or C.

@@ -439,7 +439,7 @@ public class SuggestionTemplates {
         //SCORE RESET Method
         Text teamId20 = new Text("TEAM_ID ");
         teamId20.setFill(Color.GREY);
-         SCORE_RESET_TEMPLATE = new TextFlow(
+        SCORE_RESET_TEMPLATE = new TextFlow(
                  SCORE_RESET.getText(), teamId20, SCORE_RESET_INSTRUCTION.getText()
          );
     }
