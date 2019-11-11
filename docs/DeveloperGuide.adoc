@@ -364,7 +364,7 @@ Alternative 1 was selected, as it is much faster to implement compared to altern
 // end::orders[]
 
 // tag::deliverymen statistics
-=== Deliverymen salary adjustment feature
+=== Deliverymen status management feature
 
 This is a feature which allows the user to keep track of the deliverymen who have met the requirements for a salary increment
 based on their delivery rate and duration of service. It extends DeliveryMANS with a delivery record for every deliveryman as well as relevant analysis of the record.
