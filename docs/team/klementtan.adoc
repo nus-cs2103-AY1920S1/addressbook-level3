@@ -65,6 +65,7 @@ on NUS Mods to locations that are identifiable on Google Maps.
 
 ** *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=klementtan&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
 *** Wrote test cases for `Storage` component https://github.com/AY1920S1-CS2103T-T10-4/main/pull/261[#261]. Increase coverage by 4%.
+*** Worked with Marcus to implement caching of NUSMods and Google Maps API data.
 ** Project management:
 *** In charge of making sure the team meets the weekly deadline and delegated issues among the team.
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
@@ -80,6 +81,7 @@ on NUS Mods to locations that are identifiable on Google Maps.
 a clearer, more standardized and easier to read user guide.
 **** Group each command into `tag` so that we can split explanation of the User logic into the tags explanation and the
 detailed command logic into the command explanation.
+*** Drew high level design diagram for `Storage` component.
 ** Tools:
 *** Integrated a third party API(Google Maps) to the project
 *** Introduced Lucid Chart to the team for easy design of UML diagrams.
