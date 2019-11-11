@@ -211,8 +211,7 @@ Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
 
 Format: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
 
-[NOTE]
-Tags can be in any order. User may enter multiple keywords after a tag.
+_Tags can be in any order. User may enter multiple keywords after a tag._
 
 ====
 *Searching Criteria*
@@ -223,11 +222,9 @@ Tags can be in any order. User may enter multiple keywords after a tag.
  Requested Module or Module to Drop will be displayed.
 * In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description (is be shown in expanded view) wil be displayed.
 * In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
-====
-
-[NOTE]
-Searching criteria listed above are evaluated to be the most useful ones in order to filter the lists quickly and obtain
+* Searching criteria listed above are evaluated to be the most useful ones in order to filter the lists quickly and obtain
 necessary information. Wider range of searching will be implemented in v2.0.
+====
 
 Examples:
 
@@ -235,9 +232,11 @@ Examples:
 
 Sample Output:
 
-All items containing "larry" in Student list and all items containing "programming" are displayed.
+All items containing "larry" in Student list and all items containing "programming" are displayed. Student list defaults to expanded view since there is only 1 search result.
 
 image::FindDemoSingleKeyword.png[width="790"]
+
+// end::find[]
 
 * `find a/add drop`
 
@@ -253,11 +252,10 @@ Sample Output:
 
 All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, CS2030)
 
-[NOTE]
-CS2030 is also displayed since it contains "cs10" in its module description.
+_CS2030 is also displayed since it contains "cs10" in its module description._
 
 image::FindDemoModuleSearch.png[width="790"]
-// end::find[]
+
 
 //tag::clash[]
 

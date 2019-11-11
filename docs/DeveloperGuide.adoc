@@ -87,16 +87,20 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
-// tag::logic[]
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+// tag::logic[]
 .Structure of the Parser Component
-image::ParserClassDiagram.png[]
+image::ParserClassDiagram.png[width=650]
+// end::logic[]
 
 .Structure of the Command Component
 image::CommandClassDiagram.png[]
+
+
 
 *API* :
 link:{repoURL}/src/main/java/mams/logic/Logic.java[`Logic.java`]
@@ -106,8 +110,6 @@ link:{repoURL}/src/main/java/mams/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a module to a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-// end::logic[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call.
 
@@ -164,36 +166,32 @@ StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `Appeal
 .Predicate Class Diagram
 image::PredicateClassDiagram.png[]
 
-Each `FindCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
-`FindCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
-
 Below shows how the Find Command mechanism behaves at each step.
 
 Step 1. The user inputs `find ...`.
 
-Step 2. The `FindCommandParser` is called first to create `StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` by checking the prefixes.
+Step 2. The `FindCommandParser` is called first to create relevant `Predicate` by checking the prefixes.
 
 Step 3. A new `FindCommand` is created by passing in the `List` of `Predicates`.
 
-Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined and calls `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
+Step 4. `FindCommand.execute()` is called. Each `Predicate` calls respective `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
 
-Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item(s) that contain(s) any of the keywords.
+Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list.
 
 The following sequence diagram shows how the Find command works:
 
 .Find Command Sequence Diagram - user input: "find m/cs1010"
 image::FindSequenceDiagram.png[]
 
-
 // end::find[]
 
-//tag::clash[]
+//tag::clash1[]
 === Clash feature
 ==== Implementation
 
 The clash feature is facilitated by `ClashCommand` class.
 
-There are two additional static classes in `ClashCommand` to facilitate the feature. The two classes are:
+There are two additional static classes in `ClashCommand` to facilitate the feature:
 
 * `ClashCommandParameters`: Stores the details of the parsed parameters that a `ClashCommand` will operate on.
 
@@ -208,8 +206,7 @@ image::ClashCaseClassDiagram.png[]
 Similar to how time slot is stored in `Module` class, the clashing slots in `ClashCase` are represented as Integers and
 each integer value corresponds to a particular 1-hour time slot in a week.
 
-Each `ClashCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
-`ClashCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
+// end::clash1[]
 
 ====
 There are a few formats allowed for user inputs:
@@ -220,11 +217,13 @@ There are a few formats allowed for user inputs:
 
 ====
 
+// tag::clash2[]
+
 Below shows how the Clash Command mechanism behaves at each step.
 
 Step 1. The user inputs `clash ...` to check whether there is clash in the timetable.
 
-Step 2. The `ClashCommandParser` will be called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
+Step 2. The `ClashCommandParser` is called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
 
 Step 3. A new `ClashCommand` is created by passing in the `ClashCommandParameters` object.
 The following sequence diagram shows how `ClashCommandParser` works:
@@ -232,7 +231,7 @@ The following sequence diagram shows how `ClashCommandParser` works:
 Step 4. `ClashCommand.execute()` is called. The types of checking will be determined by checking the presence of relevant parameters in `ClashCommandParameters`.
 
 [NOTE]
-** The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
+The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
 Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
 and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
 
@@ -279,7 +278,7 @@ Even if the way of representation is to be changed in the future, we only need t
 *** Need to hardcode information like module codes of the two modules having clashes since the list only stores the clashing slots.
 *** Tedious modification needed if the way of response changes in the future. For example, instead of showing the clash details in the message bar,
 we decide to a pop-up window to show more detailed information or include graphic representation.
-// end::clash[]
+// end::clash2[]
 
 //tag::addremovemod[]
 === Add and remove module feature
