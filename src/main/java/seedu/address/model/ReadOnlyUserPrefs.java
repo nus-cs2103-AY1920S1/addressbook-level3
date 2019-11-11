@@ -13,4 +13,10 @@ public interface ReadOnlyUserPrefs {
 
     Path getAddressBookFilePath();
 
+    Path getStudentRecordFilePath();
+
+    Path getSavedQuizzesFilePath();
+
+    Path getNotesRecordFilePath();
+
 }

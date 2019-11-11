@@ -1,14 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,20 +11,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.note.ReadOnlyNotesRecord;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.student.ReadOnlyStudentRecord;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.note.JsonNotesRecordStorage;
+import seedu.address.storage.question.JsonQuestionStorage;
+import seedu.address.storage.quiz.JsonQuizStorage;
+import seedu.address.storage.student.JsonStudentRecordStorage;
+
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -43,10 +42,16 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonStudentRecordStorage studentRecordStorage =
+                new JsonStudentRecordStorage(temporaryFolder.resolve("studentRecord.json"));
+        JsonQuizStorage quizStorage = new JsonQuizStorage(temporaryFolder.resolve("quiz.json"));
+        JsonQuestionStorage questionStorage = new JsonQuestionStorage(temporaryFolder.resolve("question.json"));
+        JsonNotesRecordStorage notesRecordStorage =
+                new JsonNotesRecordStorage(temporaryFolder.resolve("notesRecord.json"));
+        JsonEventStorage eventStorage = new JsonEventStorage(temporaryFolder.resolve("events.json"));
+        StorageManager storage = new StorageManager(userPrefsStorage, studentRecordStorage,
+                questionStorage, quizStorage, notesRecordStorage, eventStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -56,41 +61,63 @@ public class LogicManagerTest {
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
+
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
+    public void execute_parseExceptionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertParseException(deleteCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+
+
+    @Test
+    public void getFilteredStudentList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredStudentList().remove(0));
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    public void getFilteredNotesList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredNotesList().remove(0));
     }
 
     @Test
-    public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
-        JsonUserPrefsStorage userPrefsStorage =
-                new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
-
-        // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPerson);
-        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
+    public void getAllQuestions_modifyList_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.getAllQuestions().remove(0));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
+    public void getSlideShowQuestions_modifyList_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.getSlideshowQuestions().remove(0));
+    }
+
+    @Test
+    public void getSearchQuestions_modifyList_throwsIndexOutOfBoundsException() {
+        assertThrows(IndexOutOfBoundsException.class, () -> logic.getSearchQuestions().remove(1));
+    }
+
+    @Test
+    public void getProcessedStatistics_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getProcessedStatistics().remove(0));
+    }
+
+
+    @Test
+    public void getQuestionsInQuiz_modifyList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> logic.getQuestionsInQuiz().remove(0));
+    }
+
+    @Test
+    public void getAnswersInQuiz_modifyList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> logic.getAnswersInQuiz().remove(0));
+    }
+
+    @Test
+    public void getQuestionsAndAnswersInQuiz_modifyList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> logic.getQuestionsAndAnswersInQuiz().remove(0));
+    }
+
+    @Test
+    public void getVEventList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getVEventList().remove(0));
     }
 
     /**
@@ -98,10 +125,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException, IOException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -109,6 +137,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -117,6 +146,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -125,37 +155,96 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+                                      String expectedMessage) {
+        Model expectedModel = new ModelManager(model.getStudentRecord(), model.getSavedQuestions(),
+                model.getSavedQuizzes(), model.getNotesRecord(), model.getEventRecord(),
+                model.getStatisticsRecord(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
+
 
     /**
      * Executes the command and confirms that
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
-     * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
+     * A stub class to throw an {@code IOException} when the save method is called for the student record.
      */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    private static class JsonStudentRecordIoExceptionThrowingStub extends JsonStudentRecordStorage {
+        private JsonStudentRecordIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        public void saveStudentRecord(ReadOnlyStudentRecord studentRecord, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the quiz storage.
+     */
+    private static class JsonQuizIoExceptionThrowingStub extends JsonQuizStorage {
+        private JsonQuizIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveQuizzes(ReadOnlyQuizzes quizzes, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the question storage.
+     */
+    private static class JsonQuestionIoExceptionThrowingStub extends JsonQuestionStorage {
+        private JsonQuestionIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveQuestions(ReadOnlyQuestions questions, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the notes storage.
+     */
+    private static class JsonNotesStorageIoExceptionThrowingStub extends JsonNotesRecordStorage {
+        private JsonNotesStorageIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveNotesRecord(ReadOnlyNotesRecord notesRecord, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called for the events storage.
+     */
+    private static class JsonEventsStorageIoExceptionThrowingStub extends JsonEventStorage {
+        private JsonEventsStorageIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveEvents(ReadOnlyEvents events, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

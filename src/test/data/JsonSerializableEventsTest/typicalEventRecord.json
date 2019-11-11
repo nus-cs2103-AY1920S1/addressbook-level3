@@ -1,0 +1,31 @@
+{
+  "events" : [ {
+    "startDateTime" : "2019-10-10T03:00",
+    "endDateTime" : "2019-10-10T04:00",
+    "recurrenceType" : "NONE",
+    "colorCategory" : "group01",
+    "uniqueIdentifier" : "typicalevent1test",
+    "eventName" : "First Event"
+  }, {
+    "startDateTime" : "2019-10-11T03:00",
+    "endDateTime" : "2019-10-11T04:00",
+    "recurrenceType" : "DAILY",
+    "colorCategory" : "group02",
+    "uniqueIdentifier" : "typicalevent2test",
+    "eventName" : "Second Event"
+  }, {
+    "startDateTime" : "2019-10-12T03:00",
+    "endDateTime" : "2019-10-12T04:00",
+    "recurrenceType" : "WEEKLY",
+    "colorCategory" : "group03",
+    "uniqueIdentifier" : "typicalevent3test",
+    "eventName" : "Third Event"
+  }, {
+      "startDateTime" : "2019-10-13T03:00",
+      "endDateTime" : "2019-10-13T04:00",
+      "recurrenceType" : "NONE",
+      "colorCategory" : "group04",
+      "uniqueIdentifier" : "typicalevent4test",
+      "eventName" : "Fourth Event"
+  }]
+}

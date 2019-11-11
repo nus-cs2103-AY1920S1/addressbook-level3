@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Documentation
+= Njoy Teaching Assistant - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -28,7 +28,8 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 == Editing Diagrams
 
-See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
+We use https://www.draw.io/[draw.io] for our diagrams. To edit the diagrams, simply import the `.drawio` file into https://www.draw.io/[draw.io]. Diagrams
+are located under the `diagrams` directory.
 
 == Publishing Documentation
 

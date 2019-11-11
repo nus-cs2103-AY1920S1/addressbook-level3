@@ -15,19 +15,39 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.EventRecord;
+import seedu.address.model.event.ReadOnlyEvents;
+import seedu.address.model.note.NotesRecord;
+import seedu.address.model.note.ReadOnlyNotesRecord;
+import seedu.address.model.question.ReadOnlyQuestions;
+import seedu.address.model.question.SavedQuestions;
+import seedu.address.model.quiz.ReadOnlyQuizzes;
+import seedu.address.model.quiz.SavedQuizzes;
+import seedu.address.model.statistics.ReadOnlyStatisticsRecord;
+import seedu.address.model.statistics.StatisticsRecord;
+import seedu.address.model.student.ReadOnlyStudentRecord;
+import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.model.util.SampleNotesUtil;
+import seedu.address.model.util.SampleStatisticUtil;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.event.EventStorage;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.note.JsonNotesRecordStorage;
+import seedu.address.storage.note.NotesRecordStorage;
+import seedu.address.storage.question.JsonQuestionStorage;
+import seedu.address.storage.question.QuestionStorage;
+import seedu.address.storage.quiz.JsonQuizStorage;
+import seedu.address.storage.quiz.QuizStorage;
+import seedu.address.storage.student.JsonStudentRecordStorage;
+import seedu.address.storage.student.StudentRecordStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -36,7 +56,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 0, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -48,7 +68,8 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info(
+            "=============================[ Initializing AddressBook ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +77,17 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StudentRecordStorage studentRecordStorage =
+            new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
+        QuestionStorage savedQuestionStorage =
+            new JsonQuestionStorage(userPrefs.getSavedQuestionsFilePath());
+        EventStorage eventStorage =
+            new JsonEventStorage(userPrefs.getEventRecordFilePath());
+        QuizStorage savedQuizStorage =
+                new JsonQuizStorage(userPrefs.getSavedQuizzesFilePath());
+        NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
+        storage = new StorageManager(userPrefsStorage, studentRecordStorage,
+            savedQuestionStorage, savedQuizStorage, notesRecordStorage, eventStorage);
 
         initLogging(config);
 
@@ -69,28 +99,78 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code
+     * userPrefs}. <br> The data from the sample address book will be used instead if {@code
+     * storage}'s address book is not found, or an empty address book will be used instead if errors
+     * occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ReadOnlyStudentRecord> studentRecordOptional;
+        Optional<ReadOnlyQuestions> questionsOptional;
+        Optional<ReadOnlyEvents> eventsOptional;
+        Optional<ReadOnlyQuizzes> quizzesOptional;
+        Optional<ReadOnlyNotesRecord> notesRecordOptional;
+
+        ReadOnlyStudentRecord initialStudentRecord;
+        ReadOnlyQuestions initialQuestions;
+        ReadOnlyEvents initialEvents;
+        ReadOnlyQuizzes initialQuizzes;
+        ReadOnlyNotesRecord initialNotesRecord;
+        ReadOnlyStatisticsRecord initialStatisticsRecord;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            studentRecordOptional = storage.readStudentRecord();
+            questionsOptional = storage.readQuestions();
+            eventsOptional = storage.readEvents();
+            quizzesOptional = storage.readQuizzes();
+            notesRecordOptional = storage.readNotesRecord();
+
+            if (!studentRecordOptional.isPresent()) {
+                logger.info("Student file not found. Will be starting with a student record with a sample student.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            if (!questionsOptional.isPresent()) {
+                logger.info("Question file not found. Will create an empty one.");
+            }
+            if (!eventsOptional.isPresent()) {
+                logger.info("Events file not found. Will create an empty one.");
+            }
+            if (!quizzesOptional.isPresent()) {
+                logger.info("Quiz file not found. Will create an empty one.");
+            }
+            if (!notesRecordOptional.isPresent()) {
+                logger.info("Notes Record not found. Will start with sample NotesRecord");
+            }
+            initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudents);
+            initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
+            initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
+            initialNotesRecord = notesRecordOptional.orElseGet(SampleNotesUtil::getSampleNotesRecord);
+            initialStatisticsRecord = SampleStatisticUtil.getSampleStatisticsRecord();
+            initialQuizzes = quizzesOptional.orElseGet(SampleDataUtil::getSampleQuizList);
+
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                "Data file not in the correct format. Will be starting with an empty NJoy assistant");
+            initialStudentRecord = new StudentRecord();
+            initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
+            initialQuizzes = new SavedQuizzes();
+            initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord();
+
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(
+                "Problem while reading from the file. Will be starting with an empty  NJoy assistant");
+            initialStudentRecord = new StudentRecord();
+            initialQuestions = new SavedQuestions();
+            initialEvents = new EventRecord();
+            initialQuizzes = new SavedQuizzes();
+            initialNotesRecord = new NotesRecord();
+            initialStatisticsRecord = new StatisticsRecord();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialStudentRecord, initialQuestions, initialQuizzes,
+                initialNotesRecord, initialEvents, initialStatisticsRecord, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -98,9 +178,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
-     * if {@code configFilePath} is null.
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br> The default file path
+     * {@code Config#DEFAULT_CONFIG_FILE} will be used instead if {@code configFilePath} is null.
      */
     protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
@@ -119,7 +198,8 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+            logger
+                .warning("Config file at " + configFilePathUsed + " is not in the correct format. "
                     + "Using default config properties");
             initializedConfig = new Config();
         }
@@ -134,9 +214,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path, or a
+     * new {@code UserPrefs} with default configuration if errors occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -148,10 +227,11 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning(
+                "Problem while reading from the file. Will be starting with an empty AddressBook");
             initializedPrefs = new UserPrefs();
         }
 
@@ -173,7 +253,8 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info(
+            "============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

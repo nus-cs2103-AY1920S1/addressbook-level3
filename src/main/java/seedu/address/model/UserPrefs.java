@@ -15,6 +15,12 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path studentRecordFilePath = Paths.get("data" , "students.json");
+    private Path savedQuestionsFilePath = Paths.get("data" , "questions.json");
+    private Path eventRecordFilePath = Paths.get("data" , "events.json");
+    private Path savedQuizzesFilePath = Paths.get("data" , "quizzes.json");
+    private Path notesRecordFilePath = Paths.get("data", "notes.json");
+
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -36,6 +42,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setStudentRecordFilePath(newUserPrefs.getStudentRecordFilePath());
+        setSavedQuizzesFilePath(newUserPrefs.getSavedQuizzesFilePath());
+        setNotesRecordFilePath(newUserPrefs.getNotesRecordFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,6 +56,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    //region AddressBook
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
@@ -55,6 +65,63 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
     }
+    //endregion
+
+    //region StudentRecord
+    public Path getStudentRecordFilePath() {
+        return studentRecordFilePath;
+    }
+
+    public void setStudentRecordFilePath(Path studentsFilePath) {
+        requireNonNull(studentsFilePath);
+        this.studentRecordFilePath = studentsFilePath;
+    }
+    //endregion
+
+    //region SavedQuestions
+    public Path getSavedQuestionsFilePath() {
+        return savedQuestionsFilePath;
+    }
+
+    public void setSavedQuestionsFilePath(Path savedQuestionsFilePath) {
+        requireNonNull(savedQuestionsFilePath);
+        this.savedQuestionsFilePath = savedQuestionsFilePath;
+    }
+    //endregion
+
+    //region SavedQuizzes
+    public Path getSavedQuizzesFilePath() {
+        return savedQuizzesFilePath;
+    }
+
+    public void setSavedQuizzesFilePath(Path savedQuizzesFilePath) {
+        requireNonNull(savedQuizzesFilePath);
+        this.savedQuizzesFilePath = savedQuizzesFilePath;
+    }
+
+    //endregion
+
+    //region NotesRecord
+    public Path getNotesRecordFilePath() {
+        return notesRecordFilePath;
+    }
+
+    public void setNotesRecordFilePath(Path notesRecordFilePath) {
+        requireNonNull(notesRecordFilePath);
+        this.notesRecordFilePath = notesRecordFilePath;
+    }
+    //endregion
+
+    //region EventRecord
+    public Path getEventRecordFilePath() {
+        return eventRecordFilePath;
+    }
+
+    public void setEventRecordFilePath(Path eventRecordFilePath) {
+        requireNonNull(eventRecordFilePath);
+        this.eventRecordFilePath = eventRecordFilePath;
+    }
+    //endregion
 
     @Override
     public boolean equals(Object other) {
@@ -68,19 +135,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && addressBookFilePath.equals(o.addressBookFilePath)
+                && studentRecordFilePath.equals(o.studentRecordFilePath)
+                && notesRecordFilePath.equals(o.notesRecordFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, studentRecordFilePath,
+                savedQuestionsFilePath, savedQuizzesFilePath, notesRecordFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal address book data file location : " + addressBookFilePath);
+        sb.append("\nLocal student data file location : " + studentRecordFilePath);
+        sb.append("\nLocal questions data file location : " + savedQuestionsFilePath);
+        sb.append("\nLocal quizzes data file location : " + savedQuizzesFilePath);
+        sb.append("\nLocal notes data file location : " + notesRecordFilePath);
         return sb.toString();
     }
 

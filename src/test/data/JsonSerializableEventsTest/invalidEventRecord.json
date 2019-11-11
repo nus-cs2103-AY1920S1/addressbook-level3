@@ -1,0 +1,23 @@
+{
+  "events" : [ {
+    "startDateTime" : "2019-11-02T08:00",
+    "endDateTime" : "2019-11-02T09:00",
+    "colorCategory" : "group01",
+    "uniqueIdentifier" : "2019-11-04T11:05:31.705416-cs2100 lecture-2019-11-02T08:00-2019-11-02T09:00.njoyAssistant",
+    "eventName" : "cs2100 lecture"
+  }, {
+    "startDateTime" : "2019-11-04T08:00",
+    "endDateTime" : "2019-11-04T09:00",
+    "recurrenceType" : "NONE",
+    "colorCategory" : "group01",
+    "uniqueIdentifier" : "2019-11-04T11:05:45.959433-cs2100 lecture-2019-11-04T08:00-2019-11-04T09:00.njoyAssistant",
+    "eventName" : "cs2100 lecture"
+  }, {
+    "startDateTime" : "2019-11-06T08:00",
+    "endDateTime" : "2019-11-06T09:00",
+    "recurrenceType" : "WEEKLY",
+    "colorCategory" : "group01",
+    "uniqueIdentifier" : "2019-11-04T11:06:01.808748-CS2103 Tutorial-2019-11-06T08:00-2019-11-06T09:00.njoyAssistant",
+    "eventName" : "CS2103 Tutorial"
+  } ]
+}

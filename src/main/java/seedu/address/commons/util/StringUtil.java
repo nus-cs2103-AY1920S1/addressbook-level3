@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 
+import org.apache.commons.text.similarity.LevenshteinDistance;
+
 /**
  * Helper functions for handling strings.
  */
@@ -64,5 +66,22 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Returns string similarity  between {@code string1} and {@code string2} as a double from 0.0 - 1.0
+     * @throws NullPointerException if {@code string1} or {@code string2} is null.
+     */
+    public static double calculateStringSimilarity(String string1, String string2) {
+        requireNonNull(string1);
+        requireNonNull(string2);
+
+        checkArgument(!string1.isBlank(), "string1 cannot be blank");
+        checkArgument(!string2.isBlank(), "string2 cannot be blank");
+
+        Integer longerStringLength = Math.max(string1.length(), string2.length());
+        Integer levenshteinDistance = LevenshteinDistance.getDefaultInstance().apply(string1, string2);
+        Double similarityPercentage = ((longerStringLength - levenshteinDistance) / (double) longerStringLength);
+        return similarityPercentage;
     }
 }

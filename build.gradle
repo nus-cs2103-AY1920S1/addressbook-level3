@@ -57,17 +57,32 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.0.0'
+    implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.0'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
+
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    compile group: 'org.jfxtras', name: 'jfxtras-agenda', version: '9.0-r1-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendaragenda', version: '8.0-r6-SNAPSHOT'
+    compile group: 'org.jfxtras', name: 'jfxtras-icalendarfx', version: '8.0-r6-SNAPSHOT'
+    compile 'org.apache.commons:commons-text:1.8'
+    compile 'org.apache.poi:poi:3.9'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'njoy.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

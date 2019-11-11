@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 public class CommandResultTest {
     @Test
     public void equals() {
-        CommandResult commandResult = new CommandResult("feedback");
+        CommandResult commandResult = new CommandResult("feedback", CommandResultType.OTHER);
 
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", CommandResultType.OTHER)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,10 +29,16 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_QUESTION)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_GROUP)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_SCHEDULE)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_STUDENT)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_STATISTIC)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_SLIDESHOW)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.SHOW_HELP)));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResultType.EXIT)));
     }
 
     @Test
@@ -46,9 +52,19 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.SHOW_HELP).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.SHOW_QUESTION).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.SHOW_GROUP).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.SHOW_STATISTIC).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.SHOW_SCHEDULE).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult(
+                "feedback", CommandResultType.EXIT).hashCode());
     }
 }

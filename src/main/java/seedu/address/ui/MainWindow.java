@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -14,12 +19,19 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.EventScheduleViewMode;
+import seedu.address.model.student.Student;
+import seedu.address.storage.printable.SchedulePrintable;
+import seedu.address.storage.printable.StatisticsPrintable;
+import seedu.address.ui.util.DisplayType;
+
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar and space where
+ * other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -31,9 +43,19 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    //private PersonListPanel personListPanel;
+    private StudentListPanel studentListPanel;
+    private QuestionListPanel questionListPanel;
+    private QuestionListPanel searchQuestionListPanel;
+    private QuizQuestionListPanel quizQuestionListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private SlideshowWindow slideShowWindow;
+    private QuizWindow quizWindow;
+    private GroupWindow groupWindow;
+    private StatsReportWindow statsReportWindow;
+    private NotesListPanel notesListPanel;
+    private EventSchedulePanel eventSchedulePanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,7 +64,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane mainPanelPlaceholder;
+
+    @FXML
+    private StackPane notesListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -63,6 +88,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        slideShowWindow = new SlideshowWindow(new Stage(), logic);
     }
 
     public Stage getPrimaryStage() {
@@ -75,6 +101,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,17 +134,30 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
+        mainPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
+
+        questionListPanel = new QuestionListPanel(logic.getAllQuestions(), false);
+        mainPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        searchQuestionListPanel = new QuestionListPanel(logic.getSearchQuestions(), true);
+        mainPanelPlaceholder.getChildren().add(searchQuestionListPanel.getRoot());
+
+        notesListPanel = new NotesListPanel(logic.getFilteredNotesList());
+        notesListPanelPlaceholder.getChildren().add(notesListPanel.getRoot());
+        notesListPanelPlaceholder.setAlignment(Pos.BOTTOM_RIGHT);
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        FooterBar footerBar = new FooterBar();
+        statusbarPlaceholder.getChildren().add(footerBar.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        eventSchedulePanel = new EventSchedulePanel(logic.getVEventList());
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
     }
 
     /**
@@ -144,6 +184,155 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the group window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleGroup() {
+        groupWindow = new GroupWindow();
+        //get observable list of students in group and put inside.
+        ObservableList<Student> students = logic.getStudentsInGroup();
+        groupWindow.setStudentsInGroup(students);
+        if (!groupWindow.isShowing()) {
+            groupWindow.show();
+        } else {
+            groupWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizQuestions() {
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.QUESTIONS);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizAnswers() {
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ANSWERS);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the quiz window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuizAll() {
+        quizQuestionListPanel = new QuizQuestionListPanel(logic.getQuestionsInQuiz(), DisplayType.ALL);
+        mainPanelPlaceholder.getChildren().add(quizQuestionListPanel.getRoot());
+        quizQuestionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the slideshow window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSlideshow() {
+        if (!slideShowWindow.isShowing()) {
+            slideShowWindow.show();
+        } else {
+            slideShowWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the schedule panel or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleSchedule() {
+        eventSchedulePanel.updateScheduler();
+        if (logic.getScheduleViewMode().equals(EventScheduleViewMode.DAILY)) {
+            eventSchedulePanel.setDailySkin();
+        } else if (logic.getScheduleViewMode().equals(EventScheduleViewMode.WEEKLY)) {
+            eventSchedulePanel.setWeeklySkin();
+        }
+        eventSchedulePanel.setDisplayedDateTime(logic.getEventScheduleTargetDateTime());
+        eventSchedulePanel.getRoot().toFront();
+    }
+
+    /**
+     * Handles Taking a screenshot of the schedule, opens full screen window of event schedule and takes a screenshot.
+     * @param targetPrintableFileName the fileName of the screenshots
+     * @throws IOException for invalid path specified
+     */
+    @FXML
+    public void handleScheduleScreenshot(String targetPrintableFileName) throws IOException {
+        EventScheduleWindow eventScheduleWindow = new EventScheduleWindow(new Stage(), eventSchedulePanel.getRoot());
+        eventScheduleWindow.show();
+        WritableImage scheduleSnapShotImage = eventScheduleWindow.takeSnapShot();
+        try {
+            logic.savePrintable(new SchedulePrintable(scheduleSnapShotImage, targetPrintableFileName));
+        } catch (IOException ex) {
+            eventScheduleWindow.close();
+            mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+            throw new IOException(ex.toString());
+        }
+        eventScheduleWindow.close();
+        mainPanelPlaceholder.getChildren().add(eventSchedulePanel.getRoot());
+    }
+
+    /**
+     * Opens the student panel or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStudent() {
+        studentListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestion() {
+        questionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the schedule window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleQuestionSearch() {
+        searchQuestionListPanel.getRoot().toFront();
+    }
+
+    /**
+     * Opens the statistics report window or focuses on it if it's already opened. Saves printable
+     * report if specified by user.
+     */
+    @FXML
+    public void handleStats(CommandResultType commandResultType) throws IOException {
+        statsReportWindow = new StatsReportWindow();
+        StatisticsCard statsCard = new StatisticsCard(logic.getProcessedStatistics());
+        statsReportWindow.setStatsCard(statsCard);
+        if (!statsReportWindow.isShowing()) {
+            statsReportWindow.show();
+        } else {
+            statsReportWindow.focus();
+        }
+        if (commandResultType.isPrintable()) {
+            makePrintableStatistics(commandResultType.getPrintableName());
+        }
+    }
+
+    /**
+     * Saves a printable statistics report file with the specified fileName.
+     */
+    public void makePrintableStatistics(String fileName) throws IOException {
+        WritableImage image = statsReportWindow.getStatisticsPanelPlaceholder()
+                .snapshot(new SnapshotParameters(), null);
+        logic.savePrintable(new StatisticsPrintable(image, fileName));
+    }
+
+    /**
+     * Show UI
+     */
     void show() {
         primaryStage.show();
     }
@@ -154,14 +343,10 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -169,22 +354,60 @@ public class MainWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText)
+        throws CommandException, ParseException, IOException {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            CommandResultType commandResultType = commandResult.getCommandResultType();
+            switch (commandResultType) {
+
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case SHOW_SLIDESHOW:
+                handleSlideshow();
+                break;
+            case EXIT:
                 handleExit();
+                break;
+            case SHOW_SCHEDULE:
+                handleSchedule();
+                break;
+            case SHOW_STATISTIC:
+                handleStats(commandResultType);
+                break;
+            case SHOW_QUIZ_QUESTIONS:
+                handleQuizQuestions();
+                break;
+            case SHOW_QUIZ_ANSWERS:
+                handleQuizAnswers();
+                break;
+            case SHOW_QUIZ_ALL:
+                handleQuizAll();
+                break;
+            case SHOW_GROUP:
+                handleGroup();
+                break;
+            case SHOW_STUDENT:
+                handleStudent();
+                break;
+            case SHOW_QUESTION:
+                handleQuestion();
+                break;
+            case SHOW_QUESTION_SEARCH:
+                handleQuestionSearch();
+                break;
+            case SCHEDULE_SCREENSHOT:
+                handleScheduleScreenshot(commandResult.getTargetPrintableFileName());
+                break;
+            default:
+                break;
             }
-
             return commandResult;
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | IOException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;

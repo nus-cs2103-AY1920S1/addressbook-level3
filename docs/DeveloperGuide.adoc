@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= NJoy Teaching Assistant - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,25 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
+
+== Introduction
+Njoy is a teacher assistant designed to manage teacher's daily tasks such as generating
+quizzes, managing classes and viewing grades reports.
+
+Shown below is the GUI of Njoy Teaching Assistant:
+
+image::Ui.png[]
+
+This documentation serves as an introduction to the architecture and implementation of Njoy,
+and is made for developers who wish to maintain, modify or understand the software development
+behind our application. We adopted the top-down approach; we will first look into high-level architectures
+before exploring implementation details of each feature.
+
+We encourage you to traverse the full path from the high level design to the implementation details
+of the feature you are interested for the most complete understanding.
 
 == Setting up
 
@@ -25,14 +41,15 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Njoy's Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Njoy.
+Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The diagrams drawn can be found in the https://github.com/AY1920S1-CS2103T-W13-2/main/tree/master/docs/images[images folder] and the https://github.com/AY1920S1-CS2103T-W13-2/main/tree/master/docs/diagrams[diagrams folder].
+Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams. https://chrome.google.com/webstore/detail/drawio-desktop/pebppomjfocnoigkeepgbmcifnnlndla?hl=en-GB[Draw.io] was also used to create and edit UML diagrams.
 
 `Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
@@ -58,16 +75,13 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `{Entity Name} delete 1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `XYZ delete 1` command.
+image::ArchitectureSequenceDiagramForNjoy.png[]
 
 The sections below give more details of each component.
 
@@ -75,11 +89,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagramNjoy.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -93,56 +107,51 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagramNjoy.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `NjoyParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("{Entity Name} delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `{Entity Name} delete 1` Command
+image::DeleteSequenceDiagramNjoy.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `XYZCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+.Structure of the Model Component using `Student` Entity as an example.
+image::ModelClassDiagramNjoy.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the data of the different entity records.
+* exposes an unmodifiable `ObservableList<XYZEntity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagramNjoy.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the different entity records data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -153,7 +162,1349 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Question feature
+
+The question feature utilises the `QuestionCommandParser` class to parse the user command input into the different
+command types and validates the input. There are two types of questions `OpenEndedQuestion` and `McqQuestion` which
+extends the `Question` class. Questions are then added into the `QuestionBank#questions` observable list. +
+
+The feature comprises of five commands namely,
+
+* <<Feature-Question-Add, `QuestionAddCommand`>> - Adding questions
+* <<Feature-Question-Edit, `QuestionEditCommand`>> - Editing questions
+* <<Feature-Question-Delete, `QuestionDeleteCommand`>> - Deleting questions
+* <<Feature-Question-List, `QuestionListCommand`>> - Listing questions
+* <<Feature-Question-Find, `QuestionFindCommand`>> - Finding questions
+* `QuestionSlideshowCommand` - Starting a slideshow (See <<Feature-Slideshow, slideshow feature>>)
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+.Overview of questions classes.
+image::QuestionsClassDiagram.png[]
+
+[[Feature-Question-Add]]
+==== Add command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `QuestionAddCommand` performs. +
+
+*Step 1*. The `QuestionAddCommand#execute(Model model)` method is executed and it validates type of question defined.
+The type defined will dictate if the resulting question will be a `OpenEndedQuestion` or `McqQuestion` question type.
+
+*Step 2*. The question is then searched through the `QuestionBank#questions` list using the `Model#hasQuestion(Question question)` method
+to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
+
+*Step 3*. The method `Model#addQuestion(Question question)` will then be called to add the question and the question added,
+will be appended with the `QuestionAddCommand#MESSAGE_SUCCESS` constant and a new `CommandResult` will be returned with the message.
+
+[[Feature-Question-Edit]]
+==== Edit command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `QuestionEditCommand` performs. +
+
+*Step 1*. The `QuestionEditCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
+instantiating `QuestionEditCommand(Index index, HashMap<String, String> fields)` is valid.
+Since it is optional for the users to input fields, the fields not entered will reuse the existing value currently defined in
+the `Question` object.
+[NOTE]
+If the question type is changed from open ended to mcq, it is necessary for the user to define all four options i.e a/ b/ c/ d/.
+
+*Step 2*. A new `Question` with the updated values will be created and the question is then searched through the `QuestionBank#questions` list
+using the `Model#hasQuestion(Question question)` method to check if the question already exists. If the question already exists, `CommandException` will be thrown with the error message.
+
+*Step 3*. The newly created `Question` will replace the existing question object through the `Model#setQuestion(Index index, Question question)` method
+at the specified `Index` defined by the user.
+
+*Step 4*. A success message with the edited question, will be appended with the `QuestionEditCommand#MESSAGE_SUCCESS` constant
+and a new `CommandResult` will be returned with the message.
+
+[[Feature-Question-Delete]]
+==== Delete command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `QuestionDeleteCommand` performs. +
+
+*Step 1*. The `QuestionDeleteCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
+instantiating `QuestionDeleteCommand(Index index, HashMap<String, String> fields)` is valid.
+
+*Step 2*. The `Question` at the specified `Index` is then removed from the `ObservableList` of `QuestionBank#questions` through
+the `Model#deleteQuestion(Index index)` method.
+
+*Step 3*. A success message with the deleted question, will be appended with the `QuestionDeleteCommand#MESSAGE_SUCCESS` constant
+and a new `CommandResult` will be returned with the message.
+
+[[Feature-Question-List]]
+==== List command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `QuestionListCommand` performs. +
+
+*Step 1*. The `QuestionListCommand#execute(Model model)` method is executed. No validation is necessary here since it
+does not write to the question list.
+
+*Step 2*. The `Model#getQuestionsSummary()` method is then called and the questions are returned as a `String` to the new `CommandResult`
+object.
+
+// tag::questions-find[]
+[[Feature-Question-Find]]
+==== Find command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `QuestionFindCommand` performs.
+[NOTE]
+Note that questions searched using this command has it's own `ObservableList` stored under `QuestionBank#questionsFiltered`.
+
+*Step 1*. The `QuestionFindCommand#execute(Model model)` method is executed. No validation is necessary here since it
+does not write to the question list.
+
+*Step 2*. The method `QuestionBank#searchQuestions(String textToFind)` is then called through the `Model#searchQuestions(String textToFind)` method.
+
+*Step 3*. The existing `QuestionBank#questionsFiltered` is cleared in case there are existing questions from a previous search. A temporary `ArrayList<Question> similarAl` to store `Question` objects
+is also created to store similar questions.
+
+*Step 4*. The `QuestionBank#questions` list is iterated once and the search is performed on the user's search term using 2 levels of searching.
+Firstly, the question is tested to see if it matches the search term using the `StringUtils.containsIgnoreCase(...)` method.
+Next, if the search term is not found, we test the question to see if it is similar to the user's search term using the `LevenshteinDistance` method
+that implements the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula] with a threshold of 40 percent (See <<Feature-Question-Design-Similarity>>).
+
+*Step 5*. The questions are then duplicated with their index appended to the question in order to keep a separate reference from the main `QuestionBank#questions` list.
+Questions that matches the search term will be added to the `QuestionBank#questionsFiltered` list whereas for similar questions,
+they will be added to the temporary `similarAl` list instead.
+
+*Step 6*. Both the `QuestionBank#questionsFiltered` and `similarAl` list is then sorted in ascending order of their question length.
+
+*Step 7*. The `similarAl` list is then appended to the `QuestionBank#questionsFiltered` list.
+
+*Step 8*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
+
+.Activity diagram of questions search.
+image::QuestionsSearchActivityDiagram.png[]
+
+// end::questions-find[]
+
+==== Design Considerations
+
+The following are the various design choices made regarding the feature and alternatives that were considered prior to implementation.
+
+===== Command Syntax
+* ** Current Implementation: **
+** Current implementation of the commands follows the command word syntax e.g question followed by the arguments necessary
+to execute the add, edit, delete, list and slideshow command.
+
+* ** Alternatives Considered: **
+** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
+realised it is redundant as the only input will be commands and will make it more tedious for the user.
+
+===== Command Length
+
+* ** Current Implementation: **
+** Commands are currently shortened as much as possible through the use of initials without much loss in clarity.
+For example, instead of using optionA/ to denote the first option, we use a/ instead. Although this may be unfamiliar
+to the user initially, it should be easy to pick up and will make it less tedious during input.
+
+* ** Alternatives Considered: **
+** Using more descriptive terms as arguments such that each argument will be specified clearly. However, this decreases
+the user experience as the command will be too long.
+
+[[Feature-Question-Design-Similarity]]
+===== Similarity Threshold
+
+* ** Current Implementation: **
+** The current similarity threshold calibrated is 40 percent of the user's search term and it is the most optimal
+for medium sized strings. It is based on the observation that a user is more likely to make mistakes when searching
+using a longer search term as compared to a shorter one. Long search terms are also rare.
+
+* ** Alternatives Considered: **
+** Using a calibration percentage above 70 percent. This is not optimal for our use case as words with similar spelling but
+different meanings e.g 'moon' and 'noon', will be more often included in the search results.
+
+// tag::questions-slideshow[]
+[[Feature-Slideshow]]
+=== Slideshow feature
+
+The slideshow feature is dependent on the questions added by the `question slideshow [QUESTIONS INDEX]` command and
+interacts with the `ModelManager` to retrieve the list of questions to be displayed in the slideshow.
+The logic control for displaying the ui resides in the `SlideshowWindow` class and handles the controls and instantiation
+of the various `QuestionPanel` that contains each question. +
+
+Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
+questions displayed in the slideshow.
+
+.Sequence diagram illustrating the interactions happening.
+image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
+
+===== Implementation
+
+The following is an example and detailed explanation as to how the questions are fetched and displayed on the slideshow. +
+
+*Step 1.* The user requests to start a slideshow with a selection of questions using the `question slideshow [QUESTIONS INDEX]` command.
+This will add questions based on the `Index` specified and will be added to the `slideshowQuestions` list under the `SavedQuestions` class.
+The usage of `Index` here is such that it follows the same convention of when the user edits or deletes a question.
+[NOTE]
+The order of the questions displayed on the slideshow will be *based on the input order*.
+
+*Step 2.* The command is executed and the `MainWindow` calls `CommandResult#isShowSlideshow()` to verify if the command specified
+is to start a slideshow. The `SlideshowWindow` is then displayed through the `SlideshowWindow#slideShowWindow.show()`.
+[NOTE]
+The slideshow window has already been instantiated on application launch and the window is merely being hidden or shown.
+
+*Step 3.* The window is now visible and existing questions are cleared. The list of slideshow questions is then fetched through
+`Logic#getSlideshowQuestions()` which in turn calls the `ModelManager#getSlideshowQuestions()` that fetches
+the `slideshowQuestions` list in `SavedQuestions`.
+
+*Step 4.* The user will then navigate and control the slideshow using the `Left/Right`, `Space` and `Esc` key as defined by the key
+listeners in `SlideshowWindow#initialiseKeyboardControls(Stage root)`. The `currQuestionIndex` will be incremented when
+the user navigates to the next question and decremented when navigating to the previous question.
+
+*Step 5.* The user exits the slideshow when the `Esc` key event is triggered or when the `currQuestionIndex` exceeds the `questionPanels.size()`.
+The behaviour of this follows the common procedure that most presentation programs adopt thus, it will not  feel foreign to users.
+
+.Activity diagram of the actions performed.
+image::SlideshowFeatureActivityDiagram.png[]
+
+==== Design Considerations
+
+The following are the various design choices made regarding the feature and alternatives that were considered prior to implementation.
+
+===== Controls
+
+* ** Current Implementation: **
+** The choice of using the arrow keys for navigation and the `Escape` key to quit the slideshow is such that it will feel
+familiar to users who uses presentation programs often as they have similar controls. The only difference will be the usage
+of the `Space` key to show answers as it will be something new to the users and is unique to *Njoy*.
+
+* ** Alternatives Considered: **
+** Usage of the `A` key to show answers. However, this is not very feasible as it is easily forgotten and not as user-friendly
+due to the smaller surface of the key as compared to the `Space` key.
+
+===== Display
+
+* ** Current Implementation: **
+** The ordering of the questions is defined based on the user input so it gives flexibility to the user to choose the ordering
+that they want the questions to be displayed.
+** Placement of the question numbering, topic, options and answer follows the common convention where
+the question numbering will be at the top followed by the topic, options and then the answer. This is such that viewers
+will not be confused by the layout.
+** Font sizes are displayed in the following descending order to allow the text for easy viewing:
+*** [.big]##Question Number##
+*** Question Topic & Options
+*** [.small]#Answer#
+
+* ** Alternatives Considered: **
+** Having a separate answer format for MCQ such that it will have an arrow beside the correct option _e.g A) 1965_ *< (Answer)*.
+However, this is not feasible as it will break the standard formatting of the answers display since both `open` and `mcq`
+questions will have 2 different answer formats and may cause confusion to the user.
+
+// end::questions-slideshow[]
+
+=== Quiz feature
+
+[.big]##**Overview**##
+
+The quiz feature utilises the questions implemented and stored in the `QuestionBank#questions` observable list. The quiz feature utilises the `QuizCommandParser` class to parse the user command input into the different command types and validates the input. Quizzes are then added into the `QuizBank#quizzes` observable list. The quiz feature also relies heavily on the `QuizManager` class for handling commands from `QuizCommand#execute`. This is done to hide the implementation logic from the `ModelManager` class. +
+
+The feature comprises of eight commands namely,
+
+* <<Feature-Quiz-Create-Manually, `QuizCreateManuallyCommand`>> - Creates a quiz with user input manually
+* <<Feature-Quiz-Create-Automatically, `QuizCreateAutomaticallyCommand`>> - Creates a quiz automatically
+* <<Feature-Quiz-Add-Question, `QuizAddQuestionCommand`>> - Adds an existing question to an existing quiz
+* <<Feature-Quiz-Delete-Question, `QuizDeleteQuestionCommand`>> - Deletes an existing question from an existing quiz
+* <<Feature-Quiz-Export, `QuizExportCommand`>> - Exports an existing quiz to a html file
+* <<Feature-Quiz-List, `QuizListCommand`>> - Listing questions and answers of an existing quiz
+* <<Feature-Quiz-ShowAnswers, `QuizShowAnswersCommand`>> - Showing answers of an existing quiz
+* <<Feature-Quiz-ShowQuestions, `QuizShowQuestionsCommand`>> - Showing questions of an existing quiz
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+The quiz creation processes share similar paths and is further illustrated in the following sequence diagram:
+
+.Sequence Diagram for `quiz manual` and `quiz auto` Commands
+image::quizSequence.PNG[]
+
+The other processes share similar paths and is further illustrated in the following sequence diagram:
+
+.Sequence Diagram for `quiz add`, `quiz delete`, `quiz export`, `quiz list`, `quiz showAnswers` and `quiz showQuestions` Commands
+image::quizSequence2.PNG[]
+
+[[Feature-Quiz-Create-Manually]]
+==== Creating Quiz Manually
+The create quiz manually feature allows the user to create a quiz in Njoy.
+This feature is facilitated by `CreateQuizManuallyCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+- `Question Numbers` (1...*)
+
+Example of a possible command: `quiz manual quizID/CS2103T questionNumber/1 2`
+This adds questions 1 and 2 to the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz manual` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizCreateManuallyCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizCreateManuallyCommand#execute()`. This in turn executes `model#createQuizManually()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#createQuizManually()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#createQuizManually()`.
+
+8. The newly created `Quiz` object is added to the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Create-Automatically]]
+==== Creating Quiz Automatically
+The create quiz automatically feature allows the user to create a quiz in Njoy.
+This feature is facilitated by `CreateQuizAutomaticallyCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+- `Number of Questions` (1...*)
+- `Question Type` (Mcq, Open ended, All)
+
+Example of a possible command: `quiz auto quizID/CS2103T numQuestions/2 type/mcq`
+This randomly adds 2 mcq questions to the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz auto` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizCreateAutomaticallyCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizCreateAutomaticallyCommand#execute()`. This in turn executes `model#createQuizAutomatically()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#createQuizAutomatically()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#createQuizAutomatically()`.
+
+8. The newly created `Quiz` object is added to the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Add-Question]]
+==== Adding a Question to a Quiz
+The quiz add question feature allows the user to add a question to a quiz in Njoy.
+This feature is facilitated by `QuizAddQuestionCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+- `Question Number`
+- `Quiz Question Number`
+
+Example of a possible command: `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3`
+This adds question 2 to the quiz named CS2103T as question 3.
+
+===== Implementation
+
+When the user inputs the `quiz add` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizAddQuestionCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizAddQuestionCommand#execute()`. This in turn executes `model#addQuizQuestion()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#addQuizQuestion()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#addQuizQuestion()`.
+
+8. The `Question` object is added to the chosen `Quiz` object in the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Delete-Question]]
+==== Deleting a Question from a Quiz
+The quiz delete question feature allows the user to delete a question from a quiz in Njoy.
+This feature is facilitated by `QuizDeleteQuestionCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+- `Quiz Question Number`
+
+Example of a possible command: `quiz delete quizID/CS2103T quizQuestionNumber/3`
+This deletes question number 3 of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz delete` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizDeleteQuestionCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizDeleteQuestionCommand#execute()`. This in turn executes `model#deleteQuizQuestion()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#deleteQuizQuestion()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#deleteQuizQuestion()`.
+
+8. The `Question` object is deleted from the chosen `Quiz` object in the `QuizBank` in `SavedQuizzes` for storage and further use.
+
+[[Feature-Quiz-Export]]
+==== Exporting a Quiz to HTML
+The quiz export feature allows the user to export a quiz to HTML in Njoy.
+This feature is facilitated by `QuizExportCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz export quizID/CS2103T`
+This exports the quiz named CS2103T to a HTML file in the user's directory.
+
+===== Implementation
+
+When the user inputs the `quiz export` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizExportCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizExportCommand#execute()`. This in turn executes `model#exportQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#exportQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#exportQuiz()`.
+
+8. The `Quiz` object is exported to a HTML file in the user's directory for further use.
+
+.Activity Diagram for `quiz export` command
+image::QuizExportActivity.png[align="center"]
+
+.Follow up Rake Reference Activity Diagram for `quiz export` command
+image::CreateQuizHtml.png[align="center"]
+
+[[Feature-Quiz-List]]
+==== Listing Questions and Answers of a Quiz
+The quiz list feature allows the user to list both questions and answers from a quiz in Njoy.
+This feature is facilitated by `QuizListCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz list quizID/CS2103T`
+This lists the questions and answers of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz list` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizListCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizListCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The questions and answers for the quiz are displayed onto the UI.
+
+[[Feature-Quiz-ShowAnswers]]
+==== Showing Answers of a Quiz
+The quiz show answers feature allows the user to show only answers from a quiz in Njoy.
+This feature is facilitated by `QuizShowAnswersCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz showAnswers quizID/CS2103T`
+This shows the answers of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz showAnswers` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizShowAnswersCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizShowAnswersCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The answers for the quiz are displayed onto the UI.
+
+[[Feature-Quiz-ShowQuestions]]
+==== Showing Questions of a Quiz
+The quiz show questions feature allows the user to show only questions from a quiz in Njoy.
+This feature is facilitated by `QuizShowQuestionsCommand`, `QuizCommandParser`, `NjoyParser`, `SavedQuizzes`, `QuizBank` and `QuizManager`.
+The arguments supported by this feature includes:
+
+- `Quiz ID`
+
+Example of a possible command: `quiz showQuestions quizID/CS2103T`
+This shows the answers of the quiz named CS2103T.
+
+===== Implementation
+
+When the user inputs the `quiz showQuestions` command in the command line, the following chain of operations occur:
+
+1. The `NjoyParser` will delegate the parsing of the command to `QuizCommandParser`.
+
+2. `QuizCommandParser#parse()` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. If the parsing of all arguments are successful, a new `QuizShowQuestionsCommand` is returned back to `LogicManager`.
+
+5. The `LogicManager` executes `QuizShowQuestionsCommand#execute()`. This in turn executes `model#getObservableListQuestionsFromQuiz()`.
+
+6. The `ModelManager` defers the operations to `SavedQuizzes#getObservableListQuestionsFromQuiz()`.
+
+7. Finally, this delegates the actual operations to `QuizManager#getObservableListQuestionsFromQuiz()`.
+
+8. The answers for the quiz are displayed onto the UI.
+
+=== Student feature
+
+The student feature utilises the `StudentCommandParser` class to parse the user command input into the different
+command types and validates the input. Students are then added into the `UniqueStudentList#students` observable list. +
+
+The feature comprises of five commands namely,
+
+* <<Feature-Student-Add, `StudentAddCommand`>> - Adding students to overall student list
+* <<Feature-Student-Edit, `StudentEditCommand`>> - Editing students
+* <<Feature-Student-Delete, `StudentDeleteCommand`>> - Deleting students
+* <<Feature-Student-List, `StudentListCommand`>> - Listing students
+
+The Student Commands share similar paths, and is further illustrated in the following sequence diagram, which shows the
+sequence diagram for the StudentAddCommand.
+
+.Sequence Diagram for `StudentAddCommand`
+image::StudentAddSequence.png[]
+
+{nbsp} +
+**The following are the common steps among all Student commands.**
+
+1. The `NjoyParser` will delegate the parsing of the command to `StudentCommandParser`
+
+2. `StudentCommandParser#parse` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+[[Feature-Student-Add]]
+==== Add command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `StudentAddCommand` performs. +
+
+1. If the parsing is successful, `StudentAddCommand#execute(Model model)` method is executed and it validates the student defined.
+Since student names are unique, if a duplicate student is input, and exception is thrown and the duplicate student is not added.
+
+2. If tags are present in the input, `Tags` are created and added to the `Student` in the
+`StudentCommandParser#addCommand(ArgumentMultimap argMultimap)` method.
+
+3. The method `Model#addStudent(Student student)` will then be called to add the created student and a success message will
+be generated by the `StudentAddCommand#generateSuccessMessage(Student student)` method and a new `CommandResult` will be
+returned with the generated success message.
+
+4. The newly created student is added to the `StudentRecord`.
+
+[[Feature-Student-Edit]]
+==== Edit command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `StudentEditCommand` performs. +
+
+1. If the parsing is successful, `StudentEditCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
+instantiating `StudentEditCommand(Index index, EditStudentDescriptor editStudentDescriptor)` is valid. It uses the
+`StudentEditCommand.EditStudentDescriptor` to create the new student.
+
+2. A new `Student` with the updated values will be created and replace the existing student object
+through the `Model#setStudent(studentToEdit, editedStudent)` method.
+
+3. The filtered student list will be updated with the new student with the
+`model#updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS)` method.
+
+4. A success message will be generated by the
+`StudentEditCommand#generateSuccessMessage(Student studentToEdit, Student editedStudent)` method
+and a new `CommandResult` will be returned with the generated success message.
+
+[[Feature-Student-Delete]]
+==== Delete command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `StudentDeleteCommand` performs. +
+
+1. If the parsing is successful, `StudentDeleteCommand#execute(Model model)` method is executed and it checks if the `Index` defined when
+instantiating `StudentDeleteCommand(Index index)` is valid (IE: Not out of bounds of student list)
+
+2. The `Student` at the specified `Index` is then removed from the `UniqueStudentList#students` observable list through
+the `Model#deleteStudent(Index index)` method.
+
+3. A success message will be generated by the `StudentDeleteCommand#generateSuccessMessage(Student student)` method
+and a new `CommandResult` will be returned with the generated success message.
+
+[[Feature-Student-List]]
+==== List command
+
+The following is a detailed explanation of the operations `StudentListCommand` performs. +
+
+===== Implementation
+
+1. If the parsing is successful, `StudentListCommand#execute(Model model)` method is executed. No validation is necessary here since it
+does not write to the student list.
+
+2. The `Model#getStudentSummary()` method is then called and the questions are returned as a `String` to the new `CommandResult`
+object.
+
+3. If any view other than the view of the student list is showing on the `MainWindow`, the 'MainWindow#handleStudent() method
+is called and the student list is now visible on the Main Window.
+[NOTE]
+In this implementation of the application, the list of students is rendered on the GUI of the main window. Hence, the command merely prints its contents on the Command Result box.
+
+===== Design Considerations
+
+===== Command Syntax
+* ** Current Implementation: **
+** Current implementation of the commands follows the command word syntax e.g student followed by the arguments necessary
+to execute the add, edit, delete and list commands.
+
+* ** Alternatives Considered: **
+** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
+realised it is redundant as the only input will be commands and will make it more tedious for the user.
+
+===== Aspect: Command Length
+
+* ** Current Implementation: **
+** Commands are currently shortened as much as possible through the use of initials without much loss in clarity.
+For example, when denoting the index number of the student to delete in `StudentDeleteCommand`, we use index/ instead
+of studentIndexNumber/.
+
+* ** Alternatives Considered: **
+** Using more descriptive terms as arguments such that each argument will be specified clearly. However, this decreases
+the user experience as the command will be too long.
+
+=== Tag feature
+The tag command was included in nJoyAssistant to help teachers identify the weak subjects of
+their students easily.
+The tag feature utilises the `TagCommandParser` class to parse and validate the
+user input. Tags are then added into the `Student` that was specified by the `Index`
+in the input.
+
+The feature comprises of one command namely,
+
+* <<Feature-Tag, `TagCommand`>> - Tagging student specified by index number
+
+The command when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+_To Add: Class diagram of the interaction between the tag parser and command_
+
+[[Feature-Tag]]
+==== Tag command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `TagCommand` performs. +
+
+1. The `NjoyParser` will delegate the parsing of the command to `TagCommandParser`
+
+2. `TagCommandParser#parse` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+4. The `TagCommand#execute(Model model)` method is executed and it validates the tag(s) defined.
+Since tags attached to a 'Student' are unique, if duplicate tags are added to a 'Student', an error message
+is shown.
+
+5. The method `TagCommand#createTaggedStudent(Student studentToTag,Set<Tag> tagSet)` will then be called
+to create a new student with the updated tags, and the method `model#setStudentWithIndex(Index actualIndex, Student updatedStudent)` will
+update the existing student with the new student(with the tags)
+
+6. A success message will be generated by the
+`TagCommand#generateSuccessMessage(String taggedStudentNotification, String existedTagsNotification)` method
+and a new `CommandResult` will be returned with the generated success message.
+
+NOTE: If more than one tag is to be added, do tag/TAG_ONE tag/TAG_TWO. Full example:
+"tag index/1 tag/Chemistry tag/Physics"
+
+===== Design Considerations
+
+===== Aspect: Command Syntax
+* ** Current Implementation: **
+** Current implementation of the commands follows the command word syntax e.g tag followed by the arguments necessary
+to execute the tag command.
+
+* ** Alternatives Considered: **
+** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
+realised it is redundant as the only input will be commands and will make it more tedious for the user.
+
+===== Aspect: Command Clarity
+* ** Current Implementation: **
+** "tag index/1 tag/Chemistry tag/Physics"
+** We currently have a tag/ before each tag that is to be added to the student at the specified index number. Although
+this might be slightly lengthier, it is clearer that we are adding two separate tags as opposed to one tag with a space in
+between.
+
+* ** Alternatives Considered: **
+**  "tag index/1 tag/Chemistry Physics"
+** Using just one tag/ before inserting all the tags to be added to the particular student may result in a misconception
+that a tag with multiple words can be added.
+
+=== Mark feature
+The mark feature is included in nJoyAssistant to help teachers identify the students who are in dire need of
+academic help due to poor overall results.
+The tag feature utilises the `MarkCommandParser` class to parse and validate the
+user input.
+
+The feature comprises of two commands namely,
+
+* <<Feature-Mark-Add, `AddMarkCommand`>> - Marking student specified by index number
+* <<Feature-Mark-Remove, `RemoveMarkCommand`>> - Unmarking student specified by index number
+
+The command when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+The logic flow for both the `mark` and `unmark` commands are quite similar, and can be seen by the following activity
+diagram that depicts the execution of the `AddMarkCommand`.
+
+.Activity Diagram for `AddMarkCommand`
+image::MarkActivityDiagram.png[]
+{nbsp} +
+**The following are the common steps among all Mark commands.**
+
+1. The `NjoyParser` will delegate the parsing of the command to `MarkCommandParser`
+
+2. `MarkCommandParser#parse` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+[[Feature-Mark-Add]]
+==== Add Mark command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `AddMarkCommand` performs. +
+
+1. The `AddMarkCommand#execute(Model model)` method is executed and it validates the `Index` derived from the input.
+
+2. The method `Student#setMarked()` will then be called to mark the `Student` with the specified `Index`
+
+3. A success message will be generated by the
+`AddMarkCommand#generateSuccessMessage(String MESSAGE_SUCCESS, int index)` method
+and a new `CommandResult` will be returned with the generated success message.
+
+NOTE: Index cannot be out of bounds of the student list, and cannot attempt to mark a student that has already been marked.
+
+[[Feature-Mark-Remove]]
+==== Remove Mark command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `RemoveMarkCommand` performs. +
+
+1. The `RemoveMarkCommand#execute(Model model)` method is executed and it validates the `Index` derived from the input.
+image::Ui.png[]
+
+2. The method `Student#setUnmarked()` will then be called to mark the `Student` with the specified `Index`
+
+3. A success message will be generated by the
+`RemoveMarkCommand#generateSuccessMessage(String MESSAGE_SUCCESS, int index)` method
+and a new `CommandResult` will be returned with the generated success message.
+
+NOTE: Index cannot be out of bounds of the student list, and cannot attempt to unmark a student that has not already been marked.
+
+==== Design Considerations
+
+===== Aspect: Command Syntax
+* ** Current Implementation: **
+** Current implementation of the commands follows the command word syntax e.g tag followed by the arguments necessary
+to execute the tag command.
+
+* ** Alternatives Considered: **
+** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
+realised it is redundant as the only input will be commands and will make it more tedious for the user.
+
+===== Aspect: Command Complexity
+* ** Current Implementation: **
+** Current implementation of the commands only allows users to mark/unmark one student at a time, so as to reduce the complexity
+of the command.
+
+* ** Alternatives Considered: **
+** Allow users to mark multiple students at the same time, but this would result in a more complex command, making it more prone to
+mistakes.
+
+=== Group feature
+
+The group feature utilises the students stored in the `UniqueStudentList#students` observable list.
+The group feature utilises the `GroupCommandParser` class to parse the user command input into the different command types and validates the input.
+
+The feature comprises of four commands namely,
+
+* <<Feature-Group-Create-Manually, `GroupCreateManuallyCommand`>> - Creates a group with user input manually
+* <<Feature-Group-Add-Student, `GroupAddStudentCommand`>> - Adds a student to an existing group
+* <<Feature-Group-Remove-Student, `GroupRemoveStudentCommand`>> - Removes a student from an existing group
+* <<Feature-Group-List, `GroupGetStudentsCommand`>> - Listing students of an existing group
+* <<Feature-Group-Export, `GroupExportCommand`>> - Exports group with student information to a word document
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+{nbsp} +
+
+**The following are the common steps among all Group commands.** +
+
+1. The `NjoyParser` will delegate the parsing of the command to `GroupCommandParser`
+
+2. `GroupCommandParser#parse` will take in a `String` input consisting of the arguments.
+
+3. The arguments will be tokenized and the respective models for each argument are created.
+
+[[Feature-Group-Create-Manually]]
+==== Create Manually command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `GroupCreateManuallyCommand` performs. +
+
+1. If the parsing of arguments is successful, `GroupCreateManuallyCommand#execute(Model model)` method is executed and it validates the groupId, making sure that there is no existing group with the same groupId. Then, it validates the student numbers, making sure that all student numbers currently exist within the `UniqueStudentList#students` observable list.
+
+2. The method `Model#createGroupManually(String groupId, ArrayList<Integer> studentNumbers)` will then be called to create the group with the specified students.
+
+3. Then, a success message will be generated by the `GroupCreateManuallyCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+
+[[Feature-Group-Add-Student]]
+==== Add Student command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `GroupAddStudentCommand` performs. +
+
+1. If the parsing of arguments is successful, `GroupAddStudentCommand#execute(Model model)` method is executed and it validates the student number, making sure that the student number currently exists within the `UniqueStudentList#students` observable list.
+
+2. The method `Model#addStudentToGroup(String groupId, int studentNumber, int groupIndexNumber)` will then be called to add the specified student to the specified group, with the specified group index number.
+
+3. Then, a success message will be generated by the `GroupAddStudentCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+
+[[Feature-Group-Remove-Student]]
+==== Remove Student command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `GroupRemoveStudentCommand` performs. +
+
+1. If the parsing of arguments is successful, `GroupRemoveStudentCommand#execute(Model model)` method is executed.
+
+2. The method `Model#removeStudentFromGroup(String groupId, int studentNumber)` will then be called to remove a specified student from the specified group.
+
+3. Then, a success message will be generated by the `GroupRemoveStudentCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+
+[[Feature-Group-List]]
+==== List(Show) command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `GroupGetStudentsCommand` performs. +
+
+1. If the parsing of arguments is successful, `GroupGetStudentsCommand#execute(Model model)` method is executed.
+
+2. The method `ListOfGroups#setCurrentlyQueriedGroup(String groupId)` will then be called to set the currently queried group to match the one that the user input, and `CommandResultType` is set to `SHOW_GROUP`
+
+3. The method `MainWindow#handleGroup()` is then called, opening a new window to show the queried group and the relevant students.
+
+4. Then, a success message will be generated by the `GroupGetStudentsCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+
+[NOTE]
+In this implementation of the application, the groups and respective students are rendered on the GUI of the new window. Hence, the command merely prints its contents on the Command Result box.
+
+[[Feature-Group-Export]]
+==== Export command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `GroupExportCommand` performs. +
+
+1. If the parsing of arguments is successful, the `GroupExportCommand#execute(Model model)` method is executed.
+
+2. The method `model#exportGroup(String groupId)` will then be called
+
+3. The method `groupList#exportGroup(String groupId` is then called, which gets the group with the specified groupId.
+
+4. The method `queriedGroup#export()` is then called, which writes the information of the students in the queried group into a word document with the name
+`[GROUP_ID].docx`, and it is stored in the export folder.
+
+5. Then, a success message will be generated by the `GroupExportCommand#generateSuccessMessage()` method and a new `CommandResult` will be returned with the generated success message.
+
+[NOTE]
+If the queried group has groupId 'G03', the name of the generated word document would be G03.docx
+
+==== Design Considerations
+
+===== Aspect: Command Syntax
+* ** Current Implementation: **
+** Current implementation of the commands follows the command word syntax e.g group followed by the minimum arguments necessary
+to execute the tag command.
+
+* ** Alternatives Considered: **
+** Usage of a forward slash `/` and then the command word. Although it makes it clearer that the input is a command, we
+realised it is redundant as the only input will be commands and will make it more tedious for the user.
+
+===== Aspect: Command Length
+
+* ** Current Implementation: **
+** Commands are currently shortened as much as possible without much loss in clarity.
+For example, instead of using showStudentsInGroup/ , we just ask users to provide groupId/[GROUP_ID] to show a list of students in that group.
+Although this may be unfamiliar to the user initially, it should be easy to pick up and will make it less tedious during input.
+
+* ** Alternatives Considered: **
+** Using more descriptive terms as arguments such that each argument will be specified clearly. However, this decreases
+the user experience as the command will be too long.
+
+===== Aspect: Command Complexity
+
+* ** Current Implementation: **
+** Only allow users add one student to a group at a time after the group has been initialized.
+This is to make the commands as short and simple as possible to lessen the chance
+of a mistake.
+
+* ** Alternatives Considered: **
+** Allow users to add multiple students to already initialized groups at the same time, but results in a longer and more complex command.
+
+
+.Class Diagram depicting relationships between Student/Group/Mark and Tag features.
+image::GroupStudentClassDiagram.png[]
+
+[[Feature-Notes]]
+=== Notes feature
+
+The notes feature acts as a lightweight,digital “Post-It” for teachers.
+
+The feature comprises of four commands namely,
+
+* <<Feature-Note-Add, `NoteAddCommand`>> - Creates a note with a description.
+* <<Feature-Note-Edit, `NoteEditCommand`>> - Edits an existing note.
+* <<Feature-Note-Delete, `NoteDeleteCommand`>> - Deletes an existing note.
+* <<Feature-Note-List, `NoteListCommand`>> -Lists all notes.
+* <<Feature-Note-Sort, `NoteSortCommand`>> -Sorts all notes.
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+
+(See <<Design-Logic, logic component>> for the general overview).
+[[Feature-Note-Add]]
+==== Add Note Command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `NoteAddCommand` performs. +
+
+1. The `NoteAddCommand#execute(Model model)` method is executed and it validates that the `Note` object passed from the parser using command input is valid.
+
+2. The method `Model#addNote(Note note)` will then be called to add the specified note to the `NotesRecord`. The `Note` added is validated for uniqueness by `Note#isSameNote(Note note)`.
+
+3. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+4. If the command syntax was valid and `Note` was added to the `NotesRecord`, `LogicManager` calls `Storage#saveNotesRecord(ReadOnlyNotesRecord notesRecord)` which saves the `NotesRecord` in JSON format after serializing it using the `JsonSerializableNotesRecord`.
+
+[NOTE]
+The `ReadOnlyNotesRecord` hides the implementation of the NotesRecord from the other layers of the software.
+
+The following is a sample sequence diagram of the `NoteAddCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
+
+.Sequence Diagram for Adding Notes
+image::DeveloperGuideResources/NotesAddSequenceDiagramColored.png[]
+
+.Supplementary Frame for Sequence Diagram
+image::DeveloperGuideResources/NoteAddFrameColored.png[]
+
+[[Feature-Note-Edit]]
+==== Edit Note Command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `NoteEditCommand` performs. +
+
+1. The `NoteEditCommand#execute(Model model)` method is executed and it validates that the `Note` index is within range. It uses the `NoteEditCommand.EditNoteDescriptor` to create the new note.
+
+2. The method `Model#setNote(Note noteToEdit, Note editedNote)` will then be called to edit the note from the `NotesRecord`. The method `NotesRecord#setNote(Note target, Note editedNote)` validates that the edited note maintains the unique property of each note in its internal list using the comparison `Note#isSameNote(Note note)`. If it is unique, the target note is edited to the new one.
+
+3. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+4. If the command syntax was valid and `Note` was edited from the `NotesRecord`, `LogicManager` calls `Storage#saveNotesRecord(ReadOnlyNotesRecord notesRecord)` which saves the edited notes in JSON format after serializing it using the `JsonSerializableNotesRecord`.
+
+[[Feature-Note-Delete]]
+==== Delete note command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `NoteDeleteCommand` performs. +
+
+1. The `NoteDeleteCommand#execute(Model model)` method is executed and it validates that the specified `Note` index to delete is within range. If valid, the note is retrieved using its index in the `Model`’s filtered notes list.
+
+2. The method `Model#deleteNote(Note noteToDelete)` will then be called to remove the note from the `NotesRecord`. `NotesRecord#removeNote(Note note)` is invoked which makes a call to its internal list to remove the speficied note.
+
+3. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+[NOTE]
+Unlike the previous `Note` comparisons, removal of notes from the internal list uses `Note#equals(Object other)` comparison instead of the `Note#isSameNote(Note otherNote)`.
+
+[[Feature-Note-List]]
+==== Note list command
+
+[NOTE]
+In this implementation of the application, the teacher’s notes are rendered on the GUI on loading the application. Hence, the list notes command merely prints its contents on the Command Result box.
+
+===== Implementation
+
+The following is a detailed explanation of the operations `NoteListCommand` performs. +
+
+1. The `NoteListCommand#execute(Model model)` method is executed. It updates the notes list in `Model`. It retrieves the `NotesRecord` object of type `ReadOnlyNotesRecord` in the `ModelManager` to enumerate the list.
+
+2. The method `NoteListCommand#generateSuccessMessage(ReadOnlyNotesRecord notesRecord)` generates a String representation of the notes in the command.
+
+3. If successful, the success message generated is returned with the `CommandResult`.
+Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+4. Success or error message for the list notes command is rendered in the command result box.
+
+[[Feature-Note-Sort]]
+==== Note sort command
+
+[NOTE]
+Sorting is based on `Note` `Priority` attribute. `Priority` has value in descending order `HIGH`, `MEDIUM`, `LOW` and `UNMARKED`.
+
+===== Implementation
+
+The following is a detailed explanation of the operations `NoteSortCommand` performs. +
+
+1. The `NoteSortCommand#execute(Model model)` method is executed.
+It sorts the notes list in `Model` by executing `Model#sortNotesRecord(Comparator<Note> noteComparator)`.
+
+2. The sorting is passed to the `NotesRecord` which uses the comparator implemented by `Note` to sort and update its internal list.
+
+3. The `NoteSortCommand#execute(Model model)` returns a success message for the sorting task.
+
+4. The filtered list in `NotesRecord` has been updated and the User Interface shows the newly sorted notes list.
+
+==== Design Considerations
+
+===== Aspect: Command Length
+
+* **Alternative 1 (current choice):** Short, intuitive and minimal compulsory fields.
+** Pros: More flexible for the user, easier to use and very lightweight.
+** Cons: Not as powerful and less utility for advanced users.
+* **Alternative 2:** Many fields including tagging, redo, undo et cetera.
+** Pros: Powerful, many features that advanced users can use.
+** Cons: Against original target of making the Notes feature super lightweight and easy to use. Should be as easy as a digital Post-it!
+
+[NOTE]
+Additional fields to the Note have been made optional such that it is very easy to use for beginner users and at the same time powerful for advanced ones. We
+aim to keep our notes feature as simple as a pen-paper recording or even simpler.
+
+[[Feature-Statistics]]
+=== Statistics feature
+==== Generating Statistics
+The statistics feature allows users of Njoy to generate statistics reports using external files as input data.
+
+Current File Compatibilities: Excel(.xlsx)
+
+A generic data parser of external files is used to generate `HashMap` of student’s data as specified by the input file. This processed data is passed to a `Statistics` `Model` which performs statistical analysis before passing back to the UI for rendering.
+
+.Class Diagram for Statistics Feature
+image::DeveloperGuideResources/StatisticsClassDiagramColored.png[]
+
+
+The following is an example usage scenario where the Actor/User asks Njoy for a statistics report.
+
+1. Actor/User inputs a statistics command with data path as specified in user guide. `MainWindow#executeCommand(String commandText)` passes the user input to the `LogicManager`.
+
+2. The logic manager passes received input into its main parser which recognises this is a command for statistics. It passes the input to the `StatisticsCommandParser` for retrieving data from the external file. All data file parsers implements the `DataParser` interface.
+
+3. Suppose the data was successfully retrieved, `Statistics` object is generated for data processing and passed into `StatisticsAddCommand`.
+
+4. Execution of this command results in the processed data being passed to the `ModelManager` using `StatisticsAddCommand#execute`.
+
+5. The success result of the Statistics command is shown on the GUI and the execution call has returned to `MainWindow#executeCommand(String commandText)`. It
+recognises the command was a valid Statistics command and opens a new window to show the processed data.
+
+[NOTE]
+If the input file is not formatted as specified in the user guide, a `ParseException` would be thrown to show error message as the result. No new window is opened. The diagram below illustrates possible program control flows.
+
+.Activity Diagram for Statistics Feature
+image::DeveloperGuideResources/StatisticsActivityDiagramResized.png[]
+
+==== Design Considerations
+
+===== Aspect: Rendering UI
+
+* **Alternative 1 (current choice):** Opens a new window for the report generated.
+** Pros: More space to work with, able to generate more comprehensive report that is easier to view.
+** Cons: Data widgets are no longer stateful, they are newly created every time a new report is requested.
+* **Alternative 2:** Render data for current state of the model on the user interface.
+** Pros: Stateful, no need to recreate the widget every time there is new input data.
+** Cons: Lack of space, hard to render other UI elements such as the timetable.
+
+===== Aspect: Storing of generated data reports.
+* ** Alternative 1 (current choice):** Generate a png report every time user requests for the report.
+** Pros: Available for printing, portable.
+** Cons: Can be difficult to implement, need good understanding of API.
+* **Alternative 2:** Save to database every time a report is generated and showing them when requested by unique identifiers.
+** Pros: Easy to use, no need to input long file path every time.
+** Cons: User most likely have data stored in respective educational database system. Report generation is not computationally intensive and thus offers little performance advantage for effort.
+// end::Statistics Feature[]
+
+[[Feature-Events]]
+
+=== Events feature
+
+[.big]##**Overview**##
+
+The events feature allows users of Njoy to manage, view and export their events. This feature is built based on the Jfxtras iCalendarAgenda library.
+The iCalendarAgenda object is used on the UI side to render VEvents. The VEvent object from the iCalendarAgenda library is used to encapsulate event details such as
+event name, start date time, recurrence, etc. Note that VEvent is primarily used throughout the application, as it is the required object type for iCalendarAgenda.
+At the model level, VEvents are mapped to Event objects for saving and vice versa for reading purposes in the storage layer.
+
+The feature comprises of the following features:
+
+* <<Feature-Event-Add, `EventAddCommand`>> - Creates a new event.
+* <<Feature-Event-Index, `EventIndexCommand`>> - Gets the index of an event.
+* <<Feature-Event-Edit, `EventEditCommand`>> - Edits an existing event, identified by their index.
+* <<Feature-Event-Delete, `EventDeleteCommand`>> - Deletes an existing event, identified by their index.
+* <<Feature-Event-View, `EventViewCommand`>> - View and set the preferences of the event schedule.
+* <<Feature-Event-Screenshot, `EventScreenshotCommand`>> - Takes a screenshot of the current event schedule.
+* <<Feature-Event-Export, `EventExportCommand`>> - Exports events to a .ics file type.
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+==== Class Overview
+
+The figure below describes the interactions between event-related classes in the `Model`. Note how the `EventRecord`
+class has a dependency on `Event` object in its constructor, but only has a `VEvent` attribute: `vEvents`. This
+highlights a mapping between the Event and VEvent object within the `EventRecord` class. Althought the methods
+of the `EventRecord` class are omitted for brevity, they are mostly `VEvent` based, which again highlights that
+interactions with the `Logic` and `UI` components will mostly be done in `VEvent` type.
+
+.Class Diagram for EventRecord and its related classes
+image::DeveloperGuideResources/EventClassDiagram.png[]
+
+[[Feature-Event-Add]]
+==== Add Event Command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventAddCommand` performs. +
+
+1. The `EventAddCommand#execute(Model model)` method is executed and it validates that the `VEvent` object passed from the parser using command input is valid.
+
+2. The method `Model#addVEvent(VEvent vEvent)` will then be called to add the specified VEvent to the `EventRecord`.
+The `VEvent` added is validated for uniqueness by `EventUtil#isSameVEvent(VEvent vEvent)`.
+
+3. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message.
+Otherwise, an error message showing the proper event add command syntax will be thrown as `CommandException`.
+
+4. If the command syntax was valid and `VEvent` was added to the `EventRecord`, `LogicManager`
+calls `Storage#saveEvents(ReadOnlyEvents eventRecord)` which saves the `EventRecord` in JSON format after serializing it using the `JsonEventStorage`.
+
+[NOTE]
+The `ReadOnlyVEventRecord` and `ReadOnlyEventRecord` interfaces hides the implementation of the EventRecord from the other layers of the software.
+
+
+[[Feature-Event-Index]]
+==== Index command
+
+The following is a detailed explanation of the operations `EventIndexCommand` performs.
+The purpose of this command is to return the index of the vEvent(s) with event name that equals to the `desiredEventName` which is input from the user.
+And if there are no matching VEvents with the same event name. Suggest a VEvent with the most similar event name to that of
+the `desiredEventName` based on the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]
+
+The following is a sample activity diagram of the execute method of `EventIndexCommand`. Note that the "details"
+in the diagram refers to the VEvent object itself and its corresponding index.
+
+.Activity Diagram for finding index of Event
+image::DeveloperGuideResources/EventIndexActivityDiagram.png[]
+
+===== Implementation
+
+1. The `EventIndexCommand#execute(Model model)` method is executed.
+
+2. The method `EventRecord#findVEvents(String desiredEventName)` is then called through the `Model#findVEvents(String desiredEventName)` method.
+
+3. The `EventRecord#vEvents` list is iterated once and the search is performed on the 'desiredEventName' using `StringUtil#equalsIgnoreCase` with the `summary`
+value of each `VEvent`. Matching `VEvent`'s and their corresponding index in `vEvents` will form a new `Pair<Index, VEvent>` and be added to the `resultIndexList`. At the end of the iteration
+`resultIndexList` is returned.
+
+4. If the `resultIndexList` returned is not empty, a new `CommandResult` will be returned with a message
+stating the Index and the corresponding details of the VEvents found.
+
+5. Else, when the `resultIndexList` is empty, the method `EventRecord#findMostSimilarVEvent(String desiredEventName)`
+is then called through the `Model#findMostSimilarVEvent(String desiredEventName)` method.
+
+6. If the there are no `VEvent`, in `vEvents` of `EventRecord` the method will throw a `VEventNotFoundException` which will be caught. This exception will then be wrapped to a `CommandException`  and thrown upwards with a corresponding user message to be shown.
+
+7. Otherwise, `EventRecord#vEvents` will be iterated once, and the similarity between `desiredEventName` and the `summary` value of each VEvent will be calculated based on the
+https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]. At the end the event which is most similar and its index will create be returned as a new `Pair<Index, VEvent>`.
+
+8. A new `CommandResult` will be returned with a message stating the Index and the corresponding details of the most similar VEvent found.
+
+[NOTE]
+VEvent objects use a `summary` object to represent the name of an event.
+
+[[Feature-Event-Edit]]
+==== Edit Event Command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventEditCommand` performs. +
+
+1. The `EventEditCommand#execute(Model model)` method is executed and it validates that the index is within range
+and there have been fields changed. It uses the `EventEditCommand.EditVEventDescriptor` to detect if any fields has been changed.
+
+2. The target VEvent to be edited is retrieved using the `Model#getVEvent(Index index)` method. A new `editedVEvent` object
+is then created using the `EventEditCommand.EditVEventDescriptor`
+
+3. Validation is then carried out to check that the setting of this new `editedVEvent` will not result in duplicate VEvents
+in the `vEvents` list in `EventRecord` using the `EventUtil#isSameVEvent(VEvent vEvent)` method and the `Model#HasVEvent(VEvent vEvent)` method.
+If validation fails, a `CommandException` will be thrown.
+
+4. If the validation is successful, `Model#setVEvent(Index index, VEvent vEvent)` method will be called.
+This will replace the target VEvent with the new `editedVEvent`. A success message will be generated by the and a new `CommandResult` will be returned with the generated success message.
+
+5. If the command syntax was valid and `VEvent` was edited from the `EventRecord`, `LogicManager` calls `Storage#saveEventRecord(ReadOnlyEventRecord eventRecord)` which saves the edited notes in JSON format after serializing it using the `JsonEventRecord`.
+
+[[Feature-Event-Delete]]
+==== Delete event command
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventDeleteCommand` performs. +
+
+1. The `EventDeleteCommand#execute(Model model)` method is executed and it validates that the specified `Index` to delete is within range. If valid, the vEvent to be deleted will be retrieved using its `Index`.
+
+2. The method `Model#deleteVEvent(Index index)` will then be called to remove the `VEvent` from the `EventRecord`. `EventRecord#deleteVEvent(Index index)` is invoked which makes a call to its internal list to remove the speficied vEvent.
+
+3. If successful, a success message will be generated by the and a new `CommandResult` will be returned with the generated success message. Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+
+4. If the command syntax was valid and `VEvent` was removed from the `EventRecord`, `LogicManager` calls `Storage#saveEventRecord(ReadOnlyEventRecord eventRecord)` which saves the new notes record in JSON format after serializing it using the `JsonEventRecord`.
+
+
+The following is a sample sequence diagram of the `EventDeleteCommand`. Other commands under the notes feature follow a similar program flow; their diagrams have been omitted for brevity.
+
+.Sequence Diagram for Deleting Events
+image::DeveloperGuideResources/EventDeleteSequenceDiagram.png[]
+
+[[Feature-Event-View]]
+==== View event command
+
+This command changes the mode which the `EventSchedulePanel` is in. The command has 2 optional parameters being `targetViewDateTime`
+and `eventScheduleViewMode`. The `EventScheduleViewMode` enum is used to represent the the skins of the iCalendarAgenda: weekly and daily.
+The `targetViewDateTime` sets the reference date time to be rendered in iCalendarAgenda, which will in turn
+show the corresponding week (if it is in week mode) which contains the reference date time. Otherwise, in daily mode, it will simply show
+the VEvents for that day.
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventDeleteCommand` performs. +
+
+1. The `EventViewCommand#execute(Model model)` method is executed. If the `targetViewDateTime` is not null, the `Model#setEventScheduleTargetDateTime(LocalDateTime targetDateTime)`
+method will be called to store the `targetViewDateTime` in the `EventSchedulePrefs` object in the `ModelManager`.
+If the `eventScheduleViewMode` is not null, the `Model#setEventScheduleViewMode(EventScheduleViewMode eventScheduleViewMode)`
+method will be called to store the `eventScheduleViewMode` in the `EventSchedulePrefs` object in the `ModelManager`.
+
+2. A new `CommandResult` with type `CommandResultType.SHOW_SCHEDULE` will be generated and returned.
+
+3. Upon detecting the `CommandResultType.SHOW_SCHEDULE` in `MainWindow`, it will call `handleSchedule` which will
+call `Logic#getScheduleViewMode()` and `Logic#getEventScheduleTargetDateTime()` to get the respective data and set them accordingly in the
+`eventSchedulePanel` to be rendered to the user.
+
+[NOTE]
+The `EventSchedulePrefs` object is used to store the preference of the user for the `iCalendarAgenda`.
+Specifically the skin mode and the reference date time.
+
+[[Feature-Event-Screenshot]]
+==== Screenshot event command
+This command allows the user to take a screenshot of the current state of the `EventSchedulePanel` and save it to a .png file.
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventScreenshotCommand` performs. +
+
+1. The `EventScreenshotCommand#execute(Model model)` method is executed. This simply returns a new
+`CommandResult` with type `CommandResultType.SCHEDULE_SCREENSHOT` and `targetPrintableFileName` from `Model#getEventSchedulePrefString()`
+
+2. The `MainWindow` which detects that the `CommandResult` is of type `CommandResultType.SCHEDULE_SCREENSHOT` will
+call `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)`.
+
+3. Within the `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)` it will then open a new full-screen window
+of the current `EventSchedulePanel` and get its `WritableImage`. Then it will construct a new `SchedulePrintable` with the `targetPrintableFileName` and `WritableImage` and call
+`logic#savePrintable(NjoyPrintable printable)`.
+
+4. If successful, this will save the `EventSchedulePanel` as .png file type in the printable directory with file name `targetPrintableFileName`
+
+[NOTE]
+The `Model#getEventSchedulePrefString()` method gets the a string representation of the current state of the Event Schedule Panel.
+This is to allow user to easily identify what the .png screenshot represents.
+
+[NOTE]
+The `NjoyPrintable` object is used to encapsulate the `WritableImage` of the JavaFX Node to be saved and the file name to save it to.
+
+[[Feature-Event-Export]]
+==== Export event command
+
+This command allows the user to export all the events into a .ics file.
+
+===== Implementation
+
+The following is a detailed explanation of the operations `EventScreenshotCommand` performs. +
+
+1. The `EventExportCommand#execute(Model model)` method is executed. This simply returns a new
+`CommandResult` with type `CommandResultType.EXPORT_CALENDAR`
+
+2. When the `LogicManager` detects that `CommandResultType` is equals to `CommandResultType.EXPORT_CALENDAR`, it wil then call
+`Storage#exportEvent(ReadOnlyVEvents eventRecord)` which in turn calls `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)` to export the events.
+
+3. Validation is done to check if the "export" directory exists within the `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)` method. The directory will be created if it doesn't exist.
+
+4. Contents of the .ics file is generated by loading the `VEvents` in `ReadOnlyVEvents` into a `VCalendar` object from the
+`iCalendarAgenda` library and calling its `toString()` method. Which formats the VEvents details into .ics format. Then the contents are written into the .ics file
+with file name as specified in `EVENT_SCHEDULE_FILE_NAME` in `IcsEventExport`
+
+[NOTE]
+This command will overwrite any previously created .ics files from the export command in the exports directory.
+
 // tag::undoredo[]
+////
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
 
@@ -235,13 +1586,50 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+=== Event Feature
+==== Implementation
+
+The Event feature is facilitated by the Event class and managed by the EventRecord class
+The EventRecord class converts between an event object and VEvent object which is imported from the vCalendar jfxtras library. VEvent objects are the required type for rendering using the iCalendarAgenda object fromm the iCalendarAgenda jfxtras library.
+
+The question feature utilises the `EventCommandParser` class to parse the user command input into the different
+command types and validates the input.
+
+The included functionalites for event management are:
+* <<Feature-Event-Add, `EventAddCommand`>> - Adding events
+* <<Feature-Event-Edit, `EventEditCommand`>> - Editing events
+* <<Feature-Event-Delete, `EventDeleteCommand`>> - Deleting events
+
+The included functionalites for event schedule panel management are:
+* <<Feature-Calendar-Daily, `CalendarDailyCommand`>> - Switch to daily view
+* <<Feature-Calendar-Weekly, `CalendarWeeklyCommand`>> - Switch to weekly view
+* <<Feature-Calendar-Date, `CalendarDateCommand`>> - Show calendar range which includes date of user input
+
+[[Feature-Event-Add]]
+==== Add command
+
+The following is a detailed explanation of the operations `EventAddCommand` performs. +
+
+*Step 1*. The `EventAddCommand#execute(Model model)` method is executed and creates a new VEvent based on the user input.
+The user is allowed to create recurring events (daily, weekly, none) and also set the color of the VEvent by inputting a number
+from 0-23. The datetime inputs follow the LocalDateTime format.
+
+*Step 2*. The method `Model#addVEvent(VEvent vEvent)` will then be called to add the VEvent and a success message will
+be generated by the `EventAddCommand#generateSuccessMessage(VEvent vEvent)` method and a new `CommandResult` will be
+returned with the generated success message.
+
+The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
+(See <<Design-Logic, logic component>> for the general overview).
+
+==== Design Considerations
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
-
+////
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -277,15 +1665,20 @@ Refer to the guide <<DevOps#, here>>.
 [appendix]
 == Product Scope
 
+
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
+* Has a need to manage classes of students
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+* Has a need to create questions easily
+* Has a need to generate quizzes with previously created questions
+* Requires a timetable manager
+* Prefers efficient viewing statistics of students rather than manually computing it
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: Manage classes of students faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,63 +1690,520 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` [Epic] |teacher |manage classes virtually |have more time for other duties
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |teacher |add a student | deal with possible changes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |teacher |remove a student | deal with possible changes
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |teacher |mark attendance | ensure the student was present for class
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |teacher |record scores | tally the marks accurately instead of manually inputting them into the system
+
+|`* * *` |teacher |store questions that I have prepared |I can refer to them in the future
+
+|`* * *` |teacher |start an in-class activity with my students |interact more with my students
+
+|`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |have different types of questions
+
+|`* * *` |teacher |generate quizzes with randomised questions for assignments |students are unable to copy solutions
+from one another
+
+|`* * *` |teacher |the generated quizzes to be in a text document |easily print and distribute them to students
+
+|`* * *` |teacher |find a student by name |locate details of students without having to go through the entire list
+
+|`* * *` |teacher |add a student | deal with possible changes
+
+|`* * *` |teacher |keep notes |have reminders for pending tasks
+
+|`* * *` |teacher |prioritize my notes |see the notes that are urgent to me
+
+|`* * *`  [Epic] |teacher |generate score statistics |easily view class performance and identify weaker students
+
+|`* * *` |teacher |print my statistics reports |keep a log of individual student performance over the year
+
+|`* *` |student |view the teacher's schedule |request for consultations in appropriate slots
+
+|`* *` |student |view my past results |track my progress and check for updates
+
+|`* *` |student |have an editable timetable |view my timetable and request for consultations at appropriate slots
+when the teacher is free
+
+|`*` |teacher |have an editable timetable |view my timetable and let students request for consultations at
+appropriate slots when I am free
+
+
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Njoy` and the *Actor* is the `Teacher`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a student (UC01)
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Teacher enter details of student
+2.  Njoy saves the record of the student
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. Missing student details
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit a student (UC02)
+
+*Preconditions*
+
+1.  User exist in the system
+
+*MSS*
+
+1.  Teacher finds a student (UC05)
+2.  Teacher requests to edit a student details
+3.  Njoy returns list of fields able to edit
+4.  Teacher enter the field to edit
+5.  Njoy save the edited record
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
+*Extensions*
+
 [none]
-** 3a1. AddressBook shows an error message.
+* *a. Teacher chooses to cancel the edit
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a student (UC03)
+
+*Preconditions*
+
+1.  User exist in the system
+
+*MSS*
+
+1.  Teacher finds a student (UC05)
+2.  Teacher requests to delete a student
+3.  Njoy request for confirmation
+4.  Teacher confirms the deletion
+5.  Njoy deletes the student
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Teacher chooses not to delete the student
++
+Use case ends.
+
+[discrete]
+=== Use case: Find a student (UC04)
+
+*MSS*
+
+1.  Teacher enter name of student to find
+2.  Njoy display the student details
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Name of student cannot be found
+** 1a1. Njoy shows error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Create a class (UC05)
+
+*MSS*
+
+1.  Teacher enter new class details
+2.  Njoy saves the new class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Class name already taken
+** 1a1. Njoy shows error message
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit a class (UC06)
+
+*Preconditions*
+
+1.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to edit class description
+2.  Teacher enters new class description
+3.  Njoy save the edited record
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* *a. Teacher chooses to cancel the edit
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete a class (UC07)
+
+*Preconditions*
+
+1.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to delete a class
+2.  Njoy request for confirmation
+3.  Teacher confirms the deletion
+4.  Njoy deletes the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to delete the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Add student to class (UC08)
+
+*Preconditions*
+
+1.  User exist in the system
+2.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to add a student to class
+2.  Njoy adds the student to the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Remove student from class (UC09)
+
+*Preconditions*
+
+1.  User exist in the system
+2.  Class exist in the system
+
+*MSS*
+
+1.  Teacher requests to remove a student from class
+2.  Njoy request for confirmation
+3.  Teacher confirms the deletion
+4.  Njoy remove the student from the class
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to remove the student from the class
++
+Use case ends.
+
+[discrete]
+=== Use case: Schedule events (UC10)
+
+*MSS*
+
+1.  Teacher requests to add an item to the calendar
+2.  Teacher enter details of the item
+3.  Njoy save the item
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Missing item details
+** 2a1. Njoy shows error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+* 2b. Invalid class id
+** 2b1. Njoy shows error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View events (UC11)
+
+*MSS*
+
+1.  Teacher requests for the events in
+2.  Njoy returns list of events in the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. List is empty
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete events on calendar (UC12)
+
+*Preconditions*
+
+1.  Item exist in calendar
+
+*MSS*
+
+1.  Teacher list events in calendar (UC11)
+2.  Teacher request to delete item in calendar
+3.  Njoy request for confirmation
+4.  Teacher confirms the deletion
+5.  Njoy remove the item from the calendar
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Teacher chooses not to remove the item from the timetable
++
+Use case ends.
+
+[discrete]
+=== Use case: Creating a Open Ended question (UC13)
+
+*MSS*
+
+1.  Teacher enter topic and answers to the question
+2.  Njoy save the question
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter answers
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not enter topic
+** 1b1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Creating a MCQ question (UC14)
+
+*MSS*
+
+1.  Teacher enter topic and answers to the question and options for MCQ.
+2.  Njoy save the question
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter answers
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not enter topic
+** 1b1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1c. Teacher did not enter options to the question
+** 1c1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Start a slideshow (UC15)
+
+*MSS*
+
+1.  Teacher selects question to add to slideshow.
+2.  Njoy displays the questions selected
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter correct question number.
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not select and questions.
+** 1b1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Make notes (UC16)
+
+*MSS*
+
+1.  Teacher requests to make a note.
+2.  Teacher enters specifications of the note.
+3.  Njoy saves the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Njoy detects missing or invalid specifications.
+** 2a1. Njoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit notes (UC17)
+
+*MSS*
+
+1.  Teacher requests to edit a note.
+2.  Teacher enters specifications of the edited note.
+3.  Njoy saves the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Njoy detects missing or invalid specifications.
+** 2a1. Njoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete notes (UC18)
+
+*MSS*
+
+1.  Teacher requests to delete a note.
+2.  Teacher enters specifications of the note to delete.
+3.  Njoy removes the item and displays the new record.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Njoy detects invalid specifications.
+** 2a1. Njoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: List notes (UC19)
+
+*MSS*
+
+1.  Teacher requests to list notes to view.
+2.  Njoy displays the list of notes record.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort notes (UC20)
+
+*MSS*
+
+1.  Teacher requests to sort the notes by priority.
+2.  Njoy displays the list of sorted notes record.
++
+Use case ends.
+
+[discrete]
+=== Use case: Generate Statistics (UC21)
+
+*MSS*
+
+1.  Teacher requests to generate statistics report.
+2.  Teacher enters specifications of the data file.
+3.  Njoy reads the data file and generates statistics to show.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Njoy detects invalid specifications of the data file or request.
+** 2a1. Njoy shows error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Save Statistics Report (UC22)
+
+*MSS*
+
+1.  Teacher pass:[generates a statistics report (UC19)].
+2.  Teacher goes to the directory where report is saved.
+3.  Teacher sees the saved statistics report.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 students without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should work on both 32-bit and 64-bit environments
+.  The assistant should never take more than 5 seconds to process any command
+.  The assistant should be usable by any teacher from any academic background without much of a learning curve
+.  The teacher should be able to have as many classes as desired
+.  The assistant is not required to synchronize timetables / quizzes between 2 teachers
 
 [appendix]
 == Glossary
+
+*MCQ* - Multiple Choice Question, a question with four possible answers, and only one correct.
+
+*Open Ended* - Open Ended Question, a question that cannot be answered with a yes or a no but with a proper sentence.
+
+*Timetable* - A chart showing the schedule to take place at particular times.
+
+*Njoy* - A shortened version of the word "Enjoy".
+
+*Teacher* - User of the Njoy assistant who manages his/her students.
+
+*Student* - Entity that Teacher manages.
+
+*Class* - A manageable unit of Student that Teacher can create, read, edit and delete.
+
+*GUI or UI* - Graphical User Interface that users use to interact with the application.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -364,19 +2214,18 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
-
-Author: ...
+=== Njoy
 
 Pros:
 
-* ...
-* ...
+* Faster than existing market solutions, particularly for Teachers who can type fast.
+* Integrated management of taking attendance, managing classes and creating quizzes
+as opposed to managing them separately on multiple different platforms.
 
 Cons:
 
-* ...
-* ...
+* Integrated management exists on the PC only, no cloud functionality for management from home.
+* Require understanding of CLI as well as the commands to carry out the functionality of Njoy effectively.
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +2249,400 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Questions
 
-=== Deleting a person
+. Adding a question to the question list.
 
-. Deleting a person while all persons are listed
+.. Test case: `question question/What are the multiples of 10? answer/ 10, 20, 30, 40, 50, ... type/open` +
+   Expected: Adds a new Open Ended question to the question list.
+.. Test case: `question question/What is 30 + 20? answer/50 type/mcq a/30 b/40 c/50 d/60 ` +
+   Expected: Adds a new MCQ question to the question list.
+.. Test case: `question question/ answer/ type/` +
+   Expected: Shows error message of missing keywords.
+.. Other incorrect commands to try: `question question/Test question answer/ type/`, `question question/Test question answer/Test answer type/mcq` +
+   Expected: Shows error message regarding reason for failure.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Editing a question from the question list.
 
-_{ more test cases ... }_
+.. Prerequisites: At least one question has to be in the question list.
 
-=== Saving data
+.. Test case: `question 1 question/What are the multiples of 20? answer/ 20, 40, 60, 80, ...` +
+   Expected: Edits the first question topic and answer.
+.. Test case: `question 1 type/mcq a/30 b/40 c/50 d/60 ` +
+   Expected: Changes the first question type.
+.. Test case: `question 1 type/mcq` +
+   Expected: Shows error message of missing options.
+.. Other incorrect commands to try: `question 0 question/Test question`, `question 1 question/` +
+   Expected: Shows error message regarding reason for failure.
 
-. Dealing with missing/corrupted data files
+. Deleting a question from the question list.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: At least one question has to be in the question list.
 
-_{ more test cases ... }_
+.. Test case: `question delete 1` +
+   Expected: Deletes the first question.
+.. Test case: `question delete 0` +
+   Expected: Shows error message of invalid index.
+.. Test case: `question delete -1`,` +
+   Expected: Shows error message of invalid index.
+
+. Listing questions.
+
+.. Test case: `question list` +
+   Expected: Lists the questions stored.
+
+. Finding questions
+
+.. Prerequisites: Question list has to contain a question 'What is 1+1?'.
+
+.. Test case: `question find/What is 1+1?` +
+   Expected: Lists the question that matches the search term.
+.. Test case: `question find/Whxt is 1+1?` +
+   Expected: Lists the question that is similar to the search term.
+.. Test case: `question find/What is` +
+   Expected: Lists the question that is similar to the search term.
+.. Test case: `question find/Last digit of pi?` +
+   Expected: Return zero results.
+.. Test case: `question find/` +
+   Expected: Shows error message of empty search.
+
+. Starting a slideshow
+
+.. Prerequisites: Question list has to contain at least one question.
+
+.. Test case: `question slideshow 1` +
+   Expected: Opens a fullscreen window with question prompt.
+.. Test case: `question slideshow` +
+   Expected: Shows error message of having no index defined.
+.. Other incorrect add commands to try: `question slideshow 2 3`, `question slideshow a` +
+   Expected: Shows error message of having invalid indexes.
+
+=== Notes
+
+[NOTE]
+The test cases for this part are meant to be independent of each other. If there are existing data that causes the command to fail through purposeful or intended, validation, testers
+are expected to change to fields to attain the expected result.(e.g. to maintain the unique property of notes title et cetera)
+
+. Adding a note in the notes panel.
+
+.. Test case: `note note/Tuesday desc/Grade 6A prelim papers priority/high` +
+   Expected: Adds a new note to the notes list panel. Has red panel color to denote high priority.
+.. Test case: `note note/Tuesday afternoon desc/prepare lectures` +
+   Expected: Adds a new note to the notes list panel. Has grey panel color to denote unmarked or default priority.
+.. Test case: `note note/ desc/Grade 6A prelim papers` +
+   Expected: Shows error message of correct command syntax.
+.. Other incorrect add commands to try: `note note/new note desc/`, `note note/invalid priority desc/shows error priority/middle` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Editing an existing note in the notes panel.
+
+.. Prerequisites: The notes panel has some notes listed in the panel. New note properties do not have the same title as an existing note.
+
+.. Test case: `note 1 note/changed note title` +
+   Expected: First note in the list changes note title to “changed note title”. Shows success message of edited note.
+.. Test case: `note 1 note/other title desc/new description priority/high` +
+   Expected: First note in the list changes properties to the fields specified. This is provided that the first note do not have these exact same properties, and no other note has the same title.
+.. Test case: `note 1` +
+   Expected: Shows error message to tell user that at least one field is to be provided.
+.. Other incorrect edit commands to try: `note 1 note/duplicate note title` (some other note has this “duplicate note title”), `note 0 note/note one` +
+   Expected: Shows appropriate error messages of why the command failed.
+
+
+. Deleting a note in the notes panel.
+
+.. Prerequisites: The notes panel has some notes listed in the panel.
+
+.. Test case: `note delete 1` +
+   Expected: First note is deleted from the list. Details of the deleted note shown in the status message. Notes panel is updated.
+.. Test case: `note delete 0` +
+   Expected: No note is deleted. Error details shown in the status message. No change observed in the notes panel.
+.. Other incorrect delete commands to try: `note delete`, `note delete x` (where x is larger than the list size), `note delete one` +
+Expected: Shows appropriate error messages of why the command failed.
+
+. Listing notes in the notes panel to see the full description.
+
+.. Prerequisites: The notes panel has some notes listed in the panel.
+
+.. Test case: `note list` +
+   Expected: A string representation of the notes list is shown in the status result. No change observed in the side panel.
+.. Test case: `note list 0` +
+   Expected: Shows appropriate error messages of why the command failed.
+.. Other incorrect list commands to try: `note sort list`, `note 1 list` +
+   Expected: Shows appropriate error messages of why the command failed.
+
+. Sorting notes in the notes panel by priority.
+
+.. Prerequisites: The notes panel has some notes listed in the panel.
+
+.. Test case: `note sort` +
+   Expected: Side panel has the list sorted in order of priority (in the order red, yellow, green, grey).
+.. Test case: `note sort 0` +
+   Expected: Shows appropriate error messages of why the command failed.
+.. Other incorrect sort commands to try: `note sort list`, `note 1 sort` +
+   Expected: Shows appropriate error messages of why the command failed.
+
+=== Statistics
+
+. Generating a Statistics report.
+
+.. Prerequisites: Tester has test excel files to test. The test files are to follow the data file specifications as mentioned in the https://github.com/AY1920S1-CS2103T-W13-2/main/blob/master/docs/UserGuide.adoc[User Guide]. Some sample excel files to test has been provided  https://github.com/AY1920S1-CS2103T-W13-2/main/tree/master/src/test/data/SampleStatisticsData[here].
+
+.. Prerequisites: Once the test files have been downloaded or created, testers are assumed to know how to retrieve the correct relative or full file path of the test file(s).
+
+.. Test case: `statistics file/{some valid file path} print/MyTestReport` +
+   Expected: Generates a statistics report in a new window. Image file of type png is saved to the printable directory with name MyTestReport.
+.. Test case: `statistics file/{some invalid file path} print/MyTestReport` +
+   Expected: If the statistics report is not generated, the command result shows the reasons for failure. Otherwise, it can be verified that the statistics report generated has erroneous data or ineffective descriptive statistics as mentioned in the User Guide as a result of the failure to follow data specifications.
+.. Test case: `statistics file/{some valid file path} print/{invalid file name}`. Examples of illegal characters in file name include /, ? and *. +
+   Expected: Shows error message of reasons for failure.
+
+=== Student
+
+. Adding a student to the student list.
+.. Prerequisites: The student list already already contains one student "Test Student".
+
+.. Test case: `student name/New Student` +
+   Expected: Adds student "New Student" to the list of students.
+.. Test case: `student name/Test Student` +
+   Expected: Shows error message that a student with the same name already exists in the student list.
+.. Test case: `student name/2231` +
+   Expected: Shows error message that student names can only contain alphabets and spaces.
+.. Test case: `student name/Test StudentTwo tag/Tag` +
+   Expected: Adds student "Test StudentTwo" with tag "Tag"
+.. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Editing an existing student in the student list.
+
+.. Prerequisites: The student list contains two students. "Test One" at index one and "Test Two" at index two.
+
+.. Test case: `student 1 name/changed name ` +
+   Expected: First Student in the student list is edited to "Test One"
+.. Test case: `student 1 name/Test Two` +
+   Expected: Error message stating that "Test Two" already exists in the student list is shown.
+.. Test case: `student 0 name/Test Zero` +
+   Expected: Shows error message that index provided is not valid.
+.. Test case: `student 5 name/Test Five` +
+   Expected: Shows error message that index provided is out of bounds.
+
+. Deleting a student from the student list.
+
+.. Prerequisites: The student list has one student at index 1.
+
+.. Test case: `student delete 1` +
+   Expected: First student is deleted from the list.
+.. Test case: `student delete 0` +
+   Expected: Error message stating that index is invalid is shown
+.. Test case: `student delete 5` +
+   Expected: Error message stating that index is out of bounds is shown.
+
+. Listing students in the student panel.
+
+.. Prerequisites: The student list is populated with some students.
+
+.. Test case: `student list` +
+   Expected: A string representation of the student list is shown in the status result.
+
+=== Tag
+
+. Adding a tag to a student in the student list.
+.. Prerequisites: The student list already already contains one student "Test Student".
+
+.. Test case: `tag index/1 tag/Tag` +
+   Expected: Adds tag "Tag" to the student in the student list.
+.. Test case: `tag index/0 tag/Tag` +
+   Expected: Shows error message that the index is not valid.
+.. Test case: `tag index/5 tag/Tag` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `tag index/1 tag/Tag@` +
+   Expected: Shows error message that tags can only contain alphanumeric characters
+.. Other incorrect add commands to try: `tag index/1 tag/`, `tag index/ tag/` , `tag index/1 tag/tag space` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+=== Mark
+
+. Adding a mark to a student in the student list.
+.. Prerequisites: The student list already already contains two students, "Marked Student" at index 1, who is already marked,
+and "Unmarked Student" at index 2, who is not marked.
+
+.. Test case: `mark index/2` +
+   Expected: Marks "Unmarked Student" at index 2.
+.. Test case: `mark index/1` +
+   Expected: Shows error message that the student is already marked.
+.. Test case: `mark index/5` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `mark index/0` +
+   Expected: Shows error message that the index is invalid.
+
+. Removing a mark from a marked student in the student list.
+.. Prerequisites: The student list already already contains two students, "Marked Student" at index 1, who is already marked,
+and "Unmarked Student" at index 2, who is not marked.
+
+.. Test case: `mark unmark index/1` +
+   Expected: Removes mark from "Marked Student" at index 1.
+.. Test case: `mark unmark index/2` +
+   Expected: Shows error message that the student is not previously marked.
+.. Test case: `mark unmark index/5` +
+   Expected: Shows error message that the index is out of bounds.
+.. Test case: `mark unmark index/0` +
+   Expected: Shows error message that the index is invalid.
+
+=== Group
+
+. Creating a group with students in the student list.
+.. Prerequisites: The student list already already contains 3 students, and there is already a group with GroupId "G02" present.
+
+.. Test case: `group manual/ groupID/G01 studentNumber/1 2 3` +
+   Expected: Creates group "G01" with students 1,2 and 3.
+.. Test case: `group manual/ groupID/G02 studentNumber/1 2 3` +
+   Expected: Shows error message that a group with the same name already exists in the group list.
+.. Test case: `group manual/ groupID/ studentNumber/1 2 3` +
+   Expected: Shows error message that groupID is left empty.
+.. Test case: `group manual/ groupID/G01 studentNumber/1 2 5` +
+   Expected: Shows error message that one or more of the student numbers is out of bounds.
+.. Other incorrect add commands to try: `group manual/ groupID/G01 studentNumber/`, `group manual/ groupID/ studentNumber/` +
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Adding a student to an already created group.
+
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
+
+.. Test case: `group add groupID/G01 studentNumber/3 groupIndexNumber/2` +
+   Expected: Third student in student list is added to group "G01", with group index number of 2.
+.. Test case: `group add groupID/G03 studentNumber/1 groupIndexNumber/2` +
+   Expected: Error message stating that group with the groupID does not exist.
+.. Test case: `group add groupID/G01 studentNumber/5 groupIndexNumber/2` +
+   Expected: Shows error message that index provided for the student number is out of bounds.
+.. Test case: `group add groupID/ studentNumber/ groupIndexNumber/` +
+   Expected: Shows error message that one or more fields are left empty.
+.. Test case: `group add groupID/G01 studentNumber/2 groupIndexNumber/10` +
+   Expected: Shows error message that index provided for the group index number is out of bounds.
+
+. Deleting a student from an already created group
+
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
+
+.. Test case: `group delete groupID/G01 groupIndexNumber/1` +
+   Expected: First student in "G01" is removed from the group
+.. Test case: `group delete groupID/G03 groupIndexNumber/1` +
+   Expected: Error message stating that the group with the groupID does not exist.
+.. Test case: `group delete groupID/G01 groupIndexNumber/5` +
+   Expected: Error message stating that group index number is out of bounds is shown.
+.. Test case: `group delete groupID/ groupIndexNumber/` +
+   Expected: Shows error message that one or more fields are left empty.
+
+. Showing the students from a specific group in the group window.
+
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
+
+.. Test case: `group groupID/G01` +
+   Expected: A window showing the students in group "G01" pops up.
+.. Test case: `group groupID/G02` +
+   Expected: Error message stating that the group with the groupID does not exist.
+
+. Exporting a group to a word document.
+
+.. Prerequisites: The student list contains 3 students, and there is already a group with groupID G01, with students 1 and 2.
+
+.. Test case: `group export groupID/G01` +
+   Expected: A message stating that the group was successfully exported to G01.docx is shown.
+.. Test case: `group export groupID/G02` +
+   Expected: Error message stating that the group with the groupID does not exist.
+
+
+=== Event
+
+. Adding a event to the event list.
+.. Prerequisites: The event list already contains one event with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event eventName/cs2103 Practical startDateTime/2019-11-15T08:00 endDateTime/2019-11-15T09:00 recur/none color/1` +
+   Expected: Adds Event with event name cs2103 Practical to the event list
+.. Test case: `event eventName/Test Event startDateTime/2019-11-01T03:00 endDateTime/2019-11-01T04:00 recur/none color/1` +
+   Expected: Shows error message that will result in duplicate event being created
+.. Test case: `event eventName/\n` +
+   Expected: Shows error message for invalid command.
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T06:00 recur/none color/1` +
+   Expected: Shows error message for invalid date range
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/none color/24` +
+   Expected: Shows error message for invalid color number passed.
+.. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/invalid color/1` +
+   Expected: Shows error message for invalid recurrence type passed.
+.. Other incorrect add commands to try: `event eventName/cs2103 Practical startDateTime/ endDateTime/2019-11-15T09:00 recur/ color/1`
+   Expected: Shows error message regarding reason for command failure or the correct command syntax.
+
+. Finding the index of a existing event in the event list
+
+.. Prerequisites: The event list contains one event. The event has event name "First Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event indexOf/First Event` +
+   Expected: Displays the index and details of the event.
+.. Test case: `event indexOf/First` +
+   Expected: Event was not found but suggests the event with event name "First Event" and displays its index as well as
+its details.
+.. Test case: `event indexOf/` +
+   Expected: Shows error message, asking user to input a event name to be used in the search.
+
+. Editing an existing event in the event list.
+
+.. Prerequisites: The event list contains two events. The first event with event name "First Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00" at index one. The second event with event name "Second Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00"
+
+.. Test case: `event 1 eventName/changed name color/13 recur/daily` +
+   Expected: First event in event list changed event name to "changed name", color to 13 and recurrence to daily.
+.. Test case: `event 1 eventName/Second Event` +
+   Expected: Error message stating this will result in duplicate events.
+.. Test case: `event 0 eventName/valid Event` +
+   Expected: Shows error message that index provided is not valid.
+.. Test case: `event 5 eventName/Test Five` +
+   Expected: Shows error message that index provided is out of bounds.
+
+. Deleting a event from the event list.
+
+.. Prerequisites: The event list has one event at index 1.
+
+.. Test case: `event delete 1` +
+   Expected: First event is deleted from the list.
+.. Test case: `event delete 0` +
+   Expected: Error message stating that index is invalid is shown
+.. Test case: `event delete 5` +
+   Expected: Error message stating that index is out of bounds is shown.
+
+. Exporting event to .ics file type.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event export` +
+   Expected: A message stating that events were successfully exported. And prompts the user to check the export directory.
+
+. Taking a screenshot of the event schedule.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event screenshot` +
+   Expected: Opens a full screen window, taking a screenshot fo the event schedule. Then closes it and shows a message
+indicating the screenshot has successfully been taken.
+
+. Viewing the event schedule.
+
+.. Prerequisites: The event list contains one event with with event name "Test Event",
+startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
+as it is valid.
+
+.. Test case: `event view targetDate/2019-11-18 scheduleMode/daily` +
+   Expected: Changes the view of the event schedule to daily mode and focuses on the date 18 November 2019.
+
+.. Test case: `event view targetDate/2019-99-99 scheduleMode/daily` +
+   Expected: Shows error message for invalid date format.
+
+
+.. Test case: `event view targetDate/2019-01-01 scheduleMode/invalid` +
+   Expected: Shows error message for invalid schedule view mode. Prompting user to input weekly or daily only.

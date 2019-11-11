@@ -11,39 +11,43 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    private String targetPrintableFileName;
 
-    /** The application should exit. */
-    private final boolean exit;
+    /**
+     * Represents the type of Command entered.
+     */
+    private CommandResultType commandResultType;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.commandResultType = CommandResultType.OTHER;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, CommandResultType commandResultType) {
+        this.feedbackToUser = feedbackToUser;
+        this.commandResultType = commandResultType;
+    }
+
+    public CommandResult(String feedbackToUser, CommandResultType commandResultType,
+                         String targetPrintableFileName) {
+        this.feedbackToUser = feedbackToUser;
+        this.commandResultType = commandResultType;;
+        this.targetPrintableFileName = targetPrintableFileName;
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
+    public CommandResultType getCommandResultType() {
+        return commandResultType;
     }
 
-    public boolean isExit() {
-        return exit;
+    public String getTargetPrintableFileName() {
+        return targetPrintableFileName;
     }
 
     @Override
@@ -58,14 +62,20 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
+
+        if ((targetPrintableFileName != null) && (otherCommandResult.getTargetPrintableFileName() != null)) {
+            return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                    && commandResultType == otherCommandResult.commandResultType
+                    && targetPrintableFileName.equals(otherCommandResult.getTargetPrintableFileName());
+        }
+
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+            && commandResultType == otherCommandResult.commandResultType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, commandResultType);
     }
 
 }

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= NJoy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +12,1399 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Creating and managing your students and classes have never been easier.
+*Njoy* teaching assistant aims to enable teachers to easily manage their students and activities
+right from their keyboard. With just a few commands, you will be able to
+_manage your classes, create questions, start a slideshow, generate quizzes and much more!_ Interested?
+Jump to <<Getting Started>> to get started.
 
-== Quick Start
+== Features Summary
+
+. *Manage your students* easily with just a few strokes of your keyboard.
+.. Easily assign students to group.
+.. Tag or mark students who are weak at certain subjects.
+
+. *Create questions* that is easy to manage with a single interface.
+.. Easy input and management of your questions.
+.. Utilise your questions fully by using Slideshow.
+
+. *Generate quizzes* for your students. Type once, generate anytime.
+.. Create random quizzes either automatically or manually.
+.. Export quizzes for distribution.
+
+. *Timetable Manager* for scheduling your classes and events.
+.. Create and manage your schedule with a single calendar.
+.. Easily export your timetable with a single command.
+
+. *Notes Manager* to act as lightweight, digital Post-It to easily identify your priorities.
+.. Keep track of your reminders.
+.. View in a glance the important tasks.
+
+. *Statistics* provide a comprehensive view of your students' performance.
+.. Understand the academic performance of your class.
+.. View honourable students and identify the struggling students in one look.
+
+== Getting Started
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `njoy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your NjoyAssistant.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.GUI of Njoy Teaching Assistant
+image::NjoyMainPage.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+e.g. typing `help` and pressing kbd:[Enter] will open the help window. +
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+[[Getting-Started-Run]]
+=== Running .jar file
+. Download the `njoy.jar` file
+. Double click on `njoy.jar` file to run the application
 
-.  Refer to <<Features>> for details of each command.
+_If you are not able to run the application using the method above, use the following:_
+. Open *Terminal*(Mac)/*Command Prompt*(Windows)
+. Type cd [PATH TO DIRECTORY CONTAINING .JAR FILE]
+. Type `java -jar njoy.jar` to run the application.
 
-[[Features]]
-== Features
-
-====
-*Command Format*
-
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
-====
-
-=== Viewing help : `help`
-
-Format: `help`
-
-=== Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+== Sample Data
 
 [TIP]
-A person can have any number of tags (including 0)
+The NJoy Assistant starts with some data as examples. Upon the first startup, the *students*, *questions*,
+*events* and *notes* storage are loaded with sample data. The user should clear these if they are not of importance,
+as they merely serve as examples.
+
+The following steps provide an example of how to clear the sample user data for questions. The same steps can
+be applied to clear the storage for students, events and notes albeit slight <<Differences, `differences`>>.
+
+*Step 1.* To see the list of questions, type in the following command: `question list`. The sample question is
+circled in purple. +
+
+.Question List
+image::QuestionListSample.jpg[]
+
+{nbsp} +
+*Step 2.* To delete the sample question, type in the following command: `question delete 1`. This deletes the
+first question in the question list, which in this case is the sample question! +
+{nbsp} +
+After which, you should see the message circled in red indicating the success of the deletion. +
+
+.Question Delete
+image::QuestionDeleteSample.jpg[]
+
+{nbsp} +
+*Step 3.* You're already done! To confirm that the question has been deleted, once again type in the following
+command: `question list`. You should see that there are no more sample questions! +
+
+.Blank Question List
+image::QuestionListBlank.jpg[]
+
+{nbsp} +
+
+[[Differences]]
+=== Differences in Sample Data Deletion
+
+. *Students*: The steps for deletion are the same as for the sample question. +
+
+. *Notes*: The steps for deletion are the same as for the sample question, except that the notes are displayed
+on the right hand side of the User Interface. +
+
+. *Events*: The steps for deletion are the same as for the sample question, except that to view the event, a
+different command: `event view` has to be keyed into the command line.
+
+== Commands
+
+*Command Format*
+====
+All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
+[NOTE]
+Njoy might choose to ignore or validate against additional arguments provided as commands.
+
+[NOTE]
+Duplication of the specified keywords and options might result in errors or nondeterministic selection of fields. In most cases, the latest field option overwrites the duplicate fields provided.
+====
+
+=== Students - `student`
+
+==== Adding a student
+
+Adds a student +
+Format: `student name/... tag/...(optional)`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `name` | The name of the student.
+| `tag` (Optional) | The weak subjects of the student.
+|==============================
+
+[NOTE]
+`tag` fields of a student represent the weak subjects of a particular student, and is an optional field which can be added later under the `Tag` feature
+
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* *Untagged student*: `student name/John Doe` +
+Adds an untagged student named John Doe
+* *Student with one tag*: `student name/John Doe tag/Chemistry` +
+Adds a student named John Doe with one tag Chemistry
+* *Student with multiple tags*: `student name/John Doe tag/Chemistry tag/Physics` +
+Adds a student named John Doe with tags Chemistry and Physics
 
-=== Listing all persons : `list`
+'''
 
-Shows a list of all persons in the address book. +
-Format: `list`
+==== Editing a student
 
-=== Editing a person : `edit`
+Edit a student currently stored. +
+Format: `student [index number] name/...`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+[NOTE]
+All tags and mark of the student to be edited will be transferred over to the new student.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+The keywords supported by this feature includes:
 
-Examples:
+|==============================
+| Keyword | Description
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+| `[index number]` | Index number of the student to be edited in the student list
+| `name` | New name of the student to be edited.
+|==============================
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `student 1 name/John Doe` +
+Changes the name of the student with index number 1 in the student list to John Doe
 
-// tag::delete[]
-=== Deleting a person : `delete`
+.Original list of students.
+image::EditStudent1.png[]
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+.Type in the command to change name of student in index 1 to John Doe.
+image::EditStudent2.png[]
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+.Successfully change the name of student in index 1 to John Doe.
+image::EditStudent3.png[]
+
+'''
+
+==== Deleting a student
+
+Delete a student from the student list. +
+Format: `student delete [INDEX]`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | Index number of the student to be deleted in the student list
+|==============================
+
+Example:
+
+* `student delete 1` +
+Deletes the first student in the student list.
+
+'''
+
+[[Feature-Student-List]]
+==== Listing students
+
+Display the list of students in the Main Window, and also displays the list in the Command Result Box+
+Format: `student list`
+
+The keywords supported by this feature includes: +
+*_-This command does not support any additional keywords-_*
+
+Example:
+
+* `student list` +
+Lists the students.
+
+=== Tags ​-​ `tag`
+
+Represents the weak subjects of a student, allowing users to focus on the specified weak subject of the student.
+
+==== Adds a tag to a student: `tag`
+
+Allows a user to add a tag to an already tagged student. +
+Format: `tag index/... tag/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to add the tag to
+| `tag` | The name of the tag you want to add to the student
+
+|==============================
+
+[NOTE]
+Tags cannot be multiple-worded, and cannot contain special characters.
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* *Add one tag*: `tag index/1 tag/Chemistry` +
+Adds tag Chemistry to student with index number 1
+* *Add multiple tags to a student*: `tag index/1 tag/Chemistry tag/Physics` +
+Adds tag Chemistry and tag Physics to student with index number 1
 
-// end::delete[]
-=== Clearing all entries : `clear`
+The screenshot below shows a representation of a student with tags
 
-Clears all entries from the address book. +
-Format: `clear`
+.Example of tagged student
+image::tagged-student-example.png[]
 
-=== Exiting the program : `exit`
+=== Mark ​-​ `mark`
 
-Exits the program. +
-Format: `exit`
+Marks academically weak students, allowing users to pay extra attention to the marked students.
 
-=== Saving the data
+==== Marks a student: `mark`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Allows a user to mark an already created student. +
+Format: `mark index/...`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+The keywords supported by this feature includes:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to mark
+
+|==============================
+
+Examples:
+
+* `mark index/1` +
+Marks the student with index number 1
+
+'''
+
+==== Remove mark from a student: `unmark`
+
+Allows a user to remove mark from an already created student who has been previously marked. +
+
+Format: `mark unmark index/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `index` | The index number of the student you want to unmark
+
+|==============================
+
+Examples:
+
+* `mark unmark index/1` +
+Unmarks the student with index number 1
+
+.Example of marked student
+image::marked-student-example.png[]
+
+=== Groups ​-​ `group`
+
+==== Creating a Group manually: `manual`
+
+Allows a user to create a group manually. +
+Format: `group manual groupID/... studentNumber/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `studentNumber` | The index numbers of the students you want to add to the group
+
+|==============================
+
+[NOTE]
+You are not allowed to create groups without specifying any student numbers, ie : create groups with
+no students inside the group.
+
+Examples:
+
+* `group manual groupID/G03 studentNumber/1 2 3` +
+Adds student index numbers 1, 2 and 3 to the group named G03.
+
+'''
+
+==== Adding a Student to a Group: `add`
+
+Allows a user to add a Student to a Group. +
+Format: `group add groupID/... studentNumber/... groupIndexNumber/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `studentNumber` | The index number of the student you want to add to the group
+| `groupIndexNumber` | The index number within the group that you want to add the student to
+
+|==============================
+
+[NOTE]
+For a group that already contains students with group index numbers 1,2 and 3, the group index number you specify in
+this command can only be from 1-4, ie the index numbers that you want the new student to take, so as to ensure that there
+are no gaps in the index numbers.
+
+Examples:
+
+* `group add groupID/G01 studentNumber/2 groupIndexNumber/3` +
+Adds student 2 to the group index number 3 for the group named G01.
+
+'''
+
+==== Removing a Student from a Group: `delete`
+
+Allows a user to remove a student from a group. +
+Format: `group delete groupID/... groupIndexNumber/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+| `groupIndexNumber` | The index number of the student within the group that you want to remove
+
+|==============================
+
+Examples:
+
+* `group delete groupID/G01 groupIndexNumber/1` +
+Removes the student with group index number 1 for the group named G01.
+
+'''
+
+==== Exporting a Group to a Word Document: `export`
+
+Allows a user to export a group to a Word Document. +
+This feature was implemented as we realise that teachers may not have access to their computers at all times,
+and thus may print out group information to view during these times. +
+
+Format: `group export groupID/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+
+|==============================
+
+Examples:
+
+* `group export groupID/G01` +
+Exports the group named G01 to a word document named `G01.docx`, found under the exports folder.
+
+'''
+
+==== Showing students from a group:
+
+Allows a user to see all students from a group.
+
+[NOTE]
+Groups and students are meant to be separate entities, and only adding a student to the group or removing a student
+from a group will change the group view obtained by typing the below command. Tagging, Marking/Unmarking and editing students
+will not reflect in changes in the group view obtained.
+
+Format: `group groupID/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `groupID` | The name of the group
+
+|==============================
+Examples:
+
+* `group groupID/G01` +
+Shows all the students that belong to group with groupID `G01`
+
+.Create a group G02 with students John Doe, Jane Doe and Ben Tan.
+image::GroupView1.png[]
+
+.Type in the command to display group G02.
+image::GroupView2.png[]
+
+.View of G02.
+image::GroupView3.png[]
+
+'''
+
+=== Questions ​-​ `question`
+
+The questions feature is the starting point for creating quizzes and starting a slideshow.
+With questions, you are able to manage your existing questions, and add new ones which will be automatically saved.
+
+// tag::questions-management[]
+[[Feature-Question-Add]]
+==== Creating a question
+
+Create and store questions according to the type specified. +
+{empty} +
+
+[big]*Format:* `question question/... answer/... type/... (MCQ OPTIONS IF APPLICABLE)`
+
+[NOTE]
+Note that for mcq question type, it is necessary to input keywords `a/`, `b/`, `c/`, `d/`.
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
+
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
+
+{empty} +
+Examples:
+
+* *Open ended question*: `question question/Which year did Singapore gain independence? answer/1965 type/open` +
+Creates an open ended question with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_.
+* *MCQ*: `question question/Which year did Singapore gain independence? answer/1965 type/mcq a/1965 b/1963 c/1968 d/1970` +
+Creates an mcq with topic _'Which year did Singapore gain independence?'_ with answer _'1965'_ and
+choices _'1965', '1963', '1968', '1970'_.
+
+.Creating an open ended question.
+image::questions/AddQuestion.png[]
+
+// end::questions-management[]
+'''
+
+==== Editing a question
+
+Edit a question from the question list. All keywords are *optional*. +
+{empty} +
+
+[big]*Format:* `question [INDEX] question/... answer/... type/... (MCQ KEYWORDS IF APPLICABLE)`
+[NOTE]
+Note that when changing question type from open ended to mcq, it is necessary to input options `a/`, `b/`, `c/`, `d/`.
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+| `question` | Question topic.
+| `answer` | Answer to the question.
+| `type` | Type of question(`open` or `mcq`).
+| `a` | Option A for MCQ.
+| `b` | Option B for MCQ.
+| `c` | Option C for MCQ.
+| `d` | Option D for MCQ.
+|==============================
+
+[NOTE]
+Note that `answer` is free text and allows any input since answers may be accompanied with explanations.
+Therefore, for mcq questions, ensure that the answer entered reflects the correct option.
+
+{empty} +
+Examples:
+
+* `question 1 question/What is 1+1? answer/2` +
+Edits the first question in the list changing existing question topic to _'What is 1+1?'_ and answer to _'2'_.
+* `question 1 type/mcq a/1965 b/1963 c/1968 d/1970` +
+Edits the type of the first question in the list from open ended question to mcq and state choices _'1965', '1963', '1968', '1970'_.
+
+.Editing the first question.
+image::questions/EditQuestion.png[]
+
+'''
+
+==== Deleting a question
+
+Delete a question from the question list. +
+{empty} +
+
+[big]*Format:* `question delete [INDEX]`
+
+The keywords supported by this feature includes:
+|==============================
+| Keyword | Description
+
+| `[INDEX]` | The question index as defined by the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
+
+{empty} +
+Example:
+
+* `question delete 1` +
+Deletes the first question in the list.
+
+.Deleting the first question.
+image::questions/DeleteQuestion.png[]
+
+'''
+
+[[Feature-Question-List]]
+==== Listing your saved questions
+
+Display the stored questions and list them in ascending order according to the time that it was created. +
+{empty} +
+
+[big]*Format:* `question list`
+
+The keywords supported by this feature includes: +
+*_-This command does not require any additional keywords-_*
+
+{empty} +
+Example:
+
+* `question list` +
+Displays the question list.
+
+.Listing questions currently stored.
+image::questions/ListQuestionResult.png[]
+
+'''
+
+[[Feature-Question-Find]]
+==== Searching for a question
+
+Search and display questions using keywords and similar terms.
+[NOTE]
+The ordering of questions is based on *similarity* and the ordering is such that questions that is most similar
+to your search term will be at the top.
+{empty} +
+
+[big]*Format:* `question find/...`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `find` | Search term to find in the list of questions.
+|==============================
+
+{empty} +
+Example:
+
+* `question find/What is 1+1?` +
+Searches through the question list to find questions close to the search term _'What is 1+1?'_.
+
+.Finding questions that matches search term.
+image::questions/FindQuestion.png[]
+
+'''
+
+// tag::questions-slideshow[]
+==== Starting a Slideshow
+
+Start a slideshow based on the questions selected. The sequence of the questions displayed will follow the ordering of input. +
+{empty} +
+
+[big]*Format:* `question slideshow [QUESTIONS INDEX]`
+
+The keywords supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| `[QUESTIONS INDEX]` | Index of questions *separated by a whitespace*.
+Follows the index as defined in the <<Feature-Question-List, list>> and <<Feature-Question-Find, find>> commands.
+|==============================
+
+{empty} +
+The following controls are used to navigate through the slideshow:
+
+|==============================
+| Control | Description
+
+| `Right arrow(→)` | Go to next question.
+| `Left arrow(←)` | Go to previous question.
+| `Esc` | Quit the slideshow.
+| `Space` | Show or hide the answer to the question.
+|==============================
+
+{empty} +
+The following controls are used for polling mcq type questions:
+
+|==============================
+| Control | Description
+
+| `1` | Add one response to option A.
+| `2` | Add one response to option B.
+| `3` | Add one response to option C.
+| `4` | Add one response to option D.
+|==============================
+
+{empty} +
+Example:
+
+* `question slideshow 1 2 3` +
+Starts a slideshow with questions containing index _'1'_, _'2'_ and _'3'_.
+
+.Starting a slideshow.
+image::questions/StartSlideshow.png[]
+
+{empty} +
+Below is an example of how to navigate through the slideshow and utilise the <<Features-Slideshow-Polling, polling>> feature:
+
+*Step 1.* When the slideshow window appears, scroll between the questions using the `Left arrow(←)` and `Right arrow(→)` keys.
+
+.Slideshow window appears.
+image::questions/StartSlideshowResult.png[]
+
+*Step 2.* Use the `Space` key to show or hide the answer. For mcq type questions, you may use the `1-4` keys to add to the poll results for options A to D respectively.
+
+.Answer shown with polling results.
+image::questions/SlideshowAllShown.png[]
+
+*Step 3.* When you want to end the slideshow, use the `Esc` key to exit or navigate beyond the last question of the slideshow and it will automatically exit.
+
+{empty} +
+Here is a summary of the various components of the slideshow feature:
+
+.Description of the various components.
+image::questions/SlideshowFeatureDescription.png[]
+
+
+// end::questions-slideshow[]
+'''
+
+=== Quizzes ​-​ `quiz`
+
+After taking the effort to record different questions, a teacher might be wondering what other features could the NJoy Teaching
+Assistant actually provide? What better way to make use of your predefined questions to create quizzes for homework, revision
+or even assignments?
+
+[NOTE]
+Unfortunately, since majority of the quiz commands rely on question and quiz question indexes, it is entirely up to the user
+to ensure the correct indexes of the questions or quiz questions have been entered.
+
+You may refer to <<Feature-Question-Add, creating a question>> for examples on how to add questions and <<Feature-Question-List, listing the questions>> on how to view the current list of questions in the databank.
+
+[NOTE]
+For the following examples, we will be operating under the assumption that these sample
+questions are in the question bank.
+
+.Question list
+image::QuizQuestionList.PNG[]
+
+{nbsp} +
+
+==== Creating a Quiz manually: `manual`
+
+Allows a user to create a quiz manually. +
+
+[big]*Format:* `quiz manual quizID/... questionNumber/... (One or more question numbers can be added)`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Question Numbers | The question numbers you want to add to the quiz.
+|==============================
+
+Examples:
+
+* `quiz manual quizID/CS2103T questionNumber/1 2 3` +
+Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
+
+.Results of the create quiz manual command.
+image::QuizManual1.PNG[]
+
+'''
+
+==== Creating a Quiz automatically: `auto`
+
+Allows a user to create a quiz automatically. +
+
+[TIP]
+The questions chosen are randomised from the questions that you have previously added. As such, the user has to ensure enough questions are available in storage for quiz creation.
+
+[big]*Format:* `quiz auto quizID/... numQuestions/... type/... (Type can either be mcq/open/all)`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Number of Questions | The number of questions you want added to the quiz.
+| Question Type | The type of questions you want added to the quiz: mcq, open, all.
+|==============================
+
+Examples:
+
+* `quiz auto quizID/CS2103T numQuestions/2 type/mcq` +
+Adds 2 questions of type mcq to the quiz labelled CS2103T.
+* `quiz auto quizID/CS2103T numQuestions/1 type/open` +
+Adds 1 question of type open-ended to the quiz labelled CS2103T.
+* `quiz auto quizID/CS2103T numQuestions/3 type/all` +
+Adds 3 questions of any type to the quiz labelled CS2103T.
+
+.Results of the first create quiz automatically command.
+image::QuizAuto1.PNG[]
+
+.Results of the second create quiz automatically command.
+image::QuizAuto2.PNG[]
+
+.Results of the third create quiz automatically command.
+image::QuizAuto3.PNG[]
+
+'''
+
+==== Adding a Question to a Quiz: `add`
+
+Allows a user to add a question to a quiz. +
+
+[big]*Format:* `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Question Number | The question number you want to add to the quiz.
+| Quiz Question Number | The question number in the quiz you want to add the question to.
+|==============================
+
+Examples:
+
+* `quiz add quizID/CS2103T questionNumber/2 quizQuestionNumber/3` +
+Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
+
+.Results of the add question to quiz command.
+image::QuizAdd1.PNG[]
+
+'''
+
+==== Deleting a Question from a Quiz: `delete`
+
+Allows a user to delete a question from a quiz. +
+
+[TIP]
+Do take note that the user can only delete one question at a time.
+
+[big]*Format:* `quiz delete quizID/... quizID/... quizQuestionNumber/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+| Quiz Question Number | The question number of the question i the quiz to be deleted.
+|==============================
+
+Examples:
+
+* `quiz delete quizID/CS2103T quizQuestionNumber/3` +
+Deletes the quiz question number 3 for the quiz labelled CS2103T.
+
+.Results of the delete question from quiz command.
+image::QuizDelete.PNG[]
+
+'''
+
+==== Exporting a Quiz to HTML: `export`
+
+Allows a user to export a quiz to a formatted HTML file. This file is saved in a folder "currentDirectory/exports/". +
+
+[big]*Format:* `quiz export quizID/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
+
+Examples:
+
+* `quiz export quizID/CS2103T` +
+Exports the quiz labelled CS2103T to a formatted HTML file.
+
+The following example demonstrates how to find the export file:
+
+*Step 1.* After executing the quiz export command on the quiz labelled CS2103T, the user should
+navigate to their current directory. An exports folder as shown in the image below should be created!
+
+.Quiz Export Folder
+image::QuizExportsFolder.jpg[]
+
+{nbsp} +
+*Step 2.* Open the folder and double click the html file labelled with the file name CS2103T.
+
+.Quiz Export File
+image::QuizHtml.PNG[]
+
+{nbsp} +
+*Step 3.* Now you can send the custom quiz file to your students!
+The quiz should be in a similar format as displayed below.
+
+.Sample quiz HTML
+image::QuizExported.PNG[]
+
+{nbsp} +
+
+'''
+
+==== Listing a Quiz: `list`
+
+Allows a user to list a quiz's questions and answers. +
+
+[big]*Format:* `quiz list quizID/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
+
+Examples:
+
+* `quiz list quizID/CS2103T` +
+Lists the questions and answers for the quiz labelled CS2103T.
+
+.Results of the list quiz command.
+image::QuizList.PNG[]
+
+'''
+
+==== Showing only a Quiz's Questions: `showQuestions`
+
+Allows a user to show only a quiz's questions. +
+
+[big]*Format:* `quiz showQuestions quizID/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
+
+Examples:
+
+* `quiz showQuestions quizID/CS2103T` +
+Shows only the questions for the quiz labelled CS2103T.
+
+.Results of the show questions of quiz command.
+image::QuizShowQuestions.PNG[]
+
+'''
+
+==== Showing only a Quiz's Answers: `showAnswers`
+
+Allows a user to show only a quiz's answers. +
+
+[big]*Format:* `quiz showAnswers quizID/...`
+
+The format supported by this feature includes:
+
+|==============================
+| Keyword | Description
+
+| Quiz ID | The label of the quiz.
+|==============================
+
+Examples:
+
+* `quiz showAnswers quizID/CS2103T` +
+Shows only the answers for the quiz labelled CS2103T.
+
+.Results of the show answers of quiz command.
+image::QuizShowAnswers.PNG[]
+
+'''
+
+=== Events ​-​ `event`
+
+This feature aims to provide event management into nJoy assistance through a visually-pleasing scheduler / calendar.
+[NOTE]
+The red line in the calendar marks the current date and time.
+
+.Event Calendar / Schedule in weekly view mode
+image::EventScheduleMain.png[]
+
+
+
+==== Creating a event
+
+Create, store and render a event. +
+Format: `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
+[NOTE]
+All parameters / options are required to create an event.
+[NOTE]
+Note that for start and end date-time, it is necessary to input it in the following manner:
+YYYY-MM-DDThh:mm, with the time being in 24 hour format. For example, 21st Oct 2019 2PM should be expressed in this manner: 2019-10-21T14:00
+[NOTE]
+Note that the event name should not contain backslash characters.
+[NOTE]
+Events in the future have a slightly darker color. This is intentional.
+[NOTE]
+If invalid event start and end date times are provided that exceed the bounds, Njoy might choose to pick the closest date time available or validate against the invalid date.
+
+The options supported by this feature includes:
+
+. `eventName` - Name of the event
+. `startDateTime` - The start date and time of the event
+. `endDateTime` - The end date and time of the event
+. `recur` - Recurrence of the event. Either none, daily or weekly.
+. `color` - Enter any number from 0 - 23 to set the color of this event. The numbers are pre-matched to unique colors.
+
+Examples:
+
+* *Non-Recurring Event*: `event eventName/Teachers Meeting startDateTime/2019-11-07T15:00 endDateTime/2019-11-07T17:00
+recur/none color/17` +
+Creates a event with event name _'Teachers Meeting'_ with start date and time _'7th Nov 2019, 1500'_ with end
+date and time _'7th Nov 2019, 1700'_ and a color grouping of _'17'_.
+
+.Adding a teachers meeting event to the schedule
+image::EventScheduleAdd.png[]
+
+'''
+
+[[Feature-Event-Index]]
+==== Indexing a event
+
+Gets the index a event based on its event name. If more than one event has the same name, the command will return the index and details of all of them.
+Else if the event name is not found, it shows the event which has the most similar event name.
+
+[NOTE]
+Users should always run this command before edit or delete event commands. As the index of a event CAN change while the application is running.
+For example, deleting another event will affect the index of other events.
+
+Format: `event indexOf/...`
+
+The options supported by this feature includes:
+
+. `indexOf/` - Name of the event
+
+Examples:
+
+* `event indexOf/CS2103T Lecture` +
+Returns the index and details of the CS2103T Lecture in the calendar.
+
+'''
+
+==== Editing a event
+
+Edit a event currently stored. All fields are *optional*. +
+Format: `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The event index as defined by the <<Feature-Event-Index, index>>  command.
+. `eventName` - Name of the event
+. `startDateTime` - The start date and time of the event
+. `endDateTime` - The end date and time of the event
+. `recur` - Recurrence of the event. Either none, daily or weekly.
+. `color` - Enter any number from 0 - 23 to set the color of this event.
+
+Examples:
+
+* `event 2 eventName/CS2101 Lecture` +
+Edits the event name of the event with index 2 to _'CS2101 Lecture'_.
+
+'''
+
+==== Deleting a event
+
+Delete a event from the calendar. +
+Format: `event delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The event index as defined by the <<Feature-Event-Index, index>> command.
+
+[NOTE]
+Deleting a event which is recurring (daily or weeekly) will delete all instances of that event.
+
+
+* `event delete 1` +
+Deletes the event with index 1
+
+'''
+
+==== Viewing all events
+
+Show all your events in the calendar. All fields are optional +
+Format: `event view scheduleMode/... targetDate/...`
+
+The options supported by this feature includes:
+
+. `scheduleMode` - Schedule viewing mode of the calendar. Either weekly or daily.
+. `targetDate` - The target date to show for the week. If in daily mode, simply show the events in the date.
+If in weekly mode, show the week which includes the specified date
+[NOTE]
+The target date option must be specified in the following format: yyyy-mm-dd. E.g. 2019-11-23
+
+Example:
+
+* `event view scheduleMode/daily targetDate/2019-11-07` +
+Opens the calendar view in daily mode with the target date 7 November 2019.
+
+.Viewing the calendar in daily mode with target date 7 November 2019
+image::EventViewDailyMode.png[]
+
+'''
+
+==== Taking screenshot of schedule
+
+Takes a screen shot of the calendar as PNG file +
+Format: `event screenshot`
+
+[NOTE]
+Scroll to which portion of the calendar is to be taken, and the application will then open a separate
+full screen window to maximise the content captured of the screenshot.
+
+[NOTE]
+The event schedule screenshot is stored in the printable directory which is in the same directory as the NJoy assistant.
+If the directory exists beforehand, no new directory is created.
+See <<Finding-Schedule-Screenshot, finding schedule screenshot>>.
+
+[NOTE]
+The screenshot will be saved based on the current settings of your event schedule.
+For example if you are viewing 2019-11-23 on a weekly mode, the file name will be saved as WEEKLY_2019-11-23. NJoy will also overwrite any screenshots from the past with the same event name, to ensure that the screenshot in the printable directory is the most updated.
+
+
+* Example: `event screenshot` +
+Takes a screenshot of the current calendar and saves it into Printable folder.
+
+[[Finding-Schedule-Screenshot]]
+The following example demonstrates how to find the screenshot:
+
+*Step 1.* After executing the event screenshot command, the user should
+navigate to their current directory. An printable folder as shown in the image below should be created!
+
+.Event screenshot Location
+image::EventPrintableLocation.png[]
+
+{nbsp} +
+*Step 2.* The png file will be named according to your schedule settings in the format VIEWMODE_TARGETDATE.png
+
+.Event screenshot file
+image::EventScreenshotFile.png[]
+
+{nbsp} +
+*Step 3.* Now you can share your calendar screenshot with others (or yourself)!
+
+.Sample event screenshot
+image::EventScreenshotSample.png[]
+
+'''
+
+==== Export all events
+
+Exports stored events into a .ics file. This file type can easily be imported into Google Calendar and other
+mainstream calendar applications. +
+Format: `event export`
+
+[NOTE]
+The file will be exported into the exports folder with the file name nJoy_Schedule.ics. If the file already exists
+it will replace it, so you know the .ics file will be your most updated version of your schedule.
+
+[NOTE]
+The file will be exported into the same directory as quiz and group exports. See <<Feature-Quiz-Export, quiz export>>,
+ <<Feature-Group-Export-Export, group export>>
+
+
+Example:
+
+* `event export` +
+Exports your events into the exports directory with file name nJoy_Schedule.ics
+
+The following example demonstrates how to find the export file:
+
+*Step 1.* After executing the event export command, the user should
+navigate to their current directory. An exports folder as shown in the image below should be created!
+
+.Event export location
+image::EventExportLocation.png[]
+
+{nbsp} +
+*Step 2.* The file should be named nJoy_Schedule.ics inside the exports directory.
+
+.Event export file
+image::EventExportFile.png[]
+
+{nbsp} +
+*Step 3.* Now you can import your events into other calendar applications with this ics file!
+
+{nbsp} +
+
+'''
+
+=== Notes - `notes`
+
+==== Creating a note
+
+Create lightweight, digital notes and reminders quickly and easily as specified. +
+Format: `note note/... desc/... priority/... (optional)`
+
+The options supported by this feature includes:
+
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority(optional)` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`. It is by default set to unmarked if field is omitted.
+
+[NOTE]
+All non-optional fields are required and also cannot consist exclusively of whitespace characters. All leading and trailing whitespaces of the fields will be ignored.
+
+[NOTE]
+All priority fields can be in either lowercase or UPPERCASE. (e.g. `note note/sample title desc/sample desc priority/low` is the same as e.g. `note note/sample title desc/sample desc priority/LOW`).
+
+[NOTE]
+`priority` levels are distinguishable by their colour in the User Interface. `unmarked` or default notes have grey panels, while `low`, `medium` and `high` priority notes have green, yellow and red panels respectively.
+
+[NOTE]
+The notes panel is not responsive. The User Interface only supports title and description of limited length. Notes that exceed this length will be truncated. For information on how to view these notes, see the note list command.
+
+Examples:
+
+* *Unmarked Note*: `note note/Friday morning class 6A desc/give back prelim papers` +
+Creates an unmarked note with title _'Friday morning class 6A'_ and description _'give back prelim papers'_.
+* *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
+Creates a high priority note with title _'Tuesday 1pm'_ and description _'Science Conference'_.
+
+
+==== Editing a note
+
+Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. The new note should not be the same as the original one and should have a unique note title. +
+Format: `note [INDEX] note/... desc/... priority/...`
+
+[NOTE]
+To change the priority of a `high`, `medium` or `low` note to the default status, the prefix `priority/` is to be followed by `unmarked`. (e.g. note 2 priority/unmarked).
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+. `note` - The note title.
+. `desc` - The description of the note.
+. `priority` - The level of priority placed on this note. It can be of type `unmarked`, `low`, `medium` or `high`.
+
+Examples:
+
+* `note 1 note/changed title` +
+Edits the first note in the list to the title _'changed title'_.
+* `note 2 desc/give speech priority/unmarked` +
+Edits the description of the second note in the list to _’give speech’_ of unmarked/default priority.
+
+'''
+
+==== Deleting a note
+
+Delete a note from the notes list. +
+Format: `note delete [INDEX]`
+
+The options supported by this feature includes:
+
+. `[INDEX]` - The note index as shown in the User Interface. The topmost note has index 1, followed by 2 and so on.
+
+Example:
+
+* `note delete 1` +
+Deletes the first note in the list.
+
+'''
+
+[[Feature-Note-List]]
+==== Listing notes
+
+Display the list of notes in the command result box. +
+Format: `note list`
+
+[NOTE]
+The note is rendered on the User Interface on load. However, note lengths that exceed the size of allocated panel might have their content truncated. Using the list function is useful in this case to see the full content of the notes.
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `note list` +
+Lists the notes.
+
+'''
+
+[[Feature-Note-Sort]]
+==== Sorting notes
+
+Sorts the list of notes by priority in descending order of the Priorities `HIGH`, `MEDIUM`, `LOW` and `UNMARKED`. +
+Format: `note sort`
+
+The options supported by this feature includes: +
+*_-This command does not support any additional options-_*
+
+Example:
+
+* `note sort` +
+Sorts the notes by priority.
+
+'''
+
+[[Feature-Statistics]]
+=== Statistics - `statistics`
+
+==== Generating a Statistics report
+
+Create statistics reports of student scores using excel data files. The statistics generated is based
+on the calculated weighted score of the input data. +
+Format: `statistics file/... print/...(optional)`
+
+The options supported by this feature includes:
+
+. `file` - The absolute/relative file path of the data file.
+. `print(optional)` - The filename of the printable report you wish to generate.
+
+[NOTE]
+The statistics feature only supports file type in the ‘Excel’ format. Data files are to end with the _’.xlsx’_ extension.
+
+[NOTE]
+The `print` option allows the generation of a _'.png'_ file containing a snapshot of the statistics report generated. Regardless of the print specifications, a new window is opened with the statistics report.
+
+[NOTE]
+Printable statistics reports if specified are stored in the same place as where the JAR file is installed. The report can be found under a newly created `printable` directory. If the directory exists beforehand, no new directory is created.
+
+[NOTE]
+Filenames without _`.png`_ extension will automatically have the extension appended to the end of the file name.
+
+[NOTE]
+If the file name specified already exists in the printable directory, it will overwrite the existing file.
+
+Examples:
+
+* *View Statistics Report (without saving)*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_.
+
+* *View and Save Statistics Report*: `statistics file/C:\Users\SampleUser\Desktop\6B Prelim Scores.xlsx print/6B Prelim Performance Report` +
+Shows the statistics report for excel file named _’6B Prelim Scores’_. It also saves an image file containing a snapshot of the statistics report in the _’printable’_ directory with name _’6B Prelim Performance Report’_.
+
+*Data File Specifications*
+
+The data file needs to be specified in the following format to ensure that the statistics report is successfully generated. +
+
+[NOTE]
+Failure to adhere to the following specifications might result in either the excel file being rejected or erroneous statistics.
+If the report is generated, it might be correct but the behavior is not guaranteed should the specifications mentioned below be violated or overlooked.
+
+* *Entries start at cell A1 with the cell `Students`, regardless of whether there is score data.*
+* *First row begins with the cell `Students`, followed by their names. (e.g. row 1 of 4 cells having `Students`, `Jason`, `Mike` and `Peter`)*
+* *First column states the different subjects starting from the second topmost cell. (e.g column 1 of 4 cells having `Students`, `Math`, `Science` and `English`.)*
+* *There is at least one student.*
+* *There is at least one subject.*
+* *All student names have unique identifiers. (e.g. two students named Jason could be identified as `Jason 1` and `Jason 2`)*
+* *All subject names have unique identifiers. (e.g. two subjects named Math could be identified as `Advanced Math` and `Elementary Math`)*
+* *All students have a corresponding score for all subjects*
+* *All scores are numeric characters (integer or decimals)*
+* *There are no gaps between rows and columns.*
+* *All cells within the row and column range have at least one non-whitespace character.*
+* *All cells outside the row and column range are empty.*
+
+[NOTE]
+Failure to adhere to the following specifications might result in some of the statistical data generated not being useful to the user.
+
+* *All scores should be in percentage terms. (0 ~ 100)*
+
+[NOTE]
+The general rule for the file format is to ensure all entries in the file are as compact to the top left as possible; the entries should form a rectangular shape on the top left corner of the excel sheet. The rectangle should have no empty entries while all cells outside the rectangle are empty entries.
+
+The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
+allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
+
+The screenshot below illustrates a sample data set that fulfills all of the above specifications.
+
+.Screenshot of Valid Excel format
+image::ExcelFormat.png[]
+
+'''
+
+=== Help ​-​ `help`
+
+Opens up the help window. +
+[big]*Format:* `help`
+
+The format supported by this feature includes:
+
+_-This command does not require any additional options-_
 
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*Q*: Where can I find a list of commands? +
+*A*: You may access the help guide included in the application by navigating to `Help > Help F1` located on the menu bar or by pressing the `F1` key. +
+
+*Q*: Unable to run the application. +
+*A*: Please see <<Getting-Started-Run>> on how to start the application.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Exit* : `exit`
+* *Adding a student*: `student name/...`
+* *Removing a student*: `student delete index/...`
+* *Editing a student*: `student [index] name/...`
+* *Listing all students*: `student list`
+* *Tagging student*: `tag index/... tag/...`
+* *Marking a student*: `mark index/...`
+* *Unmarking a student*: `mark unmark index/...`
+* *Creating a group*: `group manual groupID/... studentNumber/...`
+* *Adding student to a group*: `group groupID/... studentNumber/... groupIndexNumber/...`
+* *Removing student from a group*: `group delete groupID/... groupIndexNumber/...`
+* *Showing students from a group*: `group groupID/...`
+* *Exporting a group*: `group export groupID/...`
+* *Creating a question*: `question question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Editing a question*: `question [INDEX] question/…​ answer/…​ type/…​ (MCQ OPTIONS IF APPLICABLE)`
+* *Deleting a question*: `question delete [INDEX]`
+* *Listing your saved questions*: `question list`
+* *Searching for a question*: `question find/…​`
+* *Starting a slideshow*: `question slideshow [QUESTIONS INDEX]`
+* *Creating a Quiz Manually* : `quiz manual quizID/... questionNumber/...`
+* *Creating a Quiz Automatically* : `quiz auto quizID/... numQuestions/... type/...` [Where type is: mcq, open or all]
+* *Adding a Question to Quiz* : `quiz add quizID/... questionNumber/... quizQuestionNumber/...`
+* *Deleting a Question from Quiz* : `quiz delete quizID/... quizQuestionNumber/...`
+* *Listing a Quiz* : `quiz list quizID/...`
+* *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
+* *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Exporting a quiz*: `quiz export quizID/...`
+* *Adding an Event* : `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
+* *Deleting an Event* : `event delete [INDEX]`
+* *Viewing all Event* : `event view scheduleMode/... targetDate/...`
+* *Exporting Events* : `event export`
+* *Screenshot Calendar* : `event screenshot`
+* *Creating a Note* : `note note/... desc/...`
+* *Creating a Note with Priority* : `note note/... desc/... priority/...`
+* *Editing a Note* : `note [INDEX] note/... desc/... priority/...`
+* *Deleting a Note* : `note delete [INDEX]`
+* *Listing Notes* : `note list`
+* *Sorting Notes* : `note sort`
+* *Generating Statistics* : `statistics file/...`
+* *Generating Statistics and Saving* : `statistics file/... print/...`
