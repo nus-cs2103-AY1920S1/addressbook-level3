@@ -98,7 +98,7 @@ You may use `n/` to denote a specific activity name and specify the start time i
 [TIP]
 You may wish to input the location of the activities so that we schedule activities that are in the same location together for the specified day to reduce your travelling time.
 
-Format: `autoschedule (t/TAG [START_TIME]|| n/ACTIVITY_NAME [START_TIME])... [a/LOCATION_OF_ACTIVITIES] [d/DAY_INDEX...]`
+Format:`autoschedule (t/TAG [START_TIME]|| n/ACTIVITY_NAME [START_TIME])... [a/LOCATION_OF_ACTIVITIES] [d/DAY_INDEX...]`
 
 Examples:
 
