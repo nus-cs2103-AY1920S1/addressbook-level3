@@ -14,6 +14,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-4/main.git
+:icons: font
 
 By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
@@ -636,11 +637,11 @@ e.g. `delete 3`
 * *Edit* : `edit INDEX [n/SHOW_NAME] [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR]...` +
 e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search*
-** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
 e.g. `search n/Joker o/no` searches for shows with the name 'Joker' within the watchlist
-** *by genre* : `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+** *by genre* : `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
 e.g. `search g/Action t/movie` searches for movies from the online database with the genre 'Action'
-** *by actor from watchlist* : `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
+** *by actor from watchlist* : `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [o/FROM_ONLINE] [t/TYPE] [w/IS_WATCH]` +
 e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
 
 * *Exit* : `exit`
