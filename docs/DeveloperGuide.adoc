@@ -61,7 +61,7 @@ image::UiClassDiagram_FlashCardPro.png[]
 image::Logic_Class_Diagram.PNG[]
 
 *API* :
-link:{repoURL}/main/java/dream/fcard/logic [`Logic Package`]
+link:{repoURL}/src/main/java/dream/fcard/logic [`Logic Package`]
 
 The Logic package manages the internal logic of the application. +
 
