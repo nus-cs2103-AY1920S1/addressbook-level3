@@ -663,7 +663,7 @@ Format: `redo`
 This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
 
 [NOTE]
-Keying in a new command other than `redo` will erase the earlier command that you have undid.
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
 
 // end::undoredo[]
 
