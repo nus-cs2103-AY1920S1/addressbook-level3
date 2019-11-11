@@ -67,9 +67,9 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 
 .Component interactions for `add-member mn/Abhi` command
 image::ArchitectureSequenceDiagram.png[]
+//end::architecture[]
 
 The sections below give more details of each component.
-//end::architecture[]
 
 //tag::ui[]
 [[Design-Ui]]
