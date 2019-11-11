@@ -18,7 +18,7 @@ endif::[]
 By: `Team T09-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
-Seller Manager Lite (SML) is for those who *prefer to use a desktop app for managing their sales*. More importantly, SML is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SML can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Seller Manager Lite (SML) is for those who *prefer to use a desktop app for managing their sales*. More importantly, SML is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, SML can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -29,7 +29,7 @@ Get started on this journey by installing SML and take a quick tour of our main 
 .  Download the latest `sellermanagerlite.jar` https://github.com/AY1920S1-CS2103T-T09-4/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Seller Manager Lite.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  If Double-clicking does not work, open your command line prompt / terminal, navigate to it and
+.  If Double-clicking does not work, open your command line prompt/terminal, navigate to it and
 input `java -jar [filename]` to run the file
 
 === User Interface
@@ -93,7 +93,7 @@ SML generates real-time sales charts for you:
 ==== Common Terms
 
 . *SML* +
-Initialism for our application, Seller Manager Lite.
+An initialism for our application, Seller Manager Lite.
 
 . *Customer* +
 A person who buys from the seller.
@@ -105,7 +105,8 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time. Duration of schedule is set to be 1 hour.
+A meetup with a buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+Duration of the schedule is set to be 1 hour.
 
 === SML-specific Terms
 
@@ -113,19 +114,19 @@ A meetup with buyer to pass the goods. There can only be 1 schedule associated w
 An instruction that will produce an output once entered in SML.
 
 . *CustomerBook* +
-A CustomerBook is a list that stores Customer(s) that has been added into SML.
+A CustomerBook is a list that stores Customer(s) that have been added into SML.
 Each customer entry comprises of CustomerName, ContactNumber and Email fields and others.
 
 . *PhoneBook* +
-A PhoneBook is a list that stores Phone(s) that has been added in SML.
+A PhoneBook is a list that stores Phone(s) that have been added in SML.
 Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Colour, Cost and Capacity.
 
 . *OrderBook* +
-A OrderBook is a list that stores Order(s) that has been added in SML.
+An OrderBook is a list that stores Order(s) that have been added in SML.
 Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
 
 . *ScheduleBook* +
-A ScheduleBook is a list that stores Schedules(s) that has been added in SML.
+A ScheduleBook is a list that stores Schedules(s) that have been added in SML.
 Each schedule entry comprises a Venue and Calendar with date and time.
 
 . *Archived* +
@@ -153,10 +154,10 @@ Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
 If you've made a mistake, you can simply revert to the previous command.
 
 . *Redo* +
-Inverse of undo.
+The inverse of undoing.
 
 . *Copy* +
-Action of copying an entry into clipboard.
+The action of copying an entry into the clipboard.
 
 // end::glossary[]
 
@@ -192,7 +193,7 @@ toggle to the Tab Panel that it belongs to.
 *Note that this applies only to Customer, Phone, Order and statistics commands*
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 Lists out the commands you need to navigate SML. +
 Format: `help`
 
@@ -224,6 +225,7 @@ Customers can share the same name.
 Customers cannot share the same contact number or email.
 
 [underline]#Examples#:
+
 * Adds a single customer
 . `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com`
 
@@ -277,7 +279,7 @@ image::ug-command/ug-find-c-1.png[width="600"]
 image::ug-command/ug-find-c-2.png[width="600"]
 // end::customer[]
 
-==== List the customers : `list-c`
+==== List the customers: `list-c`
 
 List every customer in SML. Acts as a switch customer command as well. +
 
@@ -285,7 +287,7 @@ List every customer in SML. Acts as a switch customer command as well. +
 
 - `list-c`
 
-==== Clear the customers : `clear-c`
+==== Clear the customers: `clear-c`
 Clears every customer in SML. +
 
 [underline]#Format#: `clear-c`
@@ -293,9 +295,10 @@ Clears every customer in SML. +
 - `clear-c`
 
 
-==== Edit a customer : `edit-c`
-Edits an existing customer in CustomerBook. +
-Format: `edit-c INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [t/TAG]…`
+==== Edit a customer: `edit-c`
+Edits an existing customer in CustomerBook. Note that orders in the order tab panel associated with the same customer will also be edited accordingly. +
+
+[underline]#Format#: `edit-c INDEX [n/NAME] [c/CONTACT_NUMBER] [e/EMAIL] [t/TAG]…`
 
 
 ****
@@ -314,7 +317,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Clear all existing tags from the 2nd customer.
 . `edit-c 2 t/` +
 
-==== Copy customer : `copy-c`
+==== Copy customer: `copy-c`
 Copies a customer in SML to clipboard +
 
 [underline]#Format#: `copy-c INDEX`
@@ -335,11 +338,10 @@ Copies a customer in SML to clipboard +
 . `find-c Lee`
 . `copy-c 1`
 
-==== Email customer : `email-c` `[coming in v2.0]`
-Emails a customer in SML. Opens Gmail on web browser and drafts an email to customer. +
+==== Email customer: `email-c` `[coming in v2.0]`
+Emails a customer in SML. Opens Gmail on a web browser and drafts an email to a customer. +
 
 [underline]#Format#: `email-c INDEX`
-
 
 
 
@@ -347,7 +349,7 @@ Emails a customer in SML. Opens Gmail on web browser and drafts an email to cust
 === Phone Commands
 Commands that work on phones that you have in SML.
 
-==== Switch to Phone Tab Panel : `switch-p`
+==== Switch to Phone Tab Panel: `switch-p`
 
 Switches to Phone Tab Panel.
 
@@ -355,8 +357,8 @@ Switches to Phone Tab Panel.
 
 
 
-==== Add a phone : `add-p`
-Adds a phone. Similar to add customer. +
+==== Add a phone: `add-p`
+Adds a phone. Similar to adding a customer. +
 
 [underline]#Format#: `add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`
 
@@ -376,7 +378,7 @@ A customer can have any number of tags, including 0.
 
 image::ug-command/ug-add-p.png[width="800"]
 
-==== Delete a phone : `delete-p`
+==== Delete a phone: `delete-p`
 Deletes a phone in SML. Note that deleting a phone will also delete the orders and schedules associated with the phone.+
 
 [underline]#Format#: `delete-p INDEX`
@@ -398,15 +400,15 @@ Deletes a phone in SML. Note that deleting a phone will also delete the orders a
 . `find-p alice` +
 . `delete-p 1` +
 
-==== Find a phone : `find-p`
+==== Find a phone: `find-p`
 Finds phones whose fields contain any of the given keywords. +
 
-[underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
+[underline]#Format#: `find-p KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
-* The search matches anywhere for name, contact number, email and tags.
+* The search matches anywhere for the name, serial number, identity number, brand, capacity, colour, cost and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
 ****
@@ -424,22 +426,22 @@ image::ug-command/ug-find-p-1.png[width="800"]
 image::ug-command/ug-find-p-2.png[width="800"]
 
 
-==== List the phones : `list-p`
+==== List the phones: `list-p`
 List every phone in SML. Acts as a switch phone command as well. +
 
 [underline]#Format#: `list-p`
 
 - `list-p`
 
-==== Clear the phones : `clear-p`
+==== Clear the phones: `clear-p`
 Clears every phone in SML. +
 
 [underline]#Format#: `clear-p`
 
 - `clear-p`
 
-==== Edit a phone : `edit-p`
-Edits the data fields of a phone. +
+==== Edit a phone: `edit-p`
+Edits the data fields of a phone. Note that orders in the order tab panel associated with the phone will also be edited. +
 [underline]#Format#: `edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`
 
 
@@ -449,7 +451,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 - At least one of the optional fields must be provided.
 - Existing values will be updated to the input values.
 - When editing tags, the existing tags of the phone  will be removed i.e adding of tags is not cumulative.
-- You can remove all the phones's tags by typing `t/` without specifying any tags after it.
+- You can remove all the phones' tags by typing `t/` without specifying any tags after it.
 ****
 
 [underline]#Examples#:
@@ -459,7 +461,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Clear all existing tags from the 2nd phone.
 . `edit-c 2 t/` +
 
-==== Copy phone : `copy-p`
+==== Copy phone: `copy-p`
 Copies a phone in SML to clipboard +
 
 [underline]#Format#: `copy-p INDEX`
@@ -481,9 +483,9 @@ Copies a phone in SML to clipboard +
 . `find-p apple`
 . `copy-p 1`
 
-==== Add Photo to phone : `addphoto PHONE_INDEX fc/` `[coming in v2.0]`
+==== Add Photo to phone: `addphoto PHONE_INDEX fc/` `[coming in v2.0]`
 
-Adds a photo to a phone in the database using the system's user interface dialog.
+Adds a photo to a phone in the database using the system's user interface dialogue.
 
 
 // end::phone[]
@@ -491,48 +493,67 @@ Adds a photo to a phone in the database using the system's user interface dialog
 === Order Commands
 Commands that work on orders that you have.
 
-==== Switch to Order Tab Panel : `switch-o`
+==== Switch to Order Tab Panel: `switch-o`
 Switches to Order Tab Panel.
 [underline]#Format#: `switch-o`
 
-==== Add an order : `add-o`
+==== Add an order: `add-o`
 Adds an order to the list of orders. +
 Format: `add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`
 
 ****
 * Negative prices will be rejected.
 * $0 is accepted to accommodate for free transactions.
-* Prices above 1.7*10^308 will not be rejected. However, they will
+* Prices above 1.7 * 10^308^ will not be rejected. However, they will
 *corrupt* the data. There is no practical reason
 for a price to be that high.
 ****
 
-==== Find an order : `find-o`
-Returns all the information pertaining to the order. +
-Format: `find-o KEYWORD [KEYWORD]...`
+==== Find an order: `find-o`
+Finds orders whose fields contain any of the given keywords. +
+
+[underline]#Format#: `find-o KEYWORD [MORE_KEYWORDS]...`
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
+* The search matches anywhere for id, customer, phone and price.
+* Entries matching ALL field will be returned (i.e. `AND` search).
+** e.g. `find-o aaa bbb` will match an order with id `Aaah` and with tag `bbb`;
+****
+
+[underline]#Examples#:
+
+* Find orders with keyword `iphone` +
+. `find-o iphone` +
 
 
-==== Complete an order : `complete`
+==== Complete an order: `complete`
 Completes the order, order status changed to `COMPLETED`. +
+`COMPLETED` orders will be shifted into the archived order tab panel. +
 Only `SCHEDULED` orders can be completed. +
-Phone associated with order will also be deleted. +
-Format: `complete INDEX`
+Phone associated with the order will also be deleted. +
 
-==== Cancel an order : `cancel`
+[underline]#Format#:  `complete INDEX`
+
+==== Cancel an order: `cancel`
 Cancels the order at the specified index. +
-Format: `cancel INDEX`
+`CANCELLED` orders will be shifted into the archived order tab panel. +
 
-==== List the orders : `list-o`
-List all the orders in the list. +
-Format: `list-o`
+[underline]#Format#: `cancel INDEX`
 
-==== Clear the orders : `clear-o`
+==== List the orders: `list-o`
+List all the orders on the list. +
+
+[underline]#Format#:  `list-o`
+
+==== Clear the orders: `clear-o`
 Clears every order in SML. +
 
 [underline]#Format#: `clear-o`
 
-==== Edit an order : `edit-o`
-Edits the data fields of an order. +
+==== Edit an order: `edit-o`
+Edits the data fields of order. +
 [underline]#Format#: `edit-o INDEX [c/CUSTOMER_INDEX] [p/PHONE_INDEX] [$/PRICE] [t/TAG]…`
 
 
@@ -553,41 +574,56 @@ The index *must be a positive integer* 1, 2, 3, ...
 . `edit-o 2 t/` +
 
 
-==== Copy order field : `copy-o`
-Copies an order field to clipboard. +
-Format: `copy-o <field>`
+==== Copy order field: `copy-o`
+Copies an order to clipboard. +
+
+[underline]#Format#:  `copy-o INDEX`
+
+[underline]#Examples#: +
+
+****
+* Copies the order at the specified `INDEX`.
+* The index refers to the index number shown in the displayed order list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[underline]#Examples#:
+
+* Copy the 1st order
+. `copy-o 1`
 
 
-==== Print orders : `print-o` `[coming in v2.0]`
+==== Print orders: `print-o` `[coming in v2.0]`
 Prints the order lists with formatting that is appropriate for stock-take or order tracking.
-Order list is converted into PDF format before being printed. +
-Format: `print-o`
+The order list is converted into PDF format before being printed. +
+
+[underline]#Format#:  `print-o`
 
 // tag::schedule[]
 
 === Schedule Commands
 Commands that work on schedules you have.
 
-==== Switch to Schedule Tab Panel : `switch-s`
+==== Switch to Schedule Tab Panel: `switch-s`
 Switches to Schedule Tab Panel. +
 [underline]#Format#: `switch-s`
 
-==== Go to specific date in calendar : `schedule`
+==== Go to a specific date in the calendar: `schedule`
 Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
-Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from the year 1970 onwards are valid.
 [TIP]
 Month and date can be *single digits* where applicable.
 
-==== Add a schedule : `add-s`
+==== Add a schedule: `add-s`
 Adds a schedule. +
 If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules.
 ****
 Note:
 
 - You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+- Venues that are too long will be truncated / not visible on the calendar schedule. Simply hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
 ****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 
@@ -608,7 +644,7 @@ Time should be in the 24-hour format HH.MM with valid hour and minute.
 [TIP]
 Schedule can have any number of tags, including 0.
 
-==== Delete a schedule : `delete-s`
+==== Delete a schedule: `delete-s`
 Deletes a schedule. +
 [underline]#Format#: `delete-s ORDER_INDEX`
 ****
@@ -621,7 +657,7 @@ Deletes a schedule. +
 . `list-o` +
 . `delete-s 2`
 
-==== Edit a schedule : `edit-s`
+==== Edit a schedule: `edit-s`
 Edits an existing schedule. +
 If the edited schedule has conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
 *Note*: You can add multiple schedules at the same time slot but it will affect the *visibility of the order index and schedule venue* on the calendar. +
@@ -640,26 +676,26 @@ If the edited schedule has conflicts with the existing schedules, use the `-allo
 * Edit the date of the schedule of the 1st order and allow it to clash with the existing schedules. +
 `edit-s 1 cd/2019.12.12 -allow`
 
-==== Clear the schedules : `clear-s`
+==== Clear the schedules: `clear-s`
 Clears every schedule in SML. +
 
 [underline]#Format#: `clear-s`
 
 ==== Customise schedule duration `[coming in v2.0]`
-There will be an additional attribute in schedule which takes in the duration of the event (in minutes).
+There will be an additional attribute in the schedule which takes in the duration of the event (in minutes).
 
 // end::schedule[]
 
 === Archived Orders Commands:
 
 
-==== Switch to Archived Tab Panel : `switch-a`
+==== Switch to Archived Tab Panel: `switch-a`
 
 Switches to Archived Order Tab Panel.
 
 [underline]#Format#: `switch-a`
 
-==== Clear the archived orders : `clear-a`
+==== Clear the archived orders: `clear-a`
 Clears every archived order in SML. +
 
 [underline]#Format#: `clear-a`
@@ -686,12 +722,12 @@ Deletes an archived order in SML.
 
 
 ==== Copy Archived Order: `copy-a` `[coming in v2.0]`
-Copies an archived order field to clipboard. +
+Copies an archived order field to the clipboard. +
 Format: `copy-a INDEX`
 
 === General Commands
 
-==== Undo : `undo`
+==== Undo: `undo`
 
 Undo the previous command. +
 Currently, the following commands are undoable and redoable. +
@@ -727,8 +763,8 @@ Currently, the following commands are undoable and redoable. +
 
 image::ug-command/ug-undo.png[width="800"]
 
-==== Redo : `redo`
-Redo the previous undone command. Inverse of undo.  +
+==== Redo: `redo`
+Redo the previous undone command. The inverse of undoing.  +
 
 When you redo a delete command, it will specifically delete the customer/phone/order that was previously deleted.
 When you redo an add command, it will specifically add the customer/phone/order that was previously added.
@@ -769,49 +805,44 @@ Currently, the following commands are undoable and redoable. +
 image::ug-command/ug-redo.png[width="800"]
 
 
-==== History: `history`
 
-Views the command history of all your previous commands.
+===== History: `history`
+
+Views the command history of all your previous commands, starting from the latest to the earliest. +
 
 [underline]#Format#: `history`
 
 [underline]#Example#:
 
 image::ug-command/ug-history.png[width="800"]
+
+
+
+==== Exiting the program: `exit`
+
+Exits the program. +
+
+[underline]#Format#: `exit`
+
+If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
+
 
 // tag::statisticsCommand[]
-* Redo clear Customer Book
-. `clear-c`
-. `undo`
-. `redo`
-
-image::ug-command/ug-redo.png[width="800"]
-
-
-=== History: `history`
-
-Views the command history of all your previous commands, starting from the latest to the earliest command.
-
-[underline]#Format#: `history`
-
-[underline]#Example#:
-
-image::ug-command/ug-history.png[width="800"]
 
 // tag::statisticsCommandUG[]
-=== Generate stats : `generate-s`
+=== Generate stats: `generate-s`
 
 `v1.4` only allows statistics on orders marked as `Completed` and has a  `Schedule`.
 
 This function calculates the three type of
 statistics as shown below.
 
-All statistics that are calculated are only on orders in the `archived panel` that has been `completed` and with valid `schedule`.
+All statistics that are calculated are only on orders in the `archived panel` that has been `completed` and with a valid `schedule`.
 Lacking any of this will cause its non-inclusion into the statistics calculation.
 The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
 calculate the statistics for orders within that time period, split it by month and display it.
 
-e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between these 2 dates, sum up the revenue
 (as it falls within a single month) and
 display this value.
 
@@ -822,11 +853,11 @@ display this value.
 Generates the statistics with no date input. +
 
 
-Used for calculating `total profit` , `total Revenue` and `total Cost`. +
+Used for calculating `total profit`, `total revenue` and `total cost`. +
 Format: `generate-s s/stat` +
 
 Type for `stat` includes: `profit`, `revenue`, `cost` +
-The argument must match this three words perfectly.
+The argument must match these three words perfectly.
 
 Shown below:
 
@@ -834,10 +865,10 @@ Shown below:
 image::StatsExampleDefault.png[width="300"]
 
 
-Generates the statistics with date input in chart format (in pop-up modal dialog). +
+Generates the statistics with date input in chart format (in pop-up modal dialogue). +
 Format: `generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` +
 Example: `generate-s s/revenue d1/2019.10.16 d2/2019.11.21` +
-Format for date is in YYYY.MM.DD e.g `2019.05.12`
+Format for the date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
@@ -852,12 +883,12 @@ as long as the date is valid
 [TIP]
 Accuracy is guaranteed up to $0.01 *only*
 [TIP]
-Statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
+The statistic type argument must match `profit`, `revenue`, `cost` (no upper case)
 
 Limitations:
 
 * Range of dates affecting chart display:
-** The chart is able to accept a large range of dates, but take note that above a
+** The chart can accept a large range of dates, but take note that above a
 certain threshold the gap between the months will change, depending on how large of a range you are calculating.
 This behaviour is intentional and not a bug.
 
@@ -866,12 +897,12 @@ This behaviour is intentional and not a bug.
 
 * Auto truncation of labels
 ** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
-flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
+flexibility with regards to the range of dates to be inputted. Above a certain range, the interval between x-axis data
 will decrease e.g 2 months
 
 * Stats window data not updating
 ** If you already have a stats window open and you complete an order,
-you will have to re enter the statistic command to update that value in another window.
+you will have to re-enter the statistic command to update that value in another window.
 
 * Manually Close the Statistic window before typing `exit` on the main app
 ** If you already have a stats window open before you enter the `exit` command, the application will only stop running
@@ -890,16 +921,8 @@ we estimate at least a few seconds before the window will be loaded.
 ==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
 
-=== Exiting the program : `exit`
 
-Exits the program. +
-
-[underline]#Format#: `exit`
-
-If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
-
-
-=== Export data : `export`
+=== Export data: `export`
 
 
 Exports application data into csv file. +
@@ -923,7 +946,7 @@ Example: `add`
 a list of prefixes you can enter, such as `n/`.
 
 *** When you enter `add-c n/`, the system will suggest a list of names that belong to
-existing customers. This is helpful in checking if the data you are entering is duplicated.
+existing customers. This helps check if the data you are entering is duplicated.
 
 *** The list of data that is suggested depends on the prefix that is last entered.
 If the last entered prefix was `e/`, it would instead suggest a list of existing emails.
@@ -945,7 +968,7 @@ customers in the customer panel.
 *** If you enter `edit-c 1` followed by a space, the system will suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
 
 *** When you enter `edit-c 1 c/`, the system will suggest a list of contact numbers that belong to existing customers.
-This is helpful in checking if the data you are editing to is duplicated.
+This helps check if the data you are editing to is duplicated.
 
 *** The list of data that is suggested depends on the prefix that is last entered.
 If the last entered prefix was `i/`, it would instead suggest a list of existing identity numbers.
@@ -963,8 +986,8 @@ Example: `find`
 piece of data belonging to every customer in the database.
 
 ****
-* As `find` commands accept any unlimited number of keywords, the system will continuously suggest
-the same set of possible keywords when a space is entered.
+* As `find` commands accept an unlimited number of keywords, the system will continuously suggest
+the same set of possible keywords when space is entered.
 
 * Autocomplete works similarly for all `find` commands.
 ****
@@ -990,14 +1013,14 @@ and nothing else.
 Example: `schedule`
 
 *** If you enter `schedule` followed by a space, the system will suggest a list of
-dates that already have orders scheduled on them. This is helpful in checking for duplicates.
+dates that already have orders scheduled on them. This helps check for duplicates.
 
 === Other commands
 
 ==== Import data : `import` `[coming in v2.0]`
 
 
-Imports csv file into application. +
+Imports csv file into the application. +
 If csv file of the input file exists, the file will be imported. +
 If csv file of the input file does not exist, command will not be executed. +
 
@@ -1030,28 +1053,28 @@ Export the application data in SML to PDF format.
 
 ==== Add a new product `[coming in v2.0]`
 
-This command is to allow users to define their own product (e.g. Tablet) with its own fields.
+This command is to allow users to define a new product (e.g. Tablet) with its fields.
 Users have to first key in the primary key name.
 The primary key is used to uniquely identify all records. (e.g. for Tablet, the primary key could be the Serial Number)
 This will be followed by the data type of the primary key.
-The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
-The hash tag represents the length of the valid input for the primary key.
+The data types that will be supported are #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields (e.g. Cost, Price)
+The hashtag represents the length of the valid input for the primary key.
 
 
-[underline]#Format#: `create PRODUCT_NAME PRIMARY_KEY_NAME DATA_TYPE `
+[underline]#Format#: `create PRODUCT_NAME PRIMARY_KEY_NAME DATA_TYPE`
 
 ==== Add fields to a new product `[coming in v2.0]`
 
-This command allow users to add a field to their product.
+This command allows users to add a field to their product.
 Users have to first key in the field name.
 This will be followed by the data type of the field.
-The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
-The hash tag represents the length of the valid input for the primary key.
+The data types that will be supported are #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
+The hashtag represents the length of the valid input for the primary key.
 
 
-[underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE `
+[underline]#Format#: `addfield PRODUCT_NAME FIELD_NAME DATA_TYPE`
 
-=== Autocorrect `[coming in v2.0]`
+==== Autocorrect `[coming in v2.0]`
 
 Corrects any typos that you may have while typing the commands.
 
@@ -1073,8 +1096,8 @@ Corrects any typos that you may have while typing the commands.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​ `| Edits an existing customer.
 |`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
 |`clear-c`| Deletes all customers and their associated orders and schedules.
-|`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contains the keywords in its field.
-|`copy-c INDEX`| Copies a customer into clipboard.
+|`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contain the keywords in its field.
+|`copy-c INDEX`| Copies a customer into the clipboard.
 |=======================================================================
 
 
@@ -1087,8 +1110,8 @@ Corrects any typos that you may have while typing the commands.
 |`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
 |`clear-p`| Deletes all phones and their associated orders and schedules.
-|`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contains the keywords in its field.
-|`copy-p INDEX`| Copies a phone into clipboard
+|`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contain the keywords in its field.
+|`copy-p INDEX`| Copies a phone into the clipboard
 |=======================================================================
 
 === Order Commands
@@ -1101,8 +1124,8 @@ Corrects any typos that you may have while typing the commands.
 |`complete INDEX`| Completes an order and shift it into Archived Order Tab. Also deletes the associated phone.
 |`cancel INDEX`| Cancels an order and shift it into Archived Order Tab.
 |`clear-o`| Deletes all orders
-|`find-o KEYWORD [MORE_KEYWORDS]`| Finds the orders that contains the keywords in its field.
-|`copy-o INDEX`| Copies an order into clipboard
+|`find-o KEYWORD [MORE_KEYWORDS]`| Finds the orders that contain the keywords in its field.
+|`copy-o INDEX`| Copies an order into the clipboard
 |=======================================================================
 
 === Schedule Commands
@@ -1140,7 +1163,7 @@ Corrects any typos that you may have while typing the commands.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` | Generates the statistics with date input in chart format (in pop-up modal dialog). +
+|`generate-s s/stat d1/YYYY.MM.DD d2/YYYY.MM.DD` | Generates the statistics with date input in chart format (in pop-up modal dialogue). +
 |`generate-s s/stat`| Generates the statistics with no date input.
 |`undo`| Undo the last undoable command.
 |`redo`| Redo the undone command.
