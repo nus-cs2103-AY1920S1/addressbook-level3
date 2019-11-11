@@ -1,0 +1,15 @@
+@startuml
+start
+:User adds a Weight Record \nto Health Records;
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then (  [Valid Record])
+    if () then ([Profile exist])
+    :update profile with latest Weight record;
+    else (  [No Profile])
+    endif
+else (   [Invalid Record, throw errors])
+endif
+stop
+@enduml

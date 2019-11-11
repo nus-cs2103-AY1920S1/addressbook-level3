@@ -80,7 +80,7 @@ public class EditRecordCommand extends EditCommand {
         }
 
         Type type = editedRecord.getType();
-        double value = editedRecord.getValue().value;
+        double value = editedRecord.getValue().getValue();
         if (!type.isValidNumber(type.toString(), value)) {
             throw new CommandException(type.messageInflatedValue());
         }

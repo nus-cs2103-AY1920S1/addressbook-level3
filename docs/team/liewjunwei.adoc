@@ -66,9 +66,9 @@ are first validated before it can be executed as a command.
 
 ==== Enhancement: Adding icons and colours to pages
 
-I have added different icons and colours to represent a page's type. There are currently 3 different page types: health, exercise and food.
+I have added different icons and colours to represent a page's type.
 By differentiating the pages through colours and icons, users are able to quickly identify the
-different page types with one glance.
+3 different page types: health, exercise and food with one glance.
 
 === Code Contribution
 Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=bigjunnn&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link] to check out my contributions made to DukeCooks.
@@ -112,6 +112,8 @@ You may visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[
 |===
 
 include::../UserGuide.adoc[tag=diary]
+
+You may refer to this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html#Diary[link] for other diary commands that I have documented.
 
 == Contributions to Developer Guide
 
