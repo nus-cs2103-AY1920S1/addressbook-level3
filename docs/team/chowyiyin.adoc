@@ -21,27 +21,39 @@ The user interacts with it using a CLI and has a GUI created with JavaFX. It is 
 == Summary of contributions
 
 * *Major enhancement*: added *features to complement input validation to ease the correction of invalid commands*
-** What it does: allows merging of duplicate profiles and policies and also gives suggestions for incorrectly entered command words.
-** Justification: this feature improves the product significantly because a user can make mistakes in commands and the app provides a convenient way to rectify them.
-Specifically, information does not have be re-entered after discovering a duplicate profile/policy. Additionally, typos can be corrected quickly through command suggestions.
+** What it does:
+*** Allows merging of duplicate profiles and policies
+*** Gives suggestions for incorrectly entered command words.
+*** Checks for valid NRICs, phone numbers and email address and returns any valid contact details
+** Justification:
+*** Merging: improves the product significantly because a user can add new profiles/policies without needing to check for duplicates.
+Specifically, the user does not have re-enter the data that has already been keyed in and also does not have to compare the different fields between the original profile/policy and the new profile/policy
+and craft another edit command to update the profile/policy from scratch.
+*** Command suggestions: makes it easier and faster to rectify typing errors. The program automatically updates the incorrect command word with a suggested valid command word
+without requiring users to do so on their own, which would make it more convenient especially for those who do not remember the correct command word.
+*** Information verification: helps the user obtain the contact details of the person with invalid details quickly so that he/she can contact the person to verify the information
+
 ** Highlights: this enhancement affects existing commands and commands to be added in the future. The list of command words and prefixes has to be updated when new commands are added for the suggestion of commands.
 Moreover, the information used to create a duplicate profile/policy has to be stored to carry out a merge process and hence made the design process challenging.
 
 * *Minor enhancement*: added a command to turn suggestions on and off.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chowyiyin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chowyiyin&tabRepo=AY1920S1-CS2103-F09-4%2Fmain%5Bmaster%5D[function and test code]]
 
 * *Other contributions*:
+** Project management
+*** In charge of testing and scheduling
+*** Set milestones and deadlines for the team
 
 ** Enhancements to existing features:
-*** Added right panel to GUI (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
-*** Added classes for Policy and for new Person Fields (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75])
-*** Implemented command to add policy and wrote tests for the command (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75], https://github.com/AY1920S1-CS2103-F09-4/main/pull/93[#93])
-*** Implemented command to expand profiles and policies onto right panel (Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109])
+*** Added right panel to GUI (Pull requests [https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109]])
+*** Added classes for Policy and for new Person Fields (Pull requests [https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]])
+*** Implemented command to add policy and wrote tests for the command (Pull requests [https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]], [https://github.com/AY1920S1-CS2103-F09-4/main/pull/93[#93]])
+*** Implemented command to expand profiles and policies onto right panel (Pull requests [https://github.com/AY1920S1-CS2103-F09-4/main/pull/109[#109]])
 ** Documentation:
-*** Added the new basic commands to User Guide: https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
+*** Added the new basic commands to User Guide: [https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95], https://github.com/AY1920S1-CS2103-F09-4/main/pull/70[#70]
+*** PRs reviewed (with non-trivial review comments): [https://github.com/AY1920S1-CS2103-F09-4/main/pull/95[#95]], [https://github.com/AY1920S1-CS2103-F09-4/main/pull/70[#70]]
 
 == Contributions to the User Guide
 
@@ -61,9 +73,3 @@ include::../UserGuide.adoc[tag=inputvalidation]
 include::../DeveloperGuide.adoc[tag=merging]
 
 include::../DeveloperGuide.adoc[tag=mergingusecase]
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
