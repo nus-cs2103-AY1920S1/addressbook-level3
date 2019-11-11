@@ -300,11 +300,11 @@ image::archiveCommandMessage.png[]
 
 The following are all the archive commands, descriptions of how they work and their usage.
 
-NOTE: Note the formatting of command parameters used in this section: +
-[INDEX]: The list index of the expense involved in the command. +
-`arc/`: Prefix to indicate that the text appended to it is the specified archive name. +
-[ARCHIVE NAME]: Specified name of archive involved in the command. Archive name is case-sensitive and must be non-empty.
-Names with symbols and multiple words are accepted as well.
+Note the formatting of command parameters used in this section:
+
+* [INDEX]: The list index of the expense involved in the command.
+* `arc/`: Prefix to indicate that the text appended to it is the specified archive name.
+* [ARCHIVE NAME]: Specified name of archive involved in the command. Archive name is case-sensitive and must be non-empty. Names with symbols and multiple words are accepted as well.
 
 ==== _Adding an expense to an archive: ``archive add``_ +
 This command allows you to transfer the expense at the specified index to your specified archive. +
