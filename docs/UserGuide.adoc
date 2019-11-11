@@ -308,7 +308,7 @@ Sets a specific flashcard as a "bad" flashcard. The flashcard will be stored as 
 * Sets the FlashCard specified at `INDEX` as 'bad'. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-You can refer to the example below:
+You can refer to the example below.
 
 `bad 2`
 
@@ -330,7 +330,6 @@ the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]
 List all the "Bad" rated FlashCards from a specific date. The FlashCard Questions will be shown.
 
 `listbad d>12/11/2019`
-
 
 image::listbad.png[width="600"]
 
