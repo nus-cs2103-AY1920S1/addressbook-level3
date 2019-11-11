@@ -35,10 +35,8 @@ The following sections illustrate my contributions in more detail. The relevant 
 == Summary of contributions
 This section gives a summary of the features I implemented, documentation I did and other parts I contributed to my team project.
 
-=== Major enhancements added
-I have made 2 major enhancements: adding the annotation functionality and adding the in-built web browser.
+=== Major enhancement: Added the annotation feature
 
-==== Added the annotation feature
 I added the ability to annotate the offline copy of the web page referred to by a bookmark. Users can not only read their web pages offline,
 but they can also make notes on them directly.
 //** What it does
@@ -50,7 +48,7 @@ because to support annotations, the offline document has to take into account di
 the completed annotation feature works well and is aesthetically pleasing on the application.
 * Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are provided by the javafx css extension.
 
-==== Added the web browsing feature
+=== Major enhancement: Added the web browsing feature
 I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
 
 * Justification: Users no longer need to open a separate web browser window to view their bookmarks, which improves navigability within the application.
@@ -59,11 +57,7 @@ I added the ability to browse web pages on the application. Users can navigate t
 
 * Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AB-4], which was not navigable as a user would expect of a browser.
 
-
-=== Minor enhancement added
-In addition to the major enhancements I made, I also created tabs to lay down the various parts of the user interface that we show to the user.
-
-==== Added tab view
+=== Minor enhancement: Added tab view
 I created tabs and added the ability to switch views from tab to tab.
 
 * Justification: An organised interface will help users get familiarised fast and improve their quality of use of the application. Hence, tabs are necessary to declutter the GUI so each component has sufficient space for users to view them in comfort.
@@ -100,8 +94,6 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitl
 //_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-We had to update the original AB3 User Guide with instructions for the enhancements that we had added.
-
 |===
 |_Given below is one of the sections I contributed to our User Guide for Mark. It showcases my ability to write documentation targeting end-users._
 |===
@@ -115,8 +107,6 @@ include::../UserGuide.adoc[tag=annCmd]
 _End of extract from Mark User Guide_
 
 == Contributions to the Developer Guide
-We also had to update the original AB3 Developer Guide to reflect the design of Mark.
-
 |===
 |_Given below are sections I contributed to our Developer Guide for Mark. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
