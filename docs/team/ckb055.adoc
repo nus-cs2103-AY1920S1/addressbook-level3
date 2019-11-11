@@ -28,7 +28,7 @@ A highlight would indicate that this is a command that can be inputted in the co
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-*Enhancement added*: I added the tagging functionalities for all items in the application.
+*Major Enhancement 1*: I added the tagging functionalities for all items in the application.
 
 * What it does
 
@@ -41,6 +41,30 @@ The usage of tags are highly important in our application. For instance, the aut
 * Highlights
 
 This enhancement is highly straightforward and works well with the current application.
+
+*Minor Enhancement 1*: Added the deletion prompting feature of the applcation.
+
+* What it does
+
+When the user attempts to delete any item (Flashcard, Note, CheatSheet) in StudyBuddyPro, the user will be prompted
+once to confirm his/her deletion before the item is successfully deleted.
+
+* Justification
+
+The deletion prompt feature will prevent users from accidentally deleting wrong items in our application.
+This feature is also much simpler to implement as compared the undo/redo feature, which offers almost the same outcome in this aspect.
+
+*Minor Enhancement 2*: Added the ability for CheatSheets to pull NoteFragments during auto-generation.
+
+* What it does
+
+Upon creating a CheatSheet with a specified Tag, NoteFragments that are stored within Notes that matches the specified Tag will be added to this CheatSheet.
+
+* Justification
+
+NoteFragments are portions that can be highlighted within the Notes Feature. It is important that these portions are added to the CheatSheet.
+Also, there are instances where the entire Note is too long, and only a required portion of the Note is required. As such,
+the NoteFragment can be tagged differently from the Note such that the auto-generation feature of the CheatSheet will only add the tagged NoteFragments.
 
 *Code contribution*:
 
@@ -58,8 +82,6 @@ to view my code contributions.
 ** Helped with the linking of the Storage component to our new features (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/124[#124]).
 
 * Enhancements to existing features:
-** Upgraded the auto-generation cheatsheet feature of the application to pull intra-content tags from the content feature of the application (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
-** Enhanced delete commands to prompt the user once to confirm his/her deletion(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/244[#244]).
 ** Updated the appIcons for the application, and created the logo for the application using an online software, logomakr (link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/254[#254]).
 ** Wrote additional tests for existing features to increase the test coverage(link:https://github.com/AY1920S1-CS2103T-W13-3/main/pull/316[#316]).
 
@@ -90,7 +112,6 @@ Displays a full list of all tags currently in StudyBuddyPro.
     Expected output:
     Here are all the tags in StudyBuddyPro.
     Listing all tags :
-    [cs2100] |  flashcards : 0 notes : 3 cheatsheets : 1
     [cs2101] |  flashcards : 6 notes : 2 cheatsheets : 1
     [cs2104] |  flashcards : 20 notes : 8 cheatsheets : 3
     [math] |  flashcards : 10 notes : 2 cheatsheets : 1
@@ -133,10 +154,6 @@ Let’s say the user wishes to view the definition of pipelining. Pipelining is 
     Title: Pipelining Definition
     Content: Pipelining is a process where..
     Tags: [cs2100]
-    Note Fragment: 3.1.
-    Title: About
-    Content: highlighted
-    Tags: [cs2100]
 
 All Study Buddy Items in the application will be displayed to the user, alongside with their corresponding indexes. This helps the user to quickly get to their desired flashcard/cheatsheet/note.
 
@@ -161,8 +178,6 @@ The user is also able to specify a multiple number of tags to filter by. For ins
 This will be especially useful if the user wishes to view the more important items of a certain module.
 
 === Listing by tags: `filter`
-
-In addition to the filterall command, the user is able to use the command filter to list the items with the specified tag in the mode the user is currently in.
 
 It is similar to the filterall command, except it is for individual features. It will be truncated in this Product Portfolio, please refer to the UserGuide for more details.
 
@@ -257,7 +272,6 @@ _Figure 4 : Code Snippet of StudyBuddyItemContainsTagPredicate#test()_
 * As such, there will be more correctness when auto-generating cheatsheets and filtering flashcards, as seen in the following example.
 ** If a user wishes to generate a cheatsheet and pull items with tags [cs2100] and [difficult], it would strictly only pull difficult CS2100 contents, and not pull other items
 that might have tags containing [difficult].
-* The rationale for this is that it would not make sense if a user wanted to create a cheatsheet for module [cs2100] and with tagged [midterm], that items containing tag [ma1521] (another math module) and [midterm] will be pulled over.
 * Such logic for filtering items by their tag is similar throughout the whole StudyBuddyPro.
 
 ==== Usage of Tags

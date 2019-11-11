@@ -294,7 +294,6 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 .Overview of StudyBuddyItems and its sub-classes
 image::kaibindiagrams/studyBuddyItemClassDiagram.png[]
-_Diagram 5: Implementation of StudyBuddyItem_
 
 ==== Design Considerations
 

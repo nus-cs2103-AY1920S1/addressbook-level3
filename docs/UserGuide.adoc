@@ -624,6 +624,8 @@ Here are your overdue flashcards:
 
 //tag::notesAdd[]
 
+Have too many things memorized in your head, with nowhere to write them down? Tired of jotting down thoughts in loose text files on your computer? Then give our Notes a try! Quick and easy to use, they help you keep track of all the loose bits of knowledge that you want to keep around but don't have the brain space to keep! Take note of these Notes and studying will be a breeze!
+
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _notes_ mode. To be sure
