@@ -227,6 +227,11 @@ Deletes the 2nd reminder in the shown reminder list.
 
 === Reminder Feature
 
+So focused on your work that you forget the other tasks in your life?
+Don't worry! You can ask ELISA to remind you to do what you need to do, when you need to do it!
+
+Simply add a reminder
+
 [[snooze]]
 ==== Snoozing a reminder: `snooze`
 
