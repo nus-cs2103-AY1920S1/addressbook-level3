@@ -1087,20 +1087,24 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: Populate TimeBook with person `addperson`.
+.. Test case: `deleteperson n/NAME` (Where NAME is the name of the person you added) +
+   Expected: The person name will be removed from the list on the left of GUI and the feedback box will show `Delete person success: NAME deleted`
 
-_{ more test cases ... }_
+=== Getting closest common location
 
-=== Saving data
+. Get closest common location
+.. Prerequisites: Populate TimeBook with your group and group members with `addtogroup` and `addperson`. Subsequently, Show group schedule `show g/GROUP_NAME`.
+Expected: Show a group schedule with common free time.
+.. Test case: `selectfreetime i/x` +
+   Expected: A popup with the closest location will appear.
+.. Other incorrect select free time commands to try: `selectfreetime i/0.1`, `selectfreetime i/x` (where x is the free time slot id on the display)
 
-. Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Invalid `ID`.
 
-_{ more test cases ... }_
+.. Prerequisites: Show group schedule `show g/GROUP_NAME`
+   Expected: Show a group schedule with common free time.
+.. Test case: `selectfreetime i/0` +
+   Expected: Invalid time slot ID: 0. Please enter a valid id as shown in the GUI.
+.. Other incorrect select free time commands to try: `selectfreetime i/0.1`, `selectfreetime i/x` (where x is larger than the id on the display)
