@@ -1098,7 +1098,7 @@ There is no need to save manually.
 Who is Alice? / How do I store my details and schedule?::
 // tag::alice-full[]
 // tag::alice-brief[]
-When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create.
+When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create. Note that you, as a user, are not present in TimeBook's contacts list!
 // end::alice-brief[]
  +
 {nbsp} +
