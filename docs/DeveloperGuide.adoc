@@ -87,7 +87,7 @@ Do not disable them. If you have disabled them, go to *File* > *Settings* > *Plu
 
 ==== Configuring the coding style
 
-This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify:
 
 . Go to *File* > *Settings...* (Windows/Linux), or *IntelliJ IDEA* > *Preferences...* (macOS).
 . Select *Editor* > *Code Style* > *Java*.
@@ -275,7 +275,7 @@ that we had.
 
 //tag::addtransaction[]
 === Adding transactions
-We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` which enables record-keeping. This section show how we handle such
+We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` which enables record-keeping. This section shows how we handle such
 requests from the user at the back-end.
 
 ==== Implementation
@@ -1891,7 +1891,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all transactions using the **list** command. The first transaction is "1. [-] Laksa ($10.50) [Lunch][Food]".
 .. Test case: **tag i/1 t/EXPENSIVE** +
-   Expected: Details of the tagged transaction and original transaction is shown in the Result Box. Listing the transaction reflects changes.
+   Expected: Details of the tagged transaction and the original transaction are shown in the Result Box. Listing the transaction reflects changes.
 .. Test case: **tag i/INVALID_INDEX t/VALID_TAG** where **INVALID_INDEX** is a number less than 1 or more than list size and **VALID_TAG** is a valid tag. +
    Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **tag i/VALID_INDEX t/ALREADY_INSIDE_TAG** where **VALID_INDEX** is a valid transaction index and **ALREADY_INSIDE_TAG** is already inside the transaction specified. +
@@ -1939,7 +1939,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Undoing the previous command and reflecting changes in the list
 
-.. Prerequisites: List all transactions using the *list* command
+.. Prerequisites: List all transactions using the *list* command. There are at least two transactions in the list.
 .. Test case:
 +
 --
@@ -2019,20 +2019,16 @@ Expected: The budget shown in the UI for "11/2019" is reset to "$0.00".
 ... *undo*
 --
 +
-Expected: No changes. A message is shown in the Result Box, indicating that there are no available commands for the user to undo.
-.. Test case:
-+
---
-... *undo 123*
---
-+
-Expected: No changes. A message is shown in the Result Box, indicating that it is an invalid command.
+Expected: A message is shown in the Result Box, indicating that there are no available commands for the user to undo.
+
+.. Test case: *undo 123* +
+Expected: A message is shown in the Result Box, indicating that it is an invalid command.
 
 === Redoing the undone command
 
 . Redoing the undone command and reflecting changes in the list
 
-.. Prerequisites: List all transactions using the *list* command
+.. Prerequisites: List all transactions using the *list* command. There are at least two transactions in the list.
 .. Test case:
 +
 --
@@ -2132,14 +2128,10 @@ There is a message shown in the Result Box indicating that there are no availabl
 ... *redo*
 --
 +
-Expected: No changes. A message is shown in the Result Box, indicating that there are no available commands for the user to redo.
-.. Test case:
-+
---
-... *redo 123*
---
-+
-Expected: No changes. A message is shown in the Result Box, indicating that it is an invalid command.
+Expected: A message is shown in the Result Box, indicating that there are no available commands for the user to redo.
+
+.. Test case: *redo 123* +
+Expected: A message is shown in the Result Box, indicating that it is an invalid command.
 
 === Showing help window
 
