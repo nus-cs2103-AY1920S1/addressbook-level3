@@ -859,6 +859,33 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Event 
+
+. Editing an Event Date
+
+.. Prerequisites: At least one event listed in the event list. Either add events using `add_ev` if empty, or `list_ev` otherwise.
+.. Test Case: `edit_ev 1 on/20/10/2019 till/20/10/2020` +
+    Expected Error Message : "The maximum acceptable range between the Start and End Dates is 90 days."
+.. Test Case: `edit_ev 1 till/25/10/2019` +
+    Expected: Event End Date is edited successfuly.
+.. Other incorrect commands:
+    `edit_ev 1 on/20/10/2019 till/10/10/2019` (Start Date after End Date) +
+    `edit_ev 1 on/10/10/1990 till/20/10/1990` (Too Long ago) +
+    `edit_ev 1 on/31/02/2019` (Not a valid calendar date)
+
+. Setting Event Date-Time
+
+.. Prerequisites: Same and continued from above.
+.. Test Case: `set_ev_dt 1 time/1000-1300` +
+    Expected: Mapping from Start to End Date successfully assigned. Double click on the Event or use `fetch_ev 1` to see the mapping.
+
+.. Test Case: `delete_ev_dt 1 on/20/10/2020` (or any date out of range) +
+    Expected Error Message: "The Date [20/10/2020] is not found in the Date-Time Mapping of Event: [Musical]"
+
+.. Test Case: `delete_ev_dt 1 on/25/10/2019` +
+    Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
+
+
 === Saving data
 
 . Dealing with missing data files
