@@ -96,13 +96,13 @@ image::LogicComponentClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/io/xpire/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `XpireParser` class to parse the user command.
+.  `Logic` uses the `XpireParser` or `ReplenishParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding an item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete|1")` API call when the user is viewing the main list.
 
 .Interactions Inside the Logic Component for the `delete|1` Command
 image::LogicComponentSequenceDiagram.png[]
@@ -134,7 +134,7 @@ image::StorageComponentClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Xpire and ReplenishList data in json format and read it back.
+* can save the `Xpire` and `ReplenishList` data in JSON format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -148,49 +148,83 @@ This section describes some noteworthy details on how certain features are imple
 === Replenish List
 // tag::replenishListItems[]
 
-==== Items in the replenish list
+====  Items in replenish list and main list
+Items in the replenish list with only `Name` and `Tag` fields are represented by the `Item` class.
+On the other hand, items in the main list with additional fields such as `ExpiryDate`,
+`Quantity` and `ReminderThreshold` are represented by the `XpireItem` class.
+To utilise the concept of inheritance and reduce duplicate data and methods, `XpireItem` is written to inherit from `Item`.
+This relationship can be observed from the diagram below.
+
+.Snippet of Model Component Class Diagram to illustrate inheritance of `XpireItem` from `Item`.
+image::condensed_item_class_diagram.png[]
+
+==== Storage of items in the replenish list
+An `XpireItem` is converted to a `JsonAdaptedXpireItem` whereas an `Item` is converted to a `JsonAdaptedItem` for storage.
+To store both the replenish list and main list in a single JSON file, both lists are wrapped in the `JsonSerializableList` class
+for serializing and deserializing using the Jackson Library.
+
+.Snippet of Storage Component Class Diagram to illustrate how an item in the replenish list is stored.
+image::condensed_storage_class_diagram.png[]
+
+==== Moving items in the main list into the replenish list
+An `XpireItem` in the main list can be transferred to the replenish list using the `ShiftToReplenishCommand`.
+Any `XpireItem` whose quantity is `0` will also be automatically added to the replenish list.
 
 ===== Implementation
-//{Explain here how the ToReplenish/ToBuy List is implemented}_
-Items are added to the replenish list by the user using the `ShiftCommand`.
-When an item expires, the item is automatically tagged as `#Expired`.
+When the user executes a `ShiftToReplenishCommand`, the target item in the main list will be adapted from a `XpireItem` into an `Item`.
+The adapted item will be subsequently added to the replenish list, while the target item is removed from the main list.
+The following sequence diagrams demonstrate how the command makes changes to both the main list and replenish list.
 
-.All expired items are automatically tagged with the `Expired` tag (circled in figure).
-image::expired_tags.png[]
+.Sequence diagram for `ShiftToReplenishCommand`.
+image::shift_to_replenish_sequence_diagram.png[]
 
-By searching for the `Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
+.Sequence diagram when an item is shifted to the replenish list.
+image::transfer_item_to_replenish_sequence_diagram.png[]
 
-.Sequence Diagram for ItemManager Class
-image::ItemManagerSequenceDiagram.png[]
+When the user executes a `DeleteCommand` to reduce the `Quantity` of an `XpireItem` to `0`, the item is automatically
+shifted to the replenish list. The item shift is demonstrated in the activity diagram below.
 
-On the other hand, when an item has run out, an item is automatically added to the replenish list.
-This occurs when the user uses the `DeleteCommand` to
-The following sequence diagram summarises how this operation works:
+.Sequence diagram when an item quantity is reduced to 0.
+image::delete_quantity_activity_diagram.png[]
 
-.Sequence Diagram when item quantity is reduced to 0 via the Delete Command
-image::AutoShiftSequenceDiagram.png[]
-//Given below is an example usage scenario and how the mechanism behaves at each step.
+[NOTE]
+The shift would not be successful if an item with the same `Name` already exists on the replenish list.
+The user would be prompted to delete the existing item in the replenish list in order to add the target item into the replenish list.
 
-//The following activity diagram summarizes what happens when a user executes a new command:
+==== Moving items in the replenish list to the main list
+On the other hand, items can be transferred into the main list using the `ShiftToMainCommand`.
+The following activity diagram summarises how the command works:
+
+.Activity diagram for `ShiftToMainCommand`.
+image::shift_to_main_activity_diagram.png[]
+
+When utilising the `ShiftToMainCommand`, the user would have to input the item's `ExpiryDate` and `Quantity` (optional)
+so that the `Item` can be adapted into an `XpireItem`.
+
+[NOTE]
+If an item with the same `Name` and `ExpiryDate` already exists on the main list, the `Quantity` of the item would be updated.
+However, only the tags of the item on the main list will be retained.
 
 ===== Design Considerations
-//===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice): **
-//** Pros:
-//** Cons:
-//
-//* **Alternative 2:**
-//** Pros:
-//** Cons:
-====== Aspect: How expired items are being handled
-* **Alternative 1 (current choice): Once an item expires,
-the item is automatically tagged as `#Expired`.**
-** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
-** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
-** Pros: User need not manually key in item details to transfer it to the replenish list.
-** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+====== Aspect: Storage of replenish list and main list
+* **Alternative 1 (current choice): Store both lists in the same JSON file**
+** Pros: Updating the storage would be less cumbersome as only one file needs to be read and written into.
+** Cons: Challenging to find a suitable and efficient data structure that wraps both lists for storage into a single file.
+
+* **Alternative 2: Store both lists as separate JSON files**
+** Pros: Easier to implement as there is no need to find a data structure to wrap both lists for storage.
+** Cons: Makes updating the storage troublesome as both files need to be updated at the same time for any changes made to the lists.
+
+====== Aspect: Handling of items that have run out
+* **Alternative 1 (current choice): Automatically shift an item to the replenish list when the item's quantity reaches 0**
+** Pros: User does not need to input any command to perform the shifting, making the user experience more fuss-free.
+** Cons: User has to delete the item from the replenish list if the user does not want to stock up on the item in future.
+
+* **Alternative 2: Delete item from the main list without any shift**
+** Pros: Items that the user may not want to replenish will not be automatically added to the replenish list.
+** Cons: User has to go through the trouble to key in details of an item that was already in the main list.
+
 // end::replenishListItems[]
 
 // tag::replenishListCommands[]
@@ -1292,7 +1326,7 @@ Product Scope
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
 .  The product is not required to produce reminders when the app is inactive.
-.  The product is not required to handle intentionally corrupted json files.
+.  The product is not required to handle intentionally corrupted JSON files.
 
 Usability
 
@@ -1499,14 +1533,10 @@ add any reminder threshold. +
    Expected: `view` is given as a recommendation in the error message.
 
 === Adding expired items to the tracking list for testing
+By design, our app does not accept items that have expired unless the JSON file is tampered with.
 
-Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
-
-.Expiry date should be updated to one that has passed to test for expired items in Xpire.
-image::xpire_json_file.png[]
-
-.. By design, our app does not accept items that have expired unless the json file is tampered with.
 .. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
+.. Note that this expiry date has to be after 1/10/2019.
 .. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
 .. Compute the reminder date by subtracting the reminder threshold from the expiry date. The reminder date should not be before 1/10/2019.
 .. The format to follow for adding an item can be seen within the box outline:
@@ -1518,13 +1548,28 @@ Example:
 
 .Example of a valid XpireItem manually added to xpire.json file
 image::json_example.png[]
-An item with `name` Jelly and `expiryDate` 24/6/2019 (which has passed) is now added to the json file for your testing.
+An item with `name` Raspberry and `expiryDate` 8/10/2019 (which has passed) is now added to the JSON file for your testing.
 
 [NOTE]
 Remember to enclose these name-value items with `{` and `}`.
 Do note that if you manually tamper with the xpire.json file, the data file might be corrupted.
 See <<Saving data>> on details for corrupted files.
 For more information about JSON objects, please refer to https://www.digitalocean.com/community/tutorials/an-introduction-to-json[this tutorial].
+
+=== Adding an item
+. Adding an item to the main list
+
+The examples given below act according to the following list:
+
+image::add_manual_test_list.png[]
+
+.. Prerequisites: Current view is the main list.
+.. Test case: `add|Chocolate|28/6/2020` +
+   Expected: Chocolate is added to the main list. Details of the added item is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|999` +
+   Expected: Strawberry's quantity is increased by 999. Details of the quantity increase is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|100000` +
+   Expected: Error message shown in feedback.
 
 === Deleting an item
 
@@ -1541,11 +1586,11 @@ in the list.
 
 . Deleting an item quantity in the main tracking list while all items are listed
 
-The examples given below acts according to the following list:
+The examples given below act according to the following list:
 
 image::delete_example_list.png[]
 
-.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Prerequisites: Current view is the main list. Input quantity to be deleted must be less than or equals to the item quantity.
 .. Test case `delete|2|1` +
    Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
    Details of the item with reduced quantity is reflected in the status message.
@@ -1570,6 +1615,24 @@ Details of this shift is reflected in the status message.
    Expected: Quantity is not reduced. Error details showed in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
    Expected: Similar to previous.
+
+=== Shifting an item to the replenish list
+
+. Shifting an item to the replenish list
+.. Prerequisites: Current view is the main list. Current list contains at least one valid item.
+
+.. Test case `shift|1` +
+   Expected: First item in the main list is shifted into the replenish list. Feedback is shown.
+
+=== Shifting an item to the main list
+
+. Shifting an item to the main list
+.. Prerequisites: Current view is the replenish list.
+   Current list contains at least one valid item.
+   Item with the same expiry date specified and name as the item of the given index does not exist on the main list.
+
+.. Test case `shift|1|25/6/2020` +
+   Expected: First item is moved to the main list. Feedback is shown.
 
 === Tagging an item
 
@@ -1685,4 +1748,4 @@ set for them previously.
 
 . Dealing with missing/corrupted data files
 
-.. Corrupted data files will be deleted. A new json file without any items will be used.
+.. Corrupted data files will be deleted. A new JSON file without any items will be used.
