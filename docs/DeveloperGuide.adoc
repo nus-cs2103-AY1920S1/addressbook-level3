@@ -514,14 +514,14 @@ The following diagrams summarises what happens when a user executes an unknown c
 [reftext="Figure 2.4.1"]
 [caption="Figure 2.4.1: "]
 .ActivityDiagram when a user inputs an unknown command
-image::ShortcutActivityDiagram.png[width="800"]
+image::ShortcutActivityDiagram.png[width="400"]
 
 <<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
 [[CreateShortCutDiagram]]
 [reftext="Figure 2.4.2"]
 [caption="Figure 2.4.2: "]
 .UML diagram when a user creates a shortcut
-image::CreateShortCutDiagram.png[width="800"]
+image::CreateShortCutDiagram.png[width="400"]
 
 
 
@@ -857,7 +857,7 @@ command is entered.
 [reftext="Figure 2.5.2.1"]
 [caption="Figure 2.5.2.1: "]
 .Execution sequence of the `check 1` command
-image::CheckSequenceDiagram.png[width="800"]
+image::CheckSequenceDiagram.png[width="400"]
 
 1) The only parameter after the `check` command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
 
@@ -892,7 +892,7 @@ Figure 2.5.2.2 is the activity diagram of the check command
 [reftext="Figure 2.5.2.2"]
 [caption="Figure 2.5.2.2: "]
 .ActivityDiagram
-image::CheckActivityDiagram.png[width="800"]
+image::CheckActivityDiagram.png[width="400"]
 
 * The model parameter in the `CheckCommand::execute` method is checked to be not null is made before the rest of the method continues.
 
@@ -987,7 +987,7 @@ with a date.
 [reftext="Figure 2.7.2.1"]
 [caption="Figure 2.7.2.1: "]
 .SortActivityDiagram
-image::SortActivityDiagram.png[width="800"]
+image::SortActivityDiagram.png[width="400"]
 
 4) To elaborate, once the sort command is called, `UiManager::getState` method is called to determine the current view
 the application is on then implements the correct type of sort on the list.
