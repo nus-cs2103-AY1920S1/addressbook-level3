@@ -1,6 +1,7 @@
 package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static budgetbuddy.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -46,6 +47,12 @@ public class LoanListCommandTest {
         }
     }
 
+    @Test
+    public void constructor_nullArguments_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new LoanListCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new LoanListCommand(null, new ArrayList<>()));
+        assertThrows(NullPointerException.class, () -> new LoanListCommand(Optional.empty(), null));
+    }
 
     @Test
     public void execute_emptyList_listSuccess() {
