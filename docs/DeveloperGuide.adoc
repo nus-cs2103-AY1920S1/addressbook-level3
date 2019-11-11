@@ -81,7 +81,7 @@ The sections below give more details of each component.
 === UI component
 // tag::UiUG[]
 .Structure of the UI Component
-image::UiClassDiagram.png[width="400"]
+image::UiClassDiagram.png[]
 
 *API*: link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -284,7 +284,7 @@ single object, passed it to the appropriate place to be "unwrapped" when needed.
 
 A high-level view of the packages working together:
 
-image::statsOverallClassDiagram.png[width="300", align="center"]
+image::statsOverallClassDiagram.png[align="center"]
 
 ==== Current Implementation
 
@@ -305,7 +305,7 @@ the `statsCommandParser` parses the input from the user, returning a
 
 Seen here is the sequence diagram of the first step
 
-image::StatsCommandSequenceDiagram1.png[width="400", align="center"]
+image::StatsCommandSequenceDiagram1.png[align="center"]
 
 Step 2: the logic then calls `command.execute(command)`.
 
@@ -313,11 +313,11 @@ When this happens, the `StatsCommand` executes, which triggers a call to create 
 create a new `CommandResult` object and returns that to `Logic`, completing the execution of the user input command.
 Seen here is the sequence diagram of the second step.
 
-image::StatsCommandSequenceDiagram2.png[width="400", align="center"]
+image::StatsCommandSequenceDiagram2.png[align="center"]
 
 Shown below is a quick summary of step 1-2 (Full complete diagram):
 
-image::StatsCommandSequenceDiagram.png[width="600", align="center"]
+image::StatsCommandSequenceDiagram.png[align="center"]
 
 Step 3: After the logic component completes its execution and return a `CommandResult`, the `UI` will call
 `performUiChanges` that handles the specific `UI` change. This then results in the `statsPayload` class being
@@ -333,14 +333,14 @@ a `String` or a `XYChart.Series<String, Number>`.
 Step 5: with this output from logic, `Statistic Window` will then handle the displaying of the statistic, be it in chart
 form or string form. With this, the feature has finished executing! Attached below is the summary for step 3-5:
 
-image::StatisticsCalculationUI.png[width="400", align="center"]
+image::StatisticsCalculationUI.png[align="center"]
 
 
 ==== Current Version `v1.4`:
 
 Here is a screenshot of the current product:
 
-image::StatsExampleGraph.png[width="300" align="center"]]
+image::StatsExampleGraph.png[align="center"]]
 
 
 ==== Limitations/Note to developers:
