@@ -263,6 +263,24 @@ public class EventRecord implements ReadOnlyVEvents, ReadOnlyEvents, Iterable<VE
         }
 
         EventRecord otherEventRecord = (EventRecord) other;
-        return otherEventRecord.getVEventList().equals(this.getVEventList());
+        ObservableList<VEvent> thisVEventList = this.getVEventList();
+        ObservableList<VEvent> otherVEventList = otherEventRecord.getVEventList();
+
+        if (thisVEventList.size() != (otherVEventList.size())) {
+            return false;
+        }
+
+        for (int i = 0; i < thisVEventList.size(); i++) {
+            VEvent thisVEvent = thisVEventList.get(i);
+            VEvent otherVEvent = otherVEventList.get(i);
+            if (!thisVEvent.getSummary().equals(otherVEvent.getSummary())
+                    || !thisVEvent.getDateTimeEnd().equals(otherVEvent.getDateTimeEnd())
+                    || !thisVEvent.getDateTimeStart().equals(otherVEvent.getDateTimeStart())
+                    || !thisVEvent.getCategories().equals(otherVEvent.getCategories())) {
+                return false;
+            }
+
+        }
+        return true;
     }
 }

@@ -18,7 +18,6 @@ import org.apache.commons.math3.util.Pair;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import jfxtras.icalendarfx.components.VEvent;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
@@ -32,7 +31,6 @@ import seedu.address.model.group.ListOfGroups;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.NotesRecord;
 import seedu.address.model.note.ReadOnlyNotesRecord;
-import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.question.ReadOnlyQuestions;
 import seedu.address.model.question.SavedQuestions;
@@ -52,7 +50,6 @@ public class ModelManager implements Model {
 
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final ListOfGroups groupList;
     private final UserPrefs userPrefs;
     private final StudentRecord studentRecord;
@@ -62,15 +59,13 @@ public class ModelManager implements Model {
     private final SavedQuizzes savedQuizzes;
     private final NotesRecord notesRecord;
     private final StatisticsRecord statisticsRecord;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Student> filteredStudents;
     private final FilteredList<Note> filteredNotes;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyStudentRecord studentRecord,
+    public ModelManager(ReadOnlyStudentRecord studentRecord,
                         ReadOnlyQuestions savedQuestions,
                         ReadOnlyQuizzes savedQuizzes,
                         ReadOnlyNotesRecord notesRecord,
@@ -78,13 +73,12 @@ public class ModelManager implements Model {
                         ReadOnlyStatisticsRecord statisticsRecord,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, studentRecord, savedQuestions,
+        requireAllNonNull(studentRecord, savedQuestions,
                 savedQuizzes, notesRecord, statisticsRecord, userPrefs);
 
         logger.fine(
-                "Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+                "Initializing with NJoy application with user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.groupList = new ListOfGroups();
         this.userPrefs = new UserPrefs(userPrefs);
         this.studentRecord = new StudentRecord(studentRecord);
@@ -94,13 +88,12 @@ public class ModelManager implements Model {
         this.notesRecord = new NotesRecord(notesRecord);
         this.eventSchedulePrefs = new EventSchedulePrefs(EventScheduleViewMode.WEEKLY, LocalDateTime.now());
         this.statisticsRecord = new StatisticsRecord(statisticsRecord);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredStudents = new FilteredList<>(this.studentRecord.getStudentList());
         filteredNotes = new FilteredList<>(this.notesRecord.getNotesList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
+        this(new StudentRecord(), new SavedQuestions(), new SavedQuizzes(),
                 new NotesRecord(), new EventRecord(), new StatisticsRecord(), new UserPrefs());
     }
 
@@ -128,72 +121,6 @@ public class ModelManager implements Model {
     }
     //endregion
 
-    //region AddressBook
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-    //endregion
-
-    //region FilteredPerson List Accessors
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
-    }
-    //endregion
-
-    //region Person
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-    //endregion
 
     //region Statistics
     @Override
@@ -322,7 +249,7 @@ public class ModelManager implements Model {
     @Override
     public void addStudent(Student student) {
         studentRecord.addStudent(student);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
     }
 
     /**
@@ -807,8 +734,13 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return groupList.equals(other.groupList)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+                && studentRecord.equals(other.studentRecord)
+                && savedQuestions.equals(other.savedQuestions)
+                && eventRecord.equals(other.eventRecord)
+                && savedQuizzes.equals(other.savedQuizzes)
+                && notesRecord.equals(other.notesRecord)
+                && statisticsRecord.equals(other.statisticsRecord);
     }
 }
