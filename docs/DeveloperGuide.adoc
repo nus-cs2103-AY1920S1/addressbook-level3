@@ -1341,7 +1341,8 @@ Expected:
 A study plan with the title `first` is created, and a unique ID is assigned to it.
 .. Test case: `newplan` +
 Expected:
-A study plan without a title is created, and a unique ID is assigned to it.
+A study plan without a title is created, and a unique ID is assigned to it. Note that this ID is unique
+and will not change throughout the life of the study plan.
 
 . Deleting a study plan
 .. Prerequisite
@@ -1349,6 +1350,7 @@ A study plan without a title is created, and a unique ID is assigned to it.
 .. Test case: `removeplan 1` +
 Expected:
 The study plan with the ID `1` will be deleted. To check your study plans' indices, you can use the `list` command.
+Note that since the IDs are unique, the IDs of the other study plans will not change after the deletion of this plan.
 
 . Listing all study plans
 .. Prerequisite
@@ -1372,8 +1374,79 @@ The study plan with the ID `2` will be displayed in the left panel as a simplifi
 
 . Editing the title
 .. Prerequisite
-... There is at least one study plan. (There is a current active plan)
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case: `title best plan` +
+Expected:
+The active study plan (on the right) will have its title changed to `best plan`.
 
+. Setting default study plan
+.. Test case: `default` +
+Expected:
+A new study plan with the title `Recommended Plan` will be created and made active (shown on the right panel).
+A unique ID will be assigned to this plan too.
+
+=== Executing version tracking-related commands
+
+. Committing a study plan
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case: `commit some message` +
+Expected:
+The state of the current study plan will be saved and committed. If you enter `history`, you can see this
+commit with the message `some message`.
+
+. Checking commit history
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case: `history` +
+Expected:
+All the commits of this study plan will be listed. If there are no commits, it will prompt the user that
+there are no commits currently.
+
+. Viewing a commit
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan). And there is at least one
+commit in its commit history.
+.. Test case: `viewcommit` followed by the commit number e.g. `viewcommit 1.1`. You can check the number using `history` +
+Expected:
+The state of the study plan represented by the specified commit will be shown on the left panel as a simplified view.
+
+. Reverting to a commit
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+... There is at least one commit in its commit history.
+.. Test case: `revert` followed by the commit number e.g. `revert 1.1`. You can check the number using `history` +
+Expected:
+The state of the study plan represented by the specified commit will be activated and shown on the right panel
+of the GUI. If you enter `history`, you will see a new `Revert to ...` commit being newly added to the commit history.
+
+. Removing a commit
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+... There is at least one commit in its commit history.
+.. Test case: `removecommit` followed by the commit number e.g. `removecommit 1.1`. You can check the number using `history` +
+Expected:
+The specified commit will be removed from the commit history permanently. If you enter `history`,
+you will see that the commit has disappeared. Note that the indices are based on the position of the commit in the
+commit list, so all the commit numbers will be shifted forward.
+
+. Adding a semester
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case: `addsem y1st1` note that the semester must be a special term or a Year 5 semester +
+Expected:
+The semester `Y1ST1` will appear on the right panel of GUI. You can add modules etc to this semester from now on.
+
+. Removing a semester
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case 1: `removesem y1st1` note that the semester is a special term or a Year 5 semester in this case +
+Expected:
+The semester `Y1ST1` will disappear from the right panel.
+.. Test case 2: `removesem y1s1` note that the semester is a regular semester in this case +
+Expected:
+The semester `Y1S1` will have all its modules cleared. But this semester will still remain on the right panel
+since it is one of the default semesters.
 
 
 === Executing information and verification-related commands
@@ -1389,19 +1462,19 @@ and number of focus area primaries taken. The study plan satisfies graduation re
 all 3 criteria are met.
 
 . Describing a module
-.. Test case: `description CS1101S`
+.. Test case: `description CS1101S` +
 Expected:
 It should show the description of CS1101S, including module name, MC count, S/U-ability, prerequisites,
 and more.
 
 . Showing focus area primary modules
-.. Test case: `showfocus`
+.. Test case: `showfocus` +
 Expected:
 It should show a list of all focus area primary modules in the left panel, regardless
 of whether they are in the study plan or not.
 
 . Showing core modules
-.. Test case: `showcore`
+.. Test case: `showcore` +
 Expected:
 It should show a list of all core modules in the left panel, regardless of whether
 they are already in the study plan or not.
@@ -1410,13 +1483,13 @@ they are already in the study plan or not.
 .. Prerequisite
 ... There should be modules in the right panel that are invalid, in that not all prerequisites
 have been satisfied.
-.. Test case: `clearinvalidmods`
+.. Test case: `clearinvalidmods` +
 Expected:
 It should remove all modules that are invalid in the right panel. Note that this can
 cause new modules to become invalid as well.
 
 . Show valid modules
-.. Test case: `validmods y1s1`
+.. Test case: `validmods y1s1` +
 Expected:
 It should show all valid modules that can be taken in Y1S1. Note that this may include
 the dissertation and internship, as their prerequisites are not expressible in terms
