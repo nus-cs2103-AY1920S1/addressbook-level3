@@ -348,14 +348,17 @@ image::accountOverview4.png[width=85%,scaledwidth=85%]
 // tag::kenneth-ppp-loan-intro[]
 === Managing loans: `loan`
 
-.Loans in the loan tab
-image::LoanUG1.png[width=85%,scaledwidth=85%]
-
-This feature enables you to keep track of who owes you money and exactly how much they owe you.
+Budget Buddy comes with the ability for you to keep track of who owes you money and exactly how much they owe you.
 Never again allow those small sums you lend out to accumulate into a massive pile of forgotten gold.
 You can also record who you owe money to, saving you the embarrassment of being publicly reminded by your loan shark friends.
 Finally, it can help you calculate who owes who how much
 when you and said friends wake in the morning after an expensive night out.
+
+Your loans can be viewed in the *Loan* tab, as seen in the figure below:
+
+.Loans in the loan tab
+image::LoanUG1.png[width=85%,scaledwidth=85%]
+
 // end::kenneth-ppp-loan-intro[]
 
 ==== Add a new loan: `loan out|in`
