@@ -106,7 +106,7 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
         statusManager.removeDeliveryman(key);
     }
 
-    // ========= Methods related to list command =================================================================
+    // ========= Methods related to lists command =================================================================
 
     /**
      * Lists all the available deliverymen;
@@ -139,7 +139,8 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     }
 
     /**
-     * Updates the deliveryman status after he has completed an order.
+     * Updates the deliveryman status to be AVAILABLE after there is changes to an order
+     * (ie. completed or deleted an order).
      */
     public void updateDeliverymanStatusAfterChangesToOrder(Name name) {
         getDeliverymenList().stream()
@@ -161,8 +162,9 @@ public class DeliverymenDatabase implements ReadOnlyDeliverymenDatabase {
     // ========== Methods related to Statistics ================================================================
 
     /**
-     *
-     * @return
+     * Analyzes the status lists to compute statistics regarding the current status of deliverymen.
+     * Passes the status lists from status manager to statistics manager to do analysis.
+     * @return StatisticsRecordCard with the computed analysis and statistics
      */
     public StatisticsRecordCard analyzeDeliverymenStatus() {
         return statisticsManager.analyzeStatusLists(statusManager.listAvailableMen(),

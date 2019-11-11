@@ -1,5 +1,7 @@
 package seedu.deliverymans.model.deliveryman.deliverymanstatus;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A tag that represents the current status of a deliveryman.
  */
@@ -7,7 +9,14 @@ public class StatusTag {
 
     public final String description;
 
+    /**
+     * Constructs a {@code StatusTag}.
+     *
+     * @param description A description.
+     */
     public StatusTag(String description) {
+        requireNonNull(description);
+
         this.description = description;
     }
 
@@ -35,5 +44,10 @@ public class StatusTag {
 
         StatusTag otherTag = (StatusTag) other;
         return otherTag.getDescription().equals(getDescription());
+    }
+
+    @Override
+    public int hashCode() {
+        return description.hashCode();
     }
 }
