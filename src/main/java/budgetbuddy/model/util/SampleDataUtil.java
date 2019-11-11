@@ -2,12 +2,14 @@ package budgetbuddy.model.util;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.LoansManager;
 import budgetbuddy.model.RuleManager;
+import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.attributes.Amount;
 import budgetbuddy.model.attributes.Category;
@@ -23,6 +25,8 @@ import budgetbuddy.model.rule.expression.Attribute;
 import budgetbuddy.model.rule.expression.Operator;
 import budgetbuddy.model.rule.expression.PredicateExpression;
 import budgetbuddy.model.rule.expression.Value;
+import budgetbuddy.model.script.Script;
+import budgetbuddy.model.script.ScriptName;
 import budgetbuddy.model.transaction.Transaction;
 import budgetbuddy.model.transaction.TransactionList;
 
@@ -48,12 +52,46 @@ public class SampleDataUtil {
         );
     }
 
+    /**
+     * Returns a list of sample scripts.
+     */
+    public static List<Script> getSampleScripts() {
+        return Collections.singletonList(new Script(new ScriptName("category-sum"),
+                new Description("Calculates the sum of transactions in categories."),
+                "var txns = getShownTxns();\n"
+                        + "var sums = { \"No Category\": 0 };\n"
+                        + "for (var i = 0; i < txns.length; ++i) {\n"
+                        + "    var txn = txns[i];\n"
+                        + "    var amount = (txnDirection(txn) === \"IN\" ? 1 : -1) * txnAmount(txn);\n"
+                        + "    var cats = txnCategories(txn);\n"
+                        + "    for (var j = 0; j < cats.length; ++j) {\n"
+                        + "        var cat = cats[j];\n"
+                        + "        if (sums[cat] === undefined) {\n"
+                        + "            sums[cat] = 0;\n"
+                        + "        }\n"
+                        + "        sums[cat] += amount;\n"
+                        + "    }\n"
+                        + "    if (cats.length === 0) {\n"
+                        + "        sums[\"No Category\"] += amount;\n"
+                        + "    }\n"
+                        + "}\n"
+                        + "var result = \"\";\n"
+                        + "for (var cat in sums) {\n"
+                        + "    result += cat + \": $\" + (sums[cat] / 100) + \"\\n\";\n"
+                        + "}\n"
+                        + "result\n"));
+    }
+
     public static LoansManager getSampleLoansManager() {
         return new LoansManager(getSampleLoans());
     }
 
     public static RuleManager getSampleRuleManager() {
         return new RuleManager(getSampleRules());
+    }
+
+    public static ScriptLibraryManager getSampleScriptLibraryManager() {
+        return new ScriptLibraryManager(getSampleScripts());
     }
 
     public static List<Account> getSampleAccounts() {

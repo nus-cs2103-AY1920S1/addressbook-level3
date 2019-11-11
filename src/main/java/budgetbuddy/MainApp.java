@@ -21,7 +21,6 @@ import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.ReadOnlyUserPrefs;
 import budgetbuddy.model.RuleManager;
 import budgetbuddy.model.ScriptLibrary;
-import budgetbuddy.model.ScriptLibraryManager;
 import budgetbuddy.model.UserPrefs;
 import budgetbuddy.model.util.SampleDataUtil;
 import budgetbuddy.storage.JsonUserPrefsStorage;
@@ -149,7 +148,7 @@ public class MainApp extends Application {
             logger.log(Level.WARNING, "Error reading scripts; starting with empty script library", e);
         }
 
-        return new ScriptLibraryManager();
+        return SampleDataUtil.getSampleScriptLibraryManager();
     }
 
     /**
