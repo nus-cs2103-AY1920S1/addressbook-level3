@@ -54,7 +54,13 @@ public class SessionListUtil {
         int finalScore = Integer.parseInt(score.split("/")[0]);
         int maxScore = Integer.parseInt(score.split("/")[1]);
         double scoreAsDouble = (finalScore / (double) maxScore) * 100;
+        return roundToTwoDecimalPlaces(scoreAsDouble);
+    }
 
+    /**
+     * Rounds a given score, as a double, to 2 decimal places and returns it as a double.
+     */
+    public static double roundToTwoDecimalPlaces(double scoreAsDouble) {
         DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
         String percentage = decimalFormat.format(scoreAsDouble);
         return Double.parseDouble(percentage);
@@ -113,7 +119,8 @@ public class SessionListUtil {
         }
 
         double averageScoreAsDouble = sumOfScores / numOfTestSessionsWithScore;
-        String averageScoreAsString = convertScoreDoubleToString(averageScoreAsDouble);
+        double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
+        String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
         return averageScoreAsString;
     }
 }
