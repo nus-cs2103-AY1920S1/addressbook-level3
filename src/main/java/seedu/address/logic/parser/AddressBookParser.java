@@ -37,6 +37,7 @@ import seedu.address.logic.commands.general.ExitCommand;
 import seedu.address.logic.commands.general.HelpCommand;
 import seedu.address.logic.commands.general.MainCommand;
 import seedu.address.logic.commands.general.ScheduleCommand;
+import seedu.address.logic.commands.general.StatisticsCommand;
 import seedu.address.logic.commands.general.UnfetchCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleBetweenCommand;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
@@ -189,6 +190,9 @@ public class AddressBookParser {
 
         case UnfetchCommand.COMMAND_WORD:
             return new UnfetchCommand();
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommand();
 
         case GenerateStatisticsCommand.COMMAND_WORD:
             return new GenerateStatisticsCommand();

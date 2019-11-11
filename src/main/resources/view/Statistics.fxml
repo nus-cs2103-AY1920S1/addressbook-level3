@@ -22,13 +22,13 @@
                      <children>
                         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="318.0" minWidth="47.0" prefWidth="318.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="0.0" prefWidth="88.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="193.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="40.0" prefWidth="243.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="59.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.0" minWidth="5.0" prefWidth="328.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="45.0" prefWidth="45.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="384.0" minWidth="47.0" prefWidth="321.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.0" minWidth="0.0" prefWidth="90.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="147.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="40.0" prefWidth="195.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="0.0" prefWidth="183.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="328.0" minWidth="5.0" prefWidth="211.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.0" minWidth="45.0" prefWidth="213.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints maxHeight="30.0" minHeight="29.0" prefHeight="29.0" />
@@ -36,7 +36,7 @@
                               <RowConstraints minHeight="15.0" prefHeight="15.0" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="statisticsListLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="327.0" text="Upcoming Events Requiring Manpower" textAlignment="CENTER" textFill="WHITE" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label fx:id="statisticsListLabel" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="304.0" text="Upcoming Events Requiring Manpower" textAlignment="CENTER" textFill="WHITE" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="22.0" />
                                  </font></Label>
@@ -48,7 +48,7 @@
                   </AnchorPane>
                   <HBox VBox.vgrow="ALWAYS">
                      <children>
-                        <ListView fx:id="statisticsListView" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="300.0" HBox.hgrow="ALWAYS" />
+                        <ListView fx:id="statisticsListView" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS" />
                         <PieChart fx:id="eventTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Event Tags" />
                         <Label fx:id="eventLabel" minHeight="-Infinity" minWidth="-Infinity" text="Label" />
                         <PieChart fx:id="employeeTagPieChart" labelLineLength="0.0" labelsVisible="false" onMousePressed="#mouseClick" title="Employee Tags" />
