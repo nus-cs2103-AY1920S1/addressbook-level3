@@ -519,11 +519,13 @@ Therefore, even though `MealLog` is not taken in as a parameter, `Statistics` st
 * `Statistics#getCalorieExceedCount(CalorieBudget, ObservableList<Meal>)` -- gets the number of days where calorie intake exceeded the calorie budget for that day.
 * `Statistics#getMostConsumedDishes(ObservableList<Meal>)` -- gets the list of dishes which are consumed the most in the current month.
 * `Statistics#getFoodChartSeries(ObservableList<Meal>)` -- gets the series containing the dishes eaten this month and their respective quantities.
-* `Statistics#getCalorieChartSeries(ObservableList<Meal)` -- gets the series that representing the amount of calories taken by the user over the past month.
+* `Statistics#getCalorieChartSeries(ObservableList<Meal)` -- gets the series that represents the amount of calories taken by the user over the past month.
 
-Given below is a Class Diagram that shows how the ReportCommand interacts with other components of CaloFit.
+Given below is Figure 3.5.1.1 which is a Class Diagram that shows how the `ReportCommand` interacts with other components of CaloFit.
 
 image::ReportClassDiagram.png[]
+
+Figure 3.5.1.1: Class Diagram showing interaction of `ReportCommand`.
 
 Given below is an example usage scenario and how the Report feature behaves at each step.
 
@@ -536,13 +538,17 @@ Step 2. The user has added a `Meal` into the `MealLog` through the `add` feature
 
 Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The `ReportCommand` created will return a `CommandResult` object with "isReport" set to True. When the `MainWindow` checks this boolean, it calls `MainWindow#handleReport()` that creates the `ReportWindow`.
 
-The following activity diagram summarises the above usage scenario.
+The following activity diagram in Figure 3.5.1.2 summarises the above usage scenario.
 
 image::ReportCommandActivityDiagram.png[]
 
-The following sequence diagram shows how the "report" command works.
+Figure 3.5.1.2: Activity Diagram showing execution of "report" as the user input.
+
+The following sequence diagram in Figure 3.5.1.3 shows how the "report" command works.
 
 image::ReportCommand.png[]
+
+Figure 3.5.1.3: Sequence diagram of "report" command execution.
 
 [NOTE]
 The parameters of the constructor of `CommandResult` in the above diagram are as follows, from left to right: +
@@ -552,9 +558,11 @@ boolean showReport: indicates if the `ReportWindow` should be generated. +
 boolean isExit: indicates if the application should exit along with any other windows that are being shown. +
 Hence, only showReport is set to true to indicate that a `ReportWindow` should be created, while the rest of the booleans are set to false.
 
-The following sequence diagram shows how the `ReportWindow` is generated.
+The following sequence diagram in Figure 3.5.1.4 shows how the `ReportWindow` is generated.
 
 image::ReportWindow.png[]
+
+Figure 3.5.1.4: Sequence Diagram showing the generation of the `ReportWindow`.
 
 ==== Design Considerations
 
@@ -789,25 +797,25 @@ All test cases assume an empty meal log prior to the inputs. To ensure this, you
 
 . Generation of Report.
 
-.. Test case: No meals in input for current month. +
+.. Test case: No meals in input for current month, followed by `report`. +
    Expected: Report is *NOT* generated. An error message will be shown in the result display box of CaloFit.
-.. Test case: Any number of meals has been entered for current month. +
+.. Test case: Any number of meals has been entered for current month, followed by `report`. +
    Expected: Report is generated normally.
-.. Test case: Any number of meals has been entered for current month and system time is changed to a different month or year. +
+.. Test case: Any number of meals has been entered for current month and system time is changed to a different month or year, followed by `report` +
    Expected: Report may initially be wrong as stated in the [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/UserGuide.adoc[Report Feature of our User Guide]]. The data in CaloFit will be updated in 2 minutes to fit this change in system time, after which the scenario will be similiar to the previous test case.
 
 . Testing validity of number of days where Calorie of the month
 
 .. Test case: `add n/carbonara c/689`, `set 500`, followed by `report`. +
 Expected: Number of days calorie intake exceeded budget will be 1.
-.. Test case: same as previous, with additional `set 1000` at the end. +
+.. Test case: `add n/carbonara c/689`, `set 1000`, followed by `report`. +
 Expected: Number of days calorie intake exceeded budget will be 0.
 
 . Testing validity of list of most consumed dishes.
 
 .. Test case: `add n/carbonara c/689`, `add n/beef stew c/200`, followed by `report`. +
 Expected: Carbonara and Beef Stew will be in list.
-.. Test case: same as previous, with additional `add n/carbonara c/690` before `report`. +
+.. Test case: same as previous, with additional `add n/carbonara c/689` before `report`. +
 Expected: Only Carbonara will be in the list.
 
 . Testing validity of Calorie Over Time graph.
