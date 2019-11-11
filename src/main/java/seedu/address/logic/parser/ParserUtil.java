@@ -41,7 +41,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     public static final int MINUTES_IN_AN_HOUR = 60;
-    public static final String HHMM_REGEX = "([0-9]{2}):[0-5][0-9]";
+    public static final String HHMM_REGEX = "([0-9]?[0-9]):[0-5][0-9]";
 
     public static final String MESSAGE_INVALID_DATE_FORMAT =
             "Invalid Date format. Date format should be " + DATE_FORMAT + ".";
