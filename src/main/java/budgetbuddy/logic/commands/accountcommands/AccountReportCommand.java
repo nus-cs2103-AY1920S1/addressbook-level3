@@ -50,4 +50,18 @@ public class AccountReportCommand extends Command {
 
         return new CommandResult(accountEssentialInfo, CommandCategory.ACCOUNT);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AccountReportCommand)) {
+            return false;
+        }
+
+        AccountReportCommand otherCommand = (AccountReportCommand) other;
+        return targetAccountIndex.equals(otherCommand.targetAccountIndex);
+    }
 }
