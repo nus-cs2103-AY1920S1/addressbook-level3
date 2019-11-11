@@ -14,7 +14,7 @@ endif::[]
 
 == About the Project
 
-MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project. It was morphed from a basic command line Address Book. Some notable features include: setting budget goals, viewing statistics, customised searching and sorting, setting reminders for bills, viewing exchange rates, changing the application currency and importing and exporting data from and to a csv file.
+MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project. It was morphed from a basic command line Address Book. Some notable features include: setting budget goals, viewing statistics, customised searching and sorting, setting reminders for bills, viewing exchange rates, changing the application currency and importing and exporting data from and to a Csv file.
 
 === My Role
 
@@ -58,14 +58,14 @@ This section shows a summary of my contributions to the team project.
 
 ** Project management
 *** Created all major milestones on GitHub page
-*** Assigned members to issues upon discovery of bugs
+*** Assigned members to issues upon discovery of bugs (Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/issues/163[#163], https://github.com/AY1920S1-CS2103T-F13-3/main/issues/230[#230])
 *** Reviewed Pull Requests (Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/203[#203])
 
 ** Enhancements to existing features:
 *** Refactored and modified existing classes, including package name `AddressBook` to `SpendingBook` code base to match application needs: (Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/75[#75], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/78[#78])
 
 ** Documentation:
-*** Cleaned up the User Guide and Developer Guide (Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[#106])
+*** Cleaned up the User Guide and Developer Guide (Examples: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/103[#103], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[#106])
 
 ** Community:
 *** Offered suggestions for other teams in the class (Examples: https://github.com/nus-cs2103-AY1920S1/forum/issues/62[#62], https://github.com/nus-cs2103-AY1920S1/forum/issues/64[#64], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/111#pullrequestreview-297274115[#111])
