@@ -1365,7 +1365,7 @@ Expected: Engagements containing the attendee `Hans` and with high priority will
 The sequence of commands is as follows:
 ```
 find
-a/Hans p/high`
+a/Hans p/high
 ```
 Expected: Engagements containing the attendee `Hans` and with high priority will be shown.
 
