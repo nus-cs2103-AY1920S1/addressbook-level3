@@ -98,3 +98,5 @@ include::../DeveloperGuide.adoc[tag=shaun-add]
 include::../DeveloperGuide.adoc[tag=shaun-restore]
 
 include::../DeveloperGuide.adoc[tag=shaun-autocomplete]
+
+include::../DeveloperGuide.adoc[tag=shaun-appendix]

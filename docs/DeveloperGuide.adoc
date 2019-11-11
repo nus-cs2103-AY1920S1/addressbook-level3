@@ -501,14 +501,16 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+//tag::shaun-appendix[]
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  RevisionTool be able to hold up to 1000 questions without any significant reduction in performance for typical usage.
+.  A user with above slow typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should be able to run without any internet connectivity.
+.  RevisionTool does not require any further installation upon downloading the jar file.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -516,25 +518,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[Answerables]] Answerables::
+A set of question answers, which includes :
+* Type: MCQ, True False, Short Answered Question
+* Question
+* Correct Answers (Can contain multiple answers)
+* Wrong Answers (Can contain multiple answers)
+* Category
+* Difficulty
 
 [appendix]
 == Instructions for Manual Testing
@@ -554,11 +545,30 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Resize the window to an optimum size. Move the window to a different location. Close the window by using the `x` button at the top right hand corner or by using the command `exit`.
+.. Re-launch the app by double clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an answerable
+
+. Adding a MCQ to the current list
+
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.
+
+. Adding a True False to the current list
+
+.. Test case: `add type/tf q/What is 1 + 1 = 2 y/true cat/easy diff/1` +
+Expected: new True False answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list, and only the correct answer will be shown and highlighted in green.
+
+. Adding a Short Answer Question (SAQ) to the current list
+
+.. Test case: `add type/saq q/What is smaller than 10 but bigger than 7? y/8 y/9 cat/easy diff/1` +
+Expected: new SAQ answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list and all the correct answers state will be highlighted in green.
+
+. Adding an Answerable that already exist in the Revision Tool
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: No new answerable will be added as the question already exist in the Revision Tool. An error message will be thrown, informing users that the answerable already exist in the Revision Tool.
 
 === Deleting an answerable
 
@@ -572,12 +582,24 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Starting quiz
+
+. Starting a quiz
+.. Test case: `start mode/normal` +
+Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.
+.. Test case: `start mode/arcade` +
+Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.
+.. Test case `start mode/custom timer/3` +
+Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If there is a missing answerables data file, the RevisionTool will automatically create a default data file with all the default answerables inside.
+.. If there is a corrupted answerable data file, the RevisionTool will automatically start with a list of empty file. Users will then be able to use the `#restoreCommand` here to get a list of default answerables or alternatively, create a new set of answerables manually.
 
-_{ more test cases ... }_
+. To identify missing/corrupted data files:
+.. `.\data\revisiontool.json`
+.. `.\data\history.json`
+//end::shaun-appendix[]
