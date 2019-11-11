@@ -15,7 +15,7 @@ import seedu.guilttrip.ui.UiPart;
  * Panel containing the list of expenses.
  */
 public class ExpenseListPanel extends UiPart<Region> {
-    private static final String FXML = "/expense/ExpenseListPanel.fxml";
+    private static final String FXML = "expense/ExpenseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ExpenseListPanel.class);
 
     @FXML

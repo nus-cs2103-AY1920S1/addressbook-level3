@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the guilttrip book. Guarantees: immutable; is
+ * Represents an Entry's description in GuiltTrip. Guarantees: immutable; is
  * valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
@@ -12,18 +12,12 @@ public class Description {
     public static final String MESSAGE_CONSTRAINTS =
             "Description should not be blank";
 
-    /*
-     * The first character of the guilttrip must not be a whitespace, otherwise " " (a
-     * blank string) becomes a valid input.
-     */
-    // public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
-
     public final String fullDesc;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Description}.
      *
-     * @param desc A valid name.
+     * @param desc A valid description.
      */
     public Description(String desc) {
         requireNonNull(desc);
@@ -32,7 +26,7 @@ public class Description {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if a given string is a valid description.
      */
     public static boolean isValidDescription(String test) {
         return !test.trim().isEmpty();

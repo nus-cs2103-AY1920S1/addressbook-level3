@@ -24,7 +24,7 @@ import seedu.guilttrip.ui.condition.ConditionCard;
  * Side panel for reminders.
  */
 public class ReminderPanel extends UiPart<Region> {
-    private static final String FXML = "/reminder/ReminderListPanel.fxml";
+    private static final String FXML = "reminder/ReminderListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReminderPanel.class);
     private Reminder reminderSelected;
 

@@ -19,7 +19,7 @@ import seedu.guilttrip.ui.income.IncomeCard;
  * Panel containing the list of entries.
  */
 public class EntryListPanel extends UiPart<Region> {
-    private static final String FXML = "/entry/EntryListPanel.fxml";
+    private static final String FXML = "entry/EntryListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EntryListPanel.class);
 
     @FXML

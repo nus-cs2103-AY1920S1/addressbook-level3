@@ -144,8 +144,8 @@ image::StorageClassDiagram.png[]
 The `Storage`
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
-* This includes instances of Entry subclasses(Expense, Income, Wish, AutoExpenditure, Budget, Reminders etc.)
+* can save the GuiltTrip data in json format and read it back.
+* This includes instances of Entry subclasses (Expense, Income, Wish, AutoExpenses, Budget, etc.)
 
 == Implementation
 This section describes some details on how certain features are implemented.

@@ -11,7 +11,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.model.Model;
 
 /**
- * Switches in between the Statistics Tab and the Entry Tab in guilttrip.
+ * Switches in between the Statistics Tab and the Entry Tab in GuiltTrip.
  */
 public class ViewEntryCommand extends Command {
 

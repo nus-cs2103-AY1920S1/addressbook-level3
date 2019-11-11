@@ -15,7 +15,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Edits a category from guiltTrip;
+ * Edits a category from GuiltTrip.
  */
 public class EditCategoryCommand extends Command {
 

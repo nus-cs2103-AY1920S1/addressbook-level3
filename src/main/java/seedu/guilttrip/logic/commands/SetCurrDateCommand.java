@@ -7,7 +7,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Date;
 
 /**
- * FOrce sets the date for testing purposes.
+ * Force sets the date for testing purposes.
  */
 public class SetCurrDateCommand extends Command {
     public static final String COMMAND_WORD = "setDate";

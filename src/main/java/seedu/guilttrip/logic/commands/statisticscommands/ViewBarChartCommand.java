@@ -18,7 +18,7 @@ import seedu.guilttrip.model.entry.Date;
 public class ViewBarChartCommand extends Command {
 
     public static final String COMMAND_WORD = "viewBar";
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of guilttrip() in bar chart form "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of GuiltTrip in bar chart form "
             + "for the specific month.";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "

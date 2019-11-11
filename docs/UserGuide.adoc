@@ -1,4 +1,4 @@
-= guiltTrip() - User Guide
+= GuiltTrip - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -37,8 +37,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * `list` : lists all expenses and income
-* `addAutoExp f/monthly n/drinks a/11.99 c/Food` : adds a recurring expense that will generate every day.
-* `add c/Food typ/Expense n/Mala a/5.50 d/2019 09 09 t/food t/indulgence` : adds the specified expense to your
+* `addAutoExp f/monthly n/drinks amt/11.99 cat/Food` : adds a recurring expense that will generate every day.
+* `addExpense cat/Food n/Mala amt/5.50 d/2019 09 09 tg/food tg/indulgence` : adds the specified expense to your
 list of expenses
 * `toggle wishlist` : toggles the wishlist panel
 * `exit` : exits the app
@@ -90,8 +90,8 @@ Isn't this COOL?
 Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
 GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
 
-* Income: `Business,Salary,Gifts,Loans`
-* Expense: `Food,Travel,Family,Bills,Entertainment,Transport,Shopping,HealthCare,Groceries,Rent`
+* Income: `Business, Salary, Gifts, Loans`
+* Expense: `Food, Travel, Family, Bills, Entertainment, Transport, Shopping, HealthCare, Groceries, Rent`
 
 Categories for Expense, Budget and Wish all belong under the Expense Category. Categories for Income belong under the Income Category.
 An example would be when creating a new Budget, the category that the budget was created must belong to one of the existing categories in Expense.
@@ -111,7 +111,7 @@ Example Usage:
 [start = 1]
 . If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
 +
-image::addingCategory-1.png[]
+image::addingCategory1.png[]
 
 . The new category will thus be added to guiltTrip. You can verify it using `listCategories`.
 +
@@ -183,21 +183,24 @@ Other Examples:
 Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
 
 ==== Adding Expense: `addExpense`
-Adds a new expenditure to your total spending.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
-in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+Adds a new expenditure to your total spending. Some things to take note:
 
-Format: `addExpense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of expense categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
 
-* `<category name>`: The `category` that the expense belongs to.
+Format: `addExpense cat/<category> n/<description> amt/<amount> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the expense falls under to.
 * `<description>`: The name of this expense.
-* `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
+* `<amount>`: The amount spent for this expense. It can contain at most 2 decimal points.
 * `<date>`: The date of this expense.
-* `<tag>`: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
+* `<tag>`: Optional tags for this expense. The tag must not have spaces and can only be alphanumeric.
 
 Example Usage:
 [start = 1]
-. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
+. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
 +
 image::addingExpense-1.png[]
 
@@ -207,36 +210,19 @@ image::addingExpense-2.png[]
 
 Other examples:
 
-* `addExpense cat/Gifts typ/Expense n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
-* `addExpense cat/Travel typ/Expense n/Travel To Alaska amt/550000 d/2019 09 09`
+* `addExpense cat/Gifts n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
+* `addExpense cat/Travel n/Travel To Alaska amt/550000 d/2019 09 09`
 
-==== Adding Income : `addIncome`
-Adds a new Income to your total income.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+==== Listing Expenses: `list`
+Lists the expenses (as well as incomes) in the main panel.
 
-Format: `addIncome/<category name> n/<description> a/<expenditure> d/<date> [t/<tag>]`
-
-* `<category name>`: The `category` that the entry belongs to.
-* `<description>`: The name of this entry.
-* `<expenditure>`: The amount spent for this income. It can contain at most 2 decimal points.
-* `<date>`: The date of this income.
-* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
-
-Example Usage:
-[start = 1]
-. If you would like to add a recent Income from a bursary, key in the command  `add cat/Gifts typ/Income n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
-. You should see the new income being added into in the list of entries as displayed below.
-
-Other examples:
-
-* `addIncome cat/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 tg/food`
-* `addIncome cat/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
+Format: `list`
 
 ==== Editing a Expense: `editExpense`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
 
-Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
+Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<amount>] [tg/<tag>]`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
 * You can update any of the fields of the entry. But you must at least edit one field.
@@ -291,8 +277,8 @@ Other Examples:
 
 Adds an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
-Format: `addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category>
- [t/<tag1> t/<tag2> d/<starting date>]`
+Format: `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category>
+ [tg/<tag1> tg/<tag2> d/<starting date>]`
 
 To list all categories, you can type `listCategories`.
 
@@ -316,7 +302,7 @@ image::autoexpense_add.png[]
 
 Edits an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
-Format: `editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category>
+Format: `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category>
  t/<tag1> t/<tag2> d/<starting date>]`
 
 Note that only future `Expenses` generated will have the new properties you set in the current
@@ -352,19 +338,107 @@ image::autoexpense_delete.png[]
 
 // end::autoexpense[]
 
+=== Income
+==== Adding Income : `addIncome`
+Adds a new Income to your total income. Some things to note:
+
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of income categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
+
+Format: `addIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the entry belongs to.
+* `<description>`: The name of this entry.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a recent Income, key in the command  `addIncome cat/Gifts n/monthly allowance amt/2000 d/2019 11 09 tg/fromsugardaddy` .
++
+image::AddIncomeBefore.png[]
+. You should see the new income being added into in the list of incomes as displayed below.
++
+image::AddIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
+==== Listing Incomes: `list`
+
+Lists the incomes (as well as expenses) in the main panel.
+
+Format: `list`
+
+==== Editing Income: `editIncome`
+Edits an existing Income at the given index. Some things to note:
+
+* Inputs can be arranged in a different order.
+* If you are editing the category of an Income, it must already exist in the list of income categories. (type `listCategories`)
+* If you are editing the amount of an Income, it must be larger than 0 and less than 10 million.
+
+Format: `editIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the income belongs to.
+* `<description>`: The name of this income.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Income, key in the command  `editIncome 2 n/selling my soul` .
++
+image::EditIncomeBefore.png[]
+
+. You should see that the second Income's description has successfully changed from `side business` to `selling my soul`.
++
+image:EditIncomeAfter.png[]
+
+Other examples:
+
+* `editIncome 1 amt/200`
+* `editIncome 3 tg/wheresmypayraise`
+
+==== Deleting Income: `deleteIncome`
+Deletes an existing Income from the list at the given index.
+
+Format: `deleteIncome <index>`
+
+* `<index>`: The `index` of the Income in the Income list panel. It must be greater than zero and positive.
+
+Example Usage:
+[start = 1]
+. If you would like to delete the Income at index 2, key in the command `deleteIncome 2`.
++
+image::DeleteIncomeBefore.png[]
+. You would see that the Income is no longer in the list and the result display box shows the details of the Income that you have just deleted.
++
+image::DeleteIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
 === Budget
 ==== Adding Budget : `addBudget`
 
 Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
 
-Format: `addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]` +
+Format: `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
 Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
 e.g. for a period input of 10 days, use 10d
 
 Examples:
 
-* `addBudget c/Food n/Nov Budget a/50.00 d/2019 09 09 p/1m t/food`
-* `addBudget c/Food n/Mala Budget a/100.00 d/2019 09 10 p/50d`
+* `addBudget cat/Food n/Nov Budget amt/50.00 d/2019 09 09 p/1m tg/food`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : `listBudget`
 
@@ -377,13 +451,13 @@ Example: `listBudget`
 ==== Editing Budget : `editBudget`
 Edits a current budget's description, amount or tag (if applicable) at the given index.
 
-Format: `editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]`
+Format: `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
 
 Examples:
 
 * `editBudget 1 n/fooooood budget`
-* `editBudget 2 n/lunch budget a/150`
-* `editBudget 2 t/fun`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
 
 ==== Deleting Budget : `deleteBudget`
 Deletes a current budget at the given index.
@@ -392,15 +466,58 @@ Format: `deleteBudget <index>`
 
 Example: `deleteBudget 2`
 
+=== WishList
+
+==== Add Wish : `addWishlist`
+Adds a new item to your current wishlist
+
+Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
+
+Examples:
+
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
+
+==== List Wish : `listWish`
+Lists all the wishes on the main panel.
+
+Format: `listWish`
+
+==== Edit Wish : `editWish`
+edit the description, date, or tags of your wishes.
+
+Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
+
+Examples:
+
+* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
+* `editWishlist 1 amt/20 tag/mala tag/expensive`
+
+==== Delete Wish : `deleteWish`
+Deletes the item at the stated index from your current wishlist
+
+Format: `deleteWish <index>`
+
+Examples:
+
+* `deleteWishlist 3`
+
+==== Purchase WishList : `purchase` [coming in v2.0]
+Purchases the item at the stated index from your current wishlist
+
+Format: `purchase <index>`
+
+Example: `purchase 1`
+
 === Loan [coming in v2.0]
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
 
-Format: `addLoan  n/<description> a/<loan amount> i/<interest>`
+Format: `addLoan  n/<description> amt/<loan amount> i/<interest>`
 
 Example:
 
-* `addLoan n/student loan a/30000 i/4.5`
+* `addLoan n/student loan amt/30000 i/4.5`
 
 ==== Listing a loan : `listLoan` [coming in v2.0]
 Lists all the loans that the user has.
@@ -412,12 +529,12 @@ Example: `listLoan`
 ==== Editing a loan : `editLoan` [coming in v2.0]
 Edits a current loan's description, loan amount, or both.
 
-Format: `editLoan <index> [n/<description>] [a/<loan amount>] [i/<interest>]`
+Format: `editLoan <index> [n/<description>] [amt/<loan amount>] [i/<interest>]`
 
 Example:
 
 * `editLoan 1 n/nus tuition loan T.T`
-* `editLoan 1 a/25000 i/4.45%`
+* `editLoan 1 amt/25000 i/4.45%`
 
 ==== Deleting a loan : `deleteLoan` [coming in v2.0]
 
@@ -431,9 +548,9 @@ Example: `deleteLoan 1`
 
 Reduces the loan amount for the loan at the given index after user pays for part of the loan.
 
-Format: `payLoan <index> a/<amountPaid>`
+Format: `payLoan <index> amt/<amountPaid>`
 
-Example: `payLoan 1 a/4000`
+Example: `payLoan 1 amt/4000`
 
 === Statistics
 
@@ -579,7 +696,7 @@ finding `mala food` will show entries with either mala or food or both in their 
 Finding by `Tag` will show all entries with all the tags in them. For example, finding by `tg/eat tg/entertainment` will show entries with only
 both tags. The reason for this is that tags should be more specific that entry Description.
 
-Format: `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
+Format: `findExpense [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
 
 [start = 1]
 . Let's say you want to find all the expenses with Category name food. You then type `findExpense cat/Food`
@@ -595,63 +712,6 @@ Other Examples:
 * `findExpense cat/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
 * `findIncome cat/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
 * `findWish d/2019-09-09 tg/a tg/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
-
-// commenting out for mock PE.
-////
-=== Organization
-
-==== Creating Tags : 'createTag'
-Creates a Tag.
-
-Format: `createTag <category name>`
-
-Example:
-
-* `createTag income salary`
-* `createTag expense food`
-* `createTag wishList Nov`
-
-==== Listing Tags : 'listTags'
-List the list of Tags.
-
-Format: `listTags <keywords> --regex <regex>`
-
-Example:
-
-* `listTags important`
-* `listTags --regex .*important`
-
-==== Renaming Tags : 'renameTag'
-Rename the description of one tag.
-
-Format: `renameTag <oldname> <newname>`
-
-Example:
-
-* `renameTag food moreFood`
-
-==== Deleting Tags : 'deleteTag'
-Deletes the tag from the pool of tag. Tagged objects can be removed with -h flag.
-
-Format: `deleteTag <name> <-h || --hard>`
-
-Example:
-
-* `deleteTag food`
-* `deleteTag food -h`
-////
-
-////
-==== Resetting Record : `reset` [coming in v2.0]
-Resets records of expenditure/budget/income/loan.
-
-Format: `reset before/<DD-MM-YYYY> after/<DD-MM-YYYY>`
-
-Example:
-
-* `reset after/27/1/1000 before/28-1-1000` :nothing deleted
-* `reset before/2/1/2019 # 1/1/2019 and earlier`
-////
 
 === Reminders
 ==== Add Reminder: `addReminder`
@@ -674,7 +734,7 @@ Examples:
 
 
 ==== List all active Reminders (reminders currently set to display) : `listReminders`
-Shows reminder pannel.
+Shows reminder panel.
 
 Format: `listReminders`
 
@@ -716,49 +776,10 @@ Example:
 
 * `removeCondition 1`
 
-
 ==== Delete Reminder : `deleteReminder`
 Deletes the selected Reminder.
 
 Format: `deleteReminder`
-
-=== WishList
-
-==== Add WishList : `addWishlist`
-Adds a new item to your current wishlist
-
-Format: `addWish n/<Description> c/<Category> a/<Price> d/<Date>`
-
-Examples:
-
-* `add typ/Wish n/deck mala c/food a/5.60 d/2019 10 28`
-* `add typ/Wish n/deck mala c/food a/5.60 d/01/01/2020`
-
-==== Delete WishList : `deleteWish`
-Deletes the item at the stated index from your current wishlist
-
-Format: `deleteWish <index>`
-
-Examples:
-
-* `deleteWishlist 3`
-
-==== Edit Wish in WishList : `editWish`
-edit the description, date, or tags of your wishes.
-
-Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tag/<Tag>]`
-
-Examples:
-
-* `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
-* `editWishlist 1 a/20 tag/mala tag/expensive`
-
-==== Purchase WishList : `purchase` [coming in v2.0]
-Purchases the item at the stated index from your current wishlist
-
-Format: `purchase <index>`
-
-Example: `purchase 1`
 
 === Undo/Redo
 ==== Undo previous command : `undo`
@@ -808,33 +829,71 @@ Format: `toggle <panel name>`
 Examples:
 
 * `toggle wishlist`
-* `toggle budget`
-* `toggle r`
+* `toggle ae``
+
+Example usage:
+
+Step 1. If user does not want to view the wishlist panel all the time, he could choose to execute the `toggle wishlist` command as shown below.
+
+.. He could refer to the panel names in the result display box above when typing in the input panel name.
+
+image::ToggleBefore.png[]
+
+Step 2. After the command is executed, the `wishlist` panel is toggled off and no longer in the side panel.
+
+image::ToggleAfter.png[]
 
 ==== Change Font : `changeFont`
 Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
-"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana". The available fonts to change to will be shown in the result display box for the user to refer to easily. The change in font will be saved.
 
 Format: `changeFont <font name>`
 
 Examples:
 
-* `changeFont arial`
+* `changeFont rockwell`
 * `changeFont segoe UI`
 
+Example usage:
+
+. User changes the font by executing the `changeFont rockwell` command as shown below.
+
+.. He is also able to refer to the available font names in the result display box above.
+
++
+image::ChangeFontBefore.png[]
+
+. The font is successfully changed to `ROCKWELL` as seen in the result display box and the application.
++
+image:ChangeFontAfter.png[]
+
 ==== Change to dark theme : `setDarkTheme`
-Changes the theme from light to dark.
+Changes the theme from light to dark. The change in theme will be saved.
 
 Format: `setDarkTheme`
 
-Example: `setDarkTheme`
+Example usage:
+
+. User executes the command `setDarkTheme` as shown below:
++
+image::SetDarkThemeBefore.png[]
+
+. After command is executed, the theme is changed to the dark theme and the result display box notifies user that the command is executed successfully.
++
+image::SetDarkThemeAfter.png[]
 
 ==== Change to light theme : `setLightTheme`
-Changes the theme from dark to light.
+Changes the theme from dark to light. The change in theme will be saved.
 
 Format: `setLightTheme`
 
-Example: `setLightTheme`
+. User executes the command `setLightTheme` as shown below:
++
+image::SetLightThemeBefore.png[]
+
+. After command is executed, the theme is changed to the light theme and the result display box notifies user that the command is executed successfully.
++
+image::SetLightThemeAfter.png[]
 
 // end::uifeature[]
 

@@ -9,7 +9,7 @@ import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 
 /**
- * Parses String into a AddConditionToReminderCommand object;
+ * Parses String into a AddConditionToReminderCommand object.
  */
 public class RemoveConditionFromReminderCommandParser implements Parser<RemoveConditionFromReminderCommand> {
     /**

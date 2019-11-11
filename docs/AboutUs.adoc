@@ -11,35 +11,35 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Ong Ming Chung
 image::dandford.png[width="150", align="left"]
-{empty}[https://github.com/Dandford[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Dandford[github]] [<<dandford#, portfolio>>]
 
 Role: Team Leader +
 Responsibilities: Deliverables & deadlines, Data Representation
 
 === Jessica Phua Shu Xin
 image::jessicax941.png[width="150", align="left"]
-{empty}[https://github.com/jessicax941[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jessicax941[github]] [<<jessicax941#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation, UI
 
 === Chan Jing Rong
 image::rongrongrr.png[width="150", align="left"]
-{empty}[http://github.com/rongrongrr[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/rongrongrr[github]] [<<rongrongrr#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration, Scheduling & tracking, History
 
 === Tan Yee Jian
 image::swampertx.png[width="150", align="left"]
-{empty}[https://github.com/SwampertX[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SwampertX[github]] [<<swampertx#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Testing, Data organisation
 
 === Tay Yu Hong
 image::yuhongtay.png[width="150", align="left"]
-{empty}[https://github.com/yuhongtay[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/yuhongtay[github]] [<<yuhongtag#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code quality, Reminders

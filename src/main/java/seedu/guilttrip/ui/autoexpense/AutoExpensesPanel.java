@@ -12,10 +12,10 @@ import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Side panel for budgets.
+ * Side panel for AutoExpenses.
  */
 public class AutoExpensesPanel extends UiPart<Region> {
-    private static final String FXML = "/autoexpense/AutoExpenseListPanel.fxml";
+    private static final String FXML = "autoexpense/AutoExpenseListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(AutoExpensesPanel.class);
 
     @FXML

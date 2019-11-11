@@ -21,7 +21,7 @@ public class SortSequence {
     /**
      * Constructs a {@code SortSequence}.
      *
-     * @param sequence A valid name.
+     * @param sequence A valid sequence.
      */
     public SortSequence(String sequence) {
         requireNonNull(sequence);

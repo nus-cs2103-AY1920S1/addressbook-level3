@@ -29,9 +29,8 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.tag.Tag;
 
-
 /**
- * Edits the details of an existing entry in the guilttrip book.
+ * Edits the details of an existing wish in GuiltTrip.
  */
 public class EditWishCommand extends Command {
 
@@ -57,8 +56,8 @@ public class EditWishCommand extends Command {
     private final EditWishDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param index of the wish in the filtered wish list to edit
+     * @param editEntryDescriptor details to edit the wish with
      */
     public EditWishCommand(Index index, EditWishDescriptor editEntryDescriptor) {
         requireNonNull(index);
@@ -94,8 +93,8 @@ public class EditWishCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Wish} with the details of {@code wishToEdit}
+     * edited with {@code EditWersonDescriptor}.
      */
     private static Wish createEditedWish(Wish wishToEdit, EditWishDescriptor editEntryDescriptor) {
         assert wishToEdit != null;
@@ -126,8 +125,8 @@ public class EditWishCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the wish with. Each non-empty field value will replace the
+     * corresponding field value of the wish.
      */
     public static class EditWishDescriptor {
         private Category category;

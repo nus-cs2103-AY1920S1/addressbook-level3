@@ -8,7 +8,7 @@ import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 
 /**
- * Reverts the {@code model}'s finance tracker to its previously undone state.
+ * Reverts the {@code model}'s GuiltTrip to its previously undone state.
  */
 public class RedoCommand extends Command {
 
