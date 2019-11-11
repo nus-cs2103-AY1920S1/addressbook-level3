@@ -96,7 +96,7 @@ public class ModelManagerTest {
     public void hasSufficientQuantityToEdit_invalidQuantity_returnFalse() throws NoSuchItemException {
         setInventoryList();
         modelManager.addItem(FISH_BURGER);
-        assertFalse(modelManager.hasSufficientQuantityToEdit(1, 200));
+        assertFalse(modelManager.hasSufficientQuantityToEdit(1, 200000));
         modelManager.clearSalesList();
     }
 
