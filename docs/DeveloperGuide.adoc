@@ -483,3 +483,33 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Prerequisite: There is no ongoing visit.
 .. Test case: `visit-end` +
    Expected: No visit is finished. An error message will appear in the status message.
+
+=== Changing of autocomplete suggestion list:
+
+. Changing list from object list to command list.
+
+.. Test case: Type "pat-" into empty command box +
+   Expected: The suggestion list is changed from object list to command list
+
+. Changing list from command list to prefix list.
+
+.. Test case: Type "pat-add" into empty command box +
+   Expected: The suggestion list is changed from command list to prefix list
+
+. Changing list from command list to index list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit" into empty command box +
+   Expected: The suggestion list is changed from command list to index list
+
+. Changing list from index list to prefix list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit 1" into empty command box +
+   Expected: The suggestion list is changed from index list to prefix list
+
+=== Updating of current autocomplete suggestion list:
+. Updating the object list.
+
+.. Test case: Type "ap" into empty command box +
+   Expected: The suggestion list should only contain "appt-" and "app-" now

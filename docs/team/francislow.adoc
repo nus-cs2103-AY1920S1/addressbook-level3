@@ -9,7 +9,9 @@
 
 == Overview
 
-NurseTraverse is a desktop application meant for community nurse to help manage all the data that a community nurse might need. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+NurseTraverse is a desktop application designed to help community nurses manage all the data they may need, including visit management, appointment scheduling, and importing and exporting of patient data.
+The user interacts with the app using a CLI (Command Line Interface) enhanced with an autocomplete functionality and ability to undo and redo commands. The app has a GUI created with JavaFX and is written in Java.
+NurseTraverse is built by me and 4 other students.
 
 == Summary of contributions
 
@@ -36,7 +38,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=francislow
 *** Updated developers guide(appendix A-E) https://github.com/AY1920S1-CS2103-F10-1/main/pull/44[#44]
 ** Community:
 *** Misc team bug fixes https://github.com/AY1920S1-CS2103-F10-1/main/issues/186[#186]
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F10-1/main/pull/81[#81], https://github.com/AY1920S1-CS2103-F10-1/main/pull/98[#98]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F10-1/main/pull/81[#81], https://github.com/AY1920S1-CS2103-F10-1/main/pull/98[#98], https://github.com/AY1920S1-CS2103-F10-1/main/pull/217[#217]
 *** Set up travis CI for the project
 
 == Contributions to the User Guide
