@@ -32,7 +32,7 @@ public class Messages {
     public static final String MESSAGE_STATS_MONTH = "Displaying admissions statistics of %1$s.";
     public static final String MESSAGE_STATS_YEAR = "Displaying admissions statistics of the year %1$s.";
     public static final String MESSAGE_INVALID_SIGNATURE_FORMAT = "Invalid signature format! "
-            + "Signature should not contain numbers and must be less than 40 characters.";
+            + "Signature should not contain numbers or special characters and must be less than 40 characters.";
     public static final String MESSAGE_INVALD_FRIDE_ID_FORMAT = "Fridge ID needs to be numeric";
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
     public static final String MESSSAGE_NOTIF_DOES_NOT_EXIST = "Notif does not exist";
