@@ -6,6 +6,9 @@ import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.model.Model;
 
+/**
+ * NoCommand is used to accept user feedback for {@code Multiline} commands.
+ */
 public class NoCommand extends Command {
     public static final String COMMAND_WORD = "no";
 

@@ -18,7 +18,7 @@
 <p>+Work is a project that is created for the our Software Engineering Module. In this module, we had to morph or enhance the existing AddressBook application to meet the needs of a particular user group.</p>
 </div>
 <div class="paragraph">
-<p>+Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes.</p>
+<p>+Work is a desktop project management application targeted at NUS project leaders of small groups. Users can use +Work for task allocation, inventory management and scheduling purposes. Features include generating a pdf report of inventory items and finding a common time slot among team members.</p>
 </div>
 <div class="paragraph">
 <p>+Work uses a Command Line Inteferface for users to type into, while incorporating a simple Graphical User Interface (GUI) for users to visualise project details easily.</p>
@@ -73,7 +73,7 @@ Information here are things the user can learn so that they have a faster experi
 <h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">2. Summary of Contributions</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section details all of my contributions to the project, and showcases how I worked on different aspects of the project.</p>
+<p>This section details all of my contributions to the project. It showcases how I worked on different aspects of the project throughout the course.</p>
 </div>
 <div class="sect2">
 <h3 id="enhancements"><a class="link" href="#enhancements">2.1. Enhancements</a></h3>
@@ -143,10 +143,10 @@ Information here are things the user can learn so that they have a faster experi
 <div class="ulist">
 <ul>
 <li>
-<p>Wrote parts of the +Work User Guide relating to <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#quick-start">Quick Start</a>,https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#introduction[Introduction], <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#autocomplete">Autocomplete</a> and <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#command-summary">Command Summary</a>.</p>
+<p>Wrote parts of the +Work User Guide relating to <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#quick-start">Quick Start</a>, <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#introduction">Introduction</a>, <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#autocomplete">Autocomplete</a> and <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#command-summary">Command Summary</a>.</p>
 </li>
 <li>
-<p>Wrote parts of the +Work Developer Guide relating to <a href="https://github.com">Autocomplete</a> and <a href="https://github.com">Architecture</a>.</p>
+<p>Wrote parts of the +Work Developer Guide relating to <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#autocomplete">AutoComplete</a> and <a href="https://ay1920s1-cs2103t-t12-1.github.io/main/UserGuide.html#architecture">Architecture</a>.</p>
 </li>
 </ul>
 </div>
@@ -170,10 +170,57 @@ Information here are things the user can learn so that they have a faster experi
 <h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">3. Contributions to the User Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following section is an excerpt from my additions to the <strong>+Work User Guide</strong> for the <code>autocorrect</code> feature.</p>
+<p>The following section is an excerpt from my additions to the <strong>+Work User Guide</strong> for the <code>autocorrect</code> feature and Command Summary.</p>
 </div>
 <div class="sect2">
-<h3 id="command-line-autocomplete"><a class="link" href="#command-line-autocomplete">3.1. Command Line Autocomplete</a></h3>
+<h3 id="quick-start"><a class="link" href="#quick-start">3.1. Quick Start</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have Java <code>11</code> or above installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>pluswork.jar</code> <a href="{repoURL}/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for your +Work.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Ui.png" alt="Ui" width="400">
+</div>
+</div>
+</li>
+<li>
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
+</li>
+<li>
+<p>Here are some commands you can try to get you started:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>add-member mn/Adam Smith mi/AS</code></strong> : Adds a member with name "Adam Smith" to the project.</p>
+</li>
+<li>
+<p><strong><code>add-task tn/Finish up milestone setting</code></strong> : Adds a task with name "Finish up milestone" to the project.</p>
+</li>
+<li>
+<p><strong><code>assign ti/1 mi/JD</code></strong> : Assigns the project member "John Doe" (with member id "JD"), to the task "Finish up milestone setting".</p>
+</li>
+<li>
+<p><strong><code>doing-task ti/1</code></strong> : Changes status of task "Finish up milestone setting"  to <code>doing</code>:</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command-line-autocomplete"><a class="link" href="#command-line-autocomplete">3.2. Command Line Autocomplete</a></h3>
 <div class="paragraph">
 <p>+Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen.<br>
 For example, when you type <code>add-mem</code> into the command-line, +Work will prompt you to select <code>add-member</code> from the drop down menu.</p>
@@ -198,10 +245,128 @@ For example, when you type <code>add-mem</code> into the command-line, +Work wil
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-You can use <kbd>control</kbd> to navigate along the various prefixes.
+You can use <kbd>control</kbd> to move to the next prefix.
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command-summary"><a class="link" href="#command-summary">3.3. Command Summary</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]</code>:  <strong>Imports a calendar</strong></p>
+</li>
+<li>
+<p><code>add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]</code>: <strong>Adds an inventory</strong></p>
+</li>
+<li>
+<p><code>add-meeting [meeting/index]</code>: <strong>Adds a meeting from the generated meeting time list from <code>find-meeting-time</code></strong></p>
+</li>
+<li>
+<p><code>add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]</code>: <strong>Adds a member</strong></p>
+</li>
+<li>
+<p><code>add-task [tn/TASK_NAME] [s/TASK_STATUS] [tt/TASK_TAG]</code>: <strong>Adds a task</strong></p>
+</li>
+<li>
+<p><code>assign [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Adds a task to a member</strong></p>
+</li>
+<li>
+<p><code>clear</code>: <strong>Clears all data from dashboard</strong></p>
+</li>
+<li>
+<p><code>clock twelve</code>: <strong>Switches deadline display to the 12 hour clock format</strong></p>
+</li>
+<li>
+<p><code>clock twenty_four</code>: <strong>Switches deadline display to the 24 hour clock format</strong></p>
+</li>
+<li>
+<p><code>set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]</code>: <strong>Assigns a deadline to a task</strong></p>
+</li>
+<li>
+<p><code>delete-calendar [mn/MEMBER_NAME]</code>: Deletes calendar of member</p>
+</li>
+<li>
+<p><code>delete-inv [ii/ITEM_ID]</code>: <strong>Deletes an inventory</strong></p>
+</li>
+<li>
+<p><code>delete-meeting [meeting/MEETING_INDEX]</code>: <strong>Deletes a meeting</strong></p>
+</li>
+<li>
+<p><code>delete-task [ti/TASK_INDEX]</code>: <strong>Deletes a task</strong></p>
+</li>
+<li>
+<p><code>doing-task [ti/TASK_ID]</code>: <strong>Marks a task as <code>doing</code></strong></p>
+</li>
+<li>
+<p><code>done-task [ti/TASK_ID]</code>: <strong>Marks a task as <code>done</code></strong></p>
+</li>
+<li>
+<p><code>edit-inv [ii/ITEM_ID] [i/ITEM_NAME] [p/PRICE] [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Edits an inventory</strong></p>
+</li>
+<li>
+<p><code>edit-member [mi/MEMBER_ID] [mn/MEMBER_NAME] [mt/MEMBER_TAG]</code>: <strong>Edits a member</strong></p>
+</li>
+<li>
+<p><code>edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]</code>: <strong>Edits a task</strong></p>
+</li>
+<li>
+<p><code>exit</code>: <strong>Exits +Work</strong></p>
+</li>
+<li>
+<p><code>fire [ti/TASK_ID] [mi/MEMBER_ID]</code>: <strong>Removes a task from a member</strong></p>
+</li>
+<li>
+<p><code>find-meeting-time [start/dd-mm-yyyy hh:mm] [end/dd-mm-yyyy hh:mm] [hours/HOURS]</code>: <strong>Generates free times among members</strong></p>
+</li>
+<li>
+<p><code>home</code>: <strong>Switches to the project dashboard</strong></p>
+</li>
+<li>
+<p><code>help</code>: <strong>Navigates to help page</strong></p>
+</li>
+<li>
+<p><code>list-members</code>: <strong>Lists all members</strong></p>
+</li>
+<li>
+<p><code>list-tasks</code>: <strong>Lists all tasks</strong></p>
+</li>
+<li>
+<p><code>list-inv</code>: <strong>Lists all inventories</strong></p>
+</li>
+<li>
+<p><code>member-stats</code>: <strong>Displays member statistics</strong></p>
+</li>
+<li>
+<p><code>pdf [ty/TYPE]</code>: <strong>Creates a PDF document of inventory list</strong></p>
+</li>
+<li>
+<p><code>redo</code>: <strong>Redoes last known command</strong></p>
+</li>
+<li>
+<p><code>remove-member [mi/MEMBER_ID]</code>: <strong>Removes a member</strong></p>
+</li>
+<li>
+<p><code>set-image[mi/MEMBER_ID] [im/IMAGE_FILEPPATH]</code>: <strong>Switches to the settings configuration page</strong></p>
+</li>
+<li>
+<p><code>settings</code>: <strong>Switches to the settings configuration page</strong></p>
+</li>
+<li>
+<p><code>task-stats</code>: <strong>Displays task statistics</strong></p>
+</li>
+<li>
+<p><code>theme dark</code>: <strong>Switches to the dark theme</strong></p>
+</li>
+<li>
+<p><code>theme light</code>: <strong>Switches to the light theme</strong></p>
+</li>
+<li>
+<p><code>undo</code>: <strong>Undoes last known command</strong></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -210,7 +375,7 @@ You can use <kbd>control</kbd> to navigate along the various prefixes.
 <h2 id="contribution-to-the-developer-guide"><a class="link" href="#contribution-to-the-developer-guide">4. Contribution to the Developer Guide</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following section displays my additions to the <strong>+Work Developer Guide</strong> for the <code>AutoComplete</code> feature.
+<p>The following section displays my additions to the <strong>+Work Developer Guide</strong> for the <code>AutoComplete</code> feature and Architecture Section.
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</p>
 </div>
 <div class="sect2">
@@ -247,6 +412,9 @@ They showcase my ability to write technical documentation and the technical dept
 </li>
 </ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="autocomplete-control-flow"><a class="link" href="#autocomplete-control-flow">4.1.2. AutoComplete control flow</a></h4>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how AutoComplete  behaves at each step:</p>
 </div>
@@ -276,5 +444,105 @@ They showcase my ability to write technical documentation and the technical dept
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">4.2. Architecture</a></h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ArchitectureDiagram.png" alt="ArchitectureDiagram">
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 14:59:35 SGT</div></div></div></body></html>
+<div class="title">Figure 2. Architecture Diagram</div>
+</div>
+<div class="paragraph">
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App. Given below is a quick overview of each component.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>.puml</code> files used to create diagrams in this document can be found in the <a href="{repoURL}/docs/diagrams/">diagrams</a> folder.
+Refer to the <a href="UsingPlantUml.html">Using PlantUML guide</a> to learn how to create and edit diagrams.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>Main</code> has two classes called <a href="{repoURL}/src/main/java/seedu/address/Main.java"><code>Main</code></a> and <a href="{repoURL}/src/main/java/seedu/pluswork/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>At app launch: Initializes the components in the correct sequence, and connects them up with each other.</p>
+</li>
+<li>
+<p>At shut down: Shuts down the components and invokes cleanup method where necessary.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>LogsCenter</code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The rest of the App consists of four components.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: The UI of the App.</p>
+</li>
+<li>
+<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: The command executor, parses user input.</p>
+</li>
+<li>
+<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: Holds the data of the App in-memory.</p>
+</li>
+<li>
+<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of the four components</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.</p>
+</li>
+<li>
+<p>Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicClassDiagram.png" alt="LogicClassDiagram">
+</div>
+<div class="title">Figure 3. Class Diagram of the Logic Component</div>
+</div>
+<h4 id="how-the-architecture-components-interact-with-each-other" class="discrete">How the architecture components interact with each other</h4>
+<div class="paragraph">
+<p>The <em>Sequence Diagram</em> below shows how the components interact with each other for the scenario where the user issues the command <code>add-member mn/Abhi</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ArchitectureSequenceDiagram.png" alt="ArchitectureSequenceDiagram">
+</div>
+<div class="title">Figure 4. Component interactions for <code>add-member mn/Abhi</code> command</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 20:55:52 SGT</div></div></div></body></html>

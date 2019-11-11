@@ -33,7 +33,7 @@ import seedu.pluswork.model.task.Task;
 public class EditInventoryCommand extends Command {
 
     public static final String COMMAND_WORD = "edit-inv";
-    public static final String PREFIX_USAGE = PREFIX_INVENTORY_INDEX + " " + PREFIX_INVENTORY_PRICE + " "
+    public static final String PREFIX_USAGE = PREFIX_INVENTORY_INDEX + " " +  PREFIX_INVENTORY_NAME + " " + PREFIX_INVENTORY_PRICE + " "
             + PREFIX_TASK_INDEX + " " + PREFIX_MEMBER_ID;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the inventory identified "

@@ -36,7 +36,7 @@ public class SetDeadlineCommand extends Command {
             + PREFIX_DEADLINE + DateTimeUtil.DEFAULT_INPUT_FORMAT_MESSAGE + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TASK_INDEX + " 2 "
-            + PREFIX_DEADLINE + " 10-10-2019 18:00";
+            + PREFIX_DEADLINE + " 20-10-2019 18:00";
 
     public static final String MESSAGE_SET_DEADLINE_TASK_SUCCESS = "Set a deadline for the Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in +Work.";
