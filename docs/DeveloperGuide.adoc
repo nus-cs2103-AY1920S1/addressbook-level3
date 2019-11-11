@@ -1316,7 +1316,8 @@ Expected: This should give the exact same result as the previous stepwise comman
 === Undo and Redo
 
 (i) Test case: Executing the undo command
-The sequence of commands is as follows:
+The sequence of commands is as follows: +
+
 ```
 delete i/1 (provided there is at least 1 engagement in the list)
 undo
@@ -1325,7 +1326,8 @@ undo
 Expected: The previously deleted engagement should reappear in the list.
 
 (ii) Test case: Executing the redo command
-The sequence of commands is as follows:
+The sequence of commands is as follows: +
+
 ```
 delete i/1 (provided there is at least 1 engagement in the list)
 undo
