@@ -175,6 +175,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::teoha_ppp[]
+[[Edit-Trip]]
 === [Itinerary] Edit trip/day/event feature
 
 [[edit_logic]]
@@ -281,6 +282,9 @@ However limitations of Java arose as classes cannot inherit more than one class 
 |===
 
 // end::teoha_ppp[]
+
+[[Delete-Trip]]
+
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation
 Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
@@ -301,6 +305,161 @@ When the command `delete <index>` is executed, `DeleteTripCommand/DeleteDayComma
 The `Day/Trip` reference contains the list of `Events/Days` in memory respectively (`DayList/EventList`). `DayList#remove/EventList#remove` are methods in the respective list classes used to delete the day/event. These are executed, modifying the in memory `TravelPal` and `Trip/Event/Day` is removed.
 
 image::ItineraryDelete2.png[width=400]
+
+
+// tag::expense_ppp[]
+=== [Expense] Expense Manager
+The _Expense Manager_ is one of the main features of TravelPal, it maintains a list of `Expense` stored in an `ExpenseList`.
+_Expense Manager_ is also capable of calculating and displaying budget, sorting expenses and toggling display options.
+[[expense_model]]
+==== Aspect : Model
+
+[[expense_class_diagram]]
+image::expense/developerguide/ExpenseModelClassDiagram.png[title=Class diagram showing the expense model]
+
+===== Expense
+
+`Expense` is an abstract class storing expense model.
+
+It has three compulsory fields, the _name of expense_, the _amount of expense_, and a _day number_. These fields are used to store information related to an expense.
+They are implemented as instance of class `Name` `Budget` and `DayNumber` respectively.
+
+`MiscExpense` and `PlannedExpense` are the child classes extending from `Expense` class, they are
+used to represent the two types of expenses: _miscellaneous expense_ and _planned expense_.
+
+===== ExpenseList
+
+`ExpenseList` is an class that stores the `Expense` models.
+It supports wrapper methods around the underlying `ObservableList` to facilitate the use in the logic components.
+
+[[expense_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/ExpenseUIClassDiagram.png[title=Class diagram showing the user interface of expense]
+
+NOTE: The `ExpensesPage` implements an `UiChangeConsumer` interface to facilitate the toggling between the _Days View_ and
+ _List View_ of _Expense Manager_, which is not shown in the diagram above.
+
+The UI of expense manager mainly consists of two `Page`: `ExpensesPage` and `EditExpensePage`.
+
+`ExpensePage` is the component in charge of displaying expense and budget information. It has a list of `ExpenseCard`, a component
+ that contains individual expense details. `ExpensePage` extends `PageWithSidebar` as it contains navigation bar that helps user to
+ navigate between different features.
+
+In `ExpensePage`, user can toggle between _Days View_ and _List View_. In _Days View_, a list of `DailyExpensesPanel` is used to group
+`ExpenseCard` according to date.
+
+`EditExpensePage` is the main page for creating and editing of expense. Both `ExpensesPage` and `EditExpensePage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Currency_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+===== Create an expense
+
+The creation of a new `Expense` is done in two ways:
+
+1. The creation of a `PlannedExpense` is created when a new `Event` with a `Budget` is created. The execution happens in `DoneEditingEventCommand`.
+
+* When the `Name` or `Budget` field of `Event` is modified, a method call replaces the current `Expense` associated with the `Event` with an updated `Expense`.
+
+2. The creation of a `MiscExpense` is done by calling `EnterCreateExpenseCommand`, which brings user to an _Expense Setup Page_.
+
+===== Edit an expense
+
+Editing of expense can be accessed from `ExpensePage`. The execution of command is handled by `ExpenseManagerParser` and
+the command accesses the model through `Model#getPageStatus()` method. The details of execution is similar to _Edit trip/day/event_ feature (see <<Edit-Trip>>)
+
+Only the _amount of expense_ field of a `PlannedExpense` can be edited with an `edit` command. When `done` command is executed
+after the _amount of expense_ is edited, both the expense in `ExpenseList` and the `Event` will be updated.
+
+The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in `LogicManager`.
+[[expense_sequence_diagram]]
+image::expense/developerguide/DoneEditExpenseCommandSequenceDiagram.png[align="left" title=Sequence diagram showing the execution of DoneEditCommand]
+
+When `DoneEditCommand#execute(model)` is called, `getPageStatus()` is used to fetch information / update information from `model`. The following
+steps shows the sequence of event happened within the method:
+
+1. The current instance of `EditExpenseDescriptor` and `Expense` in `model` are returned and stored as `editExpenseDescriptor` and `expenseToEdit` in `logic`.
+
+2. A new instance of `Expense`, `expenseToAdd` is created by calling `buildExpense()` in `editExpenseDescriptor`.
+
+3. Through `getPageStatus()`, `set(expenseToEdit, expenseToAdd)` is called on `EventList`, which updates the unedited `expenseToEdit` by replacing it with the edited `expenseToAdd`.
+
+4. The `DayNumber` in `expenseToAdd` is returned so that logic can update the associated `Event` by going to the corresponding `Day` in `DayList`.
+
+5. `updateExpense(expenseToAdd)` is called on `EventList` so that the target `Event` will have its `Expenditure` updated.
+
+6. By calling `setPageStatus()`, the current `EditExpenseDescriptor` and `Expense` will be reset, the current page will be set to _Expense Manager Page_.
+
+7. `CommandResult` is returned to give user feedback and update UI.
+
+===== Delete an Expense
+
+Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
+
+The `DeleteExpenseCommand` in logic checks for index of deletion and type of expense. Only `MiscExpense` can be deleted through
+this command. Below is an example execution of deleting an expense:
+[[delete_expense_activity_diagram]]
+image::expense/developerguide/DeleteExpenseDiagram.png[title=Activity diagram showing the execution of deleting an expense]
+
+// end::expense_ppp[]
+
+'''
+
+=== [Currency] Currency
+The _Currency_ maintains a list of `CustomisedCurrency` stored in an `CurrencyList`.
+_Currency_ supports creation, deletion and selection of currency.
+
+==== Aspect : Model
+
+image::expense/developerguide/CurrencyModelClassDiagram.png[align="left" title=Class diagram showing the currency model]
+
+===== CustomisedCurrency
+
+`CustomisedCurrency` is the generic abstraction of a user defined currency.
+
+A `CustomisedCurrency` contains exactly one instance `Name` `Symbol` and `Rate` for each of these three classes, which represents
+ the _name of currency_, _currency symbol_, and _exchange rate of the currency (to Singapore Dollars)_ respectively.
+
+===== CurrencyList
+
+`CurrencyList` is an class that stores the `CustomisedCurrency` instances. It supports wrapper methods around the underlying `ObservableList` for the use of logic components.
+
+[[currency_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/CurrencyUIClassDiagram.png[align="left" title=Class diagram showing the user interface of currency]
+
+The main `Page` for displaying and creating currency is `CurrencyPage`. The page contains a list of `CurrencyCard` for displaying
+individual currency details. Two types of `CurrencyCard`: `SelectedCurrencyCard` and `UnelectedCurrencyCard` are used to indicate
+the currency in use. Upon launching of the application, a default `CustomisedCurrency` -- Singapore Dollars is automatically added to
+the `CurrencyList`, which is not deletable. Thus, there will always be at least one `CurrencyCard` in `CurrencyPage`.
+
+`CurrencyPage` also contains text fields for input of new currency information. It has a `PresetSymbols` instance which contains a group of `ToggleButton` which
+updates the symbol in `MainWindow`. `CurrencyPage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Expense Manager_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+The executions of add / delete of `CustomisedCurrency` is similar to those of `Trip` / `Day` / `Event` / `Expense`. More details can be found in the previous sections:
+<<Edit-Trip>>
+
+====== Select a Currency
+
+Selection of `CustomisedCurrency` is achieved by promoting it to the front of `CurrencyList`, while the first `CustomisedCurrency` in the list
+is to be used to display `Budget` with the selected currency symbol and rate conversion.
+
+All the monetary values in the application is displayed through calling the method from UI: `Budget#getValueStringInCurrency(CustomisedCurrency)`
+
+
+
+'''
+
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -711,7 +870,106 @@ Secondly, `ListViews` render only the visible cells on the screen. Apart from th
 in the JavaFX scene graph, it also allows running the parsing logic on only parts (paragraphs) of the text in the `DiaryEntry` model.
 This results in a considerable performance benefit.
 
+
+
 |========================================================================================
+
+=== [Inventory] The Inventory List
+
+In the application, there can be two types of Inventory Lists:
+
+===== 1. Overall Trip Inventory List
+
+An overall trip inventory list is the inventory list of all the items the user needs for the trip.
+
+Each trip only has *one* overall trip inventory list.
+
+===== 2. An Event inventory list
+
+An event inventory list is the inventory list of all the items the user needs for the event.
+
+Each trip can have *mutiple* event inventory lists.
+
+Therefore, in a trip, all the events inventory lists are subsets of one overall trip inventory list.
+
+==== Aspect : Model
+
+image::inventory/InventoryModelClassDiagram.png[title="Class diagram of a 'InventoryList' and an `Event`, and its contained models"]
+===== Inventory
+The model for an inventory item stored in memory is stored in the `Inventory` class.
+
+It contains three attributes: the `name`, `isDone` and `eventOccurances`. The `name` attribute is implemented using a
+custom built `Name` class which ensures that the `name` is valid. `isDone` was implemented using a BooleanProperty and indicates
+whether the inventory item has been packed. While, `eventInstances` is an integer which represents the total number of
+`Event` models that have the same inventory item.
+
+===== Event
+`Inventory` models are contained within an `Event`, if the corresponding inventory items are part of an event. `Event` stores
+the `Inventory` models in an `ArrayList`. Therefore, each `Event` model contains an Event Inventory List (as defined above).
+
+Since, currently, the application does allow the user to alter the 'isDone' toggle of an `Inventory` model contained in an event,
+the `isDone` attribute is never set once it is is initialised (as `false`).
+
+Furthermore, as the `eventInstances` attribute is only relevant to the Overall Trip Inventory List, the `eventInstances`
+attribute is set as `-1`.
+
+===== InventoryList
+All unique (by name) `Inventory` models in any `Event` model is contained within an `InventoryList`. It stores the inventory items in a
+JavaFX `ObservableList`. Therefore, the `InventoryList` contains the Overall Trip Inventory List (as defined above).
+
+An `ObservableList` was chosen as the user interface requires the changes in the inventory list to be displayed instantly. Furthermore,
+`isDone` was implemented using a `BooleanProperty` instead of a simple `boolean` to instantly detect and display changes in any inventory item's `isDone` value.
+
+
+Additionally, an `InventoryList` can also contain miscellaneous inventory items (not contained in any event).
+
+
+==== Aspect : User Interface of Overall Trip Inventory List (with Model `InventoryList`)
+
+The Overall Trip Inventory List (with Model `InventoryList`) is displayed in the `TableView<Inventory>` of the `InventoryPage`, as seen in the object diagram:
+
+image::inventory/InventoryUiObjectDiagram.png[title= "Object diagram of table view component, as contained by `InventoryPage` (not shown)"]
+
+The TableView has 3 columns. The first column numbers the items. The second column displays the item's name. And the thrid column displays whether the item's `isDone` property is true or false (through a checkbox).
+
+Both the first and the second column's `cellValueFactory` were set to `new PropertyValueFactory(STRING)` with String `STRING`. However, the third column was set to `CheckBoxTableCell.forTableColumn(BOOLEAN)` with Boolean `BOOLEAN`.
+
+==== Aspect : User Interface of Event Inventory List (with Model `Event`)
+
+The Event Inventory List (with Model `Event`) is displayed in the `ListView<Inventory>` of the `EventPage`, as seen in the object diagram:
+
+image::inventory/EventInventoryListUiObjectDiagram.png[title= "Object diagram of list view component, as contained by `EventPage` (not shown)"]
+
+The `ListView` uses the CSS styling of `resources/view/Inventory/InventoryListViewTheme.css' by calling `listView.getStylesheets().add(CSS_FILE_PATH)` with the File Path `CSS_FILE_PATH`)
+
+Furthermore, the reason why `ListView` and `ListCell` are in package `Ui.itinerary` is because `EventPage` is in itinerary `Ui.itinerary`. Similarly, `Event` is in package `Model.itinerary`
+
+==== Aspect : Logic of adding item to Overall Trip Inventory List (with Model `InventoryList`)
+
+image::inventory/AddInventorySequenceDiagram.png[title="Sequence diagram for adding an item to the Overall Trip Inventory List"]
+
+From the sequence diagram, it can be observed that only if `InventoryViewParser` and `AddInventoryParser` returns a Command, will
+the Command be executed. This ensures the AddCommand is only executed when intended.
+
+Moreover, as seen from the sequence diagram, whenever the `AddInventoryCommand` is executed, it will always return the `InventoryView` that
+corresponds to the Trip that the user is correctly on - ensuring that there is only one Overall Trip Inventory List.
+
+Furthermore, the `InventoryList` calls its own internal function of `add` to add an item to its list - which loops through the entire
+list to make sure that the item to be added does not already exist - otherwise it does not add it
+. Therefore, this also allows all the items in InventoryList to be unique.
+
+==== Possible Improvement in Future Release
+
+Currently, both the Event Inventory List and the Overall Trip Inventory List utilise a common `Inventory` class to store
+inventory items.
+
+However, an inventory item in the Event Inventory List does not need to keep count of the `eventInstances` attribute. Although, the
+current solution of setting `eventInstances` to -1 allows both classes to share the `Inventory` class, it might not be scalable and
+there may lead to bugs in the future.
+
+Therefore, in a future update, it would be rational to remove make the `Inventory` class an abstract class with just a `Name` attribute.
+And have 2 different classes extend it for the 2 different use cases.
+
 
 === Logging
 

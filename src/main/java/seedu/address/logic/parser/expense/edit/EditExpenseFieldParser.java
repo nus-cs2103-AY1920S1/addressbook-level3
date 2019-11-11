@@ -67,6 +67,7 @@ public class EditExpenseFieldParser implements Parser<EditExpenseFieldCommand> {
             editExpenseDescriptor.setDayNumber(ExpenseParserUtil.parseDayNumber(argMultimap
                     .getValue(PREFIX_DAY_NUMBER).get()));
         }
+
         if (!editExpenseDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditExpenseFieldCommand.MESSAGE_NOT_EDITED);
         }

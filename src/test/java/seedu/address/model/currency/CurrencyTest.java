@@ -2,9 +2,10 @@ package seedu.address.model.currency;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AFRICA;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BALI;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SYMBOL_POUND;
+import static seedu.address.model.ModelTestUtil.VALID_CURRENCY_1;
+import static seedu.address.model.ModelTestUtil.VALID_CURRENCY_2;
+import static seedu.address.model.ModelTestUtil.VALID_NAME_CURRENCY_2;
+import static seedu.address.model.ModelTestUtil.VALID_SYMBOL_CURRENCY_2;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,71 +14,61 @@ import seedu.address.testutil.CustomisedCurrencyBuilder;
 
 public class CurrencyTest {
 
-    public static final CustomisedCurrency CURRENCY_A = CustomisedCurrencyBuilder.newInstance()
-            .setName(new Name("CustomisedCurrency A"))
-            .setSymbol(new Symbol("1"))
-            .setRate(new Rate("0.01"))
-            .build();
-    public static final CustomisedCurrency CURRENCY_B = CustomisedCurrencyBuilder.newInstance()
-            .setName(new Name("CustomisedCurrency B"))
-            .setSymbol(new Symbol("&"))
-            .setRate(new Rate("10000"))
-            .build();
-
     @Test
     public void isSameCustomisedCurrency() {
         // same object -> returns true
-        assertTrue(CURRENCY_A.isSameCustomisedCurrency(CURRENCY_A));
+        assertTrue(VALID_CURRENCY_1.isSameCustomisedCurrency(VALID_CURRENCY_1));
 
         // null -> returns false
-        assertFalse(CURRENCY_A.isSameCustomisedCurrency(null));
+        assertFalse(VALID_CURRENCY_1.isSameCustomisedCurrency(null));
 
         // different name -> returns false
-        CustomisedCurrency editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A)
-                .setName(new Name(VALID_NAME_AFRICA)).build();
-        assertFalse(CURRENCY_A.isSameCustomisedCurrency(editedCustomisedCurrencyA));
+        CustomisedCurrency editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1)
+                .setName(new Name(VALID_NAME_CURRENCY_2)).build();
+        assertFalse(VALID_CURRENCY_1.isSameCustomisedCurrency(editedCustomisedCurrencyA));
 
         // same name, same rate, different symbol -> returns true
-        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A).setSymbol(new Symbol(VALID_SYMBOL_POUND))
+        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1)
+                .setSymbol(new Symbol(VALID_SYMBOL_CURRENCY_2))
                 .build();
-        assertTrue(CURRENCY_A.isSameCustomisedCurrency(editedCustomisedCurrencyA));
+        assertTrue(VALID_CURRENCY_1.isSameCustomisedCurrency(editedCustomisedCurrencyA));
 
         // same name, same symbol, same rate -> returns true
-        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A).build();
-        assertTrue(CURRENCY_A.isSameCustomisedCurrency(editedCustomisedCurrencyA));
+        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1).build();
+        assertTrue(VALID_CURRENCY_1.isSameCustomisedCurrency(editedCustomisedCurrencyA));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        CustomisedCurrency expenseACopy = CustomisedCurrencyBuilder.of(CURRENCY_A).build();
-        assertTrue(CURRENCY_A.equals(expenseACopy));
+        CustomisedCurrency expenseACopy = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1).build();
+        assertTrue(VALID_CURRENCY_1.equals(expenseACopy));
 
         // same object -> returns true
-        assertTrue(CURRENCY_A.equals(CURRENCY_A));
+        assertTrue(VALID_CURRENCY_1.equals(VALID_CURRENCY_1));
 
         // null -> returns false
-        assertFalse(CURRENCY_A.equals(null));
+        assertFalse(VALID_CURRENCY_1.equals(null));
 
         // different type -> returns false
-        assertFalse(CURRENCY_A.equals(5));
+        assertFalse(VALID_CURRENCY_1.equals(5));
 
         // different expense -> returns false
-        assertFalse(CURRENCY_A.equals(CURRENCY_B));
+        assertFalse(VALID_CURRENCY_1.equals(VALID_CURRENCY_2));
 
         // different name -> returns false
-        CustomisedCurrency editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A)
-                .setName(new Name(VALID_NAME_BALI)).build();
-        assertFalse(CURRENCY_A.equals(editedCustomisedCurrencyA));
+        CustomisedCurrency editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1)
+                .setName(new Name(VALID_NAME_CURRENCY_2)).build();
+        assertFalse(VALID_CURRENCY_1.equals(editedCustomisedCurrencyA));
 
         // different rate -> returns false
-        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A).setRate(new Rate("2")).build();
-        assertFalse(CURRENCY_A.equals(editedCustomisedCurrencyA));
+        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1).setRate(new Rate("2")).build();
+        assertFalse(VALID_CURRENCY_1.equals(editedCustomisedCurrencyA));
 
         // different symbol -> returns false
-        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(CURRENCY_A)
-                .setSymbol(new Symbol(VALID_SYMBOL_POUND)).build();
-        assertFalse(CURRENCY_A.equals(editedCustomisedCurrencyA));
+        editedCustomisedCurrencyA = CustomisedCurrencyBuilder.of(VALID_CURRENCY_1)
+                .setSymbol(new Symbol(VALID_SYMBOL_CURRENCY_2)).build();
+        assertFalse(VALID_CURRENCY_1.equals(editedCustomisedCurrencyA));
 
     }
 

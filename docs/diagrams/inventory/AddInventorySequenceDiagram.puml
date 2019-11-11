@@ -1,0 +1,78 @@
+@startuml
+!include ../style.puml
+
+title Executing "add ITEM" in Inventory Page
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TravelPalParser" as TravelPalParser LOGIC_COLOR
+participant ":InventoryViewParser" as EditDayParser LOGIC_COLOR
+participant ":AddInventoryParser" as EditDayFieldParser LOGIC_COLOR
+participant "command:AddInventoryCommand" as EditDayFieldCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+participant ":Trip" as Model MODEL_COLOR
+participant ":InventoryList" as PageStatus MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("add ITEM")
+activate LogicManager
+
+LogicManager -> TravelPalParser : parseCommand("add ITEM")
+activate TravelPalParser
+
+create EditDayParser
+TravelPalParser -> EditDayParser
+activate EditDayParser
+EditDayParser -> TravelPalParser
+deactivate EditDayParser
+TravelPalParser -> EditDayParser : parse("add", "ITEM")
+activate EditDayParser
+
+create EditDayFieldParser
+EditDayParser -> EditDayFieldParser
+activate EditDayFieldParser
+EditDayFieldParser -> EditDayParser
+deactivate EditDayFieldParser
+EditDayParser -> EditDayFieldParser : parse("ITEM")
+activate EditDayFieldParser
+
+
+create EditDayFieldCommand
+EditDayFieldParser -> EditDayFieldCommand
+activate EditDayFieldCommand
+return command
+deactivate EditDayFieldCommand
+
+return command
+deactivate EditDayFieldParser
+
+return command
+deactivate EditDayParser
+
+return command
+
+LogicManager -> EditDayFieldCommand : execute()
+activate EditDayFieldCommand
+
+
+EditDayFieldCommand -> Model : getPageStatus().getTrip()
+activate Model
+Model -> PageStatus : getInventoryList()
+activate PageStatus
+PageStatus -> PageStatus : add()
+return
+return name
+
+create CommandResult
+EditDayFieldCommand -> CommandResult
+activate CommandResult
+return
+
+EditDayFieldCommand -> LogicManager : result
+
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

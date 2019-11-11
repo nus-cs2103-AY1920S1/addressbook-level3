@@ -33,15 +33,7 @@
                        <Insets bottom="5.0" top="5.0" />
                    </GridPane.margin>
                </Button>
-               <Button alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                   <font>
-                       <Font name="Consolas" size="16.0" />
-                   </font>
-                   <GridPane.margin>
-                       <Insets bottom="5.0" top="5.0" />
-                   </GridPane.margin>
-               </Button>
-               <Button alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" prefHeight="35.0" text="Preferences" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <Button alignment="CENTER" contentDisplay="CENTER" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#handleHelp" prefHeight="35.0" text="Help" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                    <font>
                        <Font name="Consolas" size="16.0" />
                    </font>
