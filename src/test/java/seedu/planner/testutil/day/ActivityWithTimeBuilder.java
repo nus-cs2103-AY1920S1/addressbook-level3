@@ -11,7 +11,7 @@ import seedu.planner.testutil.activity.TypicalActivity;
  */
 public class ActivityWithTimeBuilder {
 
-    public static final Activity DEFAULT_ACTIVITY = TypicalActivity.ACTIVITYONE;
+    public static final Activity DEFAULT_ACTIVITY = TypicalActivity.ACTIVITY_ONE;
     public static final LocalDateTime DEFAULT_DATE_TIME = LocalDateTime.of(2019, 3,
             3, 10, 30);
     private Activity activity;

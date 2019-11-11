@@ -21,7 +21,7 @@ public interface ContactStorage {
     /**
      * Sets the file path of the data file.
      */
-    void setContactFilePath(Path contactFilePath) throws IOException;
+    void setContactFilePath(Path contactFilePath);
 
     /**
      * Returns Contact data as a {@link ReadOnlyContact}.

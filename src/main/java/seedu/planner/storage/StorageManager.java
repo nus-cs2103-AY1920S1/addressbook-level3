@@ -70,8 +70,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void setAccommodationFilePath(Path accommodationFilePath) throws IOException {
-        Files.deleteIfExists(getAccommodationFilePath());
+    public void setAccommodationFilePath(Path accommodationFilePath) {
         accommodationStorage.setAccommodationFilePath(accommodationFilePath);
     }
 
@@ -106,8 +105,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void setActivityFilePath(Path activityFilePath) throws IOException {
-        Files.deleteIfExists(getActivityFilePath());
+    public void setActivityFilePath(Path activityFilePath) {
         activityStorage.setActivityFilePath(activityFilePath);
     }
 
@@ -142,8 +140,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void setContactFilePath(Path contactFilePath) throws IOException {
-        Files.deleteIfExists(getContactFilePath());
+    public void setContactFilePath(Path contactFilePath) {
         contactStorage.setContactFilePath(contactFilePath);
     }
 
@@ -178,9 +175,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void setItineraryFilePath(Path itineraryFilePath) throws IOException {
-        Files.deleteIfExists(getItineraryFilePath());
-        Files.deleteIfExists(getItineraryFilePath().getParent());
+    public void setItineraryFilePath(Path itineraryFilePath) {
         itineraryStorage.setItineraryFilePath(itineraryFilePath);
     }
 
@@ -205,5 +200,16 @@ public class StorageManager implements Storage {
     public void saveItinerary(ReadOnlyItinerary itinerary, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         itineraryStorage.saveItinerary(itinerary, filePath);
+    }
+
+    // ================ PlannerFilePath methods ==============================
+
+    @Override
+    public void deletePlannerFilePath() throws IOException {
+        Files.deleteIfExists(getAccommodationFilePath());
+        Files.deleteIfExists(getActivityFilePath());
+        Files.deleteIfExists(getContactFilePath());
+        Files.deleteIfExists(getItineraryFilePath());
+        Files.deleteIfExists(getItineraryFilePath().getParent());
     }
 }

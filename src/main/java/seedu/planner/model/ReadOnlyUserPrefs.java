@@ -17,7 +17,7 @@ public interface ReadOnlyUserPrefs {
 
     Path getContactFilePath();
 
-    String getFolderName();
+    Path getPlannerFilePath();
 
     Path getItineraryFilePath();
 }

@@ -281,12 +281,12 @@ public class AddContactCommandTest {
 
         // FOLDER METHODS
         @Override
-        public String getFolderName() {
+        public Path getPlannerFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setFolderName(Name folderName) {
+        public void setPlannerFilePath(Path plannerFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -364,6 +364,10 @@ public class AddContactCommandTest {
 
         public void setDay(Day oldDay, Day newDay) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        public Day getDay(Index index) {
+            throw new AssertionError("This method should not be called");
         }
 
         public int getNumberOfDays() {

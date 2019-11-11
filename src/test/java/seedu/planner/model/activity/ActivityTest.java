@@ -11,8 +11,8 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SEVEN;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SIX;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.testutil.Assert.assertThrows;
-import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
-import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYTWO;
+import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_ONE;
+import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_TWO;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,101 +29,101 @@ public class ActivityTest {
     @Test
     public void isSameActivity() {
         // same object -> returns true
-        assertTrue(ACTIVITYONE.isSameActivity(ACTIVITYONE));
+        assertTrue(ACTIVITY_ONE.isSameActivity(ACTIVITY_ONE));
 
         // null -> returns false
-        assertFalse(ACTIVITYONE.isSameActivity(null));
+        assertFalse(ACTIVITY_ONE.isSameActivity((Activity) null));
 
         // different address -> returns false
-        Activity editedActivity = new ActivityBuilder(ACTIVITYONE).withAddress(VALID_ACTIVITY_ADDRESS_A).build();
-        assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
+        Activity editedActivity = new ActivityBuilder(ACTIVITY_ONE).withAddress(VALID_ACTIVITY_ADDRESS_A).build();
+        assertFalse(ACTIVITY_ONE.isSameActivity(editedActivity));
 
         // different name -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withName(VALID_ACTIVITY_NAME_B).build();
-        assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withName(VALID_ACTIVITY_NAME_B).build();
+        assertFalse(ACTIVITY_ONE.isSameActivity(editedActivity));
 
         // same name, different attributes -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withAddress(VALID_ACTIVITY_ADDRESS_A)
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withAddress(VALID_ACTIVITY_ADDRESS_A)
                 .withContact(new ContactBuilder().build()).withCost(VALID_COST_HUNDRED)
                 .withPriority(VALID_PRIORITY_SEVEN).withTags(VALID_TAG_HIKING).build();
-        assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
+        assertFalse(ACTIVITY_ONE.isSameActivity(editedActivity));
 
         //same address, different attributes -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withName(VALID_ACTIVITY_NAME_B)
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withName(VALID_ACTIVITY_NAME_B)
                 .withContact(new ContactBuilder().build()).withCost(VALID_COST_HUNDRED)
                 .withPriority(VALID_PRIORITY_SIX).withTags(VALID_TAG_HIKING).build();
-        assertFalse(ACTIVITYONE.isSameActivity(editedActivity));
+        assertFalse(ACTIVITY_ONE.isSameActivity(editedActivity));
 
         // same name, same address, different attributes -> returns true
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_SEVEN)
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withPriority(VALID_PRIORITY_SEVEN)
                 .withCost(VALID_COST_HUNDRED).withContact(new ContactBuilder().build())
                 .withTags(VALID_TAG_HIKING).build();
-        assertTrue(ACTIVITYONE.isSameActivity(editedActivity));
+        assertTrue(ACTIVITY_ONE.isSameActivity(editedActivity));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Activity activityCopy = new ActivityBuilder(ACTIVITYONE).build();
-        assertTrue(ACTIVITYONE.equals(activityCopy));
+        Activity activityCopy = new ActivityBuilder(ACTIVITY_ONE).build();
+        assertTrue(ACTIVITY_ONE.equals(activityCopy));
 
         // same object -> returns true
-        assertTrue(ACTIVITYONE.equals(ACTIVITYONE));
+        assertTrue(ACTIVITY_ONE.equals(ACTIVITY_ONE));
 
         // null -> returns false
-        assertFalse(ACTIVITYONE.equals(null));
+        assertFalse(ACTIVITY_ONE.equals(null));
 
         // different type -> returns false
-        assertFalse(ACTIVITYONE.equals(5));
+        assertFalse(ACTIVITY_ONE.equals(5));
 
         // different activities -> returns false
-        assertFalse(ACTIVITYONE.equals(ACTIVITYTWO));
+        assertFalse(ACTIVITY_ONE.equals(ACTIVITY_TWO));
 
         // different name -> returns false
-        Activity editedActivity = new ActivityBuilder(ACTIVITYONE).withName(VALID_ACTIVITY_NAME_A).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        Activity editedActivity = new ActivityBuilder(ACTIVITY_ONE).withName(VALID_ACTIVITY_NAME_A).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different contact -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withContact(new ContactBuilder().build()).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withContact(new ContactBuilder().build()).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different address -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withAddress(VALID_ACTIVITY_ADDRESS_A).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withAddress(VALID_ACTIVITY_ADDRESS_A).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different tags -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withTags(VALID_TAG_HIKING).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withTags(VALID_TAG_HIKING).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different cost -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withCost(VALID_COST_HUNDRED).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withCost(VALID_COST_HUNDRED).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different duration -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withDuration(VALID_DURATION_A).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withDuration(VALID_DURATION_A).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
 
         // different priorities -> returns false
-        editedActivity = new ActivityBuilder(ACTIVITYONE).withPriority(VALID_PRIORITY_SEVEN).build();
-        assertFalse(ACTIVITYONE.equals(editedActivity));
+        editedActivity = new ActivityBuilder(ACTIVITY_ONE).withPriority(VALID_PRIORITY_SEVEN).build();
+        assertFalse(ACTIVITY_ONE.equals(editedActivity));
     }
 
     @Test
     public void compareTo() {
         //activity having same priority
-        assertTrue(ACTIVITYONE.compareTo(ACTIVITYONE) == 0);
+        assertTrue(ACTIVITY_ONE.compareTo(ACTIVITY_ONE) == 0);
 
         //activity having higher priority
-        assertTrue(ACTIVITYONE.compareTo(ACTIVITYTWO) == -1);
+        assertTrue(ACTIVITY_ONE.compareTo(ACTIVITY_TWO) == -1);
 
         //activity having lower priority
-        assertTrue(ACTIVITYTWO.compareTo(ACTIVITYONE) == 1);
+        assertTrue(ACTIVITY_TWO.compareTo(ACTIVITY_ONE) == 1);
 
         //activity having lowest priority
-        assertTrue(new ActivityBuilder().withPriority("0").build().compareTo(ACTIVITYONE) == 1);
+        assertTrue(new ActivityBuilder().withPriority("0").build().compareTo(ACTIVITY_ONE) == 1);
 
         //other activity that are comparing to has lowest priority
-        assertTrue(ACTIVITYONE.compareTo(new ActivityBuilder().withPriority("0").build()) == -1);
+        assertTrue(ACTIVITY_ONE.compareTo(new ActivityBuilder().withPriority("0").build()) == -1);
 
     }
 }

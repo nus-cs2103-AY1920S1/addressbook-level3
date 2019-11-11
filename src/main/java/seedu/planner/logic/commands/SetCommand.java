@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.planner.logic.parser.CliSyntax.PREFIX_START_DATE;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -25,7 +28,10 @@ import seedu.planner.model.field.Name;
 public class SetCommand extends Command {
 
     public static final String COMMAND_WORD = "set";
+    public static final String DIRECTORY_OPS_ERROR_MESSAGE = "Could not list files in planner: ";
+    public static final String DUPLICATE_PLANNER_MESSAGE = "This planner already exists";
     public static final String MESSAGE_NOTHING_TO_SET = "There is nothing to set!";
+
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
@@ -48,6 +54,7 @@ public class SetCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Settings of planner changed!";
     public static final String MESSAGE_NAME_IS_TOO_LONG = "Please keep the name of the planner equal to or "
             + "under 30 characters";
+    public static final int MAX_NAME_LENGTH = 30;
 
     private final Name name;
     private final LocalDate startDate;
@@ -64,10 +71,21 @@ public class SetCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         if (!(name == null)) {
-            if (this.name.name.length() > 30) {
+            if (this.name.name.length() > MAX_NAME_LENGTH) {
                 throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
             }
-            model.setFolderName(this.name);
+
+            Path newPlannerFilePath = model.getPlannerFilePath().resolveSibling(this.name.name);
+
+            try {
+                if (Files.exists(newPlannerFilePath) && Files.list(newPlannerFilePath).findAny().isPresent()) {
+                    throw new CommandException(DUPLICATE_PLANNER_MESSAGE);
+                }
+            } catch (IOException ioe) {
+                throw new CommandException(DIRECTORY_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+
+            model.setPlannerFilePath(newPlannerFilePath.getFileName());
             model.setItineraryName(this.name);
         }
         if (!(startDate == null)) {

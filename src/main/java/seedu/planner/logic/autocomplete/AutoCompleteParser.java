@@ -23,6 +23,8 @@ import seedu.planner.logic.autocomplete.exceptions.WordNotFoundException;
 import seedu.planner.logic.commands.ClearCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.HelpCommand;
+import seedu.planner.logic.commands.LoadCommand;
+import seedu.planner.logic.commands.NewCommand;
 import seedu.planner.logic.commands.OptimiseCommand;
 import seedu.planner.logic.commands.RedoCommand;
 import seedu.planner.logic.commands.SetCommand;
@@ -147,6 +149,8 @@ public class AutoCompleteParser {
         case RedoCommand.COMMAND_WORD:
         case ClearCommand.COMMAND_WORD:
         case OptimiseCommand.COMMAND_WORD:
+        case NewCommand.COMMAND_WORD:
+        case LoadCommand.COMMAND_WORD:
             return true;
         default:
             return false;

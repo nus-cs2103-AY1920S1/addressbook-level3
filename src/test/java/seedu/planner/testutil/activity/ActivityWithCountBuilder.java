@@ -7,7 +7,7 @@ import seedu.planner.model.activity.ActivityWithCount;
  * An utility class to help with building ActivityWithCount objects.
  */
 public class ActivityWithCountBuilder {
-    public static final Activity DEFAULT_ACTIVITY = TypicalActivity.ACTIVITYONE;
+    public static final Activity DEFAULT_ACTIVITY = TypicalActivity.ACTIVITY_ONE;
     public static final Long DEFAULT_COUNT = (long) 6;
     private Activity activity;
     private Long count;
