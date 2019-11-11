@@ -591,13 +591,13 @@ _Statistics_ for the selected _WordBank_.
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
 .Game Result UI.
-image::annotated_game_results_ui.png[]
+image::annotated_game_results_ui.png[width=500]
 
 === WordBank Statistics
 The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
-._Wordbank_ Statistics UI.
-image::annotated_wb_statistics_ui.png[]
+.Wordbank Statistics UI.
+image::annotated_wb_statistics_ui.png[width=500]
 
 NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting _cards_.
 
@@ -606,7 +606,7 @@ The global statistics is shown on the main title page and contains all informati
 of the app.
 
 .Global Statistics UI.
-image::annotated_global_statistics_ui.png[]
+image::annotated_global_statistics_ui.png[width=420]
 
 // end::statsjason[]
 

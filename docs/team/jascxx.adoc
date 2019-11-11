@@ -8,7 +8,7 @@
 == Overview
 
 Dukemon is a desktop flashcard application used to reinforce memory techniques. The user interacts with it using a CLI,
-and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+and it has a GUI created with JavaFX. It is written in Java, and has about 25 kLoC.
 
 == Summary of contributions
 
@@ -24,9 +24,6 @@ finished.
 code for the timer, which led to in-depth discussion with a group mate (Koh Yida).
 
 
-.Game Result Page.
-image::game_results_ui.png[width="700"]
-
 ** *added Statistics for each word bank*
 *** What it does: It shows the user a page on the summary of the statistics of a word bank (can be seen in open mode). It
 contains the user's progress (progress chart, achievement badges, high score, fastest clear) and a list of 5 words which
@@ -34,8 +31,6 @@ the user gets wrong most often.
 *** Justification: It gives the user a way to see their progress on a specific word bank, and shows user which words the
 user is weak at.
 
-.Word Bank Statistics.
-image::wb_statistics_ui.png[width="600"]
 
 ** *added Global Statistics of overall usage*
 *** What it does: It shows the user a page on the main page of their overall usage of the app. It contains the user's
@@ -44,11 +39,8 @@ total games played, weekly games count, and most played word bank.
 Additionally, showing the total games played and weekly games count may increase user's app usage, as each game is
 recorded and it feels like the user is making their own footprint on the app.
 
-.Global Statistics.
-image::global_statistics_ui.png[width="560"]
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated
-code files}_
+* *Code contributed*: https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=jascxx[***Link to codebase***]
 
 * *Other contributions*:
 

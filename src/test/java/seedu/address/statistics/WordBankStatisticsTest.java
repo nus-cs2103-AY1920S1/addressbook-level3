@@ -20,7 +20,7 @@ import seedu.address.model.wordbankstats.WordBankStatistics;
 public class WordBankStatisticsTest {
 
     @Test
-    public void getEmpty() {
+    public void getEmpty_valid_success() {
         WordBankStatistics emptyWbStats = WordBankStatistics.getEmpty("empty");
         WordBankStatistics emptyWbStats1 = new WordBankStatistics("empty",
                 0,
@@ -32,7 +32,7 @@ public class WordBankStatisticsTest {
     }
 
     @Test
-    public void update() {
+    public void update_valid_success() {
         WordBankStatistics wbStats = WordBankStatistics.getEmpty("title");
         wbStats.update(new GameStatistics("title", ScoreData.MAX_SCORE,
                 10.0,

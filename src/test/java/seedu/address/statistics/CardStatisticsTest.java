@@ -22,7 +22,7 @@ public class CardStatisticsTest {
     }
 
     @Test
-    public void addWrongCorrect() {
+    public void addWrong_correct_success() {
         CardStatistics cardStatistics = new CardStatistics("abc", 3, 2);
         CardStatistics cardStatisticsWrong = new CardStatistics("abc", 4, 2);
         cardStatistics.addWrong();
@@ -30,7 +30,7 @@ public class CardStatisticsTest {
     }
 
     @Test
-    public void addCorrect() {
+    public void addCorrect_correct_success() {
         CardStatistics cardStatistics = new CardStatistics("abc", 3, 2);
         CardStatistics cardStatisticsCorrect = new CardStatistics("abc", 4, 3);
         cardStatistics.addCorrect();
