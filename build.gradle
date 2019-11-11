@@ -137,7 +137,6 @@ asciidoctor {
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'AddressBook-Level3',
         'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'no-site-header': false,
         'site-seedu': false,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
