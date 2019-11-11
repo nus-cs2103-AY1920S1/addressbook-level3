@@ -386,12 +386,11 @@ image::view_attendance_after.png[width=350]
 
 // end::view_attendance_command[]
 
-// tag::performance[]
+// tag::performance_addevent[]
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
 
-// reference section
 First, you will have to add an event.
 After that, you can add records from timed trials under the event to start tracking their performance.
 
@@ -425,6 +424,8 @@ added should be included in the list. In the example below, `freestyle 50m` appe
 
 image::addevent_wyss.png[width="450"]
 
+// end::performance_addevent[]
+
 ==== Deleting an event : `delete -e`
 
 This command removes an event from *Athletick*.
@@ -453,6 +454,8 @@ deleted event should not appear in the list.
 
 .Notice that the backstroke 100m event is not listed.
 image::deleteevent_wyss.png[width="450"]
+
+// tag::performance_addrecord[]
 
 ==== Adding an athlete's record : `performance`
 
@@ -488,6 +491,8 @@ the diagram below.
 
 .Details of Tao Li's new record - event, date and timing - are displayed in the result box.
 image::addrecord_wyss.png[width=450]
+
+// end::performance_addrecord[]
 
 ==== Deleting an athlete's record : `delete -r`
 
@@ -543,6 +548,8 @@ Additionally, the feature box (orange box) will show the list of events you have
 
 image::viewevents_wyss.png[width=450]
 
+// tag::performance_viewrecord[]
+
 ==== Viewing records : `view records`
 
 This command shows you the records stored under a particular event in Athletick.
@@ -569,7 +576,7 @@ followed by a graph of their progress over time.
 
 image::viewrecords_wyss.png[width=450]
 
-// end::performance[]
+// end::performance_viewrecord[]
 
 === Calendar
 
