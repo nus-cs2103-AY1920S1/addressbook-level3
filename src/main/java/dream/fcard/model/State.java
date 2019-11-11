@@ -318,5 +318,22 @@ public class State {
         }
         return isEquals;
     }
+
+    /**
+     *
+     *
+     * @param deckName
+     * @return Integer value of the index of deck.
+     */
+    public int getIndexOfDeck(String deckName) {
+        int i = 0;
+        for (i = 0; i < decks.size(); i++) {
+            String currentName = decks.get(i).getDeckName();
+            if (currentName.equals(deckName)){
+                break;
+            }
+        }
+        return i + 1;
+    }
     //@@author
 }

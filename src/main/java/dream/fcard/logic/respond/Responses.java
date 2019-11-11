@@ -510,11 +510,32 @@ public enum Responses {
                 }
     ),
     SEE_SPECIFIC_DECK(
-            "^((?i)view)\\s+[0-9]+$",
+            RegexUtil.commandFormatRegex("view", new String[]{
+                    "deck/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
-                    Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, num);
+                    //int num = Integer.parseInt(i.split("^(?i)view\\s+")[1]);
+                    //Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, num);
+
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("view",
+                            new String[]{"deck/"}, i);
+
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    if (!hasOnlyOneDeck) {
+                        return true;
+                    }
+
+                    String deckName = res.get(0).get(0);
+                    try {
+                        Deck deck = StateHolder.getState().getDeck(deckName);
+                        Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK,
+                                StateHolder.getState().getIndexOfDeck(deckName));
+                    } catch (DeckNotFoundException d) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, d.getMessage());
+                        return true;
+                    }
+
+
                     return true;
                 } //done
     ),
@@ -522,7 +543,7 @@ public enum Responses {
             "^((?i)view).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
-                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Error. Give me a deck number.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid deck name!");
                     return true;
                 }
     ),
