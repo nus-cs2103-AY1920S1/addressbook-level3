@@ -271,9 +271,7 @@ a|
 [[update]]
 ==== Updating an entity: `update`
 
-You can update the attributes of a body or worker by entering an update command with the given format below.. +
-
-You have to indicate the entity type you want to update with a flag, as described in <<Command Format>>.
+You can update the attributes of a body or worker by entering an update command. You have to indicate the entity type you want to update with a flag, as described in section 3.
 [TIP]
 `-f` is not a valid flag for this command. Fridges are automatically updated when bodies are assigned or removed.
 
@@ -357,8 +355,9 @@ To update Jane Doe's designation: +
 |===
 | Command | Expected Output
 
-| `update -w /id 1 /designation Senior Autopsy Technician`
-| Designation of Jane Doe changed to Senior Autopsy Technician.
+| `update -w /id 1 /designation Manager`
+| Output box shows: This entity was successfully updated. ID Number: W00001 +
+Dashboard shows: Jane Doe's designation was changed to Manager.
 |===
 // end::update[]
 

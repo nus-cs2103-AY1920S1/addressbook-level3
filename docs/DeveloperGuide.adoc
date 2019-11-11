@@ -290,12 +290,18 @@ executed or undone command from the `CommandHistory` in `ModelManager`. As the r
 If it is successful, undo/redo is succesful. Otherwise, an error message is shown.
 
 This is the mechanism of undo/redo, from start to end.
-Below is an example of a usage scenario to help you visualise how undo/redo works.
 
 The sequence diagram below shows how an undo command works to undo a `ClearCommand`:
 
 .Sequence Diagram Showing a ClearCommand Being Undone
 image::UndoClearSequenceDiagram.png[]
+
+If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
+
+The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the implementation of `undo()`.
+
+.Activity Diagram Showing the Execution Control Flow of a Command
+image::CommandProcessActivityDiagram.png[]
 
 ===== Defensive programming
 To defend against improper undoing or redoing, an `UndoableCommand` can only be added to the `commandHistory` or `undoHistory` of `ModelManager` through its `execute()` or `undo()` method.
@@ -325,13 +331,6 @@ Before a command is undone or redone, the command's state is checked for validit
 As shown in the code snippet, when an `UndoableCommand` is redone, the method first checks that its state was set to `UNDOABLE`.
 These states are only changed when a `Command#execute(Model model)` or `UndoableCommand#undo(Model model)` has successfully executed.
 Therefore, it is unlikely that an `UndoableCommand` will be unwittingly undone or redone in error.
-
-If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
-
-The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the execution of `undo()`.
-
-.Activity Diagram Showing the Execution Control Flow of a Command
-image::CommandProcessActivityDiagram.png[]
 
 ==== Design considerations
 
