@@ -18,9 +18,9 @@ import seedu.address.ui.UiPart;
 /**
  * A class to handle the view of a group.
  */
-public class GroupInformation extends UiPart<Region> {
+public class GroupInformationDisplay extends UiPart<Region> {
 
-    private static final String FXML = "GroupInformation.fxml";
+    private static final String FXML = "GroupInformationDisplay.fxml";
 
     @FXML
     private StackPane groupDetails;
@@ -28,8 +28,8 @@ public class GroupInformation extends UiPart<Region> {
     @FXML
     private StackPane groupMembers;
 
-    public GroupInformation(List<PersonDisplay> members, List<Name> filteredNames,
-                            GroupDisplay groupDisplay, Function<Integer, String> colorGenerator) {
+    public GroupInformationDisplay(List<PersonDisplay> members, List<Name> filteredNames,
+                                   GroupDisplay groupDisplay, Function<Integer, String> colorGenerator) {
         super(FXML);
         ArrayList<Name> names = members.stream().map(p -> p.getName())
                 .collect(Collectors.toCollection(ArrayList::new));

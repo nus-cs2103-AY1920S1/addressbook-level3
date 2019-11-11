@@ -563,12 +563,12 @@
     -fx-border-style: solid none none solid;
 }
 
-#personDetailContainer {
+#personInformationContainer {
     -fx-background-color: #222831;
     -fx-background: #222831;
 }
 
-#personDetailContainer .label {
+#personInformationContainer .label {
     -fx-text-fill: #FFFFFF;
 }
 

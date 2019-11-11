@@ -32,11 +32,11 @@ import seedu.address.model.group.GroupName;
 import seedu.address.model.mapping.Role;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.schedule.GroupInformation;
+import seedu.address.ui.schedule.GroupInformationDisplay;
 import seedu.address.ui.util.ColorGenerator;
 
 @ExtendWith(ApplicationExtension.class)
-public class GroupInformationTest extends ApplicationTest {
+public class GroupInformationDisplayTest extends ApplicationTest {
     private static final Person ALICE = TypicalPersons.ALICE;
     private static final Person BENSON = TypicalPersons.BENSON;
     private static final Person CARL = TypicalPersons.CARL;
@@ -68,7 +68,7 @@ public class GroupInformationTest extends ApplicationTest {
     @Start
     public void start(Stage stage) {
         //Scenario is only Alice is focused.
-        Parent sceneRoot = new GroupInformation(SAMPLE_PERSON_DISPLAYS, List.of(ALICE.getName()),
+        Parent sceneRoot = new GroupInformationDisplay(SAMPLE_PERSON_DISPLAYS, List.of(ALICE.getName()),
                 SAMPLE_GROUP_DISPLAY, ColorGenerator::generateColor).getRoot();
         Scene scene = new Scene(sceneRoot);
         scene.getStylesheets().add("/view/DarkTheme.css");

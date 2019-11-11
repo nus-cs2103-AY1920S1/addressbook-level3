@@ -15,8 +15,8 @@ import seedu.address.ui.UiPart;
 /**
  * A class for viewing the full details of a person.
  */
-public class PersonDetailCard extends UiPart<Region> {
-    private static final String FXML = "PersonDetailCard.fxml";
+public class PersonInformationDisplay extends UiPart<Region> {
+    private static final String FXML = "PersonInformationDisplay.fxml";
     private final Image defaultUserProfile = new Image(getClass().getResourceAsStream(
             "/images/default_profile.png"));
     /**
@@ -46,7 +46,7 @@ public class PersonDetailCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonDetailCard(PersonDisplay person) {
+    public PersonInformationDisplay(PersonDisplay person) {
         super(FXML);
         this.person = person;
         name.setText(formatText(person.getName().fullName));
@@ -83,12 +83,12 @@ public class PersonDetailCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonDetailCard)) {
+        if (!(other instanceof PersonInformationDisplay)) {
             return false;
         }
 
         // state check
-        PersonDetailCard card = (PersonDetailCard) other;
+        PersonInformationDisplay card = (PersonInformationDisplay) other;
         return person.equals(card.person);
     }
 }

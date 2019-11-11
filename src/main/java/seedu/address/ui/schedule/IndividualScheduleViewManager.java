@@ -27,9 +27,10 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
      */
     private void update() {
         LocalDate dateToShow = currentDate.plusDays(weekNumberShown * 7);
-        super.scheduleView = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().get(weekNumberShown)), "Week " + (weekNumberShown + 1) + " "
-                + personSchedule.getPersonDisplay().getName().fullName, dateToShow);
+        String title = "Week " + (weekNumberShown + 1) + " " + personSchedule.getPersonDisplay().getName().fullName;
+
+        super.scheduleView = new ScheduleView(List.of(personSchedule.getScheduleDisplay().get(weekNumberShown)),
+                title, dateToShow);
         super.scheduleView.generateSchedule();
     }
 
@@ -46,9 +47,9 @@ public class IndividualScheduleViewManager extends ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleViewCopy() {
+        String title = "Week " + (weekNumberShown + 1) + " " + personSchedule.getPersonDisplay().getName().fullName;
         ScheduleView copy = new ScheduleView(List.of(personSchedule
-                .getScheduleDisplay().get(weekNumberShown)),
-                personSchedule.getPersonDisplay().getName().fullName, currentDate.plusDays(7 * weekNumberShown));
+                .getScheduleDisplay().get(weekNumberShown)), title, currentDate.plusDays(7 * weekNumberShown));
         copy.generateSchedule();
         return copy;
     }
