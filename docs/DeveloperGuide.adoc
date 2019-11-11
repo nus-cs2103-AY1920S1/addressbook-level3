@@ -584,15 +584,22 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 
 // end::transdel[]
 
+// tag::repeaterintro[]
 === Repeaters
+Repeaters allow for the convenient management of repeated transactions through a single `Repeater` entity. The list of associated transactions are automatically synchronized to updates in ``Repeater``s. The following class diagram summarizes the details of the `Repeater` class:
+
+.Class Diagram from Repeaters Model
+image::RepeaterClassDiagram.png[]
+// end::repeaterintro[]
 
 // tag::repeateradd[]
 ==== Adding Repeater
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
 ===== Implementation
-The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the figure below:
+The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the sequence diagram below:
 
+.Sequence Diagram for `AddRepeaterCommand`
 image::AddRepeaterSequenceDiagram.png[]
 
 Below is an example usage scenario of how `add` behaves at each step.
@@ -662,6 +669,12 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 *Step 12*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater` in the `Model`.
 
 *Step 13*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+
+When creating an `EditRepeaterDescriptor`, `EditRepeaterCommandParser` fills in arguments unspecified by the user with default values, as shown in the activity diagram below:
+
+.Activity Diagram for Optional Arguments in `EditRepeaterCommandParser`
+image::RepeaterOptionalActivityDiagram.png[]
+
 // end::repeateredit[]
 
 // tag::repeaterdelete[]
@@ -925,7 +938,6 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
 === Logging
 
