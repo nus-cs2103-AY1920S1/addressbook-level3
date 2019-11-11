@@ -43,7 +43,7 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== John Ng
+=== John Ng Zheng Jie
 image::johnnzj.png[width="150", align="left"]
 {empty}[https://github.com/johnnzj[github]][https://ay1920s1-cs2103t-w11-2.github.io/main/team/johnnzj.html[Project Portfolio page]]
 
