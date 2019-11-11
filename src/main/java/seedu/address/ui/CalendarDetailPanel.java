@@ -57,6 +57,14 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void displayAttendanceChart() {
         List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+        addAttendancePieChart(attendanceData);
+    }
+
+    /**
+     * Adds attendance pie chart to the panel.
+     * @param attendanceData List of {@code AttendanceEntry}
+     */
+    private void addAttendancePieChart(List<AttendanceEntry> attendanceData) {
         int total = attendanceData.size();
         int present = 0;
         for (AttendanceEntry entry: attendanceData) {
@@ -73,7 +81,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void displayAttendanceTable() {
         addAttendanceTableHeader();
-        addAttendanceTableContent();
+        retrieveAttendanceTableContent();
     }
 
     /**
@@ -84,10 +92,17 @@ public class CalendarDetailPanel extends UiPart<Region> {
     }
 
     /**
+     * Retrieves content for attendance table.
+     */
+    private void retrieveAttendanceTableContent() {
+        List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+        addAttendanceTableContent(attendanceData);
+    }
+
+    /**
      * Adds content for attendance table.
      */
-    private void addAttendanceTableContent() {
-        List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
+    private void addAttendanceTableContent(List<AttendanceEntry> attendanceData) {
         for (AttendanceEntry entry: attendanceData) {
             String name = entry.getPerson().getName().toString();
             boolean isPresent = entry.getIsPresent();
@@ -138,6 +153,14 @@ public class CalendarDetailPanel extends UiPart<Region> {
     private void displayPerformanceTable() {
         HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
                 model.getCalendarCompatiblePerformance(date);
+        addPerformanceTable(performanceData);
+    }
+
+    /**
+     * Adds performance data in the form of a table to {@code CalendarDetailPanel}.
+     */
+    private void addPerformanceTable(HashMap<Event, List<CalendarCompatibleRecord>> performanceData) {
+        addPerformanceTable(performanceData);
         performanceData.forEach((event, recordList) -> {
             int numRecords = recordList.size();
             if (numRecords > 0) {

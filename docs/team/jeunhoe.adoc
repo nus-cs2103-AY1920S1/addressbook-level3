@@ -9,10 +9,10 @@
 This project portfolio details my key contributions to the software engineering project *Athletick*.
 
 === About the project
-*Athletick* is a desktop team-management application designed for coaches and captains who manage teams of time-based
-sports. *Athletick* allows users to manage athlete information, record training sessions and save competition results.
-*Athletick* also allows users to monitor their training schedule and track an athlete’s attendance, performance and
-sporting progress. This enables users to better manage their team, plan for trainings and prepare for upcoming
+*Athletick* is a desktop team-management application designed for coaches and captains who manage time-based sports
+(e.g. swimming, racing) teams. *Athletick* allows users to manage athlete information, record training sessions and
+save competition results. *Athletick* also allows users to monitor their training schedule and track an athlete’s
+attendance, performance and sporting progress. This enables users to better manage their team, plan for trainings and prepare for upcoming
 competitions.
 
 === About the team
@@ -32,46 +32,50 @@ contributions to the team project.
 
 * What it does:
 ** The `training` command adds training information to *Athletick*. Users store the date of training and
-players attended, allowing coaches to view, edit and delete past training data.
+players attended, allowing them to view, edit and delete past training data.
 
 * Justification:
-** Coaches keep records of past trainings so they can use the information to manage their team.
-Allowing coaches to store training dates helps them to monitor their training schedule and plan for future training
-programs. We also allow storage of attendance information as a coach would want to know attendance for that training
+** Coaches and captains keep records of past trainings so they can use the information to manage their team.
+Allowing them to store training dates helps them to monitor their training schedule and plan for future training
+programs. We also allow storage of attendance information as a coach or captain would want to know attendance for that
+training
 session.
 
 * Highlights:
-** Classes in the training feature were designed to function as a standalone unit and do not rely on any other
+** The training feature was designed to function as a standalone unit and does not rely on any other
 components. This allows for easy extension of the feature to cater to different users. We have plans to extend the
 training feature to include more information, like type of training (e.g. gym training, sprints training) and athlete
 performance.
 
 ** There are 2 variations of the `training` command. This allows users to indicate attendance of a training
 by listing members present, or by members absent. We understand that keying player attendance can be very tedious for
-big teams. Giving the option to coaches to mark attendance by entering players absent will reduce the amount of
-typing which will save time.
+big teams. Giving the option to coaches and captains to mark attendance by entering players absent will reduce the
+amount of typing which will save time.
+
+* Credits:
+** Saving of training data into .json files is done with the use of the Jackson library.
 
 *Enhancement added:* I added the ability to monitor an athlete’s attendance.
 
 * What it does:
-** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`, `view
-attendance` and `calendar` commands.
+** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`,
+`view attendance` and `calendar` commands.
 
 
 * Justification:
-** Coaches are concerned about their team’s overall attendance rate as it is a good indicator an
+** Coaches and captains are concerned about their team’s overall attendance rate as it is a good indicator an
 athlete’s commitment and how prepared an athlete is for a competition. Providing an automatic attendance tracker
-removes the need for manual calculation as it can be tedious for coaches, especially if he has to go through many
-training sessions.
+removes the need for manual calculation as it can be tedious for them, especially if they have to go
+through many training sessions.
 
 * Highlight:
-** Attendance of a particular training is used in the calendar command and attendance rate is used in the
-select command. A TrainingManager was implemented to provide other components use with important information from
+** Attendance of a particular training is used in the `calendar` command and attendance rate is used in the
+`select` command. A TrainingManager was implemented to provide other components use with important information from
 training information and attendance rate.
 
 *Code contributed:* The links provided show my code contribution for the project.
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jeunhoe[(RepoSense)]
-https://github.com/jeunhoe/main[(GitHub repository)]
+https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=jeunhoe[(All commits)]
 
 *Other contributions:*
 
@@ -80,21 +84,21 @@ https://github.com/jeunhoe/main[(GitHub repository)]
 ** Managed release version 1.3 of *Athletick* on GitHub.
 https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3[(v1.3)]
 
-** Performed manual testing of application to detect bugs that were not covered by test classes.
+** Performed manual testing of application before every release to detect bugs that were not covered by test classes.
 
 ** Served as the team's Quality Assurance Engineer -- reviewed code quality and documentation of every pull request
 before merging.
 
 * Enhancement to existing features:
 
-** Extended the existing delete command to support deletion of trainings.
+** Extended the existing `delete` command to support deletion of trainings.
 (Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/194[#194])
 
-** Tweaked the edit person command to work with training information.
+** Tweaked the `edit` person command to work with training information.
 (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/195[#195])
 
-** Tweaked the clear command to clear training information.
+** Tweaked the `clear` command to clear training information.
 (Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/194[#194])
 
@@ -123,8 +127,7 @@ reader friendly. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pu
 ** Reviewed other team’s PRs to give suggestions and comments.
 
 ** Stress tested applications from other teams, reported bugs and gave suggestions.
-(https://github.com/jeunhoe/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports],
-https://github.com/jeunhoe/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions])
+(https://github.com/jeunhoe/ped/issues?q=is%3Aissue+is%3Aopen[Bug reports and suggestions])
 
 ** Reviewed and commented on pull requests. (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/28[#28],
@@ -137,7 +140,7 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/187[#187])
 == Contributions to the user guide
 This section displays excerpts of my contributions to the user guide for the training and attendance features. They
 showcase my ability to write documentation targeting end-users of our application.
-You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html#training-feature[here].
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html[here].
 
 {Start of extract from User Guide}
 
@@ -153,12 +156,10 @@ include::../UserGuide.adoc[tag=view_attendance_command]
 == Contributions to the developer guide
 This section displays excerpts of my contributions to the developer guide for the training feature. They showcase my
 ability to write technical documentation to developers, as well as the technical depth of my contributions to the project.
-You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html#training-feature[here].
+You can view the entire document https://ay1920s1-cs2103t-t12-3.github.io/main/DeveloperGuide.html[here].
 
 {Start of extract from Developer Guide}
 
-include::../DeveloperGuide.adoc[tag=training_structure]
-
-include::../DeveloperGuide.adoc[tag=training_design]
+include::../DeveloperGuide.adoc[tag=entire_training]
 
 {End of extract from Developer Guide}
