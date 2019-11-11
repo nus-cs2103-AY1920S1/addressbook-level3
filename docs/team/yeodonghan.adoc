@@ -29,15 +29,15 @@ Seller Manager Lite is a desktop application used for managing a business operat
 *** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 
 ** Enhancements to existing features:
-*** Added Customer, Phone, Order and schedule storage. (Pull requests https://github.com[#133], https://github.com[#118], https://github.com[#121], https://github.com[#125])
-*** Wrote tests for Storage module (Pull request https://github.com[#291])
+*** Added Customer, Phone, Order and schedule storage. (Pull requests https://github.com/AY1920S1-CS2103T-T09-4/main/pull/133[#133], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/118[#118], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/125[#125])
+*** Wrote tests for Storage module (Pull request https://github.com/AY1920S1-CS2103T-T09-4/main/pull/291[#291])
 
 ** Documentation:
-*** Tweaked AB3 user guide to fit our application: https://github.com[#176]
-*** Edited and added diagrams to Developer Guide: https://github.com[#157] https://github.com[#190]
+*** Tweaked AB3 user guide to fit our application: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/176[#176]
+*** Edited and added diagrams to Developer Guide: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/157[#157] https://github.com/AY1920S1-CS2103T-T09-4/main/pull/190[#190]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#101], https://github.com[#119]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-4/main/pull/101[#101], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119]
 
 == Contributions to the User Guide
 

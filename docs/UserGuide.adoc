@@ -907,6 +907,14 @@ Exports application data into csv file. +
 If csv file of the input file name exists, the application data will be exported to the existing file. +
 If csv file of the input file name does not exist, the application data will be exported into a new file. +
 
+1. Write the export command: `Export FILENAME`
+
+image::ExportCommand.png[width="800"]
+
+2. The CSV file of file name "FILENAME" will be created in the data folder.
+
+image::ExportCSV.png[width="800"]
+
 [underline]#Format#: `export FILE_NAME` +
 
 // end::export[]
