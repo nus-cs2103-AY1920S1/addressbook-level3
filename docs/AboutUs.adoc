@@ -51,7 +51,7 @@ image::shawnpunchew11.png[width="150", align="left"]
 {empty}[https://github.com/shawnpunchew11[github]] [<<shawnpunchew11#, portfolio>>]
 
 Role: Developer +
-Responsibilities: TBC
+Responsibilities: In charge of entire user learning feedback loop: includes tests (timed/untimed), displaying of results and allowing users to review/reattempt questions for better learning.
 
 ...
 
