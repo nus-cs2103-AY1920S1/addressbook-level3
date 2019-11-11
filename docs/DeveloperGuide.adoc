@@ -320,9 +320,9 @@ More information about this package is provided below.
 
 * ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
 * ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
-* ``IntervalSearchTree`` makes certain user-requested operations more efficent computationally. However, to facilliate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+* ``IntervalSearchTree`` makes certain user-requested operations more efficient computationally. However, to facilitate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
 
-To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It descibes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
 
 .Calendar model sequence diagram
 image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
