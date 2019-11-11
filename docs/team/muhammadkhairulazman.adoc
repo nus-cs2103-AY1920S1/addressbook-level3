@@ -145,56 +145,6 @@ image::workoutHighIntensity.png[]
 Similarly, to find more information on the workout, you can use the view command which is covered in a later
 section of this User Guide.
 
-
-==== Adding an exercise: `add exercise`
-"I now know the components of the Workout Planner! So what can I do with it?"
-
-Well I'm glad you asked kind person! To start off, we have the add exercise command which creates new
-exercises for your workouts. To add an exercise, you must first specify its name, primary muscle trained as well
-as its intensity. You can also add optional fields such as secondary muscles and exercise details like sets and reps.
-
-To add the exercise, simply input the fields in the Command Box in the following format: +
-Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
-s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
-
-Examples:
-
-The following images show an example of the command being inputted and its corresponding
-outputs.
-
-.Example input
-image::addExerciseInputExample.png[]
-
-.Example output
-image::addExerciseOutput.png[]
-
-==== View Exercise: `view exercise`
-
-Ok, now that you've added your exercise, you probably want to know all of its details. Simply
-input the command `view exercise` followed by the index of the exercise you want
-to view.
-
-The screen should now show the full details of the exercise in question. Let's get you up to
-speed with what's what.
-
-.Exercise Details Screen
-image::viewExerciseOutput.png[]
-
-1. Basic Details +
-The first segment comprises of the basic details of the exercise. This includes the Exercise
-Name, Intensity, Primary and Secondary Muscles, Number of times the exercise has been executed,
-Average Run Time of the Exercise as well as some of its details.
-
-2. Previous Attempts +
-Next up we have a history of all the previous attempts of the exercise. This includes the workout
-that the exercise is done in, the time it was done as well as the time it took. It also specifies
-the number of sets attempted and completed.
-
-The details on this page is automatically updated with each workout run. To return back to
-the exercise page, simply invoke the `goto exercise` command.
-
-More statistics as well as graph view will be implemented in version 2.0.
-
 ==== Find Exercise:
 
 Now that you have a sizable amount of Exercises, you realise that you cannot easily find them
@@ -217,34 +167,6 @@ image::findExercise.png[]
 The filtered lists will then be shown.
 
 To show every exercise again, simply invoke the `list exercise` command.
-
-==== Add Workout: `add workout`
-
-Now that you've created all your exercise, you're ready to create a workout plan! To create
-a workout, input `add workout n/NAME` into the command box, replacing `NAME` with the name
-of your workout. This will initialise your Workout with no exercises in it.
-
-.Add Workout Input
-image::addWorkoutInput.png[]
-
-==== Push Exercise `push exercise`
-
-Once you have initialised your workout, you are now ready to add your exercise into your
-workouts! To do so simply locate the index of the exercise you want to push and the workout
-you want to push your exercise into. Then input the command in the following format `push
- exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX`.
-
-.Pushing Bench Press into Chest Day
-image::pushExerciseInput.png[]
-
-For example, if you want to add Bench Press exercise into Chest Day workout, type in
-`push exercise wi/4 ei/8` in the command box as seen above. You will get the following input.
-
-.Push Exercise Results
-image::pushExerciseOutput.png[]
-
-Now that you know you know how to push exercises, you can go ahead and add in all the exercises
-needed for your ULITMATE workout regime!
 
 ==== View Workout: `view workout`
 You've created your workout regime, but you're unsure of the details and your progress. With
@@ -299,39 +221,6 @@ image::runWorkoutWindow2.png[]
 
 After completing all the sets in all exercises, you will be brought back to the main page
 where a congratulatory message will greet you!
-
-==== Other Commands
-
-With that, you have sufficient knowledge to create and run your workout...
-if you're perfect that is. To make your life easier, we've also
-included some commands to manage your exercises and workout in case you made errors!
-
-. List Exercise: `list exercise` +
-List exercises which matches optional parameters specified eg. muscle type/intensity. +
-Format: `list exercise m/MUSCLEGROUP
-
-. Delete exercise: `delete exercise` +
-Deletes exercise of specified index. +
-Format: `delete exercise <index>`
-
-. Edit exercise: `edit exercise` +
-Edits exercise with new details +
-Format: `edit exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
-s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
-
-. Add calorie: `[coming in v2.0] +`
-Tracks calorie burned per rep/set of the exercise in kcal. +
-Format: `calorie <index> <calories>`
-
-. Delete workout: `delete workout` [coming in v1.4] +
-Deletes workout of specified index. +
-Format: `delete workout <index>`
-
-. Show graph: `[coming in v2.0]`
-Creates a graph showing all your past workouts and exercises.
-
-. Schedule Workout: `[coming in v2.0]`
-Create a workout to be added in to your schedule that will show up in your dashboard.
 
 Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
 gym membership to use!
