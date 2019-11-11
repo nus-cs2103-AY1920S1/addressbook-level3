@@ -36,7 +36,8 @@ This section gives a summary of the features I implemented, documentation I did 
 
 I added the ability to annotate the offline copy of the web page referred to by a bookmark. Users can not only read their web pages offline,
 but they can also make notes on them directly.
-//** What it does
+
+* What it does: Adds, deletes and edits annotations.
 
 * Justification: Users can take notes directly on the web page. This makes it convenient for users to review their notes.
 
@@ -48,6 +49,8 @@ the completed annotation feature works well and is aesthetically pleasing on the
 === Major enhancement: Added the web browsing feature
 I added the ability to browse web pages on the application.
 
+* What it does: Allows users to search the web and browse web pages.
+
 * Justification: Users no longer need to open a separate web browser window to view their bookmarks, which improves navigability within the application.
 
 * Highlights: This enhancement allows users to browse directly on the application and more conveniently bookmark the tab they are viewing on Mark.
@@ -56,6 +59,8 @@ I added the ability to browse web pages on the application.
 
 === Minor enhancement: Added tab view
 I created tabs and added the ability to switch views from tab to tab.
+
+* What it does: Organises the GUI and allow users to switch between tabs to view the various components with ease.
 
 * Justification: An organised interface will help users get familiarised fast and improve their quality of use of the application. Hence, tabs are necessary to declutter the GUI so each component has sufficient space for users to view them in comfort.
 
