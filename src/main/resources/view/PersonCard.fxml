@@ -35,12 +35,6 @@
           <Region fx:constant="USE_PREF_SIZE" />
         </minWidth>
       </Label>
-      <Label fx:id="id" styleClass="person-debug-id">
-        <minWidth>
-          <!-- Ensures that the label text is never truncated -->
-          <Region fx:constant="USE_PREF_SIZE" />
-        </minWidth>
-      </Label>
     </VBox>
   </GridPane>
 </HBox>
