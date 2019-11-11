@@ -10,10 +10,10 @@
 
 == Overview
 
-My team of 5 software engineering students was tasked with morphing an existing Command Line Interface (CLI)
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application]
+My team of 5 software engineering students was tasked with morphing an existing
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Command Line Interface (CLI) desktop application]
 into a useful application for a specific target group. We chose to create a bookmark manager application
-known as Mark, which intends to help computing students manage their web browsing activities.
+known as Mark, which is intended to help computing students manage their web browsing activities.
 Mark was conceptualised and implemented over a period of 8 weeks.
 
 This is what Mark looks like:
@@ -47,7 +47,6 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dorcastan&sort=groupT
 to see the code and documentation that I contributed to Mark.
 
 *Other contributions*
-// TODO: Improve this section for CS2101
 
 * *Project management*: I facilitated weekly team meetings to discuss the team's progress and
 managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.2.1[`v1.2.1`] on GitHub.
@@ -56,8 +55,6 @@ managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.2
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/62[#62]),
 created a custom URL validation to be used when no Internet connection is available
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/117[#117]),
-//** Improved the search function to search URLs and partially matched keywords
-//(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64])
 and updated the list of sample data used when Mark is first opened
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/227[#227]).
 
@@ -68,10 +65,6 @@ https://github.com/AY1920S1-CS2103T-T13-4/main/pull/254/files[#254]) as well as
 documented the design of the Model component in the Developer Guide
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/129[#129],
 https://github.com/AY1920S1-CS2103T-T13-4/main/pull/264[#264]).
-// Standardise Quick Start section of User Guide: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/55[#55]]
-// Standardise headings and update glossary section: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/139/files[#139]] // should go to files or PR?
-// Cosmetic changes to Developer Guide appendices: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/221/files
-// UI screenshots: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/159/files
 
 * **Community**:
 I reviewed team members' Pull Requests and offered suggestions to increase the clarity of messages and improve code quality
