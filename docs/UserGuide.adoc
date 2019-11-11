@@ -487,7 +487,7 @@ Deletes the specified engagement from the engagement list. +
 Format: `delete i/INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the engagement at the specified `INDEX`.
 * The index refers to the index number shown in the displayed engagement list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
@@ -795,4 +795,3 @@ e.g. `delete i/3`
 * *Undo* : `undo`
 * *List* : `list`
 * *Help* : `help`
-
