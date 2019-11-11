@@ -27,11 +27,7 @@ This project was undertaken by a team of five Year 2 computer science undergradu
 
 My role was to design the `stats`, `filter`, and `find` features. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
 
-Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
-
-* The symbol :bulb: indicates important information.
-* A grey highlight like `stats` indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
-
+Before we move there, I would like to highlight the symbols and text formatting that will be used in this document. A grey highlight like `stats` indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
 
 == 2. Summary of Contributions
 

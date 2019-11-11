@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Mortago v2.0 - User Guide</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Mortago v2.0 - User Guide</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>By: <code>Team  AY1920S1-CS2103T-T13-2</code>      Since: <code>Sep 2019</code>      Licence: <code>MIT</code></p>
+</div>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle"></div>
+<ul class="sectlevel1">
+<li><a href="#_introduction">1. Introduction</a></li>
+<li><a href="#Quick-Start">2. Quick Start</a>
+<ul class="sectlevel2">
+<li><a href="#_setting_up">2.1. Setting Up</a></li>
+<li><a href="#_exploring_mortago">2.2. Exploring Mortago</a></li>
+</ul>
+</li>
+<li><a href="#Command-Specifications">3. Command Specifications</a>
+<ul class="sectlevel2">
+<li><a href="#_command_format">3.1. Command Format</a></li>
+<li><a href="#_attributes">3.2. Attributes</a></li>
+<li><a href="#_identification_number">3.3. Identification Number</a></li>
+</ul>
+</li>
+<li><a href="#Features">4. Features</a>
+<ul class="sectlevel2">
+<li><a href="#_create_read_update_and_delete_entities">4.1. Create, Read, Update and Delete Entities</a>
+<ul class="sectlevel3">
+<li><a href="#add">4.1.1. Add an entity: <code>add</code></a></li>
+<li><a href="#update">4.1.2. Updating an entity: <code>update</code></a></li>
+<li><a href="#_locating_entries_by_name_find">4.1.3. Locating entries by name: <code>find</code></a></li>
+<li><a href="#_deleting_an_entry_delete">4.1.4. Deleting an entry : <code>delete</code><br></a></li>
+<li><a href="#_clearing_all_entries_clear">4.1.5. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#_list_all_entries_list">4.1.6. List all entries : <code>list</code></a></li>
+<li><a href="#_selecting_a_body_select">4.1.7. Selecting a body: <code>select</code></a></li>
+</ul>
+</li>
+<li><a href="#_general">4.2. General</a>
+<ul class="sectlevel3">
+<li><a href="#showNotifs">4.2.1. View notifs panel: <code>showNotifs</code><br></a></li>
+<li><a href="#_filter_all_entries_filter">4.2.2. Filter all entries: <code>filter</code></a></li>
+<li><a href="#_undoing_a_command_undo">4.2.3. Undoing a command: <code>undo</code></a></li>
+<li><a href="#_redoing_a_command_redo">4.2.4. Redoing a command: <code>redo</code></a></li>
+<li><a href="#_exiting_the_program_exit">4.2.5. Exiting the program : <code>exit</code></a></li>
+<li><a href="#_sort_all_entries_sort_coming_in_v2_0">4.2.6. Sort all entries: <code>sort</code> <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+<li><a href="#_document_generation">4.3. Document Generation</a>
+<ul class="sectlevel3">
+<li><a href="#_generate_report_for_a_specific_body_genreport">4.3.1. Generate report for a specific body: <code>genReport</code></a></li>
+<li><a href="#_generate_reports_for_all_bodies_genreports">4.3.2. Generate reports for all bodies: <code>genReports</code></a></li>
+<li><a href="#_generate_summary_report_for_all_bodies_genreportsummary">4.3.3. Generate summary report for all bodies: <code>genReportSummary</code></a></li>
+</ul>
+</li>
+<li><a href="#_administrative">4.4. Administrative</a>
+<ul class="sectlevel3">
+<li><a href="#_view_admission_statistics_stats">4.4.1. View admission statistics: <code>stats</code></a></li>
+<li><a href="#_archive_entries_archive_coming_in_v2_0">4.4.2. Archive entries: <code>archive</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#_view_archived_entries_archives_coming_in_v2_0">4.4.3. View archived entries: <code>archives</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#_give_and_view_feedback_feedback_coming_in_v2_0">4.4.4. Give and view feedback: <code>feedback</code> <code>[coming in v2.0]</code></a></li>
+<li><a href="#_assign_tasks_to_worker_assign_coming_in_v2_0">4.4.5. Assign tasks to worker: <code>assign</code> <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+<li><a href="#_help">4.5. Help</a>
+<ul class="sectlevel3">
+<li><a href="#_view_all_commands_help">4.5.1. View all commands: <code>help</code></a></li>
+<li><a href="#_view_help_hotlines_hotlines_coming_in_v2_0">4.5.2. View help hotlines: <code>hotlines</code> <code>[coming in v2.0]</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_faq">5. FAQ</a></li>
+<li><a href="#_command_summary">6. Command Summary</a></li>
+<li><a href="#_glossary">7. Glossary</a></li>
+<li><a href="#_appendix">8. Appendix</a>
+<ul class="sectlevel2">
+<li><a href="#bodyStatus">8.1. Valid values for various <code>ATTRIBUTES</code></a></li>
+<li><a href="#_copy_a_files_absolute_path_into_the_clipboard">8.2. Copy a file&#8217;s absolute path into the clipboard</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_introduction">1. Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mortago is a mortuary management system for hospitals. Mortago is optimized for efficient mortuary managers who <strong>prefer
+to work with a Command Line Interface (CLI)</strong> while still having the benefits of a Graphical User Interface (GUI).</p>
+</div>
+<div class="paragraph">
+<p>Mortago provides a <strong>convenient dashboard</strong> for the mortuary manager to keep track of all bodies and fridges, outstanding
+tasks, and notifs. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary
+management
+to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating reports automatically.</p>
+</div>
+<div class="paragraph">
+<p>Interested? Refer to <a href="#Quick-Start">Section 2, &#8220;Quick Start&#8221;</a> below to get started. Enjoy!</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Quick-Start">2. Quick Start</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section summarizes how you can quickly set up Mortago on your computer</p>
+</div>
+<div class="sect2">
+<h3 id="_setting_up">2.1. Setting Up</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure you have <code>Java 11</code> or above installed in your Computer.</p>
+</li>
+<li>
+<p>Download the latest <code>mortago.jar</code> <a href="https://github.com/AY1920S1-CS2103T-T13-2/main/releases">here</a>.</p>
+</li>
+<li>
+<p>Copy the file to the folder you want to use as the home folder for Mortago.</p>
+</li>
+<li>
+<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exploring_mortago">2.2. Exploring Mortago</h3>
+<div class="paragraph">
+<p>Upon launching Mortago, you should see the following user interface.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="images/Ui.png" alt="Ui" width="790">
+</div>
+<div class="title">Figure 1. User Interface of Mortago</div>
+</div>
+<div class="paragraph">
+<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+The following are examples of some commands you can try:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>list -b</code></strong> : lists all bodies</p>
+</li>
+<li>
+<p><strong><code>add -w/name John Doe /sex male /dateJoined 12/12/2019</code></strong> :
+adds a worker named John Doe to the management system.</p>
+</li>
+<li>
+<p><strong><code>delete -w 1</code></strong> : deletes the worker with worker ID W000001</p>
+</li>
+<li>
+<p><strong><code>exit</code></strong> : exits the app</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Command-Specifications">3. Command Specifications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before diving into the features that Mortago has for you, you need to know several key information on how to use Mortago.
+The following sections elaborate on these key information, such as the general format for commands in Mortago.</p>
+</div>
+<div class="sect2">
+<h3 id="_command_format">3.1. Command Format</h3>
+<div class="paragraph">
+<p>Most commands in Mortago follow the general format: <code>COMMAND_WORD -FLAG ATTRIBUTES</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>COMMAND_WORD</code> specifies what you want Mortago to do.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>eg. <code>add</code> tells Mortago to create an entry according to the details that you supply in the later half of the command.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>-FLAG</code> specifies what type of entity in Mortago you are referring to.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>There are 3 types of entities in Mortago: worker, body and fridge. Each of them has its respective <code>-FLAG</code>, given below:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-w</code> indicates a worker</p>
+</li>
+<li>
+<p><code>-b</code> indicates a body</p>
+</li>
+<li>
+<p><code>-f</code> indicates a fridge</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>ATTRIBUTES</code> specifies the information about an entity that you need to supply for the command to be executed
+successfully. The following section elaborates more on what <code>ATTRIBUTES</code> are in Mortago.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_attributes">3.2. Attributes</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+What are <code>ATTRIBUTES</code>?
+</td>
+</tr>
+</table>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Attributes are properties of a worker, body or fridge that are supplied by you when executing a command.</p>
+</div>
+<div class="paragraph">
+<p>For example, <code>name</code> is an attribute for both body and worker entities.</p>
+</div>
+<div class="paragraph">
+<p>The full list of attributes for each entity can be found in <a href="#add">Section 3.1.1</a>.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Here are some information you need in order to interpret the various command formats in this User Guide.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You can find that <code>ATTRIBUTES</code> in this User Guide are represented with the format: <code>/attributeName attributeValue</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>You should always provide the <code>/attributeName</code>, exactly as it is stated in the User Guide, before specifying the details of the <code>attributeValue</code> that the entity has.</p>
+</li>
+<li>
+<p>For example, date of births in Mortago are represented using <code>/dob dateOfBirth</code>. Therefore, the <code>/attributeName</code> is <code>/dob</code> and <code>attributeValue</code> is <code>dateOfBirth</code>. If you wish to specify an entity born on 12 December 2000, you should key it as <code>/dob 12/12/2000</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You may find that some <code>ATTRIBUTES</code> can only accept specific values, or that these values must follow certain format. You can refer to <a href="#Valid-Values">Appendix 7.1</a> for the full list of valid values or format for these <code>ATTRIBUTES</code>.</p>
+</li>
+<li>
+<p>You must enter <code>ATTRIBUTES</code> successively in a single-line command. Mortago does not prompt you to key in any mandatory
+<code>ATTRIBUTES</code> that you may have missed out.</p>
+</li>
+<li>
+<p><code>ATTRIBUTES</code> are provided successively in commands and Mortago does not prompt you, step by step, the <code>ATTRIBUTES</code> you
+need to provide.</p>
+</li>
+<li>
+<p><code>ATTRIBUTES</code> in parentheses are optional.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. The following 2 commands are valid for the add command, with the abridged format: <code>add -b /name name (/religion religion /status status)</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add -b /religion Buddhism</code></p>
+</li>
+<li>
+<p><code>add -b /religion Buddhism /status arrived</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>ATTRIBUTES</code> specified in a command can be given in any order.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>e.g. The following 2 commands are valid for the add command, with the abridged format: <code>add -b (/religion religion /status status)</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add -b /religion Buddhism /status arrived</code></p>
+</li>
+<li>
+<p><code>add -b /status arrived /religion Buddhism</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>ATTRIBUTES</code> that are tagged with <code>&#8230;&#8203;</code> and in square parentheses must be supplied with at least one <code>ATTRIBUTE</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For the filter command: <code>filter -FLAG [/attributeName attributeValue &#8230;&#8203;]</code>::</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filter -w /sex male</code> and <code>filter -b /sex female /cod car accident</code> are valid commands.</p>
+</li>
+<li>
+<p><code>filter -b</code> is an invalid command.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You are not required to provide <code>ATTRIBUTES</code> contained in parentheses.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For example, the following 3 commands are valid for the add command, with the abridged format: <code>add -b /name name /sex sex /doa dateOfAdmission (/religion religion) (/status status)</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add -b /name John /sex Male /doa 12/12/2011</code></p>
+</li>
+<li>
+<p><code>add -b /name John /sex Male /doa 12/12/2011 /religion Buddhism</code></p>
+</li>
+<li>
+<p><code>add -b /name John /sex Male /doa 12/12/2011 /religion Buddhism /status arrived</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>You must provide <strong>at least one</strong> <code>ATTRIBUTE</code> when <code>ATTRIBUTES</code> are tagged with <code>&#8230;&#8203;</code> and contained in square parentheses (<code>[]</code>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For the filter command: <code>filter -FLAG [/attributeName attributeValue &#8230;&#8203;]</code>::</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filter -w /sex male</code> and <code>filter -b /sex female /cod car accident</code> are valid commands.</p>
+</li>
+<li>
+<p><code>filter -b</code> is an invalid command.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_identification_number">3.3. Identification Number</h3>
+<div class="paragraph">
+<p>This section describes what Identification Numbers are in Mortago. This information is key in order for you to use Mortago effectively.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All entries in Mortago have a unique Identification Number tagged to it.</p>
+</li>
+<li>
+<p>The identification number is automatically generated by Mortago for your convenience.</p>
+</li>
+<li>
+<p>Identification numbers in Mortago follow the format as shown below, where <code>#</code> is a number from 0-9:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>body</code> entries: <code>B########</code></p>
+</li>
+<li>
+<p><code>worker</code> entries: <code>W#####</code></p>
+</li>
+<li>
+<p><code>fridge</code> entries: <code>F##</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If you need to enter the identification number of an entity for a command, providing the number (e.g. <code>20</code> instead of <code>W00020</code>) is sufficient.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features">4. Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section details a comprehensive walkthrough of the features in Mortago.</p>
+</div>
+<div class="sect2">
+<h3 id="_create_read_update_and_delete_entities">4.1. Create, Read, Update and Delete Entities</h3>
+<div class="paragraph">
+<p>This section details various commands to manage your entity entries in Mortago.</p>
+</div>
+<div class="sect3">
+<h4 id="add">4.1.1. Add an entity: <code>add</code></h4>
+<div class="paragraph">
+<p>You can add a body, worker or fridge by entering an add command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Format</strong>:<br>
+This table details how you can craft your add command to add an entity in Mortago.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 40%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a Worker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a Fridge</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a Body</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>add -w<br>
+/name name<br>
+/sex  sex<br>
+/dateJoined dateJoined<br>
+(/designation designation)<br>
+(/employmentStatus employmentStatus)<br>
+(/phone phoneNumber)<br>
+(/dob dateOfBirth)<br>
+(/photo pathToPhoto)</p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>add -f</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Default status: <code>UNOCCUPIED</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="exampleblock">
+<div class="content">
+
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>add -b<br>
+/name name<br>
+/sex  sex<br>
+/dod dateOfDeath<br>
+/doa dateOfAdmission<br>
+(/dob dateOfBirth)<br>
+(/status status)<br>
+(/nric nricNumber)<br>
+(/religion religion)<br>
+(/NOKname nameOfNextOfKin)<br>
+(/relationship relationshipOfNextOfKin)<br>
+(/NOKphone phoneOfNextOfKin)<br>
+(/cod causeOfDeath)<br>
+(/organsForDonation organsForDonation)<br>
+(/fridgeId fridgeId)</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Before specifying a <code>fridgeId</code>, ensure that a <code>fridge</code> with this id exists!
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected Output</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>add -w
+ /name Mary
+ /phone 87654321
+ /sex female
+ /dateJoined 18/08/2019
+ /designation Autopsy Technician</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Worker added</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>add -f</code>
+&#160;<br></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fridge added</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>add -b
+/name John Doe
+/sex male
+/dob 12/12/1984
+/dod 12/08/2019 2358
+/doa 13/08/2019 0200
+/status arrived
+/nric S8456372C
+/religion Catholic
+/NOKname Jack Smith
+/relationship Husband
+/NOKphone 83462756
+/cod Car Accident
+/details Heavy bleeding and head injury
+/organsForDonation NIL</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Body added</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="update">4.1.2. Updating an entity: <code>update</code></h4>
+<div class="paragraph">
+<p>You can update the attributes of a body or worker by entering an update command with the given format below..<br></p>
+</div>
+<div class="paragraph">
+<p>You have to indicate the entity type you want to update with a flag, as described in <a href="#_command_format">Section 3.1, &#8220;Command Format&#8221;</a>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<code>-f</code> is not a valid flag for this command. Fridges are automatically updated when bodies are assigned or removed.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can specify one or more attributes to change, but at least one valid attribute must be provided.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>update -FLAG /id id [/attributeName attributeValue &#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>When you update the <code>fridgeId</code> of a <code>Body</code>, changes to the fridges are made as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Previous fridge&#8217;s status is set to <code>UNOCCUPIED</code> and is no longer assigned this <code>Body</code>.</p>
+</li>
+<li>
+<p>New fridge&#8217;s status is set to <code>OCCUPIED</code> and is assigned this <code>Body</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When you update the status of a <code>Body</code> to <code>CONTACT_POLICE</code>, the <code>Notif</code> associated with the <code>Body</code> is automatically
+deleted.</p>
+</div>
+<div class="paragraph">
+<p>When you update <code>bodyStatus</code> to <code>ARRIVED</code>, a <code>Notif</code> pop-up is be shown after 10 seconds.</p>
+</div>
+<div class="paragraph">
+<p>When a <code>Body</code> is assigned a <code>Fridge</code> and you update its status to <code>CLAIMED</code> or <code>DONATED</code>, it is removed from the
+ <code>Fridge</code> and its status is set to <code>UNOCCUPIED</code>.</p>
+</div>
+<div class="paragraph">
+<p>There are some attributes that you can update once the entity is created. For this command,
+the list of valid attributes and their command prefixes can be found below:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Body</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Worker</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Name <code>/name</code><br>
+Sex <code>/sex</code><br>
+NRIC <code>/nric</code><br>
+Date of Birth <code>/dob</code><br>
+Date of Death <code>/dod</code><br>
+Status <code>/status</code><br>
+Religion <code>/religion</code><br>
+Name of Next-of-Kin <code>/NOKname</code><br>
+Relationship <code>/relationship</code><br>
+Phone Number of Next-of-Kin <code>/NOKphone</code><br>
+Cause of Death <code>/cod</code><br>
+Details <code>/details</code><br>
+Organs For Donation <code>/organsForDonation</code><br>
+Fridge ID <code>/fridgeId</code><br></p>
+</div>
+</div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Phone Number <code>/phone</code><br>
+Sex <code>/sex</code><br>
+Date of Birth <code>/dob</code><br>
+Date Joined <code>/dateJoined</code><br>
+Designation <code>/designation</code><br>
+Employment Status <code>/status</code><br>
+Photo <code>/photo</code></p>
+</div>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Make sure you key in dates in the format DD/MM/YYYY.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:<br>
+Imagine that someone (Jane Doe) just got promoted! You have to change her designation to 'Manager' in Mortago.</p>
+</div>
+<div class="paragraph">
+<p>Instead of typing out all the irrelevant attributes a Worker has, you just have to input her ID number
+and her new designation.</p>
+</div>
+<div class="paragraph">
+<p>To update Jane Doe&#8217;s designation:<br>
+1) Locate her identification number on the dashboard. You see on the dashboard that her ID number is W00001.<br></p>
+</div>
+<div class="paragraph">
+<p>2) Type <code>update -w /id 1 /designation Manager</code> into the command box, and press <code>Enter</code> to execute it.<br></p>
+</div>
+<div class="paragraph">
+<p>3) The result box indicates that the <code>delete</code> command has been undone.<br></p>
+</div>
+<div class="paragraph">
+<p>4) You can also see  on the dashboard that Jane Doe&#8217;s designation has been updated.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Command</th>
+<th class="tableblock halign-left valign-top">Expected Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>update -w /id 1 /designation Senior Autopsy Technician</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Designation of Jane Doe changed to Senior Autopsy Technician.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_locating_entries_by_name_find">4.1.3. Locating entries by name: <code>find</code></h4>
+<div class="paragraph">
+<p>You can find bodies or workers whose names contain any of the given keywords by entering a find command with the given format below.<br></p>
+</div>
+<div class="ulist TIP">
+<ul class="TIP">
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> matches <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> matches <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words are matched e.g. <code>Han</code> is not match <code>Hans</code></p>
+</li>
+<li>
+<p>Persons matching at least one keyword is returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> returns <code>Hans Gruber</code>, <code>Bo
+Yang</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format: <code>find -FLAG [keyword&#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find -b John</code><br>
+Returns any bodies having names <code>John</code></p>
+</li>
+<li>
+<p><code>find -w Betsy Tim John</code><br>
+Returns any workers having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_deleting_an_entry_delete">4.1.4. Deleting an entry : <code>delete</code><br></h4>
+<div class="paragraph">
+<p>You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the
+given format below.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete -FLAG  id</code></p>
+</div>
+<div class="paragraph">
+<p>You only need to enter the numeric value of the Identification Number while ignoring the prefixed 0s. For example, if
+you want to delete a <code>Fridge</code> with id <code>F01</code>, you need to only enter <code>delete -f 1</code>.</p>
+</div>
+<div class="paragraph">
+<p>When you delete a <code>Body</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mortago automatically deletes its associated <code>Notifs</code>. You can learn more
+about <code>Notifs</code> in <a href="#showNotifs">Section 3.2.1</a>.</p>
+</li>
+<li>
+<p>If you had assigned a <code>Fridge</code> to this <code>Body</code>, Mortago automatically sets the status of the <code>Fridge</code> to
+<code>UNOCCUPIED</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You cannot delete a <code>Fridge</code> with status <code>OCCUPIED</code>. To still proceed with deletion, you need to either delete the
+<code>Body</code> or assign it to another <code>Fridge</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p>Imagine that you added someone (Jim Kerr) by mistake and you want to remove his details from Mortago. You see that his
+ID number is W00003.</p>
+</div>
+<div class="paragraph">
+<p>To delete his record:</p>
+</div>
+<div class="paragraph">
+<p>1) Type <code>delete -w 3</code> and press <code>ENTER</code> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/delete-command/DeleteStep1.png" alt="DeleteStep1">
+</div>
+</div>
+<div class="paragraph">
+<p>2) The result box displays the message as shown below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/delete-command/DeleteStep2.png" alt="DeleteStep2">
+</div>
+</div>
+<div class="paragraph">
+<p>3) And you can check that Jim Kerr is no longer in the list of workers.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/delete-command/DeleteStep3.png" alt="DeleteStep3" width="500">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_clearing_all_entries_clear">4.1.5. Clearing all entries : <code>clear</code></h4>
+<div class="paragraph">
+<p>You can clear all entries from Mortago by entering a clear command given below.
+Format: <code>clear</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_list_all_entries_list">4.1.6. List all entries : <code>list</code></h4>
+<div class="paragraph">
+<p>You can list all entries of bodies, workers, or fridges.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>list -FLAG</code></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Flags</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usage</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">View all bodies.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-w</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">View all workers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">View all fridges.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Example: <code>list -b</code><br>
+After filtering specific bodies, you may now want to view the full list of bodies:</p>
+</div>
+<div class="paragraph">
+<p>1) Mortago shows filtered list of bodies.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/List1.png" alt="List1">
+</div>
+</div>
+<div class="paragraph">
+<p>2) Type <code>list -b</code> in the Command Line Interface (CLI).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/List2.png" alt="List2">
+</div>
+</div>
+<div class="paragraph">
+<p>3) Mortago shows unfiltered list of bodies.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/List3.png" alt="List3">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_selecting_a_body_select">4.1.7. Selecting a body: <code>select</code></h4>
+<div class="paragraph">
+<p>You can select a body and view its full details by entering a select command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>select id</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>select 1</code><br></p>
+</div>
+<div class="paragraph">
+<p>View a body with the ID B00000001.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_general">4.2. General</h3>
+<div class="sect3">
+<h4 id="showNotifs">4.2.1. View notifs panel: <code>showNotifs</code><br></h4>
+<div class="paragraph">
+<p>This command allows you to view all <code>Notif</code>(s).</p>
+</div>
+<div class="paragraph">
+<p>A <code>Notif</code> is a notification associated with a <code>Body</code>. In Singapore, if the next-of-kin is not contactable for more
+than 24 hours from the time of admission of a <code>Body</code>,
+police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
+testing, instead of 24 hours, Mortago currently
+uses 10 seconds.</p>
+</div>
+<div class="paragraph">
+<p>When you add a <code>Body</code> or manually set its status to <code>ARRIVED</code>, Mortago
+automatically
+changes its status to <code>CONTACT_POLICE</code> if its status is still <code>ARRIVED</code> after 10 seconds. It then shows a pop-up
+to
+remind you to
+contact the police. It creates a <code>Notif</code> for this <code>Body</code> and you can view all <code>Notif</code>(s) by either clicking on the
+notification bell or typing the <code>showNotif</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>showNotifs</code></p>
+</div>
+<div class="paragraph">
+<p>Once you change the status of the <code>Body</code> from <code>CONTACT_POLICE</code> to any other possible status as described in
+<a href="#bodyStatus">Section 8.1</a>,
+its associated <code>Notif</code> is deleted.</p>
+</div>
+<div class="paragraph">
+<p>If you change the status of the <code>Body</code> before 10 seconds, no pop-up and <code>Notif</code> are created.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p>Imagine that a new <code>Body</code> (John Doe) has just arrived at your mortuary.</p>
+</div>
+<div class="paragraph">
+<p>1) Type the <code>add</code> command as specified in the example in <a href="#add">Section 3.1.1</a>. Currently the status of this <code>Body</code>
+is <code>ARRIVED</code></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/notif-command/Notif1.png" alt="Notif1">
+</div>
+</div>
+<div class="paragraph">
+<p>2) Wait for 10 seconds. Mortago automatically changes the status of the <code>Body</code> to <code>CONTACT_POLICE</code> and shows
+you a
+pop-up
+notification.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/notif-command/Notif2.png" alt="Notif2">
+</div>
+</div>
+<div class="paragraph">
+<p>3) Type <code>showNotif</code> and press <code>ENTER</code> to execute it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/notif-command/Notif3.png" alt="Notif3">
+</div>
+</div>
+<div class="paragraph">
+<p>4) The notification bell opens up a panel and lists all the bodies for which you need to contact the police. You
+can see John Doe&#8217;s ID number B00000020 is in the list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/notif-command/Notif4.png" alt="Notif4">
+</div>
+</div>
+<div class="paragraph">
+<p>5) Suppose you have contacted the police, change the status of John Doe using the command <code>update -b /id 20 /status
+pending police report</code>. John Doe&#8217;s ID is no longer listed in the notifs panel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/notif-command/Notif5.png" alt="Notif5">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_filter_all_entries_filter">4.2.2. Filter all entries: <code>filter</code></h4>
+<div class="paragraph">
+<p>You can filter all entries according to the given keywords in any of an entry’s attributes by entering a filter command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>All entries with matching keywords are displayed. Keyword is case-insensitive.</p>
+</div>
+<div class="paragraph">
+<p>All attributes of a body or worker entry can be filtered. If more than one attribute is specified, the entries
+displayed must fulfill all attributes. Please refer to <a href="#add">Section 3.1.1</a> for the different fields available to be
+filtered.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>filter -FLAG [/attributeName attributeValue &#8230;&#8203;]</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>filter -w /sex female</code><br>
+All female worker entries are displayed.</p>
+</li>
+<li>
+<p><code>filter -b /cod Car Accident /sex male</code><br>
+All body entries with car accident as the cause of death and those that are male are displayed.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_undoing_a_command_undo">4.2.3. Undoing a command: <code>undo</code></h4>
+<div class="paragraph">
+<p>You can undo the effects of the last command you executed with <code>undo</code>.
+This command lets you undo up to 10 most recent commands, one at a time.
+The commands are undone starting from the most recent to the least recent.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>undo</code> or <code>u</code></p>
+</div>
+<div class="paragraph">
+<p>The <code>add</code>, <code>update</code>, <code>clear</code>, and <code>delete</code> commands can be undone.
+Commands like <code>list</code> or <code>find</code> cannot be undone.</p>
+</div>
+<div class="paragraph">
+<p>Commands caused by automated commands, such as an <code>UpdateCommand</code> caused by <code>Notif</code> can be undone and redone.
+For example, the automatic status change of a <code>Body</code> from <code>ARRIVED</code> to <code>CONTACT_POLICE</code>  is caused by an <code>UpdateCommand</code> and can be undone and redone. However, note that this feature does not support
+the <code>NotifCommand</code> itself. For example, if a <code>Body</code> was added and deleted before the <code>NotifCommand</code> associated with it has executed,
+undoing the deletion does not restore the <code>NotifCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>Though you can <code>undo</code> a <code>clear</code> command, note that you cannot redo any past undone commands after that.</p>
+</div>
+<div class="paragraph">
+<p>Example:<br>
+Imagine that you wanted to delete a <code>Body</code> with ID 10 from Mortago. However, your finger slips and you type <code>20</code> instead
+of <code>10</code>!</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Undo2.png" alt="Undo2">
+</div>
+</div>
+<div class="paragraph">
+<p>You don&#8217;t realise and execute the command. When you look at the dashboard, you realise you have deleted body 20.
+Even worse, you have no recollection of body 20&#8217;s name or information.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoBodyDeleted.png" alt="UndoBodyDeleted">
+</div>
+</div>
+<div class="paragraph">
+<p>You can easily reverse that mistake with the <code>undo</code> command instead of adding body 20 all over again!</p>
+</div>
+<div class="paragraph">
+<p>To undo:</p>
+</div>
+<div class="paragraph">
+<p>1) Type <code>undo</code> or <code>u</code> into the command box.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Undo4.png" alt="Undo4">
+</div>
+</div>
+<div class="paragraph">
+<p>2) Press <code>Enter</code> to execute the command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Undo5.png" alt="Undo5">
+</div>
+</div>
+<div class="paragraph">
+<p>3) Notice that the result box shows text telling you what was undone, and body 20 is back in the list of bodies.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_redoing_a_command_redo">4.2.4. Redoing a command: <code>redo</code></h4>
+<div class="paragraph">
+<p>You can redo the effects of the last command you executed with <code>redo</code>.
+This command lets you redo up to 10 most recent undone commands, one at a time.
+All commands that can be undone can be redone. (See <a href="#_undoing_a_command_undo">Section 4.2.3, &#8220;Undoing a command: <code>undo</code>&#8221;</a> for how <code>undo</code> can be used.)</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>redo</code> or <code>r</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+A command can only be redone if it has been undone before.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:<br>
+Imagine that you&#8217;ve previously executed <code>undo</code> to undo deleting body 20. You look at the data again and realise you&#8217;ve deleted the right thing after all!</p>
+</div>
+<div class="paragraph">
+<p>Instead of deleting body 20 again, simply <code>redo</code> the command.</p>
+</div>
+<div class="paragraph">
+<p>To redo:</p>
+</div>
+<div class="paragraph">
+<p>1) Type <code>redo</code> or <code>r</code> into the command box.</p>
+</div>
+<div class="paragraph">
+<p>2) Press <code>Enter</code> to execute the command.</p>
+</div>
+<div class="paragraph">
+<p>3) Notice that the result box shows text telling you what was executed when redoing, and body 20 is now absent
+from the list of bodies.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exiting_the_program_exit">4.2.5. Exiting the program : <code>exit</code></h4>
+<div class="paragraph">
+<p>You can exit the program by entering an exit command given below.<br>
+Format: <code>exit</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sort_all_entries_sort_coming_in_v2_0">4.2.6. Sort all entries: <code>sort</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>Sort all displayed entries according to a given order. Only body and worker entries can be sorted.
+Sort only works on the entries that are in view. For example, to sort body entries, the you need to first navigate to the bodies view.
+Types of ordering can be found below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code>: entries are sorted by alphabetical order of their names</p>
+</li>
+<li>
+<p><code>id</code>: entries are sorted by their id number, in descending order (newest entry appear first)</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>id asc</code>: entries are sorted in ascending order of id number</p>
+</li>
+<li>
+<p><code>id desc</code>: entries are sorted in descending order of id number</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If neither 'asc' or 'desc' qualifiers are supplied, the ordering is by default descending.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>status</code>: entries are sorted by their statuses in this order:</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Format: <code>sort /order order</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sort /order status</code><br>
+All entries are sorted and grouped according to their statuses.</p>
+</li>
+<li>
+<p><code>sort /order id asc</code><br>
+All entries are sorted according to their id number in ascending order.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_document_generation">4.3. Document Generation</h3>
+<div class="paragraph">
+<p>This section showcases three commands you can use to generate different kinds of reports.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+You must ensure that all existing reports are closed before executing any report generation commands to allow updating the same PDF document.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_generate_report_for_a_specific_body_genreport">4.3.1. Generate report for a specific body: <code>genReport</code></h4>
+<div class="paragraph">
+<p>You can generate an individual report in a PDF filename <code>Report &lt;body_ID&gt;.pdf</code> located in the folder containing the jar file as shown in the screenshot below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/reportlocation.png" alt="reportlocation" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p>You can also add your signature name to the report by following the command format below.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>genReport bodyId (yourSignatureName)</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>genReport 1 John Doe</code><br>
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report contains signature of John Doe.</p>
+</li>
+<li>
+<p><code>genReport 1</code><br>
+Outputs the PDF report for body ID B00000001 in the folder containing the jar file. The report does not contain any signature.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_generate_reports_for_all_bodies_genreports">4.3.2. Generate reports for all bodies: <code>genReports</code></h4>
+<div class="paragraph">
+<p>You can generate all individual reports in a PDF filename <code>Report (ALL BODIES).pdf</code> located in the folder containing the jar file.</p>
+</div>
+<div class="paragraph">
+<p>You can also add your signature name to the report by following the command format below.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>genReports (yourSignatureName)</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>genReports John Doe</code><br>
+Outputs the PDF containing reports for all bodies in the folder containing the jar file. The reports contain signature of John Doe.</p>
+</li>
+<li>
+<p><code>genReports</code><br>
+Outputs the PDF containing reports for all bodies in the folder containing the jar file. The reports do not contain any signature.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_generate_summary_report_for_all_bodies_genreportsummary">4.3.3. Generate summary report for all bodies: <code>genReportSummary</code></h4>
+<div class="paragraph">
+<p>You can generate a tabular report overview containing key information for all bodies in a PDF filename <code>Report Summary.pdf</code> located in the folder containing the jar file.</p>
+</div>
+<div class="paragraph">
+<p>You can also add your signature name to the report by following the command format below.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Your signature should only contain alphabets and whitespaces and must be less than 40 characters.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>genReportSummary (yourSignatureName)</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>genReportSummary John Doe</code><br>
+Outputs the PDF report summary for all bodies in the folder containing the jar file. The report contains signature of John Doe.</p>
+</li>
+<li>
+<p><code>genReportSummary</code><br>
+Outputs the PDF report summary for all bodies in the folder containing the jar file. The report does not contain any signature.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_administrative">4.4. Administrative</h3>
+<div class="sect3">
+<h4 id="_view_admission_statistics_stats">4.4.1. View admission statistics: <code>stats</code></h4>
+<div class="paragraph">
+<p>You can view a the statistics of the number of bodies admitted to the morgue over the past 10 days, a specific week, a specific month, or a specific year by entering a stats command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>The statistics appear in graphical form as a line-chart on the main page of the application. The line chart is initialised and updated automatically and you do not need to enter a command to see it. By default, the line-chart displayed shows the number of bodies admitted over the past 10 days. You can change the time frame with the <code>stats</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The following screenshot shows where the <code>stats</code> command should be inputted and where the line chart changes:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/statsOverview.png" alt="statsOverview" width="790">
+</div>
+<div class="title">Figure 2. The line chart&#8217;s position on the dashboard with respect to the command box.</div>
+</div>
+<div class="paragraph">
+<p>The following are the correct formats for typing in stats commands, with example usage:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To display the last 10 days: <code>stats</code><br>
+The line chart displays statistics over the last 10 days. The line chart appears as below:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/statsTenDays.png" alt="statsTenDays" width="790">
+</div>
+<div class="title">Figure 3. Line chart displaying the last ten days</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To display a specific week: <code>stats /week 25/10/2019</code><br>
+The line chart displays statistics for the week which contains the specified day. In this case, it is the date
+12/10/2019. The line chart appears as below:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/statsWeek.png" alt="statsWeek" width="790">
+</div>
+<div class="title">Figure 4. Line chart displaying the week containing the day 25/10/2019</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To display a specific month: <code>stats /month 5/2019</code><br>
+The line chart displays statistics or the month specified. In this case, it is May 2019. The line chart appears
+as below:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/statsMonth.png" alt="statsMonth" width="790">
+</div>
+<div class="title">Figure 5. Line chart displaying the month of October</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To display a specific year: <code>stats /year 2019</code><br>
+The line chart displays statistics for the year specified. In this case is it 2019. The line chart appears as below:</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/statsYear.png" alt="statsYear" width="790">
+</div>
+<div class="title">Figure 6. Line chart displaying the year 2019</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_archive_entries_archive_coming_in_v2_0">4.4.2. Archive entries: <code>archive</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>You can archive old or irrelevant entries by entering an archive command with the given format below.
+One entry can be archived at a time, or all entries of a certain specification can be archived at once.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>archive -FLAG /id id</code></p>
+</li>
+<li>
+<p><code>archive -FLAG /status status</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>archive -b /id 2</code><br>
+Archives body entry with ID 2</p>
+</li>
+<li>
+<p><code>archive -w /status inactive</code><br>
+Archives all entries of workers who are inactive</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_view_archived_entries_archives_coming_in_v2_0">4.4.3. View archived entries: <code>archives</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>You can display all archived entries by entering an archives command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>archives -FLAG</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>archives -b</code><br>
+Displays all archived body entries, in order of archive date.</p>
+</li>
+<li>
+<p><code>archives -w</code><br>
+Displays all archived worker entries, in order of archive date.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_give_and_view_feedback_feedback_coming_in_v2_0">4.4.4. Give and view feedback: <code>feedback</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>You can give workers feedback and display a history of all feedback entered by entering a feedback command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>Format:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>feedback /workerId workerId /details details</code> to assign feedback</p>
+</li>
+<li>
+<p><code>feedback</code> to display all feedback entered</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>feedback /id 10 /details very meticulous</code><br>
+Notes down feedback for worker with ID W10010 with custom details</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_assign_tasks_to_worker_assign_coming_in_v2_0">4.4.5. Assign tasks to worker: <code>assign</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>You can assign a body and task to a worker by entering an assign command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>assign /bodyId bodyId /workerId workerId /task taskDescription</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>assign /bodyId 2 /workerId 1 /task send blood sample to lab for analysis</code><br>
+Assigns worker with worker ID W00001 to body with ID B00000002 with a task description.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_help">4.5. Help</h3>
+<div class="sect3">
+<h4 id="_view_all_commands_help">4.5.1. View all commands: <code>help</code></h4>
+<div class="paragraph">
+<p>You can view a summary of all available commands and their flags by entering a help command with the given format below.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>help</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>help</code><br>
+Shows a link to the User Guide.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_view_help_hotlines_hotlines_coming_in_v2_0">4.5.2. View help hotlines: <code>hotlines</code> <code>[coming in v2.0]</code></h4>
+<div class="paragraph">
+<p>You can view emergency help hotlines by entering a hotlines command given below.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>hotlines</code></p>
+</div>
+<div class="paragraph">
+<p>Example: <code>hotlines</code><br>
+Lists emergency help hotlines.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq">5. FAQ</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
+<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains your Mortago data.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: How do I save my data?<br>
+<strong>A</strong>: Mortago&#8217;s data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_command_summary">6. Command Summary</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Add</strong> an entry: <code>add</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Add a new worker, body, or fridge with the
+<code>add -FLAG [/attributeName attributeValue&#8230;&#8203;]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Update</strong> an entry: <code>update</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the status of each worker, or body with the <code>update -FLAG (/attributeName attributeValue)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Find</strong> : <code>find [keyword&#8230;&#8203;]</code><br></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Find entries using a keyword.<br>
+Format: <code>find keyword</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Delete</strong> an entry: <code>delete</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Delete a body, worker or fridge entry, indicated by its id number.<br>
+Format: <code>delete -FLAG id</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
+</li>
+<li>
+<p><strong>Select</strong> : <code>select id</code></p>
+</li>
+<li>
+<p><strong>List</strong> : <code>list -FLAG</code></p>
+</li>
+<li>
+<p><strong>View notifs</strong> : <code>showNotifs</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>View all notifications brought up by the app.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Filter</strong> : <code>filter</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Filter all entries according to the given keyword in any of an entry’s field.<br>
+Format: <code>filter -FLAG [/attribute attributeValue&#8230;&#8203;]</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Undo</strong> : <code>undo</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Undo the last executed command.<br>
+Format: <code>undo</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Redo</strong> : <code>redo</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Redo the last undone command.<br>
+Format: <code>redo</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Exit</strong>: <code>exit</code></p>
+</li>
+<li>
+<p><strong>Sort</strong> : <code>sort</code> [coming in v2.0]</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sort all displayed entries according to a given order.<br>
+Format: <code>sort /order order (/idOrder idOrder)</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Generate report</strong> : <code>genReport</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generate an individual report in a PDF.<br>
+Format: <code>genReport bodyId</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Generate all reports</strong> : <code>genReports</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generate all individual reports in a PDF.<br>
+Format: <code>genReports</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Generate summary report</strong> : <code>genReportSummary</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Generate an overview for all reports in a PDF.<br>
+Format: <code>genReportSummary</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Archive entries</strong> : <code>archive</code> <code>[coming in v2.0]</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Archive old or irrelevant entries.
+Format: <code>archive -FLAG /id id</code>, <code>archive -FLAG /status status</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>View archived entries</strong> : <code>archives</code> <code>[coming in v2.0]</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Display all archived entries.
+Format: <code>archives -FLAG</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Give and view feedback</strong> : <code>feedback</code> <code>[coming in v2.0]</code></p>
+</li>
+<li>
+<p>Give workers feedback and displays a history of all feedback entered.
+Format: <code>feedback /workerId workerId /notes notes</code>, feedback`</p>
+</li>
+<li>
+<p><strong>Assign tasks</strong> : <code>assign</code> <code>[coming in v2.0]</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Assign a body and task to a worker.
+Format: <code>assign /bodyId bodyId /workerId workerId /task taskDescription</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Help summary</strong>: <code>help</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Get information about the commands
+Format: <code>help</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Help hotlines</strong> : <code>hotlines</code> <code>[coming in v2.0]</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_glossary">7. Glossary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Attribute</strong> : In Mortago, an attribute is the property of a body, fridge or worker.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Automated Command</strong> : In Mortago, an automated command is a command that is not explicitly inputted by the user.</p>
+</div>
+<div class="paragraph">
+<p><strong>Body</strong> : a corpse<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Worker</strong> : an employee working in the mortuary<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Fridge</strong> : a refrigerator used to store a body in the mortuary<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Notif</strong> : a reminder to notify the mortuary manager about the <code>Body</code> for which police needs to be contacted<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Command Line Interface (CLI)</strong> : a text-based user interface (UI) used to view and manage computer files<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Graphical User Interface (GUI)</strong> : an interface through which a user interacts with electronic devices such as computers, hand-held devices and other appliances. This interface uses icons, menus and other visual indicator (graphics) representations to display information and related user controls, unlike text-based interfaces, where data and commands are in text<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Operating System (OS)</strong> : the low-level software that supports a computer&#8217;s basic functions, such as scheduling tasks
+and controlling peripherals<br></p>
+</div>
+<div class="paragraph">
+<p><strong>Portable Document Format (PDF)</strong> : a file format for capturing and sending electronic documents in exactly the intended format</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_appendix">8. Appendix</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="bodyStatus">8.1. Valid values for various <code>ATTRIBUTES</code></h3>
+<div class="paragraph">
+<p><a id="Valid-Values"></a></p>
+</div>
+<div class="paragraph">
+<p>The following table specifies all valid values, or format, that you must follow when entering the values for various <code>ATTRIBUTES</code> when adding or updating a worker or body.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>ATTRIBUTE</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><strong>Valid Values or Format</strong></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sex</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Male</p>
+</li>
+<li>
+<p>Female</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Body Status</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Arrived</p>
+</li>
+<li>
+<p>Pending Identification</p>
+</li>
+<li>
+<p>Pending Claim</p>
+</li>
+<li>
+<p>Claimed</p>
+</li>
+<li>
+<p>Donated</p>
+</li>
+<li>
+<p>Contact Police</p>
+</li>
+<li>
+<p>Pending Police Report</p>
+</li>
+<li>
+<p>Pending Coroner Approval</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Phone Number</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A valid phone number contains exactly 8 digits only.
+The country calling code is omitted and assumed to be +65. The first digit should be '8' or '9'.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Date and Time</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Your date and time should follow the following format:<br></p>
+</div>
+<div class="paragraph">
+<p><code>dd/mm/yyyy hh:mm</code></p>
+</div>
+<div class="paragraph">
+<p>It is not necessary to include the time for certain <code>ATTRIBUTES</code> such as the date of birth.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to Photo</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
+You can follow the steps <a href="#Copy-File-Path">here</a> to obtain the absolute path of the file.</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NRIC</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>A valid NRIC number has 9 alphanumeric letters in total, with an alphabetic letter at the start and end. Singaporeans should either have the starting alphabets 'S' or 'T', while foreigners should either have the alphabets 'F' or 'G'. The ending character of each NRIC number can be any alphabet.</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_copy_a_files_absolute_path_into_the_clipboard">8.2. Copy a file&#8217;s absolute path into the clipboard</h3>
+<div class="paragraph">
+<p><a id="Copy-File-Path"></a></p>
+</div>
+<div class="paragraph">
+<p>The following steps guide you to copy the absolute path of a file into the clipboard.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For <strong>Windows</strong> User:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the image file you wish to upload.</p>
+</li>
+<li>
+<p>While holding down <kbd>Shift</kbd>, right-click on the image file.</p>
+</li>
+<li>
+<p>In the menu that appears, click <code>Copy as path</code>. The absolute path of the file is copied into your clipboard.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>For <strong>Mac</strong> User:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the image file you wish to upload.</p>
+</li>
+<li>
+<p>Right-click on the image file, then hold down the <kbd>Option</kbd> button.</p>
+</li>
+<li>
+<p>In the menu that appears, click <code>Copy &lt;file name&gt; as Pathname</code>. The absolute path of the file is copied into your
+clipboard.</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-11-11 17:39:20 +0800
+</div>
+</div>
+</body>
+</html>
