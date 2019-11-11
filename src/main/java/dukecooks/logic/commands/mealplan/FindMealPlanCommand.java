@@ -20,7 +20,7 @@ public class FindMealPlanCommand extends FindCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meal plans whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " chicken noodle";
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " Vegetarian";
 
     private static Event event;
 

@@ -23,7 +23,7 @@ public class DeleteMealPlanCommand extends DeleteCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the meal plan identified by the index number used in the displayed meal plan list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1";
 
     public static final String MESSAGE_DELETE_MEALPLAN_SUCCESS = "Deleted MealPlanBook: %1$s";
 

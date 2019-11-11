@@ -22,10 +22,10 @@ Responsibilities: Dashboard
 
 === Lee Wah
 image::bakwxh.png[width="150", align="left"]
-{empty}[http://github.com/bakwxh[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/bakwxh[github]] [<<leewah#, portfolio>>]
 
 Role: Testing +
-Responsibilities: Recipe Book
+Responsibilities: Recipe Book, Meal Plan Book
 
 '''
 
