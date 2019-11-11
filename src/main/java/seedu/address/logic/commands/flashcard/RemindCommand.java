@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.REMIND;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
@@ -22,7 +24,10 @@ public class RemindCommand extends Command {
 
     public static final String MESSAGE_NO_DUE_AND_OVERDUE_FLASHCARDS = "Well done - No due or overdue flashcards!";
 
+    private static final Logger logger = LogsCenter.getLogger(RemindCommand.class);
+
     private RemindFeatureUtil remindFeatureUtil = new RemindFeatureUtil();
+
 
     /**
      * Formats output of list of due and overdue flashcards to the user.
@@ -55,6 +60,8 @@ public class RemindCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        logger.info("Executing RemindCommand");
 
         List<Flashcard> flashcardList = model.getFilteredFlashcardList();
         List<Flashcard> overdueFlashcards = remindFeatureUtil.getOverdueFlashcards(flashcardList);

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.COMMAND_SUMMARY;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -19,6 +21,7 @@ public class HelpWindow extends UiPart<Stage> {
     //"https://se-education.org/addressbook-level3/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
+
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
@@ -28,6 +31,9 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label helpMessage;
 
+    @FXML
+    private Label commandSummary;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -36,6 +42,7 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         helpMessage.setText(HELP_MESSAGE);
+        commandSummary.setText(COMMAND_SUMMARY);
     }
 
     /**
