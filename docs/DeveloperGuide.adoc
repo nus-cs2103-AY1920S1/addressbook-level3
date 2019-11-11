@@ -675,23 +675,22 @@ and 'Total Salary' is modified real time. User do not need to input so many fiel
 
 *Cons*: when the user want to add employees, the user have type in all these fields.
 
-|Storage of employees fields after pay/undo-pay command
-|Saves only the `Employee#employeeSalaryPaid` and `Employee#Pay` in storage.
+|The display of Finance section
+|Use CLI display
 
-*Pros*: Easy to implement. Will use less memory.
+*Pros*: Easy to implement. Size of jar file will be smaller.
 
-*Cons*: Future accesses the 'Pending To Pay' and 'Total Salary' require more time.
+*Cons*: The UI is not user-friendly.
 
-Decision: Alternative 1 :
+|GUI display
 
-I decided to proceed with this option* because it creates fewer fields in employees, the 'Pending To Pay'
-and 'Total Salary' is modified real time. User do not need to input so many fields when they add the employees.
+*Pros*: User easy to visualise.
 
-|Saves the `Employee#employeeSalaryPaid`, `Employee#Pay`, `Employee#employeePendingPay`, `Employee#employeeTotalSalary` in storage.
+*Cons*: Jar file is larger.
 
-*Pros*: Easy to access the 'Pending To Pay' and 'Total Salary'.
+Decision: Alternative 2 :
 
-*Cons*: when the user want to add employees, the user have type in all these fields.
+I decided to use GUI to display the finance section. It is easier for user to visualise the salary details of the specific employee.
 |========================================================================================
 // end::Cris2[]
 == Logging
@@ -974,7 +973,7 @@ Status bar remains the same.
 Open the data folder which should contain employeebook.json and eventbook.json files.
 .. Open one of the json file and corrupt the file.
 .. Open the jar file again, AddMin+ should still run with one of the list data loaded.
-
+//tag::Cris3[]
 === Pay an employee
 
 . Pay an employee in the showing list
@@ -1004,6 +1003,7 @@ Error details shown in the status message.
 Status bar remains the same.
 .. Other incorrect delete commands to try: `undopay`, `undo_pay x`, `undo_pay x s/10`, (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
+//end::Cris3[]
 
 
 
