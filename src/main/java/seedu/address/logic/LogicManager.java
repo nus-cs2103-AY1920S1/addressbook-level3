@@ -10,11 +10,16 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.TutorAidParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTutorAid;
+import seedu.address.model.commands.CommandObject;
+import seedu.address.model.earnings.Earnings;
+import seedu.address.model.note.Notes;
 import seedu.address.model.person.Person;
+import seedu.address.model.reminder.Reminder;
+import seedu.address.model.task.Task;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,34 +31,48 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final TutorAidParser tutorAidParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        tutorAidParser = new TutorAidParser(getFilteredCommandsList());
+
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText, boolean isUnknown) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            if (model.userHasLoggedIn()) {
+                Command command;
+
+                if (isUnknown) {
+                    command = tutorAidParser.checkCommand(commandText, model.getSavedCommand());
+                } else {
+                    command = tutorAidParser.parseCommand(commandText);
+                }
+                commandResult = command.execute(model);
+                storage.saveTutorAid(model.getTutorAid());
+
+            } else {
+                Command command = tutorAidParser.parseCommandWithoutLoggingIn(commandText);
+                commandResult = command.execute(model);
+            }
+
+            return commandResult;
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
-        return commandResult;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyTutorAid getTutorAid() {
+        return model.getTutorAid();
     }
 
     @Override
@@ -62,8 +81,33 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public ObservableList<Earnings> getFilteredEarningsList() {
+        return model.getFilteredEarningsList();
+    }
+
+    @Override
+    public ObservableList<CommandObject> getFilteredCommandsList() {
+        return model.getFilteredCommandsList();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ObservableList<Reminder> getFilteredReminderList() {
+        return model.getFilteredReminderList();
+    }
+
+    @Override
+    public ObservableList<Notes> getFilteredNotesList() {
+        return model.getFilteredNotesList();
+    }
+
+    @Override
+    public Path getTutorAidFilePath() {
+        return model.getTutorAidFilePath();
     }
 
     @Override
@@ -75,4 +119,5 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
 }

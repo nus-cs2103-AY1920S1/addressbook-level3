@@ -5,17 +5,18 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+AddressBook *-right-> "1" UniqueCommandsList
 
-UniqueTagList *-right-> "*" Tag
 UniquePersonList o-right-> Person
-
-Person o-up-> "*" Tag
+UniqueCommandsList o-right-> CommandObject
 
 Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Person *--> Attendance
+Person *--> ClassId
+Person *--> Result
+Person *--> Participation
+Person *--> Picture
+
+CommandObject *--> CommandWord
+CommandObject *--> CommandAction
 @enduml

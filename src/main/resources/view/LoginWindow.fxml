@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.Glow?>
+
+<?import javafx.scene.text.Text?>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="TutorAid" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+
+            <VBox>
+
+            <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                <Menu mnemonicParsing="false" text="File">
+                    <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                </Menu>
+            </MenuBar>
+
+                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #1A283E;"
+                           VBox.vgrow="NEVER">
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#F8C33A" height="112.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="587.0" />
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1A283E" height="105.0" stroke="#f7d2e0"
+                               strokeType="INSIDE" width="580.0" />
+                    <ImageView fitHeight="84.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F8C33A;">
+
+                        <Image url="@../images/address_book_32.png" />
+                        <effect>
+                            <Glow />
+                        </effect>
+                    </ImageView>
+                </StackPane>
+
+                <StackPane prefHeight="200.0" prefWidth="600.0" style="-fx-background-color: #1A283E;"
+                           VBox.vgrow="NEVER" fx:id="textPlaceholder">
+                    <!--<Text style="-fx-font-family: Serif; -fx-font-size: 80; -fx-text-fill: white; -fx-color: white;-fx-color: #F8C33A" text="TUTORAID">  </Text> -->
+                </StackPane>
+
+                <StackPane fx:id="loginCommand" prefHeight="150.0" prefWidth="600.0"  style="-fx-background-color: #1A283E;" styleClass="pane-with-border">
+                    <TextField fx:id="loginItem" onAction="#handleLogin" prefHeight="33.0" minWidth="100"
+                               prefWidth="600.0" maxWidth="600" promptText="Enter your login credentials..."
+                               style="-fx-border-color: #F9F4F4; -fx-background-insets: 50;
+                                                   -fx-border-radius: 20; -fx-text-fill: white;" focusTraversable="false">
+                        <font>
+                            <Font size="20.0" />
+                        </font>
+                    </TextField>
+                    <VBox.margin>
+                        <Insets left="0.0" right="0.0" />
+                    </VBox.margin>
+                </StackPane>
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
+                           minHeight="100" prefHeight="300" maxHeight="600" style="-fx-background-color: #1A283E; -fx-border-radius: 20">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10" />
+                    </padding>
+                </StackPane>
+            <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

@@ -1,15 +1,12 @@
 package seedu.address.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
+import seedu.address.model.classid.ClassId;
+import seedu.address.model.person.Attendance;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Participation;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
+import seedu.address.model.person.Picture;
+import seedu.address.model.person.Result;
 
 /**
  * A utility class to help with building Person objects.
@@ -17,22 +14,27 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "alice@gmail.com";
-    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_PICTURE = "alice.jpg";
+    public static final String DEFAULT_CLASSID = "Tutorial 4";
+    public static final String DEFAULT_ATTENDANCE = "10";
+    public static final String DEFAULT_RESULT = "12";
+    public static final String DEFAULT_PARTCIPATION = "0";
+
 
     private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-    private Set<Tag> tags;
+    private Picture picture;
+    private ClassId classid;
+    private Attendance attendance;
+    private Result result;
+    private Participation participation;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
-        address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
+        picture = new Picture(DEFAULT_PICTURE);
+        classid = new ClassId(DEFAULT_CLASSID);
+        attendance = new Attendance(DEFAULT_ATTENDANCE);
+        result = new Result(DEFAULT_RESULT);
+        participation = new Participation(DEFAULT_PARTCIPATION);
     }
 
     /**
@@ -40,10 +42,11 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
-        phone = personToCopy.getPhone();
-        email = personToCopy.getEmail();
-        address = personToCopy.getAddress();
-        tags = new HashSet<>(personToCopy.getTags());
+        picture = personToCopy.getPicture();
+        classid = personToCopy.getClassId();
+        attendance = personToCopy.getAttendance();
+        result = personToCopy.getResult();
+        participation = personToCopy.getParticipation();
     }
 
     /**
@@ -55,39 +58,47 @@ public class PersonBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     */
-    public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public PersonBuilder withPicture(String picture) {
+        this.picture = new Picture(picture);
         return this;
     }
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
+    public PersonBuilder withClassId(String classId) {
+        this.classid = new ClassId(classId);
         return this;
     }
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
-    public PersonBuilder withEmail(String email) {
-        this.email = new Email(email);
+    public PersonBuilder withAttendance(String attendance) {
+        this.attendance = new Attendance(attendance);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withResult(String result) {
+        this.result = new Result(result);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Email} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withParticipation(String participation) {
+        this.participation = new Participation(participation);
         return this;
     }
 
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, picture, classid, attendance, result, participation);
     }
 
 }

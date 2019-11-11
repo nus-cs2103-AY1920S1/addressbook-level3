@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
+participant ":AddNotesCommandParser" as AddNotesCommandParser LOGIC_COLOR
+participant "an:AddNotesCommand" as AddNotesCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("addnote c/....")
+activate LogicManager
+
+LogicManager -> TutorAidParser : parseCommand("addnote c/....")
+activate TutorAidParser
+
+create AddNotesCommandParser
+TutorAidParser -> AddNotesCommandParser
+activate AddNotesCommandParser
+
+AddNotesCommandParser --> TutorAidParser
+deactivate AddNotesCommandParser
+
+TutorAidParser -> AddNotesCommandParser : parse("c/...")
+activate AddNotesCommandParser
+
+create AddNotesCommand
+AddNotesCommandParser -> AddNotesCommand
+activate AddNotesCommand
+
+AddNotesCommand --> AddNotesCommandParser : an
+deactivate AddNotesCommand
+
+AddNotesCommandParser --> TutorAidParser : an
+deactivate AddNotesCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddNotesCommandParser -[hidden]-> TutorAidParser
+destroy AddNotesCommandParser
+
+TutorAidParser --> LogicManager : an
+deactivate TutorAidParser
+
+LogicManager -> AddNotesCommand : execute()
+activate AddNotesCommand
+
+AddNotesCommand -> Model : hasNotes(note)
+activate Model
+Model --> AddNotesCommand
+deactivate Model
+
+AddNotesCommand -> Model : addNotes(note)
+activate Model
+Model --> AddNotesCommand
+deactivate Model
+
+create CommandResult
+AddNotesCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddNotesCommand
+deactivate CommandResult
+
+AddNotesCommand --> LogicManager : result
+deactivate AddNotesCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

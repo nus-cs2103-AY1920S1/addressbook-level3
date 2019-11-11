@@ -5,52 +5,131 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyTutorAid <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class TutorAid
+Class VersionedTutorAid
+Class ReadOnlyTutorAid
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
+Package Account {
+Class Account
+Class Username
+}
+
 Package Person {
 Class Person
-Class Address
-Class Email
+Class Attendance
+Class Result
+Class Participation
 Class Name
-Class Phone
+Class Picture
 Class UniquePersonList
 }
 
-Package Tag {
-Class Tag
+Package ClassId {
+Class ClassId
+}
+
+Package Task {
+Class Task
+Class Marking
+Class TaskTime
+Class TaskList
+}
+
+Package Commands {
+Class CommandObject
+Class CommandWord
+Class CommandAction
+Class UniqueCommandsList
+}
+
+Package Earnings {
+Class Amount
+Class Date
+Class Earnings
+Class Module
+Class Type
+Class UniqueEarningsList
+}
+
+Package Note {
+Class Notes
+Class Content
+Class ModuleCode
+Class UniqueNotesList
+}
+
+Package Reminder {
+Class Reminder
+Class ReminderDescription
+Class ReminderTime
+Class UniqueReminderList
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+TutorAid .up.|> ReadOnlyTutorAid
+VersionedTutorAid .up.|> TutorAid
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" VersionedTutorAid
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+VersionedTutorAid *--> Account
+Account *--> Username
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+VersionedTutorAid *--> "1" UniquePersonList
+UniquePersonList o--> "*" Person
+Person *--> Attendance
+Person *--> ClassId
+Person *--> Result
+Person *--> Participation
+Person *--> Name
+Person *--> Picture
+
+VersionedTutorAid *--> "1" TaskList
+TaskList o--> "*" Task
+Task *--> ClassId
+Task *--> Marking
+Task *--> "*" TaskTime
+
+VersionedTutorAid *--> "1" UniqueEarningsList
+UniqueEarningsList o--> "*" Earnings
+Earnings *--> Amount
+Earnings *--> Module
+Earnings *--> Date
+Earnings *--> Type
+
+VersionedTutorAid *--> "1" UniqueNotesList
+UniqueNotesList o--> "*" Notes
+Notes *--> ModuleCode
+Notes *--> Content
+
+VersionedTutorAid *--> "1" UniqueReminderList
+UniqueReminderList o--> "*" Reminder
+Reminder *--> ReminderDescription
+Reminder *--> ReminderTime
+
+VersionedTutorAid *--> "1" UniqueCommandsList
+UniqueCommandsList o--> "*" CommandObject
+CommandObject *--> CommandWord
+CommandObject *--> CommandAction
+
 
 ModelManager -->"1" Person : filtered list
+ModelManager -->"1" CommandObject : filtered list
+ModelManager -->"1" Task : filtered list
+ModelManager -->"1" Earnings : filtered list
+ModelManager -->"1" Reminder : filtered list
+ModelManager -->"1" Notes : filtered list
 @enduml

@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
+participant ":AddEarningsCommandParser" as AddEarningsCommandParser LOGIC_COLOR
+participant "ae:AddEarningsCommand" as AddEarningsCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_earnings d/....")
+activate LogicManager
+
+LogicManager -> TutorAidParser : parseCommand("add_earnings d/....")
+activate TutorAidParser
+
+create AddEarningsCommandParser
+TutorAidParser -> AddEarningsCommandParser
+activate AddEarningsCommandParser
+
+AddEarningsCommandParser --> TutorAidParser
+deactivate AddEarningsCommandParser
+
+TutorAidParser -> AddEarningsCommandParser : parse("d/...")
+activate AddEarningsCommandParser
+
+create AddEarningsCommand
+AddEarningsCommandParser -> AddEarningsCommand
+activate AddEarningsCommand
+
+AddEarningsCommand --> AddEarningsCommandParser : ae
+deactivate AddEarningsCommand
+
+AddEarningsCommandParser --> TutorAidParser : ae
+deactivate AddEarningsCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddEarningsCommandParser -[hidden]-> TutorAidParser
+destroy AddEarningsCommandParser
+
+TutorAidParser --> LogicManager : ae
+deactivate TutorAidParser
+
+LogicManager -> AddEarningsCommand : execute()
+activate AddEarningsCommand
+
+AddEarningsCommand -> Model : hasEarnings(earnings)
+activate Model
+Model --> AddEarningsCommand
+deactivate Model
+
+AddEarningsCommand -> Model : addEarnings(earnings)
+activate Model
+Model --> AddEarningsCommand
+deactivate Model
+
+create CommandResult
+AddEarningsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddEarningsCommand
+deactivate CommandResult
+
+AddEarningsCommand --> LogicManager : result
+deactivate AddEarningsCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

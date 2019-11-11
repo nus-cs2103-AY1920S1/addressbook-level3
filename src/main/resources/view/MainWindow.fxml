@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="TutorAid" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -29,7 +29,24 @@
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Students">
+            <MenuItem fx:id="studenttab" mnemonicParsing="false" onAction="#handleStudents" text="Students" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Reminders">
+            <MenuItem fx:id="remindertab" mnemonicParsing="false" onAction="#handleReminder" text="Reminders" />
+            <MenuItem fx:id="reminderbox" mnemonicParsing="false" onAction="#handleReminderBox" text="RemindersWindow" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Earnings">
+            <MenuItem fx:id="earningstab" mnemonicParsing="false" onAction="#handleEarnings" text="Earnings" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Tasks">
+            <MenuItem fx:id="calendartab" mnemonicParsing="false" onAction="#handleCalendarDate" text="CalendarView" />
+            <MenuItem fx:id="tasktab" mnemonicParsing="false" onAction="#handleCalendarTask" text="ListView" />
+          </Menu>
+          <Menu mnemonicParsing="false" text="Notes">
+            <MenuItem fx:id="notestab" mnemonicParsing="false" onAction="#handleNotes" text="Notes" />
           </Menu>
         </MenuBar>
 
@@ -45,6 +62,13 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
+
+        <!-- <StackPane VBox.vgrow="NEVER" fx:id="reminderBoxPlaceholder" styleClass="pane-with-border"
+                   minHeight="100" prefHeight="100" maxHeight="100">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane> -->
 
         <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
           <padding>

@@ -1,0 +1,22 @@
+{
+  "persons": [ {
+  "name" : "Valid Person",
+  "picture" : "caesar.jpg",
+  "classId" : "No Class Assigned Yet!",
+  "attendance" : "0",
+  "result" : "0",
+  "participation" : "0"
+} , {
+    "name": "Person With Invalid picture Field",
+    "picture": "dddd.jfgpg",
+    "classId" : "No Class Assigned Yet!",
+    "attendance" : "0",
+    "result" : "0",
+    "participation" : "0"
+  } ],
+  "earning" : [ ],
+  "commands" : [ ],
+  "tasks" : [ ],
+  "reminders" : [ ],
+  "notes" : [ ]
+}

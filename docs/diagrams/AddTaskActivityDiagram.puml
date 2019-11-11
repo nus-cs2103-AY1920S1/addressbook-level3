@@ -1,0 +1,17 @@
+@startuml
+start
+!include style.puml
+
+:User executes AddTaskCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid Task format])
+    :Create new Task object;
+    :Add Task into the taskList;
+    :Show the added task;
+    else([else])
+    :Show error and correct format;
+endif
+stop

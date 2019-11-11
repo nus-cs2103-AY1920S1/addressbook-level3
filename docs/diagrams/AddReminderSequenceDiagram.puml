@@ -1,0 +1,73 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TutorAidParser" as TutorAidParser LOGIC_COLOR
+participant ":AddReminderParser" as AddReminderParser LOGIC_COLOR
+participant "at:AddReminderCommand" as AddReminderCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add_reminder rd/....")
+activate LogicManager
+
+LogicManager -> TutorAidParser : parseCommand("add_reminder c/....")
+activate TutorAidParser
+
+create AddReminderParser
+TutorAidParser -> AddReminderParser
+activate AddReminderParser
+
+AddReminderParser --> TutorAidParser
+deactivate AddReminderParser
+
+TutorAidParser -> AddReminderParser : parse("rd/...")
+activate AddReminderParser
+
+create AddReminderCommand
+AddReminderParser -> AddReminderCommand
+activate AddReminderCommand
+
+AddReminderCommand --> AddReminderParser : at
+deactivate AddReminderCommand
+
+AddReminderParser --> TutorAidParser : at
+deactivate AddReminderCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddReminderParser -[hidden]-> TutorAidParser
+destroy AddReminderParser
+
+TutorAidParser --> LogicManager : at
+deactivate TutorAidParser
+
+LogicManager -> AddReminderCommand : execute()
+activate AddReminderCommand
+
+AddReminderCommand -> Model : hasTask(task)
+activate Model
+Model --> AddReminderCommand
+deactivate Model
+
+AddReminderCommand -> Model : add_reminder(reminder)
+activate Model
+Model --> AddReminderCommand
+deactivate Model
+
+create CommandResult
+AddReminderCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddReminderCommand
+deactivate CommandResult
+
+AddReminderCommand --> LogicManager : result
+deactivate AddReminderCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

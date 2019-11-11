@@ -6,19 +6,26 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface TutorAidStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonTutorAidStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> TutorAidStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonTutorAidStorage .left.|> TutorAidStorage
+JsonTutorAidStorage .down.> JsonSerializableTutorAidStorage
+JsonSerializableTutorAidStorage .right.> JsonAdaptedPerson
+JsonSerializableTutorAidStorage .down.> JsonAdaptedTask
+JsonSerializableTutorAidStorage .down.> JsonAdaptedEarnings
+JsonSerializableTutorAidStorage .left.> JsonAdaptedCommand
+JsonSerializableTutorAidStorage .left.> JsonAdaptedReminder
+JsonAdaptedReminder .down.> JsonAdaptedReminderTime
+JsonAdaptedTask .down.> JsonAdaptedTaskTime
+JsonSerializableTutorAidStorage .right.> JsonAdaptedNote
+
 @enduml

@@ -1,0 +1,26 @@
+{
+  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "picture" : "alice.jpg",
+    "classId" : "12",
+    "attendance" : "0",
+    "result" : "0",
+    "participation" : "0"
+  }, {
+    "name" : "Benson Meier",
+    "picture" : "ben.jpg",
+    "classId" : "Tutorial 12",
+    "attendance" : "1",
+    "result" : "1",
+    "participation" : "1"
+  }, {
+    "name" : "George Best",
+    "picture" : "geo.png",
+    "classId" : "Class@1",
+    "attendance" : "1",
+    "result" : "1",
+    "participation" : "20"
+  } ],
+  "earning": []
+}

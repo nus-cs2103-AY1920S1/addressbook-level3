@@ -1,0 +1,15 @@
+{
+  "persons" : [ {
+    "name" : "caesar",
+    "picture" : "invalid.jrpg",
+    "classId" : "No Class Assigned Yet!",
+    "attendance" : "0",
+    "result" : "0",
+    "participation" : "0"
+  } ],
+  "earning" : [ ],
+  "commands" : [ ],
+  "tasks" : [ ],
+  "reminders" : [ ],
+  "notes" : [ ]
+}

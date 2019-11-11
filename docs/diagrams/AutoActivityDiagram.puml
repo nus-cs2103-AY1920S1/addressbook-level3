@@ -1,0 +1,22 @@
+@startuml
+start
+:User types in `auto` command;
+:AutoCommand#execute starts the method `addAutoEarnings` and checks the day of the week;
+If (HashMap does not contains day of the week key) then
+    :throw new CommandException;
+    stop
+else (HashMap contains key)
+    :Get ArrayList and check through the ArrayList;
+If (Earnings in list?) then (no)
+    stop
+endif
+    :check count of Earnings;
+If (count is more than 0) then (yes)
+    :add Earnings into filtered earnings list and model;
+else
+    :remove earnings from ArrayList;
+    stop
+endif
+
+stop
+@enduml

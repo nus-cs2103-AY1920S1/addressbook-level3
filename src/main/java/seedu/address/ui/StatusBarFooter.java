@@ -17,10 +17,18 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
+    @FXML
+    private Label tab;
+
 
     public StatusBarFooter(Path saveLocation) {
         super(FXML);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
+        //tab.setText("test");
+    }
+
+    public void setTab(String text) {
+        tab.setText(text);
     }
 
 }
