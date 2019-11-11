@@ -148,11 +148,11 @@ exposes its functionality to the rest of the application.
 [[Design-ArchitectureInteraction]]
 ==== Architecture: Interactions between Components
 
-The sequence diagram below shows how the components interact with each other
-for the scenario where the user issues the command `delete-task 1`.
+The sequence diagram below shows how the components interact with each
+other for the scenario where the user issues the command `delete-cca 1`.
 
-.Component interactions for `delete-task 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `delete-cca 1` command
+image::JarvisArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
@@ -161,7 +161,8 @@ The sections below give more details of each component.
 
 The UI component defines the user-viewable part of the application. It consists
 of a `MainWindow` made up of parts, such as the `StatusBarFooter`, `CommandBox`
-and `HelpWindow`. Every part inherits from the abstract class `UiPart`. Shown
+and `HelpWindow`. Each individual feature of Jarvis inherits from the `View` class, which in turn inherits from the
+abstract class `UiPart`. Every other non-feature related part inherits from the abstract class `UiPart`. Shown
 below is the structure of the UI component.
 
 .Structure of the UI Component
@@ -1554,6 +1555,10 @@ following operations:
 
 * `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
 
+The class diagram for CcaTrackerModel is shown below:
+
+image::ModelCcaTrackerClassDiagram.png[]
+
 CcaTracker has 7 specific commands that support the given operations to mutate
 the state of the `Model`. Each command is represented as seperate class:
 
@@ -1576,6 +1581,16 @@ the state of the `Model`. Each command is represented as seperate class:
 For brevity's sake, we will illustrate only 1 specific command and its
 execution on model. The following activity diagram illustrates how a `Cca`'s
 progress is incremented when a user types in a `increase-progress` command:
+
+The diagram below is an activity diagram that illustrates the process of incrementing a Cca's
+progress.
+
+image::ccatracker/IncreaseCcaProgressActivityDiagram.png[]
+
+
+The diagram below shows the sequence diagram of the increase-progress mechanism.
+
+image::ccatracker/IncreaseProgressSequenceDiagram.png[]
 
 
 Given below is an example usage scenario of how increase-progress mechanism

@@ -1,0 +1,104 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":IncreaseProgressCommandParser" as IncreaseProgressCommandParser LOGIC_COLOR
+participant "i:IncreaseProgressCommand" as IncreaseProgressCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":CcaTracker" as CcaTracker MODEL_COLOR
+participant ":CcaTracker" as CcaTracker MODEL_COLOR
+participant ":CcaList" as CcaList MODEL_COLOR
+participant ":Cca" as Cca MODEL_COLOR
+participant ":CcaProgress" as CcaProgress MODEL_COLOR
+participant ":CcaCurrentProgress" as CcaCurrentProgress MODEL_COLOR
+end box
+
+[-> LogicManager : execute("increment-progress 1")
+activate LogicManager
+
+LogicManager -> JarvisParser : parseCommand("increment-progress 1")
+activate JarvisParser
+
+create IncreaseProgressCommandParser
+JarvisParser -> IncreaseProgressCommandParser
+activate IncreaseProgressCommandParser
+
+IncreaseProgressCommandParser --> JarvisParser
+deactivate IncreaseProgressCommandParser
+
+JarvisParser -> IncreaseProgressCommandParser : parse("1")
+activate IncreaseProgressCommandParser
+
+create IncreaseProgressCommand
+IncreaseProgressCommandParser -> IncreaseProgressCommand
+activate IncreaseProgressCommand
+
+
+IncreaseProgressCommand --> IncreaseProgressCommandParser : i: IncreaseProgressCommand
+deactivate IncreaseProgressCommand
+
+IncreaseProgressCommandParser --> JarvisParser : i: IncreaseProgressCommand
+deactivate IncreaseProgressCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+IncreaseProgressCommandParser -[hidden]-> JarvisParser
+destroy IncreaseProgressCommandParser
+
+JarvisParser --> LogicManager : i : IncreaseProgressCommand
+deactivate JarvisParser
+
+LogicManager -> IncreaseProgressCommand : execute()
+activate IncreaseProgressCommand
+
+IncreaseProgressCommand -> Model : increaseProgress(1)
+activate Model
+
+
+
+Model -> CcaTracker  : increaseProgress(1)
+activate CcaTracker
+CcaTracker -> CcaList : increaseProgress(1)
+activate CcaList
+CcaList ->  Cca : increaseProgress(1)
+activate Cca
+Cca -> CcaProgress : increaseProgress(1)
+activate CcaProgress
+CcaProgress -> CcaCurrentProgress : increaseProgress(1)
+activate CcaCurrentProgress
+CcaCurrentProgress -> CcaCurrentProgress : currentProgress ++
+activate CcaCurrentProgress MODEL_COLOR_T1
+CcaCurrentProgress -> CcaCurrentProgress
+deactivate CcaCurrentProgress
+CcaCurrentProgress --> CcaProgress
+deactivate CcaCurrentProgress
+CcaProgress --> Cca
+deactivate CcaProgress
+Cca --> CcaList
+
+deactivate Cca
+CcaList --> CcaTracker
+deactivate CcaList
+CcaTracker --> Model
+deactivate CcaTracker
+
+Model --> IncreaseProgressCommand
+deactivate Model
+
+create CommandResult
+IncreaseProgressCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> IncreaseProgressCommand
+deactivate CommandResult
+
+IncreaseProgressCommand --> LogicManager : result
+deactivate IncreaseProgressCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
