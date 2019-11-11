@@ -7,8 +7,13 @@ https://coveralls.io/github/AY1920S1-CS2103T-T10-1/main?branch=master[image:http
 image:https://api.codacy.com/project/badge/Grade/78777849c5a44d42bef0726f03d6fc1a["Codacy code quality", link="https://www.codacy.com/manual/marcfyk/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T10-1/main&utm_campaign=Badge_Grade"]
 https://gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby[image:https://badges.gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby.svg[Gitter Chat]]
 
+
+ifdef::env-github[]
+image::docs/images/startup-gui-dg.png[width="600"]
+endif::[]
+
 ifndef::env-github[]
-image::/docs/images/startup-gui-dg.png[]
+image::docs/images/startup-gui-dg.png[width="600"]
 endif::[]
 
 == What is JARVIS
