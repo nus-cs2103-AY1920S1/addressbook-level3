@@ -41,10 +41,6 @@ This is a short section that aims to get the reader familiar and up to speed wit
 
 ** Justification: It would be useful for either the adminstrative staff or the employee to view the current schedule of an `Employee` for tracking and logging purposes.
 
-* *Minor enhancement*: Implemented the *Fetch Employee* Command
-** What it does: Shows the schedule of a single `Employee`, which displays a list of dates which itself contains a list of `Event` that the `Employee` is allocated to.
-
-** Justification: It would be useful for either the adminstrative staff or the employee to view the current schedule of an `Employee` for tracking and logging purposes.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=DivineDX&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=DivineDX&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[tp Code Dashboard]]
 

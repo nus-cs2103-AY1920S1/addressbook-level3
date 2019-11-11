@@ -17,13 +17,17 @@ endif::[]
 By: `CS2103T-T11-3`      Since: `AUG 2019`      Licence: `MIT`
 
 == Introduction
+
 === Purpose
+
 This Developer Guide specifies the software architecture, design, and major implementation features of our Desktop Application, AddMin+.
 
 === Intended Audience
+
 The intended audience of this Developer Guide is for fellow developers looking to contribute to this open-source project and the graders of the CS2103T module.
 
 === Software Description
+
 AddMin+ is an all in one administration desktop application, specifically for use by small companies with limited administrative staff and would benefit from automating their menial administrative tasks.
 
 The application primarily uses a Command Line Interface (CLI) and displays the results through a Graphical User Interface (GUI).
@@ -40,7 +44,6 @@ Text in a link:[`blue font and grey`] background indicates a _hyperlink_
 
 Text with a `grey background` indicates _Code Logic_ such as class objects, OOP definitions or user-input.
 
-
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
@@ -53,13 +56,15 @@ Refer to the guide <<SettingUp#, here>>.
 ._Architecture Diagram_
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`].
+It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -104,10 +109,14 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-There are also `ScheduleBox`, `Finance`, `StatisticBox` which are of the tabs in the TabPane of `MainWindow`, of which all of them inherits from the abstract class `Tabs`. The abstract class `Tabs` also inherits from the abstract class `UiPart`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ListPanel`, `StatusBarFooter` etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+There are also `ScheduleBox`, `Finance`, `StatisticBox` which are of the tabs in the TabPane of `MainWindow`, of which all of them inherits from the abstract class `Tabs`.
+The abstract class `Tabs` also inherits from the abstract class `UiPart`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework.
+The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
+For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -124,11 +133,11 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddMinParser` class to parse the user command.
-.  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding an employee or event).
-.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as adding events and allocating manpower.
+. `Logic` uses the `AddMinParser` class to parse the user command.
+. This results in a `Command` object which is executed by the `LogicManager`.
+. The command execution can affect the `Model` (e.g. adding an employee or event).
+. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+. In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as adding events and allocating manpower.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -153,7 +162,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference. This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in both `Employee Book` and `Event Book`, which `Employee` can reference.
+This would allow our application to only require one `Tag` object per unique `Tag`, instead of each `Employee` needing their own `Tag` object.
+An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -184,6 +195,7 @@ Classes used by multiple components are in the `seedu.addmin.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 === Statistics feature
+
 ==== Implementation
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
@@ -198,8 +210,7 @@ Step 2. Statistics are generated on-demand and displayed to the user based on th
 
 * **Alternative 1 (current choice):** Generate statistics data on-demand, when the user requests.
 ** Pros: Easier to implement as would not have to mannage storage of statistical data.
-** Cons: App may have overall lower performance, with the possibility of lag as the app needs to read
-through all the stored data and generate the statistics data whenever it is queried.
+** Cons: App may have overall lower performance, with the possibility of lag as the app needs to read through all the stored data and generate the statistics data whenever it is queried.
 * **Alternative 2:** Generate statistics each time there is change in the data and store them.
 ** Pros: Statistical data will be displayed faster as it is recalculated and stored in the JSON file storage.
 ** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
@@ -207,73 +218,73 @@ through all the stored data and generate the statistics data whenever it is quer
 
 // tag::calvin[]
 === Automated allocation of Employees to Events feature
+
 ==== Implementation
 
 The `AutoAllocateCommand` has an auto-allocation mechanism which is facilitated by methods in `Event`.
 The `AutoAllocateCommand` takes in three arguments:
 
-1.  `eventIndex` - index of event in the displayed event list
+1. `eventIndex` - index of event in the displayed event list
 2. `ManpowerCountToAdd` - number of employees to allocate [optional]
 3. `tagList` - a set of tags to filter the employees [optional]
 
 Additionally, the `AutoAllocateCommand` uses the following operations:
 
 * `Event#isAvailableForEvent()` -- Checks if an employee is available for the event.
-* `AutoAllocateCommand#createAvailableEmployeeListForEvent()` -- Creates a list of employees available for the event,
-filtered by the tags specified by user.
-* `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required
-by the event.
+* `AutoAllocateCommand#createAvailableEmployeeListForEvent()` -- Creates a list of employees available for the event, filtered by the tags specified by user.
+* `AutoAllocateCommand#getManpowerNeededByEvent()` -- Calculates the number of employees currently required by the event.
 * `AutoAllocateCommand#createEventAfterManpowerAllocation()` -- Creates a new event with an updated manpower list.
 
 Given below is an example usage scenario and how the auto allocation mechanism behaves at each step.
 
 ._Program flow of the Auto Allocate Feature_
-image::AutoAllocateFlowChart.png[align="center", width = "300"]
+image::AutoAllocateFlowChart.png[align="center",width = "300"]
 
-**Step 1**. The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
+**Step 1**.
+The user executes `allocate 1 n/2 t/female` with the intention to allocate 2 employees with tag [female]
 to the 1st event displayed in the event list.
 
-**Step 2**. The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
-The command also checks if the event still requires manpower, and if manpower count stated by user
-exceeds that needed by the event.
+**Step 2**.
+The command checks if `eventIndex` is valid and if `ManpowerCountToAdd` is specified.
+The command also checks if the event still requires manpower, and if manpower count stated by user exceeds that needed by the event.
+
 [NOTE]
 If `ManpowerCountToAdd` is not specified, it is assumed to be the maximum number possible for the event.
 
+**Step 3**.
+The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees required by the specified event.
 
-**Step 3**. The command calls its own method `AutoAllocateCommand#getManpowerNeededByEvent()` to get the number of employees
-required by the specified event.
+**Step 4**.
+The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
 
+**Step 5**.
+The command checks if supply (generated in *step 4*) exceeds demand (generated in *step 3*) of the event.
 
-**Step 4**. The command calls its own method `AutoAllocateCommand#createAvailableEmployeeListForEvent()` to create a
-filtered list of employees based on the `tagList` and if employee satisfies `Event#isAvailableForEvent()`.
-
-**Step 5**. The command checks if supply (generated in *step 4*) exceeds
-demand (generated in *step 3*) of the event.
 [NOTE]
-If demand exceeds supply, an exception will be thrown to the user. If the supply exceeds demand, employees will be randomly selected instead.
+If demand exceeds supply, an exception will be thrown to the user.
+If the supply exceeds demand, employees will be randomly selected instead.
 
-**Step 6**. The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with an updated
-manpower list.
+**Step 6**.
+The command calls `Event#createEventAfterManpowerAllocation()` to create a new event with an updated manpower list.
+
 [NOTE]
 For storage purposes, only the `Employee#EmployeeId` is saved in the event's manpower list.
 
-**Step 7**. Done.
-
+**Step 7**.
+Done.
 
 The following sequence diagram shows how the auto allocation works:
 
 ._Sequence Diagram of the AutoAllocate Command_
 image::AutoAllocateSequenceDiagram.png[]
 
-NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
-PlantUML, the lifeline reaches the end of diagram.
-
+NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 ==== Design Considerations
 
 ===== Aspect: Storage of employees associated with event after successful command
 
-[width="100%", options="header" cols="3, 4, 4"]
+[width="100%",options="header" cols="3, 4, 4"]
 |========================================================================================
 |Feature      |Alternative 1 | Alternative 2
 |Storage of employees associated with event after successful command
@@ -314,21 +325,27 @@ which states that objects should not navigate internal structures of other objec
 
 //tag::DeXun[]
 === Setting Date & Time to Events
+
 ==== Implementation
-The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself. Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
+
+The `Event` object is constructed with a start date and an end date as class attributes, both of which are `EventDate` objects, which represents a single day by itself.
+Our implementation of `Event` does not assume that the event will be occurring consecutively from the start to the end date, and requires the user to manually assign each specific date with the time period that the Event is in process.
 
 [NOTE]
 In our implementation, when the Event is instantiated, the time period of 0800-1800 is automatically created and mapped to the Start & End Dates of the Event.
 
-To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day. It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
+To achieve this functionality, there exists an `EventDayTime` object that encapsulates the period of the day.
+It has two class attributes - both of which are `LocalTime` objects to represent the start and end time.
 
 Each Event contains an `EventDateTimeMap` object that maps an `EventDate` object to an `EventDayTime` object using a HashMap implementation.
 This mapping is added through the `EventAssignDate` command.
 
 It requires the use of the following objects/methods from the `event` package.
+
 * `EventContainsKeyDatePredicate` - Check whether the stated date exists within the range of the Event's Start and End Date.
 * `Event#assignDateTime` - Calls the `EventDateTimeMap` object to insert a Date-Time mapping.
-* `EventDate#datesUntil` - Returns a Stream of `EventDates` from the Start to End Date. Used to auto-set a DateTime mapping for all dates.
+* `EventDate#datesUntil` - Returns a Stream of `EventDates` from the Start to End Date.
+Used to auto-set a DateTime mapping for all dates.
 
 [NOTE]
 To improve user productivity and effectiveness, omitting the target date from the command text will automatically create the mapping for every date from the Event's start to end date, inclusive.
@@ -336,19 +353,29 @@ Alternatively, by specifying both a start and end date range in the command text
 
 Given below is an example usage scenario of the program functionality when a user attempts to assign a Date & Time to an already existent Event.
 
-**Step 1**. The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list. If the date is omitted, i.e. `set_ev_dt 2 time/0900-2000`, the time period 0900-2000 will be automatically assigned for all dates from the start to end date of the Event. Alternatively, if the end date is stated, i.e. `set_ev_dt 2 on/18/10/2019 time/22/10/2019 time/0900-2000`, the time period of 0900-2000 will be assigned for all dates from 18th to 22nd of October.
+**Step 1**.
+The User executes the command `set_ev_dt 2 on/18/10/2019 time/0900-2000`, with the intention to assign the date of 18th October 2019, time period 9am-8pm to the second event currently displayed in the event list.
+If the date is omitted, i.e. `set_ev_dt 2 time/0900-2000`, the time period 0900-2000 will be automatically assigned for all dates from the start to end date of the Event.
+Alternatively, if the end date is stated, i.e. `set_ev_dt 2 on/18/10/2019 time/22/10/2019 time/0900-2000`, the time period of 0900-2000 will be assigned for all dates from 18th to 22nd of October.
 
-**Step 2**. The parser checks if input format is correct, and attempts to create `Index`, `EventDate` and `EventDayTime` objects from it
+**Step 2**.
+The parser checks if input format is correct, and attempts to create `Index`, `EventDate` and `EventDayTime` objects from it
 
-**Step 3**. The command checks if the index of the event stated exists on the displayed list, and if the stated dates is within the start and end date of the Event. (Input Validation)
+**Step 3**.
+The command checks if the index of the event stated exists on the displayed list, and if the stated dates is within the start and end date of the Event.
+(Input Validation)
 
-**Step 4**. The command calls `Event#assignDateTime()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
+**Step 4**.
+The command calls `Event#assignDateTime()` on the referenced Event object to add the EventDate-EventDayTime mapping into `EventDateTimeMap`.
 
-**Step 5**. If only a single target date is stated, continue to Step 6. Else, the system will repeat Step 4 through the entire date range - which is either the start and end date of the `Event` or the range specified by the user.
+**Step 5**.
+If only a single target date is stated, continue to Step 6. Else, the system will repeat Step 4 through the entire date range - which is either the start and end date of the `Event` or the range specified by the user.
 
-**Step 6**. DateTimeMapping is converted a String to save and update in Storage.
+**Step 6**.
+DateTimeMapping is converted a String to save and update in Storage.
 
-**Step 7**. Done.
+**Step 7**.
+Done.
 
 [NOTE]
 If the command execution fails, a `ParseException` (from Step 2) or a `CommandException` (from Step 3) will be thrown, specifiying the reason of the error.
@@ -366,22 +393,19 @@ The following activity diagram shows how the Setting of Date&Time to Event work:
 image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
 
 ==== Design Considerations
-===== Aspect: Storage of DateTimeMap
 
-[width="100%", options="header" cols="3, 4, 4"]
+Below, we discuss two key aspects - how we store EventDateTimeMap and how commands to edit `Event` affect the `EventDateTimeMap`.
+
+[width="100%",options="header" cols="3, 4, 4"]
 |========================================================================================
-|Feature      |Alternative 1 | Alternative 2
-|Storage of DateTimeMap
+|Aspect      |Alternative 1 | Alternative 2
+| **Storage of DateTimeMap**
 
 | Stores the DateTimeMap in an string format that is saved in a field of an `Event` in `eventbook.json`. +
 
 **Pros:** Simplicity in implementation and easier reference as it is loaded and saved to the same JSON file.
 
 **Cons:** Performance issues as it needs to update the entire event object although only one attribute is updated
-
-**Decision:**
-Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
-However, as we are constrained with not utilizing a DBMS, **Alternative 1** is logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another sotrage unit.
 
 | Store the DateTimeMap in a separate file e.g. `EventDateTimes.json` that will be referenced by EventBook during initialization.
 
@@ -390,26 +414,58 @@ However, as we are constrained with not utilizing a DBMS, **Alternative 1** is l
 **Cons:** Requires a new storage unit, along with all its supporting functions which will require alot of repeated code.
 Instantiation of the `Event` object when the app is started will be more complicated as well due to the need to read from two separate files
 
+3+|**Decision: Alternative 1** +
+
+Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information into separate tables.
+However, as we are constrained with not utilizing a DBMS, **Alternative 1** is a logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another storage unit.
+
+| **Impact of Edit Event on `EventDateTimeMap`**  +
+
+The `edit_ev` command does not edit the DateTime mapping of an `Event` itself - this is done through the `set_ev_dt` or the `delete_ev_dt` instead. However, if the event has its start or end date fields edited, it will affect the `EventDateTimeMap` as its mapping may suddenly be out of range of the edited `Event` start and end dates.
+
+| Prevent the editing of Event Dates if the `Event` date range is reduced and will cause existing Date-Time Mappings to fall out of edited Event's Start-End Date Range.
+
+**Pros:**
+Greatly reduce the potential for buggy behavior, as `EventDateTimeMap` would contain false mappings that do not correspond to the new Event's Start-End Date Range. User would not have to worry about the inadvertent loss of data.
+
+**Cons:**
+Negative User Experience - Will need to take extra steps to manually delete DateTime mappings.
+
+| Allow editing of Event Dates if the `Event` date range is reduced, but will clear `EventDate` mappings in `EventDateTimeMap` that fall out of edited Event's Start-End Date Range.
+
+**Pros:**
+Better User Experience - Narrowing the Start/End Date would naturally mean that the user no longer require mappings on those dates and hence they can be safely deleted.
+
+**Cons:**
+Increased risk of inadvertent deletion of existing Date-Time mappings from `Event`.
+
+3+|**Decision: Alternative 2** +
+
+Alternative 2 offers better user experience by reducing the addition steps of hassle, especially since AddMin+ is focussed on automating and reducing the burdensome workload of administrative staff. Even so, we understand the risk of a user executing a typo and inadvertently delete existing Date-Time mappings. Hence, as a mitgating measure, we would be introducing a 'Confirmation' command in a `V2.0` feature that would allow the user to confirm and proceed with the `edit_ev` command if it were to delete existing Date-Time mappings due to a narrowing of the range.
+
 |========================================================================================
 // end::DeXun[]
 
 // tag::generateschedule1[]
 === Generate Schedule Feature
+
 ==== Proposed Implementation
 
-The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule. It will display all dates that have an event and the
-specific events that are happening on those dates listed. Do note that the `generate_schedule` command will only display dates and events that have a set date and time allocated to it.
+The Generate Schedule Feature is implemented to allow users to have an overview of the event schedule.
+It will display all dates that have an event and the specific events that are happening on those dates listed.
+Do note that the `generate_schedule` command will only display dates and events that have a set date and time allocated to it.
 The feature is facilitated by a `DistinctDatesProcessor` and requires the use of a new Object - `DistinctDate`, as well as an internal ObservableList - `distinctDatesList` found in the `ModelManager`.
 
-The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called. The `DistinctDateProcessor` will then
-process through these events to create specific `DistinctDate` Objects which stores a list of events that occurs on the date
-they are representing. These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature
-can be seen in the generate schedule window as well as the employee fetch window.
+The `DistinctDateProcessor` processes the entire list of Events in the `EventList` when the command is called.
+The `DistinctDateProcessor` will then process through these events to create specific `DistinctDate` Objects which stores a list of events that occurs on the date they are representing.
+These DistinctDate Objects are then used, to create `DateCard` which will be displayed on the GUI. This feature can be seen in the generate schedule window as well as the employee fetch window.
 
 The `DistinctDateProcessor` utilises the following operations in the `generate_schedule` command:
 
-* `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDistinctDateList() operations.
-* `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects. This operation utilises the generateDateList() and generateListOfEventForDate() operations.
+* `generateAllDistinctDateList(Model model)` -- Returns a list of `DistinctDate` Objects.
+This operation utilises the generateDistinctDateList() operations.
+* `generateDistinctDateList(List<Event> eventList)` -- Returns a list of `DistinctDate` Objects.
+This operation utilises the generateDateList() and generateListOfEventForDate() operations.
 * `generateDateList(List<Event> eventList)` -- Takes in the entire list of events, identify all the dates that have been mapped to which that has at least one event and returns it as a list.
 * `generateListOfEventForDate(EventDate date, Model model)` -- Takes in an `EventDate` object, and processes through the entire list of events, to find all events on that specific date, and return them as a list.
 
@@ -425,31 +481,38 @@ image::GenerateScheduleClassDiagram.png[]
 Below is an example usage scenario and how the `display_schedule` command behaves at each step.
 
 ._Program flow of the Generate Schedule Feature_
+
 image::GenerateScheduleFlowChart.png[align="center", width = "250"]
 
-**Step 1**. The user launches the application for the first time.
+**Step 1**.
+The user launches the application for the first time.
 
-**Step 2**. The `distinctDatesList` will be initialised based on the initial event book state.
+**Step 2**.
+The `distinctDatesList` will be initialised based on the initial event book state.
 
-**Step 3**. The user executes `add_ev n/Free Coffee ...` to add a new event into the Eventlist.
+**Step 3**.
+The user executes `add_ev n/Free Coffee ...` to add a new event into the Eventlist.
 The distinctDatesList will not be updated, and will not contain the new event that is added.
+
 [NOTE]
 Any command that alters the eventBook will not change the distinctDatesList. Only when the `generate_schedule` command is called,
 a new distinctDateList will be generated again using the latest EventList.
 
+**Step 4**.
+The user executes `generate_schedule` to see all the dates that have a set time mapping and the respective events on those dates.
 
-**Step 4**. The user executes `generate_schedule` to see all the dates that have a set time mapping and the respective events on those dates.
+**Step 5**.
+The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
 
-**Step 5**. The distinctDateList will be generated again based on the current list of events in the EventList and will be displayed on a separate window.
-
-**Step 6**. The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored,
-however, the DistinctDateList would not.
+**Step 6**.
+The user now decides to close the app, the current state of the EventBook and EmployeeBook will be stored, however, the DistinctDateList would not.
 
 [NOTE]
-Note that the Display Schedule Feature does not load and store the DistinctDate Objects. It processes and generates the list when
-it is called upon or when the application starts.
+Note that the Display Schedule Feature does not load and store the DistinctDate Objects.
+It processes and generates the list when it is called upon or when the application starts.
 
-**Step 7**. Done.
+**Step 7**.
+Done.
 
 ---
 
@@ -523,15 +586,19 @@ Alternative 2 also helps prevent user confusion, as the list that is displayed i
 // end::generateschedule2[]
 
 === Finance
+
 ==== Implementation
+
 _WIP_
 
 ==== Design Considerations
+
 _WIP_
 
 === Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+We are using `java.util.logging` package for logging.
+The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
@@ -612,7 +679,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-
 [appendix]
 == Use Cases
 
@@ -623,17 +689,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *MSS*
 
-1.  User requests to list employees
-2.  AddMin+ shows a list of employees
-3.  User requests to delete a specific employee by stating the index of the current displayed list.
-4.  AddMin+ deletes the employee
+1. User requests to list employees
+2. AddMin+ shows a list of employees
+3. User requests to delete a specific employee by stating the index of the current displayed list.
+4. AddMin+ deletes the employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. The given input index is invalid.
+* 3a.
+The given input index is invalid.
 +
 [none]
 ** 3a1. AddMin+ shows an error message.
@@ -645,23 +712,25 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to view the company’s current list of events.
-2.  AddMin+ shows a list of events, with each event tagged to an index of the current displayed list.
-3.  User specifies the index of the event, and list the details of the event to edit
-4.  AddMin+ edits and saves the updated event details.
+1. User requests to view the company’s current list of events.
+2. AddMin+ shows a list of events, with each event tagged to an index of the current displayed list.
+3. User specifies the index of the event, and list the details of the event to edit
+4. AddMin+ edits and saves the updated event details.
 +
 Use case ends.
 
 *Extensions*
 
-* 3a. Input Index given is invalid.
+* 3a.
+Input Index given is invalid.
 +
 [none]
 ** 3a1.AddMin+ shows an error message and refuses the edit.
 +
 Use case resumes at step 2.
 +
-* 3b. No details to edit were specified, or is of the wrong input format
+* 3b.
+No details to edit were specified, or is of the wrong input format
 +
 [none]
 ** 3b1. AddMin+ displays an error message warning the user that no details were edited.
@@ -673,10 +742,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to view the company’s current list of employees and events.
-2.  AddMin+ shows the list of employees and events.
-3.  User specifies the index of the event, and the index of the employee.
-4.  AddMin+ allocates the Employee to the Event.
+1. User requests to view the company’s current list of employees and events.
+2. AddMin+ shows the list of employees and events.
+3. User specifies the index of the event, and the index of the employee.
+4. AddMin+ allocates the Employee to the Event.
 +
 Use case ends.
 
@@ -715,10 +784,10 @@ Use case resumes at step 3.
 
 *MSS*
 
-1.  User requests to list events
-2.  EventBook shows a list of events
-3.  User requests to display schedule on a specific date
-4.  AddMin+ display a list of events that is on that date
+1. User requests to list events
+2. EventBook shows a list of events
+3. User requests to display schedule on a specific date
+4. AddMin+ display a list of events that is on that date
 
 +
 Use case ends.
@@ -732,26 +801,23 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-
-
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 employees and events without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Program should run smoothly and without bugs
-.  Should be able to work independent of a remote server, database, and internet connection
-
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. Should be able to hold up to 1000 employees and events without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Program should run smoothly and without bugs
+. Should be able to work independent of a remote server, database, and internet connection
 
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+[[mainstream-os]]
+Mainstream OS::
 Windows, Linux, Unix, OS-X
-
 
 [appendix]
 == Instructions for Manual Testing
@@ -767,27 +833,33 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts.
+The window size may not be optimum.
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
+.. Resize the window to an optimum size.
+Move the window to a different location.
+Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
 
 === Deleting an employee
 
 . Deleting an employee while all employees are listed
 
-.. Prerequisites: List all employees using the `list_em` command. Multiple employees in the list.
+.. Prerequisites: List all employees using the `list_em` command.
+Multiple employees in the list.
 .. Test case: `delete_em 1` +
-   Expected: Employee of ID '1' is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: Employee of ID '1' is deleted from the list.
+Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete_em 0` +
-   Expected: No employee is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No employee is deleted.
+Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
 
 === Saving data
 
@@ -799,11 +871,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with corrupted data files
 
-.. Go to the home folder where AddMin+ is located. Open the data folder which should contain
-employeebook.json and eventbook.json files.
+.. Go to the home folder where AddMin+ is located.
+Open the data folder which should contain employeebook.json and eventbook.json files.
 .. Open one of the json file and corrupt the file.
 .. Open the jar file again, AddMin+ should still run with one of the list data loaded.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 
