@@ -14,12 +14,12 @@ endif::[]
 == Overview
 
 This portfolio documents my contributions to PalPay, a software engineering project under the module,
-CS2103T Software Engineering. My Team and I was tasked to morph an existing software application into a functional application to better suit our intended target issues and audiences.
+CS2103T Software Engineering. My Team and I were tasked to morph an existing software application into a functional desktop application, written in Java, to better suit our intended target issues and audiences.
 
-PalPay is a financial tracking applications activated through a Command-Line-Interface (CLI). Our intended target audience being computing students who lacked a centralized platform for financial management and planning.
+PalPay is a financial tracking application activated through a Command-Line-Interface (CLI). Our intended target audience being computing students who lack a centralized platform for financial management and planning.
 
-For the project, my main role was to develop the Transaction feature.
-This feature represents the fundamental user logging and tracking feature which other features of this application subsequently depends on.
+For the project, my main role was to develop the _Transaction_ feature.
+This feature represents the fundamental user logging and tracking capabilities that other features of this application subsequently depends on.
 
 
 == Summary of contributions
@@ -30,9 +30,9 @@ This feature represents the fundamental user logging and tracking feature which 
 
 ** What it does: Allows users to input and log their expenditure and income statements. PalPay will also display an overall transaction balance to give users an overall sensing of their financial habits.
 
-** Justification: This feature fulfils the primary goal of the application which is to provide users a platform to store and log all their financial statements in a fast and intuitive manner.
+** Justification: This feature fulfills  the primary goal of the application which is to provide users a platform to store and log all their financial statements in a fast and intuitive manner.
 
-** Highlights: This feature requires constant integration with all existing major features of PalPay (i.e. `out` Transaction to affect `budget` if certain conditions are met). This requires constant cross-examination with other features and reimplementation of the code base to ensure optimal functionality. This also requires a broad familiarity with the entire code base at all points during the development phase.
+** Highlights: This feature requires constant integration with all existing major features of PalPay (i.e. `out` Transaction to affect `budget` if certain conditions are met). This requires constant cross-examination with other features and reimplementation of the codebase to ensure optimal functionality. This also requires a broad familiarity with the entire code base at all points during the development phase.
 
 * *Minor enhancement*:
 ** Implemented and handled code base throughout for Update feature and `UpdateTransactionDescriptor` to function with all different major features.
