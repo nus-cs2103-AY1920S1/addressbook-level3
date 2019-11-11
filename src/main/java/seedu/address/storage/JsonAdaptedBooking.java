@@ -6,19 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Name;
-import seedu.address.model.expense.Expense;
-
-import java.util.Optional;
+import seedu.address.model.itinerary.Budget;
 
 /**
- * Jackson friendly version of {@code Expenditure}.
+ * Jackson friendly version of {@code Booking}.
  */
 public class JsonAdaptedBooking {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
 
     private final Name name;
     private final String contact;
-    private final Expense expense;
+    private final Budget budget;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given Expenditure details.
@@ -26,10 +24,10 @@ public class JsonAdaptedBooking {
     @JsonCreator
     public JsonAdaptedBooking(@JsonProperty("name") Name name,
                               @JsonProperty("contact") String contact,
-                              @JsonProperty("expense") Expense expense) {
+                              @JsonProperty("budget") Budget budget) {
         this.name = name;
         this.contact = contact;
-        this.expense = expense;
+        this.budget = budget;
     }
 
     /**
@@ -38,7 +36,7 @@ public class JsonAdaptedBooking {
     public JsonAdaptedBooking(Booking source) {
         this.name = source.getName();
         this.contact = source.getContact();
-        this.expense = source.getExpense();
+        this.budget = source.getBudget();
     }
 
     /**
@@ -52,7 +50,7 @@ public class JsonAdaptedBooking {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
 
-        return new Booking(name, contact, expense) {
+        return new Booking(name, contact, budget) {
         };
     }
 }

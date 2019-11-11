@@ -35,17 +35,21 @@ public class DoneEditBookingsCommand extends Command {
         }
 
         try {
-
+            CommandResult commandResult;
             if (bookingToEdit == null) {
                 //buildBooking() requires compulsory fields to be non null, failing which
                 //NullPointerException is caught below
                 bookingToAdd = editBookingsDescriptor.buildBooking();
 
                 model.getPageStatus().getTrip().getBookingList().add(bookingToAdd);
+                commandResult = new CommandResult(String.format(MESSAGE_CREATE_BOOKING_SUCCESS, bookingToAdd),
+                        true);
             } else {
-                //edit the current "selected" expenditure
-                bookingToAdd = editBookingsDescriptor.buildExpenditure(bookingToEdit);
+                //edit the current "selected" booking
+                bookingToAdd = editBookingsDescriptor.buildBooking(bookingToEdit);
                 model.getPageStatus().getTrip().getBookingList().set(bookingToEdit, bookingToAdd);
+                commandResult = new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, bookingToAdd),
+                        true);
             }
 
             model.setPageStatus(model.getPageStatus()
@@ -53,7 +57,8 @@ public class DoneEditBookingsCommand extends Command {
                     .withNewPageType(PageType.BOOKINGS)
                     .withResetBooking());
 
-            return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, bookingToAdd), true);
+            return new CommandResult(String.format(MESSAGE_EDIT_BOOKING_SUCCESS, bookingToAdd),
+                    true);
         } catch (NullPointerException | BookingNotFoundException ex) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }

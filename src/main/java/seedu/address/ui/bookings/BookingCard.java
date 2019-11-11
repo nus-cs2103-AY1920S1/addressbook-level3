@@ -34,17 +34,17 @@ public class BookingCard extends UiPart<HBox> {
         super(FXML);
         this.booking = booking;
         this.displayedIndex = displayedIndex;
-        fillExpenditureCardLabels();
+        fillBookingCardLabels();
     }
 
     /**
      * Fills the labels of this expenditure card.
      */
-    private void fillExpenditureCardLabels() {
+    private void fillBookingCardLabels() {
         idLabel.setText(displayedIndex.getOneBased() + ".");
         nameLabel.setText(booking.getName().toString());
-        expenseLabel.setText(booking.getContact().toString());
-        contactLabel.setText(booking.getExpense().toString());
+        contactLabel.setText(booking.getContact().toString());
+        expenseLabel.setText(booking.getBudget().toString());
     }
     @Override
     public boolean equals(Object other) {

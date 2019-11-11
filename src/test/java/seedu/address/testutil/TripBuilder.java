@@ -120,4 +120,9 @@ public class TripBuilder {
         return new Trip(name, startDate, endDate, destination, totalBudget,
                 dayList, expenseList, diary, bookingList, inventoryList, photo);
     }
+
+    public TripBuilder setBookingList(BookingList bookingList) {
+        this.bookingList = bookingList;
+        return this;
+    }
 }

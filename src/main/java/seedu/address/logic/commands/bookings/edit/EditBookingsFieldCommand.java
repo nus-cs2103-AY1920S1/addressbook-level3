@@ -14,7 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.booking.Booking;
 import seedu.address.model.booking.Name;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.itinerary.Budget;
 
 /**
  *
@@ -84,12 +84,12 @@ public class EditBookingsFieldCommand extends Command {
     public static class EditBookingsDescriptor {
         private Optional<Name> name;
         private Optional<String> contact;
-        private Optional<Expense> expense;
+        private Optional<Budget> budget;
 
         public EditBookingsDescriptor() {
             name = Optional.empty();
             contact = Optional.empty();
-            expense = Optional.empty();
+            budget = Optional.empty();
         }
 
         /**
@@ -99,7 +99,7 @@ public class EditBookingsFieldCommand extends Command {
         public EditBookingsDescriptor(EditBookingsDescriptor toCopy) {
             name = toCopy.getName();
             contact = toCopy.getContact();
-            expense = toCopy.getExpense();
+            budget = toCopy.getBudget();
         }
 
 
@@ -110,7 +110,7 @@ public class EditBookingsFieldCommand extends Command {
         public EditBookingsDescriptor(Booking toCopy) {
             setName(toCopy.getName());
             setContact(toCopy.getContact());
-            setExpense(toCopy.getExpense());
+            setBudget(toCopy.getBudget());
         }
 
 
@@ -130,6 +130,9 @@ public class EditBookingsFieldCommand extends Command {
 
             newDescriptor.contact.ifPresentOrElse(this::setContact, () ->
                     oldDescriptor.contact.ifPresent(this::setContact));
+
+            newDescriptor.budget.ifPresentOrElse(this::setBudget, () ->
+                    oldDescriptor.budget.ifPresent(this::setBudget));
         }
 
 
@@ -143,7 +146,7 @@ public class EditBookingsFieldCommand extends Command {
          */
         public Booking buildBooking() {
             if (isAllPresent(name, contact)) {
-                return new Booking(name.get(), contact.get(), expense.get()) {
+                return new Booking(name.get(), contact.get(), budget.get()) {
                 };
             } else {
                 throw new NullPointerException();
@@ -158,10 +161,10 @@ public class EditBookingsFieldCommand extends Command {
          * @param booking
          * @return Edited {@code Expenditure} instance.
          */
-        public Booking buildExpenditure(Booking booking) {
+        public Booking buildBooking(Booking booking) {
             Name bookingName = booking.getName();
             String contact = booking.getContact();
-            Expense expense = booking.getExpense();
+            Budget budget = booking.getBudget();
 
             if (this.name.isPresent()) {
                 bookingName = this.name.get();
@@ -169,11 +172,11 @@ public class EditBookingsFieldCommand extends Command {
             if (this.contact.isPresent()) {
                 contact = this.contact.get();
             }
-            if (this.expense.isPresent()) {
-                expense = this.expense.get();
+            if (this.budget.isPresent()) {
+                budget = this.budget.get();
             }
 
-            return new Booking(bookingName, contact, expense) {
+            return new Booking(bookingName, contact, budget) {
             };
         }
 
@@ -201,12 +204,12 @@ public class EditBookingsFieldCommand extends Command {
             return contact;
         }
 
-        public void setExpense(Expense expense) {
-            this.expense = Optional.of(expense);
+        public void setBudget(Budget budget) {
+            this.budget = Optional.of(budget);
         }
 
-        public Optional<Expense> getExpense() {
-            return expense;
+        public Optional<Budget> getBudget() {
+            return budget;
         }
 
         /*

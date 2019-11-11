@@ -2,7 +2,6 @@ package seedu.address.ui.bookings;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import javafx.fxml.FXML;
@@ -22,7 +21,7 @@ import seedu.address.ui.template.Page;
 
 
 /**
- * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
+ * Page for EEditing Booking information
  */
 public class EditBookingsPage extends Page<AnchorPane> {
 
@@ -58,8 +57,8 @@ public class EditBookingsPage extends Page<AnchorPane> {
                 bookingsNameFormItem.setValue(name.toString()));
         currentEditDescriptor.getContact().ifPresent(contact ->
                 bookingsContactFormItem.setValue(contact.toString()));
-        currentEditDescriptor.getExpense().ifPresent(expense ->
-                bookingsExpenseFormItem.setValue(expense.getBudget().getValue()));
+        currentEditDescriptor.getBudget().ifPresent(budget ->
+                bookingsExpenseFormItem.setValue(budget.getValue()));
     }
 
     /**

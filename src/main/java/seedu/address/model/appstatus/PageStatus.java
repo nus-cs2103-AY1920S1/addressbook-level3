@@ -307,6 +307,10 @@ public class PageStatus {
         return withNewEditEventDescriptor(null);
     }
 
+    public PageStatus withResetEditBookingsDescriptor() {
+        return withNewEditBookingsDescriptor(null);
+    }
+
     public PageStatus withResetEditExpenseDescriptor() {
         return withNewEditExpenseDescriptor(null);
     }
