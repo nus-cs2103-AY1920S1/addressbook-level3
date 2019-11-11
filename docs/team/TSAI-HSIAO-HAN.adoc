@@ -18,7 +18,7 @@ distributing works on Github,
 negotiating and teamwork.
 
 
-Mark is a __desktop bookmark manage__r used for organising websites.
+Mark is a __desktop bookmark manager__ used for organising websites.
 This application can help the user organize websites by bookmarks,
 manage the bookmarks into folders,
 take note on the offline copy and set reminders for the task.

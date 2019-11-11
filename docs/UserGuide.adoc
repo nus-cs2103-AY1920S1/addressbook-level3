@@ -1077,7 +1077,7 @@ image::EditReminderUi2.png[]
 image::EditReminderUi3.png[]
 //The image of the reminder list
 
-. The editted notification will show up to inform you at the time.
+. The edited notification will show up to inform you at the time.
 image:: AddReminderUi4.png[]
 //The notification
 
@@ -1085,10 +1085,10 @@ image:: AddReminderUi4.png[]
 Other examples:
 
 * `*reminder-edit* 1 t/02/07/2019 2359` +
-This command line edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
 * `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
-This command line edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
 ==== Deleting a reminder: *`reminder-delete`*
@@ -1102,7 +1102,7 @@ Format: `*reminder-delete* INDEX`
 ****
 For example:
 
-You finish your task on Luminus before the time, you do not need the reminder for Luminus anymore.
+You finished your task on Luminus early, and you do not need the reminder for Luminus anymore.
 Now you can use the `reminder-delete` command to delete the reminder for Luminus.
 
 To delete a reminder:
@@ -1126,7 +1126,7 @@ image::EditReminderUi3.png[]
 Other examples:
 
 * `*reminder-delete* 2` +
-This command line deletes the reminder of index 2.
+This command deletes the reminder of index 2.
 
 ==== Opening a bookmark from a reminder: *`reminder-goto`*
 
@@ -1136,7 +1136,7 @@ Format: `*reminder-goto* INDEX`
 
 ****
 * INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
+* `INDEX` must be a positive integer `1`, `2`, `3`, …​
 ****
 For example:
 
@@ -1149,7 +1149,7 @@ To open the bookmark of a reminder:
 You type the command `*reminder-goto* 2` into the command box and press _Enter_ to execute it.
 
 image::GotoReminderUi1.png[]
-//The image of dashboard that shows the reminder for Luminus.
+//The image of dashboard that shows the reminder for NUSMods
 
 . The result box will show the message: +
 "Opening Reminder: Start planning next year's timetable Time: 07/12/2019 1000 URL:https://nusmods.com/"
