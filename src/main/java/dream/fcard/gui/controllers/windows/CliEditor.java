@@ -217,7 +217,11 @@ public class CliEditor {
             backSpace();
         } else if (validKey(code)) {
             String character = e.getText();
-            character = e.isShiftDown() && shiftKeyMap.containsKey(character) ? shiftKeyMap.get(character) : character;
+            character = e.isShiftDown()
+                    ? (shiftKeyMap.containsKey(character)
+                    ? shiftKeyMap.get(character)
+                    : character.toUpperCase())
+                    : character;
             characterInput(character);
         }
         if (code != 38 && code != 40) {
