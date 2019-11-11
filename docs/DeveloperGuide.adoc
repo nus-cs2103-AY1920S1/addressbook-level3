@@ -192,16 +192,16 @@ This section describes some noteworthy details on how certain features are imple
 ===== Implementation
 ====== Addition though flags (e.g add n/Chicken c/200 t/dry)
 
-The `add` feature is implemented through the `AddCommand` class that extends the abstract `Command` class.
-It interacts with other objects through the `Model` interface to manipulate the meal log and dish database to add meals.
+The `add` feature is implemented through the *_AddCommand_* class that extends the abstract *_Command_* class.
+It interacts with other objects through the *_Model_* interface to manipulate the meal log and dish database to add meals.
 
-The addition of meals is done through `Model#addMeal()` which would add the meal from the meal log list.
+The addition of meals is done through *_Model#addMeal()_* which would add the meal from the meal log list.
 
 The `add` feature uses the Model to check if the dish is already in the database.
-If the dish is already in the database, the meal will be added to the meal log only through the `Model#addMeal()` method.
+If the dish is already in the database, the meal will be added to the meal log only through the *_Model#addMeal()_* method.
 If the dish the user wants to add is not in the database,
-then the dish will be added to both the meal log and the dish database through the `Model#addMeal()` and
-`Model#addDish()` methods respectively.
+then the dish will be added to both the meal log and the dish database through the *_Model#addMeal()_* and
+*_Model#addDish()_* methods respectively.
 
 There are a few cases to take note:
 
