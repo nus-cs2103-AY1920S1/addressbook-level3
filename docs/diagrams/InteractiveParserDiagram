@@ -51,7 +51,6 @@ Class HiddenModel #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
 
 PdfCommand -up-|> Command
 Command -up-> CommandResult
