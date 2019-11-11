@@ -459,6 +459,7 @@ e.g. `Hansen Gruber`, `hans christian`
 
 ****
 * All search are case insensitive. e.g `find a/hans` is equivalent to `find a/Hans`
+* All searches works for alpha-numeric values only.
 * At least one search parameter should be specified.
 * The order of the prefixes does not matter. e.g. `find a/Hans p/high` is equivalent to `find p/high a/Hans`
 * Similarly, the two sequences below are similar.
