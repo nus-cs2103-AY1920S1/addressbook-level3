@@ -21,7 +21,7 @@ these information in their respective tabs to allow
 students to manage all these aspects of their life in
 this single application.
 
-This is a layout of how our application looks like:
+This is the GUI layout of how our application looks like:
 
 .Application Page Layout
 image::ug/StartUpUI.png[]

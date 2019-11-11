@@ -31,13 +31,25 @@ activate logic LOGIC_COLOR_T1
 logic -[LOGIC_COLOR]> storage : saveHistoryManager()
 activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> logic
+deactivate storage
+
 logic -[LOGIC_COLOR]> storage : saveCcaTracker()
+activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> logic
+deactivate storage
+
 logic -[LOGIC_COLOR]> storage : saveCoursePlanner()
+activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> logic
+deactivate storage
+
 logic -[LOGIC_COLOR]> storage : savePlanner()
+activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> logic
+deactivate storage
+
 logic -[LOGIC_COLOR]> storage : saveFinanceTracker()
+activate storage STORAGE_COLOR_T1
 storage --[STORAGE_COLOR]> logic
 deactivate storage
 logic -[LOGIC_COLOR]> logic :
