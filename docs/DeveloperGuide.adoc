@@ -1484,21 +1484,45 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
-=== Deleting a person
+//tag::LoanManual[]
+=== Adding and modifying a Loan
 
-. Deleting a person while all persons are listed
+. Adding a Loan while other loans are present
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. Test case: `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods ` +
+   Expected: Loan is added to the list. Details of the added loan shown in the status message.
+.. Test case: `add a/220` +
+   Expected: Loan is added with default values. Loan Details shown in the status message. Status bar remains the same.
+.. Test Case: `add n/Felix`
+    Expected: No amount given error is shown. No Loan is added to the list. The status shows correct format to enter.
+.. Other incorrect delete commands to try: `add`, `add a/24 n/123` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Editing Existing loans
+
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. TestCase: 'edit 2 a/220 n/NewName sd/12 ey/2012' +
+    Expected: First loan on the list is changed to new assigned values. No other loans or entries are changed.
+.. TestCase: 'edit 1 n/NewName sd/12 ey/2012 d/New Description for the Loan' +
+    Expected: First loan on the list is changed to new assigned values including description. No other loans or entries are changed. Other values are derived from existing entry.
+.. TestCase: 'edit a/220 n/NewName sd/12 ey/2012' +
+    Expected: Wrong format for edit command is shown in status. No Loan is edited.
+.. Other incorrect delete commands to try: `edit`, `edit 5` +
+   Expected: Similar to previous.
+
+. Paying off Existing loans
+
+.. Prerequisites: List all loans. Multiple loans in the list.
+.. TestCase: 'pay 1' +
+    Expected: First loan on the list is removed from list. No other loans or entries are changed. Status bar indicates deletion.
+.. TestCase: 'pay a/220' +
+    Expected: Wrong format for pay command is shown in status. No Loan is removed. Status shows correct format of command.
+.. Other incorrect delete commands to try: `pay`, `pay a` +
+   Expected: Similar to previous.
+
+//end::LoanManual[]
 
 === Saving data
 
