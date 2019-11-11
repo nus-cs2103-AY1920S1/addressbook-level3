@@ -1,7 +1,5 @@
 = Dorcas Tan - Project Portfolio
 :site-section: AboutUs
-:toc:
-:toclevels: 1
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
@@ -22,24 +20,13 @@ This is what our product, Mark, looks like:
 .Mark's user interface
 image::Ui.png[400, 400]
 
-Mark was conceptualised and implemented over a period of 8 weeks. My role as a developer was to design and
+Our product, Mark, was conceptualised and implemented over a period of 8 weeks. My role as a developer was to design and
 implement a mechanism to allow bookmarks to be categorised automatically. I also implemented the `import` and `export`
-features and contributed to various team tasks.
-
-The following sections illustrate these contributions in more detail and showcase documentation that I added to
-the User and Developer Guides in relation to the enhancements made.
-
-A few special icons are used in the documentation sections below. These are what they denote:
-
-IMPORTANT: Important information that you must know
-
-NOTE: Additional information for further understanding
-
-TIP: A suggestion to make it easier to navigate Mark or the documents
+features and contributed to various team tasks. The following sections illustrate these contributions in more detail.
 
 == Summary of contributions
 
-This section provides a summary of my code, documentation, and team-related contributions to Mark.
+This section summarizes my code, documentation, and team-related contributions to Mark.
 
 *Major feature*: I implemented the *autotag* mechanism to facilitate the automatic categorisation of bookmarks.
 
@@ -49,54 +36,47 @@ allows users to categorise their bookmarks in a few simple steps.
 * _Highlights_: Designing the autotag mechanism and how autotag conditions should be stored
 required significant planning. In addition, this feature involved development in all major components of
 Mark.
-* _Credits_: My team member Daryl suggested a more elegant way to combine autotag conditions, which was adapted in the
-final implementation.
 
 *Minor feature*: I enhanced Mark's existing storage system by adding the capacity to *export* and *import* bookmarks.
-
-* _What it does_: Allows users to save and retrieve bookmarks from different files on the hard disk without exiting Mark.
-* _Justification_: Users may want to preserve old bookmarks without cluttering their current dashboard. This enhancement
-allows them to save copies of bookmarks which can be easily accessed when needed.
-* _Highlights_: Ensuring that imported bookmark data remained compatible with other components like folders was tricky.
+It allows users to save and retrieve bookmarks from different files on the hard disk without exiting Mark, so that
+they can preserve old bookmarks without cluttering their current dashboard.
 
 *Code contributed*: Please click
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dorcastan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=dorcastan&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here]
-to see all of the code and documentation that I contributed to Mark.
+to see the code and documentation that I contributed to Mark.
 
 *Other contributions*
 // TODO: Improve this section for CS2101
 
-* *Project management*:
-** Facilitated weekly team meetings to discuss the team's progress and upcoming tasks
-** Managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.2.1[`v1.2.1`] on GitHub
+* *Project management*: I facilitated weekly team meetings to discuss the team's progress and
+managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.2.1[`v1.2.1`] on GitHub.
 
-* *Enhancements to existing features and code-related contributions*:
-** Migrated code from AddressBook Level 3 to Mark
-(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/62[#62])
-** Created a custom URL validation to be used when no Internet connection is available
-(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/117[#117])
+* *Enhancements to existing features and code-related contributions*: I migrated the code from AddressBook Level 3 to Mark
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/62[#62]),
+created a custom URL validation to be used when no Internet connection is available
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/117[#117]),
 //** Improved the search function to search URLs and partially matched keywords
 //(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64])
-** Updated the list of sample data used when Mark is first opened
-(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/227[#227])
+and updated the list of sample data used when Mark is first opened
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/227[#227]).
 
 * *Documentation*:
-** Improved the layout and organisation of the User Guide
+I improved the layout and organisation of the User Guide
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/248[#248],
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/254/files[#254])
-** Documented the design of the Model component in the Developer Guide
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/254/files[#254]) as well as
+documented the design of the Model component in the Developer Guide
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/129[#129],
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/264[#264])
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/264[#264]).
 // Standardise Quick Start section of User Guide: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/55[#55]]
 // Standardise headings and update glossary section: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/139/files[#139]] // should go to files or PR?
 // Cosmetic changes to Developer Guide appendices: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/221/files
 // UI screenshots: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/159/files
 
 * **Community**:
-** Reviewed team members' Pull Requests and offered suggestions to increase clarity of messages and improve code quality.
+I reviewed team members' Pull Requests and offered suggestions to increase the clarity of messages and improve code quality
 (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74#discussion_r332867503[#74],
 https://github.com/AY1920S1-CS2103T-T13-4/main/pull/119#pullrequestreview-303684906[#119],
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122#discussion_r340226693[#122])
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122#discussion_r340226693[#122]).
 
 == Contributions to the User Guide
 

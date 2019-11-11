@@ -699,12 +699,12 @@ image::ui-screenshots/AutotagCommandUi2.png[]
 There are several restrictions on the usage of command parameters:
 ****
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
-* `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
+* `TAG_NAME` should be a valid tag name that is not the name of an existing autotag.
 However, `TAG_NAME` can still be used as a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
 * `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in a similar way
-as the keywords in `*find*` (see <<finding-bookmarks>>). The only difference is that a single
+as the keywords in <<finding-bookmarks, `*find*`>>. The only difference is that a single
 keyword parameter can contain multiple words. E.g. `n/Module W` will match names
 `CS2103T Module Website` and `module work to do` but not `Future modules`.
 * `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
@@ -714,19 +714,20 @@ URL keywords, or folder names that bookmarks to be tagged should *not* match.
 ****
 
 IMPORTANT: If an autotag's conditions contradict each other, no bookmarks will be tagged.
-E.g. an autotag with conditions `u/github.com/mark nu/github.com/` effectively does nothing as no
+E.g. an autotag with conditions `u/github.com/mark nu/github.com/` will do nothing as no
 bookmark can have a URL containing `github.com/mark` and not `github.com`.
 
 [NOTE]
 ====
-If multiple conditions are specified, bookmarks are matched in the following way:
-    * For normal conditions (`n/`, `u/`, and `f/`), bookmarks that match at least one condition
-    within the same attribute type will be matched (i.e. OR search). E.g. `n/wiki n/comput` will match
+If multiple conditions are specified, bookmarks that meet the following requirements will be matched:
+
+    * Matches at least one condition within the same attribute type
+    for normal conditions (`n/`, `u/`, and `f/`) (i.e. OR search). E.g. `n/wiki n/comput` will match
     names `WikiHow` and `Computer Science`.
-    * For negative conditions (`nn/`, `nu/`, and `nf/`), bookmarks that match all of the conditions
-    within the same condition type are matched (i.e. AND search). E.g. `nf/Work nf/School` will
+    * Matches all conditions within the same condition type
+    for not-conditions (`nn/`, `nu/`, and `nf/`) (i.e. AND search). E.g. `nf/Work nf/School` will
     match bookmarks that are not in the folder `Work` and not in the folder `School`.
-    * Bookmarks that match all conditions across different condition types are matched. E.g. `n/web
+    * Matches all conditions across different condition types are matched. E.g. `n/web
     n/mod f/NUS` will match bookmarks with [names that match `web` and/or `mod`] AND [are in the
     folder `NUS`].
 ====
@@ -762,7 +763,7 @@ Format: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEY
 
 For example:
 
-* To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
+* To modify an autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
 +
 image::AutotagEditCommandUi1.png[]
 
@@ -816,13 +817,13 @@ Parameter constraints:
 ****
 * `TAG_NAME` should be the name of an existing autotag.
 ****
+// end::autotags[]
 
-Example:
+Another example:
 
 * `*autotag-delete* Quiz` +
  Deletes the autotag that would have tagged bookmarks that match its conditions
 with the tag `Quiz`. New and edited bookmarks will no longer be automatically tagged `Quiz`.
-// end::autotags[]
 
 '''
 
