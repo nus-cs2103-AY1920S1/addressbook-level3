@@ -27,7 +27,7 @@ public class SamplePersonDataUtil {
                 new BloodType("A+"),
                 new Weight("70"),
                 new Height("180"),
-                getMedicalHistorySet("Diabetes", "High Blood Pressure", "Stroke"))
+                getMedicalHistorySet("diabetes stage 2", "high blood pressure"))
         };
     }
 
