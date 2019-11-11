@@ -673,14 +673,17 @@ You do not have to use your mouse in PalPay to switch tabs anymore.
 
 . By default, you are in the `transaction` tab.
 +
+.Transaction Tab
 image::view1.png[]
 +
 . Simply type *view budget* in the command box and press kbd:[Enter].
 +
+.User Input
 image::view2.png[]
 +
 . You can now view your budgets. Easy!
 +
+.Budget Tab
 image::view3.png[]
 
 // end::view[]
@@ -866,14 +869,17 @@ has made it simple for you.
 . By default, your transactions are sorted from the earliest
 transaction you entered to the latest transaction you entered.
 +
+.Unsorted Transaction List
 image::sort1.png[]
 +
 . Simply type *sort date/d* in the command box and press kbd:[Enter].
 +
+.User Input
 image::sort2.png[]
 +
 . Great! You can now see the latest transactions you made.
 +
+.Sorted Transaction List
 image::sort3.png[]
 
 // end::sort[]
@@ -905,14 +911,17 @@ Imagine that you wanted to find out what you spent on shopping in October 2019.
 
 . By default, PalPay shows your all your transactions you have made.
 +
+.Unfiltered Transaction List
 image::filter1.png[]
 +
 . Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
 +
+.User Input
 image::filter2.png[]
 +
 . You will now see the list of transactions you have made while shopping in October 2019. Hurray!
 +
+.Filtered Transaction List
 image::filter3.png[]
 
 // end::filter[]
