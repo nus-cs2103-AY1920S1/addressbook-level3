@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+
+start
+:User executes command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([input is not empty and only single input])
+    if () then ([theme exists])
+        : Changes the application theme;
+        else([else])
+        endif
+    else([else])
+endif
+stop
+@enduml

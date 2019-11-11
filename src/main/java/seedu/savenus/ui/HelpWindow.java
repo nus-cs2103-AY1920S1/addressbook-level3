@@ -35,7 +35,9 @@ import seedu.savenus.logic.commands.RemoveLikeCommand;
 import seedu.savenus.logic.commands.SaveCommand;
 import seedu.savenus.logic.commands.ShowCommand;
 import seedu.savenus.logic.commands.SortCommand;
+import seedu.savenus.logic.commands.ThemeCommand;
 import seedu.savenus.logic.commands.TopUpCommand;
+import seedu.savenus.logic.commands.ViewSortCommand;
 import seedu.savenus.logic.commands.WithdrawCommand;
 
 //@@author robytanama
@@ -73,7 +75,9 @@ public class HelpWindow extends UiPart<Stage> {
             + SaveCommand.COMMAND_WORD + "\n"
             + ShowCommand.COMMAND_WORD + "\n"
             + SortCommand.COMMAND_WORD + "\n"
+            + ThemeCommand.COMMAND_WORD + "\n"
             + TopUpCommand.COMMAND_WORD + "\n"
+            + ViewSortCommand.COMMAND_WORD + "\n"
             + WithdrawCommand.COMMAND_WORD + "\n\n"
             + "Click the Guide button below to open to full user guide.\n"
             + "You will need internet connection to open the user guide.";

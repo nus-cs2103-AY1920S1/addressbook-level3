@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
+participant ":ThemeCommandParser" as ThemeCommandParser LOGIC_COLOR
+participant "a:ThemeCommand" as ThemeCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("theme light")
+activate LogicManager
+
+LogicManager -> SaveNusParser : parseCommand("theme light")
+activate SaveNusParser
+
+create ThemeCommandParser
+SaveNusParser -> ThemeCommandParser
+activate ThemeCommandParser
+
+ThemeCommandParser --> SaveNusParser
+deactivate ThemeCommandParser
+
+SaveNusParser -> ThemeCommandParser : parse("light")
+activate ThemeCommandParser
+
+create ThemeCommand
+ThemeCommandParser -> ThemeCommand
+activate ThemeCommand
+
+ThemeCommand --> ThemeCommandParser : a
+deactivate ThemeCommand
+
+ThemeCommandParser --> SaveNusParser : a
+deactivate ThemeCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ThemeCommandParser -[hidden]-> SaveNusParser
+destroy ThemeCommandParser
+
+SaveNusParser --> LogicManager : a
+deactivate SaveNusParser
+
+LogicManager -> ThemeCommand : execute()
+activate ThemeCommand
+
+create CommandResult
+
+ThemeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ThemeCommand
+deactivate CommandResult
+
+ThemeCommand --> LogicManager : result
+deactivate ThemeCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

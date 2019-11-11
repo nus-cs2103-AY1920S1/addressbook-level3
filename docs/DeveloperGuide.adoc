@@ -1193,6 +1193,70 @@ information-heavy commands such as `add` and `edit` which would definitely not f
 
 //end::info[]
 
+//tag::theme[]
+
+=== Theme Feature
+
+The theme feature allows users to change the look of the app. This can be done through calling the
+`theme` command.
+
+==== Changing the theme of the app
+
+Command word to change the theme is `theme`. Currently there are only two themes available which are light and dark
+theme. As such, the only valid commands are `theme dark` or `theme light`.
+
+The sequence window below shows how a sample `theme` command is executed:
+
+.Sequence diagram for sample `theme` command
+image::ThemeSequenceDiagram.png[]
+
+The following activity diagram shows how the `theme` command works.
+
+.Activity diagram for sample `theme` command
+image::ThemeActivityDiagram.png[]
+
+==== Design Considerations
+
+Detailed below are our considerations when creating the Theme feature.
+
+===== Design considerations on how to implement the theme change
+
+Explained below are our consideration when designing method to change the theme.
+
+.Design considerations of the theme change feature
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|Using CSS styling and just simply changing the `StyleSheet` for every `theme` call
+
+* Pros:
+** Adds more customization and much easier implementation.
+** Minimize the chance of missing an UI component as the entire CSS `StyleSheet` can just be easily copy-pasted.
+** Better organization of the different themes.
+
+* Cons:
+** Many components of the CSS `StyleSheet` are repeated and hence taking up unnecessary space.
+
+a|Creating a class that automates the theme change according to color scheme.
+
+* Pros:
+** Can easily add more themes as we only need to input the color schemes.
+
+* Cons:
+** Less customization ability.
+** More prone to bugs.
+** Different themes might look very similar due to similar implementation.
+|===
+
+We decided to go with alternative 1 and utilize `StyleSheet` instead of creating a class that automates the theme change.
+This greatly improve the customization between themes and much easier to implement. THe greater customization option
+allows for different themes to look distinct and also look better.
+
+This implementation also allows for better organization of the themes which makes it easy to keep track of the
+different themes available. The space taken up by repeated components is not that heavy since the app itself is light.
+//end::theme[]
+
 == Documentation
 
 :leveloffset: +1
