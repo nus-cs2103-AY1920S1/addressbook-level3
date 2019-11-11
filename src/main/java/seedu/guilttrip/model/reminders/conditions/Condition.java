@@ -7,12 +7,13 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.util.ListenerSupport;
 import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.ui.reminder.ReminderListEntry;
 
 /**
  * Tells generalReminder when to activate. All types of conditions extend form this class.
  * Functions as an observable.
  */
-public abstract class Condition {
+public abstract class Condition implements ReminderListEntry {
     private String conditionType;
     private Predicate<Entry> pred;
     private ObservableSupport support = new ObservableSupport();

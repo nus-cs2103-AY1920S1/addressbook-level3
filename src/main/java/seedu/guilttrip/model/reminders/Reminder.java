@@ -5,11 +5,12 @@ import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.model.reminders.messages.Notification;
+import seedu.guilttrip.ui.reminder.ReminderListEntry;
 
 /**
  * All reminder types implements this interface.
  */
-public interface Reminder {
+public interface Reminder extends ReminderListEntry {
     /**
      * Used by ReminderList to know when to update displayed reminder messages.
      * @return

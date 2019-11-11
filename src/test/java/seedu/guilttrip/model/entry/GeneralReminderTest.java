@@ -2,10 +2,10 @@ package seedu.guilttrip.model.entry;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.guilttrip.testutil.TypicalReminders.generateTypicalReminder;
-import static seedu.guilttrip.testutil.TypicalEntries.SALARY_INCOME;
 import static seedu.guilttrip.testutil.TypicalEntries.CLOTHING_EXPENSE;
 import static seedu.guilttrip.testutil.TypicalEntries.FOOD_EXPENSE;
+import static seedu.guilttrip.testutil.TypicalEntries.SALARY_INCOME;
+import static seedu.guilttrip.testutil.TypicalReminders.generateTypicalReminder;
 
 import org.junit.jupiter.api.Test;
 

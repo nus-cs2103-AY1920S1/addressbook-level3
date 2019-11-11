@@ -194,8 +194,8 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      * transferReminder from beingRemoved to beingAdded
      */
     private void transferReminder(Reminder reminder, Entry beingAdded) {
-        if (reminder instanceof IewReminder) {
-            transferIewReminder((IewReminder) reminder, beingAdded);
+        if (reminder instanceof EntryReminder) {
+            transferIewReminder((EntryReminder) reminder, beingAdded);
         }
     }
 
@@ -203,12 +203,12 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
     /**
      * transferIewReminder from beingRemoved to beingAdded.
      */
-    private void transferIewReminder(IewReminder reminder, Entry beingAdded) {
+    private void transferIewReminder(EntryReminder reminder, Entry beingAdded) {
         Description header = reminder.getHeader();
         Period period = reminder.getPeriod();
         Frequency freq = reminder.getFrequency();
         internalList.remove(reminder);
-        IewReminder newReminder = new IewReminder(header, beingAdded, period, freq);
+        EntryReminder newReminder = new EntryReminder(header, beingAdded, period, freq);
         newReminder.setMessage(reminder.getMessage());
         newReminder.togglePopUpDisplay(reminder.willDisplayPopUp());
         add(newReminder);
@@ -261,11 +261,11 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         if (reminder instanceof GeneralReminder) {
             reminder.reset();
         }
-        if (reminder instanceof IewReminder) {
+        if (reminder instanceof EntryReminder) {
             if (reminder.getStatus().equals(Reminder.Status.met)) {
-                IewReminder iewReminder = (IewReminder) reminder;
-                iewReminder.reset();
-                iewReminder.setNextActive();
+                EntryReminder entryReminder = (EntryReminder) reminder;
+                entryReminder.reset();
+                entryReminder.setNextActive();
             }
         }
         notificationList.add(reminder.genNotification());

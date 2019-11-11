@@ -113,7 +113,7 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
                 editIewReminderDescriptor.setFrequency(
                         ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get()));
             }
-            logger.info("Params match IewReminder.");
+            logger.info("Params match EntryReminder.");
             if (!editIewReminderDescriptor.isAnyFieldEdited()) {
                 throw new ParseException(EditReminderCommand.MESSAGE_NOT_EDITED);
             }

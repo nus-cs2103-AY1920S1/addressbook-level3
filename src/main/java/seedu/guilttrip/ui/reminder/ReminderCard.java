@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.ui.UiPart;
 
@@ -38,7 +38,7 @@ public class ReminderCard extends UiPart<Region> {
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-        String descWithStatus = "[" + getReminderType() + "] " + reminder.getHeader().fullDesc;
+        String descWithStatus = getReminderType() + "  " + reminder.getHeader().fullDesc;
         desc.setText(descWithStatus);
     }
 
@@ -65,8 +65,9 @@ public class ReminderCard extends UiPart<Region> {
         if (reminder instanceof GeneralReminder) {
             return "General Reminder";
         } else {
-            IewReminder iewReminder = (IewReminder) reminder;
-            return ("Entry Reminder / " + iewReminder.getEntry());
+            EntryReminder entryReminder = (EntryReminder) reminder;
+            return "Entry Reminder";
         }
     }
+
 }

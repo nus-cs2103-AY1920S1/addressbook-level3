@@ -183,7 +183,7 @@ public class GeneralReminder implements ListenerSupport, Reminder {
 
     @Override
     public String toString() {
-        return "(" + status.toString() + ") " + header;
+        return "[ General Reminder ] " + header;
     }
 
     @Override

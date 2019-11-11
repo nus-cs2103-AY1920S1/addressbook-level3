@@ -23,7 +23,7 @@ import seedu.guilttrip.model.util.Frequency;
  * IEW stands for income, expense, and wish.
  * Notifies user when current date falls within specified period of date of event.
  */
-public class IewReminder implements Reminder, ListenerSupport {
+public class EntryReminder implements Reminder, ListenerSupport {
     private final Logger logger = LogsCenter.getLogger(getClass());
     private Status status = Status.unmet;
 
@@ -42,7 +42,7 @@ public class IewReminder implements Reminder, ListenerSupport {
 
     private ObservableSupport support = new ObservableSupport();
 
-    public IewReminder(Description header, Entry entry, Period period, Frequency frequency) {
+    public EntryReminder(Description header, Entry entry, Period period, Frequency frequency) {
         this.header = header;
         this.uniqueId = UUID.randomUUID().toString();
         assert entry instanceof Expense || entry instanceof Income;
@@ -57,13 +57,13 @@ public class IewReminder implements Reminder, ListenerSupport {
     }
 
     /**
-     * Used when creating IewReminder from storage.
+     * Used when creating EntryReminder from storage.
      * @param header
      * @param uniqueId used to map reminder to entry.
      * @param period
      * @param frequency
      */
-    public IewReminder(Description header, String uniqueId, Period period, Frequency frequency) {
+    public EntryReminder(Description header, String uniqueId, Period period, Frequency frequency) {
         this.header = header;
         this.uniqueId = uniqueId;
         this.period = period;
@@ -192,10 +192,10 @@ public class IewReminder implements Reminder, ListenerSupport {
     public boolean equals(Object other) {
         if (this == other) {
             return true;
-        } else if (!(other instanceof IewReminder)) {
+        } else if (!(other instanceof EntryReminder)) {
             return false;
         } else {
-            IewReminder otherReminder = (IewReminder) other;
+            EntryReminder otherReminder = (EntryReminder) other;
             return this.entry == otherReminder.entry
                     && this.period.equals(otherReminder.period)
                     && this.frequency.equals(otherReminder.frequency);
@@ -217,4 +217,8 @@ public class IewReminder implements Reminder, ListenerSupport {
     public void removePropertyChangeListener(ListenerSupport pcl) {
         support.removePropertyChangeListener(pcl);
     };
+    @Override
+    public String toString() {
+        return "Entry Reminder " + header;
+    }
 }

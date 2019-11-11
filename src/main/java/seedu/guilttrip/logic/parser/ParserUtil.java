@@ -27,6 +27,7 @@ import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
 import seedu.guilttrip.logic.commands.ListWishCommand;
+import seedu.guilttrip.logic.commands.PurchaseWishCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
@@ -439,6 +440,7 @@ public class ParserUtil {
                 ViewTableCommand.COMMAND_WORD,
                 ViewPieChartCommand.COMMAND_WORD,
                 ViewEntryCommand.COMMAND_WORD,
+                PurchaseWishCommand.COMMAND_WORD,
                 TogglePanelCommand.COMMAND_WORD,
                 UndoCommand.COMMAND_WORD,
                 RedoCommand.COMMAND_WORD,
@@ -494,6 +496,7 @@ public class ParserUtil {
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.ONE_LINER_DESC);
+        toReturn.put(PurchaseWishCommand.COMMAND_WORD, PurchaseWishCommand.ONE_LINER_DESC);
         toReturn.put(ViewBarChartCommand.COMMAND_WORD, ViewBarChartCommand.ONE_LINER_DESC);
         toReturn.put(ViewTableCommand.COMMAND_WORD, ViewTableCommand.ONE_LINER_DESC);
         toReturn.put(ViewPieChartCommand.COMMAND_WORD, ViewPieChartCommand.ONE_LINER_DESC);
@@ -543,6 +546,7 @@ public class ParserUtil {
         toReturn.put(SortBudgetCommand.COMMAND_WORD, SortBudgetCommand.MESSAGE_USAGE);
         toReturn.put(SortAutoExpenseCommand.COMMAND_WORD, SortAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(SortWishCommand.COMMAND_WORD, SortWishCommand.MESSAGE_USAGE);
+        toReturn.put(PurchaseWishCommand.COMMAND_WORD, PurchaseWishCommand.MESSAGE_USAGE);
         toReturn.put(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE);
         toReturn.put(AddGeneralReminderCommand.COMMAND_WORD, AddGeneralReminderCommand.MESSAGE_USAGE);
         toReturn.put(SetReminderCommand.COMMAND_WORD, SetReminderCommand.MESSAGE_USAGE);

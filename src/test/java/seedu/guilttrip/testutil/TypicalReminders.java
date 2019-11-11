@@ -13,8 +13,14 @@ import seedu.guilttrip.model.reminders.conditions.TagsCondition;
 import seedu.guilttrip.model.reminders.conditions.TypeCondition;
 import seedu.guilttrip.model.tag.Tag;
 
+/**
+ * A utility class containing a method to generate a new General Reminder from scratch.
+ */
 public class TypicalReminders {
-    //GeneralReminder
+    /**
+     * Generates a General Reminder for testing purposes.
+     * Ensure that every output is equals but all variables have different object ID.
+     */
     public static final GeneralReminder generateTypicalReminder() {
         final Description message = new Description("Test Reminder");
         final TypeCondition typeCondition = new TypeCondition("Expense");

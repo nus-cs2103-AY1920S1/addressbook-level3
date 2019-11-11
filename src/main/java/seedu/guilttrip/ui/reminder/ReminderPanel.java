@@ -1,6 +1,9 @@
 package seedu.guilttrip.ui.reminder;
 
+import java.util.List;
 import java.util.logging.Logger;
+
+import javax.swing.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,9 +12,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
-import seedu.guilttrip.model.entry.Entry;
+import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.ui.UiPart;
@@ -28,7 +33,7 @@ public class ReminderPanel extends UiPart<Region> {
     @FXML
     private ListView<Reminder> reminderListView1;
     @FXML
-    private ListView<Condition> reminderListView2;
+    private ListView<ReminderListEntry> reminderListView2;
 
     public ReminderPanel(ObservableList<Reminder> remindersList) {
         super(FXML);
@@ -41,12 +46,15 @@ public class ReminderPanel extends UiPart<Region> {
             reminderSelected = reminder;
             if (reminder instanceof GeneralReminder) {
                 GeneralReminder generalReminder = (GeneralReminder) reminder;
-                ObservableList<Condition> conditionList = FXCollections.observableArrayList(generalReminder.getConditions());
+                ObservableList<ReminderListEntry> conditionList = FXCollections.observableArrayList(generalReminder.getConditions());
                 reminderListView2.setItems(conditionList);
-                reminderListView2.setCellFactory(listView -> new ConditionsListViewCell());
+                reminderListView2.setCellFactory(listView -> new ReminderDetailsListViewCell());
+            } else {
+                EntryReminder entryReminder = (EntryReminder) reminder;
+                ObservableList<ReminderListEntry> reminderList = FXCollections.observableArrayList(List.of(entryReminder));
+                reminderListView2.setItems(reminderList);
+                reminderListView2.setCellFactory(listView -> new ReminderDetailsListViewCell());
             }
-        } else {
-            reminderListView2.getItems().clear();
         }
     }
 
@@ -69,16 +77,25 @@ public class ReminderPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Condition} using a {@code ConditionCard}.
      */
-    class ConditionsListViewCell extends ListCell<Condition> {
+    class ReminderDetailsListViewCell extends ListCell<ReminderListEntry> {
         @Override
-        protected void updateItem(Condition condition, boolean empty) {
-            super.updateItem(condition, empty);
+        protected void updateItem(ReminderListEntry entry, boolean empty) {
+            super.updateItem(entry, empty);
 
-            if (empty || condition == null) {
+            if (empty || entry == null) {
                 setGraphic(null);
                 setText(null);
-            } else {
-                setGraphic(new ConditionCard(condition, getIndex() + 1).getRoot());
+            } else if (entry instanceof Condition) {
+                setGraphic(new ConditionCard((Condition) entry, getIndex() + 1).getRoot());
+            } else if (entry instanceof EntryReminder) {
+                EntryReminder reminder = (EntryReminder) entry;
+                if (reminder.getEntry() instanceof Expense) {
+                    setGraphic(new ExpenseReminderCard(reminder, getIndex() + 1).getRoot());
+                } else if (reminder.getEntry() instanceof Income) {
+                    setGraphic(new IncomeReminderCard(reminder, getIndex() + 1).getRoot());
+                } else if (reminder.getEntry() instanceof Wish) {
+                    setGraphic(new WishReminderCard(reminder, getIndex() + 1).getRoot());
+                }
             }
         }
     }

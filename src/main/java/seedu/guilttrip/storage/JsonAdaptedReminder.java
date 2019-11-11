@@ -13,8 +13,8 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.util.Frequency;
@@ -66,11 +66,11 @@ public class JsonAdaptedReminder {
             conditions.addAll(generalReminder.getConditions().stream()
                     .map(JsonAdaptedCondition::new)
                     .collect(Collectors.toList()));
-        } else if (source instanceof IewReminder) {
-            IewReminder iewReminder = (IewReminder) source;
-            reminderType = "IewReminder";
-            period = iewReminder.getPeriod().toString();
-            freq = iewReminder.getFrequency().toString();
+        } else if (source instanceof EntryReminder) {
+            EntryReminder entryReminder = (EntryReminder) source;
+            reminderType = "EntryReminder";
+            period = entryReminder.getPeriod().toString();
+            freq = entryReminder.getFrequency().toString();
         }
     }
 
@@ -92,15 +92,15 @@ public class JsonAdaptedReminder {
             final Description modelMessage = new Description(header);
             GeneralReminder modelGeneralReminder = new GeneralReminder(modelMessage, conditionList);
             return modelGeneralReminder;
-        } else if (reminderType.equalsIgnoreCase("IewReminder")) {
+        } else if (reminderType.equalsIgnoreCase("EntryReminder")) {
             if (!Description.isValidDescription(header)) {
                 throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
             }
             final Description modelHeader = new Description(header);
             final Period modelPeriod = new Period(period);
             final Frequency modelFreq = Frequency.parse(freq);
-            IewReminder iewReminder = new IewReminder(modelHeader, uniqueId, modelPeriod, modelFreq);
-            return iewReminder;
+            EntryReminder entryReminder = new EntryReminder(modelHeader, uniqueId, modelPeriod, modelFreq);
+            return entryReminder;
         } else {
             throw new IllegalValueException("Unsupported reminder.");
         }

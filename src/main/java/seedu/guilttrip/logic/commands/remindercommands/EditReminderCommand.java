@@ -26,8 +26,8 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Period;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.DateCondition;
@@ -101,13 +101,13 @@ public class EditReminderCommand extends Command {
             editedReminder = createGeneralEditedReminder(model,
                     reminderToEdit, (EditGeneralReminderDescriptor) editReminderDescriptor);
         } else if (editReminderDescriptor instanceof EditIewReminderDescriptor) {
-            logger.info("Editing IewReminder");
+            logger.info("Editing EntryReminder");
             editedReminder = createIewEditedReminder(model,
                     reminderToEdit, (EditIewReminderDescriptor) editReminderDescriptor);
-            IewReminder iewReminder = (IewReminder) editedReminder;
-            Entry targetEntry = iewReminder.getEntry();
-            Period period = iewReminder.getPeriod();
-            Frequency freq = iewReminder.getFrequency();
+            EntryReminder entryReminder = (EntryReminder) editedReminder;
+            Entry targetEntry = entryReminder.getEntry();
+            Period period = entryReminder.getPeriod();
+            Frequency freq = entryReminder.getFrequency();
             Date currDate = new Date(TimeUtil.getLastRecordedDate());
             if (targetEntry.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
@@ -240,8 +240,8 @@ public class EditReminderCommand extends Command {
             Model model, Reminder reminderToEdit, EditIewReminderDescriptor editIewReminderDescriptor)
         throws CommandException {
         assert reminderToEdit != null;
-        IewReminder iewReminderToEdit = (IewReminder) reminderToEdit;
-        if (!(model.getReminderSelected() instanceof IewReminder)) {
+        EntryReminder entryReminderToEdit = (EntryReminder) reminderToEdit;
+        if (!(model.getReminderSelected() instanceof EntryReminder)) {
             throw new CommandException(MISMATCHING_REMINDER_TYPES);
         }
         final Period period;
@@ -249,21 +249,21 @@ public class EditReminderCommand extends Command {
         if (editIewReminderDescriptor.getPeriod().isPresent()) {
             period = editIewReminderDescriptor.getPeriod().get();
         } else {
-            period = iewReminderToEdit.getPeriod();
+            period = entryReminderToEdit.getPeriod();
         }
         if (editIewReminderDescriptor.getFrequency().isPresent()) {
             freq = editIewReminderDescriptor.getFrequency().get();
         } else {
-            freq = iewReminderToEdit.getFrequency();
+            freq = entryReminderToEdit.getFrequency();
         }
         Description header;
         if (editIewReminderDescriptor.getHeader().isPresent()) {
             header = editIewReminderDescriptor.getHeader().get();
         } else {
-            header = iewReminderToEdit.getHeader();
+            header = entryReminderToEdit.getHeader();
         }
-        Entry targetEntry = iewReminderToEdit.getEntry();
-        IewReminder newReminder = new IewReminder(header, targetEntry, period, freq);
+        Entry targetEntry = entryReminderToEdit.getEntry();
+        EntryReminder newReminder = new EntryReminder(header, targetEntry, period, freq);
         return newReminder;
     }
 
@@ -277,9 +277,9 @@ public class EditReminderCommand extends Command {
         if (reminderToEdit instanceof GeneralReminder) {
             editedReminder = createGeneralEditedReminder(model,
                     (GeneralReminder) reminderToEdit, new EditGeneralReminderDescriptor(editReminderDescriptor));
-        } else if (reminderToEdit instanceof IewReminder) {
+        } else if (reminderToEdit instanceof EntryReminder) {
             editedReminder = createIewEditedReminder(model,
-                    (IewReminder) reminderToEdit, new EditIewReminderDescriptor(editReminderDescriptor));
+                    (EntryReminder) reminderToEdit, new EditIewReminderDescriptor(editReminderDescriptor));
         } else {
             throw new CommandException(REMINDER_TYPE_NOT_SUPPORTED);
         }
@@ -426,7 +426,7 @@ public class EditReminderCommand extends Command {
     }
 
     /**
-     * Contains edited information for IewReminder
+     * Contains edited information for EntryReminder
      */
     public static class EditIewReminderDescriptor extends EditReminderDescriptor {
         private Period period;

@@ -3,28 +3,16 @@ package seedu.guilttrip.testutil;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_CATEGORY_FOOD_EXPENSE;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.assertj.core.internal.Conditions;
-
 import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.entry.Date;
-import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
-import seedu.guilttrip.model.reminders.GeneralReminder;
-import seedu.guilttrip.model.reminders.conditions.Condition;
-import seedu.guilttrip.model.reminders.conditions.DateCondition;
-import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
-import seedu.guilttrip.model.reminders.conditions.TagsCondition;
-import seedu.guilttrip.model.reminders.conditions.TypeCondition;
-import seedu.guilttrip.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Entry} objects to be used in tests.

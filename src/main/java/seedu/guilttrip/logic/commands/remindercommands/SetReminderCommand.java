@@ -20,7 +20,7 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.Wish;
-import seedu.guilttrip.model.reminders.IewReminder;
+import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.util.Frequency;
 
@@ -76,7 +76,7 @@ public class SetReminderCommand extends Command {
             if (targetExpense.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IewReminder(header, targetExpense, period, freq));
+            model.addReminder(new EntryReminder(header, targetExpense, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetExpense));
         case "income":
             List<Income> incomeList = model.getFilteredIncomes();
@@ -84,7 +84,7 @@ public class SetReminderCommand extends Command {
             if (targetIncome.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IewReminder(header, targetIncome, period, freq));
+            model.addReminder(new EntryReminder(header, targetIncome, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetIncome));
         case "wish":
             List<Wish> wishList = model.getFilteredWishes();
@@ -92,7 +92,7 @@ public class SetReminderCommand extends Command {
             if (targetWish.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
             }
-            model.addReminder(new IewReminder(header, targetWish, period, freq));
+            model.addReminder(new EntryReminder(header, targetWish, period, freq));
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetWish));
         default:
             throw new CommandException(UNSUPPORTED_TYPE);
