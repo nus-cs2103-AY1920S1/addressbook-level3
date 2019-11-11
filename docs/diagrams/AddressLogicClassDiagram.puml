@@ -51,7 +51,7 @@ Address.Logic.AddressBookLogicManager .up.> Logic
 
 Address.Logic.AddressBookLogicManager o--> "1" Storage
 Address.Logic.AddressBookLogicManager o--> "1" Address.Model
-Address.Logic.AddressBookLogicManager *-down-> "1" Address.Logic.Parser.AddressBookParser
+Address.Logic.AddressBookLogicManager o-down-> "1" Address.Logic.Parser.AddressBookParser
 
 
 ''''''''''XYZCommand
