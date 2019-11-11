@@ -50,7 +50,7 @@ More details will be discussed below in the <<User-guide, user guide>> and <<Dev
 `Budget` allows the user to have an indication of the outflows in a given category.
 As the two classes behaves as though `Budget` is a child class of `Transaction`,
 an in-depth analysis of design alternatives was necessary to ensure that Liskov Substitution Principal
-was not violated. More details will be elaborated in section <<Design-Considerations, Design Considerations>> in the Developer guide excerpt below.
+was not violated. More details will be elaborated in section Design Considerations of <<Developer-guide, developer guide>> excerpt below.
 
 *Code contributed*: Please click these links to see a sample of my code:
 https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=yewon0303&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
@@ -104,4 +104,3 @@ The section also highlights the relationship of `Budget` class with the overall 
 include::../DeveloperGuide.adoc[tag=set]
 
 <End of Excerpt>
-
