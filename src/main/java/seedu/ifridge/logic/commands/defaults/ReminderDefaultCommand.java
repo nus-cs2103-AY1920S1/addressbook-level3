@@ -1,6 +1,7 @@
 package seedu.ifridge.logic.commands.defaults;
 
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 
 import seedu.ifridge.commons.core.IFridgeSettings;
 import seedu.ifridge.logic.commands.Command;
@@ -34,6 +35,7 @@ public class ReminderDefaultCommand extends Command {
         IFridgeSettings curr = new IFridgeSettings(remDefault);
         model.setIFridgeSettings(curr);
         CommandResult commandResult = new CommandResult(String.format(MESSAGE_SUCCESS, remDefault));
+        model.updateFilteredGroceryItemList(PREDICATE_SHOW_ALL_GROCERY_ITEMS);
         commandResult.setWasteListCommand();
         commandResult.setGroceryListCommand();
         return commandResult;
