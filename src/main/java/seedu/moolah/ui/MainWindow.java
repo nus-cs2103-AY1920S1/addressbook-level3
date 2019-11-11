@@ -91,6 +91,7 @@ import seedu.moolah.ui.budget.BudgetListPanel;
 import seedu.moolah.ui.budget.BudgetPanel;
 import seedu.moolah.ui.event.EventListPanel;
 import seedu.moolah.ui.expense.ExpenseListPanel;
+import seedu.moolah.ui.panel.PanelManager;
 import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
@@ -126,7 +127,7 @@ public class MainWindow extends UiPart<Stage> {
     private Timer timer;
 
     // Panel Manager which manages which panel(extending UiPart Region) is displayed.
-    private SinglePanelView singlePanelView;
+    private PanelManager panelManager;
 
     // Ui parts which are always displayed
     private ResultDisplay resultDisplay;
@@ -220,20 +221,21 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getMooLahFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        singlePanelView = new SinglePanelView();
+        SinglePanelView singlePanelView = new SinglePanelView();
+        panelManager = singlePanelView;
         panelPlaceholder.getChildren().add(singlePanelView.getRoot());
 
         // fill single panel view
-        singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+        panelManager.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
 
-        singlePanelView.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
-        singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
+        panelManager.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
+        panelManager.setPanel(ExpenseListPanel.PANEL_NAME,
                 new ExpenseListPanel(logic.getFilteredExpenseList(), true));
-        singlePanelView.setPanel(BudgetListPanel.PANEL_NAME,
+        panelManager.setPanel(BudgetListPanel.PANEL_NAME,
                 new BudgetListPanel(logic.getFilteredBudgetList()));
-        singlePanelView.setPanel(EventListPanel.PANEL_NAME,
+        panelManager.setPanel(EventListPanel.PANEL_NAME,
                 new EventListPanel(logic.getFilteredEventList(), true));
-        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
+        panelManager.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
 
         // startup panel = expense list panel
         try {
@@ -415,26 +417,29 @@ public class MainWindow extends UiPart<Stage> {
     void changePanel(PanelName panelName) throws UnmappedPanelException {
         configureGenericCommands(panelName);
 
+        if (panelName.equals(PanelName.CURRENT)) {
+            panelName = panelManager.getCurrentPanelName();
+        }
         if (panelName.equals(AliasListPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
+            panelManager.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
         } else if (panelName.equals(BudgetPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
+            panelManager.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
         } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, new BudgetListPanel(logic.getFilteredBudgetList()));
+            panelManager.setPanel(BudgetListPanel.PANEL_NAME, new BudgetListPanel(logic.getFilteredBudgetList()));
         } else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
+            panelManager.setPanel(ExpenseListPanel.PANEL_NAME,
                     new ExpenseListPanel(logic.getFilteredExpenseList(), true));
         } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
-            singlePanelView.setPanel(EventListPanel.PANEL_NAME,
+            panelManager.setPanel(EventListPanel.PANEL_NAME,
                     new EventListPanel(logic.getFilteredEventList(), true));
         } else if (panelName.equals(StatsPanel.PANEL_NAME)) {
             try {
                 populateStatisticsPanel();
             } catch (NullPointerException e) {
-                singlePanelView.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
+                panelManager.setPanel(StatsPanel.PANEL_NAME, new PlaceholderPanel());
             }
         }
-        singlePanelView.viewPanel(panelName);
+        panelManager.viewPanel(panelName);
     }
 
     /**
@@ -445,7 +450,7 @@ public class MainWindow extends UiPart<Stage> {
         StatisticsRegionFactory factory = statistics.createFactory();
         Region data = factory.createRegion();
         String localTitle = factory.getTitle();
-        singlePanelView.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(data, localTitle));
+        panelManager.setPanel(StatsPanel.PANEL_NAME, new StatsPanel(data, localTitle));
     }
 
 
@@ -487,6 +492,10 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.DELETE,
                     Collections.emptyList(),
                     Collections.emptyList());
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.EDIT,
+                    EditExpenseCommandParser.REQUIRED_PREFIXES,
+                    EditExpenseCommandParser.OPTIONAL_PREFIXES);
 
         //event list command
         } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
@@ -607,7 +616,7 @@ public class MainWindow extends UiPart<Stage> {
         } catch (UnmappedPanelException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage() + "\n"
-                    + String.format(ViewPanelCommand.SHOW_AVAILABLE_PANELS, singlePanelView.toString()));
+                    + String.format(ViewPanelCommand.SHOW_AVAILABLE_PANELS, panelManager.toString()));
             throw e;
         }
     }
@@ -616,15 +625,15 @@ public class MainWindow extends UiPart<Stage> {
      * Decides what the command group should be based on the current panel name.
      */
     private String decideCommandGroup() {
-        if (BudgetPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        if (BudgetPanel.PANEL_NAME.equals(panelManager.getCurrentPanelName())) {
             return CommandGroup.PRIMARY_BUDGET;
-        } else if (ExpenseListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (ExpenseListPanel.PANEL_NAME.equals(panelManager.getCurrentPanelName())) {
             return CommandGroup.EXPENSE;
-        } else if (EventListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (EventListPanel.PANEL_NAME.equals(panelManager.getCurrentPanelName())) {
             return CommandGroup.EVENT;
-        } else if (AliasListPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (AliasListPanel.PANEL_NAME.equals(panelManager.getCurrentPanelName())) {
             return CommandGroup.ALIAS;
-        } else if (StatsPanel.PANEL_NAME.equals(singlePanelView.getCurrentPanelName())) {
+        } else if (StatsPanel.PANEL_NAME.equals(panelManager.getCurrentPanelName())) {
             return CommandGroup.STATISTIC;
         }
         return CommandGroup.GENERAL;

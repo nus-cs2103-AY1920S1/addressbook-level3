@@ -1,0 +1,95 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+skinparam classBorderColor White
+skinparam classFontColor White
+skinparam linetype ortho
+
+
+
+package Model <<Rectangle>>  {
+}
+
+package UI {
+class MainWindow
+Class "{abstract}\nUiPart" as UiPart
+package panel {
+interface PanelManager
+class SinglePanelView
+class PanelMapping
+class PanelName
+abstract "{abstract}\n Panel" as panel
+class PlaceholderPanel
+}
+package event {
+class EventListPanel
+class EventCard
+}
+package alias {
+class AliasListPanel
+class AliasCard
+}
+package expense {
+class ExpenseCard
+class ExpenseListPanel
+}
+package budget {
+class BudgetListPanel
+class BudgetCard
+class BudgetPanel
+}
+package statistics {
+class StatsPanel
+class Statistics
+}
+}
+class SinglePanelView {
+viewPanel(PanelName) : void
+getCurrentPanel() : Panel
+}
+
+interface PanelManager <<interface>> {
+setPanel(PanelName, Panel) : void
+hasPanel(PanelName) : boolean
+getPanel(PanelName) : Panel
+removePanel(PanelName) : Panel
+}
+abstract "{abstract}\nPanel" as panel {
+hide() : void
+view() : void
+}
+MainWindow ---|> UiPart
+MainWindow *-> PanelManager
+PanelManager <|.. SinglePanelView
+UiPart <|- SinglePanelView
+UiPart <|-- panel
+panel <|-- PlaceholderPanel
+SinglePanelView "*" o--> PanelMapping
+PanelMapping *--> "1" panel
+PanelMapping "1"*-->  PanelName
+
+AliasCard ..> Model
+BudgetCard ..> Model
+ExpenseCard ..> Model
+EventCard ..> Model
+Statistics ..> Model
+
+BudgetPanel *--> BudgetCard
+BudgetListPanel o-down-> BudgetCard
+BudgetPanel *-left-> ExpenseListPanel
+AliasListPanel o-down-> AliasCard
+ExpenseListPanel o-down-> ExpenseCard
+EventListPanel o-down-> EventCard
+StatsPanel o--> Statistics
+
+AliasListPanel ---|> panel
+BudgetListPanel ---|> panel
+ExpenseListPanel ---|> panel
+EventListPanel ---|> panel
+StatsPanel ---|> panel
+BudgetPanel ---|> panel
+
+@enduml

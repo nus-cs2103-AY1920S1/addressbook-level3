@@ -2,6 +2,7 @@ package seedu.moolah.logic.parser.alias;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.moolah.commons.core.Messages.MESSAGE_REPEATED_PREFIX_COMMAND;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_INPUT;
 import static seedu.moolah.logic.parser.CliSyntax.PREFIX_ALIAS_ALIAS_NAME;
 
@@ -43,6 +44,10 @@ public class AddAliasCommandParser implements Parser<AddAliasCommand> {
         if (!argMultimap.arePrefixesPresent(PREFIX_ALIAS_ALIAS_NAME, PREFIX_ALIAS_ALIAS_INPUT)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.hasRepeatedPrefixes(PREFIX_ALIAS_ALIAS_INPUT, PREFIX_ALIAS_ALIAS_NAME)) {
+            throw new ParseException(MESSAGE_REPEATED_PREFIX_COMMAND);
         }
 
         Optional<String> aliasName = argMultimap.getValue(PREFIX_ALIAS_ALIAS_NAME);

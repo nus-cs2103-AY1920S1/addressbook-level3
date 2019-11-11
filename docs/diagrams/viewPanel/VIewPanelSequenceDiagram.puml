@@ -1,0 +1,128 @@
+@startuml
+!include ../style.puml
+
+box UI UI_COLOR_T1
+participant "<u>:CommandBox" as CommandBox UI_COLOR
+participant "<u>:MainWindow" as MainWindow UI_COLOR
+participant "<u>:SinglePanelView" as SinglePanelView UI_COLOR
+participant "<u>panelName:PanelName" as PanelName UI_COLOR
+participant "<u>primaryBudget:Panel" as Panel UI_COLOR
+participant "<u>exception:UnassignedPanelException" as UnassignedPanelException UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant "<u>:LogicManager" as LogicManager LOGIC_COLOR
+participant "<u>:AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "<u>parser:ViewCommandParser" as ViewCommandParser LOGIC_COLOR
+participant "<u>result:CommandResult" as CommandResult LOGIC_COLOR
+participant "<u>command:ViewCommand" as ViewCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "<u>model:Model" as Model MODEL_COLOR
+end box
+
+[-> CommandBox : enters "view Primary Budget"
+activate CommandBox
+CommandBox -> CommandBox : handleEnteredCommand() \n input = "view Primary Budget"
+activate CommandBox
+CommandBox -> MainWindow : execute(input)
+activate MainWindow
+MainWindow -> LogicManager : execute(input)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parse(input)
+activate AddressBookParser
+
+create ViewCommandParser
+AddressBookParser -> ViewCommandParser
+activate ViewCommandParser
+ViewCommandParser --> AddressBookParser : parser
+deactivate 
+
+AddressBookParser -> ViewCommandParser: parse(" Budget List")
+activate ViewCommandParser
+
+create PanelName
+ViewCommandParser -> PanelName : new PanelName("Budget List")
+activate PanelName
+PanelName --> ViewCommandParser : panelName
+deactivate PanelName
+
+create ViewCommand
+ViewCommandParser -> ViewCommand: new ViewCommand(panelName)
+activate ViewCommand
+ViewCommand --> ViewCommandParser: command
+deactivate ViewCommand
+
+ViewCommandParser --> AddressBookParser: command
+destroy ViewCommandParser
+
+AddressBookParser --> LogicManager: command
+deactivate AddressBookParser
+
+LogicManager --> ViewCommand: run(model)
+activate ViewCommand
+ViewCommand -> ViewCommand: validate(model)
+activate ViewCommand
+deactivate ViewCommand
+ViewCommand -> ViewCommand: execute(model)
+activate ViewCommand
+deactivate ViewCommand
+
+create CommandResult
+ViewCommand -> CommandResult
+activate CommandResult
+CommandResult --> ViewCommand: result
+deactivate CommandResult
+ViewCommand --> LogicManager: result
+deactivate ViewCommand
+LogicManager --> MainWindow: result
+deactivate LogicManager
+MainWindow --> CommandResult: viewRequest()
+activate CommandResult
+CommandResult --> MainWindow: panelName
+deactivate CommandResult
+
+MainWindow -> SinglePanelView: viewPanel(panelName)
+activate SinglePanelView
+alt panel name is assigned to a panel
+SinglePanelView -> Panel: view()
+
+activate Panel
+|||
+Panel --> SinglePanelView:
+
+deactivate Panel
+SinglePanelView --> MainWindow
+
+else panel name is not assigned to panel
+create UnassignedPanelException
+SinglePanelView -> UnassignedPanelException : exception
+activate UnassignedPanelException
+return
+SinglePanelView -> UnassignedPanelException : throw
+activate UnassignedPanelException
+UnassignedPanelException --> MainWindow: exception
+deactivate UnassignedPanelException
+MainWindow -> MainWindow : catch exception
+activate MainWindow
+MainWindow -> SinglePanelView : getAvailablePanels()
+SinglePanelView --> MainWindow: availablePanels
+deactivate SinglePanelView
+MainWindow -> MainWindow : displays error and list of available panels
+|||
+end
+deactivate SinglePanelView
+MainWindow --> CommandBox
+deactivate MainWindow
+CommandBox --> CommandBox
+deactivate CommandBox
+[<--CommandBox
+deactivate CommandBox
+
+
+
+
+
+@enduml
