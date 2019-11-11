@@ -288,7 +288,7 @@ image::HistoryClassDiagram.png[]
 
 The following sequence diagram illustrates the flow of how history commands works:
 
-
+image::HistorySequenceDiagram.png[]
 
 === Currency Conversion
 
@@ -365,15 +365,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |retrieve all expenses |review my spending
 
-|`* * *` |user |retrieve all expenses for today |review my spending for the day
-
 |`* * *` |user |find an expense name |locate a specific expense without having to go through the entire list
 
 |`* * *` |user |edit an expense |change the expense amount, date or tag
 
 |`* * *` |user |delete an expense |
 
-|`* * *` |user |terminate a recurring expense |
+|`* *` |user |terminate a recurring expense |
+
+|`* *` |user |retrieve all expenses for today |review my spending for the day
 
 |`* *` |user |create a recurring expense |don't have to input recurring expenses every time
 
