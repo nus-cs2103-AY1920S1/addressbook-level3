@@ -79,7 +79,7 @@ for help!
 
 +
 .GUI of StudyBuddyPro application displayed on startup
-image::Ui.PNG[width="700"]
+image::Ui.png[width="700"]
 +
 
 4. Type a command in the command box execute it by pressing kbd:[Enter]. Typed commands
