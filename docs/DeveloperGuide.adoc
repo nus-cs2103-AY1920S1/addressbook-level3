@@ -1816,13 +1816,7 @@ i.e. `add` on the Expense List panel, should behave as `addexpense`
 
 
 
-
-
-
-
-
-Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
-
+=== Testing statsbasic
 .. Prerequisites: Create a new budget, one possible way is `addbudget d/school p/3.00 sd/28-10 pr/day`.
 .. Test case: `statsbasic` + Expected: A success message of "Pie Chart calculated!" appears with the correct date, amount
    but no pie chart being shown
