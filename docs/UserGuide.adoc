@@ -15,7 +15,7 @@ endif::[]
 
 = ELISA - User Guide
 
-image::ug_title.png[]
+image::ug_title.PNG[]
 
 By: `AY1920S1-CS2103T-T10-3`
 Since: `Sep 2019`
@@ -23,7 +23,7 @@ Licence: `NUS`
 
 == Introduction
 
-image::ug_introduction.png[]
+image::ug_introduction.PNG[]
 
 Hello, I am an Extremely Loud and Intelligent Student Assistant (ELISA)!
 
@@ -35,7 +35,7 @@ Enjoy!
 
 == Quick Start
 
-image::ug_quickstart.png[]
+image::ug_quickstart.PNG[]
 
 .  Have you installed Java `11` ?
 .  Find me, `ELISA.jar` link:{repoURL}/releases[here].
@@ -49,7 +49,7 @@ image::MainWindow.png[width="790"]
 
 == Legend
 
-image::ug_legend.png[]
+image::ug_legend.PNG[]
 Here are the icons that will be used in the app:
 
 image:Completed.PNG[Done, title="Done"] shows that you've completed this task. +
@@ -147,7 +147,6 @@ Now we are ready to jump into the features itself!
 
 === CLI Features
 
-//tag::add[]
 ==== Adding a task: `task`
 
 Adds a task to the task list +
@@ -189,7 +188,6 @@ Examples:
 
 [NOTE]
 It is not possible to set a reminder in the past.
-//end::add[]
 
 //tag::edit[]
 ==== Editing an item : `edit`

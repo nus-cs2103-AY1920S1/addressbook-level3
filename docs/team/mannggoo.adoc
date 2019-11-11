@@ -43,7 +43,7 @@ As the rest of the report will refer to these components, their functions will b
 |Component |Function
 
 |ELISA icon
-|Indicates which mode ELISA is currently in. The blue seen above is her standard mode.
+| Indicates which mode ELISA is currently in. The blue seen above is her standard mode.
 
 |Result display
 |The "chat history" with ELISA which contains all past user input and ELISA's response.
@@ -60,18 +60,6 @@ As the rest of the report will refer to these components, their functions will b
 
 Upon startup, ELISA would show the default (T)ask tab. However, as I was more involved in the Events, I have chosen to show the (E)vent tab instead.
 
-Here are ELISA's *main features*:
-[options="header"]
-.Main Features
-|===
-| Features: | Significance: | Contributed by:
-|Calendar Overview | Able to see all important events in a glance. | Low Cheng Yi -- Github: @Icesolz
-|Auto-rescheduling of Events | Able to automatically update the time of recurring events when it is over. | Lim Yu Hui -- Github: @mannggoo
-|Undo, Redo |Able to revert mistakes made quickly. | Chandrasekaran Hema -- Github: @Irchema
-|Reminder | Be notified about important tasks or events when needed. | Bryan Lim -- Github: @blimyj
-|Priority Mode | Gives users the most important task in order of priority. | Ng Siang Hwee -- Github: @sianghwee
-|===
-
 Now that I've briefly introduced ELISA, the remaining sections will be mainly focusing on what I contributed.
 
 == Summary of Contributions
@@ -81,40 +69,61 @@ In this section, I will be briefly going through my contributions to this team p
 === My Role
 My role lies mainly in the logic component. I refactored most of the code in the logic such as the commands in AddressBook as well as the parser. Given below are the new features that I've added for this project. +
 
-*Enhancement added:* Automatic rescheduling of recurring events *(Major Feature)*.
-
-[cols="1,4"]
 |===
-h|What it does: | Updates the time of recurring events automatically. For example, weekly events’ time will be updated when it has passed.
-h|Justification: | Users might have events that occur weekly such as CS2103T Quiz. When the deadline is over, users would have to manually change the date to next weeks’. However, with this feature, ELISA can change it for them, making it more convenient to update events and keep them relevant.
-h|Highlights: |This enhancement works for *_3 aspects_*: +
+|*Enhancement added:* Automatic rescheduling of recurring events *(Major Feature)*.
+|===
+
+_What it does:_ +
+Updates the time of recurring events automatically. For example, weekly events’ time will be updated when it has passed. +
+
+_Justification:_ +
+Users might have events that occur weekly such as CS2103T Quiz. When the deadline is over, users would have to manually change the date to next weeks’. However, with this feature, ELISA can change it for them, making it more convenient to update events and keep them relevant. +
+
+_Highlights:_ +
+This enhancement works for *_3 aspects_*: +
 1) When creating a new event, if the event is already over, AutoReschedule immediately updates its time. +
 2) When ELISA is running, the view will automatically be refreshed to reflect the changes in the Event's time. +
-3) When loading from the storage. If the event is already over, ELISA will update it and show the user the new date.
-h|Challenges faced: |
+3) When loading from the storage. If the event is already over, ELISA will update it and show the user the new date. +
+
+_Challenges faced:_ +
 I had to use a thread that schedules for event’s date to be updated, however this often interfered with my teammates’ thread for reminders as reminders would need to be rescheduled too. However, the reminder’s time is not relative to the event’s, as such given our constraints, we decided to disallow rescheduling for events with reminders. Given the many possible scenarios of violating this, we decided to implement an ItemBuilder that prevents the build of an item that has both reschedule and reminder. +
 Also, there was the issue of creating multiple threads for the rescheduling, as there could be an extremely large number of threads, as such, the singleton pattern is used for a thread that serves as an overall manager for all the rescheduling. This made managing the tasks easier as there are many operations such as undo, and edit that requires frequent modifying of the tasks in the thread.
-Lastly, updating a past date to an upcoming date required the use of modulo for better efficiency.
+Lastly, updating a past date to an upcoming date required the use of modulo for better efficiency. +
+
+|===
+|*Enhancement added:* Expanding item view to show its related task, event and reminder *(Minor Feature)*.
 |===
 
-*Enhancement added:* Expanding item view to show its related task, event and reminder *(Minor Feature)*.
-[cols="1,4"]
+
+_What it does:_ +
+Expands the item to show all details of an item. This includes fields of its task, event and reminder, if they are present. +
+
+_Justification:_ +
+Each list shows the minimal details related to the item as we want to keep it concise. However, users viewing the task list might want to know if there is deadline for it, or if there is a reminder associated with it. As such, they can expand the item to show all its details. +
+
+_Highlights:_ +
+This feature works on Task list, Event list and Reminder list, making it convenient to find details, regardless of which view the user is on. +
+Users can also open and close and item using the commands “open” and “close’ without touching the mouse. +
+
+_Challenges faced:_ +
+However, as the details are shown in a popup, there were issues such as the popup covering over other windows, even when the app is minimised. As such, I had to add a listener to the window in order the popup when required, as well as prevent multiple popups. +
+
 |===
-h|What it does: | Expands the item to show all details of an item. This includes fields of its task, event and reminder, if they are present.
-h|Justification: | Each list shows the minimal details related to the item as we want to keep it concise. However, users viewing the task list might want to know if there is deadline for it, or if there is a reminder associated with it. As such, they can expand the item to show all its details.
-h|Highlights: | This feature works on Task list, Event list and Reminder list, making it convenient to find details, regardless of which view the user is on. +
-Users can also open and close and item using the commands “open” and “close’ without touching the mouse.
-h|Challenges faced: | However, as the details are shown in a popup, there were issues such as the popup covering over other windows, even when the app is minimised. As such, I had to add a listener to the window in order the popup when required, as well as prevent multiple popups.
+|*Enhancement added:* More versatile parsing of input.
 |===
 
-*Enhancement added:* More versatile parsing of input.
-[cols="1,4"]
-|===
-h|What it does: | More forms of parsing the date time given by the user
-h|Justification: | It is inconvenient for the user to manually calculate what time they want their reminder. For example, for a reminder 2 hours later, users would have to check the current time, then add the hours. But this can now be achieved with “2.hour.later”.
-h|Highlights: | Minutes, hours and days can all be accepted. For example, “10.min.later” and “2.day.later” works. This format can be used for deadline, reminder and auto rescheduling. Also, the standard “29/10/2019 2359” and “2019-10-20T23:59” are also accepted.
-h|Challenges faced: | Different parsers have different requirements, such as "10.min.later" parser having a maximum of 100 and time of "2400" being disallowed. As such, rendering the specific error message was tricky.
-|===
+_What it does:_ +
+More forms of parsing the date time given by the user +
+
+_Justification:_ +
+It is inconvenient for the user to manually calculate what time they want their reminder. For example, for a reminder 2 hours later, users would have to check the current time, then add the hours. But this can now be achieved with “2.hour.later”. +
+
+_Highlights:_ +
+Minutes, hours and days can all be accepted. For example, “10.min.later” and “2.day.later” works. This format can be used for deadline, reminder and auto rescheduling. Also, the standard “29/10/2019 2359” and “2019-10-20T23:59” are also accepted. +
+
+_Challenges faced:_ +
+Different parsers have different requirements, such as "10.min.later" parser having a maximum of 100 and time of "2400" being disallowed. As such, rendering the specific error message was tricky. +
+
 
 === Other Contributions
 * *Project Management* +
@@ -137,10 +146,11 @@ https://github.com/AY1920S1-CS2103T-T10-3/main/pull/40/files[PR #40] -- Updated 
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users. Parts that could not fit into this section are given as links._
 |===
 
-include::../UserGuide.adoc[tag=edit]
+Link to:
+<<include::../UserGuide.adoc[tag=edit], How edit works>>
 
 include::../UserGuide.adoc[tag=autoreschedule]
 
@@ -149,9 +159,10 @@ include::../UserGuide.adoc[tag=autoreschedule]
 |_Given below are sections I contributed to the Developer Guide for the logic implementation, the refactored add and edit, as well as my main feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=logic]
+Link to:
+<<include::../DeveloperGuide.adoc[tag=add], How add works>>
 
-include::../DeveloperGuide.adoc[tag=add]
+include::../DeveloperGuide.adoc[tag=logic]
 
 include::../DeveloperGuide.adoc[tag=autoreschedule]
 
