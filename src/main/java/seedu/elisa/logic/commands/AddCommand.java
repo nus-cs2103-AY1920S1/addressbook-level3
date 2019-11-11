@@ -1,10 +1,6 @@
 package seedu.elisa.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
@@ -33,6 +29,12 @@ public abstract class AddCommand extends UndoableCommand {
         toAdd = item;
     }
 
+    /**
+     * Executes this AddCommand to add the new item to this model.
+     * @param model {@code Model} which the command should operate on.
+     * @return CommandResult of executing this add
+     * @throws CommandException if item fails to be added to this model
+     */
     public CommandResult execute(ItemModel model) throws CommandException {
         requireNonNull(model);
 

@@ -1,5 +1,11 @@
 package seedu.elisa.logic.parser;
 
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_AUTO_RESCHEDULE;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
+import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.Optional;
 import java.util.Set;
 
@@ -14,12 +20,6 @@ import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.logic.commands.AddCommand;
 import seedu.elisa.logic.commands.AddTaskCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
-
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_AUTO_RESCHEDULE;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  *  Parses input arguments and creates a new AddCommand object
