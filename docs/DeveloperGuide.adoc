@@ -1040,12 +1040,12 @@ _{ more test cases ... }_
    Expected: Popularity of child care policy should be 0. Format of indicator should be piechart.
 .. Test case: +
     `display i/age-group-breakdown f/linechart` +
-    `add n/Norman ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Male` +
+    `add n/Norman ic/S0000001A p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Male` +
    Expected: Number of people in the age group below 20 years old should increase by 1.
 Format of indicator should be linechart.
 .. Test case: +
     `display i/gender-breakdown f/barchart` +
-    `add n/Sally ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Female` +
+    `add n/Sally ic/S0000002A p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Female` +
    Expected: Number of females should increase by 1. Format of indicator should be barchart.
 // end::manualtestdisplay[]
 
