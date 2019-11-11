@@ -869,11 +869,13 @@ Close the window.
 .. Prerequisites: List all employees using the `list_em` command.
 Multiple employees in the list.
 .. Test case: `delete_em 1` +
-   Expected: Employee of index '1' is deleted from the list.
+   Expected: Employee of ID '1' is deleted from the list.
 Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete_em 0` +
    Expected: No employee is deleted.
 Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
@@ -970,32 +972,24 @@ The event list will not be updated.
 .. Test Case: `delete_ev_dt 1 on/25/10/2019` +
     Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
 
-=== Auto-Allocation of employees to an event
-. Allocating employees to a displayed Event.
+=== Generating Statistics
 
-.. Prerequisites:
-1. User is in `Main` or `Schedule` Tab.
-2. There are at least two Events in the displayed list.
-3. There are sufficient available employees for the Event.
-4. Chosen Event still requires manpower.
-.. Test case: `allocate 1` +
-    Expected: Employees with non-conflicting schedules are allocated to the
-1st Event displayed in the list. Number of employees allocated is based on demand of event.
-.. Test case: `allocate 1 t/male` +
-    Expected: Employees, tagged [male] with non-conflicting schedules are allocated to the
-1st Event displayed in the list. Number of employees allocated is based on demand of event.
-.. Test case: `allocate 2 n/1` +
-    Expected: 1 Employee with non-conflicting schedule is allocated to the
-2nd Event displayed in the list.
-.. Test case: `allocate 2 n/1 t/male` +
-    Expected: 1 Employee, tagged [male], with non-conflicting schedules are allocated to the
-2nd Event displayed in the list.
+. Generating Statistics based on the current data on both events and employees.
 
-.. Test case: `allocate 0` +
-    Expected: No employee is allocated to event.
-Error details shown in the status message.
-.. Other incorrect auto-allocate commands to try: `allocate`, `allocate x` (where x is larger than the list size) +
-   Expected: Similar to previous.
+.. Prerequisites: Multiple events in the event list and multiple employees in the employee list. User must navigate to the Statistics tab.
+.. Test case: `generate_stats` +
+   Expected: Statistics window will display statistics.
+Statistics window will be populated with different types of data including a list of upcoming events requiring manpower, a pie chart for these events based on their tags and a pie chart to represent the employee tags.
+If an event does not have any set tags, the user would likely allocate any employee to it.
+
+=== Generating Detailed Statistics
+
+. Generating Detailed Statistics based on the current data on both events and employees.
+
+.. Prerequisites: Multiple events in the event list and multiple employees in the employee list. User must navigate to the Statistics tab.
+.. Test case: `generate_stats_detail` +
+   Expected: New window will open displaying detaile statistics of both events and employees.
+Statistics pop-up window will be populated with statistical data based on the most current app data. This will be displayed in a text file format for the user to quickly scroll through and get the data they require.
 
 === Saving data
 
