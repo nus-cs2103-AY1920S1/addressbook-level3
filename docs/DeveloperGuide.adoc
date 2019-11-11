@@ -25,7 +25,7 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
-Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a Csv file.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 
@@ -623,7 +623,7 @@ The above sequence diagram only shows how a `DeleteReminderCommand` is created a
 
 ==== Design Considerations
 
-[width="100%", cols="1,2,2", options="header",]
+[width="90%", cols="1,2,2", options="header",]
 |===
 |Aspect |Alternative 1 (Current choice) |Alternative 2
 
@@ -649,7 +649,7 @@ Requires additional implementation for storing reminders. +
 Has to manage multiple files for storage of user's data
 |===
 
-Alternative 1 from above table, is currently implemented in MoneyGoWhere (v1.4) since it is efficient for the application to access user's data from a single storage file.
+Alternative 1 from the above table, is currently implemented in MoneyGoWhere since it is efficient for the application to access user's data from a single storage file.
 
 The following Architecture Diagram summarizes how different components in MoneyGoWhere application interact with each other while storing a reminder from the valid user input with the current implementation.
 
@@ -664,7 +664,7 @@ The above high-level Architecture Diagram only provides the summarized steps tak
 // end::reminder[]
 
 // tag::import[]
-=== Import Feature
+=== Import feature
 [NOTE]
 ====
 The current implementation only imports spending data.
@@ -749,7 +749,7 @@ Hence, alternative 1 was implemented and now the application could handle large 
 // end::import[]
 
 // tag::export[]
-=== Export Feature
+=== Export feature
 [NOTE]
 ====
 The current implementation only exports spending data.
@@ -1847,7 +1847,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `find d/yesterday d/today` +
    Expected: Spending entries dated yesterday and today are listed.
 
-=== Sorting displayed spending
+=== Sorting Displayed Spending
 
 . Sorting displayed spending in the list
 
@@ -1857,7 +1857,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort d/DESC n/ASC` +
    Expected: Spending entries are sorted in Date
 
-=== Changing the displayed currency
+=== Changing the Displayed Currency
 
 . Changing the displayed currency in the application
 
@@ -1867,7 +1867,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `currency SGD` +
    Expected: If the application was in SGD, an error message is shown saying that SGD is the currency in use.
 
-=== Viewing exchange rate or conversion rate
+=== Viewing Exchange Rate or Conversion Rate
 
 . Views the exchange rate of all currencies, or converts a particular currency to SGD
 
