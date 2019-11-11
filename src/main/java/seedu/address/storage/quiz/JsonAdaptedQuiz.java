@@ -1,5 +1,7 @@
 package seedu.address.storage.quiz;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -40,6 +42,14 @@ class JsonAdaptedQuiz {
      * @throws IllegalValueException if there were any data constraints violated in the adapted quiz.
      */
     public Quiz toModelType() throws IllegalValueException {
+        if (StringUtils.isBlank(quizId)) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "QUIZ"));
+        }
+        if (StringUtils.isBlank(questions)) {
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, "QUIZ"));
+        }
 
         if (quizId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "QUIZ_ID"));

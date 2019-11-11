@@ -26,11 +26,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.question.QuestionAddCommand;
 import seedu.address.logic.commands.question.QuestionCommand;
@@ -53,6 +55,8 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
 
     public static final String HELP_MESSAGE = "Question command has to include an action.\n"
         + "Refer to the help section to view the full list of commands.";
+
+    private static final Logger logger = LogsCenter.getLogger(QuestionCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the CreationQuestionCommand
@@ -117,6 +121,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                 String.format(MESSAGE_MISSING_QUESTION_OPTIONS_VALUE, "Option D"));
 
             if (optionA.isEmpty() || optionB.isEmpty() || optionC.isEmpty() || optionD.isEmpty()) {
+                logger.info("Missing question options during Add command.");
                 throw new ParseException(
                     String
                         .format(MESSAGE_MISSING_QUESTION_OPTIONS));
@@ -192,6 +197,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
                 throw new ParseException(
                     String.format(MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX));
             } else if (!areInputIndexesValid(deletePrefix)) {
+                logger.info("Invalid index entered by user during Delete command.");
                 throw new ParseException(
                     String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
             }
@@ -221,6 +227,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
             throw new ParseException(
                 String.format(MESSAGE_EMPTY_QUESTION_DISPLAYED_INDEX));
         } else if (!areInputIndexesValid(slideshowPrefix)) {
+            logger.info("Invalid index entered by user during Slideshow command.");
             throw new ParseException(
                 String.format(MESSAGE_INVALID_QUESTION_DISPLAYED_INDEX));
         }
@@ -246,6 +253,7 @@ public class QuestionCommandParser implements Parser<QuestionCommand> {
      */
     private QuestionFindCommand findCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (argMultimap.getValue(PREFIX_FIND).orElse("").isEmpty()) {
+            logger.info("Search string entered by user is empty during Find command.");
             throw new ParseException(MESSAGE_MISSING_TEXT_SEARCH);
         }
         return new QuestionFindCommand(argMultimap.getValue(PREFIX_FIND).orElse(""));

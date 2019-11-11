@@ -1,5 +1,6 @@
 package seedu.address.model.question;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -21,6 +22,22 @@ public class QuestionTest {
         assertThrows(NullPointerException.class, () -> new OpenEndedQuestion(null, null));
         assertThrows(NullPointerException.class, ()
             -> new McqQuestion(null, null, null, null, null, null));
+    }
+
+    @Test
+    public void setQuestion_withValidQuestion_success() {
+        String question = "What is 2+2?";
+        openEndedQuestion.setQuestion(question);
+
+        assertEquals(openEndedQuestion.question, question);
+    }
+
+    @Test
+    public void setAnswer_withValidQuestion_success() {
+        String answer = "3";
+        openEndedQuestion.setAnswer(answer);
+
+        assertEquals(openEndedQuestion.answer, answer);
     }
 
     @Test
