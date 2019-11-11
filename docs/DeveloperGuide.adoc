@@ -77,9 +77,6 @@ In order to ensure that _TravEzy_ is presented as one integrated app, these indi
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[]
-
 [[Design-Ui]]
 === UI component
 
@@ -162,30 +159,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
-
-
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+These are the classes which are utilized by all of the main features in _TravEzy_
 
 ==== Logging
 
@@ -218,9 +192,13 @@ Each of these features have their own design and implementation logic.
 
 The calendar feature in TravEzy allows users to easily find a free duration of time to travel.
 
-*Calendar Class Diagram:*+
+*Calendar Class Diagram:* +
 
 image::CalendarClassDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/calendar/logic/CalendarLogic.java[`CalendarLogic.java`]
+
 
 The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentViewOnlyMonth``.
 
@@ -244,6 +222,9 @@ The itinerary feature implements the aforementioned feature based on the use cas
 
 .Use Case Diagram of the Itinerary feature
 image::ItineraryUseCaseDiagram.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/itinerary/logic/ItineraryLogic.java[`ItineraryLogic.java`]
 
 Due to the numerous features supported by the itinerary, it requires a complex structure to ensure that each input
 by the user are cautiously parsed before giving the appropriate command result.
@@ -368,6 +349,10 @@ The Architecture Diagram given below explains the high-level design of the _Fina
 
 image::FinancialTrackerDiagram.png[width=600]
 
+*API* :
+link:{repoURL}/src/main/java/seedu/address/financialtracker/logic/FinancialTrackerLogic.java[`FinancialTrackerLogic.java`]
+
+
 Inputs given by the user are channeled from the `textUI` and handled by `Logic` before different commands are formed which execute on
 the `Model`. The `Model` will then update the `FinancialTracker` object which contains the expense list.
 
@@ -432,6 +417,8 @@ the `DiaryParser` to `Parse` the input and output the matching `Command`
 .Class Diagram for the Diary Model
 image::DiaryLogicClassDiagram.png[]
 
+*API* :
+link:{repoURL}/src/main/java/seedu/address/diaryfeature/logic/DiaryBookLogic.java[`DiaryBookLogic.java`]
 
 The above diagram is a Class Diagram of the ``DiaryModel``
 
@@ -605,18 +592,6 @@ The `StatisticsModel`,
 * does not depend on any of the models from other features / packages e.g. `AddressBookModel`
 
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
-
 [appendix]
 == Product Scope
 
@@ -688,39 +663,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is `TravEzy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
-
-[discrete]
 === Use case:  Itinerary
 
 ----
 Software System : TravEzy Travelling Diary
-Use Case: UC01 - Add an event into itinerary page
+Use Case: UCI01 - Add an event into itinerary page
 Actor: User
 
 Guarantees:
@@ -745,7 +692,7 @@ Extensions
 
 ----
 Software System : TravEzy Travelling Diary
-Use Case: UC02 - Delete an event into itinerary page
+Use Case: UCI02 - Delete an event into itinerary page
 Actor: User
 
 Guarantees:
@@ -771,7 +718,7 @@ Extensions
 
 ----
 Software System : TravEzy Travelling Diary
-Use Case: UC03 - Accessing an event
+Use Case: UCI03 - Accessing an event
 Actor: User
 
 Precondition: Specified event is contain in the list
@@ -800,10 +747,10 @@ Extensions
 
 ----
 Software System : TravEzy Travelling Diary
-Use Case: UC04 - Add details to event
+Use Case: UCI04 - Add details to event
 Actor: User
 
-Precondition: User must access to an event (UC03)
+Precondition: User must access to an event (UCI03)
 
 Guarantees:
     . Update highlighted event with the details
@@ -830,10 +777,10 @@ Extensions
 
 ----
 Software System : TravEzy Travelling Diary
-Use Case: UC05 - Searching for an event
+Use Case: UCI05 - Searching for an event
 Actor: User
 
-Precondition: User must add some event into the itinerary (UC01). So that these events can be searched based on the condition given.
+Precondition: User must add some event into the itinerary (UCI01). So that these events can be searched based on the condition given.
 
 Guarantees:
     . A new event list with the events that met the search conditions.
@@ -871,12 +818,31 @@ Extensions
 [discrete]
 === Use case: Calendar
 
-_{More to be added}_
+----
+Software System : TravEzy Travelling Calendar
+Use Case: UCC01 - Add a commitment into the Calendar
+Actor: User
 
-[discrete]
-=== Use case: Diary
+Guarantees:
+    . A new commitment will be added to the calendar page upon successful command
 
-_{More to be added}_
+MSS:
+    1. User type in the commitment to be added to the calendar
+    2. TravEzy add the commitment and visually indicate the commitment on the calendar
+
+Extensions
+    1a. Command format is incorrect.
+        1a1. TravEzy shows an error message, prompt user with proper command format.
+        Use case resumes at step 1.
+    1b. The time frame of the commitment clashes with another event that is already in the calendar
+        1a1. TravEzy will prompt the user whether they would like to proceed with the addition of the event
+
+    2a. When the user typed "Yes"
+        Use case resumes at step 2.
+    2b. When the user typed "No"
+        Use case resumes at step 1.
+
+----
 
 [appendix]
 == Non Functional Requirements
@@ -884,14 +850,23 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  The system should work on both 32-bit and 64-bit environments.
+.  The product is not required to produce any file format (Excel, PDF, html) other than JSON file.
 
 [appendix]
 == Glossary
+
+Command Line Interface::
+An interface where the user interact with the application through the _command box_.
+
+Graphical User Interface::
+A visual display on
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+JavaScript Object Notation file::
+More commonly as JSON file is text-based and lightweight which is easily readable and writable.
