@@ -37,6 +37,9 @@ establishing the infrastructure for repeaters.
 
 * *Other contributions*:
 
+** Team:
+*** Reported bugs and suggestions for other members in the team (examples:  https://github.com/AY1920S1-CS2103T-W12-4/main/issues/276[276], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/108[108], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/24[24])
+
 == Contributions to the User Guide
 
 
