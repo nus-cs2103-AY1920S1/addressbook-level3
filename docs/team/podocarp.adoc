@@ -11,9 +11,9 @@
 
 Splitwiser is an application for simplifying payments made between groups of friends.
 It gurantees that each person does not need to make any unnecessary transfers to settle their debts.
-The user interacts with it using a CLI, and is targeted at users who prefer CLI utilities.
-It however has a nice JavaFX GUI to report details graphically and intuitvely.
-It has >10k LOC.
+The user interacts with it using a command line, and is targeted at users who prefer command line utilities.
+It however has a nice JavaFX Graphical User Interface(GUI) to report details visually and intuitvely.
+It has >10k lines of code.
 
 == Summary of contributions
 
@@ -34,19 +34,19 @@ It has >10k LOC.
 ** Details: This ID record for every object has to persist so that we don't end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104[#104]
 
 * *Major enhancement*: Update bindings for every command to mesh with the algorithm.
-** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110]
-
+** Details: The other commands have to interact with the algorithm properly. For example, the `delete` or `activity` commands need to do their jobs and not mess up the debts. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110]
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53[#53]
+** Details: You can press the up and down arrow keys to browse previous commands executed. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53[#53]
 
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=podocarp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Contribution info].
 
 * *Other contributions*:
 
 ** Project management:
-*** Added Travis CI for code quality assurance.
-*** Added Coveralls for code test coverage assurance.
+*** Added Travis CI for code quality assurance. image:https://travis-ci.org/AY1920S1-CS2103T-W11-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103T-W11-2/main"]
+*** Added Coveralls for code test coverage assurance. image:https://coveralls.io/repos/github/AY1920S1-CS2103T-W11-2/main/badge.svg?branch=master["Coverage Status"), link="https://coveralls.io/github/AY1920S1-CS2103T-W11-2/main?branch=master"]
+
 *** Reviewed and assisted in major PR for `ExpenseCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98[#98]
 *** Reviewed major PR for `ActivityCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73]
 *** Reviewed major PR for `InviteCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/103[#103]
