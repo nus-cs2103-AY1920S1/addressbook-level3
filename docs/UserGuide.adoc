@@ -399,6 +399,7 @@ Sample output:
 
 image::RemoveModCommandDemoAfter2.png[width="790"]
 
+//tag::setcredits[]
 === Update maximum workload for a student: `setcredits`
 Sets an existing student’s maximum modular credit for this semester to a new value.
 
@@ -412,6 +413,8 @@ Sample output:
 
 `Updated  maximum workload of student A0111111B to 28 MC.`
 
+//end::setcredits[]
+//tag::undoredo[]
 === Undo and Redo: `undo/redo`
 This command allows the administrator to undo last command made.
 
@@ -423,6 +426,7 @@ Sample Output:
 
 `Redo Successful`
 
+//end::undoredo[]
 === Approve an appeal: `approve`
 Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
 
@@ -490,6 +494,7 @@ Sample Output:
 
 image::aftermassreject.png[width="790"]
 
+//tag::backuprestore[]
 === Saving the data
 Saves a snapshot of the current state under the data folder with the name "mamshistory_[TAG]". If no tag is given, a timestamp is used instead.
 
@@ -507,6 +512,7 @@ Format `restore [t/TAG]`
 Example: `restore t/Backup_1`
 
 Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
+//end::backuprestore[]
 
 
 

@@ -1,0 +1,71 @@
+= Tan Wei, Adam - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Module Appeal Management System (MAMS)
+
+---
+
+== Overview
+
+Module Appeal Managament System (MAMS) is a desktop appeal management interface. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to backup and restore previous states of the application*
+** What it does: Allows users to save a snapshot of the current state of the application and restore any prior states that were saved.
+** Justification: This feature improves the product significantly because a user might have need to rollback several changes in case a critical error in the system occurs further down the road. This gives the users the security that progress is saved and previous mistakes can be rectified with ease.
+** Highlights: This enhancement saves the states in the same format as the main data file, which allows for users to easily port their save states to other compatible platforms that support the editing of the module appeal data.
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: Allows the user to undo one previous commands. Preceding undo commands can be reversed by using the redo command.
+** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
+** Highlights: This enhancement affects current commands, requiring commands that are not "undoable" to be specifically excluded from the creating an undo history, so that only a commands that affect the state of the system is taken into account when undoing commands. An alternative implementation should be considered if there is a need to include many more "undoable" commands.
+** Credits: Code from the backup/restore commands were used as a basis for the undo/redo command pair.
+
+* *Minor enhancement*: Added a setcredits command to manually set the maximum credits that a student is allowed to take for the semester.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test[Test code]]
+
+* *Other contributions*:
+
+
+*** Set up the basic continuous integration functionality and repository for the project
+** Enhancements to existing features:
+*** Refactored `persons` object into student (Pull requests https://github.com/AY1920S1-CS2103-T11-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103-T11-2/main/pull/78[#78])
+** Documentation:
+*** Replaced all outdated addressbook - level 3 diagrams with new MAMS diagrams in DeveloperGuide: https://github.com/AY1920S1-CS2103-T11-2/main/pull/116[#116]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/77[#77], https://github.com/AY1920S1-CS2103-T11-2/main/pull/65[#65]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103-T16-4/main/issues/227[1], https://github.com/AY1920S1-CS2103-T16-4/main/issues/224[2], https://github.com/AY1920S1-CS2103-T16-4/main/issues/221[3])
+***
+** Tools:
+*** Integrated a new Github plugin (TravisCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=setcredits]
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=backuprestore]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=undo]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
