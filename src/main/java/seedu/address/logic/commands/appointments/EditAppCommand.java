@@ -12,11 +12,12 @@ import seedu.address.model.Model;
 import seedu.address.model.events.Event;
 import seedu.address.model.events.exceptions.InvalidEventScheduleChangeException;
 import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
+import seedu.address.model.util.SampleAppointmentDataUtil;
 
 /**
  * Chnageing the timing of the appointment.
  */
-public class ChangeAppCommand extends ReversibleCommand {
+public class EditAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "editappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": change the appointment date "
@@ -27,8 +28,8 @@ public class ChangeAppCommand extends ReversibleCommand {
             + "[" + PREFIX_END + "PREFIX_END]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ENTRY + "1 "
-            + PREFIX_START + "01/12/19 1000 "
-            + PREFIX_END + "01/12/19 1040";
+            + PREFIX_START + SampleAppointmentDataUtil.ONE_MONTH_LATER_MORNING_CHANGE.toString() + " "
+            + PREFIX_END + SampleAppointmentDataUtil.ONE_MONTH_LATER_MORNING_PLUS_CHANGE.toString() + " ";
 
     public static final String MESSAGE_SUCCESS = "The appointment's timing for [%1$s] %2$s has been changed:\n"
             + "from %3$s to %4$s";
@@ -39,7 +40,7 @@ public class ChangeAppCommand extends ReversibleCommand {
     /**
      * Creates an ChangeAppCommand to add the specified {@code Person}
      */
-    public ChangeAppCommand(Event eventToEdit, Event editedEvent) {
+    public EditAppCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
         requireNonNull(editedEvent);
         this.eventToEdit = eventToEdit;
@@ -68,8 +69,8 @@ public class ChangeAppCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ChangeAppCommand // instanceof handles nulls
-                && editedEvent.equals(((ChangeAppCommand) other).editedEvent));
+                || (other instanceof EditAppCommand // instanceof handles nulls
+                && editedEvent.equals(((EditAppCommand) other).editedEvent));
     }
 
 }

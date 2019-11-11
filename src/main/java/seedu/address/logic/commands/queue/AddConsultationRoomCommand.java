@@ -14,7 +14,7 @@ import seedu.address.model.queue.Room;
  */
 public class AddConsultationRoomCommand extends ReversibleCommand {
 
-    public static final String MESSAGE_SUCCESS = "%s is now on duty";
+    public static final String MESSAGE_SUCCESS = "%s is now on duty.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This doctor already exists in the list";
 
     public static final String COMMAND_WORD = "onduty";

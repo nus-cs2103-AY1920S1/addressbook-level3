@@ -401,7 +401,6 @@ public class ModelManager implements Model {
         int numOfAvailableStaff = getNumberOfDutyShiftInConflict(appointment);
         ListIterator<Event> itr = getAppointmentsInConflict(appointment);
 
-        //TODO: edge case, scheduling a staff member
         if (hasStaff(appointment.getPersonId())) {
             throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
@@ -410,8 +409,8 @@ public class ModelManager implements Model {
         while (itr.hasNext()) {
             Event apt = itr.next();
             countNumberOfConcurrentAppointments++;
-            if (appointment.getPersonId().isSameAs(apt.getPersonId())
-                    && !apt.equals(ignoreEventCase)) {
+            if (appointment.getPersonId().isSameAs(apt.getPersonId()) && !apt.equals(ignoreEventCase)) {
+
                 throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT, apt.getPersonName().toString(),
                                 apt.getEventTiming().toString()));
@@ -469,7 +468,6 @@ public class ModelManager implements Model {
     public int getNumberOfAppointmentsInConflict(Event toCheck) {
         return appointmentBook.countNumberOfEventsInConflict(toCheck);
     }
-
 
     //=========== Filtered Event List Accessors =============================================================
 
@@ -603,8 +601,8 @@ public class ModelManager implements Model {
      * @throws InvalidEventScheduleChangeException if the events in conflict
      *                                             involves the same staff member given in {@code dutyShift}
      */
-    private void checkValidScheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
-        //TODO: edge case, scheduling a staff member
+    private void checkValidScheduleDutyShift(Event dutyShift, Event ignoreEventCase)
+            throws InvalidEventScheduleChangeException {
         if (hasPatient(dutyShift.getPersonId())) {
             throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
@@ -613,7 +611,7 @@ public class ModelManager implements Model {
 
         while (itr.hasNext()) {
             Event shift = itr.next();
-            if (dutyShift.getPersonId().isSameAs(shift.getPersonId())) {
+            if (dutyShift.getPersonId().isSameAs(shift.getPersonId()) && !shift.equals(ignoreEventCase)) {
                 throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT, shift.getPersonName().toString(),
                                 shift.getEventTiming().toString()));
@@ -624,14 +622,14 @@ public class ModelManager implements Model {
 
     @Override
     public void scheduleDutyShift(Event dutyShift) throws InvalidEventScheduleChangeException {
-        checkValidScheduleDutyShift(dutyShift);
+        checkValidScheduleDutyShift(dutyShift, null);
         dutyRosterBook.addEvent(dutyShift);
     }
 
     @Override
     public void scheduleDutyShift(List<Event> dutyShifts) throws InvalidEventScheduleChangeException {
         for (Event e : dutyShifts) {
-            checkValidScheduleDutyShift(e);
+            checkValidScheduleDutyShift(e, null);
         }
 
         for (Event e : dutyShifts) {
@@ -641,8 +639,16 @@ public class ModelManager implements Model {
 
     @Override
     public void setDutyShift(Event target, Event editedEvent) throws InvalidEventScheduleChangeException {
+
+        if (target.isSameAs(editedEvent)) {
+            throw new InvalidEventScheduleChangeException(
+                    String.format(MESSAGE_NOT_OVERLAPPING_DUTYSHIFT, target.getPersonName().toString(),
+                            target.getEventTiming().toString()));
+
+        }
+
         checksCanDeleteDutyShift(target);
-        checkValidScheduleDutyShift(editedEvent);
+        checkValidScheduleDutyShift(editedEvent, target);
         dutyRosterBook.removeEvent(target);
         dutyRosterBook.addEvent(editedEvent);
     }

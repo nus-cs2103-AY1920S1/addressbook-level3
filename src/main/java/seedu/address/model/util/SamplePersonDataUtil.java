@@ -350,7 +350,12 @@ public class SamplePersonDataUtil {
                 "Antonio",
                 "Willy"
         };
-        int count = 100;
+        int count = 1000;
+        /*
+            @@author ajbrown
+            Reused names from <a href="https://github.com/ajbrown/name-machine/tree/master/src/main/resources/org/
+            ajbrown/namemachine"/> with several modifications.
+        */
         Person[] listOfPersons = new Person[count];
         Random random = new Random();
         for (int idx = 0; idx < count; idx++) {

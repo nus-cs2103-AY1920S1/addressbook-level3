@@ -33,14 +33,13 @@ public class RegisterPatientCommand extends ReversibleCommand {
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_ID + "E0000001A "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_NAME + "Edmond Halley "
+            + PREFIX_PHONE + "85732743 "
+            + PREFIX_EMAIL + "halley@example.com "
+            + PREFIX_ADDRESS + "12, Kent ridge Ave 3, #01-11 "
+            + PREFIX_TAG + "AIDS";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
 
     private final Person toAdd;

@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+
+box Logic
+participant ":RegisterPatientCommandParser    " as AddCommandParser #black
+end box
+
+box Model MODEL_COLOR_T1
+participant ":PersonReferenceId" as PersonReferenceId MODEL_COLOR
+end box
+
+AddCommandParser -> PersonReferenceId : issuePatientReferenceId("E1234567A")
+activate PersonReferenceId
+    PersonReferenceId -> PersonReferenceId : issueReferenceId(...)
+    activate PersonReferenceId
+
+    PersonReferenceId -> PersonReferenceId : issueReferenceId(...)
+
+
+    activate PersonReferenceId
+    return
+
+return newId
+@enduml

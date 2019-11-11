@@ -11,7 +11,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appointments.ChangeAppCommand;
+import seedu.address.logic.commands.appointments.EditAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -24,7 +24,7 @@ class ChangeAppCommandTest {
 
     @Test
     public void constructor_nullEvent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new ChangeAppCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new EditAppCommand(null, null));
     }
 
     @Test
@@ -33,11 +33,11 @@ class ChangeAppCommandTest {
         Event eventToChange = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventChanged = new EventBuilder(EVENT_BENSON)
                 .withId(eventToChange.getPersonId()).build();
-        CommandResult commandResult = new ChangeAppCommand(eventToChange, eventChanged).execute(model);
-        assertEquals(String.format(ChangeAppCommand.MESSAGE_SUCCESS, eventChanged.getPersonId(),
+        CommandResult commandResult = new EditAppCommand(eventToChange, eventChanged).execute(model);
+        assertEquals(String.format(EditAppCommand.MESSAGE_SUCCESS, eventChanged.getPersonId(),
                 eventChanged.getPersonName(), eventToChange.getEventTiming(), eventChanged.getEventTiming()),
                 commandResult.getFeedbackToUser());
-        new ChangeAppCommand(eventChanged, eventToChange).execute(model);
+        new EditAppCommand(eventChanged, eventToChange).execute(model);
     }
 
     @Test
@@ -48,14 +48,14 @@ class ChangeAppCommandTest {
         Event secondEvent = new EventBuilder(BENSON).build();
         Event secondEventEdit = new EventBuilder(secondEvent).withStartTime("12/12/20 1900").build();
 
-        ChangeAppCommand firstChangeCommand = new ChangeAppCommand(firstEvent, firstEventEdit);
-        ChangeAppCommand secondChangeCommand = new ChangeAppCommand(secondEvent, secondEventEdit);
+        EditAppCommand firstChangeCommand = new EditAppCommand(firstEvent, firstEventEdit);
+        EditAppCommand secondChangeCommand = new EditAppCommand(secondEvent, secondEventEdit);
 
         // same object -> returns true
         assertTrue(firstChangeCommand.equals(firstChangeCommand));
 
         // same values -> returns true
-        ChangeAppCommand firstChangeCommandCopy = new ChangeAppCommand(firstEvent, firstEventEdit);
+        EditAppCommand firstChangeCommandCopy = new EditAppCommand(firstEvent, firstEventEdit);
         assertTrue(firstChangeCommand.equals(firstChangeCommandCopy));
 
 

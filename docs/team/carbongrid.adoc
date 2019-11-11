@@ -23,7 +23,7 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 ** What it does: Prevents un-necessary waiting by the user.
 ** Justification: Enhances the UX significantly as user no longer waits to preview the number of possible results.
 ** Highlights: Reactive Search should not block the main UI from user upon processing large data-sets.
-** Credits: SakuraBlossom (Threading and Commands), Chrome DevTools Console (Inspiration)
+** Credits: SakuraBlossom (Threading and Logic), Google & Chrome DevTools Console (Inspiration)
 
 * *Minor enhancement*: added history for the CLI that allows the user to navigate to previous commands using up/down keys.
 
@@ -32,14 +32,12 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 * *Other contributions*:
 
 ** Project management:
-*** Updating Gradle wrapper & Configuration for Headed UI Test (Pull Request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/89[#89])
-*** Dependencies management and version bumping for dependencies bug fixes & optimisations after compatibility checks. (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/200[#200])
+*** Updating Gradle wrapper & Configuration for Headed UI Test (Pull Request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/89[#89])
+*** Gradle Plugin & Dependencies management, version bumping for dependencies bug fixes & optimisations after compatibility checks. (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/80[#80], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/100[#100], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/200[#200])
 *** Setting up Netlify for team repository.
 ** Enhancements to existing features:
 *** Implemented TestFX for minimalistic UI testing to increase coverage from 56.193% to 73.193% (Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
 *** Implemented more UI testing increasing coverage from 67.652% to 73.091% (Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/217[#217])
-** Documentation:
-*** [TODO] Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-3/main/pull/86#discussion_r337917765[#86], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/78[#78]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/55[1])
@@ -48,7 +46,6 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 *** Integrated a third party library (TestFX) to the project (https://github.com/AY1920S1-CS2103T-T09-3/main/pull/71[#71])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -63,4 +60,4 @@ include::../UserGuide.adoc[tag=ui]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
-include::../DeveloperGuide.adoc[tag=autocompleteDesignConsideration]
+include::../DeveloperGuide.adoc[tag=reactivesearch]

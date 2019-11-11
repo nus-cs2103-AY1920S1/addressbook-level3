@@ -6,7 +6,7 @@ start
         if() then ([Valid index])
         -find the target appointment
 
-            if() then ([Not conflict with other appointments])
+            if() then ([no. of appointments < no. of doctor on duty])
             -Appointment's timing changed
             -Display the patient's all upcoming appointments
 

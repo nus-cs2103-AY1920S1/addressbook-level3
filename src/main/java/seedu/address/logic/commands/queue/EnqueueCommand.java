@@ -23,7 +23,7 @@ public class EnqueueCommand extends ReversibleCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enqueues a patient to the queue. "
             + "Parameters: "
             + "REFERENCE_ID \n"
-            + "Example: " + COMMAND_WORD + " 001A";
+            + "Example: " + COMMAND_WORD + " E0000001A";
 
     private final ReferenceId patientReferenceId;
 

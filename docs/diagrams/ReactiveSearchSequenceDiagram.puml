@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Thread" as Thread #Grey
+end box
+
+[-> CommandBox : handleTextChanged()
+activate CommandBox
+
+CommandBox -> MainWindow : handleCommandBoxTextChanged("patient san")
+activate MainWindow
+
+opt #Orange commandText not blank
+MainWindow -> LogicManager : eagerEvaluate("patient san",\nresultDisplay::setFeedbackToUser)
+activate LogicManager
+
+create Thread
+LogicManager -> Thread
+activate Thread
+LogicManager <-- Thread
+deactivate Thread
+
+LogicManager -> Thread : start()
+activate Thread
+
+MainWindow <-- LogicManager
+deactivate LogicManager
+
+end
+
+CommandBox <-- MainWindow
+deactivate MainWindow
+
+[<--CommandBox
+deactivate CommandBox
+@enduml

@@ -15,8 +15,8 @@ import seedu.address.model.events.predicates.EventsMissedPredicate;
 public class MissAppCommand extends NonActionableCommand {
     public static final String COMMAND_WORD = "missappt";
 
-    public static final String MESSAGE_MISSED_EVENT_LISTED_OVERVIEW = "%1$d missing appointment need to settle!";
-    public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missing appointments need to settle!";
+    public static final String MESSAGE_MISSED_EVENT_LISTED_OVERVIEW = "%1$d missed appointment need to settle!";
+    public static final String MESSAGE_MISSED_EVENTS_LISTED_OVERVIEW = "%1$d missed appointments need to settle!";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all the missed appointment "
             + "and displays them as a list with index numbers.\n"

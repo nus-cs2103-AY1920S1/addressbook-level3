@@ -3,19 +3,39 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "clear"
+title After command "newappt -id S0000000A -start 01/12/19 0900"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab3:AddressBook__"
+package "CommandHistory" {
+    class add1 as "__a0:RegisterPatientCommand____"
+    class cancel1 as "__i0:unregisterPatientCommand____ "
+
+    class add2 as "__a1:EnqueueCommand____"
+    class cancel2 as "__i1:DequeueCommand____"
+
+    class add3 as "__a3:AddAppCommand____"
+    class cancel3 as "__i3:CancelAppCommand____"
+
+    class State1 as "__action0:ReversibleActionPairCommand____"
+    class State2 as "__action1:ReversibleActionPairCommand____"
+    class State3 as "__action3:ReversibleActionPairCommand____"
 }
+class TopOfUndoStack as " Top Of Undo Stack    " #FFFFF
 
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
 
-class Pointer as "Current State" #FFFFF
+State1 -up-> add1
+State1 -up-> cancel1
+add1 -[hidden]down-> cancel1
+cancel1 -[hidden]right-> cancel2
 
-Pointer -up-> State3
-note right on link: State ab2 deleted.
+State2 -up-> add2
+State2 -up-> cancel2
+add2 -[hidden]down-> cancel2
+cancel2 -[hidden]right-> cancel3
+
+State3 -up-> add3
+State3 -up-> cancel3
+
+TopOfUndoStack -up-> State3
 @end

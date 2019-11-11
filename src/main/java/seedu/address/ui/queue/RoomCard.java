@@ -23,22 +23,18 @@ public class RoomCard extends UiPart<Region> {
     @FXML
     private VBox roomCard;
     @FXML
-    private HBox cardPane;
-    @FXML
     private HBox doctorPane;
+    @FXML
+    private HBox patientPane;
     @FXML
     private Label doctorName;
     @FXML
     private Label patientName;
-    @FXML
-    private HBox invisiblePane;
 
     public RoomCard(Person doctor, Optional<Person> patient, int displayedIndex, boolean isReadyToServe) {
         super(FXML);
         this.doctor = doctor;
         this.patient = patient;
-        invisiblePane.setStyle("-fx-background-color: derive(#1d1d1d, 20%);");
-        roomCard.setStyle("-fx-background-color: #1abc9c;");
         if (isReadyToServe) {
             doctorName.setText(" " + displayedIndex + ". " + doctor.getName().toString());
             doctorPane.setStyle("-fx-background-color: #34495e;");
