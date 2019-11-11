@@ -94,10 +94,6 @@ Added a Problem Display Panel to the Questions and Workspace Tab.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=showall]
-
-include::../UserGuide.adoc[tag=find]
-
 include::../UserGuide.adoc[tag=load]
 
 include::../UserGuide.adoc[tag=summary]

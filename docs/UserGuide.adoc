@@ -48,9 +48,19 @@ programmers), you can get used to it while working on your coding skills here in
 - Refer to the following links for the complete walk-through (link:{JDKInstallationMac}[macOS] / link:{JDKInstallationWin}[windows])
 
 . Download the latest DukeAcademy.jar link:{repoURL}/releases[here].
-. Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking, type `java -jar DukeAcademy.jar` inside terminal to launch.
+. Double-click the .jar file to start the app. The GUI should appear in a few seconds. If the app cannot be launched by double-clicking:
++
+For Windows:
 
-. When launching the app for the first time, it will create a folder in the directory where you put the jar file.
+- Launch Notepad (or any text editor), then copy and paste the following line into the text editor.
+
+ java -jar [name_of_file].jar
+
+- Replace "[name_of_file]" with whatever name you have saved the .jar file as.
+- Save the text file as a .bat file in the same location as the .jar file.
+- Then double-click on the newly created .bat file to run the app.
+
+. When launching the app for the first time, it will create a folder named _DukeAcademy_ in the directory where your jar is located.
 - This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
 
 +
@@ -238,7 +248,6 @@ Navigates to the *Home* Tab.
 
 image::home.png[width="1000"]
 
-//tag::showall[]
 
 === List all questions: `showall`
 
@@ -248,7 +257,6 @@ Navigates to the *Questions* Tab and displays all available questions.
 
 image::listallquestions.png[width="1000"]
 
-//end::showall[]
 === Adding bookmark: `bookmark`
 
 Bookmarks a specific question.
@@ -273,7 +281,6 @@ Removes the bookmark from a specific question.
 * The question with the bookmark removed will disappear from the list of bookmarked questions located within your *Personal Dashboard*.
 ****
 
-//tag::find[]
 === Find question by title : `find`
 
 Searches for question of which the title contains *strictly* the keywords entered.
@@ -315,7 +322,7 @@ contains one of the keyword(s) in their _title, topics, description, status_ or 
 ****
 * *NOTE*: This function does *NOT* work for character sequences!
 +
-e.g. Searching for `su` will not yield questions that do not strictly contain the word "su".
+e.g. Searching for `su` will not yield questions with titles that do not strictly contain the word "su", such as "super".
 * The category is case insensitive.
 +
 e.g `easy` will match `Easy`.
@@ -350,10 +357,9 @@ image::view.png[width="1000"]
 
 *Examples:*
 
-* `view 2` +
-Displays the question with the id "2" in the right side window of the GUI.
+* `view 1` +
+Displays the question with the id "1" in the right side window of the GUI, as shown in the above picture.
 
-//end::find[]
 
 === Attempting a question : `attempt`
 
