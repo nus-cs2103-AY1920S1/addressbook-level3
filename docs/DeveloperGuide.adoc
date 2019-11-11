@@ -278,6 +278,16 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 
+// tag::quizmodedc[]
+===== Aspect: Quiz Mode
+* **Alternative 1 (current choice):** A static boolean is stored in the FlashcardListParser to indicate whether the application
+is currently in quiz mode. Being in quiz mode allows access to some commands and disables others.
+** Pros: It is easy to toggle Quiz mode on and off from the various commands as it is a static boolean and can be accessed easily.
+** Cons: It violates the Single Responsibility Principle as the parser now stores information vital to the logic of the application, besides parsing arguments.
+* **Alternative 2:** Store the Quiz mode boolean inside Logic Manager.
+** Pros: It adheres better to software engineering principles as variables affect the logic of the programme should be stored in the logic manager.
+** Cons: As Quiz mode heavily affects the parsing of the commands, the boolean has to be passed to and fro several layers, making it harder for commands to toggle quiz mode on and off.
+// end::quizmodedc[]
 
 === Logging
 
