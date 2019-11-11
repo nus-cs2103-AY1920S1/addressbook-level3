@@ -601,9 +601,12 @@ These pieces of information will then be displayed on the Home Page through stan
 //tag::problem_description[]
 
 === Problem Statement Panel
-Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. When type `view [id]`, the panel updates to
+Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. As shown on Figure 20, when type `view [id]`, the panel updates to
 display all the additional information a question has to provide.
 
+
+.Activity Diagram on View command
+image::viewactivity.png[]
 ==== General Procedure of Command execution:
 
 * User types `view [id]` in the command box.
