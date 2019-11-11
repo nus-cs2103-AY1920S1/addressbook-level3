@@ -200,14 +200,14 @@ Format: `help`
 === Customer Commands
 Commands that work on customers in SML.
 
-==== Switch to Customer Tab Panel : `switch-c`
+==== Switch to Customer Tab Panel: `switch-c`
 
 Switches to Customer Tab Panel.
 
 [underline]#Format#: `switch-c`
 
 
-==== Add a customer : `add-c`
+==== Add a customer: `add-c`
 
 Adds a Customer to the CustomerBook. +
 This can be done in any Tab Panel.
@@ -229,7 +229,7 @@ Customers cannot share the same contact number or email.
 
 image::ug-command/ug-add-c.png[width="600"]
 
-==== Delete a customer : `delete-c`
+==== Delete a customer: `delete-c`
 Deletes a customer in SML. Note that deleting a customer will also delete the orders and schedules associated with the customer. +
 
 [underline]#Format#: `delete-c INDEX`
@@ -251,14 +251,14 @@ Deletes a customer in SML. Note that deleting a customer will also delete the or
 . `find-c alice` +
 . `delete-c 1` +
 
-==== Find a customer : `find-c`
+==== Find a customer: `find-c`
 Finds customers whose fields contain any of the given keywords. +
 
 [underline]#Format#: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
-* The search matches anywhere for name, contact number, email and tags.
+* The search matches anywhere for the name, contact number, email and tags.
 * The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
 ** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;

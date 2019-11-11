@@ -570,7 +570,7 @@ At the end, the strings are appended to get the full CSV file containing the var
 The undo/redo mechanism is facilitated by `UndoRedoStack`.
 
 `UndoRedoStack` contains 2 stacks, `undoStack` and `redoStack`.
-`undoStack` and `redoStack` contains commands that are of type `UndoableCommand`.
+`undoStack` and `redoStack` contain commands that are of type `UndoableCommand`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
@@ -622,7 +622,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::dg-diagram/UndoSequenceDiagram.png[[width="450"]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
 
 NOTE: XYZ here refers to Customer, Phone, Order, Schedule and ArchivedOrder.
 
@@ -640,12 +640,12 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[[width="450"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire mdodel.
+* **Alternative 1 (current choice):** Saves the entire model.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: We must ensure that the implementation of each command is correct.
 // end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands

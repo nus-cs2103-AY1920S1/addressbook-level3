@@ -3,8 +3,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-Hi! I am Zhi Xiang, a Year 2 Computer Science student at National University of Singapore (NUS).
-Below is a summary of my contributions for this project.
+Hi! I am Zhi Xiang, a Year 2 Computer Science student at the National University of Singapore (NUS).
+Below is a summary of my contributions to this project.
 
 == PROJECT: Seller Manager Lite
 
@@ -13,7 +13,7 @@ Below is a summary of my contributions for this project.
 For our module CS2103T: Software Engineering, my team and I were tasked to enhance a desktop address book application called AddressBook.
 
 We eventually turned it into a product called Seller Manager Lite (SML), which aims to help small-scale handphone resellers manage their sales and inventory with ease.
-Users interact with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has more than 15,000 lines of code.
+Users interact with it using a Command Line Interface (CLI) and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java and has more than 15,000 lines of code.
 
 My role was being in charge of the Logic component, implementing the commands and parsers for Customer, Phone and Order data.
 Additionally, I was tasked to implement an undo/redo, find (search) and copy commands.
@@ -30,7 +30,7 @@ Additionally, I was tasked to implement an undo/redo, find (search) and copy com
 
 * *Minor enhancement*: I added the ability to create/read/update/delete customer, phone and order.
 
-* *Minor enhancement*: I added find command(s) that allows the user to search for customer, phone or order that matches certain keywords.
+* *Minor enhancement*: I added find command(s) that allows the user to search for customers, phones or orders that match certain keywords.
 This required enhancing the existing find command.
 
 * *Minor enhancement*: I added copy command(s) that allows the user to copy the data that they want onto their clipboard.
@@ -41,9 +41,9 @@ This would make it convenient for them to copy data out of the application.
 
 * contributed more than 11,000 lines of code (LoC):
 
-** ~5k functional: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
-** 6k+ test: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
-** Over 30 Pull Requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pulls/zhixianggg[PRs]
+** ~5k functional code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
+** 6k+ test code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zhixianggg
+** Over 30 Pull requests: https://github.com/AY1920S1-CS2103T-T09-4/main/pulls/zhixianggg[PRs]
 
 * Functional
 
