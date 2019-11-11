@@ -86,8 +86,8 @@ public class AddAppCommand extends ReversibleCommand {
                         toAdd.getPersonId(),
                         toAdd.getPersonName(),
                         toAdd.getEventTiming()));
-
             }
+
             model.scheduleAppointments(eventList);
             model.updateFilteredAppointmentList(new EventMatchesRefIdPredicate(eventList.get(0).getPersonId()));
             return new CommandResult(String.format(
