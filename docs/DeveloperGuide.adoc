@@ -284,7 +284,7 @@ and passing user command input to the `Responder` class.
 // tag::test[]
 
 === Test
-==== Proposed Implementation
+==== Implementation
 
 The timed/untimed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
 
