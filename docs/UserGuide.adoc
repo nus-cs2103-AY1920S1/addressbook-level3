@@ -564,7 +564,7 @@ When you want to import your existing spending data which is recorded in a Csv f
 you could type a simple command, in the format of `import p/FILE_PATH`, and press `enter`.
 Your new spending entries will be added to the existing spending entries without replacing them.
 
-The Graph, Statistics and Budget will also be updated accordingly once the import is successful.
+The Graph, Statistics and Budget panels will also be updated accordingly once the import is successful.
 
 [NOTE]
 ====

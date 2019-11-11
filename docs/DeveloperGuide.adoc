@@ -1729,12 +1729,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
 === Finding a Spending
 
 . Finding a spending from the list
@@ -1773,8 +1767,6 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: 5 USD is converted to SGD based on stored exchange rates and its equivalent amount is displayed.
 .. Test case: `exchangerate` +
    Expected: All exchange rates stored by the application are displayed.
-
-_{ more test cases ... }_
 
 === Importing Spending Data
 
