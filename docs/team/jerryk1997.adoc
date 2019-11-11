@@ -1,0 +1,116 @@
+= Jerry Kwong - Project Portfolio
+:imagesDir: ../images
+
+== Project: MyProject
+
+== Project background
+
+_MyProject_ is an command line desktop application that I helped design and implement as part of a
+team, for a school project for the NUS School of Computing. My team consisted of 5 computing students
+including me, and the task for this project was to modify a given application called the AddressBook into
+our own application, that serves a different purpose. As second year university students, we have always found
+it difficult to manage many different types of information across many different projects during our first
+year, and hence we decided to modify the AddressBook application into _MyProject_. Since we fit into the target
+demographic as well, it was easier for us to relate to the problem we were trying to solve, which helped us
+when we were deciding what features to implement for this project.
+
+== Overview
+
+_MyProject_ is a desktop application with a command line interface, which aims to be a one-stop project
+management application that will satisfy all the project management needs of a student. Our application specialises
+in storing, processing and displaying the information of the projects in a meaningful way to help students
+better manage their workload when it comes to dealing with multiple different projects at the same time.
+_MyProject_ provides basic functionality such as storing the members, meetings and tasks of a given project,
+and also storing the contact information of the members. _MyProject_ also boasts more complex functions such as
+calculating optimal meeting times based on the NUSMODS timetable of each member, and also tracking the finances
+of the project with different types of budgets.
+
+A typical usage of the project looks like this:
+
+image::TypicalProjectScreen.png[]
+
+My team worked together tirelessly to put this application together. Each of us are in charge of different parts of the
+application's functionality, and my role in the team was to integrate the Person model in the original AddressBook
+application into our application, and use it as a way to keep track of the member's information.
+
+In addition to that, I also implemented a way for the application to track each member's performance in terms
+of a few tangible attributes such by keep track of how many tasks they have done. This is to allow anyone using
+the application to optimise their workflow, and better manage the progress of their project since they would know
+who has done what tasks and how each member is contributing to the team. This would also aid in more even work distribution.
+
+In the next section, I will summarise all my contributions to the project.
+
+== Summary of contributions
+
+* Major enhancements: Added the performance overview functionality of _MyProject_.
+
+** What it does: This feature consolidates all the information available, and uses it to calculate the performance of each member.
+The information is stored, and displayed to the user when the the user executes the `showProjectOverview` command. The calculated
+attributes of the performance is then displayed in the form of tables for easy comparison between the members. It will also show
+the individual performances of each member by itself. To see a clearer view of this, you may look at my contributions to the user guide
+which will be in the subsequent sections.
+
+** Justifications: This feature allows the user to conveniently keep track of what each member has done and their
+contributions to the project. This can help with distributing the workload between the members, and also helps
+if there is a need to assign credit to each member for their amount of work done.
+
+** Highlights: This feature does not require any additional storage as it is only calculated when the user requests for it,
+and all the information is already available within the `Person` and `Project` objects themselves. The feature also
+provides both an overview of their performances for easy comparison and a more individual view where the attributes are
+grouped and listed by according to each member should there be a need to check the specific member's performance. The user
+also only has to type in the `showPerformanceOverview` command and everything else will be handled internally this is because
+all the information needed is already supplied during the day to day interactions with the application when the user
+`assignTask` to members and `markAttendance` for meetings. (Both of which are commands that can be executed by the user).
+
+** Challenges: One of the challenges I faced when implementing this feature is finding a way to implement the `PerformanceOverview` model.
+I initially considered making it an attribute of the existing `Project` model which my teammate implemented, however I quickly realised that
+this would not be feasible, as calculating the performance of a member requires a information from both the `Project` and `Person`.
+Therefore I chose to implement `PerformanceOverview` as a new model instead which created less dependencies between the
+`Project` and `Person` models, and also reduced the need for the `Project` model to be associated with the `Person` model.
+
+* Minor enhancements: I also added the functionality to keep track of the members information within the application, such as what
+projects they are involved in, and the commands to add and remove members from projects. To facilitate my performance overview
+functionality, I also implemented 3 more commands which are the `assignTask`, `unassignTask` and `markAttendance` command. This is
+to supply the application with useful information to be used in the performance calculations when the performance overview
+is requested by the user.
+
+* Code contributed: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jerryk1997&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+<- Click this link to see my code contributions.
+
+* Other contributions:
+
+** Project Management:
+*** Helped to report and sometimes fix the bugs which I found during the routine testing of our application.
+
+
+** Documentation:
+*** Did the first round of general formatting of our user guide which included fixing the inconsistent formatting, and improving
+the overall organisation and style of the whole user guide. See more here -> [https://github.com/AY1920S1-CS2103T-T17-1/main/pull/69/files[Pull request #69]]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=addMember]
+
+include::../UserGuide.adoc[tag=addFromContacts]
+
+include::../UserGuide.adoc[tag=removeMember]
+
+include::../UserGuide.adoc[tag=performanceTracking]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._ +
+hello world
+|===
+
+include::../DeveloperGuide.adoc[tag=memberFeature]
+
+include::../DeveloperGuide.adoc[tag=performanceTracking]
+
+

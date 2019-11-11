@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.*;
 
 public class AddFromContactsCommand extends Command {
 
@@ -35,6 +34,9 @@ public class AddFromContactsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isCheckedOut()) {
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
+        }
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> personsToAdd = new ArrayList<>();
         List<Index> indexChecker = new ArrayList<>();

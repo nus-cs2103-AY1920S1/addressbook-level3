@@ -39,6 +39,9 @@ public class AssignTaskCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isCheckedOut()) {
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
+        }
         Project currWorkingProject = model.getWorkingProject().get(); // Gets the working project
         List<Task> taskList = currWorkingProject.getTasks(); // Gets the list of tasks in the project
         List<String> personNameList = model.getWorkingProject().get().getMemberNames(); // Gets the names of the members in the project

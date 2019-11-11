@@ -1,0 +1,20 @@
+@startuml
+skinparam  centre
+
+start
+:User wants to see the performance overview
+                for the current project;
+:User executes command;
+
+if () then ([project has members])
+:Obtains relevant information from the members in the
+                 project and the project itself;
+:Calculate the every attribute of performance for each member;
+:Display performance overview;
+else ([project has no members])
+:Shows error message that performance cannot be  calculated
+                     with no members in the project;
+
+endif
+stop
+@enduml

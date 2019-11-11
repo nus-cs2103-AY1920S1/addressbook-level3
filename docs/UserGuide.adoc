@@ -122,17 +122,11 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-
-=====  Add a member to your project
-
-Adding a member can be done in 2 ways, you can either add a new person to your contacts and to your current project,
-or you can simply add an existing person from your contacts to your current project.
-
-
-====== 1. Add a new member: `addMember` [Checkout]
+// tag::addMember[]
+==== Add a new member: `addMember` [Checkout]
 
 This command is similar to adding a person to your contacts shown previously, except that you have to be
-checked out into a project. +
+checked out into a project, and the person will be added to the working project as well. +
 Format: `addMember n/NAME [p/PHONE_NUMBER] [e/EMAIL] [a/address] [t/tag]...`
 
 [TIP]
@@ -144,22 +138,70 @@ Example:
 
 * `addMember n/John Doe a/John street, block 123, #01-01`
 
-* `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend t/criminal`
+* `addMember n/Betsy Crowe e/betsycrowe@example.com t/friend`
 
+To help you better understand how to use this command, here is a step-by-step guide, using the second example.
 
-====== 2. Add from your contacts: `addFromContacts` [Checkout]
+Step 1: You type in the `addMember` command, followed by all the information you want to store, which in this case
+is her email and also her tag as a friend. With this, before you press enter your screen should look like this:
+
+.`AddMemberCommand` user input
+image::AddMemberCommandInput.png[]
+
+If your screen looks like the picture above, just press enter and you're done! Adding a new member is just a simple
+one step process.
+
+After you press enter you will be able to see the member reflected in the project like this:
+
+.`AddMemberCommand` success project overview display
+image::ProjectOverviewAddMember.png[]
+
+And you will also be able to see her in your contacts like this:
+
+.New Member displayed in your contacts as a new person added.
+image::PersonListAddMember.png[]
+
+If you look closely at Figure 5. you will see that some of the information does not really seem right. That is because
+you have not input it yet, but don't worry you can always do that later with our `edit` command which you will further down
+the guide.
+// end::addMember[]
+
+// tag::addFromContacts[]
+
+==== Add from your contacts: `addFromContacts` [Checkout]
 
 This command helps to add a person you already saved in your contacts into your project, reducing the need
 to type his information all over again. All you need to do is enter the index he is listed at. +
-Format: `addFromContacts INDEX`
-
+Format: `addFromContacts INDEX...`
 
 `INDEX` is the number which the person is listed at, and it should be a positive integer eg. 1, 2, 3, ....
+
+[TIP]
+You can put multiple indexes to add multiple people to your project at once isn't that convenient! E.g. `addFromContacts 1 3 5`
 
 
 Example:
 
 * `addFromContacts 1`
+
+To help you better understand how to use this command, here is a step-by-step guide.
+
+Step 1. Find the person you want to add, and take note of the index which the person is listed at. Referring to the picture
+below, let's say you want to add 'Bernice Yu' into your project. Notice her index is 2.
+
+.Finding the person to add
+image::AddFromContactsFindPerson.png[]
+
+Step 2. Type in the `addFomContacts` command with the index `2`
+
+.`addFromContacts` command input.
+image::AddFromContactsCommandInput.png[]
+
+Step 3. Press enter and you're done! Refer to the picture below to see what your screen should look like.
+
+image::AddFromContactsCommandSuccess.png[]
+
+// end::addFromContacts[]
 
 ==== Add a timetable: `addTimetable`
 
@@ -321,18 +363,36 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+// tag::removeMember[]
 ==== Remove a member: `removeMember` [Checkout]
 
-
 Removes the specified person from the current working project. +
-Format: `removeMember NAME`
+Format: `removeMember INDEX`
 
-`NAME` refers to the full name of the member displayed in the project.
+`INDEX` refers to the index that the person is listed at under the members section of the
+project overview.
 
 Example:
 
-* `removeMember John Doe`
+* `removeMember 1`
 
+To help you better understand how to use this command, here is a step-by-step guide.
+
+Step 1. Find the person you want to remove from the project. Let's say you want to remove 'Bernice Yu' because
+she just dropped your module. Notice her index is at 1
+
+.Finding the person you want to remove
+image::RemoveMemberFindingPerson.png[]
+
+
+Step 2. Type in the `removeMember` command with the index of `1`
+
+.`removeMember` command user input.
+image::RemoveMemberCommandInput.png[]
+
+Step 3. Press enter and you're done! She is now no longer a member of your project.
+
+// end::removeMember[]
 
 ==== Delete a task: `deleteTask` [Checkout]
 
@@ -636,3 +696,164 @@ Example:
 
 * `sortMeeting 1` (Sorts the meetings by alphabetical order)
 
+// tag::performanceTracking[]
+=== Performance tracking
+Knowing that it is hard to keep track of what every needs to do, or has done so far, MyProject gives you a simple
+way of tracking the performance of each member as well. The following section will give you all the details you need
+to know about this feature.
+
+==== Assigning a task: `assignTask` [Checkout]
+This command allows you to assign a task to one or more of your members in the project. +
+Format: `assignTask TASK_INDEX PERSON_INDEX...`
+
+`TASK_INDEX` refers to the index at which the task is displayed at.
+
+`PERSON_INDEX` refers to the index at which the member is displayed at. (You can input more than 1 index)
+
+
+Example:
+
+* `assignTask 1 1`
+
+[TIP]
+You can assign a task to multiple people easily just by including all of their indexes E.g. `assignTask 1 1 3 5` this assigns task 1 to member 1,3 and 5.
+
+To help you better understand how to use this command, here is a step-by-step guide.
+
+Step 1. Find the task you want to assign and the members you want to assign the task to, and take note of their
+indexes.
+
+.Finding the task to assign and the members to assign to
+image::AssignTaskFinding.png[]
+
+Step 2. Type in the `assignTask` command along with the correct indexes.
+
+.Typing the `assignTask` command with the correct input
+image::AssignTaskCommandInput.png[]
+
+Step 3. Press enter and you're done! You will now see the tasks reflected under the respective members in your contacts.
+
+You will see a success message:
+
+.`assignTask` command success message
+image::AssignTaskCommandMessageSuccess.png[]
+
+And also see the task reflected under the members:
+
+.How the assigned task is shown
+image::PersonListAssignedTask.png[]
+
+==== Unassigning a task: `unassignTask`
+With the ability to assign task, naturally you should be able to unassign a task as well, and you can do that with this
+command. +
+Format: `unassignTask PERSON_INDEX TASK_INDEX...`
+
+`PERSON_INDEX` refers to the index of the person as displayed in your contacts
+
+`TASK_INDEX` refers to the indexes of the tasks as displayed under the specific person
+
+Example:
+
+* `unassignTask 1 1`
+
+[TIP]
+You can unassign one or more tasks at once from a person by specifying all the task indexes. E.g. `unassignTask 1 1 3 5`
+this unassigns tasks 1, 3, and 5 from the first person.
+
+To help you better understand how to use this command, here is a step-by-step guide.
+
+Step 1. Identify the tasks you want to unassign and the person you want to unassign the tasks from, and take note
+of their indexes.
+
+.Finding the tasks to unassign, and the person to unassign the tasks from.
+image::UnassignTaskFinding.png[]
+
+Step 2. Type in the `unassignTask` command with the relevant inputs
+
+.`unassignTask` command input
+image::UnassignTaskCommandInput.png[]
+
+Step 3. Press enter and you're done!
+
+You will see a success message:
+
+.`unassignTask` command success message
+image::UnassignTaskMessageSuccess.png[]
+
+And you will no longer see the tasks reflected under the person.
+
+==== Mark attendance: `markAttendance` [Checkout]
+MyProject also allows you to mark the attendance of one or more members for a meeting. +
+Format: `markAttendance MEETING_INDEX PERSON_INDEX...`
+
+`MEETING_INDEX` refers to the index of the meeting as displayed in the project overview
+
+`PERSON_INDEX` refers to the index of the person as displayed in the project overview
+
+Example:
+
+* `markAttendance 1 1`
+
+[TIP]
+You can mark the attendance of multiple people at once, just by specifying all the indexes of the persons E.g. `markAttendance 1 1 3 4`
+this marks the attendance for meeting 1 for members 1, 3 and 4.
+
+To help you better understand how to use this command, here is a step-by-step guide.
+
+Step 1. Identify the meeting you want to mark attendance for, and the members who were present.
+
+.Finding the meeting to mark attendance for and the members to mark attendance of
+image::MarkAttendanceFinding.png[]
+
+Step 2. Type in the `markAttendance` command with the relevant inputs.
+
+.`markAttendance` command input
+image::MarkAttendanceCommandInput.png[]
+
+Step 3. Press enter and you're done!
+
+You will see a success message:
+
+.`markAttendance` command success message
+image::MarkAttendanceMessageSuccess.png[]
+
+And the meeting will show up under the information of the person like this:
+
+.Showing attendance marked
+image::PersonListMarkAttendance.png[]
+
+==== Viewing performance overview: `showPerformanceOverview`
+After assigning the tasks and marking the attendance of members, you can use this command to give you a comprehensive
+view of how each member is performing within the project isn't that convenient! +
+Format: `showPerformanceOverview`
+
+There are 4 attributes that we calculate for every member which constitutes their performance:
+
+. Number of tasks completed
+. Percentage of assigned tasks completed (Rate of task completion)
+. Number of meetings attended
+. Percentage of total number of meetings attended (Rate of attendance)
+
+Refer to the pictures below to understand more about how we display this information in a organised manner to you.
+
+* Table showing the number of task each member completed:
+
+image::NumTaskTable.png[]
+
+* Table showing the percentage of their assigned tasks each member completed:
+
+image::TaskCompletionTable.png[]
+
+* Table showing the number of meetings each member attended:
+
+image::NumMeetingsTable.png[]
+
+* Table showing the percentage of the total number of meetings each member attended:
+
+image::MeetingRateTable.png[]
+
+* Lastly you can also view each member individually after scrolling through the tables:
+
+image::IndividualPerformances.png[]
+
+// end::performanceTracking[]

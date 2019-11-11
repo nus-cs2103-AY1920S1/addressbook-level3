@@ -1,0 +1,18 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+scale 2
+Package Model <<Rectangle>> {
+Class PerformanceOverview{
+-memberList: List<Person>
+-project: Project
+}
+Class Project{
+}
+Class Person{
+}
+}
+
+PerformanceOverview o--> "1..*" Person
+PerformanceOverview o--> "1" Project
+@enduml

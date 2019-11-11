@@ -27,10 +27,10 @@ public class PerformanceOverview {
         this.memberList.addAll(memberList);
         this.numOfMeetings = project.getListOfMeeting().size();
         this.numOfTasks = project.getTasks().size();
-        attendanceRateMap.putAll(makeAttendanceRateMap());
         attendanceMap.putAll(makeAttendanceMap());
-        completionRateMap.putAll(makeCompletionRateMap());
+        attendanceRateMap.putAll(makeAttendanceRateMap());
         taskDoneMap.putAll(makeTaskDoneMap());
+        completionRateMap.putAll(makeCompletionRateMap());
     }
 
     public List<Person> getMemberList() {

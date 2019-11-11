@@ -10,6 +10,7 @@ import seedu.address.model.util.SortingOrder;
 import java.util.*;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NOT_CHECKED_OUT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 public class AddMemberCommand extends Command {
@@ -51,6 +52,9 @@ public class AddMemberCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isCheckedOut()) {
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
+        }
 
         Project projectToEdit = model.getWorkingProject().get();
         String projectToEditTitle = projectToEdit.getTitle().toString();

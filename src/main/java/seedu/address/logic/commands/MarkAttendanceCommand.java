@@ -13,8 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.*;
 
 public class MarkAttendanceCommand extends Command {
 
@@ -37,6 +36,9 @@ public class MarkAttendanceCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (!model.isCheckedOut()) {
+            throw new CommandException(MESSAGE_NOT_CHECKED_OUT);
+        }
         Project currWorkingProject = model.getWorkingProject().get();
         List<Meeting> meetingSet = currWorkingProject.getListOfMeeting();
         //Getting the list shown to the user so that the index input matches the position of the meeting

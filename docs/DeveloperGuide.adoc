@@ -197,7 +197,69 @@ and the date and time of the meeting respectively.
 A typical meeting will look like this on the app:
 
 image::ProjectMeeting.png[]
+
 // end::addProjectMeeting[]
+
+// tag::memberFeature[]
+=== Member feature
+==== Description of feature
+In every project, it almost certain that there are members. Therefore we have allowed for the users to be able to
+track who are the members, and how many members there are within each project. Each `Project` stores its members as a list
+of strings representing their names, and similarly each `Person` stores the projects they are involved in
+as a list of strings representing the project titles. Below you will find 2 diagrams which represents this relationship.
+
+.Class diagram of Project
+image::MemberClassDiagram1.png[]
+
+.Class diagram of a Person
+image::MemberClassDiagram2.png[]
+
+[NOTE]
+Whenever member is mentioned it should be known that it is represented by a `Person`.
+
+In order to facilitate this feature, 4 commands are implemented as a subclass of the `Command` class:
+
+. `addMember` - Adds a new `Person` to the contacts an records the name as a member of the current working project.
+. `addFromContacts` - Adds a `Person` to the current working project as a member.
+. `removeMember` - Removes the record of the `Person` as a member of the current working project.
+. `addProfilePicture` - Adds a profile picture to the specified `Person`.
+
+==== Implementation
+
+In this section, we will demonstrate how a member is added to the project from your contacts, and also how a member as a new `Person`.
+
+We will start with adding a new `Person` to your contacts, and to your project at the same time.
+
+Step 1. The user enters the `addMember` command with the following parameters `n/David p/94328727 e/david97@hotmail.com a/Ang Mo kio
+avenue 3`.
+
+Full user input: `addMember n/David p/94328727 e/david97@hotmail.com a/Ang Mo kio
+avenue 3`
+
+The user input is parsed into an `ArgumentMultiMap` by `AddMemberCommandParser#parse` so that every attribute of the person can be
+extracted, and put into a `NewMemberDescriptor` to be used to correctly create the `Person`.
+
+[NOTE]
+`ArgumentMultimap` is a class that stores all the parsed parameters from the user input.
+
+[NOTE]
+`NewMemberDescriptor` is a class that stores any all the information on the `Person` given by the user to be used
+to create the `Person` subsequently.
+
+Step 2. The information of the person is stored in the `NewMemberDescriptor`, and used to create a new instance of the `AddMemberCommand`
+
+
+Every Project keeps track of which members are involved by storing a list of strings of the names of the members.
+Similarly a Person keeps track of which projects they are involved in by storing a list of strings of the project titles.
+
+The following commands are implemented to support this feature:
+
+. `addMember` - Adds a new person to the contacts as well as to the current working project.
+. `addFromContacts` - Adds a person currently stored in your contacts to the current working project.
+. `removeMember` - Removes a person from the current working project.
+. `addProfilePicture` - Adds a profile picture to a person in the contacts.
+
+// end::memberFeature[]
 
 === Sorting feature
 ==== Description of feature
@@ -666,6 +728,91 @@ image::ChangeUiDisplayState5.png[]
 If the `currentStatePointer` is at `PROJECT_LIST`, then there are
 no previous UI states to go back. Under such situation, an error will be returned.
 
+// tag::performanceTracking[]
+=== Performance Tracking
+
+We allow users to be able to track the performance of every member in the project, by using information that the user has
+already input into MyProject.
+
+==== Implementation
+
+The `Performance` of each `Person` is consolidated and stored in a `PerformanceOverview` object inside the model.
+
+[NOTE]
+`Performance` of a `Person` stores the information such as tasks assigned to the person, which are specific to the person. The actual performance
+of the person can only be calculated in `PerformanceOverview` with information from the `Project` as well.
+
+`PerformanceOverview` is a separate model we have implemented, which consolidates all the data from each `Person` involved
+in the specific project, as well as from the project itself. The following is a class diagram for `PerformanceOverview`.
+
+image::PerformanceOverviewClassDiagram.png[]
+
+A typical `PerformanceOverview` is created using the following constructor:
+
+`PerformanceOverview(project, memberList)`
+
+* `project` - This is the `Project` that the user is concerned about.
+
+* `memberList` - This is the `List<Person>` which consists of all the `Person`(s) involved with this project. Note that they each
+have their own `Performance` as well.
+
+All the calculations of the various components constituting the performance of an individual is calculated within the `PerformanceOverview`,
+and the results are accessed using each of the following commands:
+
+. `PerformanceOverview#getAttendanceOf(Person person)` - Gets the number of meetings attended by the `Person`
+. `PerformanceOverview#getRateOfAttendanceOf(Person person)` - Gets the percentage of meetings attended by the `Person`
+. `PerformanceOverview#getNumOfTaskDoneOf(Person person)` - Gets the number of tasks completed by this `Person`
+. `PerformanceOverview#getTaskCompletionRateOf(Person person)` - Gets the percentage of the assigned tasks, which the `Person` completed
+
+Internally, every attribute of the performance of an individual a HashMap for that particular attribute. For example, the task completion
+rate of every individual is stored in a `HashMap<String, RateOfTaskCompletion>` where the key is the string of the name of the member, while
+the value is the rate of task completion. Every other attribute is stored in similar fashion.
+
+Next, we will demonstrate the process of using this feature to see the performance of each member. The following sequence diagram
+shows the entire process of calculating the performance of member and showing it, after the `showPerformanceOverview` command
+is input by the user.
+
+.Sequence diagram of the `showPerformanceOverview` command execution
+image::ShowPerformanceOverviewSequenceDiagram.png[]
+
+With reference to the sequence diagram above, here are the steps of the command execution:
+
+Step 1. The user input is parsed, and a `ShowPerformanceOverviewCommand` is created.
+
+Step 2. The execution of the `ShowPerformanceOverviewCommand` fetches the `Project` that the user is working on, and also
+the `Person`(s) involved in the project and returns them as a `List<Person>`.
+
+Step 3. The `List<Person>` and `Project` are used to create the `PerformanceOverview`. Here you can see that when a `PerformanceOverview` is created
+there are 4 methods being called internally. This is where all the necessary information is taken from the project and members, and used to
+calculate the different attributes of the member's performance. It is also in those 4 methods, where the HashMaps are created.
+
+Step 4. The `PerformanceOverview` is set in the `Model`, and displayed to the user subsequently.
+
+The following activity diagram summarizes the general flow of the execution of the `showPerformanceOverview` command:
+
+.Activity diagram for `showPerformanceOverview`
+image::ShowPerformanceOverviewActivityDiagram.png[]
+
+As shown in the activity diagram, there are only 2 main flows during the execution of this command. If there are members
+in the project, the performance of the members can be calculated, and the performance overview will be displayed
+to the user. If there are no members in the project, the user will be shown an error message to tell them that
+the performance overview cannot be computed.
+
+==== Design Considerations
+**Data structure of `PerformanceOverview`**
+
+* **Alternative 1(Current implementation):** Currently, every attribute is stored and paired to the member using a HashMap. The key
+is the string representation of the name of the members, and the value is the attribute itself.
+
+** Pros:
+*** Easy to implement.
+*** In order to add a new attribute to measure performance, there is only a need to add a new HashMap, a method to calculate the values,
+and a method to retrieve the values.
+
+** Cons:
+*** It is more difficult to iterate through all HashMaps to retrieve the values based on your preferred ordering.
+
+// end::performanceTracking[]
 
 == Documentation
 

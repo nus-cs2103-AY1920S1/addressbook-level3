@@ -1,0 +1,23 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+scale 540 height
+scale 420 width
+Package Model <<Rectangle>> {
+Class ProjectList
+Package Project <<Rectangle>> {
+Class Project {
+-members: List<String>
+}
+Class e
+Class UniqueProjectList
+}
+}
+
+hide e
+ProjectList -> e
+e *--> UniqueProjectList
+ProjectList *--> "1" UniqueProjectList
+UniqueProjectList o--> "*" Project
+
+@enduml
