@@ -42,27 +42,10 @@ public class SnoozeCommand extends UndoableCommand {
     private Item snoozedItem;
 
     /**
-     * <<<<<<< HEAD
-     * <<<<<<< HEAD
-     * <<<<<<< HEAD
-     *
+
      * @param hasIndex              boolean that indicates if an index was specified.
      * @param index                 of the item to edit.
      * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
-     *                              =======
-     * @param index                 of the item to edit.
-     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder
-     *                              >>>>>>> Halfway adding SnoozeCommand
-     *                              =======
-     * @param hasIndex              boolean that indicates if an index was specified.
-     * @param index                 of the item to edit.
-     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
-     *                              >>>>>>> Add snooze command
-     *                              =======
-     * @param hasIndex              boolean that indicates if an index was specified.
-     * @param index                 of the item to edit.
-     * @param newReminderOccurrence LocalDateTime of new occurrence of reminder.
-     *                              >>>>>>> 77beef877620bb25d68066b2550360272c1e9c07
      */
     public SnoozeCommand(boolean hasIndex, Index index, LocalDateTime newReminderOccurrence) {
         requireAllNonNull(hasIndex, newReminderOccurrence);
@@ -87,10 +70,10 @@ public class SnoozeCommand extends UndoableCommand {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
             }
-
             oldItem = lastShownList.get(index.getZeroBased());
             snoozedItem = oldItem.changeReminder(
                     oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
+
         } else {
             try {
                 oldItem = model.getLatestOccurredReminder();
@@ -101,8 +84,7 @@ public class SnoozeCommand extends UndoableCommand {
             snoozedItem = oldItem.changeReminder(
                     oldItem.getReminder().get().changeOccurrenceDateTime(newReminderOccurrence));
         }
-
-        model.replaceItem(oldItem, snoozedItem);
+        model.editItem(oldItem, snoozedItem);
         if (!isExecuted()) {
             model.getElisaCommandHistory().clearRedo();
             setExecuted(true);
