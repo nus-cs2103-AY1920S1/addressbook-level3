@@ -195,7 +195,7 @@ This section will show further details of the `Logic` Component of the Inventory
 Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
 .Structure of `Parser` for the Inventory and Cashier tabs which is a reference for <<fig-LogicClassDiagram>>
-image::ParserForInventoryCashier.png[]
+image::CashierInventoryParser3.png[]
 
 The `XYZTabParser` represents the `InventoryTabParser` for the Inventory tab and `CashierTabParser`
 for the Cashier tab.
@@ -868,7 +868,7 @@ In addition, the stock remaining in the inventory will be updated accordingly in
 
 ==== Add Sales Item Feature
 
-This feature allows the adding of sales items to the cart.
+This feature allows the addition of sales items to the cart.
 
 Only sales items can be added to the cart.
 If the price of an item is zero, it is not available for sale.
@@ -924,8 +924,8 @@ The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 image::AddCommandCashierSeq.png[]
 
 [NOTE]
-After every Add command, the quantity of items in the Inventory tab will still remain the same. The remaining stock
-will only be updated after the Checkout Command.
+After every `Add Command`, the quantity of items in the Inventory tab will still remain the same. The remaining stock
+will only be updated after the checkout command.
 
 
 [NOTE]
@@ -993,7 +993,7 @@ To update the view on the Inventory tab and Transaction tab, transaction will be
 
 The following Sequence Diagram shows how the transaction and inventory are updated:
 
-.Sequence Diagram of how transaction and inventory get updated (cashier package)
+.Sequence Diagram of how Transaction and Inventory get Updated (cashier package)
 image::CheckoutCommandCashierSeq2.png[]
 
 If the amount inputted is less than the total amount of items, the user will be prompted to key in a valid value.
