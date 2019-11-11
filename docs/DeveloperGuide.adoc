@@ -1009,7 +1009,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Initial launch
 
-.. Download the jar file and copy into an empty folder
+.. Download the jar file and copy into an empty folder.
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample contacts.
 The window size may not be optimum.
@@ -1041,9 +1041,18 @@ Status bar remains the same.
    Expected: Similar to previous.
 
 
+=== Viewing Help Window
+
+. Requesting help from PalPay
+
+.. Prerequisites: None
+
+.. Test case: `help` +
+Expected: A help window pops up that displays the URL of PalPay's User Guide and a `Copy URL` button.
+
 === Saving Data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Delete the file at `.\data\bankaccount.json`.
 
