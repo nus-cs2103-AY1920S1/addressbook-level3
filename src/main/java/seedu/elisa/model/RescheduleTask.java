@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
-import seedu.elisa.commons.core.item.Reminder;
 import seedu.elisa.logic.LogicManager;
 
 /**
@@ -83,17 +82,7 @@ public class RescheduleTask extends TimerTask {
         long period = event.getPeriod().getPeriod();
         LocalDateTime newStart = LocalDateTime.now().plusNanos(Duration.ofMillis(period).toNanos());
         Event newEvent = event.changeStartDateTime(newStart);
-        Item newItem;
-
-        if (item.hasReminder()) {
-            Reminder oldReminder = item.getReminder().get();
-            LocalDateTime newReminderStart = oldReminder.getOccurrenceDateTime()
-                    .plusNanos(Duration.ofMillis(period).toNanos());
-            Reminder newReminder = oldItem.getReminder().get().changeOccurrenceDateTime(newReminderStart);
-            newItem = item.changeEvent(newEvent).changeReminder(newReminder);
-        } else {
-            newItem = item.changeEvent(newEvent);
-        }
+        Item newItem = item.changeEvent(newEvent);;
 
         Platform.runLater(new Runnable() {
             @Override
