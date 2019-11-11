@@ -156,8 +156,9 @@ This section describes some noteworthy details on how certain features are imple
 === Schedule Generator
 
 The Schedule Generator feature allows users to generate a combined schedule of any number of people. It combines these
-schedules together, generates the common free time slots among the input people's schedules and packages it
-into a visual representation for the user.
+schedules together, generates the common free time slots and packages it into a visual representation for the user.
+
+This allows the user to quickly identify the common free time slots among the user and the members of the group.
 
 ==== Implementation
 
@@ -213,6 +214,8 @@ The type of `ScheduleDisplay` that is generated is based on the `ScheduleState`.
 * `GroupScheduleDisplay`:
 ** A `ScheduleDisplay` object that shows the Schedule of a group of `Persons` including the `User`
 ** It contains a `FreeSchedule` object that tells the user the common `FreeTimeslots` among the `Persons` in the group
+
+==== Usage Scenario
 
 Given below is an example usage scenario of how the ScheduleManager behaves
 when a schedule command is executed.

@@ -839,7 +839,7 @@ ____
 
 When viewing a schedule on TimeBook, you can select a time slot to get more information out of it!
 
-The `select` command works when view a group's schedule, person's schedule or home page! The format for this command's
+The `select` command works when you are viewing a group's schedule, person's schedule or home page! The format for this command's
 use are detailed below!
 
 Format (group schedule): `select n/NAME [week/WEEK_NUMBER] i/ID`
@@ -882,6 +882,8 @@ You will never have to touch your mouse!
 | image:./icons/important.png[] | When the location of the time slot is not a valid location in NUS, the location
 will not be shown on the map!
 
+The following shows some example usage!
+
 image::ugalvin/select1.png[width=100%]
 
 When a group's schedule is shown, each members time slots are colour coded as shown above.
@@ -922,7 +924,6 @@ Example:
 * `select i/1`
 
 After executing that command, a pop up will be shown similar to the one above!
-
 
 
 === Closest Common Location
