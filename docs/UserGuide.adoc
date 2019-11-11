@@ -1294,9 +1294,6 @@ of your workout. This will initialise your Workout with no exercises in it.
 .Add Workout Input
 image::addWorkoutInput.png[]
 
-.Add Workout Output
-image::addWorkoutOutput.png[]
-
 ==== Push Exercise `push exercise`
 
 Once you have initialised your workout, you are now ready to add your exercise into your
