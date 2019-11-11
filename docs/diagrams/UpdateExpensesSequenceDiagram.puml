@@ -3,32 +3,28 @@
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":StatisticsFormat" as StatisticsFormat MODEL_COLOR
+participant ":ObservableList<Expense>" as ObservableList MODEL_COLOR
 end box
 
 box Chart UI_COLOR_T1
-participant ":ChartBox" as ChartBox UI_COLOR_T3
 participant ":Chart" as Chart UI_COLOR_T3
 participant ":StatisticsGenerator" as StatisticsGenerator UI_COLOR_T3
 participant ":JavaFxChart" as JavaFxChart UI_COLOR_T3
+
 end box
 
-box UI UI_COLOR_T3
-participant ":UI" as Ui UI_COLOR_T1
 
-[-> Model : setStatisticsFormat(newFormat)
+[-> Model : updateFilteredExpenses(SHOW_ALL)
 activate Model
-Model -> StatisticsFormat : setValue(newFormat)
+Model -> ObservableList : setPredicate(SHOW_ALL)
 deactivate Model
 
-activate StatisticsFormat
-StatisticsFormat -> ChartBox : notifyListeners(newFormat)
-deactivate StatisticsFormat
+activate ObservableList
+ObservableList -> Chart : notifyListeners(expenseList)
+deactivate ObservableList
 
-activate ChartBox
-create Chart
-ChartBox -> Chart: new
-deactivate ChartBox
+activate Chart
+Chart -> Chart: onUpdate(expenseList)
 
 activate Chart
 Chart -> StatisticsGenerator :generate(expenseList)
@@ -41,10 +37,5 @@ deactivate StatisticsGenerator
 activate Chart
 Chart --> JavaFxChart : display(formattedStatistic)
 deactivate Chart
-
-activate ChartBox
-ChartBox --> Ui : render(chart)
-deactivate ChartBox
-
 
 @enduml

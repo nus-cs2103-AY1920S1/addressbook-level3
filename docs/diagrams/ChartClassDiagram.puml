@@ -11,8 +11,7 @@ package Chart <<Rectangle>> {
 Class ChartBox
 Class StatisticsFormatOptions
 Class "{abstract}\nExpenseChart" as ExpenseChart
-Class ExpenseTimelineChart
-Class ExpenseBreakdownChart
+Class ExpenseXYZChart
 
 
 enum StatisticsFormat {
@@ -31,10 +30,9 @@ MainWindow *-right-> ChartBox
 ChartBox -right-> StatisticsFormat
 ChartBox *-down-> ExpenseChart
 ChartBox -down-> StatisticsFormatOptions
-ExpenseTimelineChart -up-|> ExpenseChart
-ExpenseBreakdownChart -up-|> ExpenseChart
-ExpenseTimelineChart *-> StatisticsGenerator
-ExpenseBreakdownChart *-> StatisticsGenerator
 ExpenseChart -left-|> UiPart
+ExpenseXYZChart -up-|> ExpenseChart
+ExpenseXYZChart *-> StatisticsGenerator
+note bottom of ExpenseXYZChart: ExpenseXYZChart: ExpenseTimelineChart, \nExpenseBreakdownChart, etc.
 
 @enduml

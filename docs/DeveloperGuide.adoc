@@ -556,7 +556,12 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 // end::finding[]
 
 === Statistics
-The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
+Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +
+
+** Every time the displayed list of expenses changes, the chart automatically updates with the new changes
+** Users can submit commands to change the displayed chart as well as change configuration options for the charts
+
+This functionality is made possible through the statistics module. The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
 There are 2 components that help to do this - the chart component and the statistics generator component.
 [[Design-Ui-Chart]]
 ==== Chart component
@@ -564,40 +569,69 @@ There are 2 components that help to do this - the chart component and the statis
 [[fig-ChartClassDiagram]]
 .Structure of the Chart Component
 image::ChartClassDiagram.png[]
+{nbsp} +
 
 There is a special `Chart` component that deals with the generation and rendering of specific charts based on user input and the expenses being displayed.
-Every concrete chart type, eg. `ExpenseTimelineChart`, `ExpenseBreakdownChart`, extends from `ExpenseChart`.
-The `ChartBox` is the main orchestrating class. It is updated on the selected `StatisticsFormat` and `StatisticsFormatOptions` by the `MainWindow`
-These are classes that represent user decisions on what to be displayed. Upon being updated, it creates the appropriate
-`ExpenseChart` with the selection options, to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
+The `ChartBox` is the main orchestrating class. It is updated with the latest `StatisticsFormat` and `StatisticsFormatOptions` that the user selects, via the `MainWindow`.
+These are classes that represent user configuration on what to be displayed. Upon being updated, it creates the appropriate
+`ExpenseChart` with the selected options, to display the selected statistic based on the currently displayed expenses. To transform the data from
+the displayed list of expenses to the statistic format required, the `StatisticsGenerator` component is used. The concrete `ExpenseChart` obtains the formatted statistics from the
 `StatisticsGenerator` component.
 
 ==== Statistics Generation Component
 .Structure of the Statistics Generation Component
 image::StatisticsGeneratorClassDiagram.png[]
+{nbsp} +
 
-The `Chart` component gets the data to be displayed from the StatisticsGenerator component. A number of classes,
+The concrete `ExpenseChart` obtains the data to be displayed from the `StatisticsGenerator` component. A number of classes,
 such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator`, and each is in charge of creating a specific
-statistic type with data processed to fit the chart that displays them.
+statistic type, ie. `ExpenseBreakdown` and `ExpenseTimeline`. These concrete statistic types encapsulate all the information relevant
+to the statistic, which the concrete `ExpenseChart` then uses to render the statistic display.
 
 ==== Proposed Implementation
-The chart feature can be roughly described as two separate parts: the displaying of the chart itself and the functionality to
-switch between arbitrary charts. They will be discussed separately.
+The chart feature can be roughly split two separate parts:
 
-===== Displaying of charts
-The charts display statistics pertaining to whatever expenses are currently being listed in the `MainWindow`, and are updated live
-as the expenses being displayed change. This functionality is largely done by making use of the Observer pattern. An observable view of
-a list is provided by the `Logic`. The `MainWindow` has a reference to `Logic`, and passes a reference to the `ObservableList`
-of `Expense` to the `ChartBox` when instantiating it. Changes made to the list of expenses are thus propagated to `ChartBox`.
+** The dynamic rendering of the chart whenever the displayed expenses are updated
+** The functionality to switch between different statistic types and configure customization options
 
-The `ChartBox` itself instantiates and displays an `ExpenseChart`, and passes the list of expenses to it. The `ExpenseChart`
-takes that list of expenses and generates the statistics to be displayed using its own `StatisticsGenerator`. In this manner,
-changes to the list of expenses are propagated to the display. An example of how this works can be seen in the sequence diagram
-below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+[NOTE]
+The Observer pattern plays an integral role in the implementation of major part of the system. To summarize, it is a design pattern that achieves decoupling
+by having observers "subscribe" to changes in an observed object, and being notified upon any changes through callbacks. This is opposed to the observed class directly updating
+its observers. In the following, the term "notify observers" will be used to denote the act of an observed class being updated and updating all
+its observers, and the term "on update" will be used to denote the act of an observer receiving updates from its observed class.
 
-.Structure of the Statistics Generation Component
+Below is a high level overview of the behaviour of the system when any command is called.
+
+image::DisplayStatisticsActivityDiagram.png[]
+
+As you can see the logic follows the two paths outlined above. One path where the displayed expenses are updated, and one path where `DisplayStatsCommand` is executed, updating the chart.
+Both paths can lead to the chart updating, followed by the end of the command. Each path will be explored in slightly further detail below.
+
+===== Update to displayed expenses
+. The current `ExpenseChart` observes the list of expenses that are contained in the `MainWindow`.
+. When a command which updates the expenses is executed, that command updates the list of expenses in the model.
+. That update propagates to the list of expenses in `MainWindow`, which notifies the current chart of its changes.
+. Using a `StatisticsGenerator`, the `ExpenseChart` then generates the statistics to be displayed from the new expenses.
+. In this manner, changes to the list of expenses are propagated to the display.
+
+An example of how this works can be seen in the sequence diagram below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+
+image::UpdateExpensesSequenceDiagram.png[]
+
+{nbsp} +
+
+===== DisplayStatsCommand is called
+. The orchestrating `ChartBox` observes `StatisticsFormat` and `StatisticsFormatOptions` in the model.
+. When `DisplayStatsCommand` is called, it updates those two objects in the model sequentially.
+. First, `ChartBox` is notified about `StatisticsFormat`, and if there is a new one, it creates the appropriate chart and renders it.
+. Next, if there are changes to `StatisticsFormatOptions`, the `ChartBox` propagates the relevant changes to the current displayed chart, to update its display.
+. In this manner, the current chart can be updated with the new `StatisticsFormat` and `StatisticsFormatOptions`.
+
+An example of how this works can be seen in the sequence diagram below, where `DisplayStatsCommand` is called with a new `StatisticsFormat`.
+`StatisticsFormatOptions` is omitted for simplicity.
+
 image::DisplayStatisticsSequenceDiagram.png[]
-
+{nbsp} +
 
 ==== Design Considerations
 
