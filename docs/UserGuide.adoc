@@ -1184,8 +1184,8 @@ Now you can use the `reminder` command to add a reminder to Luminus.
 
 To add a reminder:
 
-* The index of Luminus on reminder list is 1.
-You type the command `*reminder* 1 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
+* The index of Luminus on reminder list is 2.
+You type the command `*reminder* 2 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
 
 image::ui-screenshots/AddReminderUi1.png[400, 500]
 
@@ -1243,6 +1243,7 @@ To edit a reminder:
 
 * The index of the reminder in the reminder list is 1.
 You type the command `*reminder-edit* 1 n/Do the quiz and the assignment` into the command box and press _Enter_ to execute it.
+
 image::ui-screenshots/EditReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for Luminus.
 
