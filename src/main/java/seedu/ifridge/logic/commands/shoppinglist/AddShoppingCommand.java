@@ -3,6 +3,7 @@ package seedu.ifridge.logic.commands.shoppinglist;
 import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INCORRECT_UNIT;
 
 import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
@@ -30,8 +31,6 @@ public class AddShoppingCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New shopping item added: %1$s";
     public static final String MESSAGE_DUPLICATE_SHOPPING_ITEM = "This shopping item already exists in shopping list";
-    public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
-            + "with the same name.";
 
     private final ShoppingItem toAdd;
 

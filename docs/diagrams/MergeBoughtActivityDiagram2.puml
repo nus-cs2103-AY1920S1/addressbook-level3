@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+
+start
+:Execute groceryAmount addition is called;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([groceryAmount and boughtAmount have same unit type])
+    if () then ([units are consistent])
+        :Add boughtAmount to groceryAmount;
+    else([else])
+        :Convert boughtAmount's unit to match groceryAmount's unit;
+        :Add converted boughtAmount to groceryAmount;
+    endif
+else([else])
+    :Throw InvalidUnitException;
+endif
+stop
+@enduml

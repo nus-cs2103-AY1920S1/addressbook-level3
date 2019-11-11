@@ -81,21 +81,6 @@ public class EditShoppingCommandTest {
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditShoppingCommand editShoppingCommand =
-                new EditShoppingCommand(INDEX_FIRST_PERSON, new EditShoppingCommand.EditShoppingItemDescriptor());
-        ShoppingItem editedShoppingItem = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        String expectedMessage =
-                String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
-
-        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs(), model.getTemplateList(),
-                model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
-        expectedModel.sortShoppingItems();
-        ShoppingCommandTestUtil.assertCommandSuccess(editShoppingCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
     public void execute_filteredList_success() {
         showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
 
