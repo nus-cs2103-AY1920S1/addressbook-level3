@@ -253,16 +253,16 @@ by storing the changed fields of the model throughout execution, which will be r
 
 With the addition of model history, `Model` can support these operations:
 
-* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clearing the future history.
-* `Model#applyChanges(ModelChanges)` -- Applies the changes in history
-* `Model#canRollback()` -- Checks whether the model can be rolled-back
+* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clears the future history.
+* `Model#applyChanges(ModelChanges)` -- Applies the given changes to the model.
+* `Model#canRollback()` -- Checks whether the model can be rolled-back.
 * `Model#rollback()` -- Restores the model one step back by applying the changes described in the immediate previous changes in history.
-* `Model#canMigrate()` -- Checks whether the model can be migrated
+* `Model#canMigrate()` -- Checks whether the model can be migrated.
 * `Model#migrate()` -- Moves the model one step forward in history by applying the changes described in the immediate next changes.
 
 To support these capabilities, `ModelChanges` offers these methods as well:
 
-* `ModelChanges#compareModels(Model, Model)` -- Compares two models' data and creates a new `ModelChanges` object that c
+* `ModelChanges#compareModels(Model, Model)` -- Compares two models' data and creates a new `ModelChanges` object that describes the field data of the first model that is different with the second model.
 * `ModelChanges#revertChanges(Model)` -- Reverts the current changes with respect to the base model given.
 
 `ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
@@ -287,12 +287,16 @@ image::UndoRedoState2.png[]
 [NOTE]
 If a command fails its execution, it will not call `Model#commit(String, Model)`, so the model will not be saved into `ModelHistory`.
 
-Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the retrieved model, and applies the change to the model.
+Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the model, and applies the change to the model.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
 If `pastChanges` is empty, then there are no previous changes to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+Step 5. The user then realizes the expense should be deleted after all, and wishes to redo the deletion by entering the `redo` command. The command will call `Model#migrate()`, which will get the immediate next change in history, adding the reverting change to the past history, and applies the change to the model.
+
+image::UndoRedoState4.png[]
 
 The following sequence diagram shows how the undo command works:
 
@@ -330,15 +334,28 @@ by the `addexpense` command.
 
 * **Alternative 1:** Saves the entire model.
 ** Pros: It is easier to implement.
-** Cons: The approach introduces a lot of memory usage.
+** Cons: The approach introduces a lot of memory usage and some data might not be necessary.
 * **Alternative 2:** Saves the members of the model that were (or are going to be) changed.
-** Pros: This approach is more conservative in memory usage.
+** Pros: This approach is more conservative in memory usage, only saving fields that are changed means every data is necessary.
 ** Cons: We have to make sure every field is immutable to preserve changes.
 * **Current implementation (Alternative 2)**:
-We choose this approach as the time and memory resource trade-off is less significant compared to Alternative 1.
+We choose this approach as the time and memory resource trade-off is less significant compared to Alternative 1. As Alternative 2 stores
+only the data needed to correctly reflect the change, it requires less memory and also executes in less time as Alternative 1.
 
 // end::undoredo[]
 
+=== Menu-item Expenses Feature
+The menu-item expenses feature is another way to add an expense to MooLah given the expense to be added is a food or drink that is from
+canteens in National University of Singapore (NUS) and said item is supported in MooLah.
+
+==== Implementation
+Each menu item is stored as a `MenuItem` object, which has a description and price. These items are then contained in `Menu`, within the list
+of accepted menu items. Whenever the user enters the `addmenuexpense` command with a menu-item description, MooLah will
+look up the list of expenses in `Menu` that matches the description, and if there is such menu item, it will add
+
+Given below is an example usage scenario and how the add menu-item expense feature is processed within MooLah:
+
+image::AddMenuExpenseSequenceDiagram.png[]
 
 // tag::budget[]
 === Budgeting Feature
@@ -1582,6 +1599,16 @@ Deleting an expense while all expenses are listed
    Expected: No expense is deleted. Error details shown in the result display message.
 .. Other incorrect delete commands to try: `deleteexpense`, `deleteexpense x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Undo and redo
+
+.. Prerequisites: None.
+.. Test case: `addexpense d/pasta p/7.0 c/food` continued with `undo` +
+   Expected: The
+.. Test case: `addbudget d/fun p/300 sd/05-09 pr/month` continued with `undo` and then `redo` +
+   Expected: The "fun" budget is still being added to MooLah.
+.. Test case: `undo` +
+   Expected: MooLah will display an error stating that nothing can be undone.
 
 === Adding a budget
 

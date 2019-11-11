@@ -1,0 +1,22 @@
+@startuml
+
+class ModelHistory {
+-Stack<ModelChanges>: pastChanges
+-Stack<ModelChanges>: futureChanges
++copy() : ModelHistory
++addToPastChanges(changes : ModelChanges): void
++addToFutureChanges(changes : ModelChanges): void
++clearFutureChanges(): void
++isPastChangesEmpty(): boolean
++isFutureChangesEmpty(): boolean
++getPrevChanges(): Optional<ModelChanges>
++getNextChanges(): Optional<ModelChanges>
+}
+
+class ModelChanges {
+}
+
+ModelHistory -right-> "1" ModelChanges : pastChanges
+ModelHistory -right-> "1" ModelChanges : futureChanges
+
+@enduml
