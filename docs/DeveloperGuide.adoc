@@ -964,69 +964,66 @@ Decision: We decided to proceed with this alternative 2 because it makes use of 
 
 //tag::command-suggestion[]
 === Command suggestion feature
-This feature provides suggestions by predicting the commands that a user intends to enter(as the user types).
+This feature provides suggestions by predicting the commands that a user intends to enter.
 
 [NOTE]
 Only suggestions that start with the same alphabets or spaces as those entered by user will be suggested.
 
 ==== Implementation
-The main class responsible for remembering and providing the previously used command input strings is the link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`AutoCompleteCommandBox`] class.Typing into the link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`AutoCompleteCommandBox`] will prompt the attached link:https://docs.oracle.com/javafx/2/api/javafx/beans/value/ChangeListener.html[`Listener`] to be activated.
+The main class responsible providing suggestions is the link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`AutoCompleteCommandBox`] class.Typing into the link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`AutoCompleteCommandBox`] will prompt the attached link:https://docs.oracle.com/javafx/2/api/javafx/beans/value/ChangeListener.html[`Listener`] to be activated.
 Activation of the link:https://docs.oracle.com/javafx/2/api/javafx/beans/value/ChangeListener.html[`Listener`] will prompt it to filter through the set of predefined command suggestions.
-The commands that start with the same text entered by user will be filtered through.
-The first five result will then be mapped to their respective link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/TextFlow.html[`TextFlow`] object and added to the link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ContextMenu.html[`ContextMenu`].
-This link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ContextMenu.html[`ContextMenu`] will then appear as a pop up box.
-ser input box, the method. Pressing ```up``` and ```down``` arrow keys will enable the user to choose a command suggestion.
-Additionally, pressing ```enter``` will filter out different https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] from the link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/TextFlow.html[`TextFlow`] object. The link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`setText`] method will then be called to set the link:https://github.com/jfoenixadmin/JFoenix/blob/master/jfoenix/src/main/java/com/jfoenix/controls/JFXTextField.java[`JFXTextField`] to the said link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] object.
+The commands that start with the same alphabet or alphabets entered by user will be filtered through.
+The first four result will then be mapped to their respective link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/TextFlow.html[`TextFlow`] object and added to the link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ContextMenu.html[`ContextMenu`].
+This link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ContextMenu.html[`ContextMenu`] will then appear as a pop up box. Pressing up arrow and down arrow keys will enable the user to choose a command suggestion.
+Additionally, pressing kbd:[enter] will filter out different https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] from the link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/TextFlow.html[`TextFlow`] object. The link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`AutoCompleteCommandBoxsetText`] method will then be called to set the link:https://github.com/jfoenixadmin/JFoenix/blob/master/jfoenix/src/main/java/com/jfoenix/controls/JFXTextField.java[`JFXTextField`] to the said link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] object.
 //end::command-suggestion[]
 
 ====== Design Considerations
-The design considerations for the command suggestion feature are as follows.
 
 ===== Aspect: How to store a set of correct commands and search through it as the user types
- In order to provide suggestions as a user types, there needs to be a way to store the set of correct commands as strings in the system, and search through it to check if it contains some parts of user input. The results will be provided to the user as suggestions.
-
+ In order to provide suggestions as a user types, there needs to be a way to store the set of correct commands as strings in the system, and search through it to check if it contains some parts of user input. The results will then be provided to the user as suggestions.
 * *Alternative 1:* Use an `ArrayList` and go through every element in the array list one by one to look for commands that matches the user input.
 
-** *Pros*: Easy to implement
+* *Pros*: Easy to implement
 
-** *Pros*: When new commands are implemented, they can easily be added into the `ArrayList`
+* *Pros*: When new commands are implemented, they can easily be added into the `ArrayList`
 
-** *Cons*: Allows duplicates, if duplicate commands are added into the `ArrayList`, duplicate suggestions may be provided.
+* *Cons*: Allows duplicates, if duplicate commands are added into the `ArrayList`, duplicate suggestions may be provided.
 
-** *Cons*: Searching through the `ArrayList` is inefficient as `Stream` is not used.
+* *Cons*: Searching through the `ArrayList` is inefficient as `Stream` is not used.
 
 * *Alternative 2*: Store the commands in a `Set` and convert it to a `Stream` to search through the commands.
 
-** *Pros*: Prevent duplicates, so that duplicate commands will not be entered accidentally.
+**Pros*: Prevent duplicates, so that duplicate commands will not be entered accidentally.
 
-** *Pros*: More efficient.
+* *Pros*: More efficient.
 
-** *Pros*: Easier to search through the set of commands when it is stored as `Stream`.
+* *Pros*: Easier to search through the set of commands when it is stored as `Stream`.
 
 I have decided to proceed with this option as preventing duplicates enables a more defensive style of programming. It is also more efficient.
 
 ===== Aspect: How to fill up user input text field when a command suggestion is chosen
 
-Upon choosing a command suggestion, it template(the command suggestion excluding blue-colored instructions and grey-colored guides) will be used to occupy the user input text field.
+upon choosing a command suggestion, it template(the command suggestion excluding blue-colored instructions and grey-colored guides) will be used to occupy the user input text field.
 
 * *Alternative 1* :Map each command suggestion to their respective templates in `String` form
 
-** *Pros*: Easy to implement.
+* *Pros*: Easy to implement.
 
-** *Cons*: Tedious to implement(requires many lines of code).
+* *Cons*: Tedious to implement(requires many lines of code).
 
-** *Cons*: Duplicate logic will be implemented, as the templates could be extracted from the command suggestion itself.
+* *Cons*: Duplicate logic will be implemented, as the templates could be extracted from the command suggestion itself.
 
 * *Alternative 2* : Filter out the relevant text template from the command suggestion that is choosen.
 
-** *Pros*: No duplicate logic is implemented as the templates are extracted directly from the choosen command suggestion.
+* *Pros*: No duplicate logic is implemented as the templates are extracted directly from the choosen command suggestion.
 
-** *Pros*: Lesser code needs to be written in order to extract the template from the choosen command suggestion.
+* *Pros*: Lesser code needs to be written in order to extract the template from the choosen command suggestion.
 
-** *Pros*: Use of regular express ion may be harder to implement.
+* *Pros*: Use of regular express ion may be harder to implement.
 
 //tag::assign-remove[]
-=== Assign and Remove feature
+=== `assign` / `remove` feature
 
 The Class Diagram below showing the high level representation of the Object Oriented solution devised to implement the `assign` feature.
 

@@ -65,7 +65,7 @@ text that you enter into Alfred. The command text that you should enter at the c
 on terminal in the jar file's directory to open and start the app. The GUI should appear in a few seconds.
 +
 .Layout of the application
-image::Ui.png
+image::UiAnnotated.png[]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -395,13 +395,14 @@ Assigns Mentor or Participant Entity by their ID to a team identified by TEAM_ID
 
 ****
 * Take note that the `assign` command can only be used to assign Participants and Mentors to a Team.
-* An error will be shown is the Team already has a Mentor.
+* An error will be shown if the Team already has a Mentor.
 * An error will be shown if the Team already has said Participant.
+* An error will be shown if the Team has reach the maximum capacity of five members.
 ****
 
 Examples:
 
-* `assign mentor M-18 T-2` will assign Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
+* `assign mentor M-18 T-2` will assign a Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
 image::AssignCommandExample1.png[height="200", width="550"]
 
@@ -418,7 +419,7 @@ Removes Mentor or Participant Entity by their ID from a team identified by TEAM_
 ****
 * Take note that the `remove` command can only be used to remove Participant or Mentor from a Team.
 * An error will be shown if the Participant or Mentor is not in the specific Team.
-* Deleting a Participant or Mentor will also delete all their connections with a team or teams.
+* Deleting a Participant or Mentor will also delete all their connections with all the teams it belongs to.
 ****
 
 Examples:
@@ -947,25 +948,26 @@ image::HomeCommandExample.png[height="200", width="600"]
 As you type, there will be a popup box predicting the type of commands you are going to type. You can navigate through these suggestions and choose the template that suits you.
 
 Example:
+
 Let us suppose that you want to type the command `add mentor` and you forgot the fields that are required in the command.
 
 Instead of going through the user guide to look for the command, a popup box will appear as you type. The content in this box will change as you type, such that the commands suggested will start with the words or letters that you have already entered.
 
 As you type: +
 
-1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear if you choose the command.
+1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear when you choose the command of choice.
 
 image::CommandSuggestionStep1.png[width="600", height="10"]
 
-2.	Press the `up` or `down` arrow keys to navigate up and down the popup box.
+2.	Press the kbd:[up arrow] or kbd:[down arrow] arrow keys to navigate up and down the popup box.
 
 image::CommandSuggestionStep2.png[width="600", height="10"]
 
-3.	Press `Enter` to choose the command of your choice. The command will then appear on the user input box.
+3.	Press kbd:[Enter] to choose the command of your choice. The command will then appear on the user input box.
 
 image::CommandSuggestionStep3.png[width="600", height="10"]
 
-4.	Press ‘left’ or ‘right’ keys to navigate the cursor and fill in the respective fields. Press Enter to execute the command.
+4.	Press kbd:[left arrow] or kbd:[right arrow] keys to navigate the cursor and fill in the respective fields. Press kbd:[Enter] to execute the command.
 
 image::CommandSuggestionStep4.png[width="600", height="10"]
 

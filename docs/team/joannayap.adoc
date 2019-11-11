@@ -9,9 +9,9 @@ My team and I were tasked with enhancing a command line interface addressbook ap
 This is what our project looks like:
 
 .The graphical user interface for the homepage of Alfred.
-image::Ui.png[][height="200", width="550"]
+image::UiAnnotated.png[][height="200", width="550"]
 
-My main role was to design and write the code for the Graphical User Interface(GUI), to ensure that information about each party is displayed in an organised and readable manner. As part of my duty, I have implemented the command suggestion prompt. I have also implemented assign and remove commands to assign participants or mentors to a team. These are the two main feature I have implemented, The following sections illustrate these enhancements in further detail, including the relevant documentation I have included in the user and developer guide with reference to these features. Further details on the `home` command feature and layout of the GUI (that I have also implemented) can be found in the user guide and developer guide.
+My main role was to design and write the code for the Graphical User Interface(GUI), in order to ensure that user experience is enhanced, and information is displayed in an organised and readable manner. As part of my duty, I have implemented the command suggestion prompt. I have also implemented `assign` and `remove` commands to assign participants or mentors to a team. The following sections illustrate these enhancements in further detail, including the relevant documentation I have included in the user and developer guide with reference to these features. Further details on the `home` command feature and layout of the GUI (that I have also implemented) can be found in the user guide and developer guide.
 
 *Note the following terms used in this document*:
 
@@ -21,10 +21,10 @@ My main role was to design and write the code for the Graphical User Interface(G
 [NOTE]
  This symbol indicates important information.
 
-`remove mentor`  A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the
+`remove mentor`     Text in red indicates that this is a command that can be inputted into the command line and executed by the
 application.
 
-link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`] An underlined text with grey highlight indicates a component, class or object in
+link:{repoURL}/src/main/java/seedu/address/model/entity/Team.java[`Team`]   A clickable text in red indicates a component, class or object in
 the architecture of the application. Clicking these text will redirect user to the implementation or interface of the component, class or object.
 
 
@@ -37,14 +37,14 @@ the architecture of the application. Clicking these text will redirect user to t
 
 *Enhancement added*: I added the ability to choose from different suggested command templates as a user types into the user input box
 
-* What it does: This feature predicts the command that a user is going to enter as they are typing, and provides suggestions. The user can then navigate and choose from these suggestions. Doing so will provide a command template for the user to work it.
+* What it does: This feature predicts the command that a user is going to enter as they are typing, and provides suggestions. The user can then navigate and choose from these suggestions. Doing so will provide a command template for the user to work with.
 * Justification: Managing different entities in the system requires a variety of commands(in which some are more complex in nature). Thus, this feature allows users to conveniently summon commands. Furthermore, it takes the memory work of remembering numerous commands out of the equation.
-* Highlights: This enhancement works with existing as well as future commands. Addition of new commands would only require minimal changes to the code base of this feature. The fulfilment of this feature was more demanding as it requires a deeper understanding on the working of the third party library JavaFX. On top of that, its implementation was constantly met with errors, before vital concepts regarding the Node components of JavaFX came into light.
-* Credits: This was inspired by the command suggestion box in Telegram bots. The inspiration of how it can be implemented comes from the following webpage: https://stackoverflow.com/questions/50495430/how-to-customize-auto-complete-text-field-suggestion-in-javafx
+* Highlights: This enhancement works with existing as well as future commands. Addition of new commands would only require minimal changes to the code base of this feature. The fulfilment of this feature was more demanding as it requires a deeper understanding on the workings of the third party library JavaFX. On top of that, the implementation of this feature was constantly met with errors, before vital concepts regarding the https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Node.html[`Node`] component of JavaFX came into light.
+* Credits: This was inspired by the command suggestion box in Telegram bots. The inspiration of how this feature can be implemented comes from the following webpage: https://stackoverflow.com/questions/50495430/how-to-customize-auto-complete-text-field-suggestion-in-javafx
 
-*Enhancement added*: I added the ability to assign participants or a mentor to a team
+*Enhancement added*: I added the ability to assign several participants or one mentor to a team
 
-* What it does: The assign participant and assign mentor command assigns a participant or mentor to a team. The remove participant or remove mentor command removes said entity from the team.
+* What it does: The assign command assigns a participant or mentor to a team. The remove participant or remove mentor command removes said entity from the team.
 * Justification: Hackathons involves teaming participants up and allocating a mentor to guide teams. This feature helps to establish this relation.
 
 *Code contributed*: Please click these links to see a sample of my code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Joanna-YJA&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Functional code] | https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=joanna-yja&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Joanna-YJA&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Test code]
@@ -54,9 +54,9 @@ the architecture of the application. Clicking these text will redirect user to t
 * Project management:
 •	There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions https://github.com/AY1920S1-CS2103T-F11-1/main/releases/tag/v1.2.1[1.2.1] on GitHub.
 * Enhancements to existing features:
-** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/347[#347])
+** Wrote additional tests for existing features to increase coverage (Pull request https://github.com/AY1920S1-CS2103T-F11-1/main/pull/347[#347])
 ** Added and modified constraints of different fields in the commands(Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/15[#15])
-** Implemented sidebar and dark mode for readability and aesthetic purposes (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#158],https://github.com/AY1920S1-CS2103T-F11-1/main/pull/284[#284])
+** Implemented sidebar and dark mode for readability and aesthetic purposes (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#158], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/284[#284])
 * Documentation:
 ** Added user stories and use cases to Developer Guide(Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/149[#149], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/153[#153], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/215[#215], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/293[#293])
 * Community:
@@ -64,14 +64,14 @@ the architecture of the application. Clicking these text will redirect user to t
 https://github.com/AY1920S1-CS2103T-F11-1/main/pull/104[#104]
 https://github.com/AY1920S1-CS2103T-F11-1/main/pull/173[#173]
 https://github.com/AY1920S1-CS2103T-F11-1/main/pull/127[#127]
-**	Integrated a third party library (FontAwesomeFX and JFeonix) to the project (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#159])
+**	Integrated a third party library (FontAwesomeFX and JFeonix) to the project (Pull request: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#159])
 
 
 == Contributions to the User Guide
 
 
 |===
-|_We had to amend the Addressbook User Guide with instructions on how to utilise the enhancement we added. Below is an excerpt of the Alfred User Guide, showcasing the homepage statistics, command suggestion prompt and assign command features I have added._
+|_We had to amend the Addressbook User Guide with instructions on how to utilise the enhancements we added. Below is an excerpt from the Alfred User Guide, showcasing the command suggestion prompt, `assign`  and `remove` command features I have added._
 |===
 include::../UserGuide.adoc[tag=suggestions]
 
@@ -82,7 +82,7 @@ include::../UserGuide.adoc[tag=remove]
 == Contributions to the Developer Guide
 
 |===
-|_The following sections shows my contribution to the Alfred Developer Guide for the homepage statistics feature, command suggestion and assign feature._
+|_The following sections shows my contribution to the Alfred Developer Guide for the command suggestion, `assign` and `remove` feature._
 |===
 include::../DeveloperGuide.adoc[tag=command-suggestion]
 

@@ -68,7 +68,9 @@ public class AutoCompleteCommandBox extends JFXTextField {
                 List<String> filteredSuggestionResults = commandSuggestionSet.stream()
                         // Only command suggestion that starts with user input will be filtered out
                         // This is done in a case insensitive manner
-                        .filter(suggestion -> suggestion.toLowerCase().startsWith(getText().toLowerCase()))
+                        .filter(suggestion ->
+                                   suggestion.toLowerCase().startsWith(getText().toLowerCase())
+                                           && !suggestion.equals(getText().toLowerCase()))
                         .collect(Collectors.toList());
 
                 List<String> finalSuggestionResults = new LinkedList<String>();
