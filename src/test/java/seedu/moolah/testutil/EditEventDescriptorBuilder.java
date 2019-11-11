@@ -1,9 +1,9 @@
 package seedu.moolah.testutil;
 
 import seedu.moolah.logic.commands.event.EditEventCommand;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;
-import seedu.moolah.model.event.Event;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
 

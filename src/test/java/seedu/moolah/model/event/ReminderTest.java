@@ -6,8 +6,6 @@ import static seedu.moolah.testutil.TypicalMooLah.BIRTHDAY;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.event.Event;
-import seedu.moolah.model.event.Reminder;
 import seedu.moolah.testutil.EventBuilder;
 
 public class ReminderTest {

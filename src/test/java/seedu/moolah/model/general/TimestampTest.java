@@ -6,7 +6,6 @@ import static seedu.moolah.testutil.Assert.assertThrows;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import seedu.moolah.model.general.Timestamp;
 
 public class TimestampTest {
 

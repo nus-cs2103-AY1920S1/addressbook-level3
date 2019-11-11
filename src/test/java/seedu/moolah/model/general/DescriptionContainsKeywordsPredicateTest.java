@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.testutil.ExpenseBuilder;
 
 public class DescriptionContainsKeywordsPredicateTest {

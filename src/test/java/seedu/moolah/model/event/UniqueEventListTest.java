@@ -13,8 +13,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.event.Event;
-import seedu.moolah.model.event.UniqueEventList;
 import seedu.moolah.model.event.exceptions.DuplicateEventException;
 import seedu.moolah.model.event.exceptions.EventNotFoundException;
 

@@ -3,7 +3,6 @@ package seedu.moolah.model.general;
 import static seedu.moolah.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
-import seedu.moolah.model.general.Category;
 
 public class CategoryTest {
 

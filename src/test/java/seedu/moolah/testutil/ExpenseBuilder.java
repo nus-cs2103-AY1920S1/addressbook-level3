@@ -1,11 +1,11 @@
 package seedu.moolah.testutil;
 
+import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.UniqueIdentifier;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;
-import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.expense.UniqueIdentifier;
 
 /**
  * A utility class to help with building Expense objects.

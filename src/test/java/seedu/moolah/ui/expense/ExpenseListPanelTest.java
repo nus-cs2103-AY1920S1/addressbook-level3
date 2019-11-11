@@ -17,12 +17,12 @@ import guitests.guihandles.expense.ExpenseListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.UniqueIdentifier;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;
-import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.expense.UniqueIdentifier;
 import seedu.moolah.ui.GuiUnitTest;
 
 

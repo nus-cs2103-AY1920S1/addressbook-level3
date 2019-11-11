@@ -20,7 +20,6 @@ import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;

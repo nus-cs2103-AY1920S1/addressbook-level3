@@ -7,8 +7,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.moolah.model.general.Category;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.PieChartStatistics;
 
