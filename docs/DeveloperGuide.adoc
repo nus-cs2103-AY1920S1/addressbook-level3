@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Weme - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -7,18 +7,23 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T16-3`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
+
+****
+We recommend a minimum resolution of 1920x1080 with at maximum 150% scaling for best usage. Weme requires a resolution that provides at least 750 pixels in height and 1000 pixels in width for smooth usage.
+****
 
 == Design
 
@@ -64,7 +69,7 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in the Memes tab.
 
 .Component interactions for `delete 1` command
 image::ArchitectureSequenceDiagram.png[]
@@ -79,7 +84,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MemeGridPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -98,9 +103,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses a `WemeParser` to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a meme).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -109,7 +114,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `MemeDeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -122,14 +127,12 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Weme data in `Weme`.
+* exposes an unmodifiable `ObservableList<Meme>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Template>`.
+* stores and exposes the current Weme context (will be discussed later)
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -142,54 +145,76 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Meme Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.weme.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The Undo and Redo commands are necessary to give users the flexibility of undoing or redoing a wrongly executed command. Especially in Weme where we deal with image files, it is possible to key in the wrong file when adding a meme. Hence, simply entering the command `undo` allows the user to revert this mistake and add the correct file accordingly.
+
+==== Current implementation
+
+The undo/redo mechanism is facilitated by `VersionedWeme`.
+`VersionedWeme` extends `Weme` with an undo/redo history, stored internally as a `versionedWemeStates`, `stateIndex` and a `feedbackList`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedWeme#commit()` -- Saves the current Weme state in its history.
+* `VersionedWeme#undo()` -- Restores the previous Weme state from its history and returns the feedback message of the undone command.
+* `VersionedWeme#redo()` -- Restores a previously undone Weme state from its history and returns the feedback message of the redone command.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitWeme()`, `Model#undoWeme()` and `Model#redoWeme()` respectively.
+
+[NOTE]
+Only state changes on the internal structure of Weme are undoable.
+
+// tag::undoable[]
+
+Commands such as `list`, `find` that only change the user interface, commands such as `export` and `load` that are related to external files, as well as commands such as `edit` and `delete` in the import tab that modifies the import list are not supported.
+
+These are the list of commands that support undo / redo operations:
+
+* Memes Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `like`, `dislike`, `stage`
+* Templates Tab: `add`, `edit`, `delete`, `clear`, `archive`, `unarchive`, `use`
+* Create Tab: `add`, `edit`, `delete`, `move`, `abort`, `create`
+* Export Tab: `unstage`, `clear`
+* Import Tab: `import`
+
+`undo` and `redo` works between tabs. This means that if you make a change in the Memes tab, by editing a meme, and then you switch to the Templates tab, when you execute `undo`, it reverts the change in the Memes tab as well. However, `undo`/`redo` is not usable while viewing a meme.
+
+// end::undoable[]
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedWeme` will be initialized with the initial Weme state, and the `stateIndex` pointing to that single Weme state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th meme in the meme list. The `delete` command calls `Model#commitWeme()` with the success feedback message as a parameter, causing the modified state of the Weme after the `delete 5` command executes to be saved in the `versionedWemeStates`, the `stateIndex` is shifted to the newly inserted Weme state, and finally the delete command's feedback message is inserted into the `feedbackList`.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `edit 2 d/surprised pikachu` to edit a meme's description. The `edit` command also calls `Model#commitWeme()`, causing another modified Weme state to be saved into the `versionedWemeStates`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitWeme()`, so the Weme state will not be saved into the `versionedWemeStates`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that editing the meme was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoWeme()`, which will shift the `stateIndex` once to the left, pointing it to the previous Weme state, and restores the Weme to that state. The feedback message is then returned to pass into and construct the CommandResult.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `stateIndex` is at index 0, pointing to the initial Weme state, then there are no previous Weme states to restore. The `undo` command uses `Model#canUndoWeme()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,16 +222,16 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoWeme()`, which shifts the `stateIndex` once to the right, pointing to the previously undone state, and restores the Weme to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `stateIndex` is at index `versionedWemeStates.size() - 1`, pointing to the latest Weme state, then there are no undone Weme states to restore. The `redo` command uses `Model#canRedoWeme()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the Weme, such as `list`, will usually not call `Model#commitWeme()`, `Model#undoWeme()` or `Model#redoWeme()`. Thus, the `versionedWemeStates` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitWeme()`. Since the `stateIndex` is not pointing at the end of the `versionedWemeStates`, all Weme states after the `stateIndex` will be purged. We designed it this way because it no longer makes sense to redo the `edit 2 d/surprised pikachu` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
 
@@ -214,26 +239,546 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::CommitActivityDiagram.png[]
 
+The addition of undo redo complicates certain commands. An example of this complication is when undoing add or delete commands. Originally, deleting a Meme will delete the corresponding image file on the disk. However, this means it is not possible to retrieve the file afterwards when attempting to undo. Hence, the current implementation is to delete the Meme entry in the json, but keep the original image file until Weme is closed. When Weme is closed, a thread will clean up all unreferenced image files in the image folder. This is part of the reason why certain commands such as `load` are not supported.
+
+The following sequence diagram shows how the clean up works:
+
+image::CleanUpSequenceDiagram.png[]
+
+When the handleExit command is called, MainWindow will create a Thread to call `logic.cleanUp()` to prevent the GUI from slowing down. The thread then further spawns other threads to clean up the files in the data folder, deleting those images that are not found in the memes and templates list stored on Weme. The `cleanTemplateStorage()` part of the UML diagram has been truncated as it is similar to `cleanMemeStorage()`.
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire state.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `delete`, just save the meme being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct. This gets complicated when dealing with files.
+
+===== Aspect: Types of commands to undo
+
+* **Alternative 1 (current choice):** Includes only commands that modify the underlying data. (Add, Edit, Clear, Delete)
+** Pros: Only changes that permanently affect the application are reverted.
+** Cons: Might be less intuitive as a user calling `tab templates` then `undo` might expect to revert the Tab command instead.
+* **Alternative 2:** Includes all commands
+** Pros: Intuitive
+** Cons: Might be very troublesome for a user if they want to revert the state instead of the view. More unexpected behaviours as certain commands such as `load` depends on files outside Weme's data folder. If there is an error on redoing a command, there is no easy way to find out.
+
+===== Aspect: Context for commands to be undoable
+
+* **Alternative 1 (current choice):** Allow undoing throughout the application regardless of context.
+** Pros: User in a different context is able to easily undo the state.
+** Cons: User might expect to undo only when they are in the same context. i.e. Undo Meme commands in Meme context.
+* **Alternative 2:** Restrict undoing to its own context
+** Pros: More user intuitive. Commands will only affect their own context.
+** Cons: Heavily complicates the model. Model will then need to keep track of a versioning of every single context. Does not allow for commands such as `create` which affects the Creation tab and Memes tab without many modifications to the existing structure.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 1 (current choice):** Use a list to store the history of past states.
+** Pros: Easy to understand and adjust according to needs. Undo and redo simply moves along the list to change the state.
+** Cons: Clutters up the `Weme` class.
+* **Alternative 2:** Use a wrapper class
+** Pros: Everything will be handled within a single UndoRedoManager class.
+** Cons: Might introduce complications as managing states now needs to go through another class instead of just the model.
+
+===== Aspect: Handling file changes
+
+* **Alternative 1 (current choice):** Remove files only on exit.
+** Pros: No need to deal with files when managing commands. Easy to execute add and delete commands without an issue without worrying whether a file is present.
+** Cons: Might take a while to delete if we had a lot of images. (Resolved with threads)
+* **Alternative 2:** Implement a recycle bin to move files to/from on command.
+** Pros: Commands do what they are fully expected to do (Delete deletes the image as well).
+** Cons: Heavily complicates the logic with a need to copy and paste when undoing and redoing. Very difficult to understand and error-prone. Still needs to eventually clear the recycle bin on exit. Repeated work.
+* **Alternative 3:** Make file-related commands undoable.
+** Pros: No need to deal with file manipulation.
+** Cons: Makes undo redo feature a lot more useless as it loses support for certain key commands.
 // end::undoredo[]
+
+// tag::templates[]
+=== Templates feature
+Many memes are created from templates. Meme lovers often store a list of templates and process them to generate new memes when needed.
+A template typically reserves whitespace for the user to fill in text to give the template meanings.
+Weme provides this feature and allows the users to store their favourite templates and generate memes with the templates.
+
+==== Current Implementation
+
+Like a `Meme`, a `Template` also has an associated image that is stored on the hard disk.
+Each `Template` object has 2 fields, `Name` and `ImagePath`, where `Name` serves as the identifier and `ImagePath` holds the path to the image of this template.
+A user can add, edit, delete, or find a template.
+
+.Partial class diagram showing only classes in `Model` related to `Template`
+image::TemplateClassDiagram.png[]
+
+Templates are stored together with `Memes` in `Weme`. Refer to the model class diagram above for details.
+
+When the user requests to generate a meme using a template, Weme enters the "*Create*" tab.
+The user can then use commands to add text to the template image.
+Meme creation is supported internally by the `MemeCreation` class.
+A `MemeCreation` object represents a meme creation session (which can be empty when the user is not creating a meme).
+Once a session is activated, the `MemeCreation` object stores a `BufferedImage` of the template and a list of `MemeText` objects, which represent text that the user wants to add to the template.
+Every time the user adds text, the list of `MemeText` gets updated.
+When the UI requests for the updated image, `MemeCreation` generates it on the fly with all the `MemeText` applied.
+When the user is done, `MemeCreation` creates a new `Meme` with all the added text included and saves it in the meme collection.
+
+.Partial class diagram showing only classes in `Model` related to `MemeCreation`
+image::MemeCreationClassDiagram.png[]
+
+Given below is an example usage scenario of meme creation using a template.
+
+Step 1. The user launches the application and enters the *Templates* tab.
+
+Step 2. The user executes `find doge` command to find the _doge_ template.
+The `FilteredList<Template>` in `ModelManager` is updated with a predicate that matches only templates whose names match _doge_.
+
+Step 3. Assuming the template that the user wants to use is displayed as the first template, the user executes `use 1` to start creating a meme using that template.
+Weme starts a new `MemeCreation` session and enters the "*Create*" tab.
+
+Step 4. The user executes `add cs students be like x/0.5 y/0.3` command to add the text "cs students be like".
+A new `MemeText` is created and added to the list in the current `MemeCreation` session.
+The UI requests `MemeCreation` to render the resultant image, and `MemeCreation` returns an image with the text "cs students be like"
+whose center is placed 50% horizontally from the left border and 30% vertically from the top border.
+
+Step 5. The user decides that there is a typo in the text because "cs" is not capitalized.
+The user executes the command `edit 1 t/CS students be like` to edit the text labelled *1*, which is the text that was just added.
+`MemeCreation` changes the text of this `MemeText` from "cs students be like" to "CS students be like".
+Upon request by the UI, `MemeCreation` generates the updated image for the UI for display.
+
+Step 6. The user wants to move the text.
+The user types `move 1` into the command box and uses arrow keys to adjust the text position.
+The user holds kbd:[Shift] to make large adjustments at first, then holds kbd:[Alt] to make small adjustments until the text is at the desired position.
+`CommandBox` listens to key presses and dispatches a `TextMoveCommand` on each key press.
+It also throttles the key press rate to prevent firing commands too frequently.
+`MemeCreation` generates a new image on each command received and the UI keeps the displayed image up-to date.
+
+Step 7. The user executes `create d/A meme about CS students t/funny t/CS` to complete the creation session.
+Weme will create a new image with the text added and save it to the data directory.
+Weme will also create a new `Meme` entry with that image, with description "A meme about CS students" and tags "funny" and "CS".
+The description and tag arguments are similar to those for `Meme` add command.
+Weme displays the newly created meme, as if from a `view` command.
+
+[NOTE]
+The user can abort any meme creation session by typing `abort`.
+This will put Weme back to displaying the content of the *Templates* tab.
+
+The following activity diagram summarizes the meme creation process:
+
+image::MemeCreationActivityDiagram.png[]
+
+The following sequence diagram shows how the user adds a piece of text.
+
+image::TextAddCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to store and update the image
+
+* **Alternative 1 (current choice):** Only store the initial image and a list of text. Re-generate an image when it is requested by the UI.
+** Pros: Can edit/delete text after they are added.
+** Cons: Waste resources by repeatedly rendering largely similar images.
+* **Alternative 2:** Always store the updated image. Update the image whenever a piece of text is added.
+** Pros: Less performance overhead, only render what is needed.
+** Cons: Cannot edit/delete text.
+
+===== Aspect: How the user adds/deletes text
+
+* **Alternative 1 (current choice):** The user enters commands to add/edit/move/delete text.
+** Pros: Easier to implement. Integrates well with the rest of the product.
+** Cons: It is troublesome to type in the coordinates and difficult to position the text accurately.
+** Mitigation measure: Provide rulers beside the image as visual aid for the user, support using arrow keys to move text.
+* **Alternative 2:** The user manipulates the UI through individual key strokes (Vim-like modal key-bindings)
+For example, `a` to add a piece of text, arrow keys to adjust the position of the currently selected text,
+`1` to select text labelled *1* and `d` to delete the currently selected text.
+** Pros: The user can accurately adjust the position of the text.
+** Cons: Very hard to implement. Requires major work on the UI. Must use extra care to make sure the state transitions are correct.
+* **Alternative 3:** The user moves the text using the mouse
+** Pros: Might be more intuitive for new users. New users do not need to learn the commands.
+** Cons: Breaks the keyboard-driven workflow. Using the mouse might actually be less accurate when positioning text.
+
+===== Aspect: How to specify the position of text coordinates
+
+* **Alternative 1:** The user specifies where the top-left corner of the text should be.
+** Pros: Might be more useful if the user wants to place the text right after another piece of text.
+** Cons: User will be unsure where the text will end. Might need to use the `move` command afterwards to adjust the text position after seeing its length.
+* **Alternative 2(current choice):** The user specifies where the center of the text should be.
+** Pros: Easier to specify where the text will eventually be.
+For example, when the text should be at the center, the user simply specifies `x/0.5 y/0.5`, instead of doing a visual estimate of how the long text would be and specifying its top-left corner's coordinates.
+** Cons: New users might be more used to specifying the top-left corner's coordinates and think there is a bug in the product.
+
+// end::templates[]
+
+// tag::stats[]
+=== Statistics feature 1: Like/Dislike Meme
+
+It is important to include a like and meme feature such that
+the user gets to indicate their preference of certain memes.
+This is part of the statistics feature and isolated from the main Weme.
+The like and dislike data can be used for other statistical analysis.
+
+==== Current Implementation
+
+Like and dislike data of the memes are stored inside `LikeData` and `DislikeData` classes.
+It is built upon the infrastructure of statistics.
+Statistics infrastructure is under `Weme` structure.
+
+image::ModelClassDiagram.png[]
+
+An interface for statistics `Stats` is set up for access to statistics components.
+`StatsManager` implements it and manages and carries `LikeManager`, which manages `LikeData` and `DislikeData` access.
+`Stats` exposes the `LikeData` and `DislikeData` as an unmodifiable `ObservableMap<String, SimpleIntegerProperty>`,
+where both the change in the Mapping (e.g. addition of memes and like/dislike data) and in existing like data can be
+observed by the UI.
+Updates to the like and dislike count of any memes inside the currently displayed memes will be reflected on the UI.
+
+image::StorageClassDiagram.png[]
+
+In the storage component, LikeData is stored under JsonSerializableStats as a map.
+
+The following activity diagram summarizes the meme liking process:
+
+image::MemeLikeActivityDiagram.png[]
+
+The following sequence diagram shows how `MemeLikeCommand` communicates with `Stats` and update the like count.
+
+image::LikeMemeSequenceDiagram.png[]
+
+In the `CommandBox`, `UP` key is used for easy execution of `LikeCommand` and `DislikeCommand`.
+This allows the user to like a meme conveniently as he/she can press the key until he/she feels like stopping.
+`LEFT` and `RIGHT` keys are used for toggling the index in the complete command.
+For example, when command `Like 2` is inside the command text box, where 2 is a valid index of a meme displayed,
+the user can use `LEFT` arrow key to toggle it to 1, and `RIGHT` arrow key to toggle up to the maximum index.
+In the case of large number of existing memes, it might be more efficient to key in the index. But for a small range,
+using arrow keys to toggle between the indices will enhance the User Experience.
+
+==== Design Considerations
+
+===== Aspect: Implementation of LikeData.
+
+* **Alternative 1:** Put like data as a field inside Meme object.
+** Pros: Simple to implement.
+** Cons: It breaks the current closed structure of Meme.
+It would not make sense to add new field everytime we have some new statistics data for a meme (Like views in 2.0)
+* **Alternative 2 (Current choice):** Separate `LikeData` as a `HashMap` and keep it in Stats.
+** Pros: It isolates an additional feature (which is not essential) from Meme
+and allows `Stats` features in the future to use the data easily without looking through the entire Weme.
+(After a long while, when the number of memes pile up, like statistics has a O(n) growth in running time)
+** Cons: Harder to implement as it involves constructing a new infrastructure.
+Also, it looks somewhat out of place in `Model` as alternative 1 seems to be able to solve the problem (for now).
+
+===== Aspect: Implementation of DislikeData.
+* **Alternative 1:** Merge dislike with like and store the data as a map from String (meme url) to Observable duple.
+** Pros: As dislike is just another form of like, doing this will make good use of the existing like data structure
+and reduce code. It fulfils Don't Repeat Yourself principle.
+** Cons: Hard to implement in v1.4 as limited time is given. Will be a refactoring point for future version (v2.0).
+* **Alternative 2:** Mirror dislike from like and store it in a similar fashion.
+** Pros: Simple to implement. Duplicating the existing LikeData structure and change names will guarantee to be working.
+** Cons: A lot of duplicate code. Fail to fulfil DRY principle.
+
+// end::stats[]
+
+// tag::stats2[]
+
+=== Statistics feature 2: Graphic display
+
+This feature displays the statistics of the App. In the current version, it displays two types of data:
+tags organized by the number of memes under them and by the like counts of the memes under them.
+The graphics are embedded in the statistics panel in Weme.
+
+==== Current Implementation
+
+The statistics data is collated by a TagManager in the Statistics package.
+
+image::ModelClassDiagram.png[]
+
+It parses the current MemeList to collate all the tags and generate either a list of `TagWithCount` or `TagWithLike`.
+The `UI` passes the current `MemeList` and `Stats` interface into the panel, where the tag collation information can be
+extracted in runtime.
+
+==== Design Consideration
+
+* **Alternative 1:** Use a TagManager class (Current implementation)
+** Pros: Able to store `Tag` information for future use. Hard to morph it as the class grows bigger.
+** Cons: The Manager class behaves like a Util class.
+* **Alternative 2:** Use a TagUtil class
+** Pros: At the moment the class behaves like a Util class, not storing any information that is being used later.
+** Cons: Lack extensibility for future statistics use.
+
+// end::stats2[]
+
+
+// tag::export/import[]
+
+=== Export/Import feature
+
+This feature allows the user to do exporting and importing of memes using their respective staging areas as
+intermediate platforms. This allows the user to both load memes into the application from their local directory,
+and also export memes from the application to their local directory.
+
+==== Export
+The user may not want to export everything in the Meme storage to a directory. The Stage command
+functionality introduces flexibility for the user to stage and shortlist which memes he wants to export,
+which will be in the staging area under the export tab. When the user accidentally stages a meme, he can
+either use the undo command or the Unstage command. When the user finally confirms the memes to be export
+in the staging area, the user can execute the ExportCommand with a provided directory path. The
+following sequence diagram illustrates the execution of the `Stage Command` and `Export Command`:
+
+image::StageSequenceDiagram.png[]
+image::ExportSequenceDiagram.png[]
+
+==== Import
+The user can use the `Load Command` to batch load all memes in the correct picture format into the import
+context. However, the memes are not immediately imported to storage because there may be memes in the directory
+that the user does not wish to import. Furthermore, the user may want to set descriptions and tag them before
+it gets populated into the meme storage. Hence, the user is allowed to use Edit Command and Delete Command
+in the import context to finalise the memes in the import context before executing the import command.
+The import command will then populate all of the memes in the staging area to the memes storage, followed
+by clearing the memes in the import context.
+
+==== Current Implementation
+Internally, `Weme` uses two `UniqueMemeList` to store memes that are to be imported or exported.
+While the user is selecting which meme to stage, the user should have a visual reference all the existing memes.
+Hence, the `Stage Command` works in the Meme Context, and the user is able to stage by the Meme Index.
+On the contrary, the unstage command is only available in the export tab, where the user can reference which
+memes to delete using the index in the export tab.
+
+The following diagram shows how the commands interact with the observable lists:
+
+image::ImportExportObjectDiagram.png[]
+
+Step 1. The user enters the import tab
+
+Step 2. The user executes LoadCommand and provide a directory path.
+Weme will find files which are in valid format (e.g. png) and create a new memes
+based on the given file path. The memes will be added into the import tab which is visible to the user.
+
+Step 3. The user executes edit 1 d/Description t/newly added meme to edit the
+description and tag of the newly added meme based on its index in the import area.
+This change will also be reflected visually.
+
+Step 4. User executes import, and weme will transfer the memes from the import list into
+the memeList, which is now viewable in the meme tab. The memes in the import tab are cleared
+so that the user can continue importing the memes in a new directory.
+
+The following activity diagram summaries the load and import process:
+
+image::ImportActivityDiagram.png[]
+
+==== Design Consideration
+
+===== Aspect: Tab for Export and Import feature
+
+* **Alternative 1 (current choice):** Separate import and export into two different tabs.
+** Pros: Shows clear segregation of the two different feature since they are implemented
+differently. This will not confuse the user.
+** Cons: Extra tab is required.
+
+* **Alternative 2:** Use a storage tab to represent both import and export. User can toggle between
+import and export using subcontext.
+** Pros: Only one tab is used and also `storage` label captures the concept of import and export.
+** Cons: Easily confuses the user due to extra complexity involved (subcontext). This will also cause
+navigating between import and export mode to be less subtle.
+
+===== Aspect: Ensure consistency in staging area
+The memes that are being staged should be the same meme as that in the meme list at all times.
+The issue comes when the user tries to clear the meme list, delete or edit a meme while the meme
+is being staged.
+
+* **Alternative 1 (current choice):** User should receive a validation error message when an attempt
+to edit or delete the meme is being made while it is being staged,
+followed by a prompter to unstage the meme first.
+** Pros: It makes the user aware of the fact that the meme that is going to be exported/imported
+is going to be deleted/edited, or that the meme list is going to be cleared. This also
+acts as a safety measure in case the user forgets to export before doing any modifications to the meme.
+** Cons: More steps required for the user. The user has to unstage the meme first before making any amendments.
+
+* **Alternative 2:** Changes in the memes tab automatically updates the export tab.
+** Pros: User types in less command since everything is done automatically (i.e. updating the meme
+will also update it in the staging area).
+** Cons: The user may not be aware that a staged meme is being edited and deleted. The user could
+possibly be confused that a staged meme is missing because it is deleted in the meme list, or that it
+has been edited.
+
+// end::export/import[]
+
+// tag::command-suggestion[]
+=== Command Suggestion Feature
+Users can be forgetful about the command format and sometimes unsure of what arguments to supply.
+Auto-suggestion of command arguments while the user keys in inputs can be very helpful to provide user hints.
+Possible command words will be suggested to user based on incomplete input.
+Depending on what the user has typed in for the argument, the most similar argument values retrieved from the historical
+records will be displayed to the user for reference.
+The user can also use the "TAB" key to auto complete the command word/argument, where the first prompt will
+replace the current command word/argument in user input.
+
+==== Current Implementation
+The command suggestion is achieved using a package of prompter files.
+For each parser, there will a corresponding prompter to process the current user input and return the `CommandPrompt` for display in `ResultBox`.
+The following class diagram summarizes the Prompter package in the Logic.
+
+.Partial Class Diagram of the Logic Component related Prompter package
+image::CommandPromptClassDiagram.png[]
+
+The following Sequence Diagram summarizes the how a `CommandPrompt` is generated:
+
+image::CommandPromptSequenceDiagram.png[]
+
+Here is how a user interact with the command suggestion features:
+
+Step 1. The user types commands into the `CommandBox`.
+
+Step 2. The `MainWindow` listens to changes in the content in `CommandBox` and direct the input to `WemePrompter`.
+
+Step 3. Depending on the context, the prompter that implements `WemePrompter` (e.g. `MemePrompter`) will then pass the arguments
+
+to different `Prompter` (e.g. `MemeAddCommandPrompter`) based on the command word.
+
+Step 4. The `Prompter` will process the input and return a `CommandPrompt` containing the command suggestion, and the
+
+complete text for auto-completion for the given input.
+
+Step 5. The prompt will be passed to and displayed by `ResultBox`.
+
+Step 6. The `CommandBox` listens to the "TAB" key press, and replace the current argument with the first command prompt.
+
+The following Activity Diagram summarizes the command suggestion process:
+
+image::CommandPromptActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to process the input and produce the command prompt
+
+* **Alternative 1 (current choice):** Use a prompter package to abstract out the prompter for each command.
+** Pros: Single Responsibility Principle and Separation of Concerns are achieved and coupling is reduced.
+** Cons: Additional layer of abstraction and longer code.
+* **Alternative 2:** Add one more method in each parser.
+** Pros: Easier to implement.
+** Cons: The class that processses input will depend on `Parser`.
+
+===== Aspect: How to store and access historical records.
+
+* **Alternative 1 (current choice):** Use a separate `Records` storage file to store all the historical arguments.
+** Pros: Better abstraction and the records has the option to persist even if the file is deleted.
+** Cons: More files to store and longer code.
+* **Alternative 2:** Store arguments of a resource (e.g. `Meme`) as a field of the resource.
+** Pros: Easier to implement and cleaner.
+** Cons: Irrelevant information needs to be stored as a field (e.g. original file path of a resource).
+
+// end::command-suggestion[]
+
+// tag::tabs[]
+=== Tabs feature
+
+Most features in Weme can be logically grouped together.
+For example, commands that list, view, add, edit, or delete templates all deal with templates and can fall under a single group.
+As such, it seems logical for us to separate distinct groups of features at the UI level to make it more intuitive to the user.
+We achieve this by putting each group of features into a tab.
+
+==== Current implementation
+
+As discussed earlier, `ModelManager` stores `ModelContext` which keeps track of the current context Weme is in.
+Within each context, Weme exposes different commands and has different behaviors.
+
+Tabs can be roughly seen as the reflection of `ModelContext` at the UI level.
+Besides having different commands and behaviours, each tab also has its own UI components.
+For example, when the `ModelContext` changes from `Memes` to `Templates`, the UI should switch from the *Memes* tab to the *Templates* tab.
+
+Shown below are the tabs and their associated `ModelContext`s.
+
+* *Memes* tab
+** Memes (meme management)
+
+.Screenshot of Weme in the *Memes* tab
+image:MemesTabScreenshot.png[]
+
+* *Templates* tab
+** Templates (template management)
+* *Create* tab
+** Meme creation. Displays placeholder text if no creation session is going on.
+
+.Screenshot of Weme in the *Create* tab
+image:CreateTabScreenshot.png[]
+
+* *Statistics* tab
+** Statistics (showing Weme statistics)
+* *Import* tab
+** Import (for importing `Meme`s and `Templates`)
+* *Export* tab
+** Export (for exporting `Meme`s and `Templates`)
+* *Preferences* tab
+** Preferences (showing current user preferences)
+
+`ModelContext`,
+
+* is stored in `ModelManager` as a `SimpleObjectProperty`.
+* can be changed by `Comamnd` execution.
+* is exposed in `Logic` as an `ObservableValue`
+* is observed by `MainWindow` to update the UI.
+
+The user can switch tabs with `tab xyz` command, where `xyz` is the tab the user would like to switch to.
+
+The class diagram below shows the relationship between `Ui`, `Logic` and `Model` with regard to `ModelContext`.
+
+image:ModelContextClassDiagram.png[]
+
+The sequence diagram below summarizes what happens when the user switches tabs.
+
+image::TabSwitchSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How to switch tabs
+
+* **Alternative 1 (current choice):** Use commands to switch tabs.
+** Pros: Keyboard friendly.
+** Cons: New users who have not read the user guide might not know the command syntax.
+* **Alternative 2:** Use mouse to click on tab buttons.
+** Pros: More intuitive for new users.
+** Cons: Users who prefer a keyboard-driven workflow might not want to use the mouse.
+
+// end::tabs[]
+
+=== Archives Feature
+Archives are an important part of resource management. While users typically enjoy seeing all their memes in one place, some might want to hide some memes, but still keep them in their collection. The archives are the solution to this problem. Users may archive memes they have grown tired of, or even templates they have found a newer version of. It is a way of hiding memes and templates from their default view to reduce clutter.
+
+==== Current Implementation
+Both `Meme` and `Template` implement the `Archivable` interface. The `Archivable` interface has one method, `isArchived`. This forces the implementing class to have an `isArchived` boolean field to indicate its current archival status. When archiving an existing `Meme` or `Template`, just like edit, the `archive` command creates a new object but with `isArchived` set to true. While it is possible to archive archived memes, there is no change and it is more likely to be a mistake, hence a `CommandException` is thrown instead. The same applies for `unarchive`.
+
+Since the default view should show all memes/templates that are unarchived, the predicates for the individual filtered lists have to be changed accordingly. The default predicate filters the UniqueLists for the memes/templates where `isArchived` is false, and the opposite is done for the archives predicate.
+
+==== Design Considerations
+
+===== Aspect: Making resources archivable
+* **Alternative 1 (current choice):** Implement from an `Archivable` interface
+** Pros: Allows for more flexibility when extending the functionality of implementing classes.
+** Cons: Some code repetition (Cannot declare instance fields or define the implementing methods).
+* **Alternative 2:** Extend a `ArchivableResource` abstract class
+** Pros: Less code repetition.
+** Cons: Less flexibility in the future. If new types of resouces are considered in the future where Meme and Template have to extend, this implementation becomes technical debt.
+
+// tag::view[]
+
+=== [Miscellaneous] View feature
+
+This feature allows the user to view a meme as an enlarged picture. This also allows
+for long descriptions to be seen.
+
+image::ViewClassDiagram.png[]
+
+Using the above class diagram as a reference, VersionedWeme has a SimpleObjectProperty<Meme> attribute
+(initially contains a null meme) which sets the Meme for the ViewPanel to view. The Meme is retrieved
+as an ObservableValue<Meme> object in the model by MainWindow, which is
+passed into the ViewPanel to set the meme to display.
+
+The meme is viewed by using the ViewCommand in the memes context. The execution of the command firstly
+sets the meme to view based on the given index which is picked up by the listener which sets
+the meme details in the ViewPanel. Subsequently, the model context is set to the view context
+which switches the MemeGridPanel to ViewPanel, hence displaying the meme.
+
+// end::view[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -241,6 +786,29 @@ image::CommitActivityDiagram.png[]
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+// tag::screentime[]
+=== [Proposed] Screen Time
+
+Meme can lightens up a person's mood; yet it could also make people addicted to it.
+The application cannot force the user not to use it beyond a certain duration, but instead could help
+by reminding the user how much time has elapsed and, by doing so, helping the user to better manage his/her time.
+
+The screen time of the Application can be recorded in statistics data and can be captured using Java LocalDateTime.
+When the user opens the application the next time, a new login time is captured in the model object
+in order to compute the screen time.
+Upon exiting the Application, a new logout time is recorded inside the data file, together with the screen time in the
+current use. It could be a simple `Current Screen Time` = `Logout Time` - `Login Time`, which can be added to the
+cumulative screen time in the data file for future reference.
+
+A reminder can be implemented through JavaFX GUI, which listens to the current time flow and issue reminder
+upon excessive use of the application. This is to prevent overuse of the application beyond leisure entertainment.
+
+The statistics infrastructure is built with extensibility in mind. Logout time can be store in the similar manner
+as like data in Jackson file, and can be stored `Stats`. `Stats Panel` is already set up to display any kinds of
+statistics visuals, including this one. Hence, implementing screen time would be similar to like data, but simpler.
+
+// end::screentime[]
 
 === Logging
 
@@ -279,13 +847,12 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
+* wants to manage a library of memes
+* wants to create memes for entertainment
+* prefers desktop apps over other types
 * prefers typing over mouse input
-* is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage and create memes faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -294,41 +861,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|Priority |As a ... |I want to ... |So that ...
+|`* * *` |meme lover |manage my collection of memes |I can view them anytime I want
+|`* * *` |organized meme lover |tag memes |I can better organize my memes
+|`* * *` |user with many memes |filter memes |I can quickly locate a certain meme
+|`* * *` |creative person |create my own memes from meme templates |
+|`* * *` |user |archive memes |I can stop seeing old memes
+|`* * *` |careless user |undo/redo any accidental deletion of memes |I can retrieve back my favourite memes
+|`* * *` |user |get hints on command syntax when i type |I don't have to memorize the command syntax
+|`* * *` |user |import memes |I can import memes my friends shared with me into my personal collection
+|`* * *` |user |export memes |I can backup the memes or share them with another user
+|`* * *` |user |view statistics of my meme usage |I know which memes are more liked/used
+|`* *` |meme lover |easily share my memes to other platforms |I can send them in my chats
+|`* *` |bored person |view random memes |I can kill time
+|`* *` |user |bookmark my favourite memes |I can find them quickly
+|`*` |person new to meme |get the reference to the meme I see for the first time |I can learn how to use the meme
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Weme` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case 1: Add a template
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to open the templates tab
+2. Weme opens the templates tab
+3. User requests to add a template and passes the path to an image on the disk
+4. Weme copies the image to its data directory and creates the template
 +
-Use case ends.
+Use case ends
 
 *Extensions*
+[none]
+* 3a. The given path is invalid
+[none]
+** 3a1. Weme shows an error message
++
+Use case resumes at step 2
 
+[discrete]
+=== Use case 2: Creating a meme from a template
+
+*MSS*
+
+1. User requests to list templates
+2. Weme displays a list of templates
+3. User requests to use a template to create a meme
+4. Weme displays the template image for the user to add text
+5. User requests to add text to the template
+6. Weme adds text boxes in the template
+7. User requests to edit text in the template
+8. Weme edits the specified text
+9. User requests to delete text
+10. Weme deletes the specified text
+11. User requests to complete the creation session
+12. Weme successfully completes the creation session and saves the resultant meme
+
+*Extensions*
 [none]
 * 2a. The list is empty.
 +
@@ -337,20 +930,94 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** Weme displays an error message.
 +
 Use case resumes at step 2.
+
+* 7a, 9a. The given index is invalid.
++
+[none]
+** Weme displays an error message.
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case 3: Import meme
+
+*MSS*
+
+1. User requests to open the import tab
+2. Weme opens the import tab
+3. User requests to load a meme collection from a directory
+4. Weme adds the memes from the collection into the import tab
+5. User requests to delete unwanted memes in the import tab
+6. Weme deletes those memes from the import tab
+7. User executes the import command
+8. Weme successfully imports memes from the import tab into weme
++
+Use case ends
+
+*Extensions*
+[none]
+* 3a. The given directory path is invalid.
+[none]
+** 3a1. Weme shows an error message
++
+Use case resumes at step 2
+
+* 3b. Some files in the folder are corrupted
++
+[none]
+** 3b1. Weme adds only valid images into the import tab
++
+Use case resumes at step 4
+
+[discrete]
+=== Use case 4: Undo/Redo
+
+*MSS*
+
+1. User opens Weme
+2. User requests to delete a meme
+3. Weme deletes the meme
+4. User requests to undo
+5. Weme undoes the deletion and restores the meme
+6. User requests to redo
+7. Weme redoes and re-executes step 3
++
+Use case ends
+
+
+*Extensions*
+[none]
+* 5a. User keys in undo again
+[none]
+** 5a1. Weme shows an error message
++
+Use case resumes at step 1
+
+* 5b. User adds a meme and keys in redo
+[none]
+** 5b1. Weme shows an error message
++
+Use case resumes at step 1
+
+* 6a. User keys in redo again
+[none]
+** 6a1. Weme shows an error message
++
+Use case resumes at step 1
 
 _{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+. Should be able to hold up to 500 memes without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should have a ui design that is intuitive enough for the user to use.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -358,25 +1025,9 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[meme-template]] Meme template::
+A meme-like picture with some of the text removed. The user can create a meme using a template by filling in the missing words.
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -391,35 +1042,429 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Run the jar file with `java -jar` command +
+   Expected: Shows the GUI in the memes tab with a set of sample memes. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by running `java -jar` again. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Unreferenced image files are removed
 
-=== Deleting a person
+.. Open Weme
+.. Delete memes
+.. Open data/memes folder
+.. Exit Weme +
+   Expected: Deletes the image files associated to deleted memes.
 
-. Deleting a person while all persons are listed
+=== Undoing a command
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Undoing a command when undoable commands have been executed
+
+.. Prerequisites: Executed at least one undoable command. Weme is not viewing a meme.
+.. Test case: `undo` +
+   Expected: Weme will be restored to the previous state. The status message states the undo was successful, and states the command that was undone.
+.. Test case: `undo anything can be here` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Undoing a command when no undoable commands have been executed
+
+.. Prerequisites: Have not executed any undoable commands. Weme is not viewing a meme.
+.. Test case: `undo` +
+   Expected: Undo fails. Error details shown in the status message state that there are no commands to undo.
+
+=== Redoing a command
+
+. Redoing a command when `undo` has just been executed
+
+.. Prerequisites: Just executed `undo` at least once. Weme is not viewing a meme.
+.. Test case: `redo` +
+   Expected: Weme will be restored to the state before undoing. The status message states the redo was successful, and states the command that was redone.
+.. Test case: `redo anything can be here` +
+   Expected: Similar to previous.
+
+. Redoing a command when `undo` has not been executed
+
+.. Prerequisites: Have not executed `undo`. Weme is not viewing a meme.
+.. Test case: `redo` +
+   Expected: Redo fails. Error details shown in the status message state that there are no commands to redo.
+
+=== Adding a meme
+
+. Adding a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab. An image file is on the hard disk.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK` +
+   Expected: The meme is added to the memes list. The view is updated to include this new meme. The status message states the add was successful. The added meme has no description or tags.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK d/random description t/firstTag t/2ndTag` +
+   Expected: The meme is added to the memes list. The view is updated to include this new meme. The status message states the add was successful. The added meme has a description "random description" and two tags "firstTag" and "2ndTag"
+.. Test case: `add p/INVALID_PATH_TO_IMAGE_ON_DISK` +
+   Expected: No meme is added. Error details shown in the status message state the path should lead to an existing file or it should be in a supported image format.
+.. Test case: `add d/random description` +
+   Expected: No meme is added. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect add commands to try: `add`, `add p/PATH_TO_IMAGE_ON_DISK t/first tag` +
+   Expected: Similar to previous
+
+. Adding a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command. An image file is on the hard disk.
+.. Similar to above, but after successful execution of `add`, the user is redirected to the `list` view.
+
+=== Editing a meme
+
+. Editing a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `edit 1 d/new description t/tag` +
+   Expected: The meme in the given index is edited. The view is updated to reflect this change. The status message states the edit was successful.
+.. Test case: `edit 1` +
+   Expected: no meme is edited. Error details shown in the status message states that at least one field to edit must be provided.
+.. Other incorrect edit commands to try: `edit`, +
+   Expected: No meme is edited. Error details shown in the status message states that the command is of invalid format.
+
+. Editing a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command.
+.. Similar to above. Weme will edit the meme specified by the index in the displayed index.
+
+=== Deleting a meme
+
+. Deleting a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `delete 1` +
+   Expected: The meme in the given index is deleted. Meme is removed from the view. The status message states the delete was successful.
+.. Test case: `delete 0` +
+   Expected: No meme is deleted. Error details shown in the status message states that the command is of invalid format.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command.
+.. Similar to above. Weme will delete the meme specified by the index in the displayed list.
+
+=== Clearing memes
+
+. Clearing all memes in the memes tab
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `clear` +
+   Expected: All memes in the memes tab has been cleared. The status message states the clearing was successful.
+
+****
+* Note: This command is able to be undone by executing the undo command.
+****
+
+=== Archiving a meme
+
+. Archiving an unarchived meme
+
+.. Prerequisites: Weme is in the memes tab. Currently in `list` view. At least one meme in the list.
+.. Test case: `archive 1` +
+   Expected: The meme is archived. The view is updated without the meme. The status message states the archiving was successful.
+.. Test case: `archive 0` +
+   Expected: No meme is archived. Error details shown in the status message state the command syntax is invalid.
+
+=== Unarchiving a meme
+
+. Unarchiving an archived meme
+
+.. Prerequisites: Weme is in the memes tab. Currently in `archives` view. At least one meme in the list.
+.. Test case: `unarchive 1` +
+   Expected: The meme is unarchived. The view is updated without the meme. The status message states the unarchiving was successful.
+.. Test case: `unarchive 0` +
+   Expected: No meme is unarchived. Error details shown in the status message state the command syntax is invalid.
+
+=== Adding a template
+
+. Adding a template in the templates tab
+
+.. Prerequisites: Weme is in the templates tab. An image file is on the hard disk.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK n/A great template` +
+   Expected: The template is added to the templates list. The view is updated to include this new template. The status message states the add was successful.
+.. Test case: `add p/INVALID_PATH_TO_FILE_ON_DISK n/A great template` +
+   Expected: No template is added. Error details shown in the status message state the file must be an existing image file.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK` +
+   Expected: No template is added. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect add commands to try: `add`, `add n/blah` (no path is given) +
+   Expected: Similar to previous.
+
+=== Editing a template
+
+. Editing a template in the templates tab.
+
+.. Prerequisites: Weme is in the templates tab. At least one template in the list.
+.. Test case: `edit 1 n/Another name` +
+   Expected: The first template in the list is edited to have the new name. The view is updated to reflect the change. The status message states the edit was successful.
+.. Test case: `edit 0` +
+   Expected: No template is edited. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect edit commands to try: `edit`, edit q/` +
+   Expected: Similar to previous.
+
+=== Adding text to a template during meme creation
+
+. Adding text to a template during meme creation.
+
+.. Prerequisites: Weme is in the create tab. A template has been chosen using the `use` command from the templates tab.
+The template is displayed in the create tab.
+.. Test case: `add sleep x/0.75 y/0.25` +
+   Expected: Text "sleep" is added to the image. Its center is placed 75% of the image width from the left border and 25% of the image height from the top border.
+             The list of text is updated to include this new entry.
+.. Test case: `add code x/0.75 y/0.75 c/brown S/bold` +
+   Expected: Bold and brown text "code" is added to the image. Its center is placed 75% of the image width from the left border and 75% of the image height from the top border.
+             The list of text is updated to include this new entry.
+.. Test case: `add x/0.5 y/0.5` +
+   Expected: No text is added. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect add commands to try: `add`, `add text` +
+   Expected: Similar to previous
+
+=== Moving text during meme creation
+
+. Moving text to a template during meme creation.
+
+.. Prerequisites: Weme is in the create tab. A template has been chosen using the `use` command from the templates tab.
+The template is displayed in the create tab. At least one piece of text has been added to the template.
+.. Test case: `move 1 x/0.1 y/-0.1` +
+   Expected: Text at index 1 is moved 10% of the image width to the right and 10% of the image height upwards.
+   The list of text is updated to reflect its new position.
+   The command fails if the text would be moved out of image boundaries.
+.. Test case: `move 1` and then use arrow keys to move the text +
+   Expected: Text at index 1 is moved based on the directions of the arrow keys pressed.
+   The list of text is updated to reflect its new position.
+   The move fails if the text would be moved out of image boundaries.
+.. Test case: `move x/0.2` +
+   Expected: No text is moved. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect move commands to try: `move`, `move blah` +
+   Expected: Similar to previous
+
+=== Completing meme creation
+
+. Completing a meme creation session.
+
+.. Prerequisites: Weme is in the create tab. A template has been chosen using the `use` command from the templates tab.
+The template is displayed in the create tab.
+.. Test case: `create d/My great meme` +
+   Expected: A new meme is created and added to the memes list, with description "My great meme". The UI goes into view mode, as if triggered by a `view` command, displaying the newly created meme.
+
+=== Like and dislike a Meme
+
+1. Like a meme when there are memes listed
+
+a. Prerequisites: List at least some memes using either `find` or `list`.
+
+b. Test case: `like 1` +
+Expected: Meme at index 1 has its like count incremented. Details of the meme liked shown in the status message.
+
+c. Test case: `like 1` and then `UP` +
+Expected: As `UP` key is pressed down while command `like 1` is still in command text area, meme at index
+is liked multiple times consecutively. Details of the meme liked shown in the status message.
+
+d. Test case: `like 0`
+Expected: No meme is liked. Error details shown in the status message. Status bar remains the same.
+
+2. Dislike a meme when there are memes listed +
+Similar to like. Command is `dislike`.
+
+=== Staging a Meme
+
+. Staging a meme while all memes are listed.
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `stage 1` +
+   Expected: Stages the meme by the given index to the export staging area. User can view this staged meme
+   by switching to the export tab.
+.. Test case: `Stage 0` +
+   Expected: No meme is being staged. Error details shown in the status message.
+.. Other incorrect delete commands to try: `stage`, `stage x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Unstaging a meme
+
+. Unstages a meme from the export tab
+.. Prerequisites: Weme is in the export tab.
+.. Test case: `unstage 1` +
+   Expected: Unstages the meme by the given index from the export staging area. The meme
+   will be removed from the export tab and the user can choose to stage it again by going back to the
+   memes tab.
+.. Test case: `Unstage 0` +
+   Expected: No meme is being unstaged. Error details shown in the status message.
+.. Other incorrect delete commands to try: `unstage`, `unstage x` (where x is larger than the export list size) +
+   Expected: Similar to previous.
+
+=== Clearing staged memes
+
+. Similar to the clear command in the memes tab. User can clear the memes in the export tab.
+.. Prerequisites: Weme is in the export tab.
+
+
+=== Exporting memes
+
+. Exports all the memes in the export tab to a folder which can be specified by the user by
+   giving the directory path
+.. Prerequisites: Weme is in the export tab. User has the path to the folder for the memes
+   to be exported to.
+.. Test case: `export` +
+   Expected: Creates a folder named "export" in the same directory as the jar file.
+.. Test case: `export p//Users/bill/folder` +
+   Expected: If the directory exists and the path is valid, the memes will be exported to the
+   specified folder. If the given directory path is invalid, an error message will be shown.
+.. Other incorrect delete commands to try: `stage`, `stage x` (where x is larger than the list size) +
+   Expected: Error message will be shown.
+
+=== Loading a meme
+
+. Loads all the memes into the import tab from a folder which is specified by the user by
+   giving the directory path containing the memes
+.. Prerequisites: Weme is in the import tab. User has the path to the folder for the memes
+to be loaded from.
+.. Test case: `load` +
+   Expected: Nothing is loaded. Error message is shown to prompt the user to specify a valid
+   directory path to load from.
+.. Test case: `load p//Users/bill/folder` +
+   Expected: If the directory exists and the path is valid, the memes will be loaded from the
+   specified folder and the user can see the memes in the import tab.
+   If the given directory path is invalid, an error message will be shown.
+.. Other incorrect load commands to try: `load`, `load p/`,`load x` (where x is larger than the list size) +
+   Expected: Error message will be shown.
+
+=== Importing memes
+
+. Imports all the memes from the import tab into Weme
+.. Prerequisites: Weme is in the import tab.
+.. Test case: `import` +
+   Expected: The memes (if any) in the import tab will be successfully imported into Weme. The user
+   can now view these memes in the memes tab. The import tab will then be cleared so that
+   the user can continue loading more memes.
+
+=== Editing loaded memes
+
+. Similar to the edit command in the memes tab. User can edit the memes before importing them.
+.. Prerequisites: Weme is in the import tab.
+
+=== Deleting loaded memes
+
+. Similar to the delete command in the memes tab. User can delete unwanted memes before importing
+   the remaining memes over to the memes tab.
+.. Prerequisites: Weme is in the import tab.
+
+=== Clearing loaded memes
+
+. Similar to the clear command in the memes tab. User can clear the memes in the import tab.
+.. Prerequisites: Weme is in the import tab.
+
+
+=== Viewing a meme
+
+. Views a meme while all memes are listed
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `View 1` +
+   Expected: Views the meme by the given index as an enlarged picture. User can exit this view
+   by doing a tab command (e.g. `tab memes` to go back to the memes tab).
+.. Test case: `View 0` +
+   Expected: No meme is viewed. Error details shown in the status message.
+.. Other incorrect delete commands to try: `view`, `view x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+// tag::command-suggestion[]
+
+=== Suggest / Auto-complete commands
+. Suggest and auto-complete command words
+.. Prerequisites: Weme is in any tab, for illustration purpose we choose meme tab.
+Since this is for command suggestions, please do not press kbd:[enter] to execute the command while typing the input.
+..  Test case: `a` +
+    Expected: +
+    `add: adds a meme to Weme. +
+    archive: archive a meme by index. +
+    archives: list all archived memes.`
+..  Test case: `a` + kbd:[tab] +
+    Expected text inside command box: `add{nbsp}` +
+    Expected text inside result box: +
+    `add: adds a meme to Weme. Parameters: p/PATH [d/DESCRIPTION] [t/TAG]... +
+Example: add p/C:\Users\username\Downloads\funny_meme.jpg d/Popular Meme among SoC Students  t/funny`
+..  Test case: `arkive` +
+    Expected: +
+    `archive: archive a meme by index. +
+    archives: list all archived memes. +
+    like: like a meme by index.`
+..  Test case: `arkive` + kbd:[tab] +
+    Expected text inside command box: `archive{nbsp}` +
+    Expected text inside result box:  +
+    `archive: archive a meme by index. Parameters: INDEX (must be a positive integer) Example: archive 1{nbsp}`
+..  Test case: `undo` +
+    Expected: +
+    `undo: undo the previous command.`
+..  Test case: `unlike 1` +
+    Expected: +
+    `Unknown command` +
+    (The text in the command box will turn red to indicate invalid input)
+
+. Suggest command arguments
+.. Prerequisites: Restore the application to initial state by deleting the data folder if it exists.
+The suggestions may change when new data is added since the recommendation is based on past records.
+Weme is in any tab, for illustration purpose we choose meme tab.
+Since this is for command suggestions, please do not press kbd:[enter] to execute the command while typing the input.
+..  Test case: `add p/path/to/meme d/` +
+    Expected: +
+    `A meme about a test. +
+    A meme about Char and charmander. +
+    A meme about doge.`
+..  Test case: `add p/path/to/meme d/` + kbd:[tab] +
+    Expected text inside command box: `add p/path/to/meme d/A meme about a test.` +
+    Expected text inside command box: +
+    `A meme about a test. +
+    A meme about doge. +
+    A meme about joker.`
+..  Test case: `edit 1 t/cuuute` +
+    Expected: +
+    `cute +
+    CUTECATS +
+    test`
+..  Test case: `edit 1 t/cuuute` + kbd:[tab] +
+    Expected text inside command box: `edit 1 t/cute` +
+    Expected text inside result box: +
+    `cute +
+    CUTECATS +
+    cuteAnimals`
+..  Test case `find c` +
+    Expected: +
+    `CS +
+    cute +
+    CS2103`
+..  Test case `find c` + kbd:[tab] +
+    Expected text inside command box: `find CS` +
+    Expected text inside result box: +
+    `CS +
+    CS2103 +
+    CSLectures`
+..  Test case `find cute dog` +
+    Expected: +
+    `doge +
+    GoT +
+    wow`
+..  Test case `find cute dog` + kbd:[tab] +
+    Expected text inside command box: `find cute doge` +
+    Expected text inside result box: +
+    `doge +
+    cute +
+    GoT`
+..  Test case `add g/` +
+    Expected: +
+    `Invalid command format! +
+    add: adds a meme to Weme. Parameters: p/PATH [d/DESCRIPTION] [t/TAG]... +
+    Example: add p/C:\Users\username\Downloads\funny_meme.jpg d/Popular Meme among SoC Students  t/funny` +
+    (The text in the command box will turn red to indicate invalid input)
+..  Test case `edit t/` +
+    Expected: +
+    `Invalid command format! +
+    edit: edits the details of the meme identified by the index number used in the displayed meme list. Existing values will be overwritten by the input values. +
+    Parameters: INDEX (must be a positive integer) [d/DESCRIPTION] [t/TAG]... +
+    Example: edit 1 d/A funny meme t/funny` +
+    (The text in the command box will turn red to indicate invalid input)
+// end::command-suggestion[]
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

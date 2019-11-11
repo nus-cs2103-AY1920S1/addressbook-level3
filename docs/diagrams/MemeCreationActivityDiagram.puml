@@ -1,0 +1,23 @@
+@startuml
+start
+:User enters meme creation mode;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+repeat
+if () then ([User wants to add text])
+    :User adds text;
+else if () then ([There are already text(s)])
+    if () then ([User wants to edit text])
+        :User edits text;
+    else ([User wants to delete text])
+        :User deletes text;
+    endif
+else ([else])
+endif
+repeat while () is ([not finished])
+
+:Weme generates new Meme, applying all text entered by the user;
+stop
+@enduml

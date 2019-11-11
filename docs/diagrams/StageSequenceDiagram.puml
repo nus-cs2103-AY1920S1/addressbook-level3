@@ -1,0 +1,54 @@
+@startuml
+scale 1.5
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":WemeParser" as WemeParser LOGIC_COLOR
+participant ":MemeStageCommandParser" as MemeStageCommandParser LOGIC_COLOR
+participant ":MemeStageCommand" as MemeStageCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager  MODEL_COLOR
+participant ":VersionedWeme" as Weme MODEL_COLOR
+participant "exportList:UniqueMemeList" as UniqueMemeList MODEL_COLOR
+end box
+
+[-> LogicManager : execute("stage 1")
+activate LogicManager
+LogicManager -> WemeParser : parseCommand("stage 1")
+activate WemeParser
+WemeParser -> MemeStageCommandParser : parse("1")
+activate MemeStageCommandParser
+create MemeStageCommand
+MemeStageCommandParser -> MemeStageCommand
+activate MemeStageCommand
+MemeStageCommand --> MemeStageCommandParser
+deactivate MemeStageCommand
+MemeStageCommandParser --> WemeParser
+deactivate MemeStageCommandParser
+WemeParser --> LogicManager
+
+deactivate WemeParser
+
+LogicManager -> MemeStageCommand : execute(model)
+activate MemeStageCommand
+MemeStageCommand -> ModelManager : stageMeme(meme)
+activate ModelManager
+ModelManager -> Weme : stageMeme(meme)
+activate Weme
+Weme -> UniqueMemeList : add(meme)
+activate UniqueMemeList
+UniqueMemeList --> Weme
+deactivate UniqueMemeList
+Weme --> ModelManager
+deactivate Weme
+ModelManager --> MemeStageCommand
+deactivate ModelManager
+MemeStageCommand --> LogicManager : CommandResult(success)
+deactivate MemeStageCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

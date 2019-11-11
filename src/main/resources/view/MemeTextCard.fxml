@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="cardPane" xmlns="http://javafx.com/javafx/8">
+  <HBox spacing="5">
+    <padding>
+      <Insets bottom="5" left="15" right="5" top="5"/>
+    </padding>
+    <Label fx:id="id" styleClass="cell_big_label"/>
+    <Label fx:id="text" styleClass="cell_big_label" text="\$text"/>
+    <Label fx:id="position" styleClass="cell_big_label" text="\$position"/>
+  </HBox>
+</HBox>

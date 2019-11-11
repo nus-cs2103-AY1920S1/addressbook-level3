@@ -1,4 +1,5 @@
 @startuml
+scale 1.5
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
@@ -6,19 +7,23 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface WemeStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonWemeStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o-down-> WemeStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonWemeStorage .left.|> WemeStorage
+JsonWemeStorage .down.> JsonSerializableWeme
+JsonSerializableWeme .down.> JsonAdaptedMeme
+JsonAdaptedMeme .right.> JsonAdaptedTag
+JsonSerializableWeme .right.> JsonSerializableStats
+JsonSerializableWeme .left.> JsonSerializableRecord
+JsonSerializableWeme .down.> JsonAdaptedTemplate
+
 @enduml

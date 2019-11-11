@@ -1,0 +1,35 @@
+
+@startuml
+!include style.puml
+
+object "__model:ModelManager__" as model
+object "__stagedMemeList:ObservableList<Meme>__" as stagedList
+object "__importMemeList:ObservableList<Meme>__" as importList
+object "__filteredMemes:FilteredList<Meme>__" as filteredList
+
+object "__:LoadCommand__" as LoadCommand
+object "__:ImportCommand__" as ImportCommand
+object "__:StageCommand__" as StageCommand
+object "__:UnstageCommand__" as UnstageCommand
+object "__:ExportCommand__" as ExportCommand
+
+
+LoadCommand --> model
+StageCommand --> model
+UnstageCommand --> model
+ExportCommand --> model
+ImportCommand --> model
+
+LoadCommand ..> importList
+StageCommand ..> stagedList
+StageCommand ..> filteredList
+UnstageCommand ..> stagedList
+ExportCommand ..> stagedList
+ImportCommand ..> importList
+ImportCommand ..> filteredList
+
+model *--> stagedList
+model *--> importList
+model *--> filteredList
+
+@enduml

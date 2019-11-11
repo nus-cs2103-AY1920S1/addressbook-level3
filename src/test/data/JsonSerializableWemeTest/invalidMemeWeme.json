@@ -1,0 +1,21 @@
+{
+  "memes": [
+    {
+      "description": "Popular Meme among NUS Students",
+      "tagged": [ "friends" ],
+      "filePath": "Hello world",
+      "isArchived": false
+    },
+    {
+    "description": "Popular Meme among NUS Students",
+    "tagged": [ "friends" ],
+    "filePath": "https://tinyurl.com/testWeme",
+      "isArchived": false
+  } ],
+  "templates": [],
+  "stats" : {
+    "likeMap" : {},
+    "dislikeMap" : {}
+  }
+
+}

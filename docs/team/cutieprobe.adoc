@@ -1,0 +1,62 @@
+= Liu Zimu - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:experimental:
+
+== PROJECT: ɯeme
+
+---
+
+== Overview
+
+ɯeme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, ɯeme is optimized for those who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users can view, tag, search, import and export a collection of meme. They can also create their own memes from meme templates.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to suggest and auto-complete commands*
+** What it does: allows the user to type command faster and more easily by showing possible command arguments and allow the user to use TAB key to auto-complete the command.
+** Justification: This feature improves the product significantly because a user can be tired of typing the full command over and over again,
+or unsure of what arguments to supply. This feature allows the user to see what are the available commands and in case the user forgets the exact spelling of the command,
+the user can then be reminded of the similar commands and use kbd:[tab] to automatically correct the typo. Furthermore,
+the user can be reminded of the possible commands arguments (e.g. popular tags) from past records when the user is short of ideas.
+The usage of kbd:[tab] for auto-completion also tremendously improves the speed of typing and hence the overall experience of the user.
+
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
+The implementation too was challenging as it requires live update of input and different methods to process different commands in order to generate suggestions.
+The prompters mirrors parsers but they function differently. A branch new set of logic is implemented in the prompters and util methods to facilitate smoother suggestions and auto-completion.
+** Credits: `LevenshteinDistance` in `org.apache.commons.text` is used in calculating the similarity between strings.
+
+* *Minor enhancement*:
+** Refactored `commands` and `parser` packages by grouping files into sub-packages according to the type of commands. [https://github.com/AY1920S1-CS2103-T16-3/main/pull/114[#114]]
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cutieprobe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=cutieprobe&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense Data]]
+
+* *Other contributions*:
+** Project management:
+*** Reviewed meticulously peer's pull requests with non-trivial comments. [https://github.com/AY1920S1-CS2103-T16-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Acutieprobe[Reviews]]
+*** Contributed to morphing from AddressBook 3 to Weme (Remove `email` and `phone` field in `Meme`). [https://github.com/AY1920S1-CS2103-T16-3/main/pull/35[#35]]
+** Documentation:
+*** Update AboutUs, ContactUs and README [https://github.com/AY1920S1-CS2103-T16-3/main/pull/32[#32]]
+** Community:
+*** Reported bugs and suggestions for other teams [https://github.com/cutieprobe/ped/issues[PED]]
+** Tools:
+*** Added support for Apache Commons. [https://github.com/AY1920S1-CS2103-T16-3/main/pull/71[#71]]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=command-suggestion]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=command-suggestion]
+

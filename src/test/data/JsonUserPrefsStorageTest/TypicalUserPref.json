@@ -7,5 +7,7 @@
       "y" : 100
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "dataFilePath" : "data/weme.json",
+  "memeImagePath": "data/memes",
+  "templateImagePath": "data/templates"
 }

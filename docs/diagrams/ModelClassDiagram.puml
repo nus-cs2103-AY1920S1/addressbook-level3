@@ -5,52 +5,86 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyWeme <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface Stats <<Interface>>
+Interface Records <<Interface>>
+Class Weme
+Class ReadOnlyWeme
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class FilteredList
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Meme {
+Class Meme
+Class Description
+Class UniqueMemeList
+}
+
+Package Template {
+Class Template
 Class Name
-Class Phone
-Class UniquePersonList
+Class UniqueTemplateList
+}
+
+Package Statistics {
+Class StatsManager
+Class LikeData
+Class DislikeData
+Class LikeManager
+Class TagManager
+}
+
+Package Record {
+Class RecordsManager
 }
 
 Package Tag {
 Class Tag
+}
+
+Package Path {
+Class ImagePath
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Weme .up.|> ReadOnlyWeme
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Weme
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Weme *--> "1" UniqueMemeList
+UniqueMemeList o--> "*" Meme
+Meme *--> "1" ImagePath
+Meme *--> "1" Description
+Meme *--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Weme *-right-> "1" StatsManager
 
-ModelManager -->"1" Person : filtered list
+Weme *-right-> "1" RecordsManager
+
+Weme *--> "1" UniqueTemplateList
+UniqueTemplateList o--> "*" Template
+Template *--> "1" Name
+Template *--> "1" ImagePath
+
+StatsManager .up.|> Stats
+StatsManager *--> "1" LikeManager
+StatsManager *--> "1" TagManager
+LikeManager *--> "1" LikeData
+LikeManager *--> "1" DislikeData
+
+RecordsManager .up.|> Records
+
+ModelManager -->"1" Meme : filtered list
+ModelManager -->"1" Template : filtered list
 @enduml

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= Weme - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,19 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T16-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Weme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, Weme is *optimized for those who prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Weme can let you manage memes faster than traditional GUI apps. Interested? Jump to the Section 2, <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `weme.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Weme.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,12 +33,21 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* *`tab memes`* : switches to the memes tab
+* In the memes tab:
+** *`list`* : lists all memes
+** **`add`**`p//Users/Me/Downloads/meme.jpg d/Top meme` : adds a meme located at `/Users/Me/Downloads/meme.jpg` with the description `Top meme`
+** **`delete`**`3` : deletes the 3rd meme shown in the memes tab
+** *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+****
+* Weme only supports certain image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
+* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
+with `.jpg` extension, unsupported image formats).
+* We recommend a minimum resolution of 1920x1080 with at maximum 150% scaling for best usage. Weme requires a resolution that provides at least 750 pixels in height and 1000 pixels in width for smooth usage.
+****
 
 [[Features]]
 == Features
@@ -46,132 +55,696 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add p/PATH`, `PATH` is a parameter which can be used as `add p//Users/Me/Downloads/meme.jpg`.
+* Items in square brackets are optional e.g `p/PATH [t/TAG]` can be used as `p//Users/Me/Downloads/meme.jpg t/cs2103` or as `p//Users/Me/Downloads/meme.jpg`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/cs2103`, `t/soc t/funny` etc.
+* Parameters can be in any order e.g. if the command specifies `p/PATH d/DESCRIPTION`, `d/DESCRIPTION p/PATH` is also acceptable.
+* Commands that do not require parameters will ignore additional parameters provided. e.g. `list 1` is the same as `list`.
+* Whenever `INDEX` is encountered, it refers to the index in the currently displayed list and *must be a positive integer*.
 ====
 
-=== Viewing help : `help`
+=== General Commands
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+// tag::undoredo[]
+==== Undoing previous commands : `undo`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Undoes commands and tells you the command you just undid. +
+Format: `undo` +
+Example: `undo`
+
+==== Redoing previously undone commands: `redo`
+
+Redoes previously undone commands and tells you the command you just redid. +
+Format: `redo` +
+Example: `redo`
+
+****
+
+include::./DeveloperGuide.adoc[tag=undoable]
+
+****
+// end::undoredo[]
+
+==== Switching tabs : `tab`
+
+Switches between tabs in the application. +
+Format: `tab TAB_NAME` +
+`TAB_NAME` options:
+
+* *memes*
+* *templates*
+* *create*
+* *statistics*
+* *export*
+* *import*
+* *preferences*
+
+Illustration after switching to `templates` tab: +
+Command: `tab templates`
+
+image::Tab.png[width="790"]
+
+==== Exiting the program : `exit`
+
+Exits Weme. +
+Format: `exit`
+
+=== Memes Tab
+
+==== Adding a meme: `add`
+
+Adds a new meme to Weme. Weme will copy the given image into its data storage folder. +
+Format: `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
 
 [TIP]
-A person can have any number of tags (including 0)
+A meme can have any number of tags (including 0). Tags can only contain letters and numbers and cannot exceed a length of 35 characters.
 
-Examples:
+****
+* The `PATH` argument can be either a relative path or an absolute path.
+** On MacOS and *nix systems
+*** Absolute paths start with `/` (e.g. `/home/me/Downloads/doge.jpg`).
+*** Relative paths start directly with the file/directory name (e.g. `data/images/doge.jpg`), and is resolved in the current working directory.
+** On Windows
+*** Absolute paths start with a drive letter (e.g. `C:/Users/me/Downloads`)
+*** Relative paths are the same as those on MacOS and *nix systems.
+* Note the double `/` near the prefix `p/` in the example given.
+This is because the examples in this guide use MacOS absolute file paths, which start with a `/`.
+Therefore, the first `/` is part of the argument prefix, whereas the second `/` is part of the file path.
+If you are using MacOS or *nix systems, both `/` s must be present if your path is an absolute path.
+If you are using Windows, your command might look something like `add p/C:/Users/Me/Downloads/dgirl_off.jpg` instead.
+* The path must lead to one of our supported image formats. (`.jpg`, `.png`, `.gif`)
+****
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Example:
 
-=== Listing all persons : `list`
+* `add p//Users/Me/Downloads/dgirl_oof.jpg t/Funny` +
+Adds a meme with the image from `/Users/Me/Downloads/dgirl_oof.jpg` and tag `Funny`
 
-Shows a list of all persons in the address book. +
+Illustration of adding a meme with description `Cat and child` and tags `baby` and `cuteCat`: +
+Command: `add p/pathToMeme d/Cat and child t/baby t/cuteCat`
+
+Before command:
+
+image::MemeAddCommand2.png[width="790"]
+After command:
+
+image::MemeAddCommand.png[width="790"]
+
+
+==== Listing all memes: `list`
+
+Lists all memes in the memes tab. +
 Format: `list`
 
-=== Editing a person : `edit`
+==== Editing a meme: `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits the details of a meme at the specified index. Only description and tags are editable. +
+Format: `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the meme will be removed i.e adding of tags is not cumulative.
+* You can remove all the meme's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 d/Funny SoC Meme t/funny t/SoC` +
+Edits the description of the 1st meme to be `Funny SoC Meme` and tags to be `funny` and `SoC`.
+* `edit 2 d/Random Meme t/` +
+Edits the description of the 2nd meme to be `Random Meme` and clears all existing tags.
 
-=== Locating persons by name: `find`
+Illustration of editing the description of the meme at index 1 in the displayed list: +
+Command: `edit 1 d/doge doge doge`
 
-Finds persons whose names contain any of the given keywords. +
+Before command:
+
+image::MemeEditCommand1.png[width="790"]
+After command:
+
+image::MemeEditCommand2.png[width="790"]
+==== Finding a meme: `find`
+
+Finds all memes whose tags contain any of the specified keywords.
+
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case-insensitive. e.g `Pikachu` will match `pikachu`
+* The order of the keywords does not matter. e.g. `run naruto` will match a meme tagged with `naruto run`
+* Only the tag names are searched
+* Only full words will be matched e.g. `naru` will not match `naruto`
+* Memes matching at least one tag will be returned (i.e. OR search). e.g. `spongebob funny` will match both memes tagged with `spongebob` and those tagged with `funny`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find pikachu` +
+Returns memes whose tags contain `pikachu`
+
+Illustration of finding memes with tag `cute`: +
+Command: `find cute`
+
+Before command:
+
+image::Ui.png[width="790"]
+
+After command:
+
+image::MemeFindCommand.png[width="790"]
 
 // tag::delete[]
-=== Deleting a person : `delete`
 
-Deletes the specified person from the address book. +
+==== Deleting a meme: `delete`
+
+Deletes the meme at the specified index. +
 Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd meme in the results of the `list` command.
+* `find pikachu` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st meme in the results of the `find` command.
 
 // end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+==== Clearing all memes: `clear`
+
+Clears all memes. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+==== Staging a meme for export: `stage`
 
-Exits the program. +
-Format: `exit`
+Stages the meme at the specified index into the export staging area. +
+Format: `stage INDEX`
 
-=== Saving the data
+// tag::like[]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+==== Liking a meme: `like`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Likes a meme at the specified index. +
+Format: `like INDEX`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Before `like` command:
+
+image::like_before.png[]
+
+After `like` command:
+
+image::like_after.png[]
+
+[TIP]
+You could use arrow key kbd:[UP] to quickly like a meme at the given index. +
+To do this, key in the full command `like INDEX` then press arrow key kbd:[UP]. +
+You can also use arrow key kbd:[LEFT] and kbd:[RIGHT] to increase / decrease the meme index.
+
+Before pressing kbd:[UP]:
+
+image::like_spam_before.png[]
+
+After pressing kbd:[UP] for 1 second:
+
+image::like_spam_after.png[]
+
+==== Disliking a meme: `dislike`
+
+Dislike a meme at the specified index. +
+Format: `dislike INDEX`
+
+[TIP]
+Same as like, dislike also allows arrow key operations.
+
+// end::like[]
+// tag::archive[]
+
+==== Listing archived memes: `archives`
+
+Lists all memes that are archived in the memes tab. +
+Format: `archives`
+
+****
+* To view unarchived memes again, just execute the `list` command!
+****
+
+==== Archiving a meme:  `archive`
+
+Archives the meme at the specified index. Hides the meme from the default view. +
+Format: `archive INDEX`
+
+****
+* You can only archive unarchived memes. Execute `list` to see the unarchived memes.
+****
+
+==== Unarchiving a meme: `unarchive`
+
+Unarchives the meme at the specified index. Shows the meme in the default view. +
+Format: `unarchive INDEX`
+
+****
+* You can only unarchive archived memes. Execute `archives` to see the archived memes.
+****
+// end::archive[]
+
+==== Viewing a meme: `view`
+Views the meme at the specified index. +
+Format: `view INDEX`
+
+****
+* To exit the view, simply switch to another tab using the tab command. Only `tab`, `help` and `exit` are usable while viewing a meme.
+For example, `tab memes` will bring the user back to the memes tab.
+****
+
+
+// tag::templates[]
+=== Templates Tab
+Templates are meme prototypes.
+You can add templates to Weme and use them to create new memes.
+The templates tab handles template management and meme creation is handled in the create tab.
+
+==== Adding a template: `add`
+
+Adds a new template to Weme. +
+Format: `add n/NAME p/PATH`
+
+Examples:
+
+* `add n/Drake p//Users/Me/Downloads/Drake.jpg` +
+Adds a template with image `/Users/Me/Downloads/Drake.jpg` and name it `Drake`
+
+==== Listing all templates: `list`
+
+Lists all templates. +
+Format: `list`
+
+==== Editing a template: `edit`
+
+Edits a template at the specified index. Only the name is editable. +
+Format: `edit INDEX n/NAME`
+
+Examples:
+
+* `edit 1 n/Surprised Pikachu` +
+Edits the name of the 1st template to be `Surprised Pikachu`.
+
+==== Locating templates by name: `find`
+
+Finds templates whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case-insensitive. e.g `drake` will match `dRaKE`
+* The order of the keywords does not matter. e.g. `Pikachu Surprised` will match `Surprised Pikachu`
+* Only the name is searched
+* Only full words will be matched e.g. `sponge` will not match `spongebob`
+* Templates matching at least one keyword will be returned (i.e. OR search). e.g. `SpongeBob Patrick` will return both `Tired SpongeBob` and `Savage Patrick`.
+****
+
+Examples:
+
+* `find Thanos` +
+Returns all templates containing `Thanos` in their names
+
+* `find Stonks Doge Pikachu` +
+Returns any templates whose names contain `stonks`, `doge`, or `pikachu`
+
+==== Deleting a template: `delete`
+
+Deletes the template at the specified index. +
+Format: `delete INDEX`
+
+==== Clearing all templates: `clear`
+
+Clears all templates. +
+Format: `clear`
+
+==== Creating memes from templates: `use`
+
+Uses the template at the specified index to start a meme creation session. +
+Weme will enter the create tab and allow you to add text to the template. +
+For details, please refer to the next section <<Create Tab>>. +
+Format: `use INDEX`
+
+// end::templates[]
+==== Listing all archived templates: `archives`
+
+Lists all templates that are archived in the templates tab. +
+Format: `archives`
+
+****
+* To view unarchived templates again, just execute the `list` command!
+****
+
+==== Archiving a template: `archive`
+
+Archives the template at the specified index. Hides the template from the default view.+
+Format: `archive INDEX`
+
+****
+* You can only archive unarchived templates. Execute `list` to see the unarchived templates.
+****
+
+==== Unarchiving a template: `unarchive`
+
+Unarchives the template at the specified index. Shows the template in the default view.+
+Format: `unarchive INDEX`
+
+****
+* You can only unarchive archived templates. Execute `archives` to see the archived templates.
+****
+
+// tag::meme-create[]
+
+=== Create Tab
+The create tab allows you to create a new meme from a template.
+To start a meme creation session, select a template from the templates tab and execute the `use` command.
+
+****
+Meme creation sessions will not be saved after exiting the app. +
+Please finish the meme creation session before exiting the app if you would like to create a meme from it.
+****
+
+==== Adding text: `add`
+
+Adds a piece of text to the template. +
+Format: `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
+
+****
+* `X_COORDINATE` and `Y_COORDINATE` denote the position at which the supplied text will be placed and are represented as ratios of the image dimensions.
+`x/0.5 y/0.3` means the *center* of the supplied text will be 50% right of the left border and 30% down from the top border.
+* `COLOR` can be a name, e.g. `cyan`, or a hex RGB value, e.g. `#FF34E2`.
+* Weme supports 6 levels of font size. `SIZE` must be an integer from 1 to 6, where 1 denotes the smallest font size and 6 denotes the largest font size. Some text of each font size can be found at the right hand side of the image as a reference. Note that the sample sizes only apply to templates whose width/height ratio do not deviate too much from 1.
+* `STYLE` must be `plain`, `bold`, or `italic`. In the case you specify multiple font styles, Weme will combine them. For example, `S/bold S/italic` will give you bold and italic text.
+* If you do not specify `COLOR`, `SIZE`, or `STYLE`, the default values will be used. The default values are black, 5, and plain, respectively.
+* Weme will not add text that would exceed the image boundary. If it detects such a scenario, it will print an error message.
+****
+
+[TIP]
+The x and y coordinates given in the command specify the position for the *center* of the text.
+This means if you want to add text to the center of the image, the command will always be `add TEXT x/0.5 y/0.5` no matter how long your text is.
+
+Examples:
+
+* `add CS students be like x/0.5 y/0.3` +
+Adds text `CS students be like` to the template, placing its *center* 50% right of the left border and 30% down from the top border.
+* `add sToNKs x/0.5 y/0.75 c/red s/5 S/bold` +
+Adds red and bold text `sToNKs` with size 5 to the template, placing its *center* 50% right of the left border and 75% down from the top border.
+
+==== Editing text: `edit`
+
+Whenever you add text, the list at the right hand side will be updated. +
+The `edit` command allows you to choose and edit a piece of text from that list. +
+Format: `edit INDEX [t/TEXT] [x/X_COORDINATE] [y/Y_COORDINATE] [c/COLOR] [s/SIZE] [S/STYLE]...`
+
+****
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing text styles, the existing styles of the text will be removed i.e adding of styles is not cumulative.
+****
+
+Examples:
+
+* `edit 1 t/CODE` +
+Changes the text at index 1 to `CODE`.
+* `edit 2 x/0.5` +
+Changes the x-coordinate of the text at index 2 to 0.5.
+* `edit 3 c/#FC1423 s/5 S/bold` +
+Edits the text at index 3, changing its color to #FC1423, size to 5 and style to bold.
+
+==== Moving text: `move`
+
+Moves the specified text. +
+Format: `move INDEX [x/X_CHANGE] [y/Y_CHANGE]`
+
+****
+* The move is relative to the current position of the specified text.
+* At least one of `X_CHANGE` and `Y_CHANGE` must be specified.
+****
+
+Examples:
+
+* `move 1 x/-0.1` +
+Moves the text at index 1 to the left by 10% of the image width.
+* `move 2 y/0.3` +
+Moves the text at index 2 down by 30% of the image height.
+* `move 3 x/0.2 y/-0.3` +
+Moves the text at index 3 to the right by 20% of the image width and up by 30% of the image height.
+
+[TIP]
+You can type `move INDEX` and use arrow keys to move the specified text. +
+Hold kbd:[Shift] while pressing arrow keys to make the text move faster. +
+Hold kbd:[Alt] (kbd:[Option] on MacOS) while pressing arrow keys to make the text move slower.
+
+
+==== Deleting text: `delete`
+
+Deletes the text at the specified index. +
+Format: `delete INDEX`
+
+==== Aborting meme creation: `abort`
+
+Aborts this meme creation session and go back to the templates tab. +
+Format: `abort`
+
+==== Completing the creation session: `create`
+
+Creates a new meme with all the added text applied. The new meme will be saved into Weme's meme collection, with the specified description and tags. +
+Format: `create [d/DESCRIPTION] [t/TAG]...`
+
+****
+* This command does not modify the template you used to start the creation session. You can use the same template to make more memes.
+* You will be directly to view the meme you have created. To continue making new memes, use `tab templates` to go to the templates tab.
+****
+
+Examples:
+
+* `create d/sleep or code t/soc t/cs2103` +
+Creates a new meme from the current meme creation session, giving it a description `sleep or code` and tags `soc` and `cs2103`.
+
+// end::meme-create[]
+
+// tag::export/import[]
+
+=== Export Tab
+Weme supports exporting memes into the local filesystem.
+To export memes, stage them from the memes tab.
+Staged memes will appear in the export staging area in the export tab.
+You can then unstage or export them as you wish in the export tab.
+
+==== Unstaging a meme: `unstage`
+
+Unstages the meme at the specified index from the export staging area. +
+Format: `unstage INDEX`
+
+==== Exporting memes: `export`
+
+Exports the memes in the export staging area into a directory. The directory path can
+be either specified or not.
+
+* If the path is not specified, then the memes will
+be exported to an export folder located at where the jar file is.
+
+** Format: `export`
+
+* If path is specified, the memes will be exported to that directory.
+
+** Format: `export p//Users/bill/favourites/`
+
+* The user can use a special [d] keyword to export to a default path
+configured by preferences.json.
+
+** Format: `export p/[d]`
+
+==== Clearing the staging area: `clear`
+
+Clears all memes in the export tab. +
+Format: `clear`
+
+=== Import Tab
+Weme supports batch importing memes from a local directory.
+To import a directory of images, first load the directory into the the import tab.
+You can then edit or delete memes in the staging area before actually importing them into Weme.
+
+==== Loading memes into the import tab: `load`
+
+Loads memes from a specified directory into the import tab. +
+Format: `load p/PATH`
+
+****
+* Weme only loads image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
+* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
+with `.jpg` extension).
+****
+
+==== Editing a meme in the import tab: `edit`
+
+Edits a meme from the import tab. This allows the user
+to make changes before actually importing the meme. +
+Format: `edit INDEX [d/DESCRIPTION] [t/TAG]...`
+
+==== Deleting a meme: `delete`
+
+Deletes an unwanted meme from the import tab. +
+Format: `delete INDEX`
+
+==== Importing memes: `import`
+
+Imports all the memes from the import tab into Weme. +
+Format: `import`
+
+==== Clearing loaded memes: `clear`
+
+Clears all the memes in the import tab. +
+Format: `clear`
+
+
+// end::export/import[]
+
+=== Statistics Tab
+
+View various statistics about the memes such as tags and likes count by tags.
+
+image::stats_panel.png[]
+
+[TIP]
+As the statistics data is updated real time, an undo/redo command affecting the memes and their data will re-render
+the statistics charts. E.g. after executing `like 1` in Memes panel for meme with tag `cute` and undo it in statistics
+panel, the charts will be re-rendered, with like count for tag `cute` incremented. Same goes to `edit` command that
+edits the tags of a meme.
+
+// tag::command-suggestion[]
+=== Command Suggestions
+
+Weme supports command suggestions and auto-completion using kbd:[tab] for every command available.
+****
+* Suggestions for command word/argument based on current user input will be displayed in the result box.
+* The auto-suggestion is dynamic and automatically updates while the user type in command.
+* The suggestions are retrieved from historical records and sorted according to the similarity to user input, with the first suggestion
+being the most recommended one.
+* For the command word suggestion, only commands available for current context will be displayed.
+Description for each command will be displayed after each command word.
+* User can press kbd:[Tab] key to auto-complete the command suggestion, i.e. replacing current command word/arguments with
+the first suggestion displayed (if there is any).
+* If the user input is of invalid format, the text will turn red and error messages will be displayed in the result box
+immediately without pressing kbd:[Enter] key. This does not account for invalid values, e.g. input meme index is 5 but there is
+no meme of index 5.
+****
+
+Examples:
+
+* When user types in `a` in the meme tab, the following suggestions will appear: +
+`add: adds a meme to Weme. +
+archive: archive a meme by index. +
+archives: list all archived memes.`
+
+image::CommandPrompt1.png[width="790"]
+
+After pressing kbd:[Tab], `a` in the command box will be replaced by `add`.
+
+image::CommandPrompt2.png[width="790"]
+
+* When user types in `add p/pathToMeme t/c` in the memes tab, the following suggestions will appear: +
+`CS +
+cute +
+csgg`
+
+image::CommandPrompt3.png[width="790"]
+
+After pressing kbd:[Tab], `c` in the command box will be replaced by `CS`.
+
+image::CommandPrompt4.png[width="790"]
+
+* When user types in `find doge joker funny cuuuuutie` in the memes tab, the following suggestions will appear: +
+`cute +
+CUTECATS +
+favorite`
+
+image::CommandPrompt5.png[width="790"]
+
+After pressing kbd:[Tab], `cuuuuutie` in the command box will be replaced by `cute`.
+
+image::CommandPrompt6.png[width="790"]
+
+// end::command-suggestion[]
+
+=== Screen Time `[Coming in v2.0]`
+
+In the coming v2.0 version, the user can view their screen time on the Application, just like some mobile platform
+such as iOS or Android. It allows user to keep track of the amount of time spent on the App so that he/she could
+manage time properly. It will be under statistics tab, accessed via command `tab statistics`, and is updated by weeks.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Download the jar in the other computer and copy the entire data folder over to the same directory. Run Weme and update the preferences.json if necessary.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+* *Universal Commands* :
+** *Help* : `help`
+** *Undo* : `undo`
+** *Redo* : `redo`
+** *Switch tabs* :
+*** *Memes Tab* : `tab memes`
+*** *Templates Tab* : `tab templates`
+*** *Create Tab* : `tab create`
+*** *Statistics Tab* : `tab statistics`
+*** *Export Tab* : `tab export`
+*** *Import Tab* : `tab import`
+*** *Preferences Tab* : `tab preferences`
+** *Exit* : `exit`
+
+* *Commands for the Memes tab* :
+** *Add Meme* : `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
+e.g. `add p//Users/Me/Downloads/dgirl_oof.jpg d/Disaster Girl t/Funny`
+** *Clear Memes* : `clear`
+** *Delete Meme* : `delete INDEX`
+** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [t/TAG]...`
+** *Stage Meme* : `stage INDEX`
+** *Like Meme* : `like INDEX`
+** *Dislike Meme* : `dislike INDEX`
+** *Find Meme* : `find KEYWORD [MORE_KEYWORDS]`
+** *List Memes* : `list`
+** *List Archived Memes* : `archives`
+** *Archive Meme* : `archive INDEX`
+** *Unarchive Meme* : `unarchive INDEX`
+** *View Meme* : `view INDEX`
+
+* *Commands for the Templates Tab* :
+** *Add Template* : `add n/NAME p/PATH`
+** *Edit Template* : `edit INDEX n/NAME`
+** *Delete Template* : `delete INDEX`
+** *Clear Templates* : `clear`
+** *Find Template* : `find KEYWORD [MORE_KEYWORDS]`
+** *Archive Template* : `archive INDEX`
+** *Unarchive Template* : `unarchive INDEX`
+** *List Templates* : `list`
+** *List Archived Templates* : `archives`
+** *Use Template* : `use INDEX`
+
+* *Commands for the Create Tab* :
+** *Add text* : `add TEXT x/X_COORDINATE y/Y_COORDINATE [c/COLOR] [s/SIZE] [S/STYLE]...`
+** *Edit text* : `edit INDEX [t/TEXT] [x/X_COORDINATE] [y/Y_COORDINATE] [c/COLOR] [s/SIZE] [S/STYLE]...`
+** *Delete text* : `delete INDEX`
+** *Move text* : `move INDEX [x/X_CHANGE] [y/Y_CHANGE]`
+** *Abort creation* : `abort`
+** *Finish creation* : `create [d/DESCRIPTION] [t/TAG]...`
+
+* *Commands for the Export Tab* :
+** *Unstage Meme* : `unstage INDEX`
+** *Export Meme* : `export [p/PATH]`
+** *Clear staged Memes* : `clear`
+
+* *Commands for the Import Tab* :
+** *Load Memes* : `load p/PATH`
+** *Edit Meme* : `edit INDEX [d/DESCRIPTION] [t/TAG]...`
+** *Delete Meme* : `delete INDEX`
+** *Import Memes* : `import`
+** *Clear loaded Memes* : `clear`

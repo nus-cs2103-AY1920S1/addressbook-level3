@@ -1,0 +1,26 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+
+package UI <<Rectangle>>{
+Class MainWindow UI_COLOR
+}
+
+package Logic <<Rectangle>> {
+Class LogicManager LOGIC_COLOR
+}
+
+package Model <<Rectangle>> {
+Class ModelManager MODEL_COLOR
+Class ModelContext MODEL_COLOR
+}
+
+MainWindow -right-> LogicManager
+MainWindow .> ModelContext : Listens to >
+
+ModelManager o-> "1" ModelContext
+
+LogicManager o-down-> ModelManager
+LogicManager .> ModelContext
+
+@enduml

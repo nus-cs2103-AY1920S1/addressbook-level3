@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":MemeLikeCommandParser" as MemeLikeCommandParser LOGIC_COLOR
+participant "c:MemeLikeCommand" as MemeLikeCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Stats" as Stats MODEL_COLOR
+end box
+
+MainWindow -> LogicManager : execute(like index)
+activate LogicManager
+
+LogicManager -> MemeLikeCommandParser : parseCommand(like index)
+activate MemeLikeCommandParser
+
+create MemeLikeCommand
+MemeLikeCommandParser -> MemeLikeCommand
+activate MemeLikeCommand
+
+MemeLikeCommand --> MemeLikeCommandParser
+deactivate MemeLikeCommand
+
+MemeLikeCommandParser --> LogicManager : c
+deactivate MemeLikeCommandParser
+
+LogicManager -> MemeLikeCommand : execute()
+activate MemeLikeCommand
+
+MemeLikeCommand -> Model : incrementMemeLikeCount(meme)
+activate Model
+
+Model -> Stats : incrementMemeLikeCount(meme)
+activate Stats
+
+Stats ---> Model
+deactivate Stats
+
+Model ---> MemeLikeCommand
+deactivate Model
+
+create CommandResult
+MemeLikeCommand -> CommandResult
+activate CommandResult
+CommandResult ---> MemeLikeCommand
+deactivate CommandResult
+MemeLikeCommand -> LogicManager : r
+deactivate MemeLikeCommand
+
+LogicManager -> MainWindow : r
+deactivate LogicManager
+
+deactivate MainWindow
+@enduml

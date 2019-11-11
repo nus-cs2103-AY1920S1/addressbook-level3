@@ -3,44 +3,44 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":WemeParser" as WemeParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":VersionedWeme" as VersionedWeme MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> WemeParser : parseCommand(undo)
+activate WemeParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+WemeParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> WemeParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+WemeParser --> LogicManager : u
+deactivate WemeParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> Model : undoWeme()
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model -> VersionedWeme : undo()
+activate VersionedWeme
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+VersionedWeme -> VersionedWeme :resetData(ReadOnlyWeme)
+VersionedWeme --> Model : feedback
+deactivate VersionedWeme
 
-Model --> UndoCommand
+Model --> UndoCommand : feedback
 deactivate Model
 
 UndoCommand --> LogicManager : result

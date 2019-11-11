@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane id="StackPane" prefHeight="800" prefWidth="800" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="100.0" prefWidth="200.0">
+      <children>
+        <StackPane id="StackPane" prefHeight="800" prefWidth="400">
+          <children>
+            <PieChart id="tagCountChart" fx:id="tagCountChart" prefHeight="800.0" prefWidth="313.0" />
+          </children>
+        </StackPane>
+        <StackPane id="StackPane" prefHeight="800" prefWidth="400">
+          <children>
+            <PieChart id="tagLikeChart" fx:id="tagLikeChart" />
+          </children>
+        </StackPane>
+        <StackPane id="StackPane" prefHeight="800" prefWidth="400">
+          <children>
+            <PieChart id="tagDislikeChart" fx:id="tagDislikeChart" />
+          </children>
+        </StackPane>
+      </children>
+   </HBox>
+  <stylesheets>
+    <URL value="@StatsPanel.css" />
+  </stylesheets>
+</StackPane>

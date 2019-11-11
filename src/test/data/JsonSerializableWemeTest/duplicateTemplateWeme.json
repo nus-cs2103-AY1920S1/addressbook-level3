@@ -1,0 +1,18 @@
+{
+  "memes": [],
+  "templates" : [ {
+    "name" : "Drake Reaction",
+    "filePath": "drake_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Drake Reaction",
+    "filePath": "drake_template.jpg",
+    "isArchived": false
+  } ],
+  "stats" : {
+    "likeMap" : {},
+    "dislikeMap" : {}
+  }
+
+}
+

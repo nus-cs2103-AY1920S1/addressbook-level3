@@ -8,13 +8,23 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class "{abstract}\nWemeParser" as WemeParser
+Class XYZParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
+}
+
+package Prompter {
+Interface Prompter <<Interface>>
+Class WemePrompter
+Class XYZPrompter
+Class XYZCommandPrompter
+Class PrompterUtil
+Class CommandPrompt
 }
 
 package Command {
@@ -35,8 +45,12 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
 LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager ..> WemeParser
+LogicManager ..> WemePrompter
+
+XYZParser -up-|> WemeParser
+XYZParser .down.> XYZCommandParser : creates >
+note right of XYZParser: XYZParser = MemeParser, TemplateParser, \nImportParser, etc.
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -51,9 +65,17 @@ ArgumentTokenizer .down.> Prefix
 XYZCommand -up-|> Command
 LogicManager .left.> Command : executes >
 
+XYZPrompter -up-|> WemePrompter
+XYZPrompter .down.> XYZCommandPrompter : creates >
+note right of XYZPrompter: XYZPrompter = MemePrompter, TemplatePrompter, \nImportPrompter, etc.
+XYZCommandPrompter ..> CommandPrompt : creates >
+XYZCommandPrompter ..|> Prompter
+XYZCommandPrompter ..> PrompterUtil
+LogicManager .down.> CommandPrompt : prompt >
+
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommand: XYZCommand = MemeAddCommand, \nFindCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult

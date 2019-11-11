@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class Weme
+Class ModelManager
+Class FilteredList
+
+Package Template {
+Class Template
+Class Name
+Class UniqueTemplateList
+}
+
+Package Path {
+Class ImagePath
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+Model .right.> ObservableList
+ModelManager .up.|> Model
+ModelManager o--> "1" Weme
+
+Weme *--> "1" UniqueTemplateList
+UniqueTemplateList o--> "*" Template
+Template *--> "1" Name
+Template *--> "1" ImagePath
+
+ModelManager -->"1" Template : filtered list
+@enduml

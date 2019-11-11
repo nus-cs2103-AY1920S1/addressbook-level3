@@ -1,0 +1,19 @@
+{
+  "memes" : [ {
+    "filePath": "charmander_meme.jpg",
+    "tagged" : [ "charmander" ],
+    "description" : "A meme about Char and charmander.",
+    "isArchived": false
+  }, {
+    "filePath": "charmander_meme.jpg",
+    "tagged": [ "charmander" ],
+    "description": "A meme about Char and charmander.",
+    "isArchived": false
+  } ],
+  "templates": [],
+  "stats" : {
+    "likeMap" : {},
+    "dislikeMap" : {}
+  }
+
+}

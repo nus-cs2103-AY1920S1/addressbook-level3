@@ -1,4 +1,5 @@
 @startuml
+scale 1.5
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
@@ -11,14 +12,9 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class XYZPanel
 Class StatusBarFooter
 Class CommandBox
-}
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
 }
 
 package Logic <<Rectangle>> {
@@ -30,31 +26,34 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
+MainWindow *-down-> HelpWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> XYZPanel
 MainWindow *-down-> StatusBarFooter
-
-PersonListPanel -down-> PersonCard
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+XYZPanel --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down-|> UiPart
 
-PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+XYZPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 
 MainWindow -[hidden]-|> UiPart
+
+note right of XYZPanel: XYZPanel = \
+MemeGridPanel,\n\
+TemplateGridPanel,\n\
+StatsPanel, etc.\n\
+Each panel represents the app\n\
+content when in the corresponding tab.
 @enduml

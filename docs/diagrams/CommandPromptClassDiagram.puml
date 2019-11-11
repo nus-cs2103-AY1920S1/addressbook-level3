@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Prompter {
+Interface Prompter <<Interface>>
+Class WemePrompter
+Class XYZPrompter
+Class XYZCommandPrompter
+Class PrompterUtil
+Class CommandPrompt
+}
+Interface Logic <<Interface>>
+Class LogicManager
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager .up.|> Logic
+LogicManager ..> WemePrompter
+
+XYZPrompter -up-|> WemePrompter
+XYZPrompter .down.> XYZCommandPrompter : creates >
+note right of XYZPrompter: XYZPrompter = MemePrompter, \nTemplatePrompter, \nImportPrompter, etc.
+XYZCommandPrompter ..> CommandPrompt : creates >
+note right of XYZCommandPrompter: XYZCommandPrompter = \n MemeAddCommandPrompter, \nTemplateEditCommandPrompter, \nLoadCommandPrompter, etc.
+XYZCommandPrompter ..|> Prompter
+XYZCommandPrompter ..> PrompterUtil
+LogicManager .down.> CommandPrompt : prompt >
+CommandPrompt .right.> Model
+
+LogicManager --> Model
+@enduml

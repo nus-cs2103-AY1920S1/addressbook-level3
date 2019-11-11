@@ -1,0 +1,59 @@
+@startuml
+scale 1.5
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExportParser" as ExportParser LOGIC_COLOR
+participant ":MemeExportCommandParser" as MemeExportCommandParser LOGIC_COLOR
+participant "c:MemeExportCommand" as MemeExportCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager  MODEL_COLOR
+participant ":VersionedWeme" as Weme MODEL_COLOR
+end box
+
+box File STORAGE_COLOR_T1
+participant "FileUtil" as FileUtil STORAGE_COLOR
+end box
+
+[-> LogicManager : execute("export")
+activate LogicManager
+LogicManager -> ExportParser : parseCommand("export")
+activate ExportParser
+
+
+ExportParser -> MemeExportCommandParser : parse(exportPath)
+activate MemeExportCommandParser
+create MemeExportCommand
+MemeExportCommandParser -> MemeExportCommand
+activate MemeExportCommand
+MemeExportCommand --> MemeExportCommandParser
+deactivate MemeExportCommand
+MemeExportCommandParser --> ExportParser
+deactivate MemeExportCommandParser
+ExportParser --> LogicManager
+
+deactivate ExportParser
+
+LogicManager -> MemeExportCommand : execute(model)
+activate MemeExportCommand
+MemeExportCommand -> ModelManager : getExportPathList()
+activate ModelManager
+ModelManager -> Weme : getExportPathList()
+activate Weme
+Weme --> ModelManager : pathList
+deactivate Weme
+ModelManager --> MemeExportCommand : pathList
+deactivate ModelManager
+MemeExportCommand -> FileUtil : copyFiles(pathList, exportPath)
+activate FileUtil
+FileUtil --> MemeExportCommand
+deactivate FileUtil
+MemeExportCommand --> LogicManager : CommandResult(success)
+deactivate MemeExportCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

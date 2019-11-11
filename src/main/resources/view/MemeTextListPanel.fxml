@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" styleClass="pane-with-border">
+  <ListView fx:id="memeTextListView" VBox.vgrow="ALWAYS">
+    <placeholder>
+      <Label text="No text added yet" styleClass="cell_big_label" style="-fx-text-fill: white"/>
+    </placeholder>
+  </ListView>
+</VBox>

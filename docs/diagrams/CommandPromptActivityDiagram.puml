@@ -1,0 +1,22 @@
+@startuml
+start
+:User types in a partial command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([The command format is invalid])
+    :Error messaged shown;
+else ([Else])
+    if () then ([Input is a word but\n not command word])
+    :Similar command\n words is displayed;
+    else if () then ([Input is a command word])
+    :Command usage\n is displayed;
+    else ([Input is multiple words])
+    :Suggestions for command\n argument is displayed;
+    endif
+endif
+:User presses TAB key;
+:Command suggestion is auto-completed by replacing the input;
+stop
+@enduml

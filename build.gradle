@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'seedu.weme.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -45,6 +45,12 @@ dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '11'
 
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+    testCompile "org.testfx:openjfx-monocle:8u76-b04" // jdk-9+181 for Java 9, jdk-11+26 for Java 11
+
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -57,6 +63,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -64,10 +73,15 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    // https://mvnrepository.com/artifact/org.controlsfx/controlsfx
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
+
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.8'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'weme.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,9 +147,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'Weme',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103-T16-3/main',
     ]
 
     options['template_dirs'].each {

@@ -1,0 +1,87 @@
+{
+  "_comment": "Weme save file which contains the same Meme values as in TypicalMemes#getTypicalMemes() and same Template values as in TypicalTemplates#getTypicalTemplates()",
+  "memes" : [ {
+    "filePath": "charmander_meme.jpg",
+    "tagged" : [ "charmander" ],
+    "description" : "A meme about Char and charmander.",
+    "isArchived": false
+  }, {
+    "filePath": "doge_meme.jpg",
+    "tagged" : ["doge"],
+    "description" : "A meme about doge.",
+    "isArchived": false
+  }, {
+    "filePath": "joker_meme.jpg",
+    "tagged" : ["joker"],
+    "description" : "A meme about joker.",
+    "isArchived": false
+  }, {
+    "filePath": "toy_meme.jpg",
+    "tagged" : ["toy"],
+    "description" : "A toy story meme.",
+    "isArchived": false
+  }, {
+    "filePath": "pikachu_meme.png",
+    "tagged" : ["pikachu"],
+    "description" : "Pikachu",
+    "isArchived": true
+  }],
+  "templates" : [ {
+    "name" : "Drake Reaction",
+    "filePath": "drake_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Is This",
+    "filePath": "is_this_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Quiz Kid",
+    "filePath": "quiz_kid_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Surprised Pikachu",
+    "filePath": "pikachu_template.jpg",
+    "isArchived": true
+  } ],
+  "stats" : {
+    "likeMap" : {
+      "charmander_meme.jpg" : 1,
+      "doge_meme.jpg" : 2,
+      "joker_meme.jpg" : 0,
+      "toy_meme.jpg" : 0
+    },
+    "dislikeMap" : {
+      "charmander_meme.jpg" : 0,
+      "doge_meme.jpg" : 0,
+      "joker_meme.jpg" : 1,
+      "toy_meme.jpg" : 2
+    }
+  },
+  "records" : {
+    "pathRecords" : [
+      "/home/me/Pictures/weme.jpg",
+      "/home/me/Pictures/smiling_cat.png",
+      "/home/me/Downloads/disaster_girl.jpg"
+    ],
+    "descriptionRecords" : [
+      "OMG my favorite meme!!!",
+      "First meme about programming",
+      "Old memes"
+    ],
+    "tagRecords" : [
+      "CS2103",
+      "programming",
+      "Computing"
+    ],
+    "nameRecords" : [
+      "disaster girl",
+      "Cute cat",
+      "Sponge Bob"
+    ],
+    "textRecords" : [
+      "lol",
+      "Nay",
+      "Success starts with SU"
+    ]
+  }
+}

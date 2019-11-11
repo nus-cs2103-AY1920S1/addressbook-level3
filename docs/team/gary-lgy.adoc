@@ -1,0 +1,73 @@
+= Liu Guangyuan (Gary) - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ɯeme
+
+---
+
+== Overview
+
+ɯeme is a meme manager app for those who *prefer to use a desktop app for managing memes*. More importantly, ɯeme is optimized for those who *prefer to work with a Command Line Interface (CLI)* while still having the benefits of a Graphical User Interface (GUI). Users can view, tag, search, import and export a collection of meme. They can also create their own memes from meme templates.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to create memes from templates*
+** What it does: allows the user to add meme templates and create memes by adding text to templates. +
+The user can:
+*** add, list, edit, search, and delete templates
+*** place text anywhere on the template image and see the effect immediately
+*** customize the font size, color, and style of the text they add to the template
+*** move the text conveniently using arrow keys
+** Justification: This feature forms an integral part of the product because generating memes is something that meme lovers do on a regular basis.
+** Highlights: This enhancement required extending all levels of the architecture: model and storage components were extended to support storing templates; UI was extended to display meme creation session and listen to arrow key presses.
+It required an in-depth analysis of how the user should interact with the product, given our target user group are those who prefer Command Line Interfaces.
+The implementation was challenging as it involved graphics processing.
+
+* *Minor enhancement*:
+** Implemented the GUI for tabs [https://github.com/AY1920S1-CS2103-T16-3/main/pull/50[#50]]
+** Optimized the GUI performance. Reduced lag and memory usage, expanding the capacity of the GUI from lagging with 10 memes to being able to hold 1000 memes without significant lag. [https://github.com/AY1920S1-CS2103-T16-3/main/pull/231[#231]]
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=gary-lgy&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=gary-lgy&tabRepo=AY1920S1-CS2103-T16-3%2Fmain%5Bmaster%5D[RepoSense data]]
+
+* *Other contributions*:
+
+** Project management:
+*** Reviewed a large number of pull requests [https://github.com/AY1920S1-CS2103-T16-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+reviewed-by%3Agary-lgy[Reviews]]
+** Enhancements to existing features:
+*** Changed the display from a list to a grid, which is more suitable for images [https://github.com/AY1920S1-CS2103-T16-3/main/pull/44[#44]]
+** Documentation:
+*** Reworded, formatted, and organized the User Guide: [https://github.com/AY1920S1-CS2103-T16-3/main/pull/159[#159]]
+** Community:
+*** Reported bugs and suggestions for other teams in the class [https://github.com/gary-lgy/ped/issues[PED]]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+****
+Besides the section below, I have also written the *Templates tab* section, which is not included here due to page limit.
+Please refer to https://ay1920s1-cs2103-t16-3.github.io/main/UserGuide.html#templates-tab[here] if you would like to see more detail.
+****
+
+
+include::../UserGuide.adoc[tag=meme-create]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+****
+Besides the section below, I have also written the *Tabs feature* section, which is not included here due to page limit.
+Please refer to https://ay1920s1-cs2103-t16-3.github.io/main/DeveloperGuide.html#tabs-feature[here] if you would like to see more detail.
+****
+
+include::../DeveloperGuide.adoc[tag=templates]
+

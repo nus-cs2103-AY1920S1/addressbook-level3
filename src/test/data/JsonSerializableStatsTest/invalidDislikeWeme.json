@@ -1,0 +1,77 @@
+{
+  "_comment": "Weme save file which contains the same Meme values as in TypicalMemes#getTypicalMemes() and same Template values as in TypicalTemplates#getTypicalTemplates()",
+  "memes" : [ {
+    "filePath": "src/test/data/memes/charmander_meme.jpg",
+    "tagged" : [ "charmander" ],
+    "description" : "A meme about Char and charmander.",
+    "isArchived": false
+  }, {
+    "filePath": "src/test/data/memes/doge_meme.jpg",
+    "tagged" : ["doge"],
+    "description" : "A meme about doge.",
+    "isArchived": false
+  }, {
+    "filePath": "src/test/data/memes/joker_meme.jpg",
+    "tagged" : ["joker"],
+    "description" : "A meme about joker.",
+    "isArchived": false
+  }, {
+    "filePath": "src/test/data/memes/toy_meme.jpg",
+    "tagged" : ["toy"],
+    "description" : "A toy story meme.",
+    "isArchived": false
+  }, {
+    "filePath": "src/test/data/memes/pikachu_meme.png",
+    "tagged" : ["pikachu"],
+    "description" : "Pikachu",
+    "isArchived": true
+  }],
+  "templates" : [ {
+    "name" : "Drake Reaction",
+    "filePath": "src/test/data/templates/drake_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Is This",
+    "filePath": "src/test/data/templates/is_this_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Quiz Kid",
+    "filePath": "src/test/data/templates/quiz_kid_template.jpg",
+    "isArchived": false
+  }, {
+    "name" : "Surprised Pikachu",
+    "filePath": "src/test/data/templates/pikachu_template.jpg",
+    "isArchived": true
+  } ],
+  "stats" : {
+    "likeMap" : {
+      "src/test/data/memes/charmander_meme.jpg" : 1,
+      "src/test/data/memes/doge_meme.jpg" : 2,
+      "src/test/data/memes/joker_meme.jpg" : 0,
+      "src/test/data/memes/toy_meme.jpg" : 0
+    },
+    "dislikeMap" : {
+      "src/test/data/memes/charmander_meme.jpg" : 0,
+      "src/test/data/memes/doge_meme.jpg" : 0,
+      "src/test/data/memes/joker_meme.jpg" : -1,
+      "src/test/data/memes/toy_meme.jpg" : 2
+    }
+  },
+  "records" : {
+    "pathRecords" : [
+      "/home/me/Pictures/weme.jpg"
+    ],
+    "descriptionRecords" : [
+      "OMG my favorite meme!!!"
+    ],
+    "tagRecords" : [
+      "[CS2103]"
+    ],
+    "nameRecords" : [
+      "disaster girl"
+    ],
+    "textRecords" : [
+      "lol"
+    ]
+  }
+}

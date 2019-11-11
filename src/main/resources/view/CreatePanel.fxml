@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <HBox fx:id="memeCreationBox">
+    <VBox fx:id="memeImageDisplay">
+      <HBox>
+        <ImageView fx:id="memeImage" cache="true" fitHeight="400" fitWidth="400" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <ImageView fx:id="verticalRule" cache="true" pickOnBounds="true" preserveRatio="true">
+          <Image url="@../images/vertical_rule.png"/>
+        </ImageView>
+      </HBox>
+      <ImageView fx:id="horizontalRule" cache="true" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/horizontal_rule.png"/>
+      </ImageView>
+    </VBox>
+
+    <GridPane>
+      <padding>
+        <Insets left="30" top="10" bottom="10" />
+      </padding>
+      <Label GridPane.rowIndex="0" GridPane.halignment="CENTER" text="Sample Font Sizes" styleClass="label-subheader"/>
+      <ImageView GridPane.rowIndex="1" cache="true" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+        <Image url="@../images/sample_font_sizes.png"/>
+      </ImageView>
+      <Label GridPane.rowIndex="2" GridPane.halignment="CENTER" text="Text added" styleClass="label-subheader"/>
+      <StackPane GridPane.rowIndex="3" fx:id="memeTextListPlaceholder"/>
+    </GridPane>
+
+  </HBox>
+
+  <VBox fx:id="memeCreationPlaceholder">
+    <Label text="Please go to Templates tab and choose a template for meme creation" alignment="CENTER"
+           textAlignment="CENTER" wrapText="true" styleClass="label-header"/>
+  </VBox>
+</StackPane>
