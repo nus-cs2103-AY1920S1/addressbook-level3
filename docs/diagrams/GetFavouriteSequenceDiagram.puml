@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+
+box Statistics LOGIC_COLOR_T1
+participant ":Statistics" as Statistics LOGIC_COLOR
+end box
+
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager LOGIC_COLOR
+end box
+
+[-> Statistics : getFavouriteGenre()
+activate Statistics
+
+Statistics -> ModelManager: getWatchedShowList()
+activate ModelManager
+
+Statistics <-- ModelManager: watchedlist
+deactivate ModelManager
+
+[<--Statistics: favouriteGenres
+deactivate Statistics
+
+@enduml
