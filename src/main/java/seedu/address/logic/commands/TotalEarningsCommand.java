@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.model.Model;
 import seedu.address.model.earnings.Earnings;
-
-import java.util.List;
 
 /**
  * Gets the total earnings of the user.
