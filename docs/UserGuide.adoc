@@ -388,12 +388,22 @@ All available exchange rates are shown, or a conversion of an input currency is 
 // tag::budget[]
 === Setting monthly budget : `budget`
 Sets a budget for the current month in the currency set . +
-The monthly budget cannot exceed 1,000,000,000 Singapore Dollars. +
-
 *Format:* `budget MONTHLY_BUDGET` +
 
+****
+* The monthly budget must be a valid number.
+* The monthly budget amount cannot exceed 1,000,000,000 Singapore Dollars.
+* The monthly budget amount can only have at most 2 digits after the decimal point, regardless if it is trailing zeroes.
+** Examples of valid budget amount:
+*** 20
+*** 100.01
+** Examples of invalid budget amount:
+*** 100.00000
+*** 0.0001
+****
+
 [NOTE]
-Existing budget of current month is overwritten if budget has already been set.
+Using the `budget` command  will overwrite the currently set budget.
 
 *Example:*
 

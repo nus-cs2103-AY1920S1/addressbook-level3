@@ -841,6 +841,10 @@ double representing the desired monthly budget. The amount cannot exceed 1,000,0
 
 For example `budget 10000` sets the current monthly budget to 10000.
 
+[NOTE]
+The budget amount must be a positive number no greater than 1000000000 Singapore dollars and must only have two digits after
+the decimal point.
+
 The second functionality is done automatically by the program, which finds the total spending in the month and reduces
 the sum from the budget.
 

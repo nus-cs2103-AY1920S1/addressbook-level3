@@ -209,16 +209,13 @@ public class ParserUtil {
      * @throws ParseException if the specified budget is invalid (negative integer).
      */
     public static Budget parseBudget(String budget) throws ParseException {
+        requireNonNull(budget);
         String trimmedBudget = budget.trim();
-        try {
-            double temp = Double.parseDouble(trimmedBudget);
-            if (temp < 0) {
-                throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
-            }
-            return new Budget(temp);
-        } catch (NumberFormatException e) {
+        if (!Budget.isValidBudget(trimmedBudget)) {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
+
+        return new Budget(trimmedBudget);
     }
 
     /**

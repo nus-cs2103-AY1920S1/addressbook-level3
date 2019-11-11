@@ -11,12 +11,16 @@ import seedu.moneygowhere.model.spending.Spending;
 
 /**
  * Represents the budget in the MoneyGoWhere list.
- * A budget cannot have a negative value.
+ * A budget cannot must be non negative number, no grater than 1000000000.
+ * A budget should have at most 2 digits after the decimal point.
  */
 public class Budget {
 
-    public static final String MESSAGE_CONSTRAINTS = "Budget values should be positive number";
+    public static final String MESSAGE_CONSTRAINTS = "The budget amount provided is invalid.\n"
+        + "Budget values must be a non negative number "
+        + "no greater than 100000000 and have at most 2 digits after the decimal point.";
     private static final String VALIDATION_REGEX = "^[+]?([0-9]+(?:[.][0-9]*)?|\\.[0-9]+)$";
+    private static final int MAX_BUDGET_LIMIT = 1000000000;
 
     private double amount;
     private double sum;
@@ -64,14 +68,31 @@ public class Budget {
      * Returns true if a given string is a valid budget value. (Not non-negative)
      */
     public static boolean isValidBudget(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(VALIDATION_REGEX)
+                && isValidBudget(Double.parseDouble(test))
+                && digitsAfterPoint(test) <= 2;
     }
 
     /**
      * Returns true if a given string is a valid budget value. (Not non-negative)
      */
-    public static boolean isValidBudget(double test) {
-        return test >= 0.0;
+    private static boolean isValidBudget(double test) {
+        return test >= 0.0 && test <= MAX_BUDGET_LIMIT;
+    }
+
+    /**
+     * Counts the number of digits in a double in string format.
+     *
+     * @param str The input string to count the number of characters after the decimal point.
+     * @return The number of characters after the first decimal point.
+     */
+    private static int digitsAfterPoint(String str) {
+        int output = 0;
+        if (str.contains(".")) {
+            String[] splitPoint = str.split("\\.");
+            output = splitPoint[1].length();
+        }
+        return output;
     }
 
     /**
