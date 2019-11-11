@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:id="editorPane"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-            AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11">
-
-    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-
-        <TextArea fx:id="textOutput" promptText="Enter your program here" VBox.vgrow="ALWAYS">
+<AnchorPane fx:id="editorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="400.0" prefWidth="439.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <TextArea fx:id="lineCounter" disable="true" editable="false" maxWidth="-Infinity" minWidth="-Infinity" opacity="0.48" prefHeight="400.0" prefWidth="67.0" style="" text="1" HBox.hgrow="NEVER">
             <font>
-                <Font name="Consolas Bold" size="16.0"/>
+               <Font name="Consolas Bold" size="16.0" />
             </font>
-        </TextArea>
-    </VBox>
-
+            <padding>
+               <Insets bottom="12.0" top="12.0" />
+            </padding>
+         </TextArea>
+         <TextArea fx:id="textOutput" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="372.0" promptText="Enter Your Program Here..." HBox.hgrow="ALWAYS">
+            <font>
+               <Font name="Consolas Bold" size="16.0" />
+            </font>
+         </TextArea>
+      </children>
+   </HBox>
     <cursor>
-        <Cursor fx:constant="DEFAULT"/>
+        <Cursor fx:constant="DEFAULT" />
     </cursor>
-
 </AnchorPane>

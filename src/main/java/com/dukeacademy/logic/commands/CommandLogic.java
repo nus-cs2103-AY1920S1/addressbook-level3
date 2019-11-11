@@ -5,11 +5,12 @@ import com.dukeacademy.logic.commands.exceptions.InvalidCommandArgumentsExceptio
 import com.dukeacademy.logic.commands.exceptions.InvalidCommandKeywordException;
 
 /**
- * Provides all the necessary methods needed to execute commands in the application.
+ * Orchestrates the execution of commands within the application and exposes a simple interface for the main
+ * application driver to use.
  */
 public interface CommandLogic {
     /**
-     * Executes a command based on the command text that is provided.
+     * Executes a command based on the command text that is provided from the user.
      *
      * @param commandText the command text that should contain the command keyword and the necessary arguments
      * @return a command result instance

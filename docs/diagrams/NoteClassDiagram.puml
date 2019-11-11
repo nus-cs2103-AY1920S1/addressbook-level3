@@ -1,0 +1,11 @@
+@startuml
+
+class Note {
+    - title : String
+    - content : String
+    - sketchId : UUID
+    + String : getTitle()
+    + String : getContent()
+    + UUID : getSketchId()
+}
+@enduml

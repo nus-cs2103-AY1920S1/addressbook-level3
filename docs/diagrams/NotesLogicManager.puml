@@ -1,0 +1,17 @@
+@startuml
+
+class NotesLogicManager
+class SketchManager
+interface NoteBankStorage
+interface NoteBank
+interface NoteSubmissionChannel {
+    + getNoteAndSketchPair(note, sketch)
+}
+
+NotesLogicManager *--"1" SketchManager
+NotesLogicManager *--"1" NoteBankStorage
+NotesLogicManager *--"1" NoteBank
+NotesLogicManager *--"1" NoteSubmissionChannel
+NoteBankStorage -|> NoteBank
+
+@enduml

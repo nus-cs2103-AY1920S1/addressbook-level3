@@ -22,10 +22,10 @@
             <Insets left="45.0" right="45.0" />
         </padding>
 
-        <VBox fx:id="main_container" spacing="45.0" style="-fx-background-color: white;">
+        <VBox fx:id="main_container" spacing="20.0" style="-fx-background-color: white;">
 
             <padding>
-                <Insets bottom="40.0" left="45.0" right="45.0" top="40.0" />
+                <Insets bottom="40.0" left="45.0" right="45.0" top="25.0" />
             </padding>
 
             <Label text="Welcome to Duke Academy!" textFill="#63075d" wrapText="true">
@@ -112,8 +112,8 @@
                         </padding>
                     </Label>
 
-                    <VBox alignment="CENTER" spacing="30.0" style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS">
-                        <ProgressIndicator fx:id="indicator" minHeight="250.0" minWidth="250.0" progress="0.22" />
+                    <VBox alignment="CENTER" spacing="20.0" style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS">
+                        <ProgressIndicator fx:id="indicator" minHeight="150.0" minWidth="150.0" progress="0.22" />
 
                         <TextFlow textAlignment="CENTER">
                             <Text fx:id="numDone" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="22">

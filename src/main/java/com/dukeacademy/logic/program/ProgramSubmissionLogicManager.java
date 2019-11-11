@@ -49,7 +49,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
      *
      * @param outputDirectoryPath The path to the directory in which all generated Java and Class files are to be saved
      * @throws LogicCreationException if the directory is invalid or the
-     * components of the Logic instance fails to be created
+     *                                components of the Logic instance fails to be created
      */
     public ProgramSubmissionLogicManager(String outputDirectoryPath) throws LogicCreationException {
         if (!new File(outputDirectoryPath).isDirectory()) {
@@ -116,10 +116,13 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
             throw new EmptyUserProgramException();
         }
 
+        // Retrieves the list of test cases from the currently-attempting question, if not an exception is thrown
+        List<TestCase> testCases = this.currentQuestionObservable.getValue()
+                .map(Question::getTestCases)
+                .orElseThrow(NoQuestionSetException::new);
+
         try {
-            List<TestCase> testCases = this.currentQuestionObservable.getValue()
-                    .map(Question::getTestCases)
-                    .orElseThrow(NoQuestionSetException::new);
+            // Evaluate the test cases and package it into a TestResult
             TestResult results = this.testExecutor.runTestCases(testCases, userProgram);
             this.resultObservable.setValue(results);
             logger.info("Test execution succeeded : " + results);
@@ -162,7 +165,7 @@ public class ProgramSubmissionLogicManager implements ProgramSubmissionLogic {
     }
 
     /**
-     * Verifies that the logic instance is not closed before each method is done.
+     * Helper method to verify that the logic instance is not closed before each method is done.
      */
     private void verifyNotClosed() {
         if (this.isClosed) {

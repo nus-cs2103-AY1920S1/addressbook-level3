@@ -1,0 +1,11 @@
+@startuml
+
+class QuestionsLogicManager
+interface QuestionBank
+interface QuestionBankStorage
+
+QuestionsLogicManager *--"1" QuestionBankStorage
+QuestionBankStorage *--"1" QuestionBank
+QuestionsLogicManager -|> QuestionBank
+
+@enduml

@@ -77,49 +77,81 @@ public class TestExecutor {
         logger.info("TestCases received : " + testCases.toString().replaceAll("\n", ""));
         logger.info("User program received : " + program);
 
+        // First check that the user's program is not empty
         if (program.getSourceCode().matches("\\s*")) {
             logger.warning("Empty user program received, tests will not be run");
             throw new EmptyUserProgramException();
         }
 
         try {
+            // Compile the user's program
             ClassFile classFile = this.compileProgram(program);
             logger.info("Compilation succeeded, proceeding to run test cases...");
 
+            // Initialize thread-safe List to collect results of test case execution
             CopyOnWriteArrayList<TestCaseResult> results = new CopyOnWriteArrayList<>();
+
+            // List used to combine all CompletableFuture instances later on
             List<CompletableFuture<TestCaseResult>> completableFutureList = new ArrayList<>();
 
+            for (TestCase testCase : testCases) {
+                // Map each test case to the result of running them against the user's program
+                CompletableFuture<TestCaseResult> evaluationTask = this.getEvaluationTask(classFile, testCase)
+                        .whenCompleteAsync((testCaseResult, throwable) -> results.add(testCaseResult));
+
+                completableFutureList.add(evaluationTask);
+            }
+
             try {
-                for (TestCase testCase : testCases) {
-                    ProgramInput input = new ProgramInput(testCase.getInput());
-                    String testCaseInput = testCase.getInput();
-                    String testCaseExpected = testCase.getExpectedResult();
-
-                    CompletableFuture<TestCaseResult> evaluationTask = executor.executeProgram(classFile, input)
-                            .handleAsync((programOutput, throwable) ->
-                                    getTestCaseResultFromProgramOutput(testCase, programOutput))
-                            .completeOnTimeout(TestCaseResult
-                                    .getErroredTestCaseResult(testCaseInput, testCaseExpected,
-                                            "Time limit exceeded!"), timeLimit, TimeUnit.SECONDS)
-                            .whenCompleteAsync((testCaseResult, throwable) -> results.add(testCaseResult));
-
-                    completableFutureList.add(evaluationTask);
-                }
-
+                // Attempt to get the results of running each test case
                 CompletableFuture.allOf(completableFutureList.toArray(CompletableFuture[]::new)).get();
 
                 logger.info("Test execution completed. Test cases ran : " + results.size());
                 return new TestResult(results);
-
-            } catch (TestExecutorExceptionWrapper | ProgramExecutorException
-                    | InterruptedException | ExecutionException e) {
+            } catch (TestExecutorExceptionWrapper | InterruptedException | ExecutionException e) {
                 logger.warning("Test execution failed unexpectedly. Aborting operation...");
                 throw new TestExecutorException(e.getMessage());
             }
+
         } catch (CompilerFileContentException e) {
             return this.getTestExecutorResultWithCompileError(e.getCompileError());
         }
 
+    }
+
+    /**
+     * Helper method to map the results of a program evaluation task to a TestCaseResult.
+     *
+     * @param classFile the ClassFile to be executed
+     * @param testCase  the test case to be ran against
+     * @return a CompletableFuture that returns a TestCaseResult
+     * @throws TestExecutorException
+     */
+    private CompletableFuture<TestCaseResult> getEvaluationTask(ClassFile classFile, TestCase testCase)
+            throws TestExecutorException {
+
+        // Retrieve the necessary inputs/outputs
+        ProgramInput input = new ProgramInput(testCase.getInput());
+        String testCaseInput = testCase.getInput();
+        String testCaseExpected = testCase.getExpectedResult();
+
+        CompletableFuture<ProgramOutput> executionTask;
+
+        // First attempt to retrieve the program execution task
+        try {
+            executionTask = executor.executeProgram(classFile, input);
+        } catch (ProgramExecutorException e) {
+            logger.warning("Test execution failed unexpectedly. Aborting operation...");
+            throw new TestExecutorException(e.getMessage());
+        }
+
+        TestCaseResult erroredTestCaseResult = TestCaseResult.getErroredTestCaseResult(testCaseInput, testCaseExpected,
+                "Time limit exceeded!");
+
+        // Map the result of the execution task to a TestCaseResult upon completion and set it to timeout accordingly
+        return executionTask
+                .handleAsync((programOutput, throwable) -> getTestCaseResultFromProgramOutput(testCase, programOutput))
+                .completeOnTimeout(erroredTestCaseResult, timeLimit, TimeUnit.SECONDS);
     }
 
     /**

@@ -1,0 +1,13 @@
+@startuml
+Application -> NotesLogicManager: setNoteSubmissionChannel(UI)
+User -> Application: Create new note
+Application -> Application: new Note()
+Application -> NotesLogicManager: createNewNote(note)
+User -> UI: Draw/write new note
+User -> Application: Save Note
+Application -> NotesLogicManager: saveNoteFromSubmissionChannel()
+NotesLogicManager -> UI: getNoteAndSketchPair()
+UI -> NotesLogicManager: Note and Sketch
+NotesLogicManager -> NoteBankStorage: Modify and Save  new note
+NotesLogicManager -> Sketch: saveSketch(sketchId, sketch)
+@enduml

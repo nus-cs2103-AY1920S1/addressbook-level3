@@ -23,11 +23,12 @@ class StandardProgramExecutorTest {
     private static final Path testProgramsFolder = Paths.get("src", "test", "data", "TestPrograms",
             "ProgramExecutor");
 
-    @Test void testExecuteValidProgramNoInput() throws IOException, ProgramExecutorException {
+    @Test void testExecuteValidProgramNoInput() throws IOException, ProgramExecutorException, ExecutionException,
+            InterruptedException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile program = new ClassFile("NoInputTest", testProgramsFolder.toString());
-        ProgramOutput output = executor.executeProgram(program);
+        ProgramOutput output = executor.executeProgram(program, new ProgramInput("")).get();
 
         String expectedOutput = Files.readString(testProgramsFolder.resolve("NoInputTestResult.txt"));
 
@@ -48,12 +49,13 @@ class StandardProgramExecutorTest {
         assertEquals(expectedOutput, output.getOutput());
     }
 
-    @Test void testExecuteProgramRuntimeError() throws ProgramExecutorException, FileNotFoundException {
+    @Test void testExecuteProgramRuntimeError() throws ProgramExecutorException, FileNotFoundException,
+            ExecutionException, InterruptedException {
         StandardProgramExecutor executor = new StandardProgramExecutor();
 
         ClassFile programClassFile = new ClassFile("OutOfBounds", testProgramsFolder.toString());
 
-        ProgramOutput output = executor.executeProgram(programClassFile);
+        ProgramOutput output = executor.executeProgram(programClassFile, new ProgramInput("")).get();
         assertTrue(output.getRuntimeError().isPresent());
     }
 }

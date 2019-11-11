@@ -1,8 +1,7 @@
 @startuml
 
 interface ProgramExecutor {
-    + ProgramOutput : executeProgram(ClassFile program, ProgramInput input)
-    + ProgramOutput : executeProgram(ClassFile program)
+    + CompletableFuture<ProgramOutput> : executeProgram(ClassFile program, ProgramInput input)
 }
 
 class ProgramOutput {

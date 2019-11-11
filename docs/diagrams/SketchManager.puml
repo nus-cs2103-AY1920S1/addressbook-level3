@@ -1,0 +1,9 @@
+@startuml
+
+class SketchManager {
+    + WritableImage : loadSketch(sketchId)
+    + void : saveSketch(sketchId, WritableImage)
+    + void : deleteSketch(sketchId)
+}
+
+@enduml
