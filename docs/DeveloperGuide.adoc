@@ -729,6 +729,8 @@ Below is a sequence diagram illustrating the processes that occur when the user 
 image::InteractiveParserSequenceDiagram.png[]
 {empty} +
 
+[NOTE]
+The sequence diagram incorrectly extends the life-line of the three destroyed `State` classes. This is due to a limitation of PlantUML.
 
 The high-level working of the `Parser` can be summarized by the activity diagram shown below.
 
