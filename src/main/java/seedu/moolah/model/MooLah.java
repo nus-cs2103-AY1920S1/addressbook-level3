@@ -62,8 +62,8 @@ public class MooLah implements ReadOnlyMooLah {
     }
 
     /**
-     * Replaces the contents of the expense list with {@code expenses}.
-     * {@code expenses} must not contain duplicate expenses.
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);

@@ -10,14 +10,8 @@
 == Overview
 
 This Project Portfolio documents my contributions to MooLah, a project made in NUS' Software Engineering module.
-//Expense tracker is inherently troublesome...
-//streamline this process
-//Add natty and refer to top
-//UG - quick start - Copy the file to the folder you want to use as the home folder for Alfred.
 
-//provide context - module
-//all features of app
-My team consisting of 5 Computer Science students were tasked to enhance an existing project, Address Book Level 3.
+My team, consisting of 5 Computer Science students, was tasked to enhance an existing project, Address Book Level 3.
 Over the course of the semester, we morphed the original Address Book code into MooLah, an expense tracker that accepts input
 through the Command Line Interface (CLI). We found many existing expense trackers on the market to be relatively
 troublesome and hence sought to create a hassle-free expense tracker specifically tailored to NUS students. MooLah has
@@ -57,7 +51,7 @@ natural language date-time parsing (e.g. 'tomorrow', '1 week ago').
 * *Other contributions*:
 
 ** Project management:
-*** Oversaw code quality across the project (i.e. made sure code adhered to good software engineering principles)
+*** Oversaw code quality across the project (i.e. made sure code adhered to good software engineering principles) (https://github.com/AY1920S1-CS2103T-T11-1/main/pull/288[Example])
 *** Managed and assigned issues that arose from the bug-testing session of the Mock Practical Examination
 ** Testing:
 *** Refactored existing tests to include the newly added datetime field of expenses
@@ -77,18 +71,16 @@ https://github.com/AY1920S1-CS2103T-T11-1/main/pull/100[#100]
 == Contributions to the User Guide
 
 |===
-|_Given below are the *major* sections I contributed to the User Guide.
+|_Given below are my *major* contributions to MooLah's User Guide.
 They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=expenses]
 
 include::../UserGuide.adoc[tag=events]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are the *major* sections I contributed to the Developer Guide.
+|_Given below are my *major* contributions to MooLah's Developer Guide.
 They showcase my ability to write technical documentation and the technical depth of
 my contributions to the project._
 |===

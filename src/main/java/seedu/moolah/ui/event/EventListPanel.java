@@ -14,7 +14,7 @@ import seedu.moolah.ui.panel.Panel;
 import seedu.moolah.ui.panel.PanelName;
 
 /**
- * Panel containing the list of expenses.
+ * Panel containing the list of events.
  */
 public class EventListPanel extends Panel {
     public static final PanelName PANEL_NAME = new PanelName("Event List");

@@ -583,40 +583,47 @@ storage.
 === Events feature
 ==== Implementation
 
-The Events feature allows users to add events that are supposed to occur on a future date. On launch, MooLah will
-remind users of upcoming events. MooLah will also notify the user about any events that are supposed to have
-transpired, and allow them to automatically add these events as expenses.
+The Events feature allows users to add events that are supposed to occur on a future date.
 
-The Events feature supports the `add`, `delete` and `events` command words.
+On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
+and allow them to automatically add these events as expenses.
 
-Events are added the same way expenses are added on the command line. When the user inputs an add command,
-MooLah determines whether an event or an expense should be added based on the date the user inputted in his command.
-This is illustrated below:
+image::EventClassDiagram.png[]
 
-image::AddExpenseOrEventActivityDiagram.png[]
+Like expenses, events hold two Descriptions (one for its details and one fir the budget it belongs to), a Price, a Timestamp
+and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
+the potential conversion of the Event into an Expense through the `convertToExpense` method. This method is called when the user
+accepts the automated addition of an expense from the corresponding event, into the budget that the event was added into a while back.
+Since Event's fields are a subset of that of Expense, all its fields are passed into the Expense constructor during the conversion, and a
+unique identifier is then generated to complete the creation of the expense, allowing it to be added to MooLah.
 
-The following sequence diagram shows how MooLah handles transpired events on launch:
+The Events feature supports the `addevent`, `deleteevent`, `editevent` and `listevent` command words.
+
+As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
+
+image::DisplayReminders.png[]
+
+To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
+on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
+The following sequence diagram shows how MooLah handles transpired events:
 
 image::TranspiredEventsSequenceDiagram.png[]
 
-1. When MooLah launches, the `start` method of `UiManager` is called. `UiManager` then calls the `handleTranspiredEvents`
-of `MainWindow`, which fetches all transpired events and notifies the user about them. It does so by first obtaining the
-transpired events from the `Timekeeper` class by calling a series of getter methods.
+1. When MooLah launches, the `start` method of `UiManager` is called. Every 10 seconds, `UiManager` calls `updateTime` of
+Timekeeper to update system time, then calls the `handleTranspiredEvents` of `MainWindow`, which fetches all transpired
+events and notifies the user about them. It does so by first obtaining the transpired events from the `Timekeeper` class.
 
 2. Once the transpired events have been obtained, for each transpired event, a new `TranspiredEventWindow` will be
-constructed. The transpired event will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
+constructed. The transpired event is deleted from the model and will then be passed via `show`, a method of the newly constructed `TranspiredEventWindow`.
 `show` will create a popup window that details the transpired event, and asks the user whether it should be added as an
 expense. This popup window will have a 'Yes' and 'No' button.
 
-3. If the user presses the 'Yes' button, the original command that the user inputted to add this particular event is fetched
-and passed to the `execute` method of `LogicManager`, which executes command line inputs. Since the timestamp within this
-original command now denotes a past or present date, an expense will be added.
+3. If the user presses the 'Yes' button, the event is passed to the `addExpenseFromEvent` method of `LogicManager`, where
+it is then converted into its corresponding expense, and a command to add the expense is run.
 
 4. If the user presses the 'No' button, the expense is not added.
 
 5. After pressing either button, the popup window closes.
-
-NOTE: As of Week 10, adding expenses to the same budget the event was added to is still a work in progress.
 
 ==== Design Considerations
 
@@ -631,10 +638,10 @@ NOTE: As of Week 10, adding expenses to the same budget the event was added to i
 ** Cons: The distinction between events and expenses is more blurry to the user
 
 * **Solution (Current Implementation): **
-Adopt Alternative 2. Since an event is ultimately an optional future expense that triggers on its
-due date, it is significantly more intuitive and natural to allow users to add events the same way they add expenses.
-MooLah can then easily tell whether the user intends to add an expense or an event by looking at the timestamp
-the user inputs in the command.
+Adopt Alternative 1. Although Alternative 2 is more intuitive, it is not suited to our current implementation of
+generic command words. Since command words such as `add` and `delete` now result in different commands based on which
+panel the user is on, MooLah's parser would not know whether users want to add an event or expense if they type `add` while on an event
+or expense panel. This necessitates the splitting of expense and event commands into two separate command words.
 
 
 ===== Future Implementation (Coming in v2.0)
@@ -975,14 +982,6 @@ to enter the command as well as a more functional input field.
 
 
 // end::SyntaxAutofill[]
-
-
-// category::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -1566,7 +1565,7 @@ Clearing all budgets in MooLah
 
 === Editing an expense from budget panel
 
-.. Prerequisites: Go to primary budget panel using the `view priamry budget` command. Multiple expenses in the list.
+.. Prerequisites: Go to primary budget panel using the `view primary budget` command. Multiple expenses in the list.
 .. Test case: `editexpense-primary 1 d/a` +
    Expected: First expense's description is updated to "a".
 .. Test case: `editexpense-primary 1 p/5` +
@@ -1575,3 +1574,13 @@ Clearing all budgets in MooLah
    Expected: No expense is edited. Error details shown in the result display message.
 .. Other incorrect editexpense-primary commands to try: `editexpense-primary`, `editexpense-priamry x d/a` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Testing events
+.. Test case: `addevent d/ test p/ 10 c/ Shopping t/ a week from now` +
+   Expected: A success message will appear.
+.. Now, view the event list using either `listevent` or `view event list`.
+   Expected: The event with description `test` should be at the bottom of the event list.
+.. Edit the expense via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
+   Expected: A success message will appear.
+.. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
+Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
