@@ -943,11 +943,11 @@ You can use kbd:[control] to navigate along the various prefixes.
 //end::autocomplete[]
 
 
-tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+// tag::dataencryption[]
+// === Encrypting data files `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+// _{explain how the user can enable/disable data encryption}_
+// // end::dataencryption[]
 
 //
 
