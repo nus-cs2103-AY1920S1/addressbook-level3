@@ -82,7 +82,8 @@ _Ledger_ commands consist of:
 . `receive` : logs a single payment from a friend
 
 === Projection
-The _Projections_ feature allows you to project your:
+By using the _Projection_ feature, you can project your:
+The _Projection_ feature allows you to project your:
 
 . Account Balance
 
@@ -474,6 +475,7 @@ image::Receive2.png[pdfwidth=70%]
 Albert is removed from the _Ledger_ since he no longer owes any money. _Ledger_ balance is also updated accordingly.
 //end::receive[]
 
+//tag::project[]
 [[Project]]
 === Projecting Future Balance and Budgets : `project`
 
@@ -570,7 +572,10 @@ image::project6.png[]
 ===== Backward Projections
 While it is possible in _PalPay_, projecting your balance amount backwards in time is not guaranteed to
 produce sensible results. It is generally not advisable to do so.
+//end::project[]
 
+[[Display]]
+// tag::display[]
 === Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
@@ -585,7 +590,7 @@ image::display1.png[]
 +
 . A new window containing a graphical representation of the specified projection will pop up.
 +
-image::display2.png[]
+image::display2.png[pdfwidth=50%]
 +
 If there are any budgets associated with the projection, a corresponding graphical
 representation of the budget will be additionally displayed.
@@ -642,6 +647,8 @@ Due to the static nature of projection graphs, commands should *NOT* be executed
 graph is open, lest the behaviour of PalPay become unpredictable. +
 Consequently, a `display` command should *ALWAYS* be followed by closing the projection graph window, before
 any other actions are performed within _PalPay_.
+
+// end::display[]
 
 [[View]]
 // tag::view[]
@@ -1041,8 +1048,10 @@ Example: `set $/100 d/10102019 c/food`
 Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/HaiDiLao`
 * <<Receive, *Receive*>> : `receive $/AMOUNT n/NAME` +
 Example:  `receive $/20 n/Albert`
-* <<Project, *Project*>> : `project DURATION` +
-Example: `project d/22072020`
+* <<Project, *Project*>> : `project DATE CATEGORY` +
+Example: `project d/22072020 c/Food`
+* <<Display, *Display*>> : `display PROJECTION_ID` +
+Example: `project p1`
 * <<View, *View*>> : `view TAB` +
 Example: `view transaction`
 * <<Delete, *Delete*>> : `delete TYPE+INDEX` +
