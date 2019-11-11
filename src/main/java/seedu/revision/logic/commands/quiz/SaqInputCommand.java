@@ -30,7 +30,7 @@ public class SaqInputCommand extends Command {
         Answer selectedAnswer = new Answer(saqInput);
 
         requireNonNull(selectedAnswer);
-        boolean result = currentAnswerable.isCorrect(selectedAnswer);
+        boolean result = currentAnswerable.isAnswerCorrect(selectedAnswer);
 
         return new CommandResultBuilder().withCorrect(result).build();
     }

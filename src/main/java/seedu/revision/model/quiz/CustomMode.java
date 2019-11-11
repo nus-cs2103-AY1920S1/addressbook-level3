@@ -10,7 +10,7 @@ import seedu.revision.model.answerable.Answerable;
 public class CustomMode extends Mode {
 
     public CustomMode() {
-        super("custom");
+        super(Modes.CUSTOM.toString());
         this.time = NormalMode.NORMAL_MODE_TIME;
         this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }

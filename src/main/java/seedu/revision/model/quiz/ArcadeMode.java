@@ -7,7 +7,7 @@ public class ArcadeMode extends Mode {
      * time and combinedPredicate.
      */
     public ArcadeMode() {
-        super("arcade");
+        super(Modes.ARCADE.toString());
         this.time = 30;
         this.combinedPredicate = NormalMode.NORMAL_MODE_PREDICATE;
     }
