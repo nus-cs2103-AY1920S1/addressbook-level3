@@ -1,39 +1,181 @@
-The appointment class extends NurseTraverse with the following functionalities:
+==== Implementation Overview
 
-* Lists all appointments nurses have scheduled, including reference to patient details, appointment time, date, and duration, medication to be carried for each appointment, and additional details associated with the appointment.
-* Displays appointments in the side screen with a calendar and also a list of the next earliest appointments for the day/week.
-* Supports finding specific appointments by patient name or other parameters
-* Supports recurring tasks (e.g. weekly appointments)
-* Allows adding, deleting, and editing of appointments
-* Sends notifications/reminders to nurses on upcoming appointments
+The appointments management feature is facilitated primarily by the `AppointmentBook`, a class that implements the `ReadOnlyAppointmentBook` interface and wraps around all appointments data of the app.
+This is a new book (different from the `PatientBook`) that is now required by the `ModelManager` class for instantiation along with `UserPrefs` and `PatientBook`. The `AppointmentBook` is, therefore, a field in the `ModelManager` class.
+The `AppointmentBook` has `appointments`, which is a `UniqueAppointmentList`, as a private field that holds all appointments currently in the `AppointmentBook` as a unique list. This list is modified from certain method calls in the `ModelManager` class.
+
+The operations of the `ReadOnlyAppointmentBook` interface that the `AppointmentBook` implements:
+
+* `AppointmentBook#getAppointmentList()` - Returns an unmodifiable view of the appointments list in the `AppointmentBook`.
+* `AppointmentBook#deepCopy()` - Returns a deep copy of the `AppointmentBook`.
+
+Apart from the above, the other main operations (both public and private methods) that the `AppointmentBook` implements include:
+
+* `AppointmentBook#setAppointments(List<Appointment> appointments)` -- Replaces the contents of the private `appointments` field with `appointments` passed in as argument.
+* `AppointmentBook#setFinishedAppointments(List<Appointment> appointments)` -- Replaces the contents of the private `finishedAppointments` field with `appointments` passed in as argument (layout for a possible feature <<Displaying Finished Appointments>> in V2.0).
+* `AppointmentBook#resetData(ReadOnlyAppointmentBook newData)` -- Resets the existing data of the `AppointmentBook` with `newData`.
+* `AppointmentBook#hasAppointment(Appointment appointment)` -- Returns true if an appointment with the same identity as the `appointment` argument exists in the `AppointmentBook`.
+* `AppointmentBook#hasClashingAppointment(Appointment appointment)` -- Returns true if an appointment with clashing time as the `appointment` argument exists in the `AppointmentBook`.
+* `AppointmentBook#addAppointment(Appointment a)` -- Adds an appointment `a` to the `AppointmentBook`.
+* `AppointmentBook#setAppointment(Appointment target, Appointment editedAppointment)` -- Replaces the given appointment `target` in the list of the `AppointmentBook` with the `editedAppointment`.
+* `AppointmentBook#editAppointments(Patient patientToEdit, Patient editedPatient)` -- Replaces all appointments with the `patientToEdit` in the list with `editedPatient`.
+* `AppointmentBook#removeAppointment(Appointment key)` -- Removes `key` from the `AppointmentBook`. +
+**Note: If appointment `key` is recurring, the appointment is recurred to get the next start and end date times of this appointment, and this next appointment is added to the the `AppointmentBook`.**
+* `AppointmentBook#removeRecurringAppointment(Appointment key)` -- Removes `key` from the `AppointmentBook` permanently. **Does not** recur the appointment `key`.
+* `AppointmentBook#removeAppointments(Patient patient, Index patientIndex)` -- Removes all appointments with this `patient` from the `AppointmentBook`.
+* `AppointmentBook#getRecurredAppointment(Appointment key)` -- Returns the next (recurred) appointment for `key` based on the recurring frequencies of years, months, etc. of the appointment `key` and its current start and end date and time.
+* `AppointmentBook#addRecurringAppointment(Appointment key)` -- Adds same appointment `key` with the next date time if previous one was deleted and was recurring.
 
 ==== Model
 
-All appointments are stored and managed in the `AppointmentBook`.
+The operations in the `AppointmentBook` are exposed to in the `Model` interface. `Model` implements the methods following operations to accommodate for the inclusion of the `AppointmentBook` and its related methods:
 
-`Model` implements the following operations to accommodate for the `AppointmentBook`:
-
-* `Model#setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook)` -- Replace appointment book in the Model with data from the `ReadOnlyAppointmentBook appointmentBook` passed in as argument.
-* `Model#replaceStagedAppointmentBook(List<Appointment> appointments)` -- Replace all appointments in appointment book with new appointments from the list.
-* `Model#getStagedAppointmentBook()` -- Return the current AppointmentBook.
-* `Model#hasAppointment(Appointment appointment)` -- Return true if an appointment with the same identity as the appointment passed in as argument exists in the appointment list.
-* `Model#deleteAppointment(Appointment target)` -- Delete the given appointment. The appointment must exist in the appointment list.
-* `Model#addAppointment(Appointment appointment)` -- Add the given appointment. The appointment passed in as argument must not already exist in the appointment list.
-* `Model#setAppointment(Appointment target, Appointment editedAppointment)` -- Replace the given appointment `target` with `editedAppointment`. `target` must exist in the appointment list. The appointment identity of `editedAppointment` must not be the same as another existing appointment in the appointment list.
-* `Model#ObservableList<Appointment> getStagedAppointmentList()` -- Return an unmodifiable view of the entire appointment list.
-* `Model#FilteredList<Appointment> getFilteredAppointmentList()` -- Return an unmodifiable view of the filtered appointment list.
-* `Model#void updateFilteredAppointmentList(Predicate<Appointment> predicate)` -- Update the filter of the filtered appointment list to filter by the given `predicate`. Throws `NullPointerException` if `predicate` is `null`.
+* `Model#setStagedAppointmentBook(ReadOnlyAppointmentBook appointmentBook)`
+* `Model#replaceStagedAppointmentBook(List<Appointment> appointments)`
+* `Model#getStagedAppointmentBook()`
+* `Model#hasAppointment(Appointment appointment)`
+* `Model#hasClashingAppointment(Appointment appointment)`
+* `Model#deleteAppointment(Appointment target)`
+* `Model#deleteRecurringAppointment(Appointment target)`
+* `Model#deleteAppointments(Patient target, Index targetIndex)`
+* `Model#addAppointment(Appointment appointment)`
+* `Model#setAppointment(Appointment target, Appointment editedAppointment)`
+* `Model#setAppointments(Patient patientToEdit, Patient editedPatient)`
+* `Model#ObservableList<Appointment> getStagedAppointmentList()`
+* `Model#FilteredList<Appointment> getFilteredAppointmentList()`
+* `Model#void updateFilteredAppointmentList(Predicate<Appointment> predicate)`
 
 ==== Model Design Considerations
 
+===== Aspect: Where to wrap all appointments data in
+
+* **Alternative 1 (current choice):** Create `AppointmentBook` to wrap around all appointments and add it as a field of `ModelManager`.
+
+** Pros:
+*** Splitting the `AddressBook` into `PatientBook` and `AppointmentBook` clearly demarcates the handling of patients and appointments separately.
+*** When there are changes made to the appointments, only the `AppointmentBook` is modified, i.e. there is no need to, for example, refresh the data for patients.
+
+** Cons:
+*** Overhead of more methods in the `Model` needed separately for the changes made in the `AppointmentBook`.
+*** Major refactoring was needed in many classes and tests since there were changes to the constructor and fields of the `ModelManager`.
+
+* **Alternative 2:** Modify the original `AddressBook` to have two unique lists as fields within it, one for patients and one for appointments.
+
+** Pros:
+*** The number of extra methods added to the `Model` could have been reduced since some methods may do the same operation on both appointment and patient lists.
+
+** Cons:
+*** Principle of separation of concerns may be violated.
+*** Optimization might be compromised, since methods intended to operate only on the specific patient or appointment lists might operate on the whole `AddressBook` unnecessarily.
+
 ==== Logic
+
+The following logical `Parser` classes to parse user commands' arguments, and the corresponding `Command` classes they returned were implemented:
+
+1. `FindAppointmentParser` returns `FindAppointmentCommand` - Finds and lists all appointments in appointment book whose name contains any of the argument keywords. +
+The `COMMAND_WORD` for this command is `appt-find`.
+2. `AddAppointmentParser` returns `AddAppointmentCommand` - Adds an appointment to the appointment list. +
+The `COMMAND_WORD` is `appt-add`.
+3. `EditAppointmentParser` returns `EditAppointmentCommand` - Edits the details of an existing appointment in the appointment book. +
+The `COMMAND_WORD` is `appt-edit`.
+4. `DeleteAppointmentParser` returns `DeleteAppointmentCommand` - Deletes an appointment identified using it's displayed index from the appointment book.
+For recurring appointments, the recurring appointment is deleted and the next recurred one is added to the appointment list. +
+The `COMMAND_WORD` is `appt-delete`.
+5. `DeleteAppointmentPermanentlyParser` returns `DeleteAppointmentPermanentlyCommand` - Deletes permanently a recurring appointment identified using it's displayed index from the appointment book. +
+The `COMMAND_WORD` is `appt-delete-permanent`.
+6. `ListAppointmentCommand` - Lists all appointments in the appointment book.
+Note: The `ListAppointmentCommand` does not have a parser as it does not have any arguments to parse. +
+The `COMMAND_WORD` is `appt-list`.
 
 ==== Logic Design Considerations
 
+===== Aspect: Deleting recurring appointments permanently
+
+* **Alternative 1 (current choice):** Create `DeleteAppointmentPermanentlyParser` and `DeleteAppointmentPermanentlyCommand` as new classes independent of the `DeleteAppointmentParser` and `DeleteAppointmentCommand` classes.
+
+** Pros:
+*** A simple solution that clearly separates cases of when an appointment is deleted permanently from the list versus when the appointment is deleted and the recurred next appointment is added to the list.
+
+** Cons:
+*** Does not really separate the cases of recurring appointments from non-recurring ones since `appt-delete-permanent` can be applied on both recurring and non-recurring appointments.
+*** There might be fragments of code in both classes that are common and could be extracted out and reused instead.
+
+* **Alternative 2:** Create `DeleteAppointmentPermanentlyParser` and `DeleteAppointmentPermanentlyCommand` as new classes that now extend from the `DeleteAppointmentParser` and `DeleteAppointmentCommand` classes.
+
+** Pros:
+*** By extending, code reusability is increased.
+*** It also makes sense in terms of class structure for such an extension, since deleting an appointment permanently is a more specific case of deleting an appointment and also allowing to recur it and then add it back (if it was a recurring appointment).
+
+** Cons:
+*** This still does not resolve the issue of separation deletion of recurring appointments from non-recurring ones.
+*** Despite extending, there may not be too much code overlap. Also, considering that new methods will have to be added to the `Model` for each case of permanent and non-permanent deletion, the extension might well prove to be unecessary.
+
+* **Alternative 3:** Create `DeleteRecurringAppointmentParser` and `DeleteRecurringAppointmentCommand` as new classes independent from the `DeleteAppointmentParser` and `DeleteAppointmentCommand` classes. +
+But `DeleteRecurringAppointmentCommand` can only be applied to appointments that are recurring.
+
+** Pros:
+*** Demarcates recurring and non-recurring appointments deletion better since the user will now have only one way to delete non-recurring appointments, i.e. through `appt-delete`.
+
+** Cons:
+*** Can be a bit restrictive since one command is reserved for only recurring appointments.
+*** The names of these classes can be a bit misleading since `appt-delete` can still be applied on both recurring and non-recurring appointments.
+
+==== Storage
+
+The `AppointmentBook` and `Appointment` class have the `JsonSerializableAppointmentBook` and `JsonAdaptedAppointment` classes respectively to allow saving of appointments data to `appointmentBook.json` and reading data from it.
+
+[IMPORTANT]
+
+=====
+
+The reading of appointments data from storage currently does not check if there are clashing appointments.
+Hence, any modifications to the `appointmentBook.json` directly (i.e. not through tha app) that result in clashing appointments will be just loaded as normal onto the app, but lead to undesirable results.
+
+=====
+
+==== Storage Design Considerations
+
+===== Aspect: How to handle appointments that have finished (i.e. are before the system date and time)
+
+* **Alternative 1 (current choice):** `AppointmentBook` has two fields of `UniqueAppointmentList`: `appointments` and `finishedAppointments`. +
+When data is read from the storage, all appointments that are past the system date and time are stored in the `appointments` list, while those that are finished are stored in the `finishedAppointments` list. +
+After the app is closed, all appointments in the `finishedAppointments` list are not saved.
+
+** Pros:
+*** Ensures a clear distinction between appointments that have finished and those that are still only scheduled and yet to happen.
+***
+
+** Cons:
+*** Throws away the finished appointments every time app is closed.
+*** No indication to the user that certain appointments finished and so are no longer displayed in the list of appointments.
+
+* **Alternative 2:** As before, but once the app is closed, appointments both in `appointments` and `finishedAppointments` list are saved.
+
+** Pros:
+*** Still ensures a clear distinction between appointments that have finished and those that are still only scheduled and yet to happen.
+*** Keeps the finished appointments.
+
+** Cons:
+*** Might need to handle the reading and saving of the finished appointments differently from the main appointment list.
+*** Need to consider whether user deleting an appointment implies the user wants it marked as finished or wants to remove it completely. If the former is the case,  the delete appointment command would need to modify the `finishedAppointments` list, and that is an overhead.
+
 ==== UI
 
-A list of `Appointment` s are displayed on a side pane with `appt-list` and `appt-find`.
+The list of `Appointment` s are displayed on a separate tab in the app.
 
-A side pane is split into two parts, the top consisting of a calendar of the current month with the appointments marked for that month, and the bottom pane has the upcoming list of appointments for the week.
+=== Use Case
 
-==== UI Design Considerations
+Appointment Management is used when the user wants to schedule an appointment with the patient. There are 6 actions that a user can perform:
+
+image::AppointmentManagementUseCase.png[]
+
+Perhaps the most complex workflow is when a user deletes a recurring appointment.
+In doing so, as indicated in the Use Case diagram above, the appointment is first deleted from the list of appointments.
+The appointment is then recurred to get the next appointment (i.e. with the next start and end date time), and added to the list of appointments by directly calling the `AppointmentBook#addRecurringAppointment` method.
+Assuming the first appointment in the appointment list is recurring. The following sequence diagrams show the object interactions for user command `appt-delete 1`:
+
+image::AppointmentManagementSequenceDiagram.png[]
+_Figure_
+
+image::AppointmentManagementSequenceDiagramRef.png[]
+

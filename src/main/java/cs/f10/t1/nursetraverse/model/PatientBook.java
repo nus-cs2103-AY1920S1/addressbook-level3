@@ -19,7 +19,7 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the patient-book level
  * Duplicates are not allowed (by .isSamePatient comparison)
  */
 public class PatientBook implements ReadOnlyPatientBook {
