@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`help`* : Links you to the User Guide so you can view how to use all the available commands.
-* **`add_task`**`c/CS2103T Lecture mark/Y tt/20/9/2019 16:00, 20/9/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
+* **`add_task`**`c/CS2103T Lecture mark/Y tt/20/90/2019 16:00, 20/90/2019 18:00` : adds a classId named CS2103T that is on 20th September 2019 4pm.
 * **`claimed earnings`**`02/07/2022 CS2100` : marks that you have claimed this earnings.
 * *`exit`* : exits the app
 
@@ -140,7 +140,8 @@ Format: `edit_task INDEX [c/CLASSID] [mark/STATUS] [tt/TASK_TIME]`
 
 [TIP]
 INDEX must be a positive integer. +
-At least one element inside task should be edited.
+At least one element inside task should be edited. +
+If key in a Task Time, it can be empty.
 
 
 Examples:
@@ -186,12 +187,12 @@ Examples:
 image:UserGuide/find_task_1.png[width="500"]
 image:UserGuide/find_task_2.png[width="500"]
 
-* `find_task_by_module CS2103T, cs2100`
+* `find_task_by_module CS2103T cs2100`
 
 ==== Finding tasks based on Date : `find_task_by_date`
 
 Find specific tasks by Date and list them. +
-Format: `find_task_by_date DATE ...`
+Format: `find_task_by_date DATE`
 
 ****
 * The `DATE` should be in the format dd/MM/YYYY. e.g 12/10/2019
@@ -259,6 +260,7 @@ Examples:
 arguments are allowed for `TYPE`.
 * `DATE` format must be done in `DD/MM/YYYY` or `DD-MM-YYYY` format.
 * `AMOUNT` has a max value of 1 000 000.00 and should not contain commas.
+* Check both task list and reminder list to see if there is any task with same Class Id before add a new task.
 ****
 
 ==== Update Earnings: `update_earnings`
@@ -684,7 +686,7 @@ _{explain how the user can enable/disable data encryption}_
 `edit_task INDEX [mark/STATUS] [tt/TASK_TIME]` +
 `delete_task 1` +
 `find_task_by_module MODULE ...` +
-`find_task_by_date DATE ...` +
+`find_task_by_date DATE` +
 `list_task`
 * *Reminder* : `reminder INDEX STATUS`
 * *Earnings* : +

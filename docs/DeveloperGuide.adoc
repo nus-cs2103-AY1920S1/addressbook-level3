@@ -726,9 +726,10 @@ Step 5. The user then decides to execute the command `list`. Commands that do no
 image::UndoRedoState4.png[]
 
 Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
+// end::undoAndRedo[]
 
 image::UndoRedoState5.png[]
-// end::undoAndRedo[]
+
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -977,3 +978,70 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+// tag::ManualTestTask[]
+=== Adding a task
+
+. Add a task and list all tasks out with the added task.
+
+.. Test case: `add_task c/CS2103T mark/Y tt/13/09/2019 13:00, 20/09/2019 16:00` +
+   Expected: A marked task with Class Id "CS2103T" and Task Time "13/09/2019 13:00 to 16:00" was added to the task list. Details of the added task shown in the status message. Task list shown in Main window.
+.. Test case: `add_task` +
+   Expected: No task is added. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `add_task task`, `add_task c/ mark/ tt/`
+
+=== Editing a task
+
+. Edit a task and list all tasks out with the edited task.
+
+.. Test case: `edit_task 1 c/CS2103` +
+   Expected: The first task in the task list's Class Id changed to CS2103. Details of the edited task shown in the status message. Task list shown in Main window.
+.. Test case: `edit_task c/cs2103` +
+   Expected: No task is changed. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `edit_task` `edit_task 1 c/`
+.. Reminder: Make sure the index of the task is not larger than the total number of tasks in task list.
+
+// end::ManualTestTask[]
+
+=== Deleting a task
+
+. Delete a task and list all tasks out without the deleted task.
+
+.. Test case: `delete_task 1` +
+   Expected: The first task in the task list was deleted. Details of the deleted task shown in the status message. Task list shown in Main window.
+.. Test case: `delete_task` +
+   Expected: No task is deleted. Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `delete_task 0` `delete_task 1 c/`
+.. Reminder: Make sure the index of the task is not larger than the total number of tasks in task list.
+.. Reminder: If you add a marked task then delete it, remember to delete it in Reminder also so that you can add another marked task with same Class Id.
+
+=== Finding a task
+
+. Find tasks by their Class Id or its Task Time.
+
+.. Test case: `find_task_by_module cs2100` +
+   Expected: All tasks that Class Id contains "cs2100" (regardless case of the letters) were shown in the MainWindow. Number of tasks found were stated in the status message.
+.. Test case: `find_task_by_date 20/10/2019` +
+   Expected: All tasks that Task Time contains "20/10/2019" were shown in the MainWindow. Number of tasks found were stated in the status message.
+.. Test case: `find_task_by_module` +
+   Expected: Error details and correct format shown in the status message.
+.. Other incorrect command format to try: `find_task_by_date`, `find_task_by_date 13/10/2019 15/10/2019`
+.. Reminder: Tasks can be found by multiple numbers of Class Ids but only one Date.
+
+=== Listing all tasks
+
+. List out all tasks.
+
+.. Test case: `list_task` +
+   Expected: All tasks were listed in Main Window.
+.. Test case: `list tasks` +
+   Expected: Error details shown in the status message.
+
+=== Undoing/Redoing commands
+
+. Undo or redo previous commands.
+
+.. Test case: `delete_task 1` + `undo` +
+   Expected: The previously deleted task reappeared in the list.
+.. Test case: `delete_task 1` + `undo` + `redo` +
+   Expected: The recovered task was deleted again from the list.
