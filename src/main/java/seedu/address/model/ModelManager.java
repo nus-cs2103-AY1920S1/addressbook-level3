@@ -401,7 +401,6 @@ public class ModelManager implements Model {
         int numOfAvailableStaff = getNumberOfDutyShiftInConflict(appointment);
         ListIterator<Event> itr = getAppointmentsInConflict(appointment);
 
-        //TODO: edge case, scheduling a staff member
         if (hasStaff(appointment.getPersonId())) {
             throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }
@@ -410,8 +409,8 @@ public class ModelManager implements Model {
         while (itr.hasNext()) {
             Event apt = itr.next();
             countNumberOfConcurrentAppointments++;
-            if (appointment.getPersonId().isSameAs(apt.getPersonId())
-                    && !apt.equals(ignoreEventCase)) {
+            if (appointment.getPersonId().isSameAs(apt.getPersonId()) && !apt.equals(ignoreEventCase)) {
+
                 throw new InvalidEventScheduleChangeException(
                         String.format(MESSAGE_NOT_OVERLAPPING_APPOINTMENT, apt.getPersonName().toString(),
                                 apt.getEventTiming().toString()));
@@ -469,7 +468,6 @@ public class ModelManager implements Model {
     public int getNumberOfAppointmentsInConflict(Event toCheck) {
         return appointmentBook.countNumberOfEventsInConflict(toCheck);
     }
-
 
     //=========== Filtered Event List Accessors =============================================================
 
@@ -605,7 +603,6 @@ public class ModelManager implements Model {
      */
     private void checkValidScheduleDutyShift(Event dutyShift, Event ignoreEventCase)
             throws InvalidEventScheduleChangeException {
-        //TODO: edge case, scheduling a staff member
         if (hasPatient(dutyShift.getPersonId())) {
             throw new InvalidEventScheduleChangeException(MESSAGE_SCHEDULE_APPOINTMENT_FOR_STAFF);
         }

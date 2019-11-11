@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.patients;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,9 +19,9 @@ import seedu.address.model.person.predicates.PersonContainsKeywordPredicate;
 import seedu.address.testutil.TestUtil;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code ListPatientCommand}.
  */
-public class FindCommandTest {
+public class ListPatientCommandTest {
     private Model model;
     private Model expectedModel;
 
@@ -38,14 +38,14 @@ public class FindCommandTest {
         PersonContainsKeywordPredicate secondPredicate =
                 new PersonContainsKeywordPredicate("second");
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        ListPatientCommand findFirstCommand = new ListPatientCommand(firstPredicate);
+        ListPatientCommand findSecondCommand = new ListPatientCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        ListPatientCommand findFirstCommandCopy = new ListPatientCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -62,7 +62,7 @@ public class FindCommandTest {
     public void execute_zeroKeywords_noPersonFound() {
         PersonContainsKeywordPredicate predicate = preparePredicate("xx");
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0, predicate.toString());
-        FindCommand command = new FindCommand(predicate);
+        ListPatientCommand command = new ListPatientCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPatientList());
@@ -72,7 +72,7 @@ public class FindCommandTest {
     public void execute_multipleKeywords_personsFound() {
         PersonContainsKeywordPredicate predicate = preparePredicate("Elle");
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1, predicate.toString());
-        FindCommand command = new FindCommand(predicate);
+        ListPatientCommand command = new ListPatientCommand(predicate);
         expectedModel.updateFilteredPatientList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ELLE), model.getFilteredPatientList());
