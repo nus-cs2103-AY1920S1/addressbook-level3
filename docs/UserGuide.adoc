@@ -813,6 +813,18 @@ application, even after you exit the application!
 command! This means that you can undo and redo up to a thousand commands with
 a single undo or redo command.
 
+.Display for undo/redo
+image::ug/undo-redo-1.png[]
+
+.Display for undo/redo
+image::ug/undo-redo-2.png[]
+
+.Display for undo/redo
+image::ug/undo-redo-3.png[]
+
+.Display for undo/redo
+image::ug/undo-redo-4.png[]
+
 [NOTE]
 JARVIS undo and redo commands in a specific sequence:
  +
