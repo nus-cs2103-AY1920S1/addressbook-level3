@@ -38,18 +38,20 @@ Taking after reputable flashcard applications like Anki, FlashCard Pro provides 
 
 * *Other contributions*:
 
-** Project management:
+** Testing:
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/326[#326]
+*** Did product testing to ensure that the test mechanism was bug-free, along with other features and GUI, and various system integration tests.
+*** Spent a great deal of time trying to fix our CI environment because our project suddenly failed Travis
 
 ** Enhancements to existing features:
-*** Wrote additional tests (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional tests (Please refer to [test code] link above.)
 
 ** Documentation:
+** Documentation:
+*** Did documentation in Developer Guide. (See <<Contributions to the Developer Guide>> below)
 *** Maintained the Command List Summary (See Section 7 of <<Contributions to the User Guide>> below)
 
-
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-2/main/pull/205[#205], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/91[#91]
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167[#167])
 
 
