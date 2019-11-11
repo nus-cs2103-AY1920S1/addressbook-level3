@@ -44,10 +44,9 @@ public class CalendarDetailPanel extends UiPart<Region> {
      * name and attendance in the same row.
      */
     private void initialiseAttendanceData() {
-        if (model.hasTrainingOnDate(date)) {
-            addAttendanceChart();
-            addAttendanceTableHeader();
-            addAttendanceTableContent();
+        if (model.hasTrainingOn(date)) {
+            displayAttendanceChart();
+            displayAttendanceTable();
         } else {
             displayNoAttendanceError();
         }
@@ -56,7 +55,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
     /**
      * Adds a piechart indicating overall team attendance.
      */
-    private void addAttendanceChart() {
+    private void displayAttendanceChart() {
         List<AttendanceEntry> attendanceData = model.getTrainingAttendanceListOnDate(date);
         int total = attendanceData.size();
         int present = 0;
@@ -67,6 +66,14 @@ public class CalendarDetailPanel extends UiPart<Region> {
         }
         AttendanceChart chart = new AttendanceChart(present, total - present);
         attendanceBox.getChildren().add(chart.getRoot());
+    }
+
+    /**
+     * Adds table containing list of athletes and their attendance.
+     */
+    private void displayAttendanceTable() {
+        addAttendanceTableHeader();
+        addAttendanceTableContent();
     }
 
     /**
@@ -104,8 +111,8 @@ public class CalendarDetailPanel extends UiPart<Region> {
      */
     private void initialisePerformanceData() {
         if (model.hasPerformanceOn(date)) {
-            addPerformanceStats();
-            addPerformanceTable();
+            displayPerformanceStats();
+            displayPerformanceTable();
         } else {
             displayNoPerformanceError();
         }
@@ -114,7 +121,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
     /**
      * Adds a header indicating total number of performance records on a specified date.
      */
-    private void addPerformanceStats() {
+    private void displayPerformanceStats() {
         AtomicInteger counter = new AtomicInteger();
         HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
                 model.getCalendarCompatiblePerformance(date);
@@ -128,7 +135,7 @@ public class CalendarDetailPanel extends UiPart<Region> {
     /**
      * Adds performance data in the form of a table to {@code CalendarDetailPanel}.
      */
-    private void addPerformanceTable() {
+    private void displayPerformanceTable() {
         HashMap<Event, List<CalendarCompatibleRecord>> performanceData =
                 model.getCalendarCompatiblePerformance(date);
         performanceData.forEach((event, recordList) -> {

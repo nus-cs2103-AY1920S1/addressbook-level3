@@ -206,7 +206,7 @@ public interface Model {
      * @param date Date of training.
      * @return Boolean indicating if there was a training on {@code date}.
      */
-    boolean hasTrainingOnDate(AthletickDate date);
+    boolean hasTrainingOn(AthletickDate date);
 
     /**
      * Replaces performance data with the data in {@code performance}.

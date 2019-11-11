@@ -194,15 +194,18 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
-// tag::training[]
+// tag::training_intro[]
 === Training
 *Athletick* allows you to record your team's training sessions, so that you can store important information like
 date of training and training attendance. After adding a training session, you can look at past trainings to check
 attendance on that particular date. You can also edit training attendance or delete a training from *Athletick*.
+// end::training_intro[]
 
 NOTE: *Athletick* does not support recording of multiple trainings on the same date. Recording a training on the same
 date will replace the previous training. (see <<Edit attendance of an existing training session: `training` or `training -a`>>)
 
+
+// tag::training_present[]
 ==== Record training session by indicating athletes present : `training`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as present. You will need
@@ -229,7 +232,9 @@ If successfully added, the result box will display the following result as shown
 also appear at the date on the calendar, indicating that the training has been recorded.
 
 image::training_without_flag_after.png[width=350]
+// end::training_present[]
 
+// tag::training_absent[]
 ==== Record training session by indicating athletes absent : `training -a`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as absent. You will need
@@ -258,6 +263,9 @@ If successfully added, the result box will display the following result as shown
 will appear also at the date on the calendar, indicating that the training has been recorded.
 
 image::training_with_flag_after.png[width=350]
+// end::training_absent[]
+
+// tag::training_edit[]
 
 ==== Edit attendance of an existing training session: `training` or `training -a`
 This command allows you to edit the attendance of a training session. You will need the date of training and indexes
@@ -286,6 +294,10 @@ If successfully edited, the result box will display the following result as show
 
 image::edit_training_after.png[width=350]
 
+// end::training_edit[]
+
+// tag::training_delete[]
+
 ==== Delete a training session: `delete -t`
 This command allows you to delete a training session. You will need the date of the training session you wish to delete.
 
@@ -310,12 +322,21 @@ at the date will also disappear, indicating that it has been removed.
 
 image::delete_training_after.png[width=350]
 
+// end::training_delete[]
+
+// tag::attendance_intro[]
+
 === Attendance
 To save you the trouble of manually calculating your team's attendance, Athletick has an attendance tracker that
 checks your team's overall attendance for you as you record trainings.
 
+// end::attendance_intro[]
+
 After recording a training, you can check the attendance of an athlete
 (see <<Check attendance of an athlete : `attendance`>>) or check your team's attendance (see: <<Check overall attendance of your team : `view attendance`>>)
+
+
+// tag::attendance_command[]
 
 ==== Check attendance of an athlete : `attendance`
 This command allows you to check the attendance of an athlete.
@@ -340,6 +361,10 @@ the diagram below.
 
 image::attendance_command_after.png[width=350]
 
+// end::attendance_command[]
+
+// tag::view_attendance_command[]
+
 ==== Check overall attendance of your team : `view attendance`
 This command allows you to check the overall attendance of your team.
 
@@ -359,8 +384,9 @@ feature box will show you your team's overall attendance.
 
 image::view_attendance_after.png[width=350]
 
-// end::training[]
+// end::view_attendance_command[]
 
+// tag::performance[]
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
@@ -543,6 +569,9 @@ followed by a graph of their progress over time.
 
 image::viewrecords_wyss.png[width=450]
 
+// end::performance[]
+
+// tag::performance[]
 === Calendar
 
 To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -657,9 +686,10 @@ image::calendar10.png[width=450]
 
 In the event your list of attendance and performance records exceeds the size of the window, you may use the blue vertical scrollbar on the right of the feature box to scroll down.
 
-With reference to the diagram below, **Attendance Pie Chart** indicates the overall team attendance percentage and the number of present and absent team members. **Attendance Table** displays your team members and whether they were present or absent. **Performance Statistic** indicates the total number of performance records and **Performance Table** displays the records for each event.
+With reference to the diagram below, the **attendance pie chart** indicates the overall team attendance percentage and the number of present and absent team members. The **attendance table** displays your team members and whether they were present or absent. The **performance statistic** indicates the total number of performance records and the **performance table** displays the records for each event.
 
 image::calendar11.png[width=450]
+// end::performance[]
 
 === Athlete Management
 // tag::select[]
