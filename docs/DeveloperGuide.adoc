@@ -1724,4 +1724,3 @@ _{ more test cases ... }_
 .. Test case: `exchangerate` +
    Expected: All exchange rates stored by the application are displayed.
 
-_{ more test cases ... }_
