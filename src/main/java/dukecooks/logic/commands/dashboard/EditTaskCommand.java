@@ -37,6 +37,7 @@ public class EditTaskCommand extends EditCommand {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the DukeCooks.";
+    public static final String MESSAGE_NAME_IS_TOO_LONG = "Name entered cannot exceed 50 characters.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -58,6 +59,10 @@ public class EditTaskCommand extends EditCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -69,10 +74,9 @@ public class EditTaskCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        // Navigate to dashboard tab
-        Event event = Event.getInstance();
-        event.set("dashboard", "all");
-
+        if (editedTask.getDashboardName().fullName.length() > 30) { //prevent names with > 30 characters to be edited
+            throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
+        }
         model.setDashboard(taskToEdit, editedTask);
         model.updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));

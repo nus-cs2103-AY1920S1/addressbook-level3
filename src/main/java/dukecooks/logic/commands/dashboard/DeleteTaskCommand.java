@@ -37,6 +37,10 @@ public class DeleteTaskCommand extends DeleteCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -46,10 +50,6 @@ public class DeleteTaskCommand extends DeleteCommand {
         if (taskToDelete.getTaskStatus().getDoneStatus()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_IS_COMPLETE);
         }
-
-        // Navigate to dashboard tab
-        Event event = Event.getInstance();
-        event.set("dashboard", "all");
 
         model.deleteDashboard(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
