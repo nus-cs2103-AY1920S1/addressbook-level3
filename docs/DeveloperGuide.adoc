@@ -1178,8 +1178,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1282,14 +1280,11 @@ Use case ends.
 +
 Use case ends.
 
-*Extensions*
+*Proposed Extensions*
 
 * 2a. User chooses to edit cheatsheet.
 +
 2a1. User _edits cheatsheet (UC03)_.
-
-{Fix indent}
-
 +
 Use case ends.
 
@@ -1339,37 +1334,6 @@ Preconditions: StudyBuddyPro application is opened
 +
 Use case ends.
 
-*Extensions*
-
-* 15a. User wants to input additional flashcard hint.
-
-15a1. User inputs flashcard’s hint.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
-* 15b. User wants to input additional flashcard tags.
-
-15a2. User inputs flashcard’s tags.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
-* 15c. User wants to input additional hint and tags.
-
-15c1. User inputs flashcard’s hint.
-
-15c2. User inputs flashcard’s tags.
-
-{Todo markup indent}
-
-+
-Use case resumes from step 16.
-
 [discrete]
 === Use case: UC06 – Start <<time-trial,time trial>>
 
@@ -1390,35 +1354,6 @@ Use case resumes from step 16.
 7.	StudyBuddyPro starts time trial with specified parameters.
 +
 Use case ends.
-
-[discrete]
-=== Use case: User story 2
-
-*MSS*
-
-1.	User _creates flashcards from image (UC05)_ with tag “tutorial questions”.
-
-2.	User _starts time trial (UC06)_ with tag “tutorial questions”.
-+
-Use case ends.
-
-{Todo delete later}
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. StudyBuddyPro shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
