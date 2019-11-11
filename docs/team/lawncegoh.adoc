@@ -19,7 +19,7 @@ This new application, FinSec, allows for these Finance Secretaries to easily sto
 == Role
 My primary role in the project was to implement the Goto, Sort, Check features. I also enhanced the existing Clear Feature. Lastly, I was in charge of the scheduling and tracking throughout the project, ensuring that deadlines were met.
 
-This is what our project looks like:
+This is the Main Window of our project:
 [[fig-PPP-ui]]
 .Ui of the Project
 image::PPP-ui.png[width="400"]
