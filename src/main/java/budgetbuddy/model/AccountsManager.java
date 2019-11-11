@@ -29,16 +29,13 @@ import javafx.collections.transformation.SortedList;
  * Manages the accounts in a list of accounts.
  */
 public class AccountsManager {
+    private static final Index DEFAULT_INDEX = Index.fromZeroBased(0);
     private final UniqueAccountList accounts;
     private final FilteredList<Account> filteredAccounts;
-
-    public static final Index DEFAULT_INDEX = Index.fromZeroBased(0);
-
-    private Index activeAccountIndex = DEFAULT_INDEX;
+    private Index activeAccountIndex = Index.fromZeroBased(0);
     private final TransactionList activeTransactionList;
     private final SortedList<Transaction> sortedTransactions;
     private final FilteredList<Transaction> filteredTransactions;
-
 
 
     /**

@@ -35,7 +35,7 @@ public class AccountSwitchCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException{
+    public CommandResult execute(Model model) throws CommandException {
         requireAllNonNull(model, model.getAccountsManager());
         try {
             model.getAccountsManager().setActiveAccountByIndex(targetAccountIndex);
