@@ -30,7 +30,7 @@ image::aulud.png[width="150", align="left"]
 {empty}[https://github.com/Aulud[github]]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: UI
 
 '''
 
