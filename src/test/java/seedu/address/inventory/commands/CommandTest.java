@@ -127,23 +127,29 @@ public class CommandTest {
     @Test
     public void execute_deleteCommandTest_successful() {
         //create a new InventoryList that only contains TypicalItem.FISH_BURGER
-        ArrayList<Item> fishBurgerList = new ArrayList<>();
-        fishBurgerList.add(TypicalItem.FISH_BURGER);
-        InventoryList inventoryList = new InventoryList(fishBurgerList);
+        ArrayList<Item> list = new ArrayList<>();
+        list.add(TypicalItem.FISH_BURGER);
+        list.add(TypicalItem.BLACK_SHIRT);
+        InventoryList inventoryList = new InventoryList(list);
 
         Model inventoryModel = new ModelManager(inventoryList);
         Command deleteCommand = new DeleteCommand(1);
+        Command deleteCommand2 = new DeleteCommand(TypicalItem.BLACK_SHIRT.getDescription());
 
         CommandResult commandResult = null;
+        CommandResult commandResult2 = null;
 
         try {
             commandResult = deleteCommand.execute(inventoryModel);
+            commandResult2 = deleteCommand.execute(inventoryModel);
         } catch (Exception e) {
             fail();
         }
         //compares the String CommandResult given to the expected CommandResult
         assertEquals(new CommandResult(String.format(InventoryMessages.MESSAGE_DELETED_ITEM, TypicalItem.FISH_BURGER)),
                 commandResult);
+        assertEquals(new CommandResult(String.format(InventoryMessages.MESSAGE_DELETED_ITEM, TypicalItem.BLACK_SHIRT)),
+                commandResult2);
     }
 
     @Test
