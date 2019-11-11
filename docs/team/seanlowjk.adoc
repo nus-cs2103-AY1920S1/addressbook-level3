@@ -106,6 +106,8 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/pull/201[#201]]
 *** Reviewed the Developer Guide of other teams [Examples:
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestreview-306987354[#1]]
 
+<<<
+
 == Contributions to the User Guide
 
 This section shows the contributions that I have made to the sorting feature of the User Guide.
@@ -117,6 +119,8 @@ https://ay1920s1-cs2103t-f13-2.github.io/main/UserGuide.html[here]._
 |===
 
 include::../UserGuide.adoc[tag=sorting]
+
+<<<
 
 == Contributions to the Developer Guide
 
