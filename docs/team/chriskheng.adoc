@@ -48,13 +48,14 @@ across different functionalities.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases v1.0-v1.4 (4 releases) on GitHub.
+*** Managed releases v1.1-v1.4 on GitHub.
 *** Managed milestones v1.0-v1.4 on Github.
-*** Drafted project plan for the development of the application.
+*** Drafted https://github.com/AY1920S1-CS2103-F09-1/main/blob/master/docs/Project%20Plan.xlsx[project plan] for the
+development of the application.
 
 ** Documentation:
 *** Improve the appearance of the Developer Guide (https://github.com/AY1920S1-CS2103-F09-1/main/pull/177[#177])
-*** Updated the Model and Ui class diagram to match the updated architecture of the application (PR here)
+*** Updated the Model and Ui class diagram to match the updated architecture of the application (https://github.com/AY1920S1-CS2103-F09-1/main/pull/188[#188])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S1-CS2103-F09-1/main/pull/151[#151],

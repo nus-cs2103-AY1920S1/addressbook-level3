@@ -4,7 +4,6 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_DEPARTMENT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_FACULTY;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NUS_WORK_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PERSONAL_EMAIL;
-import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_YEAR_OF_STUDY;
 import static seedu.scheduler.model.person.EmailType.NUS;
@@ -22,7 +21,7 @@ public class IntervieweeUtil extends PersonUtil {
      * Returns an add command string for the {@code interviewee}.
      */
     public static String getAddCommand(Interviewee interviewee) {
-        return AddCommand.COMMAND_WORD + " " + getIntervieweeDetails(interviewee);
+        return AddCommand.COMMAND_WORD + " interviewee " + getIntervieweeDetails(interviewee);
     }
 
     /**
@@ -30,7 +29,6 @@ public class IntervieweeUtil extends PersonUtil {
      */
     public static String getIntervieweeDetails(Interviewee interviewee) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_ROLE + "interviewee" + " ");
         sb.append(getPersonDetails(interviewee));
         sb.append(PREFIX_FACULTY + interviewee.getFaculty().faculty + " ");
         sb.append(PREFIX_YEAR_OF_STUDY + interviewee.getYearOfStudy().toString() + " ");
@@ -48,6 +46,4 @@ public class IntervieweeUtil extends PersonUtil {
         );
         return sb.toString();
     }
-
-    // TODO: getEditIntervieweeDetails
 }

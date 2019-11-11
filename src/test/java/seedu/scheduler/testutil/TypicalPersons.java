@@ -47,31 +47,31 @@ public class TypicalPersons {
 
     // Typical Interviewees
     public static final Interviewee ALICE_INTERVIEWEE = new IntervieweeBuilder(ALICE).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HeyThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HeyThere@gmail.com")
             .withNusWorkEmail("HeyoAlice@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee BENSON_INTERVIEWEE = new IntervieweeBuilder(BENSON).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoBenson@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee CARL_INTERVIEWEE = new IntervieweeBuilder(CARL).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoCarl@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee DANIEL_INTERVIEWEE = new IntervieweeBuilder(DANIEL).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoDaniel@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee ELLE_INTERVIEWEE = new IntervieweeBuilder(ELLE).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoElle@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee FIONA_INTERVIEWEE = new IntervieweeBuilder(FIONA).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoFiona@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee GEORGE_INTERVIEWEE = new IntervieweeBuilder(GEORGE).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoGeorge@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee HOON_INTERVIEWEE = new IntervieweeBuilder(HOON).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoHoon@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
     public static final Interviewee IDA_INTERVIEWEE = new IntervieweeBuilder(IDA).withFaculty("Engineering")
-            .withYearOfStudy("2019").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
+            .withYearOfStudy("1").withDepartmentChoices("Logistics").withPersonalEmail("HiThere@gmail.com")
             .withNusWorkEmail("HeyoIda@u.nus.edu").withTimeslots("03/03/2019 16:00-17:00").build();
 
     // Typical Interviewers

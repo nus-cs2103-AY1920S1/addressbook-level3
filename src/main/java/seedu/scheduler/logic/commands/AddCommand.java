@@ -6,7 +6,6 @@ import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_NUS_WORK_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PERSONAL_EMAIL;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_SLOT;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.scheduler.logic.parser.CliSyntax.PREFIX_YEAR_OF_STUDY;
@@ -25,7 +24,6 @@ public abstract class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds an entity to the scheduler book. An entity can be an interviewee or interviewer.\n"
             + "Parameters to add interviewees:\n"
-            + PREFIX_ROLE + "interviewee "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_FACULTY + "FACULTY "
@@ -36,7 +34,6 @@ public abstract class AddCommand extends Command {
             + PREFIX_SLOT + "SLOT... "
             + "[" + PREFIX_TAG + "TAG]... \n"
             + "Parameters to add interviewers:\n"
-            + PREFIX_ROLE + "interviewer "
             + PREFIX_NAME + "NAME "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_NUS_WORK_EMAIL + "NUS_WORK_EMAIL "
@@ -44,8 +41,7 @@ public abstract class AddCommand extends Command {
             + PREFIX_SLOT + "SLOT... "
             + "[" + PREFIX_TAG + "TAG]... \n"
             + "Example (add interviewee):\n"
-            + COMMAND_WORD + " "
-            + PREFIX_ROLE + DefaultValues.DEFAULT_INTERVIEWEE_ROLE + " "
+            + COMMAND_WORD + " interviewee "
             + PREFIX_NAME + DefaultValues.DEFAULT_NAME + " "
             + PREFIX_PHONE + DefaultValues.DEFAULT_PHONE + " "
             + PREFIX_FACULTY + DefaultValues.DEFAULT_FACULTY + " "
@@ -56,8 +52,7 @@ public abstract class AddCommand extends Command {
             + PREFIX_SLOT + DefaultValues.DEFAULT_SLOT + " "
             + PREFIX_TAG + "friends\n"
             + "Example (add interviewer):\n"
-            + COMMAND_WORD + " "
-            + PREFIX_ROLE + DefaultValues.DEFAULT_INTERVIEWER_ROLE + " "
+            + COMMAND_WORD + " interviewer "
             + PREFIX_NAME + DefaultValues.DEFAULT_NAME + " "
             + PREFIX_PHONE + DefaultValues.DEFAULT_PHONE + " "
             + PREFIX_NUS_WORK_EMAIL + DefaultValues.DEFAULT_NUS_WORK_EMAIL + " "

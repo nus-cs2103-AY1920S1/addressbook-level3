@@ -45,8 +45,8 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     public static final String VALID_FACULTY_AMY = "School of Engineering";
     public static final String VALID_FACULTY_BOB = "School of Computing";
-    public static final String VALID_YEAR_OF_STUDY_AMY = "2019";
-    public static final String VALID_YEAR_OF_STUDY_BOB = "2020";
+    public static final String VALID_YEAR_OF_STUDY_AMY = "1";
+    public static final String VALID_YEAR_OF_STUDY_BOB = "2";
     public static final String VALID_DEPARTMENT_AMY = "Logistics";
     public static final String VALID_DEPARTMENT_BOB = "Marketing";
     public static final String VALID_SLOT_AMY = "17/10/2019 12:30-13:30";

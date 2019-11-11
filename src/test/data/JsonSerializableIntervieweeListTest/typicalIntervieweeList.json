@@ -1,7 +1,7 @@
 {
     "interviewees" : [ {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -13,7 +13,7 @@
         "tagged" : [ "friends" ]
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -25,7 +25,7 @@
         "tagged" : [ "owesMoney", "friends" ]
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -37,7 +37,7 @@
         "tagged" : []
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -49,7 +49,7 @@
         "tagged" : [ "friends" ]
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -61,7 +61,7 @@
         "tagged" : []
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
@@ -73,7 +73,7 @@
         "tagged" : []
     }, {
         "faculty" : "Engineering",
-        "yearOfStudy" : 2019,
+        "yearOfStudy" : 1,
         "departmentChoices" : [ "Logistics" ],
         "availableTimeslots" : [ "03/03/2019 16:00-17:00" ],
         "emails": {
