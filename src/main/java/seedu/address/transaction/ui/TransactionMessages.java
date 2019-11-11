@@ -86,4 +86,7 @@ public class TransactionMessages {
     public static final String MESSAGE_BACKED = "Here are all the transactions.";
 
     public static final String MESSAGE_NO_ZERO_ALLOWED = "Sorry! The amount should not be zero.";
+
+    public static final String MESSAGE_INVALID_AMOUNT = "Invalid amount entered. It should be between -999999.99 "
+            + "to 999999.99 and not be 0.";
 }

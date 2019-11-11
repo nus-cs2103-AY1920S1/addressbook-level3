@@ -1,5 +1,7 @@
 package seedu.address.transaction.storage;
 
+import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_INVALID_AMOUNT;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -87,7 +89,7 @@ public class StorageManager implements Storage {
         Person person = personModel.getPersonByName(stringArr[4]);
         double amount = Double.parseDouble(stringArr[3]);
         if (amount > MAX_AMOUNT_ACCEPTED | amount < MIN_AMOUNT_ACCEPTED | amount == ZERO) {
-            throw new ParseException("Amount read exceeds limitations.");
+            throw new ParseException(MESSAGE_INVALID_AMOUNT);
         }
         Transaction t = new Transaction(dateTimeArr[1], stringArr[1],
                 stringArr[2], amount, person,
