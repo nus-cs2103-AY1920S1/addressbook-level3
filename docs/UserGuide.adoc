@@ -274,7 +274,7 @@ Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
 Format: `find [a/KEYWORD...] [m/KEYWORD...] [s/KEYWORD...]`
 
 [NOTE]
-Tags can be in any sequence. User may enter multiple keywords after a tag.
+Tags can be in any order. User may enter multiple keywords after a tag.
 
 ====
 *Searching Criteria*

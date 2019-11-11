@@ -306,6 +306,7 @@ The two sub-classes are:
 * `AddModCommand` -- Add a module to a student (Registers the student for a particular module)
 * `RemoveModCommand` -- Removes a module from a student (Drops a module from the student's workload)
 
+.Structure of ModCommand
 image::ModCommandClassDiagram.png[]
 
 Each addmod or removemod command has a `execute()` method that takes in a `Model` object. These commands
@@ -331,6 +332,7 @@ Step 4. `AddModCommand.execute()` is called.
 
 The following activity diagram shows how `AddModCommand.execute()` works
 
+.AddModCommand Activity Diagram
 image::AddModCommandActivityDiagram.png[]
 
 `ApproveCommand.execute()`
@@ -351,6 +353,7 @@ with the newly created objects. The success message of addmod request will be re
 
 The following sequence diagram shows how ApproveCommand works:
 
+.AddModCommand Sequence Diagram
 image::AddModSequenceDiagram.png[]
 [NOTE]
 An exception is thrown when any of the checks fail. The break interaction operator is placed at the bottom
@@ -383,6 +386,7 @@ Similarly the types of resolution commands for `Reject` are
 * `RejectCommand` -- rejects an individual appeal by index shown in the in-app UI
 * `MassReject` -- rejects multiple appeals by the ID of appeals
 
+.Structure of ResolveCommand
 image::ResolveCommandClassDiagram.png[]
 
 Each appeal resolution command has a `execute()` method that takes in a `Model` object. Resolve commands retrieve information of all students and modules from model to get the relevant student and module.
@@ -421,6 +425,7 @@ Step 4. `ApproveCommand.execute()` is called.
 
 The following activity diagram shows how `ApproveCommand.execute()` works
 
+.ApproveCommand Activity Diagram
 image::ApproveCommandActivityDiagram.png[]
 
 [NOTE]
@@ -443,6 +448,7 @@ Step 5.  Upon approval of an appeal, `ApproveCommand` will return a `CommandResu
 
 The following sequence diagram shows how ApproveCommand works:
 
+.ResolveCommand Sequence Diagram
 image::ResolveSequenceDiagram.png[]
 
 
@@ -483,13 +489,14 @@ Also, because Mass resolve commands operates on appeal IDs, `model.getFullAppeal
 
 The following activity diagram shows how `MassApprove.execute()` works
 
+.MassApprove Activity Diagram
 image::MassApproveActivityDiagram.png[]
 
 Step 5.  After resolving all the appeal IDs in the valid Appeal list, `MassApprove` will return a `CommandResult` object which contains the feedback message.  Feedback message will show a list of successfully approved appeal IDs,
 a list of unresolved modules which include the list of invalid appeal IDs entered by user and appeal IDs
 and a list of appeal IDs with time table clash detected.
 
-
+.MassResolve Sequence Diagram
 image::MassResolveSequenceDiagram.png[]
 
 Design Consideration: How to handle different user input formats for individual and mass appeal resolution
@@ -569,7 +576,8 @@ iterating a `List` of `InputOutput` objects for the command history feature.
 Below is a class diagram depicting the relationship between the involved classes for cycling
 through previous inputs in the command box.
 
-.Class diagram depicting the classes involved in implementing the cycle-command-history feature.
+
+.Class Diagram depicting classes involved in cycling through command history.
 image::CycleCommandHistoryClassDiagram.png[]
 
 `CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
@@ -582,7 +590,8 @@ through its internal defensive list.
 Below is a simple sequence diagram depicting this function. Note that some methods/pathways are not
 depicted for brevity.
 
-.Sequence diagram depicting how the `ListPointer` is internally updated after every command, and how key-presses are handled by the `CommandBox` in between command executions.
+
+.Sequence Diagram depicting a possible execution path for cycling through history entries.
 image::CycleCommandHistorySequenceDiagram.png[]
 
 The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
@@ -638,6 +647,7 @@ read and filter the internal list in `CommandHistory`, while restricting modific
 The following activity sequence diagram provides a high-level view
 of how the command is executed, along with the behaviour of the history window:
 
+.HistoryCommand Activity Diagram
 image::HistoryCommandActivityDiagram.png[]
 
 One specific execution example of the show-history feature with
@@ -663,7 +673,7 @@ the flags in `HistoryWindow` controller accordingly.
 This specific execution case is shown in the following sequence diagram. Note that some
 methods are omitted for brevity.
 
-.A sequence diagram showing how the user input "history -o -s" is processed and executed. Certain method calls were not depicted for brevity.
+.`HistoryCommand` Sequence Diagram for the specific input `history -o -s`
 image::HistoryCommandSequenceDiagram.png[]
 
 NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -840,6 +850,7 @@ The three sub-classes are:
 * `RedoCommand` -- Redo last undo.
 * `RestoreCommand` -- Restores a previous snapshot created by the SaveCommand.
 
+.Structure of StoreCommand
 image::StoreCommandClassDiagram.png[]
 
 Each sub-class has a `execute()` method that takes in a `Model` object. Store commands only retrieve information from /data file and replaces the current state with the targeted state.
@@ -866,6 +877,7 @@ Step 5. Each `StoreCommand` returns a `CommandResult` object which contains the 
 
 The following sequence diagram shows how the undo operation works:
 
+.UndoCommand Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 ===== Aspect: Dealing with storage of states
@@ -1109,8 +1121,8 @@ of appeals by default.
 1.  Admin views the details of the appeals in the displayed list
 2.  Admin requests to view appeal details of 2nd appeal in the list.
 3.  MAMS shows the appeal details(student particulars, module requested)
-4.  Admin requests to check potential clash of module requested by
-student with student’s existing modules
+4.  Admin requests to check potential clash between module requested by
+student and student’s existing modules
 5.  MAMS shows that there are no clashes
 6.  Admin requests to add module to student
 7.  MAMS adds module to student
@@ -1160,24 +1172,25 @@ higher workload
 *Use case ends.*
 
 [discrete]
+// tag::uc4[]
 === UC04: Approve request from a student to add a module with clashes in timetable
 
 *MSS*
 
-Pre-condition: System has only just been opened, and is showing a list
-of appeals by default.
+Pre-condition: MAMS shows an expanded view of an appeal from a student requesting to add a module.
 
-1.  Admin requests to check potential clash of module requested by
-student with student’s existing modules.
+1.  Admin requests to check potential clash between module requested by
+student and student’s existing modules.
 2.  MAMS shows that there are clashes.
-3.  Admin requests to add the module to the student with clashes.
+3.  Admin reads the appeal reason and requests to add the module to the student, allowing clashes.
 4.  MAMS asks for confirmation to add the module to the student.
-5.  Admin adds a remark to the approval case.
-6.  Admin adds the student to the module.
-7.  Admin requests to approve appeal.
+5.  Admin confirms to add the module to the student.
+6.  MAMS adds the module to the student.
+7.  Admin resolves the approval case and adds a remark saying timetable clash allowed.
 8.  MAMS marks appeal as approved.
 +
 *Use case ends.*
+// end::uc4[]
 
 // tag::uc5[]
 [discrete]
@@ -1337,8 +1350,6 @@ might spend long hours on MAMS.
 student/appeal/module data from different semesters.
 .  Should be able to hold up to 40000 students and 1000 modules without a noticeable sluggishness in performance for typical usage.
 [appendix]
-
-
 
 == Glossary
 
@@ -1663,3 +1674,30 @@ Expected: History window contains command history from previous sessions.
 
 .. All undoable commands are undid, the final result is checked against the previous state to ensure that the undo function correctly reverts the data back to the previous state.
 
+// tag::test4[]
+=== Check Clash
+. Check timetable clashes for in an appeal
+.. Input format: `clash a/INDEX` example: `clash a/1`
+.. Expected output:
+... If it is an appeal requesting to add or drop module, clash details will be shown in the message bar when clash is detected, or "no clash detected" when there is no clash.
+... If For other types of appeal, a reminder of "no need to check clash" will be shown in the message bar.
+. Check timetable clashes between 2 modules
+.. Input format: `clash m/INDEX m/INDEX` or `clash m/MODULE_CODE m/MODULE_CODE` example: `clash m/1 m/2` `clash m/cs1010 m/cs1231`
+.. Expected output: relevant clash details will be shown in the message bar
+. Check timetable clashes in a student's current timetable
+.. Input format: `clash s/INDEX` example: `clash s/3`
+.. Expected output: relevant clash details will be shown in the message bar
+. Other forms of input will be considered invalid and a message of command usage or other relevant message will be shown in the message bar.
+Example: `clash a/1 a/2` `clash y/ s/1`
+. Invalid index or module code will be detected and relevant message will be shown in the message bar. Example: `clash m/123 m/3` `clash a/999999`
+
+=== Find
+. Valid input format: `find [a/KEYWORD...] [m/KEYWORD..] [s/KEYWORD]`
+.. Example: `find a/unresolved` `find s/larry m/cs1231` `find m/cs10 data`
+.. Expected: Number of results found will be shown in the message bar.
+Specified lists will be updated to show items containing any of the keywords.
+.. The order of the prefixes does not matter.
+.. If there is only 1 search result in a list, it will default to show the expanded view of that item.
+.. Invalid prefix will be considered as a keyword. eg. `find s/celina y/` "y/" will be taken as a keyword to be found in the student list.
+
+// end::test4[]
