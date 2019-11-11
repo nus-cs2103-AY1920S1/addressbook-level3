@@ -1,0 +1,50 @@
+= Stephen Chua - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI, and it has a GUI created with JavaFx. It is written in Java and has about 30 kLOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for the application to handle multiple record types from a small set of commands.*
+** What it does: Allows the user to leverage existing add, list and delete commands for all record types instead of specifying a new set of commands for each record type.
+** Justification: This features improves the product significantly because a user would want to keep track of multiple record types (blood sugar, BMI and more!) while reducing the cognitive load of remembering different commands.
+** Highlights: This enhancement benefits commands to be added in the future since new record types can be easily incorporated into existing commands. Polymorphism was employed to make it easier for the application to adapt to new record types.
+
+* *Minor enhancement*: added the ability to naturally display multiple record types with differing fields without unnecessary whitespace or empty fields.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=scwaterbear&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[View RepoSense]]
+
+* *Other contributions*:
+** Documentation:
+*** Added Use Cases, Product Scoping and Non-Functional Requirements in the User Guide: https://github.com/AY1920S1-CS2103-T16-1/main/pull/23[#23]
+*** Detailed Data Logging feature in the User Guide: https://github.com/AY1920S1-CS2103-T16-1/main/pull/127[#127], https://github.com/AY1920S1-CS2103-T16-1/main/pull/128[#128]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=datalog]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=datalogDG]
+
+include::../DeveloperGuide.adoc[tag=productScope]
+
+include::../DeveloperGuide.adoc[tag=useCases]
+
+include::../DeveloperGuide.adoc[tag=nfr]

@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SugarMummyParser" as SugarMummyParser LOGIC_COLOR
+participant ":RecmFoodCommandParser" as RecmFoodCommandParser LOGIC_COLOR
+participant "typePre:FoodTypeIsWantedPredicate" as FoodTypeIsWantedPredicate LOGIC_COLOR
+participant "namePre:FoodNameContainsKeywordsPredicate" as FoodNameContainsKeywordsPredicate LOGIC_COLOR
+participant "recmf:RecmFoodCommand" as RecmFoodCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("recmf -f fn/Cherry")
+activate LogicManager
+
+LogicManager -> SugarMummyParser : parseCommand("recmf -f fn/Cherry")
+activate SugarMummyParser
+
+create RecmFoodCommandParser
+SugarMummyParser -> RecmFoodCommandParser
+activate RecmFoodCommandParser
+
+RecmFoodCommandParser --> SugarMummyParser
+deactivate RecmFoodCommandParser
+
+SugarMummyParser -> RecmFoodCommandParser : parse("-f fn/Cherry")
+activate RecmFoodCommandParser
+
+create FoodTypeIsWantedPredicate
+RecmFoodCommandParser -> FoodTypeIsWantedPredicate : {FoodType.FRUIT}
+activate FoodTypeIsWantedPredicate
+FoodTypeIsWantedPredicate -> RecmFoodCommandParser : typePre
+deactivate FoodTypeIsWantedPredicate
+
+create FoodNameContainsKeywordsPredicate
+RecmFoodCommandParser -> FoodNameContainsKeywordsPredicate : {"Cherry"}
+activate FoodNameContainsKeywordsPredicate
+FoodNameContainsKeywordsPredicate -> RecmFoodCommandParser : namePre
+deactivate FoodNameContainsKeywordsPredicate
+
+create RecmFoodCommand
+RecmFoodCommandParser -> RecmFoodCommand : typePre, namePre
+activate RecmFoodCommand
+
+RecmFoodCommand --> RecmFoodCommandParser : recmf
+deactivate RecmFoodCommand
+
+RecmFoodCommandParser --> SugarMummyParser : recmf
+deactivate RecmFoodCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+RecmFoodCommandParser -[hidden]-> SugarMummyParser
+destroy RecmFoodCommandParser
+
+SugarMummyParser --> LogicManager : recmf
+deactivate SugarMummyParser
+
+LogicManager -> RecmFoodCommand : execute()
+activate RecmFoodCommand
+
+RecmFoodCommand -> Model : updateFilteredFoodList(typePre.and(namePre))
+activate Model
+
+Model --> RecmFoodCommand
+deactivate Model
+
+create CommandResult
+RecmFoodCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> RecmFoodCommand
+deactivate CommandResult
+
+RecmFoodCommand --> LogicManager : result
+deactivate RecmFoodCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

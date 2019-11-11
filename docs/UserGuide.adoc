@@ -1,6 +1,7 @@
-= AddressBook Level 3 - User Guide
+= SugarMummy - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 5
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -12,33 +13,56 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-1/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T16-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Do you feel it difficult to keep the right diets for type II diabetes?
+Do you want to manage your hectic schedule?
+Do you want to have a better overview of your health data?
+Do you want to move to a healthier lifestyle?
+If your answer is yes, then SugarMummy is perfect for you!
+SugarMummy is a lifestyle tracker and planner that aims to combat Type II diabetes by encouraging users to keep a healthy lifestyle.
+Moreover, being a computer app with Command Line Interface, SugarMummy is optimized for fast typers who has access to a computer most of the time.
 
-== Quick Start
+Hope following features will benefit you and enjoy!
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+* Data tracker for various data types (blood sugar levels and BMI)
+* Easy-to-use reminder and calendar
+* Personalized user experience (achievements, biography, and motivational quotes)
+* Daily, Weekly and Monthly graph summary for your activities and health level
+* Customized recommendations for healthy dieting
+
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
+image::Ui_Bio.png[width="790"]
++
+image::Ui_Records.png[width="790"]
++
+image::Ui_Graph.png[width="790"]
++
+image::Ui_Calendar.png[width="790"]
++
+image::Ui_Achievements.png[width="790"]
+
+== Quick Start
+
+. Download the latest `sugarmummy.jar` link:https://github.com/AY1920S1-CS2103-T16-1/main/releases[here].
+. Copy the file to the folder you want to use as the home folder for data records.
+. Double-click the file to start the app.
+The GUI should appear in a few seconds.
+. Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+. Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* `*add* rt/BLOODSUGAR con/10 dt/2019-11-01 12:12` : adds a `bloodsugar` record to the app.
+* `*delete* 3` : deletes the 3rd record shown in the current list
+* `*exit*` : exits the app
 
-.  Refer to <<Features>> for details of each command.
+. Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -46,132 +70,1193 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `reminder d/DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `reminder d/medicine`.
+* Items in square brackets are optional e.g `d/DESCRIPTION [r/REPETITION]` can be used as `d/medicine r/daily` or as `d/medicine`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[m/MEDICAL CONDITION]...` can be used as `{nbsp}` (i.e. 0 times), `m/Type II Diabetes`, `m/Type II Diabetes m/High Blood Pressure` etc.
+* Parameters can be in any order e.g. if the command specifies `d/description dt/2020-01-20 12:00`, `dt/2020-01-20 12:00 d/description` is also acceptable.
+====
+//tag::datalog[]
+=== DATA LOG
+
+==== Add a data entry to the diabetes tracker app: `add`
+Format: `add rt/RECORD_TYPE dt/DATETIME` followed by parameters that the RECORD_TYPE accepts.
+
+There must not be any duplicate parameters.
+Other than "add", ordering of fields is flexible.
+
+rt/ value is case sensitive, RECORD_TYPE must be in capital letters.
+dt/ value must not be in the future.
+
+BMI must receive exactly 1 valid parameter each for height and weight: `h/VALUE w/VALUE`
+
+Height input (in meters) will be rounded to 2 decimal places.
+This rounded value must be less than 3 to be recorded successfully.
+
+Weight input (in kilograms) will be rounded to 2 decimal places.
+This rounded value must be less than 500 to be recorded successfully.
+
+BLOODSUGAR must receive exactly 1 valid parameter for concentration: `con/VALUE`
+Concentration (mmol/L) will be rounded to 2 decimal places.
+This rounded value must be less than 33 to be recorded successfully.
+
+`add` does not allow entries that have the same datetime and RECORD_TYPE.
+
+==== Show a list of all data entries in the diabetes tracker app: `list`
+
+Format: `list`
+
+This command lists all types of recent data entries.
+
+==== Deletes a specified data entry from the diabetes tracker app: `delete`
+
+Format: `delete INDEX`
+
+Index must be a positive integer.
+
+The index refers to the index number shown in the displayed entries list
+
+==== Edits an existing data entry from the diabetes tracker app: `edit` `[coming in v2.0]`
+
+Format: `edit INDEX`
+
+Allows users to modify existing record fields.
+//end::datalog[]
+
+//tag::calendar[]
+=== CALENDAR AND REMINDER
+
+Command arguments for calendar and reminder:
+
+    - `d/DESCRIPTION` Description can take any values, and it should not be blank. If more than one are present, the last argument is taken.
+    - `dt/DATETIME` The format of date time is: `yyyy-mm-dd hh:mm` and the number should be valid.
+If more than one are present and the command only accepts one `dt/`, the last argument is taken. Otherwise, see below in `event` command for more details.
+    - `r/REPETITION` Repetition can only take value `once`, `daily` or `weekly`(case insensitive). If more than one are present, the last argument is taken.
+    - `td/TIME_DURATION` The format of time duration is: `hh:mm` and it should not be blank. e.g.
+    `01:30` represents 1 hour and 30 minutes. If more than one are present, the last argument is taken.
+    - `ym/YEAR_MONTH` The format of year month is: `yyyy-mm` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymd/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid. If more than one are present, the last argument is taken.
+    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid(same as year month day). If more than one are present, the last argument is taken.
+        See below in `calendar` command for more details if more than one of `ym/`, `ymd`, `ymw/` are present.
+
+==== Add a reminder: `reminder`
+
+Format: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
+
+Add a reminder at a specific time and date. There is no repetition by default and user can specify a daily or weekly or no repetition optionally.
+If it is a repeated reminder, the date inputted is the starting date of the reminder(reminder with date time before the current date time is allowed).
+And it provides duplicate and conflicting checking as well as auto merging for reminders added.
+For example, `reminder d/insulin inject dt/2019-11-25 17:30 r/daily` adds a new reminder of insulin injection at 17:30 everyday from 2019 Nov 25.
+
+* More on duplicate and conflicting check and auto merging
+** To avoid duplicate reminders, the app will not accept reminders that already exist in the system(same description, date time and repetition). Similarly,
+reminders that are completely covered by an existing reminder will not be added again. For example, if the previous reminder command is successful,
+`reminder d/insulin inject dt/2019-12-01 17:30 r/weekly` will not add the new reminder because it is completely covered (whenever the later one shows up, the
+previous one shows up at the same time with the same description). `reminder d/insulin inject dt/2019-12-01 12:00 r/daily` is not considered covered because
+there could be two injections one day.
+** Moreover, new reminder that covers one or more existing reminders can be added and those existing ones will be removed automatically.
+For example, if `reminder d/insulin inject dt/2019-11-20 17:30 r/daily` is typed after the
+previous one, it replaces the insulin inject from 2019-11-25 because whenever the previous reminder shows up, the new reminder shows up with the same description.
+** However, if the new reminder overlaps with existing ones but they cannot be merged, it
+will not be added. To illustrate, `reminder d/insulin inject dt/2019-11-18 17:30 r/weekly` is rejected because on 2019 Nov 18 it shows up at 17:30 alone. After
+2019 Nov 20, this reminder will be a duplicate of the previous one every Monday.
+
+* Reminder list side pane
+** On the right side of the app window, there is a pane for reminder list with the date showing on the top.
+The reminder list pane is split into two parts: a real-time reminder list on top of a probably missed reminder list.
+** The real-time reminder list is empty if there is no reminder set at current time. If the app is open, the reminders will show up in the pane at the time set by the user.
+For example, if the user opens the app at 17:00 on 2019 Nov 30. A reminder of insulin injection will show up at 17:30 if the user has not closed the app.
+** The probably missed reminder list includes all reminders that should exist in at the time between the starting of day and the time when the user opens the app. For example,
+if the user opens the app at 17:00 on 2019 Nov 30, it lists all reminders from 00:00 to 16:59 on that day.
+However, if the user adds a reminder on 2019 Nov 30 17:10 at 17:20 on that day, it will neither exist in the real-time reminder list pane nor the missed reminder list pane.
+
+
+==== Add an event: `event`
+
+Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
+
+Add an event with a starting time and an optional ending time(starting time before the current date time is accepted). There is no reminder for an event by default.
+User can also create a reminder for this event by specifying a time duration and a one time reminder will show up at the starting time of the event minus this time duration.
+For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 15:00 td/01:30` adds an appointment event on 2019 Dec 20 from 14:00 to 15:00 to the calendar and a reminder for it at
+12:30 on that day.
+
+If only one `dt/` is present, it will be recognized as the starting date time. If there are more than one `dt/`, the first and second one are interpreted as starting and ending
+date time. Starting date time should come before ending date time. If they are equal, then ending date time is discarded.
+A duplicate event(same description and starting date time) will be rejected. However, events that overlap with existing ones are accepted with a message shown to the user.
+For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 16:00` will be rejected after the previous event commands. `event d/test dt/2019-12-20 13:00 dt/2019-12-20 14:10`
+is accepted with a message shown.
+
+
+==== View calendar entries: `calendar`
+
+Format: `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
+
+View all calendar entries or calendar entries in a month or in a week or on a day.
+
+** If none of the three arguments is present, it will show all calendar entries added by the user.
+** If one or more of the three arguments are present, it accepts the one with the smallest time unit. e.g. if `ymw` and `ymd` are
+both typed in, it only shows entries on the given date if the date is valid.
+*** `ymd/` shows the monthly calendar of given date and below the calendar is a list of reminders and events on that day. Particularly, if
+no date is provided, it will show calendar entries on the current date.
+***  `ymw/` shows the monthly calendar of given date and below the calendar is a list of reminders and events on each day in the week. `ymw/`
+accepts a date also and the week picked is 7 days from Monday to Friday which include the given date. Particularly, if no date is provided,
+it will show calendar entries in the current week. For example, `calendar ymw/2019-12-03` will show a monthly calendar of 2019 December and
+calendar entries from Dec 2 to Dec 8.
+*** `ym/` shows the monthly calendar of given month and below the calendar is a list of reminders and events on each day in the month. `ym/`
+accepts a month. Particularly, if no date is provided, it will show calendar entries in the current week.
+*** For the monthly calendar shown, the subscript number beside each date is the number events and reminders on that day. And the current date is
+in a different color.
+
+==== Snooze reminder: `snooze` `[coming in v2.0]`
+
+Format: `snooze [tp/TIME_PERIOD]`
+
+Silence the current reminder and activate it after a time period.
+
+==== Complete a task: `complete` `[coming in v2.0]`
+
+Format: `complete [INDEX] [t/TIME]`
+
+Mark all the reminders before now as completed if no argument provided.
+Otherwise, mark only those tasks with indices provided or before the specific time as completed.
+
+==== Set time zone: `timezone` `[coming in v2.0]`
+
+Format: `timezone tz/TIME_ZONE [t/TIME] [t/TIME_END]`
+
+Set the time zone of the application permanently or in any time interval(e.g. For travelling).
+
+==== Cancel an entry in calendar `[coming in v2.0]`
+
+Format: `cancel [et/ENTRYTYPE] [d/DESCRIPTION] [dt/DATETIME] [dt/DATETIME]`
+
+Delete an event that you do not want to keep track anymore.
+//end::calendar[]
+
+//tag::personalisedUserExperience[]
+=== PERSONALISED USER EXPERIENCE
+
+//tag::personalisedUserExperienceAchvmPppPart1[]
+==== Shows all the achievements that the user has attained: `achvm`
+
+Format: `achvm`
+
+Displays the current list of achievements attained by the user, categorised by record type. Each achievement has a picture that represents it, a title, level, state and requirement required to attain
+the achievement.
+//end::personalisedUserExperienceAchvmPppPart1[]
+All these information are available upon the entering of the `achvm` command. However, the user
+would only be able to see, for each achievement, the corresponding picture that represents the current state of the
+achievement (eg. if a user has yet to achieve the achievement, he / she will only see a silhouette image of the
+character in the picture rather than the actual image. Achieving the achievement will allow the user to "unlock" its
+coloured image).
+
+For each record type, there are five levels of achievements available:
+
+* Bronze (3 consecutive days of meeting requirements)
+* Silver (14 consecutive days of meeting requirements)
+* Gold (30 consecutive days of meeting requirements)
+* Platinum (90 consecutive days of meeting requirements)
+* Diamond (180 consecutive days of meeting requirements)
+
+For each achievement, there are 3 possible states:
+
+* Achieved (coloured picture) - met requirements for the most recent number of required consecutive days)
+* Previously Achieved (grayscaled picture) - met requirements before in the records but more recent records no longer meet the number of
+consecutive days required. i.e. broke streak)
+* Yet to Achieve (silhouette picture) - No part of hte the records meet the  consecutive days of requirement.
+
+(All images representing the different achievements and their respective states are hand-drawn and digitally coloured.)
+
+Daily averages for the user's current records are used to determine whether the requirements to attain the achievement
+has been met. Upon adding or deleting a record, the user is notified if there happens to be any new achievements
+attained and / or lost. The user can then key in the `achvm` command to check the new achievements if any. Note that
+the `achvm` command, however, can be keyed in any time; current achievements are always displayed dynamically regardless
+at any point of time.
+
+The daily average requirement for each currently known record type are as follows:
+
+* Blood Sugar: 4.0 to 7.8 mmol/L
+* BMI: 18.5 to 25
+
+A new user and / or user without any records have no achievements by default (i.e. all achievements will be in a state
+Yet To Achieve, represented by silhouette pictures).
+
+Suppose a user has no records and adds the following records.
+
+* `add rt/BLOODSUGAR dt/2019-02-07 12:12 con/4.5`
+* `add rt/BLOODSUGAR dt/2019-02-08 12:12 con/4.5`
+* `add rt/BLOODSUGAR dt/2019-02-09 12:12 con/4.5`
+
+Average daily `BLOODSUGAR` levels are clearly within the required range of 4.0 and 7.8 mmol/L (inclusive).
+After keying in the third record, the user not only sees that message indicating successful addition of the record, but
+also an additional message indicating that (a) new achievement(s) have been attained, and suggesting to check achievements.
+The achievements pane of the user will now indicate attainment of a bronze achievement for `BLOODSUGAR`
+(Now a coloured image from what was previously a silhouette image and current state of `ACHIEVED`).
+
+* If the user at this point decides to delete the third `BLOODSUGAR` record, a notification will indicate that achievements are lost,
+and on the achievements pane the user will lose the achievement (back to silhouette image and `YET TO ACHIEVE` state)
+* If the user has a new average `BLOODSUGAR` record the next day and it still fufills the requirement, the user adds to the
+streak and is on the way towards the next level of attainment for `BLOODSUGAR`.
+* If the user's new average record for the next day no longer meets the requirements for `BLOODSUGAR` levels, the
+achievement that was originally attained will now have a state of `PREVIOUSLY ACHIEVED` instead and will be in grayscale
+colour. A notification is indicated to the user upon the user entering a new record that results in this change.
+* If the user's subsequent record is not within the next day, the user also loses his / or her streak, and
+needs to restart his / her count towards the bronze achievement. However, as there is evidence of a three-day streak of
+meeting the requirements for `BLOODSUGAR`, the user still attains a `PREVIOUSLY ACHIEVED` state for the bronze achievement.
+The user may fill in the missing day of record in order to maintain the streak or restart the count from the new day
+onwards. (The reason for this is the program cannot award achievements without data that justifies it)
+
+The streak encourages users to keep up good health performances and healthy habits that lead to the results observed.
+Using the average records as a gauge or disregarding missing days of records would have allowed users to 'cheat' in
+between, but at the same time, users may just so happen to miss out filling in one day of record
+(hence implementation of the `PREVIOUSLY ACHIEVED` feature). Maintaining their records at least once a day encourages
+users to self-monitor and keep their blood sugar levels and BMI in check, with achievements to keep them going.
+
+To enhance performance, the application internally caches the list of achievements. So long as there is no modification
+to the list of achievements, the same pane as before is displayed without retrieving images representing the
+achievements each time `achvm` is called. This means that after the first time a specific achievements page is
+displayed, subsequent loading is much faster for the user! =) Of course, this is until the next update of achievements,
+or until the application is restarted, though loading itself is already optimised with image resolution sizes that are
+just sufficient for the page, and most of the time the user should not notice any significant differences at all whether
+the achievements are loaded for the first time. This means that regardless of the device the user is using, the pane is
+more or less guaranteed to run smoothly without any notable performance issues with efficiency. Ultimately, in short,
+measures have been taken to ensure quality in user experience, especially for a feature that focuses on
+_personalised_ user experience =)
+
+The command word, as for all other commands, is not case-sensitive for convenience to user.
+
+//tag::personalisedUserExperienceBioPppPart1[]
+==== Displays the user's biography': `bio`
+
+Format: `bio`
+
+Displays a pane containing user information such as the user’s profile picture, name, NRIC, gender, date of birth,
+contact number, address and other biography information that the user would like to include.
+//end::personalisedUserExperienceBioPppPart1[]
+
+The pane first includes the user's name, profile picture and profile description, followed by biography information displayed in a table
+with the following fields:
+
+* Name
+* NRIC
+* Gender
+* DOB
+* HP
+* Emergency HP
+* Medical Conditions:
+* Address
+* DP Path
+* Font Colour
+* Background
+* Background Size
+* Background Repeat
+* My Goals
+* Other Bio Info
+
+Note that the bio table here also includes the user's preferences such as font and background, as we believe these
+aesthetics information could also represent the user in one way or another. Furthermore, this is the page that the
+user may refer to for an overview of important information.
+
+All data in the table changes dynamically with change in information.
+
+If a field that allows for more than one value is displayed, the information is presented in the form of a numbered
+list.
+
+If a field contains no information, the field name would still be displayed but its corresponding data would simply
+be blank.
+
+Note that to enhance performance, the profile picture only changes when the user specifies a change in the path name.
+This means that if a user uses "doge.png" as the profile picture, and the source file "doge.png" is replaced with a
+new image during the running of the application, this change isn't immediately reflected until "doge.png" in the system
+is changed to something else such as "doge2.png" and back to "doge.png", or the application is restarted. This ensures
+that with changes to other fields, the page does not unnecessarily reload the same image and cause lags in user
+performance. This is especially so when the user has a lot of information to enter and modify.
+More information on the adding of biography information is described in the
+following subsection.
+
+If the biography file storing the biography information is corrupted, a new empty biography with a default profile
+picture is displayed to the user.
+
+This is with the exception of `DP PATH`. This is because it is much more likely that the display picture file cannot be
+found (i.e relocated or renamed in the user's device) than for other information, that should only have been edited by
+the user via the application, to be corrupted. We don't want a situation such that if the original file is deleted,
+replaced or relocated, the user loses all other biography data. As such, if `DP PATH` can no longer be loaded as an image,
+the default profile picture is used instead, and the user is notified that the display picture cannot be found.
+
+//tag::personalisedUserExperienceBioPppPart2[]
+If the biography file storing the biography information is deleted or cannot be found, a sample biography with the
+default profile picture is loaded instead.
+//end::personalisedUserExperienceBioPppPart2[]
+
+This command cannot have any sub-arguments, and thus, if the user enters `bio 1`, an error message will be displayed,
+as the user's intention may not have been necessarily to show the biography. Trailing spaces are automatically trimmed
+and as such pose no issue.
+
+Upon loading, a message is included in the feedback display pane to remind users to keep their biography data safe.
+
+The command word, as for all all other commands, is not case-sensitive for convenience to user.
+//end::personalisedUserExperienceBioPart1[]
+
+//tag::personalisedUserExperienceAddBioPppPart1[]
+==== Adds the user's biography: `addbio`
+
+Format: `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
+
+A user may add a biography if there isn't already an existing one stored in the application. This could occur if the
+storage file is corrupted (refer to above sub-section on `bio`), or if the user decides to clear the biography (refer to
+following sub-section on `clrbio` command). A user may add *at most one* biography.
+//end::personalisedUserExperienceAddBioPppPart1[]
+If a user attempts to add a biography when one already exists, an error message will be shown for the user to either `editbio` instead or `clrbio`
+before adding a new one. Support for multiple user biographies is presently not available nor intended, as the
+application is meant to be fully experienced solely by a single user for maximised personalised user experience. As the
+fields used by `addbio` and `editbio` commands are identical and can appear in any order, a user who attempts to edit
+fields using the `addbio` command when a biography already exists, after receiving the error message, can simply amend
+`editbio` to `addbio` before re-entering the line of command, without having to re-enter all the fields.
+
+It is recommended for users to have a biography as they are most likely from the target audience group of patients with
+diabetes, and the presence of a biography could be useful in times of emergency or situations where the application
+could help them to recall important information. If a user has no biography saved, a message is shown in feedback
+display pane, encouraging them to create one.
+
+A user is allowed to add all the fields using the format above, in any order of fields to add the biography.
+//tag::personalisedUserExperienceAddBioPppPart2[]
+In adding a biography, it is *compulsory* for the user to include the following information (i.e. should not be blank):
+
+* `NAME`
+* `CONTACT NUMBER`
+* `EMERGENCY CONTACT`
+* `MEDICAL CONDITION`
+//end::personalisedUserExperienceAddBioPppPart2[]
+
+Other information such as `NRIC` and `DATE OF BIRTH` are optional, as this depends on how willing the user is to provide
+information that is personal to them, and they can furthermore be added any time afterwards using the `editbio` command.
+However, we believe information such as contact number, emergency contact and medical condition should not be ignored,
+as they are some of the most necessary in times of emergency, and the user (or even his / her caretaker) should have
+knowledge about and access to them at all times.
+
+An error message is shown if a user attempts to add a biography not containing any of these fields. A storage file
+containing biography information is also deemed to be corrupted if it does not contain any of these fields. An empty
+biography will be loaded instead. If a user, however, does not have any medical conditions using this application, he
+or she may input "NIL". However, this is highly not recommended, especially for users who do have medical conditions.
+
+//tag::personalisedUserExperienceAddBioPppPart3[]
+A user can have more than one of the following types of fields:
+
+* Contact Number
+* Emergency Contact
+* Medical Condition
+* Goals
+
+This means that a user can add multiple emergency contacts, for instance, by having more than one prefix for the
+argument in this form: `e/91234567` `e/98765432`.
+//end::personalisedUserExperienceAddBioPppPart3[]
+
+Other fields can only have one data value associated with it. If multiple fields of the same type are entered for
+fields other than the ones listed above, an error message is displayed to the user, along with the prefixes that the
+user entered that can only be entered at most once.
+
+For the following fields, certain restrictions are put in place:
+
+* Name: Can contain only alphabets and spaces
+* NRIC: Can contain only alphanumeric characters
+* Gender: Can contain only alphanumeric characters
+* DOB: Can only be in the format YYYY-MM-DD and represent a valid date (valid day depends on month and presence of leap years)
+* Contact Number or Emergency Contact: Can contain only numbers of at least 3 digits in length
+* DP Path: Has to be a valid path pointing to image eg. `dp//Users/bob/Desktop/doge.png`. This also works on windows
+(with double backslash instead of forward slash in the path). The image must be able to load (i.e. not corrupted or a
+non-image file)
+
+Other fields can take any values. If the restrictions above are violated, an error message will be shown to the user
+and the command cannot proceed until the user re-enters the command with the corrected values.
+
+Users will also _not_ be allowed to enter duplicate values for fields that supports multiple values. (i.e. p/123 p/123)
+Doing so results in an error message being shown to the user, indicating that duplicate values are not allowed.
+
+Upon successful processing of the command and its arguments, the user's biography will be updated accordingly and the
+biography pane will be displayed to the user, regardless of which pane was previously being displayed before (eg. a user
+may add to the biography while records are being displayed). In the user's feedback display pane, a message indicating
+success is shown, along with the fields that are added, sorted in accordance to a standardised order of fields
+displayed (same ordering that fields are being presented in this document), regardless of the order entered by the user.
+
+As described above in the `bio` section, all values are refreshed whenever the biography pane is displayed, with the
+exception of the profile picture, that is only updated if there has been a change in the name of given path. By default,
+the path is an empty string and in the same way, the default picture is loaded only once until there is a change in the
+display picture, regardless of changes to other fields in between during a continuous session of the program.
+
+Arguments for this command cannot be empty, and as such the user may not simply enter `addbio` or enter invalid
+arguments (doing so will result in an error message displayed, with messasge usage details). Any invalid arguments that
+occur after a prefix will be taken to be part of the prefix. eg. `n/exampleName p/1234567` is a valid input while
+`n/exampleName asdf/1234567` is invalid as `asdf/1234567` will simply be taken as part of the name, and of course this no
+longer fulfills the restrictions set for names. However, `a/exampleAddress asdf/1234567` is perfectly valid and it will be
+taken that `asdf/1234567` is intended to be part of the address, as there are no restrictions to the characters that
+address may take.
+
+Although the command word is not case-sensitive, its arguments are so as to minimise clashing of user's intentions and
+what the program understands eg. `a/exampleAddress M/test` is understood differently to the program
+than `a/exampleAddress m/test` is. Ultimately, the user has a balance of convenience and flexibility.
+
+//tag::personalisedUserExperienceAddBioPppPart4[]
+Examples of *VALID* `addbio` commands, provided that a biography does not yet exist, include:
+
+* `addbio dp//Users/bob/Desktop/doge.png desc/hello world n/testName nric/testNric gender/testGender dob/1920-12-21 p/12343567 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+(Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
+* `addbio n/testMinimal p/91234567 e/81234567 m/testMedicalCondition`
+//end::personalisedUserExperienceAddBioPppPart4[]
+
+//tag::personalisedUserExperienceEditBioPppPart1[]
+==== Edits the user's biography: `editbio`
+
+Format: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
+
+A biography can be edited only if one already exists.
+//end::personalisedUserExperienceEditBioPppPart1[]
+An error message will be shown to a user who attempts to use the `editbio` command to edit fields before a biography is added.
+As the fields used by `addbio` and `editbio` commands are
+identical and can appear in any order, a user who attempts to add a biography that does not yet exist using the `editbio`
+command, after receiving the error message, can simply amend `editbio` to `addbio` before re-entering the line of
+command, without having to re-enter all the fields. (this is, of course, with the exception that the fields do not
+contain the compulsory fields that are required for the `addbio` command and not the `editibio` command).
+
+Once a biography exists, the `editbio` command functions in a very similar way to the `addbio` command. The fields are
+not only identical but have the same restrictions described in the `addbio` section above.
+
+The only key difference between the `editbio` command and the `addbio` command is that the `editbio` command does not
+require any compulsory fields that the `addbio` command does. Any combination of fields may be edited so long as there
+is more than one field and the inputs are valid.
+
+Similar to the `addbio` command, an error message is shown if a user attempts to edit a biography but does not specify
+any fields. If multiple prefixes of the same type are entered for fields meant to contain only one data value
+(refer to `bio` section) eg. Name, an error message is displayed to the user, along with the prefixes that the
+user entered that can only be entered at most once.
+
+Data of fields may be removed by simply entering blank input for the field eg. `editbio a/` resets the address to blank.
+This, however, cannot be done for compulsory fields. An error message will be shown if a user attempts to remove
+compulsory information using `editbio` as this will either violate the above restrictions set and / or the condition
+that the field should not be blank. The only way to remove compulsory fields is for a user to clear the biography
+(see `clrbio` section below) completely. Otherwise, so long as a biography exists, at least one value must be present
+for each compulsory field.
+
+A key aspect of the `editbio` feature is that for fields that can take multiple values
+(i.e. phone numbers, medical conditions and goals, as described in the `addbio` section above),
+indices may be specified to edit (a) particular value(s) of the field.
+
+Take for instance the following phone numbers that are displayed in the user's biography table.
+
+. `91234567`
+. `98765432`
+. `81234567`
+
+//tag::personalisedUserExperienceEditBioPppPart2[]
+If the user intends to edit the second of three phone numbers in a list, he or she may input `editbio p/2/1234567` to change the second
+number in the list of phone numbers.
+//end::personalisedUserExperienceEditBioPppPart2[]
+Similarly, if he or she wishes to edit the first and third number,
+`editbio p/1/1234567 p/2/12121212` would be a valid line of command. Similar to other arguments, this can be combined
+with other arguments for fields to be edited (whether or not they allow for multiple values).
+
+It should be noted, however, that the indices provided should be one based (i.e. starts from one) and positive integers
+that are not out of bounds of the list. As such, still with reference to this example, `editbio p/4/1234567` is equally
+*INVALID* as `editbio p/0/1234567`, `editbio p/-1/1234567` and `editbio p/string/1234567' and an error message will be
+shown in each of these cases.
+
+This way of entering commands is exclusive for fields that support multiple values. As such, this format will not be
+recognised for arguments of other fields such as name (i.e. `editbio n/1/testName` is invalid).
+
+However, fields that support multiple values may use *EITHER* the indexing format _or_ non-indexing format
+(i.e. format used by all other fields). When a sub-argument without indices such as `p/1234567 p/98765432`, the program
+automatically takes it that a replacement is to be made (i.e. values in the original list is replaced by the new values
+given). A combination of the two is however not allowed as it is ambiguous and will never likely be the intention of
+the user. As such `editbio p/1234567 p/1/2345678 p/23423423` will be *INVALID* and an error message will be given in the
+feedback indicating the inconsistency had such a command been entered. A combination of different _fields_ is again possible,
+nevertheless, and different command formatting types may be used across different fields, so long as consistency is maintained
+in fields of the same type. (i.e. `editbio p/1/1234567 p/2/2345678 m/Diabetes desc/this is a test description g/12345 is
+valid)
+
+If _all fields_ set by the user are no different from what already exists in the biography, the user is notified in the
+feedback display pane that the same information already exists in the biography and that there is nothing to be updated.
+Hence, if the user's biography contains `Bob` as the value of the `Name` field but not the address field, keying in `editbio n/Bob` will result
+in the notification being shown but not `editbio n/Bob a/Test Address`. The new value in the address field will be
+updated in the second case.
+
+Users will also _not_ be allowed to enter duplicate values in each list that supports multiple values. (i.e. p/123 p/123)
+Doing so results in an error message being shown to the user, indicating that duplicate values are not allowed.
+
+Upon successful processing of the command and its arguments, the user's biography will be updated accordingly and the
+biography pane will be displayed to the user, regardless of which pane was previously being displayed before (eg. a user
+may add to the biography while records are being displayed). In the user's feedback display pane, a message indicating
+success is shown, along with the fields that are edited, sorted in accordance to a standardised order of fields
+displayed (same ordering that fields are being presented in this document), regardless of the order entered by the user.
+Only fields that have been changed will be shown as updated in the feedback. Hence, using the same example above,
+entering `editbio n/Bob a/Test Address` for a biography that already has the name `Bob` will only result in the address
+shown as a field that was modified.
+
+As described above in the `bio` section, all values are refreshed whenever the biography pane is displayed, with the
+exception of the profile picture, that is only updated if there has been a change in the name of given path. By default,
+the path is an empty string and in the same way, the default picture is loaded only once until there is a change in the
+display picture, regardless of changes to other fields in between during a continuous session of the program.
+
+Arguments for this command cannot be empty, and as such the user may not simply enter `editbio` or enter invalid
+arguments (doing so will result in an error message displayed, with message usage details). As described in the `addbio` section, any invalid arguments that
+occur after a prefix will be taken to be part of the prefix. eg. `n/exampleName p/1234567` is a valid input while
+`n/exampleName asdf/1234567` is invalid as `asdf/1234567` will simply be taken as part of the name, and of course this no
+longer fulfills the restrictions set for names. However, `a/exampleAddress asdf/1234567` is perfectly valid and it will be
+taken that `asdf/1234567` is intended to be part of the address, as there are no restrictions to the characters that
+address may take.
+
+Although the command word is not case-sensitive, its arguments are so as to minimise clashing of user's intentions and
+what the program understands eg. `a/exampleAddress M/test` is understood differently to the program
+than `a/exampleAddress m/test` is. Ultimately, the user has a balance of convenience and flexibility.
+
+//tag::personalisedUserExperienceEditBioPppPart3[]
+Examples of *VALID* `editbio` commands, provided that a biography exists, include:
+
+* `editbio desc/hello world n/testName nric/testNric gender/testGender dob/1920-10-08 p/91234567 e/81234567 m/testMedicalCondition a/example address 123 goal/testGoal o/testOtherInfo`
+* `editbio dob/2019-12-28`
+//end::personalisedUserExperienceEditBioPppPart3[]
+* `editbio p/1234567 p/23456789`
+* `editbio p/1/234567 p/2/3456789`
+* `editbio m/medicalCondition1 m/medicalCondition2 m/medicalCondition3 m/medicalCondition4`
+* `editbio n/John Doe`
+
+//tag::personalisedUserExperienceClearBioPppPart1[]
+==== Clears the user's biography: `clrbio`
+
+Format: `clrbio`
+
+A user may clear his or her biography using the `clrbio` command. If a biography exists, all data from all biography
+fields will be removed. Otherwise, if a biography does not exist, the user will be displayed a message that the biography is
+already empty and there is no biography information to clear.
+//end::personalisedUserExperienceClearBioPppPart1[]
+If a biography is successfully cleared, the
+biography display pane with an empty biography table is shown to the user. A user cannot execute `editbio` after
+clearing the biography until another biography has been added using `addbio`.
+
+Note that this command does not affect the `background` and `fontcolour` aspects of the program and a 'cleared'
+biography table still shows aesthetic preferences.
+
+Similar to the `bio` command, this command cannot have any sub-arguments, and thus, if the user enters `bio 1`, an error message will be displayed,
+as the user's intention may not have been necessarily to show the biography. Trailing spaces are automatically trimmed
+and as such pose no issue.
+
+The command word, as for all all other commands, is not case-sensitive for convenience to user.
+
+//tag::personalisedUserExperienceFontColourPppPart1[]
+==== Sets the font color of the application: `fontcolour` or `fontcolor`
+
+Formats:
+
+* `fontcolour COLOUR [bg/BACKGROUND ARGUMENTS]` or `fontcolor COLOUR [bg/BACKGROUND ARGUMENTS]`; or
+* `fontcolour` or `fontcolor`
+//end::personalisedUserExperienceFontColourPppPart1[]
+
+To accomplish higher levels of personalisation, the user may select not only from a range of colours or standard colours,
+but _any_ colour. This means that a user can set a colour using *EITHER* colour names or hexadecimal values.
+
+//tag::personalisedUserExperienceFontColourPppPart2[]
+To set a colour of a font using a colour name, simply enter `fontcolour` (or the American spelling `fontcolor`;
+both are recognised by the program) followed by the intended name of the colour. For instance, one may enter:
+`fontcolour yellow` or `fontcolor skyblue`.
+//end::personalisedUserExperienceFontColourPppPart2[]
+So long as the colour names are within the 140+ colour
+names recognised by CSS, the colours will be set accordingly on the user's application. If the colour is not recognised,
+the program attempts to interpret it as a hexadecimal value colour. Note that `transparent` is NOT a valid colour.
+
+//tag::personalisedUserExperienceFontColourPppPart3[]
+A colour may be set using its hexadecimal value provided it follows format beginning with a '#' followed by six valid
+alphanumeric characters representing a hexadecimal colour. For instance, one may enter: `fontcolour #FFFF00`
+or `fontcolor #FFFF3A`.
+//end::personalisedUserExperienceFontColourPppPart3[]
+
+If a coloured entered belongs to neither categories of names nor hexadecimal values, an error message will be shown to
+the user in the feedback display panel.
+
+If the colour set by the user is no different from the existing colour, be it in colour name or hexadecimal
+representation, the user is notified in the feedback display pane that the same colour is already being set in the
+settings and that there is nothing to be updated.
+
+Otherwise, upon successful execution of the command, the colour would be applied universally and instantaneously, from
+the command text to the headers of labels. This is with the exception of text in the graph shown for the `average`
+command, that uses predefined colours. The change will be described in the feedback display panel and the new colour is
+reflected in the biography table of the biography display pane. This command does not change the panes displayed to the
+user, but if the user happens to be viewing the biography display pane, instantaneous change is observed in the
+biography table under the 'Font Colour' field. If colours described in the biography table and feedback have a
+recognised colour name, the name of the colour is automatically displayed and saved as such, regardless of whether they
+have been entered as a hexadecimal value. i.e. `#FFFF00` will always be displayed as `yellow`. Otherwise, the
+hexadecimal value of the colour is displayed and saved.
+
+The last set font colour of the user is always saved, and upon restarting the application, the program should display
+the window with the last saved `fontcolour` (or `fontcolor`) settings.
+
+If the preferences file happen to be corrupted with unrecognised colours, or cannot be found, the `background` and
+`fontcolour` (or `fontcolor`) are reset to its default aesthetics settings, which a new preferences file also contains.
+
+By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
+respectively.
+
+Note that colours that are deemed to be too close to the dominant colour of the `background` will not be allowed to be
+set as the font colour as the text may get too difficult to read on screen. (eg. yellow font colour with white background)
+In such cases the user will be prompted to change the colour or image of the background first before proceeding with the change
+in font colour.
+
+//tag::personalisedUserExperienceFontColourPppPart4[]
+Alternatively, the user is allowed to change the font colour and background _simultaneously_ by combining the commands for
+font colour and background, using the `bg/` prefix. eg. fontcolour yellow bg/black.
+//end::personalisedUserExperienceFontColourPppPart4[]
+This allows the user to not only
+save time but also make contrasting changes in colours which would otherwise have been difficult to achieve. For
+instance, a user intending to change the font colour from white to black with a current dark background will benefit
+from this feature as sequentially changing switching to a light background or dark font colour would be impossible.
+At most one of such prefixes may be used; using more than one results in an error message shown to the user.
+
+This program does not implement a command to clear a font colour due to its redundancy - a user, if dissatisfied with
+the font colour may simply change the colour to his or her preference, or use generic colours by keying in
+`fontcolour black` (or `fontcolor black`) along with a white background.
+
+//tag::personalisedUserExperienceFontColourPppPart5[]
+A user is also allowed to key in `fontcolour`  (or `fontcolor`) on its own and the program having received this will
+display the current font colour settings in the feedback display pane.
+//end::personalisedUserExperienceFontColourPppPart5[]
+This allows the user to view the current settings
+of the font colour without having to use the `bio` command to navigate to the biography display pane.
+
+The command word, as for all all other commands, is not case-sensitive for convenience to user. The colour entered for
+both colour names and hexadecimal values are also not case sensitive, as the possibilities of misinterpretation are much
+lower as compared to sub-arguments of commands such as `editbio`, or `add`. As such, convenience is prioritised for the
+user for this command and both `fonTColour yElLoW` and `fONtColOur #fFFf00` will work.
+
+//tag::personalisedUserExperienceFontColourPppPart6[]
+Examples of *VALID* `fontcolour` (or `fontcolor`) commands:
+
+* `fontcolour yellow`
+* `fontcolor indigo`
+* `fontcolour #202020`
+//end::personalisedUserExperienceFontColourPppPart6[]
+* `fontcolor #000000`
+* `fontcolour`
+* `fontcolor`
+* `fONTCOLOUr wHITE`
+* `foNTcoLOr #FFffFf`
+* `fontcolour yellow bg/black`
+* `fontcolor yellow bg//Users/bob/Desktop/SpaceModified.jpg s/cover`
+(Note: this is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
+
+//tag::personalisedUserExperienceBgPppPart1[]
+==== Sets the background image or colour of the application: `bg`
+
+Formats:
+
+* `bg COLOUR [fontcolour/COLOUR]` or `bg COLOUR [fontcolor/COLOUR]`; or
+* `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]` or
+`bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]`; or
+* `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]`
+or `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]` (only if background is already a background image); or
+* `bg`
+
+Users are allowed to set the background either using a `COLOUR` or a `PATH` to a background image.
+
+The `COLOUR` argument of the background works in exactly the same way as described in the `fontcolour` or (`fontcolor`)
+sub-section above, except that command word used is now `bg` instead of `fontcolour` (or `fontcolor`).
+i.e. a user may enter `bg blue` or `bg #202020` to set the background image.
+//end::personalisedUserExperienceBgPppPart1[]
+
+Just as for the `fontcolour` (or `fontcolor`) command, upon successful execution of the `bg` command with `COLOUR`,
+the colour would be applied universally and instantaneously, from the backgrounds of scrollpanes to the backgrounds of
+feedback display panes. This is with the exception of the background in the graph shown for the `average`
+command, that uses predefined colours. The change will be described in the feedback display panel and the new colour is
+reflected in the biography table of the biography display pane. This command does not change the panes displayed to the
+user, but if the user happens to be viewing the biography display pane, instantaneous change is observed in the
+biography table under the 'Background' field. If colours described in the biography table and feedback have a
+recognised colour name, the name of the colour is automatically displayed and saved as such, regardless of whether they
+have been entered as a hexadecimal value. i.e. `#FFFF00` will always be displayed as `yellow`. Otherwise, the
+hexadecimal value of the colour is displayed and saved.
+
+The last set font colour of the user is always saved, and upon restarting the application, the program should display
+the window with the last saved `fontcolour` (or `fontcolor`) settings.
+
+If the preferences file happen to be corrupted with unrecognised colours, or cannot be found,
+the `background` and `fontcolour` (or `fontcolor`) are reset to its default aesthetics settings, which a new preferences file also contains.
+
+By default, the `fontcolour` (or `fontcolor`) and `background` of the application are set as colours `#FFFF3A` and `#000A34`
+respectively.
+
+//tag::personalisedUserExperienceBgPppPart2[]
+In addition to specifying a `COLOUR`, a user may also specify a `PATH` for background image.
+//end::personalisedUserExperienceBgPppPart2[]
+This works similarly to the `dp` argument of the `addbio` or `editbio` commands.
+The program first interprets the given argument as a `COLOUR`, and if it fails at doing so, attempts to interpret is a a
+`PATH` for an image.
+//tag::personalisedUserExperienceBgPppPart3[]
+If the image given has an invalid path or cannot be loaded as an image, an error message is shown
+to the user.
+//end::personalisedUserExperienceBgPppPart3[]
+Thus, file paths have to be valid paths in order for the command to proceed.
+
+Optional prefixes `s/` and `r/` also allow the user to change the size and repeat attributes of the background image
+respectively. Currently, for both prefixes, the sub-arguments allow only for predefined values known to CSS.
+
+i.e.
+
+For repeat:
+
+* `repeat-x`
+* `repeat-y`
+* `repeat`
+* `space`
+* `round`
+* `no-repeat`
+
+Specific details for each of these back-ground repeat values are explained here: https://www.w3.org/TR/css-backgrounds-3/#the-background-repeat
+
+For size:
+
+* `auto`
+* `cover`
+* `contain`
+
+Specific details for each of these back-ground repeat values are explained here: https://www.w3.org/TR/css-backgrounds-3/#the-background-size
+
+If not set by the user, `auto` and `repeat` will be set for size and repeat fields respectively.
+
+Upon successful execution of the `bg` command with `PATH`, the background image
+would be applied universally and instantaneously. A single background will be set for the window, regardless of which
+display pane the user is viewing. This is with the exception of the background in the graph shown for the `average`
+command, that uses predefined colours. The change will be described in the feedback display panel and the new colour is
+reflected in the biography table of the biography display pane. This command does not change the panes displayed to the
+user, but if the user happens to be viewing the biography display pane, instantaneous change is observed in the
+biography table under the 'Background' field, that shows the path of the background image, along with values in the
+`Background Size` and `Background Repeat` fields. Values for `Background Size` and `Background Repeat` will be `auto`
+and `repeat` if not set by the user.
+
+After setting the background image, the user may change these by simply entering `bg s/cover` or
+bg `repeat/no-repeat s/contain` to apply the newly-defined attributes to the background image. Note that this works
+only if the current background displayed is a background image and not a colour. An error message will be shown to the
+user if the user attempts to enter these commands while the background image is a colour.
+
+A user may also not specify any background size or background repeat while setting a colour for a background command.
+i.e. `bg yellow s/auto` is *INVALID*. An error message will be shown to the user if the user attempts to enter commands
+such as this, clearly indicating that additional arguments are allowed only for background images. Hence, in the
+biography display pane, there will never also be a situation where a colour is indicated in the 'Background' field along
+with data in 'Background Repeat' and 'Background Size' fields. If a background colour is used, these fields are simply
+blank. A user may only set the background to *EITHER* a background or an image; setting both at the same time would not
+be possible. At any point of time, generic or not, the user will have exactly one `background` and `fontcolour`
+(or `fontcolor`) field set for the application.
+
+A user will not be allowed to set the background image in circumstances whereby the background image is not close to
+the "transparent colour", and the background has attributes such that the background size is not `cover` and the
+background repeat is not `repeat`. This is because in such circumstances the text could get difficult to see once
+clipping of the image occurs and the image is surrounded by the light transparent background colour. This of course does
+not apply to backgrounds that are colours as colours will naturally cover the entire screen even as the background size
+and background repeat, which are irrelevant for colours, are naturally empty `String` values.
+
+For each successful command, feedback will be displayed to the user on the change in background, be it from a
+background image to a colour, vice versa or other combinations. If a command such as `bg s/cover` changes only a
+particular attribute of the background, only the changes made will be reported. As for colours, automatic conversion is
+done to convert hexadecimal values to colour names where possible.
+
+Note that colours that are deemed to be too close to the dominant colour of the `fontcolour` will not be allowed to be
+set as the background as the text may get too difficult to read on screen. (eg. yellow font colour with white background)
+In such cases the user will be prompted to change the `fontcolour` first before proceeding with the change
+in background.
+
+Alternatively, the user is allowed to change the font colour and background _simultaneously_ by combining the commands for
+font colour and background, using either the `fontcolour/` or `fontcolor` prefix. eg. bg black fontcolour/yellow. This allows the user to not only
+save time but also make contrasting changes in colours which would otherwise have been difficult to achieve. For
+instance, a user intending to change the font colour from white to black with a current dark background will benefit
+from this feature as sequentially changing switching to a light background or dark font colour would be impossible.
+At most one of such prefixes may be used; using more than one results in an error message shown to the user.
+
+This program does not implement a command to clear a font colour or background due to its redundancy - a user,
+if dissatisfied with the background colour may simply change the colour to his or her preference,
+or use generic colours by keying in `background white` along with a black background. As user's images are not saved in
+the application itself and instead loaded on startup of the program, the user does not need to worry about deleting
+background images (or even profile images for `addbio` or `editbio` commands). Replacing the path of the image with a
+colour or another image path will do the job.
+
+If the preferences file happen to be corrupted with unrecognised / unloadable background paths, or cannot be found,
+the `background` and `fontcolour` (or `fontcolor`) are reset to its default aesthetics settings as described above, which a new
+preferences file also contains. As for paths to profile pictures, an unloadable background file (or colours) from the
+storage does not cause the user to lose any other data, and the user is simply notified via the feedback display pane
+that the image cannot load and has been removed.
+
+A user is also allowed to key in `bg` on its own and the program having received this will display the current
+background settings in the feedback display pane. This allows the user to view the current settings of the background
+without having to use the `bio` command to navigate to the biography display pane.
+
+The command word, as for all all other commands, is not case-sensitive for convenience to user. The colour entered for
+both colour names and hexadecimal values are also not case sensitive, as the possibilities of misinterpretation are much
+lower as compared to sub-arguments of commands such as `editbio`, or `add`. As such, convenience is prioritised for the
+user for this command and both `Bg yElLoW` and `bG #fFFf00` will work. However, path names are still case sensitive and
+should be entered exactly as it is. i.e. A file stored at the file path `/Users/bob/Desktop/doge.png` will not be able
+to load if the user enters `/Users/bob/Desktop/Doge.png`. As for profile picture, nevertheless, file paths work
+regardless of operating systems (i.e. Windows / Mac / Linux) so long the paths are keyed in exactly as they should be
+in a way that the device recognises (eg. double backslash for Windows instead of the forward slash).
+
+Font colours and backgrounds can be changed independently and sequentially. As such, high customisation is possible,
+with the user having the freedom to choose any combination of font colours and background colours / images desired.
+
+//tag::personalisedUserExperienceBgPppPart4[]
+Examples of *VALID* `bg` commands:
+
+* `bg yellow`
+* `bg indigo`
+* `bg #202020`
+//end::personalisedUserExperienceBgPppPart4[]
+* `bg #000000`
+* `bg`
+* `Bg wHITE`
+* `bG #FFffFf`
+* `bg /Users/bob/Desktop/doge.png s/auto`
+//tag::personalisedUserExperienceBgPppPart5[]
+* `bg /Users/bob/Desktop/SpaceModified.jpg`
+//end::personalisedUserExperienceBgPppPart5[]
+* `bg s/cover` (if background is already a background image)
+* `bg r/no-repeat s/cover` (if background is already a background image)
+* `bg black fontcolor/#FFFF00`
+* `bg /Users/bob/Desktop/SpaceModified.jpg s/cover fontcolour/yellow`
+
+//tag::personalisedUserExperienceBgPppPart6[]
+(Note: For each of the examples with paths above, it is provided that the image exists at exactly the *SAME PATH* in the user's device. Otherwise, it has to be modifed or removed in order for this example to work)
+//end::personalisedUserExperienceBgPppPart6[]
+
+==== Displays a motivational quote: `[no action required]`
+
+The motivation aspect of the personalised user experience feature does not require any command. Rather, it is implicitly
+executed without any command as it is implemented to display at the bottom of the user's main window.
+
+On startup, a motivational quote is randomly selected out of the 600+ quotes currently stored in the program itself.
+A mixture of encouraging quotes from different sources is used, revolving around topics of food intake, exercise to
+specifically diabetes itself. All quotes are formatted to be of the same format, with the quote followed by the speaker
+of the quote (if unknown, indicated as Anonymous).
+
+The user currently does not have the capability to modify or view the full list of quotes other than the quote
+displayed on screen, and there is no intention for him or her to do so, as we believe having the full list defeats the
+purpose of the quotes to motivate one step at a time, as well as the element of surprise every time the application is
+opened. If a user finds that he or she is unable to relate to the quote, or does not like the quote that is displayed,
+he or she can simply restart the application and another quote will be displayed.
+
+The simple design of this sub-feature minimises the need for user interaction and commands (eg. a command to switch
+quotes is unecessary as a restart of the application already achieves that). Yet, this feature is one that could speak
+out to the user and encourage him or her through his or her day. Each user will receive a different sequence of quotes
+throughout his or her use of the application, and have different personal responses to them. As such, the
+motivational quotes personalise the experience of each user by making it truly unique for them. i.e. the quotes received
+by one user is guaranteed to differ by random chance, and even for the same quotes, they are likely speak differently to
+one user compared to another.
+
+==== Saves the user's preferred themes: `[coming in v2.0]`
+
+Allows users to save current fontcolours and background colours as themes that they can name and retrieve after.
+
+* Upon entering commands, users can list, add, edit, delete or apply current themes to set colours and backgrounds to
+the ones that they have previously saved.
+
+==== Shows a cartoon avatar that represents the user: `[coming in v2.0]`
+
+Displays a cartoon that represents the user by observing the user's data such as BMI.
+
+* As the user's records such as BMI changes, the users' avatar automatically changes accordingly (eg. size, width,
+height of avatar)
+
+==== Follows up on the user's goals: `[coming in v2.0]`
+
+Allows users to save goals in a certain format such the program will be able to follow-up on the user's goals. eg.
+Lose 10kg by 2019-12-28 (system provides updates throughout and determines the user's progress as well as how well they
+have worked towards their goal(s)). Users may also set reminders to remind them of their goal and receive timely
+feedback.
+//end::personalisedUserExperience[]
+
+// tag::average[]
+=== DATA SUMMARY/ANALYSIS
+
+==== Displays the daily/weekly/monthly average of records in a line graph: `average`
+
+Format: `average a/AVERAGE_TYPE rt/RECORD_TYPE [n/COUNT]`
+
+AVERAGE_TYPE is either "daily", "weekly" or "monthly". +
+RECORD_TYPE is either "bloodsugar" or "bmi". +
+Displays a graph of the "daily", "weekly" or "monthly" average of a particular RECORD_TYPE. +
+COUNT is an optional field that takes integer between 1 to 12 inclusive. +
+If COUNT is given, SugarMummy shows **up to** COUNT most recent number of average values.
+Else, COUNT is set to 5 by default and shows 5 most recent average values.
+
+NOTE: If SugarMummy **does not show exactly** COUNT number of average values,
+that means you do not have enough records in the database. Also, if you enter a field
+more than once e.g `average a/daily rt/bloodsugar a/weekly`, only the last field will be
+taken. In the example, weekly average will be calculated instead of daily average.
+
+Example usage 1: `average a/weekly rt/bloodsugar`:
+Shows the 5 latest weekly average of blood sugar records.
+
+Example usage 2: `average a/daily rt/bmi n/9`:
+Shows the 9 latest daily average of BMI records.
+
+
+==== Summary statistics of a particular record type `[coming in v2.0]`
+
+Shows minimum, maximum, average of a record type. Categorizes records into low, normal
+and high values in a pie chart. User can specify the date interval of the summary by giving
+a start date and end date.
+
+==== Shows relationship between record types: `[coming in v2.0]`
+
+User can see how a particular record type changes with other record types.
+This information will be displayed on a scatter plot where trends can be spotted
+easily. Note that this feature will work well only if
+
+. You have records for both record types in any given day.
+. You have more than 50 days worth of records.
+
+==== Exports summary of all medical records into pdf `[coming in v2.0]`
+
+Need to share your records with your doctor or others? With SugarMummy export function,
+you can save any graphs and plots generated in a pdf file.
+// end::average[]
+
+//tag::recmf[]
+=== Food Recommendation
+
+====
+General Note::
+[small]
+. If a command requires no user-input arguments,  all the additional inputs after this command string will be ignored, and the command will be executed as usual.
+. If a command requires any parameters, the input order is flexible. Duplicate parameters are also allowed, *but only the last occurrence will be considered*.
 ====
 
-=== Viewing help : `help`
+==== Recommending food: `recmf`
+
+Recommends medically suggested foods for type II diabetes patients. The user can specify flags and food names` as two kinds of filters, as well as one type of sorting order:
+
+* *Flags:* specifies the wanted food types in the form of following flags:
+
+[frame=topbot]
+[cols=2*]
+|===
+|*-nsv: non-starchy vegetable*, such as _Broccoli_
+|*-sv: starchy vegetable*, such as _Potato_
+|*-f: fruit*, such as _Cherry_
+
+|*-p: protein*, such as _Lean Lamb_
+|*-s: snack*, such _Fig Roll_
+|*-m: meal*, such as _Spanish Omelet_
+|===
+
+====
+[small]#*Note:* +
+1. Flags are case-insensitive and duplicates are allowed, but they will be recognized only when placed before any prefix. +
+2. If no flag is specified, it is equivalent to specifying all flags. Namely, foods of all types will be shown.#
+====
+
+* *Food Names:* matches foods that contain *one of* given food names in the form of `fn/[FOOD_NAME]...`
+
+====
+[small]#*Note:* +
+1. Matching is case-insensitive but is full-word matching. For example, "chicken" does not match "ch". +
+2. If no food name specified after `fn/`, it is equivalent to matching all foods.#
+====
+
+* *Sorting Order*: determines the presentation order of food cards in *one* of the two forms: `+sort/SORT_ORDER_TYPE` and `-sort/SORT_ORDER_TYPE`
+** `+` indicates in ascending order and `-` descending
+** `SORT_ORDER_TYPE` is required and can be one of the following six: +
+`fn`: food name; `ft`: food type; `ca`: calorie; `gi`: glycemic index; `su`: sugar; `fa`: fat
+
+====
+[small]#*NOTE:* +
+1. `+sort/SOT` and `-sort/SOT` cannot be both present even though they may have different `SOT`(`SORT_ORDER_TYPE`). +
+2. Specially, for `ft`, the ascending order is predefined as: nsv, sv, f, p, s, m.#
+====
+
+*Format:* `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME...][±sort/SORT_ORDER_TYPE]`
+
+*Examples:* `recmf -p -f`, `recmf fn/chicken rice`, `recmf -p -m -f fn/chicken`, `recmf -p -nsv +sort/gi`
+
+==== Recommending food combination: `recmfmix`
+Recommends one food from each type. A summary card will be appended at the end.
+====
+[small]#*Note:* +
+1. Food types with no available food data will not be shown. If there is no food data at all, the summary card will not be shown as well. +
+2. The summary data is formatted as integers. For Calorie, Sugar, and Fat, the sums of recommended foods are calculated. For GI (glycemic index) value, the average is calculated. +
+3. For more information about GI, please refer to this link:++https://en.wikipedia.org/wiki/Glycemic_index++[link].#
+====
+*Format:* `recmfmix`
+
+*Example:* `recmfmix`
+
+==== Adding new food items : `addfood`
+Adds a new food item for future recommendations. The following six fields are required:
+
+* food name: `fn/FOOD_NAME` +
+Food name should only contain alphabets, numbers, and whitespace. It should be less than 30 characters for display quality and readability.
+* food type: `ft/FOOD_TYPE` +
+Food types should be exactly one of the following: nsv(non-starchy vegetable), sv(starchy vegetable), f(fruit), p(protein), s(snack), or m(meal).
+* calorie (cal): `ca/CALORIE` +
+Calorie should be less than 700(cal) per serving.
+* gi: `gi/GI` +
+Glycemic Index should be less than 70 per serving.
+* sugar (g): `su/SUGAR` +
+Sugar should be less than 25(g) per serving.
+* fat (g): `fa/FAT` +
+Fat should be less than 35(g) per serving.
+
+====
+[small]#*Note:* +
+1. No duplicate food names are allowed. +
+2. All nutrition values should be non-negative numbers and contain no more than four decimals. Incomplete decimals, such as ".5" and "1.", can be accepted as "0.5" and "1" respectively. However, decimal point by it alone will not be accepted. +
+3. Ideally, the input values are normalized as per serving for more practical value comparisons and calculations.#
+====
+
+*Format:* `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+
+*Example:*
+`addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
+
+==== Deleting an existing food: `deletef`
+Deletes a food that matches the specified food name.
+
+====
+[small]#*Note:* FOOD_NAME matching is case-insensitive, but is strict matching for every single character, including white spaces between words.
+It is also full matching. For example, "Rice with Chicken" does not match with "Chicken".#
+====
+
+Format: `deletef fn/FOOD_NAME`
+
+Example:
+`deletef fn/Mushroom`
+
+==== Resetting food data: `resetf`
+Clears all modifications, adding and deleting, on the food list. The food data will be reset to sample food data.
+
+Format: `resetf`
+
+Example: `resetf`
+
+==== Recovering food data: _recoverf_ `[coming in v2.0]`
+Recovers the food data after resetting all the foods.
+The recovered data is based on the food list state just before the *latest recmf command*.
+This would be useful if the user wrongly enter `resetf` command, or another user want to temporarily use the same jar file on the same PC.
+
+==== Editing a food: _editf_ `[coming in v2.0]`
+Edits the available food fields, such as food name and GI value, of an existing food.
+The restrictions on field value are the same as the restrictions declared in `addfood` commands.
+This would provide more flexibility to the user to manipulate food data, instead of directly deleting a food.
+
+==== Recording and analyzing diets `[coming in v2.0]`
+Records the user's diets on specified dates and provides daily, weekly, and monthly summaries about nutrition intakes.
+This would allow the user to have an overview of his food consumption statistics.
+Bases on such statistics, the user can get more specific and personalized suggestions to balance the his nutrition intake.
+//end::recmf[]
+
+=== Other Common Features
+
+==== Exiting the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+==== Viewing full User Guide
+
+Shows the URL to this User Guide.
 
 Format: `help`
 
-=== Adding a person: `add`
+== Features Coming in v2.0
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+=== Autocomplete Command
 
-[TIP]
-A person can have any number of tags (including 0)
+SugarMummy will recommend list of possible commands that can be add on to user current input.
 
-Examples:
+=== Clearing all entries: `clearall`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Clears all recorded data in SugarMummy.
 
-=== Listing all persons : `list`
+=== Editing specific record entries in the list: `edit INDEX [h/VALUE] [w/VALUE] [con/VALUE]`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Allows the user to edit specific fields within a previously created entry.
 
-=== Editing a person : `edit`
+=== Encrypting data files: `enc [KEY]`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+The user can optionally provide a key to encrypt all the data. Afterwards, all the stored user input can only be viewed
+with the user-defined key.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Detailing workout schedule
 
-Examples:
+User can enter details of a workout schedule. +
+For example: Do exercise A for 10 minutes then switch to exercise B for 5 minutes.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+=== Timing Workout
 
-=== Locating persons by name: `find`
+Displays workout instructions and a timer on screen.
+Screen instruction changes when the time for that particular exercise is up.
+Time required for each exercise is dictated by stored workout schedule.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Sharing with community
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+The user is able to interact with others who is using SugarMummy. A community platform will be provided for users to share their daily activities and health tips. This community is expected to help the user obtain encouragements and comforts.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+:hardbreaks:
+
+[start=1]
+. *Achievement*: `achvm`
+. *Add*: `add rt/RECORD_TYPE dt/DATETIME` and parameters a record requires
+E.g. `add rt/BLOODSUGAR dt/2019-10-10 12:12 con/10`
+E.g. `add rt/BMI dt/2019-10-10 12:12 h/1.8 w/70`
+. *Add Biography* : `addbio n/NAME [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] p/CONTACT NUMBER... e/EMERGENCY CONTACT... m/MEDICAL CONDITION... [a/ADDRESS] [goal/GOAL]... [o/OTHER BIO INFO]`
+E.g. `addbio n/Bob p/98765432 e/91234567 m/Type II Diabetes`
+. *Add Food*: `addfood fn/FOOD_NAME ft/FOOD_TYPE ca/CALORIE gi/GI su/SUGAR fa/FAT`
+E.g. `addfood fn/Cucumber ft/nsv ca/15 gi/15 su/1.7 fa/0`
+. *Average*: `average a/AVERAGE_TYPE rt/Record_TYPE [n/COUNT]`
+E.g. `average a/weekly rt/bloodsugar n/3`
+. *Bio*: `bio`
+. *Bg*:
+* `bg COLOUR [fontcolour/COLOUR]` or `bg COLOUR [fontcolor/COLOUR]`; or
+* `bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]` or
+`bg PATH [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]`; or
+* `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolour/COLOUR]`
+or `bg [s/BACKGROUND SIZE] [r/BACKGROUND REPEAT] [fontcolor/COLOUR]` (only if background is already a background image); or
+* `bg`
+E.g. `bg /Users/Bob/Pictures/bg.jpg s/cover`
+E.g. `bg yellow`
+E.g. `bg #FFFF00 fontcolor/#000000`
+E.g. `bg black fontcolour/yellow`
+. *Calendar* `calendar [ym/YEAR_MONTH] [ymw/YEAR_MONTH_DAY] [ymd/YEAR_MONTH_DAY]`
+E.g. `calendar ymd/2019-12-24`
+E.g. `calendar ymw/`
+E.g. `calendar ym/2019-11`
+. *Clear Biography* : `clrbio`
+. *Delete*: `delete INDEX`
+E.g. `delete 2`
+. *Delete Food*: `deletef fn/FOOD_NAME`
+E.g. `deletef fn/Mushroom`
+. *Event*: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
+E.g. `event d/appointment dt/2019-12-14 16:00 td/01:00`
+E.g. `event d/appointment dt/2019-12-20 11:00 dt/2019-12-20 11:30`
+. *Edit Biography*: `editbio [n/NAME] [dp/DP PATH] [desc/PROFILE DESCRIPTION] [nric/NRIC] [g/GENDER] [dob/DATE OF BIRTH] [p/[INDEX/]CONTACT NUMBER]... [e/[INDEX/]EMERGENCY CONTACT]... [m/[INDEX/]MEDICAL CONDITION]... [a/ADDRESS] [goal/[INDEX/]GOAL]... [o/OTHER BIO INFO]`
+E.g. `editbio gender/Male dp//Users/Bob/Pictures/dp.jpg p/12345678`
+E.g. `editbio dp/C:\\Users\\Bob\\Pictures\\dp.jpg`
+E.g. `editbio p/1/234567 p/2/3456789`
+. *Exit the Application*: `exit`
+. *Font Color*:
+* `fontcolour COLOUR [bg/BACKGROUND ARGUMENTS]` or `fontcolor COLOUR [bg/BACKGROUND ARGUMENTS]`; or
+* `fontcolour` or `fontcolor`
+E.g. `fontcolour yellow`
+E.g. `fontcolor #FFFF00`
+E.g. `fontcolour #FFFFFF bg/black`
+. *Get User Guide URL*: `help`
+. *List*: `list`
+E.g. `list`
+. *Recommend Food*: `recmf [-nsv] [-sv] [-f] [-p] [-s] [-m] [fn/FOOD_NAME...] [±sort/SORT_ORDER_TYPE]`
+E.g. `recmf -p -nsv +sort/gi`
+E.g. `recmf fn/chicken rice`
+. *Recommend Mixed Food*: `recmfmix`
+. *Reminder*: `reminder d/DESCRIPTION dt/DATETIME [r/REPETITION]`
+E.g. `reminder d/insulin injection dt/2019-11-30 17:30 r/daily`
+E.g. `reminder d/buy bread dt/2019-12-02 19:00 r/weekly`
+. *Reset Food Data*: `resetf`
+
+//tag::FAQ[]
+== FAQ
+. *How should I save my data?*
+SugarMummy data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+. *How should I reset all the data?*
+You can simply delete the data folder within the same directory that you place SugarMummy.jar. All the data will be set to default sample data.
+//tag::FAQ[]

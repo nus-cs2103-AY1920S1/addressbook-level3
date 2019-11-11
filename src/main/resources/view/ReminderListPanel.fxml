@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fx:id="reminderListPanel" styleClass="commonScrollPane" fitToWidth="true" hbarPolicy="NEVER" minWidth="200" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+    <VBox fx:id="reminderListVBox" spacing="2">
+        <Label fx:id="today" maxWidth="Infinity">
+            <padding>
+                <Insets left="5" top="2"></Insets>
+            </padding>
+        </Label>
+        <ListView fx:id="reminderListView" VBox.vgrow="ALWAYS"/>
+        <Label fx:id="missed" text="Here are the reminders that you might miss today..." wrapText="true">
+            <padding>
+                <Insets left="5" top="2"></Insets>
+            </padding>
+        </Label>
+        <ListView fx:id="missedReminders" VBox.vgrow="ALWAYS"/>
+    </VBox>
+</ScrollPane>

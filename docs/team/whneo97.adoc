@@ -1,0 +1,203 @@
+= Neo Weihong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: SugarMummy
+
+---
+
+== Overview
+
+SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
+and it has a GUI created with JavaFx. It is written in Java and has about 30 kLOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability for the application to provide a personalised user experience for the
+user.*
+** What it does: Allows the user to:
+. View, add, edit and clear his / her biography.
+. Attain different levels of achievements upon meeting predefined requirements.
+. Customise font and background to _any_ hexadecimal-value colour (or image for background).
+** Justification: These features improve the product significantly because a user would want to add a user  profile with useful information especially in times of emergency, acquire a sense of achievement at different milestones, and enjoy a substantial degree of flexibility in aesthetic customisation, representing his / her preferences, that enhances his / her overall quality of comfort in using the app.
+** Highlights: These enhancements benefit commands to be added in future since new fields in a user's biography, achievements and aesthetic preferences could be easily defined in further developments via inheritance and polymorphism. Implementation of the `Achievements` sub-feature was particularly challenging as it required careful interaction with other features such as the `Average` feature and
+`Record` instances, in addition to maintaining balance between abstraction and minimising coupling.
+
+* *Minor enhancements*:
+** Added over 600+ motivational quotes from various sources to be selected at random and shown to the user for each session of the main application's execution.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=whneo97[View RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Refined release of `v1.3.2` and `v1.3.3` on GitHub.
+*** Wrote additional tests for existing features to increase line coverage by 21%. (Pull requests
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/173[#173], https://github.com/AY1920S1-CS2103-T16-1/main/pull/176[#176],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/181[#181])
+*** Standardised project structure for `v1.4` release. (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/183[#183])
+** Enhancements to existing features:
+*** Abstracted code in MainApp to significantly reduce code redundancies and improve code readability.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/88/commits/07279dd4494f1cd3916b4ee083de1b6fca2d1d1a[#88])
+*** Modified user feedback display to wrap text and scroll vertically for increased ease of viewing feedback.
+(Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/71[#71],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/151[#151])
+** Documentation:
+*** Added 90 test situations to the `Instructions for Manual Testing` section part of the Developer Guide. (Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/186[#186])
+*** Updated `Contact Us` page, `User Stories` and `References` in the Developer Guide. (Pull requests
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/16[#16], https://github.com/AY1920S1-CS2103-T16-1/main/pull/17[#17], https://github.com/AY1920S1-CS2103-T16-1/main/pull/191[#191])
+*** Updated `Readme` and application screenshots. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/22[#22],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/163[#163], https://github.com/AY1920S1-CS2103-T16-1/main/pull/220[#220])
+** Community:
+*** Implemented seamless switching of panes from one feature to another with caching abilities for optimised performance
+through a helper class with `Supplier` methods for other features' use as well.
+(Pull request https://github.com/AY1920S1-CS2103-T16-1/main/pull/62[#62])
+*** Implemented `StyleSheetManager` to add universal aesthetic support for all features, along with common scrollpanes. (Pull requests https://github.com/AY1920S1-CS2103-T16-1/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103-T16-1/main/pull/94[#94], https://github.com/AY1920S1-CS2103-T16-1/main/pull/194[#194])
+
+== Contributions to the User Guide
+|===
+|_Given below are *samples* of sections I contributed to the User Guide. They showcase my ability to write documentation
+targeting end-users. The full section of personalised features in the user guide may be accessed
+https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#personalised-user-experience[here]._
+|===
+
+//Achievements
+include::../UserGuide.adoc[tag=personalisedUserExperienceAchvmPppPart1]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#shows-all-the-achievements-that-the-user-has-attained-achvm[here] for more information on the `achvm` command in the UG.)_
+
+//Bio
+include::../UserGuide.adoc[tag=personalisedUserExperienceBioPppPart1]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#displays-the-users-biography-bio[here] for more information on the `bio` command in the UG.)_
+
+//AddBio
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart1]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart2]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceAddBioPppPart4]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#adds-the-users-biography-addbio[here] for more information on the `addbio` command in the UG.)_
+
+//EditBio
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart1]
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart2]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceEditBioPppPart3]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#edits-the-users-biography-editbio[here] for more information on the `editbio` command in the UG.)_
+
+//ClearBio
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceClearBioPppPart1]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#clears-the-users-biography-clrbio[here] for more information on the `clrbio` command in the UG.)_
+
+//FontColour
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart1]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart2]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart3]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceFontColourPppPart6]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#sets-the-font-color-of-the-application-fontcolour-or-fontcolor[here] for more information on the `fontcolour` command in the UG.)_
+
+//Background
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart1]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart2]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart4]
+
+include::../UserGuide.adoc[tag=personalisedUserExperienceBgPppPart5]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/UserGuide.adoc#sets-the-background-image-or-colour-of-the-application-bg[here] for more information on the `bg` command in the UG.)_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are *samples* of sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project. The full section of personalised features in
+the developer guide may be accessed https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#personalised-user-experience-feature[here]
+while that for user stories may be accessed https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#user-stories[here]._
+|===
+
+//Title
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgPppPart0]
+
+//Overview
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgOverviewPppPart1]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#371-overview[here] for more information on the overview of implementing personalised user experience in the DG.)_
+
+//Bio
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart1]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart2]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart3]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart4]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgBioPppPart5]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#biography[here] for more information on the implementation of biography features in the DG.)_
+
+//Aesthetics
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart1]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart2]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart3]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAestheticsPppPart4]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#aesthetics[here] for more information on the implementation of aesthetic features in the DG.)_
+
+
+//Achievement
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart1]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart2]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart3]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart4]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgAchievementsPppPart5]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#achievements[here] for more information on the implementation of achievement features in the DG.)_
+
+//Motivation
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgMotivationPppPart1]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#motivation[here] for more information on the implementation of motivation features in the DG.)_
+
+//Design Considerations
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart1]
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgDesignConsiderationsPppPart2]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#373-design-considerations[here] for more information on design considerations in the DG.)_
+
+//Future Developments
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart1]
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart2]
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart3]
+
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart4]
+include::../DeveloperGuide.adoc[tag=personalisedUserExperienceDgFutureDevelopmentsPppPart5]
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#375-future-developments[here] for more information on future developments in the DG.)_
+
+//UserStories
+include::../DeveloperGuide.adoc[tag=userStoriesSample0]
+include::../DeveloperGuide.adoc[tag=userStoriesSample1]
+include::../DeveloperGuide.adoc[tag=userStoriesSample2]
+|=======================================================================
+
+..._(Click https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#appendix-b-user-stories[here] for more information on user stories in the DG.)_

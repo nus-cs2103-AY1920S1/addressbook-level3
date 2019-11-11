@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SugarMummyParser" as SugarMummyParser LOGIC_COLOR
+participant ":EditBioCommandParser" as EditBioCommandParser LOGIC_COLOR
+participant ":EditBioCommand" as EditBioCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("editbio\np/2/91234567")
+activate LogicManager
+
+LogicManager -> SugarMummyParser : parseCommand("editbio\np/2/91234567")
+activate SugarMummyParser
+
+create EditBioCommandParser
+SugarMummyParser -> EditBioCommandParser : new EditBioCommandParser()
+activate EditBioCommandParser
+
+EditBioCommandParser --> SugarMummyParser
+deactivate EditBioCommandParser
+
+SugarMummyParser -> EditBioCommandParser : parse("editbio\np/2/91234567")
+activate EditBioCommandParser
+
+create EditBioCommand
+EditBioCommandParser -> EditBioCommand  : new EditBioCommand(\neditUserDescriptor)
+activate EditBioCommand
+EditBioCommand --> EditBioCommandParser
+
+deactivate EditBioCommand
+
+EditBioCommandParser --> SugarMummyParser :
+deactivate EditBioCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+EditBioCommandParser -[hidden]-> SugarMummyParser
+destroy EditBioCommandParser
+
+SugarMummyParser --> LogicManager :
+deactivate SugarMummyParser
+
+LogicManager -> EditBioCommand : execute()
+activate EditBioCommand
+
+
+'sugarmummy.recmfood.model.setUser(userToEdit, editedUser);
+'            sugarmummy.recmfood.model.updateFilteredUserList(PREDICATE_SHOW_ALL_USERS);
+
+
+EditBioCommand -> EditBioCommand : createEditedUser(userToEdit, \neditUserDescriptor)
+activate EditBioCommand
+deactivate EditBioCommand
+
+EditBioCommand -> Model : setUser(userToEdit, editedUser)
+activate Model
+
+
+EditBioCommand -> Model : updateFilteredUserList(\nPREDICATE_SHOW_ALL_USERS)
+
+Model --> EditBioCommand
+deactivate Model
+
+create CommandResult
+EditBioCommand -> CommandResult : new CommandResult(\nfeedbackToUser)
+activate CommandResult
+
+CommandResult --> EditBioCommand
+deactivate CommandResult
+
+EditBioCommand --> LogicManager :
+deactivate EditBioCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

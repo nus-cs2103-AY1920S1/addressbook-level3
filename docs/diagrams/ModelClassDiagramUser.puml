@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyUserList <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class UserList
+Class ReadOnlyUserList
+Class Model
+Class ModelManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package User {
+Class User
+Class Name
+Class ProfileDesc
+Class DisplayPicPath
+Class Gender
+Class DateOfBirth
+Class Phone
+Class MedicalCondition
+Class Address
+Class Goal
+Class OtherBioInfo
+Class UniqueUserList
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+UserList .up.|> ReadOnlyUserList
+
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager o--> "1" UserList
+ModelManager o-left-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+UserList *--> "1" UniqueUserList
+UniqueUserList o--> "*" User
+User *--> Name
+User *--> ProfileDesc
+User *--> DisplayPicPath
+User *--> Gender
+User *--> DateOfBirth
+User *--> Phone
+User *--> MedicalCondition
+User *--> Address
+User *--> Goal
+User *--> OtherBioInfo
+
+Phone -down-|> ListableField
+MedicalCondition -down-|> ListableField
+Goal -down-|> ListableField
+
+ModelManager -->"1" User : filtered list
+@enduml

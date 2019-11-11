@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="achievementsPlaceHolder" HBox.hgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/8">
+    <children>
+        <ScrollPane fx:id="achievementsScrollPane" fitToWidth="true" pannable="false" styleClass="commonScrollPane"
+                    HBox.hgrow="ALWAYS">
+            <content>
+                <VBox fx:id="achievementsListVBox" spacing="20"/>
+            </content>
+        </ScrollPane>
+    </children>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
+</HBox>

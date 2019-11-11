@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<ScrollPane fx:id="calendarMonthScrollPane" fitToWidth="true" fitToHeight="false"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" minWidth="300" styleClass="commonScrollPane">
+    <content>
+        <VBox fx:id="calendarMonthVBox" spacing="2">
+            <VBox fx:id="monthlyCalendarEntries" spacing="2" VBox.vgrow="ALWAYS"></VBox>
+        </VBox>
+    </content>
+</ScrollPane>

@@ -12,7 +12,7 @@ deploy:
   provider: script
   script: ./config/travis/deploy_github_pages.sh
   on:
-    branch: master
+    all_branches: true
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

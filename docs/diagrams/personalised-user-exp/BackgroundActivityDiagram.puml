@@ -1,0 +1,42 @@
+@startuml
+start
+:User enters background command;
+
+:Parse command;
+
+if () then ([no arguments])
+    :Display current\nbackground as String;
+else ([else[)
+    if () then ([argument contains\n fontcolour prefix])
+        :Parse fontcolour;
+        else ([else])
+        endif
+
+    if () then ([remaining argument is\nvalid colour])
+        if () then ([remaining argument has \nno sub-arguments])
+            if () then ([background \nhas dominant colour \ntoo close to fontcolour])
+                :Set background\nto specified colour\nand fontcolour, if any, to\nspecified colour;
+                :Save background and fontcolour, \nif any set, in storage;
+            else ([else])
+                :Throw CommandException - \nbackground colour not too \nclose to fontcolour;
+            endif
+        else ([else])
+            :Throw ParseException - \nadditional subarguments \nonly meant for background image;
+        endif
+    else ([else])
+        :Parse remaining argument as path;
+        if () then ([background path is valid,\nleads to loadable image])
+            if () then ([background \nhas dominant colour not \ntoo close to fontcolour])
+                :Set background\nas picture and \nfontcolour, if any, \nto specified colour;
+                :Save background and fontcolour, \nif any set, in storage;
+            else ([else])
+                :Throw CommandException - \nbackground colour too \nclose to fontcolour;
+            endif
+        else ([else])
+            :Throw ParseException - \nunable to load image;
+        endif
+    endif
+endif
+
+stop
+@enduml

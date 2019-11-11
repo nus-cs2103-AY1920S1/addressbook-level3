@@ -1,3 +1,12 @@
+.blue {
+    -fx-control-inner-background: transparent;
+    -fx-background-color: rgba(255, 255, 0, 0.2);
+    -fx-border-color: #FF00FF;
+    /*-fx-table-cell-border-color: transparent;*/
+    /*-fx-table-header-border-color: transparent;*/
+    -fx-border-top-width: 1px;
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -56,12 +65,18 @@
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
-    -fx-border-color:
-        transparent
-        transparent
-        derive(-fx-base, 80%)
-        transparent;
+    -fx-border-color: transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
+}
+
+.myGridStyle {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
+}
+
+.myGridStyle Line {
+    -fx-stroke: white;
 }
 
 .table-view .column-header .label {
@@ -74,6 +89,15 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+.list-view .list-cell:odd {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -95,7 +119,7 @@
 
 .list-cell {
     -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
+    -fx-graphic-text-gap: 0;
     -fx-padding: 0 0 0 0;
 }
 
@@ -120,6 +144,24 @@
     -fx-text-fill: white;
 }
 
+.v-box {
+    -fx-background-color: #424d5f;
+}
+
+.card_big_label {
+    -fx-font-family: "Candara";
+    -fx-font-size: 18px;
+    -fx-text-fill: #1d1d1d;
+    -fx-wrap-text: true;
+    -fx-padding: 6;
+}
+
+.card_small_label {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15px;
+    -fx-text-fill: #d1d1e0;
+}
+
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
@@ -133,28 +175,76 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
 }
 
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
-.result-display {
+.profile-name {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-font-size: 20pt;
     -fx-text-fill: white;
 }
 
-.result-display .label {
-    -fx-text-fill: black !important;
+.profile-asl {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+}
+
+#tableView {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+}
+
+#tableView .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+
+}
+
+#tableView .table-cell .table-cell-text {
+    -fx-fill: white;
+    -fx-font-family: "Segoe UI Light";
+}
+
+
+.field-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-font-weight: bold !important;
+    -fx-text-fill: white !important;
+}
+
+.data-column {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
+}
+
+
+.field-column .label {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-font-style: italic !important;
+    -fx-text-fill: white !important;
+}
+
+.data-column .label {
+    -fx-font-family: "Arial" !important;
+    -fx-font-size: 10pt !important;
+    -fx-text-fill: white !important;
 }
 
 .status-bar .label {
@@ -229,8 +319,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .button:focused {
@@ -279,6 +369,12 @@
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
+}
+
+.profile-scroll, .calendar-scroll {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: transparent !important;
 }
 
 .scroll-bar {
@@ -337,6 +433,19 @@
     -fx-background-radius: 0;
 }
 
+#resultDisplay {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
+#resultDisplay .label {
+    -fx-text-fill: black !important;
+    -fx-background-color: transparent;
+}
+
+
 #tags {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -349,4 +458,146 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#reminderListPanel > .viewport {
+    -fx-background-color: transparent;
+}
+
+#calendarMonthScrollPane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#calendarMonthScrollPane {
+    -fx-border-width: 0;
+}
+
+#entryNumber {
+    -fx-font-size: 10px;
+}
+
+#yearMonth {
+    -fx-font-size: 25px;
+}
+
+#dailyCalendarEntries {
+    -fx-border-width: 1;
+    -fx-border-color: black;
+}
+
+#lineChartCustom {
+    -fx-min-height: 300;
+    -fx-legend-visible: false;
+}
+
+#lineChartCustom .chart-title, .axis-label {
+    -fx-text-fill: black;
+}
+
+#lineChartDescription {
+    -fx-text-fill: black;
+}
+
+/*#lineChartScrollPane .scroll-bar {*/
+/*    -fx-background-color: black;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .thumb {*/
+/*    -fx-background-color: white;*/
+/*    -fx-background-insets: 3;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .increment-button, .scroll-bar .decrement-button {*/
+/*    -fx-background-color: white;*/
+/*    -fx-padding: 0 0 0 0;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {*/
+/*    -fx-shape: " ";*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {*/
+/*    -fx-padding: 1 8 1 8;*/
+/*}*/
+
+/*#lineChartScrollPane .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {*/
+/*    -fx-padding: 8 1 8 1;*/
+/*}*/
+
+.commonScrollPane {
+    -fx-background: transparent !important;
+    -fx-background-color: transparent !important;
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
+}
+
+.commonScrollPane .scroll-bar: horizontal ,
+.commonScrollPane  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
+}
+
+.commonScrollPane .increment-button ,.commonScrollPane .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.commonScrollPane .scroll-bar: horizontal .track ,
+.commonScrollPane .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
+}
+
+.commonScrollPane .scroll-bar: horizontal .thumb,
+.commonScrollPane .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
+}
+
+.commonScrollPane .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.commonScrollPane .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
+}
+
+.lineChartScrollPaneSecondVersion {
+    /*-fx-background: transparent !important;*/
+    /*-fx-background-color: transparent !important;*/
+    -fx-border-color: rgb(255, 255, 255) !important;
+    -fx-border-width: 0 0 0.5 0 !important;
+    -fx-border-radius: 1 !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal ,
+.lineChartScrollPaneSecondVersion  .scroll-bar: vertical {
+    -fx-background-color: transparent !important;
+    -fx-pref-width: 17 !important;
+    -fx-pref-height: 17 !important;
+    -fx-padding: 3 !important;
+}
+
+.lineChartScrollPaneSecondVersion .increment-button ,.lineChartScrollPaneSecondVersion .decrement-button {
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .track ,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .track{
+    -fx-background-color: transparent !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar: horizontal .thumb,
+.lineChartScrollPaneSecondVersion .scroll-bar: vertical .thumb {
+    -fx-background-color: derive(black,50%) !important;
+
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: hover {
+    -fx-background-color: derive(black,70%) !important;
+}
+
+.lineChartScrollPaneSecondVersion .scroll-bar .thumb: pressed{
+    -fx-background-color: derive(black,85%) !important;
 }
