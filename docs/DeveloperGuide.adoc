@@ -662,7 +662,7 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 *Step 12*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater` in the `Model`.
 
 *Step 13*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
-// end::repeatereidt[]
+// end::repeateredit[]
 
 // tag::repeaterdelete[]
 ==== Deleting Repeater

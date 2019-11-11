@@ -436,6 +436,7 @@ In the repeater tab, you can maintain a list of your repeaters. Each repeater is
 
 image::rep.png[]
 
+// tag::addrep[]
 ==== Creating repeater: `add`
 
 Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
@@ -467,6 +468,7 @@ Examples:
 
 * `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sm/1 sy/2019 em/12 ey/2020` +
 This creates a repeater titled "Phone bills" as an expenditure for utilities of $42.15 for every third day and second last day of the month, between January 2019 to December 2020. This also creates the transactions associated with the created repeater.
+// end:addrep[]
 
 ==== Editing repeater `edit`
 
