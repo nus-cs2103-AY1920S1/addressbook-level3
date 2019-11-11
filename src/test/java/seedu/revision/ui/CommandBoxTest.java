@@ -5,21 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxAssert;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.TextInputControlMatchers;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.commands.main.ListCommand;
 
-@ExtendWith(ApplicationExtension.class)
 class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_SUCCESS = ListCommand.COMMAND_WORD;
@@ -40,11 +36,9 @@ class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Will be called with {@code @Before} semantics, i. e. before each test method.
-     *
-     * @param stage - Will be injected by the test runner.
      */
-    @Start
-    public void start(Stage stage) {
+    @BeforeEach
+    public void setUp() {
         commandBox = new CommandBox(commandText -> {
             if (commandText.equals(COMMAND_SUCCESS)) {
                 return new CommandResultBuilder().withFeedBack("Command successful").build();

@@ -1,4 +1,4 @@
-package seedu.revision.ui;
+package seedu.revision.ui.bar;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,21 +10,17 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import seedu.revision.logic.commands.main.CommandResultBuilder;
-import seedu.revision.ui.bar.Timer;
 
 @ExtendWith(ApplicationExtension.class)
 class TimerTest {
 
     private Timer timer;
 
-    private ReadOnlyDoubleWrapper currentTime = new ReadOnlyDoubleWrapper (
-            this, "currentProgressIndex", 0);
     /**
      * Will be called with {@code @Before} semantics, i. e. before each test method.
      *
@@ -33,7 +29,7 @@ class TimerTest {
     @Start
     private void start(Stage stage) {
         timer = new Timer(3, (unused) -> new CommandResultBuilder().build());
-        stage.setScene(new Scene(new StackPane(timer.getLabel()), 300, 100)); // arbitrary height
+        stage.setScene(new Scene(new StackPane(timer.getTimerLabel()), 300, 100)); // arbitrary height
         stage.show();
     }
 
@@ -46,7 +42,7 @@ class TimerTest {
         timer.startTimer();
         //Delay has to be a bit longer for the robot
         robot.sleep(4, TimeUnit.SECONDS);
-        FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText("0"));
+        FxAssert.verifyThat(timer.getTimerLabel(), LabeledMatchers.hasText("0"));
     }
 
     /**
@@ -58,7 +54,8 @@ class TimerTest {
         timer.startTimer();
         timer.stopTimer();
         robot.sleep(2, TimeUnit.SECONDS);
-        FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText(""));
+        //Delay has to be a bit longer for the robot
+        FxAssert.verifyThat(timer.getTimerLabel(), LabeledMatchers.hasText(""));
     }
 
 
@@ -67,10 +64,11 @@ class TimerTest {
      * @param robot - Will be injected by the test runner.
      */
     @Test
-    public void timerResetAfterTwoSeconds_shouldBeResetToThree(FxRobot robot) {
+    public void timerResetAfterTwoSeconds_waitFourSeconds_shouldBeResetToThree(FxRobot robot) {
         timer.startTimer();
         robot.sleep(2, TimeUnit.SECONDS);
         timer.resetTimer();
-        FxAssert.verifyThat(timer.getLabel(), LabeledMatchers.hasText("3"));
+        //Delay has to be a bit longer for the robot
+        FxAssert.verifyThat(timer.getTimerLabel(), LabeledMatchers.hasText("3"));
     }
 }

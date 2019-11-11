@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
-
 <?import javafx.geometry.Insets?>
-<Label fx:id="label" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-       text="\$label">
+
+<Label fx:id="timerLabel" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
     <padding>
         <Insets left="10" />
     </padding>

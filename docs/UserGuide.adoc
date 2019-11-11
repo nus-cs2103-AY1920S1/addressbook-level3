@@ -15,11 +15,11 @@ endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 :javaFxBugURL: https://github.com/javafxports/openjdk-jfx/pull/271
 
-By: `Team F10-3`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing test banks*.
+This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing question banks*.
 More importantly, RT is *optimized for those who prefer to work with a Command Line
 Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, RT can get your contact management tasks done faster than traditional
@@ -31,7 +31,7 @@ GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 .  Ensure that you have the latest version of JavaFX installed in your Computer. (Previous versions of JavaFX may cause
 bugs related to displaying pop ups. more info about this bug can be found at this link:{javaFxBugURL}/link[link])
 .  Download the latest RT link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your `*test bank*`.
+.  Copy the file to the folder you want to use as the home folder for your `*question bank*`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds. The image below shows the app in configuration mode.
 +
 image::Ui.png[width="790"]
@@ -80,7 +80,7 @@ User can start by choosing the mode of the quiz. (normal / arcade / custom). See
 Format: `start mode/MODE`
 
 [TIP]
-To start all questions in the test bank, use command +
+To start all questions in the question bank, use command +
 start mode/normal
 
 Examples:
@@ -112,25 +112,30 @@ Category::
 * Implementation: 50/100
 * Project Management: 90/100
 
+//tag::shaun[]
+//tag::shaun-autocomplete[]
 === AutoComplete Function
 
 Helps you complete your command when you type.
 
-Upon pressing the "TAB" key on your keyboard, the app will be able to
-give you a list of dropdown options that will aid you in your command typing.
+Users will be able to see a list of auto complete options while they are typing. Once the auto complete context menu is
+shown, users can use the arrow keys to choose the options they want and upon pressing the "ENTER" button, they would be able to
+select the option.
 
 Examples:
 
-* `User types "add" in the command box and presses the "TAB" key`
+* `User wants to type the "start" command in the command box`
 * `He will be able to see a list of dropdown options as shown:`
+* `First "ENTER" button will select the option`
+* `Second "ENTER" button will execute the option`
 +
-image::autocomplete.png[width="790"]
-
+image::Autocomplete2.png[width="790"]
+//end::shaun-autocomplete[]
 
 //tag::wilfred-add[]
 === Adding a question: `add`
 
-Adds a question to the test bank
+Adds a question to the question bank
 
 Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
 
@@ -153,7 +158,7 @@ x/Greenfield x/Brownfield y/None of the others x/Padifield`
 //tag::wilfred-edit[]
 === Editing a question : `edit`
 
-Edits an existing question in the test bank.
+Edits an existing question in the question bank.
 
 Format: `edit INDEX [q/QUESTION] [cat/CATEGORY] [diff/DIFFICULTY] [x/WRONG_ANSWER]... [y/CORRECT_ANSWER]...`
 
@@ -174,7 +179,7 @@ Edits the the first question to "According the the textbook, is greenfield or br
 
 === Deleting a question : `delete`
 
-Deletes the specified questions from the test bank. +
+Deletes the specified questions from the question bank. +
 Format: `delete INDEX [MORE_INDICES]`
 
 ****
@@ -187,10 +192,10 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd question in the test bank list.
+Deletes the 2nd question in the question bank list.
 * `find Greenfield` +
 `delete 1 3 5` +
-Deletes the 1st, 3rd and 5th question in the test bank list.
+Deletes the 1st, 3rd and 5th question in the question bank list.
 
 === Listing all questions : `list`
 
@@ -227,19 +232,23 @@ Returns `How do you gather user requirements?` and `What is the recommended user
 * `find User, Brownfield, Greenfield` +
 Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
 
+
 === Clearing all entries : `clear`
 
-Clears all questions from the test bank. +
+Clears all questions from the question bank. +
 Format: `clear`
 
+//tag::shaun-restore[]
 === Restoring all entries : `restore`
 
-Clears all current questions from the test bank and restores the default questions that were in the original app. +
+Clears all current questions from the question bank and restores the default questions that were in the original app. +
+Users will be prompted if they really want to restore their current question bank as the command is non-reversible.
 Format: `restore`
+//end::shaun-restore[]
 
 === Saving the data
 
-Test bank data are saved in the hard disk automatically after any command that changes the data.
+question bank data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
 
 === Exiting the application: `exit`
@@ -248,9 +257,9 @@ Exits the application. +
 Format: `exit`
 
 // tag::import/export[]
-=== Importing / Exporting test banks `[coming in v2.0]`
+=== Importing / Exporting question banks `[coming in v2.0]`
 
-User can export can import json files containing the test bank into the application.
+User can export can import json files containing the question bank into the application.
 // end::import/export[]
 
 === Hints `[coming in v2.0]`
@@ -267,21 +276,19 @@ Levels are separated by difficulty. At the end of each level, user has the choic
 The user is given 30 seconds to answer each question.
 
 === Arcade Mode
-Levels are separated by difficulty. If user enters a wrong answer before finishing the quiz. Quiz will end and display the results.
-The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
-level 3 giving the user 10 seconds to answer each question.
+Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
+The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
+level 3 giving the user 20 seconds to answer each question.
 
 === Custom Mode
 Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
 difficulty.
 
 === Answering Questions
-* MCQ
-** Answers can only be A, B, C, or D (Case insensitive)
-* True and False
-** Answers can only be True (T) / False (F) (Case insensitive)
-* SAQ
-** Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
+|MCQ |TFQ |SAQ
+|Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
+|======
 //end::wilfred-quiz[]
 
 === Exiting the quiz
@@ -295,7 +302,7 @@ Format: `exit`
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
-data of your previous Test Bank folder.
+data of your previous question bank folder.
 
 *Q*: Why am I not able to click on the options to select the answers for MCQs and T/F questions? +
 *A*: The options are there as a way to show the users the options available. As this is a CLI application, the main
@@ -342,6 +349,10 @@ e.g. `find user story`
 //end::wilfred-summary[]
 //end::wilfred[]
 
+//tag::shaun-AcTip[]
 [TIP]
 *AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
 arrow keys and hit kbd:[Enter] to complete the command.
+
+//end::shaun-AcTip[]
+//end::shaun[]
