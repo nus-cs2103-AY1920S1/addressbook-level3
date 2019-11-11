@@ -3,11 +3,11 @@ package dream.fcard.gui.controllers.windows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.StateHolder;
 
-import java.util.HashMap;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,28 +45,28 @@ public class CliEditor {
      * Maps of keys and their shift counterparts
      */
     private final HashMap<String, String> shiftKeyMap = new HashMap<>() {{
-        put("`", "~");
-        put("1", "!");
-        put("2", "@");
-        put("3", "#");
-        put("4", "$");
-        put("5", "%");
-        put("6", "^");
-        put("7", "&");
-        put("8", "*");
-        put("9", "(");
-        put("0", ")");
-        put("-", "_");
-        put("=", "+");
-        put("[", "{");
-        put("]", "}");
-        put("\\", "|");
-        put(";", ":");
-        put("'", "\"");
-        put(",", "<");
-        put(".", ">");
-        put("/", "?");
-    }};
+                put("`", "~");
+                put("1", "!");
+                put("2", "@");
+                put("3", "#");
+                put("4", "$");
+                put("5", "%");
+                put("6", "^");
+                put("7", "&");
+                put("8", "*");
+                put("9", "(");
+                put("0", ")");
+                put("-", "_");
+                put("=", "+");
+                put("[", "{");
+                put("]", "}");
+                put("\\", "|");
+                put(";", ":");
+                put("'", "\"");
+                put(",", "<");
+                put(".", ">");
+                put("/", "?");
+            }};
     // setup constants --------------------------------------------------------
 
     /**
