@@ -255,7 +255,7 @@ image::ListcatStep3.png[width="600"]
 This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
 Note: [DUE DATE] has to be in dd/MM/yyyy format.
 
-You can refer to the example below:
+You can refer to the example below.
 `deadline t>CS2103 Exam d>10/12/2019`
 
 Key the above mentioned into the command box
@@ -300,19 +300,15 @@ NOTE: Calendar does not show the specific deadline names, but an overview of all
 
 === Set Flashcard as "Bad", with deadline to re-test: `bad index`
 
-Sets a specific flashcard as a "bad" flashcard. The flashcard will be stored as a deadline in the list on the right-side pane.
+Sets a specific flashcard as a "Bad" `FlashCard`. It will then be stored as a `Deadline` in the list on the right-side pane.
 
 `bad 2`
 
 ****
-* Sets the FlashCard specified at `INDEX` as 'bad'. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Sets the FlashCard specified at `INDEX` as 'Bad'. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-You can refer to the example below.
-
-`bad 2`
-
-Key the above mentioned into the command box
+Key the above mentioned example into the command box
 
 image::BadFlashcard.png[width="550"]
 
@@ -323,7 +319,8 @@ A new deadline will now be shown at the right side-bar, 3 days later from the da
 image::BadFlashcardAdded.png[width="550"]
 
 NOTE: Bad Questions will be added to a deadline which is due 3 days later. This is an approximated value that based on
-the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve by Hermann Ebbinghaus who hypothesised this theory in 1985.
+the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve
+by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
 === List all "Bad" FlashCards for a specific date `bad d>DATE`
 
@@ -333,7 +330,7 @@ List all the "Bad" rated FlashCards from a specific date. The FlashCard Question
 
 image::listbad.png[width="600"]
 
-NOTE: The automated test mode for the "Bad" FlashCards is not functional at this point and will be implemented in KFC v2.0.
+NOTE: The automated test mode for the "Bad" `FlashCard` is not functional at this point and will be implemented in KFC v2.0.
 
 === Remove a specific "Bad" FlashCard for a specific date `bad d>DATE i>INDEX`
 
@@ -358,6 +355,7 @@ image::removebadsuccess.png[width="550"]
 CAUTION: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does not remove all the "Bad" `FlashCard` stored for that date.
 
 //end::badflashcard[]
+
 //@@author keiteo
 === Test mode: `start`
 
