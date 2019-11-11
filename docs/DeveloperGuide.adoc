@@ -549,12 +549,12 @@ and is loaded upon the next startup
 
 ==== Cycling Through Previous Inputs
 The core of the cycle-command-history feature is implemented through three different classes:
- `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` from AB3 was modified
+ `CommandHistory`, `ListPointer`, and `InputOutput` (with an internal `TimeStamp` object). In addition, the `CommandBox` from AB3 was modified
 to accommodate the changes.
 
-* `TimeStamp`: Class representing a time-stamp. Internally, it functions as a higher-level wrapper around `java.util.Date`.
 * `InputOutput`: Class representing a single command history entry. Comprises of an `input` and `output` String,
 a `TimeStamp` object, and a flag indicating whether execution was successful.
+* `TimeStamp`: Class representing a time-stamp. Internally, it functions as a higher-level wrapper around `java.util.Date`.
 * `CommandHistory`: A wrapper around a list of `InputOutput` objects along with specific methods, representing
 the command history of the command entered thus far.
 * `ListPointer`: An iterable pointer to a `List` of objects. This is used by the `CommandBox` to cycle through
