@@ -647,6 +647,7 @@ This section will contain details on all commands in the Inventory Tab.
 * Leo, our mascot, helps give replies indicating successful addition, deletion and edit of an item after a command has been input.
 * Leo will also give replies to guide you when there is a wrong input.
 * You may also sort the list of items by ascending quantity or by descending alphabetical order.
+* Description and category can be empty.
 
 
 [WARNING]
