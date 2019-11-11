@@ -614,7 +614,7 @@ Undo the payment of employee with $100.
 
 
 
-//tag::Schedule[]
+//tag::Schedule1[]
 === Schedule Management
 Welcome to Schedule! Looking for a way to display and see what events you have on a specific Date or Month?
 Want to have an overview of all the dates where you have an event? Then you are at the right place!
@@ -673,6 +673,8 @@ It does not take into account of the event's set date and time.
 - As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
 ====
 
+//end::Schedule1[]
+
 ---
 
 ==== Display Schedule for a specific Month and Year: `display_schedule_month`
@@ -713,6 +715,7 @@ It does not take into account of the event's set date and time.
 ====
 
 ---
+//tag::Schedule2[]
 
 ==== Generate Entire Schedule: `generate_schedule`
 Looking for a way to have an overview of all the dates that has an event? Use the `generate_schedule` command to do so.
@@ -748,7 +751,7 @@ image::ScheduleUiGenerateStep3.png[]
 [NOTE]
 The generated list will be empty and not display anything if there is no event in the current event list.
 
-//end::Schedule[]
+//end::Schedule2[]
 
 ---
 
