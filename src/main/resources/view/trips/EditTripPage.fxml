@@ -14,10 +14,8 @@
 <AnchorPane stylesheets="@Trips.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
-         <AnchorPane>
-            <children>
-                     <VBox fx:id="formItemsPlaceholder" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" style="-fx-background-color: #F2E8E3;" styleClass="EditTripForm" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                  <children>
+               <VBox fx:id="formItemsPlaceholder" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" style="-fx-background-color: #F2E8E3;" styleClass="EditTripForm">
+                 <children>
                      <Label alignment="CENTER" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" maxWidth="1.7976931348623157E308" style="-fx-border-color: rgba(202, 202, 202, 200); -fx-border-width: 0 0 1 0; -fx-text-fill: black; -fx-font-size: 25;" text="Trip Details" textAlignment="CENTER">
                         <font>
                            <Font size="25.0" />
@@ -31,8 +29,7 @@
                      </Label>
                   </children>
                </VBox>
-            </children>
-         </AnchorPane>
+
       </content>
       <opaqueInsets>
          <Insets />

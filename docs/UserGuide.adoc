@@ -17,18 +17,17 @@ endif::[]
 By: `Team 11-4`      Since: `In Development`      Licence: `None`
 
 == Introduction
-What is TravelPal? First and foremost, it is a cross-platform desktop application for those
-who love to plan and micromanage their travels. It includes various features to help in
-planning the trip beforehand, such as an itinerary planner, a pre-trip inventory manager,
-bookings and expense manager.
+Welcome to the user guide for _TravelPal_!
+
+What is _TravelPal_? First and foremost, it is a cross-platform desktop application for those
+who love to plan and micromanage their travels. It includes various features that can make trip planning hassle free,
+such as an itinerary, inventory, bookings and expense manager.
 
 During the trip, there is also an inbuilt diary application that
-allows the user to record details of the trip, and a contacts manager to store important
-contacts related to the trip.
+allows you to record details of your travels, so that you can review them later or share them with loved ones!
 
-In addition, it’s primary preferred form of input from the user is
-the Command Line Interface (CLI), but it also provides a Graphical User Interface (GUI) for
-those who like to use alternative inputs.
+In addition, we have made the Command Line Interface (CLI) the primary preferred form of input, but alternative
+Graphical User Interface (GUI) inputs are also supported for most operations.
 
 Jump to the <<Quick Start>> to get started!
 
@@ -36,7 +35,7 @@ Jump to the <<Quick Start>> to get started!
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `TravelPal.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for _TravelPal_.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -49,16 +48,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-====
+[[command_tips]]
+========
+
 *General Command tips*
 
-* Most commands are in the format of `<command> <argument1> <argument2> <...>`
-* `<command>` is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
+* Most commands are in the form: `<command word> <argumentWithoutPrefix> <argument1WithPrefix> <argument2WithPrefix> <argumentNWithPrefix>`
+* `<command word>` is case insensitive, so typing it in any combination of UPPER_CASE or lower_case will work.
 * Leading and trailing white spaces in the inputted command are ignored.
-* Some `<arguments>` consists of two parts, namely a `prefix/` followed immediately by an `argument`
-** `prefix/` s are a combination of no more than three letters, followed by a `/`, and are case sensitive
+* `<argumentNWithPrefixes>` consists of two parts, namely a `prefix/` followed immediately by an `argument`
+** `prefix/` s are some combination of letters, followed by a `/` character, and are case sensitive
 
-====
+========
 
 === Trip manager
 
@@ -366,17 +367,20 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 ======
 
 
-// tag::diary_ppp[]
 === Diary
 
 ==== Introduction
 
-Welcome to the diary feature of _TravelPal_! The diary allows you to key in various thoughts and add photos that tie
+Welcome to the diary feature of _TravelPal_!
+
+The diary allows you to key in various thoughts and add photos that tie
 to each day of the trip. It offers a selection of formatting choices for your text display, and has an
-additional gallery display to the right that allows you to take a glance at all your photos quickly. Moreover, for almost
+additional gallery display to the right that allows you to take a glance at all your photos quickly.
+
+Moreover, for almost
 every command, there are gui alternatives that allow you to execute the same operations.
 
-This section of the user guide explains how to use the diary.
+The following section of the user guide explains how to use the diary.
 
 ==== Diary User Interface Overview
 
@@ -395,7 +399,7 @@ images. The content is generated from the diary text of the entry (<<diary_text_
 ===== Gallery Display
 The gallery allows you to browse through your stored photos. You can scroll the list simply with your mouse wheel.
 
-image::diary/userguide/diary_photo_user_interface.png[title="Display of a photo in the gallery display"]
+image::diary/userguide/diary_photo_user_interface.png[title="Display of a photo in the gallery display" width="75%" align="center"]
 
 Each image is displayed with a description (bottom left), a date taken (top right), both of which are user specifiable.
 There is also a photo index
@@ -469,7 +473,7 @@ image::diary/userguide/diary_what_is_a_paragraph.png[title = "Annotated highligh
 
 This **line number** is used for several commands described in <<Diary Commands>>.
 
-NOTE: It is trivial if using the edit box to edit text, as text editing is done directly on the **diary text**.
+NOTE: The line numbers are trivial if using the edit box to edit text, as text editing is done directly on the **diary text**.
 
 [[diary_text_displaying_images]]
 ===== Displaying images
@@ -477,26 +481,23 @@ There are currently two main formats in which you can display images inside the 
 
 Both of them use simple clauses that require the numbering of the photo as displayed in the gallery.
 
+image::diary/userguide/diary_mini_gallery_edit_box.png[title="Example usage of `<images>` clause to display images as a mini horizontal gallery or inline image"]
+
 ====== As a mini horizontal gallery of images.
 ** Format: Use a diary **text paragraph** consisting of only the clause `<images number1 number2 numberN>`, where `numberN`
 is the index of the photo as displayed in the gallery (<<diary_gallery_display>>).
 ** Example: `<images 5 1 3 4>` - displays a mini gallery with the images 1, 3 and 5 as shown in the gallery.
 
-image::diary/userguide/diary_mini_gallery_edit_box.png[]
-
 ====== As an inline image with an accompanying paragraph of text.
 ** Format: Use a diary **text paragraph** consisting of your desired text, along with the clause
 `<images numberN>`, where `numberN` is the index of the photo as displayed in the gallery <<diary_gallery_display>>.
 ** By default, the clause will place the image on the right, and the text on the left. You can include the `'left'`
-word inside the `<images left numberN>` clause as such to reverse the order.
-** Sample usage:
+word inside the `<images left numberN>` clause to reverse the order.
 
-image::diary/userguide/diary_mini_gallery_edit_box.png[]
-// end::diary_ppp[]
 
 ==== Diary Operations
 
-The diary commands follow the same general format used by the rest of `TravelPal`.
+The diary commands follow the same general format used by the rest of `TravelPal` (see <<command_tips>>).
 
 [[diary_create_entry_command]]
 ===== Creating a diary entry
@@ -519,7 +520,7 @@ the last day of your trip.
 
 Scenario: You already have entries for days 1 up to 8, and you want to create a new entry for day 9.
 
-. Type in the `create 9` command in the command line input, then press enter, or simply click the `+` button as shown
+. Type in the `create 9` command in the command line input, then press the 'enter' key, or simply click the `+` button as shown
 below.
 .. For the add entry button `+` (<<diary_create_entry_command_button>>), since the current latest day's entry is day 8,
 it would create an entry for the day right after that, which is day 9.
@@ -529,7 +530,6 @@ image::diary/userguide/diary_create_command_with_button.png[title="Example usage
 
 . That's it! the diary entry will be successfully created, and you will be brought to the new diary entry's screen without
 having to navigate to it via <<diary_flip_command>> automatically.
-.. The edit box will also be opened automatically, as shown below, and you can start editing with it right away!
 +
 image::diary/userguide/diary_create_command_command_after.png[title="Example result of post diary entry creation"]
 
@@ -553,7 +553,7 @@ will flip to the diary entry for that day.
 
 Scenario: You are currently viewing the diary entry for day 9, which is empty, and you want to view the diary entry for day 3.
 
-. You should type in the `flip 3` command in the command line input, then press enter, or click the navigation button `3` for
+. You should type in the `flip 3` command in the command line input, then press the 'enter' key, or click the navigation button `3` for
 day 3, as highlighted below.
 +
 image::diary/userguide/diary_flip_command_with_button.png[title="Example usage of flipping the diary to day 3's diary entry"]
@@ -563,7 +563,7 @@ the command result box, and that the current day indicator will update according
 
 image::diary/userguide/diary_flip_command_command_after.png[title="Example result of after flipping back to the diary entry for day 3"]
 
-// tag::diary_ppp2[]
+// tag::diary_ppp1[]
 [[diary_addphoto_command]]
 ===== Adding a photo
 If you have just created a fresh diary entry, and you're wondering where to go next, then you
@@ -572,11 +572,19 @@ may want to start by adding your photos to display in the gallery (<<diary_galle
 Here, there are 3 options for you to choose, the last option being the least flexible but also the fastest, if
 you are more comfortable with using the user interface than the command line input.
 
-In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`
+In all options, the image file chosen should be of the file types `.jpg`, `.jpeg`, or `.png`.
 
-WARNING: The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
-(see <<glossary>>) to the image file on your computer is stored! If you move or delete the original image on your system,
-then you will have to add the photo again, and a placeholder image will be shown in place of your image.
+
+[NOTE]
+====
+The image files are not copied to where your the _TravelPal_ application file is. Instead, the absolute file path
+(see <<glossary>>) to the image file on your computer is stored!
+
+If you move or delete the original image on your system,
+then you will have to add the photo again, and a placeholder image will be shown in place of your image in _TravelPal_.
+====
+
+
 
 ====== Using the `addphoto` command with the `fp/` prefix
 * Usage: Typing in the command `addphoto fp/<file path> [d/<description>] [dts/<date taken>]`, with the
@@ -603,10 +611,9 @@ rather than <<Using the `addphoto` command with the `fc/` prefix>> or <<Using th
 computer as the date taken for the photo. Shown below is an example of the photo on your computer you want to add,
 `snowymountains.jpg`, that is located in the same place as the _TravelPal_ application.
 
-image::diary/userguide/diary_addphoto_filepath_directory.png[title="Example file directory structure of the TravelPal application and snowymountains.jpg"]
+image::diary/userguide/diary_addphoto_filepath_directory.png[title="Example file directory structure of the TravelPal application and snowymountains.jpg" width="80%" align="center"]
 
-. You should type in the `addphoto fp/snowymountains.jpg d/picturesque mountains` command in the command line input, then press enter, or click the navigation button `3` for
-day 3, as highlighted below.
+. You should type in the `addphoto fp/snowymountains.jpg d/picturesque mountains` command in the command line input, and press the 'enter' key.
 .. Here, the relative `<file path>` is simply the name of the file, `snowymountains.jpg`, since the image file is located in the
 same directory as the _TravelPal_ application.
 +
@@ -637,7 +644,9 @@ system's user interface dialog to choose an image file.
 in <<Using the `addphoto` command with the `fp/` prefix>>.
 
 '''
+
 ====== Example Usage for `addphoto` command with `fc/` option or `add` button
+// end::diary_ppp1[]
 
 Scenario:
 
@@ -658,11 +667,11 @@ the `addphoto fc/` command, you may specify them manually as described in <<Usin
 . Your system's file chooser user interface, which may look different depending on your operating system (windows / mac / linux) (see <<glossary>>)
 will be opened, as shown below.
 +
-image::diary/userguide/diary_addphoto_command_filechooser_step2.png[title="Example file chooser user interface for the windows operating system"]
+image::diary/userguide/diary_addphoto_command_filechooser_step2.png[title="Example file chooser user interface for the windows operating system" width="75%" align="center"]
 
 . Next, you can simply use the file chooser user interface to choose an image located anywhere on your computer!
 +
-image::diary/userguide/diary_addphoto_command_filechooser_step3.png[title="Example image file in the file chooser user interface to add"]
+image::diary/userguide/diary_addphoto_command_filechooser_step3.png[title="Example image file in the file chooser user interface to add" width="75%" align="center"]
 
 . That's it! Your photo, with the auto generated image name and date will be placed into your gallery, and you will see a
 confirmation message in the result display.
@@ -670,10 +679,11 @@ confirmation message in the result display.
 +
 image::diary/userguide/diary_addphoto_command_filechooser_result.png[title="Result after choosing the image 'qidu_marketplace.jpg' in step 3"]
 
+
 ===== Deleting a photo
 If you mistakenly added a photo to the wrong diary entry, or want to remove a certain photo from an entry, you can
 use the `delphoto` command to do so.
-// end::diary_ppp2[]
+
 ====== Using the `delphoto <photo number>` command
 * Usage: Deletes a photo, indicated by the specified photo number, as displayed by the photo's numbering in the gallery.
 * Arguments:
@@ -708,7 +718,8 @@ If you are currently viewing a diary entry, and know how to format the entry tex
 then you could use with the `append` command to add a new paragraph of text.
 
 ====== Using the `append <paragraph>` command
-* Usage: Adds a new paragraph of text as specified by the `<paragraph>` of text immediately after the the `append` word.
+* Usage: Adds a new paragraph of text as specified by the `<paragraph>` of text immediately after the the `append` command word,
+at the last line as displayed in the diary entry (see <<Diary Entry Display Area>>).
 * Arguments:
 ** `<paragraph>` - The paragraph of text to append, as described in <<diary_text_info>>.
 

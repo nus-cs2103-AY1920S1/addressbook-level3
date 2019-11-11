@@ -13,9 +13,9 @@ import static seedu.address.model.itinerary.Location.MESSAGE_CONSTRAINTS;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.itinerary.days.edit.EditDayFieldCommand;
+import seedu.address.model.common.Photo;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
-import seedu.address.model.itinerary.Photo;
 
 class EditDayFieldParserTest {
     private EditDayFieldParser parser = new EditDayFieldParser();

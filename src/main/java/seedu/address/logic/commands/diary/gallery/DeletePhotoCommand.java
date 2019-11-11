@@ -9,7 +9,7 @@ import seedu.address.logic.commands.diary.entry.EditEntryTextCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 
 /**
  * {@link Command} that deletes a photo indicated by a provided {@link Index}.
@@ -40,7 +40,7 @@ public class DeletePhotoCommand extends Command {
             throw new CommandException(EditEntryTextCommand.MESSAGE_NO_DIARY_ENTRY);
         }
 
-        Photo deletedPhoto = diaryEntry.getPhotoList().deletePhoto(photoIndex);
+        DiaryPhoto deletedPhoto = diaryEntry.getPhotoList().deletePhoto(photoIndex);
         if (deletedPhoto == null) {
             throw new CommandException(String.format(MESSAGE_PHOTO_MISSING, photoIndex.getOneBased()));
         }

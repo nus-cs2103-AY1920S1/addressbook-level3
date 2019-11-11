@@ -18,10 +18,10 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
+import seedu.address.model.common.Photo;
 import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
-import seedu.address.model.itinerary.Photo;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.event.EventList;
 

@@ -9,7 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_TIME_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.model.diary.photo.Photo.MAXIMUM_DESCRIPTION_LENGTH;
+import static seedu.address.model.diary.photo.DiaryPhoto.MAXIMUM_DESCRIPTION_LENGTH;
 
 import java.io.File;
 import java.nio.file.InvalidPathException;
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.diary.gallery.AddPhotoCommand;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 
 /**
  * Mix of unit and integration tests for {@link AddPhotoParser}.
@@ -88,7 +88,7 @@ class AddPhotoParserTest {
         assertDoesNotThrow(() -> {
             LocalDateTime validDateTime = ParserDateUtil.getDateTimeFromString(VALID_DATE_TIME_STRING);
             AddPhotoCommand expectedCommand = new AddPhotoCommand(
-                    new Photo(VALID_TEST_IMAGE_PATH, VALID_DESCRIPTION, validDateTime));
+                    new DiaryPhoto(VALID_TEST_IMAGE_PATH, VALID_DESCRIPTION, validDateTime));
 
             assertParseSuccess(new AddPhotoParser(), VALID_ARGUMENTS, expectedCommand);
         });
@@ -105,7 +105,7 @@ class AddPhotoParserTest {
                     ZoneOffset.systemDefault());
 
             AddPhotoCommand expectedCommand = new AddPhotoCommand(
-                    new Photo(VALID_TEST_IMAGE_PATH, testImageFileName, testImageDateTime));
+                    new DiaryPhoto(VALID_TEST_IMAGE_PATH, testImageFileName, testImageDateTime));
             assertParseSuccess(new AddPhotoParser(), VALID_ARGUMENTS_NO_OPTIONAL_ARGUMENTS, expectedCommand);
         });
     }
@@ -115,7 +115,7 @@ class AddPhotoParserTest {
         assertDoesNotThrow(() -> {
             LocalDateTime validDateTime = ParserDateUtil.getDateTimeFromString(VALID_DATE_TIME_STRING);
             AddPhotoCommand expectedCommand = new AddPhotoCommand(
-                    new Photo(INVALID_EXTENSION_FILE_PATH, VALID_DESCRIPTION, validDateTime));
+                    new DiaryPhoto(INVALID_EXTENSION_FILE_PATH, VALID_DESCRIPTION, validDateTime));
 
             assertParseFailure(new AddPhotoParser(), INVALID_FILE_EXTENSION,
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPhotoCommand.MESSAGE_USAGE));

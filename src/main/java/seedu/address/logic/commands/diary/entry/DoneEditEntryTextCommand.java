@@ -19,7 +19,7 @@ public class DoneEditEntryTextCommand extends Command {
 
     private static final String MESSAGE_NO_DIARY_ENTRY = "You are not currently editing any entry!\n";
 
-    private static final String MESSAGE_NO_DIARY_EDIT = "You haven't made any edits to this entry!\n";
+    private static final String MESSAGE_NO_DIARY_EDIT = "You have not opened the editor!\n";
 
     private static final String MESSAGE_EDIT_SUCCESS = "Saved your edit! %1$s";
 
