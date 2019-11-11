@@ -625,15 +625,13 @@ If the top up was successful, you should be able to see the update to your walle
 === Savings
 
 Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000, your savings account has a limit that is imposed by the limitations of the user's computer's memory. +
-The savings account is presented to the user in the display as shown in figure below. +
+The savings account and the savings history is presented to the user in the display as shown in figure below.
 
-We will be introducing a higher limit for savings so user's can aim to save more, but that will be in v2.0.
+image::SavingsDisplay.png[width=400]
 
 //tag::savings[]
 ==== Transfer money from user's wallet into savings account: `save`
 The user can save an amount of money from the user's wallet, into his/her savings account.
-
-TODO ADD UI.
 
 ****
 *Format*: `save AMOUNT` +
@@ -654,10 +652,10 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account. You will be able to view your savings in the savings history tab. The savings will appear GREEN.]
 
 .Example savings display when "Savings" is clicked as shown after savings are made.
-image::SavingsAdded.png[]
+image::SavingsAdded.png[width=300]
 
 .Example success message that appears after keying a successful saving.
-image::SavingsSuccessMessage.png[]
+image::SavingsSuccessMessage.png[width=300]
 
 {empty}
 |===
@@ -686,12 +684,12 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have withdrawn from your savings account. You will be able to view your withdrawals in the savings history tab. The withdrawals will appear RED. ]
 
 .Example withdrawal display when "Savings" is clicked as shown after withdrawals are made.
-image::SavingsWithdrawn.png[]
+image::SavingsWithdraw.png[width=300]
 
 {empty}
 
 .Example success message that appears after keying a successful withdrawal. This appears below where the user typed.
-image::WithdrawalSuccessMessage.png[]
+image::WithdrawalSuccessMessage.png[width=300]
 
 {empty}
 |===
@@ -718,9 +716,9 @@ When new command is entered that is not `show` the savings history display is re
 
 ==== Setting a savings target: `target` _(Coming in v2.0)_
 
-Another feature that many students want is to set a savings target
-in which they can be constantly reminded about whenever they open up the application,
-which can further encourage them to take up certain savings habits and cut down on certain unnecessary expenditures.
+Another feature that many students want is to set their personal savings target
+in which they can be constantly be reminded of whenever they open up the application.
+It can further encourage them to take up certain savings habits and cut down on certain unnecessary expenditures.
 
 ****
 *Format*: `target AMOUNT [r/REASON] [by/DATE]` +
