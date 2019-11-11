@@ -625,7 +625,9 @@ coloured text, formatted code snippet, etc.
 //end::problem_description[]
 
 //tag::bookmark[]
+
 === Bookmark Command
+
 .Sequence Diagram for the execution of a BookmarkCommand instance
 image::BookmarkCommandSequenceDiagram.png[]
 
