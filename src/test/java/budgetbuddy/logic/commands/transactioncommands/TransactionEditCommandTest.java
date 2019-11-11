@@ -24,7 +24,7 @@ public class TransactionEditCommandTest {
     @BeforeEach
     public void initialize() {
         model = new ModelManager();
-        Transaction testTransaction = new Transaction(
+        testTransaction = new Transaction(
                 Direction.IN,
                 new Amount(5000),
                 new Description("Pocket Money"),
