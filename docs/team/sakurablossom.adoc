@@ -69,12 +69,20 @@ search results as the user is giving new inputs.
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: Allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: Provide a convenient way to rectify any mistakes made by the user.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands.
+** Highlights: After in-depth analysis of design alternatives.
+We are able to mimic the undo/Redo behaviour without additional logic, by pairing the command to be executed with its inverse.
+The implementation was challenging as it required changes to existing commands.
 
 * *Major enhancement*: *prevents over scheduling of appointments*
 ** What it does: Ensures that user do not mistakenly schedule more patient appointments than available on-duty doctors at any given appointment of time.
 ** Justification: This feature assists the user to avoid mistakenly over scheduling appointments for patients.
-** Highlights: This same functionality can be used to determine the number of doctors on-duty during a given timing.
+** Highlights:
+Through the custom implementation of a TreeList, we are able find the number of scheduled appointments in a given time range, with a O(log(n)) time complexity.
+This same functionality can be used to determine the number of doctors on-duty during a given timing.
+Allowing the system to enforce that the number of scheduled appointments cannot be more than the on-duty doctors at point of time.
+Due to the limitation imposed the JavaFx's implementation of a non-extendable `FilteredList<E>`, which inherits from the abstract `TransformationList<E>` class,
+a custom implementation of a TreeSet that implements a `List<E>` was necessary.
+
 
 * *Minor enhancement*: Patients and doctors can be identified using a unique reference id.
 
@@ -129,4 +137,4 @@ include::../DeveloperGuide.adoc[tag=reactivesearchthreading]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=reactivesearch]
+include::../DeveloperGuide.adoc[tag=storage]
