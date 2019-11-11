@@ -10,5 +10,6 @@ public enum StateEnum {
     TEST_FBCARD_BACK,
     TEST_MCQ,
     TEST_MCQ_BACK,
-    TEST_JSJAVA
+    TEST_JSJAVA,
+    MAKE_JS
 }

@@ -4,10 +4,14 @@ package dream.fcard.gui.controllers.windows;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.function.Consumer;
 
+import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.logic.respond.Responder;
+import dream.fcard.logic.respond.commands.CreateCommand;
+import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -46,28 +50,28 @@ public class CliEditor {
      * Maps of keys and their shift counterparts
      */
     private final HashMap<String, String> shiftKeyMap = new HashMap<>() {{
-                put("`", "~");
-                put("1", "!");
-                put("2", "@");
-                put("3", "#");
-                put("4", "$");
-                put("5", "%");
-                put("6", "^");
-                put("7", "&");
-                put("8", "*");
-                put("9", "(");
-                put("0", ")");
-                put("-", "_");
-                put("=", "+");
-                put("[", "{");
-                put("]", "}");
-                put("\\", "|");
-                put(";", ":");
-                put("'", "\"");
-                put(",", "<");
-                put(".", ">");
-                put("/", "?");
-            }};
+            put("`", "~");
+            put("1", "!");
+            put("2", "@");
+            put("3", "#");
+            put("4", "$");
+            put("5", "%");
+            put("6", "^");
+            put("7", "&");
+            put("8", "*");
+            put("9", "(");
+            put("0", ")");
+            put("-", "_");
+            put("=", "+");
+            put("[", "{");
+            put("]", "}");
+            put("\\", "|");
+            put(";", ":");
+            put("'", "\"");
+            put(",", "<");
+            put(".", ">");
+            put("/", "?");
+        }};
     // setup constants --------------------------------------------------------
 
     /**
@@ -78,8 +82,7 @@ public class CliEditor {
      * Cursor blinker.
      */
     private Timeline timeline = new Timeline(new KeyFrame(
-        Duration.millis(blinkSpeed),
-        x -> toggleCaret()
+            Duration.millis(blinkSpeed), x -> toggleCaret()
     ));
     // objects ----------------------------------------------------------------
 
@@ -142,10 +145,14 @@ public class CliEditor {
         textArea.setWrapText(true);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        Consumer<String> initiateMultiLine = this::printMultiEdit;
+        Consumers.addConsumer(ConsumerSchema.ENTER_MULTILINE, initiateMultiLine);
+
     }
 
     /**
      * Print a single line of text and enter single line mode.
+     *
      * @param str
      */
     public void printNewLine(String str) {
@@ -154,9 +161,10 @@ public class CliEditor {
 
     /**
      * Print a single line of text.
-     * @param str           string to be printed
-     * @param newPreLine    add a new line before printing
-     * @param multi         true; enters multiline mode following printing
+     *
+     * @param str        string to be printed
+     * @param newPreLine add a new line before printing
+     * @param multi      true; enters multiline mode following printing
      */
     public void printNewLine(String str, Boolean newPreLine, Boolean multi) {
         multiline = true;
@@ -178,7 +186,8 @@ public class CliEditor {
 
     /**
      * Print a multiline string that the user is able to edit
-     * @param str   string
+     *
+     * @param str string
      */
     public void printMultiEdit(String str) {
         printNewLine(multilineMessage, true, true);
@@ -192,10 +201,10 @@ public class CliEditor {
         backSpace();
     }
 
-    // TODO assign printNewLine methods to consumer
 
     /**
      * KeyEvent handler for textArea.
+     *
      * @param e KeyEvent argument
      */
     private void processKeyInput(KeyEvent e) {
@@ -253,11 +262,16 @@ public class CliEditor {
     private void sendInput() {
         justDisplayed = false;
         String str = getInput();
+        //System.out.println("Line 249 " + str);
         if (!multiline) {
             history.add(str);
         }
         historyIndex = -1;
-        Responder.takeInput(str);
+        if (StateHolder.getState().getCurrState() == StateEnum.MAKE_JS) {
+            CreateCommand.createJavascriptCard(str);
+        } else {
+            Responder.takeInput(str);
+        }
         if (!justDisplayed) {
             gotoEnd();
             boolean old = multiline;
@@ -384,6 +398,7 @@ public class CliEditor {
 
     /**
      * Single line key in string.
+     *
      * @param c string keyed in
      */
     private void characterInput(String c) {
@@ -437,8 +452,9 @@ public class CliEditor {
 
     /**
      * Check if keycode is a valid printable character.
-     * @param keycode   keycode
-     * @return          true; is valid
+     *
+     * @param keycode keycode
+     * @return true; is valid
      */
     private boolean validKey(int keycode) {
         return keycode == 13
@@ -449,7 +465,8 @@ public class CliEditor {
 
     /**
      * Collate user input into a single string.
-     * @return  user input
+     *
+     * @return user input
      */
     private String getInput() {
         String str = lines.get(editableLine).substring(editableCaret);
@@ -468,6 +485,7 @@ public class CliEditor {
 
     /**
      * Render
+     *
      * @param withCaret true; with caret
      */
     private void render(Boolean withCaret) {
@@ -495,8 +513,9 @@ public class CliEditor {
 
     /**
      * Add caret to current line string.
-     * @param lineString    current line string
-     * @return              current line string with caret
+     *
+     * @param lineString current line string
+     * @return current line string with caret
      */
     private String addCaret(String lineString) {
         return linecaret == lineString.length() ? lineString + caretChar
