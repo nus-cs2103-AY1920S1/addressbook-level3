@@ -776,7 +776,36 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use Case 004: Find upcoming reminders.
+=== Use Case 004: Snooze a reminder
+
+*MSS*
+
+1. User enters the snooze command.
+2. ELISA snoozes the reminder.
+3. ELISA reminds the user of that reminder after the specified duration.
+
+*Extensions*
+
+* 1a. There are no recent reminders to be snooze
++
+** 1a1. ELISA displays an error message.
++
+Use case ends.
+
+* 1b. The user does not which reminder to snooze.
++
+** 1b1. ELISA snoozes the most recent reminder.
+
+Use case resumes at step 2.
+
+* 1c. The user does not specify how long to snooze.
++
+** 1c1. ELISA snoozes the reminder for a default duration.
+
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case 005: Find upcoming reminders.
 
 *MSS*
 
@@ -785,8 +814,9 @@ Use case resumes at step 2.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
 // tag::usecaselrchema[]
+
 [discrete]
-=== Use Case 005: Search for a task by its description
+=== Use Case 006: Search for a task by its description
 
 *MSS*
 
@@ -804,7 +834,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use Case 006: Undo the last command
+=== Use Case 007: Undo the last command
 
 *MSS*
 
@@ -821,7 +851,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 007: Using Priority Mode
+=== Use Case 008: Using Priority Mode
 
 *MSS*
 
@@ -844,7 +874,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks / events / reminders (combined) without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
