@@ -359,7 +359,7 @@ The following commands operate on bookmarks in Mark. Apart from the *`list`* and
 all other bookmark-related commands operate on bookmarks using the bookmark index that is
 currently shown in the bookmark list.
 
-==== Showing all bookmarks: *`list`*
+==== Showing all bookmarks: `*list*`
 
 Shows a list of all bookmarks in the bookmark manager.
 
