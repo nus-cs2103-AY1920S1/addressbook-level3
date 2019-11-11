@@ -122,25 +122,33 @@ Creates a new contact with name John Doe and mobile number 98765432.
 // tag::create_activity[]
 === Create new activity: `activity`
 
-Creates a new activity with a title, contacts (optional) and no expenses.
+This command creates a new activity with a title, contacts (optional) and no expenses.
 ****
 * Additional contacts can be added to the activity by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
 ** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
 * Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-* Each activity will be automatically assigned an activity ID. +
 ****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
 
-Examples:
+Example:
 
-* `activity t/Chalet p/John Doe` +
-Creates a new activity with title 'Chalet' John Doe as participants.
+Suppose that you went for a breakfast with David and Alexa, and want to create an activity for it.
 
-* `activity t/Breakfast p/David Li p/Bernice Yu` +
-Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
+*Step 1*: Type in the following command into the command box, and press Enter to execute it.
+
+`activity t/Breakfast p/David p/Alexa`
+
+image::CreateActivityStep1.png[]
+
+*Step 2*: Observe the output to check if it was successful, and if there are any warnings. Check the bottom display window for details of the newly created activity. In this case, because there is no contact called "Alexa", it is not added to the activity and a warning message is shown.
+
+image::CreateActivityStep2.png[]
+
+NOTE: If none of the search terms are valid, an activity will still be created, without any participants. +
+
 // end::create_activity[]
 
 // tag::invite[]
@@ -157,11 +165,11 @@ And you have friends that wants to join an activity midway.
 
 To invite:
 
-Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
+*Step 1*: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
 image::../images/InviteCommand.png[]
 
-Step 2: Observe the output in result box and the activity details box.
+*Step 2*: Observe the output in result box and the activity details box.
 
 image::InviteOutput.png[]
 
@@ -191,11 +199,11 @@ And you feel that the activity has too many participants that do not participate
 
 To disinvite:
 
-Step 1: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
+*Step 1*: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
 image::DisinviteCommand.png[]
 
-Step 2: Observe the output in result box and the activity details box.
+*Step 2*: Observe the output in result box and the activity details box.
 
 image::DisinviteOutput.png[]
 
@@ -307,7 +315,7 @@ Edits the title of the current activity in view to `BBQ`. No changes are made if
 // tag::find[]
 === Finding contacts or activities: `find`
 
-Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
+This command finds contacts or activities whose name or title respectively contain *any* of the given keywords.
 
 Format: `find KEYWORD ...`
 
@@ -321,11 +329,29 @@ Format: `find KEYWORD ...`
 * Contacts and activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
-Examples:
+Example:
 
-* `find John` +
-If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
-If currently viewing list of activities, returns activities (e.g `lunch with john`).
+Suppose that you want to find all the contacts that are called "John".
+
+*Step 1*: List all contacts in this app by typing in the following command into the command box, and press Enter.
+
+`list c/`
+
+image::FindStep1.png[]
+
+*Step 2*: Check that the result box shows the success message, and the bottom display box lists all contacts. This means that you are currently in the "list contact" context.
+
+image::FindStep2.png[]
+
+*Step 3*: To find all contacts with "John", type in the following command into the command box, and press Enter.
+
+image::FindStep3.png[]
+
+*Step 4*: Check that the result box shows the success message and the number of matches found, and that the bottom display box shows all matching contacts.
+
+image::FindStep4.png[]
+
+NOTE: In order to search for activities, replace the command in step 1 with `list a/` in order to switch to "list activity" context. +
 // end::find[]
 
 // tag::delete[]
